@@ -135,48 +135,48 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_call_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_call_summary));
         } else {
             if (addBullet) {
-                descr = descr + StringConstants.TAG_BOLD_START_HTML;
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_call), addPassStatus, DatabaseHandler.ETYPE_CALL, context);
-                descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
+                _value.append(StringConstants.TAG_BOLD_START_HTML);
+                _value.append(getPassStatusString(context.getString(R.string.event_type_call), addPassStatus, DatabaseHandler.ETYPE_CALL, context));
+                _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
             }
 
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
                 if (extenderVersion == 0) {
-                    descr = descr + context.getString(R.string.profile_preferences_device_not_allowed) +
-                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+                    _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
+                            .append(StringConstants.STR_COLON_WITH_SPACE).append(context.getString(R.string.preference_not_allowed_reason_not_extender_installed));
                 } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
-                    descr = descr + context.getString(R.string.profile_preferences_device_not_allowed) +
-                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                    _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
+                            .append(StringConstants.STR_COLON_WITH_SPACE).append(context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded));
                 } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
                         /*, "EventPreferencesCall.getPreferencesDescription"*/)) {
-                    descr = descr + context.getString(R.string.profile_preferences_device_not_allowed) +
-                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                    _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
+                            .append(StringConstants.STR_COLON_WITH_SPACE).append(context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender));
                 } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
-                    descr = descr + context.getString(R.string.profile_preferences_device_not_allowed) +
-                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
+                    _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
+                            .append(StringConstants.STR_COLON_WITH_SPACE).append(context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined));
                 } else {
-                    descr = descr + context.getString(R.string.pref_event_call_event);
+                    _value.append(context.getString(R.string.pref_event_call_event));
                     String[] callEvents = context.getResources().getStringArray(R.array.eventCallEventsArray);
-                    descr = descr + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(callEvents[this._callEvent], disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
+                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(callEvents[this._callEvent], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_DOT);
 
-                    descr = descr + context.getString(R.string.event_preferences_call_contact_groups) + StringConstants.STR_COLON_WITH_SPACE;
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
+                    _value.append(context.getString(R.string.event_preferences_call_contact_groups)).append(StringConstants.STR_COLON_WITH_SPACE);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_DOT);
 
-                    descr = descr + context.getString(R.string.event_preferences_call_contacts) + StringConstants.STR_COLON_WITH_SPACE;
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
+                    _value.append(context.getString(R.string.event_preferences_call_contacts)).append(StringConstants.STR_COLON_WITH_SPACE);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_DOT);
 
-                    descr = descr + context.getString(R.string.event_preferences_contactListType);
+                    _value.append(context.getString(R.string.event_preferences_contactListType));
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
-                    descr = descr + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                     //if (Build.VERSION.SDK_INT >= 26) {
                         boolean hasSIMCard = false;
@@ -195,9 +195,9 @@ class EventPreferencesCall extends EventPreferences {
                             }
                         }
                         if (hasSIMCard) {
-                            descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_call_forSimCard);
+                            _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_call_forSimCard));
                             String[] forSimCard = context.getResources().getStringArray(R.array.eventCallForSimCardArray);
-                            descr = descr + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                            _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
                     //}
 
@@ -205,19 +205,19 @@ class EventPreferencesCall extends EventPreferences {
                             (this._callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
                             (this._callEvent == CALL_EVENT_OUTGOING_CALL_ENDED)) {
                         if (this._permanentRun)
-                            descr = descr + StringConstants.STR_DOT+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                            _value.append(StringConstants.STR_DOT).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         else
-                            descr = descr + StringConstants.STR_DOT + context.getString(R.string.pref_event_duration) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                            _value.append(StringConstants.STR_DOT).append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     }
                 }
             }
             else {
-                descr = descr + context.getString(R.string.profile_preferences_device_not_allowed)+
-                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context);
+                _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
+                        .append(StringConstants.STR_COLON_WITH_SPACE).append(preferenceAllowed.getNotAllowedPreferenceReasonString(context));
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context) {

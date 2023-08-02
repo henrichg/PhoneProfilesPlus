@@ -44,32 +44,31 @@ class EventPreferencesVPN extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_vpn_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_vpn_summary));
         } else {
             if (addBullet) {
-                descr = descr + StringConstants.TAG_BOLD_START_HTML;
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_vpn), addPassStatus, DatabaseHandler.ETYPE_VPN, context);
-                descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
+                _value.append(StringConstants.TAG_BOLD_START_HTML);
+                _value.append(getPassStatusString(context.getString(R.string.event_type_vpn), addPassStatus, DatabaseHandler.ETYPE_VPN, context));
+                _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
             }
 
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_VPN_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                descr = descr + context.getString(R.string.pref_event_vpn_connection_status) + StringConstants.STR_COLON_WITH_SPACE;
+                _value.append(context.getString(R.string.pref_event_vpn_connection_status)).append(StringConstants.STR_COLON_WITH_SPACE);
                 String[] fields = context.getResources().getStringArray(R.array.eventVPNArray);
-                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[this._connectionStatus], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._connectionStatus], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
             }
             else {
-                descr = descr + context.getString(R.string.profile_preferences_device_not_allowed)+
-                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context);
+                _value.append(context.getString(R.string.profile_preferences_device_not_allowed)).append(StringConstants.STR_COLON_WITH_SPACE).append(preferenceAllowed.getNotAllowedPreferenceReasonString(context));
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context) {

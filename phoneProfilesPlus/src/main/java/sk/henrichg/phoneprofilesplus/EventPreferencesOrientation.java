@@ -148,32 +148,32 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_orientation_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_orientation_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ORIENTATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML;
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_orientation), addPassStatus, DatabaseHandler.ETYPE_ORIENTATION, context);
-                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_orientation), addPassStatus, DatabaseHandler.ETYPE_ORIENTATION, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
                 if (!ApplicationPreferences.applicationEventOrientationEnableScanning) {
 //                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesOrientation.getPreferencesDescription", "******** ### *******");
                     if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile)
-                        descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.TAG_BREAK_HTML;
+                        _value.append("* ").append(context.getString(R.string.array_pref_applicationDisableScanning_disabled)).append("! *").append(StringConstants.TAG_BREAK_HTML);
                     else
-                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.TAG_BREAK_HTML;
+                        _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile)).append(StringConstants.TAG_BREAK_HTML);
                 } else {
                     boolean scanningPaused = ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("2") &&
                             GlobalUtils.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo);
                     if (scanningPaused) {
-                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.TAG_BREAK_HTML;
+                        _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused)).append(StringConstants.TAG_BREAK_HTML);
                     }
                 }
 
@@ -183,21 +183,18 @@ class EventPreferencesOrientation extends EventPreferences {
                     String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationDisplayValues);
                     String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationDisplayArray);
                     //selectedValues = "";
-                    StringBuilder _value = new StringBuilder();
+                    StringBuilder __value = new StringBuilder();
                     for (String s : splits) {
                         int sideIdx = Arrays.asList(sideValues).indexOf(s);
                         if (sideIdx != -1) {
-                            //if (!selectedValues.isEmpty())
-                            //    selectedValues = selectedValues + ", ";
-                            //selectedValues = selectedValues + sideNames[sideIdx];
-                            if (_value.length() > 0)
-                                _value.append(", ");
-                            _value.append(sideNames[sideIdx]);
+                            if (__value.length() > 0)
+                                __value.append(", ");
+                            __value.append(sideNames[sideIdx]);
                         }
                     }
-                    selectedValues = _value.toString();
+                    selectedValues = __value.toString();
                 }
-                descr = descr + context.getString(R.string.event_preferences_orientation_display) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                _value.append(context.getString(R.string.event_preferences_orientation_display)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 //SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
@@ -208,36 +205,33 @@ class EventPreferencesOrientation extends EventPreferences {
                         String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationSidesValues);
                         String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationSidesArray);
                         //selectedValues = "";
-                        StringBuilder _value = new StringBuilder();
+                        StringBuilder __value = new StringBuilder();
                         for (String s : splits) {
                             int pos = Arrays.asList(sideValues).indexOf(s);
                             if (pos != -1) {
-                                //if (!selectedValues.isEmpty())
-                                //    selectedValues = selectedValues + ", ";
-                                //selectedValues = selectedValues + sideNames[pos];
-                                if (_value.length() > 0)
-                                    _value.append(", ");
-                                _value.append(sideNames[pos]);
+                                if (__value.length() > 0)
+                                    __value.append(", ");
+                                __value.append(sideNames[pos]);
                             }
                         }
-                        selectedValues = _value.toString();
+                        selectedValues = __value.toString();
                     }
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_sides) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_orientation_sides)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 String[] distanceValues = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeValues);
                 String[] distanceNames = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeArray);
                 int i = Arrays.asList(distanceValues).indexOf(String.valueOf(this._distance));
                 if (i != -1)
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_distance) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(distanceNames[i], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_orientation_distance)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(distanceNames[i], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 if (this._checkLight) {
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_light) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(this._lightMin + "-" + this._lightMax, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_orientation_light)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(this._lightMin + "-" + this._lightMax, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
                 else {
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_light) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_orientation_light_not_enabled), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_orientation_light)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_orientation_light_not_enabled), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -280,11 +274,11 @@ class EventPreferencesOrientation extends EventPreferences {
                     } else
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 }
-                descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_ignoreForApplications) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_orientation_ignoreForApplications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)

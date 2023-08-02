@@ -162,22 +162,22 @@ class EventPreferencesTime extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_time_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_time_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML;
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_time), addPassStatus, DatabaseHandler.ETYPE_TIME, context);
-                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_time), addPassStatus, DatabaseHandler.ETYPE_TIME, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
                 if (_timeType != TIME_TYPE_EXACT) {
                     if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
-                        descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.TAG_BREAK_HTML;
+                        _value.append("* ").append(context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary)).append("! *").append(StringConstants.TAG_BREAK_HTML);
                     }
                 }
 
@@ -194,7 +194,7 @@ class EventPreferencesTime extends EventPreferences {
                 for (int i = 0; i < 7; i++)
                     allDays = allDays && daySet[i];
 
-                descr = descr + context.getString(R.string.event_preferences_time_timeDays) + StringConstants.STR_COLON_WITH_SPACE;
+                _value.append(context.getString(R.string.event_preferences_time_timeDays)).append(StringConstants.STR_COLON_WITH_SPACE);
                 //if (allDays) {
                 //    descr = descr + "<b>" + context.getString(R.string.array_pref_event_all) + "</b>";
                 //    descr = descr + " ";
@@ -213,10 +213,10 @@ class EventPreferencesTime extends EventPreferences {
                             value.append(namesOfDay[dayOfWeek + 1]).append(" ");
                     }
                     _descr = value.toString();
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(_descr, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
-                descr = descr + StringConstants.CHAR_DOT + " " + context.getString(R.string.event_preferences_time_timeType) + StringConstants.STR_COLON_WITH_SPACE;
+                _value.append(StringConstants.CHAR_DOT).append(" ").append(context.getString(R.string.event_preferences_time_timeType)).append(StringConstants.STR_COLON_WITH_SPACE);
                 String _descr = "";
                 switch (_timeType) {
                     case TIME_TYPE_EXACT:
@@ -229,13 +229,12 @@ class EventPreferencesTime extends EventPreferences {
                         _descr = _descr + context.getString(R.string.event_preference_sensor_time_type_sunset_sunrise);
                         break;
                 }
-                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(_descr, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 if (_timeType == TIME_TYPE_EXACT) {
-                    descr = descr + StringConstants.STR_DOT;
+                    _value.append(StringConstants.STR_DOT);
 
-                    descr = descr + context.getString(R.string.event_preferences_time_startTime)+"-"+
-                            context.getString(R.string.event_preferences_time_endTime)+StringConstants.STR_COLON_WITH_SPACE;
+                    _value.append(context.getString(R.string.event_preferences_time_startTime)).append("-").append(context.getString(R.string.event_preferences_time_endTime)).append(StringConstants.STR_COLON_WITH_SPACE);
 
                     _descr = "";
                     Calendar calendar = Calendar.getInstance();
@@ -249,7 +248,7 @@ class EventPreferencesTime extends EventPreferences {
                     _descr = _descr + "-";
                     _descr = _descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
                     //}
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(_descr, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                     if (addBullet) {
                         if (EventStatic.getGlobalEventsRunning(context)) {
@@ -261,15 +260,15 @@ class EventPreferencesTime extends EventPreferences {
                                 // date and time format by user system settings configuration
                                 alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                                descr = descr + StringConstants.TAG_BREAK_HTML; //'\n';
-                                descr = descr + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+"-> " + alarmTimeS;
+                                _value.append(StringConstants.TAG_BREAK_HTML);
+                                _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append("-> ").append(alarmTimeS);
                             } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
                                 alarmTime = computeAlarm(false, context);
                                 // date and time format by user system settings configuration
                                 alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                                descr = descr + StringConstants.TAG_BREAK_HTML; //'\n';
-                                descr = descr + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+"-> " + alarmTimeS;
+                                _value.append(StringConstants.TAG_BREAK_HTML);
+                                _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append("-> ").append(alarmTimeS);
                             }
                         }
                     }
@@ -282,14 +281,12 @@ class EventPreferencesTime extends EventPreferences {
                                 long startTime = computeAlarm(true, context);
                                 long endTime = computeAlarm(false, context);
                                 if ((startTime != 0) && (endTime != 0)) {
-                                    descr = descr + StringConstants.STR_DOT;
+                                    _value.append(StringConstants.STR_DOT);
 
                                     if (_timeType == TIME_TYPE_SUNRISE_SUNSET)
-                                        descr = descr + context.getString(R.string.event_preference_sensor_time_sunrise) + "-" +
-                                                context.getString(R.string.event_preference_sensor_time_sunset) + StringConstants.STR_COLON_WITH_SPACE;
+                                        _value.append(context.getString(R.string.event_preference_sensor_time_sunrise)).append("-").append(context.getString(R.string.event_preference_sensor_time_sunset)).append(StringConstants.STR_COLON_WITH_SPACE);
                                     else
-                                        descr = descr + context.getString(R.string.event_preference_sensor_time_sunset) + "-" +
-                                                context.getString(R.string.event_preference_sensor_time_sunrise) + StringConstants.STR_COLON_WITH_SPACE;
+                                        _value.append(context.getString(R.string.event_preference_sensor_time_sunset)).append("-").append(context.getString(R.string.event_preference_sensor_time_sunrise)).append(StringConstants.STR_COLON_WITH_SPACE);
 
                                     _descr = "";
                                     Calendar calendar = Calendar.getInstance();
@@ -298,7 +295,7 @@ class EventPreferencesTime extends EventPreferences {
                                     calendar.setTimeInMillis(endTime);
                                     _descr = _descr + "-";
                                     _descr = _descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
-                                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(_descr, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                                     if (addBullet) {
                                         if (EventStatic.getGlobalEventsRunning(context)) {
@@ -310,15 +307,15 @@ class EventPreferencesTime extends EventPreferences {
                                                 // date and time format by user system settings configuration
                                                 alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                                                descr = descr + StringConstants.TAG_BREAK_HTML; //'\n';
-                                                descr = descr + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+"-> " + alarmTimeS;
+                                                _value.append(StringConstants.TAG_BREAK_HTML);
+                                                _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append("-> ").append(alarmTimeS);
                                             } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
                                                 alarmTime = computeAlarm(false, context);
                                                 // date and time format by user system settings configuration
                                                 alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                                                descr = descr + StringConstants.TAG_BREAK_HTML; //'\n';
-                                                descr = descr + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+"-> " + alarmTimeS;
+                                                _value.append(StringConstants.TAG_BREAK_HTML);
+                                                _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append("-> ").append(alarmTimeS);
                                             }
                                         }
                                     }
@@ -331,7 +328,7 @@ class EventPreferencesTime extends EventPreferences {
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     // dayOfWeek: value are (for example) Calendar.SUNDAY-1

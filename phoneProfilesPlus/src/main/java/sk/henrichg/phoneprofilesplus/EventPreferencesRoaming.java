@@ -89,27 +89,27 @@ class EventPreferencesRoaming extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_roaming_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_roaming_summary));
         } else {
             if (addBullet) {
-                descr = descr + StringConstants.TAG_BOLD_START_HTML;
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_roaming), addPassStatus, DatabaseHandler.ETYPE_ROAMING, context);
-                descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
+                _value.append(StringConstants.TAG_BOLD_START_HTML);
+                _value.append(getPassStatusString(context.getString(R.string.event_type_roaming), addPassStatus, DatabaseHandler.ETYPE_ROAMING, context));
+                _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
             }
 
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ROAMING_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (this._checkNetwork) {
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_network), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_network), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
                 if (this._checkData) {
                     if (this._checkNetwork)
-                        descr = descr + StringConstants.STR_DOT;
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_data), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.STR_DOT);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_data), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 //if (Build.VERSION.SDK_INT >= 26) {
@@ -129,19 +129,18 @@ class EventPreferencesRoaming extends EventPreferences {
                         }
                     }
                     if (hasSIMCard) {
-                        descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_roaming_forSimCard);
+                        _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_roaming_forSimCard));
                         String[] forSimCard = context.getResources().getStringArray(R.array.eventRoamingForSimCardArray);
-                        descr = descr + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     }
                 //}
             }
             else {
-                descr = descr + context.getString(R.string.profile_preferences_device_not_allowed)+
-                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context);
+                _value.append(context.getString(R.string.profile_preferences_device_not_allowed)).append(StringConstants.STR_COLON_WITH_SPACE).append(preferenceAllowed.getNotAllowedPreferenceReasonString(context));
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context) {

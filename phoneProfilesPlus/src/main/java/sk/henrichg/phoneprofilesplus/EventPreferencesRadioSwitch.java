@@ -122,26 +122,26 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_radioSwitch_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_radioSwitch_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML;
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_radioSwitch), addPassStatus, DatabaseHandler.ETYPE_RADIO_SWITCH, context);
-                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_radioSwitch), addPassStatus, DatabaseHandler.ETYPE_RADIO_SWITCH, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
                 boolean _addBullet = false;
 
                 if (this._wifi != 0) {
                     if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_WIFI, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                        descr = descr + context.getString(R.string.event_preferences_radioSwitch_wifi) + StringConstants.STR_COLON_WITH_SPACE;
+                        _value.append(context.getString(R.string.event_preferences_radioSwitch_wifi)).append(StringConstants.STR_COLON_WITH_SPACE);
                         String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
-                        descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[this._wifi], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._wifi], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         _addBullet = true;
                     }
                 }
@@ -149,10 +149,10 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (this._bluetooth != 0) {
                     if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_BLUETOOTH, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         if (_addBullet)
-                            descr = descr + StringConstants.STR_DOT;
-                        descr = descr + context.getString(R.string.event_preferences_radioSwitch_bluetooth) + StringConstants.STR_COLON_WITH_SPACE;
+                            _value.append(StringConstants.STR_DOT);
+                        _value.append(context.getString(R.string.event_preferences_radioSwitch_bluetooth)).append(StringConstants.STR_COLON_WITH_SPACE);
                         String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
-                        descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[this._bluetooth], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._bluetooth], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         _addBullet = true;
                     }
                 }
@@ -178,10 +178,10 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         if (this._simOnOff != 0) {
                             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_SIM_ON_OFF, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                                 if (_addBullet)
-                                    descr = descr + StringConstants.STR_DOT;
+                                    _value.append(StringConstants.STR_DOT);
                                 String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchSIMOnOffArray);
-                                descr = descr + context.getString(R.string.event_preferences_radioSwitch_simOnOff) + StringConstants.STR_COLON_WITH_SPACE;
-                                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[this._simOnOff], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                                _value.append(context.getString(R.string.event_preferences_radioSwitch_simOnOff)).append(StringConstants.STR_COLON_WITH_SPACE);
+                                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._simOnOff], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                                 _addBullet = true;
                             }
                         }
@@ -191,20 +191,20 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         if (this._defaultSIMForCalls != 0) {
                             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                                 if (_addBullet)
-                                    descr = descr + StringConstants.STR_DOT;
-                                descr = descr + context.getString(R.string.event_preferences_radioSwitch_defaultSIMForCalls) + StringConstants.STR_COLON_WITH_SPACE;
+                                    _value.append(StringConstants.STR_DOT);
+                                _value.append(context.getString(R.string.event_preferences_radioSwitch_defaultSIMForCalls)).append(StringConstants.STR_COLON_WITH_SPACE);
                                 String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchDefaultSIMArray);
-                                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[this._defaultSIMForCalls], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._defaultSIMForCalls], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                                 _addBullet = true;
                             }
                         }
                         if (this._defaultSIMForSMS != 0) {
                             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                                 if (_addBullet)
-                                    descr = descr + StringConstants.STR_DOT;
-                                descr = descr + context.getString(R.string.event_preferences_radioSwitch_defaultSIMForSMS) + StringConstants.STR_COLON_WITH_SPACE;
+                                    _value.append(StringConstants.STR_DOT);
+                                _value.append(context.getString(R.string.event_preferences_radioSwitch_defaultSIMForSMS)).append(StringConstants.STR_COLON_WITH_SPACE);
                                 String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchDefaultSIMArray);
-                                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[this._defaultSIMForSMS], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._defaultSIMForSMS], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                                 _addBullet = true;
                             }
                         }
@@ -214,8 +214,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (this._mobileData != 0) {
                     if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_MOBILE_DATA, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         if (_addBullet)
-                            descr = descr + StringConstants.STR_DOT;
-                        descr = descr + context.getString(R.string.event_preferences_radioSwitch_mobileData) + StringConstants.STR_COLON_WITH_SPACE;
+                            _value.append(StringConstants.STR_DOT);
+                        _value.append(context.getString(R.string.event_preferences_radioSwitch_mobileData)).append(StringConstants.STR_COLON_WITH_SPACE);
                         /*int*/
                         phoneCount = 1;
                         //if (Build.VERSION.SDK_INT >= 26) {
@@ -241,17 +241,17 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             }
                         }
                         if (index != -1)
-                            descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fieldArray[index], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fieldArray[index], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         _addBullet = true;
                     }
                 }
                 if (this._gps != 0) {
                     if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_BLUETOOTH, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         if (_addBullet)
-                            descr = descr + StringConstants.STR_DOT;
-                        descr = descr + context.getString(R.string.event_preferences_radioSwitch_gps) + StringConstants.STR_COLON_WITH_SPACE;
+                            _value.append(StringConstants.STR_DOT);
+                        _value.append(context.getString(R.string.event_preferences_radioSwitch_gps)).append(StringConstants.STR_COLON_WITH_SPACE);
                         String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                        descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[this._gps], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._gps], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         _addBullet = true;
                     }
                 }
@@ -259,10 +259,10 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (this._nfc != 0) {
                     if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_NFC, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         if (_addBullet)
-                            descr = descr + StringConstants.STR_DOT;
-                        descr = descr + context.getString(R.string.event_preferences_radioSwitch_nfc) + StringConstants.STR_COLON_WITH_SPACE;
+                            _value.append(StringConstants.STR_DOT);
+                        _value.append(context.getString(R.string.event_preferences_radioSwitch_nfc)).append(StringConstants.STR_COLON_WITH_SPACE);
                         String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                        descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[this._nfc], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._nfc], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         _addBullet = true;
                     }
                 }
@@ -270,16 +270,16 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (this._airplaneMode != 0) {
                     if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_AIRPLANE_MODE, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         if (_addBullet)
-                            descr = descr + StringConstants.STR_DOT;
-                        descr = descr + context.getString(R.string.event_preferences_radioSwitch_airplaneMode) + StringConstants.STR_COLON_WITH_SPACE;
+                            _value.append(StringConstants.STR_DOT);
+                        _value.append(context.getString(R.string.event_preferences_radioSwitch_airplaneMode)).append(StringConstants.STR_COLON_WITH_SPACE);
                         String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                        descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[this._airplaneMode], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._airplaneMode], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     }
                 }
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)

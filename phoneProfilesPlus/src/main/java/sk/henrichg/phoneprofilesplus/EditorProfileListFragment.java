@@ -740,7 +740,7 @@ public class EditorProfileListFragment extends Fragment
 
         SingleSelectListDialog dialog = new SingleSelectListDialog(
                 true,
-                getString(R.string.profile_string_0) + ": " + profile._name,
+                getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name,
                 getString(R.string.tooltip_options_menu),
                 R.array.profileListItemEditArray,
                 SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
@@ -814,7 +814,7 @@ public class EditorProfileListFragment extends Fragment
         final Profile _profile = profile;
 
         PPAlertDialog dialog = new PPAlertDialog(
-                getString(R.string.profile_string_0) + ": " + profile._name,
+                getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name,
                 getString(R.string.delete_profile_alert_message),
                 getString(R.string.alert_button_yes),
                 getString(R.string.alert_button_no),
@@ -1298,7 +1298,7 @@ public class EditorProfileListFragment extends Fragment
 
             SingleSelectListDialog dialog = new SingleSelectListDialog(
                     true,
-                    getString(R.string.profile_string_0) + ": " + profile._name,
+                    getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name,
                     getString(R.string.profile_preferences_showInActivator),
                     R.array.profileListItemShowInActivatorArray,
                     value,

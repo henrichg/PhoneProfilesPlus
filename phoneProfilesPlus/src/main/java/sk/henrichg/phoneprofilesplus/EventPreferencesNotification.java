@@ -134,44 +134,44 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_notification_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_notification_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML;
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_notifications), addPassStatus, DatabaseHandler.ETYPE_NOTIFICATION, context);
-                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_notifications), addPassStatus, DatabaseHandler.ETYPE_NOTIFICATION, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
                 if (!ApplicationPreferences.applicationEventNotificationEnableScanning) {
                     if (!ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile)
-                        descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.TAG_BREAK_HTML;
+                        _value.append("* ").append(context.getString(R.string.array_pref_applicationDisableScanning_disabled)).append("! *").append(StringConstants.TAG_BREAK_HTML);
                     else
-                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.TAG_BREAK_HTML;
+                        _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile)).append(StringConstants.TAG_BREAK_HTML);
                 } else if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
-                    descr = descr + "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *";
+                    _value.append("* ").append(context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary)).append("! *");
                 } else {
                     boolean scanningPaused = ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2") &&
                             GlobalUtils.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo);
                     if (scanningPaused) {
-                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.TAG_BREAK_HTML;
+                        _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused)).append(StringConstants.TAG_BREAK_HTML);
                     } else {
 
                         //descr = descr + context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + "<br>";
 
                         if (this._inCall) {
-                            descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_inCall), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_inCall), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
                         if (this._missedCall) {
                             if (this._inCall)
-                                descr = descr + StringConstants.STR_DOT;
-                            descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_missedCall), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                                _value.append(StringConstants.STR_DOT);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_missedCall), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
                         String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                         if (!this._applications.isEmpty() && !this._applications.equals("-")) {
@@ -200,38 +200,38 @@ class EventPreferencesNotification extends EventPreferences {
                                 selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                         }
                         if (this._inCall || this._missedCall)
-                            descr = descr + StringConstants.STR_DOT;
-                        descr = descr + context.getString(R.string.event_preferences_notifications_applications) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                            _value.append(StringConstants.STR_DOT);
+                        _value.append(context.getString(R.string.event_preferences_notifications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                         if (this._checkContacts) {
-                            descr = descr + StringConstants.STR_DOT;
-                            descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkContacts), disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_COLON_WITH_SPACE;
+                            _value.append(StringConstants.STR_DOT);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkContacts), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_COLON_WITH_SPACE);
 
-                            descr = descr + context.getString(R.string.event_preferences_notifications_contact_groups) + StringConstants.STR_COLON_WITH_SPACE;
-                            descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
+                            _value.append(context.getString(R.string.event_preferences_notifications_contact_groups)).append(StringConstants.STR_COLON_WITH_SPACE);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_DOT);
 
-                            descr = descr + context.getString(R.string.event_preferences_notifications_contacts) + StringConstants.STR_COLON_WITH_SPACE;
-                            descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context), disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
+                            _value.append(context.getString(R.string.event_preferences_notifications_contacts)).append(StringConstants.STR_COLON_WITH_SPACE);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_DOT);
 
-                            descr = descr + context.getString(R.string.event_preferences_contactListType) + StringConstants.STR_COLON_WITH_SPACE;
+                            _value.append(context.getString(R.string.event_preferences_contactListType)).append(StringConstants.STR_COLON_WITH_SPACE);
                             String[] contactListTypes = context.getResources().getStringArray(R.array.eventNotificationContactListTypeArray);
-                            descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
                         if (this._checkText) {
-                            descr = descr + StringConstants.STR_DOT;
-                            descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkText), disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_COLON_WITH_SPACE;
+                            _value.append(StringConstants.STR_DOT);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkText), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_COLON_WITH_SPACE);
 
-                            descr = descr + context.getString(R.string.event_preferences_notifications_text) + StringConstants.STR_COLON_WITH_SPACE;
-                            descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(_text, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                            _value.append(context.getString(R.string.event_preferences_notifications_text)).append(StringConstants.STR_COLON_WITH_SPACE);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_text, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
-                        descr = descr + StringConstants.STR_DOT;
-                        descr = descr + context.getString(R.string.pref_event_duration) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.STR_DOT);
+                        _value.append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     }
                 }
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)

@@ -77,16 +77,16 @@ class EventPreferencesMobileCells extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_mobile_cells_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_mobile_cells_summary));
         } else {
             if (addBullet) {
-                descr = descr + StringConstants.TAG_BOLD_START_HTML;
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_mobile_cells), addPassStatus, DatabaseHandler.ETYPE_MOBILE_CELLS, context);
-                descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
+                _value.append(StringConstants.TAG_BOLD_START_HTML);
+                _value.append(getPassStatusString(context.getString(R.string.event_type_mobile_cells), addPassStatus, DatabaseHandler.ETYPE_MOBILE_CELLS, context));
+                _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
             }
 
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context);
@@ -95,23 +95,23 @@ class EventPreferencesMobileCells extends EventPreferences {
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
 //                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesMobileCells.getPreferencesDescription", "******** ### *******");
                     if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile)
-                        descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.TAG_BREAK_HTML;
+                        _value.append("* ").append(context.getString(R.string.array_pref_applicationDisableScanning_disabled)).append("! *").append(StringConstants.TAG_BREAK_HTML);
                     else
-                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.TAG_BREAK_HTML;
+                        _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile)).append(StringConstants.TAG_BREAK_HTML);
                 }
                 else
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     if (Build.VERSION.SDK_INT < 28)
-                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "."+StringConstants.TAG_BREAK_HTML;
+                        _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary)).append(".").append(StringConstants.TAG_BREAK_HTML);
                     else
-                        descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.TAG_BREAK_HTML;
+                        _value.append("* ").append(context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary)).append("! *").append(StringConstants.TAG_BREAK_HTML);
                 } else {
                     boolean scanningPaused = ApplicationPreferences.applicationEventMobileCellScanInTimeMultiply.equals("2") &&
                             GlobalUtils.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyTo);
                     if (scanningPaused) {
-                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.TAG_BREAK_HTML;
+                        _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused)).append(StringConstants.TAG_BREAK_HTML);
                     }
                 }
 
@@ -121,9 +121,9 @@ class EventPreferencesMobileCells extends EventPreferences {
                     selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
                     selectedCells = selectedCells + " " + splits.length;
                 }
-                descr = descr + context.getString(R.string.event_preferences_mobile_cells_cells) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedCells, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                _value.append(context.getString(R.string.event_preferences_mobile_cells_cells)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedCells, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 if (this._whenOutside)
-                    descr = descr + StringConstants.STR_DOT+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_mobile_cells_when_outside_description), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.STR_DOT).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_mobile_cells_when_outside_description), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 //if (Build.VERSION.SDK_INT >= 26) {
                 boolean hasSIMCard = false;
@@ -142,19 +142,18 @@ class EventPreferencesMobileCells extends EventPreferences {
                     }
                 }
                 if (hasSIMCard) {
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_mobile_cells_forSimCard);
+                    _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_mobile_cells_forSimCard));
                     String[] forSimCard = context.getResources().getStringArray(R.array.eventMobileCellsForSimCardArray);
-                    descr = descr + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
                 //}
             }
             else {
-                descr = descr + context.getString(R.string.profile_preferences_device_not_allowed)+
-                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context);
+                _value.append(context.getString(R.string.profile_preferences_device_not_allowed)).append(StringConstants.STR_COLON_WITH_SPACE).append(preferenceAllowed.getNotAllowedPreferenceReasonString(context));
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)

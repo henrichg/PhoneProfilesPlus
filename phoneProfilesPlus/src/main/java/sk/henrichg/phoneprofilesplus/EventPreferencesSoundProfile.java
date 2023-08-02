@@ -89,17 +89,17 @@ class EventPreferencesSoundProfile extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_soundProfile_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_soundProfile_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_SOUND_PROFILE_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML;
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_soundProfile), addPassStatus, DatabaseHandler.ETYPE_SOUND_PROFILE, context);
-                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_soundProfile), addPassStatus, DatabaseHandler.ETYPE_SOUND_PROFILE, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
                 boolean dndChecked = false;
@@ -109,25 +109,20 @@ class EventPreferencesSoundProfile extends EventPreferences {
                     String[] values = context.getResources().getStringArray(R.array.eventSoundProfileRingerModeValues);
                     String[] names = context.getResources().getStringArray(R.array.eventSoundProfileRingerModeArray);
                     //selectedValues = "";
-                    StringBuilder _value = new StringBuilder();
+                    StringBuilder __value = new StringBuilder();
                     for (String s : splits) {
                         int idx = Arrays.asList(values).indexOf(s);
                         if (idx != -1) {
-                            //if (!selectedValues.isEmpty())
-                            //    selectedValues = selectedValues + ", ";
-                            //if (values[idx].equals(RINGER_MODE_DO_NOT_DISTURB_VALUE))
-                            //    dndChecked = true;
-                            //selectedValues = selectedValues + names[idx];
-                            if (_value.length() > 0)
-                                _value.append(", ");
+                            if (__value.length() > 0)
+                                __value.append(", ");
                             if (values[idx].equals(RINGER_MODE_DO_NOT_DISTURB_VALUE))
                                 dndChecked = true;
-                            _value.append(names[idx]);
+                            __value.append(names[idx]);
                         }
                     }
-                    selectedValues = _value.toString();
+                    selectedValues = __value.toString();
                 }
-                descr = descr + context.getString(R.string.event_preferences_soundProfile_ringerModes) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                _value.append(context.getString(R.string.event_preferences_soundProfile_ringerModes)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 if (dndChecked) {
                     selectedValues = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -136,26 +131,23 @@ class EventPreferencesSoundProfile extends EventPreferences {
                         String[] values = context.getResources().getStringArray(R.array.eventSoundProfileZenModeValues);
                         String[] names = context.getResources().getStringArray(R.array.eventSoundProfileZenModeArray);
                         //selectedValues = "";
-                        StringBuilder _value = new StringBuilder();
+                        StringBuilder __value = new StringBuilder();
                         for (String s : splits) {
                             int idx = Arrays.asList(values).indexOf(s);
                             if (idx != -1) {
-                                //if (!selectedValues.isEmpty())
-                                //    selectedValues = selectedValues + ", ";
-                                //selectedValues = selectedValues + names[idx];
-                                if (_value.length() > 0)
-                                    _value.append(", ");
-                                _value.append(names[idx]);
+                                if (__value.length() > 0)
+                                    __value.append(", ");
+                                __value.append(names[idx]);
                             }
                         }
-                        selectedValues = _value.toString();
+                        selectedValues = __value.toString();
                     }
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_soundProfile_zenModes) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_soundProfile_zenModes)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)

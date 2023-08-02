@@ -85,34 +85,34 @@ class EventPreferencesBluetooth extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_bluetooth_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_bluetooth_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML;
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_bluetooth), addPassStatus, DatabaseHandler.ETYPE_BLUETOOTH, context);
-                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_bluetooth), addPassStatus, DatabaseHandler.ETYPE_BLUETOOTH, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
                 if ((this._connectionType == 1) || (this._connectionType == 3)) {
                     if (!ApplicationPreferences.applicationEventBluetoothEnableScanning) {
                         if (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile)
-                            descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.TAG_BREAK_HTML;
+                            _value.append("* ").append(context.getString(R.string.array_pref_applicationDisableScanning_disabled)).append("! *").append(StringConstants.TAG_BREAK_HTML);
                         else
-                            descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.TAG_BREAK_HTML;
+                            _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile)).append(StringConstants.TAG_BREAK_HTML);
                     } else if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
-                        descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.TAG_BREAK_HTML;
+                        _value.append("* ").append(context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary)).append("! *").append(StringConstants.TAG_BREAK_HTML);
                     } else {
                         boolean scanningPaused = ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2") &&
                                 GlobalUtils.isNowTimeBetweenTimes(
                                         ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
                                         ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo);
                         if (scanningPaused) {
-                            descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.TAG_BREAK_HTML;
+                            _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused)).append(StringConstants.TAG_BREAK_HTML);
                         }
                     }
                 }
@@ -120,9 +120,9 @@ class EventPreferencesBluetooth extends EventPreferences {
                 String[] connectionListTypes = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeValues);
                 int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(this._connectionType));
                 if (index != -1) {
-                    descr = descr + context.getString(R.string.event_preferences_bluetooth_connection_type);
+                    _value.append(context.getString(R.string.event_preferences_bluetooth_connection_type));
                     String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeArray);
-                    descr = descr + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
+                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_DOT);
                 }
 
                 /*
@@ -137,7 +137,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 }
                 */
 
-                descr = descr + context.getString(R.string.event_preferences_bluetooth_adapter_name) + ": ";
+                _value.append(context.getString(R.string.event_preferences_bluetooth_adapter_name)).append(StringConstants.STR_COLON_WITH_SPACE);
                 String selectedBluetoothNames;// = "";
                 StringBuilder value = new StringBuilder();
                 String[] splits = this._adapterName.split(StringConstants.STR_SPLIT_REGEX);
@@ -177,11 +177,11 @@ class EventPreferencesBluetooth extends EventPreferences {
                     }
                 }
                 selectedBluetoothNames = value.toString();
-                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedBluetoothNames, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedBluetoothNames, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
@@ -328,7 +328,7 @@ class EventPreferencesBluetooth extends EventPreferences {
 
                 if (!btLESupported) {
                     listPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                            ": "+context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                            StringConstants.STR_COLON_WITH_SPACE+context.getString(R.string.preference_not_allowed_reason_no_hardware));
                 } else {
                     int index = listPreference.findIndexOfValue(value);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -422,7 +422,7 @@ class EventPreferencesBluetooth extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
