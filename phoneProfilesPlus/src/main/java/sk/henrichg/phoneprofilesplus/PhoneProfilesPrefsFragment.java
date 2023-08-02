@@ -4065,64 +4065,64 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         StringBuilder _value = new StringBuilder();
         if (key.equals(PREF_APPLICATION_INTERFACE_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationTheme));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_notificationLauncher));
         }
         if (key.equals(PREF_APPLICATION_START_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationStartOnBoot));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationActivate));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationStartEvents));
         }
         if (key.equals(PREF_SYSTEM_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationBatteryOptimization));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationPowerSaveMode));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationBatterySaver));
         }
         if (key.equals(PREF_PERMISSIONS_CATEGORY_ROOT)) {
             if (RootUtils.isRooted(true)) {
                 _value.append(getString(R.string.phone_profiles_pref_grantRootPermission));
             }
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_writeSystemSettingPermissions));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_drawOverlaysPermissions));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationPermissions));
         }
         if (key.equals(PREF_APP_NOTIFICATION_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_notificationSystemSettings));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_notificationStatusBarStyle));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_notificationNotificationStyle));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_notificationShowProfileIcon));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_notificationLayoutType));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_notificationPrefIndicator));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_notificationBackgroundColor));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_notificationTextColor));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_notificationUseDecoration));
         }
         if (key.equals(PREF_PROFILE_ACTIVATION_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationEventBackgroundProfile));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationAlert));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_notificationsToast));
         }
         if (key.equals(PREF_SPECIAL_PROFILE_PARAMETERS_CATEGORY_ROOT)) {
@@ -4132,7 +4132,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(PREF_EVENT_RUN_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_eventRunUsePriority));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationRestartEventsAlert));
         }
         if (key.equals(PREF_PERIODIC_SCANNING_CATEGORY_ROOT)) {
@@ -4193,9 +4193,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         .append(StringConstants.TAG_BOLD_END_HTML);
                 _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
                 _value.append(getString(R.string.phone_profiles_pref_applicationEventLocationsEditor));
-                _value.append(StringConstants.STR_DOT);
+                _value.append(StringConstants.STR_BULLET);
                 _value.append(getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn));
-                _value.append(StringConstants.STR_DOT);
+                _value.append(StringConstants.STR_BULLET);
                 _value.append(getString(R.string.phone_profiles_pref_applicationEventLocationsUseGPS));
             }
             else {
@@ -4262,7 +4262,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             .append(StringConstants.TAG_BOLD_END_HTML);
                     _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
                     _value.append(getString(R.string.phone_profiles_pref_applicationEventWifiScanIfWifiOff));
-                    _value.append(StringConstants.STR_DOT);
+                    _value.append(StringConstants.STR_BULLET);
                     _value.append(getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn));
                 } else {
                     if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile)
@@ -4314,9 +4314,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             .append(StringConstants.TAG_BOLD_END_HTML);
                     _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
                     _value.append(getString(R.string.phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff));
-                    _value.append(StringConstants.STR_DOT);
+                    _value.append(StringConstants.STR_BULLET);
                     _value.append(getString(R.string.phone_profiles_pref_applicationEventBluetoothLEScanDuration));
-                    _value.append(StringConstants.STR_DOT);
+                    _value.append(StringConstants.STR_BULLET);
                     _value.append(getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn));
                 } else {
                     if (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile)
@@ -4458,143 +4458,143 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(PREF_ACTIVATOR_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationPrefIndicator));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationClose));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationGridLayout));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationActivatorNumColumns));
         }
         if (key.equals(PREF_EDITOR_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationPrefIndicator));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationHideHeaderOrBottomBar));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_deleteOldActivityLogs));
         }
         if (key.equals(PREF_WIDGET_LIST_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationPrefIndicator));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationHeader));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationGridLayout));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackground));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessB));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetColorB));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetShowBorder));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetCornerRadius));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessT));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColor));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if (key.equals(PREF_WIDGET_ONE_ROW_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationPrefIndicator));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackground));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessB));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetColorB));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetShowBorder));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetCornerRadius));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessT));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColor));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if (key.equals(PREF_WIDGET_ICON_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconBackgroundType));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconBackground));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconLightnessB));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColorB));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconShowBorder));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconCornerRadius));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconHideProfileName));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconLightnessT));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColor));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if (key.equals(PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackground));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessB));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetColorB));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetShowBorder));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetCornerRadius));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColor));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if (key.equals(PREF_SHORTCUT_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColor));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
             if (key.equals(PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT)) {
                 _value.append(getString(R.string.phone_profiles_pref_applicationSamsungEdgeVerticalPosition));
-                _value.append(StringConstants.STR_DOT);
+                _value.append(StringConstants.STR_BULLET);
                 _value.append(getString(R.string.phone_profiles_pref_applicationHeader));
-                _value.append(StringConstants.STR_DOT);
+                _value.append(StringConstants.STR_BULLET);
                 _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType));
-                _value.append(StringConstants.STR_DOT);
+                _value.append(StringConstants.STR_BULLET);
                 _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackground));
-                _value.append(StringConstants.STR_DOT);
+                _value.append(StringConstants.STR_BULLET);
                 _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessB));
-                _value.append(StringConstants.STR_DOT);
+                _value.append(StringConstants.STR_BULLET);
                 _value.append(getString(R.string.phone_profiles_pref_applicationWidgetColorB));
-                _value.append(StringConstants.STR_DOT);
+                _value.append(StringConstants.STR_BULLET);
                 _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessT));
-                _value.append(StringConstants.STR_DOT);
+                _value.append(StringConstants.STR_BULLET);
                 _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColor));
-                _value.append(StringConstants.STR_DOT);
+                _value.append(StringConstants.STR_BULLET);
                 _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
             }
         }
         if (key.equals(PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_notificationProfileListDisplayNotification));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_notificationStatusBarStyle));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_notificationBackgroundColor));
-            _value.append(StringConstants.STR_DOT);
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness));
         }
 

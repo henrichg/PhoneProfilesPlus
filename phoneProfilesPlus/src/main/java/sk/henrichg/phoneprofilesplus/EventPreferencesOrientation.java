@@ -216,21 +216,21 @@ class EventPreferencesOrientation extends EventPreferences {
                         }
                         selectedValues = __value.toString();
                     }
-                    _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_orientation_sides)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_sides)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 String[] distanceValues = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeValues);
                 String[] distanceNames = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeArray);
                 int i = Arrays.asList(distanceValues).indexOf(String.valueOf(this._distance));
                 if (i != -1)
-                    _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_orientation_distance)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(distanceNames[i], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_distance)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(distanceNames[i], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 if (this._checkLight) {
-                    _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_orientation_light)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_light)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
                             .append(getColorForChangedPreferenceValue(this._lightMin + "-" + this._lightMax, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
                 else {
-                    _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_orientation_light)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_light)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
                             .append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_orientation_light_not_enabled), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
@@ -274,7 +274,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     } else
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 }
-                _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_orientation_ignoreForApplications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_ignoreForApplications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 

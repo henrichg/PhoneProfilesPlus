@@ -288,8 +288,8 @@ class GlobalGUIRoutines {
                 // remove bullet
                 String s = title.toString();
                 title = s;
-                if (s.startsWith(StringConstants.CHAR_DOT+" "))
-                    title = TextUtils.replace(title, new String[]{StringConstants.CHAR_DOT+" "}, new CharSequence[]{""});
+                if (s.startsWith(StringConstants.CHAR_BULLET +" "))
+                    title = TextUtils.replace(title, new String[]{StringConstants.CHAR_BULLET +" "}, new CharSequence[]{""});
 
                 // remove arrows
                 if (s.startsWith(StringConstants.CHAR_ARROW +" "))
@@ -304,7 +304,7 @@ class GlobalGUIRoutines {
                 //if (underline)
                 //    title = TextUtils.concat("[!] ", title);
                 if (bold)
-                    title = TextUtils.concat(StringConstants.CHAR_DOT+" ", title);
+                    title = TextUtils.concat(StringConstants.CHAR_BULLET +" ", title);
                 else
                 if (addArrows)
                     title = TextUtils.concat(StringConstants.CHAR_ARROW +" ", title);

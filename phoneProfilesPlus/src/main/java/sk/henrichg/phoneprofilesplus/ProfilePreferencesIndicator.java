@@ -2300,7 +2300,7 @@ class ProfilePreferencesIndicator {
                 if (!ind.isEmpty()) ind = ind + "-";
         }
         else*/
-            if (!ind.isEmpty()) ind = ind + StringConstants.STR_DOT;
+            if (!ind.isEmpty()) ind = ind + StringConstants.STR_BULLET;
 
         ind = ind + preference;
         return ind;

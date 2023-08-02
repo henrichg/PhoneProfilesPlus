@@ -104,7 +104,7 @@ class EventPreferencesNFC extends EventPreferences {
                     }
                 }
                 selectedNfcTags = value.toString();
-                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedNfcTags, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_DOT);
+                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedNfcTags, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
                 if (this._permanentRun)
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 else

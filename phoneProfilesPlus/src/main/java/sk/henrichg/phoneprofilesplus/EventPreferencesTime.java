@@ -216,7 +216,7 @@ class EventPreferencesTime extends EventPreferences {
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
-                _value.append(StringConstants.CHAR_DOT).append(" ").append(context.getString(R.string.event_preferences_time_timeType)).append(StringConstants.STR_COLON_WITH_SPACE);
+                _value.append(StringConstants.CHAR_BULLET).append(" ").append(context.getString(R.string.event_preferences_time_timeType)).append(StringConstants.STR_COLON_WITH_SPACE);
                 String _descr = "";
                 switch (_timeType) {
                     case TIME_TYPE_EXACT:
@@ -232,7 +232,7 @@ class EventPreferencesTime extends EventPreferences {
                 _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 if (_timeType == TIME_TYPE_EXACT) {
-                    _value.append(StringConstants.STR_DOT);
+                    _value.append(StringConstants.STR_BULLET);
 
                     _value.append(context.getString(R.string.event_preferences_time_startTime)).append("-").append(context.getString(R.string.event_preferences_time_endTime)).append(StringConstants.STR_COLON_WITH_SPACE);
 
@@ -281,7 +281,7 @@ class EventPreferencesTime extends EventPreferences {
                                 long startTime = computeAlarm(true, context);
                                 long endTime = computeAlarm(false, context);
                                 if ((startTime != 0) && (endTime != 0)) {
-                                    _value.append(StringConstants.STR_DOT);
+                                    _value.append(StringConstants.STR_BULLET);
 
                                     if (_timeType == TIME_TYPE_SUNRISE_SUNSET)
                                         _value.append(context.getString(R.string.event_preference_sensor_time_sunrise)).append("-").append(context.getString(R.string.event_preference_sensor_time_sunset)).append(StringConstants.STR_COLON_WITH_SPACE);

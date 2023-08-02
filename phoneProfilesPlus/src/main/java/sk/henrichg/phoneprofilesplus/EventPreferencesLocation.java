@@ -127,7 +127,7 @@ class EventPreferencesLocation extends EventPreferences {
                 selectedLocations = value.toString();
                 _value.append(context.getString(R.string.event_preferences_locations_location)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedLocations, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 if (this._whenOutside)
-                    _value.append(StringConstants.STR_DOT).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_location_when_outside_description), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_location_when_outside_description), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 

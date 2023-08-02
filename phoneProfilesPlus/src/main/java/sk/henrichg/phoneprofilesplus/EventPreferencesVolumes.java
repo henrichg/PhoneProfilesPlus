@@ -130,7 +130,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
                 if (operator != 0) {
                     if (_addBullet)
-                        _value.append(StringConstants.STR_DOT);
+                        _value.append(StringConstants.STR_BULLET);
                     _value.append(context.getString(R.string.profile_preferences_volumeNotification)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
@@ -146,7 +146,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
                 if (operator != 0) {
                     if (_addBullet)
-                        _value.append(StringConstants.STR_DOT);
+                        _value.append(StringConstants.STR_BULLET);
                     _value.append(context.getString(R.string.profile_preferences_volumeMedia)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
@@ -162,7 +162,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
                 if (operator != 0) {
                     if (_addBullet)
-                        _value.append(StringConstants.STR_DOT);
+                        _value.append(StringConstants.STR_BULLET);
                     _value.append(context.getString(R.string.profile_preferences_volumeAlarm)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
@@ -178,7 +178,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
                 if (operator != 0) {
                     if (_addBullet)
-                        _value.append(StringConstants.STR_DOT);
+                        _value.append(StringConstants.STR_BULLET);
                     _value.append(context.getString(R.string.profile_preferences_volumeSystem)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
@@ -194,7 +194,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
                 if (operator != 0) {
                     if (_addBullet)
-                        _value.append(StringConstants.STR_DOT);
+                        _value.append(StringConstants.STR_BULLET);
                     _value.append(context.getString(R.string.profile_preferences_volumeVoiceCall)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
@@ -210,7 +210,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
                 if (operator != 0) {
                     if (_addBullet)
-                        _value.append(StringConstants.STR_DOT);
+                        _value.append(StringConstants.STR_BULLET);
                     _value.append(context.getString(R.string.profile_preferences_volumeBluetoothSCO)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);

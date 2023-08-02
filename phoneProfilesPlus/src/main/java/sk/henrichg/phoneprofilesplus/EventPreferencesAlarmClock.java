@@ -125,7 +125,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 }
 
-                _value.append(StringConstants.STR_DOT);
+                _value.append(StringConstants.STR_BULLET);
                 _value.append(context.getString(R.string.event_preferences_alarm_clock_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }

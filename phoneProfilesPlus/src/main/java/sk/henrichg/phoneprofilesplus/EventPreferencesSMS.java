@@ -156,10 +156,10 @@ class EventPreferencesSMS extends EventPreferences {
                     //descr = descr + ": " + smsEvents[tmp._smsEvent] + "; ";
 
                     _value.append(context.getString(R.string.event_preferences_sms_contact_groups)).append(StringConstants.STR_COLON_WITH_SPACE);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_DOT);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
 
                     _value.append(context.getString(R.string.event_preferences_sms_contacts)).append(StringConstants.STR_COLON_WITH_SPACE);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_DOT);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
 
                     _value.append(context.getString(R.string.pref_event_sms_contactListType));
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
@@ -184,16 +184,16 @@ class EventPreferencesSMS extends EventPreferences {
                             }
                         //}
                         if (hasSIMCard) {
-                            _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_sms_forSimCard));
+                            _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_sms_forSimCard));
                             String[] forSimCard = context.getResources().getStringArray(R.array.eventSMSForSimCardArray);
                             _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
                     //}
 
                     if (this._permanentRun)
-                        _value.append(StringConstants.STR_DOT).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     else
-                        _value.append(StringConstants.STR_DOT).append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
             else {

@@ -1148,11 +1148,11 @@ class Event {
                 if (bold) {
                     StringBuilder _value = new StringBuilder();
                     if (manualProfileActivationChanged) {
-                        /*if (_value.length() > 0)*/ _value.append(StringConstants.STR_DOT);
+                        /*if (_value.length() > 0)*/ _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_manualProfileActivation));
                     }
                     if (profileStartWhenActivatedChanged) {
-                        if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_eventStartWhenActivatedProfile)).append(StringConstants.STR_COLON_WITH_SPACE);
                         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
                         String[] splits = startWhenActivatedProfile.split(StringConstants.STR_SPLIT_REGEX);
@@ -1172,22 +1172,22 @@ class Event {
                         }
                     }
                     if (delayStartChanged) {
-                        if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_delayStart)).append(StringConstants.STR_COLON_WITH_SPACE);
                         _value.append(StringConstants.TAG_BOLD_START_HTML)
                                 .append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayStart), !preference.isEnabled(), context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
                     }
                     if (notificationSoundStartChanged) {
-                        if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_notificationSound));
                     }
                     if (notificationVibrateStartChanged) {
-                        if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_notificationVibrate));
                     }
                     if (notificationRepeatStartChanged) {
-                        if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_notificationRepeat)).append(StringConstants.STR_COLON_WITH_SPACE);
                         _value.append(StringConstants.TAG_BOLD_START_HTML)
                                 .append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), context))
@@ -1210,22 +1210,22 @@ class Event {
                 if (bold) {
                     StringBuilder _value = new StringBuilder();
                     if (manualProfileActivationAtEndChanged) {
-                        /*if (_value.length() > 0)*/ _value.append(StringConstants.STR_DOT);
+                        /*if (_value.length() > 0)*/ _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_manualProfileActivationAtEnd));
                     }
                     if (delayEndChanged) {
-                        /*if (_value.length() > 0)*/ _value.append(StringConstants.STR_DOT);
+                        /*if (_value.length() > 0)*/ _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_delayStart)).append(StringConstants.STR_COLON_WITH_SPACE);
                         _value.append(StringConstants.TAG_BOLD_START_HTML)
                                 .append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayEnd), !preference.isEnabled(), context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
                     }
                     if (notificationSoundEndChanged) {
-                        if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_notificationSound));
                     }
                     if (notificationVibrateEndChanged) {
-                        if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_notificationVibrate));
                     }
                     preference.setSummary(StringFormatUtils.fromHtml(_value.toString(), false, false, false, 0, 0, true));

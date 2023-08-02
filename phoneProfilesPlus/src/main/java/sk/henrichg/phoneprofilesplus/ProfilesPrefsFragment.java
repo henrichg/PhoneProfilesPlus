@@ -2163,7 +2163,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         _value.append(title)
                                 .append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
                                 .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context))
-                                .append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_DOT);
+                                .append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
 
                         String afterDurationDoValue = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO,
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO));
@@ -2184,7 +2184,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     value = context.getString(R.string.profile_preference_profile_end_no_activate);
                             }
                             String _title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, R.string.profile_preferences_afterDurationProfile, context);
-                            _value.append(StringConstants.STR_DOT).append(_title).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
+                            _value.append(StringConstants.STR_BULLET).append(_title).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
                                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context))
                                     .append(StringConstants.TAG_BOLD_END_HTML);
                         }
@@ -2203,7 +2203,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     value = StringFormatUtils.getTimeString(Integer.parseInt(value));
                     _value.append(title).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
                             .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context))
-                            .append(StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT);
+                            .append(StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_BULLET);
 
                     String afterDurationDoValue = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO));
@@ -2224,7 +2224,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 value = context.getString(R.string.profile_preference_profile_end_no_activate);
                         }
                         String _title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, R.string.profile_preferences_afterDurationProfile, context);
-                        _value.append(StringConstants.STR_DOT).append(_title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                        _value.append(StringConstants.STR_BULLET).append(_title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                                 .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
                     }
@@ -2243,7 +2243,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND, R.string.profile_preferences_durationNotificationSound, context);
             if (!title.isEmpty()) {
                 if (_value.length() > 0)
-                    _value.append(StringConstants.STR_DOT);
+                    _value.append(StringConstants.STR_BULLET);
                 _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                         .append(ProfileStatic.getColorForChangedPreferenceValue(TAG_RINGTONE_NAME, prefMng, PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context))
                         .append(StringConstants.TAG_BOLD_END_HTML);
@@ -2254,7 +2254,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, R.string.profile_preferences_durationNotificationVibrate, context);
                 if (!title.isEmpty()) {
                     if (_value.length() > 0)
-                        _value.append(StringConstants.STR_DOT);
+                        _value.append(StringConstants.STR_BULLET);
                     _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                             .append(ProfileStatic.getColorForChangedPreferenceValue(getString(R.string.profile_preferences_enabled), prefMng, PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context))
                             .append(StringConstants.TAG_BOLD_END_HTML);
@@ -2324,7 +2324,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext());
                 if ((ringerMode != null) && (ringerMode.equals("5")) && canEnableZenMode) {
                     if (_value.length() > 0)
-                        _value.append(StringConstants.STR_DOT);
+                        _value.append(StringConstants.STR_BULLET);
 
                     String value = StringFormatUtils.getZenModePreferenceString(zenMode, context);
 
@@ -2338,7 +2338,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (ringerMode != null) {
                     if (ringerMode.equals("1") || ringerMode.equals("4")) {
                         if (_value.length() > 0)
-                            _value.append(StringConstants.STR_DOT);
+                            _value.append(StringConstants.STR_BULLET);
 
                         String value = StringFormatUtils.getListPreferenceString(
                                 preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING,
@@ -2352,7 +2352,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         //noinspection DuplicateExpressions
                         if ((ringerMode.equals("5")) && (zenMode != null) && (zenMode.equals("1") || zenMode.equals("2"))) {
                             if (_value.length() > 0)
-                                _value.append(StringConstants.STR_DOT);
+                                _value.append(StringConstants.STR_BULLET);
 
                             String value = StringFormatUtils.getListPreferenceString(
                                     preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING,
@@ -2371,7 +2371,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (ringerMode != null) {
                         if (ringerMode.equals("1") || ringerMode.equals("4")) {
                             if (_value.length() > 0)
-                                _value.append(StringConstants.STR_DOT);
+                                _value.append(StringConstants.STR_BULLET);
 
                             String value = StringFormatUtils.getListPreferenceString(
                                     preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS,
@@ -2385,7 +2385,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             //noinspection DuplicateExpressions
                             if ((ringerMode.equals("5")) && (zenMode != null) && (zenMode.equals("1") || zenMode.equals("2"))) {
                                 if (_value.length() > 0)
-                                    _value.append(StringConstants.STR_DOT);
+                                    _value.append(StringConstants.STR_BULLET);
 
                                 String value = StringFormatUtils.getListPreferenceString(
                                         preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS,
@@ -2457,7 +2457,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, R.string.profile_preferences_volumeNotification, context);
                 if (!title.isEmpty()) {
                     cattegorySummaryData.bold = true;
-                    if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                    if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                     if (audioManager != null) {
                         String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION,
@@ -2475,7 +2475,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_MEDIA, R.string.profile_preferences_volumeMedia, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 if (audioManager != null) {
                     String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_MEDIA,
@@ -2493,7 +2493,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ALARM, R.string.profile_preferences_volumeAlarm, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             if (audioManager != null) {
                 String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_ALARM,
@@ -2512,7 +2512,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_SYSTEM, R.string.profile_preferences_volumeSystem, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 if (audioManager != null) {
                     String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_SYSTEM,
@@ -2530,7 +2530,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_VOICE, R.string.profile_preferences_volumeVoiceCall, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             if (audioManager != null) {
                 String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_VOICE,
@@ -2549,7 +2549,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_DTMF, R.string.profile_preferences_volumeDTMF, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 if (audioManager != null) {
                     String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_DTMF,
@@ -2567,7 +2567,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, R.string.profile_preferences_volumeAccessibility, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (audioManager != null)) {
                 String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY,
@@ -2585,7 +2585,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, R.string.profile_preferences_volumeBluetoothSCO, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             if (audioManager != null) {
                 String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO,
@@ -2604,7 +2604,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
             if (_value.length() > 0)
-                _value.append(StringConstants.STR_DOT);
+                _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE,
@@ -2647,7 +2647,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
             if (_value.length() > 0)
-                _value.append(StringConstants.STR_DOT);
+                _value.append(StringConstants.STR_BULLET);
 
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(TAG_NOTIFICATION_NAME, prefMng, PREF_PROFILE_SOUNDS_CATTEGORY_ROOT, context))
@@ -2658,7 +2658,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
             if (_value.length() > 0)
-                _value.append(StringConstants.STR_DOT);
+                _value.append(StringConstants.STR_BULLET);
 
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(TAG_ALARM_NAME, prefMng, PREF_PROFILE_SOUNDS_CATTEGORY_ROOT, context))
@@ -2677,14 +2677,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         (PPApplication.deviceIsOnePlus))) {
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, R.string.profile_preferences_soundRingtoneChangeSIM1, context);
             if (!title.isEmpty()) {
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 cattegorySummaryData.bold = true;
                 _value.append(title);
             }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, R.string.profile_preferences_soundRingtoneChangeSIM2, context);
             if (!title.isEmpty()) {
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 cattegorySummaryData.bold = true;
                 _value.append(title);
@@ -2694,7 +2694,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     PPApplication.deviceIsOnePlus) {
                 title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, R.string.profile_preferences_soundSameRingtoneForBothSIMCards, context);
                 if (!title.isEmpty()) {
-                    if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                    if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                     cattegorySummaryData.bold = true;
                     _value.append(title);
@@ -2703,14 +2703,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, R.string.profile_preferences_soundNotificationChangeSIM1, context);
             if (!title.isEmpty()) {
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 cattegorySummaryData.bold = true;
                 _value.append(title);
             }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, R.string.profile_preferences_soundNotificationChangeSIM2, context);
             if (!title.isEmpty()) {
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 cattegorySummaryData.bold = true;
                 _value.append(title);
@@ -2770,7 +2770,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_ON_TOUCH, R.string.profile_preferences_soundOnTouch, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_SOUND_ON_TOUCH,
@@ -2784,7 +2784,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, R.string.profile_preferences_vibrationOnTouch, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH,
@@ -2798,7 +2798,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, R.string.profile_preferences_dtmfToneWhenDialing, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING,
@@ -2837,7 +2837,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, R.string.profile_preferences_vibrationIntensityRinging, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING));
@@ -2851,7 +2851,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, R.string.profile_preferences_vibrationIntensityNotificatiions, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS));
@@ -2865,7 +2865,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, R.string.profile_preferences_vibrationIntensityTouchInteraction, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION));
@@ -2941,7 +2941,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, R.string.profile_preferences_deviceAutosync, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_AUTOSYNC,
@@ -2955,7 +2955,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, R.string.profile_preferences_deviceMobileData_21, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA,
@@ -2969,7 +2969,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, R.string.profile_preferences_deviceMobileDataPrefs, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS,
@@ -2988,14 +2988,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, R.string.profile_preferences_deviceOnOff_SIM1, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 _value.append(title);
             }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, R.string.profile_preferences_deviceOnOff_SIM2, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 _value.append(title);
             }
@@ -3003,7 +3003,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, R.string.profile_preferences_deviceDefaultSIM, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 _value.append(title);
             }
@@ -3011,7 +3011,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, R.string.profile_preferences_deviceNetworkTypeSIM1, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 _value.append(title);
             }
@@ -3019,7 +3019,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             //PPApplicationStatic.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 _value.append(title);
             }
@@ -3044,7 +3044,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WIFI, R.string.profile_preferences_deviceWiFi, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI,
@@ -3058,7 +3058,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, R.string.profile_preferences_deviceConnectToSSID, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID));
@@ -3079,7 +3079,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WIFI_AP, R.string.profile_preferences_deviceWiFiAP, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 String value = StringFormatUtils.getListPreferenceString(
                         preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP,
@@ -3094,7 +3094,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, R.string.profile_preferences_deviceWiFiAPPrefs, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS,
@@ -3108,7 +3108,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, R.string.profile_preferences_deviceBluetooth, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH,
@@ -3122,7 +3122,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, R.string.profile_preferences_deviceLocationMode, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE,
@@ -3136,7 +3136,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_GPS, R.string.profile_preferences_deviceGPS, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_GPS,
@@ -3150,7 +3150,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, R.string.profile_preferences_deviceLocationServicePrefs, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS,
@@ -3164,7 +3164,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NFC, R.string.profile_preferences_deviceNFC, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_NFC,
@@ -3178,7 +3178,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, R.string.profile_preferences_deviceNetworkType, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             //final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             int phoneType = TelephonyManager.PHONE_TYPE_GSM;
@@ -3209,7 +3209,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, R.string.profile_preferences_deviceNetworkTypePrefs, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS,
@@ -3223,7 +3223,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, R.string.profile_preferences_deviceVPNSettingsPrefs, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS,
@@ -3237,7 +3237,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_VPN, R.string.profile_preferences_deviceVPN, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN));
@@ -3321,7 +3321,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, R.string.profile_preferences_deviceBrightness, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS));
@@ -3355,7 +3355,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, R.string.profile_preferences_deviceAutoRotation,context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_AUTOROTATE,
@@ -3369,7 +3369,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, R.string.profile_preferences_deviceScreenOnPermanent, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT,
@@ -3383,7 +3383,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_KEYGUARD, R.string.profile_preferences_deviceKeyguard, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_KEYGUARD,
@@ -3397,7 +3397,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, R.string.profile_preferences_deviceWallpaperChange, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String wallpaperChangeValue = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE));
@@ -3411,7 +3411,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             if (wallpaperChangeValue.equals("1") ||
                     wallpaperChangeValue.equals("3")) {
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 String value = StringFormatUtils.getListPreferenceString(
                         preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR,
@@ -3426,7 +3426,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_LOCK_DEVICE, R.string.profile_preferences_lockDevice, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE,
@@ -3440,7 +3440,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, R.string.profile_preferences_headsUpNotifications, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS,
@@ -3454,7 +3454,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, R.string.profile_preferences_alwaysOnDisplay, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY,
@@ -3469,7 +3469,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_DARK_MODE, R.string.profile_preferences_screenDarkMode, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_SCREEN_DARK_MODE,
@@ -3529,7 +3529,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_CAMERA_FLASH, R.string.profile_preferences_cameraFlash, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH,
@@ -3576,7 +3576,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, R.string.profile_preferences_deviceRunApplicationsShortcutsChange, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME));
@@ -3594,7 +3594,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, R.string.profile_preferences_deviceCloseAllApplications, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS,
@@ -3608,7 +3608,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, R.string.profile_preferences_deviceForceStopApplicationsChange, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME));
@@ -3630,7 +3630,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, R.string.profile_preferences_generateNotification, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = preferences.getString(Profile.PREF_PROFILE_GENERATE_NOTIFICATION,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_GENERATE_NOTIFICATION));
@@ -3725,7 +3725,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, R.string.profile_preferences_deviceForceStopApplicationsPackageName, context);
                 defaultValue = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME);
                 sValue = preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, defaultValue);
-                _value.append(StringConstants.STR_DOT).append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                _value.append(StringConstants.STR_BULLET).append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                                 .append(
                                     ProfileStatic.getColorForChangedPreferenceValue(
                                             ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory(sValue, "accessibility_2.0", context, false),
@@ -3835,7 +3835,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, R.string.profile_preferences_applicationEnableBluetoothScanning, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING,
@@ -3849,7 +3849,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, R.string.profile_preferences_applicationEnableLocationScanning,context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING,
@@ -3863,7 +3863,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, R.string.profile_preferences_applicationEnableMobileCellScanning, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING,
@@ -3877,7 +3877,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, R.string.profile_preferences_applicationEnableOrientationScanning, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING,
@@ -3891,7 +3891,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, R.string.profile_preferences_applicationEnableNotificationScanning, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING,
@@ -3905,7 +3905,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, R.string.profile_preferences_applicationEnablePeriodicScanning, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING,
@@ -3920,7 +3920,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, R.string.profile_preferences_applicationEnableGlobalEventsRun, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
                     preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN,
@@ -3971,7 +3971,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, R.string.profile_preferences_deviceOnOff_SIM2, context);
                     if (!title.isEmpty()) {
                         cattegorySummaryData.bold = true;
-                        if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                         String value = StringFormatUtils.getListPreferenceString(
                                 preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2,
@@ -3986,7 +3986,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, R.string.profile_preferences_deviceDefaultSIM, context);
                     if (!title.isEmpty()) {
                         cattegorySummaryData.bold = true;
-                        if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                         String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS,
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS));
@@ -4026,7 +4026,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     //PPApplicationStatic.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1 - notGrantedG1Permission="+notGrantedG1Permission);
                     if (!title.isEmpty()) {
                         cattegorySummaryData.bold = true;
-                        if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                         int phoneType;// = TelephonyManager.PHONE_TYPE_GSM;
                         phoneType = telephonyManager.getPhoneType();
@@ -4056,7 +4056,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     //PPApplicationStatic.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
                     if (!title.isEmpty()) {
                         cattegorySummaryData.bold = true;
-                        if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                         int phoneType; // = TelephonyManager.PHONE_TYPE_GSM;
                         phoneType = telephonyManager.getPhoneType();
@@ -4135,7 +4135,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, R.string.profile_preferences_soundRingtoneChangeSIM2, context);
                         if (!title.isEmpty()) {
-                            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                             cattegorySummaryData.bold = true;
                             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
@@ -4144,7 +4144,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, R.string.profile_preferences_soundNotificationChangeSIM1, context);
                         if (!title.isEmpty()) {
-                            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                             cattegorySummaryData.bold = true;
                             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
@@ -4153,7 +4153,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, R.string.profile_preferences_soundNotificationChangeSIM2, context);
                         if (!title.isEmpty()) {
-                            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                             cattegorySummaryData.bold = true;
                             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
@@ -4243,7 +4243,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, R.string.profile_preferences_deviceWallpaperChange, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String wallpaperChangeValue = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE));
@@ -4257,7 +4257,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             if (wallpaperChangeValue.equals("1") ||
                     wallpaperChangeValue.equals("3")) {
-                if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 String value = StringFormatUtils.getListPreferenceString(
                         preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR,

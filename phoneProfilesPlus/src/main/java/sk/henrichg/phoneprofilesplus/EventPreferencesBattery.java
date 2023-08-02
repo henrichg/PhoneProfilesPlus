@@ -138,9 +138,9 @@ class EventPreferencesBattery extends EventPreferences {
                 _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(this._levelLow + "% - " + this._levelHight + "%", disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 if (this._powerSaveMode)
-                    _value.append(StringConstants.STR_DOT).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_battery_power_save_mode), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_battery_power_save_mode), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 else {
-                    _value.append(StringConstants.STR_DOT).append(context.getString(R.string.pref_event_battery_charging));
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.pref_event_battery_charging));
                     String[] charging = context.getResources().getStringArray(R.array.eventBatteryChargingArray);
                     _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(charging[this._charging], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
@@ -164,7 +164,7 @@ class EventPreferencesBattery extends EventPreferences {
                         }
                         selectedPlugged = value.toString();
                     }
-                    _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_battery_plugged)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedPlugged, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_battery_plugged)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedPlugged, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }

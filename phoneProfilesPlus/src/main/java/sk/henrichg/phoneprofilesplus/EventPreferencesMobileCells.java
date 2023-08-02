@@ -123,7 +123,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                 }
                 _value.append(context.getString(R.string.event_preferences_mobile_cells_cells)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedCells, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 if (this._whenOutside)
-                    _value.append(StringConstants.STR_DOT).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_mobile_cells_when_outside_description), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_mobile_cells_when_outside_description), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 //if (Build.VERSION.SDK_INT >= 26) {
                 boolean hasSIMCard = false;
@@ -142,7 +142,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     }
                 }
                 if (hasSIMCard) {
-                    _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_mobile_cells_forSimCard));
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_mobile_cells_forSimCard));
                     String[] forSimCard = context.getResources().getStringArray(R.array.eventMobileCellsForSimCardArray);
                     _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }

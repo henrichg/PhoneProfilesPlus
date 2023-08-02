@@ -2382,12 +2382,12 @@ public class EditorActivity extends AppCompatActivity
             message = getString(R.string.import_profiles_alert_error) + ":";
             if (dbResult != DatabaseHandler.IMPORT_OK) {
                 if (dbResult == DatabaseHandler.IMPORT_ERROR_NEVER_VERSION)
-                    message = message + StringConstants.CHAR_NEW_LINE+StringConstants.CHAR_DOT+" " + getString(R.string.import_profiles_alert_error_database_newer_version);
+                    message = message + StringConstants.CHAR_NEW_LINE+StringConstants.CHAR_BULLET +" " + getString(R.string.import_profiles_alert_error_database_newer_version);
                 else
-                    message = message + StringConstants.CHAR_NEW_LINE+StringConstants.CHAR_DOT+" " + getString(R.string.import_profiles_alert_error_database_bug);
+                    message = message + StringConstants.CHAR_NEW_LINE+StringConstants.CHAR_BULLET +" " + getString(R.string.import_profiles_alert_error_database_bug);
             }
             if (appSettingsResult == 0)
-                message = message + StringConstants.CHAR_NEW_LINE+StringConstants.CHAR_DOT+" " + getString(R.string.import_profiles_alert_error_appSettings_bug);
+                message = message + StringConstants.CHAR_NEW_LINE+StringConstants.CHAR_BULLET +" " + getString(R.string.import_profiles_alert_error_appSettings_bug);
             //if (sharedProfileResult == 0)
             //    message = message + "\n• " + getString(R.string.import_profiles_alert_error_sharedProfile_bug);
         }
