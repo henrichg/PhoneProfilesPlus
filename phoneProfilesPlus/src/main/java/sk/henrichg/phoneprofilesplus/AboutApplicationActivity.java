@@ -486,9 +486,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                     PPApplicationStatic.recordException(e);
                 }
                 if (subjectText.isEmpty())
-                    intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFLES_PLUS + packageVersion);
+                    intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion);
                 else
-                    intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFLES_PLUS + packageVersion + " - " + subjectText);
+                    intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + subjectText);
                 if (!bodyText.isEmpty())
                     intent.putExtra(Intent.EXTRA_TEXT, bodyText);
                 try {

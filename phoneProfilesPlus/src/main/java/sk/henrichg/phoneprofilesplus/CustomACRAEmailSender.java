@@ -106,7 +106,7 @@ public class CustomACRAEmailSender implements ReportSender {
                         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
                         intent.putExtra(Intent.EXTRA_SUBJECT, mailConfig.getSubject());
                         intent.putExtra(Intent.EXTRA_TEXT, mailConfig.getBody());
-                        intent.setType("*/*"); // gmail will only match with type set
+                        intent.setType(StringConstants.MINE_TYPE_ALL); // gmail will only match with type set
                         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, attachments); //ArrayList<Uri> of attachment Uri's
                         intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));

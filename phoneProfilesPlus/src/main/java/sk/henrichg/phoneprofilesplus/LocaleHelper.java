@@ -110,7 +110,7 @@ class LocaleHelper {
         String countryToStore = country;
         String scriptToStore = script;
 
-        if (language.equals("[sys]")) {
+        if (language.equals(LANG_SYS)) {
             LocaleListCompat systemLocales = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration());
             try {
                 //noinspection ConstantConditions

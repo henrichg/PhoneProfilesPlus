@@ -1541,7 +1541,7 @@ class PhoneProfilesServiceStatic
 
             // send broadcast to Extender for unregister of force stop
             Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
-            intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFLES_PLUS);
+            intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFILES_PLUS);
             intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER);
             context.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
         }
@@ -1557,7 +1557,7 @@ class PhoneProfilesServiceStatic
 
             // send broadcast to Extender for unregister foreground application
             Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
-            intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFLES_PLUS);
+            intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFILES_PLUS);
             intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_UNREGISTER);
             context.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
         }
@@ -1573,7 +1573,7 @@ class PhoneProfilesServiceStatic
 
             // send broadcast to Extender for unregister sms
             Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
-            intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFLES_PLUS);
+            intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFILES_PLUS);
             intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
             context.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
         }
@@ -1589,7 +1589,7 @@ class PhoneProfilesServiceStatic
 
             // send broadcast to Extender for unregister call
             Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
-            intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFLES_PLUS);
+            intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFILES_PLUS);
             intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
             context.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
         }
@@ -1597,7 +1597,7 @@ class PhoneProfilesServiceStatic
             // send broadcast to Extender for lock device
 
             Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
-            intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFLES_PLUS);
+            intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFILES_PLUS);
             intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_UNREGISTER);
             context.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
         }
@@ -1643,7 +1643,7 @@ class PhoneProfilesServiceStatic
 
                     // send broadcast to Extender for register sms
                     Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
-                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFLES_PLUS);
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFILES_PLUS);
                     intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_SMS_REGISTER);
                     appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
 
@@ -1666,7 +1666,7 @@ class PhoneProfilesServiceStatic
 
                     // send broadcast to Extender for register call
                     Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
-                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFLES_PLUS);
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFILES_PLUS);
                     intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_CALL_REGISTER);
                     appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
 
@@ -1741,7 +1741,7 @@ class PhoneProfilesServiceStatic
 
                     // send broadcast to Extender for register force stop applications
                     Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
-                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFLES_PLUS);
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFILES_PLUS);
                     intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_REGISTER);
                     appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
                 }
@@ -1752,7 +1752,7 @@ class PhoneProfilesServiceStatic
                     // send broadcast to Extender for register lock device
 
                     Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
-                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFLES_PLUS);
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFILES_PLUS);
                     intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_REGISTER);
                     appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
                 }
@@ -1773,7 +1773,7 @@ class PhoneProfilesServiceStatic
 
                     // send broadcast to Extender for register foreground application
                     Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
-                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFLES_PLUS);
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFILES_PLUS);
                     intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_REGISTER);
                     appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
                 }
@@ -1794,7 +1794,7 @@ class PhoneProfilesServiceStatic
 
                     // send broadcast to Extender for register sms
                     Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
-                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFLES_PLUS);
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFILES_PLUS);
                     intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_SMS_REGISTER);
                     appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
                 }
@@ -1815,7 +1815,7 @@ class PhoneProfilesServiceStatic
 
                     // send broadcast to Extender for register call
                     Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
-                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFLES_PLUS);
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, StringConstants.PHONE_PROFILES_PLUS);
                     intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_CALL_REGISTER);
                     appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
                 }

@@ -1,7 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 class StringConstants {
-    static final String PHONE_PROFLES_PLUS = "PhoneProfilesPlus";
+    static final String PHONE_PROFILES_PLUS = "PhoneProfilesPlus";
     static final String AUTHOR_EMAIL = "henrich.gron@gmail.com";
 
     static final String CHAR_HARD_SPACE = "\u00A0";
@@ -60,6 +60,7 @@ class StringConstants {
 
     static final String MIME_TYPE_EXTRA = "mimeType";
     static final String MIME_TYPE_IMAGE = "image/*";
+    static final String MINE_TYPE_ALL = "*/*";
 
     static final String TRUE_STRING = "true";
     static final String FALSE_STRING = "false";

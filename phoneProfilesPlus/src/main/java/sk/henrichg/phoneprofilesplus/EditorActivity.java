@@ -1235,7 +1235,7 @@ public class EditorActivity extends AppCompatActivity
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }
-            intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFLES_PLUS + packageVersion + " - " + getString(R.string.about_application_support_subject));
+            intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.about_application_support_subject));
             intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
             try {
                 startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
@@ -1280,7 +1280,7 @@ public class EditorActivity extends AppCompatActivity
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
                 }
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFLES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
                 emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
                 emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
@@ -1290,9 +1290,9 @@ public class EditorActivity extends AppCompatActivity
                     intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
                     intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
                     intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
-                    intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFLES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
                     intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
-                    intent.setType("*/*"); // gmail will only match with type set
+                    intent.setType(StringConstants.MINE_TYPE_ALL); // gmail will only match with type set
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
                     intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
@@ -3991,7 +3991,7 @@ public class EditorActivity extends AppCompatActivity
                         if (requestCode == REQUEST_CODE_BACKUP_SETTINGS_2) {
                             // if directory exists, create new = "PhoneProfilesPlus (x)"
                             // create subdirectory
-                            pickedDir = pickedDir.createDirectory(StringConstants.PHONE_PROFLES_PLUS);
+                            pickedDir = pickedDir.createDirectory(StringConstants.PHONE_PROFILES_PLUS);
                             if (pickedDir == null) {
                                 // error for create directory
                                 ok = -10;
@@ -4827,7 +4827,7 @@ public class EditorActivity extends AppCompatActivity
                             //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
                             PPApplicationStatic.recordException(e);
                         }
-                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFLES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
+                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
                         emailIntent.putExtra(Intent.EXTRA_TEXT, activity.getEmailBodyText());
                         emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
@@ -4840,9 +4840,9 @@ public class EditorActivity extends AppCompatActivity
                             intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
                             if (!emailAddress.isEmpty())
                                 intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
-                            intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFLES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
+                            intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
                             intent.putExtra(Intent.EXTRA_TEXT, activity.getEmailBodyText());
-                            intent.setType("*/*"); // gmail will only match with type set
+                            intent.setType(StringConstants.MINE_TYPE_ALL); // gmail will only match with type set
                             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                             intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
                             intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));

@@ -149,7 +149,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                                 .status(status)
                                 .expandedTitle(profileName)
                                 .expandedBody(indicators.getString(profile, /*0,*/ appContext))
-                                .contentDescription(StringConstants.PHONE_PROFLES_PLUS+" - " + profileName)
+                                .contentDescription(StringConstants.PHONE_PROFILES_PLUS +" - " + profileName)
                                 .clickIntent(intent));
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
