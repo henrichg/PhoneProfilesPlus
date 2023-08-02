@@ -2287,40 +2287,53 @@ class ProfilePreferencesIndicator {
 
     }
 
-    //private int maxLength;
-    private String addIntoIndicator(String indicator, String preference/*, int maxLineLength*/)
+    /*
+    private String addIntoIndicator(String indicator, String preference)
     {
         String ind = indicator;
-        /*if (maxLineLength > 0) {
-            if (ind.length() > maxLength) {
-                ind = ind + '\n';
-                maxLength += maxLineLength;
-            }
-            else
-                if (!ind.isEmpty()) ind = ind + "-";
-        }
-        else*/
+        //if (maxLineLength > 0) {
+        //    if (ind.length() > maxLength) {
+        //        ind = ind + '\n';
+        //        maxLength += maxLineLength;
+        //   }
+        //    else
+        //        if (!ind.isEmpty()) ind = ind + "-";
+        //}
+        //else
             if (!ind.isEmpty()) ind = ind + StringConstants.STR_BULLET;
 
         ind = ind + preference;
         return ind;
     }
+    */
 
-    String getString(Profile profile, /*int maxLineLength,*/ Context context) {
+    String getString(Profile profile, Context context) {
         // profile preferences indicator
 
         Context appContext = context.getApplicationContext();
 
         fillArrays(profile, true, /*false,*/ false, /*0,*/ appContext);
 
+        StringBuilder indicators = new StringBuilder();
+        if (countDrawables > 0) {
+            //maxLength = maxLineLength;
+            for (int i = 0; i < countDrawables; i++) {
+                if (indicators.length() > 0) indicators.append(StringConstants.STR_BULLET);
+                indicators.append(strings[i]);
+            }
+        }
+        return indicators.toString();
+
+        /*
         String indicator1 = "";
         if (countDrawables > 0) {
             //maxLength = maxLineLength;
             for (int i = 0; i < countDrawables; i++)
-                indicator1 = addIntoIndicator(indicator1, strings[i]/*, maxLineLength*/);
+                indicator1 = addIntoIndicator(indicator1, strings[i]);
         }
 
         return indicator1;
+        */
     }
 
     private int saturateColor(int color) {
