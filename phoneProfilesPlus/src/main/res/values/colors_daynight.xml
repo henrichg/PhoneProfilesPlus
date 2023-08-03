@@ -84,7 +84,7 @@
 
     <color name="dokiHeaderBackgroundColor">#F7F7F7</color>
 
-    <color name="dialogBorderColor">#FFFFFF</color>
+    <color name="dialogBorderColor">#CCCCCC</color>
     <color name="buttonBorderColor">#AAAAAA</color>
 <!--    <color name="alertButtonBorderColor">#AAAAAA</color>-->
     <color name="buttonBackgroundColor">#F7F7F7</color>
