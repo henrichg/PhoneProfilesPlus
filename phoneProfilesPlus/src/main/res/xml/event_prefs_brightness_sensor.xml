@@ -12,7 +12,7 @@
 
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_brightness_operator"
-        app:summary="@string/array_event_pref_battery_charging_not_use"
+        app:summary="@string/array_pref_volumesSensorOperator_equalsTo"
         app:key="eventBrightnessOperator"
         app:defaultValue="0"
         app:ppEntries="@array/brightnessSensorOperatorArray"
@@ -26,7 +26,7 @@
         app:bAutomatic="0"
         app:bForBrightnessSensor="1"
         app:title="@string/event_preferences_brightness_level"
-        app:summary="@string/array_pref_volumesSensorOperator_equalsTo"
+        app:summary=""
         app:dependency="eventBrightnessEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 

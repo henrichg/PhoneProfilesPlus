@@ -1422,6 +1422,32 @@ class DatabaseHandlerEvents {
         }
     }
 
+    static private void getEventPreferencesBrightness(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                new String[] { DatabaseHandler.KEY_E_BRIGHTNESS_ENABLED,
+                        DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR,
+                        DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL,
+                        DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED
+                },
+                DatabaseHandler.KEY_E_ID + "=?",
+                new String[] { String.valueOf(event._id) }, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesBrightness eventPreferences = event._eventPreferencesBrightness;
+
+                eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BRIGHTNESS_ENABLED)) == 1);
+                eventPreferences._operator = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR));
+                eventPreferences._brightnessLevel = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL));
+                eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED)));
+            }
+            cursor.close();
+        }
+    }
+
     // this is called only from getEvent and getAllEvents
     // for this is not needed to calling importExportLock.lock();
     static private void getEventPreferences(Event event, SQLiteDatabase db) {
@@ -1449,6 +1475,7 @@ class DatabaseHandlerEvents {
         getEventPreferencesActivatedProfile(event, db);
         getEventPreferencesRoaming(event, db);
         getEventPreferencesVPN(event, db);
+        getEventPreferencesBrightness(event, db);
     }
 
     static private void updateEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -1892,6 +1919,22 @@ class DatabaseHandlerEvents {
                 new String[] { String.valueOf(event._id) });
     }
 
+    static private void updateEventPreferencesBrightness(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesBrightness eventPreferences = event._eventPreferencesBrightness;
+
+        values.put(DatabaseHandler.KEY_E_BRIGHTNESS_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR, eventPreferences._operator);
+        values.put(DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL, eventPreferences._brightnessLevel);
+        values.put(DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED, eventPreferences.getSensorPassed());
+
+        // updating row
+        db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+    }
+
+
     // this is called only from addEvent and updateEvent.
     // for this is not needed to calling importExportLock.lock();
     static private void updateEventPreferences(Event event, SQLiteDatabase db) {
@@ -1919,6 +1962,7 @@ class DatabaseHandlerEvents {
         updateEventPreferencesActivatedProfile(event, db);
         updateEventPreferencesRoaming(event, db);
         updateEventPreferencesVPN(event, db);
+        updateEventPreferencesBrightness(event, db);
     }
 
 
@@ -2640,6 +2684,8 @@ class DatabaseHandlerEvents {
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_ROAMING_ENABLED + "=1";
                     else if (eventType == DatabaseHandler.ETYPE_VPN)
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_VPN_ENABLED + "=1";
+                    else if (eventType == DatabaseHandler.ETYPE_BRIGHTNESS)
+                        eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_BRIGHTNESS_ENABLED + "=1";
                 }
 
                 countQuery = "SELECT  count(*) FROM " + DatabaseHandler.TABLE_EVENTS +

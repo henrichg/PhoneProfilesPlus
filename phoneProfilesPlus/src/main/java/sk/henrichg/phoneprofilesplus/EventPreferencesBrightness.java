@@ -19,7 +19,7 @@ class EventPreferencesBrightness extends EventPreferences {
     private static final String PREF_EVENT_BRIGHTNESS_OPERATOR = "eventBrightnessOperator";
     private static final String PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL = "eventBrightnessBrightnessLevel";
 
-    private static final String PREF_EVENT_SCREEN_CATEGORY = "eventBrightnessCategoryRoot";
+    private static final String PREF_EVENT_BRIGHTNESS_CATEGORY = "eventBrightnessCategoryRoot";
 
     EventPreferencesBrightness(Event event,
                                boolean enabled,
@@ -61,7 +61,7 @@ class EventPreferencesBrightness extends EventPreferences {
 
         if (!this._enabled) {
             if (!addBullet)
-                _value.append(context.getString(R.string.event_preference_sensor_brightness_summary));
+                _value.append(context.getString(R.string.event_preference_brightness_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_BRIGHTNESS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
@@ -71,61 +71,93 @@ class EventPreferencesBrightness extends EventPreferences {
                 }
 
                 String[] operators = context.getResources().getStringArray(R.array.brightnessSensorOperatorValues);
-                int index = Arrays.asList(operators).indexOf(Integer.toString(this._operator);
+                int index = Arrays.asList(operators).indexOf(Integer.toString(this._operator));
                 if (index != -1) {
                     _value.append(context.getString(R.string.event_preferences_brightness_operator)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] operatorNames = context.getResources().getStringArray(R.array.brightnessSensorOperatorArray);
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(operatorNames[index], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
+                String value = this._brightnessLevel;
+                boolean automatic = ProfileStatic.getDeviceBrightnessAutomatic(value);
+                boolean changeLevel = ProfileStatic.getDeviceBrightnessChangeLevel(value);
+                int iValue = ProfileStatic.getDeviceBrightnessValue(value);
+                String summaryString;
+                if (automatic)
+                {
+                    //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
+                    summaryString = context.getString(R.string.preference_profile_adaptiveBrightness);
+                    //else
+                    //    summaryString = _context.getString(R.string.preference_profile_autoBrightness);
+                } else
+                    summaryString = context.getString(R.string.preference_profile_manual_brightness);
 
-                if (this._whenUnlocked) {
-                    if (this._eventType == EventPreferencesBrightness.ETYPE_SCREENON)
-                        _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenUnlocked), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
-                    else
-                        _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenLocked), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                if (changeLevel /*&& (adaptiveAllowed || !automatic)*/) {
+                    String __value = iValue + "/100";
+                    summaryString = summaryString + "; " + __value;
                 }
+                _value.append(context.getString(R.string.event_preference_brightness_summary)).append(StringConstants.STR_COLON_WITH_SPACE);
+                _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(summaryString, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+
             }
         }
 
         return _value.toString();
     }
 
-    private void setSummary(PreferenceManager prefMng, String key, String value/*, Context context*/)
+    private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (preferences == null)
             return;
 
-        if (key.equals(PREF_EVENT_SCREEN_ENABLED)) {
+        if (key.equals(PREF_EVENT_BRIGHTNESS_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
-        if (key.equals(PREF_EVENT_SCREEN_EVENT_TYPE))
+        if (key.equals(PREF_EVENT_BRIGHTNESS_OPERATOR))
         {
             PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-
-                int typeValue = Integer.parseInt(listPreference.getValue());
-                setWhenUnlockedTitle(prefMng, typeValue);
             }
         }
-        if (key.equals(PREF_EVENT_SCREEN_WHEN_UNLOCKED)) {
-            SwitchPreferenceCompat preference = prefMng.findPreference(key);
+
+        if (key.equals(PREF_EVENT_BRIGHTNESS_OPERATOR))
+        {
+            Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
+                boolean automatic = ProfileStatic.getDeviceBrightnessAutomatic(value);
+                boolean changeLevel = ProfileStatic.getDeviceBrightnessChangeLevel(value);
+                int iValue = ProfileStatic.getDeviceBrightnessValue(value);
+
+                String summaryString;
+                if (automatic)
+                {
+                    //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
+                    summaryString = context.getString(R.string.preference_profile_adaptiveBrightness);
+                    //else
+                    //    summaryString = _context.getString(R.string.preference_profile_autoBrightness);
+                } else
+                    summaryString = context.getString(R.string.preference_profile_manual_brightness);
+
+                if (changeLevel /*&& (adaptiveAllowed || !automatic)*/) {
+                    String __value = iValue + "/100";
+                    summaryString = summaryString + "; " + __value;
+                }
+
+                preference.setSummary(summaryString);
             }
         }
     }
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences,
-                    @SuppressWarnings("unused") Context context)
+                    Context context)
     {
         if (preferences == null)
             return;
@@ -134,32 +166,32 @@ class EventPreferencesBrightness extends EventPreferences {
         if (preference == null)
             return;
 
-        if (key.equals(PREF_EVENT_SCREEN_ENABLED) ||
-            key.equals(PREF_EVENT_SCREEN_WHEN_UNLOCKED)) {
+        if (key.equals(PREF_EVENT_BRIGHTNESS_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING/*, context*/);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
-        if (key.equals(PREF_EVENT_SCREEN_EVENT_TYPE))
+        if (key.equals(PREF_EVENT_BRIGHTNESS_OPERATOR) ||
+                key.equals(PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL))
         {
-            setSummary(prefMng, key, preferences.getString(key, "")/*, context*/);
+            setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
     }
 
     void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences, context);
-        setSummary(prefMng, PREF_EVENT_SCREEN_EVENT_TYPE, preferences, context);
-        setSummary(prefMng, PREF_EVENT_SCREEN_WHEN_UNLOCKED, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_ENABLED, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_OPERATOR, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SCREEN_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_BRIGHTNESS_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            EventPreferencesBrightness tmp = new EventPreferencesBrightness(this._event, this._enabled, this._eventType, this._whenUnlocked);
+            EventPreferencesBrightness tmp = new EventPreferencesBrightness(this._event, this._enabled, this._operator, this._brightnessLevel);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
-            Preference preference = prefMng.findPreference(PREF_EVENT_SCREEN_CATEGORY);
+            Preference preference = prefMng.findPreference(PREF_EVENT_BRIGHTNESS_CATEGORY);
             if (preference != null) {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_SCREEN_ENABLED, false);
                 boolean permissionGranted = true;
@@ -173,7 +205,7 @@ class EventPreferencesBrightness extends EventPreferences {
             }
         }
         else {
-            Preference preference = prefMng.findPreference(PREF_EVENT_SCREEN_CATEGORY);
+            Preference preference = prefMng.findPreference(PREF_EVENT_BRIGHTNESS_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
                         StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
@@ -187,7 +219,8 @@ class EventPreferencesBrightness extends EventPreferences {
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
-            if (prefMng.findPreference(PREF_EVENT_SCREEN_ENABLED) != null) {
+            if (prefMng.findPreference(PREF_EVENT_BRIGHTNESS_ENABLED) != null) {
+                /*
                 final Preference eventTypePreference = prefMng.findPreference(PREF_EVENT_SCREEN_EVENT_TYPE);
                 final PreferenceManager _prefMng = prefMng;
 
@@ -205,13 +238,15 @@ class EventPreferencesBrightness extends EventPreferences {
                         return true;
                     });
                 }
+                */
 
-                setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences, context);
+                setSummary(prefMng, PREF_EVENT_BRIGHTNESS_ENABLED, preferences, context);
             }
         }
         setCategorySummary(prefMng, preferences, context);
     }
 
+    /*
     private void setWhenUnlockedTitle(PreferenceManager prefMng, int eventTypeValue)
     {
         final SwitchPreferenceCompat whenUnlockedPreference = prefMng.findPreference(PREF_EVENT_SCREEN_WHEN_UNLOCKED);
@@ -223,6 +258,7 @@ class EventPreferencesBrightness extends EventPreferences {
                 whenUnlockedPreference.setTitle(R.string.event_preferences_screen_start_when_locked);
         }
     }
+    */
 
     /*
     @Override
