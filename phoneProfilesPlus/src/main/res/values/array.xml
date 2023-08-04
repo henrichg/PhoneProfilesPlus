@@ -1643,5 +1643,21 @@
         <item>5</item>
         <item>6</item>
     </string-array>
+    <string-array name="brightnessSensorOperatorArray">
+        <item>@string/array_pref_volumesSensorOperator_equalsTo</item>
+        <item>@string/array_pref_volumesSensorOperator_doNotEqualsTo</item>
+        <item>@string/array_pref_volumesSensorOperator_islessThen</item>
+        <item>@string/array_pref_volumesSensorOperator_isGreaterThen</item>
+        <item>@string/array_pref_volumesSensorOperator_isLessOrEqualTo</item>
+        <item>@string/array_pref_volumesSensorOperator_isGreaterOrEqualTo</item>
+    </string-array>
+    <string-array name="brightnessSensorOperatorValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 
 </resources>

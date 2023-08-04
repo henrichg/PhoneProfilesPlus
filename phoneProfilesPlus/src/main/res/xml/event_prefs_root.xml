@@ -238,6 +238,14 @@
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsScreenParameters" />
 
         <Preference
+            app:title="@string/event_preferences_category_eventBrightnessParameters"
+            app:summary="@string/event_preference_sensor_brightness_summary"
+            app:key="eventBrightnessCategoryRoot"
+            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsBrightnessParameters" />
+
+        <Preference
             app:key="eventNotificationCategoryRoot"
             app:title="@string/event_preferences_category_eventNotificationsParameters"
             app:summary="@string/event_preference_sensor_notification_summary"

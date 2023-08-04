@@ -2331,6 +2331,10 @@ class DatabaseHandlerEvents {
                         sensorPassed = event._eventPreferencesScreen.getSensorPassed();
                         sensorPassedField = DatabaseHandler.KEY_E_SCREEN_SENSOR_PASSED;
                         break;
+                    case DatabaseHandler.ETYPE_BRIGHTNESS:
+                        sensorPassed = event._eventPreferencesBrightness.getSensorPassed();
+                        sensorPassedField = DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED;
+                        break;
                     case DatabaseHandler.ETYPE_SMS:
                         sensorPassed = event._eventPreferencesSMS.getSensorPassed();
                         sensorPassedField = DatabaseHandler.KEY_E_SMS_SENSOR_PASSED;
@@ -2438,6 +2442,7 @@ class DatabaseHandlerEvents {
                 values.put(DatabaseHandler.KEY_E_ACCESSORY_SENSOR_PASSED, event._eventPreferencesAccessories.getSensorPassed());
                 values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_SENSOR_PASSED, event._eventPreferencesRadioSwitch.getSensorPassed());
                 values.put(DatabaseHandler.KEY_E_SCREEN_SENSOR_PASSED, event._eventPreferencesScreen.getSensorPassed());
+                values.put(DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED, event._eventPreferencesBrightness.getSensorPassed());
                 values.put(DatabaseHandler.KEY_E_SMS_SENSOR_PASSED, event._eventPreferencesSMS.getSensorPassed());
                 values.put(DatabaseHandler.KEY_E_TIME_SENSOR_PASSED, event._eventPreferencesTime.getSensorPassed());
                 values.put(DatabaseHandler.KEY_E_ALARM_CLOCK_SENSOR_PASSED, event._eventPreferencesAlarmClock.getSensorPassed());

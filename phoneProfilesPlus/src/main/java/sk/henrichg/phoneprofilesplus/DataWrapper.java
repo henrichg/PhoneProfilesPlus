@@ -2620,6 +2620,9 @@ public class DataWrapper {
                         case DatabaseHandler.ETYPE_SCREEN:
                             sensorEnabled = _event._eventPreferencesScreen._enabled;
                             break;
+                        case DatabaseHandler.ETYPE_BRIGHTNESS:
+                            sensorEnabled = _event._eventPreferencesBrightness._enabled;
+                            break;
                         case DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED:
                             sensorEnabled = _event._eventPreferencesBluetooth._enabled;
                             sensorEnabled = sensorEnabled &&

@@ -287,6 +287,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BRIGHTNESS);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
                 }
 
@@ -326,6 +327,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BRIGHTNESS);
                 }
 
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPAppNotification.drawNotification");
@@ -342,6 +344,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BRIGHTNESS);
                 }
 
                 break;

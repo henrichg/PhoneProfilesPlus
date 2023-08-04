@@ -50,6 +50,7 @@ class EventsHandler {
     boolean notAllowedCalendar;
     boolean notAllowedWifi;
     boolean notAllowedScreen;
+    boolean notAllowedBrightness;
     boolean notAllowedBluetooth;
     boolean notAllowedSms;
     boolean notAllowedNotification;
@@ -75,6 +76,7 @@ class EventsHandler {
     boolean calendarPassed;
     boolean wifiPassed;
     boolean screenPassed;
+    boolean brightnessPassed;
     boolean bluetoothPassed;
     boolean smsPassed;
     boolean notificationPassed;
@@ -146,6 +148,7 @@ class EventsHandler {
     static final int SENSOR_TYPE_VPN = 51;
     static final int SENSOR_TYPE_SIM_STATE_CHANGED = 52;
     static final int SENSOR_TYPE_BOOT_COMPLETED = 53;
+    static final int SENSOR_TYPE_BRIGHTNESS = 54;
     static final int SENSOR_TYPE_ALL = 999;
 
     public EventsHandler(Context context) {
@@ -753,9 +756,8 @@ class EventsHandler {
     private boolean alwaysEnabledSensors (int sensorType) {
         switch (sensorType) {
             case SENSOR_TYPE_SCREEN:
+            case SENSOR_TYPE_BRIGHTNESS:
                 // call doHandleEvents for all screen on/off changes
-                //eventType = DatabaseHandler.ETYPE_SCREEN;
-                //sensorEnabled = _event._eventPreferencesScreen._enabled;
             case SENSOR_TYPE_PERIODIC_EVENTS_HANDLER:
             case SENSOR_TYPE_RESTART_EVENTS:
             case SENSOR_TYPE_MANUAL_RESTART_EVENTS:
@@ -843,6 +845,8 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_VOLUMES;
             case SENSOR_TYPE_SCREEN:
                 return DatabaseHandler.ETYPE_SCREEN;
+            case SENSOR_TYPE_BRIGHTNESS:
+                return DatabaseHandler.ETYPE_BRIGHTNESS;
             default:
                 return DatabaseHandler.ETYPE_ALL;
         }
@@ -943,6 +947,7 @@ class EventsHandler {
         notAllowedCalendar = false;
         notAllowedWifi = false;
         notAllowedScreen = false;
+        notAllowedBrightness = false;
         notAllowedBluetooth = false;
         notAllowedSms = false;
         notAllowedNotification = false;
@@ -968,6 +973,7 @@ class EventsHandler {
         calendarPassed = true;
         wifiPassed = true;
         screenPassed = true;
+        brightnessPassed = true;
         bluetoothPassed = true;
         smsPassed = true;
         notificationPassed = true;
@@ -993,6 +999,7 @@ class EventsHandler {
         event._eventPreferencesCalendar.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesWifi.doHandleEvent(this, forRestartEvents);
         event._eventPreferencesScreen.doHandleEvent(this/*, forRestartEvents*/);
+        event._eventPreferencesBrightness.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesBluetooth.doHandleEvent(this, forRestartEvents);
         event._eventPreferencesSMS.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesNotification.doHandleEvent(this/*, forRestartEvents*/);
@@ -1061,6 +1068,13 @@ class EventsHandler {
             anySensorEnabled = true;
             if (!notAllowedScreen)
                 allPassed &= screenPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesBrightness._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedBrightness)
+                allPassed &= brightnessPassed;
             else
                 someNotAllowed = true;
         }

@@ -68,6 +68,7 @@ class Event {
     EventPreferencesCalendar _eventPreferencesCalendar;
     EventPreferencesWifi _eventPreferencesWifi;
     EventPreferencesScreen _eventPreferencesScreen;
+    EventPreferencesBrightness _eventPreferencesBrightness;
     EventPreferencesBluetooth _eventPreferencesBluetooth;
     EventPreferencesSMS _eventPreferencesSMS;
     EventPreferencesNotification _eventPreferencesNotification;
@@ -355,6 +356,12 @@ class Event {
         this._eventPreferencesScreen = new EventPreferencesScreen(this, false, 1, false);
     }
 
+    private void createEventPreferencesBrightness()
+    {
+        this._eventPreferencesBrightness = new EventPreferencesBrightness(this, false, 0, "50|0|1|0");
+    }
+
+
     private void createEventPreferencesBluetooth()
     {
         this._eventPreferencesBluetooth = new EventPreferencesBluetooth(this, false, "", 1/*, 0*/);
@@ -492,6 +499,8 @@ class Event {
             createEventPreferencesWiFi();
         if (this._eventPreferencesScreen == null)
             createEventPreferencesScreen();
+        if (this._eventPreferencesBrightness == null)
+            createEventPreferencesBrightness();
         if (this._eventPreferencesBluetooth == null)
             createEventPreferencesBluetooth();
         if (this._eventPreferencesSMS == null)
@@ -533,6 +542,7 @@ class Event {
         this._eventPreferencesCalendar.copyPreferences(fromEvent);
         this._eventPreferencesWifi.copyPreferences(fromEvent);
         this._eventPreferencesScreen.copyPreferences(fromEvent);
+        this._eventPreferencesBrightness.copyPreferences(fromEvent);
         this._eventPreferencesBluetooth.copyPreferences(fromEvent);
         this._eventPreferencesSMS.copyPreferences(fromEvent);
         this._eventPreferencesNotification.copyPreferences(fromEvent);
@@ -568,6 +578,8 @@ class Event {
                         (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesScreen._enabled &&
                         (EventStatic.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesBrightness._enabled &&
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesBluetooth._enabled &&
                         (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesSMS._enabled &&
@@ -643,6 +655,8 @@ class Event {
             runnable = runnable && this._eventPreferencesWifi.isRunnable(appContext);
         if (this._eventPreferencesScreen._enabled)
             runnable = runnable && this._eventPreferencesScreen.isRunnable(appContext);
+        if (this._eventPreferencesBrightness._enabled)
+            runnable = runnable && this._eventPreferencesBrightness.isRunnable(appContext);
         if (this._eventPreferencesBluetooth._enabled)
             runnable = runnable && this._eventPreferencesBluetooth.isRunnable(appContext);
         if (this._eventPreferencesSMS._enabled)
@@ -693,6 +707,7 @@ class Event {
                             this._eventPreferencesCalendar._enabled ||
                             this._eventPreferencesWifi._enabled ||
                             this._eventPreferencesScreen._enabled ||
+                            this._eventPreferencesBrightness._enabled ||
                             this._eventPreferencesBluetooth._enabled ||
                             this._eventPreferencesSMS._enabled ||
                             this._eventPreferencesNotification._enabled ||
@@ -726,6 +741,8 @@ class Event {
                 accessibilityEnabled = this._eventPreferencesWifi.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesScreen._enabled)
                 accessibilityEnabled = this._eventPreferencesScreen.isAccessibilityServiceEnabled(context, againCheckInDelay);
+            if (this._eventPreferencesBrightness._enabled)
+                accessibilityEnabled = this._eventPreferencesBrightness.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesBluetooth._enabled)
                 accessibilityEnabled = this._eventPreferencesBluetooth.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesSMS._enabled)
@@ -805,6 +822,7 @@ class Event {
         this._eventPreferencesCalendar.loadSharedPreferences(preferences);
         this._eventPreferencesWifi.loadSharedPreferences(preferences);
         this._eventPreferencesScreen.loadSharedPreferences(preferences);
+        this._eventPreferencesBrightness.loadSharedPreferences(preferences);
         this._eventPreferencesBluetooth.loadSharedPreferences(preferences);
         this._eventPreferencesSMS.loadSharedPreferences(preferences);
         this._eventPreferencesNotification.loadSharedPreferences(preferences);
@@ -869,6 +887,7 @@ class Event {
         this._eventPreferencesCalendar.saveSharedPreferences(preferences);
         this._eventPreferencesWifi.saveSharedPreferences(preferences);
         this._eventPreferencesScreen.saveSharedPreferences(preferences);
+        this._eventPreferencesBrightness.saveSharedPreferences(preferences);
         this._eventPreferencesBluetooth.saveSharedPreferences(preferences);
         this._eventPreferencesSMS.saveSharedPreferences(preferences);
         this._eventPreferencesNotification.saveSharedPreferences(preferences);
@@ -1328,6 +1347,8 @@ class Event {
             _eventPreferencesWifi.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesScreen.setSummary(prefMng, key, preferences, context);
             _eventPreferencesScreen.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesBrightness.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesBrightness.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesBluetooth.setSummary(prefMng, key, preferences, context);
             _eventPreferencesBluetooth.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesSMS.setSummary(prefMng, key, preferences, context);
@@ -1413,6 +1434,8 @@ class Event {
         _eventPreferencesWifi.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesScreen.setAllSummary(prefMng, preferences, context);
         _eventPreferencesScreen.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesBrightness.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesBrightness.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesBluetooth.setAllSummary(prefMng, preferences, context);
         _eventPreferencesBluetooth.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesSMS.setAllSummary(prefMng, preferences, context);
@@ -1543,6 +1566,12 @@ class Event {
                 _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
+        if (_eventPreferencesBrightness._enabled) {
+            String desc = _eventPreferencesBrightness.getPreferencesDescription(true, addPassStatus, false, context);
+            if (desc != null)
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
+        }
+
         if (_eventPreferencesNotification._enabled) {
             String desc = _eventPreferencesNotification.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
@@ -1611,6 +1640,7 @@ class Event {
         _eventPreferencesCalendar.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesWifi.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesScreen.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesBrightness.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesBluetooth.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesSMS.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesNotification.checkPreferences(prefMng, onlyCategory, context);
@@ -2321,6 +2351,7 @@ class Event {
         _eventPreferencesAccessories.setSensorPassed(_eventPreferencesAccessories.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesRadioSwitch.setSensorPassed(_eventPreferencesRadioSwitch.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesScreen.setSensorPassed(_eventPreferencesScreen.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesBrightness.setSensorPassed(_eventPreferencesBrightness.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesSMS.setSensorPassed(_eventPreferencesSMS.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesTime.setSensorPassed(_eventPreferencesTime.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesWifi.setSensorPassed(_eventPreferencesWifi.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
@@ -2347,6 +2378,7 @@ class Event {
             _eventPreferencesCalendar.setSystemEventForStart(context);
             _eventPreferencesWifi.setSystemEventForStart(context);
             _eventPreferencesScreen.setSystemEventForStart(context);
+            _eventPreferencesBrightness.setSystemEventForStart(context);
             _eventPreferencesBluetooth.setSystemEventForStart(context);
             _eventPreferencesSMS.setSystemEventForStart(context);
             _eventPreferencesNotification.setSystemEventForStart(context);
@@ -2377,6 +2409,7 @@ class Event {
             _eventPreferencesCalendar.setSystemEventForPause(context);
             _eventPreferencesWifi.setSystemEventForPause(context);
             _eventPreferencesScreen.setSystemEventForPause(context);
+            _eventPreferencesBrightness.setSystemEventForPause(context);
             _eventPreferencesBluetooth.setSystemEventForPause(context);
             _eventPreferencesSMS.setSystemEventForPause(context);
             _eventPreferencesNotification.setSystemEventForPause(context);
@@ -2407,6 +2440,7 @@ class Event {
             _eventPreferencesCalendar.removeSystemEvent(context);
             _eventPreferencesWifi.removeSystemEvent(context);
             _eventPreferencesScreen.removeSystemEvent(context);
+            _eventPreferencesBrightness.removeSystemEvent(context);
             _eventPreferencesBluetooth.removeSystemEvent(context);
             _eventPreferencesSMS.removeSystemEvent(context);
             _eventPreferencesNotification.removeSystemEvent(context);
