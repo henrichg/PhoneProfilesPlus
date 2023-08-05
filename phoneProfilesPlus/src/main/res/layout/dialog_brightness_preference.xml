@@ -63,7 +63,7 @@
                 android:text="@string/brightness_pref_dialog_automatic_chb" />
 
             <View
-                android:id="@+id/nfc_tag_pref_dlg_buttonBarDivider"
+                android:id="@+id/brightnessPrefDialogCheckBoxesDivider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginTop="5dp"

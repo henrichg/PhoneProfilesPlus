@@ -22,12 +22,14 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
     private BrightnessDialogPreference preference;
 
     // Layout widgets.
+    CheckBox noChangeChBox = null;
     private SeekBar seekBar = null;
     private TextView valueText = null;
     private CheckBox automaticChBox = null;
     //private CheckBox sharedProfileChBox = null;
     private CheckBox changeLevelChBox = null;
     private TextView levelText = null;
+    private View checkBoxesDivider = null;
 
     private final Handler savedBrightnessHandler = new Handler(Looper.getMainLooper());
     private final Runnable savedBrightnessRunnable = this::setSavedBrightness;
@@ -52,11 +54,12 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
 
         seekBar = view.findViewById(R.id.brightnessPrefDialogSeekbar);
         valueText = view.findViewById(R.id.brightnessPrefDialogValueText);
-        CheckBox noChangeChBox = view.findViewById(R.id.brightnessPrefDialogNoChange);
+        noChangeChBox = view.findViewById(R.id.brightnessPrefDialogNoChange);
         automaticChBox = view.findViewById(R.id.brightnessPrefDialogAutomatic);
         //sharedProfileChBox = view.findViewById(R.id.brightnessPrefDialogSharedProfile);
         changeLevelChBox = view.findViewById(R.id.brightnessPrefDialogLevel);
         levelText = view.findViewById(R.id.brightnessPrefDialogAdaptiveLevelRoot);
+        checkBoxesDivider = view.findViewById(R.id.brightnessPrefDialogCheckBoxesDivider);
 
 
         //if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
@@ -129,10 +132,11 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-        if (buttonView.getId() == R.id.brightnessPrefDialogNoChange)
-        {
-            preference.noChange = (isChecked)? 1 : 0;
+        if (buttonView.getId() == R.id.brightnessPrefDialogNoChange) {
+            if (preference.forBrightnessSensor == 0)
+                preference.noChange = (isChecked) ? 1 : 0;
+            else
+                preference.noChange = 0;
 
             enableViews();
 
@@ -152,16 +156,20 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
         }
         */
 
-        if (buttonView.getId() == R.id.brightnessPrefDialogAutomatic)
-        {
-            preference.automatic = (isChecked)? 1 : 0;
+        if (buttonView.getId() == R.id.brightnessPrefDialogAutomatic) {
+            if (preference.forBrightnessSensor == 0)
+                preference.automatic = (isChecked) ? 1 : 0;
+            else
+                preference.automatic = 0;
 
             enableViews();
         }
 
-        if (buttonView.getId() == R.id.brightnessPrefDialogLevel)
-        {
-            preference.changeLevel = (isChecked)? 1 : 0;
+        if (buttonView.getId() == R.id.brightnessPrefDialogLevel) {
+            if (preference.forBrightnessSensor == 0)
+                preference.changeLevel = (isChecked) ? 1 : 0;
+            else
+                preference.changeLevel = 1;
 
             enableViews();
         }
@@ -274,7 +282,12 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
     void enableViews() {
         if (Permissions.checkScreenBrightness(context, null)) {
             if (preference.forBrightnessSensor == 0) {
+                noChangeChBox.setVisibility(View.VISIBLE);
                 changeLevelChBox.setVisibility(View.VISIBLE);
+                automaticChBox.setVisibility(View.VISIBLE);
+                changeLevelChBox.setVisibility(View.VISIBLE);
+                levelText.setVisibility(View.VISIBLE);
+                checkBoxesDivider.setVisibility(View.VISIBLE);
 
                 valueText.setEnabled(/*(preference.adaptiveAllowed || preference.automatic == 0) &&*/ (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
                 seekBar.setEnabled(/*(preference.adaptiveAllowed || preference.automatic == 0) &&*/ (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
@@ -288,7 +301,12 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
                 //}
                 levelText.setEnabled((preference.automatic != 0) && (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
             } else {
+                noChangeChBox.setVisibility(View.GONE);
                 changeLevelChBox.setVisibility(View.GONE);
+                automaticChBox.setVisibility(View.GONE);
+                changeLevelChBox.setVisibility(View.GONE);
+                levelText.setVisibility(View.GONE);
+                checkBoxesDivider.setVisibility(View.GONE);
 
                 valueText.setEnabled(preference.changeLevel != 0);
                 seekBar.setEnabled(preference.changeLevel != 0);
@@ -298,9 +316,19 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
             }
         } else {
             if (preference.forBrightnessSensor == 0) {
+                noChangeChBox.setVisibility(View.VISIBLE);
                 changeLevelChBox.setVisibility(View.VISIBLE);
+                automaticChBox.setVisibility(View.VISIBLE);
+                changeLevelChBox.setVisibility(View.VISIBLE);
+                levelText.setVisibility(View.VISIBLE);
+                checkBoxesDivider.setVisibility(View.VISIBLE);
             } else {
+                noChangeChBox.setVisibility(View.GONE);
                 changeLevelChBox.setVisibility(View.GONE);
+                automaticChBox.setVisibility(View.GONE);
+                changeLevelChBox.setVisibility(View.GONE);
+                levelText.setVisibility(View.GONE);
+                checkBoxesDivider.setVisibility(View.GONE);
             }
 
             valueText.setEnabled(false);

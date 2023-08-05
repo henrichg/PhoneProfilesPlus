@@ -310,6 +310,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
+        if (preference instanceof BrightnessDialogPreference)
+        {
+            ((BrightnessDialogPreference)preference).fragment = new BrightnessDialogPreferenceFragment();
+            dialogFragment = ((BrightnessDialogPreference)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null) {
             if ((getActivity() != null) && (!getActivity().isFinishing())) {
@@ -1444,6 +1453,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     preference.setNFCTagFromEditor(tagName, "", tagDbId);
                 }
             }
+        }
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG)) {
+            BrightnessDialogPreference preference = prefMng.findPreference(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL);
+            if (preference != null)
+                preference.enableViews();
         }
     }
 

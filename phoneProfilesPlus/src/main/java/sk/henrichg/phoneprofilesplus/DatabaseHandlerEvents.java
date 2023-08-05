@@ -2246,6 +2246,9 @@ class DatabaseHandlerEvents {
                         case DatabaseHandler.ETYPE_SCREEN:
                             sensorPassedField = DatabaseHandler.KEY_E_SCREEN_SENSOR_PASSED;
                             break;
+                        case DatabaseHandler.ETYPE_BRIGHTNESS:
+                            sensorPassedField = DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED;
+                            break;
                         case DatabaseHandler.ETYPE_SMS:
                             sensorPassedField = DatabaseHandler.KEY_E_SMS_SENSOR_PASSED;
                             break;
@@ -2546,6 +2549,7 @@ class DatabaseHandlerEvents {
                 values.put(DatabaseHandler.KEY_E_ACCESSORY_SENSOR_PASSED, sensorPassed);
                 values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_SENSOR_PASSED, sensorPassed);
                 values.put(DatabaseHandler.KEY_E_SCREEN_SENSOR_PASSED, sensorPassed);
+                values.put(DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED, sensorPassed);
                 values.put(DatabaseHandler.KEY_E_SMS_SENSOR_PASSED, sensorPassed);
                 values.put(DatabaseHandler.KEY_E_TIME_SENSOR_PASSED, sensorPassed);
                 values.put(DatabaseHandler.KEY_E_ALARM_CLOCK_SENSOR_PASSED, sensorPassed);

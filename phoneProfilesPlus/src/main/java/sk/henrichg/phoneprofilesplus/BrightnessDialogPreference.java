@@ -47,19 +47,19 @@ public class BrightnessDialogPreference extends DialogPreference {
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.PPBrightnessDialogPreference);
 
+        forBrightnessSensor = typedArray.getInteger(
+                R.styleable.PPBrightnessDialogPreference_bForBrightnessSensor, 0);
+
         noChange = typedArray.getInteger(
-                R.styleable.PPBrightnessDialogPreference_bNoChange, 1);
+                R.styleable.PPBrightnessDialogPreference_bNoChange, (forBrightnessSensor == 0) ? 1 : 0);
         automatic = typedArray.getInteger(
-                R.styleable.PPBrightnessDialogPreference_bAutomatic, 1);
+                R.styleable.PPBrightnessDialogPreference_bAutomatic, (forBrightnessSensor == 0) ? 1 : 0);
         /*sharedProfile = typedArray.getInteger(
                 R.styleable.BrightnessDialogPreference_bSharedProfile, 0);
         disableSharedProfile = typedArray.getInteger(
                 R.styleable.BrightnessDialogPreference_bDisableSharedProfile, 0);*/
         changeLevel = typedArray.getInteger(
                 R.styleable.PPBrightnessDialogPreference_bChangeLevel, 1);
-
-        forBrightnessSensor = typedArray.getInteger(
-                R.styleable.PPBrightnessDialogPreference_bForBrightnessSensor, 0);
 
         typedArray.recycle();
 
@@ -117,24 +117,30 @@ public class BrightnessDialogPreference extends DialogPreference {
             value = 50;
         }
         //value = value - minimumValue;
-        try {
-            noChange = Integer.parseInt(splits[1]);
-        } catch (Exception e) {
-            noChange = 1;
-        }
-        try {
-            automatic = Integer.parseInt(splits[2]);
-        } catch (Exception e) {
-            automatic = 1;
-        }
-        /*try {
-            sharedProfile = Integer.parseInt(splits[3]);
-        } catch (Exception e) {
-            sharedProfile = 0;
-        }*/
-        try {
-            changeLevel = Integer.parseInt(splits[4]);
-        } catch (Exception e) {
+        if (forBrightnessSensor == 0) {
+            try {
+                noChange = Integer.parseInt(splits[1]);
+            } catch (Exception e) {
+                noChange = 1;
+            }
+            try {
+                automatic = Integer.parseInt(splits[2]);
+            } catch (Exception e) {
+                automatic = 1;
+            }
+            /*try {
+                sharedProfile = Integer.parseInt(splits[3]);
+            } catch (Exception e) {
+                sharedProfile = 0;
+            }*/
+            try {
+                changeLevel = Integer.parseInt(splits[4]);
+            } catch (Exception e) {
+                changeLevel = 1;
+            }
+        } else {
+            noChange = 0;
+            automatic = 0;
             changeLevel = 1;
         }
 
@@ -149,27 +155,28 @@ public class BrightnessDialogPreference extends DialogPreference {
     private void setSummaryBDP()
     {
         String prefVolumeDataSummary;
-        if ((forBrightnessSensor == 0) && (noChange == 1))
-            prefVolumeDataSummary = _context.getString(R.string.preference_profile_no_change);
-        /*else
-        if (sharedProfile == 1)
+        if (forBrightnessSensor == 0) {
+            if (noChange == 1)
+                prefVolumeDataSummary = _context.getString(R.string.preference_profile_no_change);
+            /*else
+            if (sharedProfile == 1)
             prefVolumeDataSummary = _context.getString(R.string.preference_profile_default_profile);*/
-        else
-        {
-            if (automatic == 1)
-            {
-                //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
+            else {
+                if (automatic == 1) {
+                    //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
                     prefVolumeDataSummary = _context.getString(R.string.preference_profile_adaptiveBrightness);
-                //else
-                //    prefVolumeDataSummary = _context.getString(R.string.preference_profile_autoBrightness);
-            }
-            else
-                prefVolumeDataSummary = _context.getString(R.string.preference_profile_manual_brightness);
+                    //else
+                    //    prefVolumeDataSummary = _context.getString(R.string.preference_profile_autoBrightness);
+                } else
+                    prefVolumeDataSummary = _context.getString(R.string.preference_profile_manual_brightness);
 
-            if ((changeLevel == 1) /*&& (adaptiveAllowed || automatic == 0)*/) {
-                String _value = value + " / " + maximumValue;
-                prefVolumeDataSummary = prefVolumeDataSummary + "; " + _value;
+                if ((changeLevel == 1) /*&& (adaptiveAllowed || automatic == 0)*/) {
+                    String _value = value + " / " + maximumValue;
+                    prefVolumeDataSummary = prefVolumeDataSummary + "; " + _value;
+                }
             }
+        } else {
+            prefVolumeDataSummary = value + " / " + maximumValue;
         }
         setSummary(prefVolumeDataSummary);
     }

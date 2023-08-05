@@ -464,6 +464,7 @@ class Event {
         createEventPreferencesCalendar();
         createEventPreferencesWiFi();
         createEventPreferencesScreen();
+        createEventPreferencesBrightness();
         createEventPreferencesBluetooth();
         createEventPreferencesSMS();
         createEventPreferencesNotification();

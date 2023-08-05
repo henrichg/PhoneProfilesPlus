@@ -17,7 +17,7 @@ class EventPreferencesBrightness extends EventPreferences {
 
     static final String PREF_EVENT_BRIGHTNESS_ENABLED = "eventBrightnessEnabled";
     private static final String PREF_EVENT_BRIGHTNESS_OPERATOR = "eventBrightnessOperator";
-    private static final String PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL = "eventBrightnessBrightnessLevel";
+    static final String PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL = "eventBrightnessBrightnessLevel";
 
     private static final String PREF_EVENT_BRIGHTNESS_CATEGORY = "eventBrightnessCategoryRoot";
 
@@ -79,25 +79,9 @@ class EventPreferencesBrightness extends EventPreferences {
                 }
 
                 String value = this._brightnessLevel;
-                boolean automatic = ProfileStatic.getDeviceBrightnessAutomatic(value);
-                boolean changeLevel = ProfileStatic.getDeviceBrightnessChangeLevel(value);
                 int iValue = ProfileStatic.getDeviceBrightnessValue(value);
-                String summaryString;
-                if (automatic)
-                {
-                    //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-                    summaryString = context.getString(R.string.preference_profile_adaptiveBrightness);
-                    //else
-                    //    summaryString = _context.getString(R.string.preference_profile_autoBrightness);
-                } else
-                    summaryString = context.getString(R.string.preference_profile_manual_brightness);
-
-                if (changeLevel /*&& (adaptiveAllowed || !automatic)*/) {
-                    String __value = iValue + "/100";
-                    summaryString = summaryString + "; " + __value;
-                }
-                _value.append(context.getString(R.string.event_preference_brightness_summary)).append(StringConstants.STR_COLON_WITH_SPACE);
-                _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(summaryString, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_brightness_level)).append(StringConstants.STR_COLON_WITH_SPACE);
+                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(iValue + "/100", disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
             }
         }
@@ -105,7 +89,7 @@ class EventPreferencesBrightness extends EventPreferences {
         return _value.toString();
     }
 
-    private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key, String value/*, Context context*/)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (preferences == null)
@@ -128,36 +112,18 @@ class EventPreferencesBrightness extends EventPreferences {
             }
         }
 
-        if (key.equals(PREF_EVENT_BRIGHTNESS_OPERATOR))
+        if (key.equals(PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL))
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                boolean automatic = ProfileStatic.getDeviceBrightnessAutomatic(value);
-                boolean changeLevel = ProfileStatic.getDeviceBrightnessChangeLevel(value);
                 int iValue = ProfileStatic.getDeviceBrightnessValue(value);
-
-                String summaryString;
-                if (automatic)
-                {
-                    //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-                    summaryString = context.getString(R.string.preference_profile_adaptiveBrightness);
-                    //else
-                    //    summaryString = _context.getString(R.string.preference_profile_autoBrightness);
-                } else
-                    summaryString = context.getString(R.string.preference_profile_manual_brightness);
-
-                if (changeLevel /*&& (adaptiveAllowed || !automatic)*/) {
-                    String __value = iValue + "/100";
-                    summaryString = summaryString + "; " + __value;
-                }
-
-                preference.setSummary(summaryString);
+                preference.setSummary(iValue + "/100");
             }
         }
     }
 
-    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences,
-                    Context context)
+    /** @noinspection unused*/
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (preferences == null)
             return;
@@ -168,16 +134,17 @@ class EventPreferencesBrightness extends EventPreferences {
 
         if (key.equals(PREF_EVENT_BRIGHTNESS_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING/*, context*/);
         }
         if (key.equals(PREF_EVENT_BRIGHTNESS_OPERATOR) ||
                 key.equals(PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL))
         {
-            setSummary(prefMng, key, preferences.getString(key, ""), context);
+            setSummary(prefMng, key, preferences.getString(key, "")/*, context*/);
         }
     }
 
-    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences,
+                       Context context)
     {
         setSummary(prefMng, PREF_EVENT_BRIGHTNESS_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_BRIGHTNESS_OPERATOR, preferences, context);
