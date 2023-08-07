@@ -499,7 +499,7 @@ public class PhoneCallsListener extends PhoneStateListener {
             //}
         }
 
-        PPExecutors.scheduleDisableInternalChangeExecutor();
+        PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
         PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
         /*PPApplication.startHandlerThreadInternalChangeToFalse();

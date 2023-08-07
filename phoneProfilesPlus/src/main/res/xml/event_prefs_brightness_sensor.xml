@@ -11,9 +11,9 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.PPListPreference
-        app:title="@string/event_preferences_brightness_operator"
+        app:title="@string/event_preferences_brightness_operator_from"
         app:summary="@string/array_pref_volumesSensorOperator_equalsTo"
-        app:key="eventBrightnessOperator"
+        app:key="eventBrightnessOperatorFrom"
         app:defaultValue="0"
         app:ppEntries="@array/brightnessSensorOperatorArray"
         app:ppEntryValues="@array/brightnessSensorOperatorValues"
@@ -21,11 +21,31 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.BrightnessDialogPreference
-        app:key="eventBrightnessBrightnessLevel"
+        app:key="eventBrightnessBrightnessLevelFrom"
         app:bNoChange="0"
         app:bAutomatic="0"
         app:bForBrightnessSensor="1"
-        app:title="@string/event_preferences_brightness_level"
+        app:title="@string/event_preferences_brightness_level_from"
+        app:summary=""
+        app:dependency="eventBrightnessEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/event_preferences_brightness_operator_to"
+        app:summary="@string/array_pref_volumesSensorOperator_equalsTo"
+        app:key="eventBrightnessOperatorTo"
+        app:defaultValue="0"
+        app:ppEntries="@array/brightnessSensorOperatorArray"
+        app:ppEntryValues="@array/brightnessSensorOperatorValues"
+        app:dependency="eventBrightnessEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.BrightnessDialogPreference
+        app:key="eventBrightnessBrightnessLevelTo"
+        app:bNoChange="0"
+        app:bAutomatic="0"
+        app:bForBrightnessSensor="1"
+        app:title="@string/event_preferences_brightness_level_to"
         app:summary=""
         app:dependency="eventBrightnessEnabled"
         app:layout="@layout/mp_preference_material_widget" />

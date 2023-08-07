@@ -3,6 +3,11 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.os.PowerManager;
 
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 import java.util.concurrent.TimeUnit;
 
 class PPExecutors {
@@ -51,7 +56,7 @@ class PPExecutors {
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 30, TimeUnit.SECONDS);
     }
 
-    static void scheduleDisableInternalChangeExecutor() {
+    static void scheduleDisableRingerModeInternalChangeExecutor() {
 //        PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** PPExecutors.scheduleDisableInternalChangeExecutor", "schedule");
 
         //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
@@ -63,6 +68,7 @@ class PPExecutors {
         };
         PPApplicationStatic.createNonBlockedExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+        handleEventsMianWorker(EventsHandler.SENSOR_TYPE_SOUND_PROFILE, MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG, 0);
     }
 
     static void scheduleDisableScreenTimeoutInternalChangeExecutor() {
@@ -77,6 +83,7 @@ class PPExecutors {
         };
         PPApplicationStatic.createNonBlockedExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+        //handleEventsMianWorker(EventsHandler.SENSOR_TYPE_SOUND_PROFILE, MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG, 0);
     }
 
     static void scheduleDisableVolumesInternalChangeExecutor() {
@@ -91,6 +98,7 @@ class PPExecutors {
         };
         PPApplicationStatic.createNonBlockedExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+        handleEventsMianWorker(EventsHandler.SENSOR_TYPE_VOLUMES, MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG, 0);
     }
 
     static void scheduleDisableBrightnessInternalChangeExecutor() {
@@ -105,6 +113,7 @@ class PPExecutors {
         };
         PPApplicationStatic.createNonBlockedExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+        handleEventsMianWorker(EventsHandler.SENSOR_TYPE_BRIGHTNESS, MainWorker.HANDLE_EVENTS_BRIGHTNESS_WORK_TAG, 0);
     }
 
 /*
@@ -214,6 +223,52 @@ class PPExecutors {
         else {
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
+        }
+    }
+
+    /** @noinspection SameParameterValue*/
+    static void handleEventsMianWorker(int _sensorType, String _sensorWorkTag, int delay) {
+        Data workData = new Data.Builder()
+                .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, _sensorType)
+                .build();
+
+        OneTimeWorkRequest worker;
+        if (delay == 0)
+            worker =
+                new OneTimeWorkRequest.Builder(MainWorker.class)
+                        .addTag(_sensorWorkTag)
+                        .setInputData(workData)
+                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                        .build();
+        else
+            worker =
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
+                            .addTag(_sensorWorkTag)
+                            .setInputData(workData)
+                            .setInitialDelay(delay, TimeUnit.SECONDS)
+                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                            .build();
+        try {
+//                            if (PPApplicationStatic.getApplicationStarted(true, true)) {
+            WorkManager workManager = PPApplication.getWorkManagerInstance();
+            if (workManager != null) {
+
+//                            //if (PPApplicationStatic.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+//
+//                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+                //workManager.enqueue(worker);
+                workManager.enqueueUniqueWork(_sensorWorkTag, ExistingWorkPolicy.REPLACE, worker);
+            }
+//                            }
+        } catch (Exception e) {
+            PPApplicationStatic.recordException(e);
         }
     }
 

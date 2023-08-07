@@ -3143,7 +3143,7 @@ class ActivateProfileHelper {
                         setVolumes(appContext, profile, audioManager, systemZenMode, PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
                     }
 
-                    PPExecutors.scheduleDisableInternalChangeExecutor();
+                    PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
                     //DisableVolumesInternalChangeWorker.enqueueWork();
 
                     if (noErrorSetTone) {

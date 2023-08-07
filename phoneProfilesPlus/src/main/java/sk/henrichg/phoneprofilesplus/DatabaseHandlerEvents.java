@@ -1425,8 +1425,10 @@ class DatabaseHandlerEvents {
     static private void getEventPreferencesBrightness(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                 new String[] { DatabaseHandler.KEY_E_BRIGHTNESS_ENABLED,
-                        DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR,
-                        DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL,
+                        DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR_FROM,
+                        DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM,
+                        DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR_TO,
+                        DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_TO,
                         DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
@@ -1440,8 +1442,10 @@ class DatabaseHandlerEvents {
                 EventPreferencesBrightness eventPreferences = event._eventPreferencesBrightness;
 
                 eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BRIGHTNESS_ENABLED)) == 1);
-                eventPreferences._operator = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR));
-                eventPreferences._brightnessLevel = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL));
+                eventPreferences._operatorFrom = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR_FROM));
+                eventPreferences._brightnessLevelFrom = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM));
+                eventPreferences._operatorTo = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR_TO));
+                eventPreferences._brightnessLevelTo = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_TO));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED)));
             }
             cursor.close();
@@ -1925,8 +1929,10 @@ class DatabaseHandlerEvents {
         EventPreferencesBrightness eventPreferences = event._eventPreferencesBrightness;
 
         values.put(DatabaseHandler.KEY_E_BRIGHTNESS_ENABLED, (eventPreferences._enabled) ? 1 : 0);
-        values.put(DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR, eventPreferences._operator);
-        values.put(DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL, eventPreferences._brightnessLevel);
+        values.put(DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR_FROM, eventPreferences._operatorFrom);
+        values.put(DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM, eventPreferences._brightnessLevelFrom);
+        values.put(DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR_TO, eventPreferences._operatorTo);
+        values.put(DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_TO, eventPreferences._brightnessLevelTo);
         values.put(DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row

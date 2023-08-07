@@ -1455,7 +1455,10 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG)) {
-            BrightnessDialogPreference preference = prefMng.findPreference(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL);
+            BrightnessDialogPreference preference = prefMng.findPreference(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM);
+            if (preference != null)
+                preference.enableViews();
+            preference = prefMng.findPreference(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_TO);
             if (preference != null)
                 preference.enableViews();
         }

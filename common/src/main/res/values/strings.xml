@@ -2130,9 +2130,11 @@
     <string name="check_releases_github_download_not_supported">"GitHub download is not supported. Please install PhoneProfilesPlus with Droid-ify."</string>
 
     <string name="event_preferences_category_eventBrightnessParameters">Brightness sensor</string>
-    <string name="event_preference_brightness_summary">This sensor will start an event brightness level change. Parameters: Operator, Brightness level.</string>
-    <string name="event_preferences_brightness_level">Brightness level</string>
-    <string name="event_preferences_brightness_operator">Operator</string>
+    <string name="event_preference_brightness_summary">This sensor will start an event brightness level change. Parameters: Operator from, Brightness level from, Operator to, Brightness level to.</string>
+    <string name="event_preferences_brightness_level_from">Brightness level from</string>
+    <string name="event_preferences_brightness_operator_from">Operator from</string>
+    <string name="event_preferences_brightness_level_to">Brightness level to</string>
+    <string name="event_preferences_brightness_operator_to">Operator to</string>
     <string name="event_type_brightness">Brightness</string>
 
     <!-- **************************************************************************************** -->

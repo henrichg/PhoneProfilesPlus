@@ -337,8 +337,10 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_E_VPN_CONNECTION_STATUS + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_VPN_SENSOR_PASSED + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_BRIGHTNESS_ENABLED + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR_FROM + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR_TO + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_TO + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED + " " + DatabaseHandler.INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
@@ -840,8 +842,10 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VPN_CONNECTION_STATUS, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VPN_SENSOR_PASSED, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_BRIGHTNESS_ENABLED, DatabaseHandler.INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR, DatabaseHandler.INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR_FROM, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR_TO, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_TO, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED, DatabaseHandler.INTEGER_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENT_TIMELINE:
@@ -3349,11 +3353,13 @@ class DatabaseHandlerCreateUpdateDB {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY + "=0");
         }
 
-        if (oldVersion < 2503)
+        if (oldVersion < 2504)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_BRIGHTNESS_ENABLED + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL + "='50|0|1|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR_FROM + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM + "='50|0|1|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR_TO + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_TO + "='50|0|1|0'");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED + "=0");
         }
 

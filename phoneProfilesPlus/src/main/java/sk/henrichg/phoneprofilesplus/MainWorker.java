@@ -54,6 +54,7 @@ public class MainWorker extends Worker {
     static final String HANDLE_EVENTS_MOBILE_DATA_NETWORK_CALLBACK_WORK_TAG = "handleEventsMobileDataNetworkCallbackWork";
     static final String HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG = "handleEventsWifiNetworkCallbackWork";
     static final String HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG = "handleEventsBluetoothConnectionWork";
+    static final String HANDLE_EVENTS_BRIGHTNESS_WORK_TAG = "handleEventsBrightnessWork";
 
     static final String START_EVENT_NOTIFICATION_WORK_TAG = "startEventNotificationWork";
     static final String RUN_APPLICATION_WITH_DELAY_WORK_TAG = "runApplicationWithDelayWork";
@@ -92,6 +93,7 @@ public class MainWorker extends Worker {
                     case ORIENTATION_SCANNER_WORK_TAG:
 //                        PPApplicationStatic.logE("[TEST BATTERY] ******** MainWorker.doWork", "******** ### *******");
                     case HANDLE_EVENTS_VOLUMES_WORK_TAG: // !!! this is required, look at SettingsContentObserver.onChange()
+                    case HANDLE_EVENTS_BRIGHTNESS_WORK_TAG: // !!! this is required, look at SettingsContentObserver.onChange()
                         if (!PPApplicationStatic.getApplicationStarted(true, true))
                             // application is not started
                             return Result.success();

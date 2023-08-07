@@ -397,7 +397,7 @@ class PlayRingingNotification
 //                    Log.e("PhoneProfilesService.startSimulatingRingingCall", Log.getStackTraceString(e));
                     PlayRingingNotification.ringingMediaPlayer = null;
 
-                    PPExecutors.scheduleDisableInternalChangeExecutor();
+                    PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
                     PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                     /*PPApplication.startHandlerThreadInternalChangeToFalse();
@@ -463,7 +463,7 @@ class PlayRingingNotification
         PlayRingingNotification.ringingCallIsSimulating = false;
 
         if (disableInternalChange) {
-            PPExecutors.scheduleDisableInternalChangeExecutor();
+            PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
             PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
             /*PPApplication.startHandlerThreadInternalChangeToFalse();

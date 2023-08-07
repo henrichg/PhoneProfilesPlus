@@ -3,6 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.provider.Settings;
+import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -12,31 +14,41 @@ import java.util.Arrays;
 
 class EventPreferencesBrightness extends EventPreferences {
 
-    int _operator;
-    String _brightnessLevel;
+    int _operatorFrom;
+    String _brightnessLevelFrom;
+    int _operatorTo;
+    String _brightnessLevelTo;
 
     static final String PREF_EVENT_BRIGHTNESS_ENABLED = "eventBrightnessEnabled";
-    private static final String PREF_EVENT_BRIGHTNESS_OPERATOR = "eventBrightnessOperator";
-    static final String PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL = "eventBrightnessBrightnessLevel";
+    private static final String PREF_EVENT_BRIGHTNESS_OPERATOR_FROM = "eventBrightnessOperatorFrom";
+    static final String PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM = "eventBrightnessBrightnessLevelFrom";
+    private static final String PREF_EVENT_BRIGHTNESS_OPERATOR_TO = "eventBrightnessOperatorTo";
+    static final String PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_TO = "eventBrightnessBrightnessLevelTo";
 
     private static final String PREF_EVENT_BRIGHTNESS_CATEGORY = "eventBrightnessCategoryRoot";
 
     EventPreferencesBrightness(Event event,
                                boolean enabled,
-                               int operator,
-                               String brightnessLevel)
+                               int operatorFrom,
+                               String brightnessLevelFrom,
+                               int operatorTo,
+                               String brightnessLevelTo)
     {
         super(event, enabled);
 
-        this._operator = operator;
-        this._brightnessLevel = brightnessLevel;
+        this._operatorFrom = operatorFrom;
+        this._brightnessLevelFrom = brightnessLevelFrom;
+        this._operatorTo = operatorTo;
+        this._brightnessLevelTo = brightnessLevelTo;
     }
 
     void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesBrightness._enabled;
-        this._operator = fromEvent._eventPreferencesBrightness._operator;
-        this._brightnessLevel = fromEvent._eventPreferencesBrightness._brightnessLevel;
+        this._operatorFrom = fromEvent._eventPreferencesBrightness._operatorFrom;
+        this._brightnessLevelFrom = fromEvent._eventPreferencesBrightness._brightnessLevelFrom;
+        this._operatorTo = fromEvent._eventPreferencesBrightness._operatorTo;
+        this._brightnessLevelTo = fromEvent._eventPreferencesBrightness._brightnessLevelTo;
         this.setSensorPassed(fromEvent._eventPreferencesBrightness.getSensorPassed());
     }
 
@@ -44,16 +56,20 @@ class EventPreferencesBrightness extends EventPreferences {
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_BRIGHTNESS_ENABLED, _enabled);
-        editor.putString(PREF_EVENT_BRIGHTNESS_OPERATOR, String.valueOf(this._operator));
-        editor.putString(PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL, _brightnessLevel);
+        editor.putString(PREF_EVENT_BRIGHTNESS_OPERATOR_FROM, String.valueOf(this._operatorFrom));
+        editor.putString(PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM, _brightnessLevelFrom);
+        editor.putString(PREF_EVENT_BRIGHTNESS_OPERATOR_TO, String.valueOf(this._operatorTo));
+        editor.putString(PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_TO, _brightnessLevelTo);
         editor.apply();
     }
 
     void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_BRIGHTNESS_ENABLED, false);
-        this._operator = Integer.parseInt(preferences.getString(PREF_EVENT_BRIGHTNESS_OPERATOR, "0"));
-        this._brightnessLevel = preferences.getString(PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL, "50|0|1|0");
+        this._operatorFrom = Integer.parseInt(preferences.getString(PREF_EVENT_BRIGHTNESS_OPERATOR_FROM, "0"));
+        this._brightnessLevelFrom = preferences.getString(PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM, "50|0|1|0");
+        this._operatorTo = Integer.parseInt(preferences.getString(PREF_EVENT_BRIGHTNESS_OPERATOR_TO, "0"));
+        this._brightnessLevelTo = preferences.getString(PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_TO, "50|0|1|0");
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
@@ -71,16 +87,29 @@ class EventPreferencesBrightness extends EventPreferences {
                 }
 
                 String[] operators = context.getResources().getStringArray(R.array.brightnessSensorOperatorValues);
-                int index = Arrays.asList(operators).indexOf(Integer.toString(this._operator));
+                int index = Arrays.asList(operators).indexOf(Integer.toString(this._operatorFrom));
                 if (index != -1) {
-                    _value.append(context.getString(R.string.event_preferences_brightness_operator)).append(StringConstants.STR_COLON_WITH_SPACE);
+                    _value.append(context.getString(R.string.event_preferences_brightness_operator_from)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] operatorNames = context.getResources().getStringArray(R.array.brightnessSensorOperatorArray);
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(operatorNames[index], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
-                String value = this._brightnessLevel;
+                String value = this._brightnessLevelFrom;
                 int iValue = ProfileStatic.getDeviceBrightnessValue(value);
-                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_brightness_level)).append(StringConstants.STR_COLON_WITH_SPACE);
+                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_brightness_level_from)).append(StringConstants.STR_COLON_WITH_SPACE);
+                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(iValue + "/100", disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+
+                operators = context.getResources().getStringArray(R.array.brightnessSensorOperatorValues);
+                index = Arrays.asList(operators).indexOf(Integer.toString(this._operatorTo));
+                if (index != -1) {
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_brightness_operator_to)).append(StringConstants.STR_COLON_WITH_SPACE);
+                    String[] operatorNames = context.getResources().getStringArray(R.array.brightnessSensorOperatorArray);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(operatorNames[index], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                }
+
+                value = this._brightnessLevelTo;
+                iValue = ProfileStatic.getDeviceBrightnessValue(value);
+                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_brightness_level_to)).append(StringConstants.STR_COLON_WITH_SPACE);
                 _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(iValue + "/100", disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
             }
@@ -102,7 +131,8 @@ class EventPreferencesBrightness extends EventPreferences {
             }
         }
 
-        if (key.equals(PREF_EVENT_BRIGHTNESS_OPERATOR))
+        if (key.equals(PREF_EVENT_BRIGHTNESS_OPERATOR_FROM) ||
+            key.equals(PREF_EVENT_BRIGHTNESS_OPERATOR_TO))
         {
             PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
@@ -112,7 +142,8 @@ class EventPreferencesBrightness extends EventPreferences {
             }
         }
 
-        if (key.equals(PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL))
+        if (key.equals(PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM) ||
+            key.equals(PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_TO))
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -136,8 +167,10 @@ class EventPreferencesBrightness extends EventPreferences {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING/*, context*/);
         }
-        if (key.equals(PREF_EVENT_BRIGHTNESS_OPERATOR) ||
-                key.equals(PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL))
+        if (key.equals(PREF_EVENT_BRIGHTNESS_OPERATOR_FROM) ||
+                key.equals(PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM) ||
+                key.equals(PREF_EVENT_BRIGHTNESS_OPERATOR_TO) ||
+                    key.equals(PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_TO))
         {
             setSummary(prefMng, key, preferences.getString(key, "")/*, context*/);
         }
@@ -147,14 +180,16 @@ class EventPreferencesBrightness extends EventPreferences {
                        Context context)
     {
         setSummary(prefMng, PREF_EVENT_BRIGHTNESS_ENABLED, preferences, context);
-        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_OPERATOR, preferences, context);
-        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_OPERATOR_FROM, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_OPERATOR_TO, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_TO, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_BRIGHTNESS_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            EventPreferencesBrightness tmp = new EventPreferencesBrightness(this._event, this._enabled, this._operator, this._brightnessLevel);
+            EventPreferencesBrightness tmp = new EventPreferencesBrightness(this._event, this._enabled, this._operatorFrom, this._brightnessLevelFrom, this._operatorTo, this._brightnessLevelTo);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -251,6 +286,93 @@ class EventPreferencesBrightness extends EventPreferences {
 
                 //TODO
 
+                if (PPApplication.isScreenOn && (!PPApplication.brightnessInternalChange)) {
+                    // allowed only when screen is on, because of Huawei devices
+                    // check ScreenOnOffBroadcastReceiver for this
+
+                    eventsHandler.brightnessPassed = false;
+
+                    int actualBrightness = Settings.System.getInt(eventsHandler.context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+                    if (actualBrightness > -1) {
+
+                        Log.e("EventPreferencesBrightness.doHandleEvent", "actualBrightness=" + actualBrightness);
+
+                        boolean fromPassed = false;
+
+                        int configuredFromValue = ProfileStatic.getDeviceBrightnessValue(_brightnessLevelFrom);
+                        configuredFromValue = ProfileStatic.convertPercentsToBrightnessManualValue(configuredFromValue, eventsHandler.context);
+
+                        Log.e("EventPreferencesBrightness.doHandleEvent", "configuredFromValue=" + configuredFromValue);
+
+                        switch (_operatorFrom) {
+                            case 0: // equal to
+                                if (actualBrightness == configuredFromValue)
+                                    fromPassed = true;
+                                break;
+                            case 1: // do not equal to
+                                if (actualBrightness != configuredFromValue)
+                                    fromPassed = true;
+                                break;
+                            case 2: // is less then
+                                if (actualBrightness < configuredFromValue)
+                                    fromPassed = true;
+                                break;
+                            case 3: // is greather then
+                                if (actualBrightness > configuredFromValue)
+                                    fromPassed = true;
+                                break;
+                            case 4: // is less or equal to
+                                if (actualBrightness <= configuredFromValue)
+                                    fromPassed = true;
+                                break;
+                            case 5: // is greather or equal to
+                                if (actualBrightness >= configuredFromValue)
+                                    fromPassed = true;
+                                break;
+                        }
+
+                        boolean toPassed = false;
+
+                        int configuredToValue = ProfileStatic.getDeviceBrightnessValue(_brightnessLevelTo);
+                        configuredToValue = ProfileStatic.convertPercentsToBrightnessManualValue(configuredToValue, eventsHandler.context);
+
+                        Log.e("EventPreferencesBrightness.doHandleEvent", "configuredToValue=" + configuredToValue);
+
+                        switch (_operatorTo) {
+                            case 0: // equal to
+                                if (actualBrightness == configuredToValue)
+                                    toPassed = true;
+                                break;
+                            case 1: // do not equal to
+                                if (actualBrightness != configuredToValue)
+                                    toPassed = true;
+                                break;
+                            case 2: // is less then
+                                if (actualBrightness < configuredToValue)
+                                    toPassed = true;
+                                break;
+                            case 3: // is greather then
+                                if (actualBrightness > configuredToValue)
+                                    toPassed = true;
+                                break;
+                            case 4: // is less or equal to
+                                if (actualBrightness <= configuredToValue)
+                                    toPassed = true;
+                                break;
+                            case 5: // is greather or equal to
+                                if (actualBrightness >= configuredToValue)
+                                    toPassed = true;
+                                break;
+                        }
+
+                        eventsHandler.brightnessPassed = fromPassed && toPassed;
+
+                        Log.e("EventPreferencesBrightness.doHandleEvent", "eventsHandler.brightnessPassed=" + eventsHandler.brightnessPassed);
+                    } else
+                        eventsHandler.notAllowedBrightness = true;
+                } else
+                    eventsHandler.notAllowedBrightness = true;
+
                 if (!eventsHandler.notAllowedBrightness) {
                     if (eventsHandler.brightnessPassed)
                         setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
@@ -259,6 +381,7 @@ class EventPreferencesBrightness extends EventPreferences {
                 }
             } else
                 eventsHandler.notAllowedBrightness = true;
+
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
                 setSensorPassed(newSensorPassed);

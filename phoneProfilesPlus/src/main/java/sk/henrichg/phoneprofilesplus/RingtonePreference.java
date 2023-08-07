@@ -313,7 +313,7 @@ public class RingtonePreference extends DialogPreference {
                                     ringtoneIsPlayed = false;
                                     mediaPlayer = null;
 
-                                    PPExecutors.scheduleDisableInternalChangeExecutor();
+                                    PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
                                     PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                                     /*PPApplication.startHandlerThreadInternalChangeToFalse();
@@ -339,7 +339,7 @@ public class RingtonePreference extends DialogPreference {
                             preference.stopPlayRingtone();
                         } catch (Exception ignored) {}
 
-                        PPExecutors.scheduleDisableInternalChangeExecutor();
+                        PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
                         PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                         /*PPApplication.startHandlerThreadInternalChangeToFalse();

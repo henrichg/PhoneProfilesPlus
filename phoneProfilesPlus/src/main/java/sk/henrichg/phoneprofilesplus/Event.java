@@ -358,7 +358,7 @@ class Event {
 
     private void createEventPreferencesBrightness()
     {
-        this._eventPreferencesBrightness = new EventPreferencesBrightness(this, false, 0, "50|0|1|0");
+        this._eventPreferencesBrightness = new EventPreferencesBrightness(this, false, 0, "50|0|1|0", 0, "50|0|1|0");
     }
 
 
