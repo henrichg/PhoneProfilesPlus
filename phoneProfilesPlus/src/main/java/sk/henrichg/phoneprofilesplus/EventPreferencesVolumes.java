@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
+import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -156,113 +157,209 @@ class EventPreferencesVolumes extends EventPreferences {
 
                 boolean _addBullet = false;
 
-                int operator = 0;
-                String[] splits = this._volumeRingtoneFrom.split(StringConstants.STR_SPLIT_REGEX);
-                if (splits.length > 1) {
+                int operatorFrom;
+                String[] splitsFrom;
+                int operatorTo;
+                String[] splitsTo;
+
+                operatorFrom = 0;
+                splitsFrom = this._volumeRingtoneFrom.split(StringConstants.STR_SPLIT_REGEX);
+                if (splitsFrom.length > 1) {
                     try {
-                        operator = Integer.parseInt(splits[1]);
+                        operatorFrom = Integer.parseInt(splitsFrom[1]);
                     } catch (Exception ignored) {}
                 }
-                if (operator != 0) {
+                operatorTo = 0;
+                splitsTo = this._volumeRingtoneTo.split(StringConstants.STR_SPLIT_REGEX);
+                if (splitsTo.length > 1) {
+                    try {
+                        operatorTo = Integer.parseInt(splitsTo[1]);
+                    } catch (Exception ignored) {}
+                }
+                if (operatorFrom != 0) {
                     _value.append(context.getString(R.string.profile_preferences_volumeRingtone)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, context));
+                    if (operatorTo != 0) {
+                        _value.append(StringConstants.STR_HARD_SPACE_DASH);
+                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, context));
+                    }
+                    _value.append(StringConstants.TAG_BOLD_END_HTML);
                     _addBullet = true;
                 }
 
-                operator = 0;
-                splits = this._volumeNotificationFrom.split(StringConstants.STR_SPLIT_REGEX);
-                if (splits.length > 1) {
+                operatorFrom = 0;
+                splitsFrom = this._volumeNotificationFrom.split(StringConstants.STR_SPLIT_REGEX);
+                if (splitsFrom.length > 1) {
                     try {
-                        operator = Integer.parseInt(splits[1]);
+                        operatorFrom = Integer.parseInt(splitsFrom[1]);
                     } catch (Exception ignored) {}
                 }
-                if (operator != 0) {
+                operatorTo = 0;
+                splitsTo = this._volumeNotificationTo.split(StringConstants.STR_SPLIT_REGEX);
+                if (splitsTo.length > 1) {
+                    try {
+                        operatorTo = Integer.parseInt(splitsTo[1]);
+                    } catch (Exception ignored) {}
+                }
+                if (operatorFrom != 0) {
                     if (_addBullet)
                         _value.append(StringConstants.STR_BULLET);
                     _value.append(context.getString(R.string.profile_preferences_volumeNotification)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, context));
+                    if (operatorTo != 0) {
+                        _value.append(StringConstants.STR_HARD_SPACE_DASH);
+                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, context));
+                    }
+                    _value.append(StringConstants.TAG_BOLD_END_HTML);
                     _addBullet = true;
                 }
 
-                operator = 0;
-                splits = this._volumeMediaFrom.split(StringConstants.STR_SPLIT_REGEX);
-                if (splits.length > 1) {
+                operatorFrom = 0;
+                splitsFrom = this._volumeMediaFrom.split(StringConstants.STR_SPLIT_REGEX);
+                if (splitsFrom.length > 1) {
                     try {
-                        operator = Integer.parseInt(splits[1]);
+                        operatorFrom = Integer.parseInt(splitsFrom[1]);
                     } catch (Exception ignored) {}
                 }
-                if (operator != 0) {
+                operatorTo = 0;
+                splitsTo = this._volumeMediaTo.split(StringConstants.STR_SPLIT_REGEX);
+                if (splitsTo.length > 1) {
+                    try {
+                        operatorTo = Integer.parseInt(splitsTo[1]);
+                    } catch (Exception ignored) {}
+                }
+                if (operatorFrom != 0) {
                     if (_addBullet)
                         _value.append(StringConstants.STR_BULLET);
                     _value.append(context.getString(R.string.profile_preferences_volumeMedia)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, context));
+                    if (operatorTo != 0) {
+                        _value.append(StringConstants.STR_HARD_SPACE_DASH);
+                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, context));
+                    }
+                    _value.append(StringConstants.TAG_BOLD_END_HTML);
                     _addBullet = true;
                 }
 
-                operator = 0;
-                splits = this._volumeAlarmFrom.split(StringConstants.STR_SPLIT_REGEX);
-                if (splits.length > 1) {
+                operatorFrom = 0;
+                splitsFrom = this._volumeAlarmFrom.split(StringConstants.STR_SPLIT_REGEX);
+                if (splitsFrom.length > 1) {
                     try {
-                        operator = Integer.parseInt(splits[1]);
+                        operatorFrom = Integer.parseInt(splitsFrom[1]);
                     } catch (Exception ignored) {}
                 }
-                if (operator != 0) {
+                operatorTo = 0;
+                splitsTo = this._volumeAlarmTo.split(StringConstants.STR_SPLIT_REGEX);
+                if (splitsTo.length > 1) {
+                    try {
+                        operatorTo = Integer.parseInt(splitsTo[1]);
+                    } catch (Exception ignored) {}
+                }
+                if (operatorFrom != 0) {
                     if (_addBullet)
                         _value.append(StringConstants.STR_BULLET);
                     _value.append(context.getString(R.string.profile_preferences_volumeAlarm)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, context));
+                    if (operatorTo != 0) {
+                        _value.append(StringConstants.STR_HARD_SPACE_DASH);
+                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, context));
+                    }
+                    _value.append(StringConstants.TAG_BOLD_END_HTML);
                     _addBullet = true;
                 }
 
-                operator = 0;
-                splits = this._volumeSystemFrom.split(StringConstants.STR_SPLIT_REGEX);
-                if (splits.length > 1) {
+                operatorFrom = 0;
+                splitsFrom = this._volumeSystemFrom.split(StringConstants.STR_SPLIT_REGEX);
+                if (splitsFrom.length > 1) {
                     try {
-                        operator = Integer.parseInt(splits[1]);
+                        operatorFrom = Integer.parseInt(splitsFrom[1]);
                     } catch (Exception ignored) {}
                 }
-                if (operator != 0) {
+                operatorTo = 0;
+                splitsTo = this._volumeSystemTo.split(StringConstants.STR_SPLIT_REGEX);
+                if (splitsTo.length > 1) {
+                    try {
+                        operatorTo = Integer.parseInt(splitsTo[1]);
+                    } catch (Exception ignored) {}
+                }
+                if (operatorFrom != 0) {
                     if (_addBullet)
                         _value.append(StringConstants.STR_BULLET);
                     _value.append(context.getString(R.string.profile_preferences_volumeSystem)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, context));
+                    if (operatorTo != 0) {
+                        _value.append(StringConstants.STR_HARD_SPACE_DASH);
+                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, context));
+                    }
+                    _value.append(StringConstants.TAG_BOLD_END_HTML);
                     _addBullet = true;
                 }
 
-                operator = 0;
-                splits = this._volumeVoiceFrom.split(StringConstants.STR_SPLIT_REGEX);
-                if (splits.length > 1) {
+                operatorFrom = 0;
+                splitsFrom = this._volumeVoiceFrom.split(StringConstants.STR_SPLIT_REGEX);
+                if (splitsFrom.length > 1) {
                     try {
-                        operator = Integer.parseInt(splits[1]);
+                        operatorFrom = Integer.parseInt(splitsFrom[1]);
                     } catch (Exception ignored) {}
                 }
-                if (operator != 0) {
+                operatorTo = 0;
+                splitsTo = this._volumeVoiceTo.split(StringConstants.STR_SPLIT_REGEX);
+                if (splitsTo.length > 1) {
+                    try {
+                        operatorTo = Integer.parseInt(splitsTo[1]);
+                    } catch (Exception ignored) {}
+                }
+                if (operatorFrom != 0) {
                     if (_addBullet)
                         _value.append(StringConstants.STR_BULLET);
                     _value.append(context.getString(R.string.profile_preferences_volumeVoiceCall)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, context));
+                    if (operatorTo != 0) {
+                        _value.append(StringConstants.STR_HARD_SPACE_DASH);
+                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, context));
+                    }
+                    _value.append(StringConstants.TAG_BOLD_END_HTML);
                     _addBullet = true;
                 }
 
-                operator = 0;
-                splits = this._volumeBluetoothSCOFrom.split(StringConstants.STR_SPLIT_REGEX);
-                if (splits.length > 1) {
+                operatorFrom = 0;
+                splitsFrom = this._volumeBluetoothSCOFrom.split(StringConstants.STR_SPLIT_REGEX);
+                if (splitsFrom.length > 1) {
                     try {
-                        operator = Integer.parseInt(splits[1]);
+                        operatorFrom = Integer.parseInt(splitsFrom[1]);
                     } catch (Exception ignored) {}
                 }
-                if (operator != 0) {
+                operatorTo = 0;
+                splitsTo = this._volumeBluetoothSCOTo.split(StringConstants.STR_SPLIT_REGEX);
+                if (splitsTo.length > 1) {
+                    try {
+                        operatorTo = Integer.parseInt(splitsTo[1]);
+                    } catch (Exception ignored) {}
+                }
+                if (operatorFrom != 0) {
                     if (_addBullet)
                         _value.append(StringConstants.STR_BULLET);
                     _value.append(context.getString(R.string.profile_preferences_volumeBluetoothSCO)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, context));
+                    if (operatorTo != 0) {
+                        _value.append(StringConstants.STR_HARD_SPACE_DASH);
+                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, context));
+                    }
+                    _value.append(StringConstants.TAG_BOLD_END_HTML);
                     //_addBullet = true;
                 }
 
@@ -354,6 +451,49 @@ class EventPreferencesVolumes extends EventPreferences {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO_FROM, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_RINGTONE_TO);
+        defaultValue = "0|0|0";
+        if (preference != null) {
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_RINGTONE_TO, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
+            boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false, false);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_NOTIFICATION_TO);
+        if (preference != null) {
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_NOTIFICATION_TO, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
+            boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false, false);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_MEDIA_TO);
+        if (preference != null) {
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_MEDIA_TO, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
+            boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false, false);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_ALARM_TO);
+        if (preference != null) {
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_ALARM_TO, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
+            boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false, false);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_SYSTEM_TO);
+        if (preference != null) {
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_SYSTEM_TO, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
+            boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false, false);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_VOICE_TO);
+        if (preference != null) {
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_VOICE_TO, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
+            boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false, false);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_BLUETOOTHSCO_TO);
+        if (preference != null) {
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO_TO, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
+            boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false, false);
         }
 
     }
@@ -534,6 +674,87 @@ class EventPreferencesVolumes extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_VOLUMES_ENABLED) != null) {
+                boolean enabled = EventStatic.isEventPreferenceAllowed(PREF_EVENT_VOLUMES_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
+
+                //Log.e("EventPreferencesVolumes.checkPreferences", "value="+preferences.getString(PREF_EVENT_VOLUMES_RINGTONE_FROM, "0|0|0"));
+                String[] splits = preferences.getString(PREF_EVENT_VOLUMES_RINGTONE_FROM, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
+                if (splits.length > 1) {
+                    try {
+                        int operator = Integer.parseInt(splits[1]);
+                        Preference preference = prefMng.findPreference(PREF_EVENT_VOLUMES_RINGTONE_TO);
+                        if (preference != null)
+                            // operator "from" is set, set enabled volume "to"
+                            preference.setEnabled(enabled && (operator != 0));
+                    } catch (Exception ignored) {
+                    }
+                }
+                splits = preferences.getString(PREF_EVENT_VOLUMES_NOTIFICATION_FROM, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
+                if (splits.length > 1) {
+                    try {
+                        int operator = Integer.parseInt(splits[1]);
+                        Preference preference = prefMng.findPreference(PREF_EVENT_VOLUMES_NOTIFICATION_TO);
+                        if (preference != null)
+                            // operator "from" is set, set enabled volume "to"
+                            preference.setEnabled(enabled && (operator != 0));
+                    } catch (Exception ignored) {
+                    }
+                }
+                splits = preferences.getString(PREF_EVENT_VOLUMES_MEDIA_FROM, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
+                if (splits.length > 1) {
+                    try {
+                        int operator = Integer.parseInt(splits[1]);
+                        Preference preference = prefMng.findPreference(PREF_EVENT_VOLUMES_MEDIA_TO);
+                        if (preference != null)
+                            // operator "from" is set, set enabled volume "to"
+                            preference.setEnabled(enabled && (operator != 0));
+                    } catch (Exception ignored) {
+                    }
+                }
+                splits = preferences.getString(PREF_EVENT_VOLUMES_ALARM_FROM, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
+                if (splits.length > 1) {
+                    try {
+                        int operator = Integer.parseInt(splits[1]);
+                        Preference preference = prefMng.findPreference(PREF_EVENT_VOLUMES_ALARM_TO);
+                        if (preference != null)
+                            // operator "from" is set, set enabled volume "to"
+                            preference.setEnabled(enabled && (operator != 0));
+                    } catch (Exception ignored) {
+                    }
+                }
+                splits = preferences.getString(PREF_EVENT_VOLUMES_SYSTEM_FROM, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
+                if (splits.length > 1) {
+                    try {
+                        int operator = Integer.parseInt(splits[1]);
+                        Preference preference = prefMng.findPreference(PREF_EVENT_VOLUMES_SYSTEM_TO);
+                        if (preference != null)
+                            // operator "from" is set, set enabled volume "to"
+                            preference.setEnabled(enabled && (operator != 0));
+                    } catch (Exception ignored) {
+                    }
+                }
+                splits = preferences.getString(PREF_EVENT_VOLUMES_VOICE_FROM, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
+                if (splits.length > 1) {
+                    try {
+                        int operator = Integer.parseInt(splits[1]);
+                        Preference preference = prefMng.findPreference(PREF_EVENT_VOLUMES_VOICE_TO);
+                        if (preference != null)
+                            // operator "from" is set, set enabled volume "to"
+                            preference.setEnabled(enabled && (operator != 0));
+                    } catch (Exception ignored) {
+                    }
+                }
+                splits = preferences.getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO_FROM, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
+                if (splits.length > 1) {
+                    try {
+                        int operator = Integer.parseInt(splits[1]);
+                        Preference preference = prefMng.findPreference(PREF_EVENT_VOLUMES_BLUETOOTHSCO_TO);
+                        if (preference != null)
+                            // operator "from" is set, set enabled volume "to"
+                            preference.setEnabled(enabled && (operator != 0));
+                    } catch (Exception ignored) {
+                    }
+                }
+
                 setSummary(prefMng, PREF_EVENT_VOLUMES_ENABLED, preferences, context);
             }
         }

@@ -15,6 +15,7 @@ class StringConstants {
     static final String STR_BULLET = " "+ CHAR_BULLET +" ";
     static final String STR_HARD_SPACE_DOUBLE_ARROW = CHAR_HARD_SPACE + STR_DOUBLE_ARROW;
     static final String STR_HARD_SPACE_DOUBLE_ARROW_HTML = CHAR_HARD_SPACE_HTML + STR_DOUBLE_ARROW;
+    static final String STR_HARD_SPACE_DASH = CHAR_HARD_SPACE + "-" + CHAR_HARD_SPACE;
     static final String STR_COLON_WITH_SPACE = ": ";
     static final String STR_ROOT = "(R) ";
     //static final String STR_PPPPS = "(S) ";
