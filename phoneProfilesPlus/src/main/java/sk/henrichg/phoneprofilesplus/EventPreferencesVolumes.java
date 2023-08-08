@@ -11,57 +11,92 @@ import androidx.preference.SwitchPreferenceCompat;
 
 class EventPreferencesVolumes extends EventPreferences {
 
-    String _volumeRingtone;
-    String _volumeNotification;
-    String _volumeMedia;
-    String _volumeAlarm;
-    String _volumeSystem;
-    String _volumeVoice;
-    String _volumeBluetoothSCO;
+    String _volumeRingtoneFrom;
+    String _volumeNotificationFrom;
+    String _volumeMediaFrom;
+    String _volumeAlarmFrom;
+    String _volumeSystemFrom;
+    String _volumeVoiceFrom;
+    String _volumeBluetoothSCOFrom;
+    String _volumeRingtoneTo;
+    String _volumeNotificationTo;
+    String _volumeMediaTo;
+    String _volumeAlarmTo;
+    String _volumeSystemTo;
+    String _volumeVoiceTo;
+    String _volumeBluetoothSCOTo;
 
     static final String PREF_EVENT_VOLUMES_ENABLED = "eventVolumesEnabled";
-    static final String PREF_EVENT_VOLUMES_RINGTONE = "eventVolumesRingtone";
-    static final String PREF_EVENT_VOLUMES_NOTIFICATION = "eventVolumesNotification";
-    static final String PREF_EVENT_VOLUMES_MEDIA = "eventVolumesMedia";
-    static final String PREF_EVENT_VOLUMES_ALARM = "eventVolumesAlarm";
-    static final String PREF_EVENT_VOLUMES_SYSTEM = "eventVolumesSystem";
-    static final String PREF_EVENT_VOLUMES_VOICE = "eventVolumesVoice";
-    static final String PREF_EVENT_VOLUMES_BLUETOOTHSCO = "eventVolumesBluetoothSCO";
+    static final String PREF_EVENT_VOLUMES_RINGTONE_FROM = "eventVolumesRingtoneFrom";
+    static final String PREF_EVENT_VOLUMES_NOTIFICATION_FROM = "eventVolumesNotificationFrom";
+    static final String PREF_EVENT_VOLUMES_MEDIA_FROM = "eventVolumesMediaFrom";
+    static final String PREF_EVENT_VOLUMES_ALARM_FROM = "eventVolumesAlarmFrom";
+    static final String PREF_EVENT_VOLUMES_SYSTEM_FROM = "eventVolumesSystemFrom";
+    static final String PREF_EVENT_VOLUMES_VOICE_FROM = "eventVolumesVoiceFrom";
+    static final String PREF_EVENT_VOLUMES_BLUETOOTHSCO_FROM = "eventVolumesBluetoothSCOFrom";
+    static final String PREF_EVENT_VOLUMES_RINGTONE_TO = "eventVolumesRingtoneTo";
+    static final String PREF_EVENT_VOLUMES_NOTIFICATION_TO = "eventVolumesNotificationTo";
+    static final String PREF_EVENT_VOLUMES_MEDIA_TO = "eventVolumesMediaTo";
+    static final String PREF_EVENT_VOLUMES_ALARM_TO = "eventVolumesAlarmTo";
+    static final String PREF_EVENT_VOLUMES_SYSTEM_TO = "eventVolumesSystemTo";
+    static final String PREF_EVENT_VOLUMES_VOICE_TO = "eventVolumesVoiceTo";
+    static final String PREF_EVENT_VOLUMES_BLUETOOTHSCO_TO = "eventVolumesBluetoothSCOTo";
 
     private static final String PREF_EVENT_VOLUMES_CATEGORY = "eventVolumesCategoryRoot";
 
     EventPreferencesVolumes(Event event,
                             boolean enabled,
-                            String volumeRingtone,
-                            String volumeNotification,
-                            String volumeMedia,
-                            String volumeAlarm,
-                            String volumeSystem,
-                            String volumeVoice,
-                            String volumeBluetoothSCO
+                            String volumeRingtoneFrom,
+                            String volumeNotificationFrom,
+                            String volumeMediaFrom,
+                            String volumeAlarmFrom,
+                            String volumeSystemFrom,
+                            String volumeVoiceFrom,
+                            String volumeBluetoothSCOFrom,
+                            String volumeRingtoneTo,
+                            String volumeNotificationTo,
+                            String volumeMediaTo,
+                            String volumeAlarmTo,
+                            String volumeSystemTo,
+                            String volumeVoiceTo,
+                            String volumeBluetoothSCOTo
                             )
     {
         super(event, enabled);
 
-        this._volumeRingtone = volumeRingtone;
-        this._volumeNotification = volumeNotification;
-        this._volumeMedia = volumeMedia;
-        this._volumeAlarm = volumeAlarm;
-        this._volumeSystem = volumeSystem;
-        this._volumeVoice = volumeVoice;
-        this._volumeBluetoothSCO = volumeBluetoothSCO;
+        this._volumeRingtoneFrom = volumeRingtoneFrom;
+        this._volumeNotificationFrom = volumeNotificationFrom;
+        this._volumeMediaFrom = volumeMediaFrom;
+        this._volumeAlarmFrom = volumeAlarmFrom;
+        this._volumeSystemFrom = volumeSystemFrom;
+        this._volumeVoiceFrom = volumeVoiceFrom;
+        this._volumeBluetoothSCOFrom = volumeBluetoothSCOFrom;
+        this._volumeRingtoneTo = volumeRingtoneTo;
+        this._volumeNotificationTo = volumeNotificationTo;
+        this._volumeMediaTo = volumeMediaTo;
+        this._volumeAlarmTo = volumeAlarmTo;
+        this._volumeSystemTo = volumeSystemTo;
+        this._volumeVoiceTo = volumeVoiceTo;
+        this._volumeBluetoothSCOTo = volumeBluetoothSCOTo;
     }
 
     void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesVolumes._enabled;
-        this._volumeRingtone = fromEvent._eventPreferencesVolumes._volumeRingtone;
-        this._volumeNotification = fromEvent._eventPreferencesVolumes._volumeNotification;
-        this._volumeMedia = fromEvent._eventPreferencesVolumes._volumeMedia;
-        this._volumeAlarm = fromEvent._eventPreferencesVolumes._volumeAlarm;
-        this._volumeSystem = fromEvent._eventPreferencesVolumes._volumeSystem;
-        this._volumeVoice = fromEvent._eventPreferencesVolumes._volumeVoice;
-        this._volumeBluetoothSCO = fromEvent._eventPreferencesVolumes._volumeBluetoothSCO;
+        this._volumeRingtoneFrom = fromEvent._eventPreferencesVolumes._volumeRingtoneFrom;
+        this._volumeNotificationFrom = fromEvent._eventPreferencesVolumes._volumeNotificationFrom;
+        this._volumeMediaFrom = fromEvent._eventPreferencesVolumes._volumeMediaFrom;
+        this._volumeAlarmFrom = fromEvent._eventPreferencesVolumes._volumeAlarmFrom;
+        this._volumeSystemFrom = fromEvent._eventPreferencesVolumes._volumeSystemFrom;
+        this._volumeVoiceFrom = fromEvent._eventPreferencesVolumes._volumeVoiceFrom;
+        this._volumeBluetoothSCOFrom = fromEvent._eventPreferencesVolumes._volumeBluetoothSCOFrom;
+        this._volumeRingtoneTo = fromEvent._eventPreferencesVolumes._volumeRingtoneTo;
+        this._volumeNotificationTo = fromEvent._eventPreferencesVolumes._volumeNotificationTo;
+        this._volumeMediaTo = fromEvent._eventPreferencesVolumes._volumeMediaTo;
+        this._volumeAlarmTo = fromEvent._eventPreferencesVolumes._volumeAlarmTo;
+        this._volumeSystemTo = fromEvent._eventPreferencesVolumes._volumeSystemTo;
+        this._volumeVoiceTo = fromEvent._eventPreferencesVolumes._volumeVoiceTo;
+        this._volumeBluetoothSCOTo = fromEvent._eventPreferencesVolumes._volumeBluetoothSCOTo;
         this.setSensorPassed(fromEvent._eventPreferencesVolumes.getSensorPassed());
     }
 
@@ -69,26 +104,40 @@ class EventPreferencesVolumes extends EventPreferences {
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_VOLUMES_ENABLED, _enabled);
-        editor.putString(PREF_EVENT_VOLUMES_RINGTONE, this._volumeRingtone);
-        editor.putString(PREF_EVENT_VOLUMES_NOTIFICATION, this._volumeNotification);
-        editor.putString(PREF_EVENT_VOLUMES_MEDIA, this._volumeMedia);
-        editor.putString(PREF_EVENT_VOLUMES_ALARM, this._volumeAlarm);
-        editor.putString(PREF_EVENT_VOLUMES_SYSTEM, this._volumeSystem);
-        editor.putString(PREF_EVENT_VOLUMES_VOICE, this._volumeVoice);
-        editor.putString(PREF_EVENT_VOLUMES_BLUETOOTHSCO, this._volumeBluetoothSCO);
+        editor.putString(PREF_EVENT_VOLUMES_RINGTONE_FROM, this._volumeRingtoneFrom);
+        editor.putString(PREF_EVENT_VOLUMES_NOTIFICATION_FROM, this._volumeNotificationFrom);
+        editor.putString(PREF_EVENT_VOLUMES_MEDIA_FROM, this._volumeMediaFrom);
+        editor.putString(PREF_EVENT_VOLUMES_ALARM_FROM, this._volumeAlarmFrom);
+        editor.putString(PREF_EVENT_VOLUMES_SYSTEM_FROM, this._volumeSystemFrom);
+        editor.putString(PREF_EVENT_VOLUMES_VOICE_FROM, this._volumeVoiceFrom);
+        editor.putString(PREF_EVENT_VOLUMES_BLUETOOTHSCO_FROM, this._volumeBluetoothSCOFrom);
+        editor.putString(PREF_EVENT_VOLUMES_RINGTONE_TO, this._volumeRingtoneTo);
+        editor.putString(PREF_EVENT_VOLUMES_NOTIFICATION_TO, this._volumeNotificationTo);
+        editor.putString(PREF_EVENT_VOLUMES_MEDIA_TO, this._volumeMediaTo);
+        editor.putString(PREF_EVENT_VOLUMES_ALARM_TO, this._volumeAlarmTo);
+        editor.putString(PREF_EVENT_VOLUMES_SYSTEM_TO, this._volumeSystemTo);
+        editor.putString(PREF_EVENT_VOLUMES_VOICE_TO, this._volumeVoiceTo);
+        editor.putString(PREF_EVENT_VOLUMES_BLUETOOTHSCO_TO, this._volumeBluetoothSCOTo);
         editor.apply();
     }
 
     void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_VOLUMES_ENABLED, false);
-        this._volumeRingtone = preferences.getString(PREF_EVENT_VOLUMES_RINGTONE, "0|0|0");
-        this._volumeNotification = preferences.getString(PREF_EVENT_VOLUMES_NOTIFICATION, "0|0|0");
-        this._volumeMedia = preferences.getString(PREF_EVENT_VOLUMES_MEDIA, "0|0|0");
-        this._volumeAlarm = preferences.getString(PREF_EVENT_VOLUMES_ALARM, "0|0|0");
-        this._volumeSystem = preferences.getString(PREF_EVENT_VOLUMES_SYSTEM, "0|0|0");
-        this._volumeVoice = preferences.getString(PREF_EVENT_VOLUMES_VOICE, "0|0|0");
-        this._volumeBluetoothSCO = preferences.getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO, "0|0|0");
+        this._volumeRingtoneFrom = preferences.getString(PREF_EVENT_VOLUMES_RINGTONE_FROM, "0|0|0");
+        this._volumeNotificationFrom = preferences.getString(PREF_EVENT_VOLUMES_NOTIFICATION_FROM, "0|0|0");
+        this._volumeMediaFrom = preferences.getString(PREF_EVENT_VOLUMES_MEDIA_FROM, "0|0|0");
+        this._volumeAlarmFrom = preferences.getString(PREF_EVENT_VOLUMES_ALARM_FROM, "0|0|0");
+        this._volumeSystemFrom = preferences.getString(PREF_EVENT_VOLUMES_SYSTEM_FROM, "0|0|0");
+        this._volumeVoiceFrom = preferences.getString(PREF_EVENT_VOLUMES_VOICE_FROM, "0|0|0");
+        this._volumeBluetoothSCOFrom = preferences.getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO_FROM, "0|0|0");
+        this._volumeRingtoneTo = preferences.getString(PREF_EVENT_VOLUMES_RINGTONE_TO, "0|0|0");
+        this._volumeNotificationTo = preferences.getString(PREF_EVENT_VOLUMES_NOTIFICATION_TO, "0|0|0");
+        this._volumeMediaTo = preferences.getString(PREF_EVENT_VOLUMES_MEDIA_TO, "0|0|0");
+        this._volumeAlarmTo = preferences.getString(PREF_EVENT_VOLUMES_ALARM_TO, "0|0|0");
+        this._volumeSystemTo = preferences.getString(PREF_EVENT_VOLUMES_SYSTEM_TO, "0|0|0");
+        this._volumeVoiceTo = preferences.getString(PREF_EVENT_VOLUMES_VOICE_TO, "0|0|0");
+        this._volumeBluetoothSCOTo = preferences.getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO_TO, "0|0|0");
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
@@ -108,7 +157,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 boolean _addBullet = false;
 
                 int operator = 0;
-                String[] splits = this._volumeRingtone.split(StringConstants.STR_SPLIT_REGEX);
+                String[] splits = this._volumeRingtoneFrom.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length > 1) {
                     try {
                         operator = Integer.parseInt(splits[1]);
@@ -122,7 +171,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
 
                 operator = 0;
-                splits = this._volumeNotification.split(StringConstants.STR_SPLIT_REGEX);
+                splits = this._volumeNotificationFrom.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length > 1) {
                     try {
                         operator = Integer.parseInt(splits[1]);
@@ -138,7 +187,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
 
                 operator = 0;
-                splits = this._volumeMedia.split(StringConstants.STR_SPLIT_REGEX);
+                splits = this._volumeMediaFrom.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length > 1) {
                     try {
                         operator = Integer.parseInt(splits[1]);
@@ -154,7 +203,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
 
                 operator = 0;
-                splits = this._volumeAlarm.split(StringConstants.STR_SPLIT_REGEX);
+                splits = this._volumeAlarmFrom.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length > 1) {
                     try {
                         operator = Integer.parseInt(splits[1]);
@@ -170,7 +219,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
 
                 operator = 0;
-                splits = this._volumeSystem.split(StringConstants.STR_SPLIT_REGEX);
+                splits = this._volumeSystemFrom.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length > 1) {
                     try {
                         operator = Integer.parseInt(splits[1]);
@@ -186,7 +235,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
 
                 operator = 0;
-                splits = this._volumeVoice.split(StringConstants.STR_SPLIT_REGEX);
+                splits = this._volumeVoiceFrom.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length > 1) {
                     try {
                         operator = Integer.parseInt(splits[1]);
@@ -202,7 +251,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
 
                 operator = 0;
-                splits = this._volumeBluetoothSCO.split(StringConstants.STR_SPLIT_REGEX);
+                splits = this._volumeBluetoothSCOFrom.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length > 1) {
                     try {
                         operator = Integer.parseInt(splits[1]);
@@ -258,61 +307,51 @@ class EventPreferencesVolumes extends EventPreferences {
             }
         }
 
-        /*if (key.equals(PREF_EVENT_VOLUMES_RINGTONE) ||
-                key.equals(PREF_EVENT_VOLUMES_NOTIFICATION) ||
-                key.equals(PREF_EVENT_VOLUMES_MEDIA) ||
-                key.equals(PREF_EVENT_VOLUMES_ALARM) ||
-                key.equals(PREF_EVENT_VOLUMES_SYSTEM) ||
-                key.equals(PREF_EVENT_VOLUMES_VOICE) ||
-                key.equals(PREF_EVENT_VOLUMES_BLUETOOTHSCO)) {
-
-        }*/
-
         Event event = new Event();
         event.createEventPreferences();
         event._eventPreferencesVolumes.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesVolumes.isRunnable(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_VOLUMES_ENABLED, false);
-        VolumeDialogPreference preference = prefMng.findPreference(PREF_EVENT_VOLUMES_RINGTONE);
+        VolumeDialogPreference preference = prefMng.findPreference(PREF_EVENT_VOLUMES_RINGTONE_FROM);
         String defaultValue = "0|0|0";
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_RINGTONE, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_RINGTONE_FROM, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
-        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_NOTIFICATION);
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_NOTIFICATION_FROM);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_NOTIFICATION, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_NOTIFICATION_FROM, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
-        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_MEDIA);
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_MEDIA_FROM);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_MEDIA, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_MEDIA_FROM, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
-        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_ALARM);
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_ALARM_FROM);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_ALARM, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_ALARM_FROM, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
-        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_SYSTEM);
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_SYSTEM_FROM);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_SYSTEM, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_SYSTEM_FROM, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
-        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_VOICE);
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_VOICE_FROM);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_VOICE, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_VOICE_FROM, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
-        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_BLUETOOTHSCO);
+        preference = prefMng.findPreference(PREF_EVENT_VOLUMES_BLUETOOTHSCO_FROM);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO_FROM, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
@@ -332,13 +371,20 @@ class EventPreferencesVolumes extends EventPreferences {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
-        if (key.equals(PREF_EVENT_VOLUMES_RINGTONE) ||
-                key.equals(PREF_EVENT_VOLUMES_NOTIFICATION) ||
-                key.equals(PREF_EVENT_VOLUMES_MEDIA) ||
-                key.equals(PREF_EVENT_VOLUMES_ALARM) ||
-                key.equals(PREF_EVENT_VOLUMES_SYSTEM) ||
-                key.equals(PREF_EVENT_VOLUMES_VOICE) ||
-                key.equals(PREF_EVENT_VOLUMES_BLUETOOTHSCO)) {
+        if (key.equals(PREF_EVENT_VOLUMES_RINGTONE_FROM) ||
+                key.equals(PREF_EVENT_VOLUMES_NOTIFICATION_FROM) ||
+                key.equals(PREF_EVENT_VOLUMES_MEDIA_FROM) ||
+                key.equals(PREF_EVENT_VOLUMES_ALARM_FROM) ||
+                key.equals(PREF_EVENT_VOLUMES_SYSTEM_FROM) ||
+                key.equals(PREF_EVENT_VOLUMES_VOICE_FROM) ||
+                key.equals(PREF_EVENT_VOLUMES_BLUETOOTHSCO_FROM) ||
+                key.equals(PREF_EVENT_VOLUMES_RINGTONE_TO) ||
+                key.equals(PREF_EVENT_VOLUMES_NOTIFICATION_TO) ||
+                key.equals(PREF_EVENT_VOLUMES_MEDIA_TO) ||
+                key.equals(PREF_EVENT_VOLUMES_ALARM_TO) ||
+                key.equals(PREF_EVENT_VOLUMES_SYSTEM_TO) ||
+                key.equals(PREF_EVENT_VOLUMES_VOICE_TO) ||
+                key.equals(PREF_EVENT_VOLUMES_BLUETOOTHSCO_TO)) {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
     }
@@ -346,22 +392,32 @@ class EventPreferencesVolumes extends EventPreferences {
     void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_VOLUMES_ENABLED, preferences, context);
-        setSummary(prefMng, PREF_EVENT_VOLUMES_RINGTONE, preferences, context);
-        setSummary(prefMng, PREF_EVENT_VOLUMES_NOTIFICATION, preferences, context);
-        setSummary(prefMng, PREF_EVENT_VOLUMES_MEDIA, preferences, context);
-        setSummary(prefMng, PREF_EVENT_VOLUMES_ALARM, preferences, context);
-        setSummary(prefMng, PREF_EVENT_VOLUMES_SYSTEM, preferences, context);
-        setSummary(prefMng, PREF_EVENT_VOLUMES_VOICE, preferences, context);
-        setSummary(prefMng, PREF_EVENT_VOLUMES_BLUETOOTHSCO, preferences, context);
+        setSummary(prefMng, PREF_EVENT_VOLUMES_RINGTONE_FROM, preferences, context);
+        setSummary(prefMng, PREF_EVENT_VOLUMES_NOTIFICATION_FROM, preferences, context);
+        setSummary(prefMng, PREF_EVENT_VOLUMES_MEDIA_FROM, preferences, context);
+        setSummary(prefMng, PREF_EVENT_VOLUMES_ALARM_FROM, preferences, context);
+        setSummary(prefMng, PREF_EVENT_VOLUMES_SYSTEM_FROM, preferences, context);
+        setSummary(prefMng, PREF_EVENT_VOLUMES_VOICE_FROM, preferences, context);
+        setSummary(prefMng, PREF_EVENT_VOLUMES_BLUETOOTHSCO_FROM, preferences, context);
+        setSummary(prefMng, PREF_EVENT_VOLUMES_RINGTONE_TO, preferences, context);
+        setSummary(prefMng, PREF_EVENT_VOLUMES_NOTIFICATION_TO, preferences, context);
+        setSummary(prefMng, PREF_EVENT_VOLUMES_MEDIA_TO, preferences, context);
+        setSummary(prefMng, PREF_EVENT_VOLUMES_ALARM_TO, preferences, context);
+        setSummary(prefMng, PREF_EVENT_VOLUMES_SYSTEM_TO, preferences, context);
+        setSummary(prefMng, PREF_EVENT_VOLUMES_VOICE_TO, preferences, context);
+        setSummary(prefMng, PREF_EVENT_VOLUMES_BLUETOOTHSCO_TO, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_VOLUMES_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesVolumes tmp = new EventPreferencesVolumes(this._event, this._enabled,
-                    this._volumeRingtone, this._volumeNotification, this._volumeMedia,
-                    this._volumeAlarm, this._volumeSystem, this._volumeVoice,
-                    this._volumeBluetoothSCO);
+                    this._volumeRingtoneFrom, this._volumeNotificationFrom, this._volumeMediaFrom,
+                    this._volumeAlarmFrom, this._volumeSystemFrom, this._volumeVoiceFrom,
+                    this._volumeBluetoothSCOFrom,
+                    this._volumeRingtoneTo, this._volumeNotificationTo, this._volumeMediaTo,
+                    this._volumeAlarmTo, this._volumeSystemTo, this._volumeVoiceTo,
+                    this._volumeBluetoothSCOTo);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -394,7 +450,7 @@ class EventPreferencesVolumes extends EventPreferences {
         boolean runnable = super.isRunnable(context);
 
         int ringtoneOperator = 0;
-        String[] splits = this._volumeRingtone.split(StringConstants.STR_SPLIT_REGEX);
+        String[] splits = this._volumeRingtoneFrom.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 ringtoneOperator = Integer.parseInt(splits[1]);
@@ -402,7 +458,7 @@ class EventPreferencesVolumes extends EventPreferences {
         }
 
         int notificationOperator = 0;
-        splits = this._volumeNotification.split(StringConstants.STR_SPLIT_REGEX);
+        splits = this._volumeNotificationFrom.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 notificationOperator = Integer.parseInt(splits[1]);
@@ -410,7 +466,7 @@ class EventPreferencesVolumes extends EventPreferences {
         }
 
         int mediaOoperator = 0;
-        splits = this._volumeMedia.split(StringConstants.STR_SPLIT_REGEX);
+        splits = this._volumeMediaFrom.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 mediaOoperator = Integer.parseInt(splits[1]);
@@ -418,7 +474,7 @@ class EventPreferencesVolumes extends EventPreferences {
         }
 
         int alarmOperator = 0;
-        splits = this._volumeAlarm.split(StringConstants.STR_SPLIT_REGEX);
+        splits = this._volumeAlarmFrom.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 alarmOperator = Integer.parseInt(splits[1]);
@@ -426,7 +482,7 @@ class EventPreferencesVolumes extends EventPreferences {
         }
 
         int systemOperator = 0;
-        splits = this._volumeSystem.split(StringConstants.STR_SPLIT_REGEX);
+        splits = this._volumeSystemFrom.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 systemOperator = Integer.parseInt(splits[1]);
@@ -434,7 +490,7 @@ class EventPreferencesVolumes extends EventPreferences {
         }
 
         int voiceOperator = 0;
-        splits = this._volumeVoice.split(StringConstants.STR_SPLIT_REGEX);
+        splits = this._volumeVoiceFrom.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 voiceOperator = Integer.parseInt(splits[1]);
@@ -442,7 +498,7 @@ class EventPreferencesVolumes extends EventPreferences {
         }
 
         int bluetoothSCOOperator = 0;
-        splits = this._volumeBluetoothSCO.split(StringConstants.STR_SPLIT_REGEX);
+        splits = this._volumeBluetoothSCOFrom.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 bluetoothSCOOperator = Integer.parseInt(splits[1]);
@@ -520,7 +576,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     int actualValue = audioManager.getStreamVolume(AudioManager.STREAM_RING);
                     int configuredValue = -1;
                     int configuredOperator = 0;
-                    String[] splits = this._volumeRingtone.split(StringConstants.STR_SPLIT_REGEX);
+                    String[] splits = this._volumeRingtoneFrom.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
                         try {
                             configuredValue = Integer.parseInt(splits[0]);
@@ -561,7 +617,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     actualValue = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
                     configuredValue = -1;
                     configuredOperator = 0;
-                    splits = this._volumeNotification.split(StringConstants.STR_SPLIT_REGEX);
+                    splits = this._volumeNotificationFrom.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
                         try {
                             configuredValue = Integer.parseInt(splits[0]);
@@ -602,7 +658,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     actualValue = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
                     configuredValue = -1;
                     configuredOperator = 0;
-                    splits = this._volumeMedia.split(StringConstants.STR_SPLIT_REGEX);
+                    splits = this._volumeMediaFrom.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
                         try {
                             configuredValue = Integer.parseInt(splits[0]);
@@ -643,7 +699,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     actualValue = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
                     configuredValue = -1;
                     configuredOperator = 0;
-                    splits = this._volumeAlarm.split(StringConstants.STR_SPLIT_REGEX);
+                    splits = this._volumeAlarmFrom.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
                         try {
                             configuredValue = Integer.parseInt(splits[0]);
@@ -684,7 +740,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     actualValue = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
                     configuredValue = -1;
                     configuredOperator = 0;
-                    splits = this._volumeSystem.split(StringConstants.STR_SPLIT_REGEX);
+                    splits = this._volumeSystemFrom.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
                         try {
                             configuredValue = Integer.parseInt(splits[0]);
@@ -725,7 +781,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     actualValue = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
                     configuredValue = -1;
                     configuredOperator = 0;
-                    splits = this._volumeVoice.split(StringConstants.STR_SPLIT_REGEX);
+                    splits = this._volumeVoiceFrom.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
                         try {
                             configuredValue = Integer.parseInt(splits[0]);
@@ -766,7 +822,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     actualValue = audioManager.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
                     configuredValue = -1;
                     configuredOperator = 0;
-                    splits = this._volumeBluetoothSCO.split(StringConstants.STR_SPLIT_REGEX);
+                    splits = this._volumeBluetoothSCOFrom.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
                         try {
                             configuredValue = Integer.parseInt(splits[0]);

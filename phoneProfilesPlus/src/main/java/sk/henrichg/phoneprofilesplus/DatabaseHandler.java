@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2504;
+    static final int DATABASE_VERSION = 2505;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -395,14 +395,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_VOLUMES_SENSOR_PASSED = "volumesSensorPassed";
     static final String KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE = "notificationSoundStartPlayAlsoInSilentMode";
     static final String KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE = "notificationSoundEndPlayAlsoInSilentMode";
-    static final String KEY_E_VOLUMES_RINGTONE = "volumesRingtone";
-    static final String KEY_E_VOLUMES_NOTIFICATION = "volumesNotification";
-    static final String KEY_E_VOLUMES_MEDIA = "volumesMedia";
-    static final String KEY_E_VOLUMES_ALARM = "volumesAlarm";
-    static final String KEY_E_VOLUMES_SYSTEM = "volumesSystem";
-    static final String KEY_E_VOLUMES_VOICE = "volumesVoice";
-    static final String KEY_E_VOLUMES_BLUETOOTHSCO = "volumesBluetoothSCO";
-    static final String KEY_E_VOLUMES_ACCESSIBILITY = "volumesAccessibility";
+    static final String KEY_E_VOLUMES_RINGTONE_FROM = "volumesRingtone";
+    static final String KEY_E_VOLUMES_NOTIFICATION_FROM = "volumesNotification";
+    static final String KEY_E_VOLUMES_MEDIA_FROM = "volumesMedia";
+    static final String KEY_E_VOLUMES_ALARM_FROM = "volumesAlarm";
+    static final String KEY_E_VOLUMES_SYSTEM_FROM = "volumesSystem";
+    static final String KEY_E_VOLUMES_VOICE_FROM = "volumesVoice";
+    static final String KEY_E_VOLUMES_BLUETOOTHSCO_FROM = "volumesBluetoothSCO";
+    static final String KEY_E_VOLUMES_ACCESSIBILITY_FROM = "volumesAccessibility";
     static final String KEY_E_ACTIVATED_PROFILE_ENABLED = "activatedProfileEnabled";
     static final String KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED = "activatedProfileSensorPassed";
     static final String KEY_E_ACTIVATED_PROFILE_START_PROFILE = "activatedProfileStartProfile";
@@ -422,6 +422,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_BRIGHTNESS_OPERATOR_TO = "brightnessOperatorTo";
     static final String KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_TO = "brightnessBrightnessLevelTo";
     static final String KEY_E_BRIGHTNESS_SENSOR_PASSED = "brightnessSensorPassed";
+    static final String KEY_E_VOLUMES_RINGTONE_TO = "volumesRingtoneTo";
+    static final String KEY_E_VOLUMES_NOTIFICATION_TO = "volumesNotificationTo";
+    static final String KEY_E_VOLUMES_MEDIA_TO = "volumesMediaTo";
+    static final String KEY_E_VOLUMES_ALARM_TO = "volumesAlarmTo";
+    static final String KEY_E_VOLUMES_SYSTEM_TO = "volumesSystemTo";
+    static final String KEY_E_VOLUMES_VOICE_TO = "volumesVoiceTo";
+    static final String KEY_E_VOLUMES_BLUETOOTHSCO_TO = "volumesBluetoothSCOTo";
+    static final String KEY_E_VOLUMES_ACCESSIBILITY_TO = "volumesAccessibilityTo";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";

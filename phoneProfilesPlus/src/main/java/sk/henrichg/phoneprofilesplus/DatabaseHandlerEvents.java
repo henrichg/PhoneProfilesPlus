@@ -1309,13 +1309,20 @@ class DatabaseHandlerEvents {
     static private void getEventPreferencesVolumes(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                 new String[]{DatabaseHandler.KEY_E_VOLUMES_ENABLED,
-                        DatabaseHandler.KEY_E_VOLUMES_RINGTONE,
-                        DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION,
-                        DatabaseHandler.KEY_E_VOLUMES_MEDIA,
-                        DatabaseHandler.KEY_E_VOLUMES_ALARM,
-                        DatabaseHandler.KEY_E_VOLUMES_SYSTEM,
-                        DatabaseHandler.KEY_E_VOLUMES_VOICE,
-                        DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO,
+                        DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM,
+                        DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM,
+                        DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM,
+                        DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM,
+                        DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM,
+                        DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM,
+                        DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM,
+                        DatabaseHandler.KEY_E_VOLUMES_RINGTONE_TO,
+                        DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_TO,
+                        DatabaseHandler.KEY_E_VOLUMES_MEDIA_TO,
+                        DatabaseHandler.KEY_E_VOLUMES_ALARM_TO,
+                        DatabaseHandler.KEY_E_VOLUMES_SYSTEM_TO,
+                        DatabaseHandler.KEY_E_VOLUMES_VOICE_TO,
+                        DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_TO,
                         DatabaseHandler.KEY_E_VOLUMES_SENSOR_PASSED
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
@@ -1329,13 +1336,20 @@ class DatabaseHandlerEvents {
                 EventPreferencesVolumes eventPreferences = event._eventPreferencesVolumes;
 
                 eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_ENABLED)) == 1);
-                eventPreferences._volumeRingtone = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_RINGTONE));
-                eventPreferences._volumeNotification = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION));
-                eventPreferences._volumeMedia = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_MEDIA));
-                eventPreferences._volumeAlarm = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_ALARM));
-                eventPreferences._volumeSystem = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_SYSTEM));
-                eventPreferences._volumeVoice = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_VOICE));
-                eventPreferences._volumeBluetoothSCO = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO));
+                eventPreferences._volumeRingtoneFrom = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM));
+                eventPreferences._volumeNotificationFrom = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM));
+                eventPreferences._volumeMediaFrom = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM));
+                eventPreferences._volumeAlarmFrom = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM));
+                eventPreferences._volumeSystemFrom = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM));
+                eventPreferences._volumeVoiceFrom = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM));
+                eventPreferences._volumeBluetoothSCOFrom = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM));
+                eventPreferences._volumeRingtoneTo = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_RINGTONE_TO));
+                eventPreferences._volumeNotificationTo = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_TO));
+                eventPreferences._volumeMediaTo = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_MEDIA_TO));
+                eventPreferences._volumeAlarmTo = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_ALARM_TO));
+                eventPreferences._volumeSystemTo = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_SYSTEM_TO));
+                eventPreferences._volumeVoiceTo = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_VOICE_TO));
+                eventPreferences._volumeBluetoothSCOTo = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_TO));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_SENSOR_PASSED)));
             }
             cursor.close();
@@ -1863,13 +1877,20 @@ class DatabaseHandlerEvents {
         EventPreferencesVolumes eventPreferences = event._eventPreferencesVolumes;
 
         values.put(DatabaseHandler.KEY_E_VOLUMES_ENABLED, (eventPreferences._enabled) ? 1 : 0);
-        values.put(DatabaseHandler.KEY_E_VOLUMES_RINGTONE, eventPreferences._volumeRingtone);
-        values.put(DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION, eventPreferences._volumeNotification);
-        values.put(DatabaseHandler.KEY_E_VOLUMES_MEDIA, eventPreferences._volumeMedia);
-        values.put(DatabaseHandler.KEY_E_VOLUMES_ALARM, eventPreferences._volumeAlarm);
-        values.put(DatabaseHandler.KEY_E_VOLUMES_SYSTEM, eventPreferences._volumeSystem);
-        values.put(DatabaseHandler.KEY_E_VOLUMES_VOICE, eventPreferences._volumeVoice);
-        values.put(DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO, eventPreferences._volumeBluetoothSCO);
+        values.put(DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM, eventPreferences._volumeRingtoneFrom);
+        values.put(DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM, eventPreferences._volumeNotificationFrom);
+        values.put(DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM, eventPreferences._volumeMediaFrom);
+        values.put(DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM, eventPreferences._volumeAlarmFrom);
+        values.put(DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM, eventPreferences._volumeSystemFrom);
+        values.put(DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM, eventPreferences._volumeVoiceFrom);
+        values.put(DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM, eventPreferences._volumeBluetoothSCOFrom);
+        values.put(DatabaseHandler.KEY_E_VOLUMES_RINGTONE_TO, eventPreferences._volumeRingtoneTo);
+        values.put(DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_TO, eventPreferences._volumeNotificationTo);
+        values.put(DatabaseHandler.KEY_E_VOLUMES_MEDIA_TO, eventPreferences._volumeMediaTo);
+        values.put(DatabaseHandler.KEY_E_VOLUMES_ALARM_TO, eventPreferences._volumeAlarmTo);
+        values.put(DatabaseHandler.KEY_E_VOLUMES_SYSTEM_TO, eventPreferences._volumeSystemTo);
+        values.put(DatabaseHandler.KEY_E_VOLUMES_VOICE_TO, eventPreferences._volumeVoiceTo);
+        values.put(DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_TO, eventPreferences._volumeBluetoothSCOTo);
         values.put(DatabaseHandler.KEY_E_VOLUMES_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row

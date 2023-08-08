@@ -315,14 +315,14 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_E_VOLUMES_SENSOR_PASSED + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_E_VOLUMES_RINGTONE + " " + DatabaseHandler.TEXT_TYPE + ","
-                + DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION + " " + DatabaseHandler.TEXT_TYPE + ","
-                + DatabaseHandler.KEY_E_VOLUMES_MEDIA + " " + DatabaseHandler.TEXT_TYPE + ","
-                + DatabaseHandler.KEY_E_VOLUMES_ALARM + " " + DatabaseHandler.TEXT_TYPE + ","
-                + DatabaseHandler.KEY_E_VOLUMES_SYSTEM + " " + DatabaseHandler.TEXT_TYPE + ","
-                + DatabaseHandler.KEY_E_VOLUMES_VOICE + " " + DatabaseHandler.TEXT_TYPE + ","
-                + DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO + " " + DatabaseHandler.TEXT_TYPE + ","
-                + DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_FROM + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_E_ACTIVATED_PROFILE_ENABLED + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_PROFILE + " " + DatabaseHandler.INTEGER_TYPE + ","
@@ -341,7 +341,15 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR_TO + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_TO + " " + DatabaseHandler.TEXT_TYPE + ","
-                + DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED + " " + DatabaseHandler.INTEGER_TYPE
+                + DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_RINGTONE_TO + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_TO + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_MEDIA_TO + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_ALARM_TO + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_SYSTEM_TO + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_VOICE_TO + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_TO + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_TO + " " + DatabaseHandler.TEXT_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -820,14 +828,14 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_SENSOR_PASSED, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, DatabaseHandler.INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_RINGTONE, DatabaseHandler.TEXT_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION, DatabaseHandler.TEXT_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_MEDIA, DatabaseHandler.TEXT_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_ALARM, DatabaseHandler.TEXT_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_SYSTEM, DatabaseHandler.TEXT_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_VOICE, DatabaseHandler.TEXT_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO, DatabaseHandler.TEXT_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_FROM, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_ACTIVATED_PROFILE_ENABLED, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_PROFILE, DatabaseHandler.INTEGER_TYPE, columns);
@@ -847,6 +855,14 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_BRIGHTNESS_OPERATOR_TO, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_TO, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_RINGTONE_TO, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_TO, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_MEDIA_TO, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_ALARM_TO, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_SYSTEM_TO, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_VOICE_TO, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_TO, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_TO, DatabaseHandler.TEXT_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_ET_EORDER, DatabaseHandler.INTEGER_TYPE, columns);
@@ -3285,14 +3301,14 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2490)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_RINGTONE + "='0|0|0'");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION + "='0|0|0'");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_MEDIA + "='0|0|0'");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_ALARM + "='0|0|0'");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_SYSTEM + "='0|0|0'");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_VOICE  + "='0|0|0'");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO + "='0|0|0'");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY + "='0|0|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM + "='0|0|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM + "='0|0|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM + "='0|0|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM + "='0|0|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM + "='0|0|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM  + "='0|0|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM + "='0|0|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_FROM + "='0|0|0'");
         }
 
         if (oldVersion < 2491)
@@ -3363,6 +3379,17 @@ class DatabaseHandlerCreateUpdateDB {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED + "=0");
         }
 
+        if (oldVersion < 2505)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_RINGTONE_TO + "='0|0|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_TO + "='0|0|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_MEDIA_TO + "='0|0|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_ALARM_TO + "='0|0|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_SYSTEM_TO + "='0|0|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_VOICE_TO  + "='0|0|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_TO + "='0|0|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_TO + "='0|0|0'");
+        }
     }
 
 }

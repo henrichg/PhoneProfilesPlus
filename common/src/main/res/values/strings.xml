@@ -2137,6 +2137,9 @@
     <string name="event_preferences_brightness_operator_to">Operator to</string>
     <string name="event_type_brightness">Brightness</string>
 
+    <string name="event_preferences_volumes_volume_from">Volume from</string>
+    <string name="event_preferences_volumes_volume_to">Volume to</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

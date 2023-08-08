@@ -182,14 +182,22 @@ class DatabaseHandlerOthers {
                         DatabaseHandler.KEY_E_RADIO_SWITCH_ENABLED + "," +
                         DatabaseHandler.KEY_E_SOUND_PROFILE_ENABLED + "," +
                         DatabaseHandler.KEY_E_VOLUMES_ENABLED + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_RINGTONE + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_MEDIA + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_ALARM + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_SYSTEM + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_VOICE + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_FROM + "," +
+                        /*DatabaseHandler.KEY_E_VOLUMES_RINGTONE_TO + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_TO + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_MEDIA_TO + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_ALARM_TO + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_SYSTEM_TO + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_VOICE_TO + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_TO + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_TO + "," +*/
                         DatabaseHandler.KEY_E_CALL_EVENT + "," +
                         DatabaseHandler.KEY_E_SMS_ENABLED + "," +
                         DatabaseHandler.KEY_E_ROAMING_ENABLED +
@@ -1049,7 +1057,7 @@ class DatabaseHandlerOthers {
                                         new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                             }
 
-                            String value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_RINGTONE));
+                            String value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM));
                             if (value != null) {
                                 int operator = 0;
                                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
@@ -1061,13 +1069,13 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_RINGTONE, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
                             }
 
-                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION));
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM));
                             if (value != null) {
                                 int operator = 0;
                                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
@@ -1079,13 +1087,13 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
                             }
 
-                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_MEDIA));
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM));
                             if (value != null) {
                                 int operator = 0;
                                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
@@ -1097,13 +1105,13 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_MEDIA, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
                             }
 
-                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_ALARM));
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM));
                             if (value != null) {
                                 int operator = 0;
                                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
@@ -1115,13 +1123,13 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_ALARM, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
                             }
 
-                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_SYSTEM));
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM));
                             if (value != null) {
                                 int operator = 0;
                                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
@@ -1133,13 +1141,13 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_SYSTEM, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
                             }
 
-                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_VOICE));
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM));
                             if (value != null) {
                                 int operator = 0;
                                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
@@ -1151,13 +1159,13 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_VOICE, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
                             }
 
-                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO));
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM));
                             if (value != null) {
                                 int operator = 0;
                                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
@@ -1169,13 +1177,13 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
                             }
 
-                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY));
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_FROM));
                             if (value != null) {
                                 int operator = 0;
                                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
@@ -1187,7 +1195,7 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
