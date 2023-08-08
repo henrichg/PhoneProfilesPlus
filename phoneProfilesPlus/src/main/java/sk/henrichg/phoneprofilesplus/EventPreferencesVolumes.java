@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
-import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -793,8 +792,8 @@ class EventPreferencesVolumes extends EventPreferences {
                 AudioManager audioManager = (AudioManager)eventsHandler.context.getSystemService(Context.AUDIO_SERVICE);
                 if (audioManager != null) {
 
-                    // ringtone
-                    int actualValue = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+                    // ringtone from
+                    int actualRingValue = audioManager.getStreamVolume(AudioManager.STREAM_RING);
                     int configuredValue = -1;
                     int configuredOperator = 0;
                     String[] splits = this._volumeRingtoneFrom.split(StringConstants.STR_SPLIT_REGEX);
@@ -805,37 +804,37 @@ class EventPreferencesVolumes extends EventPreferences {
                         } catch (Exception ignored) {
                         }
                     }
-                    boolean ringtoneTested = configuredOperator > 0;
-                    boolean ringtonePassed = false;
+                    boolean ringtoneFromTested = configuredOperator > 0;
+                    boolean ringtoneFromPassed = false;
                     switch (configuredOperator) {
                         case 1: // equal to
-                            if (actualValue == configuredValue)
-                                ringtonePassed = true;
+                            if (actualRingValue == configuredValue)
+                                ringtoneFromPassed = true;
                             break;
                         case 2: // do not equal to
-                            if (actualValue != configuredValue)
-                                ringtonePassed = true;
+                            if (actualRingValue != configuredValue)
+                                ringtoneFromPassed = true;
                             break;
                         case 3: // is less then
-                            if (actualValue < configuredValue)
-                                ringtonePassed = true;
+                            if (actualRingValue < configuredValue)
+                                ringtoneFromPassed = true;
                             break;
                         case 4: // is greather then
-                            if (actualValue > configuredValue)
-                                ringtonePassed = true;
+                            if (actualRingValue > configuredValue)
+                                ringtoneFromPassed = true;
                             break;
                         case 5: // is less or equal to
-                            if (actualValue <= configuredValue)
-                                ringtonePassed = true;
+                            if (actualRingValue <= configuredValue)
+                                ringtoneFromPassed = true;
                             break;
                         case 6: // is greather or equal to
-                            if (actualValue >= configuredValue)
-                                ringtonePassed = true;
+                            if (actualRingValue >= configuredValue)
+                                ringtoneFromPassed = true;
                             break;
                     }
 
-                    // notification
-                    actualValue = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+                    // notification from
+                    int actualNotificationValue = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
                     configuredValue = -1;
                     configuredOperator = 0;
                     splits = this._volumeNotificationFrom.split(StringConstants.STR_SPLIT_REGEX);
@@ -846,37 +845,37 @@ class EventPreferencesVolumes extends EventPreferences {
                         } catch (Exception ignored) {
                         }
                     }
-                    boolean notificationTested = configuredOperator > 0;
-                    boolean notificationPassed = false;
+                    boolean notificationFromTested = configuredOperator > 0;
+                    boolean notificationFromPassed = false;
                     switch (configuredOperator) {
                         case 1: // equal to
-                            if (actualValue == configuredValue)
-                                notificationPassed = true;
+                            if (actualNotificationValue == configuredValue)
+                                notificationFromPassed = true;
                             break;
                         case 2: // do not equal to
-                            if (actualValue != configuredValue)
-                                notificationPassed = true;
+                            if (actualNotificationValue != configuredValue)
+                                notificationFromPassed = true;
                             break;
                         case 3: // is less then
-                            if (actualValue < configuredValue)
-                                notificationPassed = true;
+                            if (actualNotificationValue < configuredValue)
+                                notificationFromPassed = true;
                             break;
                         case 4: // is greather then
-                            if (actualValue > configuredValue)
-                                notificationPassed = true;
+                            if (actualNotificationValue > configuredValue)
+                                notificationFromPassed = true;
                             break;
                         case 5: // is less or equal to
-                            if (actualValue <= configuredValue)
-                                notificationPassed = true;
+                            if (actualNotificationValue <= configuredValue)
+                                notificationFromPassed = true;
                             break;
                         case 6: // is greather or equal to
-                            if (actualValue >= configuredValue)
-                                notificationPassed = true;
+                            if (actualNotificationValue >= configuredValue)
+                                notificationFromPassed = true;
                             break;
                     }
 
-                    // media
-                    actualValue = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                    // media from
+                    int actualMediaValue = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
                     configuredValue = -1;
                     configuredOperator = 0;
                     splits = this._volumeMediaFrom.split(StringConstants.STR_SPLIT_REGEX);
@@ -887,37 +886,37 @@ class EventPreferencesVolumes extends EventPreferences {
                         } catch (Exception ignored) {
                         }
                     }
-                    boolean mediaTested = configuredOperator > 0;
-                    boolean mediaPassed = false;
+                    boolean mediaFromTested = configuredOperator > 0;
+                    boolean mediaFromPassed = false;
                     switch (configuredOperator) {
                         case 1: // equal to
-                            if (actualValue == configuredValue)
-                                mediaPassed = true;
+                            if (actualMediaValue == configuredValue)
+                                mediaFromPassed = true;
                             break;
                         case 2: // do not equal to
-                            if (actualValue != configuredValue)
-                                mediaPassed = true;
+                            if (actualMediaValue != configuredValue)
+                                mediaFromPassed = true;
                             break;
                         case 3: // is less then
-                            if (actualValue < configuredValue)
-                                mediaPassed = true;
+                            if (actualMediaValue < configuredValue)
+                                mediaFromPassed = true;
                             break;
                         case 4: // is greather then
-                            if (actualValue > configuredValue)
-                                mediaPassed = true;
+                            if (actualMediaValue > configuredValue)
+                                mediaFromPassed = true;
                             break;
                         case 5: // is less or equal to
-                            if (actualValue <= configuredValue)
-                                mediaPassed = true;
+                            if (actualMediaValue <= configuredValue)
+                                mediaFromPassed = true;
                             break;
                         case 6: // is greather or equal to
-                            if (actualValue >= configuredValue)
-                                mediaPassed = true;
+                            if (actualMediaValue >= configuredValue)
+                                mediaFromPassed = true;
                             break;
                     }
 
-                    // alarm
-                    actualValue = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                    // alarm from
+                    int actualAlarmValue = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
                     configuredValue = -1;
                     configuredOperator = 0;
                     splits = this._volumeAlarmFrom.split(StringConstants.STR_SPLIT_REGEX);
@@ -928,37 +927,37 @@ class EventPreferencesVolumes extends EventPreferences {
                         } catch (Exception ignored) {
                         }
                     }
-                    boolean alarmTested = configuredOperator > 0;
-                    boolean alarmPassed = false;
+                    boolean alarmFromTested = configuredOperator > 0;
+                    boolean alarmFromPassed = false;
                     switch (configuredOperator) {
                         case 1: // equal to
-                            if (actualValue == configuredValue)
-                                alarmPassed = true;
+                            if (actualAlarmValue == configuredValue)
+                                alarmFromPassed = true;
                             break;
                         case 2: // do not equal to
-                            if (actualValue != configuredValue)
-                                alarmPassed = true;
+                            if (actualAlarmValue != configuredValue)
+                                alarmFromPassed = true;
                             break;
                         case 3: // is less then
-                            if (actualValue < configuredValue)
-                                alarmPassed = true;
+                            if (actualAlarmValue < configuredValue)
+                                alarmFromPassed = true;
                             break;
                         case 4: // is greather then
-                            if (actualValue > configuredValue)
-                                alarmPassed = true;
+                            if (actualAlarmValue > configuredValue)
+                                alarmFromPassed = true;
                             break;
                         case 5: // is less or equal to
-                            if (actualValue <= configuredValue)
-                                alarmPassed = true;
+                            if (actualAlarmValue <= configuredValue)
+                                alarmFromPassed = true;
                             break;
                         case 6: // is greather or equal to
-                            if (actualValue >= configuredValue)
-                                alarmPassed = true;
+                            if (actualAlarmValue >= configuredValue)
+                                alarmFromPassed = true;
                             break;
                     }
 
-                    // system
-                    actualValue = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
+                    // system from
+                    int actualSystemValue = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
                     configuredValue = -1;
                     configuredOperator = 0;
                     splits = this._volumeSystemFrom.split(StringConstants.STR_SPLIT_REGEX);
@@ -969,37 +968,37 @@ class EventPreferencesVolumes extends EventPreferences {
                         } catch (Exception ignored) {
                         }
                     }
-                    boolean systemTested = configuredOperator > 0;
-                    boolean systemPassed = false;
+                    boolean systemFromTested = configuredOperator > 0;
+                    boolean systemFromPassed = false;
                     switch (configuredOperator) {
                         case 1: // equal to
-                            if (actualValue == configuredValue)
-                                systemPassed = true;
+                            if (actualSystemValue == configuredValue)
+                                systemFromPassed = true;
                             break;
                         case 2: // do not equal to
-                            if (actualValue != configuredValue)
-                                systemPassed = true;
+                            if (actualSystemValue != configuredValue)
+                                systemFromPassed = true;
                             break;
                         case 3: // is less then
-                            if (actualValue < configuredValue)
-                                systemPassed = true;
+                            if (actualSystemValue < configuredValue)
+                                systemFromPassed = true;
                             break;
                         case 4: // is greather then
-                            if (actualValue > configuredValue)
-                                systemPassed = true;
+                            if (actualSystemValue > configuredValue)
+                                systemFromPassed = true;
                             break;
                         case 5: // is less or equal to
-                            if (actualValue <= configuredValue)
-                                systemPassed = true;
+                            if (actualSystemValue <= configuredValue)
+                                systemFromPassed = true;
                             break;
                         case 6: // is greather or equal to
-                            if (actualValue >= configuredValue)
-                                systemPassed = true;
+                            if (actualSystemValue >= configuredValue)
+                                systemFromPassed = true;
                             break;
                     }
 
-                    // voice
-                    actualValue = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+                    // voice from
+                    int actualVoiceValue = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
                     configuredValue = -1;
                     configuredOperator = 0;
                     splits = this._volumeVoiceFrom.split(StringConstants.STR_SPLIT_REGEX);
@@ -1010,37 +1009,37 @@ class EventPreferencesVolumes extends EventPreferences {
                         } catch (Exception ignored) {
                         }
                     }
-                    boolean voiceTested = configuredOperator > 0;
-                    boolean voicePassed = false;
+                    boolean voiceFromTested = configuredOperator > 0;
+                    boolean voiceFromPassed = false;
                     switch (configuredOperator) {
                         case 1: // equal to
-                            if (actualValue == configuredValue)
-                                voicePassed = true;
+                            if (actualVoiceValue == configuredValue)
+                                voiceFromPassed = true;
                             break;
                         case 2: // do not equal to
-                            if (actualValue != configuredValue)
-                                voicePassed = true;
+                            if (actualVoiceValue != configuredValue)
+                                voiceFromPassed = true;
                             break;
                         case 3: // is less then
-                            if (actualValue < configuredValue)
-                                voicePassed = true;
+                            if (actualVoiceValue < configuredValue)
+                                voiceFromPassed = true;
                             break;
                         case 4: // is greather then
-                            if (actualValue > configuredValue)
-                                voicePassed = true;
+                            if (actualVoiceValue > configuredValue)
+                                voiceFromPassed = true;
                             break;
                         case 5: // is less or equal to
-                            if (actualValue <= configuredValue)
-                                voicePassed = true;
+                            if (actualVoiceValue <= configuredValue)
+                                voiceFromPassed = true;
                             break;
                         case 6: // is greather or equal to
-                            if (actualValue >= configuredValue)
-                                voicePassed = true;
+                            if (actualVoiceValue >= configuredValue)
+                                voiceFromPassed = true;
                             break;
                     }
 
-                    // bluetooth sco
-                    actualValue = audioManager.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
+                    // bluetooth sco from
+                    int actualBluetoothSCOValue = audioManager.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
                     configuredValue = -1;
                     configuredOperator = 0;
                     splits = this._volumeBluetoothSCOFrom.split(StringConstants.STR_SPLIT_REGEX);
@@ -1051,51 +1050,360 @@ class EventPreferencesVolumes extends EventPreferences {
                         } catch (Exception ignored) {
                         }
                     }
-                    boolean bluetoothSCOTested = configuredOperator > 0;
-                    boolean bluetoothSCOPassed = false;
+                    boolean bluetoothSCOFromTested = configuredOperator > 0;
+                    boolean bluetoothSCOFromPassed = false;
                     switch (configuredOperator) {
                         case 1: // equal to
-                            if (actualValue == configuredValue)
-                                bluetoothSCOPassed = true;
+                            if (actualBluetoothSCOValue == configuredValue)
+                                bluetoothSCOFromPassed = true;
                             break;
                         case 2: // do not equal to
-                            if (actualValue != configuredValue)
-                                bluetoothSCOPassed = true;
+                            if (actualBluetoothSCOValue != configuredValue)
+                                bluetoothSCOFromPassed = true;
                             break;
                         case 3: // is less then
-                            if (actualValue < configuredValue)
-                                bluetoothSCOPassed = true;
+                            if (actualBluetoothSCOValue < configuredValue)
+                                bluetoothSCOFromPassed = true;
                             break;
                         case 4: // is greather then
-                            if (actualValue > configuredValue)
-                                bluetoothSCOPassed = true;
+                            if (actualBluetoothSCOValue > configuredValue)
+                                bluetoothSCOFromPassed = true;
                             break;
                         case 5: // is less or equal to
-                            if (actualValue <= configuredValue)
-                                bluetoothSCOPassed = true;
+                            if (actualBluetoothSCOValue <= configuredValue)
+                                bluetoothSCOFromPassed = true;
                             break;
                         case 6: // is greather or equal to
-                            if (actualValue >= configuredValue)
-                                bluetoothSCOPassed = true;
+                            if (actualBluetoothSCOValue >= configuredValue)
+                                bluetoothSCOFromPassed = true;
+                            break;
+                    }
+
+                    // ringtone To
+                    configuredValue = -1;
+                    configuredOperator = 0;
+                    splits = this._volumeRingtoneTo.split(StringConstants.STR_SPLIT_REGEX);
+                    if (splits.length > 1) {
+                        try {
+                            configuredValue = Integer.parseInt(splits[0]);
+                            configuredOperator = Integer.parseInt(splits[1]);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    boolean ringtoneToTested = configuredOperator > 0;
+                    boolean ringtoneToPassed = false;
+                    switch (configuredOperator) {
+                        case 1: // equal to
+                            if (actualRingValue == configuredValue)
+                                ringtoneToPassed = true;
+                            break;
+                        case 2: // do not equal to
+                            if (actualRingValue != configuredValue)
+                                ringtoneToPassed = true;
+                            break;
+                        case 3: // is less then
+                            if (actualRingValue < configuredValue)
+                                ringtoneToPassed = true;
+                            break;
+                        case 4: // is greather then
+                            if (actualRingValue > configuredValue)
+                                ringtoneToPassed = true;
+                            break;
+                        case 5: // is less or equal to
+                            if (actualRingValue <= configuredValue)
+                                ringtoneToPassed = true;
+                            break;
+                        case 6: // is greather or equal to
+                            if (actualRingValue >= configuredValue)
+                                ringtoneToPassed = true;
+                            break;
+                    }
+
+                    // notification To
+                    configuredValue = -1;
+                    configuredOperator = 0;
+                    splits = this._volumeNotificationTo.split(StringConstants.STR_SPLIT_REGEX);
+                    if (splits.length > 1) {
+                        try {
+                            configuredValue = Integer.parseInt(splits[0]);
+                            configuredOperator = Integer.parseInt(splits[1]);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    boolean notificationToTested = configuredOperator > 0;
+                    boolean notificationToPassed = false;
+                    switch (configuredOperator) {
+                        case 1: // equal to
+                            if (actualNotificationValue == configuredValue)
+                                notificationToPassed = true;
+                            break;
+                        case 2: // do not equal to
+                            if (actualNotificationValue != configuredValue)
+                                notificationToPassed = true;
+                            break;
+                        case 3: // is less then
+                            if (actualNotificationValue < configuredValue)
+                                notificationToPassed = true;
+                            break;
+                        case 4: // is greather then
+                            if (actualNotificationValue > configuredValue)
+                                notificationToPassed = true;
+                            break;
+                        case 5: // is less or equal to
+                            if (actualNotificationValue <= configuredValue)
+                                notificationToPassed = true;
+                            break;
+                        case 6: // is greather or equal to
+                            if (actualNotificationValue >= configuredValue)
+                                notificationToPassed = true;
+                            break;
+                    }
+
+                    // media To
+                    configuredValue = -1;
+                    configuredOperator = 0;
+                    splits = this._volumeMediaTo.split(StringConstants.STR_SPLIT_REGEX);
+                    if (splits.length > 1) {
+                        try {
+                            configuredValue = Integer.parseInt(splits[0]);
+                            configuredOperator = Integer.parseInt(splits[1]);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    boolean mediaToTested = configuredOperator > 0;
+                    boolean mediaToPassed = false;
+                    switch (configuredOperator) {
+                        case 1: // equal to
+                            if (actualMediaValue == configuredValue)
+                                mediaToPassed = true;
+                            break;
+                        case 2: // do not equal to
+                            if (actualMediaValue != configuredValue)
+                                mediaToPassed = true;
+                            break;
+                        case 3: // is less then
+                            if (actualMediaValue < configuredValue)
+                                mediaToPassed = true;
+                            break;
+                        case 4: // is greather then
+                            if (actualMediaValue > configuredValue)
+                                mediaToPassed = true;
+                            break;
+                        case 5: // is less or equal to
+                            if (actualMediaValue <= configuredValue)
+                                mediaToPassed = true;
+                            break;
+                        case 6: // is greather or equal to
+                            if (actualMediaValue >= configuredValue)
+                                mediaToPassed = true;
+                            break;
+                    }
+
+                    // alarm To
+                    configuredValue = -1;
+                    configuredOperator = 0;
+                    splits = this._volumeAlarmTo.split(StringConstants.STR_SPLIT_REGEX);
+                    if (splits.length > 1) {
+                        try {
+                            configuredValue = Integer.parseInt(splits[0]);
+                            configuredOperator = Integer.parseInt(splits[1]);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    boolean alarmToTested = configuredOperator > 0;
+                    boolean alarmToPassed = false;
+                    switch (configuredOperator) {
+                        case 1: // equal to
+                            if (actualAlarmValue == configuredValue)
+                                alarmToPassed = true;
+                            break;
+                        case 2: // do not equal to
+                            if (actualAlarmValue != configuredValue)
+                                alarmToPassed = true;
+                            break;
+                        case 3: // is less then
+                            if (actualAlarmValue < configuredValue)
+                                alarmToPassed = true;
+                            break;
+                        case 4: // is greather then
+                            if (actualAlarmValue > configuredValue)
+                                alarmToPassed = true;
+                            break;
+                        case 5: // is less or equal to
+                            if (actualAlarmValue <= configuredValue)
+                                alarmToPassed = true;
+                            break;
+                        case 6: // is greather or equal to
+                            if (actualAlarmValue >= configuredValue)
+                                alarmToPassed = true;
+                            break;
+                    }
+
+                    // system To
+                    configuredValue = -1;
+                    configuredOperator = 0;
+                    splits = this._volumeSystemTo.split(StringConstants.STR_SPLIT_REGEX);
+                    if (splits.length > 1) {
+                        try {
+                            configuredValue = Integer.parseInt(splits[0]);
+                            configuredOperator = Integer.parseInt(splits[1]);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    boolean systemToTested = configuredOperator > 0;
+                    boolean systemToPassed = false;
+                    switch (configuredOperator) {
+                        case 1: // equal to
+                            if (actualSystemValue == configuredValue)
+                                systemToPassed = true;
+                            break;
+                        case 2: // do not equal to
+                            if (actualSystemValue != configuredValue)
+                                systemToPassed = true;
+                            break;
+                        case 3: // is less then
+                            if (actualSystemValue < configuredValue)
+                                systemToPassed = true;
+                            break;
+                        case 4: // is greather then
+                            if (actualSystemValue > configuredValue)
+                                systemToPassed = true;
+                            break;
+                        case 5: // is less or equal to
+                            if (actualSystemValue <= configuredValue)
+                                systemToPassed = true;
+                            break;
+                        case 6: // is greather or equal to
+                            if (actualSystemValue >= configuredValue)
+                                systemToPassed = true;
+                            break;
+                    }
+
+                    // voice To
+                    configuredValue = -1;
+                    configuredOperator = 0;
+                    splits = this._volumeVoiceTo.split(StringConstants.STR_SPLIT_REGEX);
+                    if (splits.length > 1) {
+                        try {
+                            configuredValue = Integer.parseInt(splits[0]);
+                            configuredOperator = Integer.parseInt(splits[1]);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    boolean voiceToTested = configuredOperator > 0;
+                    boolean voiceToPassed = false;
+                    switch (configuredOperator) {
+                        case 1: // equal to
+                            if (actualVoiceValue == configuredValue)
+                                voiceToPassed = true;
+                            break;
+                        case 2: // do not equal to
+                            if (actualVoiceValue != configuredValue)
+                                voiceToPassed = true;
+                            break;
+                        case 3: // is less then
+                            if (actualVoiceValue < configuredValue)
+                                voiceToPassed = true;
+                            break;
+                        case 4: // is greather then
+                            if (actualVoiceValue > configuredValue)
+                                voiceToPassed = true;
+                            break;
+                        case 5: // is less or equal to
+                            if (actualVoiceValue <= configuredValue)
+                                voiceToPassed = true;
+                            break;
+                        case 6: // is greather or equal to
+                            if (actualVoiceValue >= configuredValue)
+                                voiceToPassed = true;
+                            break;
+                    }
+
+                    // bluetooth sco To
+                    configuredValue = -1;
+                    configuredOperator = 0;
+                    splits = this._volumeBluetoothSCOTo.split(StringConstants.STR_SPLIT_REGEX);
+                    if (splits.length > 1) {
+                        try {
+                            configuredValue = Integer.parseInt(splits[0]);
+                            configuredOperator = Integer.parseInt(splits[1]);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    boolean bluetoothSCOToTested = configuredOperator > 0;
+                    boolean bluetoothSCOToPassed = false;
+                    switch (configuredOperator) {
+                        case 1: // equal to
+                            if (actualBluetoothSCOValue == configuredValue)
+                                bluetoothSCOToPassed = true;
+                            break;
+                        case 2: // do not equal to
+                            if (actualBluetoothSCOValue != configuredValue)
+                                bluetoothSCOToPassed = true;
+                            break;
+                        case 3: // is less then
+                            if (actualBluetoothSCOValue < configuredValue)
+                                bluetoothSCOToPassed = true;
+                            break;
+                        case 4: // is greather then
+                            if (actualBluetoothSCOValue > configuredValue)
+                                bluetoothSCOToPassed = true;
+                            break;
+                        case 5: // is less or equal to
+                            if (actualBluetoothSCOValue <= configuredValue)
+                                bluetoothSCOToPassed = true;
+                            break;
+                        case 6: // is greather or equal to
+                            if (actualBluetoothSCOValue >= configuredValue)
+                                bluetoothSCOToPassed = true;
                             break;
                     }
 
                     boolean passed = true;
-                    if (ringtoneTested)
-                        //noinspection ConstantConditions
-                        passed = passed && ringtonePassed;
-                    if (notificationTested)
-                        passed =  passed && notificationPassed;
-                    if (mediaTested)
-                        passed =  passed && mediaPassed;
-                    if (alarmTested)
-                        passed =  passed && alarmPassed;
-                    if (systemTested)
-                        passed =  passed && systemPassed;
-                    if (voiceTested)
-                        passed =  passed && voicePassed;
-                    if (bluetoothSCOTested)
-                        passed =  passed && bluetoothSCOPassed;
+                    if (ringtoneFromTested) {
+                        if (ringtoneToTested)
+                            //noinspection ConstantConditions
+                            passed = passed && ringtoneFromPassed && ringtoneToPassed;
+                        else
+                            //noinspection ConstantConditions
+                            passed = passed && ringtoneFromPassed;
+                    }
+                    if (notificationFromTested) {
+                        if (notificationToTested)
+                            passed = passed && notificationFromPassed && notificationToPassed;
+                        else
+                            passed = passed && notificationFromPassed;
+                    }
+                    if (mediaFromTested) {
+                        if (mediaToTested)
+                            passed = passed && mediaFromPassed && mediaToPassed;
+                        else
+                            passed = passed && mediaFromPassed;
+                    }
+                    if (alarmFromTested) {
+                        if (alarmToTested)
+                            passed = passed && alarmFromPassed && alarmToPassed;
+                        else
+                            passed = passed && alarmFromPassed;
+                    }
+                    if (systemFromTested) {
+                        if (systemToTested)
+                            passed = passed && systemFromPassed && systemToPassed;
+                        else
+                            passed = passed && systemFromPassed;
+                    }
+                    if (voiceFromTested) {
+                        if (voiceToTested)
+                            passed = passed && voiceFromPassed && voiceToPassed;
+                        else
+                            passed = passed && voiceFromPassed;
+                    }
+                    if (bluetoothSCOFromTested) {
+                        if (bluetoothSCOToTested)
+                            passed = passed && bluetoothSCOFromPassed && bluetoothSCOToPassed;
+                        else
+                            passed = passed && bluetoothSCOFromPassed;
+                    }
 
                     eventsHandler.volumesPassed = passed;
                 }
