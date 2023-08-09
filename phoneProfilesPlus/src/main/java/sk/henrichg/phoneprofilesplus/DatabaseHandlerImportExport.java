@@ -63,6 +63,8 @@ class DatabaseHandlerImportExport {
             String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
             int volume = Integer.parseInt(splits[0]);
             float fVolume = volume;
+
+            // get percentage of value from imported data
             float percentage;
             if (maximumVolumeFromSharedPrefs > 0)
                 percentage = fVolume / maximumVolumeFromSharedPrefs * 100f;
@@ -70,8 +72,11 @@ class DatabaseHandlerImportExport {
                 percentage = fVolume / audioManager.getStreamMaxVolume(volumeStream);
             if (percentage > 100f)
                 percentage = 100f;
+
+            // get value from percentage for actual system max volume
             fVolume = audioManager.getStreamMaxVolume(volumeStream) / 100f * percentage;
             volume = Math.round(fVolume);
+
             if (splits.length == 3)
                 values.put(volumeField, volume + "|" + splits[1] + "|" + splits[2]);
             else
@@ -90,6 +95,9 @@ class DatabaseHandlerImportExport {
 
         // update volumes by device max value
         try {
+            // these shared preferences are put during export of data
+            // values are from AudioManager
+            // for import, these data are values from source of imported data (may be from another device)
             SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(instance.context);
             int maximumVolumeRing = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_RING, 0);
             int maximumVolumeNotification = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_NOTIFICATION, 0);
