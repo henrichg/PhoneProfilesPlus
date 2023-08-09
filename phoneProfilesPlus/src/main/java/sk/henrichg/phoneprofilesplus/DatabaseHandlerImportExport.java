@@ -95,8 +95,7 @@ class DatabaseHandlerImportExport {
 
         // update volumes by device max value
         try {
-            // these shared preferences are put during export of data
-            // values are from AudioManager
+            // these shared preferences are put during export of data, values are from AudioManager
             // for import, these data are values from source of imported data (may be from another device)
             SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(instance.context);
             int maximumVolumeRing = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_RING, 0);
