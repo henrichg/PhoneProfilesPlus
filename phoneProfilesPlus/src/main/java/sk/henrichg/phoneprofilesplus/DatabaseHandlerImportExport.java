@@ -55,11 +55,52 @@ class DatabaseHandlerImportExport {
         return false;
     }
 
+    static private void recalculateVolume(Cursor cursorImportDB, String volumeField, ContentValues values,
+                                          AudioManager audioManager, int volumeStream,
+                                          int maximumVolumeFromSharedPrefs) {
+        String value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(volumeField));
+        try {
+            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+            int volume = Integer.parseInt(splits[0]);
+            float fVolume = volume;
+            float percentage;
+            if (maximumVolumeFromSharedPrefs > 0)
+                percentage = fVolume / maximumVolumeFromSharedPrefs * 100f;
+            else
+                percentage = fVolume / audioManager.getStreamMaxVolume(volumeStream);
+            if (percentage > 100f)
+                percentage = 100f;
+            fVolume = audioManager.getStreamMaxVolume(volumeStream) / 100f * percentage;
+            volume = Math.round(fVolume);
+            if (splits.length == 3)
+                values.put(volumeField, volume + "|" + splits[1] + "|" + splits[2]);
+            else
+                values.put(volumeField, volume + "|" + splits[1]);
+        } catch (IllegalArgumentException e) {
+            // java.lang.IllegalArgumentException: Bad stream type X
+            //PPApplicationStatic.recordException(e);
+        } catch (Exception e) {
+            //Log.e("DatabaseHandlerImportExport.afterImportDb", Log.getStackTraceString(e));
+            PPApplicationStatic.recordException(e);
+        }
+    }
+
     static private void afterImportDb(DatabaseHandler instance, SQLiteDatabase db) {
         Cursor cursorImportDB = null;
 
         // update volumes by device max value
         try {
+            SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(instance.context);
+            int maximumVolumeRing = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_RING, 0);
+            int maximumVolumeNotification = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_NOTIFICATION, 0);
+            int maximumVolumeMusic = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_MUSIC, 0);
+            int maximumVolumeAlarm = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_ALARM, 0);
+            int maximumVolumeSystem = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_SYSTEM, 0);
+            int maximumVolumeVoiceCall = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_VOICE_CALL, 0);
+            int maximumVolumeDTFM = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_DTMF, 0);
+            int maximumVolumeAccessibility = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_ACCESSIBILITY, 0);
+            int maximumVolumeBluetoothSCO = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO, 0);
+
             cursorImportDB = db.rawQuery("SELECT " +
                     DatabaseHandler.KEY_ID + ","+
                     DatabaseHandler.KEY_VOLUME_RINGTONE + ","+
@@ -76,16 +117,6 @@ class DatabaseHandlerImportExport {
             AudioManager audioManager = (AudioManager) instance.context.getSystemService(Context.AUDIO_SERVICE);
             if (audioManager != null) {
                 // these values are saved during export of PPP data
-                SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(instance.context);
-                int maximumVolumeRing = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_RING, 0);
-                int maximumVolumeNotification = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_NOTIFICATION, 0);
-                int maximumVolumeMusic = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_MUSIC, 0);
-                int maximumVolumeAlarm = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_ALARM, 0);
-                int maximumVolumeSystem = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_SYSTEM, 0);
-                int maximumVolumeVoiceCall = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_VOICE_CALL, 0);
-                int maximumVolumeDTFM = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_DTMF, 0);
-                int maximumVolumeAccessibility = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_ACCESSIBILITY, 0);
-                int maximumVolumeBluetoothSCO = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO, 0);
 
                 if (cursorImportDB.moveToFirst()) {
                     do {
@@ -94,233 +125,32 @@ class DatabaseHandlerImportExport {
 
                         ContentValues values = new ContentValues();
 
-                        String value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_RINGTONE));
-                        try {
-                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeRing > 0)
-                                percentage = fVolume / maximumVolumeRing * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_RINGTONE, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_RINGTONE, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            //Log.e("DatabaseHandlerImportExport.afterImportDb", Log.getStackTraceString(e));
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_RINGTONE, values,
+                                audioManager, AudioManager.STREAM_RING, maximumVolumeRing);
 
-                        value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_NOTIFICATION));
-                        try {
-                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeNotification > 0)
-                                percentage = fVolume / maximumVolumeNotification * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION) * 100f;
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_NOTIFICATION, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_NOTIFICATION, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_NOTIFICATION, values,
+                                audioManager, AudioManager.STREAM_NOTIFICATION, maximumVolumeNotification);
 
-                        value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_MEDIA));
-                        try {
-                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeMusic > 0)
-                                percentage = fVolume / maximumVolumeMusic * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) * 100f;
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_MEDIA, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_MEDIA, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_MEDIA, values,
+                                audioManager, AudioManager.STREAM_MUSIC, maximumVolumeMusic);
 
-                        value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_ALARM));
-                        try {
-                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeAlarm > 0)
-                                percentage = fVolume / maximumVolumeAlarm * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM) * 100f;
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_ALARM, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_ALARM, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_ALARM, values,
+                                audioManager, AudioManager.STREAM_ALARM, maximumVolumeAlarm);
 
-                        value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_SYSTEM));
-                        try {
-                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeSystem > 0)
-                                percentage = fVolume / maximumVolumeSystem * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM) * 100f;
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_SYSTEM, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_SYSTEM, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_SYSTEM, values,
+                                audioManager, AudioManager.STREAM_SYSTEM, maximumVolumeSystem);
 
-                        value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_VOICE));
-                        try {
-                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeVoiceCall > 0)
-                                percentage = fVolume / maximumVolumeVoiceCall * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL) * 100f;
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_VOICE, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_VOICE, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_VOICE, values,
+                                audioManager, AudioManager.STREAM_VOICE_CALL, maximumVolumeVoiceCall);
 
-                        value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_DTMF));
-                        try {
-                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeDTFM > 0)
-                                percentage = fVolume / maximumVolumeDTFM * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF) * 100f;
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_DTMF, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_DTMF, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_DTMF, values,
+                                audioManager, AudioManager.STREAM_DTMF, maximumVolumeDTFM);
 
-                        //if (Build.VERSION.SDK_INT >= 26) {
-                            value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_ACCESSIBILITY));
-                            try {
-                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                                int volume = Integer.parseInt(splits[0]);
-                                float fVolume = volume;
-                                float percentage;
-                                if (maximumVolumeAccessibility > 0)
-                                    percentage = fVolume / maximumVolumeAccessibility * 100f;
-                                else
-                                    percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY) * 100f;
-                                if (percentage > 100f)
-                                    percentage = 100f;
-                                fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY) / 100f * percentage;
-                                volume = Math.round(fVolume);
-                                if (splits.length == 3)
-                                    values.put(DatabaseHandler.KEY_VOLUME_ACCESSIBILITY, volume + "|" + splits[1] + "|" + splits[2]);
-                                else
-                                    values.put(DatabaseHandler.KEY_VOLUME_ACCESSIBILITY, volume + "|" + splits[1]);
-                            } catch (IllegalArgumentException e) {
-                                // java.lang.IllegalArgumentException: Bad stream type 10 - Android 6
-                                //PPApplicationStatic.recordException(e);
-                            } catch (Exception e) {
-                                PPApplicationStatic.recordException(e);
-                            }
-                        //}
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_ACCESSIBILITY, values,
+                                audioManager, AudioManager.STREAM_ACCESSIBILITY, maximumVolumeAccessibility);
 
-                        value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO));
-                        try {
-                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeBluetoothSCO > 0)
-                                percentage = fVolume / maximumVolumeBluetoothSCO * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO) * 100f;
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO, values,
+                                audioManager, AudioManager.STREAM_BLUETOOTH_SCO, maximumVolumeBluetoothSCO);
 
                         // updating row
                         if (values.size() > 0)
@@ -330,6 +160,85 @@ class DatabaseHandlerImportExport {
                 }
             }
             cursorImportDB.close();
+
+            cursorImportDB = db.rawQuery("SELECT " +
+                    DatabaseHandler.KEY_E_ID + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_RINGTONE_TO + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_TO + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_MEDIA_TO + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_ALARM_TO + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_SYSTEM_TO + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_VOICE_TO + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_TO + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_TO +
+                    " FROM " + DatabaseHandler.TABLE_EVENTS, null);
+
+            if (audioManager != null) {
+                // these values are saved during export of PPP data
+
+                if (cursorImportDB.moveToFirst()) {
+                    do {
+
+                        long eventId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+
+                        ContentValues values = new ContentValues();
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM, values,
+                                audioManager, AudioManager.STREAM_RING, maximumVolumeRing);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_RINGTONE_TO, values,
+                                audioManager, AudioManager.STREAM_RING, maximumVolumeRing);
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM, values,
+                                audioManager, AudioManager.STREAM_NOTIFICATION, maximumVolumeNotification);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_TO, values,
+                                audioManager, AudioManager.STREAM_NOTIFICATION, maximumVolumeNotification);
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM, values,
+                                audioManager, AudioManager.STREAM_MUSIC, maximumVolumeMusic);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_MEDIA_TO, values,
+                                audioManager, AudioManager.STREAM_MUSIC, maximumVolumeMusic);
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM, values,
+                                audioManager, AudioManager.STREAM_ALARM, maximumVolumeAlarm);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_ALARM_TO, values,
+                                audioManager, AudioManager.STREAM_ALARM, maximumVolumeAlarm);
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM, values,
+                                audioManager, AudioManager.STREAM_SYSTEM, maximumVolumeSystem);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_SYSTEM_TO, values,
+                                audioManager, AudioManager.STREAM_SYSTEM, maximumVolumeSystem);
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM, values,
+                                audioManager, AudioManager.STREAM_VOICE_CALL, maximumVolumeVoiceCall);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_VOICE_TO, values,
+                                audioManager, AudioManager.STREAM_VOICE_CALL, maximumVolumeVoiceCall);
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_FROM, values,
+                                audioManager, AudioManager.STREAM_ACCESSIBILITY, maximumVolumeAccessibility);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_TO, values,
+                                audioManager, AudioManager.STREAM_ACCESSIBILITY, maximumVolumeAccessibility);
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM, values,
+                                audioManager, AudioManager.STREAM_BLUETOOTH_SCO, maximumVolumeBluetoothSCO);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_TO, values,
+                                audioManager, AudioManager.STREAM_BLUETOOTH_SCO, maximumVolumeBluetoothSCO);
+
+                        // updating row
+                        if (values.size() > 0)
+                            db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                    new String[]{String.valueOf(eventId)});
+                    } while (cursorImportDB.moveToNext());
+                }
+            }
+
         } finally {
             if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
                 cursorImportDB.close();
