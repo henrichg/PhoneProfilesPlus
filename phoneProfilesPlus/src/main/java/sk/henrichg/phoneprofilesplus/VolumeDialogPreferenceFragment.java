@@ -7,9 +7,11 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
@@ -32,6 +34,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     private SeekBar seekBar = null;
     private TextView valueText = null;
     //private CheckBox sharedProfileChBox = null;
+    private Button actualVolumeBtn = null;
 
     private MediaPlayer mediaPlayer = null;
 
@@ -98,6 +101,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         return inflater.inflate(R.layout.dialog_volume_preference, null, false);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
@@ -125,6 +129,8 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         seekBar.setProgress(preference.value);
 
         valueText.setText(String.valueOf(preference.value/* + preference.minimumValue*/));
+
+        actualVolumeBtn = view.findViewById(R.id.volumePrefDialogActualVolume);
 
         if (preference.forVolumesSensor == 0) {
             operatorSpinner.setVisibility(View.GONE);
@@ -160,10 +166,12 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         if (preference.forVolumesSensor == 0) {
             valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
             seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+            actualVolumeBtn.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
         }
         else {
             valueText.setEnabled(preference.sensorOperator != 0);
             seekBar.setEnabled(preference.sensorOperator != 0);
+            actualVolumeBtn.setEnabled(preference.sensorOperator != 0);
         }
 
         seekBar.setOnSeekBarChangeListener(this);
@@ -174,6 +182,23 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         else
             operatorSpinner.setOnItemSelectedListener(this);
         //sharedProfileChBox.setOnCheckedChangeListener(this);
+
+        int actualVolume = preference.actualVolume;
+        actualVolumeBtn.setText(getString(R.string.volume_pref_dialog_actual_volume) +
+                                    StringConstants.STR_COLON_WITH_SPACE + actualVolume);
+        actualVolumeBtn.setOnClickListener(v -> {
+            Log.e("VolumeDialogPreferenceFragment.onClick", "xxxxx");
+
+            preference.value = actualVolume;
+
+            // Set the valueText text.
+            valueText.setText(String.valueOf(preference.value));
+
+            seekBar.setProgress(preference.value);
+
+            preference.callChangeListener(preference.getSValue());
+        });
+
     }
 
     @Override
@@ -199,8 +224,8 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
             //AudioManager audioManager = audioManagerWeakRef.get();
 
             //if ((appContext != null) && (audioManager != null)) {
-                if (preference.defaultValueMusic != -1)
-                    ActivateProfileHelper.setMediaVolume(appContext, audioManager, preference.defaultValueMusic, true, false);
+                if (preference.usedValueMusic != -1)
+                    ActivateProfileHelper.setMediaVolume(appContext, audioManager, preference.usedValueMusic, true, false);
                 if (preference.oldMediaMuted) {
                     PPApplication.volumesInternalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
@@ -237,6 +262,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
 
                 valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
                 seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+                actualVolumeBtn.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
 
                 //if (isChecked)
                 //    sharedProfileChBox.setChecked(false);
@@ -411,6 +437,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
 
             valueText.setEnabled(preference.sensorOperator != 0);
             seekBar.setEnabled(preference.sensorOperator != 0);
+            actualVolumeBtn.setEnabled(preference.sensorOperator != 0);
 
             preference.callChangeListener(preference.getSValue());
         }

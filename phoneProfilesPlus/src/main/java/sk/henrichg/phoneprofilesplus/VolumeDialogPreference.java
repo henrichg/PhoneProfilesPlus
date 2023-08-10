@@ -28,15 +28,18 @@ public class VolumeDialogPreference extends DialogPreference {
     int maximumValue = 7;
     //final int minimumValue = 0;
     int maximumMediaValue = 15;
-    private int defaultValueRing = 0;
-    private int defaultValueNotification = 0;
-    int defaultValueMusic = 0;
-    private int defaultValueAlarm = 0;
-    private int defaultValueSystem = 0;
-    private int defaultValueVoice = 0;
-    private int defaultValueDTMF = 0;
-    private int defaultValueAccessibility = 0;
-    private int defaultValueBluetoothSCO = 0;
+    private int actualValueRing = 0;
+    private int actualValueNotification = 0;
+    int usedValueMusic = 0;
+    private int actualValueMusic = 0;
+    private int actualValueAlarm = 0;
+    private int actualValueSystem = 0;
+    private int actualValueVoice = 0;
+    private int actualValueDTMF = 0;
+    private int actualValueAccessibility = 0;
+    private int actualValueBluetoothSCO = 0;
+    int actualVolume = 0;
+
     final int stepSize = 1;
     boolean oldMediaMuted = false;
 
@@ -80,44 +83,64 @@ public class VolumeDialogPreference extends DialogPreference {
 
         if (audioManager != null) {
             // get max. values from audio manager
-            if (volumeType != null) {
-                if (volumeType.equalsIgnoreCase("RINGTONE"))
-                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-                else if (volumeType.equalsIgnoreCase("NOTIFICATION"))
-                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-                else if (volumeType.equalsIgnoreCase("MEDIA"))
-                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                else if (volumeType.equalsIgnoreCase("ALARM"))
-                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-                else if (volumeType.equalsIgnoreCase("SYSTEM"))
-                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
-                else if (volumeType.equalsIgnoreCase("VOICE"))
-                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
-                else if (volumeType.equalsIgnoreCase("DTMF"))
-                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
-                else if (/*(Build.VERSION.SDK_INT >= 26) &&*/ volumeType.equalsIgnoreCase("ACCESSIBILITY"))
-                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
-                else if (volumeType.equalsIgnoreCase("BLUETOOTHSCO"))
-                    maximumValue = audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
-            }
-            maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-
             // get actual values from audio manager
-            defaultValueRing = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-            defaultValueNotification = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+            actualValueRing = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+            actualValueNotification = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
 
+            actualValueMusic = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
             oldMediaMuted = audioManager.isStreamMute(AudioManager.STREAM_MUSIC);
             if (!oldMediaMuted)
-                defaultValueMusic = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                usedValueMusic = actualValueMusic;
             else
-                defaultValueMusic = -1;
-            defaultValueAlarm = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-            defaultValueSystem = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
-            defaultValueVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
-            defaultValueDTMF = audioManager.getStreamVolume(AudioManager.STREAM_DTMF);
+                usedValueMusic = -1;
+
+            actualValueAlarm = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+            actualValueSystem = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
+            actualValueVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+            actualValueDTMF = audioManager.getStreamVolume(AudioManager.STREAM_DTMF);
             //if (Build.VERSION.SDK_INT >= 26)
-                defaultValueAccessibility = audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY);
-            defaultValueBluetoothSCO = audioManager.getStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
+                actualValueAccessibility = audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY);
+            actualValueBluetoothSCO = audioManager.getStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
+
+            if (volumeType != null) {
+                if (volumeType.equalsIgnoreCase("RINGTONE")) {
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+                    actualVolume = actualValueRing;
+                }
+                else if (volumeType.equalsIgnoreCase("NOTIFICATION")) {
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                    actualVolume = actualValueNotification;
+                }
+                else if (volumeType.equalsIgnoreCase("MEDIA")) {
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                    actualVolume = actualValueMusic;
+                }
+                else if (volumeType.equalsIgnoreCase("ALARM")) {
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+                    actualVolume = actualValueAlarm;
+                }
+                else if (volumeType.equalsIgnoreCase("SYSTEM")) {
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
+                    actualVolume = actualValueSystem;
+                }
+                else if (volumeType.equalsIgnoreCase("VOICE")) {
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
+                    actualVolume = actualValueVoice;
+                }
+                else if (volumeType.equalsIgnoreCase("DTMF")) {
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
+                    actualVolume = actualValueDTMF;
+                }
+                else if (volumeType.equalsIgnoreCase("ACCESSIBILITY")) {
+                    maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
+                    actualVolume = actualValueAccessibility;
+                }
+                else if (volumeType.equalsIgnoreCase("BLUETOOTHSCO")) {
+                    maximumValue = audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
+                    actualVolume = actualValueBluetoothSCO;
+                }
+            }
+            maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
         }
 
@@ -142,31 +165,31 @@ public class VolumeDialogPreference extends DialogPreference {
             if (value == -1)
             {
                 if (volumeType.equalsIgnoreCase("SYSTEM"))
-                    value = defaultValueSystem;
+                    value = actualValueSystem;
                 else
                 if (volumeType.equalsIgnoreCase("RINGTONE"))
-                    value = defaultValueRing;
+                    value = actualValueRing;
                 else
                 if (volumeType.equalsIgnoreCase("NOTIFICATION"))
-                    value =  defaultValueNotification;
+                    value = actualValueNotification;
                 else
                 if (volumeType.equalsIgnoreCase("MEDIA"))
-                    value =  defaultValueMusic;
+                    value = actualValueMusic;
                 else
                 if (volumeType.equalsIgnoreCase("ALARM"))
-                    value =  defaultValueAlarm;
+                    value = actualValueAlarm;
                 else
                 if (volumeType.equalsIgnoreCase("VOICE"))
-                    value =  defaultValueVoice;
+                    value = actualValueVoice;
                 else
                 if (volumeType.equalsIgnoreCase("DTMF"))
-                    value =  defaultValueDTMF;
+                    value = actualValueDTMF;
                 else
                 if (volumeType.equalsIgnoreCase("ACCESSIBILITY"))
-                    value =  defaultValueAccessibility;
+                    value = actualValueAccessibility;
                 else
                 if (volumeType.equalsIgnoreCase("BLUETOOTHSCO"))
-                    value =  defaultValueBluetoothSCO;
+                    value = actualValueBluetoothSCO;
             }
         } catch (Exception e) {
             //Log.e("VolumeDialogPreference.getValueVDP", Log.getStackTraceString(e));
