@@ -7,7 +7,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -187,8 +186,6 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         actualVolumeBtn.setText(getString(R.string.volume_pref_dialog_actual_volume) +
                                     StringConstants.STR_COLON_WITH_SPACE + actualVolume);
         actualVolumeBtn.setOnClickListener(v -> {
-            Log.e("VolumeDialogPreferenceFragment.onClick", "xxxxx");
-
             preference.value = actualVolume;
 
             // Set the valueText text.

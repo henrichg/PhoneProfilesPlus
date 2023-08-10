@@ -2130,7 +2130,7 @@
     <string name="check_releases_github_download_not_supported">"GitHub download is not supported. Please install PhoneProfilesPlus with Droid-ify."</string>
 
     <string name="event_preferences_category_eventBrightnessParameters">Brightness sensor</string>
-    <string name="event_preference_brightness_summary">This sensor will start an event brightness level change. Parameters: Operator from, Brightness level from, Operator to, Brightness level to.</string>
+    <string name="event_preference_brightness_summary">This sensor will start an event by brightness level change. Parameters: Operator from\/to, Brightness level from\/to.</string>
     <string name="event_preferences_brightness_level_from">Brightness level from</string>
     <string name="event_preferences_brightness_operator_from">Operator from</string>
     <string name="event_preferences_brightness_level_to">Brightness level to</string>
@@ -2140,8 +2140,8 @@
     <string name="event_preferences_volumes_volume_from">Volume from</string>
     <string name="event_preferences_volumes_volume_to">Volume to</string>
 
-    <string name="brightness_pref_dialog_actual_level">Actual brightness</string>
-    <string name="volume_pref_dialog_actual_volume">Actual volume</string>
+    <string name="brightness_pref_dialog_actual_level">Current brightness</string>
+    <string name="volume_pref_dialog_actual_volume">Current volume</string>
 
     <!-- **************************************************************************************** -->
 

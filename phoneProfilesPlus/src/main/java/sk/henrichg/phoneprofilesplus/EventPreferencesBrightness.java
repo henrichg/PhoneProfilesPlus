@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.provider.Settings;
-import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -283,9 +282,6 @@ class EventPreferencesBrightness extends EventPreferences {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
             if ((EventStatic.isEventPreferenceAllowed(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-
-                //TODO
-
                 if (PPApplication.isScreenOn && (!PPApplication.brightnessInternalChange)) {
                     // allowed only when screen is on, because of Huawei devices
                     // check ScreenOnOffBroadcastReceiver for this
@@ -295,14 +291,10 @@ class EventPreferencesBrightness extends EventPreferences {
                     int actualBrightness = Settings.System.getInt(eventsHandler.context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
                     if (actualBrightness > -1) {
 
-                        Log.e("EventPreferencesBrightness.doHandleEvent", "actualBrightness=" + actualBrightness);
-
                         boolean fromPassed = false;
 
                         int configuredFromValue = ProfileStatic.getDeviceBrightnessValue(_brightnessLevelFrom);
                         configuredFromValue = ProfileStatic.convertPercentsToBrightnessManualValue(configuredFromValue, eventsHandler.context);
-
-                        Log.e("EventPreferencesBrightness.doHandleEvent", "configuredFromValue=" + configuredFromValue);
 
                         switch (_operatorFrom) {
                             case 0: // equal to
@@ -336,8 +328,6 @@ class EventPreferencesBrightness extends EventPreferences {
                         int configuredToValue = ProfileStatic.getDeviceBrightnessValue(_brightnessLevelTo);
                         configuredToValue = ProfileStatic.convertPercentsToBrightnessManualValue(configuredToValue, eventsHandler.context);
 
-                        Log.e("EventPreferencesBrightness.doHandleEvent", "configuredToValue=" + configuredToValue);
-
                         switch (_operatorTo) {
                             case 0: // equal to
                                 if (actualBrightness == configuredToValue)
@@ -366,8 +356,6 @@ class EventPreferencesBrightness extends EventPreferences {
                         }
 
                         eventsHandler.brightnessPassed = fromPassed && toPassed;
-
-                        Log.e("EventPreferencesBrightness.doHandleEvent", "eventsHandler.brightnessPassed=" + eventsHandler.brightnessPassed);
                     } else
                         eventsHandler.notAllowedBrightness = true;
                 } else

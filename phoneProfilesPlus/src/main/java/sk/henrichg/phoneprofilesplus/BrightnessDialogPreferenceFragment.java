@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -99,8 +98,6 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
         actualLevelBtn.setText(getString(R.string.brightness_pref_dialog_actual_level) +
                 StringConstants.STR_COLON_WITH_SPACE + actualLevel);
         actualLevelBtn.setOnClickListener(v -> {
-            Log.e("BrightnessDialogPreferenceFragment.onClick", "xxxxx");
-
             preference.value = (int)ProfileStatic.convertBrightnessToPercents(PPApplication.savedBrightness);
 
             // Set the valueText text.

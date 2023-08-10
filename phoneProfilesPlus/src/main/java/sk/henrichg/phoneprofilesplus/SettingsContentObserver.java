@@ -6,7 +6,6 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.Settings;
-import android.util.Log;
 
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -278,7 +277,6 @@ class SettingsContentObserver  extends ContentObserver {
         }
 
         if (brightnessChange) {
-            Log.e("SettingsContentObserver.onChange", "PPApplication.brightnessInternalChange="+PPApplication.brightnessInternalChange);
             if (!PPApplication.brightnessInternalChange) {
                 PPApplication.savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
                 PPApplication.savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
@@ -295,9 +293,6 @@ class SettingsContentObserver  extends ContentObserver {
                 //PPApplicationStatic.logE("SettingsContentObserver.onChange", "minimun brightnress="+pm.getMinimumScreenBrightnessSetting());
                 //PPApplicationStatic.logE("SettingsContentObserver.onChange", "maximum brightnress="+pm.getMaximumScreenBrightnessSetting());
                 //PPApplicationStatic.logE("SettingsContentObserver.onChange", "default brightnress="+pm.getDefaultScreenBrightnessSetting());
-
-                //TODO Brightness sensor - call MainWorker with HANDLE_EVENTS_BRIGHTNRESS_WORK_TAG
-                //  not implemented yet
 
                 if (PPApplicationStatic.getApplicationStarted(true, true)) {
                     // application is started
