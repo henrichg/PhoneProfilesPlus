@@ -2259,6 +2259,9 @@ public class EditorEventListFragment extends Fragment
                             event.setStatus(status);
                             event._isInDelayStart = DatabaseHandler.getInstance(dataWrapper.context).getEventInDelayStart(event);
                             event._isInDelayEnd = DatabaseHandler.getInstance(dataWrapper.context).getEventInDelayEnd(event);
+                            event._peferencesDecription = StringFormatUtils.fromHtml(
+                                    event.getPreferencesDescription(dataWrapper.context, true),
+                                    true, true, false, 0, 0, true);
                             DatabaseHandler.getInstance(dataWrapper.context).setEventCalendarTimes(event);
                             DatabaseHandler.getInstance(dataWrapper.context).getSMSStartTime(event);
                             //DatabaseHandler.getInstance(activityDataWrapper.context).getNotificationStartTime(event);

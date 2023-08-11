@@ -802,8 +802,12 @@ public class DataWrapper {
         if (event != null)
         {
             Event origEvent = getEventById(event._id);
-            if (origEvent != null)
+            if (origEvent != null) {
                 origEvent.copyEvent(event);
+                origEvent._peferencesDecription = StringFormatUtils.fromHtml(
+                        origEvent.getPreferencesDescription(context, true),
+                        true, true, false, 0, 0, true);
+            }
         }
     }
 
