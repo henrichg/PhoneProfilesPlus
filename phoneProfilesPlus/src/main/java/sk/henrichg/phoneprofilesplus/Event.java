@@ -10,6 +10,7 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.BitmapFactory;
 import android.os.SystemClock;
 import android.os.Vibrator;
+import android.text.Spanned;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -86,6 +87,8 @@ class Event {
     EventPreferencesActivatedProfile _eventPreferencesActivatedProfile;
     EventPreferencesRoaming _eventPreferencesRoaming;
     EventPreferencesVPN _eventPreferencesVPN;
+
+    Spanned _peferencesDecription;
 
     static final int ESTATUS_STOP = 0;
     static final int ESTATUS_PAUSE = 1;
@@ -315,6 +318,8 @@ class Event {
         this._manualProfileActivationAtEnd = event._manualProfileActivationAtEnd;
         this._notificationSoundStartPlayAlsoInSilentMode = event._notificationSoundStartPlayAlsoInSilentMode;
         this._notificationSoundEndPlayAlsoInSilentMode = event._notificationSoundEndPlayAlsoInSilentMode;
+
+        this._peferencesDecription = event._peferencesDecription;
 
         //this._undoCalled = event._undoCalled;
 

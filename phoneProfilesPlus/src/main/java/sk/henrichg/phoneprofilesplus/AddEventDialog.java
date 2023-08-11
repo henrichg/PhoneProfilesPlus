@@ -169,6 +169,9 @@ class AddEventDialog
                         profileNotExists = true;
                     if (event._fkProfileEnd == 0)
                         profileNotExists = true;
+                    event._peferencesDecription = StringFormatUtils.fromHtml(
+                            event.getPreferencesDescription(dataWrapper.context, false),
+                            true, true, false, 0, 0, true);
                     eventList.add(event);
                 }
             }

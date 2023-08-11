@@ -520,6 +520,11 @@ public class EditorEventListFragment extends Fragment
                 }
             }
 
+            for (Event event : _dataWrapper.eventList)
+                event._peferencesDecription = StringFormatUtils.fromHtml(
+                        event.getPreferencesDescription(_dataWrapper.context, true),
+                        true, true, false, 0, 0, true);
+
             _dataWrapper.getEventTimelineList(true);
             if ((fragment != null) && (fragment.getActivity() != null)) {
                 if (_filterType == FILTER_TYPE_START_ORDER)

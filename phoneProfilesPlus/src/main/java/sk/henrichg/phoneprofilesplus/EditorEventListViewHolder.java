@@ -263,8 +263,10 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             if (applicationEditorPrefIndicator)
             {
                 if (eventPreferencesDescription != null) {
-                    String eventPrefDescription = event.getPreferencesDescription(context, true);
-                    eventPreferencesDescription.setText(StringFormatUtils.fromHtml(eventPrefDescription, true, true, false, 0, 0, true));
+                    //String eventPrefDescription = event.getPreferencesDescription(context, true);
+                    //eventPreferencesDescription.setText(StringFormatUtils.fromHtml(eventPrefDescription, true, true, false, 0, 0, true));
+                    if (event._peferencesDecription != null)
+                        eventPreferencesDescription.setText(event._peferencesDecription);
                 }
             }
 
