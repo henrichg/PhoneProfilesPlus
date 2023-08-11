@@ -58,29 +58,31 @@ class DatabaseHandlerImportExport {
     static private void recalculateVolume(Cursor cursorImportDB, String volumeField, ContentValues values,
                                           AudioManager audioManager, int volumeStream,
                                           int maximumVolumeFromSharedPrefs) {
-        String value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(volumeField));
         try {
-            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-            int volume = Integer.parseInt(splits[0]);
-            float fVolume = volume;
+            String value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(volumeField));
+            if (value != null) {
+                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+                int volume = Integer.parseInt(splits[0]);
+                float fVolume = volume;
 
-            // get percentage of value from imported data
-            float percentage;
-            if (maximumVolumeFromSharedPrefs > 0)
-                percentage = fVolume / maximumVolumeFromSharedPrefs * 100f;
-            else
-                percentage = fVolume / audioManager.getStreamMaxVolume(volumeStream);
-            if (percentage > 100f)
-                percentage = 100f;
+                // get percentage of value from imported data
+                float percentage;
+                if (maximumVolumeFromSharedPrefs > 0)
+                    percentage = fVolume / maximumVolumeFromSharedPrefs * 100f;
+                else
+                    percentage = fVolume / audioManager.getStreamMaxVolume(volumeStream);
+                if (percentage > 100f)
+                    percentage = 100f;
 
-            // get value from percentage for actual system max volume
-            fVolume = audioManager.getStreamMaxVolume(volumeStream) / 100f * percentage;
-            volume = Math.round(fVolume);
+                // get value from percentage for actual system max volume
+                fVolume = audioManager.getStreamMaxVolume(volumeStream) / 100f * percentage;
+                volume = Math.round(fVolume);
 
-            if (splits.length == 3)
-                values.put(volumeField, volume + "|" + splits[1] + "|" + splits[2]);
-            else
-                values.put(volumeField, volume + "|" + splits[1]);
+                if (splits.length == 3)
+                    values.put(volumeField, volume + "|" + splits[1] + "|" + splits[2]);
+                else
+                    values.put(volumeField, volume + "|" + splits[1]);
+            }
         } catch (IllegalArgumentException e) {
             // java.lang.IllegalArgumentException: Bad stream type X
             //PPApplicationStatic.recordException(e);
