@@ -50,9 +50,9 @@
     <orderEntry type="module" module-name="PhoneProfilesPlus.recyclerview-fastscroll.main" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.noobcameraflash.main" />
     <orderEntry type="library" name="Gradle: org.lsposed.hiddenapibypass:hiddenapibypass:4.3@aar" level="project" />
-    <orderEntry type="library" name="Gradle: ch.acra:acra-mail:5.11.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: ch.acra:acra-core:5.11.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: ch.acra:acra-notification:5.11.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: ch.acra:acra-mail:5.11.1@aar" level="project" />
+    <orderEntry type="library" name="Gradle: ch.acra:acra-core:5.11.1@aar" level="project" />
+    <orderEntry type="library" name="Gradle: ch.acra:acra-notification:5.11.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.work:work-runtime:2.8.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation-experimental:1.3.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata:2.1.0@aar" level="project" />
