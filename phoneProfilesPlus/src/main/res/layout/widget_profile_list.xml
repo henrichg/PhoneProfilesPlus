@@ -54,10 +54,11 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/widget_profile_list_header_profile_root"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_toStartOf="@id/widget_profile_list_header_restart_events_click"
                 android:layout_centerVertical="true"
                 android:layout_alignParentStart="true"
@@ -69,8 +70,7 @@
                     android:id="@+id/widget_profile_list_header_profile_icon"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/profile_preferences_profileIcon"
@@ -82,8 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@id/widget_profile_list_header_profile_icon" >
+                    android:layout_gravity="center_vertical" >
 
                     <TextView
                         android:id="@+id/widget_profile_list_header_profile_name"
@@ -114,11 +113,11 @@
 
                 </LinearLayout>
 
-            </RelativeLayout>
+            </LinearLayout>
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/widget_profile_list_header_separator"
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -127,7 +126,7 @@
             android:layout_marginTop="0dp"
             android:orientation="horizontal" >
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <ListView
             android:id="@+id/widget_profile_list"
