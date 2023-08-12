@@ -84,15 +84,13 @@
 
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/widget_samsung_edge_header_separator"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
-
-            </RelativeLayout>
+                android:orientation="horizontal"/>
 
             <GridView
                 android:id="@+id/widget_samsung_edge_grid"

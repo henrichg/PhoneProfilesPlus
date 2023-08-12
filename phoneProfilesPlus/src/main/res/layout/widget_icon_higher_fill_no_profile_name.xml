@@ -19,7 +19,7 @@
         android:visibility="gone"
         tools:ignore="ContentDescription" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/icon_widget_relLa1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -37,7 +37,7 @@
             android:src="@drawable/ic_profile_default"
             android:contentDescription="@string/profile_preferences_profileIcon"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 <!--    <ImageView-->
 <!--        android:id="@+id/widget_icon_not_rounded_border"-->
