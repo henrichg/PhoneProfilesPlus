@@ -797,16 +797,17 @@ public class DataWrapper {
         }
     }
 
-    void updateEvent(Event event)
+    void updateEvent(Event event, Activity activity)
     {
         if (event != null)
         {
             Event origEvent = getEventById(event._id);
             if (origEvent != null) {
                 origEvent.copyEvent(event);
-                origEvent._peferencesDecription = StringFormatUtils.fromHtml(
-                        origEvent.getPreferencesDescription(context, true),
-                        true, true, false, 0, 0, true);
+                if (activity != null)
+                    origEvent._peferencesDecription = StringFormatUtils.fromHtml(
+                            origEvent.getPreferencesDescription(activity, true),
+                            true, true, false, 0, 0, true);
             }
         }
     }

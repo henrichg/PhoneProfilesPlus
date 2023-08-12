@@ -5,6 +5,7 @@ import static android.view.View.VISIBLE;
 
 import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -519,10 +520,12 @@ public class EditorEventListFragment extends Fragment
                 }
             }
 
-            for (Event event : _dataWrapper.eventList)
-                event._peferencesDecription = StringFormatUtils.fromHtml(
-                        event.getPreferencesDescription(_dataWrapper.context, true),
-                        true, true, false, 0, 0, true);
+            if ((fragment != null) && fragment.getActivity() != null) {
+                for (Event event : _dataWrapper.eventList)
+                    event._peferencesDecription = StringFormatUtils.fromHtml(
+                            event.getPreferencesDescription(fragment.getActivity(), true),
+                            true, true, false, 0, 0, true);
+            }
 
             _dataWrapper.getEventTimelineList(true);
             if ((fragment != null) && (fragment.getActivity() != null)) {
@@ -2258,9 +2261,12 @@ public class EditorEventListFragment extends Fragment
                             event.setStatus(status);
                             event._isInDelayStart = DatabaseHandler.getInstance(dataWrapper.context).getEventInDelayStart(event);
                             event._isInDelayEnd = DatabaseHandler.getInstance(dataWrapper.context).getEventInDelayEnd(event);
-                            event._peferencesDecription = StringFormatUtils.fromHtml(
-                                    event.getPreferencesDescription(dataWrapper.context, true),
-                                    true, true, false, 0, 0, true);
+
+                            if ((fragment != null) && (fragment.getActivity() != null))
+                                event._peferencesDecription = StringFormatUtils.fromHtml(
+                                        event.getPreferencesDescription(fragment.getActivity(), true),
+                                        true, true, false, 0, 0, true);
+
                             DatabaseHandler.getInstance(dataWrapper.context).setEventCalendarTimes(event);
                             DatabaseHandler.getInstance(dataWrapper.context).getSMSStartTime(event);
                             //DatabaseHandler.getInstance(activityDataWrapper.context).getNotificationStartTime(event);
@@ -2274,7 +2280,10 @@ public class EditorEventListFragment extends Fragment
 
                     if (eventId != 0) {
                         Event eventFromDB = DatabaseHandler.getInstance(dataWrapper.context).getEvent(eventId);
-                        dataWrapper.updateEvent(eventFromDB);
+                        Activity activity = null;
+                        if (fragment != null)
+                            activity = fragment.getActivity();
+                        dataWrapper.updateEvent(eventFromDB, activity);
                         refreshIcons = true;
                     }
                 } catch (Exception e) {

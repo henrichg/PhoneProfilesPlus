@@ -3211,7 +3211,7 @@ public class EditorActivity extends AppCompatActivity
             final EditorEventListFragment fragment = (EditorEventListFragment) getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
             if (fragment != null) {
                 // update event, this rewrite event in eventList
-                fragment.activityDataWrapper.updateEvent(event);
+                fragment.activityDataWrapper.updateEvent(event, this);
 
                 boolean newEvent = ((newEventMode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                         (newEventMode == EditorEventListFragment.EDIT_MODE_DUPLICATE));
