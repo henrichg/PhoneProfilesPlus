@@ -241,10 +241,11 @@
                 android:textSize="16sp"
                 android:text="@string/profile_preferences_afterDurationProfile" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/ask_for_duration_dlg_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:paddingTop="5dp"
@@ -257,7 +258,7 @@
                     android:id="@+id/ask_for_duration_dlg_profile_icon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
                     android:contentDescription="@string/profile_preferences_profileIcon"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
@@ -268,8 +269,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@id/ask_for_duration_dlg_profile_icon">
+                    android:layout_gravity="center_vertical">
 
                     <TextView
                         android:id="@+id/ask_for_duration_dlg_profile_name"
@@ -299,7 +299,7 @@
 
                 </LinearLayout>
 
-            </RelativeLayout>
+            </LinearLayout>
 
             <!--
                     <Button
