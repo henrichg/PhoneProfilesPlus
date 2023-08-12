@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/opaqueness_lighting_pref_dlg_item_root"
     android:layout_width="match_parent"
-    android:layout_height="48dp" >
+    android:layout_height="48dp"
+    android:orientation="horizontal" >
 
     <RadioButton
         android:id="@+id/opaqueness_lighting_pref_dlg_item_radiobtn"
@@ -10,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="@dimen/chackBox_radioButton_spacing_for_list_items"
-        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
         android:buttonTint="@color/checkbox_radiobutton_color"
         android:checked="false"
         android:focusable="false" />
@@ -19,8 +20,7 @@
         android:id="@+id/opaqueness_lighting_pref_dlg_item_icon"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/opaqueness_lighting_pref_dlg_item_radiobtn"
+        android:layout_gravity="center_vertical"
         android:adjustViewBounds="true"
         android:contentDescription="@string/opaqueness_lightnig_preference_list_item_icon"
         android:scaleType="fitCenter"
@@ -32,8 +32,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/opaqueness_lighting_pref_dlg_item_icon"
-        android:layout_centerVertical="true">
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:id="@+id/opaqueness_lighting_pref_dlg_item_label"
@@ -45,4 +44,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

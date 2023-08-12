@@ -27,10 +27,11 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/mobile_cells_pref_dlg_item_reLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_toStartOf="@id/mobile_cells_pref_dlg_item_buttons_root"
@@ -42,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/chackBox_radioButton_spacing_for_list_items"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
             android:buttonTint="@color/checkbox_radiobutton_color"
             android:checked="false"
             android:focusable="false" />
@@ -52,8 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_toEndOf="@id/mobile_cells_pref_dlg_item_checkbox"
-            android:layout_centerVertical="true" >
+            android:layout_gravity="center_vertical" >
 
             <TextView
                 android:id="@+id/mobile_cells_pref_dlg_item_label"
@@ -71,6 +71,6 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

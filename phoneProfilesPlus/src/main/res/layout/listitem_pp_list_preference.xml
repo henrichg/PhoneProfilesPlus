@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/pp_list_pref_dlg_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:paddingTop="7dp"
     android:paddingBottom="7dp">
 
@@ -10,7 +11,7 @@
         android:id="@+id/pp_list_pref_dlg_item_radiobutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="@dimen/chackBox_radioButton_spacing_for_list_items"
         android:buttonTint="@color/checkbox_radiobutton_color"
@@ -21,9 +22,8 @@
         android:id="@+id/pp_list_pref_dlg_item_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/pp_list_pref_dlg_item_radiobutton"
+        android:layout_gravity="center_vertical"
         android:text=""
         android:textSize="16sp" />
 
-</RelativeLayout>
+</LinearLayout>

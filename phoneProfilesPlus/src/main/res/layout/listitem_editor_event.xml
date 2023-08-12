@@ -101,10 +101,11 @@
                 android:textColor="@color/activityNormalTextColor"
                 android:scrollHorizontally="true"/>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/event_list_item_profile_start_icon_root"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="3dp" >
 
@@ -117,7 +118,7 @@
                     android:scaleType="fitCenter"
                     android:paddingStart="2dp"
                     android:paddingEnd="2dp"
-                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_profile_default" />
 
                 <LinearLayout
@@ -125,9 +126,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_centerVertical="true"
-                    android:layout_marginBottom="2dp"
-                    android:layout_toEndOf="@id/event_list_item_profile_start_icon">
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="2dp">
 
                     <TextView
                         android:id="@+id/event_list_item_profile_start_name"
@@ -154,12 +154,13 @@
                         android:paddingEnd="10dp" />
 
                 </LinearLayout>
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/event_list_item_reLa2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="1dp" >
 
@@ -172,7 +173,7 @@
                     android:scaleType="fitCenter"
                     android:paddingStart="2dp"
                     android:paddingEnd="2dp"
-                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_profile_default" />
 
                 <LinearLayout
@@ -180,9 +181,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_centerVertical="true"
-                    android:layout_marginBottom="2dp"
-                    android:layout_toEndOf="@id/event_list_item_profile_end_icon">
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="2dp">
 
                     <TextView
                         android:id="@+id/event_list_item_profile_end_name"
@@ -210,7 +210,7 @@
                         android:paddingEnd="10dp" />
 
                 </LinearLayout>
-            </RelativeLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
