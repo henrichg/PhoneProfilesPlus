@@ -4,7 +4,7 @@
     android:id="@+id/notification_activated_profile_name"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_centerVertical="true"
+    android:layout_gravity="center_vertical"
     android:text="@string/profile_name_default"
     style="@style/TextAppearance.Compat.Notification.Title"
     android:ellipsize="end"

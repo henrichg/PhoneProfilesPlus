@@ -23,10 +23,11 @@
         android:focusable="true"
         android:clickable="true" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/notification_activated_profile_relLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginStart="2dp"
         android:layout_centerVertical="true"
         android:layout_toStartOf="@id/notification_activated_profile_restart_events"
@@ -36,7 +37,7 @@
             android:id="@+id/notification_activated_profile_icon"
             android:layout_width="@dimen/profile_icon_notification_compat_no_decoration_icon_size"
             android:layout_height="@dimen/profile_icon_notification_compat_no_decoration_icon_size"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
             android:layout_marginEnd="@dimen/profile_name_notification_margin"
@@ -47,13 +48,12 @@
             android:id="@+id/notification_activated_profile_relLa2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/notification_activated_profile_icon">
+            android:layout_gravity="center_vertical">
 
             <include layout="@layout/ppp_notification_text_compat" />
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>
