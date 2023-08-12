@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -52,7 +53,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
     private final TimeDurationPickerDialog mValueDialog;
     private final TextView afterDurationLabel;
     private final AppCompatSpinner afterDoSpinner;
-    private final RelativeLayout profileView;
+    private final LinearLayout profileView;
     private final TextView profileLabel;
     private final TextView profileName;
     private final ImageView profileIcon;
