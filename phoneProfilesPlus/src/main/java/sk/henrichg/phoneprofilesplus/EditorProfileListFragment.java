@@ -50,7 +50,7 @@ public class EditorProfileListFragment extends Fragment
     DataWrapper activityDataWrapper;
 
     private View rootView;
-    RelativeLayout activatedProfileHeader;
+    LinearLayout activatedProfileHeader;
     RecyclerView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;

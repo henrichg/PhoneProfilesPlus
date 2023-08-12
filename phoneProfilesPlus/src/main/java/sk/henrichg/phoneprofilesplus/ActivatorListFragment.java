@@ -30,7 +30,7 @@ public class ActivatorListFragment extends Fragment {
 
     DataWrapper activityDataWrapper;
     private ActivatorListAdapter profileListAdapter = null;
-    private RelativeLayout activatedProfileHeader;
+    private LinearLayout activatedProfileHeader;
     private ListView listView = null;
     private GridView gridView = null;
     private TextView activeProfileName;
