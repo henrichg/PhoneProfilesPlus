@@ -25,6 +25,7 @@
         android:paddingEnd="6dp"
         android:layout_gravity="center">
 
+        <!-- must be RelativeLayout for best vertical center -->
         <RelativeLayout
             android:id="@+id/widget_one_row_header_restart_events_click"
             android:layout_width="55dp"
@@ -47,10 +48,11 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/widget_one_row_header_profile_root"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_toStartOf="@id/widget_one_row_header_restart_events_click"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
@@ -62,7 +64,7 @@
                 android:id="@+id/widget_one_row_header_profile_icon"
                 android:layout_width="43dp"
                 android:layout_height="43dp"
-                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/profile_preferences_profileIcon"
                 android:scaleType="fitCenter"
@@ -72,8 +74,7 @@
                 android:id="@+id/widget_one_row_header_profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/widget_one_row_header_profile_icon"
+                android:layout_gravity="center_vertical"
                 android:paddingStart="@dimen/profile_name_widget_margin"
                 android:paddingEnd="@dimen/profile_name_widget_margin"
                 android:text="@string/profile_name_default"
@@ -83,7 +84,7 @@
                 android:maxLines="1"
                 tools:ignore="SpUsage" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 
