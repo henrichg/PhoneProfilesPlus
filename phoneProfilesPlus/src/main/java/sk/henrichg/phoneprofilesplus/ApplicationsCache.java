@@ -2,13 +2,15 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.collection.LruCache;
+//import androidx.collection.LruCache;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,9 +19,9 @@ import java.util.List;
 class ApplicationsCache {
 
     private ArrayList<Application> applicationsList;
-    private LruCache<Object, Object> applicationIconsLru;
+    //private LruCache<Object, Object> applicationIconsLru;
     private ArrayList<Application> applicationsNoShortcutsList;
-    private LruCache<Object, Object> applicationNoShortcutIconsLru;
+    //private LruCache<Object, Object> applicationNoShortcutIconsLru;
 
     boolean cached;
     private boolean cancelled;
@@ -27,9 +29,9 @@ class ApplicationsCache {
     ApplicationsCache()
     {
         applicationsList = new ArrayList<>();
-        applicationIconsLru = new LruCache<>(5 * 1024 * 1024); //Max is 5MB
+        //applicationIconsLru = new LruCache<>(5 * 1024 * 1024); //Max is 5MB
         applicationsNoShortcutsList = new ArrayList<>();
-        applicationNoShortcutIconsLru = new LruCache<>(5 * 1024 * 1024); //Max is 5MB
+        //applicationNoShortcutIconsLru = new LruCache<>(5 * 1024 * 1024); //Max is 5MB
         cached = false;
     }
 
@@ -40,11 +42,14 @@ class ApplicationsCache {
         synchronized (PPApplication.applicationCacheMutex) {
             cancelled = false;
 
-            applicationsList.clear();
+            //applicationsList.clear();
+            clearCache(false);
 
             Context appContext = context.getApplicationContext();
 
             PackageManager packageManager = appContext.getPackageManager();
+
+            //int count = 0;
 
             Intent appsIntent = new Intent(Intent.ACTION_MAIN);
             appsIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -62,9 +67,7 @@ class ApplicationsCache {
                     newInfo.packageName = applicationInfo.activityInfo.applicationInfo.packageName;
                     newInfo.activityName = applicationInfo.activityInfo.name;
 
-                    applicationsList.add(newInfo);
-                    applicationsNoShortcutsList.add(newInfo);
-
+                    /*
                     Object appIcon = applicationIconsLru.get(newInfo.packageName + "/" + newInfo.activityName);
                     if (appIcon == null) {
                         Drawable icon = applicationInfo.loadIcon(packageManager);
@@ -99,12 +102,34 @@ class ApplicationsCache {
                             }
                         }
                     }
+                    */
 
+                    Bitmap appIcon;
+                    Drawable icon = applicationInfo.loadIcon(packageManager);
+                    Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
+                    if (bitmap != null) {
+                        appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
+                        newInfo.icon = appIcon;
+                    } else {
+                        //icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
+                        icon = AppCompatResources.getDrawable(appContext, R.drawable.ic_empty);
+                        bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
+                        if (bitmap != null) {
+                            appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
+                            newInfo.icon = appIcon;
+                        }
+                    }
+
+                    applicationsList.add(newInfo);
+                    applicationsNoShortcutsList.add(newInfo);
+
+                    //++count;
                 }
 
                 if (cancelled)
                     return;
             }
+            //Log.e("ApplicationsCache.cacheApplicationsList", "added into from applicationNoShortcutIconsLru - count="+count);
 
             Intent shortcutsIntent = new Intent(Intent.ACTION_CREATE_SHORTCUT);
             List<ResolveInfo> shortcuts = packageManager.queryIntentActivities(shortcutsIntent, flags);
@@ -121,8 +146,7 @@ class ApplicationsCache {
                     newInfo.packageName = shortcutInfo.activityInfo.applicationInfo.packageName;
                     newInfo.activityName = shortcutInfo.activityInfo.name;
 
-                    applicationsList.add(newInfo);
-
+                    /*
                     Object appIcon = applicationIconsLru.get(newInfo.packageName + "/" + newInfo.activityName);
                     if (appIcon == null) {
                         Drawable icon = shortcutInfo.loadIcon(packageManager);
@@ -140,11 +164,34 @@ class ApplicationsCache {
                             }
                         }
                     }
+                    */
+
+                    Bitmap appIcon;
+                    Drawable icon = shortcutInfo.loadIcon(packageManager);
+                    Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
+                    if (bitmap != null) {
+                        appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
+                        newInfo.icon = appIcon;
+                    } else {
+                        //icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
+                        icon = AppCompatResources.getDrawable(appContext, R.drawable.ic_empty);
+                        bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
+                        if (bitmap != null) {
+                            appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
+                            newInfo.icon = appIcon;
+                        }
+                    }
+
+
+                    applicationsList.add(newInfo);
+
+                    //++count;
                 }
 
                 if (cancelled)
                     return;
             }
+            //Log.e("ApplicationsCache.cacheApplicationsList", "added into from applicationsList - count="+count);
 
             applicationsList.sort(new SortList());
             applicationsNoShortcutsList.sort(new SortList());
@@ -168,45 +215,98 @@ class ApplicationsCache {
 
     Bitmap getApplicationIcon(Application application, boolean noShortcuts) {
         if (cached) {
-            if (noShortcuts)
-                return (Bitmap)applicationNoShortcutIconsLru.get(application.packageName + "/" + application.activityName);
-            else
-                return (Bitmap)applicationIconsLru.get(application.packageName + "/" + application.activityName);
+
+            //if (noShortcuts)
+            //    return (Bitmap)applicationNoShortcutIconsLru.get(application.packageName + "/" + application.activityName);
+            //else
+            //    return (Bitmap)applicationIconsLru.get(application.packageName + "/" + application.activityName);
+
+            //if (noShortcuts)
+            //    return application.icon;
+            //else
+                return application.icon;
         }
         else
             return null;
     }
 
+    void setApplicationIcon(Context context, Application application)
+    {
+        PackageManager packageManager = context.getApplicationContext().getPackageManager();
+        Drawable dIcon = null;
+        if (application.shortcutId != 0) {
+            Intent intent = new Intent();
+            intent.setClassName(application.packageName, application.activityName);
+            ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+            if (info != null)
+                dIcon = info.loadIcon(packageManager);
+        } else {
+            String activityName = application.activityName;
+            if (activityName.isEmpty()) {
+                try {
+                    ApplicationInfo app = packageManager.getApplicationInfo(application.packageName, 0);
+                    if (app != null)
+                        dIcon = packageManager.getApplicationIcon(app);
+                } catch (Exception ignored) {}
+            } else {
+                Intent intent = new Intent();
+                intent.setClassName(Application.getPackageName(application.packageName), activityName);
+                ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                if (info != null)
+                    dIcon = info.loadIcon(packageManager);
+            }
+        }
+
+        Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(dIcon, true);
+        if (bitmap != null) {
+            application.icon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);;
+        } else {
+            //icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
+            dIcon = AppCompatResources.getDrawable(context, R.drawable.ic_empty);
+            bitmap = BitmapManipulator.getBitmapFromDrawable(dIcon, true);
+            if (bitmap != null) {
+                application.icon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
+            }
+        }
+    }
+
+
     void clearCache(boolean nullList)
     {
         synchronized (PPApplication.applicationCacheMutex) {
+            //int count = 0;
             for (Application application : applicationsList) {
                 Bitmap icon = getApplicationIcon(application, false);
                 if ((icon != null) && (!icon.isRecycled())) {
                     try {
                         icon.recycle();
+                        //++count;
                     } catch (Exception ignored) {}
                 }
             }
             applicationsList.clear();
-            applicationIconsLru.evictAll();
+            //applicationIconsLru.evictAll();
+            //Log.e("ApplicationsCache.clearCache", "clear icon from applicationList - count="+count);
 
+            //count = 0;
             for (Application application : applicationsNoShortcutsList) {
                 Bitmap icon = getApplicationIcon(application, true);
                 if ((icon != null) && (!icon.isRecycled())) {
                     try {
                         icon.recycle();
+                        //++count;
                     } catch (Exception ignored) {}
                 }
             }
             applicationsNoShortcutsList.clear();
-            applicationNoShortcutIconsLru.evictAll();
+            //applicationNoShortcutIconsLru.evictAll();
+            //Log.e("ApplicationsCache.clearCache", "clear icon from applicationsNoShortcutsList - count="+count);
 
             if (nullList) {
                 applicationsList = null;
-                applicationIconsLru = null;
+                //applicationIconsLru = null;
                 applicationsNoShortcutsList = null;
-                applicationNoShortcutIconsLru = null;
+                //applicationNoShortcutIconsLru = null;
             }
             cached = false;
         }

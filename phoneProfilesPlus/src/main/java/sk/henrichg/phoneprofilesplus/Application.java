@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -10,6 +11,7 @@ class Application  implements Parcelable {
     String appLabel = "";
     String packageName = "";
     String activityName = "";
+    Bitmap icon = null;
     long shortcutId = 0;
     long intentId = 0;
     boolean checked = false;
@@ -238,7 +240,6 @@ class Application  implements Parcelable {
         this.checked = in.readByte() != 0;
         this.startApplicationDelay = in.readInt();
     }
-
 
     @Override
     public int describeContents() {

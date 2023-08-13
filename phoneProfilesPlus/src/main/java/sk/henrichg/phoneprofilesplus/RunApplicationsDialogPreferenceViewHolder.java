@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
@@ -51,8 +52,12 @@ class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder 
         this.application = application;
 
         if (this.application.type != Application.TYPE_INTENT) {
-            if (PPApplicationStatic.getApplicationsCache() != null)
+            if (PPApplicationStatic.getApplicationsCache() != null) {
+                Bitmap icon = PPApplicationStatic.getApplicationsCache().getApplicationIcon(application, false);
+                if (icon == null)
+                    PPApplicationStatic.getApplicationsCache().setApplicationIcon(context, application);
                 imageViewIcon.setImageBitmap(PPApplicationStatic.getApplicationsCache().getApplicationIcon(application, false));
+            }
         }
         else
             imageViewIcon.setImageResource(R.drawable.ic_profile_pref_run_application);

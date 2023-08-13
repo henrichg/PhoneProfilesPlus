@@ -788,8 +788,6 @@ public class EditorActivity extends AppCompatActivity
 
             Runnable runnable = () -> {
                 if (PPApplicationStatic.getApplicationsCache() != null) {
-//                    Log.e("EditorActivity.onDestroy", "clear Application cache");
-
                     PPApplicationStatic.getApplicationsCache().cancelCaching();
                     //if (PPApplicationStatic.getApplicationsCache().cached)
                     PPApplicationStatic.getApplicationsCache().clearCache(true);

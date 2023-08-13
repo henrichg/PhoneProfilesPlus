@@ -26,7 +26,7 @@ class ApplicationsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Appl
         resource = R.layout.listitem_applications_multiselect_preference;
 
         View view = LayoutInflater.from(parent.getContext()).inflate(resource, parent, false);
-        return new ApplicationsMultiSelectDialogPreferenceViewHolder(view);
+        return new ApplicationsMultiSelectDialogPreferenceViewHolder(view/*, preference.getContext()*/);
     }
 
     @Override

@@ -15,9 +15,13 @@ class ApplicationsMultiSelectDialogPreferenceViewHolder extends RecyclerView.Vie
 
     private Application application;
 
-    ApplicationsMultiSelectDialogPreferenceViewHolder(View itemView)
+    //private final Context context;
+
+    ApplicationsMultiSelectDialogPreferenceViewHolder(View itemView/*, Context context*/)
     {
         super(itemView);
+
+        //this.context = context;
 
         imageViewIcon = itemView.findViewById(R.id.applications_multiselect_pref_dlg_item_icon);
         textViewAppName = itemView.findViewById(R.id.applications_multiselect_pref_dlg_item_app_name);
@@ -37,8 +41,12 @@ class ApplicationsMultiSelectDialogPreferenceViewHolder extends RecyclerView.Vie
         this.application = application;
 
         // Display Application data
-        if (PPApplicationStatic.getApplicationsCache() != null)
+        if (PPApplicationStatic.getApplicationsCache() != null) {
+            //Bitmap icon = PPApplicationStatic.getApplicationsCache().getApplicationIcon(application, true);
+            //if (icon == null)
+            //    PPApplicationStatic.getApplicationsCache().setApplicationIcon(context, application);
             imageViewIcon.setImageBitmap(PPApplicationStatic.getApplicationsCache().getApplicationIcon(application, true));
+        }
         textViewAppName.setText(application.appLabel);
 
         // Tag the CheckBox with the Application it is displaying, so that we
