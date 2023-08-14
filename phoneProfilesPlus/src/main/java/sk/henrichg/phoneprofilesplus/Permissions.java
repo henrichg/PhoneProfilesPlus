@@ -607,8 +607,7 @@ class Permissions {
 
         if (fromProfile) {
             try {
-                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-                Profile _profile = DatabaseHandler.getInstance(dataWrapper.context).getProfile(profile._id, false);
+                Profile _profile = DatabaseHandler.getInstance(context.getApplicationContext()).getProfile(profile._id, false);
                 if (_profile == null) return;// true;
                 if (!_profile.getIsIconResourceID()) {
                     boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;

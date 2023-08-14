@@ -97,6 +97,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                 } else {
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
+                dataWrapper.invalidateDataWrapper();
             }
         }
 

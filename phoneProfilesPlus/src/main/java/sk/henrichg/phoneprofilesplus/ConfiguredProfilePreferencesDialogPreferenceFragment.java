@@ -106,6 +106,7 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragment extends Prefer
 
                     DataWrapper dataWrapper = new DataWrapper(prefContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
                     Profile profile = dataWrapper.getProfileById(preference.profile_id, false, false, false);
+                    dataWrapper.invalidateDataWrapper();
                     if (profile != null) {
                         ProfilePreferencesIndicator indicators = new ProfilePreferencesIndicator();
                         indicators.fillArrays(profile, false, /*false,*/ true, /*DataWrapper.IT_FOR_EDITOR,*/ prefContext);

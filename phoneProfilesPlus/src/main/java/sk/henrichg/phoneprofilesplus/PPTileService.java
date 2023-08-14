@@ -33,6 +33,7 @@ public class PPTileService extends TileService {
             if (PPApplication.quickTileProfileId[tileId] != Profile.RESTART_EVENTS_PROFILE_ID) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
                 profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], false, false, false);
+                dataWrapper.invalidateDataWrapper();
             }
             if ((PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID) || (profile != null)) {
                 isOK = true;
@@ -190,6 +191,7 @@ public class PPTileService extends TileService {
                     else {
                         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
                         Profile profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], true, false, false);
+                        dataWrapper.invalidateDataWrapper();
                         if (profile != null) {
                             tile.setLabel(profile._name);
                             if (Build.VERSION.SDK_INT >= 29) {
@@ -215,7 +217,6 @@ public class PPTileService extends TileService {
                             else
                                 tile.setState(Tile.STATE_INACTIVE);
                         }
-                        dataWrapper.invalidateDataWrapper();
                     }
                     tile.updateTile();
 

@@ -89,6 +89,7 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
 
+                        dataWrapper.invalidateDataWrapper();
                     } catch (Exception e) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplicationStatic.recordException(e);

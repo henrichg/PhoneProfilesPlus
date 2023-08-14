@@ -341,7 +341,7 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
     void refreshListView()
     {
         if (listAdapter != null)
-            listAdapter.reload(preference.dataWrapper);
+            listAdapter.reload();
     }
 
 }

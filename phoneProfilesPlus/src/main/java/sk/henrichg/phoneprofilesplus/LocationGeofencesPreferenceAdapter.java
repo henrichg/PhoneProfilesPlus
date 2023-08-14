@@ -29,7 +29,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
     LocationGeofencesPreferenceAdapter(Context context, Cursor cursor, LocationGeofencePreferenceFragment preferenceFragment) {
         super(context, cursor, 0);
 
-        this.context = context;
+        this.context = context.getApplicationContext();
         this.preferenceFragment = preferenceFragment;
 
         KEY_G_ID = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_ID);
@@ -95,7 +95,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
             rowData.checkBox.setChecked(checked);
             rowData.checkBox.setTag(id);
         }
-        if (DatabaseHandler.getInstance(preferenceFragment.preference.dataWrapper.context).isGeofenceUsed(id))
+        if (DatabaseHandler.getInstance(context).isGeofenceUsed(id))
             rowData.name.setTypeface(null, Typeface.BOLD);
         else
             rowData.name.setTypeface(null, Typeface.NORMAL);
@@ -106,7 +106,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
                 CheckBox chb = (CheckBox) v;
 
                 long id1 = (long) chb.getTag();
-                DatabaseHandler.getInstance(preferenceFragment.preference.dataWrapper.context).checkGeofence(String.valueOf(id1), 2);
+                DatabaseHandler.getInstance(context).checkGeofence(String.valueOf(id1), 2);
 
                 //preference.updateGUIWithGeofence(id);
 
@@ -121,9 +121,9 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
 
     }
 
-    public void reload(DataWrapper dataWrapper) {
+    public void reload() {
         //selectedRB = null;
-        changeCursor(DatabaseHandler.getInstance(dataWrapper.context).getGeofencesCursor());
+        changeCursor(DatabaseHandler.getInstance(context).getGeofencesCursor());
     }
 
 }

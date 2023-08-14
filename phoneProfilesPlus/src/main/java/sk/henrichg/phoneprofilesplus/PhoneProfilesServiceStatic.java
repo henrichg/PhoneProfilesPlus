@@ -2844,6 +2844,8 @@ class PhoneProfilesServiceStatic
         //scheduleGeofenceWorker(/*true,*/  dataWrapper /*false,*/ /*, true*/);
 
         AvoidRescheduleReceiverWorker.enqueueWork();
+
+        dataWrapper.invalidateDataWrapper();
     }
 
     static void unregisterEventsReceiversAndWorkers(boolean useHandler, Context context) {
@@ -2957,6 +2959,8 @@ class PhoneProfilesServiceStatic
         startNotificationScanner(true, true, dataWrapper, appContext);
 
         AvoidRescheduleReceiverWorker.enqueueWork();
+
+        dataWrapper.invalidateDataWrapper();
     }
 
 
@@ -3070,6 +3074,7 @@ class PhoneProfilesServiceStatic
                                     PhoneProfilesServiceStatic.disableNotUsedScanners(dataWrapper);
                                 }
                                 registerEventsReceiversAndWorkers(true, appContext);
+                                dataWrapper.invalidateDataWrapper();
                             } else if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
@@ -3078,6 +3083,7 @@ class PhoneProfilesServiceStatic
                                     PhoneProfilesServiceStatic.disableNotUsedScanners(dataWrapper);
                                 }
                                 unregisterEventsReceiversAndWorkers(false, appContext);
+                                dataWrapper.invalidateDataWrapper();
                             } else if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REREGISTER_RECEIVERS_AND_WORKERS");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
@@ -3087,6 +3093,7 @@ class PhoneProfilesServiceStatic
                                 }
                                 registerPPPExtenderReceiver(true, dataWrapper, appContext);
                                 reregisterEventsReceiversAndWorkers(appContext);
+                                dataWrapper.invalidateDataWrapper();
                             } else if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_REGISTER_CONTENT_OBSERVERS, false)) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_CONTENT_OBSERVERS");
                                 registerAllTheTimeContentObservers(true, appContext);
@@ -3113,26 +3120,32 @@ class PhoneProfilesServiceStatic
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerPPPExtenderReceiverForSMSCall(true, dataWrapper);
+                                dataWrapper.invalidateDataWrapper();
                             } else if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_UNREGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER, false)) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerPPPExtenderReceiverForSMSCall(false, dataWrapper);
+                                dataWrapper.invalidateDataWrapper();
                             }  else if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_FOR_CALL_SENSOR, false)) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_FOR_CALL_SENSOR");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerReceiverForCallSensor(true, dataWrapper, appContext);
+                                dataWrapper.invalidateDataWrapper();
                             } else if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SENSOR, false)) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SENSOR");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerReceiverForCallSensor(false, dataWrapper, appContext);
+                                dataWrapper.invalidateDataWrapper();
                             }  else if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR, false)) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerReceiverForSMSSensor(true, dataWrapper, appContext);
+                                dataWrapper.invalidateDataWrapper();
                             } else if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR, false)) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerReceiverForSMSSensor(false, dataWrapper, appContext);
+                                dataWrapper.invalidateDataWrapper();
                             } else if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_RESCAN_SCANNERS, false)) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
                                 if (ApplicationPreferences.applicationEventLocationEnableScanning) {
@@ -3186,6 +3199,7 @@ class PhoneProfilesServiceStatic
                                         PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5);
                                     }
                                 }
+                                dataWrapper.invalidateDataWrapper();
                             }
                             //else
                             //if (intent.getBooleanExtra(EventsHandler.EXTRA_SIMULATE_NOTIFICATION_TONE, false))
@@ -3409,6 +3423,7 @@ class PhoneProfilesServiceStatic
 
                                         break;
                                 }
+                                dataWrapper.invalidateDataWrapper();
                             }
                             /*else
                             if (intent.getBooleanExtra(EXTRA_RESTART_EVENTS, false)) {

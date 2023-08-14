@@ -112,7 +112,8 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
     {
         super.onDestroy();
 
-        //dataWrapper.invalidateDataWrapper();
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
         dataWrapper = null;
     }
 

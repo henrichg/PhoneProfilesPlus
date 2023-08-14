@@ -607,6 +607,7 @@ public class EditorProfileListFragment extends Fragment
 
         if (activityDataWrapper != null)
             activityDataWrapper.invalidateDataWrapper();
+        activityDataWrapper = null;
     }
 
     @Override
@@ -716,7 +717,7 @@ public class EditorProfileListFragment extends Fragment
             activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
         }
 
-        activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
+        DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(activityDataWrapper.context);
 
         /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -875,7 +876,7 @@ public class EditorProfileListFragment extends Fragment
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorProfileListFragment.deleteAllProfiles", "call of updateGUI");
                         PPApplication.updateGUI(true, false, activityDataWrapper.context);
 
-                        activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
+                        DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(activityDataWrapper.context);
 
                         /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -990,7 +991,7 @@ public class EditorProfileListFragment extends Fragment
                     profileListAdapter.activateProfile(profile);
                 updateHeader(profile);
 
-                activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
+                DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(activityDataWrapper.context);
 
              }
              //if (resultCode == Activity.RESULT_CANCELED)

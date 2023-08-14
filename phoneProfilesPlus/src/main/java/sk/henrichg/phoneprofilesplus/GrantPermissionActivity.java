@@ -254,17 +254,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
         GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
-    /*
     @Override
     protected void onDestroy()
     {
         super.onDestroy();
-
-        if ((geofenceEditorAsyncTask != null) && geofenceEditorAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
-            geofenceEditorAsyncTask.cancel(true);
-        }
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
+        dataWrapper = null;
     }
-    */
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {

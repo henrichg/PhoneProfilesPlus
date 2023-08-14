@@ -929,10 +929,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
                         //if ((appContext != null) && (appWidgetManager != null)) {
+                            DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
                             for (int appWidgetId : appWidgetIds) {
                                 //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
                                 RemoteViews layout;
-                                DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
                                 layout = buildLayout(appContext, appWidgetId, /*isLargeLayout,*/ dataWrapper);
                                 try {
                                     appWidgetManager.updateAppWidget(appWidgetId, layout);
@@ -940,6 +940,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                                     PPApplicationStatic.recordException(e);
                                 }
                             }
+                            dataWrapper.invalidateDataWrapper();
                         //}
                     }; //);
                     PPApplicationStatic.createDelayedGuiExecutor();

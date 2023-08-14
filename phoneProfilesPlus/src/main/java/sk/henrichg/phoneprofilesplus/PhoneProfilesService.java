@@ -822,7 +822,6 @@ public class PhoneProfilesService extends Service
                 if (__applicationStart) {
                     PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart - handler", "--- initialization for application start");
 
-                    dataWrapper.fillProfileList(false, false);
                     for (Profile profile : dataWrapper.profileList)
                         ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, appContext);
                     //Profile.setActivatedProfileForDuration(appContext, 0);
@@ -832,7 +831,6 @@ public class PhoneProfilesService extends Service
 
                     // DO NOT UNBLOCK EVENTS. AT START MUST MANUALLY ACTIVATED PROFILE, IF WAS ACTIVATED BEFORE PPService start
                     //Event.setEventsBlocked(appContext, false);
-                    //dataWrapper.fillEventList();
                     //synchronized (dataWrapper.eventList) {
                     //    for (Iterator<Event> it = dataWrapper.eventList.iterator(); it.hasNext(); ) {
                     //        Event event = it.next();
@@ -854,7 +852,6 @@ public class PhoneProfilesService extends Service
 
                 }
 
-                dataWrapper.fillEventList();
                 for (Event event : dataWrapper.eventList)
                     StartEventNotificationBroadcastReceiver.removeAlarm(event, appContext);
 
@@ -1056,7 +1053,7 @@ public class PhoneProfilesService extends Service
 
                 PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart - handler", "END");
 
-                //dataWrapper.invalidateDataWrapper();
+                dataWrapper.invalidateDataWrapper();
 
             } catch (Exception eee) {
                 Log.e("PhoneProfilesService.doForFirstStart.2 - handler", Log.getStackTraceString(eee));

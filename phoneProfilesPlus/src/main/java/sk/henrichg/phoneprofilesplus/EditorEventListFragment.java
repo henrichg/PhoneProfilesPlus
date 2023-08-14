@@ -644,6 +644,7 @@ public class EditorEventListFragment extends Fragment
 
         if (activityDataWrapper != null)
             activityDataWrapper.invalidateDataWrapper();
+        activityDataWrapper = null;
     }
 
     @Override

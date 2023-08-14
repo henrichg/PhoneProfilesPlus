@@ -375,6 +375,15 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
     }
     */
 
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
+        dataWrapper = null;
+    }
+
     private void showNotification(String title, String text) {
         PPApplicationStatic.createExclamationNotificationChannel(getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)

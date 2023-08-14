@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Icon;
 import android.os.Build;
+import android.os.PowerManager;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.text.Spannable;
@@ -679,6 +680,51 @@ class DataWrapperStatic {
                 PPApplicationStatic.recordException(e);
             }
         //}
+    }
+
+    static void setDynamicLauncherShortcutsFromMainThread(final Context appContext)
+    {
+        //final DataWrapper dataWrapper = copyDataWrapper();
+
+        //PPApplication.startHandlerThread(/*"DataWrapper.setDynamicLauncherShortcutsFromMainThread"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+        //__handler.post(new PPHandlerThreadRunnable(
+        //        context, dataWrapper, null, null) {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
+//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
+
+            //Context appContext= appContextWeakRef.get();
+            //DataWrapper dataWrapper = dataWrapperWeakRef.get();
+            //Profile profile = profileWeakRef.get();
+            //Activity activity = activityWeakRef.get();
+
+            //if ((appContext != null) && (dataWrapper != null) /*&& (profile != null) && (activity != null)*/) {
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DataWrapper_setDynamicLauncherShortcutsFromMainThread);
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
+
+                DataWrapperStatic.setDynamicLauncherShortcuts(appContext);
+
+            } catch (Exception e) {
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                PPApplicationStatic.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+            //}
+        }; //);
+        PPApplicationStatic.createBasicExecutorPool();
+        PPApplication.basicExecutorPool.submit(runnable);
     }
 
     static final String EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION = "from_red_text_preferences_notification";

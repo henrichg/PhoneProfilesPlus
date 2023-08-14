@@ -657,12 +657,13 @@ public class DataWrapper {
             profile.generatePreferencesIndicator(context, monochrome, indicatorsMonoValue, indicatorsType, indicatorsLightnessValue);
     }
 
+/*  moved into DataWrapperStatic
     void setDynamicLauncherShortcutsFromMainThread()
     {
         //final DataWrapper dataWrapper = copyDataWrapper();
 
         final Context appContext = context;
-        //PPApplication.startHandlerThread(/*"DataWrapper.setDynamicLauncherShortcutsFromMainThread"*/);
+        //PPApplication.startHandlerThread();
         //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(
         //        context, dataWrapper, null, null) {
@@ -675,7 +676,6 @@ public class DataWrapper {
             //Profile profile = profileWeakRef.get();
             //Activity activity = activityWeakRef.get();
 
-            //if ((appContext != null) && (dataWrapper != null) /*&& (profile != null) && (activity != null)*/) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
@@ -702,6 +702,7 @@ public class DataWrapper {
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
     }
+*/
 
 //---------------------------------------------------
 

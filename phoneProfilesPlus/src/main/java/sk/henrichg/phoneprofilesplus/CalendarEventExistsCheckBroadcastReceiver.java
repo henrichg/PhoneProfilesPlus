@@ -51,12 +51,12 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
 
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                         dataWrapper.fillEventList();
-
                         for (Event _event : dataWrapper.eventList) {
                             if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
                                 _event._eventPreferencesCalendar.setAlarm(/*true,*/ 0, appContext, true);
                             }
                         }
+                        dataWrapper.invalidateDataWrapper();
                     } catch (Exception e) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplicationStatic.recordException(e);

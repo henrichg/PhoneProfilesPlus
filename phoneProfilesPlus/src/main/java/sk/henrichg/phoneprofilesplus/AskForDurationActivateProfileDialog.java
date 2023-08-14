@@ -50,6 +50,7 @@ class AskForDurationActivateProfileDialog
 
             doShow();
         });
+        mDialog.setOnDismissListener(dialog -> dataWrapper.invalidateDataWrapper());
 
         linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
 

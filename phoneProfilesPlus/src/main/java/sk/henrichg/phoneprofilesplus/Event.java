@@ -1202,6 +1202,7 @@ class Event {
                                     .append(getColorForChangedPreferenceValue(context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length, !preference.isEnabled(), context))
                                     .append(StringConstants.TAG_BOLD_END_HTML);
                         }
+                        dataWrapper.invalidateDataWrapper();
                     }
                     if (delayStartChanged) {
                         if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);

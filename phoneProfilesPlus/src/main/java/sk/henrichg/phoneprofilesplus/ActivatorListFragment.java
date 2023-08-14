@@ -494,6 +494,7 @@ public class ActivatorListFragment extends Fragment {
 
         if (activityDataWrapper != null)
             activityDataWrapper.invalidateDataWrapper();
+        activityDataWrapper = null;
     }
 
     private void updateHeader(Profile profile)

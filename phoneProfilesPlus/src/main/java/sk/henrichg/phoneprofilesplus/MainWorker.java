@@ -248,6 +248,7 @@ public class MainWorker extends Worker {
 //                        PPApplicationStatic.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                         PhoneProfilesServiceStatic.disableNotUsedScanners(dataWrapper);
+                        dataWrapper.invalidateDataWrapper();
                         break;
 
                     /*case DETECT_MERGE_RING_NOTIFICATION_VOLUMES_WORK_TAG:

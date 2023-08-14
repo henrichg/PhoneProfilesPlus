@@ -2177,6 +2177,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
                             long profileId = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
                             Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
+                            dataWrapper.invalidateDataWrapper();
                             if (profile != null)
                                 value = profile._name;
                             else {
@@ -2217,6 +2218,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
                         long profileId = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
                         Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
+                        dataWrapper.invalidateDataWrapper();
                         if (profile != null)
                             value = profile._name;
                         else {

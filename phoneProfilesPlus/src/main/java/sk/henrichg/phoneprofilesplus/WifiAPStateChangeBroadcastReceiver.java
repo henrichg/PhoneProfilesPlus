@@ -54,6 +54,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 dataWrapper.fillEventList();
                                 PhoneProfilesServiceStatic.scheduleWifiWorker(/*true,*/ dataWrapper/*, false, true, false, false*/);
+                                dataWrapper.invalidateDataWrapper();
                             }
                         }
                     } catch (Exception e) {

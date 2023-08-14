@@ -265,6 +265,10 @@ public class ActivityLogActivity extends AppCompatActivity {
         Cursor cursor = activityLogAdapter.getCursor();
         if (cursor != null)
             cursor.close();
+
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
+        dataWrapper = null;
     }
 
 }

@@ -476,8 +476,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             // PPApplicationStatic.recordException(e);
         //}
 
-        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-        dataWrapper.setDynamicLauncherShortcutsFromMainThread();
+        DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(appContext);
 
         /*
         if (PhoneProfilesService.getInstance() != null) {
