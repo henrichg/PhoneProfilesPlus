@@ -45,7 +45,7 @@ class ApplicationsMultiSelectDialogPreferenceViewHolder extends RecyclerView.Vie
             //Bitmap icon = PPApplicationStatic.getApplicationsCache().getApplicationIcon(application, true);
             //if (icon == null)
             //    PPApplicationStatic.getApplicationsCache().setApplicationIcon(context, application);
-            imageViewIcon.setImageBitmap(PPApplicationStatic.getApplicationsCache().getApplicationIcon(application, true));
+            imageViewIcon.setImageBitmap(PPApplicationStatic.getApplicationsCache().getApplicationIcon(application/*, true*/));
         }
         textViewAppName.setText(application.appLabel);
 

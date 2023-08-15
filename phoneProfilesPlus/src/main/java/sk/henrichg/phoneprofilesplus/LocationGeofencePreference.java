@@ -24,7 +24,7 @@ public class LocationGeofencePreference extends DialogPreference {
     //private RelativeLayout dataRelativeLayout;
     //private TextView geofenceName;
 
-    final DataWrapper dataWrapper;
+    //final DataWrapper dataWrapper;
 
     static final String EXTRA_GEOFENCE_ID = "geofence_id";
     static final int RESULT_GEOFENCE_EDITOR = 2100;
@@ -42,7 +42,7 @@ public class LocationGeofencePreference extends DialogPreference {
 
         this.context = context;
 
-        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+        //dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         if (onlyEdit != 0)
             setNegativeButtonText(null);

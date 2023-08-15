@@ -347,7 +347,7 @@ class RunApplicationEditorDialog
         if (selectedPosition != -1) {
             selectedApplication = getSelectedApplication();
             if (selectedApplication != null) {
-                applicationIcon = PPApplicationStatic.getApplicationsCache().getApplicationIcon(selectedApplication, false);
+                applicationIcon = PPApplicationStatic.getApplicationsCache().getApplicationIcon(selectedApplication/*, false*/);
             }
         }
         if (selectedApplication != null) {

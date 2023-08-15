@@ -213,7 +213,7 @@ class ApplicationsCache {
             return null;
     }
 
-    Bitmap getApplicationIcon(Application application, boolean noShortcuts) {
+    Bitmap getApplicationIcon(Application application/*, boolean noShortcuts*/) {
         if (cached) {
 
             //if (noShortcuts)
@@ -259,7 +259,7 @@ class ApplicationsCache {
 
         Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(dIcon, true);
         if (bitmap != null) {
-            application.icon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);;
+            application.icon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
         } else {
             //icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
             dIcon = AppCompatResources.getDrawable(context, R.drawable.ic_empty);
@@ -276,7 +276,7 @@ class ApplicationsCache {
         synchronized (PPApplication.applicationCacheMutex) {
             //int count = 0;
             for (Application application : applicationsList) {
-                Bitmap icon = getApplicationIcon(application, false);
+                Bitmap icon = getApplicationIcon(application/*, false*/);
                 if ((icon != null) && (!icon.isRecycled())) {
                     try {
                         icon.recycle();
@@ -290,7 +290,7 @@ class ApplicationsCache {
 
             //count = 0;
             for (Application application : applicationsNoShortcutsList) {
-                Bitmap icon = getApplicationIcon(application, true);
+                Bitmap icon = getApplicationIcon(application/*, true*/);
                 if ((icon != null) && (!icon.isRecycled())) {
                     try {
                         icon.recycle();
