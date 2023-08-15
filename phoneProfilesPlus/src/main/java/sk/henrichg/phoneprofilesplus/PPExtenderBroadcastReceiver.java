@@ -333,7 +333,8 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                         }
                         if (subscriptionList != null) {
 //                            PPApplicationStatic.logE("[DUAL_SIM] PPExtenderBroadcastReceiver.onReceive", "subscriptionList.size()=" + subscriptionList.size());
-                            for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                            int size = subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/
+                            for (int i = 0; i < size; i++) {
                                 // Get the active subscription ID for a given SIM card.
                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
 //                                PPApplicationStatic.logE("[DUAL_SIM] PPExtenderBroadcastReceiver.onReceive", "subscriptionInfo=" + subscriptionInfo);

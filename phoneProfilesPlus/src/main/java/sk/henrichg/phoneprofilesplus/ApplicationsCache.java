@@ -55,7 +55,8 @@ class ApplicationsCache {
             appsIntent.addCategory(Intent.CATEGORY_LAUNCHER);
             int flags = PackageManager.MATCH_ALL;
             List<ResolveInfo> applications = packageManager.queryIntentActivities(appsIntent, flags);
-            for (int i = 0; i < applications.size(); i++) {
+            int size = applications.size();
+            for (int i = 0; i < size; i++) {
                 ResolveInfo applicationInfo = applications.get(i);
 
                 if ((applicationInfo.activityInfo.applicationInfo.packageName != null) &&
@@ -133,7 +134,8 @@ class ApplicationsCache {
 
             Intent shortcutsIntent = new Intent(Intent.ACTION_CREATE_SHORTCUT);
             List<ResolveInfo> shortcuts = packageManager.queryIntentActivities(shortcutsIntent, flags);
-            for (int i = 0; i < shortcuts.size(); i++) {
+            size = shortcuts.size();
+            for (int i = 0; i < size; i++) {
                 ResolveInfo shortcutInfo = shortcuts.get(i);
 
                 if ((shortcutInfo.activityInfo.applicationInfo.packageName != null) &&

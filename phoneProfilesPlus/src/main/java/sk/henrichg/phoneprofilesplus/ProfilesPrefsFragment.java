@@ -7270,7 +7270,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         PPApplicationStatic.recordException(e);
                     }
                     if (subscriptionList != null) {
-                        for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                        int size = subscriptionList.size(); /*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/
+                        for (int i = 0; i < size; i++) {
                             // Get the active subscription ID for a given SIM card.
                             SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                             if (subscriptionInfo != null) {

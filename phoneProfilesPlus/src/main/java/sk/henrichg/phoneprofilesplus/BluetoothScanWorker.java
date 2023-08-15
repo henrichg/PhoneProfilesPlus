@@ -735,11 +735,12 @@ public class BluetoothScanWorker extends Worker {
 
             editor.clear();
 
-            editor.putInt(PREF_SCAN_RESULT_COUNT, boundedDevicesList.size());
+            int size = boundedDevicesList.size();
+            editor.putInt(PREF_SCAN_RESULT_COUNT, size);
 
             Gson gson = new Gson();
 
-            for (int i = 0; i < boundedDevicesList.size(); i++) {
+            for (int i = 0; i < size; i++) {
                 String json = gson.toJson(boundedDevicesList.get(i));
                 editor.putString(PREF_SCAN_RESULT_DEVICE + i, json);
             }
@@ -818,10 +819,11 @@ public class BluetoothScanWorker extends Worker {
 
             editor.clear();
 
-            editor.putInt(PREF_SCAN_RESULT_COUNT, scanResults.size());
+            int size = scanResults.size();
+            editor.putInt(PREF_SCAN_RESULT_COUNT, size);
 
             Gson gson = new Gson();
-            for (int i = 0; i < scanResults.size(); i++) {
+            for (int i = 0; i < size; i++) {
                 String json = gson.toJson(scanResults.get(i));
                 editor.putString(PREF_SCAN_RESULT_DEVICE + i, json);
             }
@@ -838,10 +840,11 @@ public class BluetoothScanWorker extends Worker {
 
             editor.clear();
 
-            editor.putInt(PREF_SCAN_RESULT_COUNT, scanResults.size());
+            int size = scanResults.size();
+            editor.putInt(PREF_SCAN_RESULT_COUNT, size);
 
             Gson gson = new Gson();
-            for (int i = 0; i < scanResults.size(); i++) {
+            for (int i = 0; i < size; i++) {
                 String json = gson.toJson(scanResults.get(i));
                 editor.putString(PREF_SCAN_RESULT_DEVICE + i, json);
             }

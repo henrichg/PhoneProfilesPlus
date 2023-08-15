@@ -453,7 +453,8 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                 */
 
                 if (!scrollToTag.isEmpty()) {
-                    for (int position = 0; position < preference.nfcTagList.size() - 1; position++) {
+                    int size = preference.nfcTagList.size() - 1;
+                    for (int position = 0; position < size; position++) {
                         if (preference.nfcTagList.get(position)._name.equals(scrollToTag)) {
                             fragment.nfcTagListView.setSelection(position);
                             break;

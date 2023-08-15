@@ -772,11 +772,12 @@ public class WifiScanWorker extends Worker {
 
             editor.clear();
 
-            editor.putInt(PREF_SCAN_RESULT_COUNT, wifiConfigurationList.size());
+            int size = wifiConfigurationList.size();
+            editor.putInt(PREF_SCAN_RESULT_COUNT, size);
 
             Gson gson = new Gson();
 
-            for (int i = 0; i < wifiConfigurationList.size(); i++) {
+            for (int i = 0; i < size; i++) {
                 String json = gson.toJson(wifiConfigurationList.get(i));
                 editor.putString(PREF_SCAN_RESULT_DEVICE + i, json);
             }
@@ -826,11 +827,12 @@ public class WifiScanWorker extends Worker {
             if (scanResults == null)
                 editor.putInt(PREF_SCAN_RESULT_COUNT, -1);
             else {
-                editor.putInt(PREF_SCAN_RESULT_COUNT, scanResults.size());
+                int size = scanResults.size();
+                editor.putInt(PREF_SCAN_RESULT_COUNT, size);
 
                 Gson gson = new Gson();
 
-                for (int i = 0; i < scanResults.size(); i++) {
+                for (int i = 0; i < size; i++) {
                     String json = gson.toJson(scanResults.get(i));
                     editor.putString(PREF_SCAN_RESULT_DEVICE + i, json);
                 }
@@ -882,7 +884,8 @@ public class WifiScanWorker extends Worker {
                 listOfConfigurations = wifiManager.getConfiguredNetworks();
 
             if (listOfConfigurations != null) {
-                for (int index = 0; index < listOfConfigurations.size(); index++) {
+                int size = listOfConfigurations.size();
+                for (int index = 0; index < size; index++) {
                     WifiConfiguration configuration = listOfConfigurations.get(index);
                     //noinspection deprecation
                     if (configuration.networkId == wifiInfo.getNetworkId()) {

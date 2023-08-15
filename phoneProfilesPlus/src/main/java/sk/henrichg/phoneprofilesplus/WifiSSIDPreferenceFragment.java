@@ -776,7 +776,8 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                 }
 
                 if (!scrollToSSID.isEmpty()) {
-                    for (int position = 0; position < preference.SSIDList.size() - 1; position++) {
+                    int size = preference.SSIDList.size() - 1;
+                    for (int position = 0; position < size; position++) {
                         if (preference.SSIDList.get(position).ssid.equals(scrollToSSID)) {
                             fragment.SSIDListView.setSelection(position);
                             break;

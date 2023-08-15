@@ -1660,7 +1660,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
                 else {
                     String[] permArray = new String[permList.size()];
-                    for (int i = 0; i < permList.size(); i++) {
+                    int size = permList.size();
+                    for (int i = 0; i < size; i++) {
                         permArray[i] = permList.get(i);
                     }
 

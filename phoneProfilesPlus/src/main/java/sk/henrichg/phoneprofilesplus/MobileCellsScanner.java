@@ -60,7 +60,8 @@ class MobileCellsScanner {
                         //PPApplicationStatic.recordException(e);
                     }
                     if (subscriptionList != null) {
-                        for (int i = 0; i < subscriptionList.size(); i++) {
+                        int size = subscriptionList.size();
+                        for (int i = 0; i < size; i++) {
                             // Get the active subscription ID for a given SIM card.
                             SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                             if (subscriptionInfo != null) {

@@ -113,7 +113,8 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
     private static int hashData(String alarmPackageName) {
         int sLength = alarmPackageName.length();
         int sum = 0;
-        for(int i = 0 ; i < sLength-1 ; i++){
+        int length = sLength-1;
+        for(int i = 0 ; i < length; i++){
             sum += alarmPackageName.charAt(i)<<(5*i);
         }
         return sum;
@@ -300,11 +301,12 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
 
-            editor.putInt(PREF_EVENT_ALARM_CLOCK_TIME_COUNT, times.size());
+            int size = times.size();
+            editor.putInt(PREF_EVENT_ALARM_CLOCK_TIME_COUNT, size);
 
             Gson gson = new Gson();
 
-            for (int i = 0; i < times.size(); i++) {
+            for (int i = 0; i < size; i++) {
                 String json = gson.toJson(times.get(i));
                 editor.putString(PREF_EVENT_ALARM_CLOCK_TIME + i, json);
             }

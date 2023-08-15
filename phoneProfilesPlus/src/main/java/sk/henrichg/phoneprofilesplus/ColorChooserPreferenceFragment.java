@@ -91,7 +91,8 @@ public class ColorChooserPreferenceFragment extends PreferenceDialogFragmentComp
 
         final GridLayout list = view.findViewById(R.id.dialog_color_chooser_grid);
 
-        for (int i = 0; i < list.getChildCount(); i++) {
+        int count = list.getChildCount();
+        for (int i = 0; i < count; i++) {
             FrameLayout child = (FrameLayout) list.getChildAt(i);
             child.setTag(i);
             child.setOnClickListener(this);

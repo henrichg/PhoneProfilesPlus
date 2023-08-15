@@ -189,7 +189,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
             Gson gson = new Gson();
 
-            for (int i = 0; i < connectedDevices.size(); i++) {
+            int size = connectedDevices.size();
+            for (int i = 0; i < size; i++) {
                 String json = gson.toJson(connectedDevices.get(i));
                 editor.putString(PREF_CONNECTED_DEVICES_DEVICE + i, json);
             }

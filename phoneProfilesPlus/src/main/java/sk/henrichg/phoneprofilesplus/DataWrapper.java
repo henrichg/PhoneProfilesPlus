@@ -2821,7 +2821,8 @@ public class DataWrapper {
             else {
                 editor.putInt(PREF_ACTIVATED_PROFILES_FIFO_COUNT, activateProfilesFifo.size());
 
-                for (int i = 0; i < activateProfilesFifo.size(); i++) {
+                int size = activateProfilesFifo.size();
+                for (int i = 0; i < size; i++) {
                     editor.putString(PREF_ACTIVATED_PROFILES_FIFO_ID + i, activateProfilesFifo.get(i));
                 }
             }

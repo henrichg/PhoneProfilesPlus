@@ -1323,7 +1323,8 @@ class DatabaseHandlerProfiles {
                 db.beginTransaction();
                 try {
 
-                    for (int i = 0; i < list.size(); i++) {
+                    int size = list.size();
+                    for (int i = 0; i < size; i++) {
                         Profile profile = list.get(i);
                         profile._porder = i + 1;
 

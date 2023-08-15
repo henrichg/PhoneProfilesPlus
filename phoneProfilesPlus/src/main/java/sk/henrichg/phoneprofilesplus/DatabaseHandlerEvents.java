@@ -563,7 +563,8 @@ class DatabaseHandlerEvents {
                 db.beginTransaction();
                 try {
 
-                    for (int i = 0; i < list.size(); i++) {
+                    int size = list.size();
+                    for (int i = 0; i < size; i++) {
                         Event event = list.get(i);
                         event._startOrder = i + 1;
 

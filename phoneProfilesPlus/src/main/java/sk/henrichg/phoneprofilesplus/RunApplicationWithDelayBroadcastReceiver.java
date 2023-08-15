@@ -76,7 +76,8 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
     private static int hashData(String runApplicationData) {
         int sLength = runApplicationData.length();
         int sum = 0;
-        for(int i = 0 ; i < sLength-1 ; i++){
+        int length = sLength-1;
+        for(int i = 0 ; i < length; i++){
             sum += runApplicationData.charAt(i)<<(5*i);
         }
         return sum;

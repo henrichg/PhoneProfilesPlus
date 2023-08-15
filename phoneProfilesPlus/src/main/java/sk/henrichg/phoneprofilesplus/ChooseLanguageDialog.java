@@ -146,14 +146,16 @@ class ChooseLanguageDialog
         languages.sort(new LanguagesComparator());
 
         final String[] languageNameChoices = new String[languages.size()];
-        for(int i = 0; i < languages.size(); i++) languageNameChoices[i] = languages.get(i).name;
+        int size = languages.size();
+        for(int i = 0; i < size; i++) languageNameChoices[i] = languages.get(i).name;
 
         if (LocaleHelper.getIsSetSystemLanguage(activity.getApplicationContext())) {
             activity.selectedLanguage = 0;
 //            Log.e("ChooseLanguageDialog.doShow", "is set system languauge");
         } else {
 //            Log.e("ChooseLanguageDialog.doShow", "is NOT set system languauge");
-            for (int i = 0; i < languages.size(); i++) {
+            size = languages.size();
+            for (int i = 0; i < size; i++) {
                 Language language = languages.get(i);
                 String sLanguage = language.language;
                 String country = language.country;

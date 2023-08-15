@@ -820,7 +820,8 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                 }
 
                 if (!scrollToBTName.isEmpty()) {
-                    for (int position = 0; position < preference.bluetoothList.size() - 1; position++) {
+                    int size = preference.bluetoothList.size() - 1;
+                    for (int position = 0; position < size; position++) {
                         if (preference.bluetoothList.get(position).getName().equalsIgnoreCase(scrollToBTName)) {
                             fragment.bluetoothListView.setSelection(position);
                             break;

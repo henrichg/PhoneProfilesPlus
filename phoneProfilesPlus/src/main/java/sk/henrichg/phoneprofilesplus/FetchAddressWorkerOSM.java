@@ -80,7 +80,8 @@ public class FetchAddressWorkerOSM extends Worker {
 
                 // Fetch the address lines using getAddressLine,
                 // join them, and send them to the thread.
-                for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
+                int max = address.getMaxAddressLineIndex();
+                for (int i = 0; i <= max; i++) {
                     addressFragments.add(address.getAddressLine(i));
                 }
                 String lineSeparator = System.getProperty("line.separator");
