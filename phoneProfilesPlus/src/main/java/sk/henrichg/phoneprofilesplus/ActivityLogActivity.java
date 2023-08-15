@@ -154,84 +154,85 @@ public class ActivityLogActivity extends AppCompatActivity {
 
             TextView infoTextView = layout.findViewById(R.id.info_pref_dialog_info_text);
 
-            // TODO - prerobit na StringBuilder?
-            String message = "";
+            StringBuilder _value = new StringBuilder();
 
-            message = message + StringConstants.TAG_BOLD_START_HTML + getString(R.string.activity_log_help_message_colors) + ":"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
+            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getString(R.string.activity_log_help_message_colors)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
 
             int color = ContextCompat.getColor(this, R.color.altype_profile);
             String colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
-            message = message + String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML);
-            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_profile_activation) + StringConstants.TAG_BREAK_HTML;
+            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
+            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_profile_activation)).append(StringConstants.TAG_BREAK_HTML);
 
             color = ContextCompat.getColor(this, R.color.altype_eventStart);
             colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
-            message = message + String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML);
-            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_event_start) + StringConstants.TAG_BREAK_HTML;
+            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
+            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_event_start)).append(StringConstants.TAG_BREAK_HTML);
 
             color = ContextCompat.getColor(this, R.color.altype_eventEnd);
             colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
-            message = message + String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML);
-            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_event_end) + StringConstants.TAG_BREAK_HTML;
+            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
+            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_event_end)).append(StringConstants.TAG_BREAK_HTML);
 
             color = ContextCompat.getColor(this, R.color.altype_restartEvents);
             colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
-            message = message + String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML);
-            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_restart_events) + StringConstants.TAG_BREAK_HTML;
+            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
+            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_restart_events)).append(StringConstants.TAG_BREAK_HTML);
 
             color = ContextCompat.getColor(this, R.color.altype_eventDelayStartEnd);
             colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
-            message = message + String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML);
-            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_event_delay_start_end) + StringConstants.TAG_BREAK_HTML;
+            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
+            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_event_delay_start_end)).append(StringConstants.TAG_BREAK_HTML);
 
             color = ContextCompat.getColor(this, R.color.altype_error);
             colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
-            message = message + String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML);
-            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_error) + StringConstants.TAG_BREAK_HTML;
+            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
+            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_error)).append(StringConstants.TAG_BREAK_HTML);
 
             color = ContextCompat.getColor(this, R.color.altype_other);
             colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
-            message = message + String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML);
-            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_others);
+            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
+            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_others));
 
-            message = message + StringConstants.TAG_DOUBLE_BREAK_HTML;
-            message = message + StringConstants.TAG_BOLD_START_HTML + getString(R.string.activity_log_help_message) + ":"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
+            _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
+            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getString(R.string.activity_log_help_message)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
 
-            message = message + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML+StringConstants.TAG_BOLD_START_HTML + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X"+StringConstants.CHAR_HARD_SPACE_HTML+"["+StringConstants.CHAR_HARD_SPACE_HTML+"Y"+StringConstants.CHAR_HARD_SPACE_HTML+"]\":"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
-            message = message + getString(R.string.activity_log_help_message_mergedProfileActivation) + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
+            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(StringConstants.TAG_BOLD_START_HTML).append("\"").append(getString(R.string.activity_log_header_data_type)).append("\"=");
+            _value.append("\"").append(getString(R.string.altype_mergedProfileActivation)).append(": X")
+                    .append(StringConstants.CHAR_HARD_SPACE_HTML).append("[").append(StringConstants.CHAR_HARD_SPACE_HTML).append("Y").append(StringConstants.CHAR_HARD_SPACE_HTML).append("]\":")
+                    .append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
+            _value.append(getString(R.string.activity_log_help_message_mergedProfileActivation)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
 
-            message = message + StringConstants.TAG_BREAK_HTML;
-            message = message + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
-            message = message + getString(R.string.activity_log_help_message_data_for) + " ";
-            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + "\"" + getString(R.string.altype_profileActivation) + "\":"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
-            message = message + getString(R.string.activity_log_help_message_data_profileName) + StringConstants.TAG_BREAK_HTML;
-            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI) + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
+            _value.append(StringConstants.TAG_BREAK_HTML);
+            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(StringConstants.TAG_BOLD_START_HTML).append(" \"").append(getString(R.string.activity_log_header_data)).append("\" ");
+            _value.append(getString(R.string.activity_log_help_message_data_for)).append(" ");
+            _value.append("\"").append(getString(R.string.activity_log_header_data_type)).append("\"=");
+            _value.append("\"").append(getString(R.string.altype_profileActivation)).append("\":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
+            _value.append(getString(R.string.activity_log_help_message_data_profileName)).append(StringConstants.TAG_BREAK_HTML);
+            _value.append(getString(R.string.activity_log_help_message_data_displayedInGUI)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
 
-            message = message + StringConstants.TAG_BREAK_HTML;
-            message = message + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
-            message = message + getString(R.string.activity_log_help_message_data_for) + " ";
-            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + "\":"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
-            message = message + getString(R.string.activity_log_help_message_data_profileNameEventName) + StringConstants.TAG_BREAK_HTML;
-            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI) + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
+            _value.append(StringConstants.TAG_BREAK_HTML);
+            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(StringConstants.TAG_BOLD_START_HTML).append(" \"").append(getString(R.string.activity_log_header_data)).append("\" ");
+            _value.append(getString(R.string.activity_log_help_message_data_for)).append(" ");
+            _value.append("\"").append(getString(R.string.activity_log_header_data_type)).append("\"=");
+            _value.append("\"").append(getString(R.string.altype_mergedProfileActivation)).append("\":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
+            _value.append(getString(R.string.activity_log_help_message_data_profileNameEventName)).append(StringConstants.TAG_BREAK_HTML);
+            _value.append(getString(R.string.activity_log_help_message_data_displayedInGUI)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
 
-            message = message + StringConstants.TAG_BREAK_HTML;
-            message = message + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
-            message = message + getString(R.string.activity_log_help_message_data_for) + " ";
-            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + getString(R.string.activity_log_help_message_data_otherProfileDataTypes) + ":"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
-            message = message + getString(R.string.activity_log_help_message_data_profileName_otherDataTypes) + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
+            _value.append(StringConstants.TAG_BREAK_HTML);
+            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(StringConstants.TAG_BOLD_START_HTML).append(" \"").append(getString(R.string.activity_log_header_data)).append("\" ");
+            _value.append(getString(R.string.activity_log_help_message_data_for)).append(" ");
+            _value.append("\"").append(getString(R.string.activity_log_header_data_type)).append("\"=");
+            _value.append(getString(R.string.activity_log_help_message_data_otherProfileDataTypes)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
+            _value.append(getString(R.string.activity_log_help_message_data_profileName_otherDataTypes)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
 
-            message = message + StringConstants.TAG_BREAK_HTML;
-            message = message + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
-            message = message + getString(R.string.activity_log_help_message_data_for) + " ";
-            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + getString(R.string.activity_log_help_message_data_otherEventDataTypes) + ":"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
-            message = message + getString(R.string.activity_log_help_message_data_eventName_otherDataTypes) + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
+            _value.append(StringConstants.TAG_BREAK_HTML);
+            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(StringConstants.TAG_BOLD_START_HTML).append(" \"").append(getString(R.string.activity_log_header_data)).append("\" ");
+            _value.append(getString(R.string.activity_log_help_message_data_for)).append(" ");
+            _value.append("\"").append(getString(R.string.activity_log_header_data_type)).append("\"=");
+            _value.append(getString(R.string.activity_log_help_message_data_otherEventDataTypes)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
+            _value.append(getString(R.string.activity_log_help_message_data_eventName_otherDataTypes)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
 
-            infoTextView.setText(StringFormatUtils.fromHtml(message, true, true, false, 0, 0, true));
+            infoTextView.setText(StringFormatUtils.fromHtml(_value.toString(), true, true, false, 0, 0, true));
 
             infoTextView.setClickable(true);
             infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
