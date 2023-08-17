@@ -24,6 +24,8 @@ class AddProfileDialog
     private final LinearLayout linlaProgress;
     private final ListView listView;
 
+    private GetProfilesAsyncTask getProfilesAsyncTask = null;
+
     AddProfileDialog(Activity activity, EditorProfileListFragment profileListFragment)
     {
         this.profileListFragment = profileListFragment;
@@ -48,6 +50,13 @@ class AddProfileDialog
 
             doShow();
         });
+        mDialog.setOnDismissListener(dialog -> {
+            if ((getProfilesAsyncTask != null) &&
+                    getProfilesAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+                getProfilesAsyncTask.cancel(true);
+            }
+            getProfilesAsyncTask = null;
+        });
 
         linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
 
@@ -64,8 +73,8 @@ class AddProfileDialog
     }
 
     private void doShow() {
-        AddProfileDialog.GetProfilesAsyncTask asyncTask = new AddProfileDialog.GetProfilesAsyncTask(this, activity, profileListFragment.activityDataWrapper);
-        asyncTask.execute();
+        getProfilesAsyncTask = new AddProfileDialog.GetProfilesAsyncTask(this, activity, profileListFragment.activityDataWrapper);
+        getProfilesAsyncTask.execute();
 
 /*        new AsyncTask<Void, Integer, Void>() {
 

@@ -40,6 +40,8 @@ public class MobileCellsPreference extends DialogPreference {
 
     private final Context prefContext;
 
+    private PersistValueAsyncTask persistValueAsyncTask = null;
+
     static final String ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView";
 
     public MobileCellsPreference(Context prefContext, AttributeSet attrs) {
@@ -153,7 +155,8 @@ public class MobileCellsPreference extends DialogPreference {
     void persistValue() {
         if (shouldPersist()) {
             if (callChangeListener(value)) {
-                new PersistValueAsyncTask(this, prefContext).execute();
+                persistValueAsyncTask = new PersistValueAsyncTask(this, prefContext);
+                persistValueAsyncTask.execute();
             }
         }
     }
@@ -319,6 +322,12 @@ public class MobileCellsPreference extends DialogPreference {
             if (preference != null) {
                 preference.persistString(preference.value);
                 preference.setSummary();
+
+                //if ((preference.persistValueAsyncTask != null) &&
+                //    getEventsAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+                //    getEventsAsyncTask.cancel(true);
+                //}
+                preference.persistValueAsyncTask = null;
             }
         }
 

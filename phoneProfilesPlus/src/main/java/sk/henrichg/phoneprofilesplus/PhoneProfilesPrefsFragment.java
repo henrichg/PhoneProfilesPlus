@@ -5,7 +5,6 @@ import static android.content.Context.RECEIVER_NOT_EXPORTED;
 import android.Manifest;
 import android.app.Activity;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -26,7 +25,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -56,7 +54,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private SharedPreferences preferences;
     private SharedPreferences applicationPreferences;
 
-    ShortcutAddedReceiver shortcutAddedReceiver;
+    private ShortcutAddedBroadcastReceiver shortcutAddedReceiver;
 
     //boolean scrollToSet = false;
     private boolean nestedFragment = false;
@@ -2056,7 +2054,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (!exists) {
                     if (shortcutAddedReceiver == null) {
-                        shortcutAddedReceiver = new ShortcutAddedReceiver();
+                        shortcutAddedReceiver = new ShortcutAddedBroadcastReceiver();
                         IntentFilter shortcutAddedFilter = new IntentFilter(ACTION_SHORTCUT_TO_EDITOR_ADDED);
                         int receiverFlags = 0;
                         if (Build.VERSION.SDK_INT >= 34)
@@ -4619,12 +4617,4 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             return preferenceValue;
     }
 
-    private static class ShortcutAddedReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            PPApplication.showToast(context.getApplicationContext(),
-                    context.getString(R.string.shortcut_to_editor_created_toast), Toast.LENGTH_SHORT);
-        }
-    }
 }

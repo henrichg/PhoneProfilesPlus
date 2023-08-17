@@ -36,7 +36,7 @@ public class LockDeviceActivity extends AppCompatActivity
             listener.finishActivityFromListener();
         }
     }
-    private LockDeviceActivity.FinishActivityBroadcastReceiver finishActivityBroadcastReceiver;
+    private FinishActivityBroadcastReceiver finishActivityBroadcastReceiver;
 
     @SuppressLint({"WrongConstant", "InflateParams"})
     @Override
@@ -210,8 +210,7 @@ public class LockDeviceActivity extends AppCompatActivity
 
         if (finishActivityBroadcastReceiver != null) {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(finishActivityBroadcastReceiver);
-            //unregisterReceiver(finishActivityBroadcastReceiver);
-            //finishActivityBroadcastReceiver = null;
+            finishActivityBroadcastReceiver = null;
         }
     }
 

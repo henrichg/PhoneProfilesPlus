@@ -118,12 +118,12 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
             preference.resetSummary();
         }
 
-        if ((asyncTask1 != null) && asyncTask1.getStatus().equals(AsyncTask.Status.RUNNING)){
+        if ((asyncTask1 != null) && asyncTask1.getStatus().equals(AsyncTask.Status.RUNNING))
             asyncTask1.cancel(true);
-        }
-        if ((asyncTask2 != null) && asyncTask2.getStatus().equals(AsyncTask.Status.RUNNING)){
+        asyncTask1 = null;
+        if ((asyncTask2 != null) && asyncTask2.getStatus().equals(AsyncTask.Status.RUNNING))
             asyncTask2.cancel(true);
-        }
+        asyncTask2 = null;
 
         preference.fragment = null;
     }

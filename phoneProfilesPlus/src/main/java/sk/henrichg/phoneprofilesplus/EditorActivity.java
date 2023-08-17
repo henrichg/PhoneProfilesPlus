@@ -100,14 +100,10 @@ public class EditorActivity extends AppCompatActivity
 
     private static volatile boolean savedInstanceStateChanged;
 
-    @SuppressWarnings("rawtypes")
-    private AsyncTask importAsyncTask = null;
-    @SuppressWarnings("rawtypes")
-    private AsyncTask exportAsyncTask = null;
-    @SuppressWarnings("rawtypes")
-    private AsyncTask backupAsyncTask = null;
-    @SuppressWarnings("rawtypes")
-    private AsyncTask restoreAsyncTask = null;
+    private ImportAsyncTask importAsyncTask = null;
+    private ExportAsyncTask exportAsyncTask = null;
+    private BackupAsyncTask backupAsyncTask = null;
+    private RestoreAsyncTask restoreAsyncTask = null;
 
     private static volatile boolean doImport = false;
     private AlertDialog importProgressDialog = null;
@@ -764,23 +760,20 @@ public class EditorActivity extends AppCompatActivity
             restoreProgressDialog.dismiss();
             restoreProgressDialog = null;
         }
-        if ((importAsyncTask != null) && importAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+
+        if ((importAsyncTask != null) && importAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             importAsyncTask.cancel(true);
-            importAsyncTask = null;
-            doImport = false;
-        }
-        if ((exportAsyncTask != null) && exportAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+        doImport = false;
+        importAsyncTask = null;
+        if ((exportAsyncTask != null) && exportAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             exportAsyncTask.cancel(true);
-            exportAsyncTask = null;
-        }
-        if ((backupAsyncTask != null) && backupAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+        exportAsyncTask = null;
+        if ((backupAsyncTask != null) && backupAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             backupAsyncTask.cancel(true);
-            backupAsyncTask = null;
-        }
-        if ((restoreAsyncTask != null) && restoreAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+        backupAsyncTask = null;
+        if ((restoreAsyncTask != null) && restoreAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             restoreAsyncTask.cancel(true);
-            restoreAsyncTask = null;
-        }
+        restoreAsyncTask = null;
 
         if (!savedInstanceStateChanged) {
             // no destroy caches on orientation change
@@ -2258,7 +2251,8 @@ public class EditorActivity extends AppCompatActivity
                     }
  */
 
-                    backupAsyncTask = new BackupAsyncTask(requestCode, treeUri, this).execute();
+                    backupAsyncTask = new BackupAsyncTask(requestCode, treeUri, this);
+                    backupAsyncTask.execute();
                 }
             }
         }
@@ -2274,7 +2268,8 @@ public class EditorActivity extends AppCompatActivity
                     final int takeFlags = //data.getFlags() &
                             (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     getApplicationContext().getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
-                    restoreAsyncTask = new RestoreAsyncTask(treeUri, false, this).execute();
+                    restoreAsyncTask = new RestoreAsyncTask(treeUri, false, this);
+                    restoreAsyncTask.execute();
                 }
             }
         }
@@ -2318,7 +2313,8 @@ public class EditorActivity extends AppCompatActivity
                             (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     getApplicationContext().getContentResolver().takePersistableUriPermission(fileUri, takeFlags);
 
-                    restoreAsyncTask = new RestoreAsyncTask(fileUri, true, this).execute();
+                    restoreAsyncTask = new RestoreAsyncTask(fileUri, true, this);
+                    restoreAsyncTask.execute();
 
                 }
             }
@@ -2617,7 +2613,8 @@ public class EditorActivity extends AppCompatActivity
         //final EditorActivity activity = this;
         //final String _applicationDataPath = applicationDataPath;
 
-        importAsyncTask = new ImportAsyncTask(this).execute();
+        importAsyncTask = new ImportAsyncTask(this);
+        importAsyncTask.execute();
     }
 
     private void importData(final int titleRes, final boolean share) {
@@ -2938,8 +2935,8 @@ public class EditorActivity extends AppCompatActivity
 
                 exportAsyncTask = new ExportAsyncTask(email, toAuthor, share,
                         deleteGeofences, deleteWifiSSIDs, deleteBluetoothNames, deleteMobileCells,
-                        activity)
-                        .execute();
+                        activity);
+                exportAsyncTask.execute();
             });
             dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 

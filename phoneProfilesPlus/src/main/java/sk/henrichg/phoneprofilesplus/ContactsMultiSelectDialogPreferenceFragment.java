@@ -77,9 +77,9 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
             preference.resetSummary();
         }
 
-        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             asyncTask.cancel(true);
-        }
+        asyncTask = null;
 
         //PhoneProfilesService.getContactsCache().cancelCaching();
         //if (!PhoneProfilesService.getContactsCache().cached)

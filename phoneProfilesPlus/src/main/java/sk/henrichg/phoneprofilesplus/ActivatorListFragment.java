@@ -39,6 +39,7 @@ public class ActivatorListFragment extends Fragment {
     //FrameLayout gridViewDivider = null;
 
     private LoadProfileListAsyncTask loadAsyncTask = null;
+    private RefreshGUIAsyncTask refreshGUIAsyncTask = null;
 
     //private ValueAnimator hideAnimator;
     //private ValueAnimator showAnimator;
@@ -67,8 +68,6 @@ public class ActivatorListFragment extends Fragment {
 
         //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-
-        loadAsyncTask = new LoadProfileListAsyncTask(this);
     }
 
     @Override
@@ -220,8 +219,10 @@ public class ActivatorListFragment extends Fragment {
 
         if (!activityDataWrapper.profileListFilled)
         {
-            if (!isAsyncTaskRunning())
+            if (!isAsyncTaskRunning()) {
+                loadAsyncTask = new LoadProfileListAsyncTask(this);
                 loadAsyncTask.execute();
+            }
         }
         else
         {
@@ -482,6 +483,12 @@ public class ActivatorListFragment extends Fragment {
             //Log.e("ActivatorListFragment.onDestroy", "AsyncTask not finished");
             loadAsyncTask.cancel(true);
         }
+        loadAsyncTask = null;
+        if ((refreshGUIAsyncTask != null) &&
+                refreshGUIAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+            refreshGUIAsyncTask.cancel(true);
+        }
+        refreshGUIAsyncTask = null;
 
         AbsListView absListView;
         if (!ApplicationPreferences.applicationActivatorGridLayout)
@@ -594,82 +601,8 @@ public class ActivatorListFragment extends Fragment {
         if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
 
-        ActivatorListFragment.RefreshGUIAsyncTask asyncTask = new ActivatorListFragment.RefreshGUIAsyncTask(refreshIcons, this, activityDataWrapper);
-        asyncTask.execute();
-
-/*
-        new AsyncTask<Void, Integer, Void>() {
-
-            Profile profileFromDB;
-            Profile profileFromDataWrapper;
-
-            //boolean doNotRefresh = false;
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
-                    activityDataWrapper.getEventTimelineList(true);
-
-                    if (profileFromDB != null) {
-                        profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-                                ApplicationPreferences.applicationEditorPrefIndicator, false);
-                    }
-
-
-//                    String pName;
-//                    if (profileFromDB != null) {
-//                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
-//                    } else
-//                        pName = activityDataWrapper.context.getString(R.string.profiles_header_profile_name_no_activated);
-//
-//                    if (!refresh) {
-//                        String pNameHeader = PPApplication.prefActivityProfileName1;
-//
-//                        if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-//                            doNotRefresh = true;
-//                            return null;
-//                        }
-//                    }
-//
-//                    PPApplication.setActivityProfileName(activityDataWrapper.context, 1, pName);
-
-                } catch (Exception e) {
-                    if ((activityDataWrapper != null) && (activityDataWrapper.context != null))
-                        PPApplicationStatic.recordException(e);
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-                if ((getActivity() != null) && (!getActivity().isFinishing())) {
-                    //if (!doNotRefresh) {
-                        ((ActivatorActivity) getActivity()).setEventsRunStopIndicator();
-
-                        Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
-                        if (profileFromAdapter != null)
-                            profileFromAdapter._checked = false;
-
-                        if (profileFromDB != null) {
-                            if (profileFromDataWrapper != null)
-                                profileFromDataWrapper._checked = true;
-                            updateHeader(profileFromDataWrapper);
-                            //setProfileSelection(profileFromDataWrapper, refreshIcons);
-                        } else {
-                            updateHeader(null);
-                            //setProfileSelection(null, refreshIcons);
-                        }
-
-                        profileListAdapter.notifyDataSetChanged(refreshIcons);
-                    //}
-                }
-            }
-
-        }.execute();
- */
+        refreshGUIAsyncTask = new RefreshGUIAsyncTask(refreshIcons, this, activityDataWrapper);
+        refreshGUIAsyncTask.execute();
     }
 
     void showTargetHelps() {

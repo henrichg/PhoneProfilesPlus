@@ -23,6 +23,8 @@ public class ProfilePreferenceFragment extends PreferenceDialogFragmentCompat {
     private Context prefContext;
     ProfilePreference preference;
 
+    private BindViewAsyncTask bindViewAsyncTask;
+
     @SuppressLint("InflateParams")
     @Override
     protected View onCreateDialogView(@NonNull Context context)
@@ -46,12 +48,18 @@ public class ProfilePreferenceFragment extends PreferenceDialogFragmentCompat {
 
         listView.setOnItemClickListener((parent, item, position, id) -> doOnItemSelected(position));
 
-        new BindViewAsyncTask(preference, this, prefContext).execute();
+        bindViewAsyncTask = new BindViewAsyncTask(preference, this, prefContext);
+        bindViewAsyncTask.execute();
 
     }
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
+        if ((bindViewAsyncTask != null) &&
+                bindViewAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            bindViewAsyncTask.cancel(true);
+        bindViewAsyncTask = null;
+
         preference.fragment = null;
     }
 

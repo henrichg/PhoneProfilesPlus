@@ -93,9 +93,9 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
             preference.resetSummary();
         }
 
-        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             asyncTask.cancel(true);
-        }
+        asyncTask = null;
 
         preference.fragment = null;
     }

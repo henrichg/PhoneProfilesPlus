@@ -95,9 +95,9 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
             preference.resetSummary();
         }
 
-        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             asyncTask.cancel(true);
-        }
+        asyncTask = null;
 
         if (PPApplicationStatic.getApplicationsCache() != null) {
             PPApplicationStatic.getApplicationsCache().cancelCaching();

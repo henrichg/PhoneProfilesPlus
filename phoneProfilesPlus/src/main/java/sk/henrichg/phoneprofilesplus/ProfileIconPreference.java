@@ -12,6 +12,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.DocumentsContract;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,8 @@ public class ProfileIconPreference extends DialogPreference {
     private ImageView imageView;
     ImageView dialogIcon;
     final Context prefContext;
+
+    private UpdateIconAsyncTask updateIconAsyncTask = null;
 
     static final int RESULT_LOAD_IMAGE = 1971;
 
@@ -83,6 +86,16 @@ public class ProfileIconPreference extends DialogPreference {
     {
         super.onGetDefaultValue(a, index);
         return a.getString(index);  // icon is returned as string
+    }
+
+    @Override
+    public void onDetached() {
+        super.onDetached();
+        Log.e("ProfileIconPreference.onDetached", "xxxxxxxxxxxx");
+        if ((updateIconAsyncTask != null) &&
+                updateIconAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            updateIconAsyncTask.cancel(true);
+        updateIconAsyncTask = null;
     }
 
     Bitmap getBitmap() {
@@ -269,7 +282,8 @@ public class ProfileIconPreference extends DialogPreference {
     }
 
     void updateIcon(final boolean inDialog) {
-        new UpdateIconAsyncTask(inDialog, this, prefContext).execute();
+        updateIconAsyncTask = new UpdateIconAsyncTask(inDialog, this, prefContext);
+        updateIconAsyncTask.execute();
     }
 
     void dismissDialog() {

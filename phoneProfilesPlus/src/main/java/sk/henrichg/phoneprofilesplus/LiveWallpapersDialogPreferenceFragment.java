@@ -77,9 +77,9 @@ public class LiveWallpapersDialogPreferenceFragment extends PreferenceDialogFrag
             preference.resetSummary();
         }
 
-        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             asyncTask.cancel(true);
-        }
+        asyncTask = null;
 
         preference.fragment = null;
     }

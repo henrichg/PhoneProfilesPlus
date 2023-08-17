@@ -198,9 +198,9 @@ public class TileChooserListFragment extends Fragment {
     {
         super.onDestroy();
 
-        if (isAsyncTaskRunning()) {
+        if (isAsyncTaskRunning())
             loadAsyncTask.cancel(true);
-        }
+        loadAsyncTask = null;
 
         if (listView != null)
             listView.setAdapter(null);

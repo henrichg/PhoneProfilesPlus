@@ -29,6 +29,8 @@ public class WallpaperViewPreference extends Preference {
     private final Context prefContext;
     private ImageView imageView;
 
+    private BindViewAsyncTask bindViewAsyncTask = null;
+
     static final int RESULT_LOAD_IMAGE = 1970;
 
     public WallpaperViewPreference(Context context, AttributeSet attrs)
@@ -50,7 +52,17 @@ public class WallpaperViewPreference extends Preference {
 
         imageView = (ImageView) holder.findViewById(R.id.imageview_pref_imageview);
 
-        new BindViewAsyncTask(this).execute();
+        bindViewAsyncTask = new BindViewAsyncTask(this);
+        bindViewAsyncTask.execute();
+    }
+
+    @Override
+    public void onDetached() {
+        super.onDetached();
+        if ((bindViewAsyncTask != null) &&
+                bindViewAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            bindViewAsyncTask.cancel(true);
+        bindViewAsyncTask = null;
     }
 
     @Override

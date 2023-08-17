@@ -39,7 +39,7 @@ public class RingtonePreference extends DialogPreference {
     final int simCard;
 
     final Map<String, String> toneList = new LinkedHashMap<>();
-    RingtonePreferenceRefreshListViewAsyncTask asyncTask = null;
+    private RingtonePreferenceRefreshListViewAsyncTask asyncTask = null;
 
     private final Context prefContext;
 
@@ -48,6 +48,8 @@ public class RingtonePreference extends DialogPreference {
     private static volatile boolean oldMediaMuted = false;
     private static volatile Timer playTimer = null;
     private static volatile boolean ringtoneIsPlayed = false;
+
+    SetRingtoneAsyncTask setRingtoneAsyncTask = null;
 
     static final String RINGTONE_TYPE_RINGTONE = "ringtone";
     static final String RINGTONE_TYPE_NOTIFICATION = "notification";
@@ -114,7 +116,8 @@ public class RingtonePreference extends DialogPreference {
         if (!onlySetName)
             ringtoneUri = newRingtoneUri;
 
-        new SetRingtoneAsyncTask(this, prefContext).execute();
+        setRingtoneAsyncTask = new SetRingtoneAsyncTask(this, prefContext);
+        setRingtoneAsyncTask.execute();
 
         if (!onlySetName) {
             //View positive =
@@ -422,6 +425,19 @@ public class RingtonePreference extends DialogPreference {
         //oldRingtoneUri = myState.oldRingtoneUri;
 
         setRingtone("", true);
+    }
+
+    @Override
+    public void onDetached() {
+        super.onDetached();
+        if ((asyncTask != null) &&
+                asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            asyncTask.cancel(true);
+        asyncTask = null;
+        if ((setRingtoneAsyncTask != null) &&
+                setRingtoneAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            setRingtoneAsyncTask.cancel(true);
+        setRingtoneAsyncTask = null;
     }
 
     // From DialogPreference

@@ -402,6 +402,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
         if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             rescanAsyncTask.cancel(true);
+        rescanAsyncTask = null;
 
         if (refreshListViewBroadcastReceiver != null) {
             LocalBroadcastManager.getInstance(prefContext).unregisterReceiver(refreshListViewBroadcastReceiver);

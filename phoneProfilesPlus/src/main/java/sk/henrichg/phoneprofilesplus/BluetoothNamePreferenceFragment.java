@@ -407,9 +407,9 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         BluetoothScanner.setForceOneBluetoothScan(prefContext, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
         BluetoothScanner.setForceOneLEBluetoothScan(prefContext, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
 
-        if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+        if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             rescanAsyncTask.cancel(true);
-        }
+        rescanAsyncTask = null;
 
         PPApplication.bluetoothForceRegister = false;
         PPApplicationStatic.reregisterReceiversForBluetoothScanner(prefContext);

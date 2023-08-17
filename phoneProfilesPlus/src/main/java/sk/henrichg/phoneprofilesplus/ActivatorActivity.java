@@ -67,7 +67,7 @@ public class ActivatorActivity extends AppCompatActivity
             listener.refreshGUIFromListener(intent);
         }
     }
-    private final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
+    private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
 
     static final String EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY = "show_target_helps_for_activity";
     static private class ShowTargetHelpsBroadcastReceiver extends BroadcastReceiver {
@@ -82,7 +82,7 @@ public class ActivatorActivity extends AppCompatActivity
             listener.showTargetHelpsFromListener(intent);
         }
     }
-    private final ShowTargetHelpsBroadcastReceiver showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
+    private ShowTargetHelpsBroadcastReceiver showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
 
     static private class FinishActivityBroadcastReceiver extends BroadcastReceiver {
         private final FinishActivityActivatorEditorListener listener;
@@ -96,7 +96,7 @@ public class ActivatorActivity extends AppCompatActivity
             listener.finishActivityFromListener(intent);
         }
     }
-    private final FinishActivityBroadcastReceiver finishBroadcastReceiver = new FinishActivityBroadcastReceiver(this);
+    private FinishActivityBroadcastReceiver finishBroadcastReceiver = new FinishActivityBroadcastReceiver(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -362,7 +362,9 @@ public class ActivatorActivity extends AppCompatActivity
         PPExecutors.scheduleDisableBrightnessInternalChangeExecutor();
 
         LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+        refreshGUIBroadcastReceiver = null;
         LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
+        showTargetHelpsBroadcastReceiver = null;
 
         //if (targetHelpsSequenceStarted) {
             if (ActivatorTargetHelpsActivity.activity != null)
@@ -380,7 +382,9 @@ public class ActivatorActivity extends AppCompatActivity
         } catch (Exception e) {
             //PPApplicationStatic.recordException(e);
         }
+        finishBroadcastReceiver = null;
     }
+
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

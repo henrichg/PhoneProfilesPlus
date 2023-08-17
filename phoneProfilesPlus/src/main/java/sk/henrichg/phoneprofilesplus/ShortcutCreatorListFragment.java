@@ -33,6 +33,7 @@ public class ShortcutCreatorListFragment extends Fragment {
     private LinearLayout progressBar;
 
     private LoadProfileListAsyncTask loadAsyncTask = null;
+    private CreateShortcutAsyncTask createShortcutAsyncTask = null;
 
     public ShortcutCreatorListFragment() {
     }
@@ -206,6 +207,11 @@ public class ShortcutCreatorListFragment extends Fragment {
         if (isAsyncTaskRunning()) {
             loadAsyncTask.cancel(true);
         }
+        loadAsyncTask = null;
+        if ((createShortcutAsyncTask != null) &&
+                createShortcutAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            createShortcutAsyncTask.cancel(true);
+        createShortcutAsyncTask = null;
 
         if (listView != null)
             listView.setAdapter(null);
@@ -218,7 +224,8 @@ public class ShortcutCreatorListFragment extends Fragment {
 
     void createShortcut(final int position)
     {
-        new CreateShortcutAsyncTask(position, this).execute();
+        createShortcutAsyncTask = new CreateShortcutAsyncTask(position, this);
+        createShortcutAsyncTask.execute();
     }
 
     /*

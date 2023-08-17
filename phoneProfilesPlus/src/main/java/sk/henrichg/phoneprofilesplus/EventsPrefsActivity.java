@@ -69,7 +69,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             listener.refreshGUIFromListener(intent);
         }
     }
-    private final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
+    private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
 
     public static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
     //public static final String PREF_START_TARGET_HELPS_FINISHED = "event_preferences_activity_start_target_helps_finiahed";
@@ -188,6 +188,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         try {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+            refreshGUIBroadcastReceiver = null;
         } catch (IllegalArgumentException e) {
             //PPApplicationStatic.recordException(e);
         }

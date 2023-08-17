@@ -73,9 +73,9 @@ class MobileCellNamesDialog {
         }
 
         dialogBuilder.setOnDismissListener(dialog -> {
-            if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+            if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
                 asyncTask.cancel(true);
-            }
+            asyncTask = null;
         });
 
         LayoutInflater inflater = activity.getLayoutInflater();

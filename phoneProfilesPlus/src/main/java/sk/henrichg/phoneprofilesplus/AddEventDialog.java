@@ -27,6 +27,8 @@ class AddEventDialog
     final ListView listView;
     final TextView help;
 
+    private GetEventsAsyncTask getEventsAsyncTask = null;
+
     AddEventDialog(Activity activity, EditorEventListFragment eventListFragment)
     {
         this.eventListFragment = eventListFragment;
@@ -51,6 +53,13 @@ class AddEventDialog
 
             doShow();
         });
+        mDialog.setOnDismissListener(dialog -> {
+            if ((getEventsAsyncTask != null) &&
+                    getEventsAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+                getEventsAsyncTask.cancel(true);
+            }
+            getEventsAsyncTask = null;
+        });
 
         linlaProgress = layout.findViewById(R.id.event_pref_dlg_linla_progress);
         rellaData = layout.findViewById(R.id.event_pref_dlg_rella_data);
@@ -69,8 +78,8 @@ class AddEventDialog
     }
 
     private void doShow() {
-         GetEventsAsyncTask asyncTask = new GetEventsAsyncTask(this, activity, eventListFragment.activityDataWrapper);
-         asyncTask.execute();
+        getEventsAsyncTask = new GetEventsAsyncTask(this, activity, eventListFragment.activityDataWrapper);
+        getEventsAsyncTask.execute();
 
 /*        new AsyncTask<Void, Integer, Void>() {
 

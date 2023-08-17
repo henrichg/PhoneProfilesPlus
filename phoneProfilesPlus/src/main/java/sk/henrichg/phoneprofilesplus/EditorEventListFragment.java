@@ -68,6 +68,8 @@ public class EditorEventListFragment extends Fragment
     private ItemTouchHelper itemTouchHelper;
 
     private LoadEventListAsyncTask loadAsyncTask = null;
+    private RefreshGUIAsyncTask refreshGUIAsyncTask = null;
+    private UpdateHeaderAsyncTask updateHeaderAsyncTask = null;
 
     Event scrollToEvent = null;
 
@@ -620,6 +622,15 @@ public class EditorEventListFragment extends Fragment
             loadAsyncTask.cancel(true);
             loadAsyncTask = null;
         }
+        if ((refreshGUIAsyncTask != null) &&
+                refreshGUIAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            refreshGUIAsyncTask.cancel(true);
+        refreshGUIAsyncTask = null;
+        if ((updateHeaderAsyncTask != null) &&
+                updateHeaderAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            updateHeaderAsyncTask.cancel(true);
+        updateHeaderAsyncTask = null;
+
         if (activityDataWrapper != null) {
             synchronized (activityDataWrapper.eventList) {
                 activityDataWrapper.invalidateDataWrapper();
@@ -1228,7 +1239,8 @@ public class EditorEventListFragment extends Fragment
         if (!newDisplayedText.equals(oldDisplayedText))
             activatedProfileHeader.setVisibility(VISIBLE);
 
-        new UpdateHeaderAsyncTask(this).execute();
+        updateHeaderAsyncTask = new UpdateHeaderAsyncTask(this);
+        updateHeaderAsyncTask.execute();
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -1500,164 +1512,15 @@ public class EditorEventListFragment extends Fragment
         }
     }
 
-    void refreshGUI(/*final boolean refresh,*/ final boolean refreshIcons, final boolean setPosition, final long eventId)
+    void refreshGUI(final boolean refreshIcons, final boolean setPosition, final long eventId)
     {
         if (activityDataWrapper == null)
             return;
 
-        EditorEventListFragment.RefreshGUIAsyncTask asyncTask =
-                new EditorEventListFragment.RefreshGUIAsyncTask(
+        refreshGUIAsyncTask =
+                new RefreshGUIAsyncTask(
                         refreshIcons, setPosition, eventId, this, activityDataWrapper);
-        asyncTask.execute();
-
-/*        new AsyncTask<Void, Integer, Void>() {
-
-            Profile profileFromDB;
-            Profile profileFromDataWrapper;
-            boolean _refreshIcons;
-
-            boolean doNotRefresh = false;
-
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
-                _refreshIcons = refreshIcons;
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
-                    activityDataWrapper.getEventTimelineList(true);
-
-                    if (profileFromDB != null) {
-                        profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-                                ApplicationPreferences.applicationEditorPrefIndicator, false);
-                    }
-
-//                    String pName;
-//                    if (profileFromDB != null) {
-//                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
-//                    } else
-//                        pName = activityDataWrapper.context.getString(R.string.profiles_header_profile_name_no_activated);
-//
-//                    if (!refresh) {
-//                        String pNameHeader = PPApplication.prefActivityProfileName3;
-//
-//                        if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-//                            doNotRefresh = true;
-//                            return null;
-//                        }
-//                    }
-//
-//                    PPApplication.setActivityProfileName(activityDataWrapper.context, 2, pName);
-//                    PPApplication.setActivityProfileName(activityDataWrapper.context, 3, pName);
-
-                    synchronized (activityDataWrapper.eventList) {
-                        if (!activityDataWrapper.eventListFilled) {
-                            doNotRefresh = true;
-                            return null;
-                        }
-
-                        for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
-                            Event event = it.next();
-                            int status = DatabaseHandler.getInstance(activityDataWrapper.context).getEventStatus(event);
-                            event.setStatus(status);
-                            event._isInDelayStart = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayStart(event);
-                            event._isInDelayEnd = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayEnd(event);
-                            DatabaseHandler.getInstance(activityDataWrapper.context).setEventCalendarTimes(event);
-                            DatabaseHandler.getInstance(activityDataWrapper.context).getSMSStartTime(event);
-                            //DatabaseHandler.getInstance(activityDataWrapper.context).getNotificationStartTime(event);
-                            DatabaseHandler.getInstance(activityDataWrapper.context).getNFCStartTime(event);
-                            DatabaseHandler.getInstance(activityDataWrapper.context).getCallStartTime(event);
-                            DatabaseHandler.getInstance(activityDataWrapper.context).getAlarmClockStartTime(event);
-                            DatabaseHandler.getInstance(activityDataWrapper.context).getDeviceBootStartTime(event);
-                        }
-                    }
-
-                    if (eventId != 0) {
-                        Event eventFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getEvent(eventId);
-                        activityDataWrapper.updateEvent(eventFromDB);
-                        _refreshIcons = true;
-                    }
-                } catch (Exception e) {
-                    if ((activityDataWrapper != null) && (activityDataWrapper.context != null))
-                        PPApplicationStatic.recordException(e);
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-                if ((getActivity() != null) && (!getActivity().isFinishing())) {
-                    if (!doNotRefresh) {
-                        if (profileFromDB != null) {
-                            if (profileFromDataWrapper != null)
-                                profileFromDataWrapper._checked = true;
-                            updateHeader(profileFromDataWrapper);
-                        } else {
-                            updateHeader(null);
-                        }
-                        updateListView(null, false, _refreshIcons, setPosition);
-                    }
-                }
-            }
-
-        }.execute();*/
-
-        /*Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
-        activityDataWrapper.getEventTimelineList(true);
-
-        String pName;
-        if (profileFromDB != null)
-            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
-        else
-            pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
-
-        if (!refresh) {
-            String pNameHeader = PPApplication.prefActivityProfileName3;
-
-            if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-                return;
-            }
-        }
-
-        PPApplication.setActivityProfileName(activityDataWrapper.context, 2, pName);
-        PPApplication.setActivityProfileName(activityDataWrapper.context, 3, pName);
-
-        synchronized (activityDataWrapper.eventList) {
-            if (!activityDataWrapper.eventListFilled)
-                return;
-
-            for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
-                Event event = it.next();
-                int status = DatabaseHandler.getInstance(activityDataWrapper.context).getEventStatus(event);
-                event.setStatus(status);
-                event._isInDelayStart = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayStart(event);
-                event._isInDelayEnd = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayEnd(event);
-                DatabaseHandler.getInstance(activityDataWrapper.context).setEventCalendarTimes(event);
-                DatabaseHandler.getInstance(activityDataWrapper.context).getSMSStartTime(event);
-                //DatabaseHandler.getInstance(activityDataWrapper.context).getNotificationStartTime(event);
-                DatabaseHandler.getInstance(activityDataWrapper.context).getNFCStartTime(event);
-                DatabaseHandler.getInstance(activityDataWrapper.context).getCallStartTime(event);
-                DatabaseHandler.getInstance(activityDataWrapper.context).getAlarmClockStartTime(event);
-                DatabaseHandler.getInstance(activityDataWrapper.context).getDeviceBootStartTime(event);
-            }
-        }
-
-        if (profileFromDB != null) {
-            Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-                    ApplicationPreferences.applicationEditorPrefIndicator, false);
-            if (profileFromDataWrapper != null)
-                profileFromDataWrapper._checked = true;
-            updateHeader(profileFromDataWrapper);
-        } else {
-            updateHeader(null);
-        }
-        updateListView(null, false, refreshIcons, setPosition, eventId);*/
+        refreshGUIAsyncTask.execute();
     }
 
     void removeAdapter() {

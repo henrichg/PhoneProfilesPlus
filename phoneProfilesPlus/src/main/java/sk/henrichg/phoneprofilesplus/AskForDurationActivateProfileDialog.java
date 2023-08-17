@@ -24,6 +24,8 @@ class AskForDurationActivateProfileDialog
     private final LinearLayout linlaProgress;
     private final ListView listView;
 
+    private ShowDialogAsyncTask showDialogAsyncTask = null;
+
     AskForDurationActivateProfileDialog(Activity activity, AskForDurationDialog askForDurationDialog)
     {
         this.askForDurationDialog = askForDurationDialog;
@@ -50,7 +52,14 @@ class AskForDurationActivateProfileDialog
 
             doShow();
         });
-        mDialog.setOnDismissListener(dialog -> dataWrapper.invalidateDataWrapper());
+        mDialog.setOnDismissListener(dialog -> {
+            if ((showDialogAsyncTask != null) &&
+                    showDialogAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+                showDialogAsyncTask.cancel(true);
+            }
+            showDialogAsyncTask = null;
+            dataWrapper.invalidateDataWrapper();
+        });
 
         linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
 
@@ -61,7 +70,8 @@ class AskForDurationActivateProfileDialog
     }
 
     private void doShow() {
-        new ShowDialogAsyncTask(askForDurationDialog.mAfterDoProfile, this, activity).execute();
+        showDialogAsyncTask = new ShowDialogAsyncTask(askForDurationDialog.mAfterDoProfile, this, activity);
+        showDialogAsyncTask.execute();
     }
 
     void doOnItemSelected(int position)

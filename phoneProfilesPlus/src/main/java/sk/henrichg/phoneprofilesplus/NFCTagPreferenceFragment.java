@@ -212,6 +212,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
 
         if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             rescanAsyncTask.cancel(true);
+        rescanAsyncTask = null;
 
         preference.fragment = null;
     }

@@ -78,9 +78,9 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
             preference.resetSummary();
         }
 
-        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             asyncTask.cancel(true);
-        }
+        asyncTask = null;
 
         //EditorActivity.getContactGroupsCache().cancelCaching();
         //if (!EditorActivity.getContactGroupsCache().cached)

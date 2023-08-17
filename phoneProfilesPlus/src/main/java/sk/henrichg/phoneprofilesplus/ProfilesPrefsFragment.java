@@ -55,6 +55,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private boolean nestedFragment = false;
 
+    private SetRingtonePreferenceSummaryAsyncTask setRingtonePreferenceSummaryAsyncTask = null;
+    private SetProfileSoundsPreferenceSummaryAsyncTask setProfileSoundsPreferenceSummaryAsyncTask = null;
+    private SetProfileSoundsDualSIMPreferenceSummaryAsyncTask setProfileSoundsDualSIMPreferenceSummaryAsyncTask = null;
+
     //private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 2980;
     private static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 2981;
@@ -1641,6 +1645,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     public void onDestroy()
     {
         super.onDestroy();
+
+        if ((setRingtonePreferenceSummaryAsyncTask != null) &&
+                setRingtonePreferenceSummaryAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            setRingtonePreferenceSummaryAsyncTask.cancel(true);
+        setRingtonePreferenceSummaryAsyncTask = null;
+        if ((setProfileSoundsPreferenceSummaryAsyncTask != null) &&
+                setProfileSoundsPreferenceSummaryAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            setProfileSoundsPreferenceSummaryAsyncTask.cancel(true);
+        setProfileSoundsPreferenceSummaryAsyncTask = null;
+        if ((setProfileSoundsDualSIMPreferenceSummaryAsyncTask != null) &&
+                setProfileSoundsDualSIMPreferenceSummaryAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            setProfileSoundsDualSIMPreferenceSummaryAsyncTask.cancel(true);
+        setProfileSoundsDualSIMPreferenceSummaryAsyncTask = null;
 
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
@@ -7330,9 +7347,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private void setRingtonePreferenceSummary(final String initSummary, final String ringtoneUri,
                                              final androidx.preference.Preference preference, final Context context) {
-        SetRingtonePreferenceSummaryAsyncTask asyncTask =
+        setRingtonePreferenceSummaryAsyncTask =
                 new SetRingtonePreferenceSummaryAsyncTask(initSummary, ringtoneUri, preference, context);
-        asyncTask.execute();
+        setRingtonePreferenceSummaryAsyncTask.execute();
     }
 
     private static class SetRingtonePreferenceSummaryAsyncTask extends AsyncTask<Void, Integer, Void> {
@@ -7388,11 +7405,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private void setProfileSoundsPreferenceSummary(final String initSummary,
                                                   final String ringtoneUri, final String notificationUri, final String alarmUri,
                                                   final androidx.preference.Preference preference, final Context context) {
-        SetProfileSoundsPreferenceSummaryAsyncTask asyncTask =
+        setProfileSoundsPreferenceSummaryAsyncTask =
                 new SetProfileSoundsPreferenceSummaryAsyncTask(initSummary,
                         ringtoneUri, notificationUri, alarmUri,
                         preference, context);
-        asyncTask.execute();
+        setProfileSoundsPreferenceSummaryAsyncTask.execute();
     }
 
     private static class SetProfileSoundsPreferenceSummaryAsyncTask extends AsyncTask<Void, Integer, Void> {
@@ -7486,11 +7503,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                                          final String ringtoneSIM1Uri, final String ringtoneSIM2Uri,
                                                          final String notificationSIM1Uri, final String notificationSIM2Uri,
                                                          final androidx.preference.Preference preference, final Context context) {
-        SetProfileSoundsDualSIMPreferenceSummaryAsyncTask asyncTask =
+        setProfileSoundsDualSIMPreferenceSummaryAsyncTask =
                 new SetProfileSoundsDualSIMPreferenceSummaryAsyncTask(initSummary,
                         ringtoneSIM1Uri, ringtoneSIM2Uri, notificationSIM1Uri, notificationSIM2Uri,
                         preference, context);
-        asyncTask.execute();
+        setProfileSoundsDualSIMPreferenceSummaryAsyncTask.execute();
     }
 
     private static class SetProfileSoundsDualSIMPreferenceSummaryAsyncTask extends AsyncTask<Void, Integer, Void> {

@@ -38,6 +38,8 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
     private final List<Event> eventList = new ArrayList<>();
 
+    private ShowActivityAsyncTask showActivityAsyncTask = null;
+
     static final String EXTRA_MOBILE_CELL_ID = "mobile_cell_id";
     static final String EXTRA_MOBILE_LAST_CONNECTED_TIME = "last_connected_time";
     //static final String EXTRA_MOBILE_LAST_RUNNING_EVENTS = "last_running_events";
@@ -216,7 +218,14 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
 //                if (negative != null) negative.setAllCaps(false);
 
-            new ShowActivityAsyncTask(this).execute();
+            showActivityAsyncTask = new ShowActivityAsyncTask(this);
+            showActivityAsyncTask.execute();
+        });
+        mDialog.setOnDismissListener(dialog -> {
+            if ((showActivityAsyncTask != null) &&
+                    showActivityAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+                showActivityAsyncTask.cancel(true);
+            showActivityAsyncTask = null;
         });
 
         cellIdTextView = layout.findViewById(R.id.not_used_mobile_cells_dlg_cell_id);

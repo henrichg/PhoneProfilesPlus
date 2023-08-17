@@ -389,6 +389,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
 
         if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             rescanAsyncTask.cancel(true);
+        rescanAsyncTask = null;
 
         PPApplication.wifiSSIDForceRegister = false;
         PPApplicationStatic.reregisterReceiversForWifiScanner(prefContext);
