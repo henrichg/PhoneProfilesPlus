@@ -80,53 +80,6 @@ class AddEventDialog
     private void doShow() {
         getEventsAsyncTask = new GetEventsAsyncTask(this, activity, eventListFragment.activityDataWrapper);
         getEventsAsyncTask.execute();
-
-/*        new AsyncTask<Void, Integer, Void>() {
-
-            final List<Event> eventList = new ArrayList<>();
-            boolean profileNotExists = false;
-
-            //@Override
-            //protected void onPreExecute()
-            //{
-            //    super.onPreExecute();
-                //rellaData.setVisibility(View.GONE);
-                //linlaProgress.setVisibility(View.VISIBLE);
-            //}
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                Event event;
-                event = DataWrapper.getNonInitializedEvent(activity.getString(R.string.event_name_default), 0);
-                eventList.add(event);
-                for (int index = 0; index < 6; index++) {
-                    event = eventListFragment.activityDataWrapper.getPredefinedEvent(index, false, activity);
-                    if (event._fkProfileStart == 0)
-                        profileNotExists = true;
-                    if (event._fkProfileEnd == 0)
-                        profileNotExists = true;
-                    eventList.add(event);
-                }
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-
-                linlaProgress.setVisibility(View.GONE);
-                rellaData.setVisibility(View.VISIBLE);
-
-                if (profileNotExists)
-                    help.setVisibility(View.VISIBLE);
-
-                AddEventAdapter addEventAdapter = new AddEventAdapter(AddEventDialog.this, activity, eventList);
-                listView.setAdapter(addEventAdapter);
-            }
-
-        }.execute(); */
     }
 
     void doOnItemSelected(int position)

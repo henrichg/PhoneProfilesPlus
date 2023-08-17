@@ -75,54 +75,6 @@ class AddProfileDialog
     private void doShow() {
         getProfilesAsyncTask = new AddProfileDialog.GetProfilesAsyncTask(this, activity, profileListFragment.activityDataWrapper);
         getProfilesAsyncTask.execute();
-
-/*        new AsyncTask<Void, Integer, Void>() {
-
-            final List<Profile> profileList = new ArrayList<>();
-
-            //@Override
-            //protected void onPreExecute()
-            //{
-            //    super.onPreExecute();
-                //listView.setVisibility(View.GONE);
-                //linlaProgress.setVisibility(View.VISIBLE);
-            //}
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
-                Profile profile;
-                profile = DataWrapper.getNonInitializedProfile(
-                        activity.getString(R.string.profile_name_default),
-                        Profile.PROFILE_ICON_DEFAULT, 0);
-                profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);
-                if (applicationEditorPrefIndicator)
-                    profile.generatePreferencesIndicator(activity.getApplicationContext(), false, 0xFF);
-                profileList.add(profile);
-                for (int index = 0; index < 7; index++) {
-                    profile = profileListFragment.activityDataWrapper.getPredefinedProfile(index, false, activity);
-                    profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);
-                    if (applicationEditorPrefIndicator)
-                        profile.generatePreferencesIndicator(activity.getApplicationContext(), false, 0xFF);
-                    profileList.add(profile);
-                }
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-
-                //listView.setVisibility(View.VISIBLE);
-                linlaProgress.setVisibility(View.GONE);
-
-                AddProfileAdapter addProfileAdapter = new AddProfileAdapter(AddProfileDialog.this, activity, profileList);
-                listView.setAdapter(addProfileAdapter);
-            }
-
-        }.execute();*/
     }
 
     void doOnItemSelected(int position)
