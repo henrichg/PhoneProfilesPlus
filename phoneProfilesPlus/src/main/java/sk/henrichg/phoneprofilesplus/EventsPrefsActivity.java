@@ -38,7 +38,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     long event_id = 0;
     private int old_event_status;
-    int newEventMode = EditorEventListFragment.EDIT_MODE_UNDEFINED;
+    int newEventMode = PPApplication.EDIT_MODE_UNDEFINED;
     int predefinedEventIndex = 0;
 
     private int resultCode = RESULT_CANCELED;
@@ -49,8 +49,6 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     private MobileCellsRegistrationCountDownBroadcastReceiver mobileCellsRegistrationCountDownBroadcastReceiver = null;
     private MobileCellsRegistrationStoppedBroadcastReceiver mobileCellsRegistrationNewCellsBroadcastReceiver = null;
-
-    static final String ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver";
 
     private static final String BUNDLE_OLD_EVENT_STATUS = "old_event_status";
     private static final String BUNDLE_NEW_EVENT_MODE = "newEventMode";
@@ -71,8 +69,8 @@ public class EventsPrefsActivity extends AppCompatActivity
     }
     private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
 
-    public static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
-    //public static final String PREF_START_TARGET_HELPS_FINISHED = "event_preferences_activity_start_target_helps_finiahed";
+    static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
+    //static final String PREF_START_TARGET_HELPS_FINISHED = "event_preferences_activity_start_target_helps_finiahed";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +93,8 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         event_id = getIntent().getLongExtra(PPApplication.EXTRA_EVENT_ID, 0L);
         old_event_status = getIntent().getIntExtra(PPApplication.EXTRA_EVENT_STATUS, -1);
-        newEventMode = getIntent().getIntExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
-        predefinedEventIndex = getIntent().getIntExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+        newEventMode = getIntent().getIntExtra(PPApplication.EXTRA_NEW_EVENT_MODE, PPApplication.EDIT_MODE_UNDEFINED);
+        predefinedEventIndex = getIntent().getIntExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
         if (getIntent().getBooleanExtra(DataWrapperStatic.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
@@ -125,10 +123,10 @@ public class EventsPrefsActivity extends AppCompatActivity
         else {
             event_id = savedInstanceState.getLong(PPApplication.EXTRA_EVENT_ID, 0);
             old_event_status = savedInstanceState.getInt(BUNDLE_OLD_EVENT_STATUS, -1);
-            newEventMode = savedInstanceState.getInt(BUNDLE_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+            newEventMode = savedInstanceState.getInt(BUNDLE_NEW_EVENT_MODE, PPApplication.EDIT_MODE_UNDEFINED);
             predefinedEventIndex = savedInstanceState.getInt(BUNDLE_PREDEFINED_EVENT_INDEX, 0);
 
-            showSaveMenu = savedInstanceState.getBoolean(EditorActivity.BUNDLE_SHOW_SAVE_MENU, false);
+            showSaveMenu = savedInstanceState.getBoolean(PPApplication.BUNDLE_SHOW_SAVE_MENU, false);
         }
     }
 
@@ -161,7 +159,7 @@ public class EventsPrefsActivity extends AppCompatActivity
         }
 
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
-                new IntentFilter(ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER));
+                new IntentFilter(PPApplication.ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER));
     }
 
     @Override
@@ -338,7 +336,7 @@ public class EventsPrefsActivity extends AppCompatActivity
         savedInstanceState.putInt(BUNDLE_NEW_EVENT_MODE, newEventMode);
         savedInstanceState.putInt(BUNDLE_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
 
-        savedInstanceState.putBoolean(EditorActivity.BUNDLE_SHOW_SAVE_MENU, showSaveMenu);
+        savedInstanceState.putBoolean(PPApplication.BUNDLE_SHOW_SAVE_MENU, showSaveMenu);
     }
 
     @Override
@@ -346,8 +344,8 @@ public class EventsPrefsActivity extends AppCompatActivity
         // for startActivityForResult
         Intent returnIntent = new Intent();
         returnIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
-        returnIntent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, newEventMode);
-        returnIntent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+        returnIntent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, newEventMode);
+        returnIntent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
         setResult(resultCode,returnIntent);
 
         super.finish();
@@ -361,7 +359,7 @@ public class EventsPrefsActivity extends AppCompatActivity
         if (!leaveSaveMenu)
             showSaveMenu = false;
 
-        if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT)
+        if (new_event_mode == PPApplication.EDIT_MODE_INSERT)
         {
             // create new event - default is TIME
             if (predefinedEventIndex == 0)
@@ -371,7 +369,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             showSaveMenu = true;
         }
         else
-        if (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE)
+        if (new_event_mode == PPApplication.EDIT_MODE_DUPLICATE)
         {
             // duplicate event
             Event origEvent = dataWrapper.getEventById(event_id);
@@ -424,7 +422,7 @@ public class EventsPrefsActivity extends AppCompatActivity
     private void loadPreferences(int new_event_mode, int predefinedEventIndex) {
         Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
         if (event == null)
-            event = createEvent(getApplicationContext(), event_id, EditorEventListFragment.EDIT_MODE_INSERT, predefinedEventIndex, false);
+            event = createEvent(getApplicationContext(), event_id, PPApplication.EDIT_MODE_INSERT, predefinedEventIndex, false);
 
         if (event != null)
         {
@@ -573,8 +571,8 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
-        if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
-                (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
+        if ((new_event_mode == PPApplication.EDIT_MODE_INSERT) ||
+                (new_event_mode == PPApplication.EDIT_MODE_DUPLICATE))
         {
             PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_ADDED, event._name, null, "");
 

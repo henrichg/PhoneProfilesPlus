@@ -197,7 +197,7 @@ class OrientationScanner implements SensorEventListener {
             try {
                 // redraw light current value preference
 //                PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OrientationScanner.onSensorChanged", "xxx");
-                Intent intent = new Intent(EventsPrefsActivity.ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER);
+                Intent intent = new Intent(PPApplication.ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER);
                 LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
             } catch (Exception ignored) {}
 

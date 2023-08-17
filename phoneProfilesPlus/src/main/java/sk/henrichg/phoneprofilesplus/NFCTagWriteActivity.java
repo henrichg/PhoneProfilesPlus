@@ -21,8 +21,8 @@ public class NFCTagWriteActivity extends AppCompatActivity {
 
     private TextView writableTextView;
 
-    public static final String EXTRA_TAG_NAME = "tag_name";
-    public static final String EXTRA_TAG_DB_ID = "tag_db_id";
+    static final String EXTRA_TAG_NAME = "tag_name";
+    static final String EXTRA_TAG_DB_ID = "tag_db_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

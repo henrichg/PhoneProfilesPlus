@@ -14,7 +14,7 @@ import androidx.palette.graphics.Palette;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class Profile {
+class Profile {
 
     long _id;
     String _name;

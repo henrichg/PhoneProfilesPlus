@@ -70,7 +70,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
     private String[] flagArray;
     private boolean[] flagIndices;
 
-    public static final String EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY = "dialogPreferenceStartApplicationDelay";
+    static final String EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY = "dialogPreferenceStartApplicationDelay";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

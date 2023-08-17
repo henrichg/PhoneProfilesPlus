@@ -151,7 +151,7 @@ class EventsHandler {
     static final int SENSOR_TYPE_BRIGHTNESS = 54;
     static final int SENSOR_TYPE_ALL = 999;
 
-    public EventsHandler(Context context) {
+    EventsHandler(Context context) {
         this.context = context.getApplicationContext();
     }
 
@@ -739,7 +739,7 @@ class EventsHandler {
             }
             else {
                 // refresh only Editor
-                Intent refreshIntent = new Intent(EditorActivity.ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER);
+                Intent refreshIntent = new Intent(PPApplication.ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER);
                 refreshIntent.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
                 //refreshIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profileId);
                 //refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);

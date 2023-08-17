@@ -22,15 +22,15 @@ public class MobileCellsRegistrationService extends Service
         implements MobileCellsRegistrationServiceStopRegistrationListener {
 
     // this is for show remaining time in "Cell registration" event sensor preference summary
-    public static final String ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_COUNTDOWN";
-    public static final String EXTRA_COUNTDOWN = "countdown";
+    static final String ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_COUNTDOWN";
+    static final String EXTRA_COUNTDOWN = "countdown";
 
     // this is for stop button in notification
     static final String ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_STOP_BUTTON";
 
     // this is for show new cell count in "Cell registration" event sensor preference summary
-    public static final String ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_NEW_CELL";
-    public static final String EXTRA_NEW_CELL_VALUE = "new_cell_value";
+    static final String ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_NEW_CELL";
+    static final String EXTRA_NEW_CELL_VALUE = "new_cell_value";
 
     private CountDownTimer countDownTimer = null;
 

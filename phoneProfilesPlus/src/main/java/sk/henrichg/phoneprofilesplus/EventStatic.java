@@ -561,7 +561,7 @@ class EventStatic {
             // redraw event list
             //updateListView(event, false, false, true, 0);
             if (editor != null)
-                editor.redrawEventListFragment(event, EditorEventListFragment.EDIT_MODE_EDIT);
+                editor.redrawEventListFragment(event, PPApplication.EDIT_MODE_EDIT);
 
             // restart events
             //activityDataWrapper.restartEvents(false, true, true, true, true);
@@ -616,7 +616,7 @@ class EventStatic {
             // redraw event list
             //updateListView(event, false, false, true, 0);
             if (editor != null)
-                editor.redrawEventListFragment(event, EditorEventListFragment.EDIT_MODE_EDIT);
+                editor.redrawEventListFragment(event, PPApplication.EDIT_MODE_EDIT);
 
             // restart events
             //activityDataWrapper.restartEvents(false, true, true, true, true);

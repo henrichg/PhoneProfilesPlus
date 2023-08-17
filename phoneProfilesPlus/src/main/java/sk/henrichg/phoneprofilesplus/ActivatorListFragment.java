@@ -47,9 +47,9 @@ public class ActivatorListFragment extends Fragment {
 
     //private  static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
 
-    //public boolean targetHelpsSequenceStarted;
-    public static final String PREF_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
-    public static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profile_list_fragment_start_target_helps_finished";
+    //boolean targetHelpsSequenceStarted;
+    static final String PREF_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
+    static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profile_list_fragment_start_target_helps_finished";
 
     static final int PORDER_FOR_EMPTY_SPACE = 1000000;
 

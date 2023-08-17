@@ -913,8 +913,8 @@ class GlobalGUIRoutines {
                         if (forActivator)
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                        intent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                        intent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+                        intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_EDIT);
+                        intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
                     } else {
                                 intent = new Intent(activity.getBaseContext(), EditorActivity.class);
                                 if (forActivator)
@@ -957,8 +957,8 @@ class GlobalGUIRoutines {
                         if (forActivator)
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-                        intent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                        intent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+                        intent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, PPApplication.EDIT_MODE_EDIT);
+                        intent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, 0);
                     } else {
                                 intent = new Intent(activity.getBaseContext(), EditorActivity.class);
                                 if (forActivator)

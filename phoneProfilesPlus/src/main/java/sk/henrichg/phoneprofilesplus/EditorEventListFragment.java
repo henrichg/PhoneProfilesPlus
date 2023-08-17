@@ -82,12 +82,6 @@ public class EditorEventListFragment extends Fragment
 
     private int orderSelectedItem = 0;
 
-    static final int EDIT_MODE_UNDEFINED = 0;
-    static final int EDIT_MODE_INSERT = 1;
-    static final int EDIT_MODE_DUPLICATE = 2;
-    static final int EDIT_MODE_EDIT = 3;
-    static final int EDIT_MODE_DELETE = 4;
-
     static final String BUNDLE_FILTER_TYPE = "filter_type";
     //static final String BUNDLE_ORDER_TYPE_ = "order_type";
     //static final String BUNDLE_START_TARGET_HELPS = "start_target_helps";
@@ -105,11 +99,11 @@ public class EditorEventListFragment extends Fragment
     private static final int ORDER_TYPE_PRIORITY = 3;
     private static final int ORDER_TYPE_END_PROFILE_NAME = 4;
 
-    //public boolean targetHelpsSequenceStarted;
-    public static final String PREF_START_TARGET_HELPS = "editor_event_list_fragment_start_target_helps";
-    public static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
-    public static final String PREF_START_TARGET_HELPS_ORDER_SPINNER = "editor_profile_activity_start_target_helps_order_spinner";
-    public static final String PREF_START_TARGET_HELPS_FINISHED = "editor_event_list_fragment_start_target_helps_finished";
+    //boolean targetHelpsSequenceStarted;
+    static final String PREF_START_TARGET_HELPS = "editor_event_list_fragment_start_target_helps";
+    static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
+    static final String PREF_START_TARGET_HELPS_ORDER_SPINNER = "editor_profile_activity_start_target_helps_order_spinner";
+    static final String PREF_START_TARGET_HELPS_FINISHED = "editor_event_list_fragment_start_target_helps_finished";
 
     private int filterType = FILTER_TYPE_ALL;
     private int orderType = ORDER_TYPE_EVENT_NAME;
@@ -684,12 +678,12 @@ public class EditorEventListFragment extends Fragment
             //if (startTargetHelps)
             showAdapterTargetHelps();
 
-            editMode = EDIT_MODE_EDIT;
+            editMode = PPApplication.EDIT_MODE_EDIT;
         }
         else
         {
             // add new event
-            editMode = EDIT_MODE_INSERT;
+            editMode = PPApplication.EDIT_MODE_INSERT;
 
         }
 
@@ -927,7 +921,7 @@ public class EditorEventListFragment extends Fragment
         int editMode;
 
         // duplicate event
-        editMode = EDIT_MODE_DUPLICATE;
+        editMode = PPApplication.EDIT_MODE_DUPLICATE;
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
@@ -978,7 +972,7 @@ public class EditorEventListFragment extends Fragment
         commandIntent.putExtra(PhoneProfilesService.EXTRA_DISABLE_NOT_USED_SCANNERS, true);
         PPApplicationStatic.runCommand(getActivity(), commandIntent);
 
-        onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
+        onStartEventPreferencesCallback.onStartEventPreferences(null, PPApplication.EDIT_MODE_DELETE, 0);
     }
 
     void showEditMenu(View view)
@@ -1152,7 +1146,7 @@ public class EditorEventListFragment extends Fragment
                             PPApplicationStatic.runCommand(getActivity(), commandIntent);
                         }
 
-                        onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
+                        onStartEventPreferencesCallback.onStartEventPreferences(null, PPApplication.EDIT_MODE_DELETE, 0);
                     },
                     null,
                     null,
@@ -1889,7 +1883,7 @@ public class EditorEventListFragment extends Fragment
                             event._ignoreManualActivation = false;
                             DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
                             EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
-                            ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+                            ((EditorActivity) getActivity()).redrawEventListFragment(event, PPApplication.EDIT_MODE_EDIT);
 
                             PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
                                     getString(R.string.ignore_manual_activation_not_ignore_toast),
@@ -1900,7 +1894,7 @@ public class EditorEventListFragment extends Fragment
                             event._noPauseByManualActivation = false;
                             DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
                             EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
-                            ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+                            ((EditorActivity) getActivity()).redrawEventListFragment(event, PPApplication.EDIT_MODE_EDIT);
 
                             PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
                                     getString(R.string.ignore_manual_activation_ignore_toast),
@@ -1911,7 +1905,7 @@ public class EditorEventListFragment extends Fragment
                             event._noPauseByManualActivation = true;
                             DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
                             EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
-                            ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+                            ((EditorActivity) getActivity()).redrawEventListFragment(event, PPApplication.EDIT_MODE_EDIT);
 
                             PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
                                     getString(R.string.ignore_manual_activation_ignore_no_pause_toast),

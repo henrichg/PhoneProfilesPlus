@@ -32,7 +32,7 @@ public class RefreshActivitiesBroadcastReceiver extends BroadcastReceiver {
             long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
             long eventId = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
 
-            refreshIntent = new Intent(EditorActivity.ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER);
+            refreshIntent = new Intent(PPApplication.ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER);
             refreshIntent.putExtra(EXTRA_REFRESH_ICONS, refreshIcons);
             refreshIntent.putExtra(EXTRA_RELOAD_ACTIVITY, reloadActivity);
             refreshIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profileId);

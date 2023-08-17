@@ -12,8 +12,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class ActivatorTargetHelpsActivity extends AppCompatActivity {
 
-    public static volatile ActivatorTargetHelpsActivity activity;
-    //public static ActivatorActivity activatorActivity;
+    static volatile ActivatorTargetHelpsActivity activity;
+    //static ActivatorActivity activatorActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

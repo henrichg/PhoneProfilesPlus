@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 //import me.drakeet.support.toast.ToastCompat;
 
-public class DataWrapper {
+class DataWrapper {
 
     final Context context;
     //private boolean forGUI = false;

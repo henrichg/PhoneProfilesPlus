@@ -800,8 +800,8 @@ class DataWrapperStatic {
 
                 intent = new Intent(context, ProfilesPrefsActivity.class);
                 intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                intent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                intent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+                intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_EDIT);
+                intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
                 intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
             }
@@ -834,8 +834,8 @@ class DataWrapperStatic {
                 intent = new Intent(context, EventsPrefsActivity.class);
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
                 intent.putExtra(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
-                intent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_EDIT);
-                intent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+                intent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, PPApplication.EDIT_MODE_EDIT);
+                intent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
             }

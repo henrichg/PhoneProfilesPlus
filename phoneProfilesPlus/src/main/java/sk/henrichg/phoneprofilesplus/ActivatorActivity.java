@@ -50,9 +50,9 @@ public class ActivatorActivity extends AppCompatActivity
     static final String ACTION_REFRESH_ACTIVATOR_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshActivatorGUIBroadcastReceiver";
     static final String ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver";
 
-    //public boolean targetHelpsSequenceStarted;
-    public static final String PREF_START_TARGET_HELPS = "activate_profiles_activity_start_target_helps";
-    public static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profiles_activity_start_target_helps_finished";
+    //boolean targetHelpsSequenceStarted;
+    static final String PREF_START_TARGET_HELPS = "activate_profiles_activity_start_target_helps";
+    static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profiles_activity_start_target_helps_finished";
 
     static private class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
 

@@ -44,9 +44,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     //int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
-    public static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
-    //public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
-    public static final String EXTRA_RESET_EDITOR = "reset_editor";
+    static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
+    //static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
+    static final String EXTRA_RESET_EDITOR = "reset_editor";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

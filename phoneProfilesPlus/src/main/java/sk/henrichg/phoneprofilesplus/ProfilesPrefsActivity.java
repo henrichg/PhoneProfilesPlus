@@ -28,7 +28,7 @@ import java.util.List;
 public class ProfilesPrefsActivity extends AppCompatActivity {
 
     long profile_id = 0;
-    int newProfileMode = EditorProfileListFragment.EDIT_MODE_UNDEFINED;
+    int newProfileMode = PPApplication.EDIT_MODE_UNDEFINED;
     int predefinedProfileIndex = 0;
 
     private int resultCode = RESULT_CANCELED;
@@ -37,9 +37,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
-    public static final String PREF_START_TARGET_HELPS = "profile_preferences_activity_start_target_helps";
-    //public static final String PREF_START_TARGET_HELPS_SAVE = "profile_preferences_activity_start_target_helps_save";
-    //public static final String PREF_START_TARGET_HELPS_FINISHED = "profile_preferences_activity_start_target_helps_finished";
+    static final String PREF_START_TARGET_HELPS = "profile_preferences_activity_start_target_helps";
+    //static final String PREF_START_TARGET_HELPS_SAVE = "profile_preferences_activity_start_target_helps_save";
+    //static final String PREF_START_TARGET_HELPS_FINISHED = "profile_preferences_activity_start_target_helps_finished";
 
     private static final String BUNDLE_NEW_PROFILE_MODE = "newProfileMode";
     private static final String BUNDLE_PREDEFINED_PROFILE_INDEX = "predefinedProfileIndex";
@@ -64,8 +64,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         }
 
         profile_id = getIntent().getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-        newProfileMode = getIntent().getIntExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
-        predefinedProfileIndex = getIntent().getIntExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+        newProfileMode = getIntent().getIntExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_UNDEFINED);
+        predefinedProfileIndex = getIntent().getIntExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
         if (getIntent().getBooleanExtra(DataWrapperStatic.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
@@ -93,10 +93,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         }
         else {
             profile_id = savedInstanceState.getLong(PPApplication.EXTRA_PROFILE_ID, 0);
-            newProfileMode = savedInstanceState.getInt(BUNDLE_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+            newProfileMode = savedInstanceState.getInt(BUNDLE_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_UNDEFINED);
             predefinedProfileIndex = savedInstanceState.getInt(BUNDLE_PREDEFINED_PROFILE_INDEX, 0);
 
-            showSaveMenu = savedInstanceState.getBoolean(EditorActivity.BUNDLE_SHOW_SAVE_MENU, false);
+            showSaveMenu = savedInstanceState.getBoolean(PPApplication.BUNDLE_SHOW_SAVE_MENU, false);
         }
     }
 
@@ -244,7 +244,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         savedInstanceState.putInt(BUNDLE_NEW_PROFILE_MODE, newProfileMode);
         savedInstanceState.putInt(BUNDLE_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
 
-        savedInstanceState.putBoolean(EditorActivity.BUNDLE_SHOW_SAVE_MENU, showSaveMenu);
+        savedInstanceState.putBoolean(PPApplication.BUNDLE_SHOW_SAVE_MENU, showSaveMenu);
     }
 
     @Override
@@ -252,8 +252,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         // for startActivityForResult
         Intent returnIntent = new Intent();
         returnIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile_id);
-        returnIntent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, newProfileMode);
-        returnIntent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
+        returnIntent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, newProfileMode);
+        returnIntent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
         returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, PPApplication.grantRootChanged);
         PPApplication.grantRootChanged = false;
         setResult(resultCode,returnIntent);
@@ -269,7 +269,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         if (!leaveSaveMenu)
             showSaveMenu = false;
 
-        if (new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT)
+        if (new_profile_mode == PPApplication.EDIT_MODE_INSERT)
         {
             // create new profile
             if (predefinedProfileIndex == 0) {
@@ -284,7 +284,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             showSaveMenu = true;
         }
         else
-        if (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE)
+        if (new_profile_mode == PPApplication.EDIT_MODE_DUPLICATE)
         {
             // duplicate profile
             Profile origProfile = dataWrapper.getProfileById(profile_id, false, false, false);
@@ -413,7 +413,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     private void loadPreferences(int new_profile_mode, int predefinedProfileIndex) {
         Profile profile = createProfile(profile_id, new_profile_mode, predefinedProfileIndex, false);
         if (profile == null)
-            profile = createProfile(profile_id, EditorProfileListFragment.EDIT_MODE_INSERT, predefinedProfileIndex, false);
+            profile = createProfile(profile_id, PPApplication.EDIT_MODE_INSERT, predefinedProfileIndex, false);
 
         if (profile != null)
         {
@@ -623,8 +623,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 //Profile.setActivatedProfileForDuration(getApplicationContext(), profile._id);
             }
 
-            if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
-                    (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE)) {
+            if ((new_profile_mode == PPApplication.EDIT_MODE_INSERT) ||
+                    (new_profile_mode == PPApplication.EDIT_MODE_DUPLICATE)) {
                 PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_ADDED, null, profile._name, "");
 
                 // add profile into DB

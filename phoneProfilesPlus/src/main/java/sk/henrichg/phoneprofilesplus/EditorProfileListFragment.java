@@ -71,12 +71,6 @@ public class EditorProfileListFragment extends Fragment
     //private ValueAnimator showAnimator;
     //private int headerHeight;
 
-    static final int EDIT_MODE_UNDEFINED = 0;
-    static final int EDIT_MODE_INSERT = 1;
-    static final int EDIT_MODE_DUPLICATE = 2;
-    static final int EDIT_MODE_EDIT = 3;
-    static final int EDIT_MODE_DELETE = 4;
-
     static final String BUNDLE_FILTER_TYPE = "filter_type";
     //static final String BUNDLE_START_TARGET_HELPS = "start_target_helps";
 
@@ -84,10 +78,10 @@ public class EditorProfileListFragment extends Fragment
     static final int FILTER_TYPE_SHOW_IN_ACTIVATOR = 1;
     static final int FILTER_TYPE_NO_SHOW_IN_ACTIVATOR = 2;
 
-    //public boolean targetHelpsSequenceStarted;
-    public static final String PREF_START_TARGET_HELPS = "editor_profile_list_fragment_start_target_helps";
-    public static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
-    public static final String PREF_START_TARGET_HELPS_FINISHED = "editor_profile_list_fragment_start_target_helps_finished";
+    //boolean targetHelpsSequenceStarted;
+    static final String PREF_START_TARGET_HELPS = "editor_profile_list_fragment_start_target_helps";
+    static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
+    static final String PREF_START_TARGET_HELPS_FINISHED = "editor_profile_list_fragment_start_target_helps_finished";
 
     private int filterType = FILTER_TYPE_ALL;
 
@@ -650,12 +644,12 @@ public class EditorProfileListFragment extends Fragment
             //if (startTargetHelps)
             showAdapterTargetHelps();
 
-            editMode = EDIT_MODE_EDIT;
+            editMode = PPApplication.EDIT_MODE_EDIT;
         }
         else
         {
             // add new profile
-            editMode = EDIT_MODE_INSERT;
+            editMode = PPApplication.EDIT_MODE_INSERT;
         }
 
         // Notify the active callbacks interface (the activity, if the
@@ -668,7 +662,7 @@ public class EditorProfileListFragment extends Fragment
         int editMode;
 
         // duplicate profile
-        editMode = EDIT_MODE_DUPLICATE;
+        editMode = PPApplication.EDIT_MODE_DUPLICATE;
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
@@ -741,7 +735,7 @@ public class EditorProfileListFragment extends Fragment
         commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
         PPApplicationStatic.runCommand(getActivity(), commandIntent);
 
-        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
+        onStartProfilePreferencesCallback.onStartProfilePreferences(null, PPApplication.EDIT_MODE_DELETE, 0);
     }
 
     void showEditMenu(View view)
@@ -900,7 +894,7 @@ public class EditorProfileListFragment extends Fragment
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
                         PPApplicationStatic.runCommand(getActivity(), commandIntent);
 
-                        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
+                        onStartProfilePreferencesCallback.onStartProfilePreferences(null, PPApplication.EDIT_MODE_DELETE, 0);
                     },
                     null,
                     null,
@@ -1205,7 +1199,7 @@ public class EditorProfileListFragment extends Fragment
                                 profile._showInActivator = false;
                                 DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
                                 //profileListAdapter.notifyDataSetChanged();
-                                ((EditorActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+                                ((EditorActivity) getActivity()).redrawProfileListFragment(profile, PPApplication.EDIT_MODE_EDIT);
 
                                 PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
                                         getString(R.string.show_profile_in_activator_not_show_toast),
@@ -1215,7 +1209,7 @@ public class EditorProfileListFragment extends Fragment
                                 profile._showInActivator = true;
                                 DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
                                 //profileListAdapter.notifyDataSetChanged();
-                                ((EditorActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+                                ((EditorActivity) getActivity()).redrawProfileListFragment(profile, PPApplication.EDIT_MODE_EDIT);
 
                                 PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
                                         getString(R.string.show_profile_in_activator_show_toast),

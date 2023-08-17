@@ -39,7 +39,6 @@ public class RingtonePreference extends DialogPreference {
     final int simCard;
 
     final Map<String, String> toneList = new LinkedHashMap<>();
-    private RingtonePreferenceRefreshListViewAsyncTask asyncTask = null;
 
     private final Context prefContext;
 
@@ -49,7 +48,8 @@ public class RingtonePreference extends DialogPreference {
     private static volatile Timer playTimer = null;
     private static volatile boolean ringtoneIsPlayed = false;
 
-    SetRingtoneAsyncTask setRingtoneAsyncTask = null;
+    RingtonePreferenceRefreshListViewAsyncTask asyncTask = null;
+    private SetRingtoneAsyncTask setRingtoneAsyncTask = null;
 
     static final String RINGTONE_TYPE_RINGTONE = "ringtone";
     static final String RINGTONE_TYPE_NOTIFICATION = "notification";

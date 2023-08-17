@@ -138,26 +138,17 @@ public class EditorActivity extends AppCompatActivity
     private static final int REQUEST_CODE_SHARE_SETTINGS = 6233;
     private static final int REQUEST_CODE_RESTORE_SHARED_SETTINGS = 6234;
 
-    public static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
-    public static final String PREF_START_TARGET_HELPS_DEFAULT_PROFILE = "editor_profile_activity_start_target_helps_default_profile";
+    static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
+    static final String PREF_START_TARGET_HELPS_DEFAULT_PROFILE = "editor_profile_activity_start_target_helps_default_profile";
 
-    public static final String PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR = "editor_profile_activity_start_target_helps_run_stop_indicator";
-    public static final String PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION = "editor_profile_activity_start_target_helps_bottom_navigation";
+    static final String PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR = "editor_profile_activity_start_target_helps_run_stop_indicator";
+    static final String PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION = "editor_profile_activity_start_target_helps_bottom_navigation";
 
-    public static final String PREF_START_TARGET_HELPS_FINISHED = "editor_profiles_activity_start_target_helps_finished";
+    static final String PREF_START_TARGET_HELPS_FINISHED = "editor_profiles_activity_start_target_helps_finished";
 
     private static final String PREF_BACKUP_CREATE_PPP_SUBFOLDER = "backup_create_ppp_subfolder";
 
-    static final String ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver";
-    static final String ACTION_SHOW_EDITOR_TARGET_HELPS_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver";
-
-    static final String EXTRA_NEW_PROFILE_MODE = "new_profile_mode";
-    static final String EXTRA_PREDEFINED_PROFILE_INDEX = "predefined_profile_index";
-    static final String EXTRA_NEW_EVENT_MODE = "new_event_mode";
-    static final String EXTRA_PREDEFINED_EVENT_INDEX = "predefined_event_index";
-    //static final String EXTRA_SELECTED_FILTER = "selected_filter";
-
-    static final String BUNDLE_SHOW_SAVE_MENU = "showSaveMenu";
+    private static final String ACTION_SHOW_EDITOR_TARGET_HELPS_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver";
 
     private static final int IMPORTEXPORT_IMPORT = 1;
     private static final int IMPORTEXPORT_EXPORT = 2;
@@ -182,9 +173,9 @@ public class EditorActivity extends AppCompatActivity
     //private String[] drawerItemsSubtitle;
     //private Integer[] drawerItemsIcon;
 
-    boolean filterInitialized;
+    private boolean filterInitialized;
 
-    int editorSelectedView = 0;
+    private int editorSelectedView = 0;
     private int filterProfilesSelectedItem = 0;
     private int filterEventsSelectedItem = 0;
 
@@ -625,7 +616,7 @@ public class EditorActivity extends AppCompatActivity
 
             refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
             LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
-                    new IntentFilter(ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER));
+                    new IntentFilter(PPApplication.ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER));
             showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
             LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
                     new IntentFilter(ACTION_SHOW_EDITOR_TARGET_HELPS_BROADCAST_RECEIVER));
@@ -1822,7 +1813,7 @@ public class EditorActivity extends AppCompatActivity
             if ((resultCode == RESULT_OK) && (data != null))
             {
                 long profile_id = data.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-                int newProfileMode = data.getIntExtra(EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+                int newProfileMode = data.getIntExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_UNDEFINED);
                 //int predefinedProfileIndex = data.getIntExtra(EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
                 if (profile_id > 0)
@@ -1894,7 +1885,7 @@ public class EditorActivity extends AppCompatActivity
             {
                 // redraw list fragment after finish EventPreferencesActivity
                 long event_id = data.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0L);
-                int newEventMode = data.getIntExtra(EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
+                int newEventMode = data.getIntExtra(PPApplication.EXTRA_NEW_EVENT_MODE, PPApplication.EDIT_MODE_UNDEFINED);
                 //int predefinedEventIndex = data.getIntExtra(EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
                 if (event_id > 0)
@@ -3000,12 +2991,12 @@ public class EditorActivity extends AppCompatActivity
 
     private void startProfilePreferenceActivity(Profile profile, int editMode, int predefinedProfileIndex) {
         Intent intent = new Intent(getBaseContext(), ProfilesPrefsActivity.class);
-        if ((profile == null) || (editMode == EditorProfileListFragment.EDIT_MODE_INSERT))
+        if ((profile == null) || (editMode == PPApplication.EDIT_MODE_INSERT))
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, 0L);
         else
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-        intent.putExtra(EXTRA_NEW_PROFILE_MODE, editMode);
-        intent.putExtra(EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
+        intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, editMode);
+        intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
         //noinspection deprecation
         startActivityForResult(intent, REQUEST_CODE_PROFILE_PREFERENCES);
     }
@@ -3019,9 +3010,9 @@ public class EditorActivity extends AppCompatActivity
         // In single-pane mode, simply start the profile preferences activity
         // for the profile position.
         if (((profile != null) ||
-            (editMode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
-            (editMode == EditorProfileListFragment.EDIT_MODE_DUPLICATE))
-            && (editMode != EditorProfileListFragment.EDIT_MODE_DELETE))
+            (editMode == PPApplication.EDIT_MODE_INSERT) ||
+            (editMode == PPApplication.EDIT_MODE_DUPLICATE))
+            && (editMode != PPApplication.EDIT_MODE_DELETE))
             startProfilePreferenceActivity(profile, editMode, predefinedProfileIndex);
     }
 
@@ -3035,8 +3026,8 @@ public class EditorActivity extends AppCompatActivity
                 // update profile, this rewrite profile in profileList
                 fragment.activityDataWrapper.updateProfile(profile);
 
-                boolean newProfile = ((newProfileMode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
-                        (newProfileMode == EditorProfileListFragment.EDIT_MODE_DUPLICATE));
+                boolean newProfile = ((newProfileMode == PPApplication.EDIT_MODE_INSERT) ||
+                        (newProfileMode == PPApplication.EDIT_MODE_DUPLICATE));
                 fragment.updateListView(profile, newProfile, false, false/*, 0*/);
 
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true,
@@ -3081,7 +3072,7 @@ public class EditorActivity extends AppCompatActivity
         boolean profileExists = true;
         long startProfileId = 0;
         long endProfileId = -1;
-        if ((editMode == EditorEventListFragment.EDIT_MODE_INSERT) && (predefinedEventIndex > 0)) {
+        if ((editMode == PPApplication.EDIT_MODE_INSERT) && (predefinedEventIndex > 0)) {
             if (getDataWrapper() != null) {
                 // search names of start and end profiles
                 String[] profileStartNamesArray = getResources().getStringArray(R.array.addEventPredefinedStartProfilesArray);
@@ -3101,14 +3092,14 @@ public class EditorActivity extends AppCompatActivity
 
         if (profileExists) {
             Intent intent = new Intent(getBaseContext(), EventsPrefsActivity.class);
-            if ((event == null) || (editMode == EditorEventListFragment.EDIT_MODE_INSERT))
+            if ((event == null) || (editMode == PPApplication.EDIT_MODE_INSERT))
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
             else {
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
                 intent.putExtra(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
             }
-            intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
-            intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+            intent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, editMode);
+            intent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
             //noinspection deprecation
             startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
         } else {
@@ -3159,16 +3150,16 @@ public class EditorActivity extends AppCompatActivity
 
                         Intent intent = new Intent(getBaseContext(), EventsPrefsActivity.class);
                         intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
-                        intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
-                        intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+                        intent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, editMode);
+                        intent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
                         //noinspection deprecation
                         startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
                     },
                     (dialog2, which) -> {
                         Intent intent = new Intent(getBaseContext(), EventsPrefsActivity.class);
                         intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
-                        intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
-                        intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+                        intent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, editMode);
+                        intent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
                         //noinspection deprecation
                         startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
                     },
@@ -3193,9 +3184,9 @@ public class EditorActivity extends AppCompatActivity
         }
 
         if (((event != null) ||
-            (editMode == EditorEventListFragment.EDIT_MODE_INSERT) ||
-            (editMode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
-            && (editMode != EditorEventListFragment.EDIT_MODE_DELETE))
+            (editMode == PPApplication.EDIT_MODE_INSERT) ||
+            (editMode == PPApplication.EDIT_MODE_DUPLICATE))
+            && (editMode != PPApplication.EDIT_MODE_DELETE))
             startEventPreferenceActivity(event, editMode, predefinedEventIndex);
     }
 
@@ -3208,8 +3199,8 @@ public class EditorActivity extends AppCompatActivity
                 // update event, this rewrite event in eventList
                 fragment.activityDataWrapper.updateEvent(event, this);
 
-                boolean newEvent = ((newEventMode == EditorEventListFragment.EDIT_MODE_INSERT) ||
-                        (newEventMode == EditorEventListFragment.EDIT_MODE_DUPLICATE));
+                boolean newEvent = ((newEventMode == PPApplication.EDIT_MODE_INSERT) ||
+                        (newEventMode == PPApplication.EDIT_MODE_DUPLICATE));
                 fragment.updateListView(event, newEvent, false, false/*, 0*/);
 
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,

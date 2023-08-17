@@ -372,7 +372,7 @@ public class PPApplication extends Application
     static final String PACKAGE_NAME_PP = "sk.henrichg.phoneprofiles";
     static final String PACKAGE_NAME_PPPPS = "sk.henrichg.pppputsettings";
 
-    public static final String EXPORT_PATH = "/PhoneProfilesPlus";
+    static final String EXPORT_PATH = "/PhoneProfilesPlus";
     static final String LOG_FILENAME = "log.txt";
 
     static final String EXTRA_PROFILE_ID = "profile_id";
@@ -643,6 +643,9 @@ public class PPApplication extends Application
     static final String ACTION_CHECK_REQUIRED_EXTENDER_RELEASES = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_CHECK_REQUIRED_EXTENDER_RELEASES";
     static final String ACTION_CHECK_LATEST_PPPPS_RELEASES = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_CHECK_LATEST_PPPPS_RELEASES";
 
+    static final String ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver";
+    static final String ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver";
+
     static final String EXTRA_WHAT_FINISH = "what_finish";
 
     static final String EXTRA_REGISTRATION_APP = "registration_app";
@@ -660,6 +663,13 @@ public class PPApplication extends Application
 
     static final String EXTRA_APPLICATIONS = "extra_applications";
     static final String EXTRA_BLOCK_PROFILE_EVENT_ACTION = "extra_block_profile_event_actions";
+
+    static final String EXTRA_NEW_PROFILE_MODE = "new_profile_mode";
+    static final String EXTRA_PREDEFINED_PROFILE_INDEX = "predefined_profile_index";
+    static final String EXTRA_NEW_EVENT_MODE = "new_event_mode";
+    static final String EXTRA_PREDEFINED_EVENT_INDEX = "predefined_event_index";
+
+    static final String BUNDLE_SHOW_SAVE_MENU = "showSaveMenu";
 
     static final String CRASHLYTICS_LOG_DEVICE_ROOTED = "DEVICE_ROOTED";
     static final String CRASHLYTICS_LOG_DEVICE_ROOTED_WITH = "ROOTED_WITH";
@@ -679,6 +689,12 @@ public class PPApplication extends Application
     static final String TMP_SHARED_PREFS_IS_PROFILE_PREFERENCE_ALLOWED = "temp_isProfilePreferenceAllowed";
 
     static final String PREF_ROOT_SCREEN = "rootScreen";
+
+    static final int EDIT_MODE_UNDEFINED = 0;
+    static final int EDIT_MODE_INSERT = 1;
+    static final int EDIT_MODE_DUPLICATE = 2;
+    static final int EDIT_MODE_EDIT = 3;
+    static final int EDIT_MODE_DELETE = 4;
 
     //public static long lastUptimeTime;
     //public static long lastEpochTime;
@@ -897,60 +913,60 @@ public class PPApplication extends Application
     static volatile int batteryPct = -100;
     static volatile int plugged = -1;
 
-    public volatile static boolean isScreenOn;
-    //public static boolean isPowerSaveMode;
+    volatile static boolean isScreenOn;
+    //static boolean isPowerSaveMode;
 
     static volatile Location lastLocation = null;
 
-    public volatile static ExecutorService basicExecutorPool = null;
-    public volatile static ExecutorService profileActiationExecutorPool = null;
-    public volatile static ExecutorService eventsHandlerExecutor = null;
-    public volatile static ExecutorService scannersExecutor = null;
-    public volatile static ExecutorService playToneExecutor = null;
-    public volatile static ScheduledExecutorService disableInternalChangeExecutor = null;
-    public volatile static ScheduledExecutorService delayedGuiExecutor = null;
-    public volatile static ScheduledExecutorService delayedAppNotificationExecutor = null;
-    public volatile static ScheduledExecutorService delayedEventsHandlerExecutor = null;
-    public volatile static ScheduledExecutorService delayedProfileActivationExecutor = null;
+    volatile static ExecutorService basicExecutorPool = null;
+    volatile static ExecutorService profileActiationExecutorPool = null;
+    volatile static ExecutorService eventsHandlerExecutor = null;
+    volatile static ExecutorService scannersExecutor = null;
+    volatile static ExecutorService playToneExecutor = null;
+    volatile static ScheduledExecutorService disableInternalChangeExecutor = null;
+    volatile static ScheduledExecutorService delayedGuiExecutor = null;
+    volatile static ScheduledExecutorService delayedAppNotificationExecutor = null;
+    volatile static ScheduledExecutorService delayedEventsHandlerExecutor = null;
+    volatile static ScheduledExecutorService delayedProfileActivationExecutor = null;
 
     // required for callbacks, observers, ...
-    public volatile static HandlerThread handlerThreadBroadcast = null;
+    volatile static HandlerThread handlerThreadBroadcast = null;
     // required for sensor manager
-    public volatile static OrientationScannerHandlerThread handlerThreadOrientationScanner = null;
+    volatile static OrientationScannerHandlerThread handlerThreadOrientationScanner = null;
     // rewuired for location manager
-    public volatile static HandlerThread handlerThreadLocation = null;
+    volatile static HandlerThread handlerThreadLocation = null;
 
-    //public static HandlerThread handlerThread = null;
-    //public static HandlerThread handlerThreadCancelWork = null;
-    //public static HandlerThread handlerThreadWidget = null;
-    //public static HandlerThread handlerThreadPlayTone = null;
-    //public static HandlerThread handlerThreadPPScanners = null;
-    //public static HandlerThread handlerThreadPPCommand = null;
+    //static HandlerThread handlerThread = null;
+    //static HandlerThread handlerThreadCancelWork = null;
+    //static HandlerThread handlerThreadWidget = null;
+    //static HandlerThread handlerThreadPlayTone = null;
+    //static HandlerThread handlerThreadPPScanners = null;
+    //static HandlerThread handlerThreadPPCommand = null;
 
-    //public static HandlerThread handlerThreadVolumes = null;
-    //public static HandlerThread handlerThreadRadios = null;
-    //public static HandlerThread handlerThreadWallpaper = null;
-    //public static HandlerThread handlerThreadRunApplication = null;
+    //static HandlerThread handlerThreadVolumes = null;
+    //static HandlerThread handlerThreadRadios = null;
+    //static HandlerThread handlerThreadWallpaper = null;
+    //static HandlerThread handlerThreadRunApplication = null;
 
-    //public static HandlerThread handlerThreadProfileActivation = null;
+    //static HandlerThread handlerThreadProfileActivation = null;
 
-    public volatile static Handler toastHandler;
+    volatile static Handler toastHandler;
     //public static Handler brightnessHandler;
-    public volatile static Handler screenTimeoutHandler;
+    volatile static Handler screenTimeoutHandler;
 
     public static final PPNotificationListenerService ppNotificationListenerService = new PPNotificationListenerService();
 
     //public static boolean isPowerSaveMode = false;
 
     // !! this must be here
-    public volatile static boolean blockProfileEventActions = false;
+    volatile static boolean blockProfileEventActions = false;
 
     // Samsung Look instance
     public volatile static Slook sLook = null;
     public volatile static boolean sLookCocktailPanelEnabled = false;
     //public static boolean sLookCocktailBarEnabled = false;
 
-    //public static final Random requestCodeForAlarm = new Random();
+    //static final Random requestCodeForAlarm = new Random();
 
     static final long[] quickTileProfileId = {0, 0, 0, 0, 0, 0};
     static final QuickTileChooseTileBroadcastReceiver[] quickTileChooseTileBroadcastReceiver =
