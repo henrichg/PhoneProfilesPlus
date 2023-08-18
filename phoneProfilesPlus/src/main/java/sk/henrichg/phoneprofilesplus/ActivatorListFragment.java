@@ -235,7 +235,7 @@ public class ActivatorListFragment extends Fragment {
     private static class LoadProfileListAsyncTask extends AsyncTask<Void, Void, Void> {
 
         private final WeakReference<ActivatorListFragment> fragmentWeakRef;
-        private final DataWrapper dataWrapper;
+        private DataWrapper dataWrapper;
 
         private final boolean applicationActivatorPrefIndicator;
         //private final boolean applicationActivatorHeader;
@@ -374,6 +374,7 @@ public class ActivatorListFragment extends Fragment {
 
                     this.dataWrapper.clearProfileList();
                     this.dataWrapper.clearEventTimelineList();
+                    this.dataWrapper = null;
 
                     synchronized (fragment.activityDataWrapper.profileList) {
                         if (fragment.activityDataWrapper.profileList.size() == 0) {

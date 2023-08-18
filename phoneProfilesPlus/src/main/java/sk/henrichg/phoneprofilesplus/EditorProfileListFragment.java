@@ -407,7 +407,7 @@ public class EditorProfileListFragment extends Fragment
     private static class LoadProfileListAsyncTask extends AsyncTask<Void, Void, Void> {
 
         final WeakReference<EditorProfileListFragment> fragmentWeakRef;
-        final DataWrapper _dataWrapper;
+        DataWrapper _dataWrapper;
         //final Context _baseContext;
         final int _filterType;
         final boolean _generatePredefinedProfiles;
@@ -498,6 +498,7 @@ public class EditorProfileListFragment extends Fragment
                     fragment.activityDataWrapper.copyProfileList(_dataWrapper);
 
                     _dataWrapper.clearProfileList();
+                    _dataWrapper = null;
 
                     synchronized (fragment.activityDataWrapper.profileList) {
                         if (fragment.activityDataWrapper.profileList.size() == 0)
@@ -1716,6 +1717,7 @@ public class EditorProfileListFragment extends Fragment
                     }
 
                     _dataWrapper.clearProfileList();
+                    _dataWrapper = null;
                 }
             }
 

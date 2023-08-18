@@ -455,7 +455,7 @@ public class EditorEventListFragment extends Fragment
     private static class LoadEventListAsyncTask extends AsyncTask<Void, Void, Void> {
 
         final WeakReference<EditorEventListFragment> fragmentWeakRef;
-        final DataWrapper _dataWrapper;
+        DataWrapper _dataWrapper;
         final int _filterType;
         final int _orderType;
         final boolean _generatePredefinedProfiles;
@@ -572,6 +572,7 @@ public class EditorEventListFragment extends Fragment
                     _dataWrapper.clearProfileList();
                     _dataWrapper.clearEventList();
                     _dataWrapper.clearEventTimelineList();
+                    _dataWrapper = null;
 
                     fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 
