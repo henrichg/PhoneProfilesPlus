@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
@@ -13,44 +12,28 @@ import androidx.preference.DialogPreference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobileCellsPreference extends DialogPreference {
+public class MobileCellNamesPreference extends DialogPreference {
 
-    MobileCellsPreferenceFragment fragment;
+    MobileCellNamesPreferenceFragment fragment;
 
     String value;
-    //private String defaultValue;
-    String cellFilter;
-    int sortCellsBy = 0;
-    //private boolean savedInstanceState;
+    private String defaultValue;
+    private boolean savedInstanceState;
 
-    //List<MobileCellsData> cellsList;
-    List<MobileCellsData> filteredCellsList;
+    private final Context prefContext;
 
-    MobileCellsData registeredCellDataSIM1;
-    boolean registeredCellInTableSIM1;
-    boolean registeredCellInValueSIM1;
-    MobileCellsData registeredCellDataSIM2;
-    boolean registeredCellInTableSIM2;
-    boolean registeredCellInValueSIM2;
-    MobileCellsData registeredCellDataDefault;
-    boolean registeredCellInTableDefault;
-    boolean registeredCellInValueDefault;
-
-    //private final Context prefContext;
+    List<String> cellNamesList;
 
     //private PersistValueAsyncTask persistValueAsyncTask = null;
 
-    static final String ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView";
+    //static final String ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView";
 
-    public MobileCellsPreference(Context prefContext, AttributeSet attrs) {
+    public MobileCellNamesPreference(Context prefContext, AttributeSet attrs) {
         super(prefContext, attrs);
         
-        //this.prefContext = prefContext;
-        
-        //cellsList = new ArrayList<>();
-        filteredCellsList = new ArrayList<>();
+        this.prefContext = prefContext;
 
-        setNegativeButtonText(null);
+        cellNamesList = new ArrayList<>();
     }
 
     @Override
@@ -62,14 +45,12 @@ public class MobileCellsPreference extends DialogPreference {
 
     @Override
     protected void onSetInitialValue(Object defaultValue) {
-        //value = getPersistedString((String)defaultValue);
-        //this.defaultValue = (String)defaultValue;
+        value = getPersistedString((String)defaultValue);
+        this.defaultValue = (String)defaultValue;
 
-        value = "";
-        //setSummary();
+        setSummary();
     }
 
-    /*
     private void setSummary() {
         if (value.isEmpty())
             setSummary(R.string.applications_multiselect_summary_text_not_selected);
@@ -80,15 +61,13 @@ public class MobileCellsPreference extends DialogPreference {
             setSummary(selectedCells);
         }
     }
-    */
 
-    void addCellId(int cellId) {
+    void addCellName(String cellName) {
         String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-        String sCellId = Integer.toString(cellId);
         boolean found = false;
         for (String cell : splits) {
             if (!cell.isEmpty()) {
-                if (cell.equals(sCellId)) {
+                if (cell.equals(cellName)) {
                     found = true;
                     break;
                 }
@@ -97,18 +76,17 @@ public class MobileCellsPreference extends DialogPreference {
         if (!found) {
             if (!value.isEmpty())
                 value = value + "|";
-            value = value + sCellId;
+            value = value + cellName;
         }
     }
 
-    void removeCellId(int cellId) {
+    void removeCellName(String cellName) {
         String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-        String sCellId = Integer.toString(cellId);
         value = "";
         StringBuilder _value = new StringBuilder();
         for (String cell : splits) {
             if (!cell.isEmpty()) {
-                if (!cell.equals(sCellId)) {
+                if (!cell.equals(cellName)) {
                     //if (!value.isEmpty())
                     //    value = value + "|";
                     //value = value + cell;
@@ -121,11 +99,10 @@ public class MobileCellsPreference extends DialogPreference {
         value = _value.toString();
     }
 
-    boolean isCellSelected(int cellId) {
+    boolean isCellSelected(String cellName) {
         String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-        String sCellId = Integer.toString(cellId);
         for (String cell : splits) {
-            if (cell.equals(sCellId))
+            if (cell.equals(cellName))
                 return true;
         }
         return false;
@@ -136,25 +113,17 @@ public class MobileCellsPreference extends DialogPreference {
             fragment.setLocationEnableStatus();
     }
 
-    void refreshListView(final boolean forRescan,
-                         @SuppressWarnings("SameParameterValue") final int renameCellId)
+    void refreshListView(/*final boolean forRescan*/)
     {
         if (fragment != null)
-            fragment.refreshListView(forRescan, renameCellId);
+            fragment.refreshListView(/*forRescan*/);
     }
 
-    void showEditMenu(View view)
-    {
-        if (fragment != null)
-            fragment.showEditMenu(view);
-    }
-
-    /*
     void persistValue() {
         if (shouldPersist()) {
             if (callChangeListener(value)) {
-                persistValueAsyncTask = new PersistValueAsyncTask(this, prefContext);
-                persistValueAsyncTask.execute();
+                persistString(value);
+                setSummary();
             }
         }
     }
@@ -166,8 +135,8 @@ public class MobileCellsPreference extends DialogPreference {
         }
         savedInstanceState = false;
     }
-    */
 
+    /*
     void setCellNameText(String text) {
         if (fragment != null)
             fragment.setCellNameText(text);
@@ -179,29 +148,21 @@ public class MobileCellsPreference extends DialogPreference {
         else
             return null;
     }
-
-    void setCellFilterText(String text) {
-        cellFilter = text;
-        if (fragment != null)
-            fragment.setCellFilterText(text);
-    }
-
+    */
 
     @Override
     protected Parcelable onSaveInstanceState()
     {
-        //savedInstanceState = true;
+        savedInstanceState = true;
 
         final Parcelable superState = super.onSaveInstanceState();
         /*if (isPersistent()) {
             return superState;
         }*/
 
-        final MobileCellsPreference.SavedState myState = new MobileCellsPreference.SavedState(superState);
+        final MobileCellNamesPreference.SavedState myState = new MobileCellNamesPreference.SavedState(superState);
         myState.value = value;
-        //myState.defaultValue = defaultValue;
-        myState.cellFilter = cellFilter;
-        myState.sortCellsBy = sortCellsBy;
+        myState.defaultValue = defaultValue;
 
         return myState;
     }
@@ -212,21 +173,19 @@ public class MobileCellsPreference extends DialogPreference {
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 
-        if ((state == null) || (!state.getClass().equals(MobileCellsPreference.SavedState.class))) {
+        if ((state == null) || (!state.getClass().equals(MobileCellNamesPreference.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             return;
         }
 
         // restore instance state
-        MobileCellsPreference.SavedState myState = (MobileCellsPreference.SavedState)state;
+        MobileCellNamesPreference.SavedState myState = (MobileCellNamesPreference.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
-        //defaultValue = myState.defaultValue;
-        cellFilter = myState.cellFilter;
-        sortCellsBy = myState.sortCellsBy;
+        defaultValue = myState.defaultValue;
 
-        //setSummary();
+        setSummary();
 
         //notifyChanged();
     }
@@ -235,18 +194,14 @@ public class MobileCellsPreference extends DialogPreference {
     private static class SavedState extends BaseSavedState
     {
         String value;
-        //String defaultValue;
-        String cellFilter;
-        int sortCellsBy;
+        String defaultValue;
 
         SavedState(Parcel source)
         {
             super(source);
 
             value = source.readString();
-            //defaultValue = source.readString();
-            cellFilter = source.readString();
-            sortCellsBy = source.readInt();
+            defaultValue = source.readString();
         }
 
         @Override
@@ -255,9 +210,7 @@ public class MobileCellsPreference extends DialogPreference {
             super.writeToParcel(dest, flags);
 
             dest.writeString(value);
-            //dest.writeString(defaultValue);
-            dest.writeString(cellFilter);
-            dest.writeInt(sortCellsBy);
+            dest.writeString(defaultValue);
         }
 
         SavedState(Parcelable superState)
@@ -265,15 +218,15 @@ public class MobileCellsPreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<MobileCellsPreference.SavedState> CREATOR =
-                new Creator<MobileCellsPreference.SavedState>() {
-                    public MobileCellsPreference.SavedState createFromParcel(Parcel in)
+        public static final Creator<MobileCellNamesPreference.SavedState> CREATOR =
+                new Creator<MobileCellNamesPreference.SavedState>() {
+                    public MobileCellNamesPreference.SavedState createFromParcel(Parcel in)
                     {
-                        return new MobileCellsPreference.SavedState(in);
+                        return new MobileCellNamesPreference.SavedState(in);
                     }
-                    public MobileCellsPreference.SavedState[] newArray(int size)
+                    public MobileCellNamesPreference.SavedState[] newArray(int size)
                     {
-                        return new MobileCellsPreference.SavedState[size];
+                        return new MobileCellNamesPreference.SavedState[size];
                     }
 
                 };

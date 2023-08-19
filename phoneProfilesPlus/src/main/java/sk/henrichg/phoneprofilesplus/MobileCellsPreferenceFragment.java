@@ -1100,7 +1100,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
 
-                preference.cellsList = new ArrayList<>(_cellsList);
+                //preference.cellsList = new ArrayList<>(_cellsList);
                 preference.filteredCellsList = new ArrayList<>(_filteredCellsList);
                 fragment.listAdapter.notifyDataSetChanged();
 
@@ -1253,10 +1253,12 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
             deletedCellIds = _deletedCellIds;
         }
 
+        /*
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
+        */
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -1328,10 +1330,12 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
             newCellName = _newCellName;
         }
 
+        /*
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
+        */
 
         @Override
         protected Void doInBackground(Void... voids) {

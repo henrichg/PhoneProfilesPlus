@@ -1204,6 +1204,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerEvents.addMobileCellsToList(this, cellsList, onlyCellId, false);
     }
 
+    /** @noinspection SameParameterValue*/
     void saveMobileCellsList(List<MobileCellsData> cellsList, boolean _new, boolean renameExistingCell) {
         DatabaseHandlerEvents.saveMobileCellsList(this, cellsList, _new, renameExistingCell);
     }

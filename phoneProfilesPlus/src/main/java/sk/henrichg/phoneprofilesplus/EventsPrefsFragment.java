@@ -311,6 +311,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
+        if (preference instanceof MobileCellNamesPreference)
+        {
+            ((MobileCellNamesPreference)preference).fragment = new MobileCellNamesPreferenceFragment();
+            dialogFragment = ((MobileCellNamesPreference)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null) {
             if ((getActivity() != null) && (!getActivity().isFinishing())) {
@@ -1353,6 +1362,17 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event._eventPreferencesLocation.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (4)", "call of updateGUI");
+            PPApplication.updateGUI(true, false, context);
+        }
+        if (requestCode == RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS) {
+            MobileCellNamesPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELL_NAMES);
+            if (preference != null) {
+                preference.setLocationEnableStatus();
+            }
+
+            event._eventPreferencesMobileCells.checkPreferences(prefMng, !nestedFragment, context);
+            setRedTextToPreferences();
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (2)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_TIME_LOCATION_SYSTEM_SETTINGS) {

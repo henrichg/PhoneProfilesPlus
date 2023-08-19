@@ -815,9 +815,7 @@ HOTOVO
 
 In sensor preference:
 - V senzore bude v Cells len zoznam cell names s checkboxami. A toto sa zapise do senzora.
-- "Configure cells" (ten presunuty zo senzora) v PPP Settings uklada connected cell. Nechaj to tak.
-  Nech to robí aj ten nový Cells dialóg so zoznamom cell names. Ten nech aj zobrazuje connected cell.
-  Id, nazov, connection time.
+HOTOVO
 
 In scanning preference:
 - adding new preference with dialog for editing cell names. "Configure cells"
@@ -833,3 +831,6 @@ In scanner:
 - from cell names in sensor get cell ids and check it with detected connected cell id.
 HOTOVO
 
+Cell registration: do summary pise ze:
+- Stopperd; New cells count: 2
+Odkial ma tych pocet novych?
