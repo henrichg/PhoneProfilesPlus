@@ -277,14 +277,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             dialogFragment.setArguments(bundle);
         }
         else
-        if (preference instanceof MobileCellsPreference) {
-            ((MobileCellsPreference) preference).fragment = new MobileCellsPreferenceFragment();
-            dialogFragment = ((MobileCellsPreference) preference).fragment;
-            Bundle bundle = new Bundle(1);
-            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
-            dialogFragment.setArguments(bundle);
-        }
-        else
         if (preference instanceof NFCTagPreference) {
             ((NFCTagPreference) preference).fragment = new NFCTagPreferenceFragment();
             dialogFragment = ((NFCTagPreference) preference).fragment;
@@ -1363,17 +1355,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (4)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
-        if (requestCode == RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS) {
-            MobileCellsPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
-            if (preference != null) {
-                preference.setLocationEnableStatus();
-            }
-
-            event._eventPreferencesMobileCells.checkPreferences(prefMng, !nestedFragment, context);
-            setRedTextToPreferences();
-//            PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (5)", "call of updateGUI");
-            PPApplication.updateGUI(true, false, context);
-        }
         if (requestCode == RESULT_TIME_LOCATION_SYSTEM_SETTINGS) {
             PPApplicationStatic.restartTwilightScanner(context);
 
@@ -1402,11 +1383,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             BluetoothNamePreference bluetoothPreference = prefMng.findPreference(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
             if (bluetoothPreference != null)
                 bluetoothPreference.refreshListView(true, "");
-        }
-        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG)) {
-            MobileCellsPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
-            if (preference != null)
-                preference.refreshListView(true, Integer.MAX_VALUE);
         }
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG)) {
             MobileCellsRegistrationDialogPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
@@ -1760,7 +1736,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     void doMobileCellsRegistrationStoppedBroadcastReceiver() {
-        MobileCellsPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
+        MobileCellsPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELL_NAMES);
         if (preference != null)
             preference.refreshListView(true, Integer.MAX_VALUE);
     }

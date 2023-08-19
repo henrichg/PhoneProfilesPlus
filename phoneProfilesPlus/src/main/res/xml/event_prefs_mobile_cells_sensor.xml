@@ -39,12 +39,14 @@
         app:dMax="86400"
         app:dependency="eventMobileCellsEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MobileCellsPreference
-        app:defaultValue="0"
-        app:key="eventMobileCellsCells"
-        app:title="@string/event_preferences_mobile_cells_cells"
+
+    <Preference
+        app:defaultValue=""
+        app:key="eventMobileCellsCellNames"
+        app:title="@string/event_preferences_mobile_cells_cellNames"
         app:dependency="eventMobileCellsEnabled"
         app:layout="@layout/mp_preference_material_widget" />
+
     <SwitchPreferenceCompat
         app:key="eventMobileCellsStartWhenOutside"
         app:title="@string/event_preferences_mobile_cells_when_outside_pref_name"

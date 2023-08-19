@@ -387,11 +387,11 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
-        if (positiveResult) {
+        /*if (positiveResult) {
             preference.persistValue();
         } else {
             preference.resetSummary();
-        }
+        }*/
 
         if ((mRenameDialog != null) && mRenameDialog.mDialog.isShowing())
             mRenameDialog.mDialog.dismiss();
@@ -436,7 +436,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 //noinspection deprecation
-                                getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
+                                getActivity().startActivityForResult(intent, PhoneProfilesPrefsFragment.RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
                                 PPApplicationStatic.recordException(e);

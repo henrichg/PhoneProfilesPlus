@@ -549,6 +549,7 @@ class MobileCellsListener extends PhoneStateListener {
             }
 
             if (PPApplication.mobileCellsScannerEnabledAutoRegistration) {
+                //Log.e("MobileCellsListener.doAutoRegistration", "mobileCellsScannerEnabledAutoRegistration");
 
                 if (MobileCellsScanner.isValidCellId(_registeredCell)) {
 
@@ -591,6 +592,8 @@ class MobileCellsListener extends PhoneStateListener {
                 }
             } else if (notUsedMobileCellsNotificationEnabled) {
 
+                //Log.e("MobileCellsListener.doAutoRegistration", "NOT mobileCellsScannerEnabledAutoRegistration");
+
                 //boolean showRunningNotification = false;
                 //boolean showPausedNotification = false;
                 boolean showNotification = false;
@@ -599,14 +602,20 @@ class MobileCellsListener extends PhoneStateListener {
                         (!PPApplication.mobileCellsScannerLastPausedEvents.isEmpty())) {
                     // some event has configured moble cells sensor with configured cells
 
+                    //Log.e("MobileCellsListener.doAutoRegistration", "_registeredCell="+_registeredCell);
+
                     if (MobileCellsScanner.isValidCellId(_registeredCell)) {
 
+                        // _registeredCell is added to database only in Cells preference dialog in
+                        // RefreshListViewAsyncTask or by autoregistration
                         if (!db.isMobileCellSaved(_registeredCell)) {
+                            //Log.e("MobileCellsListener.doAutoRegistration", "_registeredCell not saved");
 
                             showNotification = true;
                         }
 
                         if (!showNotification) {
+                            //Log.e("MobileCellsListener.doAutoRegistration", "_registeredCell saved");
 
                             // it is not new cell
                             // test if registered cell is configured in events
@@ -642,7 +651,7 @@ class MobileCellsListener extends PhoneStateListener {
                                             break;
                                         }
                                     } else
-                                        found = true;
+                                        found = true; // ??? not any cell is configured in event
                                 }
                                 // found == false = cell is not in events
                                 showNotification = !found;

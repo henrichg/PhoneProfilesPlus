@@ -3390,6 +3390,67 @@ class DatabaseHandlerCreateUpdateDB {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_TO + "='0|0|0'");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_TO + "='0|0|0'");
         }
+
+        if (oldVersion < 2506) {
+            try {
+                final String selectQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," +
+                        DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS +
+                        " FROM " + DatabaseHandler.TABLE_EVENTS;
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                if (cursor.moveToFirst()) {
+                    do {
+                        String cellNames = "";
+
+                        String cellsInDB = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS));
+                        String[] splits = cellsInDB.split(StringConstants.STR_SPLIT_REGEX);
+                        for (String cell : splits) {
+                            final String selectQuery2 = "SELECT " + DatabaseHandler.KEY_MC_NAME +
+                                    " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
+                                    " WHERE " + DatabaseHandler.KEY_MC_CELL_ID + "=" + cell;
+
+                            Cursor cursor2 = db.rawQuery(selectQuery2, null);
+
+                            if (cursor2.moveToFirst()) {
+                                do {
+                                    String cellName = cursor2.getString(cursor2.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
+                                    if ((cellName != null) && (!cellName.isEmpty())) {
+                                        boolean found = false;
+                                        if (cellNames.startsWith(cellName+StringConstants.STR_SPLIT_REGEX))
+                                            found = true;
+                                        else if (cellNames.endsWith(StringConstants.STR_SPLIT_REGEX+cellName))
+                                            found = true;
+                                        else if (cellNames.contains(StringConstants.STR_SPLIT_REGEX+cellName+StringConstants.STR_SPLIT_REGEX))
+                                            found = true;
+                                        else if (cellNames.equals(cellName))
+                                            found = true;
+
+                                        if (!found) {
+                                            if (!cellNames.isEmpty())
+                                                //noinspection StringConcatenationInLoop
+                                                cellNames = cellNames + StringConstants.STR_SPLIT_REGEX;
+                                            //noinspection StringConcatenationInLoop
+                                            cellNames = cellNames + cellName;
+                                        }
+                                    }
+                                } while (cursor2.moveToNext());
+                            }
+
+                            cursor2.close();
+                        }
+
+                        ContentValues values = new ContentValues();
+
+                        values.put(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS, cellNames);
+                        db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID))});
+
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+            } catch (Exception ignored) {}
+        }
     }
 
 }

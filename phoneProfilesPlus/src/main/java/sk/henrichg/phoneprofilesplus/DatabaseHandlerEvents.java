@@ -1111,7 +1111,7 @@ class DatabaseHandlerEvents {
                 EventPreferencesMobileCells eventPreferences = event._eventPreferencesMobileCells;
 
                 eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_ENABLED)) == 1);
-                eventPreferences._cells = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS));
+                eventPreferences._cellsNames = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS));
                 eventPreferences._whenOutside = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_WHEN_OUTSIDE)) == 1;
                 eventPreferences._forSIMCard = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_FOR_SIM_CARD));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_SENSOR_PASSED)));
@@ -1757,7 +1757,7 @@ class DatabaseHandlerEvents {
         EventPreferencesMobileCells eventPreferences = event._eventPreferencesMobileCells;
 
         values.put(DatabaseHandler.KEY_E_MOBILE_CELLS_ENABLED, (eventPreferences._enabled) ? 1 : 0);
-        values.put(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS, eventPreferences._cells);
+        values.put(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS, eventPreferences._cellsNames);
         values.put(DatabaseHandler.KEY_E_MOBILE_CELLS_WHEN_OUTSIDE, (eventPreferences._whenOutside) ? 1 : 0);
         values.put(DatabaseHandler.KEY_E_MOBILE_CELLS_SENSOR_PASSED, eventPreferences.getSensorPassed());
         values.put(DatabaseHandler.KEY_E_MOBILE_CELLS_FOR_SIM_CARD, eventPreferences._forSIMCard);
@@ -5207,22 +5207,22 @@ class DatabaseHandlerEvents {
                     for (Event event : eventList) {
                         if (event._eventPreferencesMobileCells != null) {
                             if ((event._eventPreferencesMobileCells._enabled)) {
-                                if (event._eventPreferencesMobileCells._cells.contains("|" + cell.cellId + "|")) {
+                                if (event._eventPreferencesMobileCells._cellsNames.contains("|" + cell.cellId + "|")) {
                                     // cell is between others
                                     found = true;
                                     break;
                                 }
-                                if (event._eventPreferencesMobileCells._cells.startsWith(cell.cellId + "|")) {
+                                if (event._eventPreferencesMobileCells._cellsNames.startsWith(cell.cellId + "|")) {
                                     // cell is at start of others
                                     found = true;
                                     break;
                                 }
-                                if (event._eventPreferencesMobileCells._cells.endsWith("|" + cell.cellId)) {
+                                if (event._eventPreferencesMobileCells._cellsNames.endsWith("|" + cell.cellId)) {
                                     // cell is at end of others
                                     found = true;
                                     break;
                                 }
-                                if (event._eventPreferencesMobileCells._cells.equals(String.valueOf(cell.cellId))) {
+                                if (event._eventPreferencesMobileCells._cellsNames.equals(String.valueOf(cell.cellId))) {
                                     // only this cell is configured
                                     found = true;
                                     break;

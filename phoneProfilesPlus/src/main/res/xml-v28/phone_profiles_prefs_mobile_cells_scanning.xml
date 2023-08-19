@@ -21,6 +21,14 @@
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.MobileCellsPreference
+        app:defaultValue=""
+        app:key="applicationEventMobileCellsConfigureCells"
+        app:title="@string/phone_profiles_pref_applicationEventMobileCellConfigureCells"
+        app:dependency="applicationEventMobileCellEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <SwitchPreferenceCompat
         app:key="applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled"

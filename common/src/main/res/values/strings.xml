@@ -2143,6 +2143,9 @@
     <string name="brightness_pref_dialog_actual_level">Current brightness</string>
     <string name="volume_pref_dialog_actual_volume">Current volume</string>
 
+    <string name="event_preferences_mobile_cells_cellNames">Cell names</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellConfigureCells">Configure cells</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

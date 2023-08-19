@@ -73,7 +73,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_WIFI_LOCATION_SYSTEM_SETTINGS = "applicationEventWiFiLocationSystemSettings";
     private static final String PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = "applicationEventBluetoothLocationSystemSettings";
     private static final String PREF_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS = "applicationEventMobileCellsLocationSystemSettings";
-    private static final int RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS = 1992;
+    static final int RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS = 1992;
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
     private static final String PREF_LOCATION_SYSTEM_SETTINGS = "applicationEventLocationSystemSettings";
     private static final int RESULT_LOCATION_SYSTEM_SETTINGS = 1994;
@@ -164,6 +164,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_WIDGET_ONE_ROW_CATEGORY = "categoryWidgetOneRow";
     static final String PREF_WIDGET_LISY_CATEGORY = "categoryWidgetList";
     static final String PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY = "categoryWidgetOneRowProfileList";
+
+    static final String PREF_APPLICATION_EVENT_MOBILE_CELL_CONFIGURE_CELLS = "applicationEventMobileCellsConfigureCells";
 
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
 
@@ -328,6 +330,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         {
             ((RestartEventsIconColorChooserPreference)preference).fragment = new RestartEventsIconColorChooserPreferenceFragment();
             dialogFragment = ((RestartEventsIconColorChooserPreference)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        else
+        if (preference instanceof MobileCellsPreference) {
+            ((MobileCellsPreference) preference).fragment = new MobileCellsPreferenceFragment();
+            dialogFragment = ((MobileCellsPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
@@ -2386,6 +2396,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(PREF_WIFI_LOCATION_SYSTEM_SETTINGS);
             setSummary(PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
             setSummary(PREF_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
+            MobileCellsPreference preference = prefMng.findPreference(PREF_APPLICATION_EVENT_MOBILE_CELL_CONFIGURE_CELLS);
+            if (preference != null) {
+                preference.setLocationEnableStatus();
+            }
         }
         if (requestCode == RESULT_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS) {
             setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING);
@@ -2433,6 +2447,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND);
             if (preference != null)
                 preference.refreshListView();
+        }
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG)) {
+            MobileCellsPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELL_NAMES);
+            if (preference != null)
+                preference.refreshListView(true, Integer.MAX_VALUE);
         }
     }
 
@@ -2646,6 +2665,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS);
         setSummary(PREF_ACTIVATED_PROFILE_NOTIFICATION_SYSTEM_SETTINGS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED);
+        setSummary(PREF_APPLICATION_EVENT_MOBILE_CELL_CONFIGURE_CELLS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON);
