@@ -64,9 +64,11 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
     private AppCompatImageButton locationSystemSettingsButton;
     private Button rescanButton;
 
-    private RefreshListViewAsyncTask rescanAsyncTask;
+    private RefreshListViewAsyncTask rescanAsyncTask = null;
 
-    private RefreshListViewBroadcastReceiver refreshListViewBroadcastReceiver;
+    private RefreshListViewBroadcastReceiver refreshListViewBroadcastReceiver = null;
+    private DeleteCellNamesFromEventsAsyncTask deleteCellNamesFromEventsAsyncTask = null;
+    private RenameCellNamesFromEventsAsyncTask renameCellNamesFromEventsAsyncTask = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -170,17 +172,20 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 R.array.mobileCellsRenameArray,
                                 SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
                                 (dialog, which) -> {
+                                    String renamedCells = "";
                                     final DatabaseHandler db = DatabaseHandler.getInstance(prefContext);
                                     switch (which) {
                                         case 0:
                                         case 1:
-                                            db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), which == 0, preference.value);
+                                            renamedCells = db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), which == 0, preference.value);
                                             break;
                                         case 2:
-                                            db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), false, null);
+                                            renamedCells = db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), false, null);
                                             break;
                                     }
                                     refreshListView(false, Integer.MAX_VALUE);
+                                    renameCellNamesFromEventsAsyncTask = new RenameCellNamesFromEventsAsyncTask(renamedCells, cellName.getText().toString(), prefContext);
+                                    renameCellNamesFromEventsAsyncTask.execute();
                                     //dialog.dismiss();
                                 },
                                 null,
@@ -403,6 +408,12 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
         if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             rescanAsyncTask.cancel(true);
         rescanAsyncTask = null;
+        if ((deleteCellNamesFromEventsAsyncTask != null) && deleteCellNamesFromEventsAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            deleteCellNamesFromEventsAsyncTask.cancel(true);
+        deleteCellNamesFromEventsAsyncTask = null;
+        if ((renameCellNamesFromEventsAsyncTask != null) && renameCellNamesFromEventsAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            renameCellNamesFromEventsAsyncTask.cancel(true);
+        renameCellNamesFromEventsAsyncTask = null;
 
         if (refreshListViewBroadcastReceiver != null) {
             LocalBroadcastManager.getInstance(prefContext).unregisterReceiver(refreshListViewBroadcastReceiver);
@@ -587,6 +598,8 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 db.deleteMobileCell(cellId);
                                 preference.removeCellId(cellId);
                                 refreshListView(false, Integer.MAX_VALUE);
+                                deleteCellNamesFromEventsAsyncTask = new DeleteCellNamesFromEventsAsyncTask(String.valueOf(cellId), prefContext);
+                                deleteCellNamesFromEventsAsyncTask.execute();
                             },
                             null,
                             null,
@@ -616,16 +629,22 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                             null, null,
                             (dialog1, which) -> {
                                 String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
+                                StringBuilder deletedCellIds = new StringBuilder();
                                 DatabaseHandler db = DatabaseHandler.getInstance(_context);
                                 for (MobileCellsData cell : preference.filteredCellsList) {
                                     for (String valueCell : splits) {
                                         if (valueCell.equals(Integer.toString(cell.cellId))) {
                                             db.deleteMobileCell(cell.cellId);
                                             preference.removeCellId(cell.cellId);
+                                            if (deletedCellIds.length() > 0)
+                                                deletedCellIds.append(StringConstants.STR_SPLIT_REGEX);
+                                            deletedCellIds.append(cell.cellId);
                                         }
                                     }
                                 }
                                 refreshListView(false, Integer.MAX_VALUE);
+                                deleteCellNamesFromEventsAsyncTask = new DeleteCellNamesFromEventsAsyncTask(deletedCellIds.toString(), prefContext);
+                                deleteCellNamesFromEventsAsyncTask.execute();
                             },
                             null,
                             null,
@@ -653,6 +672,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                             null, null,
                             (dialog1, which) -> {
                                 String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
+                                StringBuilder deletedCellIds = new StringBuilder();
                                 DatabaseHandler db = DatabaseHandler.getInstance(_context);
                                 for (MobileCellsData cell : preference.filteredCellsList) {
                                     boolean isSelected = false;
@@ -665,9 +685,14 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                     if (!isSelected) {
                                         db.deleteMobileCell(cell.cellId);
                                         preference.removeCellId(cell.cellId);
+                                        if (deletedCellIds.length() > 0)
+                                            deletedCellIds.append(StringConstants.STR_SPLIT_REGEX);
+                                        deletedCellIds.append(cell.cellId);
                                     }
                                 }
                                 refreshListView(false, Integer.MAX_VALUE);
+                                deleteCellNamesFromEventsAsyncTask = new DeleteCellNamesFromEventsAsyncTask(deletedCellIds.toString(), prefContext);
+                                deleteCellNamesFromEventsAsyncTask.execute();
                             },
                             null,
                             null,
@@ -1214,6 +1239,156 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                             fragment.addCellButtonDefault, prefContext);
                 }
             }
+        }
+
+    }
+
+    private static class DeleteCellNamesFromEventsAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        private final WeakReference<Context> prefContextWeakRef;
+        private final String deletedCellIds;
+
+        public DeleteCellNamesFromEventsAsyncTask(String _deletedCellIds, Context prefContext) {
+            this.prefContextWeakRef = new WeakReference<>(prefContext);
+            deletedCellIds = _deletedCellIds;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Context prefContext = prefContextWeakRef.get();
+            if (prefContext != null) {
+                DatabaseHandler db = DatabaseHandler.getInstance(prefContext.getApplicationContext());
+
+                //get list of events with mobile cells sensor
+                List<MobileCellsSensorEvent> mobileCellsEventList = new ArrayList<>();
+                db.loadMobileCellsSensorEvents(mobileCellsEventList);
+
+                String[] splits = deletedCellIds.split(StringConstants.STR_SPLIT_REGEX);
+                for (String cellid : splits) {
+                    // cellid = deleted cell
+                    // get MobileCellsData from cellid
+                    List<MobileCellsData> _cellsList = new ArrayList<>();
+                    db.addMobileCellsToList(_cellsList, Integer.parseInt(cellid));
+
+
+                    for (MobileCellsSensorEvent sensorEvent : mobileCellsEventList) {
+                        //sensorEvent = event with mobile cells sensor
+
+                        // delete cellid (_cellList.get(0)) by name from sensorEvent.cellNames
+                        String[] splits2 = sensorEvent.cellNames.split(StringConstants.STR_SPLIT_REGEX);
+                        sensorEvent.cellNames = "";
+                        StringBuilder _value = new StringBuilder();
+                        for (String cellName : splits2) {
+                            // cellName sensorEvent.cellNames
+                            if (!cellName.isEmpty()) {
+                                if (!cellName.equals(_cellsList.get(0).name)) {
+                                    // cellName is not deleted cellName (cellid), add it
+                                    if (_value.length() > 0)
+                                        _value.append("|");
+                                    _value.append(cellName);
+                                }
+                            }
+                        }
+                        sensorEvent.cellNames = _value.toString();
+
+                        // update event with new sensorEvent.cellNames
+                        db.updateMobileCellsCells(sensorEvent.eventId, sensorEvent.cellNames);
+                    }
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            // restart mobile cells scanner
+            Context prefContext = prefContextWeakRef.get();
+            if (prefContext != null)
+                PPApplicationStatic.restartMobileCellsScanner(prefContext.getApplicationContext());
+        }
+
+    }
+
+    private static class RenameCellNamesFromEventsAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        private final WeakReference<Context> prefContextWeakRef;
+        private final String renamedCellIds;
+        private final String newCellName;
+
+        public RenameCellNamesFromEventsAsyncTask(String _renamedCellIds, String _newCellName, Context prefContext) {
+            this.prefContextWeakRef = new WeakReference<>(prefContext);
+            renamedCellIds = _renamedCellIds;
+            newCellName = _newCellName;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Context prefContext = prefContextWeakRef.get();
+            if (prefContext != null) {
+                DatabaseHandler db = DatabaseHandler.getInstance(prefContext.getApplicationContext());
+
+                //get list of events with mobile cells sensor
+                List<MobileCellsSensorEvent> mobileCellsEventList = new ArrayList<>();
+                db.loadMobileCellsSensorEvents(mobileCellsEventList);
+
+                String[] splits = renamedCellIds.split(StringConstants.STR_SPLIT_REGEX);
+                for (String cellid : splits) {
+                    // cellid = renamed cell
+                    // get MobileCellsData from cellid
+                    List<MobileCellsData> _cellsList = new ArrayList<>();
+                    db.addMobileCellsToList(_cellsList, Integer.parseInt(cellid));
+
+
+                    for (MobileCellsSensorEvent sensorEvent : mobileCellsEventList) {
+                        //sensorEvent = event with mobile cells sensor
+
+                        // rename cellid (_cellList.get(0)) by name from sensorEvent.cellNames
+                        String[] splits2 = sensorEvent.cellNames.split(StringConstants.STR_SPLIT_REGEX);
+                        sensorEvent.cellNames = "";
+                        StringBuilder _value = new StringBuilder();
+                        for (String cellName : splits2) {
+                            // cellName sensorEvent.cellNames
+                            if (!cellName.isEmpty()) {
+                                if (_value.length() > 0)
+                                    _value.append("|");
+
+                                if (cellName.equals(_cellsList.get(0).name))
+                                    // renamed cellName is in sensor
+                                    _value.append(newCellName);
+                                else
+                                    _value.append(cellName);
+                            }
+                        }
+                        sensorEvent.cellNames = _value.toString();
+
+                        // update event with new sensorEvent.cellNames
+                        db.updateMobileCellsCells(sensorEvent.eventId, sensorEvent.cellNames);
+                    }
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            // restart mobile cells scanner
+            Context prefContext = prefContextWeakRef.get();
+            if (prefContext != null)
+                PPApplicationStatic.restartMobileCellsScanner(prefContext.getApplicationContext());
         }
 
     }

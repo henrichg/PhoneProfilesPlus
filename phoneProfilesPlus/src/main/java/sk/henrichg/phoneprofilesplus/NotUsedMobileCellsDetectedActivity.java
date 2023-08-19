@@ -28,22 +28,22 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
     private TextView cellIdTextView;
     private TextView lastConnectTimeTextView;
     TextView cellNameTextView;
-    private ListView lastRunningEventsListView;
+    //private ListView lastRunningEventsListView;
     private MobileCellNamesDialog mMobileCellNamesDialog;
 
     private int mobileCellId = Integer.MAX_VALUE;
     private long lastConnectedTime = 0;
     //private String lastRunningEvents = "";
-    private String lastPausedEvents = "";
+    //private String lastPausedEvents = "";
 
-    private final List<Event> eventList = new ArrayList<>();
+    //private final List<Event> eventList = new ArrayList<>();
 
     private ShowActivityAsyncTask showActivityAsyncTask = null;
 
     static final String EXTRA_MOBILE_CELL_ID = "mobile_cell_id";
     static final String EXTRA_MOBILE_LAST_CONNECTED_TIME = "last_connected_time";
     //static final String EXTRA_MOBILE_LAST_RUNNING_EVENTS = "last_running_events";
-    static final String EXTRA_MOBILE_LAST_PAUSED_EVENTS = "last_paused_events";
+    //static final String EXTRA_MOBILE_LAST_PAUSED_EVENTS = "last_paused_events";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             mobileCellId = intent.getIntExtra(EXTRA_MOBILE_CELL_ID, 0);
             lastConnectedTime = intent.getLongExtra(EXTRA_MOBILE_LAST_CONNECTED_TIME, 0);
             //lastRunningEvents = intent.getStringExtra(EXTRA_MOBILE_LAST_RUNNING_EVENTS);
-            lastPausedEvents = intent.getStringExtra(EXTRA_MOBILE_LAST_PAUSED_EVENTS);
+            //lastPausedEvents = intent.getStringExtra(EXTRA_MOBILE_LAST_PAUSED_EVENTS);
         }
     }
 
@@ -146,6 +146,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                             }
                         }
                         */
+                        /*
                         // add cell to paused events
                         for (Event event : eventList) {
                             Event eventFromDB = db.getEvent(event._id);
@@ -175,6 +176,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                 }
                             }
                         }
+                        */
 
                         synchronized (PPApplication.mobileCellsScannerMutex) {
                             if ((PhoneProfilesService.getInstance() != null) && (PPApplication.mobileCellsScanner != null)) {
@@ -231,7 +233,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         cellIdTextView = layout.findViewById(R.id.not_used_mobile_cells_dlg_cell_id);
         lastConnectTimeTextView = layout.findViewById(R.id.not_used_mobile_cells_dlg_connection_time);
         cellNameTextView = layout.findViewById(R.id.not_used_mobile_cells_dlg_cells_name);
-        lastRunningEventsListView = layout.findViewById(R.id.not_used_mobile_cells_dlg_last_running_events_listview);
+        //lastRunningEventsListView = layout.findViewById(R.id.not_used_mobile_cells_dlg_last_running_events_listview);
 
         mMobileCellNamesDialog = new MobileCellNamesDialog(this, null, false);
         cellNameTextView.setOnClickListener(view -> {
@@ -253,6 +255,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 String cellName = cellNameTextView.getText().toString();
 
+                /*
                 boolean anyChecked = false;
                 for (Event event : eventList) {
                     if (event.getStatus() == 1) {
@@ -260,10 +263,10 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                         break;
                     }
                 }
-                mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(!cellName.isEmpty() && anyChecked);
+                */
+                mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(!cellName.isEmpty() /*&& anyChecked*/);
             }
         });
-
 
         if (!isFinishing())
             mDialog.show();
@@ -293,7 +296,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         DatabaseHandler db;
         List<MobileCellsData> _cellsList = null;
         String cellName;
-        final List<Event> _eventList = new ArrayList<>();
+        //final List<Event> _eventList = new ArrayList<>();
 
         private final WeakReference<NotUsedMobileCellsDetectedActivity> activityWeakReference;
 
@@ -324,29 +327,27 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
                 //eventList.clear();
 
-                /*
-                String[] eventIds = activity.lastRunningEvents.split("\\|");
-                for (String eventId : eventIds) {
-                    if (!eventId.isEmpty()) {
-                        Event event = db.getEvent(Long.parseLong(eventId));
-                        if (event != null) {
-                            event.setStatus(1); // use status of event for checkbox status
-                            _eventList.add(event);
-                        }
-                    }
-                }
-                */
+                //String[] eventIds = activity.lastRunningEvents.split("\\|");
+                //for (String eventId : eventIds) {
+                //    if (!eventId.isEmpty()) {
+                //        Event event = db.getEvent(Long.parseLong(eventId));
+                //        if (event != null) {
+                //            event.setStatus(1); // use status of event for checkbox status
+                //            _eventList.add(event);
+                //        }
+                //    }
+                //}
 
-                String[] eventIds = activity.lastPausedEvents.split(StringConstants.STR_SPLIT_REGEX);
-                for (String eventId : eventIds) {
-                    if (!eventId.isEmpty()) {
-                        Event event = db.getEvent(Long.parseLong(eventId));
-                        if (event != null) {
-                            event.setStatus(1); // use status of event for checkbox status
-                            _eventList.add(event);
-                        }
-                    }
-                }
+                //String[] eventIds = activity.lastPausedEvents.split(StringConstants.STR_SPLIT_REGEX);
+                //for (String eventId : eventIds) {
+                //    if (!eventId.isEmpty()) {
+                //        Event event = db.getEvent(Long.parseLong(eventId));
+                //        if (event != null) {
+                //            event.setStatus(1); // use status of event for checkbox status
+                //            _eventList.add(event);
+                //        }
+                //    }
+                //}
             }
 
             return null;
@@ -366,22 +367,22 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                 if (!cellName.isEmpty())
                     activity.cellNameTextView.setText(cellName);
 
-                activity.eventList.clear();
-                activity.eventList.addAll(_eventList);
+                //activity.eventList.clear();
+                //activity.eventList.addAll(_eventList);
 
-                NotUsedMobileCellsDetectedAdapter notUsedMobileCellsDetectedAdapter =
-                        new NotUsedMobileCellsDetectedAdapter(activity, activity.eventList);
-                activity.lastRunningEventsListView.setAdapter(notUsedMobileCellsDetectedAdapter);
+                //NotUsedMobileCellsDetectedAdapter notUsedMobileCellsDetectedAdapter =
+                //        new NotUsedMobileCellsDetectedAdapter(activity, activity.eventList);
+                //activity.lastRunningEventsListView.setAdapter(notUsedMobileCellsDetectedAdapter);
 
-                boolean anyChecked = false;
-                for (Event event : activity.eventList) {
-                    if (event.getStatus() == 1) {
-                        anyChecked = true;
-                        break;
-                    }
-                }
+                //boolean anyChecked = false;
+                //for (Event event : activity.eventList) {
+                //    if (event.getStatus() == 1) {
+                //        anyChecked = true;
+                //        break;
+                //    }
+                //}
                 // cellName must be set to enable positive button
-                activity.mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(!cellName.isEmpty() && anyChecked);
+                activity.mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(!cellName.isEmpty() /*&& anyChecked*/);
             }
         }
 

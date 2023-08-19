@@ -51,6 +51,8 @@ public class MobileCellsPreference extends DialogPreference {
         
         cellsList = new ArrayList<>();
         filteredCellsList = new ArrayList<>();
+
+        setNegativeButtonText(null);
     }
 
     @Override
@@ -285,14 +287,13 @@ public class MobileCellsPreference extends DialogPreference {
 
         private final WeakReference<MobileCellsPreference> preferenceWeakRef;
         private final WeakReference<Context> prefContextWeakRef;
+        private List<MobileCellsData> _cellsList;
 
         public PersistValueAsyncTask(MobileCellsPreference preference,
                                      Context prefContext) {
             this.preferenceWeakRef = new WeakReference<>(preference);
             this.prefContextWeakRef = new WeakReference<>(prefContext);
         }
-
-        List<MobileCellsData> _cellsList;
 
         @Override
         protected void onPreExecute() {

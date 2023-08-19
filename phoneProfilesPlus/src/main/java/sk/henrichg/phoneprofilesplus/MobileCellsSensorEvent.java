@@ -1,7 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
-public class NotUsedMobileCells {
+public class MobileCellsSensorEvent {
     long eventId;
-    String cells;
+    String cellNames;
     //boolean whenOutside;
 }

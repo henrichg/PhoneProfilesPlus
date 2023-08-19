@@ -813,26 +813,23 @@ TABLE_EVENTS.KEY_E_MOBILE_CELLS_CELLS. Mas tam cell idcka. Tak splitom ich povyb
 Nakoniec ten string zapis do TABLE_EVENTS.KEY_E_MOBILE_CELLS_CELLS.
 HOTOVO
 
-In sensor:
-- only list of cell names and user select cell names for sensor.
-HOTOVO
-- "Cell registration" adds cells without names. Removed will be cell name from dialog.
+In sensor preference:
+- V senzore bude v Cells len zoznam cell names s checkboxami. A toto sa zapise do senzora.
+- "Configure cells" (ten presunuty zo senzora) v PPP Settings uklada connected cell. Nechaj to tak.
+  Nech to robí aj ten nový Cells dialóg so zoznamom cell names. Ten nech aj zobrazuje connected cell.
+  Id, nazov, connection time.
 
 In scanning preference:
-- adding new preference with dialog for editing cell names.
-- "Show notification for detection of not used mobile cells". Uprav, aby dalog nepinukal zoznam udalosti.
-  Uzivatel bud mat moznost len ulozit bunku s nazvom.
+- adding new preference with dialog for editing cell names. "Configure cells"
+HOTOVO
+- Musim riesit, ked cell name zmazem alebo premenujem a mam ho nakonfigurovane v
+  senzore (treba pozerat vsetky udalosti s tymto senzorom). Toto bude problem kua. Hm, hm.
+HOTOVO
+- "Show notification for detection of not used mobile cells". Uprav, aby dalog neponukal zoznam udalosti.
+  Uzivatel bude mat moznost len ulozit bunku s nazvom.
+HOTOVO
 
 In scanner:
 - from cell names in sensor get cell ids and check it with detected connected cell id.
 HOTOVO
 
-Co je teraz Cells preferences to presuniem do Mobile cells scanning.
-Ten presunuty dialog bude len updatovat tabulku buniek. Pozri sa, tusim uz mas take preference, kde sa nic nezapisuje, len sa meni obsah databazy,
-Musim riesit, ked cell name zmazem alebo premenujem a mam ho nakonfigurovane v  senzore (treba pozerat vsetky udalosti s tymto senzorom). Toto bude problem kua. Hm, hm.
-
-V senzore bude v Cells len zoznam cell names s checkboxami. A toto sa zapise do senzora.
-
-"Configure cells" (ten presunuty zo senzora) v PPP Settings uklada connected cell. Nechaj to tak.
-Nech to robí aj ten nový Cells dialóg so zoznamom cell names. Ten nech aj zobrazuje connected cell.
-Id, nazov, connection time.

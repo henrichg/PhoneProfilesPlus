@@ -58,6 +58,7 @@
             android:background="@drawable/pp_button_background_selector"
             android:textSize="16sp" />
 
+<!--
         <TextView
             android:id="@+id/not_used_mobile_cells_dlg_last_running_events_label"
             android:layout_width="match_parent"
@@ -74,6 +75,6 @@
             android:fadeScrollbars="false"
             android:divider="@android:color/transparent"
             android:listSelector="?attr/listViewItemBackground" />
-
+-->
     </LinearLayout>
 </LinearLayout>

@@ -1005,7 +1005,7 @@ public class PPApplication extends Application
     static volatile boolean locationScannerUpdatesStarted = false;
     static volatile boolean locationScannerTransitionsUpdated = false;
 
-    static volatile String mobileCellsScannerLastPausedEvents = "";
+    //static volatile String mobileCellsScannerLastPausedEvents = "";
     static volatile boolean mobileCellsScannerEnabledAutoRegistration = false;
     static volatile int mobileCellsScannerDurationForAutoRegistration = 0;
     static volatile String mobileCellsScannerCellsNameForAutoRegistration = "";

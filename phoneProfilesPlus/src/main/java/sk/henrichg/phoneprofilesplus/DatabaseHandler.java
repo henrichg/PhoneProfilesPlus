@@ -1208,8 +1208,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerEvents.saveMobileCellsList(this, cellsList, _new, renameExistingCell);
     }
 
-    void renameMobileCellsList(List<MobileCellsData> cellsList, String name, boolean _new, String value) {
-        DatabaseHandlerEvents.renameMobileCellsList(this, cellsList, name, _new, value);
+    String renameMobileCellsList(List<MobileCellsData> cellsList, String name, boolean _new, String value) {
+        return DatabaseHandlerEvents.renameMobileCellsList(this, cellsList, name, _new, value);
     }
 
     void deleteMobileCell(int mobileCell) {
@@ -1238,8 +1238,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return DatabaseHandlerEvents.isMobileCellSaved(this, mobileCell);
     }
 
-    void loadMobileCellsSensorPausedEvents(List<NotUsedMobileCells> eventList/*, boolean outsideParameter*/) {
-        DatabaseHandlerEvents.loadMobileCellsSensorPausedEvents(this, eventList);
+    void loadMobileCellsSensorEvents(List<MobileCellsSensorEvent> eventList/*, boolean outsideParameter*/) {
+        DatabaseHandlerEvents.loadMobileCellsSensorEvents(this, eventList);
     }
 
     String getEventMobileCellsCells(long eventId) {

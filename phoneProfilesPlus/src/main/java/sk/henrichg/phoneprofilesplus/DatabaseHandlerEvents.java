@@ -4796,7 +4796,7 @@ class DatabaseHandlerEvents {
         }
     }
 
-    static void renameMobileCellsList(DatabaseHandler instance, List<MobileCellsData> cellsList, String name, boolean _new, String value) {
+    static String renameMobileCellsList(DatabaseHandler instance, List<MobileCellsData> cellsList, String name, boolean _new, String value) {
         instance.importExportLock.lock();
         try {
             try {
@@ -4811,6 +4811,8 @@ class DatabaseHandlerEvents {
                 SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
+
+                StringBuilder renamedCells = new StringBuilder();
 
                 for (MobileCellsData cell : cellsList) {
                     boolean found = false;
@@ -4840,6 +4842,9 @@ class DatabaseHandlerEvents {
                                 //mobileCell._lastPausedEvents = cell.lastPausedEvents;
                                 //mobileCell._doNotDetect = cell.doNotDetect;
                                 updateMobileCell(instance, mobileCell);
+                                if (renamedCells.length() > 0)
+                                    renamedCells.append(StringConstants.STR_SPLIT_REGEX);
+                                renamedCells.append(mobileCell._cellId);
                             }
                         } else {
                             if (value != null) {
@@ -4858,6 +4863,9 @@ class DatabaseHandlerEvents {
                                         //mobileCell._lastPausedEvents = cell.lastPausedEvents;
                                         //mobileCell._doNotDetect = cell.doNotDetect;
                                         updateMobileCell(instance, mobileCell);
+                                        if (renamedCells.length() > 0)
+                                            renamedCells.append(StringConstants.STR_SPLIT_REGEX);
+                                        renamedCells.append(mobileCell._cellId);
                                     }
                                 }
                             }
@@ -4874,6 +4882,9 @@ class DatabaseHandlerEvents {
                                 //mobileCell._lastPausedEvents = cell.lastPausedEvents;
                                 //mobileCell._doNotDetect = cell.doNotDetect;
                                 updateMobileCell(instance, mobileCell);
+                                if (renamedCells.length() > 0)
+                                    renamedCells.append(StringConstants.STR_SPLIT_REGEX);
+                                renamedCells.append(mobileCell._cellId);
                             }
                         }
                     }
@@ -4881,12 +4892,16 @@ class DatabaseHandlerEvents {
 
                 cursor.close();
                 //db.close();
+
+                return renamedCells.toString();
+
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
         }
+        return "";
     }
 
     static void deleteMobileCell(DatabaseHandler inctance, int mobileCell, boolean calledFromImportDB) {
@@ -5109,7 +5124,8 @@ class DatabaseHandlerEvents {
         }
     }
 
-    static void loadMobileCellsSensorPausedEvents(DatabaseHandler instance, List<NotUsedMobileCells> eventList/*, boolean outsideParameter*/) {
+    static void loadMobileCellsSensorEvents(DatabaseHandler instance,
+                                                  List<MobileCellsSensorEvent> eventList) {
         instance.importExportLock.lock();
         try {
             try {
@@ -5119,13 +5135,13 @@ class DatabaseHandlerEvents {
 
                 final String countQuery;
                 String eventTypeChecked;
-                eventTypeChecked = DatabaseHandler.KEY_E_STATUS + "=" + Event.ESTATUS_PAUSE + " AND ";  //  only paused events
-                eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_MOBILE_CELLS_ENABLED + "=1";
+                //eventTypeChecked = DatabaseHandler.KEY_E_STATUS + "=" + Event.ESTATUS_PAUSE + " AND ";  //  only paused events
+                eventTypeChecked = /*eventTypeChecked +*/ DatabaseHandler.KEY_E_MOBILE_CELLS_ENABLED + "=1";
 
                 countQuery = "SELECT " +
                         DatabaseHandler.KEY_E_ID + "," +
-                        DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS + "," +
-                        DatabaseHandler.KEY_E_MOBILE_CELLS_WHEN_OUTSIDE +
+                        DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS + /*"," +
+                        DatabaseHandler.KEY_E_MOBILE_CELLS_WHEN_OUTSIDE +*/
                         " FROM " + DatabaseHandler.TABLE_EVENTS + " WHERE " + eventTypeChecked;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -5136,11 +5152,11 @@ class DatabaseHandlerEvents {
                 if (cursor != null) {
                     if (cursor.moveToFirst()) {
                         do {
-                            NotUsedMobileCells notUsedMobileCells = new NotUsedMobileCells();
-                            notUsedMobileCells.eventId = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
-                            notUsedMobileCells.cells = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS));
-                            //notUsedMobileCells.whenOutside = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_WHEN_OUTSIDE)) == 1;
-                            eventList.add(notUsedMobileCells);
+                            MobileCellsSensorEvent mobileCellsSensorEvent = new MobileCellsSensorEvent();
+                            mobileCellsSensorEvent.eventId = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+                            mobileCellsSensorEvent.cellNames = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS));
+                            //mobileCellsSensorEvent.whenOutside = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_WHEN_OUTSIDE)) == 1;
+                            eventList.add(mobileCellsSensorEvent);
                         } while (cursor.moveToNext());
                     }
                     cursor.close();
