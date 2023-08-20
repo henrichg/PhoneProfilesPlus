@@ -1339,8 +1339,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == RESULT_ORIENTATION_SCANNING_SETTINGS) {
             event._eventPreferencesOrientation.checkPreferences(prefMng, !nestedFragment, context);
         }
-        if ((requestCode == RESULT_MOBILE_CELLS_SCANNING_SETTINGS) ||
-                (requestCode == RESULT_EVENT_MOBILE_CELLS_CONFIGURE_CELLS)) {
+        if (requestCode == RESULT_MOBILE_CELLS_SCANNING_SETTINGS) {
             event._eventPreferencesMobileCells.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_NOTIFICATION_SCANNING_APP_SETTINGS) {
@@ -1472,6 +1471,10 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference = prefMng.findPreference(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_TO);
             if (preference != null)
                 preference.enableViews();
+        }
+        if (requestCode == RESULT_EVENT_MOBILE_CELLS_CONFIGURE_CELLS) {
+            if (nestedFragment)
+                event._eventPreferencesMobileCells.updateConfguredCellNames(prefMng, context);
         }
     }
 

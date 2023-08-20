@@ -4832,9 +4832,11 @@ class DatabaseHandlerEvents {
                         if (_new) {
                             // change news
                             if (cell._new) {
-                                if (renamedCells.length() > 0)
-                                    renamedCells.append("|");
-                                renamedCells.append(cell.name); // must be added old cell name
+                                if ((cell.name != null) && (!cell.name.isEmpty())) {
+                                    if (renamedCells.length() > 0)
+                                        renamedCells.append("|");
+                                    renamedCells.append(cell.name); // must be added old cell name
+                                }
 
                                 cell.name = name;
                                 MobileCell mobileCell = new MobileCell();
@@ -4854,9 +4856,11 @@ class DatabaseHandlerEvents {
                                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 for (String valueCell : splits) {
                                     if (valueCell.equals(Integer.toString(cell.cellId))) {
-                                        if (renamedCells.length() > 0)
-                                            renamedCells.append("|");
-                                        renamedCells.append(cell.name); // must be added old cell name
+                                        if ((cell.name != null) && (!cell.name.isEmpty())) {
+                                            if (renamedCells.length() > 0)
+                                                renamedCells.append("|");
+                                            renamedCells.append(cell.name); // must be added old cell name
+                                        }
 
                                         cell.name = name;
                                         MobileCell mobileCell = new MobileCell();
@@ -4874,9 +4878,11 @@ class DatabaseHandlerEvents {
                             }
                             else {
                                 // change all
-                                if (renamedCells.length() > 0)
-                                    renamedCells.append("|");
-                                renamedCells.append(cell.name); // must be added old cell name
+                                if ((cell.name != null) && (!cell.name.isEmpty())) {
+                                    if (renamedCells.length() > 0)
+                                        renamedCells.append("|");
+                                    renamedCells.append(cell.name); // must be added old cell name
+                                }
 
                                 cell.name = name;
                                 MobileCell mobileCell = new MobileCell();

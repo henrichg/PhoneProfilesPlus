@@ -51,7 +51,7 @@ public class MobileCellNamesPreference extends DialogPreference {
         setSummary();
     }
 
-    private void setSummary() {
+    void setSummary() {
         if (value.isEmpty())
             setSummary(R.string.applications_multiselect_summary_text_not_selected);
         else {
@@ -78,6 +78,10 @@ public class MobileCellNamesPreference extends DialogPreference {
                 value = value + "|";
             value = value + cellName;
         }
+    }
+
+    void setValue(String _value) {
+        value = _value;
     }
 
     void removeCellName(String cellName) {

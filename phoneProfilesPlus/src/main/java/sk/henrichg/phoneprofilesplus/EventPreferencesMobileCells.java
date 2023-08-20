@@ -46,7 +46,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                                 int forSIMCard)
     {
         super(event, enabled);
-        Log.e("EventPreferencesMobileCells", "event._id="+event._id);
+//        Log.e("EventPreferencesMobileCells", "event._id="+event._id);
 
         this._cellsNames = cellNames;
         this._whenOutside = _whenOutside;
@@ -252,6 +252,11 @@ class EventPreferencesMobileCells extends EventPreferences {
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
+        if (key.equals(PREF_EVENT_MOBILE_CELLS_CELL_NAMES)) {
+            MobileCellNamesPreference preference = prefMng.findPreference(key);
+            if (preference != null)
+                preference.setSummary();
+        }
 
         boolean hasFeature = false;
         boolean hasSIMCard = false;
@@ -436,23 +441,30 @@ class EventPreferencesMobileCells extends EventPreferences {
                     }
                 //}
             }
-            if (prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CELL_NAMES) != null) {
-                if (preferences != null) {
-                    DatabaseHandler db = DatabaseHandler.getInstance(context.getApplicationContext());
-//                    Log.e("EventPreferencesMobileCells.checkPreferences", "_event._id=" + _event._id);
-                    String cellNames = db.getEventMobileCellsCells(_event._id);
-                    if ((cellNames != null) && (!cellNames.isEmpty())) {
-//                        Log.e("EventPreferencesMobileCells.checkPreferences", "cellNames=" + cellNames);
-                        Editor editor = preferences.edit();
-                        editor.putString(PREF_EVENT_MOBILE_CELLS_CELL_NAMES, cellNames);
-                        editor.apply();
-                    }
-                }
-
-                setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELL_NAMES, preferences, context);
-            }
         }
         setCategorySummary(prefMng, preferences, context);
+    }
+
+
+    void updateConfguredCellNames(PreferenceManager prefMng, Context context) {
+//        Log.e("EventPreferencesMobileCells.updateConfguredCellNames", "---- XXXX -----");
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        if (preferences != null) {
+            DatabaseHandler db = DatabaseHandler.getInstance(context.getApplicationContext());
+//                    Log.e("EventPreferencesMobileCells.checkPreferences", "_event._id=" + _event._id);
+            String cellNames = db.getEventMobileCellsCells(_event._id);
+            if ((cellNames != null) && (!cellNames.isEmpty())) {
+//                        Log.e("EventPreferencesMobileCells.checkPreferences", "cellNames=" + cellNames);
+                Editor editor = preferences.edit();
+                editor.putString(PREF_EVENT_MOBILE_CELLS_CELL_NAMES, cellNames);
+                editor.apply();
+                MobileCellNamesPreference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CELL_NAMES);
+                if (preference != null)
+                    preference.setValue(cellNames);
+            }
+        }
+
+        setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELL_NAMES, preferences, context);
     }
 
     /*

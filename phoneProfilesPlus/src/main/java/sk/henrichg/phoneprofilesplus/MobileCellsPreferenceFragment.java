@@ -625,8 +625,13 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 db.deleteMobileCell(cellId);
                                 preference.removeCellId(cellId);
                                 refreshListView(false, Integer.MAX_VALUE);
-                                deleteCellNamesFromEventsAsyncTask = new DeleteCellNamesFromEventsAsyncTask(String.valueOf(cellId), prefContext);
-                                deleteCellNamesFromEventsAsyncTask.execute();
+                                for (MobileCellsData cell : preference.filteredCellsList) {
+                                    if ((cell.cellId == cellId) && (cell.name != null) && (!cell.name.isEmpty())){
+                                        deleteCellNamesFromEventsAsyncTask = new DeleteCellNamesFromEventsAsyncTask(cell.name, prefContext);
+                                        deleteCellNamesFromEventsAsyncTask.execute();
+                                        break;
+                                    }
+                                }
                             },
                             null,
                             null,
@@ -656,21 +661,23 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                             null, null,
                             (dialog1, which) -> {
                                 String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
-                                StringBuilder deletedCellIds = new StringBuilder();
+                                StringBuilder deletedCellNames = new StringBuilder();
                                 DatabaseHandler db = DatabaseHandler.getInstance(_context);
                                 for (MobileCellsData cell : preference.filteredCellsList) {
                                     for (String valueCell : splits) {
                                         if (valueCell.equals(Integer.toString(cell.cellId))) {
                                             db.deleteMobileCell(cell.cellId);
                                             preference.removeCellId(cell.cellId);
-                                            if (deletedCellIds.length() > 0)
-                                                deletedCellIds.append("|");
-                                            deletedCellIds.append(cell.cellId);
+                                            if ((cell.name != null) && (!cell.name.isEmpty())) {
+                                                if (deletedCellNames.length() > 0)
+                                                    deletedCellNames.append("|");
+                                                deletedCellNames.append(cell.name);
+                                            }
                                         }
                                     }
                                 }
                                 refreshListView(false, Integer.MAX_VALUE);
-                                deleteCellNamesFromEventsAsyncTask = new DeleteCellNamesFromEventsAsyncTask(deletedCellIds.toString(), prefContext);
+                                deleteCellNamesFromEventsAsyncTask = new DeleteCellNamesFromEventsAsyncTask(deletedCellNames.toString(), prefContext);
                                 deleteCellNamesFromEventsAsyncTask.execute();
                             },
                             null,
@@ -699,7 +706,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                             null, null,
                             (dialog1, which) -> {
                                 String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
-                                StringBuilder deletedCellIds = new StringBuilder();
+                                StringBuilder deletedCellNames = new StringBuilder();
                                 DatabaseHandler db = DatabaseHandler.getInstance(_context);
                                 for (MobileCellsData cell : preference.filteredCellsList) {
                                     boolean isSelected = false;
@@ -712,13 +719,15 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                     if (!isSelected) {
                                         db.deleteMobileCell(cell.cellId);
                                         preference.removeCellId(cell.cellId);
-                                        if (deletedCellIds.length() > 0)
-                                            deletedCellIds.append("|");
-                                        deletedCellIds.append(cell.cellId);
+                                        if ((cell.name != null) && (!cell.name.isEmpty())) {
+                                            if (deletedCellNames.length() > 0)
+                                                deletedCellNames.append("|");
+                                            deletedCellNames.append(cell.name);
+                                        }
                                     }
                                 }
                                 refreshListView(false, Integer.MAX_VALUE);
-                                deleteCellNamesFromEventsAsyncTask = new DeleteCellNamesFromEventsAsyncTask(deletedCellIds.toString(), prefContext);
+                                deleteCellNamesFromEventsAsyncTask = new DeleteCellNamesFromEventsAsyncTask(deletedCellNames.toString(), prefContext);
                                 deleteCellNamesFromEventsAsyncTask.execute();
                             },
                             null,
@@ -1273,11 +1282,11 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
     private static class DeleteCellNamesFromEventsAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         private final WeakReference<Context> prefContextWeakRef;
-        private final String deletedCellIds;
+        private final String deletedCellNames;
 
-        public DeleteCellNamesFromEventsAsyncTask(String _deletedCellIds, Context prefContext) {
+        public DeleteCellNamesFromEventsAsyncTask(String _deletedCellNames, Context prefContext) {
             this.prefContextWeakRef = new WeakReference<>(prefContext);
-            deletedCellIds = _deletedCellIds;
+            deletedCellNames = _deletedCellNames;
         }
 
         /*
@@ -1297,38 +1306,45 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                 List<MobileCellsSensorEvent> mobileCellsEventList = new ArrayList<>();
                 db.loadMobileCellsSensorEvents(mobileCellsEventList);
 
-                String[] splits = deletedCellIds.split(StringConstants.STR_SPLIT_REGEX);
-                for (String cellid : splits) {
-                    // cellid = deleted cell
-                    // get MobileCellsData from cellid
-                    List<MobileCellsData> _cellsList = new ArrayList<>();
-                    db.addMobileCellsToList(_cellsList, Integer.parseInt(cellid));
+                for (MobileCellsSensorEvent sensorEvent : mobileCellsEventList) {
+                    //sensorEvent = event with mobile cells sensor
 
+                    StringBuilder _value = new StringBuilder();
 
-                    for (MobileCellsSensorEvent sensorEvent : mobileCellsEventList) {
-                        //sensorEvent = event with mobile cells sensor
+                    String[] splits2 = sensorEvent.cellNames.split(StringConstants.STR_SPLIT_REGEX);
+                    for (String cellNameFromSensor : splits2) {
 
-                        // delete cellid (_cellList.get(0)) by name from sensorEvent.cellNames
-                        String[] splits2 = sensorEvent.cellNames.split(StringConstants.STR_SPLIT_REGEX);
-                        sensorEvent.cellNames = "";
-                        StringBuilder _value = new StringBuilder();
-                        for (String cellName : splits2) {
-                            // cellName sensorEvent.cellNames
-                            if (!cellName.isEmpty()) {
-                                if (!cellName.equals(_cellsList.get(0).name)) {
-                                    // cellName is not deleted cellName (cellid), add it
-                                    if (_value.length() > 0)
-                                        _value.append("|");
-                                    _value.append(cellName);
+                        boolean deleted = false;
+
+                        if (!cellNameFromSensor.isEmpty()) {
+
+                            String[] splits = deletedCellNames.split(StringConstants.STR_SPLIT_REGEX);
+                            for (String deletedCellName : splits) {
+
+                                if (cellNameFromSensor.equals(deletedCellName)) {
+                                    // deleted cellName is in sensor
+                                    deleted = true;
+                                    break;
                                 }
                             }
-                        }
-                        sensorEvent.cellNames = _value.toString();
 
-                        // update event with new sensorEvent.cellNames
-                        db.updateMobileCellsCells(sensorEvent.eventId, sensorEvent.cellNames);
+                        }
+
+                        if (_value.length() > 0)
+                            _value.append("|");
+
+                        if (!deleted)
+                            _value.append(cellNameFromSensor);
+
                     }
+
+                    sensorEvent.cellNames = _value.toString();
+
+                    // update event with new sensorEvent.cellNames
+                    db.updateMobileCellsCells(sensorEvent.eventId, sensorEvent.cellNames);
+
                 }
+
             }
             return null;
         }
