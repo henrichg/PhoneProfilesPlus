@@ -3417,11 +3417,11 @@ class DatabaseHandlerCreateUpdateDB {
                                     String cellName = cursor2.getString(cursor2.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
                                     if ((cellName != null) && (!cellName.isEmpty())) {
                                         boolean found = false;
-                                        if (cellNames.startsWith(cellName+StringConstants.STR_SPLIT_REGEX))
+                                        if (cellNames.startsWith(cellName+"|"))
                                             found = true;
-                                        else if (cellNames.endsWith(StringConstants.STR_SPLIT_REGEX+cellName))
+                                        else if (cellNames.endsWith("|"+cellName))
                                             found = true;
-                                        else if (cellNames.contains(StringConstants.STR_SPLIT_REGEX+cellName+StringConstants.STR_SPLIT_REGEX))
+                                        else if (cellNames.contains("|"+cellName+"|"))
                                             found = true;
                                         else if (cellNames.equals(cellName))
                                             found = true;
@@ -3429,7 +3429,7 @@ class DatabaseHandlerCreateUpdateDB {
                                         if (!found) {
                                             if (!cellNames.isEmpty())
                                                 //noinspection StringConcatenationInLoop
-                                                cellNames = cellNames + StringConstants.STR_SPLIT_REGEX;
+                                                cellNames = cellNames + "|";
                                             //noinspection StringConcatenationInLoop
                                             cellNames = cellNames + cellName;
                                         }

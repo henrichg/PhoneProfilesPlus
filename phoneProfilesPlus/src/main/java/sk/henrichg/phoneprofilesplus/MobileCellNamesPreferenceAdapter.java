@@ -114,7 +114,7 @@ class MobileCellNamesPreferenceAdapter extends BaseAdapter
 
         /*
         boolean found = false;
-        String[] splits = preference.persistedValue.split("\\|");
+        String[] splits = preference.persistedValue.split(StringConstants.STR_SPLIT_REGEX);
         for (String cell : splits) {
             if (cell.equals(Integer.toString(preference.cellsList.get(position).cellId))) {
                 found = true;

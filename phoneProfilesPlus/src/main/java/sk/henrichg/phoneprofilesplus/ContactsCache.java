@@ -414,7 +414,7 @@ class ContactsCache {
                         List<String> contactPhones = phones.get(contactId);
                         if (contactPhones != null) {
                             for (String phone : contactPhones) {
-                                String[] splits = phone.split("\\|");
+                                String[] splits = phone.split(StringConstants.STR_SPLIT_REGEX);
                                 Contact aContact = new Contact();
                                 aContact.contactId = contactId;
                                 aContact.name = name;

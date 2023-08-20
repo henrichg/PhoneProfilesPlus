@@ -4843,7 +4843,7 @@ class DatabaseHandlerEvents {
                                 //mobileCell._doNotDetect = cell.doNotDetect;
                                 updateMobileCell(instance, mobileCell);
                                 if (renamedCells.length() > 0)
-                                    renamedCells.append(StringConstants.STR_SPLIT_REGEX);
+                                    renamedCells.append("|");
                                 renamedCells.append(mobileCell._cellId);
                             }
                         } else {
@@ -4864,7 +4864,7 @@ class DatabaseHandlerEvents {
                                         //mobileCell._doNotDetect = cell.doNotDetect;
                                         updateMobileCell(instance, mobileCell);
                                         if (renamedCells.length() > 0)
-                                            renamedCells.append(StringConstants.STR_SPLIT_REGEX);
+                                            renamedCells.append("|");
                                         renamedCells.append(mobileCell._cellId);
                                     }
                                 }
@@ -4883,7 +4883,7 @@ class DatabaseHandlerEvents {
                                 //mobileCell._doNotDetect = cell.doNotDetect;
                                 updateMobileCell(instance, mobileCell);
                                 if (renamedCells.length() > 0)
-                                    renamedCells.append(StringConstants.STR_SPLIT_REGEX);
+                                    renamedCells.append("|");
                                 renamedCells.append(mobileCell._cellId);
                             }
                         }

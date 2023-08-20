@@ -2094,7 +2094,7 @@ class ActivateProfileHelper {
                         PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE,
                                 null, profile._name, "");
                         noError = false;
-                        /*String[] splits = profile._soundRingtone.split("\\|");
+                        /*String[] splits = profile._soundRingtone.split(StringConstants.STR_SPLIT_REGEX);
                         if (!splits[0].isEmpty()) {
                             try {
                                 boolean found = false;
@@ -2164,7 +2164,7 @@ class ActivateProfileHelper {
                         PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION,
                                 null, profile._name, "");
                         noError = false;
-                        /*String[] splits = profile._soundNotification.split("\\|");
+                        /*String[] splits = profile._soundNotification.split(StringConstants.STR_SPLIT_REGEX);
                         if (!splits[0].isEmpty()) {
                             try {
                                 boolean found = false;
@@ -2234,7 +2234,7 @@ class ActivateProfileHelper {
                         PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM,
                                 null, profile._name, "");
                         noError = false;
-                        /*String[] splits = profile._soundAlarm.split("\\|");
+                        /*String[] splits = profile._soundAlarm.split(StringConstants.STR_SPLIT_REGEX);
                         if (!splits[0].isEmpty()) {
                             try {
                                 boolean found = false;
@@ -2361,7 +2361,7 @@ class ActivateProfileHelper {
                                 PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE,
                                         null, profile._name, "");
                                 noError = false;
-                                /*String[] splits = profile._soundRingtone.split("\\|");
+                                /*String[] splits = profile._soundRingtone.split(StringConstants.STR_SPLIT_REGEX);
                                 if (!splits[0].isEmpty()) {
                                     try {
                                         boolean found = false;
@@ -2501,7 +2501,7 @@ class ActivateProfileHelper {
                                 PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE,
                                         null, profile._name, "");
                                 noError = false;
-                            /*String[] splits = profile._soundRingtone.split("\\|");
+                            /*String[] splits = profile._soundRingtone.split(StringConstants.STR_SPLIT_REGEX);
                             if (!splits[0].isEmpty()) {
                                 try {
                                     boolean found = false;
@@ -2657,7 +2657,7 @@ class ActivateProfileHelper {
                                 PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION,
                                         null, profile._name, "");
                                 noError = false;
-                            /*String[] splits = profile._soundNotification.split("\\|");
+                            /*String[] splits = profile._soundNotification.split(StringConstants.STR_SPLIT_REGEX);
                             if (!splits[0].isEmpty()) {
                                 try {
                                     boolean found = false;
@@ -2857,7 +2857,7 @@ class ActivateProfileHelper {
                                 PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION,
                                         null, profile._name, "");
                                 noError = false;
-                            /*String[] splits = profile._soundNotification.split("\\|");
+                            /*String[] splits = profile._soundNotification.split(StringConstants.STR_SPLIT_REGEX);
                             if (!splits[0].isEmpty()) {
                                 try {
                                     boolean found = false;

@@ -122,7 +122,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
                         /*
                         // add cell to running events
-                        String[] eventIds = _lastRunningEvents.split("\\|");
+                        String[] eventIds = _lastRunningEvents.split(StringConstants.STR_SPLIT_REGEX);
                         for (String eventId : eventIds) {
                             if (!eventId.isEmpty()) {
                                 long _eventId = Long.parseLong(eventId);
@@ -326,7 +326,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
                 //eventList.clear();
 
-                //String[] eventIds = activity.lastRunningEvents.split("\\|");
+                //String[] eventIds = activity.lastRunningEvents.split(StringConstants.STR_SPLIT_REGEX);
                 //for (String eventId : eventIds) {
                 //    if (!eventId.isEmpty()) {
                 //        Event event = db.getEvent(Long.parseLong(eventId));

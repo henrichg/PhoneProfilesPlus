@@ -278,7 +278,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 //            ": "+context.getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
                 //}
                 //else {
-                    String[] splits = value.split("\\|");
+                    String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                     for (String _bluetoothName : splits) {
                         if (_bluetoothName.isEmpty()) {
                             preference.setSummary(R.string.applications_multiselect_summary_text_not_selected);

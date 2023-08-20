@@ -1086,7 +1086,7 @@ class EventPreferencesNotification extends EventPreferences {
                 return true;
         }
 
-        String[] splits = this._applications.split("\\|");
+        String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
         for (String split : splits) {
             // get only package name = remove activity
             String packageName = Application.getPackageName(split);

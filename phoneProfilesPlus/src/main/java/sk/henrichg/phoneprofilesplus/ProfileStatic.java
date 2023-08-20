@@ -92,7 +92,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -438,7 +438,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;

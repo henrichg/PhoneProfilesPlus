@@ -365,7 +365,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 /*
                 if (Build.VERSION.SDK_INT >= 26) {
                     operator = 0;
-                    splits = this._volumeAccessibility.split("\\|");
+                    splits = this._volumeAccessibility.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
                         try {
                             operator = Integer.parseInt(splits[1]);
@@ -651,7 +651,7 @@ class EventPreferencesVolumes extends EventPreferences {
                      (bluetoothSCOOperator != 0));
         /*} else  {
             int accessibilityOperator = 0;
-            splits = this._volumeAccessibility.split("\\|");
+            splits = this._volumeAccessibility.split(StringConstants.STR_SPLIT_REGEX);
             if (splits.length > 1) {
                 try {
                     accessibilityOperator = Integer.parseInt(splits[1]);

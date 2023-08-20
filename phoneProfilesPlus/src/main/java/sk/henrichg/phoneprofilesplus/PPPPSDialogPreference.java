@@ -86,7 +86,7 @@ public class PPPPSDialogPreference extends DialogPreference {
     }
 
     static boolean changeEnabled(String value) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 return Integer.parseInt(splits[0]) == 1;

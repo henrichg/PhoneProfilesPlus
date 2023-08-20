@@ -2693,7 +2693,7 @@ class Profile {
         long percentage = convertBrightnessToPercents(value, maxValue, minValue);
 
         //value|noChange|automatic|sharedProfile
-        String[] splits = _deviceBrightness.split("\\|");
+        String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
         // hm, found brightness values without default profile :-/
         if (splits.length == 4)
             _deviceBrightness = String.valueOf(percentage)+"|"+splits[1]+"|"+splits[2]+"|"+ splits[3];
@@ -2711,7 +2711,7 @@ class Profile {
             percentage = Math.round(value * 50 + 50);
 
         //value|noChange|automatic|sharedProfile
-        String[] splits = _deviceBrightness.split("\\|");
+        String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
         // hm, found brightness values without default profile :-/
         if (splits.length == 4)
             _deviceBrightness = String.valueOf(percentage)+"|"+splits[1]+"|"+splits[2]+"|"+ splits[3];

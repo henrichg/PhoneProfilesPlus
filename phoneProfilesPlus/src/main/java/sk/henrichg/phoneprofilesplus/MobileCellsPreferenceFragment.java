@@ -664,7 +664,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                             db.deleteMobileCell(cell.cellId);
                                             preference.removeCellId(cell.cellId);
                                             if (deletedCellIds.length() > 0)
-                                                deletedCellIds.append(StringConstants.STR_SPLIT_REGEX);
+                                                deletedCellIds.append("|");
                                             deletedCellIds.append(cell.cellId);
                                         }
                                     }
@@ -713,7 +713,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                         db.deleteMobileCell(cell.cellId);
                                         preference.removeCellId(cell.cellId);
                                         if (deletedCellIds.length() > 0)
-                                            deletedCellIds.append(StringConstants.STR_SPLIT_REGEX);
+                                            deletedCellIds.append("|");
                                         deletedCellIds.append(cell.cellId);
                                     }
                                 }
