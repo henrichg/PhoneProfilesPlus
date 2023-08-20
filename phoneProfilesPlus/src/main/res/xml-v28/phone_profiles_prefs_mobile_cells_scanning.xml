@@ -26,6 +26,7 @@
         app:defaultValue=""
         app:key="applicationEventMobileCellsConfigureCells"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellConfigureCells"
+        app:summary="@string/phone_profiles_pref_applicationEventMobileCellConfigureCells_summary"
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
 

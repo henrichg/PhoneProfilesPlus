@@ -74,6 +74,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_CALENDAR_SCANNING_APP_SETTINGS = 1995;
     private static final int RESULT_NOTIFICATION_SCANNING_APP_SETTINGS = 1997;
     private static final int RESULT_PERIODIC_SCANNING_APP_SETTINGS = 1997;
+    private static final String PREF_EVENT_MOBILE_CELLS_CONFIGURE_CELLS = "eventMobileCellsConfrigureCells";
+    private static final int RESULT_EVENT_MOBILE_CELLS_CONFIGURE_CELLS = 1998;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -805,6 +807,18 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CONFIGURE_CELLS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(preference112 -> {
+                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_MOBILE_CELLS_SCANNING_CATEGORY_ROOT);
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                startActivityForResult(intent, RESULT_EVENT_MOBILE_CELLS_CONFIGURE_CELLS);
+                return false;
+            });
+        }
         preference = prefMng.findPreference(EventPreferencesTime.PREF_EVENT_TIME_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -1325,7 +1339,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == RESULT_ORIENTATION_SCANNING_SETTINGS) {
             event._eventPreferencesOrientation.checkPreferences(prefMng, !nestedFragment, context);
         }
-        if (requestCode == RESULT_MOBILE_CELLS_SCANNING_SETTINGS) {
+        if ((requestCode == RESULT_MOBILE_CELLS_SCANNING_SETTINGS) ||
+                (requestCode == RESULT_EVENT_MOBILE_CELLS_CONFIGURE_CELLS)) {
             event._eventPreferencesMobileCells.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_NOTIFICATION_SCANNING_APP_SETTINGS) {
