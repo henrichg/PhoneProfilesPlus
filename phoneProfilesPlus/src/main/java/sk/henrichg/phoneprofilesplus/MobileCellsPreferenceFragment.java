@@ -175,19 +175,19 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 R.array.mobileCellsRenameArray,
                                 SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
                                 (dialog, which) -> {
-                                    String renamedCells = "";
+                                    String oldCellNames = "";
                                     final DatabaseHandler db = DatabaseHandler.getInstance(prefContext);
                                     switch (which) {
                                         case 0:
                                         case 1:
-                                            renamedCells = db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), which == 0, preference.value);
+                                            oldCellNames = db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), which == 0, preference.value);
                                             break;
                                         case 2:
-                                            renamedCells = db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), false, null);
+                                            oldCellNames = db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), false, null);
                                             break;
                                     }
                                     refreshListView(false, Integer.MAX_VALUE);
-                                    renameCellNamesFromEventsAsyncTask = new RenameCellNamesFromEventsAsyncTask(renamedCells, cellName.getText().toString(), prefContext);
+                                    renameCellNamesFromEventsAsyncTask = new RenameCellNamesFromEventsAsyncTask(oldCellNames, cellName.getText().toString(), prefContext);
                                     renameCellNamesFromEventsAsyncTask.execute();
                                     //dialog.dismiss();
                                 },
@@ -1348,13 +1348,15 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
     private static class RenameCellNamesFromEventsAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         private final WeakReference<Context> prefContextWeakRef;
-        private final String renamedCellIds;
+        private final String oldCellNames;
         private final String newCellName;
 
-        public RenameCellNamesFromEventsAsyncTask(String _renamedCellIds, String _newCellName, Context prefContext) {
+        public RenameCellNamesFromEventsAsyncTask(String _oldCellNames, String _newCellName, Context prefContext) {
             this.prefContextWeakRef = new WeakReference<>(prefContext);
-            renamedCellIds = _renamedCellIds;
+            oldCellNames = _oldCellNames;
             newCellName = _newCellName;
+//            Log.e("MobileCellsPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "oldCellNames="+oldCellNames);
+//            Log.e("MobileCellsPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "newCellName="+newCellName);
         }
 
         /*
@@ -1374,40 +1376,50 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                 List<MobileCellsSensorEvent> mobileCellsEventList = new ArrayList<>();
                 db.loadMobileCellsSensorEvents(mobileCellsEventList);
 
-                String[] splits = renamedCellIds.split(StringConstants.STR_SPLIT_REGEX);
-                for (String cellid : splits) {
-                    // cellid = renamed cell
-                    // get MobileCellsData from cellid
-                    List<MobileCellsData> _cellsList = new ArrayList<>();
-                    db.addMobileCellsToList(_cellsList, Integer.parseInt(cellid));
+                for (MobileCellsSensorEvent sensorEvent : mobileCellsEventList) {
+                    //sensorEvent = event with mobile cells sensor
 
+//                    Log.e("MobileCellsPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "------------------------------");
+//                    Log.e("MobileCellsPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "old cellNames for sensor=" + sensorEvent.cellNames);
 
-                    for (MobileCellsSensorEvent sensorEvent : mobileCellsEventList) {
-                        //sensorEvent = event with mobile cells sensor
+                    StringBuilder _value = new StringBuilder();
 
-                        // rename cellid (_cellList.get(0)) by name from sensorEvent.cellNames
-                        String[] splits2 = sensorEvent.cellNames.split(StringConstants.STR_SPLIT_REGEX);
-                        sensorEvent.cellNames = "";
-                        StringBuilder _value = new StringBuilder();
-                        for (String cellName : splits2) {
-                            // cellName sensorEvent.cellNames
-                            if (!cellName.isEmpty()) {
-                                if (_value.length() > 0)
-                                    _value.append("|");
+                    String[] splits2 = sensorEvent.cellNames.split(StringConstants.STR_SPLIT_REGEX);
+                    for (String cellNameFromSensor : splits2) {
+//                        Log.e("MobileCellsPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "cellNameFromSensor=" + cellNameFromSensor);
 
-                                if (cellName.equals(_cellsList.get(0).name))
+                        boolean renamed = false;
+
+                        if (!cellNameFromSensor.isEmpty()) {
+                            String[] splits = oldCellNames.split(StringConstants.STR_SPLIT_REGEX);
+                            for (String oldCellName : splits) {
+//                                Log.e("MobileCellsPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "oldCellName=" + oldCellName);
+
+                                if (cellNameFromSensor.equals(oldCellName)) {
                                     // renamed cellName is in sensor
-                                    _value.append(newCellName);
-                                else
-                                    _value.append(cellName);
+                                    renamed = true;
+                                    break;
+                                }
                             }
                         }
-                        sensorEvent.cellNames = _value.toString();
 
-                        // update event with new sensorEvent.cellNames
-                        db.updateMobileCellsCells(sensorEvent.eventId, sensorEvent.cellNames);
+                        if (_value.length() > 0)
+                            _value.append("|");
+
+                        if (renamed)
+                            // renamed cellName is in sensor
+                            _value.append(newCellName);
+                        else
+                            _value.append(cellNameFromSensor);
                     }
+
+                    sensorEvent.cellNames = _value.toString();
+//                    Log.e("MobileCellsPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "new cellNames for sensor="+sensorEvent.cellNames);
+
+                    // update event with new sensorEvent.cellNames
+                    db.updateMobileCellsCells(sensorEvent.eventId, sensorEvent.cellNames);
                 }
+
             }
             return null;
         }

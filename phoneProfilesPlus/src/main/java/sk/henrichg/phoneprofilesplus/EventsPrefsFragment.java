@@ -1494,7 +1494,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         prefMng = getPreferenceManager();
         preferences = prefMng.getSharedPreferences();
 
-        event = new Event();
+        if (getActivity() != null) {
+            EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
+            event = activity.event;
+        } else {
+            event = new Event();
+            event.createEventPreferences();
+        }
 
         /*
         if (savedInstanceState == null) {

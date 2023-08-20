@@ -37,6 +37,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 {
 
     long event_id = 0;
+    Event event = null;
     private int old_event_status;
     int newEventMode = PPApplication.EDIT_MODE_UNDEFINED;
     int predefinedEventIndex = 0;
@@ -420,7 +421,7 @@ public class EventsPrefsActivity extends AppCompatActivity
     }
 
     private void loadPreferences(int new_event_mode, int predefinedEventIndex) {
-        Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
+        event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
         if (event == null)
             event = createEvent(getApplicationContext(), event_id, PPApplication.EDIT_MODE_INSERT, predefinedEventIndex, false);
 

@@ -486,7 +486,7 @@ class MobileCellsListener extends PhoneStateListener {
             return;
 
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsListener.doAutoRegistration", "******** ### *******");
-        Log.e("MobileCellsListener.doAutoRegistration", "_registeredCell="+_registeredCell);
+//        Log.e("MobileCellsListener.doAutoRegistration", "_registeredCell="+_registeredCell);
 
         synchronized (PPApplication.mobileCellsScannerMutex) {
             /*PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -671,7 +671,7 @@ class MobileCellsListener extends PhoneStateListener {
                     // _registeredCell is added to database only in "Configured Cells" PPP preference dialog in
                     // RefreshListViewAsyncTask or by autoregistration
                     if (!db.isMobileCellSaved(_registeredCell)) {
-                        Log.e("MobileCellsListener.doAutoRegistration", "_registeredCell not saved");
+//                        Log.e("MobileCellsListener.doAutoRegistration", "_registeredCell not saved");
                         showNotification = true;
                     }
                 }

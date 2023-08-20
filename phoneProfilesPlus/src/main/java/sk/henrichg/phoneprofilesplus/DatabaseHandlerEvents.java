@@ -4804,7 +4804,8 @@ class DatabaseHandlerEvents {
 
                 // Select All Query
                 final String selectQuery = "SELECT " + DatabaseHandler.KEY_MC_ID + "," +
-                        DatabaseHandler.KEY_MC_CELL_ID +
+                        DatabaseHandler.KEY_MC_CELL_ID + "," +
+                        DatabaseHandler.KEY_MC_NAME +
                         " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -4831,6 +4832,10 @@ class DatabaseHandlerEvents {
                         if (_new) {
                             // change news
                             if (cell._new) {
+                                if (renamedCells.length() > 0)
+                                    renamedCells.append("|");
+                                renamedCells.append(cell.name); // must be added old cell name
+
                                 cell.name = name;
                                 MobileCell mobileCell = new MobileCell();
                                 mobileCell._id = foundedDbId;
@@ -4842,9 +4847,6 @@ class DatabaseHandlerEvents {
                                 //mobileCell._lastPausedEvents = cell.lastPausedEvents;
                                 //mobileCell._doNotDetect = cell.doNotDetect;
                                 updateMobileCell(instance, mobileCell);
-                                if (renamedCells.length() > 0)
-                                    renamedCells.append("|");
-                                renamedCells.append(mobileCell._cellId);
                             }
                         } else {
                             if (value != null) {
@@ -4852,6 +4854,10 @@ class DatabaseHandlerEvents {
                                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 for (String valueCell : splits) {
                                     if (valueCell.equals(Integer.toString(cell.cellId))) {
+                                        if (renamedCells.length() > 0)
+                                            renamedCells.append("|");
+                                        renamedCells.append(cell.name); // must be added old cell name
+
                                         cell.name = name;
                                         MobileCell mobileCell = new MobileCell();
                                         mobileCell._id = foundedDbId;
@@ -4863,14 +4869,15 @@ class DatabaseHandlerEvents {
                                         //mobileCell._lastPausedEvents = cell.lastPausedEvents;
                                         //mobileCell._doNotDetect = cell.doNotDetect;
                                         updateMobileCell(instance, mobileCell);
-                                        if (renamedCells.length() > 0)
-                                            renamedCells.append("|");
-                                        renamedCells.append(mobileCell._cellId);
                                     }
                                 }
                             }
                             else {
                                 // change all
+                                if (renamedCells.length() > 0)
+                                    renamedCells.append("|");
+                                renamedCells.append(cell.name); // must be added old cell name
+
                                 cell.name = name;
                                 MobileCell mobileCell = new MobileCell();
                                 mobileCell._id = foundedDbId;
@@ -4882,9 +4889,6 @@ class DatabaseHandlerEvents {
                                 //mobileCell._lastPausedEvents = cell.lastPausedEvents;
                                 //mobileCell._doNotDetect = cell.doNotDetect;
                                 updateMobileCell(instance, mobileCell);
-                                if (renamedCells.length() > 0)
-                                    renamedCells.append("|");
-                                renamedCells.append(mobileCell._cellId);
                             }
                         }
                     }

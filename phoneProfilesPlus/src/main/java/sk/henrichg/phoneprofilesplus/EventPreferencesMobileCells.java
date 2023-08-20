@@ -46,6 +46,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                                 int forSIMCard)
     {
         super(event, enabled);
+        Log.e("EventPreferencesMobileCells", "event._id="+event._id);
 
         this._cellsNames = cellNames;
         this._whenOutside = _whenOutside;
@@ -392,7 +393,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_ENABLED) != null) {
-                //setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELLS, preferences, context);
+                //setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELL_NAMES, preferences, context);
                 setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_APP_SETTINGS, preferences, context);
                 setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS, preferences, context);
 
@@ -434,6 +435,21 @@ class EventPreferencesMobileCells extends EventPreferences {
                             preference.setVisible(false);
                     }
                 //}
+            }
+            if (prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CELL_NAMES) != null) {
+                if (preferences != null) {
+                    DatabaseHandler db = DatabaseHandler.getInstance(context.getApplicationContext());
+//                    Log.e("EventPreferencesMobileCells.checkPreferences", "_event._id=" + _event._id);
+                    String cellNames = db.getEventMobileCellsCells(_event._id);
+                    if ((cellNames != null) && (!cellNames.isEmpty())) {
+//                        Log.e("EventPreferencesMobileCells.checkPreferences", "cellNames=" + cellNames);
+                        Editor editor = preferences.edit();
+                        editor.putString(PREF_EVENT_MOBILE_CELLS_CELL_NAMES, cellNames);
+                        editor.apply();
+                    }
+                }
+
+                setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELL_NAMES, preferences, context);
             }
         }
         setCategorySummary(prefMng, preferences, context);
@@ -645,8 +661,6 @@ class EventPreferencesMobileCells extends EventPreferences {
             } else
                 eventsHandler.notAllowedMobileCell = true;
 
-            Log.e("EventPreferencesMobileCells.doHandleEvent", "mobileCellPassed="+eventsHandler.mobileCellPassed);
-            Log.e("EventPreferencesMobileCells.doHandleEvent", "notAllowedMobileCell="+eventsHandler.notAllowedMobileCell);
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
                 setSensorPassed(newSensorPassed);

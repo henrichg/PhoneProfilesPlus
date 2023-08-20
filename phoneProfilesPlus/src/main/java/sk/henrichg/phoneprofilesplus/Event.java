@@ -146,9 +146,7 @@ class Event {
     static final int EVENT_ALARM_TIME_SOFT_OFFSET = 5000;
 
     // Empty constructor
-    Event(){
-        createEventPreferences();
-    }
+    Event(){}
 
     // constructor
     Event(long id,

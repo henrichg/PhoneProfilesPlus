@@ -934,6 +934,7 @@ class Profile {
         //this._customColor = Color.YELLOW;
 
         this._iconBitmap = null;
+        this._preferencesIndicator = null;
     }
 
     // constructor
