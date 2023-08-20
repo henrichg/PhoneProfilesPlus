@@ -176,9 +176,9 @@ class MobileCellNamesDialog {
             Activity activity = activityWeakReference.get();
             if ((dialog != null) && (activity != null)) {
                 if (dialog.showFilterItems) {
-                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_selected));
-                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_without_name));
                     _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_new));
+                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_without_name));
+                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_selected));
                     _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_all));
                 }
                 DatabaseHandler.getInstance(activity.getApplicationContext()).addMobileCellNamesToList(_cellNamesList);

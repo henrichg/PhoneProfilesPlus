@@ -30,6 +30,9 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceDialogFragmentCompat;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -99,10 +102,10 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
         cellFilter = view.findViewById(R.id.mobile_cells_pref_dlg_cells_filter_name);
         if ((preference.cellFilter == null) || preference.cellFilter.isEmpty()) {
-            if (preference.value.isEmpty())
-                cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_all);
-            else
-                cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_selected);
+            //if (preference.value.isEmpty())
+            //    cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_all);
+            //else
+                cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_new);
         }
         else
             cellFilter.setText(preference.cellFilter);
@@ -422,6 +425,30 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
         PPApplication.mobileCellsForceStart = false;
         PPApplicationStatic.restartMobileCellsScanner(prefContext);
+
+        OneTimeWorkRequest worker =
+                new OneTimeWorkRequest.Builder(MainWorker.class)
+                        .addTag(MainWorker.SET_MOBILE_CELLS_AS_OLD_WORK_TAG)
+                        .build();
+        try {
+            WorkManager workManager = PPApplication.getWorkManagerInstance();
+            if (workManager != null) {
+
+//                            //if (PPApplicationStatic.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+
+//                        PPApplicationStatic.logE("[WORKER_CALL] EditorActivity.onActivityResult", "xxx");
+                workManager.enqueueUniqueWork(MainWorker.SET_MOBILE_CELLS_AS_OLD_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+            }
+        } catch (Exception e) {
+            PPApplicationStatic.recordException(e);
+        }
 
         preference.fragment = null;
     }

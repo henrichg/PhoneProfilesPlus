@@ -1221,6 +1221,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerEvents.updateMobileCellLastConnectedTime(this, mobileCell, lastConnectedTime);
     }
 
+    void setAllMobileCellsAsOld() {
+        DatabaseHandlerEvents.setAllMobileCellsAsOld(this);
+    }
+
     void addMobileCellNamesToList(List<String> cellNamesList) {
         DatabaseHandlerEvents.addMobileCellNamesToList(this, cellNamesList);
     }

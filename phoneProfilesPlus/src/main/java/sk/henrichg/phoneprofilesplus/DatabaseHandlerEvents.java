@@ -4979,6 +4979,43 @@ class DatabaseHandlerEvents {
         }
     }
 
+    static void setAllMobileCellsAsOld(DatabaseHandler instance) {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(DatabaseHandler.KEY_MC_NEW, false);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(DatabaseHandler.TABLE_MOBILE_CELLS, values, null, null);
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandlerEvents.updateMobileCellLastConnectedTime", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
     static void addMobileCellNamesToList(DatabaseHandler instance, List<String> cellNamesList) {
         instance.importExportLock.lock();
         try {

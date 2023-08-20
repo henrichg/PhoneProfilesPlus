@@ -834,3 +834,6 @@ HOTOVO
 Cell registration: do summary pise ze:
 - Stopperd; New cells count: 2
 Odkial ma tych pocet novych?
+To su tie, co maju nastavene _new. A teraz. Ako sa toho _new zbavit?
+
+
