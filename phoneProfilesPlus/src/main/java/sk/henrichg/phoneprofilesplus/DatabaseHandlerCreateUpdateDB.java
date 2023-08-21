@@ -3391,59 +3391,73 @@ class DatabaseHandlerCreateUpdateDB {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_TO + "='0|0|0'");
         }
 
-        if (oldVersion < 2506) {
+        if (oldVersion < 2510) {
+//            Log.e("DatabaseHandler.updateDb", "---xxxx ---");
             try {
                 final String selectQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," +
                         DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS +
                         " FROM " + DatabaseHandler.TABLE_EVENTS;
+//                Log.e("DatabaseHandler.updateDb", "selectQuery="+selectQuery);
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
                 if (cursor.moveToFirst()) {
                     do {
-                        String cellNames = "";
-
                         String cellsInDB = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS));
-                        String[] splits = cellsInDB.split(StringConstants.STR_SPLIT_REGEX);
-                        for (String cell : splits) {
-                            final String selectQuery2 = "SELECT " + DatabaseHandler.KEY_MC_NAME +
-                                    " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
-                                    " WHERE " + DatabaseHandler.KEY_MC_CELL_ID + "=" + cell;
+//                        Log.e("DatabaseHandler.updateDb", "cellsInDB="+cellsInDB);
 
-                            Cursor cursor2 = db.rawQuery(selectQuery2, null);
+                        if (!cellsInDB.isEmpty()) {
 
-                            if (cursor2.moveToFirst()) {
-                                do {
-                                    String cellName = cursor2.getString(cursor2.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
-                                    if ((cellName != null) && (!cellName.isEmpty())) {
-                                        boolean found = false;
-                                        if (cellNames.startsWith(cellName+"|"))
-                                            found = true;
-                                        else if (cellNames.endsWith("|"+cellName))
-                                            found = true;
-                                        else if (cellNames.contains("|"+cellName+"|"))
-                                            found = true;
-                                        else if (cellNames.equals(cellName))
-                                            found = true;
+                            String cellNames = "";
 
-                                        if (!found) {
-                                            if (!cellNames.isEmpty())
+                            String[] splits = cellsInDB.split(StringConstants.STR_SPLIT_REGEX);
+                            for (String cell : splits) {
+//                                Log.e("DatabaseHandler.updateDb", "cell=" + cell);
+
+                                final String selectQuery2 = "SELECT " + DatabaseHandler.KEY_MC_NAME +
+                                        " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
+                                        " WHERE " + DatabaseHandler.KEY_MC_CELL_ID + "=" + cell;
+//                                Log.e("DatabaseHandler.updateDb", "selectQuery2=" + selectQuery2);
+
+                                Cursor cursor2 = db.rawQuery(selectQuery2, null);
+
+                                if (cursor2.moveToFirst()) {
+                                    do {
+                                        String cellName = cursor2.getString(cursor2.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
+//                                        Log.e("DatabaseHandler.updateDb", "cellName=" + cellName);
+
+                                        if ((cellName != null) && (!cellName.isEmpty())) {
+                                            boolean found = false;
+                                            if (cellNames.startsWith(cellName + "|"))
+                                                found = true;
+                                            else if (cellNames.endsWith("|" + cellName))
+                                                found = true;
+                                            else if (cellNames.contains("|" + cellName + "|"))
+                                                found = true;
+                                            else if (cellNames.equals(cellName))
+                                                found = true;
+
+                                            if (!found) {
+                                                if (!cellNames.isEmpty())
+                                                    //noinspection StringConcatenationInLoop
+                                                    cellNames = cellNames + "|";
                                                 //noinspection StringConcatenationInLoop
-                                                cellNames = cellNames + "|";
-                                            //noinspection StringConcatenationInLoop
-                                            cellNames = cellNames + cellName;
+                                                cellNames = cellNames + cellName;
+                                            }
                                         }
-                                    }
-                                } while (cursor2.moveToNext());
+                                    } while (cursor2.moveToNext());
+                                }
+
+                                cursor2.close();
                             }
 
-                            cursor2.close();
+//                            Log.e("DatabaseHandler.updateDb", "cellNames=" + cellNames);
+
+                            ContentValues values = new ContentValues();
+
+                            values.put(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS, cellNames);
+                            db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID))});
                         }
-
-                        ContentValues values = new ContentValues();
-
-                        values.put(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS, cellNames);
-                        db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID))});
 
                     } while (cursor.moveToNext());
                 }

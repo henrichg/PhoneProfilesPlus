@@ -362,7 +362,8 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                                     registeredCellSIM1 = PPApplication.mobileCellsScanner.getRegisteredCell(1);
                                     List<MobileCellsData> _cellsList = new ArrayList<>();
                                     db.addMobileCellsToList(_cellsList, registeredCellSIM1);
-                                    registeredCellNameSIM1 = _cellsList.get(0).name;
+                                    if (!_cellsList.isEmpty())
+                                        registeredCellNameSIM1 = _cellsList.get(0).name;
                                 }
                             }
                             if (sim2Exists) {
@@ -370,7 +371,8 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                                     registeredCellSIM2 = PPApplication.mobileCellsScanner.getRegisteredCell(2);
                                     List<MobileCellsData> _cellsList = new ArrayList<>();
                                     db.addMobileCellsToList(_cellsList, registeredCellSIM2);
-                                    registeredCellNameSIM2 = _cellsList.get(0).name;
+                                    if (!_cellsList.isEmpty())
+                                        registeredCellNameSIM2 = _cellsList.get(0).name;
                                 }
                             }
                         } else {
@@ -378,7 +380,8 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                                 registeredCellDefault = PPApplication.mobileCellsScanner.getRegisteredCell(0);
                                 List<MobileCellsData> _cellsList = new ArrayList<>();
                                 db.addMobileCellsToList(_cellsList, registeredCellDefault);
-                                registeredCellNameDefault = _cellsList.get(0).name;
+                                if (!_cellsList.isEmpty())
+                                    registeredCellNameDefault = _cellsList.get(0).name;
                             }
                         }
                     }
