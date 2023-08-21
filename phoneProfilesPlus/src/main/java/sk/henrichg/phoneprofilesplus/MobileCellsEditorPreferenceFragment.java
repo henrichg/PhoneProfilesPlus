@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.Settings;
@@ -1147,13 +1146,11 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             // cell name = first selected filtered cell name. (???)
                             fragment.cellName.setText(cell.name);
                             found = true;
+                            break;
                         }
                     }
                     if (!found) {
-                        // cell name = event name
-                        SharedPreferences sharedPreferences = preference.getSharedPreferences();
-                        if (sharedPreferences != null)
-                            fragment.cellName.setText(sharedPreferences.getString(Event.PREF_EVENT_NAME, ""));
+                        fragment.cellName.setText("");
                     }
                 }
 
