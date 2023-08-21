@@ -1127,8 +1127,6 @@
     <string name="not_used_mobile_cells_detected_title">Detected not used mobile cells</string>
     <string name="not_used_mobile_cells_detected_cell_id">Detected mobile cell id:</string>
     <string name="not_used_mobile_cells_detected_connection_time">Device has been connected:</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Cell registration is for registering mobile cells for this event. Registration will be running in background. During running registration, is recommended to not change location of device.</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Show notification for detection of not used mobile cell</string>
     <string name="about_application_help_me_with_translation">Please help me with the translation. Thank you.</string>
     <string name="event_preferences_time_timeType">Time type</string>
     <string name="event_preference_sensor_time_type_exact">Exact time</string>
@@ -2148,6 +2146,10 @@
     <string name="mobile_cell_names_pref_dlg_connected_cell_sim2">Connected cell (SIM 2):</string>
     <string name="event_preferences_mobile_cells_configure_cells">Each mobile cell must have a name. Multiple cells can have the same name. A name represents a group of cells and these groups are configured in \"Cell Names\".\n\nClick here to configure cell names. That opens \"Mobile cells scanning\" screen and in it is \"Mobile cells editor\".</string>
     <string name="phone_profiles_pref_applicationEventMobileCellConfigureCells_summary">Each mobile cell must have a name. Multiple cells can have the same name. A name represents a group of cells and these groups are configured in \"Mobile cell sensor\"\/\"Cell Names\".</string>
+
+    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Show notification for detection of new mobile cells</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Cell registration is for registering new mobile cells. Registration will be running in background. During running registration, is recommended to not change location of device.</string>
+    <string name="event_preferences_mobile_cells_cells_registration_summary">Cell registration is for registering new mobile cells. \n\nClick here if you want to start cell registration. That opens \"Mobile cells scanning\" screen and in it is \"Cell registration\".</string>
 
     <!-- **************************************************************************************** -->
 

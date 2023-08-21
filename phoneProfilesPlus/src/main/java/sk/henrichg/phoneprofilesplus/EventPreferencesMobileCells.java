@@ -28,7 +28,6 @@ class EventPreferencesMobileCells extends EventPreferences {
     static final String PREF_EVENT_MOBILE_CELLS_ENABLED = "eventMobileCellsEnabled";
     static final String PREF_EVENT_MOBILE_CELLS_CELL_NAMES = "eventMobileCellsCellNames";
     private static final String PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE = "eventMobileCellsStartWhenOutside";
-    static final String PREF_EVENT_MOBILE_CELLS_REGISTRATION = "eventMobileCellsRegistration";
     private static final String PREF_EVENT_MOBILE_CELLS_APP_SETTINGS = "eventMobileCellsScanningAppSettings";
     static final String PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS = "eventMobileCellsLocationSystemSettings";
     private static final String PREF_EVENT_MOBILE_CELLS_FOR_SIM_CARD = "eventMobileCellsForSimCard";
@@ -68,7 +67,6 @@ class EventPreferencesMobileCells extends EventPreferences {
         editor.putBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, _enabled);
         editor.putString(PREF_EVENT_MOBILE_CELLS_CELL_NAMES, this._cellsNames);
         editor.putBoolean(PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE, this._whenOutside);
-        editor.putString(PREF_EVENT_MOBILE_CELLS_REGISTRATION, Long.toString(_event._id));
         editor.putString(PREF_EVENT_MOBILE_CELLS_FOR_SIM_CARD, String.valueOf(this._forSIMCard));
         editor.apply();
     }

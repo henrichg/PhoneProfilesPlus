@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -31,9 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventsPrefsActivity extends AppCompatActivity
-                                implements RefreshGUIActivatorEditorListener,
-                                           MobileCellsRegistrationCountDownListener,
-                                           MobileCellsRegistrationStoppedListener
+                                implements RefreshGUIActivatorEditorListener
 {
 
     long event_id = 0;
@@ -47,9 +44,6 @@ public class EventsPrefsActivity extends AppCompatActivity
     boolean showSaveMenu = false;
 
     private Toolbar toolbar;
-
-    private MobileCellsRegistrationCountDownBroadcastReceiver mobileCellsRegistrationCountDownBroadcastReceiver = null;
-    private MobileCellsRegistrationStoppedBroadcastReceiver mobileCellsRegistrationNewCellsBroadcastReceiver = null;
 
     private static final String BUNDLE_OLD_EVENT_STATUS = "old_event_status";
     private static final String BUNDLE_NEW_EVENT_MODE = "newEventMode";
@@ -139,25 +133,6 @@ public class EventsPrefsActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        if (mobileCellsRegistrationCountDownBroadcastReceiver == null) {
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
-            mobileCellsRegistrationCountDownBroadcastReceiver = new MobileCellsRegistrationCountDownBroadcastReceiver(this);
-            int receiverFlags = 0;
-            if (Build.VERSION.SDK_INT >= 34)
-                receiverFlags = RECEIVER_NOT_EXPORTED;
-            registerReceiver(mobileCellsRegistrationCountDownBroadcastReceiver, intentFilter, receiverFlags);
-        }
-
-        if (mobileCellsRegistrationNewCellsBroadcastReceiver == null) {
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
-            mobileCellsRegistrationNewCellsBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver(this);
-            int receiverFlags = 0;
-            if (Build.VERSION.SDK_INT >= 34)
-                receiverFlags = RECEIVER_NOT_EXPORTED;
-            registerReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver, intentFilter, receiverFlags);
-        }
 
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
                 new IntentFilter(PPApplication.ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER));
@@ -166,24 +141,6 @@ public class EventsPrefsActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
-
-        if (mobileCellsRegistrationCountDownBroadcastReceiver != null) {
-            try {
-                unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);
-            } catch (IllegalArgumentException e) {
-                //PPApplicationStatic.recordException(e);
-            }
-            mobileCellsRegistrationCountDownBroadcastReceiver = null;
-        }
-
-        if (mobileCellsRegistrationNewCellsBroadcastReceiver != null) {
-            try {
-                unregisterReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver);
-            } catch (IllegalArgumentException e) {
-                //PPApplicationStatic.recordException(e);
-            }
-            mobileCellsRegistrationNewCellsBroadcastReceiver = null;
-        }
 
         try {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
@@ -802,56 +759,6 @@ public class EventsPrefsActivity extends AppCompatActivity
 
             sequence.start();
         }
-    }
-
-    private static class MobileCellsRegistrationCountDownBroadcastReceiver extends BroadcastReceiver {
-
-        private final MobileCellsRegistrationCountDownListener listener;
-
-        public MobileCellsRegistrationCountDownBroadcastReceiver(
-                MobileCellsRegistrationCountDownListener listener){
-            this.listener = listener;
-        }
-
-        @Override
-        public void onReceive( Context context, Intent intent ) {
-            listener.countDownFromListener(intent);
-        }
-
-    }
-
-    @Override
-    public void countDownFromListener(Intent intent) {
-//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsRegistrationCountDownBroadcastReceiver.onReceive", "xxx");
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
-        if (fragment != null) {
-            long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
-            ((EventsPrefsFragment) fragment).doMobileCellsRegistrationCountDownBroadcastReceiver(millisUntilFinished);
-        }
-    }
-
-    private static class MobileCellsRegistrationStoppedBroadcastReceiver extends BroadcastReceiver {
-
-        private final MobileCellsRegistrationStoppedListener listener;
-
-        public MobileCellsRegistrationStoppedBroadcastReceiver(
-                MobileCellsRegistrationStoppedListener listener){
-            this.listener = listener;
-        }
-
-        @Override
-        public void onReceive( Context context, Intent intent ) {
-            listener.registrationStoppedFromListener();
-        }
-
-    }
-
-    @Override
-    public void registrationStoppedFromListener() {
-//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsRegistrationStoppedBroadcastReceiver.onReceive", "xxx");
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
-        if (fragment != null)
-            ((EventsPrefsFragment)fragment).doMobileCellsRegistrationStoppedBroadcastReceiver();
     }
 
 //--------------------------------------------------------------------------------------------------

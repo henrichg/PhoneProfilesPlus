@@ -104,6 +104,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_ALL_NOTIFICATIONS_PROFILE_LIST_SYSTEM_SETTINGS = "notificationProfileListSystemSettingsAll";
     private static final String PREF_NOTIFICATION_PROFILE_LIST_SYSTEM_SETTINGS = "notificationProfileListSystemSettingsProfileList";
     private static final String PREF_NOTIFICATION_SCANNING_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS = "applicationEventNotificationNotificationsAccessSettingsRestrictedSettings";
+    static final String PREF_EVENT_MOBILE_CELLS_REGISTRATION = "applicationEventMobileCellsRegistration";
 
     static final String PREF_APPLICATION_INTERFACE_CATEGORY_ROOT = "applicationInterfaceCategoryRoot";
     static final String PREF_APPLICATION_START_CATEGORY_ROOT = "categoryApplicationStartRoot";
@@ -337,6 +338,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (preference instanceof MobileCellsEditorPreference) {
             ((MobileCellsEditorPreference) preference).fragment = new MobileCellsEditorPreferenceFragment();
             dialogFragment = ((MobileCellsEditorPreference) preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        else
+        if (preference instanceof MobileCellsRegistrationDialogPreference) {
+            ((MobileCellsRegistrationDialogPreference) preference).fragment = new MobileCellsRegistrationDialogPreferenceFragment();
+            dialogFragment = ((MobileCellsRegistrationDialogPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
@@ -2456,6 +2465,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             MobileCellNamesPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELL_NAMES);
             if (preference != null)
                 preference.refreshListView();
+        }
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG)) {
+            MobileCellsRegistrationDialogPreference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_REGISTRATION);
+            if (preference != null)
+                preference.startRegistration();
         }
     }
 
@@ -4639,6 +4653,21 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, preferenceValue);
         } else
             return preferenceValue;
+    }
+
+    void doMobileCellsRegistrationCountDownBroadcastReceiver(long millisUntilFinished) {
+        MobileCellsRegistrationDialogPreference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_REGISTRATION);
+        if (preference != null) {
+            //Log.d("mobileCellsRegistrationCountDownBroadcastReceiver", "xxx");
+            preference.updateInterface(millisUntilFinished, false);
+            preference.setSummaryDDP(millisUntilFinished);
+        }
+    }
+
+    void doMobileCellsRegistrationStoppedBroadcastReceiver() {
+        MobileCellsEditorPreference preference = prefMng.findPreference(PREF_APPLICATION_EVENT_MOBILE_CELL_CONFIGURE_CELLS);
+        if (preference != null)
+            preference.refreshListView(true, Integer.MAX_VALUE);
     }
 
 }

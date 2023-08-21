@@ -1,8 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,7 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-public class PhoneProfilesPrefsActivity extends AppCompatActivity {
+public class PhoneProfilesPrefsActivity extends AppCompatActivity
+        implements MobileCellsRegistrationCountDownListener,
+                   MobileCellsRegistrationStoppedListener
+{
 
     boolean activityStarted = false;
 
@@ -43,6 +48,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     private boolean invalidateEditor = false;
 
     //int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+
+    private MobileCellsRegistrationCountDownBroadcastReceiver mobileCellsRegistrationCountDownBroadcastReceiver = null;
+    private MobileCellsRegistrationStoppedBroadcastReceiver mobileCellsRegistrationNewCellsBroadcastReceiver = null;
 
     static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
     //static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
@@ -270,8 +278,29 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             if (!isFinishing())
                 finish();
         } else {
+            if (mobileCellsRegistrationCountDownBroadcastReceiver == null) {
+                IntentFilter intentFilter = new IntentFilter();
+                intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
+                mobileCellsRegistrationCountDownBroadcastReceiver = new MobileCellsRegistrationCountDownBroadcastReceiver(this);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                registerReceiver(mobileCellsRegistrationCountDownBroadcastReceiver, intentFilter, receiverFlags);
+            }
+
+            if (mobileCellsRegistrationNewCellsBroadcastReceiver == null) {
+                IntentFilter intentFilter = new IntentFilter();
+                intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
+                mobileCellsRegistrationNewCellsBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver(this);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                registerReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver, intentFilter, receiverFlags);
+            }
+
             Permissions.grantNotificationsPermission(this);
         }
+
     }
 
     @SuppressWarnings("SameReturnValue")
@@ -383,6 +412,24 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (activityStarted) {
             if (!fromFinish)
                 doPreferenceChanges();
+        }
+
+        if (mobileCellsRegistrationCountDownBroadcastReceiver != null) {
+            try {
+                unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);
+            } catch (IllegalArgumentException e) {
+                //PPApplicationStatic.recordException(e);
+            }
+            mobileCellsRegistrationCountDownBroadcastReceiver = null;
+        }
+
+        if (mobileCellsRegistrationNewCellsBroadcastReceiver != null) {
+            try {
+                unregisterReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver);
+            } catch (IllegalArgumentException e) {
+                //PPApplicationStatic.recordException(e);
+            }
+            mobileCellsRegistrationNewCellsBroadcastReceiver = null;
         }
 
         super.onStop();
@@ -672,6 +719,56 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                         PhoneProfilesService.mobileCellsScanner.resetListening(powerSaveMode, true);
                     */
         //}
+    }
+
+    private static class MobileCellsRegistrationCountDownBroadcastReceiver extends BroadcastReceiver {
+
+        private final MobileCellsRegistrationCountDownListener listener;
+
+        public MobileCellsRegistrationCountDownBroadcastReceiver(
+                MobileCellsRegistrationCountDownListener listener){
+            this.listener = listener;
+        }
+
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            listener.countDownFromListener(intent);
+        }
+
+    }
+
+    @Override
+    public void countDownFromListener(Intent intent) {
+//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsRegistrationCountDownBroadcastReceiver.onReceive", "xxx");
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
+        if (fragment != null) {
+            long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
+            ((PhoneProfilesPrefsFragment) fragment).doMobileCellsRegistrationCountDownBroadcastReceiver(millisUntilFinished);
+        }
+    }
+
+    private static class MobileCellsRegistrationStoppedBroadcastReceiver extends BroadcastReceiver {
+
+        private final MobileCellsRegistrationStoppedListener listener;
+
+        public MobileCellsRegistrationStoppedBroadcastReceiver(
+                MobileCellsRegistrationStoppedListener listener){
+            this.listener = listener;
+        }
+
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            listener.registrationStoppedFromListener();
+        }
+
+    }
+
+    @Override
+    public void registrationStoppedFromListener() {
+//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsRegistrationStoppedBroadcastReceiver.onReceive", "xxx");
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
+        if (fragment != null)
+            ((PhoneProfilesPrefsFragment)fragment).doMobileCellsRegistrationStoppedBroadcastReceiver();
     }
 
 }

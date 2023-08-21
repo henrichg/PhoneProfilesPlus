@@ -31,6 +31,7 @@
         app:dependency="eventMobileCellsEnabled"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.MobileCellNamesPreference
         app:defaultValue=""
         app:key="eventMobileCellsCellNames"
@@ -39,20 +40,11 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <Preference
-        app:key="eventMobileCellsRegistrationInfo"
+        app:key="eventMobileCellsCellsRegistration"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
-        app:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary"
+        app:summary="@string/event_preferences_mobile_cells_cells_registration_summary"
         app:dependency="eventMobileCellsEnabled"
-        app:widgetLayout="@layout/preference_widget_info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MobileCellsRegistrationDialogPreference
-        app:key="eventMobileCellsRegistration"
-        app:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
-        app:title="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
-        app:defaultValue="0"
-        app:dMin="0"
-        app:dMax="86400"
-        app:dependency="eventMobileCellsEnabled"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
     <SwitchPreferenceCompat

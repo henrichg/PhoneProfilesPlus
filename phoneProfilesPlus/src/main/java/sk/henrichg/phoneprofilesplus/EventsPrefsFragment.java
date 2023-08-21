@@ -76,6 +76,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_PERIODIC_SCANNING_APP_SETTINGS = 1997;
     private static final String PREF_EVENT_MOBILE_CELLS_CONFIGURE_CELLS = "eventMobileCellsConfrigureCells";
     private static final int RESULT_EVENT_MOBILE_CELLS_CONFIGURE_CELLS = 1998;
+    private static final String PREF_EVENT_MOBILE_CELLS_CELLS_REGISTRATION = "eventMobileCellsCellsRegistration";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -266,14 +267,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (preference instanceof BluetoothNamePreference) {
             ((BluetoothNamePreference) preference).fragment = new BluetoothNamePreferenceFragment();
             dialogFragment = ((BluetoothNamePreference) preference).fragment;
-            Bundle bundle = new Bundle(1);
-            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
-            dialogFragment.setArguments(bundle);
-        }
-        else
-        if (preference instanceof MobileCellsRegistrationDialogPreference) {
-            ((MobileCellsRegistrationDialogPreference) preference).fragment = new MobileCellsRegistrationDialogPreferenceFragment();
-            dialogFragment = ((MobileCellsRegistrationDialogPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
@@ -809,7 +802,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         }
         preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CONFIGURE_CELLS);
         if (preference != null) {
-            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(preference112 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -819,6 +811,18 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CELLS_REGISTRATION);
+        if (preference != null) {
+            preference.setOnPreferenceClickListener(preference112 -> {
+                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_MOBILE_CELLS_SCANNING_CATEGORY_ROOT);
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                startActivity(intent);
+                return false;
+            });
+        }
+
         preference = prefMng.findPreference(EventPreferencesTime.PREF_EVENT_TIME_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -1420,11 +1424,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             if (bluetoothPreference != null)
                 bluetoothPreference.refreshListView(true, "");
         }
-        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG)) {
-            MobileCellsRegistrationDialogPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
-            if (preference != null)
-                preference.startRegistration();
-        }
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CALENDAR_DIALOG)) {
             CalendarsMultiSelectDialogPreference preference = prefMng.findPreference(EventPreferencesCalendar.PREF_EVENT_CALENDAR_CALENDARS);
             if (preference != null)
@@ -1770,28 +1769,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     preferenceCategory.removePreference(preference);
             }
         }
-    }
-
-    void doMobileCellsRegistrationCountDownBroadcastReceiver(long millisUntilFinished) {
-        //TODO Cell registration skor treba dat do PP settinhs a z mobile cell senzora dat odkaz na toto
-        // ako u Mobile cells editor.
-        // Lebo uz nie je zviazanu senzor s udalostami, senzor pouziva nazvy buniek
-        MobileCellsRegistrationDialogPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
-        if (preference != null) {
-            //Log.d("mobileCellsRegistrationCountDownBroadcastReceiver", "xxx");
-            preference.updateInterface(millisUntilFinished, false);
-            preference.setSummaryDDP(millisUntilFinished);
-        }
-    }
-
-    void doMobileCellsRegistrationStoppedBroadcastReceiver() {
-        //TODO Cell registration skor treba dat do PP settings a z mobile cell senzora dat odkaz na toto
-        // ako u Mobile cells editor.
-        // Lebo uz nie je zviazanu senzor s udalostami, senzor pouziva nazvy buniek
-        // Potom tu budem refreshovat Mobile cells editor
-        MobileCellNamesPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELL_NAMES);
-        if (preference != null)
-            preference.refreshListView();
     }
 
 /*
