@@ -138,14 +138,6 @@ public class EditorActivity extends AppCompatActivity
     private static final int REQUEST_CODE_SHARE_SETTINGS = 6233;
     private static final int REQUEST_CODE_RESTORE_SHARED_SETTINGS = 6234;
 
-    static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
-    static final String PREF_START_TARGET_HELPS_DEFAULT_PROFILE = "editor_profile_activity_start_target_helps_default_profile";
-
-    static final String PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR = "editor_profile_activity_start_target_helps_run_stop_indicator";
-    static final String PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION = "editor_profile_activity_start_target_helps_bottom_navigation";
-
-    static final String PREF_START_TARGET_HELPS_FINISHED = "editor_profiles_activity_start_target_helps_finished";
-
     private static final String PREF_BACKUP_CREATE_PPP_SUBFOLDER = "backup_create_ppp_subfolder";
 
     private static final String ACTION_SHOW_EDITOR_TARGET_HELPS_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver";
@@ -2719,16 +2711,6 @@ public class EditorActivity extends AppCompatActivity
             dialog.show();
     }
 
-    static final String PREF_MAXIMUM_VOLUME_RING = "maximumVolume_ring";
-    static final String PREF_MAXIMUM_VOLUME_NOTIFICATION = "maximumVolume_notification";
-    static final String PREF_MAXIMUM_VOLUME_MUSIC = "maximumVolume_music";
-    static final String PREF_MAXIMUM_VOLUME_ALARM = "maximumVolume_alarm";
-    static final String PREF_MAXIMUM_VOLUME_SYSTEM = "maximumVolume_system";
-    static final String PREF_MAXIMUM_VOLUME_VOICE_CALL = "maximumVolume_voiceCall";
-    static final String PREF_MAXIMUM_VOLUME_DTMF = "maximumVolume_dtmf";
-    static final String PREF_MAXIMUM_VOLUME_ACCESSIBILITY = "maximumVolume_accessibility";
-    static final String PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO = "maximumVolume_bluetoothSCO";
-
     @SuppressLint({"SetWorldReadable", "SetWorldWritable", "ApplySharedPref"})
     private boolean exportApplicationPreferences(File dst, boolean runStopEvents/*, int what*/) {
         boolean res = true;
@@ -2748,33 +2730,33 @@ public class EditorActivity extends AppCompatActivity
                 AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
                 if (audioManager != null) {
                     try {
-                        editor.putInt(PREF_MAXIMUM_VOLUME_RING, audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));
+                        editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VOLUME_RING, audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));
                     } catch (Exception ignored) {}
                     try {
-                        editor.putInt(PREF_MAXIMUM_VOLUME_NOTIFICATION, audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION));
+                        editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VOLUME_NOTIFICATION, audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION));
                     } catch (Exception ignored) {}
                     try {
-                        editor.putInt(PREF_MAXIMUM_VOLUME_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
+                        editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VOLUME_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
                     } catch (Exception ignored) {}
                     try {
-                        editor.putInt(PREF_MAXIMUM_VOLUME_ALARM, audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
+                        editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VOLUME_ALARM, audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
                     } catch (Exception ignored) {}
                     try {
-                        editor.putInt(PREF_MAXIMUM_VOLUME_SYSTEM, audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM));
+                        editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VOLUME_SYSTEM, audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM));
                     } catch (Exception ignored) {}
                     try {
-                        editor.putInt(PREF_MAXIMUM_VOLUME_VOICE_CALL, audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL));
+                        editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VOLUME_VOICE_CALL, audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL));
                     } catch (Exception ignored) {}
                     try {
-                        editor.putInt(PREF_MAXIMUM_VOLUME_DTMF, audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF));
+                        editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VOLUME_DTMF, audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF));
                     } catch (Exception ignored) {}
                     //if (Build.VERSION.SDK_INT >= 26) {
                         try {
-                            editor.putInt(PREF_MAXIMUM_VOLUME_ACCESSIBILITY, audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY));
+                            editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VOLUME_ACCESSIBILITY, audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY));
                         } catch (Exception ignored) {}
                     //}
                     try {
-                        editor.putInt(PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO, audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO));
+                        editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO, audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO));
                     } catch (Exception ignored) {}
                 }
 
@@ -3355,15 +3337,15 @@ public class EditorActivity extends AppCompatActivity
                 //Log.d("EditorActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS, false);
 
                 //if (editorSelectedView == 0)
                 //    editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_PROFILES_FILTER_SPINNER, false);
                 //else
                 //    editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_EVENTS_FILTER_SPINNER, false);
 
-                editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
-                editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_BOTTOM_NAVIGATION, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorActivityStartTargetHelps = false;
 
@@ -3808,7 +3790,7 @@ public class EditorActivity extends AppCompatActivity
                         //targetHelpsSequenceStarted = false;
 
                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                        editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                        editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_FINISHED, true);
                         editor.apply();
                         ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished = true;
 
@@ -3831,14 +3813,14 @@ public class EditorActivity extends AppCompatActivity
                         //targetHelpsSequenceStarted = false;
                         Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
                         if (editorSelectedView == 0) {
-                            editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
-                            editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
+                            editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                            editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
                             if (filterProfilesSelectedItem == DSI_PROFILES_SHOW_IN_ACTIVATOR)
-                                editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
+                                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
                             if (filterProfilesSelectedItem == DSI_PROFILES_ALL)
-                                editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+                                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
 
-                            editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                            editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                             //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                             ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
@@ -3853,13 +3835,13 @@ public class EditorActivity extends AppCompatActivity
 
                         }
                         else {
-                            editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);
-                            editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
+                            editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                            editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS, false);
                             if (filterEventsSelectedItem == DSI_EVENTS_START_ORDER)
-                                editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
-                            editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, false);
+                                editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
+                            editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_STATUS, false);
 
-                            editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                            editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                             //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                             ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps = false;
@@ -3879,7 +3861,7 @@ public class EditorActivity extends AppCompatActivity
                 //targetHelpsSequenceStarted = true;
 
                 editor = ApplicationPreferences.getEditor(getApplicationContext());
-                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_FINISHED, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished = false;
 

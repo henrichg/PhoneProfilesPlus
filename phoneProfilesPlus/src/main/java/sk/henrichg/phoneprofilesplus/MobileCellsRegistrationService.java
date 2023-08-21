@@ -30,7 +30,7 @@ public class MobileCellsRegistrationService extends Service
 
     // this is for show new cell count in "Cell registration" event sensor preference summary
     static final String ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_NEW_CELL";
-    static final String EXTRA_NEW_CELL_VALUE = "new_cell_value";
+    //static final String EXTRA_NEW_CELL_VALUE = "new_cell_value";
 
     private CountDownTimer countDownTimer = null;
 
@@ -41,7 +41,7 @@ public class MobileCellsRegistrationService extends Service
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION = "mobile_cells_autoregistration_remaining_duration";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME = "mobile_cells_autoregistration_cell_name";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED = "mobile_cells_autoregistration_enabled";
-    private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST = "mobile_cells_autoregistration_event_list";
+    //private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST = "mobile_cells_autoregistration_event_list";
 
     private MobileCellsRegistrationStopButtonBroadcastReceiver mobileCellsRegistrationStopButtonBroadcastReceiver = null;
 

@@ -1133,25 +1133,24 @@ public class PhoneProfilesService extends Service
 
                     //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
 
-                    editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
-                    editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
-                    editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
-                    editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, false);
-                    //editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, false);
-                    editor.putBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_ADAPTER_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
+                    editor.putBoolean(PPApplication.PREF_PROFILES_PREFS_ACTIVITY_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_EVENTS_PREFS_ACTIVITY_START_TARGET_HELPS, false);
                     editor.apply();
                 }
                 if (actualVersionCode <= 3200) {
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                    editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, true);
+                    editor.putBoolean(PPApplication.PREF_PROFILES_PREFS_ACTIVITY_START_TARGET_HELPS, true);
                     editor.apply();
                 }
                 if (actualVersionCode <= 3500) {
@@ -1287,8 +1286,8 @@ public class PhoneProfilesService extends Service
 
                 if (actualVersionCode <= 4870) {
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                    editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
-                    editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FILTER_SPINNER, true);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FILTER_SPINNER, true);
 
                     String theme = ApplicationPreferences.applicationTheme(appContext, false);
                     if (!(theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE) ||

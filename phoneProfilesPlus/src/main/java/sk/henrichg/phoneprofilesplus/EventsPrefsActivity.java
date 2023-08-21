@@ -64,9 +64,6 @@ public class EventsPrefsActivity extends AppCompatActivity
     }
     private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
 
-    static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
-    //static final String PREF_START_TARGET_HELPS_FINISHED = "event_preferences_activity_start_target_helps_finiahed";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true);
@@ -679,7 +676,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             //Log.d("EventPrefsActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-            editor.putBoolean(PREF_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EVENTS_PREFS_ACTIVITY_START_TARGET_HELPS, false);
             editor.apply();
             ApplicationPreferences.prefEventPrefsActivityStartTargetHelps = false;
 

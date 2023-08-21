@@ -79,9 +79,6 @@ public class EditorProfileListFragment extends Fragment
     static final int FILTER_TYPE_NO_SHOW_IN_ACTIVATOR = 2;
 
     //boolean targetHelpsSequenceStarted;
-    static final String PREF_START_TARGET_HELPS = "editor_profile_list_fragment_start_target_helps";
-    static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
-    static final String PREF_START_TARGET_HELPS_FINISHED = "editor_profile_list_fragment_start_target_helps_finished";
 
     private int filterType = FILTER_TYPE_ALL;
 
@@ -1363,9 +1360,9 @@ public class EditorProfileListFragment extends Fragment
                 //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-                editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.putBoolean(PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
-                editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FILTER_SPINNER, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_DEFAULT_PROFILE, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFilterSpinner = false;
@@ -1484,7 +1481,7 @@ public class EditorProfileListFragment extends Fragment
                                 //targetHelpsSequenceStarted = false;
 
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-                                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                                 editor.apply();
                                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
 
@@ -1501,14 +1498,14 @@ public class EditorProfileListFragment extends Fragment
                                 //targetHelpsSequenceStarted = false;
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
 
-                                editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
-                                editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
+                                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
                                 if (filterType == FILTER_TYPE_SHOW_IN_ACTIVATOR)
-                                    editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
+                                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
                                 if (filterType == FILTER_TYPE_ALL)
-                                    editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+                                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
 
-                                editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                                 //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                                 editor.apply();
@@ -1529,7 +1526,7 @@ public class EditorProfileListFragment extends Fragment
                 //targetHelpsSequenceStarted = true;
 
                 editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = false;
 
@@ -1568,7 +1565,7 @@ public class EditorProfileListFragment extends Fragment
         else {
             //targetHelpsSequenceStarted = false;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-            editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
             //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
             editor.apply();
             ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;

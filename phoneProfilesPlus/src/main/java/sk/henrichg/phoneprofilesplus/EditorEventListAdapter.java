@@ -32,10 +32,6 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     private final OnStartDragItemListener mDragStartListener;
 
     //private boolean targetHelpsSequenceStarted;
-    static final String PREF_START_TARGET_HELPS = "editor_event_list_adapter_start_target_helps";
-    static final String PREF_START_TARGET_HELPS_ORDER = "editor_event_list_adapter_start_target_helps_order";
-    static final String PREF_START_TARGET_HELPS_STATUS = "editor_event_list_adapter_start_target_helps_status";
-    //static final String PREF_START_TARGET_HELPS_FINISHED = "editor_event_list_adapter_start_target_helps_finished";
 
     EditorEventListAdapter(EditorEventListFragment f, DataWrapper pdw, int filterType,
                            OnStartDragItemListener dragStartListener)
@@ -407,8 +403,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             if (startTargetHelps) {
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-                editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.putBoolean(PREF_START_TARGET_HELPS_STATUS, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_STATUS, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = false;
@@ -420,7 +416,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                     View view = listItemView.findViewById(R.id.event_list_drag_handle);
                     eventItemTarget.offset(screenLocation[0] + 80 + view.getWidth(), screenLocation[1]);
 
-                    editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
                     editor.apply();
                     ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
 
@@ -523,7 +519,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             if (startTargetHelpsOrder) {
                 if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-                    editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
                     editor.apply();
                     ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
 
@@ -543,7 +539,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
             if (startTargetHelpsStatus) {
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-                editor.putBoolean(PREF_START_TARGET_HELPS_STATUS, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_STATUS, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus= false;
 
@@ -568,7 +564,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                     //targetHelpsSequenceStarted = false;
 
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-                    editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                     //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.apply();
                     ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
@@ -586,10 +582,10 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                     //targetHelpsSequenceStarted = false;
 
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-                    editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS, false);
 
-                    editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                     //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                     editor.apply();

@@ -47,12 +47,9 @@ public class ActivatorActivity extends AppCompatActivity
     private Toolbar toolbar;
     private ImageView eventsRunStopIndicator;
 
-    static final String ACTION_REFRESH_ACTIVATOR_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshActivatorGUIBroadcastReceiver";
     static final String ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver";
 
     //boolean targetHelpsSequenceStarted;
-    static final String PREF_START_TARGET_HELPS = "activate_profiles_activity_start_target_helps";
-    static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profiles_activity_start_target_helps_finished";
 
     static private class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
 
@@ -223,7 +220,7 @@ public class ActivatorActivity extends AppCompatActivity
             getApplicationContext().sendBroadcast(intent);
 
             LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
-                    new IntentFilter(ACTION_REFRESH_ACTIVATOR_GUI_BROADCAST_RECEIVER));
+                    new IntentFilter(PPApplication.ACTION_REFRESH_ACTIVATOR_GUI_BROADCAST_RECEIVER));
             LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
                     new IntentFilter(ActivatorActivity.ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER));
 
@@ -550,7 +547,7 @@ public class ActivatorActivity extends AppCompatActivity
                 //Log.d("ActivateProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS, false);
                 editor.apply();
                 ApplicationPreferences.prefActivatorActivityStartTargetHelps = false;
 
@@ -638,7 +635,7 @@ public class ActivatorActivity extends AppCompatActivity
                         //targetHelpsSequenceStarted = false;
 
                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                        editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                        editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS_FINISHED, true);
                         editor.apply();
                         ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = true;
 
@@ -660,12 +657,12 @@ public class ActivatorActivity extends AppCompatActivity
                         //targetHelpsSequenceStarted = false;
 
                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                        editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS, false);
-                        editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS, false);
-                        editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS, false);
+                        editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS, false);
+                        editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                        editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_ADAPTER_START_TARGET_HELPS, false);
 
-                        editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS_FINISHED, true);
-                        editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                        editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS_FINISHED, true);
+                        editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                         //editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                         editor.apply();
@@ -700,7 +697,7 @@ public class ActivatorActivity extends AppCompatActivity
                 //targetHelpsSequenceStarted = true;
 
                 editor = ApplicationPreferences.getEditor(getApplicationContext());
-                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+                editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS_FINISHED, false);
                 editor.apply();
                 ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = false;
 

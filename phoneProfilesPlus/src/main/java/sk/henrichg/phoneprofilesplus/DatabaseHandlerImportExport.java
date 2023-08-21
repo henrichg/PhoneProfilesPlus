@@ -23,6 +23,16 @@ import java.util.List;
 
 class DatabaseHandlerImportExport {
 
+    static final String PREF_MAXIMUM_VOLUME_RING = "maximumVolume_ring";
+    static final String PREF_MAXIMUM_VOLUME_NOTIFICATION = "maximumVolume_notification";
+    static final String PREF_MAXIMUM_VOLUME_MUSIC = "maximumVolume_music";
+    static final String PREF_MAXIMUM_VOLUME_ALARM = "maximumVolume_alarm";
+    static final String PREF_MAXIMUM_VOLUME_SYSTEM = "maximumVolume_system";
+    static final String PREF_MAXIMUM_VOLUME_VOICE_CALL = "maximumVolume_voiceCall";
+    static final String PREF_MAXIMUM_VOLUME_DTMF = "maximumVolume_dtmf";
+    static final String PREF_MAXIMUM_VOLUME_ACCESSIBILITY = "maximumVolume_accessibility";
+    static final String PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO = "maximumVolume_bluetoothSCO";
+
     static private boolean tableExists(String tableName, SQLiteDatabase db)
     {
         //boolean tableExists = false;
@@ -100,15 +110,15 @@ class DatabaseHandlerImportExport {
             // these shared preferences are put during export of data, values are from AudioManager
             // for import, these data are values from source of imported data (may be from another device)
             SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(instance.context);
-            int maximumVolumeRing = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_RING, 0);
-            int maximumVolumeNotification = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_NOTIFICATION, 0);
-            int maximumVolumeMusic = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_MUSIC, 0);
-            int maximumVolumeAlarm = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_ALARM, 0);
-            int maximumVolumeSystem = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_SYSTEM, 0);
-            int maximumVolumeVoiceCall = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_VOICE_CALL, 0);
-            int maximumVolumeDTFM = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_DTMF, 0);
-            int maximumVolumeAccessibility = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_ACCESSIBILITY, 0);
-            int maximumVolumeBluetoothSCO = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO, 0);
+            int maximumVolumeRing = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_RING, 0);
+            int maximumVolumeNotification = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_NOTIFICATION, 0);
+            int maximumVolumeMusic = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_MUSIC, 0);
+            int maximumVolumeAlarm = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_ALARM, 0);
+            int maximumVolumeSystem = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_SYSTEM, 0);
+            int maximumVolumeVoiceCall = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_VOICE_CALL, 0);
+            int maximumVolumeDTFM = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_DTMF, 0);
+            int maximumVolumeAccessibility = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_ACCESSIBILITY, 0);
+            int maximumVolumeBluetoothSCO = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO, 0);
 
             cursorImportDB = db.rawQuery("SELECT " +
                     DatabaseHandler.KEY_ID + ","+

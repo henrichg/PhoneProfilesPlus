@@ -134,8 +134,10 @@ class Event {
     private static final String PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION = "eventNoPauseByManualActivation";
     //private static final String PREF_EVENT_AT_END_HOW_UNDO = "eventAtEndHowUndo";
     private static final String PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END = "manualProfileActivationAtEnd";
-    private  static final String PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE = "eventStartNotificationSoundPlayAlsoInSilentMode";
-    private  static final String PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE = "eventEndNotificationSoundPlayAlsoInSilentMode";
+    private static final String PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE = "eventStartNotificationSoundPlayAlsoInSilentMode";
+    private static final String PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE = "eventEndNotificationSoundPlayAlsoInSilentMode";
+    private static final String PREF_EVENT_START_OTHERS_CATEGORY_ROOT = "eventStartOthersCategoryRoot";
+    private static final String PREF_EVENT_END_OTHERS_CATEGORY_ROOT = "eventEndOthersCategoryRoot";
 
     static final String PREF_GLOBAL_EVENTS_RUN_STOP = "globalEventsRunStop";
     static final String PREF_EVENTS_BLOCKED = "eventsBlocked";
@@ -1164,7 +1166,7 @@ class Event {
                 manualProfileActivationAtEndChanged = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, false);
                 repeatInterval = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL_START, "0"));
             }
-            Preference preference = prefMng.findPreference(EventsPrefsFragment.PREF_EVENT_START_OTHERS_CATEGORY_ROOT);
+            Preference preference = prefMng.findPreference(PREF_EVENT_START_OTHERS_CATEGORY_ROOT);
             if (preference != null) {
                 boolean bold = (//forceRunChanged ||
                         manualProfileActivationChanged ||
@@ -1230,7 +1232,7 @@ class Event {
                 else
                     preference.setSummary("");
             }
-            preference = prefMng.findPreference(EventsPrefsFragment.PREF_EVENT_END_OTHERS_CATEGORY_ROOT);
+            preference = prefMng.findPreference(PREF_EVENT_END_OTHERS_CATEGORY_ROOT);
             if (preference != null) {
                 boolean bold = (delayEndChanged ||
                         notificationSoundEndChanged ||
@@ -1307,7 +1309,7 @@ class Event {
                 key.equals(PREF_EVENT_PROFILE_END) ||
                 key.equals(PREF_EVENT_AT_END_DO) ||
                 //key.equals(PREF_EVENT_AT_END_HOW_UNDO) ||
-                key.equals(EventsPrefsFragment.PREF_EVENT_END_OTHERS_CATEGORY_ROOT)) {
+                key.equals(PREF_EVENT_END_OTHERS_CATEGORY_ROOT)) {
             //boolean value = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
             /*if (value) {
                 Preference preference = prefMng.findPreference(PREF_EVENT_PROFILE_END);
@@ -1337,7 +1339,7 @@ class Event {
                     //preference.setEnabled(value2.equals("0"));
                     preference.setEnabled(true);
 
-                preference = prefMng.findPreference(EventsPrefsFragment.PREF_EVENT_END_OTHERS_CATEGORY_ROOT);
+                preference = prefMng.findPreference(PREF_EVENT_END_OTHERS_CATEGORY_ROOT);
                 if (preference != null)
                     preference.setEnabled(true);
             }

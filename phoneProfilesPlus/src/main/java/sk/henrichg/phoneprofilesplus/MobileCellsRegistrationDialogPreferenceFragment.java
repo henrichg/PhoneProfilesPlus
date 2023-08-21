@@ -61,8 +61,8 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
         dialogBuilder.setPositiveButton(R.string.mobile_cells_registration_pref_dlg_start_button, (dialog, which) -> {
             String value = mCellsName.getText().toString();
             if (!value.isEmpty()) {
-                /*if (Permissions.grantMobileCellsRegistrationDialogPermissions(prefContext)) {
-                    if (PPApplication.mobileCellsScannerEnabledAutoRegistration) {
+                if (Permissions.grantMobileCellsRegistrationDialogPermissions(prefContext)) {
+                    /*if (PPApplication.mobileCellsScannerEnabledAutoRegistration) {
                         if (!MobileCellsScanner.isEventAdded(preference.event_id))
                             MobileCellsScanner.addEvent(preference.event_id);
                         else
@@ -71,9 +71,9 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
                         if (!MobileCellsScanner.isEventAdded(preference.event_id))
                             MobileCellsScanner.addEvent(preference.event_id);
                         preference.startRegistration();
-                    }
-                }*/
-                preference.startRegistration();
+                    }*/
+                    preference.startRegistration();
+                }
             }
         });
 

@@ -48,8 +48,6 @@ public class ActivatorListFragment extends Fragment {
     //private  static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
 
     //boolean targetHelpsSequenceStarted;
-    static final String PREF_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
-    static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profile_list_fragment_start_target_helps_finished";
 
     static final int PORDER_FOR_EMPTY_SPACE = 1000000;
 
@@ -635,8 +633,8 @@ public class ActivatorListFragment extends Fragment {
 
             if (showTargetHelps) {
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-                editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                 editor.apply();
                 ApplicationPreferences.prefActivatorFragmentStartTargetHelps = false;
                 ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;

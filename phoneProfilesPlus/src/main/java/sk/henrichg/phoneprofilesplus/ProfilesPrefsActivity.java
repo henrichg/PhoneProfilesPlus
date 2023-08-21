@@ -37,10 +37,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
-    static final String PREF_START_TARGET_HELPS = "profile_preferences_activity_start_target_helps";
-    //static final String PREF_START_TARGET_HELPS_SAVE = "profile_preferences_activity_start_target_helps_save";
-    //static final String PREF_START_TARGET_HELPS_FINISHED = "profile_preferences_activity_start_target_helps_finished";
-
     private static final String BUNDLE_NEW_PROFILE_MODE = "newProfileMode";
     private static final String BUNDLE_PREDEFINED_PROFILE_INDEX = "predefinedProfileIndex";
 
@@ -672,7 +668,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         if (ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-            editor.putBoolean(PREF_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_PROFILES_PREFS_ACTIVITY_START_TARGET_HELPS, false);
             editor.apply();
             ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps = false;
 

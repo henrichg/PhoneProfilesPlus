@@ -577,6 +577,32 @@ public class PPApplication extends Application
     static final String PREF_LAST_ACTIVATED_PROFILE = "last_activated_profile";
     static final String PREF_WALLPAPER_CHANGE_TIME = "wallpaper_change_time";
 
+    static final String PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS = "activate_profiles_activity_start_target_helps";
+    static final String PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS_FINISHED = "activate_profiles_activity_start_target_helps_finished";
+    static final String PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
+    static final String PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED = "activate_profile_list_fragment_start_target_helps_finished";
+    static final String PREF_ACTIVATOR_LIST_ADAPTER_START_TARGET_HELPS = "activate_profile_list_adapter_start_target_helps";
+    static final String PREF_EDITOR_ACTIVITY_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
+    static final String PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_DEFAULT_PROFILE = "editor_profile_activity_start_target_helps_default_profile";
+    static final String PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_RUN_STOP_INDICATOR = "editor_profile_activity_start_target_helps_run_stop_indicator";
+    static final String PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_BOTTOM_NAVIGATION = "editor_profile_activity_start_target_helps_bottom_navigation";
+    static final String PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_FINISHED = "editor_profiles_activity_start_target_helps_finished";
+    static final String PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS = "editor_profile_list_fragment_start_target_helps";
+    static final String PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
+    static final String PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED = "editor_profile_list_fragment_start_target_helps_finished";
+    static final String PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS = "editor_profile_list_adapter_start_target_helps";
+    static final String PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_ORDER = "editor_profile_list_adapter_start_target_helps_order";
+    static final String PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_SHOW_IN_ACTIVATOR = "editor_profile_list_adapter_start_target_helps_show_in_activator";
+    static final String PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS = "editor_event_list_fragment_start_target_helps";
+    static final String PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
+    static final String PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_ORDER_SPINNER = "editor_profile_activity_start_target_helps_order_spinner";
+    static final String PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED = "editor_event_list_fragment_start_target_helps_finished";
+    static final String PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS = "editor_event_list_adapter_start_target_helps";
+    static final String PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_ORDER = "editor_event_list_adapter_start_target_helps_order";
+    static final String PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_STATUS = "editor_event_list_adapter_start_target_helps_status";
+    static final String PREF_PROFILES_PREFS_ACTIVITY_START_TARGET_HELPS = "profile_preferences_activity_start_target_helps";
+    static final String PREF_EVENTS_PREFS_ACTIVITY_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
+
     //static final String BUNDLE_WIDGET_TYPE = PACKAGE_NAME +"_BUNDLE_WIDGET_TYPE";
     //static final int WIDGET_TYPE_ICON = 1;
     //static final int WIDGET_TYPE_ONE_ROW = 2;
@@ -643,6 +669,7 @@ public class PPApplication extends Application
     static final String ACTION_CHECK_REQUIRED_EXTENDER_RELEASES = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_CHECK_REQUIRED_EXTENDER_RELEASES";
     static final String ACTION_CHECK_LATEST_PPPPS_RELEASES = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_CHECK_LATEST_PPPPS_RELEASES";
 
+    static final String ACTION_REFRESH_ACTIVATOR_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshActivatorGUIBroadcastReceiver";
     static final String ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver";
     static final String ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver";
 

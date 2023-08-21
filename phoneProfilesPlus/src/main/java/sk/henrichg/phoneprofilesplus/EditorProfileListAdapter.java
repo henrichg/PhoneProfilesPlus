@@ -30,10 +30,6 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
     private final OnStartDragItemListener mDragStartListener;
 
     //private boolean targetHelpsSequenceStarted;
-    static final String PREF_START_TARGET_HELPS = "editor_profile_list_adapter_start_target_helps";
-    static final String PREF_START_TARGET_HELPS_ORDER = "editor_profile_list_adapter_start_target_helps_order";
-    static final String PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR = "editor_profile_list_adapter_start_target_helps_show_in_activator";
-    //static final String PREF_START_TARGET_HELPS_FINISHED = "editor_profile_list_adapter_start_target_helps_finished";
 
     EditorProfileListAdapter(EditorProfileListFragment f, DataWrapper pdw, int filterType,
                               OnStartDragItemListener dragStartListener)
@@ -414,8 +410,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
             if (startTargetHelps) {
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-                editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.putBoolean(PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
@@ -431,7 +427,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                     View dragHandle = listItemView.findViewById(R.id.profile_list_drag_handle);
                     profileItemTarget.offset(screenLocation[0] + 100 + dragHandle.getWidth(), screenLocation[1]);
 
-                    editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
                     editor.apply();
                     ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = false;
 
@@ -550,7 +546,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             if (startTargetHelpsOrder) {
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-                    editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
                     editor.apply();
                     ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = false;
 
@@ -570,7 +566,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
             if (startTargetHelpsShowInActivator) {
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-                editor.putBoolean(PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
 
@@ -595,7 +591,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                     //targetHelpsSequenceStarted = false;
 
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-                    editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                     //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.apply();
                     ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
@@ -613,11 +609,10 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                     //targetHelpsSequenceStarted = false;
 
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-                    editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
 
-                    editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
-                    //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
 
                     editor.apply();
 

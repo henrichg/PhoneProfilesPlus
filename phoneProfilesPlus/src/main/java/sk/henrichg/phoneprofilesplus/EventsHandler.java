@@ -399,11 +399,11 @@ class EventsHandler {
             List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
 
             sortEventsByStartOrderDesc(dataWrapper.eventList);
+            Event notifiedPausedEvent = null;
             if (isRestart) {
 
 
                 // 1. pause events
-                Event notifiedPausedEvent = null;
                 for (Event _event : dataWrapper.eventList) {
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -481,7 +481,6 @@ class EventsHandler {
             } else {
 
                 //1. pause events
-                Event notifiedPausedEvent = null;
                 for (Event _event : dataWrapper.eventList) {
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {

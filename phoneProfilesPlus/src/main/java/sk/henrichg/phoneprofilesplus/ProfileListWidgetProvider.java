@@ -121,11 +121,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     //int nightModeFlags =
                     //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     //switch (nightModeFlags) {
+                    applicationWidgetListBackgroundType = true; // background type = color
                     if (nightModeOn) {
                         //case Configuration.UI_MODE_NIGHT_YES:
 
                         //applicationWidgetListBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
-                        applicationWidgetListBackgroundType = true; // background type = color
                         applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
                         //applicationWidgetListShowBorder = false; // do not show border
                         applicationWidgetListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
@@ -139,7 +139,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         //case Configuration.UI_MODE_NIGHT_UNDEFINED:
 
                         //applicationWidgetListBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
-                        applicationWidgetListBackgroundType = true; // background type = color
                         applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
                         //applicationWidgetListShowBorder = false; // do not show border
                         applicationWidgetListLightnessBorder = "0";
