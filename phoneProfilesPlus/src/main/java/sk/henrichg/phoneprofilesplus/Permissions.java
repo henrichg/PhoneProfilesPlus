@@ -102,6 +102,7 @@ class Permissions {
     static final int GRANT_TYPE_CONNECT_TO_SSID_DIALOG = 22;
     static final int GRANT_TYPE_BACKGROUND_LOCATION = 23;
     static final int GRANT_TYPE_WALLPAPER_FOLDER = 24;
+    static final int GRANT_TYPE_MOBILE_CELL_NAMES_SCAN_DIALOG = 25;
 
     static final int REQUEST_CODE = 5000;
     //static final int REQUEST_CODE_FORCE_GRANT = 6000;
@@ -134,7 +135,7 @@ class Permissions {
     //static ContactGroupsMultiSelectDialogPreference contactGroupsMultiSelectDialogPreference = null;
     //static LocationGeofenceEditorActivity locationGeofenceEditorActivity = null;
     //static BrightnessDialogPreference brightnessDialogPreference = null;
-    //static MobileCellsPreference mobileCellsPreference = null;
+    //static MobileCellsEditorPreference mobileCellsPreference = null;
     //static MobileCellsRegistrationDialogPreference mobileCellsRegistrationDialogPreference = null;
     //static RingtonePreference ringtonePreference = null;
 
@@ -2261,7 +2262,7 @@ class Permissions {
         return granted;
     }
 
-    static boolean grantMobileCellsDialogPermissions(Context context) {
+    static boolean grantMobileCellsDialogPermissions(Context context, boolean forMobileCellsEditor) {
         boolean granted = checkLocation(context);
         if (!granted) {
             try {
@@ -2277,12 +2278,18 @@ class Permissions {
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
+                if (forMobileCellsEditor)
+                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
+                else
+                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELL_NAMES_SCAN_DIALOG);
                 intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                 //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                 intent.putExtra(EXTRA_FORCE_GRANT, true);
                 intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
-                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
+                if (forMobileCellsEditor)
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
+                else
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELL_NAMES_SCAN_DIALOG);
                 //wifiSSIDPreference = null;
                 //bluetoothNamePreference = null;
                 //locationGeofenceEditorActivity = null;

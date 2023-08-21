@@ -39,11 +39,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompat
-        implements MobileCellsPreferenceFragmentRefreshListViewListener {
+public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmentCompat
+        implements MobileCellsEditorPreferenceFragmentRefreshListViewListener {
 
     private Context prefContext;
-    private MobileCellsPreference preference;
+    private MobileCellsEditorPreference preference;
     int phoneCount = 1;
 
     private SingleSelectListDialog mRenameDialog;
@@ -55,7 +55,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
     private TextView connectedCellSIM1;
     private TextView connectedCellSIM2;
     private TextView connectedCellDefault;
-    private MobileCellsPreferenceAdapter listAdapter;
+    private MobileCellsEditorPreferenceAdapter listAdapter;
     private MobileCellNamesDialog mMobileCellsFilterDialog;
     private MobileCellNamesDialog mMobileCellNamesDialog;
     private AppCompatImageButton addCellButtonSIM1;
@@ -78,7 +78,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
     protected View onCreateDialogView(Context context)
     {
         prefContext = context;
-        preference = (MobileCellsPreference) getPreference();
+        preference = (MobileCellsEditorPreference) getPreference();
         preference.fragment = this;
 
         final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -95,7 +95,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
         refreshListViewBroadcastReceiver = new RefreshListViewBroadcastReceiver(this);
         LocalBroadcastManager.getInstance(prefContext).registerReceiver(refreshListViewBroadcastReceiver,
-                new IntentFilter(MobileCellsPreference.ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER));
+                new IntentFilter(MobileCellsEditorPreference.ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER));
 
         PPApplication.mobileCellsForceStart = true;
         PPApplicationStatic.forceStartMobileCellsScanner(prefContext);
@@ -131,15 +131,15 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
         connectedCellDefault = view.findViewById(R.id.mobile_cells_pref_dlg_connectedCell_simDefault);
 
         ListView cellsListView = view.findViewById(R.id.mobile_cells_pref_dlg_listview);
-        listAdapter = new MobileCellsPreferenceAdapter(prefContext, preference);
+        listAdapter = new MobileCellsEditorPreferenceAdapter(prefContext, preference);
         cellsListView.setAdapter(listAdapter);
 
         //refreshListView(false);
 
         cellsListView.setOnItemClickListener((parent, item, position, id) -> {
             int cellId = preference.filteredCellsList.get(position).cellId;
-            MobileCellsPreferenceViewHolder viewHolder =
-                    (MobileCellsPreferenceViewHolder) item.getTag();
+            MobileCellsEditorViewHolder viewHolder =
+                    (MobileCellsEditorViewHolder) item.getTag();
             viewHolder.checkBox.setChecked(!preference.isCellSelected(cellId));
             if (viewHolder.checkBox.isChecked())
                 preference.addCellId(cellId);
@@ -285,7 +285,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
                             } catch (SecurityException e) {
                                 PPApplicationStatic.recordException(e);
-                                //Log.e("MobileCellsPreferenceFragment.onBindDialogView", Log.getStackTraceString(e));
+                                //Log.e("MobileCellsEditorPreferenceFragment.onBindDialogView", Log.getStackTraceString(e));
                             }
                             if (subscriptionList != null) {
                                 int size = subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/
@@ -308,7 +308,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
             }
             if (simIsReady) {
                 rescanButton.setOnClickListener(v -> {
-                    if (Permissions.grantMobileCellsDialogPermissions(prefContext))
+                    if (Permissions.grantMobileCellsDialogPermissions(prefContext, true))
                         refreshListView(true, Integer.MAX_VALUE);
                 });
             }
@@ -756,10 +756,10 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
     private static class RefreshListViewBroadcastReceiver extends BroadcastReceiver {
 
-        private final MobileCellsPreferenceFragmentRefreshListViewListener listener;
+        private final MobileCellsEditorPreferenceFragmentRefreshListViewListener listener;
 
         public RefreshListViewBroadcastReceiver(
-                MobileCellsPreferenceFragmentRefreshListViewListener listener) {
+                MobileCellsEditorPreferenceFragmentRefreshListViewListener listener) {
             this.listener = listener;
         }
 
@@ -772,7 +772,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
     @Override
     public void refreshListViewFromListener() {
-//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsPreferenceFragment.RefreshListViewBroadcastReceiver", "xxx");
+//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsEditorPreferenceFragment.RefreshListViewBroadcastReceiver", "xxx");
         //if (preference != null)
         //    preference.refreshListView(false, Integer.MAX_VALUE);
         refreshListView(false, Integer.MAX_VALUE);
@@ -798,8 +798,8 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
         final boolean forRescan;
         final int renameCellId;
 
-        private final WeakReference<MobileCellsPreference> preferenceWeakRef;
-        private final WeakReference<MobileCellsPreferenceFragment> fragmentWeakRef;
+        private final WeakReference<MobileCellsEditorPreference> preferenceWeakRef;
+        private final WeakReference<MobileCellsEditorPreferenceFragment> fragmentWeakRef;
         private final WeakReference<Context> prefContextWeakRef;
 
         String _cellName;
@@ -823,8 +823,8 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
         boolean sim2Exists;
 
         public RefreshListViewAsyncTask(final boolean forRescan, final int renameCellId,
-                                        MobileCellsPreference preference,
-                                        MobileCellsPreferenceFragment fragment,
+                                        MobileCellsEditorPreference preference,
+                                        MobileCellsEditorPreferenceFragment fragment,
                                         Context prefContext) {
             this.forRescan = forRescan;
             this.renameCellId = renameCellId;
@@ -837,7 +837,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
         protected void onPreExecute() {
             super.onPreExecute();
 
-            MobileCellsPreferenceFragment fragment = fragmentWeakRef.get();
+            MobileCellsEditorPreferenceFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
 
                 if (fragment.getActivity() != null) {
@@ -914,8 +914,8 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
         @Override
         protected Void doInBackground(Void... params) {
             synchronized (PPApplication.mobileCellsScannerMutex) {
-                MobileCellsPreferenceFragment fragment = fragmentWeakRef.get();
-                MobileCellsPreference preference = preferenceWeakRef.get();
+                MobileCellsEditorPreferenceFragment fragment = fragmentWeakRef.get();
+                MobileCellsEditorPreference preference = preferenceWeakRef.get();
                 Context prefContext = prefContextWeakRef.get();
                 if ((fragment != null) && (preference != null) && (prefContext != null)) {
 
@@ -1131,8 +1131,8 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
-            MobileCellsPreferenceFragment fragment = fragmentWeakRef.get();
-            MobileCellsPreference preference = preferenceWeakRef.get();
+            MobileCellsEditorPreferenceFragment fragment = fragmentWeakRef.get();
+            MobileCellsEditorPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
 
@@ -1371,8 +1371,8 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
             this.prefContextWeakRef = new WeakReference<>(prefContext);
             oldCellNames = _oldCellNames;
             newCellName = _newCellName;
-//            Log.e("MobileCellsPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "oldCellNames="+oldCellNames);
-//            Log.e("MobileCellsPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "newCellName="+newCellName);
+//            Log.e("MobileCellsEditorPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "oldCellNames="+oldCellNames);
+//            Log.e("MobileCellsEditorPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "newCellName="+newCellName);
         }
 
         /*
@@ -1395,21 +1395,21 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                 for (MobileCellsSensorEvent sensorEvent : mobileCellsEventList) {
                     //sensorEvent = event with mobile cells sensor
 
-//                    Log.e("MobileCellsPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "------------------------------");
-//                    Log.e("MobileCellsPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "old cellNames for sensor=" + sensorEvent.cellNames);
+//                    Log.e("MobileCellsEditorPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "------------------------------");
+//                    Log.e("MobileCellsEditorPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "old cellNames for sensor=" + sensorEvent.cellNames);
 
                     StringBuilder _value = new StringBuilder();
 
                     String[] splits2 = sensorEvent.cellNames.split(StringConstants.STR_SPLIT_REGEX);
                     for (String cellNameFromSensor : splits2) {
-//                        Log.e("MobileCellsPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "cellNameFromSensor=" + cellNameFromSensor);
+//                        Log.e("MobileCellsEditorPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "cellNameFromSensor=" + cellNameFromSensor);
 
                         boolean renamed = false;
 
                         if (!cellNameFromSensor.isEmpty()) {
                             String[] splits = oldCellNames.split(StringConstants.STR_SPLIT_REGEX);
                             for (String oldCellName : splits) {
-//                                Log.e("MobileCellsPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "oldCellName=" + oldCellName);
+//                                Log.e("MobileCellsEditorPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "oldCellName=" + oldCellName);
 
                                 if (cellNameFromSensor.equals(oldCellName)) {
                                     // renamed cellName is in sensor
@@ -1430,7 +1430,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                     }
 
                     sensorEvent.cellNames = _value.toString();
-//                    Log.e("MobileCellsPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "new cellNames for sensor="+sensorEvent.cellNames);
+//                    Log.e("MobileCellsEditorPreferenceFragment.RenameCellNamesFromEventsAsyncTask", "new cellNames for sensor="+sensorEvent.cellNames);
 
                     // update event with new sensorEvent.cellNames
                     db.updateMobileCellsCells(sensorEvent.eventId, sensorEvent.cellNames);

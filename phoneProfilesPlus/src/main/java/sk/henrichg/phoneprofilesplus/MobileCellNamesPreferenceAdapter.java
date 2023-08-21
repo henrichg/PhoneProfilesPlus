@@ -46,7 +46,7 @@ class MobileCellNamesPreferenceAdapter extends BaseAdapter
         //java.lang.IllegalStateException: The content of the adapter has changed but ListView did not receive a notification.
         // Make sure the content of your adapter is not modified from a background thread, but only from the UI thread.
         // Make sure your adapter calls notifyDataSetChanged() when its content changes. [in ListView(2131689809, class android.widget.ListView)
-        // with Adapter(class sk.henrichg.phoneprofilesplus.MobileCellsPreferenceAdapter)]
+        // with Adapter(class sk.henrichg.phoneprofilesplus.MobileCellsEditorPreferenceAdapter)]
 
         MobileCellNamesPreferenceViewHolder holder;
         

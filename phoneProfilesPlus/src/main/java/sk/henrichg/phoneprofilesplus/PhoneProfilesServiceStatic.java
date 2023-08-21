@@ -3307,7 +3307,7 @@ class PhoneProfilesServiceStatic
                                         AvoidRescheduleReceiverWorker.enqueueWork();
 
                                         if (PPApplication.mobileCellsForceStart) {
-                                            Intent refreshIntent = new Intent(MobileCellsPreference.ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER);
+                                            Intent refreshIntent = new Intent(MobileCellsEditorPreference.ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER);
                                             LocalBroadcastManager.getInstance(appContext).sendBroadcast(refreshIntent);
                                         }
 

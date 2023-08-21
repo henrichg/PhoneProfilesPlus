@@ -19,7 +19,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference {
     private final Context context;
 
     final int mMin, mMax;
-    long event_id;
+    //long event_id;
 
     //private int mColor = 0;
 

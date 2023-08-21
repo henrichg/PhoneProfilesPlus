@@ -164,7 +164,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_WIDGET_ONE_ROW_CATEGORY = "categoryWidgetOneRow";
     static final String PREF_WIDGET_LISY_CATEGORY = "categoryWidgetList";
     static final String PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY = "categoryWidgetOneRowProfileList";
-
     static final String PREF_APPLICATION_EVENT_MOBILE_CELL_CONFIGURE_CELLS = "applicationEventMobileCellsConfigureCells";
 
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
@@ -335,9 +334,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             dialogFragment.setArguments(bundle);
         }
         else
-        if (preference instanceof MobileCellsPreference) {
-            ((MobileCellsPreference) preference).fragment = new MobileCellsPreferenceFragment();
-            dialogFragment = ((MobileCellsPreference) preference).fragment;
+        if (preference instanceof MobileCellsEditorPreference) {
+            ((MobileCellsEditorPreference) preference).fragment = new MobileCellsEditorPreferenceFragment();
+            dialogFragment = ((MobileCellsEditorPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
@@ -2396,7 +2395,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(PREF_WIFI_LOCATION_SYSTEM_SETTINGS);
             setSummary(PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
             setSummary(PREF_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
-            MobileCellsPreference preference = prefMng.findPreference(PREF_APPLICATION_EVENT_MOBILE_CELL_CONFIGURE_CELLS);
+            MobileCellsEditorPreference preference = prefMng.findPreference(PREF_APPLICATION_EVENT_MOBILE_CELL_CONFIGURE_CELLS);
             if (preference != null) {
                 preference.setLocationEnableStatus();
             }
@@ -2449,9 +2448,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.refreshListView();
         }
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG)) {
-            MobileCellsPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELL_NAMES);
+            MobileCellsEditorPreference preference = prefMng.findPreference(PREF_APPLICATION_EVENT_MOBILE_CELL_CONFIGURE_CELLS);
             if (preference != null)
                 preference.refreshListView(true, Integer.MAX_VALUE);
+        }
+        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELL_NAMES_SCAN_DIALOG)) {
+            MobileCellNamesPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELL_NAMES);
+            if (preference != null)
+                preference.refreshListView();
         }
     }
 

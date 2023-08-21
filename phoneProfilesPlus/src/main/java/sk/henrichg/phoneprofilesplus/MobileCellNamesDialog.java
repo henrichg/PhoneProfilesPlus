@@ -65,8 +65,8 @@ class MobileCellNamesDialog {
                         ((MobileCellsRegistrationDialogPreference) preference).setCellNameText(cellName.getText().toString());
                     }
                     else
-                    if (preference instanceof MobileCellsPreference) {
-                        ((MobileCellsPreference) preference).setCellNameText(cellName.getText().toString());
+                    if (preference instanceof MobileCellsEditorPreference) {
+                        ((MobileCellsEditorPreference) preference).setCellNameText(cellName.getText().toString());
                     }
                 }
             });
@@ -128,7 +128,7 @@ class MobileCellNamesDialog {
 
         cellNamesListView.setOnItemClickListener((parent, v, position, id) -> {
             if (showFilterItems) {
-                ((MobileCellsPreference) preference).setCellFilterText(cellNamesList.get(position));
+                ((MobileCellsEditorPreference) preference).setCellFilterText(cellNamesList.get(position));
                 mDialog.dismiss();
             }
             else
@@ -204,9 +204,9 @@ class MobileCellNamesDialog {
                     }
                 } else if (dialog.preference instanceof MobileCellsRegistrationDialogPreference) {
                     dialog.cellName.setText(((MobileCellsRegistrationDialogPreference) dialog.preference).getCellNameText());
-                } else if (dialog.preference instanceof MobileCellsPreference) {
+                } else if (dialog.preference instanceof MobileCellsEditorPreference) {
                     /*if (showFilterItems) {
-                        cellName.setText(((MobileCellsPreference) preference).cellFilter.getText().toString());
+                        cellName.setText(((MobileCellsEditorPreference) preference).cellFilter.getText().toString());
                         cellName.setInputType(InputType.TYPE_NULL);
                         cellName.setTextIsSelectable(false);
                         cellName.setOnKeyListener(new View.OnKeyListener() {
@@ -218,7 +218,7 @@ class MobileCellNamesDialog {
                     }
                     else*/
                     if (!dialog.showFilterItems)
-                        dialog.cellName.setText(((MobileCellsPreference) dialog.preference).getCellNameText());
+                        dialog.cellName.setText(((MobileCellsEditorPreference) dialog.preference).getCellNameText());
                 }
 
                 dialog.listAdapter.notifyDataSetChanged();

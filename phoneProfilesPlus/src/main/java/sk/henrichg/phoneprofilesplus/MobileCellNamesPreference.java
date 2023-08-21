@@ -240,11 +240,11 @@ public class MobileCellNamesPreference extends DialogPreference {
 /*
     private static class PersistValueAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-        private final WeakReference<MobileCellsPreference> preferenceWeakRef;
+        private final WeakReference<MobileCellsEditorPreference> preferenceWeakRef;
         private final WeakReference<Context> prefContextWeakRef;
         private List<MobileCellsData> _cellsList;
 
-        public PersistValueAsyncTask(MobileCellsPreference preference,
+        public PersistValueAsyncTask(MobileCellsEditorPreference preference,
                                      Context prefContext) {
             this.preferenceWeakRef = new WeakReference<>(preference);
             this.prefContextWeakRef = new WeakReference<>(prefContext);
@@ -253,7 +253,7 @@ public class MobileCellNamesPreference extends DialogPreference {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            MobileCellsPreference preference = preferenceWeakRef.get();
+            MobileCellsEditorPreference preference = preferenceWeakRef.get();
             if (preference != null) {
                 _cellsList = new ArrayList<>();
                 _cellsList.addAll(preference.cellsList);
@@ -262,7 +262,7 @@ public class MobileCellNamesPreference extends DialogPreference {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            MobileCellsPreference preference = preferenceWeakRef.get();
+            MobileCellsEditorPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((preference != null) && (prefContext != null)) {
                 DatabaseHandler db = DatabaseHandler.getInstance(prefContext.getApplicationContext());
@@ -274,7 +274,7 @@ public class MobileCellNamesPreference extends DialogPreference {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            MobileCellsPreference preference = preferenceWeakRef.get();
+            MobileCellsEditorPreference preference = preferenceWeakRef.get();
             if (preference != null) {
                 preference.persistString(preference.value);
                 preference.setSummary();

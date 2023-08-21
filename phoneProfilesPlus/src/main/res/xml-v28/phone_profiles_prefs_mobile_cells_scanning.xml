@@ -22,7 +22,7 @@
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.MobileCellsPreference
+    <sk.henrichg.phoneprofilesplus.MobileCellsEditorPreference
         app:defaultValue=""
         app:key="applicationEventMobileCellsConfigureCells"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellConfigureCells"

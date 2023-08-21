@@ -61,7 +61,7 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
         dialogBuilder.setPositiveButton(R.string.mobile_cells_registration_pref_dlg_start_button, (dialog, which) -> {
             String value = mCellsName.getText().toString();
             if (!value.isEmpty()) {
-                if (Permissions.grantMobileCellsRegistrationDialogPermissions(prefContext)) {
+                /*if (Permissions.grantMobileCellsRegistrationDialogPermissions(prefContext)) {
                     if (PPApplication.mobileCellsScannerEnabledAutoRegistration) {
                         if (!MobileCellsScanner.isEventAdded(preference.event_id))
                             MobileCellsScanner.addEvent(preference.event_id);
@@ -72,7 +72,8 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
                             MobileCellsScanner.addEvent(preference.event_id);
                         preference.startRegistration();
                     }
-                }
+                }*/
+                preference.startRegistration();
             }
         });
 
@@ -301,7 +302,7 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
 
             String value = mCellsName.getText().toString();
             boolean enable = !value.isEmpty();
-            if (started) {
+            /*if (started) {
                 if (MobileCellsScanner.isEventAdded(preference.event_id)) {
                     if (MobileCellsScanner.getEventCount() == 1) {
                         startButton.setText(R.string.mobile_cells_registration_pref_dlg_start_button);
@@ -313,7 +314,7 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
                 else
                     startButton.setText(R.string.mobile_cells_registration_pref_dlg_add_event_button);
             }
-            else
+            else*/
                 startButton.setText(R.string.mobile_cells_registration_pref_dlg_start_button);
             startButton.setEnabled(enable);
 

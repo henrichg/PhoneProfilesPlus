@@ -401,7 +401,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 _showRequestValue.append(context.getString(R.string.permissions_for_location_geofence_editor_activity_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG)
                 _showRequestValue.append(context.getString(R.string.permissions_for_brightness_dialog_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
-            else if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG)
+            else if ((grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG) ||
+                     (grantType == Permissions.GRANT_TYPE_MOBILE_CELL_NAMES_SCAN_DIALOG))
                 _showRequestValue.append(context.getString(R.string.permissions_for_mobile_cells_scan_dialog_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG)
                 _showRequestValue.append(context.getString(R.string.permissions_for_mobile_cells_registration_dialog_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
@@ -1879,7 +1880,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 Permissions.brightnessDialogPreference.enableViews();*/
         }
         else
-        if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG) {
+        if ((grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG) ||
+                (grantType == Permissions.GRANT_TYPE_MOBILE_CELL_NAMES_SCAN_DIALOG)) {
             setResult(Activity.RESULT_OK);
             finish();
             /*if (Permissions.mobileCellsPreference != null)

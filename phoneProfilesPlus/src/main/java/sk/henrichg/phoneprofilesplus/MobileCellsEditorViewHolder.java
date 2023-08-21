@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 
-class MobileCellsPreferenceViewHolder {
+class MobileCellsEditorViewHolder {
     TextView cellId;
     TextView lastConnectedTime;
     CheckBox checkBox;

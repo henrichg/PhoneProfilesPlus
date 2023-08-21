@@ -880,14 +880,16 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        /*
         MobileCellsRegistrationDialogPreference mobileCellsRegistrationDialogPreference =
                 prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
         if (mobileCellsRegistrationDialogPreference != null) {
             mobileCellsRegistrationDialogPreference.event_id = activity.event_id;
         }
+        */
         /*
-        MobileCellsPreference mobileCellsPreference =
-                (MobileCellsPreference)prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
+        MobileCellsEditorPreference mobileCellsPreference =
+                (MobileCellsEditorPreference)prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
         if (mobileCellsPreference != null) {
             mobileCellsPreference.event_id = event_id;
         }
@@ -1771,6 +1773,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     void doMobileCellsRegistrationCountDownBroadcastReceiver(long millisUntilFinished) {
+        //TODO Cell registration skor treba dat do PP settinhs a z mobile cell senzora dat odkaz na toto
+        // ako u Mobile cells editor.
+        // Lebo uz nie je zviazanu senzor s udalostami, senzor pouziva nazvy buniek
         MobileCellsRegistrationDialogPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
         if (preference != null) {
             //Log.d("mobileCellsRegistrationCountDownBroadcastReceiver", "xxx");
@@ -1780,9 +1785,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     void doMobileCellsRegistrationStoppedBroadcastReceiver() {
-        MobileCellsPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELL_NAMES);
+        //TODO Cell registration skor treba dat do PP settings a z mobile cell senzora dat odkaz na toto
+        // ako u Mobile cells editor.
+        // Lebo uz nie je zviazanu senzor s udalostami, senzor pouziva nazvy buniek
+        // Potom tu budem refreshovat Mobile cells editor
+        MobileCellNamesPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELL_NAMES);
         if (preference != null)
-            preference.refreshListView(true, Integer.MAX_VALUE);
+            preference.refreshListView();
     }
 
 /*

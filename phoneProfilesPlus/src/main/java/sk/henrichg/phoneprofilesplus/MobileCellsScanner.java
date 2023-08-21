@@ -2,18 +2,11 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.telephony.PhoneStateListener;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 class MobileCellsScanner {
@@ -28,8 +21,7 @@ class MobileCellsScanner {
     MobileCellsListener mobileCellsListenerSIM2 = null;
 
     // must be this, because of Collections.synchronizedList
-    @SuppressWarnings("Convert2Diamond")
-    static final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
+    //static final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
 
     static final String ACTION_NEW_MOBILE_CELLS_NOTIFICATION_DELETED = PPApplication.PACKAGE_NAME + ".MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
     static final String ACTION_NEW_MOBILE_CELLS_NOTIFICATION_DISABLE = PPApplication.PACKAGE_NAME + ".MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION";
@@ -301,6 +293,7 @@ class MobileCellsScanner {
         }
     }
 
+/*
     static boolean isEventAdded(long event_id) {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.isEventAdded", "******** ### *******");
         synchronized (autoRegistrationEventList) {
@@ -359,7 +352,8 @@ class MobileCellsScanner {
             editor.putString(key, json);
         }
     }
-
+*/
+/*
     static String addCellId(String cells, int cellId) {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.addCellId", "******** ### *******");
 
@@ -381,7 +375,7 @@ class MobileCellsScanner {
         }
         return cells;
     }
-
+*/
     /*
     private static boolean getShowEnableLocationNotification(Context context)
     {

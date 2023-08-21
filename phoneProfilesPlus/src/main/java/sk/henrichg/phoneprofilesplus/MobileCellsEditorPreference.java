@@ -13,9 +13,9 @@ import androidx.preference.DialogPreference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobileCellsPreference extends DialogPreference {
+public class MobileCellsEditorPreference extends DialogPreference {
 
-    MobileCellsPreferenceFragment fragment;
+    MobileCellsEditorPreferenceFragment fragment;
 
     String value;
     //private String defaultValue;
@@ -42,7 +42,7 @@ public class MobileCellsPreference extends DialogPreference {
 
     static final String ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView";
 
-    public MobileCellsPreference(Context prefContext, AttributeSet attrs) {
+    public MobileCellsEditorPreference(Context prefContext, AttributeSet attrs) {
         super(prefContext, attrs);
         
         //this.prefContext = prefContext;
@@ -197,7 +197,7 @@ public class MobileCellsPreference extends DialogPreference {
             return superState;
         }*/
 
-        final MobileCellsPreference.SavedState myState = new MobileCellsPreference.SavedState(superState);
+        final MobileCellsEditorPreference.SavedState myState = new MobileCellsEditorPreference.SavedState(superState);
         myState.value = value;
         //myState.defaultValue = defaultValue;
         myState.cellFilter = cellFilter;
@@ -212,14 +212,14 @@ public class MobileCellsPreference extends DialogPreference {
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 
-        if ((state == null) || (!state.getClass().equals(MobileCellsPreference.SavedState.class))) {
+        if ((state == null) || (!state.getClass().equals(MobileCellsEditorPreference.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             return;
         }
 
         // restore instance state
-        MobileCellsPreference.SavedState myState = (MobileCellsPreference.SavedState)state;
+        MobileCellsEditorPreference.SavedState myState = (MobileCellsEditorPreference.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
         //defaultValue = myState.defaultValue;
@@ -265,15 +265,15 @@ public class MobileCellsPreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<MobileCellsPreference.SavedState> CREATOR =
-                new Creator<MobileCellsPreference.SavedState>() {
-                    public MobileCellsPreference.SavedState createFromParcel(Parcel in)
+        public static final Creator<MobileCellsEditorPreference.SavedState> CREATOR =
+                new Creator<MobileCellsEditorPreference.SavedState>() {
+                    public MobileCellsEditorPreference.SavedState createFromParcel(Parcel in)
                     {
-                        return new MobileCellsPreference.SavedState(in);
+                        return new MobileCellsEditorPreference.SavedState(in);
                     }
-                    public MobileCellsPreference.SavedState[] newArray(int size)
+                    public MobileCellsEditorPreference.SavedState[] newArray(int size)
                     {
-                        return new MobileCellsPreference.SavedState[size];
+                        return new MobileCellsEditorPreference.SavedState[size];
                     }
 
                 };
@@ -283,11 +283,11 @@ public class MobileCellsPreference extends DialogPreference {
 /*
     private static class PersistValueAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-        private final WeakReference<MobileCellsPreference> preferenceWeakRef;
+        private final WeakReference<MobileCellsEditorPreference> preferenceWeakRef;
         private final WeakReference<Context> prefContextWeakRef;
         private List<MobileCellsData> _cellsList;
 
-        public PersistValueAsyncTask(MobileCellsPreference preference,
+        public PersistValueAsyncTask(MobileCellsEditorPreference preference,
                                      Context prefContext) {
             this.preferenceWeakRef = new WeakReference<>(preference);
             this.prefContextWeakRef = new WeakReference<>(prefContext);
@@ -296,7 +296,7 @@ public class MobileCellsPreference extends DialogPreference {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            MobileCellsPreference preference = preferenceWeakRef.get();
+            MobileCellsEditorPreference preference = preferenceWeakRef.get();
             if (preference != null) {
                 _cellsList = new ArrayList<>();
                 _cellsList.addAll(preference.cellsList);
@@ -305,7 +305,7 @@ public class MobileCellsPreference extends DialogPreference {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            MobileCellsPreference preference = preferenceWeakRef.get();
+            MobileCellsEditorPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((preference != null) && (prefContext != null)) {
                 DatabaseHandler db = DatabaseHandler.getInstance(prefContext.getApplicationContext());
@@ -317,7 +317,7 @@ public class MobileCellsPreference extends DialogPreference {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            MobileCellsPreference preference = preferenceWeakRef.get();
+            MobileCellsEditorPreference preference = preferenceWeakRef.get();
             if (preference != null) {
                 preference.persistString(preference.value);
                 preference.setSummary();

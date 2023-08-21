@@ -570,27 +570,41 @@ class MobileCellsListener extends PhoneStateListener {
                             ));
                             db.saveMobileCellsList(localCellsList, true, true);
 
+                            /*
                             synchronized (MobileCellsScanner.autoRegistrationEventList) {
                                 for (Long event_id : MobileCellsScanner.autoRegistrationEventList) {
+                                    // get cell names from event_id
                                     String currentCells = db.getEventMobileCellsCells(event_id);
                                     if (!currentCells.isEmpty()) {
-                                        String newCells = MobileCellsScanner.addCellId(currentCells, _registeredCell);
-                                        db.updateMobileCellsCells(event_id, newCells);
+                                        // event_id has some cellnames configured
+
+                                        // remobed because in mobile cells sensor are cell names not cell ids
+                                        //String newCells = MobileCellsScanner.addCellId(currentCells, _registeredCell);
+                                        //db.updateMobileCellsCells(event_id, newCells);
 
                                         // broadcast new cell to
                                         Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
-                                        intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
-                                        intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELL_VALUE, _registeredCell);
+                                        //intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
+                                        //intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELL_VALUE, _registeredCell);
                                         intent.setPackage(PPApplication.PACKAGE_NAME);
                                         context.sendBroadcast(intent);
 
-//                                    PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PhoneProfilesService.doAutoRegistration", "(1)");
+//                                        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PhoneProfilesService.doAutoRegistration", "(1)");
                                         Intent refreshIntent = new Intent(PhoneProfilesService.ACTION_REFRESH_ACTIVITIES_GUI_BROADCAST_RECEIVER);
                                         refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
                                         LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
                                     }
                                 }
                             }
+                            */
+                            // broadcast new cell to
+                            Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
+                            //intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
+                            //intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELL_VALUE, _registeredCell);
+                            intent.setPackage(PPApplication.PACKAGE_NAME);
+                            context.sendBroadcast(intent);
+
+                            PPApplication.updateGUI(false, false, context);
                         }
                     }
                 }
@@ -778,7 +792,7 @@ class MobileCellsListener extends PhoneStateListener {
                 if (MobileCellsScanner.isValidCellId(_registeredCell)) {
 //                PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PhoneProfilesService.doAutoRegistration", "(2)");
                     // broadcast for event preferences
-                    Intent refreshIntent = new Intent(MobileCellsPreference.ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER);
+                    Intent refreshIntent = new Intent(MobileCellsEditorPreference.ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER);
                     LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
                 }
             }

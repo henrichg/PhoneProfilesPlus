@@ -1,5 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-interface MobileCellsPreferenceFragmentRefreshListViewListener {
+interface MobileCellsEditorPreferenceFragmentRefreshListViewListener {
     void refreshListViewFromListener();
 }

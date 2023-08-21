@@ -139,7 +139,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                             subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
                         } catch (SecurityException e) {
                             PPApplicationStatic.recordException(e);
-                            //Log.e("MobileCellsPreferenceFragment.onBindDialogView", Log.getStackTraceString(e));
+                            //Log.e("MobileCellsEditorPreferenceFragment.onBindDialogView", Log.getStackTraceString(e));
                         }
                         if (subscriptionList != null) {
                             int size = subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/
@@ -162,7 +162,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
             }
             if (simIsReady) {
                 rescanButton.setOnClickListener(v -> {
-                    if (Permissions.grantMobileCellsDialogPermissions(prefContext))
+                    if (Permissions.grantMobileCellsDialogPermissions(prefContext, false))
                         refreshListView(/*true*/);
                 });
             }

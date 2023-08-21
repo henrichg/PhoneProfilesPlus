@@ -11,16 +11,16 @@ import android.widget.ImageView;
 
 import androidx.appcompat.widget.TooltipCompat;
 
-class MobileCellsPreferenceAdapter extends BaseAdapter
+class MobileCellsEditorPreferenceAdapter extends BaseAdapter
 {
-    private final MobileCellsPreference preference;
+    private final MobileCellsEditorPreference preference;
     //private RadioButton selectedRB;
     //int selectedRBIndex = -1;
 
     private final LayoutInflater inflater;
     private final Context context;
 
-    MobileCellsPreferenceAdapter(Context context, MobileCellsPreference preference)
+    MobileCellsEditorPreferenceAdapter(Context context, MobileCellsEditorPreference preference)
     {
         this.preference = preference;
 
@@ -49,22 +49,22 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
         //java.lang.IllegalStateException: The content of the adapter has changed but ListView did not receive a notification.
         // Make sure the content of your adapter is not modified from a background thread, but only from the UI thread.
         // Make sure your adapter calls notifyDataSetChanged() when its content changes. [in ListView(2131689809, class android.widget.ListView)
-        // with Adapter(class sk.henrichg.phoneprofilesplus.MobileCellsPreferenceAdapter)]
+        // with Adapter(class sk.henrichg.phoneprofilesplus.MobileCellsEditorPreferenceAdapter)]
 
-        MobileCellsPreferenceViewHolder holder;
+        MobileCellsEditorViewHolder holder;
         
         View vi = convertView;
         if (convertView == null)
         {
             vi = inflater.inflate(R.layout.listitem_mobile_cells_preference, parent, false);
-            holder = new MobileCellsPreferenceViewHolder();
+            holder = new MobileCellsEditorViewHolder();
             holder.cellId = vi.findViewById(R.id.mobile_cells_pref_dlg_item_label);
             holder.lastConnectedTime = vi.findViewById(R.id.mobile_cells_pref_dlg_item_lastConnectedTime);
             holder.checkBox = vi.findViewById(R.id.mobile_cells_pref_dlg_item_checkbox);
             holder.itemEditMenu = vi.findViewById(R.id.mobile_cells_pref_dlg_item_edit_menu);
             vi.setTag(holder);
         } else {
-            holder = (MobileCellsPreferenceViewHolder) vi.getTag();
+            holder = (MobileCellsEditorViewHolder) vi.getTag();
         }
 
         // must be set, without this not working long click
