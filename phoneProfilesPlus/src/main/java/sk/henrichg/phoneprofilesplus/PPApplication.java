@@ -39,7 +39,6 @@ import org.lsposed.hiddenapibypass.HiddenApiBypass;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.lang.reflect.Field;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1953,6 +1952,7 @@ public class PPApplication extends Application
                 Build.FINGERPRINT.toLowerCase().contains(SAMSUNG);
     }
 
+    /*
     private static String getOneUiVersion() throws Exception {
         //if (!isSemAvailable(getApplicationContext())) {
         //    return ""; // was "1.0" originally but probably just a dummy value for one UI devices
@@ -1966,6 +1966,7 @@ public class PPApplication extends Application
         }
         return (version / 10000) + "." + ((version % 10000) / 100);
     }
+    */
 
     /*
     private static boolean isSemAvailable(Context context) {
@@ -1977,12 +1978,13 @@ public class PPApplication extends Application
 
     private static boolean isGalaxyROM() {
         try {
-            //noinspection unused
-            String romName = getOneUiVersion();
-            /*if (romName.isEmpty())
+            //String romName = getOneUiVersion();
+            /*
+            if (romName.isEmpty())
                 return true; // old, non-OneUI ROM
             else
-                return true; // OneUI ROM*/
+                return true; // OneUI ROM
+            */
             return true;
         } catch (Exception e) {
             return false;

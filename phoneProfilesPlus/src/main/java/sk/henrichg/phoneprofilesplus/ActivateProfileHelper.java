@@ -1509,7 +1509,7 @@ class ActivateProfileHelper {
             }
             if (!G1OK) {
                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                        (RootUtils.isRooted(false))) {
+                        (RootUtils.isRooted(/*false*/))) {
                     synchronized (PPApplication.rootMutex) {
                         String command1 = COMMAND_SETTINGS_PUT_GLOBAL+AUDIO_SAFE_VOLUME_STATE+" 2";
                         Command command = new Command(0, /*false,*/ command1);
@@ -1695,7 +1695,7 @@ class ActivateProfileHelper {
                                 }
                             } else {
                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                        (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                        (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                                     synchronized (PPApplication.rootMutex) {
                                         String command1;
                                         Command command;
@@ -1788,7 +1788,7 @@ class ActivateProfileHelper {
                     }
                 } else {
                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                            (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                            (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                         synchronized (PPApplication.rootMutex) {
                             String command1;
                             Command command;
@@ -1861,7 +1861,7 @@ class ActivateProfileHelper {
                             putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
                         else {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                    (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
                                     String command1;
                                     Command command;
@@ -2600,7 +2600,7 @@ class ActivateProfileHelper {
                                             putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, uri.toString());
                                         } else {
                                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                                    (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                                                 synchronized (PPApplication.rootMutex) {
                                                     String command1;
                                                     Command command;
@@ -2630,7 +2630,7 @@ class ActivateProfileHelper {
                                             putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, uri.toString());
                                         } else {
                                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                                    (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                                                 synchronized (PPApplication.rootMutex) {
                                                     String command1;
                                                     Command command;
@@ -2697,7 +2697,7 @@ class ActivateProfileHelper {
                                         putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, "");
                                     } else {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                                (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1;
                                                 Command command;
@@ -2725,7 +2725,7 @@ class ActivateProfileHelper {
                                         putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, "");
                                     } else {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                                (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1;
                                                 Command command;
@@ -2799,7 +2799,7 @@ class ActivateProfileHelper {
                                             putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, uri.toString());
                                         } else {
                                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                                    (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                                                 synchronized (PPApplication.rootMutex) {
                                                     String command1;
                                                     Command command;
@@ -2830,7 +2830,7 @@ class ActivateProfileHelper {
                                         //} else
                                         {
                                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                                    (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                                                 synchronized (PPApplication.rootMutex) {
                                                     String command1;
                                                     Command command;
@@ -2897,7 +2897,7 @@ class ActivateProfileHelper {
                                         putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, "");
                                     } else {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                                (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1;
                                                 Command command;
@@ -2924,7 +2924,7 @@ class ActivateProfileHelper {
                                     //} else
                                     {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                                (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1;
                                                 Command command;
@@ -2978,7 +2978,7 @@ class ActivateProfileHelper {
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_RINGTONE_FOLLOW_SIM1_ONEPLUS, value);
                             } else {
                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                        (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                        (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                                     synchronized (PPApplication.rootMutex) {
                                         String command1 = null;
                                         Command command;
@@ -3197,7 +3197,7 @@ class ActivateProfileHelper {
                             putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, NOTIFICATION_LIGHT_PULSE, String.valueOf(value));
                         else {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                    (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
                                     String command1 = COMMAND_SETTINGS_PUT_SYSTEM + NOTIFICATION_LIGHT_PULSE/*Settings.System.NOTIFICATION_LIGHT_PULSE*/ + " " + value;
                                     //if (PPApplication.isSELinuxEnforcing())
@@ -3269,7 +3269,7 @@ class ActivateProfileHelper {
                         }
                         if (!G1OK) {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                    (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
                                     String command1 = COMMAND_SETTINGS_PUT_GLOBAL+ NEADSUP_NOTIFICATION_ENABLED + " " + value;
                                     //if (PPApplication.isSELinuxEnforcing())
@@ -3351,7 +3351,7 @@ class ActivateProfileHelper {
                         //}
                         if (!G1OK) {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                    (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
                                     String command1;
                                     //if (PPApplication.deviceIsOnePlus)
@@ -5806,7 +5806,7 @@ class ActivateProfileHelper {
 
     private static void setAirplaneMode(Context context, boolean mode, boolean useAssistant)
     {
-        boolean isRooted = RootUtils.isRooted(false);
+        boolean isRooted = RootUtils.isRooted(/*false*/);
         boolean settingsBinaryExists = RootUtils.settingsBinaryExists(false);
         if (isRooted && (!useAssistant) &&
             (!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -6037,7 +6037,7 @@ class ActivateProfileHelper {
             simExists = simExists && sim2Exists;
         }
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                RootUtils.isRooted(false) &&
+                RootUtils.isRooted(/*false*/) &&
             simExists)
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
@@ -6141,7 +6141,7 @@ class ActivateProfileHelper {
         //Context appContext = context.getApplicationContext();
 
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                RootUtils.isRooted(false)) {
+                RootUtils.isRooted(/*false*/)) {
             synchronized (PPApplication.rootMutex) {
                 String command1 = "svc wifi " + (enable ? "enable" : "disable");
                 Command command = new Command(0, /*false,*/ command1);
@@ -6259,7 +6259,7 @@ class ActivateProfileHelper {
         }
 
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                RootUtils.isRooted(false) &&
+                RootUtils.isRooted(/*false*/) &&
                 RootUtils.serviceBinaryExists(false) &&
             simExists)
         {
@@ -6376,7 +6376,7 @@ class ActivateProfileHelper {
                 }
                 else
                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                        (RootUtils.isRooted(false) && RootUtils.serviceBinaryExists(false))) {
+                        (RootUtils.isRooted(/*false*/) && RootUtils.serviceBinaryExists(false))) {
                     int transactionCode = PPApplication.rootMutex.transactionCode_setWifiApEnabled;
 
                     if (transactionCode != -1) {
@@ -6451,7 +6451,7 @@ class ActivateProfileHelper {
         }
         if (!G1OK) {
             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                    (RootUtils.isRooted(false))) {
+                    (RootUtils.isRooted(/*false*/))) {
                 synchronized (PPApplication.rootMutex) {
                     String command1 = RootUtils.getJavaCommandFile(CmdNfc.class, "nfc", appContext, enable);
                     if (command1 != null) {
@@ -6553,7 +6553,7 @@ class ActivateProfileHelper {
             }
             if (!G1OK) {
                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                        (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                        (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                     // device is rooted
 
                     String command1;
@@ -6609,7 +6609,7 @@ class ActivateProfileHelper {
             }
             if (!G1OK) {
                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                        (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                        (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                     // device is rooted
 
                     String command1;
@@ -6747,7 +6747,7 @@ class ActivateProfileHelper {
                                     }
                                     if (!G1OK) {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                                (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1 = COMMAND_SETTINGS_PUT_GLOBAL+LOW_POWER + " " + ((_isPowerSaveMode) ? 1 : 0);
                                                 Command command = new Command(0, /*false,*/ command1);
@@ -6830,7 +6830,7 @@ class ActivateProfileHelper {
                         break;
                     case 2:
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                (RootUtils.isRooted(false))) {
+                                (RootUtils.isRooted(/*false*/))) {
                             synchronized (PPApplication.rootMutex) {
                                 /*String command1 = "input keyevent 26";
                                 Command command = new Command(0, false, command1);
@@ -6924,7 +6924,7 @@ class ActivateProfileHelper {
                 }
                 if (!G1OK) {
                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                            (RootUtils.isRooted(false))) {
+                            (RootUtils.isRooted(/*false*/))) {
                         synchronized (PPApplication.rootMutex) {
                             String command1 = COMMAND_SETTINGS_PUT_SECURE+UI_NIGHT_MODE;
                             if (value == 1)
@@ -7033,7 +7033,7 @@ class ActivateProfileHelper {
         }
 
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                RootUtils.isRooted(false)) {
+                RootUtils.isRooted(/*false*/)) {
 
             if (Permissions.checkPhone(context.getApplicationContext())) {
 //                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ask for root enabled and is rooted");
@@ -7216,7 +7216,7 @@ class ActivateProfileHelper {
         }
 
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                RootUtils.isRooted(false) &&
+                RootUtils.isRooted(/*false*/) &&
                 simExists)
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {

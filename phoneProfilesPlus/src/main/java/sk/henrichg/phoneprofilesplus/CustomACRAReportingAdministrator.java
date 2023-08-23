@@ -28,7 +28,6 @@ import java.util.concurrent.TimeoutException;
 // Custom ACRA ReportingAdministrator
 // https://github.com/ACRA/acra/wiki/Custom-Extensions
 
-@SuppressWarnings("unused")
 @AutoService(ReportingAdministrator.class)
 public class CustomACRAReportingAdministrator implements ReportingAdministrator {
 

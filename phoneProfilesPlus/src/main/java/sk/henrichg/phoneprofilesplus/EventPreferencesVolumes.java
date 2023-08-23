@@ -389,7 +389,7 @@ class EventPreferencesVolumes extends EventPreferences {
     }
 
     private void setSummary(PreferenceManager prefMng, String key,
-                            @SuppressWarnings("unused") String value,
+                            /*String value,*/
                             Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
@@ -507,8 +507,8 @@ class EventPreferencesVolumes extends EventPreferences {
             return;
 
         if (key.equals(PREF_EVENT_VOLUMES_ENABLED)) {
-            boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
+            //boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, /*value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING,*/ context);
         }
         if (key.equals(PREF_EVENT_VOLUMES_RINGTONE_FROM) ||
                 key.equals(PREF_EVENT_VOLUMES_NOTIFICATION_FROM) ||
@@ -524,7 +524,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 key.equals(PREF_EVENT_VOLUMES_SYSTEM_TO) ||
                 key.equals(PREF_EVENT_VOLUMES_VOICE_TO) ||
                 key.equals(PREF_EVENT_VOLUMES_BLUETOOTHSCO_TO)) {
-            setSummary(prefMng, key, preferences.getString(key, ""), context);
+            setSummary(prefMng, key, /*preferences.getString(key, ""),*/ context);
         }
     }
 

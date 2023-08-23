@@ -319,8 +319,8 @@ public class ProfileListNotification {
                 break;
         }
 
-        setSmallIcon(activatedProfile,
-                notificationProfileListStatusBarStyle,
+        setSmallIcon(/*activatedProfile,
+                notificationProfileListStatusBarStyle,*/
                 notificationProfileListIconColor,
                 notificationBuilder, appContext);
 
@@ -652,9 +652,8 @@ public class ProfileListNotification {
         //}
     }
 
-    @SuppressWarnings("unused")
-    private static void setSmallIcon(Profile activatedProfile,
-                                     String notificationProfileListStatusBarStyle,
+    private static void setSmallIcon(/*Profile activatedProfile,
+                                     String notificationProfileListStatusBarStyle,*/
                                      String notificationProfileListIconColor,
 
                                      NotificationCompat.Builder notificationBuilder,

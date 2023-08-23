@@ -123,8 +123,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         }
     }
 
-    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences,
-                    @SuppressWarnings("unused") Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences/*, Context context*/)
     {
         if (preferences == null)
             return;
@@ -144,11 +143,11 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         }
     }
 
-    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences/*, Context context*/)
     {
-        setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_ENABLED, preferences, context);
-        setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_PERMANENT_RUN, preferences, context);
-        setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_DURATION, preferences, context);
+        setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_ENABLED, preferences);
+        setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_PERMANENT_RUN, preferences);
+        setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_DURATION, preferences);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
@@ -195,7 +194,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_DEVICE_BOOT_ENABLED) != null) {
-                setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_ENABLED, preferences, context);
+                setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_ENABLED, preferences);
             }
         }
         setCategorySummary(prefMng, preferences, context);

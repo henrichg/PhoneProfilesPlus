@@ -32,7 +32,7 @@ import com.stericson.rootshell.RootShell;
 
 import java.io.IOException;
 
-@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "EmptyMethod", "SameParameterValue", "unused"})
+/** @noinspection BooleanMethodIsAlwaysInverted, SameParameterValue, CanBeFinal, EmptyMethod */
 public class Command {
 
     //directly modified by JavaCommand
@@ -95,14 +95,13 @@ public class Command {
 //        //createHandler(handlerEnabled);
 //    }
 
-    /**
+    /*
      * Constructor for executing a normal shell command
      *
      * @param id      the id of the command being executed
      * @param timeout the time allowed before the shell will give up executing the command
      *                and throw a TimeoutException.
      * @param command the command, or commands, to be executed.
-     */
     public Command(int id, int timeout, String... command) {
         this.command = command;
         this.id = id;
@@ -110,6 +109,7 @@ public class Command {
 
         //createHandler(RootShell.handlerEnabled);
     }
+    */
 
     //If you override this you MUST make a final call
     //to the super method. The super call should be the last line of this method.
@@ -118,10 +118,12 @@ public class Command {
         totalOutputProcessed++;
     }
 
+    /** @noinspection unused*/
     public void commandTerminated(int id, String reason) {
         //pass
     }
 
+    /** @noinspection unused*/
     public void commandCompleted(int id, int exitCode) {
         //pass
     }
@@ -145,6 +147,7 @@ public class Command {
         }
     }
 
+    /*
     private void createHandler(boolean handlerEnabled) {
 
         this.handlerEnabled = handlerEnabled;
@@ -156,12 +159,15 @@ public class Command {
             RootShell.log("CommandHandler not created");
         }
     }
+    */
 
+    /*
     public final void finish()
     {
         RootShell.log("Command finished at users request!");
         commandFinished();
     }
+    */
 
     protected final void finishCommand() {
         this.executing = false;
@@ -220,17 +226,21 @@ public class Command {
         return executing;
     }
 
+    /*
     public final boolean isHandlerEnabled() {
         return handlerEnabled;
     }
+    */
 
     public final boolean isFinished() {
         return finished;
     }
 
+    /*
     public final int getExitCode() {
         return this.exitCode;
     }
+    */
 
     protected final void setExitCode(int code) {
         synchronized (this) {
@@ -246,11 +256,13 @@ public class Command {
         executing = true;
     }
 
+    /*
     public final void terminate()
     {
         RootShell.log("Terminating command at users request!");
         terminated("Terminated at users request!");
     }
+    */
 
     protected final void terminate(String reason) {
         try {
@@ -325,7 +337,7 @@ public class Command {
         }
     }
 
-    @SuppressWarnings("deprecation")
+    /** @noinspection unused, deprecation */
     private class CommandHandler extends Handler {
 
         static final String ACTION = "action";

@@ -21,8 +21,6 @@
  */
 package com.stericson.rootshell.execution;
 
-import android.content.Context;
-
 import com.stericson.rootshell.RootShell;
 import com.stericson.rootshell.exceptions.RootDeniedException;
 
@@ -42,25 +40,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-@SuppressWarnings("ALL")
+/** @noinspection StatementWithEmptyBody, FieldCanBeLocal, UnusedReturnValue, TryWithIdenticalCatches, TryFinallyCanBeTryWithResources */
 public class Shell {
 
     public enum ShellType {
         NORMAL,
         ROOT,
-        CUSTOM
+        /** @noinspection unused*/ CUSTOM
     }
 
     //this is only used with root shells
     public enum ShellContext {
         NORMAL("normal"), //The normal context...
         SHELL("u:r:shell:s0"), //unprivileged shell (such as an adb shell)
-        SYSTEM_SERVER("u:r:system_server:s0"), // system_server, u:r:system:s0 on some firmwares
+        /** @noinspection unused*/ SYSTEM_SERVER("u:r:system_server:s0"), // system_server, u:r:system:s0 on some firmwares
         SYSTEM_APP("u:r:system_app:s0"), // System apps
-        PLATFORM_APP("u:r:platform_app:s0"), // System apps
-        UNTRUSTED_APP("u:r:untrusted_app:s0"), // Third-party apps
-        RECOVERY("u:r:recovery:s0"), //Recovery
-        SUPERSU("u:r:supersu:s0"); //SUPER SU default
+        /** @noinspection unused*/ PLATFORM_APP("u:r:platform_app:s0"), // System apps
+        /** @noinspection unused*/ UNTRUSTED_APP("u:r:untrusted_app:s0"), // Third-party apps
+        /** @noinspection unused*/ RECOVERY("u:r:recovery:s0"), //Recovery
+        /** @noinspection unused*/ SUPERSU("u:r:supersu:s0"); //SUPER SU default
 
         private final String value;
 
@@ -95,6 +93,7 @@ public class Shell {
 
     private final ShellType shellType; // = null;
 
+    /** @noinspection UnusedAssignment*/
     private ShellContext shellContext = Shell.ShellContext.NORMAL;
 
     private String error = "";
@@ -118,7 +117,7 @@ public class Shell {
 
     public boolean isReading = false;
 
-    public boolean isClosed = false;
+    //public boolean isClosed = false;
 
     private final int maxCommands = 5000;
 
@@ -272,6 +271,7 @@ public class Shell {
         return command;
     }
 
+    /*
     public final void useCWD(Context context) throws IOException, TimeoutException, RootDeniedException {
         add(
                 new Command(
@@ -280,12 +280,14 @@ public class Shell {
                         "cd " + context.getApplicationInfo().dataDir)
         );
     }
+    */
 
     private void cleanCommands() {
         this.isCleaning = true;
         int toClean = Math.abs(this.maxCommands - (this.maxCommands / 4));
         RootShell.log("Cleaning up: " + toClean);
 
+        //noinspection ListRemoveInLoop
         for (int i = 0; i < toClean; i++) {
             this.commands.remove(0);
         }
@@ -392,6 +394,7 @@ public class Shell {
         return "Command is in position " + getCommandQueuePosition(cmd) + " currently executing command at position " + this.write + " and the number of commands is " + commands.size();
     }
 
+    /*
     public static Shell getOpenShell() {
         if (Shell.customShell != null) {
             return Shell.customShell;
@@ -401,6 +404,7 @@ public class Shell {
             return Shell.shell;
         }
     }
+    */
 
     /**
      * From libsuperuser.
@@ -464,6 +468,7 @@ public class Shell {
 
             //List<String> ret = stdout;
 
+            //noinspection ConstantValue
             if (stdout != null) {
                 for (String line : stdout) {
                     if (!internal) {
@@ -488,10 +493,13 @@ public class Shell {
         return suVersion[idx];
     }
 
+    /*
     public static boolean isShellOpen() {
         return Shell.shell == null;
     }
+    */
 
+    /*
     public static boolean isCustomShellOpen() {
         return Shell.customShell == null;
     }
@@ -503,12 +511,11 @@ public class Shell {
     public static boolean isAnyShellOpen() {
         return Shell.shell != null || Shell.rootShell != null || Shell.customShell != null;
     }
+    */
 
     /**
      * From libsuperuser.
-     *
      * Detect if SELinux is set to enforcing, caches result
-     *
      * @return true if SELinux set to enforcing, or false in the case of
      * permissive or not present
      */
@@ -524,6 +531,7 @@ public class Shell {
                 File f = new File("/sys/fs/selinux/enforce");
                 if (f.exists()) {
                     try {
+                        //noinspection IOStreamConstructor
                         InputStream is = new FileInputStream("/sys/fs/selinux/enforce");
                         try {
                             enforcing = (is.read() == '1');
@@ -540,6 +548,7 @@ public class Shell {
                 }
             //}
 
+            //noinspection ConstantValue
             if (enforcing == null) {
                 enforcing = false;
             }
@@ -638,20 +647,17 @@ public class Shell {
     };
 
     protected void notifyThreads() {
-        Thread t = new Thread() {
-            public void run() {
-                synchronized (commands) {
-                    commands.notifyAll();
-                }
+        Thread t = new Thread(() -> {
+            synchronized (commands) {
+                commands.notifyAll();
             }
-        };
+        });
 
         t.start();
     }
 
     /**
      * Runnable to monitor the responses from the open shell.
-     *
      * This include the output and error stream
      */
     private final Runnable output = new Runnable() {
@@ -762,7 +768,7 @@ public class Shell {
 
                                 read++;
                                 totalRead++;
-                                continue;
+                                //continue;
                             }
                         }
                     }
@@ -803,7 +809,7 @@ public class Shell {
                 closeQuietly(inputStream);
 
                 RootShell.log("Shell destroyed");
-                isClosed = true;
+                //isClosed = true;
                 isReading = false;
             }
         }
@@ -831,26 +837,35 @@ public class Shell {
         }
     }
 
+    /*
     public static Command runRootCommand(Command command) throws IOException, TimeoutException, RootDeniedException {
         return Shell.startRootShell().add(command);
     }
+    */
 
+    /*
     public static Command runCommand(Command command) throws IOException, TimeoutException {
         return Shell.startShell().add(command);
     }
+    */
 
+    /*
     public static Shell startRootShell() throws IOException, TimeoutException, RootDeniedException {
         return Shell.startRootShell(0, 3);
     }
+    */
 
+    /*
     public static Shell startRootShell(int timeout) throws IOException, TimeoutException, RootDeniedException {
         return Shell.startRootShell(timeout, 3);
     }
+    */
 
     public static Shell startRootShell(int timeout, int retry) throws IOException, TimeoutException, RootDeniedException {
         return Shell.startRootShell(timeout, Shell.defaultContext, retry);
     }
 
+    /** @noinspection ReassignedVariable*/
     public static Shell startRootShell(int timeout, ShellContext shellContext, int retry) throws IOException, TimeoutException, RootDeniedException {
         // keep prompting the user until they accept for x amount of times...
         int retries = 0;
@@ -885,16 +900,19 @@ public class Shell {
                 RootShell.log("Context is different than open shell, switching context... " + Shell.rootShell.shellContext + " VS " + shellContext);
                 Shell.rootShell.switchRootShellContext(shellContext);
             } catch (IOException e) {
+                //noinspection UnusedAssignment
                 if (retries++ >= retry) {
                     RootShell.log("IOException, could not switch context!");
                     throw e;
                 }
             } catch (RootDeniedException e) {
+                //noinspection UnusedAssignment
                 if (retries++ >= retry) {
                     RootShell.log("RootDeniedException, could not switch context!");
                     throw e;
                 }
             } catch (TimeoutException e) {
+                //noinspection UnusedAssignment
                 if (retries++ >= retry) {
                     RootShell.log("TimeoutException, could not switch context!");
                     throw e;
@@ -907,10 +925,13 @@ public class Shell {
         return Shell.rootShell;
     }
 
+    /*
     public static Shell startCustomShell(String shellPath) throws IOException, TimeoutException, RootDeniedException {
         return Shell.startCustomShell(shellPath, 0);
     }
+    */
 
+    /*
     public static Shell startCustomShell(String shellPath, int timeout) throws IOException, TimeoutException, RootDeniedException {
 
         if (Shell.customShell == null) {
@@ -922,10 +943,13 @@ public class Shell {
 
         return Shell.customShell;
     }
+    */
 
+    /*
     public static Shell startShell() throws IOException, TimeoutException {
         return Shell.startShell(0);
     }
+    */
 
     public static Shell startShell(int timeout) throws IOException, TimeoutException {
 
@@ -1028,6 +1052,7 @@ public class Shell {
                     field = processClass.getDeclaredField("id");
                 }
                 field.setAccessible(true);
+                //noinspection DataFlowIssue
                 int pid = (Integer) field.get(shell.proc);
                 shell.outputStream.write("(echo -17 > /proc/" + pid + "/oom_adj) &> /dev/null\n");
                 shell.outputStream.write("(echo -17 > /proc/$$/oom_adj) &> /dev/null\n");

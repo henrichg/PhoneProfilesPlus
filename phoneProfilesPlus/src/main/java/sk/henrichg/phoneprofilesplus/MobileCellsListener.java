@@ -20,7 +20,6 @@ import android.telephony.CellInfoWcdma;
 import android.telephony.CellLocation;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
-import android.telephony.SubscriptionInfo;
 import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
@@ -47,7 +46,7 @@ class MobileCellsListener extends PhoneStateListener {
 
     final MobileCellsScanner scanner;
 
-    MobileCellsListener(@SuppressWarnings("unused") SubscriptionInfo subscriptionInfo,
+    MobileCellsListener(/*SubscriptionInfo subscriptionInfo,*/
                         Context context,
                         MobileCellsScanner scanner, TelephonyManager telephonyManager) {
 
@@ -318,8 +317,7 @@ class MobileCellsListener extends PhoneStateListener {
 
     }
 
-
-    @SuppressWarnings("UnusedReturnValue")
+    /** @noinspection UnusedReturnValue*/
     @SuppressLint("MissingPermission")
     private CellLocation getCellLocation() {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsListener.getCellLocation", "******** ### ******* (1)");

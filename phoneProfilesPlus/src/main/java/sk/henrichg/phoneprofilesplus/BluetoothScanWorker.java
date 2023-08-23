@@ -612,7 +612,7 @@ public class BluetoothScanWorker extends Worker {
             }
 
             BluetoothScanner bluetoothScanner = new BluetoothScanner(context);
-            bluetoothScanner.doScan(fromDialog);
+            bluetoothScanner.doScan(/*fromDialog*/);
         }
         //dataWrapper.invalidateDataWrapper();
     }

@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/** @noinspection InstantiationOfUtilityClass*/
 /* #ANNOTATIONS @SupportedAnnotationTypes("com.stericson.rootshell.containers.RootClass.Candidate") */
 /* #ANNOTATIONS @SupportedSourceVersion(SourceVersion.RELEASE_6) */
-@SuppressWarnings({"InstantiationOfUtilityClass", "unused"})
 public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
 
     /* #ANNOTATIONS
@@ -26,7 +26,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
     }
     */
 
-    static volatile String PATH_TO_DX = "/Users/Chris/Projects/android-sdk-macosx/build-tools/18.0.1/dx";
+    //static volatile String PATH_TO_DX = "/Users/Chris/Projects/android-sdk-macosx/build-tools/18.0.1/dx";
 
     enum READ_STATE {
         STARTING, FOUND_ANNOTATION
@@ -49,9 +49,10 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
         classConstructor.newInstance(actualArgs);
     }
 
-    @SuppressWarnings("unused")
+    /*
     public @interface Candidate {
     }
+    */
 
     @SuppressWarnings("InnerClassMayBeStatic")
     public class RootArgs {

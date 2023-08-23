@@ -1419,7 +1419,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 finishActivity = permissionsChanged && (!locationPermission);
             }
             if (!permissionsChanged) {
-                boolean smsPermission = Permissions.checkSMS(context);
+                boolean smsPermission = Permissions.checkSMS(/*context*/);
                 permissionsChanged = Permissions.getSMSPermission(context) != smsPermission;
                 // finish Editor when permission is disabled
                 finishActivity = permissionsChanged && (!smsPermission);
@@ -1455,7 +1455,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 finishActivity = permissionsChanged && (!microphonePermission);
             }
             if (!permissionsChanged) {
-                boolean sensorsPermission = Permissions.checkSensors(context);
+                boolean sensorsPermission = Permissions.checkSensors(/*context*/);
                 permissionsChanged = Permissions.getSensorsPermission(context) != sensorsPermission;
                 // finish Editor when permission is disabled
                 finishActivity = permissionsChanged && (!sensorsPermission);

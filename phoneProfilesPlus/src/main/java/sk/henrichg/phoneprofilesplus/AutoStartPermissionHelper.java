@@ -77,15 +77,14 @@ class AutoStartPermissionHelper  {
     private final String PACKAGE_NOKIA_MAIN = "com.evenwell.powersaving.g3";
     private final String PACKAGE_NOKIA_COMPONENT = "com.evenwell.powersaving.g3.exception.PowerSaverExceptionActivity";
 
-    /***
+    /*
      * Samsung
-     */
-    @SuppressWarnings("unused")
     private final String BRAND_SAMSUNG = "samsung";
     private final String PACKAGE_SAMSUNG_MAIN = "com.samsung.android.lool";
     private final String PACKAGE_SAMSUNG_COMPONENT = "com.samsung.android.sm.ui.battery.BatteryActivity";
     private final String PACKAGE_SAMSUNG_COMPONENT_2 = "com.samsung.android.sm.battery.ui.usage.CheckableAppListActivity";
     private final String PACKAGE_SAMSUNG_COMPONENT_3 = "com.samsung.android.sm.battery.ui.BatteryActivity";
+    */
 
     /**
      * Oppo
@@ -361,7 +360,7 @@ class AutoStartPermissionHelper  {
         return true;
     }
 
-    @SuppressWarnings("unused")
+    /*
     private boolean autoStartSamsung(Context context) {
         if (isPackageExists(context, PACKAGE_SAMSUNG_MAIN)) {
             try {
@@ -389,6 +388,7 @@ class AutoStartPermissionHelper  {
 
         return true;
     }
+    */
 
     private boolean autoStartOnePlus(Context context) {
         boolean ok;

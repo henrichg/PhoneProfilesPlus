@@ -152,8 +152,7 @@ class EventPreferencesBrightness extends EventPreferences {
         }
     }
 
-    /** @noinspection unused*/
-    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences/*, Context context*/)
     {
         if (preferences == null)
             return;
@@ -175,14 +174,14 @@ class EventPreferencesBrightness extends EventPreferences {
         }
     }
 
-    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences,
-                       Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences/*,
+                       Context context*/)
     {
-        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_ENABLED, preferences, context);
-        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_OPERATOR_FROM, preferences, context);
-        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM, preferences, context);
-        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_OPERATOR_TO, preferences, context);
-        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_TO, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_ENABLED, preferences/*, context*/);
+        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_OPERATOR_FROM, preferences/*, context*/);
+        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM, preferences/*, context*/);
+        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_OPERATOR_TO, preferences/*, context*/);
+        setSummary(prefMng, PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_TO, preferences/*, context*/);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
@@ -241,7 +240,7 @@ class EventPreferencesBrightness extends EventPreferences {
                 }
                 */
 
-                setSummary(prefMng, PREF_EVENT_BRIGHTNESS_ENABLED, preferences, context);
+                setSummary(prefMng, PREF_EVENT_BRIGHTNESS_ENABLED, preferences/*, context*/);
             }
         }
         setCategorySummary(prefMng, preferences, context);

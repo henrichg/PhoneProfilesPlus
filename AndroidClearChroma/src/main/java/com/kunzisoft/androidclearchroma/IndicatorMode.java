@@ -4,10 +4,10 @@ package com.kunzisoft.androidclearchroma;
  * Indicator mode of color, can be Decimal or Hexadecimal
  * @author Pavel Sikun
  */
-@SuppressWarnings("unused")
 public enum IndicatorMode {
     DECIMAL(0), HEX(1);
 
+    /** @noinspection unused, FieldCanBeLocal */
     private final int i;
 
     /**
@@ -18,19 +18,18 @@ public enum IndicatorMode {
         i=id;
     }
 
-    /**
+    /*
      * Get id of Indicator Mode
      * @return ID
-     */
     public int getId() {
         return i;
     }
+    */
 
-    /**
+    /*
      * Return mode from ID
      * @param id Unique ID
      * @return Mode
-     */
     public static IndicatorMode getIndicatorModeFromId(int id) {
         switch (id) {
             default:
@@ -40,4 +39,5 @@ public enum IndicatorMode {
                 return HEX;
         }
     }
+    */
 }

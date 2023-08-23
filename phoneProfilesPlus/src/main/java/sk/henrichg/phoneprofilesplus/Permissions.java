@@ -1245,7 +1245,7 @@ class Permissions {
     }
 
     @SuppressWarnings("SameReturnValue")
-    static boolean checkSMS(@SuppressWarnings("unused") Context context) {
+    static boolean checkSMS(/*Context context*/) {
         return true;
         /*
         try {
@@ -1726,7 +1726,7 @@ class Permissions {
         }
     }
 
-    static boolean checkSensors(@SuppressWarnings("unused") Context context) {
+    static boolean checkSensors(/*Context context*/) {
         try {
             return true;
         } catch (Exception e) {
@@ -2708,8 +2708,8 @@ class Permissions {
         editor.putBoolean(PREF_LOCATION_PERMISSION, Permissions.checkLocation(context));
         editor.putBoolean(PREF_MICROPHONE_PERMISSION, Permissions.checkMicrophone(context));
         editor.putBoolean(PREF_PHONE_PERMISSION, Permissions.checkPhone(context));
-        editor.putBoolean(PREF_SENSORS_PERMISSION, Permissions.checkSensors(context));
-        editor.putBoolean(PREF_SMS_PERMISSION, Permissions.checkSMS(context));
+        editor.putBoolean(PREF_SENSORS_PERMISSION, Permissions.checkSensors(/*context*/));
+        editor.putBoolean(PREF_SMS_PERMISSION, Permissions.checkSMS(/*context*/));
         editor.putBoolean(PREF_READ_STORAGE_PERMISSION, Permissions.checkReadStorage(context));
         editor.putBoolean(PREF_WRITE_STORAGE_PERMISSION, Permissions.checkWriteStorage(context));
 

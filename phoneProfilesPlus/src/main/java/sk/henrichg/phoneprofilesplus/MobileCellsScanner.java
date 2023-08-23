@@ -61,13 +61,13 @@ class MobileCellsScanner {
                                 if (subscriptionInfo.getSimSlotIndex() == 0) {
                                     if (telephonyManagerSIM1 == null) {
                                         telephonyManagerSIM1 = telephonyManager.createForSubscriptionId(subscriptionId);
-                                        mobileCellsListenerSIM1 = new MobileCellsListener(subscriptionInfo, context, this, telephonyManagerSIM1);
+                                        mobileCellsListenerSIM1 = new MobileCellsListener(/*subscriptionInfo, */context, this, telephonyManagerSIM1);
                                     }
                                 }
                                 if (subscriptionInfo.getSimSlotIndex() == 1) {
                                     if (telephonyManagerSIM2 == null) {
                                         telephonyManagerSIM2 = telephonyManager.createForSubscriptionId(subscriptionId);
-                                        mobileCellsListenerSIM2 = new MobileCellsListener(subscriptionInfo, context, this, telephonyManagerSIM2);
+                                        mobileCellsListenerSIM2 = new MobileCellsListener(/*subscriptionInfo, */context, this, telephonyManagerSIM2);
                                     }
                                 }
                             }
@@ -77,7 +77,7 @@ class MobileCellsScanner {
             }
             else {
                 telephonyManagerDefault = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-                mobileCellsListenerDefault = new MobileCellsListener(null, context, this, telephonyManagerDefault);
+                mobileCellsListenerDefault = new MobileCellsListener(/*null, */context, this, telephonyManagerDefault);
             }
         }
 

@@ -15,7 +15,6 @@ import com.kunzisoft.androidclearchroma.colormode.Channel;
  * Channel view to show a color channel
  * @author JJamet, Pavel Sikun
  */
-@SuppressWarnings("unused")
 public class ChannelView extends RelativeLayout {
 
     private TextView label;
@@ -42,10 +41,12 @@ public class ChannelView extends RelativeLayout {
         init(context);
     }
 
+    /*
     public ChannelView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }
+    */
 
     private void init(Context context) {
         View rootView = inflate(context, R.layout.acch_channel_row, this);
@@ -95,13 +96,13 @@ public class ChannelView extends RelativeLayout {
         this.listener = listener;
     }
 
-    /**
+    /*
      * Set a new channel to the view, the IndicatorMode.DECIMAL is used
      * @param channel Channel to assign
-     */
     public void setChannel(Channel channel) {
         setChannel(channel, IndicatorMode.DECIMAL);
     }
+    */
 
     /**
      * Set a new channel to the view with a specific IndicatorMode
@@ -119,9 +120,11 @@ public class ChannelView extends RelativeLayout {
         return channel;
     }
 
+    /*
     public IndicatorMode getIndicatorMode() {
         return indicatorMode;
     }
+    */
 
     @Override
     protected void onDetachedFromWindow() {

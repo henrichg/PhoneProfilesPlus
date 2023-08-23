@@ -4,7 +4,6 @@ package com.kunzisoft.androidclearchroma.colormode;
  * Channel for manipulate data of element in color mode
  * @author Pavel Sikun
  */
-@SuppressWarnings("unused")
 public final class Channel {
 
     private final int nameResourceId;
@@ -21,6 +20,7 @@ public final class Channel {
         this.extractor = extractor;
     }
 
+    /*
     public Channel(int nameResourceId, int min, int max, int progress, ColorExtractor extractor) {
         this.nameResourceId = nameResourceId;
         this.min = min;
@@ -28,6 +28,7 @@ public final class Channel {
         this.extractor = extractor;
         this.progress = progress;
     }
+    */
 
     /**
      * Get resource id of channel <br />

@@ -111,7 +111,6 @@ abstract class EventPreferences {
 
     //abstract void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context);
 
-    @SuppressWarnings("unused")
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context)
     {
     }

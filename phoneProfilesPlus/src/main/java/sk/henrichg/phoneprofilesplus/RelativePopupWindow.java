@@ -4,8 +4,6 @@
 
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.Context;
-import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,6 @@ import java.lang.annotation.RetentionPolicy;
  * @author kakajika
  * @since 2016/07/01
  */
-@SuppressWarnings({"DanglingJavadoc", "unused"})
 public class RelativePopupWindow extends PopupWindow {
 
     @IntDef({
@@ -57,6 +54,7 @@ public class RelativePopupWindow extends PopupWindow {
         int ALIGN_RIGHT = 4;
     }
 
+    /*
     public RelativePopupWindow(Context context) {
         super(context);
     }
@@ -72,11 +70,13 @@ public class RelativePopupWindow extends PopupWindow {
     public RelativePopupWindow(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
+    */
 
     public RelativePopupWindow() {
         super();
     }
 
+    /*
     public RelativePopupWindow(View contentView) {
         super(contentView);
     }
@@ -92,41 +92,36 @@ public class RelativePopupWindow extends PopupWindow {
     public RelativePopupWindow(View contentView, int width, int height, boolean focusable) {
         super(contentView, width, height, focusable);
     }
+    */
 
-    /**
+    /*
      * Show at relative position to anchor View.
      * @param anchor Anchor View
      * @param vertPos Vertical Position Flag
      * @param horizPos Horizontal Position Flag
-     */
-    /*
     public void showOnAnchor(@NonNull View anchor, @VerticalPosition int vertPos, @HorizontalPosition int horizPos) {
         showOnAnchor(anchor, vertPos, horizPos, 0, 0);
     }
     */
 
-    /**
+    /*
      * Show at relative position to anchor View.
      * @param anchor Anchor View
      * @param vertPos Vertical Position Flag
      * @param horizPos Horizontal Position Flag
      * @param fitInScreen Automatically fit in screen or not
-     */
-    /*
     public void showOnAnchor(@NonNull View anchor, @VerticalPosition int vertPos, @HorizontalPosition int horizPos, boolean fitInScreen) {
         showOnAnchor(anchor, vertPos, horizPos, 0, 0, fitInScreen);
     }
     */
 
-    /**
+    /*
      * Show at relative position to anchor View with translation.
      * @param anchor Anchor View
      * @param vertPos Vertical Position Flag
      * @param horizPos Horizontal Position Flag
      * @param x Translation X
      * @param y Translation Y
-     */
-    /*
     public void showOnAnchor(@NonNull View anchor, @VerticalPosition int vertPos, @HorizontalPosition int horizPos, int x, int y) {
         showOnAnchor(anchor, vertPos, horizPos, x, y, true);
     }

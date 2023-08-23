@@ -111,7 +111,7 @@ class RootUtils {
         return PPApplication.rootMutex.rooted;
     }
 
-    static boolean isRooted(@SuppressWarnings("unused") boolean fromUIThread) {
+    static boolean isRooted(/*boolean fromUIThread*/) {
         if (PPApplication.rootMutex.rootChecked)
             return PPApplication.rootMutex.rooted;
 
@@ -130,7 +130,7 @@ class RootUtils {
         /*if (onlyCheck && rootMutex.grantRootChecked)
             return rootMutex.rootGranted;*/
 
-        if (isRooted(false)) {
+        if (isRooted(/*false*/)) {
             synchronized (PPApplication.rootMutex) {
                 try {
                     //noinspection StatementWithEmptyBody
@@ -307,13 +307,12 @@ class RootUtils {
                 PPApplication.serviceListMutex.serviceList.clear();
         }
 
-        if (isRooted(false)) {
+        if (isRooted(/*false*/)) {
             synchronized (PPApplication.rootMutex) {
                 //noinspection RegExpRedundantEscape,RegExpSimplifiable
                 final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
 
                 Command command = new Command(0, /*false,*/ "service list") {
-                    @SuppressWarnings("unused")
                     @Override
                     public void commandOutput(int id, String line) {
                         Matcher matcher = compile.matcher(line);

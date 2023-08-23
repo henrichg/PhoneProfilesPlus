@@ -1359,9 +1359,9 @@ class Event {
             _eventPreferencesCalendar.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesWifi.setSummary(prefMng, key, preferences, context);
             _eventPreferencesWifi.setCategorySummary(prefMng, preferences, context);
-            _eventPreferencesScreen.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesScreen.setSummary(prefMng, key, preferences/*, context*/);
             _eventPreferencesScreen.setCategorySummary(prefMng, preferences, context);
-            _eventPreferencesBrightness.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesBrightness.setSummary(prefMng, key, preferences/*, context*/);
             _eventPreferencesBrightness.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesBluetooth.setSummary(prefMng, key, preferences, context);
             _eventPreferencesBluetooth.setCategorySummary(prefMng, preferences, context);
@@ -1383,7 +1383,7 @@ class Event {
             _eventPreferencesRadioSwitch.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesAlarmClock.setSummary(prefMng, key, preferences, context);
             _eventPreferencesAlarmClock.setCategorySummary(prefMng, preferences, context);
-            _eventPreferencesDeviceBoot.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesDeviceBoot.setSummary(prefMng, key, preferences/*, context*/);
             _eventPreferencesDeviceBoot.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesSoundProfile.setSummary(prefMng, key, preferences, context);
             _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);
@@ -1446,9 +1446,9 @@ class Event {
         _eventPreferencesCalendar.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesWifi.setAllSummary(prefMng, preferences, context);
         _eventPreferencesWifi.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesScreen.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesScreen.setAllSummary(prefMng, preferences/*, context*/);
         _eventPreferencesScreen.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesBrightness.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesBrightness.setAllSummary(prefMng, preferences/*, context*/);
         _eventPreferencesBrightness.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesBluetooth.setAllSummary(prefMng, preferences, context);
         _eventPreferencesBluetooth.setCategorySummary(prefMng, preferences, context);
@@ -1470,7 +1470,7 @@ class Event {
         _eventPreferencesRadioSwitch.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesAlarmClock.setAllSummary(prefMng, preferences, context);
         _eventPreferencesAlarmClock.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesDeviceBoot.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesDeviceBoot.setAllSummary(prefMng, preferences/*, context*/);
         _eventPreferencesDeviceBoot.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesSoundProfile.setAllSummary(prefMng, preferences, context);
         _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);

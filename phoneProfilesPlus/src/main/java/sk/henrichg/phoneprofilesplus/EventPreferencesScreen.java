@@ -127,8 +127,7 @@ class EventPreferencesScreen extends EventPreferences {
         }
     }
 
-    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences,
-                    @SuppressWarnings("unused") Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences/*, Context context*/)
     {
         if (preferences == null)
             return;
@@ -148,11 +147,11 @@ class EventPreferencesScreen extends EventPreferences {
         }
     }
 
-    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences/*, Context context*/)
     {
-        setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences, context);
-        setSummary(prefMng, PREF_EVENT_SCREEN_EVENT_TYPE, preferences, context);
-        setSummary(prefMng, PREF_EVENT_SCREEN_WHEN_UNLOCKED, preferences, context);
+        setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences);
+        setSummary(prefMng, PREF_EVENT_SCREEN_EVENT_TYPE, preferences);
+        setSummary(prefMng, PREF_EVENT_SCREEN_WHEN_UNLOCKED, preferences);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
@@ -209,7 +208,7 @@ class EventPreferencesScreen extends EventPreferences {
                     });
                 }
 
-                setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences, context);
+                setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences);
             }
         }
         setCategorySummary(prefMng, preferences, context);

@@ -256,14 +256,14 @@ class EventPreferencesTime extends EventPreferences {
                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                             String alarmTimeS;
                             if (_event.getStatus() == Event.ESTATUS_PAUSE) {
-                                alarmTime = computeAlarm(true, context);
+                                alarmTime = computeAlarm(true/*, context*/);
                                 // date and time format by user system settings configuration
                                 alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
                                 _value.append(StringConstants.TAG_BREAK_HTML);
                                 _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append("-> ").append(alarmTimeS);
                             } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
-                                alarmTime = computeAlarm(false, context);
+                                alarmTime = computeAlarm(false/*, context*/);
                                 // date and time format by user system settings configuration
                                 alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
@@ -278,8 +278,8 @@ class EventPreferencesTime extends EventPreferences {
                         if (PPApplication.twilightScanner != null) {
                             TwilightState twilightState = PPApplication.twilightScanner.getTwilightState(/*true*/);
                             if (twilightState != null) {
-                                long startTime = computeAlarm(true, context);
-                                long endTime = computeAlarm(false, context);
+                                long startTime = computeAlarm(true/*, context*/);
+                                long endTime = computeAlarm(false/*, context*/);
                                 if ((startTime != 0) && (endTime != 0)) {
                                     _value.append(StringConstants.STR_BULLET);
 
@@ -303,14 +303,14 @@ class EventPreferencesTime extends EventPreferences {
                                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                                             String alarmTimeS;
                                             if (_event.getStatus() == Event.ESTATUS_PAUSE) {
-                                                alarmTime = computeAlarm(true, context);
+                                                alarmTime = computeAlarm(true/*, context*/);
                                                 // date and time format by user system settings configuration
                                                 alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
                                                 _value.append(StringConstants.TAG_BREAK_HTML);
                                                 _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append("-> ").append(alarmTimeS);
                                             } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
-                                                alarmTime = computeAlarm(false, context);
+                                                alarmTime = computeAlarm(false/*, context*/);
                                                 // date and time format by user system settings configuration
                                                 alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
@@ -553,8 +553,7 @@ class EventPreferencesTime extends EventPreferences {
         setCategorySummary(prefMng, preferences, context);
     }
 
-    private long computeAlarm(boolean startEvent,
-                              @SuppressWarnings("unused") Context context)
+    private long computeAlarm(boolean startEvent/*, Context context*/)
     {
         Calendar now = Calendar.getInstance();
 
@@ -984,11 +983,11 @@ class EventPreferencesTime extends EventPreferences {
         if (!(isRunnable(context) && _enabled))
             return;
 
-        long alarmTime = computeAlarm(true, context/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
+        long alarmTime = computeAlarm(true/*, context*/);
         if (alarmTime > 0)
             setAlarm(true, alarmTime, context);
 
-        alarmTime = computeAlarm(false, context/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
+        alarmTime = computeAlarm(false/*, context*/);
         if (alarmTime > 0)
             setAlarm(false, alarmTime, context);
     }
@@ -1007,11 +1006,11 @@ class EventPreferencesTime extends EventPreferences {
         if (!(isRunnable(context) && _enabled))
             return;
 
-        long alarmTime = computeAlarm(false, context/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
+        long alarmTime = computeAlarm(false/*, context*/);
         if (alarmTime > 0)
             setAlarm(false, alarmTime, context);
 
-        alarmTime = computeAlarm(true, context/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
+        alarmTime = computeAlarm(true/*, context*/);
         if (alarmTime > 0)
             setAlarm(true, alarmTime, context);
     }
@@ -1126,8 +1125,8 @@ class EventPreferencesTime extends EventPreferences {
                 long startAlarmTime;
                 long endAlarmTime;
 
-                startAlarmTime = computeAlarm(true, eventsHandler.context);
-                endAlarmTime = computeAlarm(false, eventsHandler.context);
+                startAlarmTime = computeAlarm(true/*, eventsHandler.context*/);
+                endAlarmTime = computeAlarm(false/*, eventsHandler.context*/);
 
                 Calendar now = Calendar.getInstance();
                 long nowAlarmTime = now.getTimeInMillis();

@@ -29,15 +29,11 @@ import com.stericson.rootshell.execution.Command;
 import com.stericson.rootshell.execution.Shell;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeoutException;
 
-@SuppressWarnings({"SynchronizationOnLocalVariableOrMethodParameter", "JavadocDeclaration", "CollectionAddAllCanBeReplacedWithConstructor", "ConstantConditions", "RedundantThrows", "unused"})
 public class RootShell {
 
     // --------------------
@@ -48,14 +44,14 @@ public class RootShell {
 
     public static final String version = "rootshell v1.6";
 
-    /**
+    /*
      * Setting this to false will disable the handler that is used
      * by default for the 3 callback methods for Command.
      * <p/>
      * By disabling this all callbacks will be called from a thread other than
      * the main UI thread.
      */
-    public static final boolean handlerEnabled = false;
+    //public static final boolean handlerEnabled = false;
 
 
     /**
@@ -75,25 +71,24 @@ public class RootShell {
     // # Public Methods #
     // --------------------
 
-    /**
+    /*
      * This will close all open shells.
-     */
     public static void closeAllShells() throws IOException {
         Shell.closeAll();
     }
-
-    /**
-     * This will close the custom shell that you opened.
      */
+
+    /*
+     * This will close the custom shell that you opened.
     public static void closeCustomShell() throws IOException {
         Shell.closeCustomShell();
     }
+    */
 
-    /**
+    /*
      * This will close either the root shell or the standard shell depending on what you specify.
      *
      * @param root a <code>boolean</code> to specify whether to close the root shell or the standard shell.
-     */
     public static void closeShell(boolean root) throws IOException {
         if (root) {
             Shell.closeRootShell();
@@ -101,32 +96,33 @@ public class RootShell {
             Shell.closeShell();
         }
     }
+    */
 
-    /**
+    /*
      * Use this to check whether or not a file exists on the filesystem.
      *
      * @param file String that represent the file, including the full path to the
      *             file and its name.
      * @return a boolean that will indicate whether or not the file exists.
-     */
     public static boolean exists(final String file) {
         return exists(file, false);
     }
+    */
 
-    /**
+    /*
      * Use this to check whether or not a file OR directory exists on the filesystem.
      *
      * @param file  String that represent the file OR the directory, including the full path to the
      *              file and its name.
      * @param isDir boolean that represent whether or not we are looking for a directory
      * @return a boolean that will indicate whether or not the file exists.
-     */
     public static boolean exists(final String file, boolean isDir) {
         final List<String> result = new ArrayList<>();
 
         String cmdToExecute = "ls " + (isDir ? "-d " : " ");
 
-        Command command = new Command(0, /*false,*/ cmdToExecute + file) {
+        //noinspection unused
+        Command command = new Command(0, cmdToExecute + file) {
             @Override
             public void commandOutput(int id, String line) {
                 RootShell.log(line);
@@ -154,7 +150,8 @@ public class RootShell {
 
         result.clear();
 
-        command = new Command(0, /*false,*/ cmdToExecute + file) {
+        //noinspection unused
+        command = new Command(0, cmdToExecute + file) {
             @Override
             public void commandOutput(int id, String line) {
                 RootShell.log(line);
@@ -174,8 +171,7 @@ public class RootShell {
         }
 
         //Avoid concurrent modification...
-        List<String> final_result = new ArrayList<>();
-        final_result.addAll(result);
+        List<String> final_result = new ArrayList<>(result);
 
         for (String line : final_result) {
             if (line.trim().equals(file)) {
@@ -186,24 +182,24 @@ public class RootShell {
         return false;
 
     }
+    */
 
-    /**
+    /*
      * @param binaryName String that represent the binary to find.
      * @param singlePath boolean that represents whether to return a single path or multiple.
      *
      * @return <code>List<String></code> containing the locations the binary was found at.
-     */
     public static List<String> findBinary(String binaryName, boolean singlePath) {
         return findBinary(binaryName, null, singlePath);
     }
+    */
 
-    /**
+    /*
      * @param binaryName <code>String</code> that represent the binary to find.
      * @param searchPaths <code>List<String></code> which contains the paths to search for this binary in.
      * @param singlePath boolean that represents whether to return a single path or multiple.
      *
      * @return <code>List<String></code> containing the locations the binary was found at.
-     */
     public static List<String> findBinary(final String binaryName, List<String> searchPaths, boolean singlePath) {
 
         final List<String> foundPaths = new ArrayList<>();
@@ -228,7 +224,7 @@ public class RootShell {
 
                 final String currentPath = path;
 
-                Command cc = new Command(0, /*false,*/ "stat " + path + binaryName) {
+                Command cc = new Command(0, "stat " + path + binaryName) {
                     @Override
                     public void commandOutput(int id, String line) {
                         if (line.contains("File: ") && line.contains(binaryName)) {
@@ -285,8 +281,9 @@ public class RootShell {
 
         return foundPaths;
     }
+    */
 
-    /**
+    /*
      * This will open or return, if one is already open, a custom shell, you are responsible for managing the shell, reading the output
      * and for closing the shell when you are done using it.
      *
@@ -295,21 +292,25 @@ public class RootShell {
      * @throws TimeoutException
      * @throws com.stericson.rootshell.exceptions.RootDeniedException
      * @throws IOException
-     */
     public static Shell getCustomShell(String shellPath, int timeout) throws IOException, TimeoutException, RootDeniedException
     {
         //return rootshell.getCustomShell(shellPath, timeout);
         return Shell.startCustomShell(shellPath, timeout);
     }
+    */
 
-    /**
+    /*
      * This will return the environment variable PATH
      *
      * @return <code>List<String></code> A List of Strings representing the environment variable $PATH
-     */
     public static List<String> getPath() {
-        return Arrays.asList(System.getenv("PATH").split(":"));
+        String path = System.getenv("PATH");
+        if (path != null)
+            return Arrays.asList(path.split(":"));
+        else
+            return new ArrayList<>();
     }
+    */
 
     /**
      * This will open or return, if one is already open, a shell, you are responsible for managing the shell, reading the output
@@ -328,28 +329,28 @@ public class RootShell {
         }
     }
 
-    /**
+    /*
      * This will open or return, if one is already open, a shell, you are responsible for managing the shell, reading the output
      * and for closing the shell when you are done using it.
      *
      * @param root         a <code>boolean</code> to Indicate whether or not you want to open a root shell or a standard shell
      * @param timeout      an <code>int</code> to Indicate the length of time to wait before giving up on opening a shell.
      * @param shellContext the context to execute the shell with
-     */
     public static Shell getShell(boolean root, int timeout, Shell.ShellContext shellContext) throws IOException, TimeoutException, RootDeniedException {
         return getShell(root, timeout, shellContext, 3);
     }
+    */
 
-    /**
+    /*
      * This will open or return, if one is already open, a shell, you are responsible for managing the shell, reading the output
      * and for closing the shell when you are done using it.
      *
      * @param root         a <code>boolean</code> to Indicate whether or not you want to open a root shell or a standard shell
      * @param shellContext the context to execute the shell with
-     */
     public static Shell getShell(boolean root, Shell.ShellContext shellContext) throws IOException, TimeoutException, RootDeniedException {
         return getShell(root, 0, shellContext, 3);
     }
+    */
 
     /**
      * This will open or return, if one is already open, a shell, you are responsible for managing the shell, reading the output
@@ -362,23 +363,23 @@ public class RootShell {
         return getShell(root, timeout, Shell.defaultContext, 3);
     }
 
-    /**
+    /*
      * This will open or return, if one is already open, a shell, you are responsible for managing the shell, reading the output
      * and for closing the shell when you are done using it.
      *
      * @param root a <code>boolean</code> to Indicate whether or not you want to open a root shell or a standard shell
-     */
     public static Shell getShell(boolean root) throws IOException, TimeoutException, RootDeniedException {
         return RootShell.getShell(root, 0);
     }
+    */
 
-    /**
+    /*
      * @return <code>true</code> if your app has been given root access.
      * @throws TimeoutException if this operation times out. (cannot determine if access is given)
-     */
     public static boolean isAccessGiven() {
         return isAccessGiven(0, 3);
     }
+    */
 
     /**
      * Control how many time of retries should request
@@ -428,17 +429,16 @@ public class RootShell {
         }
     }
 
-    /**
+    /*
      * @return <code>true</code> if BusyBox was found.
-     */
     public static boolean isBusyboxAvailable()
     {
         return isBusyboxAvailable(false);
     }
+    */
 
-    /**
+    /*
      * @return <code>true</code> if BusyBox or Toybox was found.
-     */
     public static boolean isBusyboxAvailable(boolean includeToybox)
     {
         if(includeToybox) {
@@ -447,13 +447,14 @@ public class RootShell {
             return (findBinary("busybox", true)).size() > 0;
         }
     }
+    */
 
-    /**
+    /*
      * @return <code>true</code> if su was found.
-     */
     public static boolean isRootAvailable() {
         return (findBinary("su", true)).size() > 0;
     }
+    */
 
     /**
      * This method allows you to output debug messages only when debugging is on. This will allow
@@ -506,7 +507,7 @@ public class RootShell {
         log(null, msg, type, e);
     }
 
-    /**
+    /*
      * This method allows you to check whether logging is enabled.
      * Yes, it has a goofy name, but that's to keep it as short as possible.
      * After all writing logging calls should be painless.
@@ -523,10 +524,10 @@ public class RootShell {
      * }
      *
      * @return true if logging is enabled
-     */
     public static boolean islog() {
         return debugMode;
     }
+    */
 
     /**
      * This method allows you to output debug messages only when debugging is on. This will allow
@@ -572,7 +573,8 @@ public class RootShell {
     // # Public Methods #
     // --------------------
 
-    private static void commandWait(Shell shell, Command cmd) throws Exception {
+    /** @noinspection SynchronizationOnLocalVariableOrMethodParameter*/
+    private static void commandWait(Shell shell, Command cmd) /*throws Exception*/ {
         while (!cmd.isFinished()) {
 
             RootShell.log(version, shell.getCommandQueuePositionString(cmd));

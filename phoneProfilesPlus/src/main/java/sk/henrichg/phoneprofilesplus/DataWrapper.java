@@ -326,11 +326,11 @@ class DataWrapper {
                 profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_low), Profile.ic_profile_battery_1, index+1);
                 profile._showInActivator = false;
                 profile._deviceAutoSync = 2;
-                if (RootUtils.isRooted(true))
+                if (RootUtils.isRooted(/*true*/))
                     profile._deviceMobileData = 2;
                 profile._deviceWiFi = 2;
                 profile._deviceBluetooth = 2;
-                if (RootUtils.isRooted(true) ||
+                if (RootUtils.isRooted(/*true*/) ||
                         Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS))
                     profile._deviceGPS = 2;
                 break;
@@ -338,11 +338,11 @@ class DataWrapper {
                 profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_ok), Profile.ic_profile_battery_3, index+1);
                 profile._showInActivator = false;
                 profile._deviceAutoSync = 1;
-                if (RootUtils.isRooted(true))
+                if (RootUtils.isRooted(/*true*/))
                     profile._deviceMobileData = 1;
                 profile._deviceWiFi = 1;
                 profile._deviceBluetooth = 1;
-                if (RootUtils.isRooted(true) ||
+                if (RootUtils.isRooted(/*true*/) ||
                         Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS))
                     profile._deviceGPS = 1;
                 break;
@@ -379,8 +379,7 @@ class DataWrapper {
     void clearProfileList() {
         synchronized (profileList) {
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
-                //noinspection unused
-                Profile profile = it.next(); // this must be called
+                /*Profile profile =*/ it.next(); // this must be called
                 it.remove();
             }
             profileListFilled = false;

@@ -16,7 +16,7 @@
 
     <color name="done_text_color_disabled">#cccccc</color>
 
-    <color name="bpBlue">#33b5e5</color>
+<!--    <color name="bpBlue">#33b5e5</color>-->
 
     <color name="pp_rippleRectangeleItemBackgroundColor">#BFBFBF</color>
     <color name="pp_dialpad_textColor">#303030</color>

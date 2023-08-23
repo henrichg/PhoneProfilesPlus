@@ -187,8 +187,7 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
     private boolean isCompatibleWithOpenVPNConnect() {
         try {
-            //noinspection unused
-            PackageInfo info = preference._context.getPackageManager().getPackageInfo("net.openvpn.openvpn", 0);
+            /*PackageInfo info = */preference._context.getPackageManager().getPackageInfo("net.openvpn.openvpn", 0);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
@@ -196,8 +195,7 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
     }
     private boolean isCompatibleWithOpenVPNFoAndroid() {
         try {
-            //noinspection unused
-            PackageInfo info = preference._context.getPackageManager().getPackageInfo("de.blinkt.openvpn", 0);
+            /*PackageInfo info = */preference._context.getPackageManager().getPackageInfo("de.blinkt.openvpn", 0);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;

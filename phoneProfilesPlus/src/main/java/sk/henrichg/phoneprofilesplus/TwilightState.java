@@ -41,22 +41,20 @@ class TwilightState {
         }
     }
 
-    /**
+    /*
      * Returns true if it is currently night time.
-     */
-    @SuppressWarnings("unused")
     boolean isNight() {
         return mIsNight;
     }
+    */
 
-    /**
+    /*
      * Returns the time of yesterday's sunrise in the System.currentTimeMillis() timebase,
      * or -1 if the sun never sets.
-     */
-    @SuppressWarnings("unused")
     long getYesterdaySunrise() {
         return mYesterdaySunrise;
     }
+    */
 
     /**
      * Returns the time of yesterday's sunset in the System.currentTimeMillis() timebase,

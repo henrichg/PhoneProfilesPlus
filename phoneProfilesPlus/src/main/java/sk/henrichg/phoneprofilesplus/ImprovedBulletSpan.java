@@ -58,17 +58,18 @@ public final class ImprovedBulletSpan implements LeadingMarginSpan {
 
     }
 
-    @SuppressWarnings("unused")
+    /*
     public int getBulletRadius() {
         return this.bulletRadius;
     }
+    */
 
-    @SuppressWarnings("unused")
+    /*
     public int getGapWidth() {
         return this.gapWidth;
     }
+    */
 
-    @SuppressWarnings("unused")
     public int getColor() {
         return this.color;
     }

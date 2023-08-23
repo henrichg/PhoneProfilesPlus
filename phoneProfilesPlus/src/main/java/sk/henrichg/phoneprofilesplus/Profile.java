@@ -3296,7 +3296,7 @@ class Profile {
         return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityRinging);
     }
 
-    @SuppressWarnings("unused")
+    /*
     void setVibrationIntensityRingingValue(int value) {
         try {
             String[] splits = _vibrationIntensityRinging.split(StringConstants.STR_SPLIT_REGEX);
@@ -3315,6 +3315,7 @@ class Profile {
         } catch (Exception ignore) {
         }
     }
+    */
 
     int getVibrationIntensityNotificationsValue() {
         return ProfileStatic.getVibrationIntensityValue(_vibrationIntensityNotifications);
@@ -3325,7 +3326,7 @@ class Profile {
         return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityNotifications);
     }
 
-    @SuppressWarnings("unused")
+    /*
     void setVibrationIntensityNotificationsValue(int value) {
         try {
             String[] splits = _vibrationIntensityNotifications.split(StringConstants.STR_SPLIT_REGEX);
@@ -3344,6 +3345,7 @@ class Profile {
         } catch (Exception ignore) {
         }
     }
+    */
 
     int getVibrationIntensityTouchInteractionValue() {
         return ProfileStatic.getVibrationIntensityValue(_vibrationIntensityTouchInteraction);
@@ -3354,7 +3356,7 @@ class Profile {
         return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityTouchInteraction);
     }
 
-    @SuppressWarnings("unused")
+    /*
     void setVibrationIntensityTouchInteractionValue(int value) {
         try {
             String[] splits = _vibrationIntensityTouchInteraction.split(StringConstants.STR_SPLIT_REGEX);
@@ -3373,5 +3375,6 @@ class Profile {
         } catch (Exception ignore) {
         }
     }
+    */
 
 }

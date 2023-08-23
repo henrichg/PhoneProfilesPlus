@@ -39,7 +39,6 @@ class RunApplicationEditorDialogAdapter extends RecyclerView.Adapter<RunApplicat
         holder.bindApplication(application, position);
     }
 
-    @SuppressWarnings("unused")
     @NonNull
     @Override
     public String getSectionName(int position) {

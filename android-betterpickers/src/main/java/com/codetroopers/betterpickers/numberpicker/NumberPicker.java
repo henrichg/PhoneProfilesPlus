@@ -47,8 +47,8 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     private TextView mLabel;
     private NumberPickerErrorTextView mError;
     private int mSign;
-    private String mLabelText = "";
-    private Button mSetButton;
+    //private String mLabelText = "";
+    //private Button mSetButton;
     private static final int CLICKED_DECIMAL = 10;
 
     public static final int SIGN_POSITIVE = 0;
@@ -215,7 +215,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         mSign = SIGN_POSITIVE;
 
         // Set the correct label state
-        showLabel();
+        //showLabel();
 
         restyleViews();
         updateKeypad();
@@ -337,26 +337,28 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         updateLeftRightButtons();
         updateNumber();
         // enable/disable the "set" key
-        enableSetButton();
+        //enableSetButton();
         // Update the backspace button
         updateDeleteButtons();
     }
 
-    /**
+    /*
      * Set the text displayed in the small label
      *
      * @param labelText the String to set as the label
-     */
     public void setLabelText(String labelText) {
         mLabelText = labelText;
         showLabel();
     }
+    */
 
+    /*
     private void showLabel() {
         if (mLabel != null) {
             mLabel.setText(mLabelText);
         }
     }
+    */
 
     /**
      * Reset all inputs.
@@ -501,9 +503,8 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         mRight.setEnabled(canAddDecimal());
     }
 
-    /**
+    /*
      * Enable/disable the "Set" button
-     */
     private void enableSetButton() {
         if (mSetButton == null) {
             return;
@@ -518,16 +519,17 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         // If the user entered 1 digits or more
         mSetButton.setEnabled(mInputPointer >= 0);
     }
+    */
 
-    /**
+    /*
      * Expose the set button to allow communication with the parent Fragment.
      *
      * @param b the parent Fragment's "Set" button
-     */
     public void setSetButton(Button b) {
         mSetButton = b;
         enableSetButton();
     }
+    */
 
     /**
      * Returns the number as currently inputted by the user
@@ -540,23 +542,23 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         return bigDecimal.toBigIntegerExact();
     }
 
-    /**
+    /*
      * Returns the decimal following the number
      *
      * @return a double representation of the decimal value
-     */
     public double getDecimal() {
         return getEnteredNumber().remainder(BigDecimal.ONE).doubleValue();
     }
+     */
 
-    /**
+    /*
      * Returns whether the number is positive or negative
      *
      * @return true or false whether the number is positive or negative
-     */
     public boolean getIsNegative() {
         return mSign == SIGN_NEGATIVE;
     }
+    */
 
     @Override
     public Parcelable onSaveInstanceState() {

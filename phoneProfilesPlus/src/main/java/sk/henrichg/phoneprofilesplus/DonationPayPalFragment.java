@@ -125,7 +125,7 @@ public class DonationPayPalFragment extends Fragment {
     /**
      * Donate button executes donations based on selection in spinner
      */
-    private void donatePayPalOnClick(@SuppressWarnings("unused") int position) {
+    private void donatePayPalOnClick(/*int position*/) {
         //final int index = mGoogleSpinner.getSelectedItemPosition();
 
         //mBillingProvider.getBillingManager().startPurchaseFlow(SKU_DETAILS.get(position));
@@ -158,7 +158,7 @@ public class DonationPayPalFragment extends Fragment {
             //String[] prices = new String[]{"1 €", "2 €", "3 €", "5 €", "8 €", "13 €", "20 €", "? €"};
             String[] prices = new String[]{getString(R.string.donation_paypal_donate_button)};
             mPayPalGridView.setAdapter(new DonationPayPalAdapter(DonationPayPalFragment.this, prices));
-            mPayPalGridView.setOnItemClickListener((parent, view, position, id) -> donatePayPalOnClick(position));
+            mPayPalGridView.setOnItemClickListener((parent, view, position, id) -> donatePayPalOnClick(/*position*/));
             mPayPalGridView.setEnabled(true);
         }
     }

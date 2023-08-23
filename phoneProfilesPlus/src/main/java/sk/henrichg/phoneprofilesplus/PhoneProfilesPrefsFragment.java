@@ -2327,7 +2327,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             finishActivity = permissionsChanged && (!locationPermission);
                         }
                         if (!permissionsChanged) {
-                            boolean smsPermission = Permissions.checkSMS(context);
+                            boolean smsPermission = Permissions.checkSMS(/*context*/);
                             permissionsChanged = Permissions.getSMSPermission(context) != smsPermission;
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!smsPermission);
@@ -2363,7 +2363,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             finishActivity = permissionsChanged && (!microphonePermission);
                         }
                         if (!permissionsChanged) {
-                            boolean sensorsPermission = Permissions.checkSensors(context);
+                            boolean sensorsPermission = Permissions.checkSensors(/*context*/);
                             permissionsChanged = Permissions.getSensorsPermission(context) != sensorsPermission;
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!sensorsPermission);
@@ -3968,7 +3968,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(PREF_GRANT_ROOT_PERMISSION)) {
             String summary;
-            boolean rooted = RootUtils.isRooted(true);
+            boolean rooted = RootUtils.isRooted(/*true*/);
             if (rooted) {
                 summary = getString(R.string.phone_profiles_pref_grantRootPermission_summary);
                 if (ApplicationPreferences.applicationNeverAskForGrantRoot)
@@ -4125,7 +4125,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(getString(R.string.phone_profiles_pref_applicationBatterySaver));
         }
         if (key.equals(PREF_PERMISSIONS_CATEGORY_ROOT)) {
-            if (RootUtils.isRooted(true)) {
+            if (RootUtils.isRooted(/*true*/)) {
                 _value.append(getString(R.string.phone_profiles_pref_grantRootPermission));
             }
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);

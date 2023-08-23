@@ -3,19 +3,17 @@ package me.drakeet.support.toast;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 
 /**
  * @author drakeet
  */
-@SuppressWarnings({"EmptyMethod", "unused"})
+@SuppressWarnings({"EmptyMethod"})
 public final class ToastCompat extends Toast {
 
   private final @NonNull Toast toast;
@@ -34,8 +32,7 @@ public final class ToastCompat extends Toast {
     this.toast = base;
   }
 
-
-  /**
+  /*
    * Make a standard toast that just contains a text view.
    *
    * @param context The context to use.  Usually your {@link android.app.Application}
@@ -43,17 +40,17 @@ public final class ToastCompat extends Toast {
    * @param text The text to show.  Can be formatted text.
    * @param duration How long to display the message.  Either {@link #LENGTH_SHORT} or
    * {@link #LENGTH_LONG}
-   */
   public static ToastCompat makeText(Context context, CharSequence text, int duration) {
     // We cannot pass the SafeToastContext to Toast.makeText() because
     // the View will unwrap the base context and we are in vain.
     Toast toast = Toast.makeText(context, text, duration);
-    setContextCompat(toast.getView(), new SafeToastContext(context, toast));
+    //setContextCompat(toast.getView(), new SafeToastContext(context, toast));
     return new ToastCompat(context, toast);
   }
+  */
 
 
-  /**
+  /*
    * Make a standard toast that just contains a text view with the text from a resource.
    *
    * @param context The context to use.  Usually your {@link android.app.Application}
@@ -62,12 +59,11 @@ public final class ToastCompat extends Toast {
    * @param duration How long to display the message.  Either {@link #LENGTH_SHORT} or
    * {@link #LENGTH_LONG}
    * @throws Resources.NotFoundException if the resource can't be found.
-   */
   public static Toast makeText(Context context, @StringRes int resId, int duration)
       throws Resources.NotFoundException {
     return makeText(context, context.getResources().getText(resId), duration);
   }
-
+  */
 
   public static ToastCompat makeCustom(Context context, int layoutId, int backgroundId, int textViewId, String textString, int duration) {
     Toast toast = new Toast(context);
@@ -77,10 +73,11 @@ public final class ToastCompat extends Toast {
     view.setBackgroundResource(backgroundId);
     toast.setView(view);
     toast.setDuration(duration);
-    setContextCompat(toast.getView(), new SafeToastContext(context, toast));
+    //setContextCompat(toast.getView(), new SafeToastContext(context, toast));
     return new ToastCompat(context, toast);
   }
 
+  /*
   public @NonNull ToastCompat setBadTokenListener(@NonNull BadTokenListener listener) {
     final Context context = getView().getContext();
     if (context instanceof SafeToastContext) {
@@ -88,6 +85,7 @@ public final class ToastCompat extends Toast {
     }
     return this;
   }
+  */
 
 
   @Override
@@ -129,7 +127,7 @@ public final class ToastCompat extends Toast {
   @Override
   public void setView(View view) {
     toast.setView(view);
-    setContextCompat(view, new SafeToastContext(view.getContext(), this));
+    //setContextCompat(view, new SafeToastContext(view.getContext(), this));
   }
 
 
@@ -174,14 +172,15 @@ public final class ToastCompat extends Toast {
     return toast.getView();
   }
 
-
+  /*
   public @NonNull Toast getBaseToast() {
     return toast;
   }
+  */
 
-
+  /*
   private static void setContextCompat(@NonNull View view, @NonNull Context context) {
-    /*if (Build.VERSION.SDK_INT == 25) {
+    if (Build.VERSION.SDK_INT == 25) {
       try {
         Field field = View.class.getDeclaredField("mContext");
         field.setAccessible(true);
@@ -190,7 +189,7 @@ public final class ToastCompat extends Toast {
         throwable.printStackTrace();
       }
     }
-    */
   }
+  */
 
 }

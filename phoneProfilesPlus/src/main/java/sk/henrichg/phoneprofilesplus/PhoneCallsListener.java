@@ -260,10 +260,10 @@ public class PhoneCallsListener extends PhoneStateListener {
                         callStarted(incoming, /*number, eventTime,*/ appContext);
                         break;
                     case SERVICE_PHONE_EVENT_ANSWER:
-                        callAnswered(incoming, /*number, eventTime,*/ appContext);
+                        callAnswered(/*incoming,*/ /*number, eventTime,*/ appContext);
                         break;
                     case SERVICE_PHONE_EVENT_END:
-                        callEnded(incoming, missed, /*number, eventTime,*/ appContext);
+                        callEnded(incoming, /*missed,*/ /*number, eventTime,*/ appContext);
                         break;
                 }
 
@@ -273,8 +273,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
-    @SuppressWarnings("UnusedReturnValue")
-    private static boolean setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
+    private static void /*boolean*/ setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
         synchronized (PPApplication.notUnlinkVolumesMutex) {
             if (!PPApplication.ringerModeNotUnlinkVolumes) {
                 boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;
@@ -288,13 +287,13 @@ public class PhoneCallsListener extends PhoneStateListener {
                             SharedPreferences sharedPreferences = context.getSharedPreferences(PPApplication.TMP_SHARED_PREFS_PHONE_CALL_BROADCAST_RECEIVER, Context.MODE_PRIVATE);
                             profile.saveProfileToSharedPreferences(sharedPreferences);
                             ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context, sharedPreferences);
-                            return true;
+                            return/* true*/;
                         }
                         //dataWrapper.invalidateDataWrapper();
                     }
                 }
             }
-            return false;
+            return/* false*/;
         }
     }
 
@@ -368,7 +367,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         }
     }
 
-    private static void callAnswered(@SuppressWarnings("unused") boolean incoming,
+    private static void callAnswered(/*boolean incoming,*/
             /*String phoneNumber, Date eventTime,*/ Context context)
     {
         speakerphoneSelected = false;
@@ -443,7 +442,7 @@ public class PhoneCallsListener extends PhoneStateListener {
     }
 
     private static void callEnded(boolean incoming,
-                                  @SuppressWarnings("unused") boolean missed,
+                                  /*boolean missed,*/
             /*String phoneNumber, Date eventTime,*/ Context context)
     {
         if (audioManager == null)

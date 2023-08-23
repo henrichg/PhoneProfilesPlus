@@ -87,7 +87,7 @@ class PreferenceAllowed {
             assistantParameter = Integer.parseInt(sharedPreferences.getString(preferenceKey, "0")) >= 4;
         }
 
-        if (RootUtils.isRooted(fromUIThread)) {
+        if (RootUtils.isRooted(/*fromUIThread*/)) {
             // device is rooted
 
             /*if ((Build.VERSION.SDK_INT < 26) && assistantParameter) {
@@ -174,7 +174,7 @@ class PreferenceAllowed {
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(PreferenceAllowed preferenceAllowed,
-                  Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread) {
+                  Profile profile, SharedPreferences sharedPreferences/*, boolean fromUIThread*/) {
 
         if (PPApplication.HAS_FEATURE_WIFI) {
             // device has Wifi
@@ -192,7 +192,7 @@ class PreferenceAllowed {
                 requiresRoot = preferenceValue.equals("6") || preferenceValue.equals("7") || preferenceValue.equals("8");
             }
 
-            if (requiresRoot && RootUtils.isRooted(fromUIThread)) {
+            if (requiresRoot && RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 if (profile != null) {
@@ -246,7 +246,7 @@ class PreferenceAllowed {
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA(PreferenceAllowed preferenceAllowed,
-            String preferenceKey, Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread, Context context) {
+            String preferenceKey, Profile profile, SharedPreferences sharedPreferences, /*boolean fromUIThread,*/ Context context) {
         Context appContext = context.getApplicationContext();
 
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
@@ -318,16 +318,16 @@ class PreferenceAllowed {
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             }
             else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 if (profile != null) {
                     // test if grant root is disabled
                     if ((profile._deviceMobileData != 0)) {
                         if (applicationNeverAskForGrantRoot) {
-                            //noinspection UnusedAssignment
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 }
@@ -581,7 +581,7 @@ class PreferenceAllowed {
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                     } else
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else if (RootUtils.isRooted(fromUIThread)) {
+                } else if (RootUtils.isRooted(/*fromUIThread*/)) {
                     // device is rooted
 
                     if (profile != null) {
@@ -700,7 +700,7 @@ class PreferenceAllowed {
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC(PreferenceAllowed preferenceAllowed,
-            Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread, Context context) {
+            Profile profile, SharedPreferences sharedPreferences, /*boolean fromUIThread,*/ Context context) {
 
         Context appContext = context.getApplicationContext();
 
@@ -720,7 +720,7 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             }
             else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
 
                 if (profile != null) {
                     // test if grant root is disabled
@@ -804,7 +804,7 @@ class PreferenceAllowed {
                         else
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                     }
-                    else if (RootUtils.isRooted(fromUIThread)) {
+                    else if (RootUtils.isRooted(/*fromUIThread*/)) {
                         // device is rooted
 
                         if (profile != null) {
@@ -914,7 +914,7 @@ class PreferenceAllowed {
                 else
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 if (profile != null) {
@@ -1002,7 +1002,7 @@ class PreferenceAllowed {
                     } else
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                 } else
-                if (RootUtils.isRooted(fromUIThread)) {
+                if (RootUtils.isRooted(/*fromUIThread*/)) {
                     // device is rooted
 
                     if (profile != null) {
@@ -1091,7 +1091,7 @@ class PreferenceAllowed {
                 } else
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
@@ -1156,7 +1156,7 @@ class PreferenceAllowed {
                 } else
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
@@ -1221,7 +1221,7 @@ class PreferenceAllowed {
                 } else
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
@@ -1323,7 +1323,7 @@ class PreferenceAllowed {
                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
         }
         else
-        if (RootUtils.isRooted(fromUIThread)) {
+        if (RootUtils.isRooted(/*fromUIThread*/)) {
             // device is rooted
 
             if (profile != null) {
@@ -1384,7 +1384,7 @@ class PreferenceAllowed {
 
                 final int phoneType = telephonyManager.getPhoneType();
                 if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
-                    if (RootUtils.isRooted(fromUIThread)) {
+                    if (RootUtils.isRooted(/*fromUIThread*/)) {
                         // device is rooted
 
                         if (profile != null) {
@@ -1476,7 +1476,7 @@ class PreferenceAllowed {
 
                     final int phoneType = telephonyManager.getPhoneType();
                     if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
-                        if (RootUtils.isRooted(fromUIThread)) {
+                        if (RootUtils.isRooted(/*fromUIThread*/)) {
                             // device is rooted
 
                             if (profile != null) {
@@ -1579,7 +1579,7 @@ class PreferenceAllowed {
                 } else
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 if (profile != null) {
@@ -1740,7 +1740,7 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             }
             else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 if (profile != null) {
@@ -1837,7 +1837,7 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             }
             else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 if (profile != null) {
@@ -1903,7 +1903,7 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             }
             else
-            if (RootUtils.isRooted(fromUIThread))
+            if (RootUtils.isRooted(/*fromUIThread*/))
             {
                 // device is rooted
                 if (profile != null) {
@@ -1970,8 +1970,7 @@ class PreferenceAllowed {
         }
     }
 
-    static void isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(PreferenceAllowed preferenceAllowed,
-                                                                     @SuppressWarnings("unused") Context context) {
+    static void isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(PreferenceAllowed preferenceAllowed/*, Context context*/) {
         boolean flashAvailable;
 
         if (PPApplication.HAS_FEATURE_CAMERA_FLASH) {
@@ -2012,7 +2011,7 @@ class PreferenceAllowed {
                 int phoneCount = telephonyManager.getPhoneCount();
 //                        PPApplicationStatic.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "phoneCount="+phoneCount);
 
-                if (RootUtils.isRooted(fromUIThread)) {
+                if (RootUtils.isRooted(/*fromUIThread*/)) {
                     // device is rooted
                     if (profile != null) {
                         // test if grant root is disabled
@@ -2081,7 +2080,7 @@ class PreferenceAllowed {
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
         if (Build.VERSION.SDK_INT >= 29) {
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 if (profile != null) {
@@ -2228,7 +2227,7 @@ class PreferenceAllowed {
                             } else
                                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         } else
-                        if (RootUtils.isRooted(fromUIThread)) {
+                        if (RootUtils.isRooted(/*fromUIThread*/)) {
                             // device is rooted
 
                             if (profile != null) {
@@ -2329,7 +2328,7 @@ class PreferenceAllowed {
                             } else
                                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         } else
-                        if (RootUtils.isRooted(fromUIThread)) {
+                        if (RootUtils.isRooted(/*fromUIThread*/)) {
                             // device is rooted
 
                             if (profile != null) {
