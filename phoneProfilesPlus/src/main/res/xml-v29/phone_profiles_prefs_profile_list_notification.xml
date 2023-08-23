@@ -36,6 +36,7 @@
         app:dependency="notificationProfileListDisplayNotification"
         app:layout="@layout/mp_preference_material_widget" />
 
+<!--
     <PreferenceCategory
         app:key="notificationProfileListStatusBarCategory"
         app:title="@string/phone_profiles_pref_notificationStatusBarCategory"
@@ -66,8 +67,8 @@
             app:ppEntryValues="@array/notificationIconStyleValues"
             app:dependency="notificationProfileListDisplayNotification"
             app:layout="@layout/mp_preference_material_widget" />
-
     </PreferenceCategory>
+-->
 
     <PreferenceCategory
         app:key="notificationProfileListNotificationPanelBackgroundColorCategory"

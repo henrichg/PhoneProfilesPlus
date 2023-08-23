@@ -33,6 +33,7 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
 
     static final String CRASH_FILENAME = "crash.txt";
 
+    /** @noinspection unused*/
     public CustomACRAReportingAdministrator() {
 //        Log.e("CustomACRAReportingAdministrator constructor", "xxxx");
     }

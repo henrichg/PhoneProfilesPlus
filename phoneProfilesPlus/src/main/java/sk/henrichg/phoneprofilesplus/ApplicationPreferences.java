@@ -271,7 +271,7 @@ class ApplicationPreferences {
     static volatile boolean notificationProfileListDisplayNotification;
     //static volatile boolean notificationProfileListShowInStatusBar;
     //static volatile boolean notificationProfileListHideInLockscreen;
-    static volatile String notificationProfileListStatusBarStyle;
+    //static volatile String notificationProfileListStatusBarStyle;
     static volatile String notificationProfileListBackgroundColor;
     static volatile int notificationProfileListBackgroundCustomColor;
     static volatile String notificationProfileListArrowsMarkLightness;
@@ -572,7 +572,7 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_PROFILE_LIST_DISPLAY_NOTIFICATION = "notificationProfileListDisplayNotification";
     //static final String PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR = "notificationProfileListShowInStatusBar";
     //static final String PREF_NOTIFICATION_PROFILE_LIST_HIDE_IN_LOCKSCREEN = "notificationProfileListHideInLockscreen";
-    static final String PREF_NOTIFICATION_PROFILE_LIST_STATUS_BAR_STYLE = "notificationProfileListStatusBarStyle";
+    //static final String PREF_NOTIFICATION_PROFILE_LIST_STATUS_BAR_STYLE = "notificationProfileListStatusBarStyle";
     static final String PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_COLOR = "notificationProfileListBackgroundColor";
     static final String PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_CUSTOM_COLOR = "notificationProfileListBackgroundCustomColor";
     static final String PREF_NOTIFICATION_PROFILE_LIST_ARROWS_MARK_LIGHTNESS = "notificationProfileListArrowsMarkLightness";
@@ -2200,6 +2200,7 @@ class ApplicationPreferences {
     }
     */
 
+    /*
     static private final String PREF_NOTIFICATION_PROFILE_LIST_STATUS_BAR_STYLE_DEFAULT_VALUE_OTHERS = "1"; // android
     static private final String PREF_NOTIFICATION_PROFILE_LIST_STATUS_BAR_STYLE_DEFAULT_VALUE_PIXEL = "1";  // android
     static String notificationProfileListStatusBarStyleDefaultValue() {
@@ -2221,6 +2222,7 @@ class ApplicationPreferences {
             notificationProfileListStatusBarStyle = PREF_NOTIFICATION_PROFILE_LIST_STATUS_BAR_STYLE_DEFAULT_VALUE_PIXEL;
         }
     }
+    */
 
     static final String PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_COLOR_DEFAULT_VALUE = "0";
     static void notificationProfileListBackgroundColor(Context context) {

@@ -38,6 +38,7 @@ class ApplicationsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Appl
         holder.bindApplication(application);
     }
 
+    /** @noinspection unused*/
     @NonNull
     @Override
     public String getSectionName(int position) {

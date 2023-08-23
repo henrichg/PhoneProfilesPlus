@@ -905,7 +905,7 @@ class PPApplicationStatic {
             ApplicationPreferences.notificationProfileListDisplayNotification(context);
             //ApplicationPreferences.notificationProfileListShowInStatusBar(context);
             //ApplicationPreferences.notificationProfileListHideInLockScreen(context);
-            ApplicationPreferences.notificationProfileListStatusBarStyle(context);
+            //ApplicationPreferences.notificationProfileListStatusBarStyle(context);
             ApplicationPreferences.notificationProfileListBackgroundColor(context);
             ApplicationPreferences.notificationProfileListBackgroundCustomColor(context);
             ApplicationPreferences.notificationProfileListPrefArrowsMarkLightness(context);

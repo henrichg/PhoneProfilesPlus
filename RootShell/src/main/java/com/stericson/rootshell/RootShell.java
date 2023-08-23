@@ -352,16 +352,16 @@ public class RootShell {
     }
     */
 
-    /**
+    /*
      * This will open or return, if one is already open, a shell, you are responsible for managing the shell, reading the output
      * and for closing the shell when you are done using it.
      *
      * @param root    a <code>boolean</code> to Indicate whether or not you want to open a root shell or a standard shell
      * @param timeout an <code>int</code> to Indicate the length of time to wait before giving up on opening a shell.
-     */
     public static Shell getShell(boolean root, int timeout) throws IOException, TimeoutException, RootDeniedException {
         return getShell(root, timeout, Shell.defaultContext, 3);
     }
+    */
 
     /*
      * This will open or return, if one is already open, a shell, you are responsible for managing the shell, reading the output

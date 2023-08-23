@@ -806,6 +806,7 @@ public final class RootTools {
      * @param msg  The message to output.
      * @param type The type of log, 1 for verbose, 2 for error, 3 for debug
      * @param e    The exception that was thrown (Needed for errors)
+     * @noinspection ParameterCanBeLocal, unused
      */
     public static void log(String TAG, String msg, int type, Exception e) {
         if (msg != null && !msg.equals("")) {

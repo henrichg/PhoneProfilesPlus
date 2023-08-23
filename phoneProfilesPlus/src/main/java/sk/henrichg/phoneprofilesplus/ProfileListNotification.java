@@ -98,7 +98,7 @@ public class ProfileListNotification {
         String notificationProfileListBackgroundColor;
         int notificationProfileListBackgroundCustomColor;
         int notificationProfileListNumberOfProfilesPerPage;
-        String notificationProfileListStatusBarStyle;
+        //String notificationProfileListStatusBarStyle;
 
         synchronized (PPApplication.applicationPreferencesMutex) {
             notificationProfileListDisplayNotification = ApplicationPreferences.notificationProfileListDisplayNotification;
@@ -111,7 +111,7 @@ public class ProfileListNotification {
             notificationProfileListNumberOfProfilesPerPage = ApplicationPreferences.notificationProfileListNumberOfProfilesPerPage;
             notificationProfileListBackgroundColor = ApplicationPreferences.notificationProfileListBackgroundColor;
             notificationProfileListBackgroundCustomColor = ApplicationPreferences.notificationProfileListBackgroundCustomColor;
-            notificationProfileListStatusBarStyle = ApplicationPreferences.notificationProfileListStatusBarStyle;
+            //notificationProfileListStatusBarStyle = ApplicationPreferences.notificationProfileListStatusBarStyle;
         }
 
         if (!notificationProfileListDisplayNotification)

@@ -199,7 +199,7 @@ public class PhoneCallsListener extends PhoneStateListener {
     protected void onIncomingCallStarted(/*String number, Date eventTime*/)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallStarted", "xxx");
-        doCall(savedContext, SERVICE_PHONE_EVENT_START, true, false/*, number, eventTime*/);
+        doCall(savedContext, SERVICE_PHONE_EVENT_START, true/*, false, number, eventTime*/);
     }
 
     //protected void onOutgoingCallStarted(/*String number, Date eventTime*/)
@@ -210,35 +210,35 @@ public class PhoneCallsListener extends PhoneStateListener {
     protected void onIncomingCallAnswered(/*String number, Date eventTime*/)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallAnswered", "xxx");
-        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, true, false/*, number, eventTime*/);
+        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, true/*, false, number, eventTime*/);
     }
 
     protected void onOutgoingCallAnswered(/*String number, Date eventTime*/)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onOutgoingCallAnswered", "xxx");
-        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, false, false/*, number, eventTime*/);
+        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, false/*, false, number, eventTime*/);
     }
 
     protected void onIncomingCallEnded(/*String number, Date eventTime*/)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallEnded", "xxx");
-        doCall(savedContext, SERVICE_PHONE_EVENT_END, true, false/*, number, eventTime*/);
+        doCall(savedContext, SERVICE_PHONE_EVENT_END, true/*, false, number, eventTime*/);
     }
 
     protected void onOutgoingCallEnded(/*String number, Date eventTime*/)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onOutgoingCallEnded", "xxx");
-        doCall(savedContext, SERVICE_PHONE_EVENT_END, false, false/*, number, eventTime*/);
+        doCall(savedContext, SERVICE_PHONE_EVENT_END, false/*, false, number, eventTime*/);
     }
 
     protected void onMissedCall(/*String number, Date eventTime*/)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onMissedCall", "xxx");
-        doCall(savedContext, SERVICE_PHONE_EVENT_END, true, true/*, number, eventTime*/);
+        doCall(savedContext, SERVICE_PHONE_EVENT_END, true/*, true, number, eventTime*/);
     }
 
     private void doCall(Context context, final int phoneEvent,
-                        final boolean incoming, final boolean missed/*,
+                        final boolean incoming/*, final boolean missed,
                             final String number, final Date eventTime*/) {
         final Context appContext = context.getApplicationContext();
         //PPApplication.startHandlerThreadBroadcast(/*"PhoneCallsListener.doCall"*/);
@@ -287,13 +287,13 @@ public class PhoneCallsListener extends PhoneStateListener {
                             SharedPreferences sharedPreferences = context.getSharedPreferences(PPApplication.TMP_SHARED_PREFS_PHONE_CALL_BROADCAST_RECEIVER, Context.MODE_PRIVATE);
                             profile.saveProfileToSharedPreferences(sharedPreferences);
                             ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context, sharedPreferences);
-                            return/* true*/;
+                            //return true;
                         }
                         //dataWrapper.invalidateDataWrapper();
                     }
                 }
             }
-            return/* false*/;
+            //return false;
         }
     }
 

@@ -10,7 +10,7 @@ public abstract class BaseCameraUtil implements CameraFlashUtility {
     private final Context mContext;
 
     //private boolean torchModeOn = false;
-    private TorchMode mTorchMode = TorchMode.None;
+    //private TorchMode mTorchMode = TorchMode.None;
     //private TorchModeCallback mTorchModeCallback;
 
     //region Constructors
@@ -57,8 +57,10 @@ public abstract class BaseCameraUtil implements CameraFlashUtility {
         return mTorchMode;
     }
     */
+    /*
     void setTorchMode(TorchMode torchMode) {
         mTorchMode = torchMode;
     }
+    */
     //endregion
 }

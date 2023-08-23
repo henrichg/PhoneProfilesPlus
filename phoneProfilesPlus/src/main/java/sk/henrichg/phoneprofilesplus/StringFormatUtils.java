@@ -163,7 +163,7 @@ class StringFormatUtils {
                 int radius = GlobalGUIRoutines.dip(2);
                 if (boldBullet)
                     radius += 1;
-                spannableBuilder.setSpan(new ImprovedBulletSpan(radius, GlobalGUIRoutines.dip(8), 0), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                spannableBuilder.setSpan(new ImprovedBulletSpan(radius, GlobalGUIRoutines.dip(8)/*, 0*/), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             }
         }
         return spannableBuilder;
