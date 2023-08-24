@@ -858,6 +858,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                            AppWidgetManager appWidgetManager,
                                            int appWidgetId,
                                            Bundle newOptions) {
+//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.onAppWidgetOptionsChanged", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWWIDGET);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }

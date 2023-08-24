@@ -808,33 +808,26 @@ Lenze toto neviem ako mam zavolat. To radsej nech detektor connection ho zmaze s
 
 ----------------------
 
-Ako uplne prve sprav rekonfiguraciu v db onUpdate(). Vsetky udalosti. Aj stopnute.
-TABLE_EVENTS.KEY_E_MOBILE_CELLS_CELLS. Mas tam cell idcka. Tak splitom ich povyberaj jedno za druhym, zisti asociovane cell name z TABLE_MOBILE_CELLS.KEY_MC_NAME a vytvaraj novy string s cell names, separator |. Musis checkovat, ci uz take cell name v stringu mas a len ak nie, tak pridaj.
-Nakoniec ten string zapis do TABLE_EVENTS.KEY_E_MOBILE_CELLS_CELLS.
-HOTOVO
+Ked dam, ze sa nema nic spusat v konfiguracii Android Studia, tak sa nic nespusti.
+Ale co je uplne najhorsie, nespusti sa servis, ked startnem Aktivator. Preco?
+Viem, ked nepovolim notifikacie, system ani PPService nespuasti, kedze ma byt foreground.
+Toto mi pripada ako bug. Ale mozno nie je.
+Takze co s tymto sprvait?
 
-In sensor preference:
-- V senzore bude v Cells len zoznam cell names s checkboxami. A toto sa zapise do senzora.
-HOTOVO
+1. Musim nechat to moje pytanie si zapnutie notifikacii.
+2. Na onActivityResult musim aktivitu zavriet.
+3. Startovat PPServis musim az na onActivityResult.
 
-In scanning preference:
-- adding new preference with dialog for editing cell names. "Configure cells"
-HOTOVO
-- Musim riesit, ked cell name zmazem alebo premenujem a mam ho nakonfigurovane v
-  senzore (treba pozerat vsetky udalosti s tymto senzorom). Toto bude problem kua. Hm, hm.
-HOTOVO
-- "Show notification for detection of not used mobile cells". Uprav, aby dalog neponukal zoznam udalosti.
-  Uzivatel bude mat moznost len ulozit bunku s nazvom.
-HOTOVO
+---
 
-In scanner:
-- from cell names in sensor get cell ids and check it with detected connected cell id.
-HOTOVO
+Pada to po instalacii PPP a povoleni notifikacii:
 
-Cell registration: do summary pise ze:
-- Stopperd; New cells count: 2
-Odkial ma tych pocet novych?
-To su tie, co maju nastavene _new. A teraz. Ako sa toho _new zbavit?
-HOTOVO
+java.lang.NullPointerException: Attempt to invoke virtual method 'void android.content.BroadcastReceiver.onReceive(android.content.Context, android.content.Intent)' on a null object reference
+at androidx.localbroadcastmanager.content.LocalBroadcastManager.executePendingBroadcasts(LocalBroadcastManager.java:313)
+
+
+
+
+
 
 

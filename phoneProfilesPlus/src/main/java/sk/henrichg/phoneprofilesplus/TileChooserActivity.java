@@ -166,6 +166,12 @@ public class TileChooserActivity extends AppCompatActivity {
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
                 PPAppNotification.drawNotification(true, getApplicationContext());
             }
+
+            //!!!! THIS IS IMPORTANT BECAUSE WITHOUT THIS IS GENERATED CRASH
+            //  java.lang.NullPointerException: Attempt to invoke virtual method 'void android.content.BroadcastReceiver.onReceive(android.content.Context, android.content.Intent)'
+            //  on a null object reference
+            //  at androidx.localbroadcastmanager.content.LocalBroadcastManager.executePendingBroadcasts(LocalBroadcastManager.java:313)
+            finish();
         }
     }
 

@@ -504,13 +504,6 @@
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
-<!--        <activity-->
-<!--            android:name=".GrantNotificationPermissionAtFirstStartActivity"-->
-<!--            android:excludeFromRecents="true"-->
-<!--            android:label=""-->
-<!--            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"-->
-<!--            android:theme="@style/EmptyAppCompatActivity">-->
-<!--        </activity>-->
         <activity
             android:name=".LogCrashActivity"
             android:label="">

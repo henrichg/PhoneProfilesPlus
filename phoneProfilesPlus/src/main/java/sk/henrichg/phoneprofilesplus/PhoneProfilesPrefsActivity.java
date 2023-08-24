@@ -278,27 +278,28 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
             if (!isFinishing())
                 finish();
         } else {
-            if (mobileCellsRegistrationCountDownBroadcastReceiver == null) {
-                IntentFilter intentFilter = new IntentFilter();
-                intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
-                mobileCellsRegistrationCountDownBroadcastReceiver = new MobileCellsRegistrationCountDownBroadcastReceiver(this);
-                int receiverFlags = 0;
-                if (Build.VERSION.SDK_INT >= 34)
-                    receiverFlags = RECEIVER_NOT_EXPORTED;
-                registerReceiver(mobileCellsRegistrationCountDownBroadcastReceiver, intentFilter, receiverFlags);
-            }
+            // this is for API 33+
+            if (!Permissions.grantNotificationsPermission(this)) {
+                if (mobileCellsRegistrationCountDownBroadcastReceiver == null) {
+                    IntentFilter intentFilter = new IntentFilter();
+                    intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
+                    mobileCellsRegistrationCountDownBroadcastReceiver = new MobileCellsRegistrationCountDownBroadcastReceiver(this);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    registerReceiver(mobileCellsRegistrationCountDownBroadcastReceiver, intentFilter, receiverFlags);
+                }
 
-            if (mobileCellsRegistrationNewCellsBroadcastReceiver == null) {
-                IntentFilter intentFilter = new IntentFilter();
-                intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
-                mobileCellsRegistrationNewCellsBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver(this);
-                int receiverFlags = 0;
-                if (Build.VERSION.SDK_INT >= 34)
-                    receiverFlags = RECEIVER_NOT_EXPORTED;
-                registerReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver, intentFilter, receiverFlags);
+                if (mobileCellsRegistrationNewCellsBroadcastReceiver == null) {
+                    IntentFilter intentFilter = new IntentFilter();
+                    intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
+                    mobileCellsRegistrationNewCellsBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver(this);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    registerReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver, intentFilter, receiverFlags);
+                }
             }
-
-            Permissions.grantNotificationsPermission(this);
         }
 
     }
@@ -399,6 +400,12 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
                 PPAppNotification.drawNotification(true, getApplicationContext());
             }
+
+            //!!!! THIS IS IMPORTANT BECAUSE WITHOUT THIS IS GENERATED CRASH
+            //  java.lang.NullPointerException: Attempt to invoke virtual method 'void android.content.BroadcastReceiver.onReceive(android.content.Context, android.content.Intent)'
+            //  on a null object reference
+            //  at androidx.localbroadcastmanager.content.LocalBroadcastManager.executePendingBroadcasts(LocalBroadcastManager.java:313)
+            finish();
         }
         else {
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);

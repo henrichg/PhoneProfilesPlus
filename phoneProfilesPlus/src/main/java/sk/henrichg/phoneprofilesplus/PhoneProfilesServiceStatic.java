@@ -3307,6 +3307,7 @@ class PhoneProfilesServiceStatic
                                         AvoidRescheduleReceiverWorker.enqueueWork();
 
                                         if (PPApplication.mobileCellsForceStart) {
+//                                            PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PhoneProfilesServiceStatic.doCommand", "xxx");
                                             Intent refreshIntent = new Intent(MobileCellsEditorPreference.ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER);
                                             LocalBroadcastManager.getInstance(appContext).sendBroadcast(refreshIntent);
                                         }

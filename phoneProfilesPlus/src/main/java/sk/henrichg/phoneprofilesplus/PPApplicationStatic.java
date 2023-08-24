@@ -631,7 +631,7 @@ class PPApplicationStatic {
     }
 
     static void runCommand(Context context, Intent intent) {
-//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PPApplication.runCommand", "xxx");
+//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PPApplicationStatic.runCommand", "xxx");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 

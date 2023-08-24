@@ -212,6 +212,7 @@ class BluetoothScanner {
                                         // send broadcast for start EventsHandler
                                         /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
                                         sendBroadcast(btLEIntent);*/
+//                                        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] BluetoothScanner.doScan", "xxx");
                                         Intent btLEIntent = new Intent(PhoneProfilesService.ACTION_BLUETOOTHLE_SCAN_BROADCAST_RECEIVER);
                                         LocalBroadcastManager.getInstance(context).sendBroadcast(btLEIntent);
                                     }

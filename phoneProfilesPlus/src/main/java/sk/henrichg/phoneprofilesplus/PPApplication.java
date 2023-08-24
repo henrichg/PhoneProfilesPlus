@@ -1510,6 +1510,8 @@ public class PPApplication extends Application
                 }
 
                 boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
+//                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPApplication.startPPServiceWhenNotStarted", "serviceStarted="+serviceStarted);
+//                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPApplication.startPPServiceWhenNotStarted", "applicationStartOnBoot="+ApplicationPreferences.applicationStartOnBoot);
                 if (!serviceStarted) {
                     //if (!PPApplicationStatic.getApplicationStarted(false)) {
                     if (ApplicationPreferences.applicationStartOnBoot) {
@@ -1635,7 +1637,7 @@ public class PPApplication extends Application
         }
 
         // dash clock extension
-//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PPApplication.forceUpdateGUI", "dash clock extension)");
+//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PPApplication.forceUpdateGUI", "dash clock extension");
         Intent intent3 = new Intent(PhoneProfilesService.ACTION_DASH_CLOCK_BROADCAST_RECEIVER);
         //intent3.putExtra(DashClockBroadcastReceiver.EXTRA_REFRESH, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);

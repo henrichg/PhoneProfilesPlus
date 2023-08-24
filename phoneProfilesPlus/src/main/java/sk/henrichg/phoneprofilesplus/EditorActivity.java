@@ -602,20 +602,21 @@ public class EditorActivity extends AppCompatActivity
         }
 
         if (activityStarted) {
-            Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
-            intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, StringConstants.EXTRA_ACTIVATOR);
-            getApplicationContext().sendBroadcast(intent);
+            // this is for API 33+
+            if (!Permissions.grantNotificationsPermission(this)) {
+                Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
+                intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, StringConstants.EXTRA_ACTIVATOR);
+                getApplicationContext().sendBroadcast(intent);
 
-            refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
-            LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
-                    new IntentFilter(PPApplication.ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER));
-            showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
-            LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
-                    new IntentFilter(ACTION_SHOW_EDITOR_TARGET_HELPS_BROADCAST_RECEIVER));
+                refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
+                LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
+                        new IntentFilter(PPApplication.ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER));
+                showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
+                LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
+                        new IntentFilter(ACTION_SHOW_EDITOR_TARGET_HELPS_BROADCAST_RECEIVER));
 
-            refreshGUI(/*true,*/ false, true, 0, 0);
-
-            Permissions.grantNotificationsPermission(this);
+                refreshGUI(/*true,*/ false, true, 0, 0);
+            }
         }
         else {
             if (!isFinishing())
@@ -2315,6 +2316,12 @@ public class EditorActivity extends AppCompatActivity
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
                 PPAppNotification.drawNotification(true, getApplicationContext());
             }
+
+            //!!!! THIS IS IMPORTANT BECAUSE WITHOUT THIS IS GENERATED CRASH
+            //  java.lang.NullPointerException: Attempt to invoke virtual method 'void android.content.BroadcastReceiver.onReceive(android.content.Context, android.content.Intent)'
+            //  on a null object reference
+            //  at androidx.localbroadcastmanager.content.LocalBroadcastManager.executePendingBroadcasts(LocalBroadcastManager.java:313)
+            finish();
         }
 
     }
@@ -3874,7 +3881,7 @@ public class EditorActivity extends AppCompatActivity
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.showTargetHelps");
 
-//                        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] EditorProfileActivity.showTargetHelps", "xxx");
+//                    PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] EditorActivity.showTargetHelps", "xxx");
                     Intent intent = new Intent(ACTION_SHOW_EDITOR_TARGET_HELPS_BROADCAST_RECEIVER);
                     LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
                     /*if (EditorActivity.getInstance() != null) {

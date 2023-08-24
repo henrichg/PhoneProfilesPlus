@@ -193,6 +193,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             });
                             */
                             if (PPApplication.lockDeviceActivityDisplayed) {
+//                                PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
                                 Intent finishIntent = new Intent(LockDeviceActivity.ACTION_FINISH_LOCK_DEVICE_ACTIVITY_BROADCAST_RECEIVER);
                                 LocalBroadcastManager.getInstance(context).sendBroadcast(finishIntent);
                             }

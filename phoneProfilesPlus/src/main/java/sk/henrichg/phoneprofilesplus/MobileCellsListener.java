@@ -788,7 +788,7 @@ class MobileCellsListener extends PhoneStateListener {
             //if (forceStart) {
             if (PPApplication.mobileCellsForceStart || PPApplication.mobileCellsRegistraitonForceStart) {
                 if (MobileCellsScanner.isValidCellId(_registeredCell)) {
-//                PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PhoneProfilesService.doAutoRegistration", "(2)");
+//                    PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] MobileCellsListener.doAutoRegistration", "xxxx");
                     // broadcast for event preferences
                     Intent refreshIntent = new Intent(MobileCellsEditorPreference.ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER);
                     LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);

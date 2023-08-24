@@ -194,6 +194,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         //if (PhoneProfilesService.getInstance() != null) {
             //if (PPApplication.lockDeviceActivity != null) {
             if (PPApplication.lockDeviceActivityDisplayed) {
+//                PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] LockDeviceActivityFinishBroadcastReceiver.doWork", "xxx");
                 Intent finishIntent = new Intent(LockDeviceActivity.ACTION_FINISH_LOCK_DEVICE_ACTIVITY_BROADCAST_RECEIVER);
                 LocalBroadcastManager.getInstance(context).sendBroadcast(finishIntent);
             }

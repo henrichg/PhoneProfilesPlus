@@ -200,7 +200,6 @@ public class ActivatorActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
-
         boolean doServiceStart = startPPServiceWhenNotStarted();
         if (doServiceStart) {
             if (!isFinishing())
@@ -215,22 +214,21 @@ public class ActivatorActivity extends AppCompatActivity
         }
 
         if (activityStarted) {
-            Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
-            intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, StringConstants.EXTRA_EDITOR);
-            getApplicationContext().sendBroadcast(intent);
-
-            LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
-                    new IntentFilter(PPApplication.ACTION_REFRESH_ACTIVATOR_GUI_BROADCAST_RECEIVER));
-            LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
-                    new IntentFilter(ActivatorActivity.ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER));
-
-            refreshGUI(/*true,*/ false);
-
             // this is for API 33+
-            Permissions.grantNotificationsPermission(this);
+            if (!Permissions.grantNotificationsPermission(this)) {
+                Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
+                intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, StringConstants.EXTRA_EDITOR);
+                getApplicationContext().sendBroadcast(intent);
 
-            showPrivacyPolicy();
+                LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
+                        new IntentFilter(PPApplication.ACTION_REFRESH_ACTIVATOR_GUI_BROADCAST_RECEIVER));
+                LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
+                        new IntentFilter(ActivatorActivity.ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER));
 
+                refreshGUI(/*true,*/ false);
+
+                showPrivacyPolicy();
+            }
         }
         else {
             if (!isFinishing())
@@ -273,6 +271,12 @@ public class ActivatorActivity extends AppCompatActivity
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
                 PPAppNotification.drawNotification(true, getApplicationContext());
             }
+
+            //!!!! THIS IS IMPORTANT BECAUSE WITHOUT THIS IS GENERATED CRASH
+            //  java.lang.NullPointerException: Attempt to invoke virtual method 'void android.content.BroadcastReceiver.onReceive(android.content.Context, android.content.Intent)'
+            //  on a null object reference
+            //  at androidx.localbroadcastmanager.content.LocalBroadcastManager.executePendingBroadcasts(LocalBroadcastManager.java:313)
+            finish();
         }
     }
 
@@ -710,7 +714,7 @@ public class ActivatorActivity extends AppCompatActivity
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorActivity.showTargetHelps (2)");
 
-//                        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] ActivatorActivity.showTargetHelps", "xxx");
+//                    PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] ActivatorActivity.showTargetHelps", "xxx");
                     Intent intent = new Intent(ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER);
                     intent.putExtra(ActivatorActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
                     LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);

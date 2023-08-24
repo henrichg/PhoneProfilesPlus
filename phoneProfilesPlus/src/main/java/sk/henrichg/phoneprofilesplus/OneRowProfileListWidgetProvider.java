@@ -790,13 +790,13 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                                            AppWidgetManager appWidgetManager,
                                            int appWidgetId,
                                            Bundle newOptions) {
+//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowProfileListWidgetProvider.onAppWidgetOptionsChanged", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWPROFILELISTWIDGET);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
 
     static void updateWidgets(Context context/*, boolean refresh*/) {
-
-//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.updateWidgets", "xxx");
+//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowProfileListWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWPROFILELISTWIDGET);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }

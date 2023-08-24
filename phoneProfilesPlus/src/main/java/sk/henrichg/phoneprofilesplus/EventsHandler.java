@@ -738,6 +738,7 @@ class EventsHandler {
             }
             else {
                 // refresh only Editor
+//                PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] EventsHandler.handleEvents", "xxx");
                 Intent refreshIntent = new Intent(PPApplication.ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER);
                 refreshIntent.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
                 //refreshIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profileId);

@@ -73,9 +73,10 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         }
 
         if (activityStarted) {
-            if (!Permissions.grantNotificationsPermission(this)) {
+            // do not grant notifications form this activity
+            //if (!Permissions.grantNotificationsPermission(this)) {
                 activateProfile();
-            }
+            //}
         }
         else {
             if (!isFinishing())
@@ -140,6 +141,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         dataWrapper = null;
     }
 
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -158,6 +160,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
             //    finish();
         }
     }
+    */
 
     @Override
     public void finish()

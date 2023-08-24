@@ -1228,6 +1228,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                            AppWidgetManager appWidgetManager,
                                            int appWidgetId,
                                            Bundle newOptions) {
+//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] IconWidgetProvider.onAppWidgetOptionsChanged", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ICONWIDGET);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
