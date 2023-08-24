@@ -1202,7 +1202,7 @@ class DataWrapper {
                 //if (event._fkProfileStart == 0)
                 //    event._fkProfileStart = getPredefinedProfile(0, true, baseContext)._id;
                 //event._undoneProfile = false;
-                event._atEndDo = Event.EATENDDO_NONE;
+                event._atEndDo = Event.EATENDDO_RESTART_EVENTS;
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._monday = true;
                 event._eventPreferencesTime._tuesday = true;
@@ -1220,7 +1220,7 @@ class DataWrapper {
                 //if (event._fkProfileStart == 0)
                 //    event._fkProfileStart = getPredefinedProfile(0, true, baseContext)._id;
                 //event._undoneProfile = false;
-                event._atEndDo = Event.EATENDDO_NONE;
+                event._atEndDo = Event.EATENDDO_RESTART_EVENTS;
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._saturday = true;
                 event._eventPreferencesTime._sunday = true;
@@ -1235,7 +1235,7 @@ class DataWrapper {
                 //if (event._fkProfileStart == 0)
                 //    event._fkProfileStart = getPredefinedProfile(2, true, baseContext)._id;
                 //event._undoneProfile = true;
-                event._atEndDo = Event.EATENDDO_NONE;
+                event._atEndDo = Event.EATENDDO_RESTART_EVENTS;
                 event._priority = Event.EPRIORITY_HIGHER;
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._monday = true;
@@ -1254,7 +1254,7 @@ class DataWrapper {
                 //if (event._fkProfileStart == 0)
                 //    event._fkProfileStart = getPredefinedProfile(4, true, baseContext)._id;
                 //event._undoneProfile = false;
-                event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
+                event._atEndDo = Event.EATENDDO_RESTART_EVENTS;
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._monday = true;
                 event._eventPreferencesTime._tuesday = true;
