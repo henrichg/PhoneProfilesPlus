@@ -378,10 +378,11 @@ class DataWrapper {
 
     void clearProfileList() {
         synchronized (profileList) {
-            for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
-                /*Profile profile =*/ it.next(); // this must be called
-                it.remove();
-            }
+            //for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+            //    /*Profile profile =*/ it.next(); // this must be called
+            //    it.remove();
+            //}
+            profileList.clear();
             profileListFilled = false;
         }
     }
@@ -389,14 +390,15 @@ class DataWrapper {
     {
         synchronized (profileList) {
             //if (profileListFilled)
-            //{
-                for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+            //
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
                     Profile profile = it.next();
                     profile.releaseIconBitmap();
                     profile.releasePreferencesIndicator();
-                    it.remove();
                 }
             //}
+            profileList.clear();
             profileListFilled = false;
         }
     }
