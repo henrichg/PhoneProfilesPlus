@@ -1230,6 +1230,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
         }
+
+        event = null;
     }
 
     @Override
