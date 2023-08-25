@@ -117,13 +117,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     }
                 }
 
-                String selectedCells = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-                if (!this._cellsNames.isEmpty()) {
-                    String[] splits = this._cellsNames.split(StringConstants.STR_SPLIT_REGEX);
-                    selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
-                    selectedCells = selectedCells + " " + splits.length;
-                }
-                _value.append(context.getString(R.string.event_preferences_mobile_cells_cellNames)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedCells, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(context.getString(R.string.event_preferences_mobile_cells_cellNames)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(MobileCellNamesPreference.getSummary(this._cellsNames, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 if (this._whenOutside)
                     _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_mobile_cells_when_outside_description), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 

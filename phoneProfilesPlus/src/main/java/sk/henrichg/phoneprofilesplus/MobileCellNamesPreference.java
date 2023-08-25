@@ -51,15 +51,26 @@ public class MobileCellNamesPreference extends DialogPreference {
         setSummary();
     }
 
-    void setSummary() {
-        if (value.isEmpty())
-            setSummary(R.string.applications_multiselect_summary_text_not_selected);
-        else {
+    static String getSummary(String value, Context context) {
+        String summary = context.getString(R.string.contacts_multiselect_summary_text_not_selected);
+        if (!value.isEmpty()) {
             String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-            String selectedCells = prefContext.getString(R.string.applications_multiselect_summary_text_selected);
-            selectedCells = selectedCells + " " + splits.length;
-            setSummary(selectedCells);
+            if (splits.length < 4) {
+                StringBuilder _value = new StringBuilder();
+                for (String split : splits) {
+                    if (_value.length() > 0)
+                        _value.append(", ");
+                    _value.append("\"").append(split).append("\"");
+                }
+                summary = _value.toString();
+            } else
+                summary = context.getString(R.string.contacts_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
         }
+        return summary;
+    }
+
+    void setSummary() {
+        setSummary(getSummary(value, prefContext));
     }
 
     void addCellName(String cellName) {
