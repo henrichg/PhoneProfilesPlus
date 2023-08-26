@@ -91,7 +91,7 @@ public class ProfileIconPreference extends DialogPreference {
     @Override
     public void onDetached() {
         super.onDetached();
-        Log.e("ProfileIconPreference.onDetached", "xxxxxxxxxxxx");
+//        Log.e("ProfileIconPreference.onDetached", "xxxxxxxxxxxx");
         if ((updateIconAsyncTask != null) &&
                 updateIconAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             updateIconAsyncTask.cancel(true);
