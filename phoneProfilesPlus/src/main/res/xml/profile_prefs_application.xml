@@ -5,64 +5,94 @@
     app:key="prf_pref_applicationCategory" >
 
     <PreferenceCategory
-        app:key="prf_pref_applicationDisableScanningCategory"
-        app:title="@string/profile_preferences_applicationEnableScanning"
+        app:key="prf_pref_applicationEnableWifiScanningCategory"
+        app:title="@string/profile_preferences_applicationEnableWifiScanning"
         app:layout="@layout/mp_preference_category">
         <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/profile_preferences_applicationEnableWifiScanning"
+            app:title="@string/profile_preferences_applicationEnableScanning"
             app:summary="@string/array_pref_no_change"
-            app:key="prf_pref_applicationDisableWifiScanning"
+            app:key="prf_pref_applicationEnableWifiScanning"
             app:defaultValue="0"
-            app:ppEntries="@array/applicationDisableScanningArray"
-            app:ppEntryValues="@array/applicationDisableScanningValues"
+            app:ppEntries="@array/applicationEnableScanningArray"
+            app:ppEntryValues="@array/applicationEnableScanningValues"
             app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="prf_pref_applicationEnableBluetoothScanningCategory"
+        app:title="@string/profile_preferences_applicationEnableBluetoothScanning"
+        app:layout="@layout/mp_preference_category">
         <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/profile_preferences_applicationEnableBluetoothScanning"
+            app:title="@string/profile_preferences_applicationEnableScanning"
             app:summary="@string/array_pref_no_change"
-            app:key="prf_pref_applicationDisableBluetoothScanning"
+            app:key="prf_pref_applicationEnableBluetoothScanning"
             app:defaultValue="0"
-            app:ppEntries="@array/applicationDisableScanningArray"
-            app:ppEntryValues="@array/applicationDisableScanningValues"
+            app:ppEntries="@array/applicationEnableScanningArray"
+            app:ppEntryValues="@array/applicationEnableScanningValues"
             app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="prf_pref_applicationEnableLocationScanningCategory"
+        app:title="@string/profile_preferences_applicationEnableLocationScanning"
+        app:layout="@layout/mp_preference_category">
         <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/profile_preferences_applicationEnableLocationScanning"
+            app:title="@string/profile_preferences_applicationEnableScanning"
             app:summary="@string/array_pref_no_change"
-            app:key="prf_pref_applicationDisableLocationScanning"
+            app:key="prf_pref_applicationEnableLocationScanning"
             app:defaultValue="0"
-            app:ppEntries="@array/applicationDisableScanningArray"
-            app:ppEntryValues="@array/applicationDisableScanningValues"
+            app:ppEntries="@array/applicationEnableScanningArray"
+            app:ppEntryValues="@array/applicationEnableScanningValues"
             app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="prf_pref_applicationEnableMobileCellScanningCategory"
+        app:title="@string/profile_preferences_applicationEnableMobileCellScanning"
+        app:layout="@layout/mp_preference_category">
         <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/profile_preferences_applicationEnableMobileCellScanning"
+            app:title="@string/profile_preferences_applicationEnableScanning"
             app:summary="@string/array_pref_no_change"
-            app:key="prf_pref_applicationDisableMobileCellScanning"
+            app:key="prf_pref_applicationEnableMobileCellScanning"
             app:defaultValue="0"
-            app:ppEntries="@array/applicationDisableScanningArray"
-            app:ppEntryValues="@array/applicationDisableScanningValues"
+            app:ppEntries="@array/applicationEnableScanningArray"
+            app:ppEntryValues="@array/applicationEnableScanningValues"
             app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="prf_pref_applicationEnableOrientationScanningCategory"
+        app:title="@string/profile_preferences_applicationEnableOrientationScanning"
+        app:layout="@layout/mp_preference_category">
         <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/profile_preferences_applicationEnableOrientationScanning"
+            app:title="@string/profile_preferences_applicationEnableScanning"
             app:summary="@string/array_pref_no_change"
-            app:key="prf_pref_applicationDisableOrientationScanning"
+            app:key="prf_pref_applicationEnableOrientationScanning"
             app:defaultValue="0"
-            app:ppEntries="@array/applicationDisableScanningArray"
-            app:ppEntryValues="@array/applicationDisableScanningValues"
+            app:ppEntries="@array/applicationEnableScanningArray"
+            app:ppEntryValues="@array/applicationEnableScanningValues"
             app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="prf_pref_applicationEnableNotificationScanningCategory"
+        app:title="@string/profile_preferences_applicationEnableNotificationScanning"
+        app:layout="@layout/mp_preference_category">
         <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/profile_preferences_applicationEnableNotificationScanning"
+            app:title="@string/profile_preferences_applicationEnableScanning"
             app:summary="@string/array_pref_no_change"
-            app:key="prf_pref_applicationDisableNotificationScanning"
+            app:key="prf_pref_applicationEnableNotificationScanning"
             app:defaultValue="0"
-            app:ppEntries="@array/applicationDisableScanningArray"
-            app:ppEntryValues="@array/applicationDisableScanningValues"
+            app:ppEntries="@array/applicationEnableScanningArray"
+            app:ppEntryValues="@array/applicationEnableScanningValues"
             app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="prf_pref_applicationEnablePeriodicScanningCategory"
+        app:title="@string/profile_preferences_applicationEnablePeriodicScanning"
+        app:layout="@layout/mp_preference_category">
         <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/profile_preferences_applicationEnablePeriodicScanning"
+            app:title="@string/profile_preferences_applicationEnableScanning"
             app:summary="@string/array_pref_no_change"
-            app:key="prf_pref_applicationDisablePeriodicScanning"
+            app:key="prf_pref_applicationEnablePeriodicScanning"
             app:defaultValue="0"
-            app:ppEntries="@array/applicationDisableScanningArray"
-            app:ppEntryValues="@array/applicationDisableScanningValues"
+            app:ppEntries="@array/applicationEnableScanningArray"
+            app:ppEntryValues="@array/applicationEnableScanningValues"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     <PreferenceCategory

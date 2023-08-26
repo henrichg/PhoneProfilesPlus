@@ -158,12 +158,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_HIDE_STATUS_BAR_ICON = "hideStatusBarIcon";
     static final String KEY_LOCK_DEVICE = "lockDevice";
     static final String KEY_DEVICE_CONNECT_TO_SSID = "deviceConnectToSSID";
-    static final String KEY_APPLICATION_DISABLE_WIFI_SCANNING = "applicationDisableWifiScanning";
-    static final String KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING = "applicationDisableBluetoothScanning";
+    static final String KEY_APPLICATION_ENABLE_WIFI_SCANNING = "applicationDisableWifiScanning";
+    static final String KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING = "applicationDisableBluetoothScanning";
     static final String KEY_DEVICE_WIFI_AP_PREFS = "deviceWifiAPPrefs";
-    static final String KEY_APPLICATION_DISABLE_LOCATION_SCANNING = "applicationDisableLocationScanning";
-    static final String KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING = "applicationDisableMobileCellScanning";
-    static final String KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING = "applicationDisableOrientationScanning";
+    static final String KEY_APPLICATION_ENABLE_LOCATION_SCANNING = "applicationDisableLocationScanning";
+    static final String KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING = "applicationDisableMobileCellScanning";
+    static final String KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING = "applicationDisableOrientationScanning";
     static final String KEY_HEADS_UP_NOTIFICATIONS = "headsUpNotifications";
     static final String KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE = "deviceForceStopApplicationChange";
     static final String KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME = "deviceForceStopApplicationPackageName";
@@ -181,7 +181,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_SCREEN_ON_PERMANENT = "screenOnPermanent";
     static final String KEY_VOLUME_MUTE_SOUND = "volumeMuteSound";
     static final String KEY_DEVICE_LOCATION_MODE = "deviceLocationMode";
-    static final String KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING = "applicationDisableNotificationScanning";
+    static final String KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING = "applicationDisableNotificationScanning";
     static final String KEY_GENERATE_NOTIFICATION = "generateNotification";
     static final String KEY_CAMERA_FLASH = "cameraFlash";
     static final String KEY_DEVICE_NETWORK_TYPE_SIM1 = "deviceNetworkTypeSIM1";
@@ -207,7 +207,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_DEVICE_VPN_SETTINGS_PREFS = "deviceVPNSettingsPrefs";
     static final String KEY_END_OF_ACTIVATION_TYPE = "endOfActivationType";
     static final String KEY_END_OF_ACTIVATION_TIME = "endOfActivationTime";
-    static final String KEY_APPLICATION_DISABLE_PERIODIC_SCANNING = "applicationDisablePeriodicScanning";
+    static final String KEY_APPLICATION_ENABLE_PERIODIC_SCANNING = "applicationDisablePeriodicScanning";
     static final String KEY_DEVICE_VPN = "deviceVPN";
     static final String KEY_VIBRATION_INTENSITY_RINGING = "vibrationIntensityRinging";
     static final String KEY_VIBRATION_INTENSITY_NOTIFICATIONS = "vibrationIntensityNotificaitons";

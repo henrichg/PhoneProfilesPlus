@@ -669,14 +669,14 @@ class ProfileStatic {
                     profile._hideStatusBarIcon,
                     profile._lockDevice,
                     profile._deviceConnectToSSID,
-                    profile._applicationDisableWifiScanning,
-                    profile._applicationDisableBluetoothScanning,
+                    profile._applicationEnableWifiScanning,
+                    profile._applicationEnableBluetoothScanning,
                     profile._durationNotificationSound,
                     profile._durationNotificationVibrate,
                     profile._deviceWiFiAPPrefs,
-                    profile._applicationDisableLocationScanning,
-                    profile._applicationDisableMobileCellScanning,
-                    profile._applicationDisableOrientationScanning,
+                    profile._applicationEnableLocationScanning,
+                    profile._applicationEnableMobileCellScanning,
+                    profile._applicationEnableOrientationScanning,
                     profile._headsUpNotifications,
                     profile._deviceForceStopApplicationChange,
                     profile._deviceForceStopApplicationPackageName,
@@ -694,7 +694,7 @@ class ProfileStatic {
                     profile._screenOnPermanent,
                     profile._volumeMuteSound,
                     profile._deviceLocationMode,
-                    profile._applicationDisableNotificationScanning,
+                    profile._applicationEnableNotificationScanning,
                     profile._generateNotification,
                     profile._cameraFlash,
                     profile._deviceNetworkTypeSIM1,
@@ -720,7 +720,7 @@ class ProfileStatic {
                     profile._deviceVPNSettingsPrefs,
                     profile._endOfActivationType,
                     profile._endOfActivationTime,
-                    profile._applicationDisablePeriodicScanning,
+                    profile._applicationEnablePeriodicScanning,
                     profile._deviceVPN,
                     profile._vibrationIntensityRinging,
                     profile._vibrationIntensityNotifications,
@@ -800,18 +800,18 @@ class ProfileStatic {
                 mappedProfile._lockDevice = 0;
             if ((profile._deviceConnectToSSID != null) && (profile._deviceConnectToSSID.equals(CONNECTTOSSID_SHAREDPROFILE)))
                 mappedProfile._deviceConnectToSSID = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID);
-            if (profile._applicationDisableWifiScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableWifiScanning = 0;
-            if (profile._applicationDisableBluetoothScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableBluetoothScanning = 0;
+            if (profile._applicationEnableWifiScanning == SHARED_PROFILE_VALUE)
+                mappedProfile._applicationEnableWifiScanning = 0;
+            if (profile._applicationEnableBluetoothScanning == SHARED_PROFILE_VALUE)
+                mappedProfile._applicationEnableBluetoothScanning = 0;
             if (profile._deviceWiFiAPPrefs == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceWiFiAPPrefs = 0;
-            if (profile._applicationDisableLocationScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableLocationScanning = 0;
-            if (profile._applicationDisableMobileCellScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableMobileCellScanning = 0;
-            if (profile._applicationDisableOrientationScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableOrientationScanning = 0;
+            if (profile._applicationEnableLocationScanning == SHARED_PROFILE_VALUE)
+                mappedProfile._applicationEnableLocationScanning = 0;
+            if (profile._applicationEnableMobileCellScanning == SHARED_PROFILE_VALUE)
+                mappedProfile._applicationEnableMobileCellScanning = 0;
+            if (profile._applicationEnableOrientationScanning == SHARED_PROFILE_VALUE)
+                mappedProfile._applicationEnableOrientationScanning = 0;
             if (profile._headsUpNotifications == SHARED_PROFILE_VALUE)
                 mappedProfile._headsUpNotifications = 0;
             if (profile._deviceForceStopApplicationChange == SHARED_PROFILE_VALUE)
@@ -838,8 +838,8 @@ class ProfileStatic {
                 mappedProfile._screenOnPermanent = 0;
             if (profile._deviceLocationMode == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceLocationMode = 0;
-            if (profile._applicationDisableNotificationScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableNotificationScanning = 0;
+            if (profile._applicationEnableNotificationScanning == SHARED_PROFILE_VALUE)
+                mappedProfile._applicationEnableNotificationScanning = 0;
             if (profile.getGenerateNotificationSharedProfile())
                 mappedProfile._generateNotification = Profile.defaultValuesString.get(Profile.PREF_PROFILE_GENERATE_NOTIFICATION);
             if (profile._cameraFlash == SHARED_PROFILE_VALUE)
@@ -951,19 +951,19 @@ class ProfileStatic {
                 case Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_CONNECT_TO_SSID(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING:
+                case Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING:
+                case Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING(preferenceAllowed);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP_PREFS(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING:
+                case Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING:
+                case Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING(preferenceAllowed);
                     break;
                 case Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS:

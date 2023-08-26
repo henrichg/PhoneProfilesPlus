@@ -336,14 +336,14 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._hideStatusBarIcon,
                         origProfile._lockDevice,
                         origProfile._deviceConnectToSSID,
-                        origProfile._applicationDisableWifiScanning,
-                        origProfile._applicationDisableBluetoothScanning,
+                        origProfile._applicationEnableWifiScanning,
+                        origProfile._applicationEnableBluetoothScanning,
                         origProfile._durationNotificationSound,
                         origProfile._durationNotificationVibrate,
                         origProfile._deviceWiFiAPPrefs,
-                        origProfile._applicationDisableLocationScanning,
-                        origProfile._applicationDisableMobileCellScanning,
-                        origProfile._applicationDisableOrientationScanning,
+                        origProfile._applicationEnableLocationScanning,
+                        origProfile._applicationEnableMobileCellScanning,
+                        origProfile._applicationEnableOrientationScanning,
                         origProfile._headsUpNotifications,
                         origProfile._deviceForceStopApplicationChange,
                         origProfile._deviceForceStopApplicationPackageName,
@@ -361,7 +361,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._screenOnPermanent,
                         origProfile._volumeMuteSound,
                         origProfile._deviceLocationMode,
-                        origProfile._applicationDisableNotificationScanning,
+                        origProfile._applicationEnableNotificationScanning,
                         origProfile._generateNotification,
                         origProfile._cameraFlash,
                         origProfile._deviceNetworkTypeSIM1,
@@ -387,7 +387,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._deviceVPNSettingsPrefs,
                         origProfile._endOfActivationType,
                         origProfile._endOfActivationTime,
-                        origProfile._applicationDisablePeriodicScanning,
+                        origProfile._applicationEnablePeriodicScanning,
                         origProfile._deviceVPN,
                         origProfile._vibrationIntensityRinging,
                         origProfile._vibrationIntensityNotifications,
@@ -526,12 +526,12 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._vibrateNotifications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, ""));
             profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, ""));
             profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, "");
-            profile._applicationDisableWifiScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, ""));
-            profile._applicationDisableBluetoothScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, ""));
+            profile._applicationEnableWifiScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING, ""));
+            profile._applicationEnableBluetoothScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING, ""));
             profile._deviceWiFiAPPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, ""));
-            profile._applicationDisableLocationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, ""));
-            profile._applicationDisableMobileCellScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, ""));
-            profile._applicationDisableOrientationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, ""));
+            profile._applicationEnableLocationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING, ""));
+            profile._applicationEnableMobileCellScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING, ""));
+            profile._applicationEnableOrientationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING, ""));
             profile._headsUpNotifications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, ""));
             profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, ""));
             if (profile._deviceForceStopApplicationChange == 1)
@@ -550,7 +550,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._screenOnPermanent = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, ""));
             profile._volumeMuteSound = preferences.getBoolean(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, false);
             profile._deviceLocationMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, ""));
-            profile._applicationDisableNotificationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, ""));
+            profile._applicationEnableNotificationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING, ""));
             profile._generateNotification = preferences.getString(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, "");
             profile._cameraFlash = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, ""));
             profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, ""));
@@ -595,7 +595,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._soundSameRingtoneForBothSIMCards = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, ""));
             profile._applicationDisableGloabalEventsRun = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, ""));
             profile._deviceVPNSettingsPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, ""));
-            profile._applicationDisablePeriodicScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, ""));
+            profile._applicationEnablePeriodicScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING, ""));
             profile._deviceVPN = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN, "");
             profile._vibrationIntensityRinging = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, "");
             profile._vibrationIntensityNotifications = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, "");

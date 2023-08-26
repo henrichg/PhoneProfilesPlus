@@ -69,12 +69,12 @@ class Profile {
     boolean _hideStatusBarIcon;
     int _lockDevice;
     String _deviceConnectToSSID;
-    int _applicationDisableWifiScanning;
-    int _applicationDisableBluetoothScanning;
+    int _applicationEnableWifiScanning;
+    int _applicationEnableBluetoothScanning;
     int _deviceWiFiAPPrefs;
-    int _applicationDisableLocationScanning;
-    int _applicationDisableMobileCellScanning;
-    int _applicationDisableOrientationScanning;
+    int _applicationEnableLocationScanning;
+    int _applicationEnableMobileCellScanning;
+    int _applicationEnableOrientationScanning;
     int _headsUpNotifications;
     int _deviceForceStopApplicationChange;
     String _deviceForceStopApplicationPackageName;
@@ -92,7 +92,7 @@ class Profile {
     int _screenOnPermanent;
     boolean _volumeMuteSound;
     int _deviceLocationMode;
-    int _applicationDisableNotificationScanning;
+    int _applicationEnableNotificationScanning;
     String _generateNotification;
     int _cameraFlash;
     int _deviceNetworkTypeSIM1;
@@ -118,7 +118,7 @@ class Profile {
     int _deviceVPNSettingsPrefs;
     int _endOfActivationType;
     int _endOfActivationTime;
-    int _applicationDisablePeriodicScanning;
+    int _applicationEnablePeriodicScanning;
     String _deviceVPN;
     String _vibrationIntensityRinging;
     String _vibrationIntensityNotifications;
@@ -192,13 +192,13 @@ class Profile {
     static final String PREF_PROFILE_HIDE_STATUS_BAR_ICON = "prf_pref_hideStatusBarIcon";
     static final String PREF_PROFILE_LOCK_DEVICE = "prf_pref_lockDevice";
     static final String PREF_PROFILE_DEVICE_CONNECT_TO_SSID = "prf_pref_deviceConnectToSSID";
-    static final String PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING = "prf_pref_applicationDisableWifiScanning";
-    static final String PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING = "prf_pref_applicationDisableBluetoothScanning";
+    static final String PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING = "prf_pref_applicationEnableWifiScanning";
+    static final String PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING = "prf_pref_applicationEnableBluetoothScanning";
     //static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
     static final String PREF_PROFILE_DEVICE_WIFI_AP_PREFS = "prf_pref_deviceWiFiAPPrefs";
-    static final String PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING = "prf_pref_applicationDisableLocationScanning";
-    static final String PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING = "prf_pref_applicationDisableMobileCellScanning";
-    static final String PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING = "prf_pref_applicationDisableOrientationScanning";
+    static final String PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING = "prf_pref_applicationEnableLocationScanning";
+    static final String PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING = "prf_pref_applicationEnableMobileCellScanning";
+    static final String PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING = "prf_pref_applicationEnableOrientationScanning";
     static final String PREF_PROFILE_HEADS_UP_NOTIFICATIONS = "prf_pref_headsUpNotifications";
     static final String PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE = "prf_pref_deviceForceStopApplicationChange";
     static final String PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME = "prf_pref_deviceForceStopApplicationPackageName";
@@ -215,7 +215,7 @@ class Profile {
     static final String PREF_PROFILE_SCREEN_ON_PERMANENT = "prf_pref_screenOnPermanent";
     static final String PREF_PROFILE_VOLUME_MUTE_SOUND = "prf_pref_volumeMuteSound";
     static final String PREF_PROFILE_DEVICE_LOCATION_MODE = "prf_pref_deviceLocationMode";
-    static final String PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING = "prf_pref_applicationDisableNotificationScanning";
+    static final String PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING = "prf_pref_applicationEnableNotificationScanning";
     static final String PREF_PROFILE_GENERATE_NOTIFICATION = "prf_pref_generateNotification";
     static final String PREF_PROFILE_CAMERA_FLASH = "prf_pref_cameraFlash";
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1 = "prf_pref_deviceNetworkTypeSIM1";
@@ -240,7 +240,7 @@ class Profile {
     static final String PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS = "prf_pref_deviceVPNSettingsPrefs";
     static final String PREF_PROFILE_END_OF_ACTIVATION_TYPE = "prf_pref_endOfActivationType";
     static final String PREF_PROFILE_END_OF_ACTIVATION_TIME = "prf_pref_endOfActivationTime";
-    static final String PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING = "prf_pref_applicationDisablePeriodicScanning";
+    static final String PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING = "prf_pref_applicationEnablePeriodicScanning";
     static final String PREF_PROFILE_DEVICE_VPN = "prf_pref_deviceVPN";
     static final String PREF_PROFILE_VIBRATION_INTENSITY_RINGING = "prf_pref_vibrationIntensityRinging";
     static final String PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS = "prf_pref_vibrationIntensityNotifications";
@@ -312,12 +312,12 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER_FOR, "0");
         defaultValuesString.put(PREF_PROFILE_LOCK_DEVICE, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, StringConstants.CONNECTTOSSID_JUSTANY);
-        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, "0");
-        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_WIFI_AP_PREFS, "0");
-        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, "0");
-        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, "0");
-        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING, "0");
         defaultValuesString.put(PREF_PROFILE_HEADS_UP_NOTIFICATIONS, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, "-");
@@ -333,7 +333,7 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_ALWAYS_ON_DISPLAY, "0");
         defaultValuesString.put(PREF_PROFILE_SCREEN_ON_PERMANENT, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_LOCATION_MODE, "0");
-        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING, "0");
         defaultValuesString.put(PREF_PROFILE_GENERATE_NOTIFICATION, "0|0||");
         defaultValuesString.put(PREF_PROFILE_CAMERA_FLASH, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0");
@@ -359,7 +359,7 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, "0");
         defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TYPE, "0");
         defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TIME, "0");
-        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_VPN, "0|0|||0");
         defaultValuesString.put(PREF_PROFILE_VIBRATION_INTENSITY_RINGING, "-1|1");
         defaultValuesString.put(PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, "-1|1");
@@ -989,14 +989,14 @@ class Profile {
                    boolean hideStatusBarIcon,
                    int lockDevice,
                    String deviceConnectToSSID,
-                   int applicationDisableWifiScanning,
-                   int applicationDisableBluetoothScanning,
+                   int applicationEnableWifiScanning,
+                   int applicationEnableBluetoothScanning,
                    String durationNotificationSound,
                    boolean durationNotificationVibrate,
                    int deviceWiFiAPPrefs,
-                   int applicationDisableLocationScanning,
-                   int applicationDisableMobileCellScanning,
-                   int applicationDisableOrientationScanning,
+                   int applicationEnableLocationScanning,
+                   int applicationEnableMobileCellScanning,
+                   int applicationEnableOrientationScanning,
                    int headsUpNotifications,
                    int deviceForceStopApplicationChange,
                    String deviceForceStopApplicationPackageName,
@@ -1014,7 +1014,7 @@ class Profile {
                    int screenOnPermanent,
                    boolean volumeMuteSound,
                    int deviceLocationMode,
-                   int applicationDisableNotificationScanning,
+                   int applicationEnableNotificationScanning,
                    String generateNotification,
                    int cameraFlash,
                    int deviceNetworkTypeSIM1,
@@ -1040,7 +1040,7 @@ class Profile {
                    int deviceVPNSettingsPrefs,
                    int endOfActivationType,
                    int endOfActivationTime,
-                   int applicationDisablePeriodicScanning,
+                   int applicationEnablePeriodicScanning,
                    String deviceVPN,
                    String vibrationIntensityRinging,
                    String vibrationIntensityNotifications,
@@ -1101,12 +1101,12 @@ class Profile {
         this._hideStatusBarIcon = hideStatusBarIcon;
         this._lockDevice = lockDevice;
         this._deviceConnectToSSID = deviceConnectToSSID;
-        this._applicationDisableWifiScanning = applicationDisableWifiScanning;
-        this._applicationDisableBluetoothScanning = applicationDisableBluetoothScanning;
+        this._applicationEnableWifiScanning = applicationEnableWifiScanning;
+        this._applicationEnableBluetoothScanning = applicationEnableBluetoothScanning;
         this._deviceWiFiAPPrefs = deviceWiFiAPPrefs;
-        this._applicationDisableLocationScanning = applicationDisableLocationScanning;
-        this._applicationDisableMobileCellScanning = applicationDisableMobileCellScanning;
-        this._applicationDisableOrientationScanning = applicationDisableOrientationScanning;
+        this._applicationEnableLocationScanning = applicationEnableLocationScanning;
+        this._applicationEnableMobileCellScanning = applicationEnableMobileCellScanning;
+        this._applicationEnableOrientationScanning = applicationEnableOrientationScanning;
         this._headsUpNotifications = headsUpNotifications;
         this._deviceForceStopApplicationChange = deviceForceStopApplicationChange;
         this._deviceForceStopApplicationPackageName = deviceForceStopApplicationPackageName;
@@ -1123,7 +1123,7 @@ class Profile {
         this._screenOnPermanent = screenOnPermanent;
         this._volumeMuteSound = volumeMuteSound;
         this._deviceLocationMode = deviceLocationMode;
-        this._applicationDisableNotificationScanning = applicationDisableNotificationScanning;
+        this._applicationEnableNotificationScanning = applicationEnableNotificationScanning;
         this._generateNotification = generateNotification;
         this._cameraFlash = cameraFlash;
         this._deviceNetworkTypeSIM1 = deviceNetworkTypeSIM1;
@@ -1149,7 +1149,7 @@ class Profile {
         this._deviceVPNSettingsPrefs = deviceVPNSettingsPrefs;
         this._endOfActivationType = endOfActivationType;
         this._endOfActivationTime = endOfActivationTime;
-        this._applicationDisablePeriodicScanning = applicationDisablePeriodicScanning;
+        this._applicationEnablePeriodicScanning = applicationEnablePeriodicScanning;
         this._deviceVPN = deviceVPN;
         this._vibrationIntensityRinging = vibrationIntensityRinging;
         this._vibrationIntensityNotifications = vibrationIntensityNotifications;
@@ -1212,14 +1212,14 @@ class Profile {
             boolean hideStatusBarIcon,
             int lockDevice,
             String deviceConnectToSSID,
-            int applicationDisableWifiScanning,
-            int applicationDisableBluetoothScanning,
+            int applicationEnableWifiScanning,
+            int applicationEnableBluetoothScanning,
             String durationNotificationSound,
             boolean durationNotificationVibrate,
             int deviceWiFiAPPrefs,
-            int applicationDisableLocationScanning,
-            int applicationDisableMobileCellScanning,
-            int applicationDisableOrientationScanning,
+            int applicationEnableLocationScanning,
+            int applicationEnableMobileCellScanning,
+            int applicationEnableOrientationScanning,
             int headsUpNotifications,
             int deviceForceStopApplicationChange,
             String deviceForceStopApplicationPackageName,
@@ -1237,7 +1237,7 @@ class Profile {
             int screenOnPermanent,
             boolean volumeMuteSound,
             int deviceLocationMode,
-            int applicationDisableNotificationScanning,
+            int applicationEnableNotificationScanning,
             String generateNotification,
             int cameraFlash,
             int deviceNetworkTypeSIM1,
@@ -1263,7 +1263,7 @@ class Profile {
             int deviceVPNSettingsPrefs,
             int endOfActivationType,
             int endOfActivationTime,
-            int applicationDisablePeriodicScanning,
+            int applicationEnablePeriodicScanning,
             String deviceVPN,
             String vibrationIntensityRinging,
             String vibrationIntensityNotifications,
@@ -1323,12 +1323,12 @@ class Profile {
         this._hideStatusBarIcon = hideStatusBarIcon;
         this._lockDevice = lockDevice;
         this._deviceConnectToSSID = deviceConnectToSSID;
-        this._applicationDisableWifiScanning = applicationDisableWifiScanning;
-        this._applicationDisableBluetoothScanning = applicationDisableBluetoothScanning;
+        this._applicationEnableWifiScanning = applicationEnableWifiScanning;
+        this._applicationEnableBluetoothScanning = applicationEnableBluetoothScanning;
         this._deviceWiFiAPPrefs = deviceWiFiAPPrefs;
-        this._applicationDisableLocationScanning = applicationDisableLocationScanning;
-        this._applicationDisableMobileCellScanning = applicationDisableMobileCellScanning;
-        this._applicationDisableOrientationScanning = applicationDisableOrientationScanning;
+        this._applicationEnableLocationScanning = applicationEnableLocationScanning;
+        this._applicationEnableMobileCellScanning = applicationEnableMobileCellScanning;
+        this._applicationEnableOrientationScanning = applicationEnableOrientationScanning;
         this._headsUpNotifications = headsUpNotifications;
         this._deviceForceStopApplicationChange = deviceForceStopApplicationChange;
         this._deviceForceStopApplicationPackageName = deviceForceStopApplicationPackageName;
@@ -1345,7 +1345,7 @@ class Profile {
         this._screenOnPermanent = screenOnPermanent;
         this._volumeMuteSound = volumeMuteSound;
         this._deviceLocationMode = deviceLocationMode;
-        this._applicationDisableNotificationScanning = applicationDisableNotificationScanning;
+        this._applicationEnableNotificationScanning = applicationEnableNotificationScanning;
         this._generateNotification = generateNotification;
         this._cameraFlash = cameraFlash;
         this._deviceNetworkTypeSIM1 = deviceNetworkTypeSIM1;
@@ -1371,7 +1371,7 @@ class Profile {
         this._deviceVPNSettingsPrefs = deviceVPNSettingsPrefs;
         this._endOfActivationType = endOfActivationType;
         this._endOfActivationTime = endOfActivationTime;
-        this._applicationDisablePeriodicScanning = applicationDisablePeriodicScanning;
+        this._applicationEnablePeriodicScanning = applicationEnablePeriodicScanning;
         this._deviceVPN = deviceVPN;
         this._vibrationIntensityRinging = vibrationIntensityRinging;
         this._vibrationIntensityNotifications = vibrationIntensityNotifications;
@@ -1438,12 +1438,12 @@ class Profile {
         this._hideStatusBarIcon = profile._hideStatusBarIcon;
         this._lockDevice = profile._lockDevice;
         this._deviceConnectToSSID = profile._deviceConnectToSSID;
-        this._applicationDisableWifiScanning = profile._applicationDisableWifiScanning;
-        this._applicationDisableBluetoothScanning = profile._applicationDisableBluetoothScanning;
+        this._applicationEnableWifiScanning = profile._applicationEnableWifiScanning;
+        this._applicationEnableBluetoothScanning = profile._applicationEnableBluetoothScanning;
         this._deviceWiFiAPPrefs = profile._deviceWiFiAPPrefs;
-        this._applicationDisableLocationScanning = profile._applicationDisableLocationScanning;
-        this._applicationDisableMobileCellScanning = profile._applicationDisableMobileCellScanning;
-        this._applicationDisableOrientationScanning = profile._applicationDisableOrientationScanning;
+        this._applicationEnableLocationScanning = profile._applicationEnableLocationScanning;
+        this._applicationEnableMobileCellScanning = profile._applicationEnableMobileCellScanning;
+        this._applicationEnableOrientationScanning = profile._applicationEnableOrientationScanning;
         this._headsUpNotifications = profile._headsUpNotifications;
         this._deviceForceStopApplicationChange = profile._deviceForceStopApplicationChange;
         this._deviceForceStopApplicationPackageName = profile._deviceForceStopApplicationPackageName;
@@ -1460,7 +1460,7 @@ class Profile {
         this._screenOnPermanent = profile._screenOnPermanent;
         this._volumeMuteSound = profile._volumeMuteSound;
         this._deviceLocationMode = profile._deviceLocationMode;
-        this._applicationDisableNotificationScanning = profile._applicationDisableNotificationScanning;
+        this._applicationEnableNotificationScanning = profile._applicationEnableNotificationScanning;
         this._generateNotification = profile._generateNotification;
         this._cameraFlash = profile._cameraFlash;
         this._deviceNetworkTypeSIM1 = profile._deviceNetworkTypeSIM1;
@@ -1486,7 +1486,7 @@ class Profile {
         this._deviceVPNSettingsPrefs = profile._deviceVPNSettingsPrefs;
         this._endOfActivationType = profile._endOfActivationType;
         this._endOfActivationTime = profile._endOfActivationTime;
-        this._applicationDisablePeriodicScanning = profile._applicationDisablePeriodicScanning;
+        this._applicationEnablePeriodicScanning = profile._applicationEnablePeriodicScanning;
         this._deviceVPN = profile._deviceVPN;
         this._vibrationIntensityRinging = profile._vibrationIntensityRinging;
         this._vibrationIntensityNotifications = profile._vibrationIntensityNotifications;
@@ -1702,18 +1702,18 @@ class Profile {
                     this._notificationLed = withProfile._notificationLed;
                 if (withProfile._lockDevice != 0)
                     this._lockDevice = withProfile._lockDevice;
-                if (withProfile._applicationDisableWifiScanning != 0)
-                    this._applicationDisableWifiScanning = withProfile._applicationDisableWifiScanning;
-                if (withProfile._applicationDisableBluetoothScanning != 0)
-                    this._applicationDisableBluetoothScanning = withProfile._applicationDisableBluetoothScanning;
+                if (withProfile._applicationEnableWifiScanning != 0)
+                    this._applicationEnableWifiScanning = withProfile._applicationEnableWifiScanning;
+                if (withProfile._applicationEnableBluetoothScanning != 0)
+                    this._applicationEnableBluetoothScanning = withProfile._applicationEnableBluetoothScanning;
                 if (withProfile._deviceWiFiAPPrefs != 0)
                     this._deviceWiFiAPPrefs = withProfile._deviceWiFiAPPrefs;
-                if (withProfile._applicationDisableLocationScanning != 0)
-                    this._applicationDisableLocationScanning = withProfile._applicationDisableLocationScanning;
-                if (withProfile._applicationDisableMobileCellScanning != 0)
-                    this._applicationDisableMobileCellScanning = withProfile._applicationDisableMobileCellScanning;
-                if (withProfile._applicationDisableOrientationScanning != 0)
-                    this._applicationDisableOrientationScanning = withProfile._applicationDisableOrientationScanning;
+                if (withProfile._applicationEnableLocationScanning != 0)
+                    this._applicationEnableLocationScanning = withProfile._applicationEnableLocationScanning;
+                if (withProfile._applicationEnableMobileCellScanning != 0)
+                    this._applicationEnableMobileCellScanning = withProfile._applicationEnableMobileCellScanning;
+                if (withProfile._applicationEnableOrientationScanning != 0)
+                    this._applicationEnableOrientationScanning = withProfile._applicationEnableOrientationScanning;
                 if (withProfile._headsUpNotifications != 0)
                     this._headsUpNotifications = withProfile._headsUpNotifications;
                 if (withProfile._deviceForceStopApplicationChange != 0) {
@@ -1746,8 +1746,8 @@ class Profile {
                     this._screenOnPermanent = withProfile._screenOnPermanent;
                 if (withProfile._deviceLocationMode != 0)
                     this._deviceLocationMode = withProfile._deviceLocationMode;
-                if (withProfile._applicationDisableNotificationScanning != 0)
-                    this._applicationDisableNotificationScanning = withProfile._applicationDisableNotificationScanning;
+                if (withProfile._applicationEnableNotificationScanning != 0)
+                    this._applicationEnableNotificationScanning = withProfile._applicationEnableNotificationScanning;
                 if (withProfile.getGenerateNotificationGenerate())
                     this._generateNotification = withProfile._generateNotification;
                 if (withProfile._cameraFlash != 0)
@@ -1822,8 +1822,8 @@ class Profile {
                     this._applicationDisableGloabalEventsRun = withProfile._applicationDisableGloabalEventsRun;
                 if (withProfile._deviceVPNSettingsPrefs != 0)
                     this._deviceVPNSettingsPrefs = withProfile._deviceVPNSettingsPrefs;
-                if (withProfile._applicationDisablePeriodicScanning != 0)
-                    this._applicationDisablePeriodicScanning = withProfile._applicationDisablePeriodicScanning;
+                if (withProfile._applicationEnablePeriodicScanning != 0)
+                    this._applicationEnablePeriodicScanning = withProfile._applicationEnablePeriodicScanning;
                 if (!withProfile._deviceVPN.startsWith("0"))
                     this._deviceVPN = withProfile._deviceVPN;
                 if (withProfile.getVibrationIntensityRingingChange())
@@ -2043,22 +2043,22 @@ class Profile {
             if (!this._deviceConnectToSSID.equals(withProfile._deviceConnectToSSID)) {
                 return false;
             }
-            if (this._applicationDisableWifiScanning != withProfile._applicationDisableWifiScanning) {
+            if (this._applicationEnableWifiScanning != withProfile._applicationEnableWifiScanning) {
                 return false;
             }
-            if (this._applicationDisableBluetoothScanning != withProfile._applicationDisableBluetoothScanning) {
+            if (this._applicationEnableBluetoothScanning != withProfile._applicationEnableBluetoothScanning) {
                 return false;
             }
             if (this._deviceWiFiAPPrefs != withProfile._deviceWiFiAPPrefs) {
                 return false;
             }
-            if (this._applicationDisableLocationScanning != withProfile._applicationDisableLocationScanning) {
+            if (this._applicationEnableLocationScanning != withProfile._applicationEnableLocationScanning) {
                 return false;
             }
-            if (this._applicationDisableMobileCellScanning != withProfile._applicationDisableMobileCellScanning) {
+            if (this._applicationEnableMobileCellScanning != withProfile._applicationEnableMobileCellScanning) {
                 return false;
             }
-            if (this._applicationDisableOrientationScanning != withProfile._applicationDisableOrientationScanning) {
+            if (this._applicationEnableOrientationScanning != withProfile._applicationEnableOrientationScanning) {
                 return false;
             }
             if (this._headsUpNotifications != withProfile._headsUpNotifications) {
@@ -2108,7 +2108,7 @@ class Profile {
             if (this._deviceLocationMode != withProfile._deviceLocationMode) {
                 return false;
             }
-            if (this._applicationDisableNotificationScanning != withProfile._applicationDisableNotificationScanning) {
+            if (this._applicationEnableNotificationScanning != withProfile._applicationEnableNotificationScanning) {
                 return false;
             }
             if (!this._generateNotification.equals(withProfile._generateNotification)) {
@@ -2179,7 +2179,7 @@ class Profile {
             if (this._deviceVPNSettingsPrefs != withProfile._deviceVPNSettingsPrefs) {
                 return false;
             }
-            if (this._applicationDisablePeriodicScanning != withProfile._applicationDisablePeriodicScanning) {
+            if (this._applicationEnablePeriodicScanning != withProfile._applicationEnablePeriodicScanning) {
                 return false;
             }
             if (!this._deviceVPN.equals(withProfile._deviceVPN)) {
@@ -3178,12 +3178,12 @@ class Profile {
         editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_FOR, Integer.toString(this._deviceWallpaperFor));
         editor.putString(PREF_PROFILE_LOCK_DEVICE, Integer.toString(this._lockDevice));
         editor.putString(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, this._deviceConnectToSSID);
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, Integer.toString(this._applicationDisableWifiScanning));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, Integer.toString(this._applicationDisableBluetoothScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING, Integer.toString(this._applicationEnableWifiScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING, Integer.toString(this._applicationEnableBluetoothScanning));
         editor.putString(PREF_PROFILE_DEVICE_WIFI_AP_PREFS, Integer.toString(this._deviceWiFiAPPrefs));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, Integer.toString(this._applicationDisableLocationScanning));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, Integer.toString(this._applicationDisableMobileCellScanning));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, Integer.toString(this._applicationDisableOrientationScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING, Integer.toString(this._applicationEnableLocationScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING, Integer.toString(this._applicationEnableMobileCellScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING, Integer.toString(this._applicationEnableOrientationScanning));
         editor.putString(PREF_PROFILE_HEADS_UP_NOTIFICATIONS, Integer.toString(this._headsUpNotifications));
         editor.putString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, Integer.toString(this._deviceForceStopApplicationChange));
         editor.putString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, this._deviceForceStopApplicationPackageName);
@@ -3200,7 +3200,7 @@ class Profile {
         editor.putString(PREF_PROFILE_SCREEN_ON_PERMANENT, Integer.toString(this._screenOnPermanent));
         editor.putBoolean(PREF_PROFILE_VOLUME_MUTE_SOUND, this._volumeMuteSound);
         editor.putString(PREF_PROFILE_DEVICE_LOCATION_MODE, Integer.toString(this._deviceLocationMode));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, Integer.toString(this._applicationDisableNotificationScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING, Integer.toString(this._applicationEnableNotificationScanning));
         editor.putString(PREF_PROFILE_GENERATE_NOTIFICATION, this._generateNotification);
         editor.putString(PREF_PROFILE_CAMERA_FLASH, Integer.toString(this._cameraFlash));
         editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, Integer.toString(this._deviceNetworkTypeSIM1));
@@ -3227,7 +3227,7 @@ class Profile {
         editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_FOLDER, this._deviceWallpaperFolder);
         editor.putString(PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, Integer.toString(this._applicationDisableGloabalEventsRun));
         editor.putString(PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, Integer.toString(this._deviceVPNSettingsPrefs));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, Integer.toString(this._applicationDisablePeriodicScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING, Integer.toString(this._applicationEnablePeriodicScanning));
         editor.putString(PREF_PROFILE_DEVICE_VPN, this._deviceVPN);
         editor.putString(PREF_PROFILE_VIBRATION_INTENSITY_RINGING, this._vibrationIntensityRinging);
         editor.putString(PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, this._vibrationIntensityNotifications);

@@ -77,12 +77,12 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
                 values.put(DatabaseHandler.KEY_LOCK_DEVICE, profile._lockDevice);
                 values.put(DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
-                values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING, profile._applicationDisableWifiScanning);
-                values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, profile._applicationDisableBluetoothScanning);
+                values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING, profile._applicationEnableWifiScanning);
+                values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING, profile._applicationEnableBluetoothScanning);
                 values.put(DatabaseHandler.KEY_DEVICE_WIFI_AP_PREFS, profile._deviceWiFiAPPrefs);
-                values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_LOCATION_SCANNING, profile._applicationDisableLocationScanning);
-                values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, profile._applicationDisableMobileCellScanning);
-                values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, profile._applicationDisableOrientationScanning);
+                values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING, profile._applicationEnableLocationScanning);
+                values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING, profile._applicationEnableMobileCellScanning);
+                values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING, profile._applicationEnableOrientationScanning);
                 values.put(DatabaseHandler.KEY_HEADS_UP_NOTIFICATIONS, profile._headsUpNotifications);
                 values.put(DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, profile._deviceForceStopApplicationChange);
                 values.put(DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
@@ -100,7 +100,7 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_SCREEN_ON_PERMANENT, profile._screenOnPermanent);
                 values.put(DatabaseHandler.KEY_VOLUME_MUTE_SOUND, (profile._volumeMuteSound) ? 1 : 0);
                 values.put(DatabaseHandler.KEY_DEVICE_LOCATION_MODE, profile._deviceLocationMode);
-                values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING, profile._applicationDisableNotificationScanning);
+                values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING, profile._applicationEnableNotificationScanning);
                 values.put(DatabaseHandler.KEY_GENERATE_NOTIFICATION, profile._generateNotification);
                 values.put(DatabaseHandler.KEY_CAMERA_FLASH, profile._cameraFlash);
                 values.put(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1, profile._deviceNetworkTypeSIM1);
@@ -125,7 +125,7 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_DEVICE_VPN_SETTINGS_PREFS, profile._deviceVPNSettingsPrefs);
                 values.put(DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE, profile._endOfActivationType);
                 values.put(DatabaseHandler.KEY_END_OF_ACTIVATION_TIME, profile._endOfActivationTime);
-                values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING, profile._applicationDisablePeriodicScanning);
+                values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING, profile._applicationEnablePeriodicScanning);
                 values.put(DatabaseHandler.KEY_DEVICE_VPN, profile._deviceVPN);
                 values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING, profile._vibrationIntensityRinging);
                 values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS, profile._vibrationIntensityNotifications);
@@ -220,12 +220,12 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_HIDE_STATUS_BAR_ICON,
                                 DatabaseHandler.KEY_LOCK_DEVICE,
                                 DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING,
+                                DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING,
+                                DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING,
                                 DatabaseHandler.KEY_DEVICE_WIFI_AP_PREFS,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_LOCATION_SCANNING,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING,
+                                DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING,
+                                DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING,
+                                DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING,
                                 DatabaseHandler.KEY_HEADS_UP_NOTIFICATIONS,
                                 DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
                                 DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
@@ -243,7 +243,7 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_SCREEN_ON_PERMANENT,
                                 DatabaseHandler.KEY_VOLUME_MUTE_SOUND,
                                 DatabaseHandler.KEY_DEVICE_LOCATION_MODE,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING,
+                                DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING,
                                 DatabaseHandler.KEY_GENERATE_NOTIFICATION,
                                 DatabaseHandler.KEY_CAMERA_FLASH,
                                 DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1,
@@ -268,7 +268,7 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_DEVICE_VPN_SETTINGS_PREFS,
                                 DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE,
                                 DatabaseHandler.KEY_END_OF_ACTIVATION_TIME,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING,
+                                DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING,
                                 DatabaseHandler.KEY_DEVICE_VPN,
                                 DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING,
                                 DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS,
@@ -333,14 +333,14 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_HIDE_STATUS_BAR_ICON)) == 1,
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_LOCK_DEVICE)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DURATION_NOTIFICATION_SOUND)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DURATION_NOTIFICATION_VIBRATE)) == 1,
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WIFI_AP_PREFS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_LOCATION_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_HEADS_UP_NOTIFICATIONS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME)),
@@ -358,7 +358,7 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_ON_PERMANENT)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_MUTE_SOUND)) == 1,
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_LOCATION_MODE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_GENERATE_NOTIFICATION)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CAMERA_FLASH)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1)),
@@ -384,7 +384,7 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN_SETTINGS_PREFS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TIME)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS)),
@@ -472,12 +472,12 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_HIDE_STATUS_BAR_ICON + "," +
                         DatabaseHandler.KEY_LOCK_DEVICE + "," +
                         DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID + "," +
-                        DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING + "," +
-                        DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + "," +
+                        DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING + "," +
+                        DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING + "," +
                         DatabaseHandler.KEY_DEVICE_WIFI_AP_PREFS + "," +
-                        DatabaseHandler.KEY_APPLICATION_DISABLE_LOCATION_SCANNING + "," +
-                        DatabaseHandler.KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING + "," +
-                        DatabaseHandler.KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + "," +
+                        DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING + "," +
+                        DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING + "," +
+                        DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING + "," +
                         DatabaseHandler.KEY_HEADS_UP_NOTIFICATIONS + "," +
                         DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "," +
                         DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + "," +
@@ -495,7 +495,7 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_SCREEN_ON_PERMANENT + "," +
                         DatabaseHandler.KEY_VOLUME_MUTE_SOUND + "," +
                         DatabaseHandler.KEY_DEVICE_LOCATION_MODE + "," +
-                        DatabaseHandler.KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING + "," +
+                        DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING + "," +
                         DatabaseHandler.KEY_GENERATE_NOTIFICATION + "," +
                         DatabaseHandler.KEY_CAMERA_FLASH + "," +
                         DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1 + "," +
@@ -520,7 +520,7 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_DEVICE_VPN_SETTINGS_PREFS + "," +
                         DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE + "," +
                         DatabaseHandler.KEY_END_OF_ACTIVATION_TIME + "," +
-                        DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING + "," +
+                        DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING + "," +
                         DatabaseHandler.KEY_DEVICE_VPN + "," +
                         DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING + "," +
                         DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS + "," +
@@ -591,12 +591,12 @@ class DatabaseHandlerProfiles {
                         profile._hideStatusBarIcon = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_HIDE_STATUS_BAR_ICON)) == 1;
                         profile._lockDevice = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_LOCK_DEVICE));
                         profile._deviceConnectToSSID = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID));
-                        profile._applicationDisableWifiScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING));
-                        profile._applicationDisableBluetoothScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING));
+                        profile._applicationEnableWifiScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING));
+                        profile._applicationEnableBluetoothScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING));
                         profile._deviceWiFiAPPrefs = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WIFI_AP_PREFS));
-                        profile._applicationDisableLocationScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_LOCATION_SCANNING));
-                        profile._applicationDisableMobileCellScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING));
-                        profile._applicationDisableOrientationScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING));
+                        profile._applicationEnableLocationScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING));
+                        profile._applicationEnableMobileCellScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING));
+                        profile._applicationEnableOrientationScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING));
                         profile._headsUpNotifications = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_HEADS_UP_NOTIFICATIONS));
                         profile._deviceForceStopApplicationChange = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE));
                         profile._deviceForceStopApplicationPackageName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME));
@@ -614,7 +614,7 @@ class DatabaseHandlerProfiles {
                         profile._screenOnPermanent = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_ON_PERMANENT));
                         profile._volumeMuteSound = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_MUTE_SOUND)) == 1;
                         profile._deviceLocationMode = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_LOCATION_MODE));
-                        profile._applicationDisableNotificationScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING));
+                        profile._applicationEnableNotificationScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING));
                         profile._generateNotification = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_GENERATE_NOTIFICATION));
                         profile._cameraFlash = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CAMERA_FLASH));
                         profile._deviceNetworkTypeSIM1 = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1));
@@ -639,7 +639,7 @@ class DatabaseHandlerProfiles {
                         profile._deviceVPNSettingsPrefs = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN_SETTINGS_PREFS));
                         profile._endOfActivationType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE));
                         profile._endOfActivationTime = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TIME));
-                        profile._applicationDisablePeriodicScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING));
+                        profile._applicationEnablePeriodicScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING));
                         profile._deviceVPN = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN));
                         profile._vibrationIntensityRinging = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING));
                         profile._vibrationIntensityNotifications = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS));
@@ -728,12 +728,12 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
                 values.put(DatabaseHandler.KEY_LOCK_DEVICE, profile._lockDevice);
                 values.put(DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
-                values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING, profile._applicationDisableWifiScanning);
-                values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, profile._applicationDisableBluetoothScanning);
+                values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING, profile._applicationEnableWifiScanning);
+                values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING, profile._applicationEnableBluetoothScanning);
                 values.put(DatabaseHandler.KEY_DEVICE_WIFI_AP_PREFS, profile._deviceWiFiAPPrefs);
-                values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_LOCATION_SCANNING, profile._applicationDisableLocationScanning);
-                values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, profile._applicationDisableMobileCellScanning);
-                values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, profile._applicationDisableOrientationScanning);
+                values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING, profile._applicationEnableLocationScanning);
+                values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING, profile._applicationEnableMobileCellScanning);
+                values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING, profile._applicationEnableOrientationScanning);
                 values.put(DatabaseHandler.KEY_HEADS_UP_NOTIFICATIONS, profile._headsUpNotifications);
                 values.put(DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, profile._deviceForceStopApplicationChange);
                 values.put(DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
@@ -751,7 +751,7 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_SCREEN_ON_PERMANENT, profile._screenOnPermanent);
                 values.put(DatabaseHandler.KEY_VOLUME_MUTE_SOUND, (profile._volumeMuteSound) ? 1 : 0);
                 values.put(DatabaseHandler.KEY_DEVICE_LOCATION_MODE, profile._deviceLocationMode);
-                values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING, profile._applicationDisableNotificationScanning);
+                values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING, profile._applicationEnableNotificationScanning);
                 values.put(DatabaseHandler.KEY_GENERATE_NOTIFICATION, profile._generateNotification);
                 values.put(DatabaseHandler.KEY_CAMERA_FLASH, profile._cameraFlash);
                 values.put(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1, profile._deviceNetworkTypeSIM1);
@@ -776,7 +776,7 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_DEVICE_VPN_SETTINGS_PREFS, profile._deviceVPNSettingsPrefs);
                 values.put(DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE, profile._endOfActivationType);
                 values.put(DatabaseHandler.KEY_END_OF_ACTIVATION_TIME, profile._endOfActivationTime);
-                values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING, profile._applicationDisablePeriodicScanning);
+                values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING, profile._applicationEnablePeriodicScanning);
                 values.put(DatabaseHandler.KEY_DEVICE_VPN, profile._deviceVPN);
                 values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING, profile._vibrationIntensityRinging);
                 values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS, profile._vibrationIntensityNotifications);
@@ -1081,12 +1081,12 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_HIDE_STATUS_BAR_ICON,
                                 DatabaseHandler.KEY_LOCK_DEVICE,
                                 DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING,
+                                DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING,
+                                DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING,
                                 DatabaseHandler.KEY_DEVICE_WIFI_AP_PREFS,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_LOCATION_SCANNING,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING,
+                                DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING,
+                                DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING,
+                                DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING,
                                 DatabaseHandler.KEY_HEADS_UP_NOTIFICATIONS,
                                 DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
                                 DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
@@ -1104,7 +1104,7 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_SCREEN_ON_PERMANENT,
                                 DatabaseHandler.KEY_VOLUME_MUTE_SOUND,
                                 DatabaseHandler.KEY_DEVICE_LOCATION_MODE,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING,
+                                DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING,
                                 DatabaseHandler.KEY_GENERATE_NOTIFICATION,
                                 DatabaseHandler.KEY_CAMERA_FLASH,
                                 DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1,
@@ -1129,7 +1129,7 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_DEVICE_VPN_SETTINGS_PREFS,
                                 DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE,
                                 DatabaseHandler.KEY_END_OF_ACTIVATION_TIME,
-                                DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING,
+                                DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING,
                                 DatabaseHandler.KEY_DEVICE_VPN,
                                 DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING,
                                 DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS,
@@ -1196,14 +1196,14 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_HIDE_STATUS_BAR_ICON)) == 1,
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_LOCK_DEVICE)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DURATION_NOTIFICATION_SOUND)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DURATION_NOTIFICATION_VIBRATE)) == 1,
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WIFI_AP_PREFS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_LOCATION_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_HEADS_UP_NOTIFICATIONS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME)),
@@ -1221,7 +1221,7 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_ON_PERMANENT)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_MUTE_SOUND)) == 1,
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_LOCATION_MODE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_GENERATE_NOTIFICATION)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CAMERA_FLASH)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1)),
@@ -1247,7 +1247,7 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN_SETTINGS_PREFS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TIME)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS)),

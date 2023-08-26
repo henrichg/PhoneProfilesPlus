@@ -5003,12 +5003,12 @@ class ActivateProfileHelper {
         }
 
         // enable/disable scanners
-        if (profile._applicationDisableWifiScanning != 0) {
+        if (profile._applicationEnableWifiScanning != 0) {
             boolean oldApplicationEventWifiEnableScanning = ApplicationPreferences.applicationEventWifiEnableScanning;
-            boolean newApplicationEventWifiEnableScanning = profile._applicationDisableWifiScanning == 2;
+            boolean newApplicationEventWifiEnableScanning = profile._applicationEnableWifiScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, profile._applicationDisableWifiScanning == 2);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableWifiScanning == 1);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, profile._applicationEnableWifiScanning == 2);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableWifiScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventWifiEnableScanning(appContext);
             ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(appContext);
@@ -5016,12 +5016,12 @@ class ActivateProfileHelper {
                 PPApplicationStatic.restartWifiScanner(appContext);
             }
         }
-        if (profile._applicationDisableBluetoothScanning != 0) {
+        if (profile._applicationEnableBluetoothScanning != 0) {
             boolean oldApplicationEventBluetoothEnableScanning = ApplicationPreferences.applicationEventBluetoothEnableScanning;
-            boolean newApplicationEventBluetoothEnableScanning = profile._applicationDisableBluetoothScanning == 2;
+            boolean newApplicationEventBluetoothEnableScanning = profile._applicationEnableBluetoothScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, profile._applicationDisableBluetoothScanning == 2);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableBluetoothScanning == 1);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, profile._applicationEnableBluetoothScanning == 2);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableBluetoothScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext);
             ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(appContext);
@@ -5029,12 +5029,12 @@ class ActivateProfileHelper {
                 PPApplicationStatic.restartBluetoothScanner(appContext);
             }
         }
-        if (profile._applicationDisableLocationScanning != 0) {
+        if (profile._applicationEnableLocationScanning != 0) {
             boolean oldApplicationEventLocationEnableScanning = ApplicationPreferences.applicationEventLocationEnableScanning;
-            boolean newApplicationEventLocationEnableScanning = profile._applicationDisableLocationScanning == 2;
+            boolean newApplicationEventLocationEnableScanning = profile._applicationEnableLocationScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, profile._applicationDisableLocationScanning == 2);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableLocationScanning == 1);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, profile._applicationEnableLocationScanning == 2);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableLocationScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventLocationEnableScanning(appContext);
             ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(appContext);
@@ -5042,12 +5042,12 @@ class ActivateProfileHelper {
                 PPApplicationStatic.restartLocationScanner(appContext);
             }
         }
-        if (profile._applicationDisableMobileCellScanning != 0) {
+        if (profile._applicationEnableMobileCellScanning != 0) {
             boolean oldApplicationEventMobileCellEnableScanning = ApplicationPreferences.applicationEventMobileCellEnableScanning;
-            boolean newApplicationEventMobileCellEnableScanning = profile._applicationDisableMobileCellScanning == 2;
+            boolean newApplicationEventMobileCellEnableScanning = profile._applicationEnableMobileCellScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, profile._applicationDisableMobileCellScanning == 2);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableMobileCellScanning == 1);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, profile._applicationEnableMobileCellScanning == 2);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableMobileCellScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext);
             ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(appContext);
@@ -5056,12 +5056,12 @@ class ActivateProfileHelper {
                 PPApplicationStatic.restartMobileCellsScanner(appContext);
             }
         }
-        if (profile._applicationDisableOrientationScanning != 0) {
+        if (profile._applicationEnableOrientationScanning != 0) {
             boolean oldApplicationEventOrientationEnableScanning = ApplicationPreferences.applicationEventOrientationEnableScanning;
-            boolean newApplicationEventOrientationEnableScanning = profile._applicationDisableOrientationScanning == 2;
+            boolean newApplicationEventOrientationEnableScanning = profile._applicationEnableOrientationScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, profile._applicationDisableOrientationScanning == 2);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableOrientationScanning == 1);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, profile._applicationEnableOrientationScanning == 2);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableOrientationScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventOrientationEnableScanning(appContext);
             ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
@@ -5070,12 +5070,12 @@ class ActivateProfileHelper {
                 PPApplicationStatic.restartOrientationScanner(appContext);
             }
         }
-        if (profile._applicationDisableNotificationScanning != 0) {
+        if (profile._applicationEnableNotificationScanning != 0) {
             boolean oldApplicationEventNotificationEnableScanning = ApplicationPreferences.applicationEventNotificationEnableScanning;
-            boolean newApplicationEventNotificationEnableScanning = profile._applicationDisableNotificationScanning == 2;
+            boolean newApplicationEventNotificationEnableScanning = profile._applicationEnableNotificationScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, profile._applicationDisableNotificationScanning == 2);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableNotificationScanning == 1);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, profile._applicationEnableNotificationScanning == 2);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableNotificationScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventNotificationEnableScanning(appContext);
             ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile(appContext);
@@ -5083,12 +5083,12 @@ class ActivateProfileHelper {
                 PPApplicationStatic.restartNotificationScanner(appContext);
             }
         }
-        if (profile._applicationDisablePeriodicScanning != 0) {
+        if (profile._applicationEnablePeriodicScanning != 0) {
             boolean oldApplicationEventPeriodicEnableScanning = ApplicationPreferences.applicationEventPeriodicScanningEnableScanning;
-            boolean newApplicationEventPeriodicEnableScanning = profile._applicationDisablePeriodicScanning == 2;
+            boolean newApplicationEventPeriodicEnableScanning = profile._applicationEnablePeriodicScanning == 2;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, profile._applicationDisablePeriodicScanning == 2);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisablePeriodicScanning == 1);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, profile._applicationEnablePeriodicScanning == 2);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnablePeriodicScanning == 1);
             editor.apply();
             ApplicationPreferences.applicationEventPeriodicScanningEnableScanning(appContext);
             ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile(appContext);

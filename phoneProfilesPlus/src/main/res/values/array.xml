@@ -806,12 +806,12 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <string-array name="applicationDisableScanningArray">
+    <string-array name="applicationEnableScanningArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_applicationDisableScanning_enabled</item>
         <item>@string/array_pref_applicationDisableScanning_disabled</item>
     </string-array>
-    <string-array name="applicationDisableScanningValues">
+    <string-array name="applicationEnableScanningValues">
         <item>0</item>
         <item>2</item>
         <item>1</item>

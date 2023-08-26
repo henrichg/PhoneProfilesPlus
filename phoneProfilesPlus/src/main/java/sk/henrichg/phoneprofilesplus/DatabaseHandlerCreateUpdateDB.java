@@ -68,14 +68,14 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_HIDE_STATUS_BAR_ICON + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_LOCK_DEVICE + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID + " " + DatabaseHandler.TEXT_TYPE + ","
-                + DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_DURATION_NOTIFICATION_SOUND + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_DURATION_NOTIFICATION_VIBRATE + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_DEVICE_WIFI_AP_PREFS + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_APPLICATION_DISABLE_LOCATION_SCANNING + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_HEADS_UP_NOTIFICATIONS + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + " " + DatabaseHandler.TEXT_TYPE + ","
@@ -93,7 +93,7 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_SCREEN_ON_PERMANENT + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_VOLUME_MUTE_SOUND + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_DEVICE_LOCATION_MODE + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_GENERATE_NOTIFICATION + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_CAMERA_FLASH + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1 + " " + DatabaseHandler.INTEGER_TYPE + ","
@@ -120,7 +120,7 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_DEVICE_VPN_SETTINGS_PREFS + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_END_OF_ACTIVATION_TIME + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_DEVICE_VPN + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS + " " + DatabaseHandler.TEXT_TYPE + ","
@@ -593,14 +593,14 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_HIDE_STATUS_BAR_ICON, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_LOCK_DEVICE, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID, DatabaseHandler.TEXT_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING, DatabaseHandler.INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_DURATION_NOTIFICATION_SOUND, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_DURATION_NOTIFICATION_VIBRATE, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_DEVICE_WIFI_AP_PREFS, DatabaseHandler.INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_DISABLE_LOCATION_SCANNING, DatabaseHandler.INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, DatabaseHandler.INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_HEADS_UP_NOTIFICATIONS, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, DatabaseHandler.TEXT_TYPE, columns);
@@ -618,7 +618,7 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_SCREEN_ON_PERMANENT, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_VOLUME_MUTE_SOUND, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_DEVICE_LOCATION_MODE, DatabaseHandler.INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_GENERATE_NOTIFICATION, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_CAMERA_FLASH, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1, DatabaseHandler.INTEGER_TYPE, columns);
@@ -645,7 +645,7 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_DEVICE_VPN_SETTINGS_PREFS, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_END_OF_ACTIVATION_TIME, DatabaseHandler.INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_DEVICE_VPN, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS, DatabaseHandler.TEXT_TYPE, columns);
@@ -2110,14 +2110,14 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 1870)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING + "=0");
         }
 
         if (oldVersion < 1880)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING + "=0");
         }
 
         if (oldVersion < 1890) {
@@ -2236,18 +2236,18 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2010)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_DISABLE_LOCATION_SCANNING + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING + "=0");
 
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_DISABLE_LOCATION_SCANNING + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING + "=0");
         }
 
         if (oldVersion < 2020)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING + "=0");
 
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING + "=0");
         }
 
         if (oldVersion < 2030)
@@ -2552,14 +2552,14 @@ class DatabaseHandlerCreateUpdateDB {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_HIDE_STATUS_BAR_ICON)) == 1,
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_LOCK_DEVICE)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DURATION_NOTIFICATION_SOUND)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DURATION_NOTIFICATION_VIBRATE)) == 1,
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WIFI_AP_PREFS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_LOCATION_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_HEADS_UP_NOTIFICATIONS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME)),
@@ -2669,12 +2669,12 @@ class DatabaseHandlerCreateUpdateDB {
                             values.put(DatabaseHandler.KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
                             values.put(DatabaseHandler.KEY_LOCK_DEVICE, profile._lockDevice);
                             values.put(DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
-                            values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING, profile._applicationDisableWifiScanning);
-                            values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, profile._applicationDisableBluetoothScanning);
+                            values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING, profile._applicationEnableWifiScanning);
+                            values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING, profile._applicationEnableBluetoothScanning);
                             values.put(DatabaseHandler.KEY_DEVICE_WIFI_AP_PREFS, profile._deviceWiFiAPPrefs);
-                            values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_LOCATION_SCANNING, profile._applicationDisableLocationScanning);
-                            values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, profile._applicationDisableMobileCellScanning);
-                            values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, profile._applicationDisableOrientationScanning);
+                            values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING, profile._applicationEnableLocationScanning);
+                            values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING, profile._applicationEnableMobileCellScanning);
+                            values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING, profile._applicationEnableOrientationScanning);
                             values.put(DatabaseHandler.KEY_HEADS_UP_NOTIFICATIONS, profile._headsUpNotifications);
                             values.put(DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, profile._deviceForceStopApplicationChange);
                             values.put(DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
@@ -2684,7 +2684,7 @@ class DatabaseHandlerCreateUpdateDB {
                             values.put(DatabaseHandler.KEY_SCREEN_DARK_MODE, profile._screenDarkMode);
                             values.put(DatabaseHandler.KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
                             values.put(DatabaseHandler.KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
-                            values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING, profile._applicationDisableNotificationScanning);
+                            values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING, profile._applicationEnableNotificationScanning);
                             values.put(DatabaseHandler.KEY_GENERATE_NOTIFICATION, profile._generateNotification);
                             values.put(DatabaseHandler.KEY_CAMERA_FLASH, profile._cameraFlash);
                             values.put(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1, profile._deviceNetworkTypeSIM1);
@@ -2706,7 +2706,7 @@ class DatabaseHandlerCreateUpdateDB {
                             values.put(DatabaseHandler.KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
                             values.put(DatabaseHandler.KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
                             values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, profile._applicationDisableGloabalEventsRun);
-                            values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING, profile._applicationDisablePeriodicScanning);
+                            values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING, profile._applicationEnablePeriodicScanning);
 
                             // updating row
                             db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
@@ -2957,9 +2957,9 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2437)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING + "=0");
 
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING + "=0");
         }
 
         if (oldVersion < 2439)
@@ -3313,9 +3313,9 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2491)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING + "=0");
 
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING + "=0");
         }
 
         if (oldVersion < 2492)

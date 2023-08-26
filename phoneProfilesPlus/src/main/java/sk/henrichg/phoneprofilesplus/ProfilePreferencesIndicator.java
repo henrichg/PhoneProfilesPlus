@@ -2003,9 +2003,9 @@ class ProfilePreferencesIndicator {
             }
 
             // disable wifi scanning
-            if (profile._applicationDisableWifiScanning != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableWifiScanning == 1) || (profile._applicationDisableWifiScanning == 3)) {
+            if (profile._applicationEnableWifiScanning != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationEnableWifiScanning == 1) || (profile._applicationEnableWifiScanning == 3)) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableWifiScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
@@ -2018,7 +2018,7 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._applicationDisableWifiScanning == 2) {
+                    if (profile._applicationEnableWifiScanning == 2) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableWifiScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
@@ -2034,9 +2034,9 @@ class ProfilePreferencesIndicator {
                 }
             }
             // disable bluetooth scanning
-            if (profile._applicationDisableBluetoothScanning != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableBluetoothScanning == 1) || (profile._applicationDisableBluetoothScanning == 3)) {
+            if (profile._applicationEnableBluetoothScanning != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationEnableBluetoothScanning == 1) || (profile._applicationEnableBluetoothScanning == 3)) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableBluetoothScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
@@ -2049,7 +2049,7 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._applicationDisableBluetoothScanning == 2) {
+                    if (profile._applicationEnableBluetoothScanning == 2) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableBluetoothScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
@@ -2065,9 +2065,9 @@ class ProfilePreferencesIndicator {
                 }
             }
             // disable location scanning
-            if (profile._applicationDisableLocationScanning != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableLocationScanning == 1) || (profile._applicationDisableLocationScanning == 3)) {
+            if (profile._applicationEnableLocationScanning != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationEnableLocationScanning == 1) || (profile._applicationEnableLocationScanning == 3)) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableLocationScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
@@ -2080,7 +2080,7 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._applicationDisableLocationScanning == 2) {
+                    if (profile._applicationEnableLocationScanning == 2) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableLocationScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
@@ -2096,9 +2096,9 @@ class ProfilePreferencesIndicator {
                 }
             }
             // disable mobile cell scanning
-            if (profile._applicationDisableMobileCellScanning != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableMobileCellScanning == 1) || (profile._applicationDisableMobileCellScanning == 3)) {
+            if (profile._applicationEnableMobileCellScanning != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationEnableMobileCellScanning == 1) || (profile._applicationEnableMobileCellScanning == 3)) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableMobileCellScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
@@ -2111,7 +2111,7 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._applicationDisableMobileCellScanning == 2) {
+                    if (profile._applicationEnableMobileCellScanning == 2) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableMobileCellScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
@@ -2127,9 +2127,9 @@ class ProfilePreferencesIndicator {
                 }
             }
             // disable orientation scanning
-            if (profile._applicationDisableOrientationScanning != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableOrientationScanning == 1) || (profile._applicationDisableOrientationScanning == 3)) {
+            if (profile._applicationEnableOrientationScanning != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationEnableOrientationScanning == 1) || (profile._applicationEnableOrientationScanning == 3)) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableOrientationScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
@@ -2142,7 +2142,7 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._applicationDisableOrientationScanning == 2) {
+                    if (profile._applicationEnableOrientationScanning == 2) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableOrientationScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
@@ -2158,9 +2158,9 @@ class ProfilePreferencesIndicator {
                 }
             }
             // disable notification scanning
-            if (profile._applicationDisableNotificationScanning != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableNotificationScanning == 1) || (profile._applicationDisableNotificationScanning == 3)) {
+            if (profile._applicationEnableNotificationScanning != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationEnableNotificationScanning == 1) || (profile._applicationEnableNotificationScanning == 3)) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableNotificationScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
@@ -2173,7 +2173,7 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._applicationDisableNotificationScanning == 2) {
+                    if (profile._applicationEnableNotificationScanning == 2) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableNotificationScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
@@ -2220,9 +2220,9 @@ class ProfilePreferencesIndicator {
                 }
             }
             // disable notification scanning
-            if (profile._applicationDisablePeriodicScanning != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisablePeriodicScanning == 1) || (profile._applicationDisablePeriodicScanning == 3)) {
+            if (profile._applicationEnablePeriodicScanning != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationEnablePeriodicScanning == 1) || (profile._applicationEnablePeriodicScanning == 3)) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnablePeriodicScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
@@ -2235,7 +2235,7 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._applicationDisablePeriodicScanning == 2) {
+                    if (profile._applicationEnablePeriodicScanning == 2) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnablePeriodicScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);

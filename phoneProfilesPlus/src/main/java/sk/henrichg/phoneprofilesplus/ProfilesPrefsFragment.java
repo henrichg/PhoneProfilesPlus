@@ -3838,98 +3838,98 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         StringBuilder _value = new StringBuilder(cattegorySummaryData.summary);
 
-        String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, R.string.profile_preferences_applicationEnableWifiScanning, context);
+        String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING, R.string.profile_preferences_applicationEnableWifiScanning, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
 
             String value = StringFormatUtils.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING)),
-                    R.array.applicationDisableScanningValues, R.array.applicationDisableScanningArray, context);
+                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING)),
+                    R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
 
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
         }
-        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, R.string.profile_preferences_applicationEnableBluetoothScanning, context);
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING, R.string.profile_preferences_applicationEnableBluetoothScanning, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING)),
-                    R.array.applicationDisableScanningValues, R.array.applicationDisableScanningArray, context);
+                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING)),
+                    R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
 
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
         }
-        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, R.string.profile_preferences_applicationEnableLocationScanning,context);
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING, R.string.profile_preferences_applicationEnableLocationScanning,context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING)),
-                    R.array.applicationDisableScanningValues, R.array.applicationDisableScanningArray, context);
+                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING)),
+                    R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
 
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
         }
-        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, R.string.profile_preferences_applicationEnableMobileCellScanning, context);
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING, R.string.profile_preferences_applicationEnableMobileCellScanning, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING)),
-                    R.array.applicationDisableScanningValues, R.array.applicationDisableScanningArray, context);
+                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING)),
+                    R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
 
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
         }
-        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, R.string.profile_preferences_applicationEnableOrientationScanning, context);
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING, R.string.profile_preferences_applicationEnableOrientationScanning, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING)),
-                    R.array.applicationDisableScanningValues, R.array.applicationDisableScanningArray, context);
+                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING)),
+                    R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
 
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
         }
-        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, R.string.profile_preferences_applicationEnableNotificationScanning, context);
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING, R.string.profile_preferences_applicationEnableNotificationScanning, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING)),
-                    R.array.applicationDisableScanningValues, R.array.applicationDisableScanningArray, context);
+                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING)),
+                    R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
 
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
         }
-        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, R.string.profile_preferences_applicationEnablePeriodicScanning, context);
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING, R.string.profile_preferences_applicationEnablePeriodicScanning, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             String value = StringFormatUtils.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING)),
-                    R.array.applicationDisableScanningValues, R.array.applicationDisableScanningArray, context);
+                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING)),
+                    R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
 
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context))
@@ -5055,13 +5055,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             }
         }
-        if (key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING) ||
-                key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING) ||
-                key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING) ||
-                key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING) ||
-                key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING) ||
-                key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING) ||
-                key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING) ||
+        if (key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING) ||
+                key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING) ||
+                key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING) ||
+                key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING) ||
+                key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING) ||
+                key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING) ||
+                key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING) ||
                 key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN))
         {
             PPListPreference listPreference = prefMng.findPreference(key);
@@ -6083,12 +6083,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
         setSummary(Profile.PREF_PROFILE_LOCK_DEVICE);
         setSummary(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID);
-        setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING);
-        setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING);
+        setSummary(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING);
+        setSummary(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING);
         setSummary(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS);
-        setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING);
-        setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING);
-        setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING);
+        setSummary(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING);
+        setSummary(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING);
+        setSummary(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING);
         setSummary(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS);
         setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS);
         setSummary(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS);
@@ -6103,7 +6103,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY);
         setSummary(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT);
         setSummary(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND);
-        setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING);
+        setSummary(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING);
         //setSummary(PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS);
         //setSummary(PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS);
         setSummary(Profile.PREF_PROFILE_GENERATE_NOTIFICATION);
@@ -6129,7 +6129,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN);
         setSummary(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS);
         setSummary(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE);
-        setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING);
+        setSummary(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING);
         setSummary(Profile.PREF_PROFILE_DEVICE_VPN);
         setSummary(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING);
         setSummary(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS);
