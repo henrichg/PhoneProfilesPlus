@@ -4796,7 +4796,7 @@ class DatabaseHandlerEvents {
         }
     }
 
-    static String renameMobileCellsList(DatabaseHandler instance, List<MobileCellsData> cellsList, String name, boolean _new, String value) {
+    static String renameMobileCellsList(DatabaseHandler instance, List<MobileCellsData> cellsList, String toCellName, boolean _new, String selectedIds) {
         instance.importExportLock.lock();
         try {
             try {
@@ -4832,13 +4832,9 @@ class DatabaseHandlerEvents {
                         if (_new) {
                             // change news
                             if (cell._new) {
-                                if ((cell.name != null) && (!cell.name.isEmpty())) {
-                                    if (renamedCells.length() > 0)
-                                        renamedCells.append("|");
-                                    renamedCells.append(cell.name); // must be added old cell name
-                                }
+                                String oldCellName = cell.name;
 
-                                cell.name = name;
+                                cell.name = toCellName;
                                 MobileCell mobileCell = new MobileCell();
                                 mobileCell._id = foundedDbId;
                                 mobileCell._cellId = cell.cellId;
@@ -4849,20 +4845,22 @@ class DatabaseHandlerEvents {
                                 //mobileCell._lastPausedEvents = cell.lastPausedEvents;
                                 //mobileCell._doNotDetect = cell.doNotDetect;
                                 updateMobileCell(instance, mobileCell);
+
+                                if ((oldCellName != null) && (!oldCellName.isEmpty())) {
+                                    if (renamedCells.length() > 0)
+                                        renamedCells.append("|");
+                                    renamedCells.append(oldCellName);
+                                }
                             }
                         } else {
-                            if (value != null) {
+                            if (selectedIds != null) {
                                 // change selected
-                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+                                String[] splits = selectedIds.split(StringConstants.STR_SPLIT_REGEX);
                                 for (String valueCell : splits) {
                                     if (valueCell.equals(Integer.toString(cell.cellId))) {
-                                        if ((cell.name != null) && (!cell.name.isEmpty())) {
-                                            if (renamedCells.length() > 0)
-                                                renamedCells.append("|");
-                                            renamedCells.append(cell.name); // must be added old cell name
-                                        }
+                                        String oldCellName = cell.name;
 
-                                        cell.name = name;
+                                        cell.name = toCellName;
                                         MobileCell mobileCell = new MobileCell();
                                         mobileCell._id = foundedDbId;
                                         mobileCell._cellId = cell.cellId;
@@ -4873,18 +4871,21 @@ class DatabaseHandlerEvents {
                                         //mobileCell._lastPausedEvents = cell.lastPausedEvents;
                                         //mobileCell._doNotDetect = cell.doNotDetect;
                                         updateMobileCell(instance, mobileCell);
+
+                                        if ((oldCellName != null) && (!oldCellName.isEmpty())) {
+                                            if (renamedCells.length() > 0)
+                                                renamedCells.append("|");
+                                            renamedCells.append(oldCellName);
+                                        }
+
                                     }
                                 }
                             }
                             else {
                                 // change all
-                                if ((cell.name != null) && (!cell.name.isEmpty())) {
-                                    if (renamedCells.length() > 0)
-                                        renamedCells.append("|");
-                                    renamedCells.append(cell.name); // must be added old cell name
-                                }
+                                String oldCellName = cell.name;
 
-                                cell.name = name;
+                                cell.name = toCellName;
                                 MobileCell mobileCell = new MobileCell();
                                 mobileCell._id = foundedDbId;
                                 mobileCell._cellId = cell.cellId;
@@ -4895,6 +4896,12 @@ class DatabaseHandlerEvents {
                                 //mobileCell._lastPausedEvents = cell.lastPausedEvents;
                                 //mobileCell._doNotDetect = cell.doNotDetect;
                                 updateMobileCell(instance, mobileCell);
+
+                                if ((oldCellName != null) && (!oldCellName.isEmpty())) {
+                                    if (renamedCells.length() > 0)
+                                        renamedCells.append("|");
+                                    renamedCells.append(oldCellName);
+                                }
                             }
                         }
                     }
@@ -5074,6 +5081,39 @@ class DatabaseHandlerEvents {
                 final String selectQuery = "SELECT COUNT(*) " +
                         " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
                         " WHERE " + DatabaseHandler.KEY_MC_NEW + "=1";
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    r = cursor.getInt(0);
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return r;
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    static int getMobileCellNameCount(DatabaseHandler instance, String cellName) {
+        instance.importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                instance.startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT COUNT(*) " +
+                        " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
+                        " WHERE " + DatabaseHandler.KEY_MC_NAME + "=\"" + cellName + "\"";
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = instance.getMyWritableDatabase();

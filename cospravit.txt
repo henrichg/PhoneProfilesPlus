@@ -759,3 +759,19 @@ HOTOVO
 - Fix: Maybe fixed BT disconnect in BT sensor.
 - Fix: Fixed not displayed notification about Autostart not enabled.
 
+------------------
+
+V senzore mam len cell name Event.
+Par Event premenujem na Eventxx.
+Teraz su niektore cell ids Event a niektore Eventxx.
+Takze vo vysledku sa len Event rozdelil na dve nazvy: Event, Eventxx.
+Cize v senzore by mali byt obe oznacene, ale je len Eventxx.
+A toto je chyba.
+
+Teraz mam:
+renamedCellNames=Event#@#Eventxx|Event#@#Eventxx
+Cize ktore stare sa premenovalo na ktore nove.
+Takze by som mal hladat, ci existuje v tabulke buniek este dake stare cell name, cize Event.
+Ake existuje a povodne bolo v senzore oznacene Event, tak Event musim pridat.
+Vysledok bude, ze bude v senzore Evemt aj Eventxx.
+

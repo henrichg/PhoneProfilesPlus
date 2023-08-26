@@ -1209,8 +1209,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerEvents.saveMobileCellsList(this, cellsList, _new, renameExistingCell);
     }
 
-    String renameMobileCellsList(List<MobileCellsData> cellsList, String name, boolean _new, String value) {
-        return DatabaseHandlerEvents.renameMobileCellsList(this, cellsList, name, _new, value);
+    String renameMobileCellsList(List<MobileCellsData> cellsList, String cellName, boolean _new, String selectedIds) {
+        return DatabaseHandlerEvents.renameMobileCellsList(this, cellsList, cellName, _new, selectedIds);
     }
 
     void deleteMobileCell(int mobileCell) {
@@ -1231,6 +1231,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     int getNewMobileCellsCount() {
         return DatabaseHandlerEvents.getNewMobileCellsCount(this);
+    }
+
+    int getMobileCellNameCount(String cellName) {
+        return DatabaseHandlerEvents.getMobileCellNameCount(this, cellName);
     }
 
     // Updating single event
