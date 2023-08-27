@@ -7,12 +7,12 @@ import android.graphics.Bitmap;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
+import android.util.ArrayMap;
 
 import androidx.core.graphics.ColorUtils;
 import androidx.palette.graphics.Palette;
 
 import java.util.Calendar;
-import java.util.HashMap;
 
 class Profile {
 
@@ -250,9 +250,9 @@ class Profile {
     static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
     //private static final String PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO = "activatedProfileForEventUndo";
 
-    static final HashMap<String, Boolean> defaultValuesBoolean;
+    static final ArrayMap<String, Boolean> defaultValuesBoolean;
     static {
-        defaultValuesBoolean = new HashMap<>();
+        defaultValuesBoolean = new ArrayMap<>();
         defaultValuesBoolean.put(PREF_PROFILE_SHOW_IN_ACTIVATOR, false);
         defaultValuesBoolean.put(PREF_PROFILE_SHOW_IN_ACTIVATOR_NOT_SHOW, false);
         defaultValuesBoolean.put(PREF_PROFILE_ASK_FOR_DURATION, false);
@@ -261,9 +261,9 @@ class Profile {
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY, false);
     }
-    static final HashMap<String, String> defaultValuesString;
+    static final ArrayMap<String, String> defaultValuesString;
     static {
-        defaultValuesString = new HashMap<>();
+        defaultValuesString = new ArrayMap<>();
         defaultValuesString.put(PREF_PROFILE_NAME, "");
         defaultValuesString.put(PREF_PROFILE_ICON, StringConstants.PROFILE_ICON_DEFAULT+"|1|0|0");
         defaultValuesString.put(PREF_PROFILE_ICON_WITHOUT_ICON, "|1|0|0");
@@ -597,9 +597,9 @@ class Profile {
     static final String ic_profile_wifi = "ic_profile_wifi";
     static final String ic_profile_mobile_data = "ic_profile_mobile_data";
 
-    static final HashMap<String, Integer> profileIconIdMap;
+    static final ArrayMap<String, Integer> profileIconIdMap;
     static {
-        profileIconIdMap = new HashMap<>();
+        profileIconIdMap = new ArrayMap<>();
 
         profileIconIdMap.put(StringConstants.PROFILE_ICON_RESTART_EVENTS, R.drawable.ic_profile_restart_events);
 
@@ -708,9 +708,9 @@ class Profile {
         profileIconIdMap.put(ic_profile_mobile_data, R.drawable.ic_profile_mobile_data);
     }
     
-    static final HashMap<String, Integer> profileIconNotifyId;
+    static final ArrayMap<String, Integer> profileIconNotifyId;
     static {
-        profileIconNotifyId = new HashMap<>();
+        profileIconNotifyId = new ArrayMap<>();
         profileIconNotifyId.put(StringConstants.PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default_notify);
         profileIconNotifyId.put(ic_profile_home, R.drawable.ic_profile_home_notify);
         profileIconNotifyId.put(ic_profile_home_2, R.drawable.ic_profile_home_2_notify);
@@ -816,9 +816,9 @@ class Profile {
         profileIconNotifyId.put(ic_profile_mobile_data, R.drawable.ic_profile_mobile_data_notify);
     }
 
-    static final HashMap<String, Integer> profileIconNotifyColorId;
+    static final ArrayMap<String, Integer> profileIconNotifyColorId;
     static {
-        profileIconNotifyColorId = new HashMap<>();
+        profileIconNotifyColorId = new ArrayMap<>();
         profileIconNotifyColorId.put(StringConstants.PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default_notify_color);
         profileIconNotifyColorId.put(ic_profile_home, R.drawable.ic_profile_home_notify_color);
         profileIconNotifyColorId.put(ic_profile_home_2, R.drawable.ic_profile_home_2_notify_color);

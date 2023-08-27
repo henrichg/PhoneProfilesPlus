@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,6 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 import androidx.cursoradapter.widget.CursorAdapter;
-
-import java.util.HashMap;
 
 //import android.widget.CursorAdapter;
 
@@ -26,8 +25,8 @@ class ActivityLogAdapter extends CursorAdapter {
     //private final int KEY_AL_DURATION_DELAY;
     private final int KEY_AL_PROFILE_EVENT_COUNT;
 
-    private final HashMap<Integer, Integer> activityTypeStrings = new HashMap<>();
-    private final HashMap<Integer, Integer> activityTypeColors = new HashMap<>();
+    private final SparseIntArray activityTypeStrings = new SparseIntArray();
+    private final SparseIntArray activityTypeColors = new SparseIntArray();
 
     ActivityLogAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);

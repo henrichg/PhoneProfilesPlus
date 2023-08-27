@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 class RootToolsSmall {
 
+    // keep using HashMap (over ArrayMap), because in PATH environment may be duplicated paths
     private static final HashMap<String, Boolean> BIN_MAP = new HashMap<>();
 
     private static boolean hasBinary(String binaryName) {
