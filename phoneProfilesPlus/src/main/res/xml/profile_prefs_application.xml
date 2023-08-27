@@ -58,7 +58,7 @@
             app:max="300"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
-            app:key="applicationEventBluetoothLEScanDuration"
+            app:key="prf_pref_applicationBluetoothLEScanDuration"
             app:summary="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
             app:title="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
             app:defaultValue="10"

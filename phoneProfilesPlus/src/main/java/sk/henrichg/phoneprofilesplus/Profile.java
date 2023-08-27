@@ -124,6 +124,12 @@ class Profile {
     String _vibrationIntensityNotifications;
     String _vibrationIntensityTouchInteraction;
     boolean _volumeMediaChangeDuringPlay;
+    int _applicationWifiScanInterval;
+    int _applicationBluetoothScanInterval;
+    int _applicationBluetoothLEScanDuration;
+    int _applicationLocationScanInterval;
+    int _applicationOrientationScanInterval;
+    int _applicationPeriodicScanInterval;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -246,9 +252,12 @@ class Profile {
     static final String PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS = "prf_pref_vibrationIntensityNotifications";
     static final String PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION = "prf_pref_vibrationIntensityTouchInteraction";
     static final String PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY = "prf_pref_volumeMediaChangeDuringPlay";
-    //private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
-    static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
-    //private static final String PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO = "activatedProfileForEventUndo";
+    static final String PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL = "prf_pref_applicationWifiScanInterval";
+    static final String PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL = "prf_pref_applicationBluetoothScanInterval";
+    static final String PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION = "prf_pref_applicationBluetoothLEScanDuration";
+    static final String PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL = "prf_pref_applicationLocationUpdateInterval";
+    static final String PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL = "prf_pref_applicationOrientationScanInterval";
+    static final String PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL = "prf_pref_applicationPeriodicScanningScanInterval";
 
     static final ArrayMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -364,6 +373,12 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_VIBRATION_INTENSITY_RINGING, "-1|1");
         defaultValuesString.put(PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, "-1|1");
         defaultValuesString.put(PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, "-1|1");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL, "15");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL, "15");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION, "15");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, "15");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, "10");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, "15");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -1045,7 +1060,13 @@ class Profile {
                    String vibrationIntensityRinging,
                    String vibrationIntensityNotifications,
                    String vibrationIntensityTouchInteraction,
-                   boolean volumeMediaChangeDuringPlay
+                   boolean volumeMediaChangeDuringPlay,
+                   int applicationWifiScanInterval,
+                   int applicationBluetoothScanInterval,
+                   int applicationBluetoothLEScanDuration,
+                   int applicationLocationScanInterval,
+                   int applicationOrientationScanInterval,
+                   int applicationPeriodicScanInterval
             )
     {
         this._id = id;
@@ -1155,6 +1176,12 @@ class Profile {
         this._vibrationIntensityNotifications = vibrationIntensityNotifications;
         this._vibrationIntensityTouchInteraction = vibrationIntensityTouchInteraction;
         this._volumeMediaChangeDuringPlay = volumeMediaChangeDuringPlay;
+        this._applicationWifiScanInterval = applicationWifiScanInterval;
+        this._applicationBluetoothScanInterval = applicationBluetoothScanInterval;
+        this._applicationBluetoothLEScanDuration = applicationBluetoothLEScanDuration;
+        this._applicationLocationScanInterval = applicationLocationScanInterval;
+        this._applicationOrientationScanInterval = applicationOrientationScanInterval;
+        this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1268,7 +1295,13 @@ class Profile {
             String vibrationIntensityRinging,
             String vibrationIntensityNotifications,
             String vibrationIntensityTouchInteraction,
-            boolean volumeMediaChangeDuringPlay
+            boolean volumeMediaChangeDuringPlay,
+            int applicationWifiScanInterval,
+            int applicationBluetoothScanInterval,
+            int applicationBluetoothLEScanDuration,
+            int applicationLocationScanInterval,
+            int applicationOrientationScanInterval,
+            int applicationPeriodicScanInterval
     )
     {
         this._name = name;
@@ -1377,6 +1410,12 @@ class Profile {
         this._vibrationIntensityNotifications = vibrationIntensityNotifications;
         this._vibrationIntensityTouchInteraction = vibrationIntensityTouchInteraction;
         this._volumeMediaChangeDuringPlay = volumeMediaChangeDuringPlay;
+        this._applicationWifiScanInterval = applicationWifiScanInterval;
+        this._applicationBluetoothScanInterval = applicationBluetoothScanInterval;
+        this._applicationBluetoothLEScanDuration = applicationBluetoothLEScanDuration;
+        this._applicationLocationScanInterval = applicationLocationScanInterval;
+        this._applicationOrientationScanInterval = applicationOrientationScanInterval;
+        this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1492,6 +1531,12 @@ class Profile {
         this._vibrationIntensityNotifications = profile._vibrationIntensityNotifications;
         this._vibrationIntensityTouchInteraction = profile._vibrationIntensityTouchInteraction;
         this._volumeMediaChangeDuringPlay = profile._volumeMediaChangeDuringPlay;
+        this._applicationWifiScanInterval = profile._applicationWifiScanInterval;
+        this._applicationBluetoothScanInterval = profile._applicationBluetoothScanInterval;
+        this._applicationBluetoothLEScanDuration = profile._applicationBluetoothLEScanDuration;
+        this._applicationLocationScanInterval = profile._applicationLocationScanInterval;
+        this._applicationOrientationScanInterval = profile._applicationOrientationScanInterval;
+        this._applicationPeriodicScanInterval = profile._applicationPeriodicScanInterval;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1836,6 +1881,18 @@ class Profile {
                     this._volumeMuteSound = true;
                 if (withProfile._volumeMediaChangeDuringPlay)
                     this._volumeMediaChangeDuringPlay = true;
+                if (withProfile._applicationWifiScanInterval != 0)
+                    this._applicationWifiScanInterval = withProfile._applicationWifiScanInterval;
+                if (withProfile._applicationBluetoothScanInterval != 0)
+                    this._applicationBluetoothScanInterval = withProfile._applicationBluetoothScanInterval;
+                if (withProfile._applicationBluetoothLEScanDuration != 0)
+                    this._applicationBluetoothLEScanDuration = withProfile._applicationBluetoothLEScanDuration;
+                if (withProfile._applicationLocationScanInterval != 0)
+                    this._applicationLocationScanInterval = withProfile._applicationLocationScanInterval;
+                if (withProfile._applicationOrientationScanInterval != 0)
+                    this._applicationOrientationScanInterval = withProfile._applicationOrientationScanInterval;
+                if (withProfile._applicationPeriodicScanInterval != 0)
+                    this._applicationPeriodicScanInterval = withProfile._applicationPeriodicScanInterval;
             }
 
             // set merged profile as activated
@@ -2046,7 +2103,16 @@ class Profile {
             if (this._applicationEnableWifiScanning != withProfile._applicationEnableWifiScanning) {
                 return false;
             }
+            if (this._applicationWifiScanInterval != withProfile._applicationWifiScanInterval) {
+                return false;
+            }
             if (this._applicationEnableBluetoothScanning != withProfile._applicationEnableBluetoothScanning) {
+                return false;
+            }
+            if (this._applicationBluetoothScanInterval != withProfile._applicationBluetoothScanInterval) {
+                return false;
+            }
+            if (this._applicationBluetoothLEScanDuration != withProfile._applicationBluetoothLEScanDuration) {
                 return false;
             }
             if (this._deviceWiFiAPPrefs != withProfile._deviceWiFiAPPrefs) {
@@ -2055,10 +2121,16 @@ class Profile {
             if (this._applicationEnableLocationScanning != withProfile._applicationEnableLocationScanning) {
                 return false;
             }
+            if (this._applicationLocationScanInterval != withProfile._applicationLocationScanInterval) {
+                return false;
+            }
             if (this._applicationEnableMobileCellScanning != withProfile._applicationEnableMobileCellScanning) {
                 return false;
             }
             if (this._applicationEnableOrientationScanning != withProfile._applicationEnableOrientationScanning) {
+                return false;
+            }
+            if (this._applicationOrientationScanInterval != withProfile._applicationOrientationScanInterval) {
                 return false;
             }
             if (this._headsUpNotifications != withProfile._headsUpNotifications) {
@@ -2180,6 +2252,9 @@ class Profile {
                 return false;
             }
             if (this._applicationEnablePeriodicScanning != withProfile._applicationEnablePeriodicScanning) {
+                return false;
+            }
+            if (this._applicationPeriodicScanInterval != withProfile._applicationPeriodicScanInterval) {
                 return false;
             }
             if (!this._deviceVPN.equals(withProfile._deviceVPN)) {
@@ -3233,6 +3308,12 @@ class Profile {
         editor.putString(PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, this._vibrationIntensityNotifications);
         editor.putString(PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, this._vibrationIntensityTouchInteraction);
         editor.putBoolean(PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY, this._volumeMediaChangeDuringPlay);
+        editor.putString(PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL, Integer.toString(this._applicationWifiScanInterval));
+        editor.putString(PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL, Integer.toString(this._applicationBluetoothScanInterval));
+        editor.putString(PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION, Integer.toString(this._applicationBluetoothLEScanDuration));
+        editor.putString(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, Integer.toString(this._applicationLocationScanInterval));
+        editor.putString(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, Integer.toString(this._applicationOrientationScanInterval));
+        editor.putString(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, Integer.toString(this._applicationPeriodicScanInterval));
 
         editor.apply();
     }

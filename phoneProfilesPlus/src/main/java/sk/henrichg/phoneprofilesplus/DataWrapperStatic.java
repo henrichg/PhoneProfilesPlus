@@ -138,7 +138,13 @@ class DataWrapperStatic {
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION),
-                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY)
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL))
                 );
     }
 

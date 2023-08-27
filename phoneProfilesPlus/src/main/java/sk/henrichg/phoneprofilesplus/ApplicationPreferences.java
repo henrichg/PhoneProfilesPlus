@@ -549,7 +549,6 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND = "applicationWidgetIconFillBackground";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_FILL_BACKGROUND = "applicationWidgetOneRowFillBackground";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_FILL_BACKGROUND = "applicationWidgetOneRowProfileListFillBackground";
-
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND = "applicationWidgetOneRowProfileListBackground";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_B = "applicationWidgetOneRowProfileListLightnessB";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR = "applicationWidgetOneRowProfileListIconColor";
@@ -568,7 +567,6 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationWidgetOneRowProfileListBackgroundColorNightModeOn";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS = "applicationWidgetOneRowProfileListArrowsMarkLightness";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE = "applicationWidgetOneRowProfileListNumberOfProfilesPerPage";
-
     static final String PREF_NOTIFICATION_PROFILE_LIST_DISPLAY_NOTIFICATION = "notificationProfileListDisplayNotification";
     //static final String PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR = "notificationProfileListShowInStatusBar";
     //static final String PREF_NOTIFICATION_PROFILE_LIST_HIDE_IN_LOCKSCREEN = "notificationProfileListHideInLockscreen";
@@ -580,7 +578,12 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_PROFILE_LIST_ICON_COLOR = "notificationProfileListIconColor";
     static final String PREF_NOTIFICATION_PROFILE_LIST_ICON_LIGHTNESS = "notificationProfileListIconLightness";
     static final String PREF_NOTIFICATION_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS = "notificationProfileListCustomIconLightness";
+    // this is time of end of profile activation duration
+    static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
+    //private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
+    //private static final String PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO = "activatedProfileForEventUndo";
 
+    // scannings
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventPeriodicScanningScanInTimeMultiplyFrom";
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventPeriodicScanningScanInTimeMultiplyTo";

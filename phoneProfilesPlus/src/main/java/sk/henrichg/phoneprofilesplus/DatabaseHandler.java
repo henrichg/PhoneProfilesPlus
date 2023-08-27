@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2510;
+    static final int DATABASE_VERSION = 2511;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -213,6 +213,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_VIBRATION_INTENSITY_NOTIFICATIONS = "vibrationIntensityNotificaitons";
     static final String KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION = "vibrationIntensityTouchInteraction";
     static final String KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY = "volumeMediaChangeDuringPlay";
+    static final String KEY_APPLICATION_WIFI_SCAN_INTERVAL = "applicationWifiScanInterval";
+    static final String KEY_APPLICATION_BLUETOOTH_SCAN_INTERVAL = "applicationBluetoothScanInterval";
+    static final String KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION = "applicationBluetoothLEScanDuration";
+    static final String KEY_APPLICATION_LOCATION_UPDATE_INTERVAL = "applicationLocationUpdateInterval";
+    static final String KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL = "applicationDOrientationScanInterval";
+    static final String KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL = "applicationPeriodicScanningScanInterval";
 
     // Events Table Columns names
     static final String KEY_E_ID = "id";

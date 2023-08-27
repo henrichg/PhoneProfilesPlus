@@ -725,7 +725,13 @@ class ProfileStatic {
                     profile._vibrationIntensityRinging,
                     profile._vibrationIntensityNotifications,
                     profile._vibrationIntensityTouchInteraction,
-                    profile._volumeMediaChangeDuringPlay
+                    profile._volumeMediaChangeDuringPlay,
+                    profile._applicationWifiScanInterval,
+                    profile._applicationBluetoothScanInterval,
+                    profile._applicationBluetoothLEScanDuration,
+                    profile._applicationLocationScanInterval,
+                    profile._applicationOrientationScanInterval,
+                    profile._applicationPeriodicScanInterval
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -1088,7 +1094,7 @@ class ProfileStatic {
     {
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.prefActivatedProfileEndDurationTime = ApplicationPreferences.
-                    getSharedPreferences(context).getLong(Profile.PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
+                    getSharedPreferences(context).getLong(ApplicationPreferences.PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
             //return prefActivatedProfileEndDurationTime;
         }
     }
@@ -1097,7 +1103,7 @@ class ProfileStatic {
     {
         synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putLong(Profile.PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
+            editor.putLong(ApplicationPreferences.PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
             editor.apply();
             ApplicationPreferences.prefActivatedProfileEndDurationTime = time;
         }

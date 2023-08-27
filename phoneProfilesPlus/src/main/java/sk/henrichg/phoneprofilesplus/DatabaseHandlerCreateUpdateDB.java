@@ -125,7 +125,13 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION + " " + DatabaseHandler.TEXT_TYPE + ","
-                + DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY + " " + DatabaseHandler.INTEGER_TYPE
+                + DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_APPLICATION_WIFI_SCAN_INTERVAL + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_APPLICATION_BLUETOOTH_SCAN_INTERVAL + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL + " " + DatabaseHandler.INTEGER_TYPE
                 + ")";
     }
 
@@ -651,6 +657,12 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_WIFI_SCAN_INTERVAL, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_BLUETOOTH_SCAN_INTERVAL, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, DatabaseHandler.INTEGER_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_NAME, DatabaseHandler.TEXT_TYPE, columns);
@@ -2608,7 +2620,13 @@ class DatabaseHandlerCreateUpdateDB {
                                 "-1|1",
                                 "-1|1",
                                 "-1|1",
-                                false
+                                false,
+                                15,
+                                15,
+                                15,
+                                15,
+                                10,
+                                15
                         );
 
                         // this change old, no longer used SHARED_PROFILE_VALUE to "Not used" value
@@ -3465,6 +3483,24 @@ class DatabaseHandlerCreateUpdateDB {
                 cursor.close();
             } catch (Exception ignored) {}
         }
+
+        if (oldVersion < 2511)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_WIFI_SCAN_INTERVAL + "=15");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_BLUETOOTH_SCAN_INTERVAL + "=15");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION + "=15");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL + "=15");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL + "=10");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL + "=15");
+
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_WIFI_SCAN_INTERVAL + "=15");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_BLUETOOTH_SCAN_INTERVAL + "=15");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION + "=15");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL + "=15");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL + "=10");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL + "=15");
+        }
+
     }
 
 }

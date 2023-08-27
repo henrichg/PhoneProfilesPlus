@@ -392,7 +392,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._vibrationIntensityRinging,
                         origProfile._vibrationIntensityNotifications,
                         origProfile._vibrationIntensityTouchInteraction,
-                        origProfile._volumeMediaChangeDuringPlay
+                        origProfile._volumeMediaChangeDuringPlay,
+                        origProfile._applicationWifiScanInterval,
+                        origProfile._applicationBluetoothScanInterval,
+                        origProfile._applicationBluetoothLEScanDuration,
+                        origProfile._applicationLocationScanInterval,
+                        origProfile._applicationOrientationScanInterval,
+                        origProfile._applicationPeriodicScanInterval
                 );
                 showSaveMenu = true;
             }
@@ -601,6 +607,12 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._vibrationIntensityNotifications = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, "");
             profile._vibrationIntensityTouchInteraction = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, "");
             profile._volumeMediaChangeDuringPlay = preferences.getBoolean(Profile.PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY, false);
+            profile._applicationWifiScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL, ""));
+            profile._applicationBluetoothScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL, ""));
+            profile._applicationBluetoothLEScanDuration = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION, ""));
+            profile._applicationLocationScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, ""));
+            profile._applicationOrientationScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, ""));
+            profile._applicationPeriodicScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, ""));
         }
 
         return profile;

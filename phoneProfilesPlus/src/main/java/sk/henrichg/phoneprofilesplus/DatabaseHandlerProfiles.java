@@ -131,6 +131,12 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS, profile._vibrationIntensityNotifications);
                 values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION, profile._vibrationIntensityTouchInteraction);
                 values.put(DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY, (profile._volumeMediaChangeDuringPlay) ? 1 : 0);
+                values.put(DatabaseHandler.KEY_APPLICATION_WIFI_SCAN_INTERVAL, profile._applicationWifiScanInterval);
+                values.put(DatabaseHandler.KEY_APPLICATION_BLUETOOTH_SCAN_INTERVAL, profile._applicationBluetoothScanInterval);
+                values.put(DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION, profile._applicationBluetoothLEScanDuration);
+                values.put(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL, profile._applicationLocationScanInterval);
+                values.put(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL, profile._applicationOrientationScanInterval);
+                values.put(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, profile._applicationPeriodicScanInterval);
 
                 // Insert Row
                 if (!merged) {
@@ -273,7 +279,13 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING,
                                 DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS,
                                 DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION,
-                                DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY
+                                DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY,
+                                DatabaseHandler.KEY_APPLICATION_WIFI_SCAN_INTERVAL,
+                                DatabaseHandler.KEY_APPLICATION_BLUETOOTH_SCAN_INTERVAL,
+                                DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION,
+                                DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL,
+                                DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL,
+                                DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL
                         },
                         DatabaseHandler.KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -389,7 +401,13 @@ class DatabaseHandlerProfiles {
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY)) == 1
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY)) == 1,
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_WIFI_SCAN_INTERVAL)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_BLUETOOTH_SCAN_INTERVAL)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL))
                         );
                     }
 
@@ -525,7 +543,13 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING + "," +
                         DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS + "," +
                         DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION + "," +
-                        DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY +
+                        DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY + "," +
+                        DatabaseHandler.KEY_APPLICATION_WIFI_SCAN_INTERVAL + "," +
+                        DatabaseHandler.KEY_APPLICATION_BLUETOOTH_SCAN_INTERVAL + "," +
+                        DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION + "," +
+                        DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL + "," +
+                        DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL + "," +
+                        DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL +
                 " FROM " + DatabaseHandler.TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -645,6 +669,12 @@ class DatabaseHandlerProfiles {
                         profile._vibrationIntensityNotifications = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS));
                         profile._vibrationIntensityTouchInteraction = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION));
                         profile._volumeMediaChangeDuringPlay = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY)) == 1;
+                        profile._applicationWifiScanInterval = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_WIFI_SCAN_INTERVAL));
+                        profile._applicationBluetoothScanInterval = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_BLUETOOTH_SCAN_INTERVAL));
+                        profile._applicationBluetoothLEScanDuration = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION));
+                        profile._applicationLocationScanInterval = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL));
+                        profile._applicationOrientationScanInterval = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL));
+                        profile._applicationPeriodicScanInterval = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -782,6 +812,12 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS, profile._vibrationIntensityNotifications);
                 values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION, profile._vibrationIntensityTouchInteraction);
                 values.put(DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY, (profile._volumeMediaChangeDuringPlay) ? 1 : 0);
+                values.put(DatabaseHandler.KEY_APPLICATION_WIFI_SCAN_INTERVAL, profile._applicationWifiScanInterval);
+                values.put(DatabaseHandler.KEY_APPLICATION_BLUETOOTH_SCAN_INTERVAL, profile._applicationBluetoothScanInterval);
+                values.put(DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION, profile._applicationBluetoothLEScanDuration);
+                values.put(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL, profile._applicationLocationScanInterval);
+                values.put(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL, profile._applicationOrientationScanInterval);
+                values.put(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, profile._applicationPeriodicScanInterval);
 
                 // updating row
                 db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
@@ -1134,7 +1170,13 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING,
                                 DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS,
                                 DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION,
-                                DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY
+                                DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY,
+                                DatabaseHandler.KEY_APPLICATION_WIFI_SCAN_INTERVAL,
+                                DatabaseHandler.KEY_APPLICATION_BLUETOOTH_SCAN_INTERVAL,
+                                DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION,
+                                DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL,
+                                DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL,
+                                DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL
                         },
                         DatabaseHandler.KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -1252,7 +1294,13 @@ class DatabaseHandlerProfiles {
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY)) == 1
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY)) == 1,
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_WIFI_SCAN_INTERVAL)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_BLUETOOTH_SCAN_INTERVAL)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL))
                                 );
                     }
 
