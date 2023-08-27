@@ -5260,6 +5260,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
+        if (key.equals(Profile.PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL) ||
+                key.equals(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL) ||
+                key.equals(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION) ||
+                key.equals(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL) ||
+                key.equals(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL) ||
+                key.equals(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL)) {
+            BetterNumberPickerPreference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                preference.setSummary(preference.value);
+            }
+        }
 
         /*
         if (key.equals(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER)) {
