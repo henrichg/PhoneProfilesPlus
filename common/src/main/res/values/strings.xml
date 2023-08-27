@@ -2151,6 +2151,12 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Cell registration is for registering new mobile cells. Registration will be running in background. During running registration, is recommended to not change location of device.</string>
     <string name="event_preferences_mobile_cells_cells_registration_summary">Cell registration is for registering new mobile cells. \n\nClick here if you want to start cell registration. That opens \"Mobile cells scanning\" screen and in it is \"Cell registration\".</string>
 
+    <string name="array_pref_applicationDisableScanning_enabled_with_interval">Scanning enabled, interval set</string>
+    <string name="phone_profiles_pref_applicationMobileCellScanInterval">Mobile cell scan inrerval</string>
+    <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">Mobile cell scanning do not have scan inrerval.</string>
+    <string name="phone_profiles_pref_applicationNotificationScanInterval">Notification scan inrerval</string>
+    <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">Notification scanning do not have scan inrerval.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

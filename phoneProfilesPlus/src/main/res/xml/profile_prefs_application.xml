@@ -16,6 +16,20 @@
             app:ppEntries="@array/applicationEnableScanningArray"
             app:ppEntryValues="@array/applicationEnableScanningValues"
             app:layout="@layout/mp_preference_material_widget" />
+        <Preference
+            app:key="prf_pref_applicationWifiScanIntervalInfo"
+            app:title="@string/phone_profiles_pref_applicationEventWifiScanInterval"
+            app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
+            app:widgetLayout="@layout/preference_widget_info_preference"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+            app:key="prf_pref_applicationWifiScanInterval"
+            app:summary="@string/phone_profiles_pref_applicationEventWifiScanInterval"
+            app:title="@string/phone_profiles_pref_applicationEventWifiScanInterval"
+            app:defaultValue="15"
+            app:min="1"
+            app:max="300"
+            app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     <PreferenceCategory
         app:key="prf_pref_applicationEnableBluetoothScanningCategory"
@@ -28,6 +42,28 @@
             app:defaultValue="0"
             app:ppEntries="@array/applicationEnableScanningArray"
             app:ppEntryValues="@array/applicationEnableScanningValues"
+            app:layout="@layout/mp_preference_material_widget" />
+        <Preference
+            app:key="prf_pref_applicationBluetoothScanIntervalInfo"
+            app:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
+            app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
+            app:widgetLayout="@layout/preference_widget_info_preference"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+            app:key="prf_pref_applicationBluetoothScanInterval"
+            app:summary="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
+            app:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
+            app:defaultValue="15"
+            app:min="1"
+            app:max="300"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+            app:key="applicationEventBluetoothLEScanDuration"
+            app:summary="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
+            app:title="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
+            app:defaultValue="10"
+            app:min="5"
+            app:max="30"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     <PreferenceCategory
@@ -42,6 +78,20 @@
             app:ppEntries="@array/applicationEnableScanningArray"
             app:ppEntryValues="@array/applicationEnableScanningValues"
             app:layout="@layout/mp_preference_material_widget" />
+        <Preference
+            app:key="prf_pref_applicationLocationUpdateIntervalInfo"
+            app:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
+            app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
+            app:widgetLayout="@layout/preference_widget_info_preference"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+            app:key="prf_pref_applicationLocationUpdateInterval"
+            app:summary="@string/phone_profiles_pref_applicationEventLocationScanInterval"
+            app:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
+            app:defaultValue="15"
+            app:min="1"
+            app:max="300"
+            app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     <PreferenceCategory
         app:key="prf_pref_applicationEnableMobileCellScanningCategory"
@@ -52,8 +102,14 @@
             app:summary="@string/array_pref_no_change"
             app:key="prf_pref_applicationEnableMobileCellScanning"
             app:defaultValue="0"
-            app:ppEntries="@array/applicationEnableScanningArray"
-            app:ppEntryValues="@array/applicationEnableScanningValues"
+            app:ppEntries="@array/applicationEnableScanningNoIntervalArray"
+            app:ppEntryValues="@array/applicationEnableScanningNoIntervalValues"
+            app:layout="@layout/mp_preference_material_widget" />
+        <Preference
+            app:key="prf_pref_applicationMobileCellScanIntervalInfo"
+            app:title="@string/phone_profiles_pref_applicationMobileCellScanInterval"
+            app:summary="@string/phone_profiles_pref_applicationMobileCellScanInterval_summary"
+            app:widgetLayout="@layout/preference_widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     <PreferenceCategory
@@ -68,6 +124,20 @@
             app:ppEntries="@array/applicationEnableScanningArray"
             app:ppEntryValues="@array/applicationEnableScanningValues"
             app:layout="@layout/mp_preference_material_widget" />
+        <Preference
+            app:key="prf_pref_applicationOrientationScanIntervalInfo"
+            app:title="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
+            app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
+            app:widgetLayout="@layout/preference_widget_info_preference"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+            app:key="prf_pref_applicationOrientationScanInterval"
+            app:summary="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
+            app:title="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
+            app:defaultValue="10"
+            app:min="5"
+            app:max="60"
+            app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     <PreferenceCategory
         app:key="prf_pref_applicationEnableNotificationScanningCategory"
@@ -78,8 +148,14 @@
             app:summary="@string/array_pref_no_change"
             app:key="prf_pref_applicationEnableNotificationScanning"
             app:defaultValue="0"
-            app:ppEntries="@array/applicationEnableScanningArray"
-            app:ppEntryValues="@array/applicationEnableScanningValues"
+            app:ppEntries="@array/applicationEnableScanningNoIntervalArray"
+            app:ppEntryValues="@array/applicationEnableScanningNoIntervalValues"
+            app:layout="@layout/mp_preference_material_widget" />
+        <Preference
+            app:key="prf_pref_applicationNotificationScanIntervalInfo"
+            app:title="@string/phone_profiles_pref_applicationNotificationScanInterval"
+            app:summary="@string/phone_profiles_pref_applicationNotificationScanInterval_summary"
+            app:widgetLayout="@layout/preference_widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     <PreferenceCategory
@@ -93,6 +169,20 @@
             app:defaultValue="0"
             app:ppEntries="@array/applicationEnableScanningArray"
             app:ppEntryValues="@array/applicationEnableScanningValues"
+            app:layout="@layout/mp_preference_material_widget" />
+        <Preference
+            app:key="prf_pref_applicationPeriodicScanningScanIntervalInfo"
+            app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanInterval"
+            app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
+            app:widgetLayout="@layout/preference_widget_info_preference"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+            app:key="prf_pref_applicationPeriodicScanningScanInterval"
+            app:summary="@string/phone_profiles_pref_applicationEventBackgroundScanningScanInterval"
+            app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanInterval"
+            app:defaultValue="15"
+            app:min="1"
+            app:max="300"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     <PreferenceCategory

@@ -373,6 +373,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
+        if (preference instanceof BetterNumberPickerPreference) {
+            ((BetterNumberPickerPreference) preference).fragment = new BetterNumberPickerPreferenceFragment();
+            dialogFragment = ((BetterNumberPickerPreference) preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
