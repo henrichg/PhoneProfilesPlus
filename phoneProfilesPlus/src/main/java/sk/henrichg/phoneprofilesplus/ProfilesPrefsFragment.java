@@ -126,6 +126,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_OTHERS_CATTEGORY_ROOT = "prf_pref_othersCategoryRoot";
     private static final String PREF_PROFILE_APPLICATION_CATTEGORY_ROOT = "prf_pref_applicationCategoryRoot";
 
+    private static final String PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL_INFO = "prf_pref_applicationWifiScanIntervalInfo";
+    private static final String PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL_INFO = "prf_pref_applicationBluetoothScanIntervalInfo";
+    private static final String PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL = "prf_pref_applicationLocationUpdateIntervalInfo";
+    private static final String PREF_PROFILE_APPLICATION_MOBILE_CELLS_SCAN_INTERVAL_INFO = "prf_pref_applicationMobileCellScanIntervalInfo";
+    private static final String PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL_INFO = "prf_pref_applicationOrientationScanIntervalInfo";
+    private static final String PREF_PROFILE_APPLICATION_NOTIFICATION_SCAN_INTERVAL_INFO = "prf_pref_applicationNotificationScanIntervalInfo";
+    private static final String PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL_INFO = "prf_pref_applicationPeriodicScanningScanIntervalInfo";
+
     private static final String TAG_RINGTONE_NAME = "<ringtone_name>";
     private static final String TAG_NOTIFICATION_NAME = "<notification_name>";
     private static final String TAG_ALARM_NAME = "<alarm_name>";
@@ -3850,11 +3858,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
 
-            String value = StringFormatUtils.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING)),
+            String enabledValue = preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING));
+            String value = StringFormatUtils.getListPreferenceString(enabledValue,
                     R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
 
+            if (enabledValue.equals("3")) {
+                String interval = preferences.getString(Profile.PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL, "");
+                value = value + ": "+interval;
+            }
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
@@ -3864,11 +3876,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
-            String value = StringFormatUtils.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING)),
+            String enabledValue = preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING));
+            String value = StringFormatUtils.getListPreferenceString(enabledValue,
                     R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
 
+            if (enabledValue.equals("3")) {
+                String interval = preferences.getString(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL, "");
+                String duration = preferences.getString(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION, "");
+                value = value + ": "+interval+", "+duration;
+            }
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
@@ -3878,10 +3895,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
-            String value = StringFormatUtils.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING)),
+            String enabledValue = preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING));
+            String value = StringFormatUtils.getListPreferenceString(enabledValue,
                     R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
+
+            if (enabledValue.equals("3")) {
+                String interval = preferences.getString(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, "");
+                value = value + ": "+interval;
+            }
 
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context))
@@ -3892,10 +3914,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
-            String value = StringFormatUtils.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING)),
+            String enabledValue = preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING));
+            String value = StringFormatUtils.getListPreferenceString(enabledValue,
                     R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
+
+            // interval not exists for monile cells scanning
 
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context))
@@ -3906,10 +3930,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
-            String value = StringFormatUtils.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING)),
+            String enabledValue = preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING));
+            String value = StringFormatUtils.getListPreferenceString(enabledValue,
                     R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
+
+            if (enabledValue.equals("3")) {
+                String interval = preferences.getString(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, "");
+                value = value + ": "+interval;
+            }
 
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context))
@@ -3920,10 +3949,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
-            String value = StringFormatUtils.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING)),
+            String enabledValue = preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING));
+            String value = StringFormatUtils.getListPreferenceString(enabledValue,
                     R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
+
+            // interval not exists for notification scanning
 
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context))
@@ -3934,10 +3965,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
-            String value = StringFormatUtils.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING)),
+            String enabledValue = preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING));
+            String value = StringFormatUtils.getListPreferenceString(enabledValue,
                     R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
+
+            if (enabledValue.equals("3")) {
+                String interval = preferences.getString(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, "");
+                value = value + ": "+interval;
+            }
 
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context))
@@ -5076,18 +5112,83 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (listPreference != null) {
                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                 if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    boolean enabled = true;
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
-                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
+                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)) {
+                        enabled = false;
                         listPreference.setEnabled(false);
+                    }
                     else
                         errorColor = !value.toString().equals("0");
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, errorColor, true);
+
+                    String sValue = value.toString();
+                    if (key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING)) {
+                        Preference preference = prefMng.findPreference(PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL_INFO);
+                        enabled = enabled && sValue.equals("3");
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                        preference = prefMng.findPreference(Profile.PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL);
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                    }
+                    if (key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING)) {
+                        Preference preference = prefMng.findPreference(PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL_INFO);
+                        enabled = enabled && sValue.equals("3");
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                        preference = prefMng.findPreference(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL);
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                        preference = prefMng.findPreference(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION);
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                    }
+                    if (key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING)) {
+                        Preference preference = prefMng.findPreference(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL);
+                        enabled = enabled && sValue.equals("3");
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                        preference = prefMng.findPreference(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL);
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                    }
+                    if (key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING)) {
+                        Preference preference = prefMng.findPreference(PREF_PROFILE_APPLICATION_MOBILE_CELLS_SCAN_INTERVAL_INFO);
+                        enabled = enabled && sValue.equals("3");
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                    }
+                    if (key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING)) {
+                        Preference preference = prefMng.findPreference(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL_INFO);
+                        enabled = enabled && sValue.equals("3");
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                        preference = prefMng.findPreference(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL);
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                    }
+                    if (key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING)) {
+                        Preference preference = prefMng.findPreference(PREF_PROFILE_APPLICATION_NOTIFICATION_SCAN_INTERVAL_INFO);
+                        enabled = enabled && sValue.equals("3");
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                    }
+                    if (key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING)) {
+                        Preference preference = prefMng.findPreference(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL_INFO);
+                        enabled = enabled && sValue.equals("3");
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                        preference = prefMng.findPreference(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL);
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                    }
                 }
                 else {
                     String sValue = value.toString();
@@ -5095,6 +5196,67 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false, false);
+
+                    if (key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING)) {
+                        Preference preference = prefMng.findPreference(PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL_INFO);
+                        boolean enabled = sValue.equals("3");
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                        preference = prefMng.findPreference(Profile.PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL);
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                    }
+                    if (key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING)) {
+                        Preference preference = prefMng.findPreference(PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL_INFO);
+                        boolean enabled = sValue.equals("3");
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                        preference = prefMng.findPreference(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL);
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                        preference = prefMng.findPreference(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION);
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                    }
+                    if (key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING)) {
+                        Preference preference = prefMng.findPreference(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL);
+                        boolean enabled = sValue.equals("3");
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                        preference = prefMng.findPreference(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL);
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                    }
+                    if (key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING)) {
+                        boolean enabled = sValue.equals("3");
+                        Preference preference = prefMng.findPreference(PREF_PROFILE_APPLICATION_MOBILE_CELLS_SCAN_INTERVAL_INFO);
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                    }
+                    if (key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING)) {
+                        Preference preference = prefMng.findPreference(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL_INFO);
+                        boolean enabled = sValue.equals("3");
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                        preference = prefMng.findPreference(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL);
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                    }
+                    if (key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING)) {
+                        Preference preference = prefMng.findPreference(PREF_PROFILE_APPLICATION_NOTIFICATION_SCAN_INTERVAL_INFO);
+                        boolean enabled = sValue.equals("3");
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                    }
+                    if (key.equals(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING)) {
+                        Preference preference = prefMng.findPreference(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL_INFO);
+                        boolean enabled = sValue.equals("3");
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                        preference = prefMng.findPreference(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL);
+                        if (preference != null)
+                            preference.setEnabled(enabled);
+                    }
                 }
             }
         }
