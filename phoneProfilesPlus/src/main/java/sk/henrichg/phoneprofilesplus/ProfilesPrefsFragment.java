@@ -42,10 +42,12 @@ import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.PeriodicWorkRequest;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -96,6 +98,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS = "prf_pref_deviceAirplaneMode_assistantSettings";
     private static final String PREF_SCREEN_DARK_MODE_INFO = "prf_pref_screenDarkModeInfo";
     private static final String PREF_PROFILE_AIRPLANE_MODE_RADIOS_INFO = "prf_pref_deviceAirplaneModeRadiosInfo";
+    private static final String PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL_INFO = "prf_pref_applicationWifiScanIntervalInfo";
+    private static final String PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL_INFO = "prf_pref_applicationBluetoothScanIntervalInfo";
+    private static final String PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL = "prf_pref_applicationLocationUpdateIntervalInfo";
+    private static final String PREF_PROFILE_APPLICATION_MOBILE_CELLS_SCAN_INTERVAL_INFO = "prf_pref_applicationMobileCellScanIntervalInfo";
+    private static final String PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL_INFO = "prf_pref_applicationOrientationScanIntervalInfo";
+    private static final String PREF_PROFILE_APPLICATION_NOTIFICATION_SCAN_INTERVAL_INFO = "prf_pref_applicationNotificationScanIntervalInfo";
+    private static final String PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL_INFO = "prf_pref_applicationPeriodicScanningScanIntervalInfo";
 
     private static final String PREF_PROFILE_VOLUME_ZEN_MODE_INFO = "prf_pref_volumeZenModeInfo";
     private static final String PREF_PROFILE_VOLUME_SOUND_MODE_INFO = "prf_pref_volumeSoundMode_info";
@@ -125,14 +134,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_LED_ACCESSORIES_CATTEGORY_ROOT = "prf_pref_ledAccessoriesCategoryRoot";
     private static final String PREF_PROFILE_OTHERS_CATTEGORY_ROOT = "prf_pref_othersCategoryRoot";
     private static final String PREF_PROFILE_APPLICATION_CATTEGORY_ROOT = "prf_pref_applicationCategoryRoot";
-
-    private static final String PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL_INFO = "prf_pref_applicationWifiScanIntervalInfo";
-    private static final String PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL_INFO = "prf_pref_applicationBluetoothScanIntervalInfo";
-    private static final String PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL = "prf_pref_applicationLocationUpdateIntervalInfo";
-    private static final String PREF_PROFILE_APPLICATION_MOBILE_CELLS_SCAN_INTERVAL_INFO = "prf_pref_applicationMobileCellScanIntervalInfo";
-    private static final String PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL_INFO = "prf_pref_applicationOrientationScanIntervalInfo";
-    private static final String PREF_PROFILE_APPLICATION_NOTIFICATION_SCAN_INTERVAL_INFO = "prf_pref_applicationNotificationScanIntervalInfo";
-    private static final String PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL_INFO = "prf_pref_applicationPeriodicScanningScanIntervalInfo";
 
     private static final String TAG_RINGTONE_NAME = "<ringtone_name>";
     private static final String TAG_NOTIFICATION_NAME = "<notification_name>";
@@ -1631,6 +1632,33 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preference != null)
                     preference.setSummary(R.string.profile_preferences_volumeMediaOnePlusInfo_33_summary);
             }
+        }
+
+        long workMinInterval = TimeUnit.MILLISECONDS.toMinutes(PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS);
+        String summary = getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary1) + " " +
+                workMinInterval + " " +
+                getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary2);
+        preference = findPreference(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL_INFO);
+        if (preference != null) {
+            preference.setSummary(summary);
+        }
+        preference = findPreference(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL);
+        if (preference != null) {
+            preference.setSummary(summary);
+        }
+        preference = findPreference(PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL_INFO);
+        if (preference != null) {
+            preference.setSummary(summary);
+        }
+        preference = findPreference(PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL_INFO);
+        if (preference != null) {
+            preference.setSummary(summary);
+        }
+        preference = findPreference(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL_INFO);
+        if (preference != null) {
+            summary = getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary1) + " 10 " +
+                    getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary3);
+            preference.setSummary(summary);
         }
     }
 
