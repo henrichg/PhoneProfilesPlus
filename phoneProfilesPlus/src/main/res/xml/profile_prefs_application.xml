@@ -9,7 +9,7 @@
         app:title="@string/profile_preferences_applicationEnableWifiScanning"
         app:layout="@layout/mp_preference_category">
         <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/profile_preferences_applicationEnableScanning"
+            app:title="@string/profile_preferences_applicationEnableWifiScanning"
             app:summary="@string/array_pref_no_change"
             app:key="prf_pref_applicationEnableWifiScanning"
             app:defaultValue="0"
@@ -36,7 +36,7 @@
         app:title="@string/profile_preferences_applicationEnableBluetoothScanning"
         app:layout="@layout/mp_preference_category">
         <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/profile_preferences_applicationEnableScanning"
+            app:title="@string/profile_preferences_applicationEnableBluetoothScanning"
             app:summary="@string/array_pref_no_change"
             app:key="prf_pref_applicationEnableBluetoothScanning"
             app:defaultValue="0"
@@ -71,7 +71,7 @@
         app:title="@string/profile_preferences_applicationEnableLocationScanning"
         app:layout="@layout/mp_preference_category">
         <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/profile_preferences_applicationEnableScanning"
+            app:title="@string/profile_preferences_applicationEnableLocationScanning"
             app:summary="@string/array_pref_no_change"
             app:key="prf_pref_applicationEnableLocationScanning"
             app:defaultValue="0"
@@ -98,7 +98,7 @@
         app:title="@string/profile_preferences_applicationEnableMobileCellScanning"
         app:layout="@layout/mp_preference_category">
         <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/profile_preferences_applicationEnableScanning"
+            app:title="@string/profile_preferences_applicationEnableMobileCellScanning"
             app:summary="@string/array_pref_no_change"
             app:key="prf_pref_applicationEnableMobileCellScanning"
             app:defaultValue="0"
@@ -117,7 +117,7 @@
         app:title="@string/profile_preferences_applicationEnableOrientationScanning"
         app:layout="@layout/mp_preference_category">
         <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/profile_preferences_applicationEnableScanning"
+            app:title="@string/profile_preferences_applicationEnableOrientationScanning"
             app:summary="@string/array_pref_no_change"
             app:key="prf_pref_applicationEnableOrientationScanning"
             app:defaultValue="0"
@@ -144,7 +144,7 @@
         app:title="@string/profile_preferences_applicationEnableNotificationScanning"
         app:layout="@layout/mp_preference_category">
         <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/profile_preferences_applicationEnableScanning"
+            app:title="@string/profile_preferences_applicationEnableNotificationScanning"
             app:summary="@string/array_pref_no_change"
             app:key="prf_pref_applicationEnableNotificationScanning"
             app:defaultValue="0"
@@ -163,7 +163,7 @@
         app:title="@string/profile_preferences_applicationEnablePeriodicScanning"
         app:layout="@layout/mp_preference_category">
         <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/profile_preferences_applicationEnableScanning"
+            app:title="@string/profile_preferences_applicationEnablePeriodicScanning"
             app:summary="@string/array_pref_no_change"
             app:key="prf_pref_applicationEnablePeriodicScanning"
             app:defaultValue="0"
