@@ -62,7 +62,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             listener.refreshGUIFromListener(intent);
         }
     }
-    private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
+    private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +131,7 @@ public class EventsPrefsActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
+        refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
                 new IntentFilter(PPApplication.ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER));
     }

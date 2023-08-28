@@ -7597,6 +7597,8 @@ class ActivateProfileHelper {
                         mBuilder.setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification));
                     break;
                 default:
+                    // profile icon
+
                     // not supported colorful status bar icon
                     boolean isIconResourceID = profile.getIsIconResourceID();
                     profile.generateIconBitmap(appContext, false, 0, false);

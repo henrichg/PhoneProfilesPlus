@@ -196,7 +196,7 @@ public class EditorActivity extends AppCompatActivity
             listener.refreshGUIFromListener(intent);
         }
     }
-    private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver;// = new RefreshGUIBroadcastReceiver(this);
+    private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver;
 
     static private class ShowTargetHelpsBroadcastReceiver extends BroadcastReceiver {
         private final ShowTargetHelpsActivatorEditorListener listener;
@@ -210,7 +210,7 @@ public class EditorActivity extends AppCompatActivity
             listener.showTargetHelpsFromListener(intent);
         }
     }
-    private ShowTargetHelpsBroadcastReceiver showTargetHelpsBroadcastReceiver;// = new ShowTargetHelpsBroadcastReceiver(this);
+    private ShowTargetHelpsBroadcastReceiver showTargetHelpsBroadcastReceiver;
 
     static private class FinishActivityBroadcastReceiver extends BroadcastReceiver {
         private final FinishActivityActivatorEditorListener listener;
@@ -224,7 +224,7 @@ public class EditorActivity extends AppCompatActivity
             listener.finishActivityFromListener(intent);
         }
     }
-    private FinishActivityBroadcastReceiver finishBroadcastReceiver;// = new FinishActivityBroadcastReceiver(this);
+    private FinishActivityBroadcastReceiver finishBroadcastReceiver;
 
     @SuppressLint("RestrictedApi")
     @Override

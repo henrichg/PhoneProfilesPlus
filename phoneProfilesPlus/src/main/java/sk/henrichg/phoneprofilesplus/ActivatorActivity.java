@@ -64,7 +64,7 @@ public class ActivatorActivity extends AppCompatActivity
             listener.refreshGUIFromListener(intent);
         }
     }
-    private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
+    private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver;
 
     static final String EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY = "show_target_helps_for_activity";
     static private class ShowTargetHelpsBroadcastReceiver extends BroadcastReceiver {
@@ -79,7 +79,7 @@ public class ActivatorActivity extends AppCompatActivity
             listener.showTargetHelpsFromListener(intent);
         }
     }
-    private ShowTargetHelpsBroadcastReceiver showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
+    private ShowTargetHelpsBroadcastReceiver showTargetHelpsBroadcastReceiver;
 
     static private class FinishActivityBroadcastReceiver extends BroadcastReceiver {
         private final FinishActivityActivatorEditorListener listener;
@@ -93,7 +93,7 @@ public class ActivatorActivity extends AppCompatActivity
             listener.finishActivityFromListener(intent);
         }
     }
-    private FinishActivityBroadcastReceiver finishBroadcastReceiver = new FinishActivityBroadcastReceiver(this);
+    private FinishActivityBroadcastReceiver finishBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,6 +185,7 @@ public class ActivatorActivity extends AppCompatActivity
             }
         });
 
+        finishBroadcastReceiver = new FinishActivityBroadcastReceiver(this);
         int receiverFlags = 0;
         if (Build.VERSION.SDK_INT >= 34)
             receiverFlags = RECEIVER_NOT_EXPORTED;
@@ -220,8 +221,10 @@ public class ActivatorActivity extends AppCompatActivity
                 intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, StringConstants.EXTRA_EDITOR);
                 getApplicationContext().sendBroadcast(intent);
 
+                refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
                 LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
                         new IntentFilter(PPApplication.ACTION_REFRESH_ACTIVATOR_GUI_BROADCAST_RECEIVER));
+                showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
                 LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
                         new IntentFilter(ActivatorActivity.ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER));
 
