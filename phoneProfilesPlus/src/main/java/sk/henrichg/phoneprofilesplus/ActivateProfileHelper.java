@@ -7728,7 +7728,7 @@ class ActivateProfileHelper {
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
             //}
 
-            mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_PREFS_NOTIFICATION_GROUP);
+            mBuilder.setGroup(PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_GROUP);
 
             Notification notification = mBuilder.build();
             //notification.vibrate = null;
