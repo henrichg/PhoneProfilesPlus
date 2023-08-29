@@ -2153,9 +2153,9 @@
 
     <string name="array_pref_applicationDisableScanning_enabled_with_interval">Scanning enabled, interval set</string>
     <string name="phone_profiles_pref_applicationMobileCellScanInterval">Mobile cell scan interval</string>
-    <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">Mobile cell scanning do not have scan inrerval.</string>
-    <string name="phone_profiles_pref_applicationNotificationScanInterval">Notification scan inrerval</string>
-    <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">Notification scanning do not have scan inrerval.</string>
+    <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">Mobile cell scanning do not have scan interval.</string>
+    <string name="phone_profiles_pref_applicationNotificationScanInterval">Notification scan interval</string>
+    <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">Notification scanning do not have scan interval.</string>
 
     <!-- **************************************************************************************** -->
 
