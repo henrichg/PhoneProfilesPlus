@@ -247,7 +247,7 @@ class AddEventAdapter extends BaseAdapter {
             {
                 String profileName = profileStartNamesArray[position];
                 if (position > 0) {
-                    profileName = "(*) " + profileName;
+                    profileName = "⊛ " + profileName;
                     holder.profileStartName.setTextColor(ContextCompat.getColor(context, R.color.error_color));
                 }
                 else
@@ -349,9 +349,9 @@ class AddEventAdapter extends BaseAdapter {
                         profileName = profileEndNamesArray[position];
                         if ((position > 0) && (!profileName.isEmpty())) {
                             if (event._manualProfileActivationAtEnd)
-                                profileName = "(*) " + StringConstants.STR_MANUAL_SPACE + profileName;
+                                profileName = "⊛ " + StringConstants.STR_MANUAL_SPACE + profileName;
                             else
-                                profileName = "(*) " + profileName;
+                                profileName = "⊛ " + profileName;
                             holder.profileEndName.setTextColor(ContextCompat.getColor(context, R.color.error_color));
                         } else
                             holder.profileEndName.setTextColor(defaultColor);
