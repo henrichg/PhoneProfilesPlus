@@ -112,7 +112,7 @@
                     android:id="@+id/event_status_popup_window_text6"
                     app:drawableStartCompat="@drawable/ic_event_status_stop"
                     app:drawableTint="@color/event_status_stop"
-                    android:drawablePadding="6dp" />
+                    android:drawablePadding="@dimen/event_status_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
