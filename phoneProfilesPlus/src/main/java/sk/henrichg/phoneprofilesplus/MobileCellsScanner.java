@@ -40,7 +40,7 @@ class MobileCellsScanner {
         TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
             int simCount = telephonyManager.getPhoneCount();
-            if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (simCount > 1)) {
+            if ((simCount > 1)) {
                 SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                 //SubscriptionManager.from(appContext);
                 if (mSubscriptionManager != null) {
@@ -108,7 +108,7 @@ class MobileCellsScanner {
                 PPApplication.HAS_FEATURE_TELEPHONY &&
                 Permissions.checkLocation(context.getApplicationContext())) {
             int simCount = telephonyManager.getPhoneCount();
-            if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (simCount > 1)) {
+            if ((simCount > 1)) {
                 if ((telephonyManagerSIM1 != null) && (mobileCellsListenerSIM1 != null)) {
                     try {
                         //noinspection deprecation
@@ -238,14 +238,12 @@ class MobileCellsScanner {
 
     boolean isNotUsedCellsNotificationEnabled() {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.isNotUsedCellsNotificationEnabled", "******** ### *******");
-        /*if (Build.VERSION.SDK_INT >= 26) {
+        /*
             NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
             return channel.getImportance() != NotificationManager.IMPORTANCE_NONE;
-        }
-        else {*/
+        */
             return ApplicationPreferences.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled;
-        //}
     }
 
     static boolean isValidCellId(int cid) {

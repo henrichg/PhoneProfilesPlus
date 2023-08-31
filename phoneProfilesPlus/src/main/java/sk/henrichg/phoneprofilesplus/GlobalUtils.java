@@ -485,9 +485,6 @@ class GlobalUtils {
     static int getSIMCardFromSubscriptionId(Context appContext, int subscriptionId) {
         TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
-            /*if (Build.VERSION.SDK_INT < 26) {
-                return 0;
-            } else {*/
                 if (Permissions.checkPhone(appContext)) {
                     SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                     //SubscriptionManager.from(context);
@@ -518,7 +515,6 @@ class GlobalUtils {
                         return 0;
                 } else
                     return -1;
-            //}
         }
         return -1;
     }

@@ -1116,8 +1116,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
                             break;
                         case "FLAG_RECEIVER_VISIBLE_TO_INSTANT_APPS":
-                            //if (Build.VERSION.SDK_INT >= 26)
-                                intent.addFlags(Intent.FLAG_RECEIVER_VISIBLE_TO_INSTANT_APPS);
+                            intent.addFlags(Intent.FLAG_RECEIVER_VISIBLE_TO_INSTANT_APPS);
                             break;
                     }
                 }

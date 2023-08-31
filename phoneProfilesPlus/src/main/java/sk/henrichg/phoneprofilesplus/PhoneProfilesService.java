@@ -261,9 +261,6 @@ public class PhoneProfilesService extends Service
         */
 
         //try {
-            /*if ((Build.VERSION.SDK_INT < 26)) {
-                PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
-            }*/
             PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, ApplicationPreferences.applicationEventPeriodicScanningEnableScanning);
             PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, ApplicationPreferences.applicationEventPeriodicScanningScanInterval);
             PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScanning);
@@ -416,8 +413,6 @@ public class PhoneProfilesService extends Service
 
         //ShowProfileNotificationBroadcastReceiver.removeAlarm(appContext);
         try {
-            //if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(getApplicationContext()))
-
             //isInForeground = false;
             stopForeground(true);
 
@@ -435,12 +430,6 @@ public class PhoneProfilesService extends Service
                     }
                 } catch (Exception ignored) {}
             }
-
-            /*else {
-                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null)
-                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
-            }*/
         } catch (Exception e) {
             //Log.e("PhoneProfilesService.onDestroy", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
@@ -1116,18 +1105,6 @@ public class PhoneProfilesService extends Service
                     DonationBroadcastReceiver.setAlarm(appContext);
                 }
 
-                //if (actualVersionCode <= 2500) {
-                //    // for old packages hide profile notification from status bar if notification is disabled
-                //    ApplicationPreferences.getSharedPreferences(appContext);
-                //    if (Build.VERSION.SDK_INT < 26) {
-                //        if (!ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true)) {
-                //            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                //            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
-                //            editor.apply();
-                //        }
-                //    }
-                //}
-
                 if (actualVersionCode <= 2700) {
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
 
@@ -1201,8 +1178,7 @@ public class PhoneProfilesService extends Service
 
                 //if (actualVersionCode <= 4100) {
                 //    SharedPreferences preferences = appContext.getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
-                //    if ((preferences.getInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0) == 3) &&
-                //            (Build.VERSION.SDK_INT >= 26)) {
+                //    if ((preferences.getInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0) == 3)) {
                 //        // Toggle is not supported for wifi AP in Android 8+
                 //        SharedPreferences.Editor editor = preferences.edit();
                 //        editor.putInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0);
@@ -1316,7 +1292,6 @@ public class PhoneProfilesService extends Service
                     if (oldVersionCode <= 5210) {
                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
 
-                        //if (Build.VERSION.SDK_INT >= 26) {
                             NotificationManagerCompat manager = NotificationManagerCompat.from(appContext);
                             try {
                                 NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
@@ -1327,7 +1302,6 @@ public class PhoneProfilesService extends Service
                             } catch (Exception e) {
                                 PPApplicationStatic.recordException(e);
                             }
-                        //}
 
                         int filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
                         if (filterEventsSelectedItem == 2)
@@ -1337,24 +1311,6 @@ public class PhoneProfilesService extends Service
                         ApplicationPreferences.editorEventsViewSelectedItem(appContext);
                     }
                 }
-
-                /*if (actualVersionCode <= 5330) {
-                    if (oldVersionCode <= 5300) {
-                        // for old packages hide profile notification from status bar if notification is disabled
-                        if (Build.VERSION.SDK_INT < 26) {
-                            SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
-                            boolean notificationStatusBar = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true);
-                            boolean notificationStatusBarPermanent = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
-                            if (!(notificationStatusBar && notificationStatusBarPermanent)) {
-                                SharedPreferences.Editor editor = preferences.edit();
-                                editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
-                                editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, false);
-                                editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, "2");
-                                editor.apply();
-                            }
-                        }
-                    }
-                }*/
 
                 if (actualVersionCode <= 5430) {
                     SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);

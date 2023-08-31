@@ -89,8 +89,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
             // application is not started
             return;
 
-        //if (Build.VERSION.SDK_INT >= 26) {
-            // configured is PPApplication.handlerThreadBroadcast handler (see PhoneProfilesService.registerCallbacks()
+        // configured is PPApplication.handlerThreadBroadcast handler (see PhoneProfilesService.registerCallbacks()
 
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wakeLock = null;

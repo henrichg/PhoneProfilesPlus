@@ -27,17 +27,8 @@ final class WifiApManager {
         mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (mWifiManager != null)
             wifiApEnabled = mWifiManager.getClass().getDeclaredMethod("isWifiApEnabled");
-        //if (Build.VERSION.SDK_INT >= 26) {
         mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         packageName = PPApplication.PACKAGE_NAME;
-        /*}
-        else {
-            if (mWifiManager != null) {
-                wifiControlMethod = mWifiManager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class, boolean.class);
-                wifiApConfigurationMethod = mWifiManager.getClass().getMethod("getWifiApConfiguration");
-                //wifiApState = mWifiManager.getClass().getMethod("getWifiApState");
-            }
-        }*/
     }
 
     /*

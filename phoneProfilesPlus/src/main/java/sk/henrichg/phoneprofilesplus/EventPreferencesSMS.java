@@ -165,9 +165,7 @@ class EventPreferencesSMS extends EventPreferences {
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
                     _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
-                    //if (Build.VERSION.SDK_INT >= 26) {
                         boolean hasSIMCard = false;
-                        //if (Build.VERSION.SDK_INT >= 26) {
                             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                             if (telephonyManager != null) {
                                 int phoneCount = telephonyManager.getPhoneCount();
@@ -182,13 +180,11 @@ class EventPreferencesSMS extends EventPreferences {
                                     hasSIMCard = simExists;
                                 }
                             }
-                        //}
                         if (hasSIMCard) {
                             _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_sms_forSimCard));
                             String[] forSimCard = context.getResources().getStringArray(R.array.eventSMSForSimCardArray);
                             _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
-                    //}
 
                     if (this._permanentRun)
                         _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
@@ -249,7 +245,6 @@ class EventPreferencesSMS extends EventPreferences {
 
         boolean hasFeature = false;
         boolean hasSIMCard = false;
-        //if (Build.VERSION.SDK_INT >= 26) {
             if (key.equals(PREF_EVENT_SMS_FOR_SIM_CARD)) {
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
@@ -293,7 +288,6 @@ class EventPreferencesSMS extends EventPreferences {
                     }
                 }
             }
-        //}
         /*
         if (key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
@@ -495,7 +489,6 @@ class EventPreferencesSMS extends EventPreferences {
 //                if (preference != null)
 //                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
 
-                //if (Build.VERSION.SDK_INT >= 26) {
                 boolean showPreferences = false;
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
@@ -531,7 +524,6 @@ class EventPreferencesSMS extends EventPreferences {
                     if (preference != null)
                         preference.setVisible(false);
                 }
-                //}
                 setSummary(prefMng, PREF_EVENT_SMS_ENABLED, preferences, context);
             }
         }
@@ -811,7 +803,7 @@ class EventPreferencesSMS extends EventPreferences {
                 // compute start time
 
                 if (_startTime > 0) {
-                    if (/*(Build.VERSION.SDK_INT < 26) ||*/ (_forSIMCard == 0) || (_forSIMCard == _fromSIMSlot)) {
+                    if ((_forSIMCard == 0) || (_forSIMCard == _fromSIMSlot)) {
 
                         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                         long startTime = _startTime - gmtOffset;

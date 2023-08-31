@@ -61,7 +61,6 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
             return;
 
 /*
-        if (Build.VERSION.SDK_INT >= 26) {
             // configured is PPApplication.handlerThreadBroadcast handler (see PhoneProfilesService.registerCallbacks()
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             PowerManager.WakeLock wakeLock = null;
@@ -85,7 +84,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
                 }
             }
         }
-        else {*/
+*/
 
             // !!! must be used MainWorker with delay ans REPLACE, because is often called this onChange
             // for change volumes
@@ -163,7 +162,6 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
             PPApplication.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             */
-//        }
     }
 
     static void _doConnection(Context appContext) {

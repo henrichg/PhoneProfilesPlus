@@ -270,11 +270,6 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             TelephonyManager telephonyManager = (TelephonyManager) prefContext.getSystemService(Context.TELEPHONY_SERVICE);
             boolean simIsReady = false;
             if (telephonyManager != null) {
-                /*if (Build.VERSION.SDK_INT < 26) {
-                    if (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY)
-                        // sim card is ready
-                        simIsReady = true;
-                } else {*/
                     if (Permissions.checkPhone(prefContext.getApplicationContext())) {
                         SubscriptionManager mSubscriptionManager = (SubscriptionManager) prefContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                         //SubscriptionManager.from(context);
@@ -304,7 +299,6 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             }
                         }
                     }
-                //}
             }
             if (simIsReady) {
                 rescanButton.setOnClickListener(v -> {
@@ -319,7 +313,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         else
             rescanButton.setEnabled(false);
 
-        if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (phoneCount > 1)) {
+        if ((phoneCount > 1)) {
             addCellButtonSIM1 = view.findViewById(R.id.mobile_cells_pref_dlg_addCellButton_sim1);
             TooltipCompat.setTooltipText(addCellButtonSIM1, getString(R.string.mobile_cells_pref_dlg_add_button_tooltip));
             addCellButtonSIM1.setOnClickListener(v -> {
@@ -360,7 +354,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         }
 
         RelativeLayout connectedCellRelLa;
-        if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (phoneCount > 1)) {
+        if ((phoneCount > 1)) {
             if (!sim1Exists) {
                 connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_sim1);
                 connectedCellRelLa.setVisibility(View.GONE);
@@ -854,7 +848,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                 _value = fragment.preference.value;
                 _sortCellsBy = fragment.preference.sortCellsBy;
 
-                if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (fragment.phoneCount > 1)) {
+                if ((fragment.phoneCount > 1)) {
                     if (sim1Exists) {
                         if (fragment.preference.registeredCellDataSIM1 != null) {
                             _registeredCellDataSIM1 = new MobileCellsData(fragment.preference.registeredCellDataSIM1.cellId,
@@ -943,7 +937,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
                         //MobileCellsScanner scanner = PhoneProfilesService.getInstance().getMobileCellsScanner();
 
-                        if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (fragment.phoneCount > 1)) {
+                        if ((fragment.phoneCount > 1)) {
                             if (sim1Exists) {
                                 if (PPApplication.mobileCellsScanner != null) {
                                     int registeredCell = PPApplication.mobileCellsScanner.getRegisteredCell(1);
@@ -1055,7 +1049,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             }
                         }
 
-                        if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (fragment.phoneCount > 1)) {
+                        if ((fragment.phoneCount > 1)) {
                             if (sim1Exists) {
                                 if (_registeredCellDataSIM1 != null) {
                                     if (Integer.parseInt(cell) == _registeredCellDataSIM1.cellId)
@@ -1152,7 +1146,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                     }
                 }
 
-                if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (fragment.phoneCount > 1)) {
+                if ((fragment.phoneCount > 1)) {
                     if (sim1Exists) {
                         if (_registeredCellDataSIM1 != null) {
                             preference.registeredCellDataSIM1 = new MobileCellsData(
@@ -1202,7 +1196,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                     preference.registeredCellInValueDefault = _registeredCellInValueDefault;
                 }
 
-                if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (fragment.phoneCount > 1)) {
+                if ((fragment.phoneCount > 1)) {
                     if (sim1Exists) {
                         String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim1) + " ";
                         if (preference.registeredCellDataSIM1 != null) {

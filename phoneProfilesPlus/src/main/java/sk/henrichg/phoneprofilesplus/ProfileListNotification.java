@@ -261,7 +261,6 @@ public class ProfileListNotification {
         */
 
         // ----- create notificationBuilders
-        //if (Build.VERSION.SDK_INT >= 26) {
             notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_LIST_NOTIFICATION_CHANNEL);
             //notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
         /*}
@@ -444,16 +443,6 @@ public class ProfileListNotification {
 
         if (profileListNotification != null) {
 
-            /*if (Build.VERSION.SDK_INT < 26) {
-                profileListNotification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
-                profileListNotification.ledOnMS = 0;
-                profileListNotification.ledOffMS = 0;
-                profileListNotification.sound = null;
-                profileListNotification.vibrate = null;
-                profileListNotification.defaults &= ~NotificationCompat.DEFAULT_SOUND;
-                profileListNotification.defaults &= ~NotificationCompat.DEFAULT_VIBRATE;
-            }*/
-
             // do not use Notification.FLAG_ONGOING_EVENT,
             // with this flag, is not possible to colapse this notification
             profileListNotification.flags |= Notification.FLAG_NO_CLEAR; //| Notification.FLAG_ONGOING_EVENT;
@@ -591,7 +580,6 @@ public class ProfileListNotification {
         if (!ApplicationPreferences.notificationProfileListDisplayNotification)
             return;
 
-        //if (Build.VERSION.SDK_INT >= 26) {
         //if (DebugVersion.enabled)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 

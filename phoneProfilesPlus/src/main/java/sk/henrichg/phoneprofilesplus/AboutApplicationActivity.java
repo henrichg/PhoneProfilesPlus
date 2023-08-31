@@ -48,10 +48,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
         ImageView appIcon = findViewById(R.id.about_application_application_icon);
         try {
             Drawable drawable = getPackageManager().getApplicationIcon(PPApplication.PACKAGE_NAME);
-            if (Build.VERSION.SDK_INT >= 26) {
-                if (drawable instanceof AdaptiveIconDrawable) {
-                    drawable = ((AdaptiveIconDrawable) drawable).getForeground();
-                }
+            if (drawable instanceof AdaptiveIconDrawable) {
+                drawable = ((AdaptiveIconDrawable) drawable).getForeground();
             }
             appIcon.setImageDrawable(drawable);
         } catch (Exception e) {

@@ -2995,12 +2995,6 @@ class Event {
                 mBuilder.setGroup(PPApplication.NOTIFY_EVENT_START_NOTIFICATION_GROUP);
 
                 Notification notification = mBuilder.build();
-                /*if (Build.VERSION.SDK_INT < 26) {
-                    notification.sound = null;
-                    notification.vibrate = null;
-                    notification.defaults &= ~DEFAULT_SOUND;
-                    notification.defaults &= ~DEFAULT_VIBRATE;
-                }*/
 
                 NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
                 try {

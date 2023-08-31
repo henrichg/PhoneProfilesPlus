@@ -265,10 +265,6 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
                 Notification notification = mBuilder.build();
-                /*if (Build.VERSION.SDK_INT < 26) {
-                    notification.vibrate = null;
-                    notification.defaults &= ~DEFAULT_VIBRATE;
-                }*/
 
                 NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
                 try {

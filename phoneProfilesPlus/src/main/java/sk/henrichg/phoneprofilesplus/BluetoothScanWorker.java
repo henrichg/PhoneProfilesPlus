@@ -618,9 +618,7 @@ public class BluetoothScanWorker extends Worker {
     {
         unlock();
         if (getBluetoothEnabledForScan(context)) {
-            if (Build.VERSION.SDK_INT >= 26)
-                CmdBluetooth.setBluetooth(false);
-            else
+            //    CmdBluetooth.setBluetooth(false);
                 bluetooth.disable();
         }
         setBluetoothEnabledForScan(context, false);

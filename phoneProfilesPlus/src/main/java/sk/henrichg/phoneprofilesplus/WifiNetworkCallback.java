@@ -99,7 +99,6 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
             // application is not started
             return;
 /*
-        if (Build.VERSION.SDK_INT >= 26) {
             // configured is PPApplication.handlerThreadBroadcast handler (see PhoneProfilesService.registerCallbacks()
 
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -124,7 +123,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                 }
             }
         }
-        else {*/
+        */
             // !!! must be used MainWorker with delay ans REPLACE, because is often called this onChange
             // for change volumes
                 /*Data workData = new Data.Builder()

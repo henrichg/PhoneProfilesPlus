@@ -188,10 +188,6 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
             mBuilder.setGroup(PPApplication.CHECK_RELEASES_GROUP);
 
             Notification notification = mBuilder.build();
-            /*if (Build.VERSION.SDK_INT < 26) {
-                notification.vibrate = null;
-                notification.defaults &= ~DEFAULT_VIBRATE;
-            }*/
 
             NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
             try {

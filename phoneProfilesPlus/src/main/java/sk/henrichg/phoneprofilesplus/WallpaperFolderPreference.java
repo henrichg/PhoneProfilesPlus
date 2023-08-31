@@ -163,7 +163,6 @@ public class WallpaperFolderPreference extends Preference {
             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-            //if (Build.VERSION.SDK_INT >= 26) {
                 boolean ok = false;
                 if (!(wallpaperFolder.isEmpty() || wallpaperFolder.equals("-"))) {
                     try {
@@ -184,7 +183,6 @@ public class WallpaperFolderPreference extends Preference {
                     } catch (Exception ignored) {
                     }
                 }
-            //}
 
             ((Activity)prefContext).startActivityForResult(intent, RESULT_GET_FOLDER);
             _ok = true;

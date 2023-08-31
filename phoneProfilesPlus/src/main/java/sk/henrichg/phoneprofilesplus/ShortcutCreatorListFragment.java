@@ -364,9 +364,6 @@ public class ShortcutCreatorListFragment extends Fragment {
                                 profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
                             }
                         }
-                        //if (Build.VERSION.SDK_INT < 26)
-                        //    shortcutOverlayBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_shortcut_overlay, false, context);
-
                         if (ApplicationPreferences.applicationShortcutIconColor.equals("1")) {
                             if (isIconResourceID || useCustomColor) {
                                 // icon is from resource or colored by custom color
@@ -416,10 +413,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                             }
                         }
 
-                        //if (Build.VERSION.SDK_INT < 26)
-                        //    profileShortcutBitmap = fragment.combineImages(profileBitmap, shortcutOverlayBitmap);
-                        //else
-                            profileShortcutBitmap = profileBitmap;
+                        profileShortcutBitmap = profileBitmap;
                         //intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, profileShortcutBitmap);
                         shortcutBuilderCompat.setIcon(IconCompat.createWithBitmap(profileShortcutBitmap));
                     }

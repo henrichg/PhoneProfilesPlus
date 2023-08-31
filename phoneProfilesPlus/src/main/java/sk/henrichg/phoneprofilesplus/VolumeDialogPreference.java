@@ -98,8 +98,7 @@ public class VolumeDialogPreference extends DialogPreference {
             actualValueSystem = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
             actualValueVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
             actualValueDTMF = audioManager.getStreamVolume(AudioManager.STREAM_DTMF);
-            //if (Build.VERSION.SDK_INT >= 26)
-                actualValueAccessibility = audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY);
+            actualValueAccessibility = audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY);
             actualValueBluetoothSCO = audioManager.getStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
 
             if (volumeType != null) {

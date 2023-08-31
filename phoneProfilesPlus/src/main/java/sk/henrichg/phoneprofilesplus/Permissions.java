@@ -868,7 +868,6 @@ class Permissions {
     static void checkProfileAlwaysOnDisplay(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;
 
-        //if (android.os.Build.VERSION.SDK_INT >= 26) {
         try {
             if (profile._alwaysOnDisplay != 0) {
                 boolean granted = Settings.System.canWrite(context);
@@ -881,7 +880,6 @@ class Permissions {
             }
         } catch (Exception ignored) {
         }
-        //}
     }
 
     static boolean checkLockDevice(Context context) {
@@ -1016,7 +1014,6 @@ class Permissions {
     static void checkProfileMicrophone(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return /*true*/;
 
-        //if (Build.VERSION.SDK_INT >= 26) {
         try {
             if ((profile._deviceAirplaneMode >= 4)/* &&
                     (!PPApplication.isRooted(false))*/) {
@@ -1030,8 +1027,6 @@ class Permissions {
         } catch (Exception e) {
             //return /*false*/;
         }
-        //} //else
-            //return /*true*/;
     }
 
     static void checkProfileRunApplications(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
@@ -1578,7 +1573,6 @@ class Permissions {
                         }
                     }
 
-                    //if (Build.VERSION.SDK_INT >= 26) {
                         if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
                             if (event._eventPreferencesMobileCells._enabled) {
                                 if (permissions != null) {
@@ -1625,8 +1619,6 @@ class Permissions {
                             }
                         }
 
-                    //}
-
                 }
 
             } catch (Exception ignored) {
@@ -1652,7 +1644,6 @@ class Permissions {
                     }
                 }
 
-                //if (Build.VERSION.SDK_INT >= 26) {
                     if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
                         if (preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
                             if (permissions != null) {
@@ -1700,8 +1691,6 @@ class Permissions {
                         }
                     }
 
-                //}
-
             }
 
         }
@@ -1717,10 +1706,7 @@ class Permissions {
 
     static boolean checkMicrophone(Context context) {
         try {
-            //if (Build.VERSION.SDK_INT >= 26)
-                return (ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED);
-            //else
-            //    return true;
+            return (ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED);
         } catch (Exception e) {
             return false;
         }
@@ -2272,8 +2258,7 @@ class Permissions {
                 // only for API 29 add also background location For 30+ must be granted separatelly
                 //if (Build.VERSION.SDK_INT == 29)
                 //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
-                //if (Build.VERSION.SDK_INT >= 26)
-                    permissions.add(new PermissionType(PERMISSION_TYPE_LOCATION_PREFERENCE, permission.READ_PHONE_STATE));
+                permissions.add(new PermissionType(PERMISSION_TYPE_LOCATION_PREFERENCE, permission.READ_PHONE_STATE));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

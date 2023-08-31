@@ -265,12 +265,10 @@ class DatabaseHandlerImportExport {
 
         // clear dual sim parameters for device without dual sim support
         int phoneCount = 1;
-        //if (Build.VERSION.SDK_INT >= 26) {
             TelephonyManager telephonyManager = (TelephonyManager) instance.context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 phoneCount = telephonyManager.getPhoneCount();
             }
-        //}
         if (phoneCount < 2) {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1 + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2 + "=0");

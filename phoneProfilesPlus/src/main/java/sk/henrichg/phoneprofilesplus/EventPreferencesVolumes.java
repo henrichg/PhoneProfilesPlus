@@ -363,7 +363,6 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
 
                 /*
-                if (Build.VERSION.SDK_INT >= 26) {
                     operator = 0;
                     splits = this._volumeAccessibility.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
@@ -379,7 +378,6 @@ class EventPreferencesVolumes extends EventPreferences {
                         String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                         descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[operator], disabled, context) + "</b>";
                     }
-                }
                 */
 
             }
@@ -644,12 +642,11 @@ class EventPreferencesVolumes extends EventPreferences {
             } catch (Exception ignored) {}
         }
 
-        //if (Build.VERSION.SDK_INT < 26) {
             runnable = runnable &&
                     ((ringtoneOperator != 0) || (notificationOperator != 0) || (mediaOoperator != 0) ||
                      (alarmOperator != 0) || (systemOperator != 0) || (voiceOperator != 0) ||
                      (bluetoothSCOOperator != 0));
-        /*} else  {
+        /*
             int accessibilityOperator = 0;
             splits = this._volumeAccessibility.split(StringConstants.STR_SPLIT_REGEX);
             if (splits.length > 1) {
@@ -663,7 +660,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     ((ringtoneOperator != 0) || (notificationOperator != 0) || (mediaOoperator != 0) ||
                      (alarmOperator != 0) || (systemOperator != 0) || (voiceOperator != 0) ||
                      (bluetoothSCOOperator != 0) || (accessibilityOperator != 0));
-        }*/
+        */
 
         return runnable;
     }

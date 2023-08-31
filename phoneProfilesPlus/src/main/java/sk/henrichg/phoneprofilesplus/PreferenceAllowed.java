@@ -90,11 +90,6 @@ class PreferenceAllowed {
         if (RootUtils.isRooted(/*fromUIThread*/)) {
             // device is rooted
 
-            /*if ((Build.VERSION.SDK_INT < 26) && assistantParameter) {
-                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
-                preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
-            } else {*/
                 if (profile != null) {
                     // test if grant root is disabled
                     if (profile._deviceAirplaneMode < 4) {
@@ -124,9 +119,7 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
-            //}
         } else {
-            //if (Build.VERSION.SDK_INT >= 26) {
                 if (assistantParameter) {
                     // check if default Assistent is set to PPP
                     if (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context)) {
@@ -158,18 +151,6 @@ class PreferenceAllowed {
                         }
                     }
                     }
-            /*} else {
-                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                if (assistantParameter) {
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
-                    preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
-                } else {
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                    if ((profile != null) && (profile._deviceAirplaneMode != 0)) {
-                        preferenceAllowed.notAllowedRoot = true;
-                    }
-                }
-            }*/
         }
     }
 
@@ -395,7 +376,6 @@ class PreferenceAllowed {
                                                                            String preferenceKey, Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread, Context context) {
         Context appContext = context.getApplicationContext();
 
-        //if (Build.VERSION.SDK_INT >= 26) {
 
             boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
@@ -533,11 +513,6 @@ class PreferenceAllowed {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
-        //} else {
-        //    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-        //    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-        //    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
-        //}
     }
     */
 
@@ -770,21 +745,6 @@ class PreferenceAllowed {
         //if (Build.VERSION.SDK_INT < 30) {
             if (PPApplication.HAS_FEATURE_WIFI) {
                 // device has Wifi
-                /*if (android.os.Build.VERSION.SDK_INT < 26) {
-                    if (WifiApManager.canExploitWifiAP(appContext)) {
-                        if (profile != null) {
-                            if (profile._deviceWiFiAP != 0)
-                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                        }
-                        else
-                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                    }
-                    else {
-                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                    }
-                } else*/
                 if (Build.VERSION.SDK_INT < 28) {
                     if (WifiApManager.canExploitWifiTethering(appContext)) {
                         if (profile != null) {
@@ -1455,7 +1415,6 @@ class PreferenceAllowed {
 
         Context appContext = context.getApplicationContext();
 
-        //if (Build.VERSION.SDK_INT >= 26) {
             boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
             if (PPApplication.HAS_FEATURE_TELEPHONY) {
@@ -1541,11 +1500,6 @@ class PreferenceAllowed {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
-        /*} else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
-        }*/
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED(PreferenceAllowed preferenceAllowed,
@@ -1799,13 +1753,7 @@ class PreferenceAllowed {
 
         //Context appContext = context.getApplicationContext();
 
-        //if (android.os.Build.VERSION.SDK_INT >= 26)
-            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-        /*else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
-        }*/
+        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY(PreferenceAllowed preferenceAllowed,
@@ -1817,7 +1765,6 @@ class PreferenceAllowed {
 
         String preferenceKey = Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY;
 
-        //if (android.os.Build.VERSION.SDK_INT >= 26) {
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 if (profile != null) {
                     if (profile._headsUpNotifications != 0)
@@ -1866,12 +1813,6 @@ class PreferenceAllowed {
                     preferenceAllowed.notAllowedG1 = true;
                 }
             }
-        /*}
-        else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
-        }*/
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_DARK_MODE(PreferenceAllowed preferenceAllowed,
@@ -1994,7 +1935,6 @@ class PreferenceAllowed {
 
         String preferenceKey = Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS;
 
-        //if (Build.VERSION.SDK_INT >= 26) {
             //if (PPApplication.HAS_FEATURE_TELEPHONY) {
             final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
@@ -2059,7 +1999,6 @@ class PreferenceAllowed {
             //    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
             //    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             //}
-        //}
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM(PreferenceAllowed preferenceAllowed,
@@ -2148,7 +2087,6 @@ class PreferenceAllowed {
 
         Context appContext = context.getApplicationContext();
 
-        //if (Build.VERSION.SDK_INT >= 26) {
             if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                     (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
@@ -2179,12 +2117,6 @@ class PreferenceAllowed {
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_by_ppp);
             }
-        /*}
-        else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_by_ppp);
-        }*/
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(PreferenceAllowed preferenceAllowed,
@@ -2195,7 +2127,6 @@ class PreferenceAllowed {
 
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
-        //if (Build.VERSION.SDK_INT >= 26) {
             if (((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -2288,11 +2219,6 @@ class PreferenceAllowed {
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_by_ppp);
             }
-        /*} else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-        }*/
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(PreferenceAllowed preferenceAllowed,
@@ -2304,7 +2230,6 @@ class PreferenceAllowed {
 
         String preferenceKey = Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS;
 
-        //if (Build.VERSION.SDK_INT >= 26) {
             if ((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
                     PPApplication.deviceIsOnePlus) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -2371,11 +2296,6 @@ class PreferenceAllowed {
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported);
             }
-        /*} else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-        }*/
     }
 
 }

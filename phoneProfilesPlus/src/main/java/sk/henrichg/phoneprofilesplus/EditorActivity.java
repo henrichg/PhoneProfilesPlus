@@ -2749,11 +2749,9 @@ public class EditorActivity extends AppCompatActivity
                     try {
                         editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VOLUME_DTMF, audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF));
                     } catch (Exception ignored) {}
-                    //if (Build.VERSION.SDK_INT >= 26) {
-                        try {
-                            editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VOLUME_ACCESSIBILITY, audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY));
-                        } catch (Exception ignored) {}
-                    //}
+                    try {
+                        editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VOLUME_ACCESSIBILITY, audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY));
+                    } catch (Exception ignored) {}
                     try {
                         editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO, audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO));
                     } catch (Exception ignored) {}

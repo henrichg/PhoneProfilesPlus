@@ -156,7 +156,6 @@ public class WallpaperViewPreference extends Preference {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setType(StringConstants.MIME_TYPE_IMAGE);
 
-            //if (Build.VERSION.SDK_INT >= 26) {
                 boolean ok = false;
                 if (!(imageIdentifier.isEmpty() || imageIdentifier.equals("-"))) {
                     try {
@@ -177,7 +176,6 @@ public class WallpaperViewPreference extends Preference {
                     } catch (Exception ignored) {
                     }
                 }
-            //}
 
             // is not possible to get activity from preference, used is static method
             //ProfilesPrefsFragment.setChangedWallpaperViewPreference(this);

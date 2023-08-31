@@ -76,7 +76,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                         preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
                     else if (preference.volumeType.equalsIgnoreCase("DTMF"))
                         preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-                    else if ((Build.VERSION.SDK_INT >= 26) && preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
+                    else if (preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
                         preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
                     else if (preference.volumeType.equalsIgnoreCase("BLUETOOTHSCO"))
                         preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
@@ -387,7 +387,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                                 mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
                         } else if (preference.volumeType.equalsIgnoreCase("DTMF"))
                             mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
-                        else if (/*(Build.VERSION.SDK_INT >= 26) &&*/ preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
+                        else if (preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
                             mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
                         else if (preference.volumeType.equalsIgnoreCase("BLUETOOTHSCO")) {
                             Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);

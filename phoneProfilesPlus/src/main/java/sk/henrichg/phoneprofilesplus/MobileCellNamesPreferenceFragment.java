@@ -106,7 +106,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
             sim2Exists = false;
         }
 
-        if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (phoneCount > 1)) {
+        if ((phoneCount > 1)) {
             if (!sim1Exists)
                 connectedCellSIM1.setVisibility(View.GONE);
             if (!sim2Exists)
@@ -124,11 +124,6 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
             TelephonyManager telephonyManager = (TelephonyManager) prefContext.getSystemService(Context.TELEPHONY_SERVICE);
             boolean simIsReady = false;
             if (telephonyManager != null) {
-                /*if (Build.VERSION.SDK_INT < 26) {
-                    if (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY)
-                        // sim card is ready
-                        simIsReady = true;
-                } else {*/
                 if (Permissions.checkPhone(prefContext.getApplicationContext())) {
                     SubscriptionManager mSubscriptionManager = (SubscriptionManager) prefContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                     //SubscriptionManager.from(context);
@@ -158,7 +153,6 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                         }
                     }
                 }
-                //}
             }
             if (simIsReady) {
                 rescanButton.setOnClickListener(v -> {
@@ -356,7 +350,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
 
                         //MobileCellsScanner scanner = PhoneProfilesService.getInstance().getMobileCellsScanner();
 
-                        if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (fragment.phoneCount > 1)) {
+                        if ((fragment.phoneCount > 1)) {
                             if (sim1Exists) {
                                 if (PPApplication.mobileCellsScanner != null) {
                                     registeredCellSIM1 = PPApplication.mobileCellsScanner.getRegisteredCell(1);
@@ -404,7 +398,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                 preference.cellNamesList = new ArrayList<>(_cellsList);
                 fragment.listAdapter.notifyDataSetChanged();
 
-                if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (fragment.phoneCount > 1)) {
+                if ((fragment.phoneCount > 1)) {
                     if (sim1Exists) {
                         String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim1) + " ";
                         if (registeredCellSIM1 != Integer.MAX_VALUE) {

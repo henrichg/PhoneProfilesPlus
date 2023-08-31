@@ -1206,7 +1206,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preferenceCategory.removePreference(preference);
             }
         }
-        //if (Build.VERSION.SDK_INT >= 26) {
             preference = findPreference(PREF_ACTIVATED_PROFILE_NOTIFICATION_SYSTEM_SETTINGS);
             if (preference != null) {
                 preference.setSummary(getString(R.string.phone_profiles_pref_notificationSystemSettings_summary) +
@@ -1295,7 +1294,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     return false;
                 });
             }
-        //}
 
         preference = findPreference(PREF_ALL_NOTIFICATIONS_SYSTEM_SETTINGS);
         if (preference != null) {
@@ -1517,7 +1515,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             });
         }
 /*
-        if (Build.VERSION.SDK_INT >= 26) {
             preference = findPreference(PREF_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_SYSTEM_SETTINGS);
             if (preference != null) {
                 preference.setSummary(getString(R.string.phone_profiles_pref_notificationSystemSettings_summary) +
@@ -1559,7 +1556,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 });
             }
-        }
 */
 
         preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER);
@@ -2454,8 +2450,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         //setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_HEADER);
         //setSummary(ApplicationPreferences.PREF_APPLICATION_EDITOR_HEADER);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_TOAST);
-        //if (Build.VERSION.SDK_INT < 26)
-        //    setSummary(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
@@ -2464,16 +2458,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
 
-        /*if (Build.VERSION.SDK_INT < 26) {
-            setSummary(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
-            Preference preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
-            if (preference != null) {
-                preference.setTitle(R.string.phone_profiles_pref_notificationShowInStatusBarAndLockscreen);
-            }
-        }*/
-
-        //if (Build.VERSION.SDK_INT < 26)
-        //    setSummary(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
@@ -3343,21 +3327,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             return;
 
         Context context = getActivity().getApplicationContext();
-
-        /*if ((android.os.Build.VERSION.SDK_INT < 26)) {
-            if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR)) {
-                boolean show = preferences.getBoolean(key, true);
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
-                if (_preference != null)
-                    _preference.setEnabled(show);
-            }
-            if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR)) {
-                boolean show = preferences.getBoolean(key, true);
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_HIDE_IN_LOCKSCREEN);
-                if (_preference != null)
-                    _preference.setEnabled(show);
-            }
-        }*/
 
         if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR) ||
                 key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR) ||

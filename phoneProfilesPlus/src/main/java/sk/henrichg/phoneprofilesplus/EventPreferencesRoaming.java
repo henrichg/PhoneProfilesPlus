@@ -112,7 +112,6 @@ class EventPreferencesRoaming extends EventPreferences {
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_data), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
-                //if (Build.VERSION.SDK_INT >= 26) {
                     boolean hasSIMCard = false;
                     final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
@@ -133,7 +132,6 @@ class EventPreferencesRoaming extends EventPreferences {
                         String[] forSimCard = context.getResources().getStringArray(R.array.eventRoamingForSimCardArray);
                         _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     }
-                //}
             }
             else {
                 _value.append(context.getString(R.string.profile_preferences_device_not_allowed)).append(StringConstants.STR_COLON_WITH_SPACE).append(preferenceAllowed.getNotAllowedPreferenceReasonString(context));
@@ -157,7 +155,6 @@ class EventPreferencesRoaming extends EventPreferences {
 
         boolean hasFeature = false;
         boolean hasSIMCard = false;
-        //if (Build.VERSION.SDK_INT >= 26) {
             if (key.equals(PREF_EVENT_ROAMING_FOR_SIM_CARD)) {
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
@@ -201,7 +198,6 @@ class EventPreferencesRoaming extends EventPreferences {
                     }
                 }
             }
-        //}
 
         Event event = new Event();
         event.createEventPreferences();
@@ -295,7 +291,6 @@ class EventPreferencesRoaming extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_ROAMING_ENABLED) != null) {
-                //if (Build.VERSION.SDK_INT >= 26) {
                     boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_ROAMING_ENABLED, false);
                     Preference preference;
                     boolean showPreferences = false;
@@ -322,7 +317,6 @@ class EventPreferencesRoaming extends EventPreferences {
                         if (preference != null)
                             preference.setVisible(false);
                     }
-                //}
 
                 setSummary(prefMng, PREF_EVENT_ROAMING_ENABLED, preferences, context);
             }
@@ -414,11 +408,6 @@ class EventPreferencesRoaming extends EventPreferences {
 
                 boolean networkRoaming = false;
                 boolean dataRoaming = false;
-                /*if (Build.VERSION.SDK_INT < 26) {
-                    networkRoaming = _networkRoamingInSIMSlot0;
-                    dataRoaming = _dataRoamingInSIMSlot0;
-                }
-                else*/
                 if (_forSIMCard == 0) {
                     networkRoaming = _networkRoamingInSIMSlot0 || _networkRoamingInSIMSlot1 || _networkRoamingInSIMSlot2;
                     dataRoaming = _dataRoamingInSIMSlot0 || _dataRoamingInSIMSlot1 || _dataRoamingInSIMSlot2;

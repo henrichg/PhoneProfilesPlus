@@ -207,7 +207,6 @@ class ActivateProfileHelper {
         }
 
         // change default SIM
-        //if (Build.VERSION.SDK_INT >= 26) {
             if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (!firstSleepCalled) {
@@ -248,7 +247,6 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        //}
 
         // setup network type
         // in array.xml, networkTypeGSMValues are 100+ values
@@ -264,7 +262,6 @@ class ActivateProfileHelper {
                 GlobalUtils.sleep(200);
             }
         }
-        //if (Build.VERSION.SDK_INT >= 26) {
             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 int phoneCount = telephonyManager.getPhoneCount();
@@ -295,7 +292,6 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        //}
 
         // setup mobile data
         if (profile._deviceMobileData != 0) {
@@ -332,7 +328,6 @@ class ActivateProfileHelper {
             }
         }
 /*
-        //if (Build.VERSION.SDK_INT >= 26) {
             //final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 int phoneCount = telephonyManager.getPhoneCount();
@@ -418,7 +413,6 @@ class ActivateProfileHelper {
 
                 }
             }
-        //}
 */
         // setup WiFi AP
         boolean canChangeWifi = true;
@@ -728,9 +722,7 @@ class ActivateProfileHelper {
                     }
                     if (setBluetoothState) {
                         try {
-                            //if (Build.VERSION.SDK_INT >= 26)
                             //    CmdBluetooth.setBluetooth(isBluetoothEnabled);
-                            //else {
                                 if (isBluetoothEnabled) {
 //                                    Log.e("ActivateProfileHelper.doExecuteForRadios", "######## enable bluetooth");
                                     bluetoothAdapter.enable();
@@ -739,7 +731,6 @@ class ActivateProfileHelper {
 //                                    Log.e("ActivateProfileHelper.doExecuteForRadios", "######## disable bluetooth");
                                     bluetoothAdapter.disable();
                                 }
-                            //}
                         } catch (Exception e) {
                             // WTF?: DOOGEE - X5pro -> java.lang.SecurityException: Permission Denial: Enable bluetooth requires com.mediatek.permission.CTA_ENABLE_BT
                             //Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
@@ -1234,7 +1225,6 @@ class ActivateProfileHelper {
         }
 
         if (forProfileActivation) {
-            //if (Build.VERSION.SDK_INT >= 26) {
                 if (profile.getVolumeAccessibilityChange()) {
                     try {
                         //EventPreferencesVolumes.internalChange = true;
@@ -1244,7 +1234,6 @@ class ActivateProfileHelper {
                         PPApplicationStatic.recordException(e);
                     }
                 }
-            //}
         }
 
         if (forRingerMode) {
@@ -5056,7 +5045,6 @@ class ActivateProfileHelper {
             setScreenDarkMode(context, profile._screenDarkMode, executedProfileSharedPreferences);
         }
 
-        //if (android.os.Build.VERSION.SDK_INT >= 26) {
             // set always on display
             if (profile._alwaysOnDisplay != 0) {
                 switch (profile._alwaysOnDisplay) {
@@ -5068,7 +5056,6 @@ class ActivateProfileHelper {
                         break;
                 }
             }
-        //}
 
         // close all applications
 
@@ -5441,10 +5428,7 @@ class ActivateProfileHelper {
             WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
             if (windowManager != null) {
                 int type;
-                if (android.os.Build.VERSION.SDK_INT < 26)
-                    type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
-                else
-                    type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+                type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
                 WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                         1, 1,
                         type,
@@ -5499,10 +5483,7 @@ class ActivateProfileHelper {
                     PPApplication.brightnessView = null;
                 }
                 int type;
-                if (android.os.Build.VERSION.SDK_INT < 26)
-                    type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
-                else
-                    type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+                type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
                 WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                         1, 1,
                         type,
@@ -5655,10 +5636,7 @@ class ActivateProfileHelper {
         if (windowManager != null) {
 //            Log.e("ActivateProfileHelper.createKeepScreenOnView", "xxx");
             int type;
-            //if (android.os.Build.VERSION.SDK_INT < 26)
-            //    type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
-            //else
-                type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+            type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                     1, 1,
                     type,
@@ -5765,12 +5743,10 @@ class ActivateProfileHelper {
         }
         else
         if (useAssistant && isPPPSetAsDefaultAssistant(context)) {
-            //if (Build.VERSION.SDK_INT >= 26) {
                 Intent intent = new Intent(PPVoiceService.ACTION_ASSISTANT);
                 intent.putExtra("ACTION", Settings.ACTION_VOICE_CONTROL_AIRPLANE_MODE);
                 intent.putExtra(Settings.EXTRA_AIRPLANE_MODE_ENABLED, mode);
                 context.sendBroadcast(intent);
-            //}
         }
     }
 
@@ -5924,7 +5900,7 @@ class ActivateProfileHelper {
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
 //                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
-                if (/*(Build.VERSION.SDK_INT < 26) ||*/ (simCard == 0)) {
+                if ((simCard == 0)) {
                     synchronized (PPApplication.rootMutex) {
                         String command1 = "svc data " + (enable ? "enable" : "disable");
                         Command command = new Command(0, /*false,*/ command1);
@@ -6175,7 +6151,7 @@ class ActivateProfileHelper {
 //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "subscriptionInfo=" + subscriptionInfo);
                                     if (subscriptionInfo != null) {
                                         int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                        if (/*(Build.VERSION.SDK_INT < 26) ||*/ (simCard == 0) || (simCard == (slotIndex+1))) {
+                                        if ((simCard == 0) || (simCard == (slotIndex+1))) {
                                             // dual sim is supported by TelephonyManager from API 26
 
                                             int subscriptionId = subscriptionInfo.getSubscriptionId();
@@ -6239,12 +6215,6 @@ class ActivateProfileHelper {
     private static void setWifiAP(WifiApManager wifiApManager, boolean enable, boolean doNotChangeWifi,
                                   Profile profile, Context context) {
         try {
-
-            /*if (Build.VERSION.SDK_INT < 26) {
-                // for Android 7
-                wifiApManager.setWifiApState(enable, doNotChangeWifi);
-            }
-            else*/
             if (Build.VERSION.SDK_INT < 28) {
                 // for Android 8
                 Context appContext = context.getApplicationContext();
@@ -6911,7 +6881,6 @@ class ActivateProfileHelper {
 
             if (Permissions.checkPhone(context.getApplicationContext())) {
 //                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ask for root enabled and is rooted");
-                //if (Build.VERSION.SDK_INT >= 26) {
 //                    if (simCard != -1) {
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                         boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
@@ -7065,7 +7034,6 @@ class ActivateProfileHelper {
                         }
                     }
 */
-                //}
             }
         }
     }

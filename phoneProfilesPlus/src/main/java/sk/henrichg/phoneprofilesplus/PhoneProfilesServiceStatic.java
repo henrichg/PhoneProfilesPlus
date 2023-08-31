@@ -820,11 +820,7 @@ class PhoneProfilesServiceStatic
                                     .build();
 
                             PPApplication.wifiConnectionCallback = new WifiNetworkCallback(/*appContext*/);
-                            //if (Build.VERSION.SDK_INT >= 26)
-                                connectivityManager.registerNetworkCallback(networkRequest, PPApplication.wifiConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
-                            //else {
-                            //    connectivityManager.registerNetworkCallback(networkRequest, PPApplication.wifiConnectionCallback);
-                            //}
+                            connectivityManager.registerNetworkCallback(networkRequest, PPApplication.wifiConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
                         }
                     } catch (Exception e) {
                         PPApplication.wifiConnectionCallback = null;
@@ -841,10 +837,7 @@ class PhoneProfilesServiceStatic
                                     .build();
 
                             PPApplication.mobileDataConnectionCallback = new MobileDataNetworkCallback(/*appContext*/);
-                            //if (Build.VERSION.SDK_INT >= 26)
-                                connectivityManager.registerNetworkCallback(networkRequest, PPApplication.mobileDataConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
-                            //else
-                            //    connectivityManager.registerNetworkCallback(networkRequest, PPApplication.mobileDataConnectionCallback);
+                            connectivityManager.registerNetworkCallback(networkRequest, PPApplication.mobileDataConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
                         }
                     } catch (Exception e) {
                         PPApplication.mobileDataConnectionCallback = null;
@@ -1260,11 +1253,9 @@ class PhoneProfilesServiceStatic
             boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
-                //if (Build.VERSION.SDK_INT >= 26) {
-                    dataWrapper.fillEventList();
-                    allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS/*, false*/);
-                    allowed = allowed || dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS/*, false*/);
-                //}
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS/*, false*/);
+                allowed = allowed || dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS/*, false*/);
             }
             if (allowed) {
                 if (PPApplication.defaultSIMChangedBroadcastReceiver == null) {
@@ -2185,10 +2176,7 @@ class PhoneProfilesServiceStatic
                                         .build();
 
                                 PPApplication.vpnConnectionCallback = new VPNNetworkCallback(appContext);
-                                //if (Build.VERSION.SDK_INT >= 26)
-                                    connectivityManager.registerNetworkCallback(networkRequest, PPApplication.vpnConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
-                                //else
-                                //    connectivityManager.registerNetworkCallback(networkRequest, PPApplication.vpnConnectionCallback);
+                                connectivityManager.registerNetworkCallback(networkRequest, PPApplication.vpnConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
                             }
                         } catch (Exception e) {
                             PPApplication.vpnConnectionCallback = null;

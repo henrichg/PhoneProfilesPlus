@@ -118,7 +118,6 @@ class BluetoothScanner {
                                             if (BluetoothScanWorker.bluetooth == null)
                                                 BluetoothScanWorker.bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(appContext);
                                             //lock();
-                                            //if (Build.VERSION.SDK_INT >= 26)
                                             //    CmdBluetooth.setBluetooth(false);
                                             if (BluetoothScanWorker.bluetooth.isEnabled()) {
 //                                                Log.e("BluetoothScanner.doScan", "######## (1) disable bluetooth");
@@ -234,7 +233,6 @@ class BluetoothScanner {
                                                 if (BluetoothScanWorker.bluetooth == null)
                                                     BluetoothScanWorker.bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(appContext);
                                                 //lock();
-                                                //if (Build.VERSION.SDK_INT >= 26)
                                                 //    CmdBluetooth.setBluetooth(false);
                                                 if (BluetoothScanWorker.bluetooth.isEnabled()) {
 //                                                    Log.e("BluetoothScanner.doScan", "######## (2) disable bluetooth");
@@ -329,9 +327,7 @@ class BluetoothScanner {
                 if (!startScan) {
                     if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
                         if (Permissions.checkBluetoothForEMUI(context)) {
-                            //if (Build.VERSION.SDK_INT >= 26)
                             //    CmdBluetooth.setBluetooth(false);
-                            //else
                             if (BluetoothScanWorker.bluetooth.isEnabled()) {
 //                                Log.e("BluetoothScanWorker.startCLScan", "######## disable bluetooth");
                                 BluetoothScanWorker.bluetooth.disable();
@@ -535,9 +531,7 @@ class BluetoothScanner {
 
                         if (Permissions.checkBluetoothForEMUI(context)) {
                             //lock(); // lock is required for enabling bluetooth
-                            //if (Build.VERSION.SDK_INT >= 26)
                             //    CmdBluetooth.setBluetooth(true);
-                            //else
 //                            Log.e("BluetoothScanner.enableBluetooth", "######## enable bluetooth");
                                 _bluetooth.enable();
 

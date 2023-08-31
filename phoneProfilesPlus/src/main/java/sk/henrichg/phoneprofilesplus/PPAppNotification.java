@@ -176,8 +176,7 @@ public class PPAppNotification {
         if (notificationNotificationStyle.equals("0")) {
             // ----- create content view
 
-            //useDecorator = (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) || (Build.VERSION.SDK_INT >= 26);
-            useDecorator = /*useDecorator &&*/ notificationUseDecoration;
+            useDecorator = notificationUseDecoration;
 
             switch (notificationBackgroundColor) {
                 case "1":
@@ -488,7 +487,6 @@ public class PPAppNotification {
             pIntent = PendingIntent.getActivity(appContext, requestCode, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // ----- create notificationBuilders
-        //if (Build.VERSION.SDK_INT >= 26) {
         notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
         /*}
         else {
@@ -802,16 +800,6 @@ public class PPAppNotification {
         }
 
         if (phoneProfilesNotification != null) {
-
-            /*if (Build.VERSION.SDK_INT < 26) {
-                phoneProfilesNotification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
-                phoneProfilesNotification.ledOnMS = 0;
-                phoneProfilesNotification.ledOffMS = 0;
-                phoneProfilesNotification.sound = null;
-                phoneProfilesNotification.vibrate = null;
-                phoneProfilesNotification.defaults &= ~NotificationCompat.DEFAULT_SOUND;
-                phoneProfilesNotification.defaults &= ~NotificationCompat.DEFAULT_VIBRATE;
-            }*/
 
             // do not use Notification.FLAG_ONGOING_EVENT,
             // with this flag, is not possible to colapse this notification
@@ -1521,7 +1509,6 @@ public class PPAppNotification {
     }
 
     static void showNotification(Context context, boolean drawEmpty, boolean drawActivatedProfle, boolean drawImmediatelly) {
-        //if (Build.VERSION.SDK_INT >= 26) {
         //if (DebugVersion.enabled)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
@@ -1534,7 +1521,6 @@ public class PPAppNotification {
             dataWrapper.invalidateDataWrapper();
             //return; // do not return, dusplay activated profile immediatelly
         }
-        //}
 
         //if (DebugVersion.enabled)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
