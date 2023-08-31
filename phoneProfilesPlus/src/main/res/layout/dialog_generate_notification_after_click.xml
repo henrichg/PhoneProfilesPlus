@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/generateNotificationAfterClickDialogRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
+
+    <View
+        android:id="@+id/generateNotificationAfterClickDialog_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
+
+    <ScrollView
+        android:id="@+id/generateNotificationAfterClickDialog_root"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:id="@+id/generateNotificationAfterClickDialog_linla0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical">
+
+
+            <RadioGroup
+                android:id="@+id/generateNotificationAfterClickDialogRG"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
+                <RadioButton
+                    android:id="@+id/generateNotificationAfterClickDialogStartActivator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/checkbox_radiobutton_color"
+                    android:textSize="16sp"
+                    android:text="@string/generate_notification_after_click_dialog_start_activator"/>
+                <RadioButton
+                    android:id="@+id/generateNotificationAfterClickDialogStartEditor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/checkbox_radiobutton_color"
+                    android:textSize="16sp"
+                    android:text="@string/generate_notification_after_click_dialog_start_editor"/>
+                <RadioButton
+                    android:id="@+id/generateNotificationAfterClickDialogRestartEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/checkbox_radiobutton_color"
+                    android:textSize="16sp"
+                    android:text="@string/generate_notification_after_click_dialog_restart_events"/>
+                <RadioButton
+                    android:id="@+id/generateNotificationAfterClickDialogStartStopEventsRun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/checkbox_radiobutton_color"
+                    android:textSize="16sp"
+                    android:text="@string/generate_notification_after_click_dialog_enable_disable_events_run"/>
+            </RadioGroup>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/generateNotificationAfterClickDialog_buttonsDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
+
+</LinearLayout>
