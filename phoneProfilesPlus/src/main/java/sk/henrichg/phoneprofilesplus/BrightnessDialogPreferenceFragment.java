@@ -277,7 +277,7 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
         // Set the valueText text.
         valueText.setText(String.valueOf(preference.value));
 
-        if ((!fromUser) /*|| (android.os.Build.VERSION.SDK_INT < 23)*/){
+        if (!fromUser){
             setBrightnessFromSeekBar(preference.value);
         }
 
@@ -292,8 +292,7 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         //Log.e("BrightnessDialogPreferenceFragment.onStopTrackingTouch", "xxx");
-        //if ((android.os.Build.VERSION.SDK_INT >= 23))
-            setBrightnessFromSeekBar(preference.value);
+        setBrightnessFromSeekBar(preference.value);
     }
 
     /*
@@ -377,10 +376,6 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
     private void setAdaptiveBrightness(final float value) {
 *
         if (preference.adaptiveAllowed) {
-            //if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
-            //    Settings.System.putFloat(context.getContentResolver(),
-            //            ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, value);
-            //else
             {
                 try {
                     Settings.System.putFloat(context.getContentResolver(),

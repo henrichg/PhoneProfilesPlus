@@ -1840,32 +1840,6 @@ class DatabaseHandlerCreateUpdateDB {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_DURATION + "=5");
         }
 
-        /*if (oldVersion < 1410)
-        {
-            try {
-                final String selectQuery = "SELECT " + DatabaseHandler.KEY_ID + "," +
-                        DatabaseHandler.KEY_VOLUME_ZEN_MODE +
-                        " FROM " + DatabaseHandler.TABLE_PROFILES;
-
-                Cursor cursor = db.rawQuery(selectQuery, null);
-
-                if (cursor.moveToFirst()) {
-                    do {
-                        long id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
-                        int zenMode = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_ZEN_MODE));
-
-                        if ((zenMode == 6) && (android.os.Build.VERSION.SDK_INT < 23)) // Alarms only zen mode is supported from Android 6.0
-                            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES +
-                                    " SET " + DatabaseHandler.KEY_VOLUME_ZEN_MODE + "=3" + " " +
-                                    "WHERE " + DatabaseHandler.KEY_ID + "=" + id);
-
-                    } while (cursor.moveToNext());
-                }
-
-                cursor.close();
-            } catch (Exception ignored) {}
-        }*/
-
         if (oldVersion < 1420)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_POWER_SAVE_MODE + "=0");

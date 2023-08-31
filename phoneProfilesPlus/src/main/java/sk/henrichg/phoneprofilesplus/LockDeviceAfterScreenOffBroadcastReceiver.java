@@ -191,8 +191,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     /*
                     long alarmTime = SystemClock.elapsedRealtime() + lockDelay;
 
-                    //if (android.os.Build.VERSION.SDK_INT >= 23)
-                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     */
                 }
             }

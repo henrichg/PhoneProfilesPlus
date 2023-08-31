@@ -93,8 +93,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
             }
             else {
-                //if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             }
         }
     }

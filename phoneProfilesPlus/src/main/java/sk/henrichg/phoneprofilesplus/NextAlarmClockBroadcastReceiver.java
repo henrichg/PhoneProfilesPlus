@@ -214,7 +214,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                 AlarmManager _alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
                 if (_alarmManager != null) {
-                    //if (android.os.Build.VERSION.SDK_INT >= 23)
                     _alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), pendingIntent);
                 }
 

@@ -3439,21 +3439,7 @@ class ActivateProfileHelper {
 
     static boolean canChangeZenMode(Context context/*, boolean notCheckAccess*/) {
         Context appContext = context.getApplicationContext();
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            //boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-            //if (/*no60 &&*/ GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
-                //if (notCheckAccess)
-                //    return true;
-                //else
-                    return checkAccessNotificationPolicy(appContext);
-                    //return Permissions.checkAccessNotificationPolicy(appContext);
-            //}
-            //else
-            //    return PPNotificationListenerService.isNotificationListenerServiceEnabled(appContext, false);
-        //}
-        //else
-        //    return PPNotificationListenerService.isNotificationListenerServiceEnabled(appContext);
-        //return false;
+        return checkAccessNotificationPolicy(appContext);
     }
 
     private static void changeNotificationVolumeForVolumeEqual0(Profile profile) {
@@ -3466,57 +3452,22 @@ class ActivateProfileHelper {
 
     static int getSystemZenMode(Context context/*, int defaultValue*/) {
         Context appContext = context.getApplicationContext();
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            //boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-            //boolean activityExists = GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context);
-            //if (/*no60 &&*/ activityExists) {
-                NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                if (mNotificationManager != null) {
-                    int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
-                    switch (interruptionFilter) {
-                        case NotificationManager.INTERRUPTION_FILTER_ALARMS:
-                            return ActivateProfileHelper.ZENMODE_ALARMS;
-                        case NotificationManager.INTERRUPTION_FILTER_NONE:
-                            return ActivateProfileHelper.ZENMODE_NONE;
-                        case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
-                            return ActivateProfileHelper.ZENMODE_PRIORITY;
-                        case NotificationManager.INTERRUPTION_FILTER_ALL:
-                        case NotificationManager.INTERRUPTION_FILTER_UNKNOWN:
-                        default:
-                            return ActivateProfileHelper.ZENMODE_ALL;
-                    }
-                }
-            /*}
-            else {
-                ContentResolver resolver = appContext.getContentResolver();
-                if (resolver != null) {
-                    int interruptionFilter = Settings.Global.getInt(resolver, "zen_mode", -1);
-                    switch (interruptionFilter) {
-                        case 0:
-                            return ActivateProfileHelper.ZENMODE_ALL;
-                        case 1:
-                            return ActivateProfileHelper.ZENMODE_PRIORITY;
-                        case 2:
-                            return ActivateProfileHelper.ZENMODE_NONE;
-                        case 3:
-                            return ActivateProfileHelper.ZENMODE_ALARMS;
-                    }
-                }
-            }*/
-        /*}
-        if (android.os.Build.VERSION.SDK_INT < 23) {
-            int interruptionFilter = Settings.Global.getInt(appContext.getContentResolver(), "zen_mode", -1);
+        NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (mNotificationManager != null) {
+            int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
             switch (interruptionFilter) {
-                case 0:
-                    return ActivateProfileHelper.ZENMODE_ALL;
-                case 1:
-                    return ActivateProfileHelper.ZENMODE_PRIORITY;
-                case 2:
-                    return ActivateProfileHelper.ZENMODE_NONE;
-                case 3:
+                case NotificationManager.INTERRUPTION_FILTER_ALARMS:
                     return ActivateProfileHelper.ZENMODE_ALARMS;
+                case NotificationManager.INTERRUPTION_FILTER_NONE:
+                    return ActivateProfileHelper.ZENMODE_NONE;
+                case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
+                    return ActivateProfileHelper.ZENMODE_PRIORITY;
+                case NotificationManager.INTERRUPTION_FILTER_ALL:
+                case NotificationManager.INTERRUPTION_FILTER_UNKNOWN:
+                default:
+                    return ActivateProfileHelper.ZENMODE_ALL;
             }
-        }*/
+        }
         return -1; //defaultValue;
     }
 
@@ -3527,10 +3478,7 @@ class ActivateProfileHelper {
             ringerMode = audioManager.getRingerMode();
         int vibrateType = -999;
         //int vibrateWhenRinging;
-        //if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
-        //    vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), "vibrate_when_ringing", 0);
-        //else
-        //    vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
+        //vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
 
         return (ringerMode == AudioManager.RINGER_MODE_VIBRATE) ||
                 (vibrateType == AudioManager.VIBRATE_SETTING_ON) ||
@@ -5860,7 +5808,7 @@ class ActivateProfileHelper {
                 boolean ok = false;
                 ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone")); // service list | grep ITelephony
                 if (adapter != null) {
-                    if (/*(Build.VERSION.SDK_INT > 23) &&*/ (simCard > 0)) {
+                    if ((simCard > 0)) {
                         SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                         //SubscriptionManager.from(appContext);
                         if (mSubscriptionManager != null) {
@@ -5932,7 +5880,6 @@ class ActivateProfileHelper {
         if (android.os.Build.VERSION.SDK_INT >= 28)
             return true;
         else
-        //if (android.os.Build.VERSION.SDK_INT >= 22)
         {
             Class<?> telephonyManagerClass;
 
@@ -6206,8 +6153,6 @@ class ActivateProfileHelper {
                     if (transactionCode != -1) {
 //                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "transactionCode=" + transactionCode);
 
-                        // Android 5.1?
-                        //if (Build.VERSION.SDK_INT >= 22) {
                         Context appContext = context.getApplicationContext();
                         SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                         //SubscriptionManager.from(context);

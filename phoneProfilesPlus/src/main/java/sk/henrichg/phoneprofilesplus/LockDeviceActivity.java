@@ -47,8 +47,7 @@ public class LockDeviceActivity extends AppCompatActivity
 //        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] LockDeviceActivity.onCreate", "xxx");
 
         boolean canWriteSettings;// = true;
-        //if (android.os.Build.VERSION.SDK_INT >= 23)
-            canWriteSettings = Settings.System.canWrite(getApplicationContext());
+        canWriteSettings = Settings.System.canWrite(getApplicationContext());
 
         if (/*(PhoneProfilesService.getInstance() != null) &&*/ canWriteSettings) {
             //PPApplication.lockDeviceActivity = this;

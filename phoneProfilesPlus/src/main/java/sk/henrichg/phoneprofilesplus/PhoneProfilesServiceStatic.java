@@ -533,14 +533,11 @@ class PhoneProfilesServiceStatic
 
             // required for Do not disturb ringer mode
             if (PPApplication.interruptionFilterChangedReceiver == null) {
-                //if (android.os.Build.VERSION.SDK_INT >= 23) {
-                //boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-                //if (/*no60 &&*/ GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, appContext)) {
+                //if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, appContext)) {
                     PPApplication.interruptionFilterChangedReceiver = new InterruptionFilterChangedBroadcastReceiver();
                     IntentFilter intentFilter11 = new IntentFilter();
                     intentFilter11.addAction(NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED);
                     appContext.registerReceiver(PPApplication.interruptionFilterChangedReceiver, intentFilter11);
-                //}
                 //}
             }
 
@@ -557,14 +554,12 @@ class PhoneProfilesServiceStatic
 
             // required for start EventsHandler in idle maintenance window
             if (PPApplication.deviceIdleModeReceiver == null) {
-                //if (android.os.Build.VERSION.SDK_INT >= 23) {
                 PPApplication.deviceIdleModeReceiver = new DeviceIdleModeBroadcastReceiver();
                 IntentFilter intentFilter9 = new IntentFilter();
                 intentFilter9.addAction(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED);
                 // is @hide :-(
                 // intentFilter9.addAction(PowerManager.ACTION_LIGHT_DEVICE_IDLE_MODE_CHANGED);
                 appContext.registerReceiver(PPApplication.deviceIdleModeReceiver, intentFilter9);
-                //}
             }
 
             // required for (un)register connected bluetooth devices
@@ -3773,8 +3768,7 @@ class PhoneProfilesServiceStatic
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
             }
             else {
-                //if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
             }
         }
     }

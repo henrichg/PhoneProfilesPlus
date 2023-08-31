@@ -534,7 +534,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         doOnActivityCreatedBatterySaver(PREF_ORIENTATION_POWER_SAVE_MODE_SETTINGS);
         doOnActivityCreatedBatterySaver(PREF_NOTIFICATION_POWER_SAVE_MODE_SETTINGS);
 
-        //if (Build.VERSION.SDK_INT >= 23) {
             preference = findPreference(PREF_APPLICATION_PERMISSIONS);
             if (preference != null) {
                 //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -1013,70 +1012,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 });
             }
 
-        /*}
-        else {
-            // hide user permissions
-            PreferenceScreen preferenceCategory = findPreference(PREF_PERMISSIONS_CATEGORY);
-            if (preferenceCategory != null) {
-                preference = findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
-                if (preference != null)
-                    preferenceCategory.removePreference(preference);
-                //preference = findPreference(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
-                //if (preference != null)
-                //    preferenceCategory.removePreference(preference);
-                preference = findPreference(PREF_DRAW_OVERLAYS_PERMISSIONS);
-                if (preference != null)
-                    preferenceCategory.removePreference(preference);
-                preference = findPreference(PREF_APPLICATION_PERMISSIONS);
-                if (preference != null)
-                    preferenceCategory.removePreference(preference);
-            }
-
-            if (!PPApplication.isRooted(true)) {
-                preference = findPreference(PREF_GRANT_ROOT_PERMISSION);
-                if (preference != null)
-                    preference.setEnabled(false);
-            }
-
-//            if (PPApplication.isRooted(true)) {
-//                PreferenceScreen preferenceCategory = findPreference(PREF_PERMISSIONS_CATEGORY);
-//                if (preferenceCategory != null) {
-//                    preference = findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
-//                    if (preference != null)
-//                        preferenceCategory.removePreference(preference);
-//                    //preference = findPreference(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
-//                    //if (preference != null)
-//                    //    preferenceCategory.removePreference(preference);
-//                    preference = findPreference(PREF_DRAW_OVERLAYS_PERMISSIONS);
-//                    if (preference != null)
-//                        preferenceCategory.removePreference(preference);
-//                    preference = findPreference(PREF_APPLICATION_PERMISSIONS);
-//                    if (preference != null)
-//                        preferenceCategory.removePreference(preference);
-//                }
-//            }
-//            else {
-//                PreferenceScreen preferenceScreen = findPreference(PPApplication.PREF_ROOT_SCREEN);
-//                Preference preferenceCategory = findPreference(PREF_PERMISSIONS_CATEGORY);
-//                if ((preferenceScreen != null) && (preferenceCategory != null))
-//                        preferenceScreen.removePreference(preferenceCategory);
-//            }
-
-            preferenceCategory = findPreference(PREF_WIFI_SCANNING_CATEGORY);
-            preference = findPreference(PREF_WIFI_LOCATION_SYSTEM_SETTINGS);
-            if ((preferenceCategory != null) && (preference != null))
-                preferenceCategory.removePreference(preference);
-
-            preferenceCategory = findPreference(PREF_BLUETOOTH_SCANNING_CATEGORY);
-            preference = findPreference(PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
-            if ((preferenceCategory != null) && (preference != null))
-                preferenceCategory.removePreference(preference);
-
-            PreferenceCategory preferenceCategory2 = findPreference("applicationPowerParametersCategory");
-            preference = findPreference(PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS);
-            if ((preferenceCategory2 != null) && (preference != null))
-                preferenceCategory2.removePreference(preference);
-        }*/
 
         // force check root
         boolean rooted;
@@ -3814,7 +3749,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setSummary(summary);
             }
         }*/
-        //if (Build.VERSION.SDK_INT >= 23) {
             /*if (key.equals(PREF_APPLICATION_PERMISSIONS)) {
                 // not possible to get granted runtime permission groups :-(
             }*/

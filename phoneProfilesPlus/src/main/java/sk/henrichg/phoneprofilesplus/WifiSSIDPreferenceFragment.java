@@ -400,7 +400,6 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
     }
 
     void setLocationEnableStatus() {
-        //if (Build.VERSION.SDK_INT >= 23) {
             String statusText;
             if (!GlobalUtils.isLocationEnabled(prefContext)) {
                 statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + StringConstants.STR_NEWLINE_WITH_COLON +
@@ -456,13 +455,6 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                 //locationSystemSettingsButton.setVisibility(View.GONE);
                 rescanButton.setVisibility(View.VISIBLE);
             }
-        /*}
-        else {
-            locationSystemSettingsRelLa.setVisibility(View.GONE);
-            //locationEnabledStatusTextView.setVisibility(View.GONE);
-            //locationSystemSettingsButton.setVisibility(View.GONE);
-            rescanButton.setVisibility(View.VISIBLE);
-        }*/
     }
 
     void refreshListView(boolean forRescan, final String scrollToSSID)

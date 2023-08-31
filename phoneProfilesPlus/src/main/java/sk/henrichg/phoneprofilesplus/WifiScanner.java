@@ -417,7 +417,6 @@ class WifiScanner {
     }
 
     private static boolean isLocationEnabled(Context context/*, String scanType*/) {
-        //if (Build.VERSION.SDK_INT >= 23) {
             // check for Location Settings
 
             /* isScanAlwaysAvailable() may be disabled for unknown reason :-(
@@ -488,12 +487,6 @@ class WifiScanner {
                 setShowEnableLocationNotification(context, true, scanType);*/
                 return true;
             }
-
-        /*}
-        else {
-            //setShowEnableLocationNotification(context, true, scanType);
-            return true;
-        }*/
     }
 
 }

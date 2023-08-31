@@ -211,14 +211,14 @@ class PlayRingingNotification
                 boolean simulateRinging = false;
                 //int stream = AudioManager.STREAM_RING;
 
-                //if (!(((newRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                //if (!(((newRingerMode == Profile.RINGERMODE_SILENT)) ||
                 //        ((newRingerMode == Profile.RINGERMODE_ZENMODE) &&
                 //                ((newZenMode == Profile.ZENMODE_NONE) || (newZenMode == Profile.ZENMODE_ALARMS))))) {
                 //    // new ringer/zen mode is changed to another then NONE and ONLY_ALARMS
                 //    // Android 6 - ringerMode=Profile.RINGERMODE_SILENT = ONLY_ALARMS
                 //
                 //    // test old ringer and zen mode
-                //    if (((oldRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                //    if (((oldRingerMode == Profile.RINGERMODE_SILENT)) ||
                 //            ((oldRingerMode == Profile.RINGERMODE_ZENMODE) &&
                 //                    ((oldZenMode == Profile.ZENMODE_NONE) || (oldZenMode == Profile.ZENMODE_ALARMS)))) {
                 //        // old ringer/zen mode is NONE and ONLY_ALARMS
@@ -226,19 +226,15 @@ class PlayRingingNotification
                 //        stream = AudioManager.STREAM_ALARM;
                 //    }
                 //}
-                //if (android.os.Build.VERSION.SDK_INT >= 23) {
                 if (!ActivateProfileHelper.isAudibleRinging(oldRingerMode, oldZenMode)) {
                     simulateRinging = true;
                     //stream = AudioManager.STREAM_ALARM;
                 }
 
                 //if (!simulateRinging) {
-                //    if (!(((newRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT < 23)) ||
-                //            ((newRingerMode == Profile.RINGERMODE_ZENMODE) && (newZenMode == Profile.ZENMODE_PRIORITY)))) {
+                //    if (!(((newRingerMode == Profile.RINGERMODE_ZENMODE) && (newZenMode == Profile.ZENMODE_PRIORITY)))) {
                 //        // new ringer/zen mode is changed to another then PRIORITY
-                //        // Android 5 - ringerMode=Profile.RINGERMODE_SILENT = PRIORITY
-                //        if (((oldRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT < 23)) ||
-                //                ((oldRingerMode == Profile.RINGERMODE_ZENMODE) && (oldZenMode == Profile.ZENMODE_PRIORITY))) {
+                //        if (((oldRingerMode == Profile.RINGERMODE_ZENMODE) && (oldZenMode == Profile.ZENMODE_PRIORITY))) {
                 //            // old ringer/zen mode is PRIORITY
                 //            simulateRinging = true;
                 //            if (oldSystemRingerMode == AudioManager.RINGER_MODE_SILENT) {
@@ -251,19 +247,6 @@ class PlayRingingNotification
                 //        }
                 //    }
                 //}
-                    /*if (android.os.Build.VERSION.SDK_INT < 23) {
-                        if (!ActivateProfileHelper.isAudibleRinging(oldRingerMode, oldZenMode)) {
-                            simulateRinging = true;
-                            if (oldSystemRingerMode == AudioManager.RINGER_MODE_SILENT) {
-                                stream = AudioManager.STREAM_ALARM;
-                            }
-                            else {
-                                //stream = AudioManager.STREAM_RING;
-                                stream = AudioManager.STREAM_ALARM;
-                            }
-                        }
-                    }*/
-
                 //}
 
                 // simulate rnging when in profile is change of tone
@@ -380,10 +363,9 @@ class PlayRingingNotification
                     int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
                     PPApplication.volumesInternalChange = true;
-                        /*if (android.os.Build.VERSION.SDK_INT >= 23)
+                        /*
                             audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                        else
-                            audioManager.setStreamMute(AudioManager.STREAM_RING, true);*/
+                        */
                     audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                     PlayRingingNotification.ringingMediaPlayer.start();
@@ -510,13 +492,13 @@ class PlayRingingNotification
                 boolean simulateNotificationTone = false;
                 int stream = AudioManager.STREAM_NOTIFICATION;
 
-                    if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                    if (!(((newRingerMode == 4)) ||
                             ((newRingerMode == 5) && ((newZenMode == 3) || (newZenMode == 6))))) {
                         // actual ringer/zen mode is changed to another then NONE and ONLY_ALARMS
                         // Android 6 - ringerMode=4 = ONLY_ALARMS
 
                         // test old ringer and zen mode
-                        if (((oldRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                        if (((oldRingerMode == 4)) ||
                                 ((oldRingerMode == 5) && ((oldZenMode == 3) || (oldZenMode == 6)))) {
                             // old ringer/zen mode is NONE and ONLY_ALARMS
                             simulateNotificationTone = true;
@@ -525,11 +507,11 @@ class PlayRingingNotification
                     }
 
                     if (!simulateNotificationTone) {
-                        if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT < 23)) ||
+                        if (!(((newRingerMode == 4)) ||
                                 ((newRingerMode == 5) && (newZenMode == 2)))) {
                             // actual ringer/zen mode is changed to another then PRIORITY
                             // Android 5 - ringerMode=4 = PRIORITY
-                            if (((oldRingerMode == 4) && (android.os.Build.VERSION.SDK_INT < 23)) ||
+                            if (((oldRingerMode == 4)) ||
                                     ((oldRingerMode == 5) && (oldZenMode == 2))) {
                                 // old ringer/zen mode is PRIORITY
                                 simulateNotificationTone = true;

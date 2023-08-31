@@ -2330,12 +2330,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             if (ringerMode != null) {
                 boolean zenModeOffValue = ringerMode.equals("1") || ringerMode.equals("2") || ringerMode.equals("3");
-                    /*if (Build.VERSION.SDK_INT < 23) {
-                        if (zenModeOffValue)
-                            value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeL_Off) + ")";
-                        else if (ringerMode.equals("4"))
-                            value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeL_On) + ")";
-                    } else*/ {
+                {
                     if (zenModeOffValue)
                         value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                     else if (ringerMode.equals("4")) {
@@ -2354,7 +2349,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (cattegorySummaryData.bold) {
             int titleRes;
-            //if (Build.VERSION.SDK_INT >= 23)
             titleRes = R.string.profile_preferences_volumeZenModeM;
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, titleRes, context);
             if (!title.isEmpty()) {
@@ -4592,7 +4586,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     if ((iValue != Profile.NO_CHANGE_VALUE) /*&& (iValue != Profile.SHARED_PROFILE_VALUE)*/) {
-                        if (!((iValue == 6) /*&& (android.os.Build.VERSION.SDK_INT < 23)*/)) {
+                        if (!((iValue == 6))) {
                             String[] summaryArray = getResources().getStringArray(R.array.zenModeSummaryArray);
                             summary = summary + " - " + summaryArray[iValue - 1];
                         }
@@ -6867,7 +6861,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String _title = order + ". ";
                         String _summary;
                         //final boolean showDoNotDisturbPermission =
-                        /*(android.os.Build.VERSION.SDK_INT >= 23) &&*/
                         //                GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
                         //if (showDoNotDisturbPermission) {
                         _title = _title + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);

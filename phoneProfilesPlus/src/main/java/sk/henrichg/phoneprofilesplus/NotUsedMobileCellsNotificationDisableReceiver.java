@@ -21,7 +21,6 @@ public class NotUsedMobileCellsNotificationDisableReceiver extends BroadcastRece
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (manager != null) {
-            //if (Build.VERSION.SDK_INT >= 23) {
                 StatusBarNotification[] notifications = manager.getActiveNotifications();
                 for (StatusBarNotification notification : notifications) {
                     String tag = notification.getTag();
@@ -31,10 +30,6 @@ public class NotUsedMobileCellsNotificationDisableReceiver extends BroadcastRece
                         }
                     }
                 }
-            /*} else {
-                int notificationId = intent.getIntExtra("notificationId", 0);
-                manager.cancel(notificationId);
-            }*/
         }
     }
 

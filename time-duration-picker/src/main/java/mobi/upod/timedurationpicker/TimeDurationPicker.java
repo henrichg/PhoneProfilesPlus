@@ -292,12 +292,7 @@ public class TimeDurationPicker extends FrameLayout {
     }
 
     private void applyTextAppearance(/*Context context,*/ int resId, final TextView[] targetViews) {
-        //if (Build.VERSION.SDK_INT < 23) {
-        //    for (TextView view : targetViews) view.setTextAppearance(context, resId);
-        //}
-        //else {
-            for (TextView view : targetViews) view.setTextAppearance(resId);
-        //}
+        for (TextView view : targetViews) view.setTextAppearance(resId);
     }
 
     private void applyIcon(TypedArray attrs, int attributeIndex, ImageView targetView) {

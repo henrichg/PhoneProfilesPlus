@@ -142,7 +142,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     } else {
                         alarmTime = SystemClock.elapsedRealtime() + profile._duration * 1000L;
 
-                        //if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     }
                     //this._isInDelay = true;
@@ -191,7 +190,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     } else {
                         alarmTime = SystemClock.elapsedRealtime() + profile._duration * 1000L;
 
-                        //if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     }
                     //this._isInDelay = true;

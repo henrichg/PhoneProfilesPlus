@@ -128,9 +128,7 @@ class ImportantInfoNotification {
         }*/
 
         /*if (news1804) {
-            if (android.os.Build.VERSION.SDK_INT >= 23) {
-                news = true;
-            }
+            news = true;
         }*/
 
         /*if (news1772) {
