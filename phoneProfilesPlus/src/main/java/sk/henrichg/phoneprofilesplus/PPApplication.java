@@ -1218,8 +1218,7 @@ public class PPApplication extends Application
             PPApplicationStatic.logE("##### PPApplication.onCreate", "osVersion=" + System.getProperty("os.version"));
             PPApplicationStatic.logE("##### PPApplication.onCreate", "api level=" + Build.VERSION.SDK_INT);
 
-            //if (Build.VERSION.SDK_INT >= 25)
-                PPApplicationStatic.logE("##### PPApplication.onCreate", "deviceName="+ Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME));
+            PPApplicationStatic.logE("##### PPApplication.onCreate", "deviceName="+ Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME));
             PPApplicationStatic.logE("##### PPApplication.onCreate", "release="+ Build.VERSION.RELEASE);
 
             PPApplicationStatic.logE("##### PPApplication.onCreate", "board="+ Build.BOARD);
@@ -1404,18 +1403,9 @@ public class PPApplication extends Application
         }
 
         String body;
-        //if (Build.VERSION.SDK_INT >= 25)
-            body = getString(R.string.important_info_email_body_device) + " " +
-                    Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
-                    " (" + Build.MODEL + ")" + StringConstants.STR_NEWLINE_WITH_SPACE;
-        /*else {
-            String manufacturer = Build.MANUFACTURER;
-            String model = Build.MODEL;
-            if (model.startsWith(manufacturer))
-                body = getString(R.string.important_info_email_body_device) + " " + model + " \n";
-            else
-                body = getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
-        }*/
+        body = getString(R.string.important_info_email_body_device) + " " +
+                Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
+                " (" + Build.MODEL + ")" + StringConstants.STR_NEWLINE_WITH_SPACE;
         body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
         body = body + getString(R.string.acra_email_body_text);
 

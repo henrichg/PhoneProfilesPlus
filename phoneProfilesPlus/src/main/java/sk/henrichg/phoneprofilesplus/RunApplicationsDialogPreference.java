@@ -618,10 +618,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context _context = view.getContext();
         PopupMenu popup;
-        //if (android.os.Build.VERSION.SDK_INT >= 19)
-            popup = new PopupMenu(_context, view, Gravity.END);
-        //else
-        //    popup = new PopupMenu(context, view);
+        popup = new PopupMenu(_context, view, Gravity.END);
 
         final Application application = (Application) view.getTag();
 

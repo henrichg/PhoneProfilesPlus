@@ -605,11 +605,6 @@ public class ActivatorListFragment extends Fragment {
     }
 
     void showTargetHelps() {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         if (getActivity() == null)
             return;
 
@@ -672,11 +667,6 @@ public class ActivatorListFragment extends Fragment {
     }
 
     private void showAdapterTargetHelps() {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         if (getActivity() == null)
             return;
 

@@ -1561,9 +1561,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
         else
         if (iteration == 3) {
             boolean drawOverlaysFound = false;
-            //boolean api25 = android.os.Build.VERSION.SDK_INT >= 25;
             for (PermissionType permissionType : permissions) {
-                if (/*api25 && */permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
+                if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
                     //if (!PPApplication.romIsMIUI) {
                         if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getApplicationContext())) {
                             drawOverlaysFound = true;

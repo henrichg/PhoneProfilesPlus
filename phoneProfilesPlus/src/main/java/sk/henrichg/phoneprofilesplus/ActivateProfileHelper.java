@@ -820,15 +820,11 @@ class ActivateProfileHelper {
 
                 boolean isEnabled = false;
                 boolean ok = true;
-                /*if (android.os.Build.VERSION.SDK_INT < 19)
-                    isEnabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
-                else {*/
-                    LocationManager locationManager = (LocationManager) appContext.getSystemService(Context.LOCATION_SERVICE);
-                    if (locationManager != null)
-                        isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-                    else
-                        ok = false;
-                //}
+                LocationManager locationManager = (LocationManager) appContext.getSystemService(Context.LOCATION_SERVICE);
+                if (locationManager != null)
+                    isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                else
+                    ok = false;
                 //Log.e("ActivateProfileHelper.doExecuteForRadios", "GPS="+isEnabled);
                 if (ok) {
                     switch (profile._deviceGPS) {
@@ -3754,20 +3750,6 @@ class ActivateProfileHelper {
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
-                            /*if (Build.VERSION.SDK_INT <= 25) {
-                                audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                                GlobalUtils.sleep(500);
-                                //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
-                                InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
-                                audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-
-                                audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                                setVibrateSettings(true, audioManager);
-                                //PPApplication.sleep(500);
-                                //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
-                                InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
-                            }
-                            else*/
                             //noinspection IfStatementWithIdenticalBranches
                             if (Build.VERSION.SDK_INT <= 28) {
                                 audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
@@ -3826,10 +3808,7 @@ class ActivateProfileHelper {
         WindowManager wm = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
         if (wm != null) {
             Display display = wm.getDefaultDisplay();
-            //if (android.os.Build.VERSION.SDK_INT >= 17)
             display.getRealMetrics(displayMetrics);
-            //else
-            //    display.getMetrics(displayMetrics);
             int height = displayMetrics.heightPixels;
             int width = displayMetrics.widthPixels;
             if (appContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -5525,9 +5504,6 @@ class ActivateProfileHelper {
             WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
             if (windowManager != null) {
                 int type;
-                //if (android.os.Build.VERSION.SDK_INT < 25)
-                //    type = WindowManager.LayoutParams.TYPE_TOAST;
-                //else
                 if (android.os.Build.VERSION.SDK_INT < 26)
                     type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
                 else
@@ -5538,10 +5514,7 @@ class ActivateProfileHelper {
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, // | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |
                         PixelFormat.TRANSLUCENT
                 );
-//                if (android.os.Build.VERSION.SDK_INT < 17)
-//                    params.gravity = Gravity.RIGHT | Gravity.TOP;
-//                else
-//                    params.gravity = Gravity.END | Gravity.TOP;
+//                params.gravity = Gravity.END | Gravity.TOP;
                 PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView = new BrightnessView(appContext);
 
                 final Handler handler = new Handler(context.getMainLooper());
@@ -5589,9 +5562,6 @@ class ActivateProfileHelper {
                     PPApplication.brightnessView = null;
                 }
                 int type;
-                //if (android.os.Build.VERSION.SDK_INT < 25)
-                //    type = WindowManager.LayoutParams.TYPE_TOAST;
-                //else
                 if (android.os.Build.VERSION.SDK_INT < 26)
                     type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
                 else
@@ -5748,9 +5718,6 @@ class ActivateProfileHelper {
         if (windowManager != null) {
 //            Log.e("ActivateProfileHelper.createKeepScreenOnView", "xxx");
             int type;
-            //if (android.os.Build.VERSION.SDK_INT < 25)
-            //    type = WindowManager.LayoutParams.TYPE_TOAST;
-            //else
             //if (android.os.Build.VERSION.SDK_INT < 26)
             //    type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
             //else
@@ -5766,10 +5733,7 @@ class ActivateProfileHelper {
                             //WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON // deprecated in API level 27
                     , PixelFormat.TRANSLUCENT
             );
-            //if (android.os.Build.VERSION.SDK_INT < 17)
-            //    params.gravity = Gravity.RIGHT | Gravity.TOP;
-            //else
-            //    params.gravity = Gravity.END | Gravity.TOP;
+            //params.gravity = Gravity.END | Gravity.TOP;
             PPApplication.keepScreenOnView = new BrightnessView(appContext);
             // keep this: it is required to use MainLooper for cal listener
             final Handler handler = new Handler(context.getMainLooper());
@@ -5824,10 +5788,7 @@ class ActivateProfileHelper {
 
     static boolean isAirplaneMode(Context context)
     {
-        //if (android.os.Build.VERSION.SDK_INT >= 17)
-            return Settings.Global.getInt(context.getApplicationContext().getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
-        //else
-        //    return Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+        return Settings.Global.getInt(context.getApplicationContext().getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
     }
 
     private static void setAirplaneMode(Context context, boolean mode, boolean useAssistant)
@@ -6529,13 +6490,9 @@ class ActivateProfileHelper {
 
         //boolean isEnabled;
         //int locationMode = -1;
-        //if (android.os.Build.VERSION.SDK_INT < 19)
-        //    isEnabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
-        /*else {
-            locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE, -1);
-            isEnabled = (locationMode == Settings.Secure.LOCATION_MODE_HIGH_ACCURACY) ||
-                        (locationMode == Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
-        }*/
+        //    locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE, -1);
+        //    isEnabled = (locationMode == Settings.Secure.LOCATION_MODE_HIGH_ACCURACY) ||
+        //                (locationMode == Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
 
         boolean isEnabled = false;
         boolean ok = true;

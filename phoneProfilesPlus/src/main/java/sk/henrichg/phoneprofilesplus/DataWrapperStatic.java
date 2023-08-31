@@ -618,61 +618,60 @@ class DataWrapperStatic {
     }
 
     static void setDynamicLauncherShortcuts(final Context appContext) {
-        //if (android.os.Build.VERSION.SDK_INT >= 25) {
-            try {
-                //final Context appContext = context;
-                LocaleHelper.setApplicationLocale(appContext);
+        try {
+            //final Context appContext = context;
+            LocaleHelper.setApplicationLocale(appContext);
 
-                ShortcutManager shortcutManager = appContext.getSystemService(ShortcutManager.class);
+            ShortcutManager shortcutManager = appContext.getSystemService(ShortcutManager.class);
 
-                if (shortcutManager != null) {
-                    final int limit = 4;
+            if (shortcutManager != null) {
+                final int limit = 4;
 
-                    //List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(true);
-                    List<Profile> countedProfiles = DatabaseHandler.getInstance(appContext).getProfilesInQuickTilesForDynamicShortcuts();
-                    List<Profile> notCountedProfiles = DatabaseHandler.getInstance(appContext).getProfilesForDynamicShortcuts(/*false*/);
+                //List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(true);
+                List<Profile> countedProfiles = DatabaseHandler.getInstance(appContext).getProfilesInQuickTilesForDynamicShortcuts();
+                List<Profile> notCountedProfiles = DatabaseHandler.getInstance(appContext).getProfilesForDynamicShortcuts(/*false*/);
 
-                    ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
+                ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
 
-                    //Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
-                    Profile _profile = getNonInitializedProfile(appContext.getString(R.string.menu_restart_events),
-                            StringConstants.PROFILE_ICON_RESTART_EVENTS+"|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
-                    _profile.generateIconBitmap(appContext, false, 0, false);
-                    // first profile is restart events
-                    shortcuts.add(createShortcutInfo(_profile, true, appContext));
+                //Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
+                Profile _profile = getNonInitializedProfile(appContext.getString(R.string.menu_restart_events),
+                        StringConstants.PROFILE_ICON_RESTART_EVENTS+"|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
+                _profile.generateIconBitmap(appContext, false, 0, false);
+                // first profile is restart events
+                shortcuts.add(createShortcutInfo(_profile, true, appContext));
 
-                    int shortcutsCount = 0;
-                    for (Profile profile : countedProfiles) {
+                int shortcutsCount = 0;
+                for (Profile profile : countedProfiles) {
+                    profile.generateIconBitmap(appContext, false, 0, false);
+                    shortcuts.add(createShortcutInfo(profile, false, appContext));
+                    ++shortcutsCount;
+                    if (shortcutsCount == limit)
+                        break;
+                }
+
+                //int shortcutsCount = countedProfiles.size();
+                if (shortcutsCount < limit) {
+                    for (Profile profile : notCountedProfiles) {
                         profile.generateIconBitmap(appContext, false, 0, false);
                         shortcuts.add(createShortcutInfo(profile, false, appContext));
                         ++shortcutsCount;
                         if (shortcutsCount == limit)
                             break;
                     }
-
-                    //int shortcutsCount = countedProfiles.size();
-                    if (shortcutsCount < limit) {
-                        for (Profile profile : notCountedProfiles) {
-                            profile.generateIconBitmap(appContext, false, 0, false);
-                            shortcuts.add(createShortcutInfo(profile, false, appContext));
-                            ++shortcutsCount;
-                            if (shortcutsCount == limit)
-                                break;
-                        }
-                    }
+                }
 
 //                    PPApplicationStatic.logE("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcuts.size()="+shortcuts.size());
 
-                    shortcutManager.removeAllDynamicShortcuts();
-                    if (shortcuts.size() > 0) {
-                        shortcutManager.addDynamicShortcuts(shortcuts);
-                        if (Build.VERSION.SDK_INT >= 30) {
-                            for (ShortcutInfo shortcut : shortcuts)
-                                shortcutManager.pushDynamicShortcut(shortcut);
-                        }
+                shortcutManager.removeAllDynamicShortcuts();
+                if (shortcuts.size() > 0) {
+                    shortcutManager.addDynamicShortcuts(shortcuts);
+                    if (Build.VERSION.SDK_INT >= 30) {
+                        for (ShortcutInfo shortcut : shortcuts)
+                            shortcutManager.pushDynamicShortcut(shortcut);
                     }
                 }
-            } catch (Exception e) {
+            }
+        } catch (Exception e) {
 //                java.lang.IllegalStateException: Launcher activity not found for package sk.henrichg.phoneprofilesplus
 //                at android.os.Parcel.createException(Parcel.java:2096)
 //                at android.os.Parcel.readException(Parcel.java:2056)
@@ -682,10 +681,9 @@ class DataWrapperStatic {
 //                at sk.henrichg.phoneprofilesplus.DataWrapper.setDynamicLauncherShortcuts(DataWrapper.java:818)
 //                - Generated, when device is rooted?
 
-                //Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
-                PPApplicationStatic.recordException(e);
-            }
-        //}
+            //Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
+            PPApplicationStatic.recordException(e);
+        }
     }
 
     static void setDynamicLauncherShortcutsFromMainThread(final Context appContext)

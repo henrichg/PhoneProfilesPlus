@@ -241,10 +241,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         final Context viewContext = view.getContext();
         PopupMenu popup;
-        //if (android.os.Build.VERSION.SDK_INT >= 19)
         popup = new PopupMenu(viewContext, view, Gravity.END);
-        //else
-        //    popup = new PopupMenu(context, view);
         new MenuInflater(viewContext).inflate(R.menu.nfc_tag_pref_dlg_item_edit, popup.getMenu());
 
         int tagPos = (int)view.getTag();

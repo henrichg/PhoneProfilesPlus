@@ -339,8 +339,7 @@ class PlayRingingNotification
 
                     //int requestType = AudioManager.AUDIOFOCUS_GAIN;
                     //int requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT;
-                    //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    //    requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE;
+                    //requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE;
                     //int result = audioManager.requestAudioFocus(getApplicationContext(), usedRingingStream, requestType);
                     //if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                     PlayRingingNotification.ringingMediaPlayer = new MediaPlayer();
@@ -588,8 +587,7 @@ class PlayRingingNotification
 
                     //int requestType = AudioManager.AUDIOFOCUS_GAIN;
                     int requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT;
-                    if (android.os.Build.VERSION.SDK_INT >= 19)
-                        requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE;
+                    requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE;
                     //int result = audioManager.requestAudioFocus(getApplicationContext(), usedNotificationStream, requestType);
                     //if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                         notificationMediaPlayer = new MediaPlayer();

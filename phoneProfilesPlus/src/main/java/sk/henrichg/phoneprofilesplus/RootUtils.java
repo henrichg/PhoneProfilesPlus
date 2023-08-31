@@ -210,21 +210,19 @@ class RootUtils {
 
                 // First known firmware with SELinux built-in was a 4.2 (17)
                 // leak
-                //if (android.os.Build.VERSION.SDK_INT >= 17) {
-                    // Detect enforcing through sysfs, not always present
-                    File f = new File("/sys/fs/selinux/enforce");
-                    if (f.exists()) {
+                // Detect enforcing through sysfs, not always present
+                File f = new File("/sys/fs/selinux/enforce");
+                if (f.exists()) {
+                    try {
+                        InputStream is = new FileInputStream("/sys/fs/selinux/enforce");
                         try {
-                            InputStream is = new FileInputStream("/sys/fs/selinux/enforce");
-                            try {
-                                enforcing = (is.read() == '1');
-                            } finally {
-                                is.close();
-                            }
-                        } catch (Exception ignored) {
+                            enforcing = (is.read() == '1');
+                        } finally {
+                            is.close();
                         }
+                    } catch (Exception ignored) {
                     }
-                //}
+                }
 
                 isSELinuxEnforcing = enforcing;
                 isSELinuxEnforcingChecked = true;

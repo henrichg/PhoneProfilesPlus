@@ -772,10 +772,7 @@ public class EditorProfileListFragment extends Fragment
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         final Context _context = view.getContext();
         PopupMenu popup;
-        //if (android.os.Build.VERSION.SDK_INT >= 19)
-            popup = new PopupMenu(_context, view, Gravity.END);
-        //else
-        //    popup = new PopupMenu(context, view);
+        popup = new PopupMenu(_context, view, Gravity.END);
         getActivity().getMenuInflater().inflate(R.menu.profile_list_item_edit, popup.getMenu());
 
         final Profile profile = (Profile)view.getTag();
@@ -1226,10 +1223,7 @@ public class EditorProfileListFragment extends Fragment
             Context _context = view.getContext();
             //Context context = new ContextThemeWrapper(getActivity().getBaseContext(), R.style.PopupMenu_editorItem_dayNight);
             PopupMenu popup;
-            //if (android.os.Build.VERSION.SDK_INT >= 19)
             popup = new PopupMenu(_context, view, Gravity.END);
-            //else
-            //    popup = new PopupMenu(context, view);
             getActivity().getMenuInflater().inflate(R.menu.profile_list_item_show_in_activator, popup.getMenu());
 
             // show icons
@@ -1329,11 +1323,6 @@ public class EditorProfileListFragment extends Fragment
     }
 
     void showTargetHelps() {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         if (getActivity() == null)
             return;
 
@@ -1545,11 +1534,6 @@ public class EditorProfileListFragment extends Fragment
     }
 
     private void showAdapterTargetHelps() {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         if (getActivity() == null)
             return;
 

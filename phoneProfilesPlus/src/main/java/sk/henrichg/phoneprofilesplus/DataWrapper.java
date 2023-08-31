@@ -195,22 +195,19 @@ class DataWrapper {
             case 0:
                 profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_home), Profile.ic_profile_home_2, index+1);
                 profile._showInActivator = true;
-                //if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (ActivateProfileHelper.canChangeZenMode(context)) {
-                        profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
-                        profile._volumeZenMode = Profile.ZENMODE_ALL; // ALL
-                        /*if (android.os.Build.VERSION.SDK_INT >= 23) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 1; // ALL
-                        } else if (android.os.Build.VERSION.SDK_INT >= 21) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 1; // ALL
-                        } else
-                            profile._volumeRingerMode = 1;*/
+                if (ActivateProfileHelper.canChangeZenMode(context)) {
+                    profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
+                    profile._volumeZenMode = Profile.ZENMODE_ALL; // ALL
+                    /*if (android.os.Build.VERSION.SDK_INT >= 23) {
+                        profile._volumeRingerMode = 5;
+                        profile._volumeZenMode = 1; // ALL
+                    } else if (android.os.Build.VERSION.SDK_INT >= 21) {
+                        profile._volumeRingerMode = 5;
+                        profile._volumeZenMode = 1; // ALL
                     } else
-                        profile._volumeRingerMode = Profile.RINGERMODE_RING;
-                //} else
-                //    profile._volumeRingerMode = 1;
+                        profile._volumeRingerMode = 1;*/
+                } else
+                    profile._volumeRingerMode = Profile.RINGERMODE_RING;
                 profile._volumeRingtone = getVolumeLevelString(71, maximumValueRing) + "|0|0";
                 profile._volumeNotification = getVolumeLevelString(86, maximumValueNotification) + "|0|0";
                 profile._volumeAlarm = getVolumeLevelString(100, maximumValueAlarm) + "|0|0";
@@ -221,22 +218,19 @@ class DataWrapper {
             case 1:
                 profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_outdoor), Profile.ic_profile_outdoors_1, index+1);
                 profile._showInActivator = true;
-                //if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (ActivateProfileHelper.canChangeZenMode(context)) {
-                        profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
-                        profile._volumeZenMode = Profile.ZENMODE_ALL; // ALL
-                        /*if (android.os.Build.VERSION.SDK_INT >= 23) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 1; // ALL
-                        } else if (android.os.Build.VERSION.SDK_INT >= 21) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 1; // ALL
-                        } else
-                            profile._volumeRingerMode = 2;*/
+                if (ActivateProfileHelper.canChangeZenMode(context)) {
+                    profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
+                    profile._volumeZenMode = Profile.ZENMODE_ALL; // ALL
+                    /*if (android.os.Build.VERSION.SDK_INT >= 23) {
+                        profile._volumeRingerMode = 5;
+                        profile._volumeZenMode = 1; // ALL
+                    } else if (android.os.Build.VERSION.SDK_INT >= 21) {
+                        profile._volumeRingerMode = 5;
+                        profile._volumeZenMode = 1; // ALL
                     } else
-                        profile._volumeRingerMode = Profile.RINGERMODE_RING;
-                //} else
-                //    profile._volumeRingerMode = 2;
+                        profile._volumeRingerMode = 2;*/
+                } else
+                    profile._volumeRingerMode = Profile.RINGERMODE_RING;
                 profile._volumeRingtone = getVolumeLevelString(100, maximumValueRing) + "|0|0";
                 profile._volumeNotification = getVolumeLevelString(100, maximumValueNotification) + "|0|0";
                 profile._volumeAlarm = getVolumeLevelString(100, maximumValueAlarm) + "|0|0";
@@ -247,22 +241,19 @@ class DataWrapper {
             case 2:
                 profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_work), Profile.ic_profile_work_5, index+1);
                 profile._showInActivator = true;
-                //if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (ActivateProfileHelper.canChangeZenMode(context)) {
-                        profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
-                        profile._volumeZenMode = Profile.ZENMODE_ALL_AND_VIBRATE; // ALL with vibration
-                        /*if (android.os.Build.VERSION.SDK_INT >= 23) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 4; // ALL with vibration
-                        } else if (android.os.Build.VERSION.SDK_INT >= 21) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 4; // ALL with vibration
-                        } else
-                            profile._volumeRingerMode = 1;*/
+                if (ActivateProfileHelper.canChangeZenMode(context)) {
+                    profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
+                    profile._volumeZenMode = Profile.ZENMODE_ALL_AND_VIBRATE; // ALL with vibration
+                    /*if (android.os.Build.VERSION.SDK_INT >= 23) {
+                        profile._volumeRingerMode = 5;
+                        profile._volumeZenMode = 4; // ALL with vibration
+                    } else if (android.os.Build.VERSION.SDK_INT >= 21) {
+                        profile._volumeRingerMode = 5;
+                        profile._volumeZenMode = 4; // ALL with vibration
                     } else
-                        profile._volumeRingerMode = Profile.RINGERMODE_RING;
-                //} else
-                //    profile._volumeRingerMode = 1;
+                        profile._volumeRingerMode = 1;*/
+                } else
+                    profile._volumeRingerMode = Profile.RINGERMODE_RING;
                 profile._volumeRingtone = getVolumeLevelString(57, maximumValueRing) + "|0|0";
                 profile._volumeNotification = getVolumeLevelString(71, maximumValueNotification) + "|0|0";
                 profile._volumeAlarm = getVolumeLevelString(57, maximumValueAlarm) + "|0|0";
@@ -273,22 +264,19 @@ class DataWrapper {
             case 3:
                 profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_meeting), Profile.ic_profile_meeting_2, index+1);
                 profile._showInActivator = true;
-                //if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (ActivateProfileHelper.canChangeZenMode(context)) {
-                        profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
-                        profile._volumeZenMode = Profile.ZENMODE_NONE; // NONE
-                        /*if (android.os.Build.VERSION.SDK_INT >= 23) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 3; // NONE
-                        } else if (android.os.Build.VERSION.SDK_INT >= 21) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 3; // NONE
-                        } else
-                            profile._volumeRingerMode = 4;*/
+                if (ActivateProfileHelper.canChangeZenMode(context)) {
+                    profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
+                    profile._volumeZenMode = Profile.ZENMODE_NONE; // NONE
+                    /*if (android.os.Build.VERSION.SDK_INT >= 23) {
+                        profile._volumeRingerMode = 5;
+                        profile._volumeZenMode = 3; // NONE
+                    } else if (android.os.Build.VERSION.SDK_INT >= 21) {
+                        profile._volumeRingerMode = 5;
+                        profile._volumeZenMode = 3; // NONE
                     } else
-                        profile._volumeRingerMode = Profile.RINGERMODE_SILENT;
-                //} else
-                //    profile._volumeRingerMode = 4;
+                        profile._volumeRingerMode = 4;*/
+                } else
+                    profile._volumeRingerMode = Profile.RINGERMODE_SILENT;
                 profile._volumeRingtone = getVolumeLevelString(57, maximumValueRing) + "|0|0";
                 profile._volumeNotification = getVolumeLevelString(71, maximumValueNotification) + "|0|0";
                 profile._volumeAlarm = getVolumeLevelString(57, maximumValueAlarm) + "|0|0";
@@ -299,22 +287,19 @@ class DataWrapper {
             case 4:
                 profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_sleep), Profile.ic_profile_sleep, index+1);
                 profile._showInActivator = true;
-                //if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (ActivateProfileHelper.canChangeZenMode(context)) {
-                        profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
-                        profile._volumeZenMode = Profile.ZENMODE_ALARMS; // ALARMS
-                        /*if (android.os.Build.VERSION.SDK_INT >= 23) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 6; // ALARMS
-                        } else if (android.os.Build.VERSION.SDK_INT >= 21) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 3; // NONE
-                        } else
-                            profile._volumeRingerMode = 4;*/
+                if (ActivateProfileHelper.canChangeZenMode(context)) {
+                    profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
+                    profile._volumeZenMode = Profile.ZENMODE_ALARMS; // ALARMS
+                    /*if (android.os.Build.VERSION.SDK_INT >= 23) {
+                        profile._volumeRingerMode = 5;
+                        profile._volumeZenMode = 6; // ALARMS
+                    } else if (android.os.Build.VERSION.SDK_INT >= 21) {
+                        profile._volumeRingerMode = 5;
+                        profile._volumeZenMode = 3; // NONE
                     } else
-                        profile._volumeRingerMode = Profile.RINGERMODE_SILENT;
-                //} else
-                //    profile._volumeRingerMode = 4;
+                        profile._volumeRingerMode = 4;*/
+                } else
+                    profile._volumeRingerMode = Profile.RINGERMODE_SILENT;
                 profile._volumeRingtone = getVolumeLevelString(71, maximumValueRing) + "|0|0";
                 profile._volumeNotification = getVolumeLevelString(86, maximumValueNotification) + "|0|0";
                 profile._volumeAlarm = getVolumeLevelString(100, maximumValueAlarm) + "|0|0";

@@ -6902,9 +6902,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preference != null) {
                         String _title = order + ". ";
                         String _summary;
-                        //boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
                         //final boolean showDoNotDisturbPermission =
-                        /*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
+                        /*(android.os.Build.VERSION.SDK_INT >= 23) &&*/
                         //                GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
                         //if (showDoNotDisturbPermission) {
                         _title = _title + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);

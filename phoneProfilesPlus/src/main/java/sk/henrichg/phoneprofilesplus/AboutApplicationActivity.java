@@ -511,18 +511,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
         String body;
         //switch (bodyType) {
         //    case EMAIL_BODY_SUPPORT:
-                //if (Build.VERSION.SDK_INT >= 25)
-                    body = context.getString(R.string.important_info_email_body_device) + " " +
-                            Settings.Global.getString(context.getContentResolver(), Settings.Global.DEVICE_NAME) +
-                            " (" + Build.MODEL + ")" + StringConstants.STR_NEWLINE_WITH_SPACE;
-                /*else {
-                    String manufacturer = Build.MANUFACTURER;
-                    String model = Build.MODEL;
-                    if (model.startsWith(manufacturer))
-                        body = context.getString(R.string.important_info_email_body_device) + " " + model + " \n";
-                    else
-                        body = context.getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
-                }*/
+                body = context.getString(R.string.important_info_email_body_device) + " " +
+                        Settings.Global.getString(context.getContentResolver(), Settings.Global.DEVICE_NAME) +
+                        " (" + Build.MODEL + ")" + StringConstants.STR_NEWLINE_WITH_SPACE;
                 body = body + context.getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
                 body = body + context.getString(R.string.important_info_email_body_problems) + StringConstants.STR_NEWLINE_WITH_SPACE;
                 body = body + context.getString(R.string.important_info_email_body_questions) + StringConstants.STR_NEWLINE_WITH_SPACE;

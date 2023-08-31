@@ -1051,20 +1051,14 @@ class PhoneProfilesServiceStatic
                 /*if (smsBroadcastReceiver == null) {
                     smsBroadcastReceiver = new SMSBroadcastReceiver();
                     IntentFilter intentFilter21 = new IntentFilter();
-                    //if (android.os.Build.VERSION.SDK_INT >= 19)
-                        intentFilter21.addAction(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-                    //else
-                    //    intentFilter21.addAction("android.provider.Telephony.SMS_RECEIVED");
+                    intentFilter21.addAction(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
                     intentFilter21.setPriority(Integer.MAX_VALUE);
                     appContext.registerReceiver(smsBroadcastReceiver, intentFilter21);
                 }
                 if (mmsBroadcastReceiver == null) {
                     mmsBroadcastReceiver = new SMSBroadcastReceiver();
                     IntentFilter intentFilter22;
-                    //if (android.os.Build.VERSION.SDK_INT >= 19)
-                        intentFilter22 = IntentFilter.create(Telephony.Sms.Intents.WAP_PUSH_RECEIVED_ACTION, "application/vnd.wap.mms-message");
-                    //else
-                    //    intentFilter22 = IntentFilter.create("android.provider.Telephony.WAP_PUSH_RECEIVED", "application/vnd.wap.mms-message");
+                    intentFilter22 = IntentFilter.create(Telephony.Sms.Intents.WAP_PUSH_RECEIVED_ACTION, "application/vnd.wap.mms-message");
                     intentFilter22.setPriority(Integer.MAX_VALUE);
                     appContext.registerReceiver(mmsBroadcastReceiver, intentFilter22);
                 }*/
@@ -1875,7 +1869,6 @@ class PhoneProfilesServiceStatic
                         PPApplication.locationModeChangedBroadcastReceiver = new LocationModeChangedBroadcastReceiver();
                         IntentFilter intentFilter18 = new IntentFilter();
                         intentFilter18.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
-                        //if (android.os.Build.VERSION.SDK_INT >= 19)
                         intentFilter18.addAction(LocationManager.MODE_CHANGED_ACTION);
                         appContext.registerReceiver(PPApplication.locationModeChangedBroadcastReceiver, intentFilter18);
                     }
@@ -3831,10 +3824,6 @@ class PhoneProfilesServiceStatic
             else {
                 //if (android.os.Build.VERSION.SDK_INT >= 23)
                     alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                //else
-                //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
             }
         }
     }

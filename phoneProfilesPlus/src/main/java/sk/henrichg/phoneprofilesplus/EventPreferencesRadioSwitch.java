@@ -1032,9 +1032,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if ((_gps != 0) && PPApplication.HAS_FEATURE_LOCATION_GPS) {
 
                     boolean enabled;
-                    /*if (android.os.Build.VERSION.SDK_INT < 19)
-                        enabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
-                    else {*/
                     LocationManager locationManager = (LocationManager) eventsHandler.context.getSystemService(Context.LOCATION_SERVICE);
                     if (locationManager != null) {
                         enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);

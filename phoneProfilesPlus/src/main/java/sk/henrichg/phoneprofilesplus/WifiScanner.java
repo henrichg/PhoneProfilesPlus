@@ -307,8 +307,7 @@ class WifiScanner {
             if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                 // this must be disabled because scanning not working, when wifi is disabled after disabled WiFi AP
                 // Tested and scanning working ;-)
-                //if (android.os.Build.VERSION.SDK_INT >= 18)
-                    isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
+                isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
             }
             isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
             if (!isWifiEnabled)

@@ -671,11 +671,6 @@ public class EventsPrefsActivity extends AppCompatActivity
     }
 
     private void showTargetHelps() {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         if (!showSaveMenu)
             return;
 

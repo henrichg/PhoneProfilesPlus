@@ -3313,11 +3313,6 @@ public class EditorActivity extends AppCompatActivity
     */
 
     private void showTargetHelps() {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         //startTargetHelps = true;
 
         boolean startTargetHelps = ApplicationPreferences.prefEditorActivityStartTargetHelps;
@@ -3900,18 +3895,9 @@ public class EditorActivity extends AppCompatActivity
 
     String getEmailBodyText() {
         String body;
-        //if (Build.VERSION.SDK_INT >= 25)
-            body = getString(R.string.important_info_email_body_device) + " " +
-                    Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
-                    " (" + Build.MODEL + ")" + StringConstants.STR_NEWLINE_WITH_SPACE;
-        /*else {
-            String manufacturer = Build.MANUFACTURER;
-            String model = Build.MODEL;
-            if (model.startsWith(manufacturer))
-                body = getString(R.string.important_info_email_body_device) + " " + model + " \n";
-            else
-                body = getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
-        }*/
+        body = getString(R.string.important_info_email_body_device) + " " +
+                Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
+                " (" + Build.MODEL + ")" + StringConstants.STR_NEWLINE_WITH_SPACE;
         body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
         return body;
     }

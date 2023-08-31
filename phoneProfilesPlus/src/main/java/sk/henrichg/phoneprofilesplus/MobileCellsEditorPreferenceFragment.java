@@ -601,10 +601,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         final Context _context = view.getContext();
         PopupMenu popup;
-        //if (android.os.Build.VERSION.SDK_INT >= 19)
         popup = new PopupMenu(_context, view, Gravity.END);
-        //else
-        //    popup = new PopupMenu(context, view);
         new MenuInflater(_context).inflate(R.menu.mobile_cells_pref_item_edit, popup.getMenu());
 
         final int cellId = (int)view.getTag();

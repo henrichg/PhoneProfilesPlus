@@ -462,15 +462,11 @@ public class BluetoothScanWorker extends Worker {
     /*
     static BluetoothAdapter getBluetoothAdapter(Context context) {
         BluetoothAdapter adapter;
-        //if (android.os.Build.VERSION.SDK_INT < 18)
-        //    adapter = BluetoothAdapter.getDefaultAdapter();
-        //else {
         BluetoothManager bluetoothManager = (BluetoothManager)context.getSystemService(Context.BLUETOOTH_SERVICE);
         if (bluetoothManager != null)
             adapter = bluetoothManager.getAdapter();
         else
             adapter = null;
-        //}
         return adapter;
     }
     */
@@ -654,10 +650,7 @@ public class BluetoothScanWorker extends Worker {
 
     @SuppressLint("MissingPermission")
     static int getBluetoothType(BluetoothDevice device) {
-        //if (android.os.Build.VERSION.SDK_INT >= 18)
         return device.getType();
-        //else
-        //    return 1; // BluetoothDevice.DEVICE_TYPE_CLASSIC
     }
 
     @SuppressLint("MissingPermission")

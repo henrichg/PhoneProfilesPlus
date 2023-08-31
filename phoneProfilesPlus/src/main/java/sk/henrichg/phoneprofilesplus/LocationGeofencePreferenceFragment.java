@@ -254,10 +254,7 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         final Context context = view.getContext();
         PopupMenu popup;
-        //if (android.os.Build.VERSION.SDK_INT >= 19)
         popup = new PopupMenu(context, view, Gravity.END);
-        //else
-        //    popup = new PopupMenu(context, view);
         new MenuInflater(context).inflate(R.menu.location_geofence_pref_item_edit, popup.getMenu());
 
         final long geofenceId = (long)view.getTag();

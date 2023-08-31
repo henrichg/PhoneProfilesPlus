@@ -668,11 +668,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
 
     private void showTargetHelps() {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         //String applicationTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
 
         if (!showSaveMenu)

@@ -99,10 +99,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                 }
             }
             if (!found) {
-                //if (android.os.Build.VERSION.SDK_INT >= 18)
                 preference.customBluetoothList.add(new BluetoothDeviceData(btName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true, 0, false, false));
-                //else
-                //    customBluetoothList.add(new BluetoothDeviceData(btName, "", 0, true, 0));
             }
             refreshListView(false, btName);
         });
@@ -269,10 +266,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                 }
             }
             if (!found) {
-                //if (android.os.Build.VERSION.SDK_INT >= 18)
                 preference.customBluetoothList.add(new BluetoothDeviceData(btName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true, 0, false, false));
-                //else
-                //    customBluetoothList.add(new BluetoothDeviceData(btName, "", 0, true, 0));
             }
             refreshListView(false, btName);
         });
@@ -508,10 +502,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context _context = view.getContext();
         PopupMenu popup;
-        //if (android.os.Build.VERSION.SDK_INT >= 19)
         popup = new PopupMenu(_context, view, Gravity.END);
-        //else
-        //    popup = new PopupMenu(context, view);
         new MenuInflater(_context).inflate(R.menu.bluetooth_name_pref_dlg_item_edit, popup.getMenu());
 
         MenuItem menuItem = popup.getMenu().findItem(R.id.bluetooth_name_pref_dlg_item_menu_change);
@@ -717,12 +708,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                             }
                         }
                         if (!found) {
-                            //if (android.os.Build.VERSION.SDK_INT >= 18) {
                             _bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true, 0, false, false));
-                        /*}
-                        else {
-                            _bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", 0, true, 0));
-                        }*/
                         }
 
                         found = false;
@@ -733,12 +719,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                             }
                         }
                         if (!found) {
-                            //if (android.os.Build.VERSION.SDK_INT >= 18) {
                             preference.customBluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true, 0, false, false));
-                        /*}
-                        else {
-                            customBluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", 0, true, 0));
-                        }*/
                         }
                     }
                 }
@@ -754,24 +735,15 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                             }
                         }
                         if (!exists) {
-                            //if (android.os.Build.VERSION.SDK_INT >= 18)
                             _bluetoothList.add(new BluetoothDeviceData(customBTName.getName(), "", BluetoothDevice.DEVICE_TYPE_DUAL, true, 0, false, false));
-                            //else
-                            //    _bluetoothList.add(new BluetoothDeviceData(customBTName.getName(), "", 0, true, 0));
                         }
                     }
                 }
 
                 _bluetoothList.sort(new SortList());
 
-                //if (android.os.Build.VERSION.SDK_INT >= 18) {
                 _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false, 0, false, false));
                 _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false, 0, false, false));
-                /*}
-                else {
-                    _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", 0, false, 0));
-                    _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", 0, false, 0));
-                }*/
 
                 // move checked on top
                 int i = 0;

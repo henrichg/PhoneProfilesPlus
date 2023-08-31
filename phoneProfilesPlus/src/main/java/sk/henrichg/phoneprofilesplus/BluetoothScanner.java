@@ -645,8 +645,7 @@ class BluetoothScanner {
     }
 
     static boolean bluetoothLESupported(/*Context context*/) {
-        return (/*(android.os.Build.VERSION.SDK_INT >= 18) &&*/
-                PPApplication.HAS_FEATURE_BLUETOOTH_LE);
+        return (PPApplication.HAS_FEATURE_BLUETOOTH_LE);
     }
 
 }
