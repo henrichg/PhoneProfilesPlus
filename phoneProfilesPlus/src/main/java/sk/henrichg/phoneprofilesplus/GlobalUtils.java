@@ -318,7 +318,6 @@ class GlobalUtils {
 
     static Collator getCollator(/*Context context*/)
     {
-        //if (android.os.Build.VERSION.SDK_INT < 24) {
         // get application Locale
 //            String lang = ApplicationPreferences.applicationLanguage(context);
 
@@ -331,11 +330,7 @@ class GlobalUtils {
 //                else
 //                    appLocale = new Locale(langSplit[0], langSplit[1]);
 //            } else {
-        //if (Build.VERSION.SDK_INT >= 24) {
-        //appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
-        //} else {
-        //    appLocale = Resources.getSystem().getConfiguration().locale;
-        //}
+//                appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
 //            }
 
         // application locale
@@ -343,11 +338,6 @@ class GlobalUtils {
 
         // get collator for application locale
         return Collator.getInstance(appLocale);
-//        }
-//        else {
-//            //Log.d("GlobalGUIRoutines.getCollator", java.util.Locale.getDefault().toString());
-//            return Collator.getInstance();
-//        }
     }
 
     // ----------------------

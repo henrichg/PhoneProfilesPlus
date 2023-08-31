@@ -144,46 +144,26 @@ class BitmapManipulator {
 
     private static int getBitmapUriOrientation(Context context, Uri photoUri) {
         try {
-            //if (Build.VERSION.SDK_INT >= 24) {
-                InputStream inputStream;
-                inputStream = context.getContentResolver().openInputStream(photoUri);
-                if (inputStream != null) {
-                    ExifInterface exif = new ExifInterface(inputStream);
-                    int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-                    inputStream.close();
+            InputStream inputStream;
+            inputStream = context.getContentResolver().openInputStream(photoUri);
+            if (inputStream != null) {
+                ExifInterface exif = new ExifInterface(inputStream);
+                int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                inputStream.close();
 
-                    switch (orientation) {
-                        case ExifInterface.ORIENTATION_ROTATE_270:
-                            return 270;
-                        case ExifInterface.ORIENTATION_ROTATE_180:
-                            return  180;
-                        case ExifInterface.ORIENTATION_ROTATE_90:
-                            return  90;
-                        default:
-                            return 0;
-                    }
+                switch (orientation) {
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        return 270;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        return  180;
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        return  90;
+                    default:
+                        return 0;
                 }
-                else
-                    return -1;
-//            }
-//            else {
-//                Cursor cursor = context.getContentResolver().query(photoUri,
-//                        new String[]{MediaStore.Images.ImageColumns.ORIENTATION}, null, null, null);
-//                if (cursor != null) {
-//                    if (cursor.getCount() != 1) {
-//                        cursor.close();
-//                        return -1;
-//                    }
-//
-//                    cursor.moveToFirst();
-//
-//                    int orientation = cursor.getInt(0);
-//
-//                    cursor.close();
-//                    return orientation;
-//                } else
-//                    return -1;
-//            }
+            }
+            else
+                return -1;
         } catch (Exception e) {
             return -1;
         }

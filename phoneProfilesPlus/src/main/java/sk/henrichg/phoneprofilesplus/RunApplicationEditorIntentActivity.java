@@ -1037,8 +1037,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
                             break;
                         case "FLAG_ACTIVITY_LAUNCH_ADJACENT":
-                            //if (Build.VERSION.SDK_INT >= 24)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT);
                             break;
                         case "FLAG_ACTIVITY_MATCH_EXTERNAL":
                             if (Build.VERSION.SDK_INT >= 28)

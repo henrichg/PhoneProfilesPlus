@@ -97,19 +97,12 @@ class StringFormatUtils {
     static Spanned fromHtml(String source, boolean forBullets, boolean boldBullet, boolean forNumbers, int numberFrom, int sp, boolean trimTrailingWhiteSpaces) {
         Spanned htmlSpanned;
 
-        //if (Build.VERSION.SDK_INT >= 24) {
         if (forNumbers)
             htmlSpanned = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT, null, new LiTagHandler());
         else {
             htmlSpanned = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT);
             //htmlSpanned = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT, null, new GlobalGUIRoutines.LiTagHandler());
         }
-        //} else {
-        //    if (forBullets || forNumbers)
-        //        htmlSpanned = Html.fromHtml(source, null, new LiTagHandler());
-        //    else
-        //        htmlSpanned = Html.fromHtml(source);
-        //}
 
         htmlSpanned = removeUnderline(htmlSpanned);
 

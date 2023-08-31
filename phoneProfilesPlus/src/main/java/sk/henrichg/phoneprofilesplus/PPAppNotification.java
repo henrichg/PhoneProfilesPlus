@@ -127,7 +127,7 @@ public class PPAppNotification {
                 notificationUseDecoration = ApplicationPreferences.notificationUseDecoration;
                 notificationShowRestartEventsAsButton = ApplicationPreferences.notificationShowRestartEventsAsButton;
 
-                notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon /*|| (Build.VERSION.SDK_INT < 24)*/;
+                notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon;
                 notificationProfileIconColor = ApplicationPreferences.notificationProfileIconColor;
                 notificationProfileIconLightness = ApplicationPreferences.notificationProfileIconLightness;
                 notificationCustomProfileIconLightness = ApplicationPreferences.notificationCustomProfileIconLightness;

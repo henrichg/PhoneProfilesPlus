@@ -3840,7 +3840,7 @@ class ActivateProfileHelper {
             }
 
             // for lock screen no double width
-            if (/*(Build.VERSION.SDK_INT < 24) ||*/ (profile._deviceWallpaperFor != 2))
+            if (profile._deviceWallpaperFor != 2)
                 width = width << 1; // best wallpaper width is twice screen width
 
             Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(wallpaperUri, width, height, false, true, appContext);
@@ -3848,7 +3848,6 @@ class ActivateProfileHelper {
                 // set wallpaper
                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(appContext);
                 try {
-                    //if (Build.VERSION.SDK_INT >= 24) {
                     int flags = WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK;
                     Rect visibleCropHint = null;
                     if (profile._deviceWallpaperFor == 1)
@@ -3864,8 +3863,6 @@ class ActivateProfileHelper {
                         visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
                     }
                     wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
-                    //} else
-                    //    wallpaperManager.setBitmap(decodedSampleBitmap);
 
                     PPApplicationStatic.setWallpaperChangeTime(appContext);
                 } catch (IOException e) {
@@ -7557,11 +7554,6 @@ class ActivateProfileHelper {
 
             String nTitle = profile.getGenerateNotificationTitle();
             String nText = profile.getGenerateNotificationBody();
-//            if (android.os.Build.VERSION.SDK_INT < 24) {
-//                nTitle = appContext.getString(R.string.ppp_app_name);
-//                nText = profile.getGenerateNotificationTitle() + ": " +
-//                        profile.getGenerateNotificationBody();
-//            }
             nTitle = nTitle + " (" + profile._name + ")";
             mBuilder = new NotificationCompat.Builder(appContext, PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL)
                     .setContentTitle(nTitle) // title for notification

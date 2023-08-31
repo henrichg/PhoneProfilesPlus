@@ -871,11 +871,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE) {
                 String nTitle = context.getString(R.string.permissions_notification_text);
                 String nText = context.getString(R.string.permissions_for_install_tone_big_text_notification);
-                if (android.os.Build.VERSION.SDK_INT < 24) {
-                    nTitle = context.getString(R.string.ppp_app_name);
-                    nText = context.getString(R.string.permissions_notification_text) + ": " +
-                            context.getString(R.string.permissions_for_install_tone_big_text_notification);
-                }
                 mBuilder = new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
                         .setColor(ContextCompat.getColor(context, R.color.primary))
                         .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
@@ -887,11 +882,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             } else*/ if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION) {
                 String nTitle = context.getString(R.string.permissions_notification_text);
                 String nText = context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification);
-//                if (android.os.Build.VERSION.SDK_INT < 24) {
-//                    nTitle = context.getString(R.string.ppp_app_name);
-//                    nText = context.getString(R.string.permissions_notification_text) + ": " +
-//                            context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification);
-//                }
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
                         .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
                         .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
@@ -905,11 +895,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             } /*else if (grantType == Permissions.GRANT_TYPE_LOG_TO_FILE) {
                 String nTitle = context.getString(R.string.permissions_notification_text);
                 String nText = context.getString(R.string.permissions_for_log_to_file_big_text_notification);
-                if (android.os.Build.VERSION.SDK_INT < 24) {
-                    nTitle = context.getString(R.string.ppp_app_name);
-                    nText = context.getString(R.string.permissions_notification_text) + ": " +
-                            context.getString(R.string.permissions_for_log_to_file_big_text_notification);
-                }
                 mBuilder = new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
                         .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
                         .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
@@ -922,10 +907,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }*/ else if (grantType == Permissions.GRANT_TYPE_EVENT) {
                 String nTitle = context.getString(R.string.permissions_for_event_text_notification);
                 String nText = "";
-//                if (android.os.Build.VERSION.SDK_INT < 24) {
-//                    nTitle = context.getString(R.string.ppp_app_name);
-//                    nText = context.getString(R.string.permissions_for_event_text_notification) + ": ";
-//                }
             /*if (mergedNotification) {
                 nText = nText + context.getString(R.string.permissions_for_event_text1m) + " " +
                         context.getString(R.string.permissions_for_event_big_text_notification);
@@ -959,10 +940,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             } else {
                 String nTitle = context.getString(R.string.permissions_for_profile_text_notification);
                 String nText = "";
-//                if (android.os.Build.VERSION.SDK_INT < 24) {
-//                    nTitle = context.getString(R.string.ppp_app_name);
-//                    nText = context.getString(R.string.permissions_for_profile_text_notification) + ": ";
-//                }
                 if (mergedProfile/* || mergedNotification*/) {
                     nText = nText + context.getString(R.string.permissions_for_profile_text1m) + " " +
                             context.getString(R.string.permissions_for_profile_big_text_notification);

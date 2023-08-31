@@ -23,8 +23,7 @@ public class BootUpReceiver extends BroadcastReceiver {
         if (action != null) {
 
             // support for Direct boot
-            //if (Build.VERSION.SDK_INT >= 24)
-            //    okAction = action.equals(Intent.ACTION_LOCKED_BOOT_COMPLETED);
+            // okAction = action.equals(Intent.ACTION_LOCKED_BOOT_COMPLETED);
 
             //if (!okAction)
                 okAction = action.equals(Intent.ACTION_BOOT_COMPLETED) ||

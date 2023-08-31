@@ -254,11 +254,6 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 
                 String nTitle = appContext.getString(R.string.about_application_donate_button);
                 String nText = appContext.getString(R.string.donation_description);
-//                if (android.os.Build.VERSION.SDK_INT < 24) {
-//                    nTitle = appContext.getString(R.string.ppp_app_name);
-//                    nText = appContext.getString(R.string.about_application_donate_button) + ": " +
-//                            appContext.getString(R.string.donation_description);
-//                }
                 mBuilder = new NotificationCompat.Builder(appContext, PPApplication.DONATION_NOTIFICATION_CHANNEL)
                         .setColor(ContextCompat.getColor(appContext, R.color.information_color))
                         .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
