@@ -185,10 +185,6 @@ class BluetoothScanner {
                                 if (leDevicesScan && !ApplicationPreferences.prefEventBluetoothScanKilled) {
                                     ///////// LE BT scan
 
-                                /*if (android.os.Build.VERSION.SDK_INT < 21)
-                                    // for old BT LE scan must by acquired lock
-                                    lock();*/
-
                                     // enable bluetooth
                                     bluetoothState = enableBluetooth(BluetoothScanWorker.bluetooth,
                                                                     //bluetoothChangeHandler,

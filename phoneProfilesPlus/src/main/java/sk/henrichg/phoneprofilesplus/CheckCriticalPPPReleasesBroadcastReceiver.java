@@ -300,10 +300,8 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
         PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        //if (android.os.Build.VERSION.SDK_INT >= 21) {
         mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        //}
 
         Intent disableIntent = new Intent(appContext, CheckCriticalPPPReleasesDisableActivity.class);
         disableIntent.putExtra(CheckCriticalPPPReleasesDisableActivity.EXTRA_PPP_RELEASE_CODE, versionCodeInReleases);

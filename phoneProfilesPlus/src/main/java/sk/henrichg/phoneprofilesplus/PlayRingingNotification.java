@@ -211,7 +211,6 @@ class PlayRingingNotification
                 boolean simulateRinging = false;
                 //int stream = AudioManager.STREAM_RING;
 
-                //if ((android.os.Build.VERSION.SDK_INT >= 21)) {
                 //if (!(((newRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
                 //        ((newRingerMode == Profile.RINGERMODE_ZENMODE) &&
                 //                ((newZenMode == Profile.ZENMODE_NONE) || (newZenMode == Profile.ZENMODE_ALARMS))))) {
@@ -232,7 +231,6 @@ class PlayRingingNotification
                     simulateRinging = true;
                     //stream = AudioManager.STREAM_ALARM;
                 }
-                //}
 
                 //if (!simulateRinging) {
                 //    if (!(((newRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT < 23)) ||
@@ -512,7 +510,6 @@ class PlayRingingNotification
                 boolean simulateNotificationTone = false;
                 int stream = AudioManager.STREAM_NOTIFICATION;
 
-                if ((android.os.Build.VERSION.SDK_INT >= 21)) {
                     if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
                             ((newRingerMode == 5) && ((newZenMode == 3) || (newZenMode == 6))))) {
                         // actual ringer/zen mode is changed to another then NONE and ONLY_ALARMS
@@ -546,7 +543,6 @@ class PlayRingingNotification
                             }
                         }
                     }
-                }
 
                 if (oldNotificationTone.isEmpty() || (!newNotificationTone.isEmpty() && !newNotificationTone.equals(oldNotificationTone)))
                     simulateNotificationTone = true;

@@ -701,7 +701,7 @@ public class WifiScanWorker extends Worker {
 
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 //boolean isScreenOn = PPApplication.isScreenOn(pm);
-                //if ((android.os.Build.VERSION.SDK_INT < 21) || (_scanResults.size() > 0) || isScreenOn) {
+                //if ((_scanResults.size() > 0) || isScreenOn) {
                 //scanResults.clear();
                 for (ScanResult _device : _scanResults) {
                     boolean found = false;

@@ -1286,9 +1286,6 @@ class PhoneProfilesServiceStatic
     }
 
     static void registerReceiverForAlarmClockSensor(boolean register, DataWrapper dataWrapper, Context context) {
-        //if (android.os.Build.VERSION.SDK_INT < 21)
-        //    return;
-
         Context appContext = context.getApplicationContext();
         if (!register) {
             if (PPApplication.alarmClockBroadcastReceiver != null) {
@@ -1316,54 +1313,14 @@ class PhoneProfilesServiceStatic
                 allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ALARM_CLOCK/*, false*/);
             }
             if (allowed) {
-                /*if (android.os.Build.VERSION.SDK_INT < 21) {
-                    if (alarmClockBroadcastReceiver == null) {
-                        alarmClockBroadcastReceiver = new AlarmClockBroadcastReceiver();
-                        IntentFilter intentFilter21 = new IntentFilter();
-                        // AOSP
-                        intentFilter21.addAction("com.android.deskclock.ALARM_ALERT");
-                        intentFilter21.addAction("com.android.alarmclock.ALARM_ALERT");
-                        // Samsung
-                        intentFilter21.addAction("com.samsung.sec.android.clockpackage.alarm.ALARM_ALERT");
-                        // HTC
-                        intentFilter21.addAction("com.htc.android.worldclock.ALARM_ALERT");
-                        intentFilter21.addAction("com.htc.android.ALARM_ALERT");
-                        // Sony
-                        intentFilter21.addAction("com.sonyericsson.alarm.ALARM_ALERT");
-                        // ZTE
-                        intentFilter21.addAction("zte.com.cn.alarmclock.ALARM_ALERT");
-                        // Motorola
-                        intentFilter21.addAction("com.motorola.blur.alarmclock.ALARM_ALERT");
-                        // LG - not working :-/
-                        intentFilter21.addAction("com.lge.clock.ALARM_ALERT");
-                        intentFilter21.addAction("com.lge.alarm.alarmclocknew");
-                        // Xiaomi - not working :-/
-                        //08-23 17:02:00.006 1535-1646/? W/ActivityManager: Sending non-protected broadcast null from system uid 1000 pkg android. Callers=com.android.server.am.ActivityManagerService.broadcastIntentLocked:19078 com.android.server.am.ActivityManagerService.broadcastIntentInPackage:19192 com.android.server.am.PendingIntentRecord.sendInner:311 com.android.server.am.PendingIntentRecord.sendWithResult:205 com.android.server.am.ActivityManagerService.sendIntentSender:7620
-                        //08-23 17:02:00.049 12506-12612/? I/AlarmClock: AlarmReceiver, action: com.android.deskclock.ALARM_ALERT
-                        //08-23 17:02:00.081 12506-12612/? I/AlarmClock: enableAlarmInternal id:4, enabled:false, skip:false
-                        //08-23 17:02:00.093 12506-12612/? I/AlarmClock: Settings, saveNextAlarmTime(), and the timeString is
-
-                        // Gentle Alarm
-                        intentFilter21.addAction("com.mobitobi.android.gentlealarm.ALARM_INFO");
-                        // Sleep As Android
-                        intentFilter21.addAction("com.urbandroid.sleep.alarmclock.ALARM_ALERT");
-                        //  Alarmdroid (1.13.2)
-                        intentFilter21.addAction("com.splunchy.android.alarmclock.ALARM_ALERT");
-
-                        //intentFilter21.setPriority(Integer.MAX_VALUE);
-                        registerReceiver(alarmClockBroadcastReceiver, intentFilter21);
-                    }
+                if (PPApplication.alarmClockBroadcastReceiver == null) {
+                    PPApplication.alarmClockBroadcastReceiver = new AlarmClockBroadcastReceiver();
+                    IntentFilter intentFilter21 = new IntentFilter(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.alarmClockBroadcastReceiver, intentFilter21, receiverFlags);
                 }
-                else {*/
-                    if (PPApplication.alarmClockBroadcastReceiver == null) {
-                        PPApplication.alarmClockBroadcastReceiver = new AlarmClockBroadcastReceiver();
-                        IntentFilter intentFilter21 = new IntentFilter(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
-                        int receiverFlags = 0;
-                        if (Build.VERSION.SDK_INT >= 34)
-                            receiverFlags = RECEIVER_NOT_EXPORTED;
-                        appContext.registerReceiver(PPApplication.alarmClockBroadcastReceiver, intentFilter21, receiverFlags);
-                    }
-                //}
                 if (PPApplication.alarmClockEventEndBroadcastReceiver == null) {
                     PPApplication.alarmClockEventEndBroadcastReceiver = new AlarmClockEventEndBroadcastReceiver();
                     IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER);
@@ -1413,9 +1370,6 @@ class PhoneProfilesServiceStatic
     }
 
     static void registerReceiverForDeviceBootSensor(boolean register, DataWrapper dataWrapper, Context context) {
-        //if (android.os.Build.VERSION.SDK_INT < 21)
-        //    return;
-
         Context appContext = context.getApplicationContext();
         if (!register) {
             if (PPApplication.deviceBootEventEndBroadcastReceiver != null) {
@@ -1450,9 +1404,6 @@ class PhoneProfilesServiceStatic
     }
 
     static void registerReceiverForPeriodicSensor(boolean register, DataWrapper dataWrapper, Context context) {
-        //if (android.os.Build.VERSION.SDK_INT < 21)
-        //    return;
-
         Context appContext = context.getApplicationContext();
         if (!register) {
             if (PPApplication.periodicEventEndBroadcastReceiver != null) {

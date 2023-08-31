@@ -2140,19 +2140,17 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         //noinspection deprecation
                         startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
                     } catch (Exception e) {
-                        //if (Build.VERSION.SDK_INT > 21) {
-                            intent = new Intent();
-                            intent.setComponent(new ComponentName(StringConstants.SETTINGS_PACKAGE_NAME, StringConstants.SETTINGS_BATTERY_SAVER_CLASS_NAME));
-                            activityExists = GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext());
-                            if (activityExists) {
-                                try {
-                                    //noinspection deprecation
-                                    startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
-                                } catch (Exception ee) {
-                                    PPApplicationStatic.recordException(ee);
-                                }
+                        intent = new Intent();
+                        intent.setComponent(new ComponentName(StringConstants.SETTINGS_PACKAGE_NAME, StringConstants.SETTINGS_BATTERY_SAVER_CLASS_NAME));
+                        activityExists = GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext());
+                        if (activityExists) {
+                            try {
+                                //noinspection deprecation
+                                startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
+                            } catch (Exception ee) {
+                                PPApplicationStatic.recordException(ee);
                             }
-                        //}
+                        }
                     }
                 }
                 if (!activityExists) {
@@ -2533,12 +2531,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         /*if (Build.VERSION.SDK_INT < 26) {
             setSummary(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
-            //if (android.os.Build.VERSION.SDK_INT >= 21) {
             Preference preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
             if (preference != null) {
                 preference.setTitle(R.string.phone_profiles_pref_notificationShowInStatusBarAndLockscreen);
             }
-            //}
         }*/
 
         //if (Build.VERSION.SDK_INT < 26)
@@ -3413,8 +3409,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         Context context = getActivity().getApplicationContext();
 
-        /*if (//(android.os.Build.VERSION.SDK_INT >= 21) &&
-                (android.os.Build.VERSION.SDK_INT < 26)) {
+        /*if ((android.os.Build.VERSION.SDK_INT < 26)) {
             if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR)) {
                 boolean show = preferences.getBoolean(key, true);
                 Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);

@@ -433,7 +433,6 @@ class EventPreferencesWifi extends EventPreferences {
                             PPApplicationStatic.recordException(e);
                         }
                         if (connManager != null) {
-                            //if (android.os.Build.VERSION.SDK_INT >= 21) {
                             Network[] networks = connManager.getAllNetworks();
                             //noinspection ConstantValue,RedundantLengthCheck
                             if ((networks != null) && (networks.length > 0)) {
@@ -466,10 +465,6 @@ class EventPreferencesWifi extends EventPreferences {
                                     }
                                 }
                             }
-                            /*} else {
-                                NetworkInfo ntkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-                                wifiConnected = (ntkInfo != null) && ntkInfo.isConnected();
-                            }*/
                         }
 
                         if (wifiConnected) {

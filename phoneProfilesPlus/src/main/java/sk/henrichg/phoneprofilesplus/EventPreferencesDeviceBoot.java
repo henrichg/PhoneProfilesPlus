@@ -183,10 +183,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
     @Override
     boolean isRunnable(Context context)
     {
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-            return super.isRunnable(context);
-        //else
-        //    return false;
+        return super.isRunnable(context);
     }
 
     @Override

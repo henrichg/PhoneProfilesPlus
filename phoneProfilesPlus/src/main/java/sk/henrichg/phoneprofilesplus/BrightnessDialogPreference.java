@@ -77,7 +77,6 @@ public class BrightnessDialogPreference extends DialogPreference {
         /*savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
                 Profile.convertPercentsToBrightnessManualValue(50, context));
         savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
-        //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
         savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);*/
         //Window win = ((Activity)context).getWindow();
         //WindowManager.LayoutParams layoutParams = win.getAttributes();
@@ -163,10 +162,7 @@ public class BrightnessDialogPreference extends DialogPreference {
             prefVolumeDataSummary = _context.getString(R.string.preference_profile_default_profile);*/
             else {
                 if (automatic == 1) {
-                    //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
                     prefVolumeDataSummary = _context.getString(R.string.preference_profile_adaptiveBrightness);
-                    //else
-                    //    prefVolumeDataSummary = _context.getString(R.string.preference_profile_autoBrightness);
                 } else
                     prefVolumeDataSummary = _context.getString(R.string.preference_profile_manual_brightness);
 

@@ -66,9 +66,7 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
         checkBoxesDivider = view.findViewById(R.id.brightnessPrefDialogCheckBoxesDivider);
         actualLevelBtn = view.findViewById(R.id.brightnessPrefDialogActualLevel);
 
-        //if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
         automaticChBox.setText(R.string.preference_profile_adaptiveBrightness);
-        //}
 
         seekBar.setOnSeekBarChangeListener(this);
         seekBar.setKeyProgressIncrement(1/*preference.stepSize*/);
@@ -331,11 +329,7 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
                 automaticChBox.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
                 changeLevelChBox.setEnabled(/*(preference.adaptiveAllowed || preference.automatic == 0) &&*/ (preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
                 //if (preference.adaptiveAllowed) {
-                //if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
                 levelText.setText(R.string.brightness_pref_dialog_adaptive_level_may_not_working);
-                //} else
-                //    levelText.setVisibility(View.GONE);
-                //}
                 levelText.setEnabled((preference.automatic != 0) && (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
                 actualLevelBtn.setEnabled(/*(preference.adaptiveAllowed || preference.automatic == 0) &&*/ (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
             } else {

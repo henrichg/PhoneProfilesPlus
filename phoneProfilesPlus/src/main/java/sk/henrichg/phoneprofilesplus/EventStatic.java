@@ -238,10 +238,7 @@ class EventStatic {
         /*
         if (preferenceKey.equals(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED))
         {
-            //if (android.os.Build.VERSION.SDK_INT >= 21)
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            //else
-            //    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             return preferenceAllowed;
         }
         //if (checked)

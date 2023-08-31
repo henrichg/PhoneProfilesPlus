@@ -991,10 +991,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
             mBuilder.setContentIntent(pi);
             mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
             mBuilder.setOnlyAlertOnce(true);
-            //if (android.os.Build.VERSION.SDK_INT >= 21) {
-                mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
-                mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-            //}
+            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
             mBuilder.setGroup(PPApplication.GRANT_PERMISSIONS_NOTIFICATION_GROUP);
 

@@ -183,10 +183,8 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
             PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
             mBuilder.setContentIntent(pi);
             mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-            //if (android.os.Build.VERSION.SDK_INT >= 21) {
             mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-            //}
 
             mBuilder.setGroup(PPApplication.CHECK_RELEASES_GROUP);
 

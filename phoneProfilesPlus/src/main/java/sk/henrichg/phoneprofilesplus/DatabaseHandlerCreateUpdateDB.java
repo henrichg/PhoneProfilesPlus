@@ -1557,8 +1557,6 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 1156)
         {
             try {
-                //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-                //{
                 final String selectQuery = "SELECT " + DatabaseHandler.KEY_ID + "," +
                         DatabaseHandler.KEY_DEVICE_BRIGHTNESS +
                         " FROM " + DatabaseHandler.TABLE_PROFILES;
@@ -1597,7 +1595,6 @@ class DatabaseHandlerCreateUpdateDB {
                 }
 
                 cursor.close();
-                //}
             } catch (Exception ignored) {}
         }
 

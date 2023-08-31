@@ -488,8 +488,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         setRedTextToPreferences();
 
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-        //{
         PPListPreference ringerModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
             /*if (ringerModePreference.findIndexOfValue("5") < 0) {
                 // add zen mode option to preference Ringer mode
@@ -601,30 +599,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 return true;
             });
         }
-        /*}
-        else
-        {
-            // remove zen mode preferences from preferences screen
-            // for Android version < 5.0 this is not supported
-            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
-            if (preference != null)
-            {
-                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference(PREF_PROFILE_SOUND_PROFILE_CATTEGORY);
-                preferenceCategory.removePreference(preference);
-            }
-            preference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
-            if (preference != null)
-            {
-                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference(PREF_PROFILE_SOUND_PROFILE_CATTEGORY);
-                preferenceCategory.removePreference(preference);
-            }
-            preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
-            if (preference != null)
-            {
-                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference(PREF_PROFILE_SOUND_PROFILE_CATTEGORY);
-                preferenceCategory.removePreference(preference);
-            }
-        }*/
         /*if (Build.VERSION.SDK_INT != 23) {
             Preference preference = prefMng.findPreference("prf_pref_volumeVibrateWhenRingingRootInfo");
             if (preference != null) {
@@ -3399,10 +3373,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String summaryString;
             if (automatic)
             {
-                //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
                 summaryString = context.getString(R.string.preference_profile_adaptiveBrightness);
-                //else
-                //    summaryString = _context.getString(R.string.preference_profile_autoBrightness);
             } else
                 summaryString = context.getString(R.string.preference_profile_manual_brightness);
 
@@ -4595,12 +4566,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(Profile.PREF_PROFILE_VOLUME_ZEN_MODE) || alsoSetZenMode)
         {
-            //if (android.os.Build.VERSION.SDK_INT >= 21)
-            //{
-                /*final boolean canEnableZenMode =
-                        (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
-                         (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
-                        );*/
             final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context);
 
             if (!canEnableZenMode)
@@ -4659,7 +4624,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preferenceCategory.removePreference(notificationAccessPreference);
                 }*/
             }
-            //}
         }
 
         if (key.equals(Profile.PREF_PROFILE_DURATION))

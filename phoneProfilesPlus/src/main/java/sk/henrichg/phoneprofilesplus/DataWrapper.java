@@ -201,11 +201,7 @@ class DataWrapper {
                     /*if (android.os.Build.VERSION.SDK_INT >= 23) {
                         profile._volumeRingerMode = 5;
                         profile._volumeZenMode = 1; // ALL
-                    } else if (android.os.Build.VERSION.SDK_INT >= 21) {
-                        profile._volumeRingerMode = 5;
-                        profile._volumeZenMode = 1; // ALL
-                    } else
-                        profile._volumeRingerMode = 1;*/
+                    }*/
                 } else
                     profile._volumeRingerMode = Profile.RINGERMODE_RING;
                 profile._volumeRingtone = getVolumeLevelString(71, maximumValueRing) + "|0|0";
@@ -224,11 +220,7 @@ class DataWrapper {
                     /*if (android.os.Build.VERSION.SDK_INT >= 23) {
                         profile._volumeRingerMode = 5;
                         profile._volumeZenMode = 1; // ALL
-                    } else if (android.os.Build.VERSION.SDK_INT >= 21) {
-                        profile._volumeRingerMode = 5;
-                        profile._volumeZenMode = 1; // ALL
-                    } else
-                        profile._volumeRingerMode = 2;*/
+                    }*/
                 } else
                     profile._volumeRingerMode = Profile.RINGERMODE_RING;
                 profile._volumeRingtone = getVolumeLevelString(100, maximumValueRing) + "|0|0";
@@ -247,11 +239,7 @@ class DataWrapper {
                     /*if (android.os.Build.VERSION.SDK_INT >= 23) {
                         profile._volumeRingerMode = 5;
                         profile._volumeZenMode = 4; // ALL with vibration
-                    } else if (android.os.Build.VERSION.SDK_INT >= 21) {
-                        profile._volumeRingerMode = 5;
-                        profile._volumeZenMode = 4; // ALL with vibration
-                    } else
-                        profile._volumeRingerMode = 1;*/
+                    }*/
                 } else
                     profile._volumeRingerMode = Profile.RINGERMODE_RING;
                 profile._volumeRingtone = getVolumeLevelString(57, maximumValueRing) + "|0|0";
@@ -270,11 +258,7 @@ class DataWrapper {
                     /*if (android.os.Build.VERSION.SDK_INT >= 23) {
                         profile._volumeRingerMode = 5;
                         profile._volumeZenMode = 3; // NONE
-                    } else if (android.os.Build.VERSION.SDK_INT >= 21) {
-                        profile._volumeRingerMode = 5;
-                        profile._volumeZenMode = 3; // NONE
-                    } else
-                        profile._volumeRingerMode = 4;*/
+                    }*/
                 } else
                     profile._volumeRingerMode = Profile.RINGERMODE_SILENT;
                 profile._volumeRingtone = getVolumeLevelString(57, maximumValueRing) + "|0|0";
@@ -293,11 +277,7 @@ class DataWrapper {
                     /*if (android.os.Build.VERSION.SDK_INT >= 23) {
                         profile._volumeRingerMode = 5;
                         profile._volumeZenMode = 6; // ALARMS
-                    } else if (android.os.Build.VERSION.SDK_INT >= 21) {
-                        profile._volumeRingerMode = 5;
-                        profile._volumeZenMode = 3; // NONE
-                    } else
-                        profile._volumeRingerMode = 4;*/
+                    }*/
                 } else
                     profile._volumeRingerMode = Profile.RINGERMODE_SILENT;
                 profile._volumeRingtone = getVolumeLevelString(71, maximumValueRing) + "|0|0";
@@ -1293,16 +1273,9 @@ class DataWrapper {
                 event._ignoreManualActivation = true;
                 event._noPauseByManualActivation = false;
                 event._eventPreferencesBattery._enabled = true;
-                //if (Build.VERSION.SDK_INT >= 21) {
-                    event._eventPreferencesBattery._levelLow = 0;
-                    event._eventPreferencesBattery._levelHight = 100;
-                    event._eventPreferencesBattery._powerSaveMode = true;
-                /*}
-                else {
-                    event._eventPreferencesBattery._levelLow = 0;
-                    event._eventPreferencesBattery._levelHight = 10;
-                    event._eventPreferencesBattery._powerSaveMode = false;
-                }*/
+                event._eventPreferencesBattery._levelLow = 0;
+                event._eventPreferencesBattery._levelHight = 100;
+                event._eventPreferencesBattery._powerSaveMode = true;
                 event._eventPreferencesBattery._charging = 0;
                 event._eventPreferencesBattery._plugged = "";
                 break;

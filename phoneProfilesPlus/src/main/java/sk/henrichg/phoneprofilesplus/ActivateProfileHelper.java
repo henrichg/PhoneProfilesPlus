@@ -1532,8 +1532,6 @@ class ActivateProfileHelper {
     /*
     private static void setZenMode(Context context, int zenMode, AudioManager audioManager, int systemZenMode, int ringerMode)
     {
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-        //{
             Context appContext = context.getApplicationContext();
 
             //int systemZenMode = getSystemZenMode(appContext); //, -1);
@@ -1620,11 +1618,6 @@ class ActivateProfileHelper {
                     PPApplicationStatic.recordException(e);
                 }
             }
-        //}
-        //else {
-        //    RingerModeChangeReceiver.notUnlinkVolumes = false;
-        //    audioManager.setRingerMode(ringerMode);
-        //}
     }
     */
 
@@ -3459,7 +3452,6 @@ class ActivateProfileHelper {
             //    return PPNotificationListenerService.isNotificationListenerServiceEnabled(appContext, false);
         //}
         //else
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
         //    return PPNotificationListenerService.isNotificationListenerServiceEnabled(appContext);
         //return false;
     }
@@ -4645,11 +4637,8 @@ class ActivateProfileHelper {
         PendingIntent pi = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-        //{
         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        //}
 
         mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_PREFS_NOTIFICATION_GROUP);
 
@@ -5961,47 +5950,6 @@ class ActivateProfileHelper {
             else
                 return false;
         }
-        /*else
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-        {
-            Class<?> telephonyManagerClass;
-
-            TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-            if (telephonyManager != null) {
-                try {
-                    telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
-                    Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
-                    getITelephonyMethod.setAccessible(true);
-                    return true;
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            else
-                return false;
-        }*/
-        /*else
-        {
-            ConnectivityManager connectivityManager = null;
-            try {
-                connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            } catch (Exception ignored) {
-                // java.lang.NullPointerException: missing IConnectivityManager
-                // Dual SIM?? Bug in Android ???
-            }
-            if (connectivityManager != null) {
-                try {
-                    final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
-                    final Method getMobileDataEnabledMethod = connectivityManagerClass.getDeclaredMethod("getMobileDataEnabled");
-                    getMobileDataEnabledMethod.setAccessible(true);
-                    return true;
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            else
-                return false;
-        }*/
     }
 
     private static void setMobileData(Context context, boolean enable,
@@ -6695,7 +6643,6 @@ class ActivateProfileHelper {
                             if (powerManager != null) {
                                 //PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                                 boolean _isPowerSaveMode;
-                                //if (Build.VERSION.SDK_INT >= 21)
                                 _isPowerSaveMode = powerManager.isPowerSaveMode();
                                 boolean _setPowerSaveMode = false;
                                 switch (profile._devicePowerSaveMode) {
@@ -6721,7 +6668,6 @@ class ActivateProfileHelper {
                                     boolean G1OK = false;
                                     if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                                         try {
-                                            //if (android.os.Build.VERSION.SDK_INT >= 21)
                                             Settings.Global.putInt(appContext.getContentResolver(), LOW_POWER, ((_isPowerSaveMode) ? 1 : 0));
                                             G1OK = true;
                                         } catch (Exception ee) {
@@ -7665,10 +7611,8 @@ class ActivateProfileHelper {
 
             mBuilder.setContentIntent(pIntent);
             mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-            //if (android.os.Build.VERSION.SDK_INT >= 21) {
             mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-            //}
 
             mBuilder.setGroup(PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_GROUP);
 
@@ -7964,11 +7908,8 @@ class ActivateProfileHelper {
         //PendingIntent pi = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         //mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-        //{
         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        //}
 
         mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_ERRORS_NOTIFICATION_GROUP);
 

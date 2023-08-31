@@ -30,7 +30,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         //if (!PPApplicationStatic.getApplicationStarted(context.getApplicationContext(), true))
         //    return;
 
-        //if (android.os.Build.VERSION.SDK_INT >= 21) {
         String action = intent.getAction();
 //            PPApplicationStatic.logE("NextAlarmClockBroadcastReceiver.onReceive", "action="+action);
 
@@ -107,7 +106,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                 }*/
             }
         }
-        //}
     }
 
     private static int hashData(String alarmPackageName) {

@@ -1129,18 +1129,16 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     try {
                         startActivity(intent);
                     } catch (Exception e) {
-                        //if (Build.VERSION.SDK_INT > 21) {
-                            intent = new Intent();
-                            intent.setComponent(new ComponentName(StringConstants.SETTINGS_PACKAGE_NAME, StringConstants.SETTINGS_BATTERY_SAVER_CLASS_NAME));
-                            activityExists = GlobalGUIRoutines.activityIntentExists(intent, context);
-                            if (activityExists) {
-                                try {
-                                    startActivity(intent);
-                                } catch (Exception ee) {
-                                    PPApplicationStatic.recordException(ee);
-                                }
+                        intent = new Intent();
+                        intent.setComponent(new ComponentName(StringConstants.SETTINGS_PACKAGE_NAME, StringConstants.SETTINGS_BATTERY_SAVER_CLASS_NAME));
+                        activityExists = GlobalGUIRoutines.activityIntentExists(intent, context);
+                        if (activityExists) {
+                            try {
+                                startActivity(intent);
+                            } catch (Exception ee) {
+                                PPApplicationStatic.recordException(ee);
                             }
-                        //}
+                        }
                     }
                 }
                 if (!activityExists) {

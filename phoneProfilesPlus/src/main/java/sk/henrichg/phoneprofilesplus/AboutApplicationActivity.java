@@ -345,14 +345,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                     Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                     // To count with Play market back stack, After pressing back button,
                     // to taken back to our application, we need to add following flags to intent.
-                    //if (android.os.Build.VERSION.SDK_INT >= 21)
                     goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
                             Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
                             Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                    //else
-                    //    goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                    //            Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
-                    //            Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                     try {
                         startActivity(goToMarket);
                     } catch (ActivityNotFoundException e) {

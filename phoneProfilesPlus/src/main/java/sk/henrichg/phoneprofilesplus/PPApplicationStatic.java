@@ -356,11 +356,8 @@ class PPApplicationStatic {
                         //PendingIntent pi = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                         //mBuilder.setContentIntent(pi);
                         mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                        //if (android.os.Build.VERSION.SDK_INT >= 21)
-                        //{
                         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
                         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-                        //}
 
                         mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_ERRORS_NOTIFICATION_GROUP);
 
@@ -2062,10 +2059,7 @@ class PPApplicationStatic {
 
     /*
     static boolean isScreenOn(PowerManager powerManager) {
-        //if (Build.VERSION.SDK_INT >= 20)
-            return powerManager.isInteractive();
-        //else
-        //    return powerManager.isScreenOn();
+        return powerManager.isInteractive();
     }
     */
 

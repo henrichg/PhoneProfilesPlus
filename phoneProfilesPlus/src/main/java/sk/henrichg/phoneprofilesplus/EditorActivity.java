@@ -259,7 +259,6 @@ public class EditorActivity extends AppCompatActivity
         //drawerLayout = findViewById(R.id.editor_list_drawer_layout);
 
         /*
-        if (Build.VERSION.SDK_INT >= 21) {
             drawerLayout.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
                     @Override
                     public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
@@ -270,14 +269,12 @@ public class EditorActivity extends AppCompatActivity
                     }
                 }
             );
-        }
         */
 
         //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
         //String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
 
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
         //	getWindow().setNavigationBarColor(R.attr.colorPrimary);
 
         //setWindowContentOverlayCompat();
@@ -314,7 +311,6 @@ public class EditorActivity extends AppCompatActivity
         drawerHeaderFilterSubtitle = findViewById(R.id.editor_drawer_list_header_subtitle);
 
         // set header padding for notches
-        //if (Build.VERSION.SDK_INT >= 21) {
             drawerRoot.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
                 @Override
                 public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
@@ -328,10 +324,6 @@ public class EditorActivity extends AppCompatActivity
                     return insets;
                 }
             });
-        //}
-
-        //if (Build.VERSION.SDK_INT < 21)
-        //    drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
         // actionbar titles
         drawerItemsTitle = new String[] {
@@ -3285,32 +3277,6 @@ public class EditorActivity extends AppCompatActivity
 //            }
 //        });
     }
-
-    /*
-    private void setWindowContentOverlayCompat() {
-        if (android.os.Build.VERSION.SDK_INT >= 20) {
-            // Get the content view
-            View contentView = findViewById(android.R.id.content);
-
-            // Make sure it's a valid instance of a FrameLayout
-            if (contentView instanceof FrameLayout) {
-                TypedValue tv = new TypedValue();
-
-                // Get the windowContentOverlay value of the current theme
-                if (getTheme().resolveAttribute(
-                        android.R.attr.windowContentOverlay, tv, true)) {
-
-                    // If it's a valid resource, set it as the foreground drawable
-                    // for the content view
-                    if (tv.resourceId != 0) {
-                        ((FrameLayout) contentView).setForeground(
-                                getResources().getDrawable(tv.resourceId));
-                    }
-                }
-            }
-        }
-    }
-    */
 
     private void showTargetHelps() {
         //startTargetHelps = true;

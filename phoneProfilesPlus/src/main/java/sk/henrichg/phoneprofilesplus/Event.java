@@ -2993,10 +2993,8 @@ class Event {
                 PendingIntent pi = PendingIntent.getActivity(context, (int) _id, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
                 mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                //if (android.os.Build.VERSION.SDK_INT >= 21) {
-                    mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
-                    mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-                //}
+                mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
+                mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
                 // Android 12 - this do not starts activity - OK
                 Intent deleteIntent = new Intent(StartEventNotificationDeletedReceiver.ACTION_START_EVENT_NOTIFICATION_DELETED);
