@@ -2091,7 +2091,8 @@ class DataWrapper {
                 finish = ApplicationPreferences.applicationClose;
             else
                 finish = (activity instanceof RestartEventsFromGUIActivity) ||
-                        (activity instanceof BackgroundActivateProfileActivity);
+                        (activity instanceof BackgroundActivateProfileActivity) ||
+                        (activity instanceof GenerateNotificationAfterClickActivity);
             if (finish) {
                 final Handler handler = new Handler(context.getMainLooper());
                 handler.post(() -> {
@@ -2127,7 +2128,8 @@ class DataWrapper {
                         if (activity instanceof ActivatorActivity)
                             finish = ApplicationPreferences.applicationClose;
                         else if ((activity instanceof RestartEventsFromGUIActivity) ||
-                                (activity instanceof BackgroundActivateProfileActivity))
+                                (activity instanceof BackgroundActivateProfileActivity) ||
+                                (activity instanceof GenerateNotificationAfterClickActivity))
                             finish = true;
                         else
                             finish = false;
@@ -2402,6 +2404,52 @@ class DataWrapper {
                 PPApplication.updateGUI(true, false, activity);
             }
         }
+    }
+
+    void runStopEventsFronGeneratedNotification(final Activity activity) {
+        ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(context.getApplicationContext(), PhoneProfilesService.class);
+        if (serviceInfo == null) {
+            // service is not running
+            return;
+        }
+
+        boolean eventRunningEnabled = EventStatic.getGlobalEventsRunning(activity);
+        String title;
+        if (eventRunningEnabled)
+            title = activity.getString(R.string.menu_stop_events);
+        else
+            title = activity.getString(R.string.menu_run_events);
+        PPAlertDialog dialog = new PPAlertDialog(
+                title,
+                activity.getString(R.string.stop_events_alert_message),
+                activity.getString(R.string.alert_button_yes),
+                activity.getString(R.string.alert_button_no),
+                null, null,
+                (dialog1, which) -> {
+                    if (globalRunStopEvents(eventRunningEnabled)) {
+                        //PPAppNotification.showNotification(/*activity.getApplicationContext()*/true, false);
+
+//                    PPApplicationStatic.logE("[PPP_NOTIFICATION] DataWrapper.runStopEventsWithAlert (1)", "call of updateGUI");
+                        PPApplication.updateGUI(true, false, activity);
+                    }
+                    activity.finish();
+                },
+                (dialog2, which) -> {
+                    activity.finish();
+                },
+                null,
+                dialogInterface -> {
+                    activity.finish();
+                },
+                null,
+                true, true,
+                false, false,
+                true,
+                activity
+        );
+
+        if (!activity.isFinishing())
+            dialog.show();
     }
 
     boolean globalRunStopEvents(boolean stop) {
