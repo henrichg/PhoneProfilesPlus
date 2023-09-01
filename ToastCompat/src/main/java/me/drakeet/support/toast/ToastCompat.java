@@ -77,17 +77,6 @@ public final class ToastCompat extends Toast {
     return new ToastCompat(context, toast);
   }
 
-  /*
-  public @NonNull ToastCompat setBadTokenListener(@NonNull BadTokenListener listener) {
-    final Context context = getView().getContext();
-    if (context instanceof SafeToastContext) {
-      ((SafeToastContext) context).setBadTokenListener(listener);
-    }
-    return this;
-  }
-  */
-
-
   @Override
   public void show() {
     toast.show();

@@ -416,6 +416,7 @@ class PPApplicationStatic {
         logFile.delete();
     }
 
+    /** @noinspection SameParameterValue*/
     static private void logIntoFile(String type, String tag, String text)
     {
         if (!PPApplication.logIntoFile)
@@ -481,7 +482,7 @@ class PPApplicationStatic {
         return (PPApplication.logIntoLogCat || PPApplication.logIntoFile);
     }
 
-    @SuppressWarnings("unused")
+    /*
     static void logI(String tag, String text)
     {
         if (!logEnabled())
@@ -494,8 +495,9 @@ class PPApplicationStatic {
             logIntoFile("I", tag, text);
         }
     }
+    */
 
-    @SuppressWarnings("unused")
+    /*
     static void logW(String tag, String text)
     {
         if (!logEnabled())
@@ -508,6 +510,7 @@ class PPApplicationStatic {
             logIntoFile("W", tag, text);
         }
     }
+    */
 
     static void logE(String tag, String text)
     {
@@ -522,7 +525,7 @@ class PPApplicationStatic {
         }
     }
 
-    @SuppressWarnings("unused")
+    /*
     static void logD(String tag, String text)
     {
         if (!logEnabled())
@@ -535,6 +538,7 @@ class PPApplicationStatic {
             logIntoFile("D", tag, text);
         }
     }
+    */
 
     /*
     public static String intentToString(Intent intent) {
