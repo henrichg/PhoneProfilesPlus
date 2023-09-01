@@ -218,6 +218,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/mobile_cells_pref_dlg_select_button_tooltip"/>
 
+<!--
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/mobile_cells_pref_dlg_rename"
                     android:layout_width="wrap_content"
@@ -231,6 +232,23 @@
                     app:tint="@color/accent_color"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/mobile_cells_pref_dlg_rename_cell_button_tooltip"/>
+-->
+
+                <Button
+                    android:id="@+id/mobile_cells_pref_dlg_rename"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_toStartOf="@id/mobile_cells_pref_dlg_changeSelection"
+                    android:minHeight="40dp"
+                    android:text="@string/mobile_cells_pref_dlg_rename_cell_button_tooltip"
+                    android:textColor="@color/action_button_text_color"
+                    android:textStyle="bold"
+                    android:background="@drawable/pp_button_background_selector"
+                    style="?android:attr/borderlessButtonStyle" />
 
 <!--
                 <TextView

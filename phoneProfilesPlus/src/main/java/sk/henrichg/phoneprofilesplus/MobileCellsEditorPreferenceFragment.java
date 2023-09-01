@@ -164,8 +164,8 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         });
         */
 
-        AppCompatImageButton editButton = view.findViewById(R.id.mobile_cells_pref_dlg_rename);
-        TooltipCompat.setTooltipText(editButton, getString(R.string.mobile_cells_pref_dlg_rename_cell_button_tooltip));
+        Button editButton = view.findViewById(R.id.mobile_cells_pref_dlg_rename);
+        //TooltipCompat.setTooltipText(editButton, getString(R.string.mobile_cells_pref_dlg_rename_cell_button_tooltip));
         editButton.setOnClickListener(v -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing()) {
