@@ -234,7 +234,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         cellNameTextView = layout.findViewById(R.id.not_used_mobile_cells_dlg_cells_name);
         //lastRunningEventsListView = layout.findViewById(R.id.not_used_mobile_cells_dlg_last_running_events_listview);
 
-        mMobileCellNamesDialog = new MobileCellNamesDialog(this, null, false);
+        mMobileCellNamesDialog = new MobileCellNamesDialog(this, null, false, null);
         cellNameTextView.setOnClickListener(view -> {
             if (!isFinishing())
                 mMobileCellNamesDialog.show();

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
@@ -14,17 +15,20 @@ import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -56,7 +60,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
     private TextView connectedCellDefault;
     private MobileCellsEditorPreferenceAdapter listAdapter;
     private MobileCellNamesDialog mMobileCellsFilterDialog;
-    private MobileCellNamesDialog mMobileCellNamesDialog;
+    //private MobileCellNamesDialog mMobileCellNamesDialog;
     private AppCompatImageButton addCellButtonSIM1;
     private AppCompatImageButton addCellButtonSIM2;
     private AppCompatImageButton addCellButtonDefault;
@@ -147,7 +151,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             preference.refreshListView(false, Integer.MAX_VALUE);
         });
 
-        mMobileCellsFilterDialog = new MobileCellNamesDialog((Activity)prefContext, preference, true);
+        mMobileCellsFilterDialog = new MobileCellNamesDialog((Activity)prefContext, preference, true, null);
         cellFilter.setOnClickListener(view1 -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing())
@@ -323,16 +327,46 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             TooltipCompat.setTooltipText(addCellButtonSIM1, getString(R.string.mobile_cells_pref_dlg_add_button_tooltip));
             addCellButtonSIM1.setOnClickListener(v -> {
                 if (preference.registeredCellDataSIM1 != null) {
-                    preference.addCellId(preference.registeredCellDataSIM1.cellId);
-                    refreshListView(false, preference.registeredCellDataSIM1.cellId);
+                    MobileCellNamesDialog mobileCellNamesDialog = new MobileCellNamesDialog(
+                            (Activity) prefContext, preference, false,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog1, int which) {
+                                    EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
+                                    if (cellName != null) {
+                                        preference.registeredCellDataSIM1.name = cellName.getText().toString();
+                                        DatabaseHandler db = DatabaseHandler.getInstance(prefContext.getApplicationContext());
+                                        List<MobileCellsData> _cellsList = new ArrayList<>();
+                                        _cellsList.add(preference.registeredCellDataSIM1);
+                                        db.saveMobileCellsList(_cellsList, true, false);
+                                        preference.addCellId(preference.registeredCellDataSIM1.cellId);
+                                        MobileCellsEditorPreferenceFragment.this.refreshListView(false, preference.registeredCellDataSIM1.cellId);
+                                    }
+                                }
+                            });
+                    mobileCellNamesDialog.show();
                 }
             });
             addCellButtonSIM2 = view.findViewById(R.id.mobile_cells_pref_dlg_addCellButton_sim2);
             TooltipCompat.setTooltipText(addCellButtonSIM2, getString(R.string.mobile_cells_pref_dlg_add_button_tooltip));
             addCellButtonSIM2.setOnClickListener(v -> {
                 if (preference.registeredCellDataSIM2 != null) {
-                    preference.addCellId(preference.registeredCellDataSIM2.cellId);
-                    refreshListView(false, preference.registeredCellDataSIM2.cellId);
+                    MobileCellNamesDialog mobileCellNamesDialog = new MobileCellNamesDialog(
+                            (Activity) prefContext, preference, false,
+                            (dialog1, which) -> {
+                                EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
+                                if (cellName != null) {
+                                    preference.registeredCellDataSIM2.name = cellName.getText().toString();
+                                    DatabaseHandler db = DatabaseHandler.getInstance(prefContext.getApplicationContext());
+                                    List<MobileCellsData> _cellsList = new ArrayList<>();
+                                    ;
+                                    _cellsList.add(preference.registeredCellDataSIM2);
+                                    db.saveMobileCellsList(_cellsList, true, false);
+                                    preference.addCellId(preference.registeredCellDataSIM2.cellId);
+                                    refreshListView(false, preference.registeredCellDataSIM2.cellId);
+                                }
+                            });
+                    mobileCellNamesDialog.show();
                 }
             });
         } else {
@@ -340,8 +374,22 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             TooltipCompat.setTooltipText(addCellButtonDefault, getString(R.string.mobile_cells_pref_dlg_add_button_tooltip));
             addCellButtonDefault.setOnClickListener(v -> {
                 if (preference.registeredCellDataDefault != null) {
-                    preference.addCellId(preference.registeredCellDataDefault.cellId);
-                    refreshListView(false, preference.registeredCellDataDefault.cellId);
+                    MobileCellNamesDialog mobileCellNamesDialog = new MobileCellNamesDialog(
+                            (Activity) prefContext, preference, false,
+                            (dialog1, which) -> {
+                                EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
+                                if (cellName != null) {
+                                    preference.registeredCellDataDefault.name = cellName.getText().toString();
+                                    DatabaseHandler db = DatabaseHandler.getInstance(prefContext.getApplicationContext());
+                                    List<MobileCellsData> _cellsList = new ArrayList<>();
+                                    ;
+                                    _cellsList.add(preference.registeredCellDataDefault);
+                                    db.saveMobileCellsList(_cellsList, true, false);
+                                    preference.addCellId(preference.registeredCellDataDefault.cellId);
+                                    refreshListView(false, preference.registeredCellDataDefault.cellId);
+                                }
+                            });
+                    mobileCellNamesDialog.show();
                 }
             });
         }
@@ -1227,8 +1275,9 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                         GlobalGUIRoutines.setImageButtonEnabled(
                                 (preference.registeredCellDataSIM1 != null) &&
                                         (!preference.registeredCellDataSIM1.name.isEmpty()) &&
-                                        !(preference.registeredCellInTableSIM1/* &&
-                                                preference.registeredCellInValueSIM1*/),
+                                        !(preference.registeredCellInTableSIM1// &&
+                                                //preference.registeredCellInValueSIM1
+                                         ),
                                 fragment.addCellButtonSIM1, prefContext);
                     }
                     if (sim2Exists) {
@@ -1251,8 +1300,9 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                         GlobalGUIRoutines.setImageButtonEnabled(
                                 (preference.registeredCellDataSIM2 != null) &&
                                         (!preference.registeredCellDataSIM2.name.isEmpty()) &&
-                                        !(preference.registeredCellInTableSIM2/* &&
-                                                preference.registeredCellInValueSIM2*/),
+                                        !(preference.registeredCellInTableSIM2// &&
+                                                //preference.registeredCellInValueSIM2
+                                         ),
                                 fragment.addCellButtonSIM2, prefContext);
                     }
                 } else {
@@ -1275,8 +1325,9 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                     GlobalGUIRoutines.setImageButtonEnabled(
                             (preference.registeredCellDataDefault != null) &&
                                     (!preference.registeredCellDataDefault.name.isEmpty()) &&
-                                    !(preference.registeredCellInTableDefault/* &&
-                                            preference.registeredCellInValueDefault*/),
+                                    !(preference.registeredCellInTableDefault// &&
+                                            //preference.registeredCellInValueDefault
+                                     ),
                             fragment.addCellButtonDefault, prefContext);
                 }
             }

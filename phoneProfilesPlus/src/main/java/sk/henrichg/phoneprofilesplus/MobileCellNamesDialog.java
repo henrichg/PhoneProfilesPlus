@@ -27,9 +27,10 @@ class MobileCellNamesDialog {
     private final Activity activity;
     private final boolean showFilterItems;
     private final DialogPreference preference;
+    DialogInterface.OnClickListener positiveClick;
 
     private final AlertDialog mDialog;
-    private final EditText cellName;
+    final EditText cellName;
 
     private final LinearLayout linlaProgress;
     private final LinearLayout rellaDialog;
@@ -38,11 +39,15 @@ class MobileCellNamesDialog {
 
     private ShowDialogAsyncTask asyncTask = null;
 
-    MobileCellNamesDialog(final Activity activity, final DialogPreference preference, final boolean showFilterItems) {
+    MobileCellNamesDialog(final Activity activity,
+                          final DialogPreference preference,
+                          final boolean showFilterItems,
+                          final DialogInterface.OnClickListener _positiveClick) {
 
         this.activity = activity;
         this.showFilterItems = showFilterItems;
         this.preference = preference;
+        this.positiveClick = _positiveClick;
 
         cellNamesList = new ArrayList<>();
 
@@ -52,24 +57,24 @@ class MobileCellNamesDialog {
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         if (!showFilterItems) {
-            dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if (preference == null) {
-                        if (activity instanceof NotUsedMobileCellsDetectedActivity) {
-                            ((NotUsedMobileCellsDetectedActivity)activity).cellNameTextView.setText(cellName.getText());
+            if (positiveClick != null)
+                dialogBuilder.setPositiveButton(android.R.string.ok, positiveClick);
+            else {
+                dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (preference == null) {
+                            if (activity instanceof NotUsedMobileCellsDetectedActivity) {
+                                ((NotUsedMobileCellsDetectedActivity) activity).cellNameTextView.setText(cellName.getText());
+                            }
+                        } else if (preference instanceof MobileCellsRegistrationDialogPreference) {
+                            ((MobileCellsRegistrationDialogPreference) preference).setCellNameText(cellName.getText().toString());
+                        } else if (preference instanceof MobileCellsEditorPreference) {
+                            ((MobileCellsEditorPreference) preference).setCellNameText(cellName.getText().toString());
                         }
                     }
-                    else
-                    if (preference instanceof MobileCellsRegistrationDialogPreference) {
-                        ((MobileCellsRegistrationDialogPreference) preference).setCellNameText(cellName.getText().toString());
-                    }
-                    else
-                    if (preference instanceof MobileCellsEditorPreference) {
-                        ((MobileCellsEditorPreference) preference).setCellNameText(cellName.getText().toString());
-                    }
-                }
-            });
+                });
+            }
         }
 
         dialogBuilder.setOnDismissListener(dialog -> {

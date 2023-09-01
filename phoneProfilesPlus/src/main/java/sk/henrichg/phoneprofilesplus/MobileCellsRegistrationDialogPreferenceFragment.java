@@ -191,7 +191,7 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
         }
         );
 
-        mMobileCellNamesDialog = new MobileCellNamesDialog((Activity)prefContext, preference, false);
+        mMobileCellNamesDialog = new MobileCellNamesDialog((Activity)prefContext, preference, false, null);
         mCellsName.setOnClickListener(view -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing())
