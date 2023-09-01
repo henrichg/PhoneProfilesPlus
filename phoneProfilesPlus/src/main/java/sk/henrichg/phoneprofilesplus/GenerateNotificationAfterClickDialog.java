@@ -1,8 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
-import android.app.PendingIntent;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,44 +35,31 @@ class GenerateNotificationAfterClickDialog
         restartEventsRb = layout.findViewById(R.id.generateNotificationAfterClickDialogRestartEvents);
         runStopEventsRunRb = layout.findViewById(R.id.generateNotificationAfterClickDialogStartStopEventsRun);
 
-        dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (!activity.isFinishing()) {
-                    if (startActivatorRb.isChecked()) {
-                        Intent launcherIntent = new Intent(activity.getApplicationContext(), ActivatorActivity.class);
-                        launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
-                        launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
-                        activity.startActivity(launcherIntent);
-                        activity.finish();
-                    } else if (startEditorRb.isChecked()) {
-                        Intent launcherIntent = new Intent(activity.getApplicationContext(), EditorActivity.class);
-                        launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
-                        launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
-                        activity.startActivity(launcherIntent);
-                        activity.finish();
-                    } else if (restartEventsRb.isChecked()) {
-                        DataWrapper dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-                        dataWrapper.restartEventsWithAlert(activity);
-                    } else if (runStopEventsRunRb.isChecked()) {
-                        DataWrapper dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-                        dataWrapper.runStopEventsFronGeneratedNotification(activity);
-                    }
+        dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+            if (!activity.isFinishing()) {
+                if (startActivatorRb.isChecked()) {
+                    Intent launcherIntent = new Intent(activity.getApplicationContext(), ActivatorActivity.class);
+                    launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
+                    launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
+                    activity.startActivity(launcherIntent);
+                    activity.finish();
+                } else if (startEditorRb.isChecked()) {
+                    Intent launcherIntent = new Intent(activity.getApplicationContext(), EditorActivity.class);
+                    launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
+                    launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
+                    activity.startActivity(launcherIntent);
+                    activity.finish();
+                } else if (restartEventsRb.isChecked()) {
+                    DataWrapper dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+                    dataWrapper.restartEventsWithAlert(activity);
+                } else if (runStopEventsRunRb.isChecked()) {
+                    DataWrapper dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+                    dataWrapper.runStopEventsFronGeneratedNotification(activity);
                 }
             }
         });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                activity.finish();
-            }
-        });
-        dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                activity.finish();
-            }
-        });
+        dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> activity.finish());
+        dialogBuilder.setOnCancelListener(dialog -> activity.finish());
 
         mDialog = dialogBuilder.create();
     }

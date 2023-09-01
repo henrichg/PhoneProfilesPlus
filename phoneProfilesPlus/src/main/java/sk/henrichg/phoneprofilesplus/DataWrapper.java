@@ -2434,13 +2434,9 @@ class DataWrapper {
                     }
                     activity.finish();
                 },
-                (dialog2, which) -> {
-                    activity.finish();
-                },
+                (dialog2, which) -> activity.finish(),
                 null,
-                dialogInterface -> {
-                    activity.finish();
-                },
+                dialogInterface -> activity.finish(),
                 null,
                 true, true,
                 false, false,
