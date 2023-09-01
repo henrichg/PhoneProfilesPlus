@@ -401,7 +401,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                 if ((fragment.phoneCount > 1)) {
                     if (sim1Exists) {
                         String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim1) + " ";
-                        if (registeredCellSIM1 != Integer.MAX_VALUE) {
+                        if (MobileCellsScanner.isValidCellId(registeredCellSIM1)) {
                             if ((registeredCellNameSIM1 != null) && (!registeredCellNameSIM1.isEmpty()))
                                 connectedCellName = connectedCellName + registeredCellNameSIM1 + ", ";
                             connectedCellName = connectedCellName + registeredCellSIM1;
@@ -410,7 +410,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                     }
                     if (sim2Exists) {
                         String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim2) + " ";
-                        if (registeredCellSIM2 != Integer.MAX_VALUE) {
+                        if (MobileCellsScanner.isValidCellId(registeredCellSIM1)) {
                             if ((registeredCellNameSIM2 != null) && (!registeredCellNameSIM2.isEmpty()))
                                 connectedCellName = connectedCellName + registeredCellNameSIM2 + ", ";
                             connectedCellName = connectedCellName + registeredCellSIM2;
@@ -419,7 +419,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                     }
                 } else {
                     String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell) + " ";
-                    if (registeredCellDefault != Integer.MAX_VALUE) {
+                    if (MobileCellsScanner.isValidCellId(registeredCellSIM1)) {
                         if ((registeredCellNameDefault != null) && (!registeredCellNameDefault.isEmpty()))
                             connectedCellName = connectedCellName + registeredCellNameDefault + ", ";
                         connectedCellName = connectedCellName + registeredCellDefault;
