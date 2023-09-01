@@ -772,10 +772,14 @@ Uzivatelia sa stazuju, ze je to neprehladne:
    Nech je enabled len ak je to nova bunka, selectovat ju nemusis, cize netestuj, ci je selected.
    HOTOVO
 3. "Cell name" button: ten vyhod. Hlavne kvoli nemu maju problemy sa v tom vyznat.
+   HOTOVO
 4. "pen" ikona: nech pyta nazov cez "Mobile cell name". Musi byt povoleny aj edit line v dialogu.
+   HOTOVO
    Zmen na "Rename cells" button.
 5. "select" ikona: "Select by cell name" nech pyta nazov cez "Mobile cell name". Musi byt povoleny aj
-   edit line v dialogu. Mozno budem menit aj samotnu ikonu, uvidime, co uzivatelia.
+   edit line v dialogu.
+   HOTOVO
+   Mozno budem menit aj samotnu ikonu, uvidime, co uzivatelia.
 
 
 

@@ -138,11 +138,10 @@ public class MobileCellsEditorPreference extends DialogPreference {
             fragment.setLocationEnableStatus();
     }
 
-    void refreshListView(final boolean forRescan,
-                         @SuppressWarnings("SameParameterValue") final int renameCellId)
+    void refreshListView(final boolean forRescan/*, final int renameCellId*/)
     {
         if (fragment != null)
-            fragment.refreshListView(forRescan, renameCellId);
+            fragment.refreshListView(forRescan/*, renameCellId*/);
     }
 
     void showEditMenu(View view)
