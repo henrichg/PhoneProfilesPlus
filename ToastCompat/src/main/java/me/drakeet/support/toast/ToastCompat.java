@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 /**
  * @author drakeet
  */
-@SuppressWarnings({"EmptyMethod"})
 public final class ToastCompat extends Toast {
 
   private final @NonNull Toast toast;

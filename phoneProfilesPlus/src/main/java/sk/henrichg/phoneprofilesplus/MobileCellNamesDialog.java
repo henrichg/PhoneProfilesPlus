@@ -205,18 +205,18 @@ class MobileCellNamesDialog {
                 } else if (dialog.preference instanceof MobileCellsRegistrationDialogPreference) {
                     dialog.cellName.setText(((MobileCellsRegistrationDialogPreference) dialog.preference).getCellNameText());
                 } else if (dialog.preference instanceof MobileCellsEditorPreference) {
-                    /*if (showFilterItems) {
-                        cellName.setText(((MobileCellsEditorPreference) preference).cellFilter.getText().toString());
-                        cellName.setInputType(InputType.TYPE_NULL);
-                        cellName.setTextIsSelectable(false);
-                        cellName.setOnKeyListener(new View.OnKeyListener() {
-                            @Override
-                            public boolean onKey(View v,int keyCode, KeyEvent event) {
-                                return true;  // Blocks input from hardware keyboards.
-                            }
-                        });
-                    }
-                    else*/
+                    //if (showFilterItems) {
+                    //    cellName.setText(((MobileCellsEditorPreference) preference).cellFilter.getText().toString());
+                    //    cellName.setInputType(InputType.TYPE_NULL);
+                    //    cellName.setTextIsSelectable(false);
+                    //    cellName.setOnKeyListener(new View.OnKeyListener() {
+                    //        @Override
+                    //        public boolean onKey(View v,int keyCode, KeyEvent event) {
+                    //            return true;  // Blocks input from hardware keyboards.
+                    //        }
+                    //    });
+                    //}
+                    //else
                     if (!dialog.showFilterItems)
                         dialog.cellName.setText(((MobileCellsEditorPreference) dialog.preference).getCellNameText());
                 }

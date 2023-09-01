@@ -232,6 +232,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/mobile_cells_pref_dlg_rename_cell_button_tooltip"/>
 
+<!--
                 <TextView
                     android:id="@+id/mobile_cells_pref_dlg_cells_name"
                     android:layout_width="260dp"
@@ -251,7 +252,7 @@
                     android:textColor="@color/accent_color"
                     android:textStyle="bold"
                     android:textSize="16sp" />
-
+-->
             </RelativeLayout>
 
             <View

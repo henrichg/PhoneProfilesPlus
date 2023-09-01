@@ -23,18 +23,20 @@ public class MobileCellsEditorPreference extends DialogPreference {
     int sortCellsBy = 0;
     //private boolean savedInstanceState;
 
+    String cellNameFromMobileCellNamesDialog;
+
     //List<MobileCellsData> cellsList;
     List<MobileCellsData> filteredCellsList;
 
     MobileCellsData registeredCellDataSIM1;
     boolean registeredCellInTableSIM1;
-    boolean registeredCellInValueSIM1;
+    //boolean registeredCellInValueSIM1;
     MobileCellsData registeredCellDataSIM2;
     boolean registeredCellInTableSIM2;
-    boolean registeredCellInValueSIM2;
+    //boolean registeredCellInValueSIM2;
     MobileCellsData registeredCellDataDefault;
     boolean registeredCellInTableDefault;
-    boolean registeredCellInValueDefault;
+    //boolean registeredCellInValueDefault;
 
     //private final Context prefContext;
 
@@ -169,15 +171,19 @@ public class MobileCellsEditorPreference extends DialogPreference {
     */
 
     void setCellNameText(String text) {
-        if (fragment != null)
-            fragment.setCellNameText(text);
+        //if (fragment != null)
+        //    fragment.setCellNameText(text);
+        cellNameFromMobileCellNamesDialog = text;
     }
 
     String getCellNameText() {
-        if (fragment != null)
-            return  fragment.getCellNameText();
-        else
-            return null;
+        //if (fragment != null) {
+        //    return fragment.getCellNameText();
+        //}
+        //else {
+        //    return null;
+        //}
+        return cellNameFromMobileCellNamesDialog;
     }
 
     void setCellFilterText(String text) {

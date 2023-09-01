@@ -761,3 +761,20 @@ HOTOVO
 
 ------------------
 
+Mobile cells editor.
+
+Uzivatelia sa stazuju, ze je to neprehladne:
+1. Nova connected bunka - teraz: automaticky sa prida do zoznamu aj s nazvom z Cell name.
+   Tuto to sprav inac: Pridaj ju len na "plus" ikonu, zobrazuj tam "(N)" ak je nova a ak nema nazov,
+   tak "[ Without name ]", tak ako to mas u filtroch.
+   HOTOVO
+2. "plus" ikona nech pyta nazov bunky cez dialog "Mobile cell name". Musi byt povoleny aj edit line v dialogu.
+   Nech je enabled len ak je to nova bunka, selectovat ju nemusis, cize netestuj, ci je selected.
+3. "Cell name" button: ten vyhod. Hlavne kvoli nemu maju problemy sa v tom vyznat.
+4. "pen" ikona: nech pyta nazov cez "Mobile cell name". Musi byt povoleny aj edit line v dialogu.
+   Zmen na "Rename cells" button.
+5. "select" ikona: "Select by cell name" nech pyta nazov cez "Mobile cell name". Musi byt povoleny aj
+   edit line v dialogu. Mozno budem menit aj samotnu ikonu, uvidime, co uzivatelia.
+
+
+
