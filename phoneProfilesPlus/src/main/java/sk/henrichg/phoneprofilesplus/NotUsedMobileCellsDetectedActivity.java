@@ -212,6 +212,8 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         dialogBuilder.setView(layout);
 
         mDialog = dialogBuilder.create();
+        mDialog.setCancelable(false);
+        mDialog.setCanceledOnTouchOutside(false);
 
         mDialog.setOnShowListener(dialog -> {
 //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);

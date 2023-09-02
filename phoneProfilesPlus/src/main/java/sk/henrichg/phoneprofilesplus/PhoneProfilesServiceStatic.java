@@ -52,14 +52,14 @@ class PhoneProfilesServiceStatic
                     PPApplication.startEventNotificationDeletedReceiver = null;
                 }
             }
-            if (PPApplication.notUsedMobileCellsNotificationDeletedReceiver != null) {
+            /*if (PPApplication.notUsedMobileCellsNotificationDeletedReceiver != null) {
                 try {
                     appContext.unregisterReceiver(PPApplication.notUsedMobileCellsNotificationDeletedReceiver);
                     PPApplication.notUsedMobileCellsNotificationDeletedReceiver = null;
                 } catch (Exception e) {
                     PPApplication.notUsedMobileCellsNotificationDeletedReceiver = null;
                 }
-            }
+            }*/
             if (PPApplication.eventDelayStartBroadcastReceiver != null) {
                 try {
                     appContext.unregisterReceiver(PPApplication.eventDelayStartBroadcastReceiver);
@@ -222,7 +222,7 @@ class PhoneProfilesServiceStatic
                 appContext.registerReceiver(PPApplication.startEventNotificationDeletedReceiver, intentFilter5, receiverFlags);
             }
 
-            if (PPApplication.notUsedMobileCellsNotificationDeletedReceiver == null) {
+            /*if (PPApplication.notUsedMobileCellsNotificationDeletedReceiver == null) {
                 PPApplication.notUsedMobileCellsNotificationDeletedReceiver = new NotUsedMobileCellsNotificationDeletedReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(MobileCellsScanner.ACTION_NEW_MOBILE_CELLS_NOTIFICATION_DELETED);
@@ -230,7 +230,7 @@ class PhoneProfilesServiceStatic
                 if (Build.VERSION.SDK_INT >= 34)
                     receiverFlags = RECEIVER_NOT_EXPORTED;
                 appContext.registerReceiver(PPApplication.notUsedMobileCellsNotificationDeletedReceiver, intentFilter5, receiverFlags);
-            }
+            }*/
 
             if (PPApplication.eventDelayStartBroadcastReceiver == null) {
                 PPApplication.eventDelayStartBroadcastReceiver = new EventDelayStartBroadcastReceiver();

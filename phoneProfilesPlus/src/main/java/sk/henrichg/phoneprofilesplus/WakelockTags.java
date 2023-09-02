@@ -52,7 +52,7 @@ class WakelockTags {
     static final String WAKELOCK_TAG_MobileCellsListener_rescanMobileCells = PPApplication.PACKAGE_NAME + ":MobileCellsListener_rescanMobileCells";
     static final String WAKELOCK_TAG_MobileDataStateChangedContentObserver_onChange = PPApplication.PACKAGE_NAME + ":MobileDataStateChangedContentObserver_onChange";
     static final String WAKELOCK_TAG_NotUsedMobileCellsDetectedActivity_onStart_1 = PPApplication.PACKAGE_NAME + ":NotUsedMobileCellsDetectedActivity_onStart_1";
-    static final String WAKELOCK_TAG_NotUsedMobileCellsNotificationDeletedReceiver_onReceive = PPApplication.PACKAGE_NAME + ":NotUsedMobileCellsNotificationDeletedReceiver_onReceive";
+    //static final String WAKELOCK_TAG_NotUsedMobileCellsNotificationDeletedReceiver_onReceive = PPApplication.PACKAGE_NAME + ":NotUsedMobileCellsNotificationDeletedReceiver_onReceive";
     static final String WAKELOCK_TAG_PackageReplacedReceiver_onReceive = PPApplication.PACKAGE_NAME + ":PackageReplacedReceiver_onReceive";
     static final String WAKELOCK_TAG_PhoneProfilesPrefsActivity_doPreferenceChanges = PPApplication.PACKAGE_NAME + ":PhoneProfilesPrefsActivity_doPreferenceChanges";
     static final String WAKELOCK_TAG_PhoneProfilesService_doForFirstStart = PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doForFirstStart";

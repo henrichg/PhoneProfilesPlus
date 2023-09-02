@@ -838,7 +838,7 @@ public class PPApplication extends Application
 
     static volatile TimeChangedReceiver timeChangedReceiver = null;
     static volatile StartEventNotificationDeletedReceiver startEventNotificationDeletedReceiver = null;
-    static volatile NotUsedMobileCellsNotificationDeletedReceiver notUsedMobileCellsNotificationDeletedReceiver = null;
+    //static volatile NotUsedMobileCellsNotificationDeletedReceiver notUsedMobileCellsNotificationDeletedReceiver = null;
     static volatile ShutdownBroadcastReceiver shutdownBroadcastReceiver = null;
     static volatile ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
     static volatile InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;

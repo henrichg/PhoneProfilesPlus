@@ -410,11 +410,11 @@
         </activity>
         <activity
             android:name=".NotUsedMobileCellsDetectedActivity"
-            android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
+<!--        android:excludeFromRecents="true"-->
         <activity
             android:name=".CheckPPPReleasesActivity"
             android:excludeFromRecents="true"

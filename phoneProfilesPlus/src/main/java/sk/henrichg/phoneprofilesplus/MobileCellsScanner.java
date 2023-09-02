@@ -23,7 +23,7 @@ class MobileCellsScanner {
     // must be this, because of Collections.synchronizedList
     //static final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
 
-    static final String ACTION_NEW_MOBILE_CELLS_NOTIFICATION_DELETED = PPApplication.PACKAGE_NAME + ".MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
+    //static final String ACTION_NEW_MOBILE_CELLS_NOTIFICATION_DELETED = PPApplication.PACKAGE_NAME + ".MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
     static final String ACTION_NEW_MOBILE_CELLS_NOTIFICATION_DISABLE = PPApplication.PACKAGE_NAME + ".MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION";
 
     //private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_PHONE_STATE = "show_enable_location_notification_phone_state";

@@ -1392,11 +1392,13 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
                             String[] splits = deletedCellNames.split(StringConstants.STR_SPLIT_REGEX);
                             for (String deletedCellName : splits) {
-
                                 if (cellNameFromSensor.equals(deletedCellName)) {
                                     // deleted cellName is in sensor
-                                    deleted = true;
-                                    break;
+                                    if (db.getMobileCellNameCount(deletedCellName) == 0) {
+                                        // deleted cellName not exists in db
+                                        deleted = true;
+                                        break;
+                                    }
                                 }
                             }
 
