@@ -205,7 +205,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
             finish();
         });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+        dialogBuilder.setNegativeButton(android.R.string.cancel,  (dialog, which) -> finish());
 
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_not_used_mobile_cells_detected, null);
