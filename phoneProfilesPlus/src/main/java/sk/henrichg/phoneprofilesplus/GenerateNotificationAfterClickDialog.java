@@ -62,6 +62,8 @@ class GenerateNotificationAfterClickDialog
         dialogBuilder.setOnCancelListener(dialog -> activity.finish());
 
         mDialog = dialogBuilder.create();
+        mDialog.setCancelable(false);
+        mDialog.setCanceledOnTouchOutside(false);
     }
 
     void show() {

@@ -529,11 +529,11 @@
         </activity>
         <activity
             android:name=".GenerateNotificationAfterClickActivity"
-            android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
+<!--        android:excludeFromRecents="true"-->
 
 
         <!-- implicit broadcast receivers, in Android O exception group -->
