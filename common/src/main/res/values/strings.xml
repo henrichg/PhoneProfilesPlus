@@ -2154,6 +2154,7 @@
     <string name="phone_profiles_pref_applicationNotificationScanInterval">Notification scan interval</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">Notification scanning do not have scan interval.</string>
 
+    <string name="generate_notification_after_click_dialog_title">What to do</string>
     <string name="generate_notification_after_click_dialog_start_activator">Start Activator</string>
     <string name="generate_notification_after_click_dialog_start_editor">Start Editor</string>
     <string name="generate_notification_after_click_dialog_restart_events">Restart events</string>

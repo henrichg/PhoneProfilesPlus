@@ -22,7 +22,7 @@ class GenerateNotificationAfterClickDialog
         this.activity = activity;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.profile_preferences_generateNotification);
+        dialogBuilder.setTitle(R.string.generate_notification_after_click_dialog_title);
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
