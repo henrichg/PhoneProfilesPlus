@@ -896,8 +896,6 @@
     <string name="permissions_for_mobile_cells_registration_dialog_text1">移动基站注册需要一些权限。</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">新基站计数：</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">停止</string>
-    <string name="mobile_cells_registration_pref_dlg_add_event_button">添加活动</string>
-    <string name="mobile_cells_registration_pref_dlg_remove_event_button">删除事件</string>
     <string name="altype_eventPreferencesChanged">事件设置已更改</string>
     <string name="altype_eventDeleted">活动已删除</string>
     <string name="altype_profileDeleted">情景已删除</string>
@@ -1810,7 +1808,6 @@
     <string name="array_pref_oneRowWidget_layoutHeight_compact">紧凑</string>
     <string name="array_pref_oneRowWidget_layoutHeight_normal">正常</string>
     <string name="array_pref_oneRowWidget_layoutHeight_large">较大</string>
-    <string name="profile_preferences_applicationEnableScanning">启用扫描</string>
     <string name="profile_preferences_applicationEnableWifiScanning">启用 Wi-Fi 扫描</string>
     <string name="profile_preferences_applicationEnableBluetoothScanning">启用蓝牙扫描</string>
     <string name="profile_preferences_applicationEnableLocationScanning">启用位置扫描</string>
@@ -2115,4 +2112,8 @@
     <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">Mobile cell scanning do not have scan interval.</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval">Notification scan interval</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">Notification scanning do not have scan interval.</string>
+    <string name="generate_notification_after_click_dialog_start_activator">Start Activator</string>
+    <string name="generate_notification_after_click_dialog_start_editor">Start Editor</string>
+    <string name="generate_notification_after_click_dialog_restart_events">Restart events</string>
+    <string name="generate_notification_after_click_dialog_enable_disable_events_run">Enable\/Disable events run</string>
 </resources>

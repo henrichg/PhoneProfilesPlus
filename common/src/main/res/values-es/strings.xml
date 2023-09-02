@@ -896,8 +896,6 @@
     <string name="permissions_for_mobile_cells_registration_dialog_text1">El escaneo de celdas móviles requiere algunos permisos.</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Número de celdas nuevas:</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Detener</string>
-    <string name="mobile_cells_registration_pref_dlg_add_event_button">Añadir evento</string>
-    <string name="mobile_cells_registration_pref_dlg_remove_event_button">Eliminar evento</string>
     <string name="altype_eventPreferencesChanged">Preferencias de evento cambiadas</string>
     <string name="altype_eventDeleted">Evento eliminado</string>
     <string name="altype_profileDeleted">Perfil eliminado</string>
@@ -1810,7 +1808,6 @@
     <string name="array_pref_oneRowWidget_layoutHeight_compact">Compacto</string>
     <string name="array_pref_oneRowWidget_layoutHeight_normal">Normal</string>
     <string name="array_pref_oneRowWidget_layoutHeight_large">Grande</string>
-    <string name="profile_preferences_applicationEnableScanning">Habilitar escaneo</string>
     <string name="profile_preferences_applicationEnableWifiScanning">Habilitar escaneo de red Wi-Fi</string>
     <string name="profile_preferences_applicationEnableBluetoothScanning">Habilitar escaneo de Bluetooth</string>
     <string name="profile_preferences_applicationEnableLocationScanning">Habilitar escaneo de ubicación</string>
@@ -2115,4 +2112,8 @@
     <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">El escaneo de células móviles no tiene intervalo de escaneo.</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval">Intervalo de escaneo de notificación</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">El escaneo de notificaciones no tiene intervalo de escaneo.</string>
+    <string name="generate_notification_after_click_dialog_start_activator">Start Activator</string>
+    <string name="generate_notification_after_click_dialog_start_editor">Start Editor</string>
+    <string name="generate_notification_after_click_dialog_restart_events">Restart events</string>
+    <string name="generate_notification_after_click_dialog_enable_disable_events_run">Enable\/Disable events run</string>
 </resources>

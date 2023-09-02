@@ -896,8 +896,6 @@
     <string name="permissions_for_mobile_cells_registration_dialog_text1">Mobil cellák regisztrációhoz néhány engedélyt meg kell adni.</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Új cellák száma:</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Leállítás</string>
-    <string name="mobile_cells_registration_pref_dlg_add_event_button">Esemény hozzáadása</string>
-    <string name="mobile_cells_registration_pref_dlg_remove_event_button">Távolítsa el az esemény</string>
     <string name="altype_eventPreferencesChanged">Esemény beállítások megváltoztak</string>
     <string name="altype_eventDeleted">Esemény törölve</string>
     <string name="altype_profileDeleted">Profil törölve</string>
@@ -1810,7 +1808,6 @@
     <string name="array_pref_oneRowWidget_layoutHeight_compact">Compact</string>
     <string name="array_pref_oneRowWidget_layoutHeight_normal">Normal</string>
     <string name="array_pref_oneRowWidget_layoutHeight_large">Large</string>
-    <string name="profile_preferences_applicationEnableScanning">Enable scanning</string>
     <string name="profile_preferences_applicationEnableWifiScanning">Enable Wi-Fi scanning</string>
     <string name="profile_preferences_applicationEnableBluetoothScanning">Enable Bluetooth scanning</string>
     <string name="profile_preferences_applicationEnableLocationScanning">Enable location scanning</string>
@@ -2115,4 +2112,8 @@
     <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">Mobile cell scanning do not have scan interval.</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval">Notification scan interval</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">Notification scanning do not have scan interval.</string>
+    <string name="generate_notification_after_click_dialog_start_activator">Start Activator</string>
+    <string name="generate_notification_after_click_dialog_start_editor">Start Editor</string>
+    <string name="generate_notification_after_click_dialog_restart_events">Restart events</string>
+    <string name="generate_notification_after_click_dialog_enable_disable_events_run">Enable\/Disable events run</string>
 </resources>

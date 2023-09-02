@@ -896,8 +896,6 @@
     <string name="permissions_for_mobile_cells_registration_dialog_text1">Регистрация мобильных вышек требует некоторых разрешений.</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Новых вышек:</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Остановить</string>
-    <string name="mobile_cells_registration_pref_dlg_add_event_button">Добавить событие</string>
-    <string name="mobile_cells_registration_pref_dlg_remove_event_button">Удалить событие</string>
     <string name="altype_eventPreferencesChanged">Настройки события изменены</string>
     <string name="altype_eventDeleted">Событие удалено</string>
     <string name="altype_profileDeleted">Профиль удалён</string>
@@ -1810,7 +1808,6 @@
     <string name="array_pref_oneRowWidget_layoutHeight_compact">Компактная</string>
     <string name="array_pref_oneRowWidget_layoutHeight_normal">Нормальная</string>
     <string name="array_pref_oneRowWidget_layoutHeight_large">Большая</string>
-    <string name="profile_preferences_applicationEnableScanning">Включить сканирование</string>
     <string name="profile_preferences_applicationEnableWifiScanning">Включить сканирование Wi-Fi</string>
     <string name="profile_preferences_applicationEnableBluetoothScanning">Включить сканирование Bluetooth</string>
     <string name="profile_preferences_applicationEnableLocationScanning">Включить сканирование местоположения</string>
@@ -2115,4 +2112,8 @@
     <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">Интервал сканирования мобильных вышек не задан.</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval">Интервал сканирования уведомлений</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">Интервал сканирования уведомлений не задан.</string>
+    <string name="generate_notification_after_click_dialog_start_activator">Start Activator</string>
+    <string name="generate_notification_after_click_dialog_start_editor">Start Editor</string>
+    <string name="generate_notification_after_click_dialog_restart_events">Restart events</string>
+    <string name="generate_notification_after_click_dialog_enable_disable_events_run">Enable\/Disable events run</string>
 </resources>
