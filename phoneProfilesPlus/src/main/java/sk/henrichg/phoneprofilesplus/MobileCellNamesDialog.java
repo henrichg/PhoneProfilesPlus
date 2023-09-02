@@ -27,7 +27,6 @@ class MobileCellNamesDialog {
     private final Activity activity;
     private final boolean showFilterItems;
     private final DialogPreference preference;
-    DialogInterface.OnClickListener positiveClick;
 
     private final AlertDialog mDialog;
     final EditText cellName;
@@ -47,7 +46,6 @@ class MobileCellNamesDialog {
         this.activity = activity;
         this.showFilterItems = showFilterItems;
         this.preference = preference;
-        this.positiveClick = _positiveClick;
 
         cellNamesList = new ArrayList<>();
 
@@ -57,8 +55,8 @@ class MobileCellNamesDialog {
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         if (!showFilterItems) {
-            if (positiveClick != null)
-                dialogBuilder.setPositiveButton(android.R.string.ok, positiveClick);
+            if (_positiveClick != null)
+                dialogBuilder.setPositiveButton(android.R.string.ok, _positiveClick);
             else {
                 dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override

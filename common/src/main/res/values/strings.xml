@@ -901,8 +901,6 @@
     <string name="permissions_for_mobile_cells_registration_dialog_text1">Mobile cell registration requires some permissions.</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">New cells count:</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Stop</string>
-    <string name="mobile_cells_registration_pref_dlg_add_event_button">Add event</string>
-    <string name="mobile_cells_registration_pref_dlg_remove_event_button">Remove event</string>
     <string name="altype_eventPreferencesChanged">Event preferences changed</string>
     <string name="altype_eventDeleted">Event deleted</string>
     <string name="altype_profileDeleted">Profile deleted</string>
@@ -1822,7 +1820,6 @@
     <string name="array_pref_oneRowWidget_layoutHeight_compact">Compact</string>
     <string name="array_pref_oneRowWidget_layoutHeight_normal">Normal</string>
     <string name="array_pref_oneRowWidget_layoutHeight_large">Large</string>
-    <string name="profile_preferences_applicationEnableScanning">Enable scanning</string>
     <string name="profile_preferences_applicationEnableWifiScanning">Enable Wi-Fi scanning</string>
     <string name="profile_preferences_applicationEnableBluetoothScanning">Enable Bluetooth scanning</string>
     <string name="profile_preferences_applicationEnableLocationScanning">Enable location scanning</string>
