@@ -59,7 +59,6 @@ class PPApplicationStatic {
         if (workManager != null) {
             ListenableFuture<List<WorkInfo>> statuses;
             statuses = workManager.getWorkInfosForUniqueWork(name);
-            //noinspection TryWithIdenticalCatches
             try {
                 List<WorkInfo> workInfoList = statuses.get();
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
@@ -86,9 +85,7 @@ class PPApplicationStatic {
                 if (name.startsWith(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG))
                     PPApplication.elapsedAlarmsStartEventNotificationWork.remove(name);
 
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
         }

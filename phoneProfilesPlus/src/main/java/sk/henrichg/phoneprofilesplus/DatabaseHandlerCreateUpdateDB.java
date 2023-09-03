@@ -997,12 +997,9 @@ class DatabaseHandlerCreateUpdateDB {
                     DatabaseHandler.KEY_DEVICE_WALLPAPER +
                     " FROM " + DatabaseHandler.TABLE_PROFILES;
 
-            Cursor cursor = db.rawQuery(selectQuery, null);
-
-            if (database == null)
-                db.beginTransaction();
-            //noinspection TryFinallyCanBeTryWithResources
-            try {
+            try (Cursor cursor = db.rawQuery(selectQuery, null)) {
+                if (database == null)
+                    db.beginTransaction();
 
                 if (cursor.moveToFirst()) {
                     do {
@@ -1016,12 +1013,12 @@ class DatabaseHandlerCreateUpdateDB {
                             String[] splits = icon.split(StringConstants.STR_SPLIT_REGEX);
                             String isIconResourceId = splits[1];
                             if (!isIconResourceId.equals("1")) {
-                                values.put(DatabaseHandler.KEY_ICON, StringConstants.PROFILE_ICON_DEFAULT+"|1|0|0");
+                                values.put(DatabaseHandler.KEY_ICON, StringConstants.PROFILE_ICON_DEFAULT + "|1|0|0");
                             }
                         } catch (Exception e) {
                             //Log.e("DatabaseHandlerCreateUpdateDB.changePictureFilePathToUri", Log.getStackTraceString(e));
                             PPApplicationStatic.recordException(e);
-                            values.put(DatabaseHandler.KEY_ICON, StringConstants.PROFILE_ICON_DEFAULT+"|1|0|0");
+                            values.put(DatabaseHandler.KEY_ICON, StringConstants.PROFILE_ICON_DEFAULT + "|1|0|0");
                         }
                         if (wallpaperChange == 1) {
                             values.put(DatabaseHandler.KEY_DEVICE_WALLPAPER_CHANGE, 0);
@@ -1045,7 +1042,6 @@ class DatabaseHandlerCreateUpdateDB {
             } finally {
                 if (database == null)
                     db.endTransaction();
-                cursor.close();
             }
 
             //db.close();

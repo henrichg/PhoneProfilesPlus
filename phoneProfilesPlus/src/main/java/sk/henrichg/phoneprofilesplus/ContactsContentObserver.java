@@ -45,7 +45,6 @@ class ContactsContentObserver extends ContentObserver {
                 boolean running = false;
                 ListenableFuture<List<WorkInfo>> statuses;
                 statuses = workManager.getWorkInfosForUniqueWork(ContactsContentObserverWorker.WORK_TAG);
-                //noinspection TryWithIdenticalCatches
                 try {
                     List<WorkInfo> workInfoList = statuses.get();
                     for (WorkInfo workInfo : workInfoList) {
@@ -53,9 +52,7 @@ class ContactsContentObserver extends ContentObserver {
                         running = (state == WorkInfo.State.RUNNING) || (state == WorkInfo.State.ENQUEUED);
                         break;
                     }
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
+                } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
 

@@ -332,7 +332,6 @@ public class WifiScanWorker extends Worker {
                         else
                             statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                         boolean allFinished = true;
-                        //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();
                             for (WorkInfo workInfo : workInfoList) {
@@ -342,9 +341,7 @@ public class WifiScanWorker extends Worker {
                                     break;
                                 }
                             }
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
+                        } catch (ExecutionException | InterruptedException e) {
                             e.printStackTrace();
                         }
                         if (allFinished) {
@@ -395,7 +392,6 @@ public class WifiScanWorker extends Worker {
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
-                    //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
                         boolean running = false;
@@ -405,10 +401,7 @@ public class WifiScanWorker extends Worker {
                             break;
                         }
                         return running;
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                        return false;
-                    } catch (InterruptedException e) {
+                    } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                         return false;
                     }
@@ -435,7 +428,6 @@ public class WifiScanWorker extends Worker {
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
-                    //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
                         boolean running = false;
@@ -445,10 +437,7 @@ public class WifiScanWorker extends Worker {
                             break;
                         }
                         return running;
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                        return false;
-                    } catch (InterruptedException e) {
+                    } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                         return false;
                     }

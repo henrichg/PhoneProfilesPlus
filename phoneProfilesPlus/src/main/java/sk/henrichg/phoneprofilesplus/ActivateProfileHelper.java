@@ -4027,14 +4027,10 @@ class ActivateProfileHelper {
                     try {
                         appIntent = Intent.parseUri(shortcut._intent, 0);
                         if (appIntent != null) {
-                            //noinspection TryWithIdenticalCatches
                             try {
                                 appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(appIntent);
-                            } catch (ActivityNotFoundException ee) {
-                                PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT,
-                                        null, profileName, "");
-                            } catch (SecurityException e) {
+                            } catch (ActivityNotFoundException | SecurityException ee) {
                                 PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT,
                                         null, profileName, "");
                             } catch (Exception e) {
@@ -4069,14 +4065,10 @@ class ActivateProfileHelper {
 
                             }
                             if (!vpnConnected) {*/
-                            //noinspection TryWithIdenticalCatches
                             try {
                                     appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     context.startActivity(appIntent);
-                                } catch (ActivityNotFoundException ee) {
-                                    PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
-                                            null, profileName, "");
-                                } catch (SecurityException e) {
+                                } catch (ActivityNotFoundException | SecurityException ee) {
                                     PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
                                             null, profileName, "");
                                 } catch (Exception e) {
@@ -4108,14 +4100,10 @@ class ActivateProfileHelper {
             appIntent = packageManager.getLaunchIntentForPackage(packageName);
             if (appIntent != null) {
                 appIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-                //noinspection TryWithIdenticalCatches
                 try {
                     appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(appIntent);
-                } catch (ActivityNotFoundException ee) {
-                    PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION,
-                            null, profileName, "");
-                } catch (SecurityException e) {
+                } catch (ActivityNotFoundException | SecurityException ee) {
                     PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION,
                             null, profileName, "");
                 } catch (Exception e) {
@@ -7324,14 +7312,10 @@ class ActivateProfileHelper {
 
                             if (intent != null) {
                                 if (vpnApplication < 4) {
-                                    //noinspection TryWithIdenticalCatches
                                     try {
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         context.startActivity(intent);
-                                    } catch (ActivityNotFoundException ee) {
-                                        PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN,
-                                                null, profileName, "");
-                                    } catch (SecurityException e) {
+                                    } catch (ActivityNotFoundException | SecurityException ee) {
                                         PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN,
                                                 null, profileName, "");
                                     } catch (Exception e) {

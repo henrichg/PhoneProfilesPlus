@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-/** @noinspection StatementWithEmptyBody, FieldCanBeLocal, UnusedReturnValue, TryWithIdenticalCatches, TryFinallyCanBeTryWithResources */
+/** @noinspection StatementWithEmptyBody, FieldCanBeLocal, UnusedReturnValue */
 public class Shell {
 
     public enum ShellType {
@@ -439,10 +439,7 @@ public class Shell {
             try {
                 process = Runtime.getRuntime().exec(internal ? "su -V" : "su -v", null);
                 process.waitFor();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            } catch (InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
                 return null;
             }
@@ -531,11 +528,8 @@ public class Shell {
             if (f.exists()) {
                 try {
                     //noinspection IOStreamConstructor
-                    InputStream is = new FileInputStream("/sys/fs/selinux/enforce");
-                    try {
+                    try (InputStream is = new FileInputStream("/sys/fs/selinux/enforce")) {
                         enforcing = (is.read() == '1');
-                    } finally {
-                        is.close();
                     }
                 } catch (Exception ignored) {
                 }

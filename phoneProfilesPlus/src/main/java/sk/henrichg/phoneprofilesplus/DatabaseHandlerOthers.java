@@ -213,12 +213,9 @@ class DatabaseHandlerOthers {
 
                 ContentValues values = new ContentValues();
 
-                Cursor profilesCursor = db.rawQuery(selectProfilesQuery, null);
-                Cursor eventsCursor = db.rawQuery(selectEventsQuery, null);
-
                 db.beginTransaction();
-                //noinspection TryFinallyCanBeTryWithResources
-                try {
+                try (Cursor profilesCursor = db.rawQuery(selectProfilesQuery, null);
+                     Cursor eventsCursor = db.rawQuery(selectEventsQuery, null)) {
                     SharedPreferences sharedPreferences = instance.context.getApplicationContext().getSharedPreferences(PPApplication.TMP_SHARED_PREFS_DISABLE_NOT_ALLOWED_PREFERENCES, Context.MODE_PRIVATE);
 
                     if (profilesCursor.moveToFirst()) {
@@ -355,11 +352,9 @@ class DatabaseHandlerOthers {
                                             int gps = profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_GPS));
                                             if (gps == 1)
                                                 locationMode = 4;
-                                            else
-                                            if (gps == 2)
+                                            else if (gps == 2)
                                                 locationMode = 3;
-                                            else
-                                            if (gps == 3)
+                                            else if (gps == 3)
                                                 locationMode = 6;
                                             if (locationMode != 0) {
                                                 values.clear();
@@ -458,14 +453,11 @@ class DatabaseHandlerOthers {
                                         values.put(DatabaseHandler.KEY_VOLUME_RINGER_MODE, ringerMode);
                                         db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
                                                 new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
-                                    }
-                                    else
-                                    if (ringerMode == 5) {
+                                    } else if (ringerMode == 5) {
                                         int zenMode = profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_ZEN_MODE));
                                         if (zenMode == 4)
                                             zenMode = 1;
-                                        else
-                                        if (zenMode == 5)
+                                        else if (zenMode == 5)
                                             zenMode = 2;
 
                                         values.clear();
@@ -1328,8 +1320,6 @@ class DatabaseHandlerOthers {
                     PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
-                    profilesCursor.close();
-                    eventsCursor.close();
                 }
 
                 //db.close();

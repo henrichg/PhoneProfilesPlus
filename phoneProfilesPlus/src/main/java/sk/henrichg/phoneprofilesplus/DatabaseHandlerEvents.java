@@ -4204,10 +4204,7 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_LOCATION_GEOFENCES +
                         " FROM " + DatabaseHandler.TABLE_EVENTS;
 
-                Cursor cursor = db.rawQuery(selectQuery, null);
-
-                //noinspection TryFinallyCanBeTryWithResources
-                try {
+                try (Cursor cursor = db.rawQuery(selectQuery, null)) {
 
                     // delete geofence
                     db.delete(DatabaseHandler.TABLE_GEOFENCES, DatabaseHandler.KEY_G_ID + " = ?",
@@ -4252,7 +4249,6 @@ class DatabaseHandlerEvents {
                     PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
-                    cursor.close();
                 }
 
                 //db.close();
