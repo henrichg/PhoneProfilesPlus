@@ -61,11 +61,12 @@ class MobileCellNamesDialog {
                 dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (preference == null) {
-                            if (activity instanceof NotUsedMobileCellsDetectedActivity) {
-                                ((NotUsedMobileCellsDetectedActivity) activity).cellNameTextView.setText(cellName.getText());
-                            }
-                        } else if (preference instanceof MobileCellsRegistrationDialogPreference) {
+                        //if (preference == null) {
+                            //if (activity instanceof NotUsedMobileCellsDetectedActivity) {
+                            //    ((NotUsedMobileCellsDetectedActivity) activity).cellNameTextView.setText(cellName.getText());
+                            //}
+                        //} else
+                        if (preference instanceof MobileCellsRegistrationDialogPreference) {
                             ((MobileCellsRegistrationDialogPreference) preference).setCellNameText(cellName.getText().toString());
                         } else if (preference instanceof MobileCellsEditorPreference) {
                             ((MobileCellsEditorPreference) preference).setCellNameText(cellName.getText().toString());
@@ -201,11 +202,12 @@ class MobileCellNamesDialog {
 
                 dialog.cellNamesList = new ArrayList<>(_cellNamesList);
 
-                if (dialog.preference == null) {
-                    if (activity instanceof NotUsedMobileCellsDetectedActivity) {
-                        dialog.cellName.setText(((NotUsedMobileCellsDetectedActivity) activity).cellNameTextView.getText().toString());
-                    }
-                } else if (dialog.preference instanceof MobileCellsRegistrationDialogPreference) {
+                //if (dialog.preference == null) {
+                //    if (activity instanceof NotUsedMobileCellsDetectedActivity) {
+                //        dialog.cellName.setText(((NotUsedMobileCellsDetectedActivity) activity).cellNameTextView.getText().toString());
+                //    }
+                //} else
+                if (dialog.preference instanceof MobileCellsRegistrationDialogPreference) {
                     dialog.cellName.setText(((MobileCellsRegistrationDialogPreference) dialog.preference).getCellNameText());
                 } else if (dialog.preference instanceof MobileCellsEditorPreference) {
                     //if (showFilterItems) {

@@ -11,6 +11,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -26,9 +29,14 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
     AlertDialog mDialog;
     private TextView cellIdTextView;
     private TextView lastConnectTimeTextView;
-    TextView cellNameTextView;
     //private ListView lastRunningEventsListView;
-    private MobileCellNamesDialog mMobileCellNamesDialog;
+    //private MobileCellNamesDialog mMobileCellNamesDialog;
+    private LinearLayout linlaProgress;
+    private LinearLayout rellaDialog;
+    private NotUsedMobileCellsDialogAdapter listAdapter;
+
+    List<String> cellNamesList;
+    EditText cellName;
 
     private int mobileCellId = Integer.MAX_VALUE;
     private long lastConnectedTime = 0;
@@ -37,7 +45,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
     //private final List<Event> eventList = new ArrayList<>();
 
-    private ShowActivityAsyncTask showActivityAsyncTask = null;
+    private ShowDialogAsyncTask showDialogAsyncTask = null;
 
     static final String EXTRA_MOBILE_CELL_ID = "mobile_cell_id";
     static final String EXTRA_MOBILE_LAST_CONNECTED_TIME = "last_connected_time";
@@ -65,10 +73,13 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onStart()
     {
         super.onStart();
+
+        cellNamesList = new ArrayList<>();
 
         GlobalGUIRoutines.lockScreenOrientation(this, true);
 
@@ -86,7 +97,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             final long _lastConnectedTime = lastConnectedTime;
             //final String _lastRunningEvents = lastRunningEvents;
             //final String _lastPausedEvents = lastPausedEvents;
-            final String _cellName = cellNameTextView.getText().toString();
+            final String _cellName = cellName.getText().toString();
 
             final Context appContext = getApplicationContext();
             //PPApplication.startHandlerThread(/*"NotUsedMobileCellsDetectedActivity.onClick"*/);
@@ -211,6 +222,21 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         View layout = inflater.inflate(R.layout.dialog_not_used_mobile_cells_detected, null);
         dialogBuilder.setView(layout);
 
+        linlaProgress = layout.findViewById(R.id.not_used_mobile_cells_dlg_linla_progress);
+        rellaDialog = layout.findViewById(R.id.not_used_mobile_cells_dlg_rella_dialog);
+
+        cellName = layout.findViewById(R.id.not_used_mobile_cells_dlg_cell_name);
+
+        ListView cellNamesListView = layout.findViewById(R.id.not_used_mobile_cells_dlg_cell_names);
+
+        listAdapter = new NotUsedMobileCellsDialogAdapter(this);
+        cellNamesListView.setAdapter(listAdapter);
+
+        cellNamesListView.setOnItemClickListener((parent, v, position, id) -> {
+            cellName.setText(cellNamesList.get(position));
+            mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true);
+        });
+
         mDialog = dialogBuilder.create();
         mDialog.setCancelable(false);
         mDialog.setCanceledOnTouchOutside(false);
@@ -221,29 +247,33 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
 //                if (negative != null) negative.setAllCaps(false);
 
-            showActivityAsyncTask = new ShowActivityAsyncTask(this);
-            showActivityAsyncTask.execute();
+            showDialogAsyncTask = new ShowDialogAsyncTask(this);
+            showDialogAsyncTask.execute();
         });
         mDialog.setOnDismissListener(dialog -> {
-            if ((showActivityAsyncTask != null) &&
-                    showActivityAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
-                showActivityAsyncTask.cancel(true);
-            showActivityAsyncTask = null;
+            if ((showDialogAsyncTask != null) &&
+                    showDialogAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+                showDialogAsyncTask.cancel(true);
+            showDialogAsyncTask = null;
         });
 
         cellIdTextView = layout.findViewById(R.id.not_used_mobile_cells_dlg_cell_id);
         lastConnectTimeTextView = layout.findViewById(R.id.not_used_mobile_cells_dlg_connection_time);
-        cellNameTextView = layout.findViewById(R.id.not_used_mobile_cells_dlg_cells_name);
         //lastRunningEventsListView = layout.findViewById(R.id.not_used_mobile_cells_dlg_last_running_events_listview);
 
+        /*
         mMobileCellNamesDialog = new MobileCellNamesDialog(this, null, false, null);
         cellNameTextView.setOnClickListener(view -> {
             if (!isFinishing())
                 mMobileCellNamesDialog.show();
         }
         );
+        */
 
-        cellNameTextView.addTextChangedListener(new TextWatcher() {
+        TextView cellNamesLabel = layout.findViewById(R.id.not_used_mobile_cells_dlg_cell_names_label);
+        cellNamesLabel.setText(getString(R.string.mobile_cell_names_dialog_title)+":");
+
+        cellName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -254,18 +284,8 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                String cellName = cellNameTextView.getText().toString();
-
-                /*
-                boolean anyChecked = false;
-                for (Event event : eventList) {
-                    if (event.getStatus() == 1) {
-                        anyChecked = true;
-                        break;
-                    }
-                }
-                */
-                mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(!cellName.isEmpty() /*&& anyChecked*/);
+                String _cellName = cellName.getText().toString();
+                mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(!_cellName.isEmpty());
             }
         });
 
@@ -292,11 +312,70 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
     }
     */
 
+    private static class ShowDialogAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        final List<String> _cellNamesList = new ArrayList<>();
+
+        private final WeakReference<NotUsedMobileCellsDetectedActivity> activityWeakReference;
+
+        public ShowDialogAsyncTask(NotUsedMobileCellsDetectedActivity activity) {
+            this.activityWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            NotUsedMobileCellsDetectedActivity activity = activityWeakReference.get();
+            if (activity != null) {
+                activity.rellaDialog.setVisibility(View.GONE);
+                activity.linlaProgress.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            NotUsedMobileCellsDetectedActivity activity = activityWeakReference.get();
+            if (activity != null) {
+                DatabaseHandler.getInstance(activity.getApplicationContext()).addMobileCellNamesToList(_cellNamesList);
+            }
+            return null;
+        }
+
+        @SuppressLint("SetTextI18n")
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            NotUsedMobileCellsDetectedActivity activity = activityWeakReference.get();
+            if (activity != null) {
+                activity.rellaDialog.setVisibility(View.VISIBLE);
+                activity.linlaProgress.setVisibility(View.GONE);
+
+                activity.cellNamesList = new ArrayList<>(_cellNamesList);
+
+                activity.listAdapter.notifyDataSetChanged();
+
+                activity.cellName.setText("");
+                activity.cellName.setFocusable(true);
+                activity.cellName.requestFocus();
+
+                activity.cellIdTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_cell_id) + " " + activity.mobileCellId);
+                activity.lastConnectTimeTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_connection_time) + " " +
+                        StringFormatUtils.timeDateStringFromTimestamp(activity, activity.lastConnectedTime));
+
+                activity.mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
+            }
+        }
+
+    }
+
+
+    /*
     private static class ShowActivityAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         DatabaseHandler db;
         List<MobileCellsData> _cellsList = null;
-        String cellName;
+        //String cellName;
         //final List<Event> _eventList = new ArrayList<>();
 
         private final WeakReference<NotUsedMobileCellsDetectedActivity> activityWeakReference;
@@ -314,7 +393,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             if (activity != null) {
                 db = DatabaseHandler.getInstance(activity.getApplicationContext());
                 _cellsList = new ArrayList<>();
-                cellName = "";
+                //cellName = "";
             }
         }
 
@@ -323,8 +402,8 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             NotUsedMobileCellsDetectedActivity activity = activityWeakReference.get();
             if (activity != null) {
                 db.addMobileCellsToList(_cellsList, activity.mobileCellId);
-                if (!_cellsList.isEmpty())
-                    cellName = _cellsList.get(0).name;
+                //if (!_cellsList.isEmpty())
+                //    cellName = _cellsList.get(0).name;
 
                 //eventList.clear();
 
@@ -383,10 +462,12 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                 //    }
                 //}
                 // cellName must be set to enable positive button
-                activity.mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(!cellName.isEmpty() /*&& anyChecked*/);
+                //activity.mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(!cellName.isEmpty() && anyChecked);
+                activity.mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(!cellName.isEmpty() );
             }
         }
 
     }
+    */
 
 }
