@@ -534,7 +534,19 @@
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
 <!--        android:excludeFromRecents="true"-->
+        <activity
+            android:name=".LaunchMobileCellsScanningActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
 
         <!-- implicit broadcast receivers, in Android O exception group -->
         <!-- https://developer.android.com/guide/components/broadcast-exceptions.html -->

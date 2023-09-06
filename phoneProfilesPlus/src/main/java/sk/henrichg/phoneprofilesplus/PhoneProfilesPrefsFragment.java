@@ -54,7 +54,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private SharedPreferences preferences;
     private SharedPreferences applicationPreferences;
 
-    private ShortcutAddedBroadcastReceiver shortcutAddedReceiver;
+    private ShortcutToEditorAddedBroadcastReceiver shortcutToEditorAddedReceiver;
+    private ShortcutToMobileCellScanningAddedBroadcastReceiver shortcutToMobileCellScanningAddedReceiver;
 
     //boolean scrollToSet = false;
     private boolean nestedFragment = false;
@@ -152,6 +153,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
     static final String PREF_DO_NOT_KILL_MY_APP = "applicationDoNotKillMyApp";
     static final String PREF_CREATE_EDITOR_SHORTCUT = "applicationCreateEditorShortcut";
+    static final String PREF_CREATE_MOBILE_CELL_SCANNING_SHORTCUT = "applicationCreateMobileCellScanningShortcut";
 
     static final String PREF_WIFI_SCANNING_CATEGORY = "wifiScanningCategory";
     static final String PREF_BLUETOOTH_SCANNING_CATEGORY = "bluetoothScanningCategory";
@@ -170,11 +172,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
 
     private static final String ACTION_SHORTCUT_TO_EDITOR_ADDED = PPApplication.PACKAGE_NAME + ".ACTION_SHORTCUT_TO_EDITOR_ADDED";
+    private static final String ACTION_SHORTCUT_TO_MOBILE_CELL_SCANNING_ADDED = PPApplication.PACKAGE_NAME + ".ACTION_SHORTCUT_TO_MOBILE_CELL_SCANNING_ADDED";
 
     private static final String EXTRA_APP_PACKAGE = "app_package";
     private static final String EXTRA_APP_UID = "app_uid";
 
-    private static final String SHORTCU_ID_PPP = "ppp_editor";
+    private static final String SHORTCUT_ID_EDITOR = "ppp_editor";
+    private static final String SHORTCUT_ID_MOBILE_CELL_SCANNING = "ppp_mobile_cell_scanning";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1978,19 +1982,19 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
                 boolean exists = false;
                 for (ShortcutInfoCompat shortcut : shortcuts) {
-                    if (shortcut.getId().equals(SHORTCU_ID_PPP)) {
+                    if (shortcut.getId().equals(SHORTCUT_ID_EDITOR)) {
                         exists = true;
                         break;
                     }
                 }
                 if (!exists) {
-                    if (shortcutAddedReceiver == null) {
-                        shortcutAddedReceiver = new ShortcutAddedBroadcastReceiver();
+                    if (shortcutToEditorAddedReceiver == null) {
+                        shortcutToEditorAddedReceiver = new ShortcutToEditorAddedBroadcastReceiver();
                         IntentFilter shortcutAddedFilter = new IntentFilter(ACTION_SHORTCUT_TO_EDITOR_ADDED);
                         int receiverFlags = 0;
                         if (Build.VERSION.SDK_INT >= 34)
                             receiverFlags = RECEIVER_NOT_EXPORTED;
-                        getActivity().registerReceiver(shortcutAddedReceiver, shortcutAddedFilter, receiverFlags);
+                        getActivity().registerReceiver(shortcutToEditorAddedReceiver, shortcutAddedFilter, receiverFlags);
                     }
 
                     preference.setVisible(true);
@@ -1999,7 +2003,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         shortcutIntent.setAction(Intent.ACTION_MAIN);
                         shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                        ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, SHORTCU_ID_PPP);
+                        ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, SHORTCUT_ID_EDITOR);
                         shortcutBuilderCompat.setIntent(shortcutIntent);
                         shortcutBuilderCompat.setShortLabel(getString(R.string.editor_launcher_label));
                         shortcutBuilderCompat.setLongLabel(getString(R.string.editor_launcher_label));
@@ -2052,6 +2056,63 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     return false;
                 });
             }
+        }
+
+        preference = prefMng.findPreference(PREF_CREATE_MOBILE_CELL_SCANNING_SHORTCUT);
+        if (preference != null) {
+            Context appContext = getActivity().getApplicationContext();
+            if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
+
+                List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
+                boolean exists = false;
+                for (ShortcutInfoCompat shortcut : shortcuts) {
+                    if (shortcut.getId().equals(SHORTCUT_ID_MOBILE_CELL_SCANNING)) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {
+                    if (shortcutToMobileCellScanningAddedReceiver == null) {
+                        shortcutToMobileCellScanningAddedReceiver = new ShortcutToMobileCellScanningAddedBroadcastReceiver();
+                        IntentFilter shortcutAddedFilter = new IntentFilter(ACTION_SHORTCUT_TO_MOBILE_CELL_SCANNING_ADDED);
+                        int receiverFlags = 0;
+                        if (Build.VERSION.SDK_INT >= 34)
+                            receiverFlags = RECEIVER_NOT_EXPORTED;
+                        getActivity().registerReceiver(shortcutToMobileCellScanningAddedReceiver, shortcutAddedFilter, receiverFlags);
+                    }
+
+                    preference.setVisible(true);
+                    preference.setOnPreferenceClickListener(preference120 -> {
+                        Intent shortcutIntent = new Intent(appContext, LaunchMobileCellsScanningActivity.class);
+                        shortcutIntent.setAction(Intent.ACTION_MAIN);
+                        shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                        ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, SHORTCUT_ID_MOBILE_CELL_SCANNING);
+                        shortcutBuilderCompat.setIntent(shortcutIntent);
+                        shortcutBuilderCompat.setShortLabel(getString(R.string.phone_profiles_pref_category_mobile_cells_scanning));
+                        shortcutBuilderCompat.setLongLabel(getString(R.string.phone_profiles_pref_category_mobile_cells_scanning));
+                        shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_mobile_cell_scanning));
+
+                        try {
+                            Intent pinnedShortcutCallbackIntent = new Intent(ACTION_SHORTCUT_TO_MOBILE_CELL_SCANNING_ADDED);
+                            PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent,  0);
+
+                            ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
+                            ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
+                            //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
+                        } catch (Exception e) {
+                            // show dialog about this crash
+                            // for Microsft laucher it is:
+                            // java.lang.IllegalArgumentException ... already exists but disabled
+                        }
+
+                        return false;
+                    });
+                }
+                else
+                    preference.setVisible(false);
+            } else
+                preference.setVisible(false);
         }
 
     }
@@ -2116,10 +2177,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     {
         super.onDestroy();
 
-        if (shortcutAddedReceiver != null) {
+        if (shortcutToEditorAddedReceiver != null) {
             if (getActivity() != null)
-                getActivity().unregisterReceiver(shortcutAddedReceiver);
-            shortcutAddedReceiver = null;
+                getActivity().unregisterReceiver(shortcutToEditorAddedReceiver);
+            shortcutToEditorAddedReceiver = null;
+        }
+        if (shortcutToMobileCellScanningAddedReceiver != null) {
+            if (getActivity() != null)
+                getActivity().unregisterReceiver(shortcutToMobileCellScanningAddedReceiver);
+            shortcutToMobileCellScanningAddedReceiver = null;
         }
 
         try {
