@@ -884,7 +884,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             ApplicationPreferences.prefEventBluetoothEnabledForScan)) {
                         // ignore for bluetooth scanning
 
-
                         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                         if (bluetoothAdapter != null) {
                             boolean enabled = bluetoothAdapter.isEnabled();
@@ -907,6 +906,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             if (_bluetooth == 4)
                                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!connected);
                         }
+                        else
+                            eventsHandler.notAllowedRadioSwitch = true;
                     } else
                         eventsHandler.notAllowedRadioSwitch = true;
                 }

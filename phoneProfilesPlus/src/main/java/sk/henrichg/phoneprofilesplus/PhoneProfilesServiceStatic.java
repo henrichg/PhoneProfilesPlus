@@ -456,6 +456,14 @@ class PhoneProfilesServiceStatic
                     PPApplication.deviceIdleModeReceiver = null;
                 }
             }
+            if (PPApplication.bluetoothStateChangedBroadcastReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(PPApplication.bluetoothStateChangedBroadcastReceiver);
+                    PPApplication.bluetoothStateChangedBroadcastReceiver = null;
+                } catch (Exception e) {
+                    PPApplication.bluetoothStateChangedBroadcastReceiver = null;
+                }
+            }
             if (PPApplication.bluetoothConnectionBroadcastReceiver != null) {
                 try {
                     appContext.unregisterReceiver(PPApplication.bluetoothConnectionBroadcastReceiver);
@@ -560,6 +568,13 @@ class PhoneProfilesServiceStatic
                 // is @hide :-(
                 // intentFilter9.addAction(PowerManager.ACTION_LIGHT_DEVICE_IDLE_MODE_CHANGED);
                 appContext.registerReceiver(PPApplication.deviceIdleModeReceiver, intentFilter9);
+            }
+
+            if (PPApplication.bluetoothStateChangedBroadcastReceiver == null) {
+                PPApplication.bluetoothStateChangedBroadcastReceiver = new BluetoothStateChangedBroadcastReceiver();
+                IntentFilter intentFilter15 = new IntentFilter();
+                intentFilter15.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+                appContext.registerReceiver(PPApplication.bluetoothStateChangedBroadcastReceiver, intentFilter15);
             }
 
             // required for (un)register connected bluetooth devices
@@ -1816,6 +1831,7 @@ class PhoneProfilesServiceStatic
         }
     }
 
+    /*
     static void registerBluetoothStateChangedBroadcastReceiver(boolean register, DataWrapper dataWrapper, boolean forceRegister, Context context) {
         Context appContext = context.getApplicationContext();
         if (!forceRegister && PPApplication.bluetoothForceRegister)
@@ -1841,7 +1857,7 @@ class PhoneProfilesServiceStatic
                             PreferenceAllowed.PREFERENCE_ALLOWED;
                     if (allowed) {
                         dataWrapper.fillEventList();
-                        eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_BLUETOOTH/*, false*/);
+                        eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_BLUETOOTH);
                     }
                     if (!eventsExists) {
                         allowed = false;
@@ -1852,9 +1868,9 @@ class PhoneProfilesServiceStatic
                                     PreferenceAllowed.PREFERENCE_ALLOWED);
                             if (allowed) {
                                 dataWrapper.fillEventList();
-                                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED/*, false*/);
+                                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED);
                                 if (!eventsExists)
-                                    eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY/*, false*/);
+                                    eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY);
                             }
                             if (!eventsExists)
                                 allowed = false;
@@ -1874,6 +1890,7 @@ class PhoneProfilesServiceStatic
                 registerBluetoothStateChangedBroadcastReceiver(false, dataWrapper, forceRegister, appContext);
         }
     }
+    */
 
     static void registerBluetoothScannerReceivers(boolean register, DataWrapper dataWrapper, boolean forceRegister, Context context) {
         Context appContext = context.getApplicationContext();
@@ -2670,10 +2687,12 @@ class PhoneProfilesServiceStatic
         // required for location and radio switch sensor
         registerLocationModeChangedBroadcastReceiver(true, dataWrapper, appContext);
 
+        /*
         // required for bluetooth connection type = (dis)connected +
         // radio switch event +
         // bluetooth scanner
         registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false, appContext);
+        */
 
         // required for bluetooth connection type = (dis)connected +
         // bluetooth scanner
@@ -2793,7 +2812,7 @@ class PhoneProfilesServiceStatic
         registerReceiverForDeviceBootSensor(false, null, appContext);
         registerReceiverForPeriodicSensor(false, null, appContext);
         registerLocationModeChangedBroadcastReceiver(false, null, appContext);
-        registerBluetoothStateChangedBroadcastReceiver(false, null, false, appContext);
+        //registerBluetoothStateChangedBroadcastReceiver(false, null, false, appContext);
         //registerBluetoothConnectionBroadcastReceiver(false, true, false, false);
         registerBluetoothScannerReceivers(false, null, false, appContext);
         registerWifiAPStateChangeBroadcastReceiver(false, null, false, appContext);
@@ -2855,7 +2874,7 @@ class PhoneProfilesServiceStatic
         registerReceiverForDeviceBootSensor(true, dataWrapper, appContext);
         registerReceiverForPeriodicSensor(true, dataWrapper, appContext);
         registerLocationModeChangedBroadcastReceiver(true, dataWrapper, appContext);
-        registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false, appContext);
+        //registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false, appContext);
         //registerBluetoothConnectionBroadcastReceiver(true, true, true, false);
         registerBluetoothScannerReceivers(true, dataWrapper, false, appContext);
         registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false, appContext);
@@ -3189,13 +3208,13 @@ class PhoneProfilesServiceStatic
                                     case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
                                         //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
-                                        registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false, appContext);
+                                        //registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false, appContext);
                                         registerBluetoothScannerReceivers(true, dataWrapper, false, appContext);
                                         break;
                                     case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
                                         //registerBluetoothConnectionBroadcastReceiver(true, false, false, true);
-                                        registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, true, appContext);
+                                        //registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, true, appContext);
                                         registerBluetoothScannerReceivers(true, dataWrapper, true, appContext);
                                         break;
                                     case PPApplication.SCANNER_RESTART_PERIODIC_SCANNING_SCANNER:
@@ -3215,7 +3234,7 @@ class PhoneProfilesServiceStatic
                                     case PPApplication.SCANNER_RESTART_BLUETOOTH_SCANNER:
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_RESTART_BLUETOOTH_SCANNER");
                                         //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
-                                        registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false, appContext);
+                                        //registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false, appContext);
                                         registerBluetoothScannerReceivers(true, dataWrapper, false, appContext);
                                         scheduleBluetoothWorker(/*true,*/ dataWrapper /*forScreenOn, false,*/ /*, true*/);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
@@ -3301,7 +3320,7 @@ class PhoneProfilesServiceStatic
                                             boolean canRestart = (!ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                             if ((!fromBatteryChange) || canRestart) {
                                                 //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
-                                                registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false, appContext);
+                                                //registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false, appContext);
                                                 registerBluetoothScannerReceivers(true, dataWrapper, false, appContext);
                                                 scheduleBluetoothWorker(/*true,*/ dataWrapper /*forScreenOn, false,*/ /*, true*/);
                                             }
