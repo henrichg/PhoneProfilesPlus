@@ -87,7 +87,7 @@ class PreferenceAllowed {
             assistantParameter = Integer.parseInt(sharedPreferences.getString(preferenceKey, "0")) >= 4;
         }
 
-        if (RootUtils.isRooted(/*fromUIThread*/)) {
+        if ((!assistantParameter) && RootUtils.isRooted(/*fromUIThread*/)) {
             // device is rooted
 
                 if (profile != null) {
@@ -98,7 +98,9 @@ class PreferenceAllowed {
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                         }
                     }
-                } else if (sharedPreferences != null) {
+                } else
+                //noinspection ConstantValue
+                if (sharedPreferences != null) {
                     if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -150,7 +152,7 @@ class PreferenceAllowed {
                                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         }
                     }
-                    }
+                }
         }
     }
 
