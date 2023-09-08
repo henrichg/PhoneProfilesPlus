@@ -2174,6 +2174,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     activity.displayedSensors.add(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED);
             }
 
+            Preference preference = prefMng.findPreference(PREF_EVENT_HIDE_NOT_USED_SENSORS);
             if ((!showAccessoriesSensor) &&
                     (!showActivatedProfileSensor) &&
                     (!showAlarmClockSensor) &&
@@ -2198,10 +2199,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     (!showTimeSensor) &&
                     (!showVolumesSensor) &&
                     (!showVPNSensor) &&
-                    (!showWifiSensor))
+                    (!showWifiSensor)) {
                 hideSensors = false;
+                if (preference != null)
+                    preference.setEnabled(false);
+            } else {
+                if (preference != null)
+                    preference.setEnabled(true);
+            }
 
-            Preference preference;
             preference = prefMng.findPreference(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_CATEGORY);
             if (preference != null) {
                 boolean showSensor = !hideSensors;
