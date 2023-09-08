@@ -401,7 +401,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             editor.apply();
             if (preference != null)
                 preference.setChecked(ApplicationPreferences.applicationEventHideNotUsedSensors);
-            doEventHideNotUsedSensors(ApplicationPreferences.applicationEventHideNotUsedSensors, !activity.showSaveMenu);
+            doEventHideNotUsedSensors(ApplicationPreferences.applicationEventHideNotUsedSensors,
+                    (!activity.showSaveMenu) ||
+                            (!ApplicationPreferences.applicationEventHideNotUsedSensors));
         }
 
         setDivider(null); // this remove dividers for categories
@@ -1287,7 +1289,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 editor.apply();
                 ApplicationPreferences.applicationEventHideNotUsedSensors(getActivity().getApplicationContext());
             }
-            doEventHideNotUsedSensors(ApplicationPreferences.applicationEventHideNotUsedSensors, false);
+            doEventHideNotUsedSensors(ApplicationPreferences.applicationEventHideNotUsedSensors,
+                                        !ApplicationPreferences.applicationEventHideNotUsedSensors);
         }
 
         event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
