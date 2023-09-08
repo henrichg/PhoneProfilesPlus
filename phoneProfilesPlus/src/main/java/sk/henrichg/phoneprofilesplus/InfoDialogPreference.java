@@ -16,6 +16,7 @@ public class InfoDialogPreference extends DialogPreference {
     static final String ACTIVITY_IMPORTANT_INFO_PROFILES = "@important_info_profiles";
     static final String PPP_APP_INFO_SCREEN = "@ppp_app_info_screen";
     static final String DROIDIFY_INSTALLATION_SITE = "@droidify_installation_site";
+    static final String GRANT_ROOT = "@grant_root";
 
     public InfoDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

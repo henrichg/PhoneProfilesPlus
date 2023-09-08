@@ -1038,6 +1038,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 });
             }
         }
+
         preference = findPreference(PREF_GRANT_G1_PERMISSION);
         if (preference != null) {
             preference.setOnPreferenceClickListener(preference110 -> {

@@ -731,48 +731,43 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         InfoDialogPreference infoDialogPreference = prefMng.findPreference(PREF_PROFILE_PREFERENCE_TYPES_INFO);
         if (infoDialogPreference != null) {
+            String grantRootURL = "";
+            if (ApplicationPreferences.applicationNeverAskForGrantRoot && RootUtils.isRooted()) {
+                // <a href>
+                grantRootURL = StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.GRANT_ROOT +
+                        StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                        getString(R.string.profile_preferences_types_R_grant_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
+            }
             infoDialogPreference.setInfoText(
-                    /*
-                    "• " + getString(R.string.important_info_profile_install_pppps)+"\n\n"+
-                    // [0=tab of Important info, 1=fragment (0=System, 1=Profiles, 2=Events), TextView from Important info]
-                    "<II0 [0,1,"+R.id.activity_info_notification_profile_pppps_howTo_1+"]>"+
-                    getString(R.string.profile_preferences_types_G1_show_info)+ " »»"+
-                    "<II0/>"+
-                    "\n\n"+
-
-                    "• " + getString(R.string.important_info_profile_grant)+"\n\n"+
-                    // [0=tab of Important info, 1=fragment (0=System, 1=Profiles, 2=Events), TextView from Important info]
-                    "<II1 [0,1,"+R.id.activity_info_notification_profile_grant_1_howTo_1+"]>"+
-                    getString(R.string.profile_preferences_types_G1_show_info)+ " »»"+
-                    "<II1/>"+
-                    "\n\n"+
-
-                    "• " + getString(R.string.important_info_profile_root)+"\n\n"+
-                    //"• " + getString(R.string.important_info_profile_settings)+"\n\n"+
-                    "• " + getString(R.string.important_info_profile_interactive)
-                    */
-
-                    StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
-                            getString(R.string.important_info_profile_install_pppps) + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                            StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
-                            R.id.activity_info_notification_profile_pppps_howTo_1 + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
-                            getString(R.string.profile_preferences_types_G1_show_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
-                            StringConstants.TAG_LIST_ITEM_END_HTML +
-                            StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_profile_grant) + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                            StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
-                            R.id.activity_info_notification_profile_grant_1_howTo_1 + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
-                            getString(R.string.profile_preferences_types_G1_show_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
-                            StringConstants.TAG_LIST_ITEM_END_HTML +
-                            StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_profile_root) + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                            StringConstants.TAG_LIST_ITEM_END_HTML +
-                            StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_profile_interactive) +
-                            /*
-                            "</li>" +
-                            "<li>" + "<a href=mailto:henrich.gron@gmail.com>E-mail to Henrisko&nbsp;»»</a><br>" +
-                            "</li>" +
-                            "<li>" + "<a href=" + PPApplication.HELP_WIFI_SCAN_THROTTLING + "> Show web aboyt wi-fi throttling&nbsp;»»</a>" +
-                            */
-                            StringConstants.TAG_LIST_END_LAST_ITEM_HTML
+                // <ul><li>
+                StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+                getString(R.string.important_info_profile_install_pppps) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                // <a href>
+                StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
+                R.id.activity_info_notification_profile_pppps_howTo_1 + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                getString(R.string.profile_preferences_types_G1_show_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                //</li>
+                StringConstants.TAG_LIST_ITEM_END_HTML +
+                //<li>
+                StringConstants.TAG_LIST_ITEM_START_HTML +
+                getString(R.string.important_info_profile_grant) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                // <a href>
+                StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
+                R.id.activity_info_notification_profile_grant_1_howTo_1 + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                getString(R.string.profile_preferences_types_G1_show_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                //</li>
+                StringConstants.TAG_LIST_ITEM_END_HTML +
+                //<li>
+                StringConstants.TAG_LIST_ITEM_START_HTML +
+                getString(R.string.important_info_profile_root) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                grantRootURL +
+                //</li>
+                StringConstants.TAG_LIST_ITEM_END_HTML +
+                //<li>
+                StringConstants.TAG_LIST_ITEM_START_HTML +
+                getString(R.string.important_info_profile_interactive) +
+                //</li></ul>
+                StringConstants.TAG_LIST_END_LAST_ITEM_HTML
             );
             infoDialogPreference.setIsHtml(true);
         }
@@ -6711,7 +6706,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 //preferenceAllowed = Profile.isProfilePreferenceAllowed("-", profile, null, true, false, true, context);
                 // not enabled grant root
                 //if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                if (!preferenceAllowed.notAllowedRoot) {
+                if ((!preferenceAllowed.notAllowedRoot) || (!RootUtils.isRooted())) {
                     preference = prefMng.findPreference(PREF_GRANT_ROOT);
                     if (preference != null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
