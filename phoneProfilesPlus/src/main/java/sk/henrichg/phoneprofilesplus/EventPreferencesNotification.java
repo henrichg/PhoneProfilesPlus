@@ -50,7 +50,7 @@ class EventPreferencesNotification extends EventPreferences {
     private static final String PREF_EVENT_NOTIFICATION_TEXT = "eventNotificationText";
     static final String PREF_EVENT_NOTIFICATION_APP_SETTINGS = "eventEnableNotificationScanningAppSettings";
 
-    private static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategoryRoot";
+    static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategoryRoot";
 
     EventPreferencesNotification(Event event,
                                         boolean enabled,

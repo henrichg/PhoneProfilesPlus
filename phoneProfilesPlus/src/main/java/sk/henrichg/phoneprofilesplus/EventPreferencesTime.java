@@ -42,7 +42,7 @@ class EventPreferencesTime extends EventPreferences {
     static final String PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS = "eventTimeLocationSystemSettings";
     static final String PREF_EVENT_TIME_APP_SETTINGS = "eventTimePeriodicScanningAppSettings";
 
-    private static final String PREF_EVENT_TIME_CATEGORY = "eventTimeCategoryRoot";
+    static final String PREF_EVENT_TIME_CATEGORY = "eventTimeCategoryRoot";
 
     static final int TIME_TYPE_EXACT = 0;
     private static final int TIME_TYPE_SUNRISE_SUNSET = 1;

@@ -907,6 +907,7 @@ class PPApplicationStatic {
             ApplicationPreferences.notificationProfileListIconColor(context);
             ApplicationPreferences.notificationProfileListIconLightness(context);
             ApplicationPreferences.notificationProfileListCustomIconLightness(context);
+            ApplicationPreferences.applicationEventHideNotUsedSensors(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);

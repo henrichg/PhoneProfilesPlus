@@ -33,7 +33,7 @@ class EventPreferencesPeriodic extends EventPreferences {
     static final String PREF_EVENT_PERIODIC_APP_SETTINGS = "eventEnablePeriodicScanningAppSettings";
     private static final String PREF_EVENT_PERIODIC_RESULTING_INTERVAL = "eventPeriodicResultingInterval";
 
-    private static final String PREF_EVENT_PERIODIC_CATEGORY = "eventPeriodicCategoryRoot";
+    static final String PREF_EVENT_PERIODIC_CATEGORY = "eventPeriodicCategoryRoot";
 
     EventPreferencesPeriodic(Event event,
                              boolean enabled,

@@ -49,7 +49,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     static final String PREF_EVENT_RADIO_SWITCH_ENABLED_NFC = "eventRadioSwitchEnabledEnabledNFC";
     static final String PREF_EVENT_RADIO_SWITCH_ENABLED_AIRPLANE_MODE = "eventRadioSwitchEnabledEnabledAirplaneMode";
 
-    private static final String PREF_EVENT_RADIO_SWITCH_CATEGORY = "eventRadioSwitchCategoryRoot";
+    static final String PREF_EVENT_RADIO_SWITCH_CATEGORY = "eventRadioSwitchCategoryRoot";
 
     EventPreferencesRadioSwitch(Event event,
                                 boolean enabled,

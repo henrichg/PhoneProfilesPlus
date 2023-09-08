@@ -2164,6 +2164,8 @@
 
     <string name="profile_preferences_types_R_grant_info">Click here to grant root.</string>
 
+    <string name="event_preferences_hideNotUsedSensors">Hide not used sensors</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

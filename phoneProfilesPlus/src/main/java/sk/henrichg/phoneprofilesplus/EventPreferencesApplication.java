@@ -28,7 +28,7 @@ class EventPreferencesApplication extends EventPreferences {
     //static final String PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
     //static final String PREF_EVENT_APPLICATION_LAUNCH_EXTENDER = "eventApplicationLaunchExtender";
 
-    private static final String PREF_EVENT_APPLICATION_CATEGORY = "eventApplicationCategoryRoot";
+    static final String PREF_EVENT_APPLICATION_CATEGORY = "eventApplicationCategoryRoot";
 
     EventPreferencesApplication(Event event,
                                        boolean enabled,

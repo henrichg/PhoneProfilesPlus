@@ -29,7 +29,7 @@ class EventPreferencesRoaming extends EventPreferences {
 
     static final String PREF_EVENT_ROAMING_ENABLED_NO_CHECK_SIM = "eventRoamingEnabledEnabledNoCheckSim";
 
-    private static final String PREF_EVENT_ROAMING_CATEGORY = "eventRoamingCategoryRoot";
+    static final String PREF_EVENT_ROAMING_CATEGORY = "eventRoamingCategoryRoot";
 
     static final String PREF_EVENT_ROAMING_NETWORK_IN_SIM_SLOT_0 = "eventRoamingNetworkInSIMSlot0";
     static final String PREF_EVENT_ROAMING_DATA_IN_SIM_SLOT_0 = "eventRoamingInDataSIMSlot0";

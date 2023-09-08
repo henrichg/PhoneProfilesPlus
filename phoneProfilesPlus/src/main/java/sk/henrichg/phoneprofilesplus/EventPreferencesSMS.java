@@ -44,7 +44,7 @@ class EventPreferencesSMS extends EventPreferences {
 
     static final String PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM = "eventSMSEnabledEnabledNoCheckSim";
 
-    private static final String PREF_EVENT_SMS_CATEGORY = "eventSMSCategoryRoot";
+    static final String PREF_EVENT_SMS_CATEGORY = "eventSMSCategoryRoot";
 
     //static final int SMS_EVENT_UNDEFINED = -1;
     //static final int SMS_EVENT_INCOMING = 0;

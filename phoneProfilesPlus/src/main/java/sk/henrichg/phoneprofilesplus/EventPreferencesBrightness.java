@@ -24,7 +24,7 @@ class EventPreferencesBrightness extends EventPreferences {
     private static final String PREF_EVENT_BRIGHTNESS_OPERATOR_TO = "eventBrightnessOperatorTo";
     static final String PREF_EVENT_BRIGHTNESS_BRIGHTNESS_LEVEL_TO = "eventBrightnessBrightnessLevelTo";
 
-    private static final String PREF_EVENT_BRIGHTNESS_CATEGORY = "eventBrightnessCategoryRoot";
+    static final String PREF_EVENT_BRIGHTNESS_CATEGORY = "eventBrightnessCategoryRoot";
 
     EventPreferencesBrightness(Event event,
                                boolean enabled,

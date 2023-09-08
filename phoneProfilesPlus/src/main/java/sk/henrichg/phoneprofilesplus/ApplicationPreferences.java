@@ -248,7 +248,6 @@ class ApplicationPreferences {
     static volatile boolean applicationWidgetIconFillBackground;
     static volatile boolean applicationWidgetOneRowFillBackground;
     static volatile boolean applicationWidgetOneRowProfileListFillBackground;
-
     static volatile String applicationWidgetOneRowProfileListBackground;
     static volatile String applicationWidgetOneRowProfileListLightnessB;
     static volatile String applicationWidgetOneRowProfileListIconColor;
@@ -267,7 +266,6 @@ class ApplicationPreferences {
     static volatile String  applicationWidgetOneRowProfileListBackgroundColorNightModeOn;
     static volatile String applicationWidgetOneRowProfileListArrowsMarkLightness;
     static volatile int applicationWidgetOneRowProfileListNumberOfProfilesPerPage;
-
     static volatile boolean notificationProfileListDisplayNotification;
     //static volatile boolean notificationProfileListShowInStatusBar;
     //static volatile boolean notificationProfileListHideInLockscreen;
@@ -279,6 +277,7 @@ class ApplicationPreferences {
     static volatile String notificationProfileListIconColor;
     static volatile String notificationProfileListIconLightness;
     static volatile boolean notificationProfileListCustomIconLightness;
+    static volatile boolean applicationEventHideNotUsedSensors;
 
     static volatile String applicationEventPeriodicScanningScanInTimeMultiply;
     static volatile int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -582,6 +581,7 @@ class ApplicationPreferences {
     static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
     //private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
     //private static final String PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO = "activatedProfileForEventUndo";
+    static final String PREF_APPLICATION_EVENT_HIDE_NOT_USED_EVENTS = "applicationEventHideNotUsedSensors";
 
     // scannings
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
@@ -2261,6 +2261,11 @@ class ApplicationPreferences {
     static final boolean PREF_NOTIFICATION_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE = false;
     static void notificationProfileListCustomIconLightness(Context context) {
         notificationProfileListCustomIconLightness = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS, PREF_NOTIFICATION_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_EVENT_HIDE_NOT_USED_EVENTS_DEFAULT_VALUE = false;
+    static void applicationEventHideNotUsedSensors(Context context) {
+        applicationEventHideNotUsedSensors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_HIDE_NOT_USED_EVENTS, PREF_APPLICATION_EVENT_HIDE_NOT_USED_EVENTS_DEFAULT_VALUE);
     }
 
     static void deleteBadPreferences(Context context) {

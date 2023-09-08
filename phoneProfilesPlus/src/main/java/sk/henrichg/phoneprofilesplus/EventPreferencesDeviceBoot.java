@@ -23,7 +23,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
     private static final String PREF_EVENT_DEVICE_BOOT_PERMANENT_RUN = "eventDeviceBootPermanentRun";
     private static final String PREF_EVENT_DEVICE_BOOT_DURATION = "eventDeviceBootDuration";
 
-    private static final String PREF_EVENT_DEVICE_BOOT_CATEGORY = "eventDeviceBootCategoryRoot";
+    static final String PREF_EVENT_DEVICE_BOOT_CATEGORY = "eventDeviceBootCategoryRoot";
 
     EventPreferencesDeviceBoot(Event event,
                                boolean enabled,

@@ -38,7 +38,7 @@ class EventPreferencesBluetooth extends EventPreferences {
     static final String PREF_EVENT_BLUETOOTH_APP_SETTINGS = "eventEnableBluetoothScanningAppSettings";
     static final String PREF_EVENT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = "eventBluetoothLocationSystemSettings";
 
-    private static final String PREF_EVENT_BLUETOOTH_CATEGORY = "eventBluetoothCategoryRoot";
+    static final String PREF_EVENT_BLUETOOTH_CATEGORY = "eventBluetoothCategoryRoot";
 
 
     static final String CONFIGURED_BLUETOOTH_NAMES_VALUE = "^configured_bluetooth_names^";

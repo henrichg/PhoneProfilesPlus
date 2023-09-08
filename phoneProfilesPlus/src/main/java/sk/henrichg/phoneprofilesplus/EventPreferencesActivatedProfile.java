@@ -19,7 +19,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
     private static final String PREF_EVENT_ACTIVATED_PROFILE_START_PROFILE = "eventActivatedProfileStartProfile";
     private static final String PREF_EVENT_ACTIVATED_PROFILE_END_PROFILE = "eventActivatedProfileEndProfile";
 
-    private static final String PREF_EVENT_ACTIVATED_PROFILE_CATEGORY = "eventActivatedProfileCategoryRoot";
+    static final String PREF_EVENT_ACTIVATED_PROFILE_CATEGORY = "eventActivatedProfileCategoryRoot";
 
     static final int RUNNING_NOTSET = 0;
     static final int RUNNING_RUNNING = 1;

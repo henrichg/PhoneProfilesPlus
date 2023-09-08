@@ -25,7 +25,7 @@ class EventPreferencesAccessories extends EventPreferences {
     static final String PREF_EVENT_ACCESSORIES_ENABLED = "eventPeripheralEnabled";
     private static final String PREF_EVENT_ACCESSORIES_TYPE = "eventAccessoryType";
 
-    private static final String PREF_EVENT_ACCESSORIES_CATEGORY = "eventAccessoriesCategoryRoot";
+    static final String PREF_EVENT_ACCESSORIES_CATEGORY = "eventAccessoriesCategoryRoot";
 
     private static final int ACCESSORY_TYPE_DESK_DOCK = 0;
     private static final int ACCESSORY_TYPE_CAR_DOCK = 1;

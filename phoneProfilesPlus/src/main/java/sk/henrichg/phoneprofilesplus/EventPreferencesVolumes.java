@@ -42,7 +42,7 @@ class EventPreferencesVolumes extends EventPreferences {
     static final String PREF_EVENT_VOLUMES_VOICE_TO = "eventVolumesVoiceTo";
     static final String PREF_EVENT_VOLUMES_BLUETOOTHSCO_TO = "eventVolumesBluetoothSCOTo";
 
-    private static final String PREF_EVENT_VOLUMES_CATEGORY = "eventVolumesCategoryRoot";
+    static final String PREF_EVENT_VOLUMES_CATEGORY = "eventVolumesCategoryRoot";
 
     EventPreferencesVolumes(Event event,
                             boolean enabled,

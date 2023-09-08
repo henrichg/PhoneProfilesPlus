@@ -15,7 +15,7 @@ class EventPreferencesVPN extends EventPreferences {
     static final String PREF_EVENT_VPN_ENABLED = "eventVPNEnabled";
     private static final String PREF_EVENT_VPN_CONNECTION_STATUS = "eventVPNConnectionStatus";
 
-    private static final String PREF_EVENT_VPN_CATEGORY = "eventVPNCategoryRoot";
+    static final String PREF_EVENT_VPN_CATEGORY = "eventVPNCategoryRoot";
 
     EventPreferencesVPN(Event event,
                         boolean enabled,

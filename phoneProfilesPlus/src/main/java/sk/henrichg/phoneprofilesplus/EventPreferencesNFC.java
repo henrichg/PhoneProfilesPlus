@@ -25,7 +25,7 @@ class EventPreferencesNFC extends EventPreferences {
     private static final String PREF_EVENT_NFC_PERMANENT_RUN = "eventNFCPermanentRun";
     private static final String PREF_EVENT_NFC_DURATION = "eventNFCDuration";
 
-    private static final String PREF_EVENT_NFC_CATEGORY = "eventNFCCategoryRoot";
+    static final String PREF_EVENT_NFC_CATEGORY = "eventNFCCategoryRoot";
 
     EventPreferencesNFC(Event event,
                                boolean enabled,

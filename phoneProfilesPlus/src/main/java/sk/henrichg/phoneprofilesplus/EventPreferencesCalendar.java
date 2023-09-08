@@ -58,7 +58,7 @@ class EventPreferencesCalendar extends EventPreferences {
     private static final String PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT = "eventCalendarDayContainsEvent";
     private static final String PREF_EVENT_CALENDAR_ALL_DAY_EVENTS = "eventCalendarAllDayEvents";
 
-    private static final String PREF_EVENT_CALENDAR_CATEGORY = "eventCalendarCategoryRoot";
+    static final String PREF_EVENT_CALENDAR_CATEGORY = "eventCalendarCategoryRoot";
 
     private static final int SEARCH_FIELD_TITLE = 0;
     private static final int SEARCH_FIELD_DESCRIPTION = 1;

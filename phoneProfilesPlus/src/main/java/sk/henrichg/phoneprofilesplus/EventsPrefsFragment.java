@@ -16,6 +16,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
+import androidx.preference.SwitchPreferenceCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class EventsPrefsFragment extends PreferenceFragmentCompat
@@ -75,6 +77,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_EVENT_MOBILE_CELLS_CONFIGURE_CELLS = "eventMobileCellsConfrigureCells";
     private static final int RESULT_EVENT_MOBILE_CELLS_CONFIGURE_CELLS = 1998;
     private static final String PREF_EVENT_MOBILE_CELLS_CELLS_REGISTRATION = "eventMobileCellsCellsRegistration";
+    private static final String PREF_EVENT_HIDE_NOT_USED_SENSORS = "eventHideNotUsedSensors";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -382,6 +385,23 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         } else {
             preferenceSubTitle.setVisibility(View.GONE);
+
+            //TODO
+            SwitchPreferenceCompat preference = prefMng.findPreference(PREF_EVENT_HIDE_NOT_USED_SENSORS);
+            if (preference != null) {
+                //    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, true, , false, false);
+                preference.setTitle("[ " + getString(R.string.event_preferences_hideNotUsedSensors) + " ]");
+            }
+
+            // load PREF_EVENT_HIDE_NOT_USED_SENSORS from Application preferences
+            Log.e("EventPrefsFragment.onActivityCreated", "ApplicationPreferences.applicationEventHideNotUsedSensors="+ApplicationPreferences.applicationEventHideNotUsedSensors);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(PREF_EVENT_HIDE_NOT_USED_SENSORS, ApplicationPreferences.applicationEventHideNotUsedSensors);
+            editor.apply();
+            if (preference != null)
+                preference.setChecked(ApplicationPreferences.applicationEventHideNotUsedSensors);
+            doEventHideNotUsedSensors(ApplicationPreferences.applicationEventHideNotUsedSensors);
         }
 
         setDivider(null); // this remove dividers for categories
@@ -1255,15 +1275,32 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
+        if (key.equals(PREF_EVENT_HIDE_NOT_USED_SENSORS)) {
+            //TODO
+            // save PREF_EVENT_HIDE_NOT_USED_SENSORS into Application preferences
+            boolean hideNotUsedSensors = preferences.getBoolean(PREF_EVENT_HIDE_NOT_USED_SENSORS, false);
+            Log.e("EventPrefsFragment.onSharedPreferenceChanged", "hideNotUsedSensors="+hideNotUsedSensors);
+            SharedPreferences appSharedPreferences = ApplicationPreferences.getSharedPreferences(getActivity().getApplicationContext());
+            if (appSharedPreferences != null) {
+                SharedPreferences.Editor editor = appSharedPreferences.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_HIDE_NOT_USED_EVENTS, hideNotUsedSensors);
+                editor.apply();
+                ApplicationPreferences.applicationEventHideNotUsedSensors(getActivity().getApplicationContext());
+            }
+            doEventHideNotUsedSensors(ApplicationPreferences.applicationEventHideNotUsedSensors);
+        }
+
         event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
         event.setSummary(prefMng, key, sharedPreferences, getActivity(), true);
 
         setRedTextToPreferences();
 
-        EventsPrefsActivity activity = (EventsPrefsActivity)getActivity();
-        if (activity != null) {
-            activity.showSaveMenu = true;
-            activity.invalidateOptionsMenu();
+        if (!key.equals(PREF_EVENT_HIDE_NOT_USED_SENSORS)) {
+            EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
+            if (activity != null) {
+                activity.showSaveMenu = true;
+                activity.invalidateOptionsMenu();
+            }
         }
     }
 
@@ -1984,6 +2021,240 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 } else {
                     currentValuePreference.setSummary(R.string.event_preferences_orientation_light_currentValue_noHardware);
                 }
+            }
+        }
+    }
+
+    private void doEventHideNotUsedSensors(boolean hideSensors) {
+        if ((!nestedFragment) && (prefMng != null)) {
+            boolean showAccessoriesSensor = preferences.getBoolean(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, false);
+            boolean showActivatedProfileSensor = preferences.getBoolean(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false);
+            boolean showAlarmClockSensor = preferences.getBoolean(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, false);
+            boolean showApplicationSensor = preferences.getBoolean(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, false);
+            boolean showBatterySensor = preferences.getBoolean(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, false);
+            boolean showBluetoothSensor = preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false);
+            boolean showBrightnessSensor = preferences.getBoolean(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_ENABLED, false);
+            boolean showCalendarSensor = preferences.getBoolean(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, false);
+            boolean showCallSensor = preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, false);
+            boolean showDeviceBootSensor = preferences.getBoolean(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, false);
+            boolean showLocationSensor = preferences.getBoolean(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false);
+            boolean showMobileCellsSensor = preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false);
+            boolean showNFCSensor = preferences.getBoolean(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, false);
+            boolean showNotificationSensor = preferences.getBoolean(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, false);
+            boolean showOrientationSensor = preferences.getBoolean(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, false);
+            boolean showPeriodicSensor = preferences.getBoolean(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, false);
+            boolean showRadioSwitchSensor = preferences.getBoolean(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, false);
+            boolean showRoamingSensor = preferences.getBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, false);
+            boolean showScreenSensor = preferences.getBoolean(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, false);
+            boolean showSMSSensor = preferences.getBoolean(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, false);
+            boolean showSoundProfileSensor = preferences.getBoolean(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, false);
+            boolean showTimeSensor = preferences.getBoolean(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, false);
+            boolean showVolumesSensor = preferences.getBoolean(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, false);
+            boolean showVPNSensor = preferences.getBoolean(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, false);
+            boolean showWifiSensor = preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false);
+
+            if ((!showAccessoriesSensor) &&
+                    (!showActivatedProfileSensor) &&
+                    (!showAlarmClockSensor) &&
+                    (!showApplicationSensor) &&
+                    (!showBatterySensor) &&
+                    (!showBluetoothSensor) &&
+                    (!showBrightnessSensor) &&
+                    (!showCalendarSensor) &&
+                    (!showCallSensor) &&
+                    (!showDeviceBootSensor) &&
+                    (!showLocationSensor) &&
+                    (!showMobileCellsSensor) &&
+                    (!showNFCSensor) &&
+                    (!showNotificationSensor) &&
+                    (!showOrientationSensor) &&
+                    (!showPeriodicSensor) &&
+                    (!showRadioSwitchSensor) &&
+                    (!showRoamingSensor) &&
+                    (!showScreenSensor) &&
+                    (!showSMSSensor) &&
+                    (!showSoundProfileSensor) &&
+                    (!showTimeSensor) &&
+                    (!showVolumesSensor) &&
+                    (!showVPNSensor) &&
+                    (!showWifiSensor))
+                hideSensors = false;
+
+            Preference preference;
+            preference = prefMng.findPreference(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showAccessoriesSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showActivatedProfileSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showAlarmClockSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesApplication.PREF_EVENT_APPLICATION_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showApplicationSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesBattery.PREF_EVENT_BATTERY_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showBatterySensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showBluetoothSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showBrightnessSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesCalendar.PREF_EVENT_CALENDAR_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showCalendarSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showCallSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showDeviceBootSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesLocation.PREF_EVENT_LOCATION_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showLocationSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showMobileCellsSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesNFC.PREF_EVENT_NFC_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showNFCSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showNotificationSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showOrientationSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showPeriodicSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showRadioSwitchSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesRoaming.PREF_EVENT_ROAMING_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showRoamingSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesScreen.PREF_EVENT_SCREEN_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showScreenSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showSMSSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showSoundProfileSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesTime.PREF_EVENT_TIME_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showTimeSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesVolumes.PREF_EVENT_VOLUMES_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showVolumesSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesVPN.PREF_EVENT_VPN_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showVPNSensor;
+                preference.setVisible(showSensor);
+            }
+            preference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_CATEGORY_ROOT);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showWifiSensor;
+                preference.setVisible(showSensor);
             }
         }
     }
