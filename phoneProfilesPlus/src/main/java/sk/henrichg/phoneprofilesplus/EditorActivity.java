@@ -1313,29 +1313,6 @@ public class EditorActivity extends AppCompatActivity
         }
         else
         if (itemId == R.id.gui_items_help) {
-            /*
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.gui_items_help_alert_title);
-            dialogBuilder.setMessage(R.string.gui_items_help_alert_message);
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                ApplicationPreferences.startStopTargetHelps(getApplicationContext(), true);
-                GlobalGUIRoutines.reloadActivity(this, true);
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-            AlertDialog dialog = dialogBuilder.create();
-
-//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialog) {
-//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                        if (positive != null) positive.setAllCaps(false);
-//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                        if (negative != null) negative.setAllCaps(false);
-//                    }
-//                });
-            */
-
             PPAlertDialog dialog = new PPAlertDialog(
                     getString(R.string.gui_items_help_alert_title),
                     getString(R.string.gui_items_help_alert_message),
@@ -2369,25 +2346,6 @@ public class EditorActivity extends AppCompatActivity
         }
         else
             message = getString(R.string.export_profiles_alert_error);
-        //dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-        //    // refresh activity
-        //    GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
-        //});
-        //dialogBuilder.setOnCancelListener(dialog -> {
-        //    // refresh activity
-        //    GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
-        //});
-        //AlertDialog dialog = dialogBuilder.create();
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
 
         PPAlertDialog dialog = new PPAlertDialog(title, message,
                 getString(android.R.string.ok), null, null, null,
@@ -2797,45 +2755,6 @@ public class EditorActivity extends AppCompatActivity
 
     private void exportData(final int titleRes, final boolean email, final boolean toAuthor, final boolean share)
     {
-        /*
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        dialogBuilder.setTitle(titleRes);
-
-        if (email)
-            dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message_note));
-        else
-        if (share) {
-            String message = getString(R.string.share_settings_alert_message) + "\n\n" +
-                    getString(R.string.export_profiles_alert_message_note);
-            dialogBuilder.setMessage(message);
-        }
-        else
-            dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message) + "\n\n" +
-                                        getString(R.string.export_profiles_alert_message_note));
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-
-        // for share is not needed grant Storage permission
-        dialogBuilder.setPositiveButton(R.string.alert_button_backup, (dialog, which) -> {
-            if (email || share)
-                doExportData(email, toAuthor, share);
-            else
-            if (Permissions.grantExportPermissions(getApplicationContext(), EditorActivity.this))
-                doExportData(false, false, false);
-        });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        AlertDialog dialog = dialogBuilder.create();
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-        */
-
         String title = getString(titleRes);
         String message;
         if (email)

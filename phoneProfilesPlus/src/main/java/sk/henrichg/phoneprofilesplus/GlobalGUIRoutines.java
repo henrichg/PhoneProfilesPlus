@@ -879,9 +879,6 @@ class GlobalGUIRoutines {
         DialogInterface.OnClickListener negativeClick = null;
 
         if ((profile != null) || (event != null)) {
-            //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            //dialogBuilder.setTitle(nTitle);
-            //dialogBuilder.setMessage(nText);
             if (forProfile) {
                 positiveText = activity.getString(R.string.show_dialog_about_red_text_show_profile_preferences);
                 positiveClick = (dialog, which) -> {
@@ -954,18 +951,6 @@ class GlobalGUIRoutines {
                     }
                 };
             }
-            //dialogBuilder.setCancelable(!forActivator);
-            //AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
 
             PPAlertDialog dialog = new PPAlertDialog(nTitle, nText,
                     positiveText, negativeText, null, null,

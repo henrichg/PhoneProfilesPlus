@@ -2860,24 +2860,6 @@ class Permissions {
                         }
                     }
                     if (!ok) {
-                        /*
-                        AlertDialog.Builder dialogBuilder1 = new AlertDialog.Builder(activity);
-                        dialogBuilder1.setMessage(R.string.phone_profiles_pref_grantRootPermission_otherManagers);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder1.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog2 = dialogBuilder1.create();
-
-//                    dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
-                        */
-
                         PPAlertDialog dialog2 = new PPAlertDialog(
                                 activity.getString(R.string.phone_profiles_pref_grantRootPermission),
                                 activity.getString(R.string.phone_profiles_pref_grantRootPermission_otherManagers),
@@ -2982,57 +2964,6 @@ class Permissions {
             NotificationManager notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 if (!notificationManager.areNotificationsEnabled()) {
-
-                    /*
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                    dialogBuilder.setTitle(R.string.ppp_app_name);
-                    dialogBuilder.setMessage(R.string.notifications_permission_text);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(R.string.enable_notificaitons_button, (dialog, which) -> {
-
-                        boolean ok = false;
-
-                        Intent intent = new Intent();
-                        intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-                        intent.putExtra(Settings.EXTRA_APP_PACKAGE, PPApplication.PACKAGE_NAME);
-
-                        if (GlobalGUIRoutines.activityIntentExists(intent, activity.getApplicationContext())) {
-                            try {
-                                activity.startActivityForResult(intent, NOTIFICATIONS_PERMISSION_REQUEST_CODE);
-                                ok = true;
-                            } catch (Exception e) {
-                                PPApplicationStatic.recordException(e);
-                            }
-                        }
-                        if (!ok) {
-                            AlertDialog.Builder dialogBuilder1 = new AlertDialog.Builder(activity);
-                            dialogBuilder1.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder1.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog _dialog = dialogBuilder1.create();
-
-//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                    @Override
-//                                    public void onShow(DialogInterface dialog) {
-//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                        if (positive != null) positive.setAllCaps(false);
-//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                        if (negative != null) negative.setAllCaps(false);
-//                                    }
-//                                });
-
-                            if (!activity.isFinishing())
-                                _dialog.show();
-                        }
-
-                    });
-                    //dialogBuilder.setNegativeButton(R.string.dont_enable_notificaitons_button, null);
-
-                    AlertDialog dialog = dialogBuilder.create();
-                    dialog.setCancelable(false);
-                    dialog.setCanceledOnTouchOutside(false);
-                    */
-
                     PPAlertDialog dialog = new PPAlertDialog(
                             activity.getString(R.string.ppp_app_name),
                             activity.getString(R.string.notifications_permission_text),

@@ -154,58 +154,6 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         final Context context = activity.getApplicationContext();
 
-        /*        if (news4550) {
-            if (Build.VERSION.SDK_INT >= 28) {
-                TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
-                if (infoText21 != null) {
-                    infoText21.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            boolean ok = false;
-                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-                                try {
-                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                    startActivity(intent);
-                                    ok = true;
-                                } catch (Exception ignored) {}
-                            }
-                            if (!ok) {
-                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                AlertDialog dialog = dialogBuilder.create();
-    //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-    //                                @Override
-    //                                public void onShow(DialogInterface dialog) {
-    //                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-    //                                    if (positive != null) positive.setAllCaps(false);
-    //                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-    //                                    if (negative != null) negative.setAllCaps(false);
-    //                                }
-    //                            });
-                                if (!activity.isFinishing())
-                                    dialog.show();
-                            }
-                        }
-                    });
-                }
-                TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
-                if (infoText22 != null)
-                    infoText22.setVisibility(View.GONE);
-                news = true;
-            }
-            else {
-                TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
-                if (infoText22 != null)
-                    infoText22.setVisibility(View.GONE);
-                TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
-                if (infoText21 != null)
-                    infoText21.setVisibility(View.GONE);
-            }
-        }
-        else {*/
         TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
         if (infoText22 != null) {
             if (Build.VERSION.SDK_INT >= 28) {

@@ -665,67 +665,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         if (!errorLocationDisplayed) {
             errorLocationDisplayed = true;
 
-            /*
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.location_editor_title);
-            dialogBuilder.setMessage(R.string.location_editor_enable_location_summary);
-            dialogBuilder.setCancelable(true);
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-
-            dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                boolean ok = false;
-                //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
-                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getApplicationContext())) {
-                    try {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivityForResult(intent, RESULT_LOCATION_SETTINGS);
-                        ok = true;
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
-                }
-                if (!ok) {
-                    AlertDialog.Builder dialogBuilder1 = new AlertDialog.Builder(LocationGeofenceEditorActivityOSM.this);
-                    dialogBuilder1.setMessage(R.string.setting_screen_not_found_alert);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder1.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog _dialog = dialogBuilder1.create();
-
-//                            _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
-
-                    if (!isFinishing())
-                        _dialog.show();
-                }
-
-                errorLocationDisplayed = false;
-
-            });
-
-            dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> errorLocationDisplayed = false);
-            dialogBuilder.setOnCancelListener(dialog -> errorLocationDisplayed = false);
-
-            AlertDialog dialog = dialogBuilder.create();
-
-            //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            //            @Override
-            //            public void onShow(DialogInterface dialog) {
-            //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-            //                if (positive != null) positive.setAllCaps(false);
-            //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-            //                if (negative != null) negative.setAllCaps(false);
-            //            }
-            //        });
-            */
-
             PPAlertDialog dialog = new PPAlertDialog(
                     getString(R.string.location_editor_title),
                     getString(R.string.location_editor_enable_location_summary),
@@ -1368,26 +1307,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     public void showDialogAndRefreshFromListener(Context context) {
         if (!CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext())) {
             if (!isFinishing()) {
-                /*
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                dialogBuilder.setTitle(R.string.location_editor_title);
-                dialogBuilder.setMessage(R.string.location_editor_connection_is_offline);
-                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-
-                dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                AlertDialog dialog = dialogBuilder.create();
-
-                //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                //            @Override
-                //            public void onShow(DialogInterface dialog) {
-                //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                //                if (positive != null) positive.setAllCaps(false);
-                //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                //                if (negative != null) negative.setAllCaps(false);
-                //            }
-                //        });
-                */
-
                 PPAlertDialog dialog = new PPAlertDialog(
                         getString(R.string.location_editor_title),
                         getString(R.string.location_editor_connection_is_offline),

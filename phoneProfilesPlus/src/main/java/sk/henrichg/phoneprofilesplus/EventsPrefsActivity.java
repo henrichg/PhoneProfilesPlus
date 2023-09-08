@@ -412,64 +412,6 @@ public class EventsPrefsActivity extends AppCompatActivity
             if (!ApplicationPreferences.applicationEventNeverAskForEnableRun) {
                 //if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) {
 
-                /*
-                final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(this);
-
-                FrameLayout container = new FrameLayout(this);
-                container.addView(doNotShowAgain);
-                FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
-                        FrameLayout.LayoutParams.MATCH_PARENT,
-                        FrameLayout.LayoutParams.WRAP_CONTENT);
-                containerParams.leftMargin = GlobalGUIRoutines.dpToPx(20);
-                container.setLayoutParams(containerParams);
-
-                FrameLayout superContainer = new FrameLayout(this);
-                superContainer.addView(container);
-
-                doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
-                doNotShowAgain.setChecked(false);
-                doNotShowAgain.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventsPrefsActivity.this);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, isChecked);
-                    editor.apply();
-                    ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
-                });
-
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                dialogBuilder.setTitle(R.string.phone_preferences_actionMode_save);
-                dialogBuilder.setMessage(R.string.alert_message_enable_event);
-                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                //dialogBuilder.setView(doNotShowAgain);
-                dialogBuilder.setView(superContainer);
-                dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                    SharedPreferences preferences1 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = preferences1.edit();
-                    editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
-                    editor.apply();
-
-                    savePreferences(new_event_mode, predefinedEventIndex);
-                    resultCode = RESULT_OK;
-                    finish();
-                });
-                dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
-                    savePreferences(new_event_mode, predefinedEventIndex);
-                    resultCode = RESULT_OK;
-                    finish();
-                });
-                AlertDialog dialog = dialogBuilder.create();
-
-//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialog) {
-//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                        if (positive != null) positive.setAllCaps(false);
-//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                        if (negative != null) negative.setAllCaps(false);
-//                    }
-//                });
-                */
-
                 PPAlertDialog dialog = new PPAlertDialog(getString(R.string.phone_preferences_actionMode_save),
                         getString(R.string.alert_message_enable_event),
                         getString(R.string.alert_button_yes), getString(R.string.alert_button_no),

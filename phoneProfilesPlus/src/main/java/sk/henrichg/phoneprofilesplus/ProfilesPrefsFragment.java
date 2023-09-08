@@ -1352,60 +1352,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             preference = findPreference(PREF_PROFILE_DEVICE_RUN_APPLICATION_MIUI_PERMISSIONS);
             if (preference != null) {
                 preference.setOnPreferenceClickListener(preference118 -> {
-                    /*
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                    dialogBuilder.setTitle(preference118.getTitle());
-                    dialogBuilder.setMessage(R.string.profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(R.string.miui_permissions_alert_dialog_show, (dialog, which) -> {
-                        boolean ok = false;
-                        Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
-                        intent.setClassName("com.miui.securitycenter",
-                                "com.miui.permcenter.permissions.PermissionsEditorActivity");
-                        intent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
-                        if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
-                            try {
-                                startActivity(intent);
-                                ok = true;
-                            } catch (Exception e) {
-                                PPApplicationStatic.recordException(e);
-                            }
-                        }
-                        if (!ok) {
-                            AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(getActivity());
-                            dialogBuilder2.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder2.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog2 = dialogBuilder2.create();
-
-//                            dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
-
-                            if (!getActivity().isFinishing())
-                                dialog2.show();
-                        }
-                    });
-                    dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-//                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                            @Override
-//                            public void onShow(DialogInterface dialog) {
-//                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                if (positive != null) positive.setAllCaps(false);
-//                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                if (negative != null) negative.setAllCaps(false);
-//                            }
-//                        });
-                    */
-
                     PPAlertDialog dialog = new PPAlertDialog(
                             preference118.getTitle(),
                             getString(R.string.profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message),

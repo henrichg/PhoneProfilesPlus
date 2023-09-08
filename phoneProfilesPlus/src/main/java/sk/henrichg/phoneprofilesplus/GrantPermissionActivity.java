@@ -595,35 +595,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
-            /*
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.permissions_alert_title);
-            dialogBuilder.setMessage(StringFormatUtils.fromHtml(showRequestString, true, false, 0, 0));
-            dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                int iteration = 4;
-                if (showRequestWriteSettings)
-                    iteration = 1;
-                //else if (showRequestAccessNotificationPolicy)
-                //    iteration = 2;
-                else if (showRequestDrawOverlays)
-                    iteration = 3;
-                requestPermissions(iteration, canShowRationale(context, false));
-            });
-            dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> finish());
-            dialogBuilder.setOnCancelListener(dialog -> finish());
-            AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
-            */
-
             PPAlertDialog dialog = new PPAlertDialog(getString(R.string.permissions_alert_title),
                     StringFormatUtils.fromHtml(_showRequestValue.toString(), true, false, false, 0, 0, true),
                     getString(android.R.string.ok), getString(android.R.string.cancel), null, null,
@@ -1084,40 +1055,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
                     //GlobalGUIRoutines.setLanguage(this);
 
-                    /*
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                    dialogBuilder.setTitle(R.string.permissions_alert_title);
-                    dialogBuilder.setMessage(R.string.permissions_write_settings_not_allowed_confirm);
-                    dialogBuilder.setPositiveButton(R.string.permission_not_ask_button, (dialog, which) -> {
-                        Permissions.setShowRequestWriteSettingsPermission(context, false);
-                        if (rationaleAlreadyShown)
-                            removePermission(Manifest.permission.WRITE_SETTINGS);
-                        requestPermissions(3, withRationale);
-                    });
-                    dialogBuilder.setNegativeButton(R.string.permission_ask_button, (dialog, which) -> {
-                        Permissions.setShowRequestWriteSettingsPermission(context, true);
-                        if (rationaleAlreadyShown)
-                            removePermission(Manifest.permission.WRITE_SETTINGS);
-                        requestPermissions(3, withRationale);
-                    });
-                    dialogBuilder.setOnCancelListener(dialog -> {
-                        if (rationaleAlreadyShown)
-                            removePermission(Manifest.permission.WRITE_SETTINGS);
-                        requestPermissions(3, withRationale);
-                    });
-                    AlertDialog dialog = dialogBuilder.create();
-
-//                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
-                    */
-
                 PPAlertDialog dialog = new PPAlertDialog(
                         getString(R.string.permissions_alert_title),
                         getString(R.string.permissions_write_settings_not_allowed_confirm),
@@ -1249,54 +1186,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     // set theme and language for dialog alert ;-)
                     GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
                     //GlobalGUIRoutines.setLanguage(this);
-
-                    /*
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                    dialogBuilder.setTitle(R.string.permissions_alert_title);
-                    if (Build.VERSION.SDK_INT >= 29) {
-                        dialogBuilder.setMessage(R.string.permissions_draw_overlays_not_allowed_alway_required);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                            Permissions.setShowRequestDrawOverlaysPermission(context, true);
-                            if (rationaleAlreadyShown)
-                                removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
-                            requestPermissions(4, withRationale);
-                        });
-                    }
-                    else {
-                        if (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
-                            dialogBuilder.setMessage(R.string.permissions_draw_overlays_not_allowed_confirm);
-                        else
-                            dialogBuilder.setMessage(R.string.permissions_draw_overlays_not_allowed_confirm_miui);
-                        dialogBuilder.setPositiveButton(R.string.permission_not_ask_button, (dialog, which) -> {
-                            Permissions.setShowRequestDrawOverlaysPermission(context, false);
-                            if (rationaleAlreadyShown)
-                                removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
-                            requestPermissions(4, withRationale);
-                        });
-                        dialogBuilder.setNegativeButton(R.string.permission_ask_button, (dialog, which) -> {
-                            Permissions.setShowRequestDrawOverlaysPermission(context, true);
-                            if (rationaleAlreadyShown)
-                                removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
-                            requestPermissions(4, withRationale);
-                        });
-                    }
-                    dialogBuilder.setOnCancelListener(dialog -> {
-                        if (rationaleAlreadyShown)
-                            removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
-                        requestPermissions(4, withRationale);
-                    });
-                    AlertDialog dialog = dialogBuilder.create();
-
-//                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
-                    */
 
                 CharSequence message;
                 CharSequence positiveText;

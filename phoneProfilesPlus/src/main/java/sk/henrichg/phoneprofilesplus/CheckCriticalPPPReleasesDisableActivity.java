@@ -62,44 +62,6 @@ public class CheckCriticalPPPReleasesDisableActivity extends AppCompatActivity
             GlobalGUIRoutines.setTheme(this, true, false, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
-            /*
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            if (criticalRelease) {
-                dialogBuilder.setTitle(getString(R.string.critical_github_release));
-                dialogBuilder.setMessage(getString(R.string.critical_github_release_confirm_notification_disable));
-            }
-            else {
-                dialogBuilder.setTitle(getString(R.string.normal_github_release));
-                dialogBuilder.setMessage(getString(R.string.normal_github_release_confirm_notification_disable));
-            }
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext(), versionCode);
-                CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext());
-                CheckCriticalPPPReleasesDisableActivity.this.finish();
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
-                CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext(), 0);
-                CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext());
-                CheckCriticalPPPReleasesDisableActivity.this.finish();
-            });
-            dialogBuilder.setOnCancelListener(dialog -> {
-                CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext());
-                CheckCriticalPPPReleasesDisableActivity.this.finish();
-            });
-            AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
-            */
-
             String title;
             String message;
             if (criticalRelease) {
