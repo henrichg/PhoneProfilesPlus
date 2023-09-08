@@ -401,7 +401,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             editor.apply();
             if (preference != null)
                 preference.setChecked(ApplicationPreferences.applicationEventHideNotUsedSensors);
-            doEventHideNotUsedSensors(ApplicationPreferences.applicationEventHideNotUsedSensors);
+            doEventHideNotUsedSensors(ApplicationPreferences.applicationEventHideNotUsedSensors, !activity.showSaveMenu);
         }
 
         setDivider(null); // this remove dividers for categories
@@ -1287,7 +1287,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 editor.apply();
                 ApplicationPreferences.applicationEventHideNotUsedSensors(getActivity().getApplicationContext());
             }
-            doEventHideNotUsedSensors(ApplicationPreferences.applicationEventHideNotUsedSensors);
+            doEventHideNotUsedSensors(ApplicationPreferences.applicationEventHideNotUsedSensors, false);
         }
 
         event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
@@ -2025,33 +2025,151 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         }
     }
 
-    private void doEventHideNotUsedSensors(boolean hideSensors) {
+    private void doEventHideNotUsedSensors(boolean hideSensors, boolean saveDisplayed) {
+        EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
+        /*
+        if (!hideSensors) {
+            // clear displayedSensors, because all muust be visible
+            if (activity != null)
+                activity.displayedSensors.clear();
+        }
+        */
+
         if ((!nestedFragment) && (prefMng != null)) {
-            boolean showAccessoriesSensor = preferences.getBoolean(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, false);
-            boolean showActivatedProfileSensor = preferences.getBoolean(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false);
-            boolean showAlarmClockSensor = preferences.getBoolean(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, false);
-            boolean showApplicationSensor = preferences.getBoolean(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, false);
-            boolean showBatterySensor = preferences.getBoolean(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, false);
-            boolean showBluetoothSensor = preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false);
-            boolean showBrightnessSensor = preferences.getBoolean(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_ENABLED, false);
-            boolean showCalendarSensor = preferences.getBoolean(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, false);
-            boolean showCallSensor = preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, false);
-            boolean showDeviceBootSensor = preferences.getBoolean(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, false);
-            boolean showLocationSensor = preferences.getBoolean(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false);
-            boolean showMobileCellsSensor = preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false);
-            boolean showNFCSensor = preferences.getBoolean(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, false);
-            boolean showNotificationSensor = preferences.getBoolean(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, false);
-            boolean showOrientationSensor = preferences.getBoolean(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, false);
-            boolean showPeriodicSensor = preferences.getBoolean(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, false);
-            boolean showRadioSwitchSensor = preferences.getBoolean(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, false);
-            boolean showRoamingSensor = preferences.getBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, false);
-            boolean showScreenSensor = preferences.getBoolean(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, false);
-            boolean showSMSSensor = preferences.getBoolean(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, false);
-            boolean showSoundProfileSensor = preferences.getBoolean(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, false);
-            boolean showTimeSensor = preferences.getBoolean(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, false);
-            boolean showVolumesSensor = preferences.getBoolean(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, false);
-            boolean showVPNSensor = preferences.getBoolean(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, false);
-            boolean showWifiSensor = preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false);
+            boolean showAccessoriesSensor;
+            boolean showActivatedProfileSensor;
+            boolean showAlarmClockSensor;
+            boolean showApplicationSensor;
+            boolean showBatterySensor;
+            boolean showBluetoothSensor;
+            boolean showBrightnessSensor;
+            boolean showCalendarSensor;
+            boolean showCallSensor;
+            boolean showDeviceBootSensor;
+            boolean showLocationSensor;
+            boolean showMobileCellsSensor;
+            boolean showNFCSensor;
+            boolean showNotificationSensor;
+            boolean showOrientationSensor;
+            boolean showPeriodicSensor;
+            boolean showRadioSwitchSensor;
+            boolean showRoamingSensor;
+            boolean showScreenSensor;
+            boolean showSMSSensor;
+            boolean showSoundProfileSensor;
+            boolean showTimeSensor;
+            boolean showVolumesSensor;
+            boolean showVPNSensor;
+            boolean showWifiSensor;
+
+            if ((activity != null) && (!saveDisplayed) && (activity.displayedSensors.size() > 0)) {
+                showAccessoriesSensor = activity.displayedSensors.contains(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED);
+                showActivatedProfileSensor= activity.displayedSensors.contains(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED);
+                showAlarmClockSensor = activity.displayedSensors.contains(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED);
+                showApplicationSensor = activity.displayedSensors.contains(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED);
+                showBatterySensor= activity.displayedSensors.contains(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED);
+                showBluetoothSensor = activity.displayedSensors.contains(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED);
+                showBrightnessSensor = activity.displayedSensors.contains(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_ENABLED);
+                showCalendarSensor= activity.displayedSensors.contains(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED);
+                showCallSensor = activity.displayedSensors.contains(EventPreferencesCall.PREF_EVENT_CALL_ENABLED);
+                showDeviceBootSensor = activity.displayedSensors.contains(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED);
+                showLocationSensor = activity.displayedSensors.contains(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED);
+                showMobileCellsSensor = activity.displayedSensors.contains(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED);
+                showNFCSensor = activity.displayedSensors.contains(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED);
+                showNotificationSensor = activity.displayedSensors.contains(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED);
+                showOrientationSensor = activity.displayedSensors.contains(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED);
+                showPeriodicSensor = activity.displayedSensors.contains(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED);
+                showRadioSwitchSensor = activity.displayedSensors.contains(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED);
+                showRoamingSensor = activity.displayedSensors.contains(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED);
+                showScreenSensor = activity.displayedSensors.contains(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED);
+                showSMSSensor = activity.displayedSensors.contains(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED);
+                showSoundProfileSensor = activity.displayedSensors.contains(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED);
+                showTimeSensor = activity.displayedSensors.contains(EventPreferencesTime.PREF_EVENT_TIME_ENABLED);
+                showVolumesSensor = activity.displayedSensors.contains(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED);
+                showVPNSensor = activity.displayedSensors.contains(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED);
+                showWifiSensor= activity.displayedSensors.contains(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED);
+            }
+            else {
+                showAccessoriesSensor = preferences.getBoolean(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, false);
+                showActivatedProfileSensor= preferences.getBoolean(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false);
+                showAlarmClockSensor = preferences.getBoolean(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, false);
+                showApplicationSensor = preferences.getBoolean(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, false);
+                showBatterySensor= preferences.getBoolean(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, false);
+                showBluetoothSensor = preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false);
+                showBrightnessSensor = preferences.getBoolean(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_ENABLED, false);
+                showCalendarSensor= preferences.getBoolean(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, false);
+                showCallSensor = preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, false);
+                showDeviceBootSensor = preferences.getBoolean(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, false);
+                showLocationSensor = preferences.getBoolean(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false);
+                showMobileCellsSensor = preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false);
+                showNFCSensor = preferences.getBoolean(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, false);
+                showNotificationSensor = preferences.getBoolean(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, false);
+                showOrientationSensor = preferences.getBoolean(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, false);
+                showPeriodicSensor = preferences.getBoolean(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, false);
+                showRadioSwitchSensor = preferences.getBoolean(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, false);
+                showRoamingSensor = preferences.getBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, false);
+                showScreenSensor = preferences.getBoolean(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, false);
+                showSMSSensor = preferences.getBoolean(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, false);
+                showSoundProfileSensor = preferences.getBoolean(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, false);
+                showTimeSensor = preferences.getBoolean(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, false);
+                showVolumesSensor = preferences.getBoolean(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, false);
+                showVPNSensor = preferences.getBoolean(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, false);
+                showWifiSensor= preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false);
+            }
+
+            if (saveDisplayed && (activity != null)) {
+                activity.displayedSensors.clear();
+                if (showAccessoriesSensor)
+                    activity.displayedSensors.add(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED);
+                if (showActivatedProfileSensor)
+                    activity.displayedSensors.add(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED);
+                if (showAlarmClockSensor)
+                    activity.displayedSensors.add(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED);
+                if (showApplicationSensor)
+                    activity.displayedSensors.add(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED);
+                if (showBatterySensor)
+                    activity.displayedSensors.add(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED);
+                if (showBluetoothSensor)
+                    activity.displayedSensors.add(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED);
+                if (showBrightnessSensor)
+                    activity.displayedSensors.add(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_ENABLED);
+                if (showCalendarSensor)
+                    activity.displayedSensors.add(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED);
+                if (showCallSensor)
+                    activity.displayedSensors.add(EventPreferencesCall.PREF_EVENT_CALL_ENABLED);
+                if (showDeviceBootSensor)
+                    activity.displayedSensors.add(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED);
+                if (showLocationSensor)
+                    activity.displayedSensors.add(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED);
+                if (showMobileCellsSensor)
+                    activity.displayedSensors.add(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED);
+                if (showNFCSensor)
+                    activity.displayedSensors.add(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED);
+                if (showNotificationSensor)
+                    activity.displayedSensors.add(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED);
+                if (showOrientationSensor)
+                    activity.displayedSensors.add(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED);
+                if (showPeriodicSensor)
+                    activity.displayedSensors.add(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED);
+                if (showRadioSwitchSensor)
+                    activity.displayedSensors.add(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED);
+                if (showRoamingSensor)
+                    activity.displayedSensors.add(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED);
+                if (showScreenSensor)
+                    activity.displayedSensors.add(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED);
+                if (showSMSSensor)
+                    activity.displayedSensors.add(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED);
+                if (showSoundProfileSensor)
+                    activity.displayedSensors.add(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED);
+                if (showTimeSensor)
+                    activity.displayedSensors.add(EventPreferencesTime.PREF_EVENT_TIME_ENABLED);
+                if (showVolumesSensor)
+                    activity.displayedSensors.add(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED);
+                if (showVPNSensor)
+                    activity.displayedSensors.add(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED);
+                if (showWifiSensor)
+                    activity.displayedSensors.add(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED);
+            }
 
             if ((!showAccessoriesSensor) &&
                     (!showActivatedProfileSensor) &&
