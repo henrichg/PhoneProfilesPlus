@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/profileicon_pref_root"
-    android:layout_width="50dp"
+    android:layout_width="55dp"
     android:layout_height="50dp"
-    android:padding="2dp">
+    android:paddingStart="15dp"
+    tools:ignore="RtlSymmetry">
 
     <ImageView
         android:id="@+id/profileicon_pref_imageview"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_vertical"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"

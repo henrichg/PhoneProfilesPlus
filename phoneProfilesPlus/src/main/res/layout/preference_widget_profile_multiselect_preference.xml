@@ -9,9 +9,10 @@
 
     <ImageView
         android:id="@+id/profile_multiselect_pref_icon"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:layout_gravity="center"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_gravity="center_vertical"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_profile_default"
