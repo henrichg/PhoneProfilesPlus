@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/profileicon_pref_imageview"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
         android:layout_gravity="center_vertical"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"

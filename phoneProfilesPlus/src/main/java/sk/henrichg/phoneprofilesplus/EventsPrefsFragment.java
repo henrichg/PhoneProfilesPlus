@@ -386,7 +386,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         } else {
             preferenceSubTitle.setVisibility(View.GONE);
 
-            //TODO
             SwitchPreferenceCompat preference = prefMng.findPreference(PREF_EVENT_HIDE_NOT_USED_SENSORS);
             if (preference != null) {
                 //    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, true, , false, false);
@@ -1278,7 +1277,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             return;
 
         if (key.equals(PREF_EVENT_HIDE_NOT_USED_SENSORS)) {
-            //TODO
             // save PREF_EVENT_HIDE_NOT_USED_SENSORS into Application preferences
             boolean hideNotUsedSensors = preferences.getBoolean(PREF_EVENT_HIDE_NOT_USED_SENSORS, false);
             Log.e("EventPrefsFragment.onSharedPreferenceChanged", "hideNotUsedSensors="+hideNotUsedSensors);
