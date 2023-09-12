@@ -42,7 +42,7 @@ public class EventsPrefsActivity extends AppCompatActivity
     private int resultCode = RESULT_CANCELED;
 
     boolean showSaveMenu = false;
-    List<String> displayedSensors = new ArrayList<>();
+    final List<String> displayedSensors = new ArrayList<>();
 
     private Toolbar toolbar;
 
