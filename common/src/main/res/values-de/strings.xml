@@ -525,13 +525,13 @@
     <string name="event_preferences_category_eventMobileCellsParameters">Mobilzellen Ereignisse</string>
     <string name="event_preferences_mobile_cells_when_outside_pref_name">Außerhalb von Mobilzellen starten</string>
     <string name="event_preferences_mobile_cells_when_outside_description">Wenn draußen</string>
-    <string name="permissions_for_mobile_cells_scan_dialog_text1">Der Mobilzellen-Scan benötigt einige Berechtigungen.</string>
+    <string name="permissions_for_mobile_cells_scan_dialog_text1">Die Suche nach Mobilfunkzellen benötigt einige Berechtigungen.</string>
     <string name="mobile_cells_pref_dlg_rescan_button">Erneut scannen</string>
     <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) neue Zelle, (C) mit Zelle verbunden.</string>
     <string name="mobile_cells_pref_dlg_cell_name_hint">Zellenname</string>
     <string name="mobile_cells_pref_dlg_cell_rename_title">Zelle umbenennen</string>
-    <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Richten Sie die Mobilzellen-Parameter in den Anwendungseinstellungen ein.</string>
-    <string name="phone_profiles_pref_category_mobile_cells_scanning">Mobilzellen scannen</string>
+    <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Richten Sie die Mobilfunkzellen-Parameter in den Anwendungseinstellungen ein.</string>
+    <string name="phone_profiles_pref_category_mobile_cells_scanning">Mobilfunkzellen scannen</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Mobilfunkzellen aufzeichnen</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Mobilzellen im Energiesparmodus scannen</string>
     <string name="array_pref_scanInPowerSaveMode_scan">Suche</string>
@@ -1811,7 +1811,7 @@
     <string name="profile_preferences_applicationEnableWifiScanning">Enable Wi-Fi scanning</string>
     <string name="profile_preferences_applicationEnableBluetoothScanning">Enable Bluetooth scanning</string>
     <string name="profile_preferences_applicationEnableLocationScanning">Enable location scanning</string>
-    <string name="profile_preferences_applicationEnableMobileCellScanning">Enable mobile cell scanning</string>
+    <string name="profile_preferences_applicationEnableMobileCellScanning">Suche nach Mobilfunkzellen aktivieren</string>
     <string name="profile_preferences_applicationEnableOrientationScanning">Enable orientation scanning</string>
     <string name="profile_preferences_applicationEnableNotificationScanning">Enable notification scanning</string>
     <string name="check_github_releases_installed_version">Installed version:</string>
@@ -2040,10 +2040,8 @@
     <string name="altype_profileError_wifiAP">profile - error on set Wi-Fi hotspot</string>
     <string name="altype_profileError_closeAllApplications">profile - error on close all applications</string>
     <string name="phone_profiles_pref_createEditorShortcut">Shortcut to Editor</string>
-    <string name="phone_profiles_pref_createEditorShortcut_summary">Click here, to create shortcut to Editor in home launcher</string>
+    <string name="phone_profiles_pref_createEditorShortcut_summary">Klicken Sie hier, um eine Verknüpfung für den Editor auf Ihrem Startbildschirm zu erstellen</string>
     <string name="editor_launcher_label">Editor</string>
-    <string name="important_info_shortcut_to_editor_text1">Shortcut to Editor</string>
-    <string name="important_info_shortcut_to_editor_text2">Parameter \"Application interface\"/\"Launch from home screen\" is replaced with \"Shortcut to Editor\". This parameter generates a shortcut to the Editor in the home launcher. This shortcut can be used to open the Editor directly.</string>
     <string name="generate_notification_pref_dialog_large_icon_chb">Großes Symbol anzeigen</string>
     <string name="preference_profile_generate_notification_show_large_icon">Großes Symbol anzeigen</string>
     <string name="generate_notification_pref_dialog_replace_with_ppp_icon_chb">Mit PhoneProfilesPlus-Symbol ersetzen</string>
@@ -2102,18 +2100,24 @@
     <string name="mobile_cell_names_pref_dlg_connected_cell">Connected cell:</string>
     <string name="mobile_cell_names_pref_dlg_connected_cell_sim1">Connected cell (SIM 1):</string>
     <string name="mobile_cell_names_pref_dlg_connected_cell_sim2">Connected cell (SIM 2):</string>
-    <string name="event_preferences_mobile_cells_configure_cells">Each mobile cell must have a name. Multiple cells can have the same name. A name represents a group of cells and these groups are configured in \"Cell Names\".\n\nClick here to configure cell names. That opens \"Mobile cells scanning\" screen and in it is \"Mobile cells editor\".</string>
+    <string name="event_preferences_mobile_cells_configure_cells">Jede Mobilfunkzelle muss einen Namen haben. Mehrere Zellen können denselben Namen haben. Ein Name repräsentiert eine Gruppe von Zellen, und diese Gruppen sind in „Zellennamen” konfiguriert.\n\nKlicken Sie hier, um Zellennamen zu konfigurieren. Dadurch wird der Bildschirm \"Mobilfunkzellen scannen\" geöffnet, und darin befindet sich der „Mobilfunkzellen-Editor”.</string>
     <string name="phone_profiles_pref_applicationEventMobileCellConfigureCells_summary">Each mobile cell must have a name. Multiple cells can have the same name. A name represents a group of cells and these groups are configured in \"Mobile cell sensor\"\/\"Cell Names\".</string>
     <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Show notification for detection of new mobile cells</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Cell registration is for registering new mobile cells. Registration will be running in background. During running registration, is recommended to not change location of device.</string>
-    <string name="event_preferences_mobile_cells_cells_registration_summary">Cell registration is for registering new mobile cells. \n\nClick here if you want to start cell registration. That opens \"Mobile cells scanning\" screen and in it is \"Cell registration\".</string>
+    <string name="event_preferences_mobile_cells_cells_registration_summary">Die Zellregistrierung dient dazu, neue Mobilfunkzellen zu registrieren.\n\nKlicken Sie hier, wenn Sie die Zellregistrierung starten möchten. Dadurch wird der Bildschirm „Mobilfunkzellen scannen” geöffnet, und darin befindet sich die „Zellregistrierung”.</string>
     <string name="array_pref_applicationDisableScanning_enabled_with_interval">Scanning enabled, interval set</string>
     <string name="phone_profiles_pref_applicationMobileCellScanInterval">Mobile cell scan interval</string>
-    <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">Mobile cell scanning do not have scan interval.</string>
+    <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">Bei der Suche nach Mobilfunkzellen gibt es kein Abtastintervall.</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval">Notification scan interval</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">Notification scanning do not have scan interval.</string>
+    <string name="generate_notification_after_click_dialog_title">What to do</string>
     <string name="generate_notification_after_click_dialog_start_activator">Start Activator</string>
     <string name="generate_notification_after_click_dialog_start_editor">Start Editor</string>
     <string name="generate_notification_after_click_dialog_restart_events">Restart events</string>
     <string name="generate_notification_after_click_dialog_enable_disable_events_run">Enable\/Disable events run</string>
+    <string name="phone_profiles_pref_createMobileCellShortcut">Verknüpfung zu „Mobilfunkzellen scannen”</string>
+    <string name="phone_profiles_pref_createMobileCellShortcut_summary">Klicken Sie hier, um eine Verknüpfung zu „Mobilfunkzellen scannen” im Startbildschirm zu erstellen.</string>
+    <string name="shortcut_to_mobile_cell_scanning_created_toast">Verknüpfung zu „Mobilfunkzellen scannen” erstellt</string>
+    <string name="profile_preferences_types_R_grant_info">Klicken Sie hier, um Root-Zugriff zu gewähren.</string>
+    <string name="event_preferences_hideNotUsedSensors">Ungenutzte Sensoren ausblenden</string>
 </resources>

@@ -2042,8 +2042,6 @@
     <string name="phone_profiles_pref_createEditorShortcut">Ярлык для Редактора</string>
     <string name="phone_profiles_pref_createEditorShortcut_summary">Нажмите сюда, чтобы создать ярлык для Редактора на домашнем экране</string>
     <string name="editor_launcher_label">Редактор</string>
-    <string name="important_info_shortcut_to_editor_text1">Ярлык для Редактора</string>
-    <string name="important_info_shortcut_to_editor_text2">Параметр \"Интерфейс приложения\"/\"Запуск с домашнего экрана\" заменён на \"Ярлык для Редактора\". Этот параметр создаёт ярлык для Редактора на домашнем экране. Этот ярлык позволяет открыть Редактор напрямую.</string>
     <string name="generate_notification_pref_dialog_large_icon_chb">Показывать большую иконку</string>
     <string name="preference_profile_generate_notification_show_large_icon">показывать большую иконку</string>
     <string name="generate_notification_pref_dialog_replace_with_ppp_icon_chb">Заменить на иконку PhoneProfilesPlus</string>
@@ -2112,8 +2110,14 @@
     <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">Интервал сканирования мобильных вышек не задан.</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval">Интервал сканирования уведомлений</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">Интервал сканирования уведомлений не задан.</string>
-    <string name="generate_notification_after_click_dialog_start_activator">Start Activator</string>
-    <string name="generate_notification_after_click_dialog_start_editor">Start Editor</string>
-    <string name="generate_notification_after_click_dialog_restart_events">Restart events</string>
-    <string name="generate_notification_after_click_dialog_enable_disable_events_run">Enable\/Disable events run</string>
+    <string name="generate_notification_after_click_dialog_title">Что сделать</string>
+    <string name="generate_notification_after_click_dialog_start_activator">Запустить Активатор</string>
+    <string name="generate_notification_after_click_dialog_start_editor">Запустить Редактор</string>
+    <string name="generate_notification_after_click_dialog_restart_events">Перезапустить события</string>
+    <string name="generate_notification_after_click_dialog_enable_disable_events_run">Разрешить\/запретить запуск событий</string>
+    <string name="phone_profiles_pref_createMobileCellShortcut">Ярлык для \"Сканирования мобильных вышек\"</string>
+    <string name="phone_profiles_pref_createMobileCellShortcut_summary">Нажмите сюда, чтобы создать на домашнем экране ярлык для \"Сканирования мобильных вышек\".</string>
+    <string name="shortcut_to_mobile_cell_scanning_created_toast">Ярлык для \"Сканирования мобильных вышек\" создан</string>
+    <string name="profile_preferences_types_R_grant_info">Нажмите сюда, чтобы предоставить права суперпользователя.</string>
+    <string name="event_preferences_hideNotUsedSensors">Скрыть неиспользуемые Датчики</string>
 </resources>

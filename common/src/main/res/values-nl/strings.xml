@@ -2042,8 +2042,6 @@
     <string name="phone_profiles_pref_createEditorShortcut">Snelkoppeling voor Editor</string>
     <string name="phone_profiles_pref_createEditorShortcut_summary">Klik hier, om shortcut voor Editor in home laucher aan te maken</string>
     <string name="editor_launcher_label">Editor</string>
-    <string name="important_info_shortcut_to_editor_text1">Snelkoppeling voor Editor</string>
-    <string name="important_info_shortcut_to_editor_text2">Parameter \"Applicatie-interface\"/\"Start vanaf beginscherm\" wordt vervangen door \"Snelkoppeling naar editor\". Deze parameter genereert een snelkoppeling naar de Editor in de home launcher. Deze snelkoppeling kan worden gebruikt om de Editor direct te openen.</string>
     <string name="generate_notification_pref_dialog_large_icon_chb">Toon groot icon</string>
     <string name="preference_profile_generate_notification_show_large_icon">toon groot icon</string>
     <string name="generate_notification_pref_dialog_replace_with_ppp_icon_chb">Vervang met PhoneProfilesPlus icon</string>
@@ -2112,8 +2110,14 @@
     <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">Zendmast cel scannen heeft geen scaninterval.</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval">Meldingen scaninterval</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">Notificatie scannen heeft geen scan interval.</string>
-    <string name="generate_notification_after_click_dialog_start_activator">Start Activator</string>
+    <string name="generate_notification_after_click_dialog_title">Wat te doen</string>
+    <string name="generate_notification_after_click_dialog_start_activator">Activator starten</string>
     <string name="generate_notification_after_click_dialog_start_editor">Start Editor</string>
-    <string name="generate_notification_after_click_dialog_restart_events">Restart events</string>
-    <string name="generate_notification_after_click_dialog_enable_disable_events_run">Enable\/Disable events run</string>
+    <string name="generate_notification_after_click_dialog_restart_events">Herstart events</string>
+    <string name="generate_notification_after_click_dialog_enable_disable_events_run">Inschakelen\/Uitschakelen uitvoeren events</string>
+    <string name="phone_profiles_pref_createMobileCellShortcut">Snelkoppeling naar \"Zendmast cel scannen\"</string>
+    <string name="phone_profiles_pref_createMobileCellShortcut_summary">Klik hier, om een snelkoppeling naar \"Mobiele cel scannen\" te maken in de launcher.</string>
+    <string name="shortcut_to_mobile_cell_scanning_created_toast">Snelkoppeling naar \"Zendmast cel scanning\" gemaakt</string>
+    <string name="profile_preferences_types_R_grant_info">Klik hier om rooten toe te kennen.</string>
+    <string name="event_preferences_hideNotUsedSensors">Verberg niet gebruikte sensoren</string>
 </resources>

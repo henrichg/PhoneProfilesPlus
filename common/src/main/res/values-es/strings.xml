@@ -2042,8 +2042,6 @@
     <string name="phone_profiles_pref_createEditorShortcut">Acceso directo al editor</string>
     <string name="phone_profiles_pref_createEditorShortcut_summary">Haz clic aquí para crear un acceso directo al editor en el lanzador de inicio</string>
     <string name="editor_launcher_label">Editor</string>
-    <string name="important_info_shortcut_to_editor_text1">Acceso directo al editor</string>
-    <string name="important_info_shortcut_to_editor_text2">El parámetro \"Interfaz de aplicación\"/\"Iniciar desde la pantalla de inicio\" se sustituye por \"Acceso directo al editor\". Este parámetro genera un acceso directo al Editor en el lanzador de inicio. Este acceso directo puede utilizarse para abrir el Editor directamente.</string>
     <string name="generate_notification_pref_dialog_large_icon_chb">Mostrar icono grande</string>
     <string name="preference_profile_generate_notification_show_large_icon">mostrar icono grande</string>
     <string name="generate_notification_pref_dialog_replace_with_ppp_icon_chb">Reemplazar con el icono de PhoneProfilesPlus</string>
@@ -2112,8 +2110,14 @@
     <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">El escaneo de células móviles no tiene intervalo de escaneo.</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval">Intervalo de escaneo de notificación</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">El escaneo de notificaciones no tiene intervalo de escaneo.</string>
-    <string name="generate_notification_after_click_dialog_start_activator">Start Activator</string>
-    <string name="generate_notification_after_click_dialog_start_editor">Start Editor</string>
-    <string name="generate_notification_after_click_dialog_restart_events">Restart events</string>
-    <string name="generate_notification_after_click_dialog_enable_disable_events_run">Enable\/Disable events run</string>
+    <string name="generate_notification_after_click_dialog_title">What to do</string>
+    <string name="generate_notification_after_click_dialog_start_activator">Iniciar Activator</string>
+    <string name="generate_notification_after_click_dialog_start_editor">Iniciar editor</string>
+    <string name="generate_notification_after_click_dialog_restart_events">Reiniciar eventos</string>
+    <string name="generate_notification_after_click_dialog_enable_disable_events_run">Activar\/Desactivar la ejecución de eventos</string>
+    <string name="phone_profiles_pref_createMobileCellShortcut">Acceso directo a \"Escaneo móvil de celdas\"</string>
+    <string name="phone_profiles_pref_createMobileCellShortcut_summary">Haz clic aquí para crear un acceso directo a \"Escaneo móvil de celdas\" en el lanzador de inicio.</string>
+    <string name="shortcut_to_mobile_cell_scanning_created_toast">Acceso directo a \"Escaneo móvil de celdas\" creado</string>
+    <string name="profile_preferences_types_R_grant_info">Haz clic aquí para conceder root.</string>
+    <string name="event_preferences_hideNotUsedSensors">Ocultar sensores no usados</string>
 </resources>

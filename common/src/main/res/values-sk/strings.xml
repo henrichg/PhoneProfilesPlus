@@ -2042,8 +2042,6 @@
     <string name="phone_profiles_pref_createEditorShortcut">Odkaz na Editor</string>
     <string name="phone_profiles_pref_createEditorShortcut_summary">Kliknite sem na vytvorenie odkazu na Editor v domovskom spúšťači</string>
     <string name="editor_launcher_label">Editor</string>
-    <string name="important_info_shortcut_to_editor_text1">Odkaz na Editor</string>
-    <string name="important_info_shortcut_to_editor_text2">Parameter \"Prostredie aplikácie\"/\"Spustiť z domovskej obrazovky\" je nahradený parametrom \"Odkaz na Editor\". Tento parameter generuje odkaz na Editor v domovskom spúšťači. Tento odkaz môžete použiť na priame otvorenie Editora.</string>
     <string name="generate_notification_pref_dialog_large_icon_chb">Zobraziť veľkú ikonu</string>
     <string name="preference_profile_generate_notification_show_large_icon">zobraziť veľkú ikonu</string>
     <string name="generate_notification_pref_dialog_replace_with_ppp_icon_chb">Nahradiť ikonou PhoneProfilesPlus</string>
@@ -2112,8 +2110,14 @@
     <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">Skenovanie mobilných buniek nemá interval skenovania.</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval">Interval skenovania notifikácie</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">Skenovanie notifikácií nemá interval skenovania.</string>
+    <string name="generate_notification_after_click_dialog_title">Čo urobiť</string>
     <string name="generate_notification_after_click_dialog_start_activator">Spustiť Aktivátor</string>
     <string name="generate_notification_after_click_dialog_start_editor">Spustiť Editor</string>
     <string name="generate_notification_after_click_dialog_restart_events">Reštartovať udalosti</string>
     <string name="generate_notification_after_click_dialog_enable_disable_events_run">Povoliť\/Zakázať spúšťanie udalostí</string>
+    <string name="phone_profiles_pref_createMobileCellShortcut">Odkaz na \"Skenovanie mobilných buniek\"</string>
+    <string name="phone_profiles_pref_createMobileCellShortcut_summary">Kliknite sem na vytvorenie odkazu na \"Skenovanie mobilných buniek\" v domovskom spúšťači.</string>
+    <string name="shortcut_to_mobile_cell_scanning_created_toast">Odkaz na \"Skenovanie mobilných buniek\" bol vytvorený</string>
+    <string name="profile_preferences_types_R_grant_info">Kliknite sem pre udelenie práva root.</string>
+    <string name="event_preferences_hideNotUsedSensors">Skryť nepoužívané senzory</string>
 </resources>

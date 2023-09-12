@@ -2042,8 +2042,6 @@
     <string name="phone_profiles_pref_createEditorShortcut">Shortcut to Editor</string>
     <string name="phone_profiles_pref_createEditorShortcut_summary">Click here, to create shortcut to Editor in home launcher</string>
     <string name="editor_launcher_label">Editor</string>
-    <string name="important_info_shortcut_to_editor_text1">Shortcut to Editor</string>
-    <string name="important_info_shortcut_to_editor_text2">Parameter \"Application interface\"/\"Launch from home screen\" is replaced with \"Shortcut to Editor\". This parameter generates a shortcut to the Editor in the home launcher. This shortcut can be used to open the Editor directly.</string>
     <string name="generate_notification_pref_dialog_large_icon_chb">Show large icon</string>
     <string name="preference_profile_generate_notification_show_large_icon">show large icon</string>
     <string name="generate_notification_pref_dialog_replace_with_ppp_icon_chb">Replace with PhoneProfilesPlus icon</string>
@@ -2112,8 +2110,14 @@
     <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">Mobile cell scanning do not have scan interval.</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval">Notification scan interval</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">Notification scanning do not have scan interval.</string>
+    <string name="generate_notification_after_click_dialog_title">What to do</string>
     <string name="generate_notification_after_click_dialog_start_activator">Start Activator</string>
     <string name="generate_notification_after_click_dialog_start_editor">Start Editor</string>
     <string name="generate_notification_after_click_dialog_restart_events">Restart events</string>
     <string name="generate_notification_after_click_dialog_enable_disable_events_run">Enable\/Disable events run</string>
+    <string name="phone_profiles_pref_createMobileCellShortcut">Shortcut to \"Mobile cell scanning\"</string>
+    <string name="phone_profiles_pref_createMobileCellShortcut_summary">Click here, to create shortcut to \"Mobile cell scanning\" in home launcher.</string>
+    <string name="shortcut_to_mobile_cell_scanning_created_toast">Shortcut to \"Mobile cell scanning\" created</string>
+    <string name="profile_preferences_types_R_grant_info">Click here to grant root.</string>
+    <string name="event_preferences_hideNotUsedSensors">Hide not used sensors</string>
 </resources>
