@@ -1,20 +1,20 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.graphics.ColorUtils;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
@@ -25,7 +25,8 @@ public class ColorChooserPreference extends DialogPreference {
 
     ColorChooserPreferenceFragment fragment;
 
-    private FrameLayout widgetLayout;
+    //private FrameLayout widgetLayout;
+    private AppCompatImageView colorPreview;
 
     String value;
 
@@ -57,7 +58,7 @@ public class ColorChooserPreference extends DialogPreference {
     {
         super.onBindViewHolder(holder);
 
-        widgetLayout = (FrameLayout)holder.findViewById(R.id.dialog_color_chooser_pref_color);
+        colorPreview = (AppCompatImageView)holder.findViewById(R.id.dialog_color_chooser_pref_color);
 
         setColorInWidget();
     }
@@ -70,30 +71,24 @@ public class ColorChooserPreference extends DialogPreference {
 
         int color = parseValue(value);
 
+        colorPreview.setImageResource(R.drawable.acch_circle);
+
+        // Update color
         String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
         boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
+        if (!isEnabled()) {
+            color = ColorUtils.setAlphaComponent(color, 89);
+        }
         if (nightModeOn) {
-            if (!isEnabled()) {
-                color = ColorUtils.blendARGB(color, Color.BLACK, 0.8f);
-            }
+            colorPreview.getDrawable()
+                    .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.ADD));
         }
         else {
-            if (!isEnabled()) {
-                color = ColorUtils.blendARGB(color, Color.WHITE, 0.8f);
-            }
+            colorPreview.getDrawable()
+                    .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
         }
 
-        Drawable selector = createSelector(color);
-        int[][] states = new int[][]{
-                new int[]{-android.R.attr.state_pressed},
-                new int[]{android.R.attr.state_pressed}
-        };
-        int[] colors = new int[]{
-                shiftColor(color),
-                color
-        };
-        ColorStateList rippleColors = new ColorStateList(states, colors);
-        setBackgroundCompat(widgetLayout, new RippleDrawable(rippleColors, selector, null));
+        colorPreview.invalidate();
 
 //        Handler handler = new Handler(context.getMainLooper());
 //        handler.postDelayed(new Runnable() {
