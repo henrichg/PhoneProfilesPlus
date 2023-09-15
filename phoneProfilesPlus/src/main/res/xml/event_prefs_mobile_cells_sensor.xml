@@ -9,27 +9,24 @@
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventMobileCellsScanningAppSettings"
         app:title="@string/phone_profiles_pref_category_mobile_cells_scanning"
         app:summary="@string/phone_profiles_pref_eventMobileCellsAppSettings_summary"
         app:dependency="eventMobileCellsEnabled"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventMobileCellsLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
         app:summary="@string/phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:dependency="eventMobileCellsEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventMobileCellsConfrigureCells"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellConfigureCells"
         app:summary="@string/event_preferences_mobile_cells_configure_cells"
         app:dependency="eventMobileCellsEnabled"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.MobileCellNamesPreference
@@ -39,12 +36,11 @@
         app:dependency="eventMobileCellsEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventMobileCellsCellsRegistration"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
         app:summary="@string/event_preferences_mobile_cells_cells_registration_summary"
         app:dependency="eventMobileCellsEnabled"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
     <SwitchPreferenceCompat

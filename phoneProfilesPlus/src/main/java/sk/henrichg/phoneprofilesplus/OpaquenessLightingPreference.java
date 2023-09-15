@@ -2,6 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,6 +11,9 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -133,7 +138,30 @@ public class OpaquenessLightingPreference extends DialogPreference {
                 } catch (Exception ignored) {
                 }
             }
-            opaquenessLightingIcon.setImageResource(iconResId); // icon resource
+            Drawable drawable = AppCompatResources.getDrawable(prefContext, iconResId);
+            //noinspection DataFlowIssue
+            drawable.mutate();
+
+            int disabledColor = ContextCompat.getColor(prefContext, R.color.activityDisabledTextColor);
+            String applicationTheme = ApplicationPreferences.applicationTheme(prefContext, true);
+            boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
+            //if (GlobalGUIRoutines.isNightModeEnabled(prefContext.getApplicationContext()))
+            if (nightModeOn) {
+                if (!isEnabled()) {
+                    disabledColor = ColorUtils.blendARGB(disabledColor, Color.BLACK, 0.8f);
+                    //noinspection DataFlowIssue
+                    drawable.setTint(disabledColor);;
+                }
+            }
+            else {
+                if (!isEnabled()) {
+                    disabledColor = ColorUtils.blendARGB(disabledColor, Color.WHITE, 0.8f);
+                    //noinspection DataFlowIssue
+                    drawable.setTint(disabledColor);;
+                }
+            }
+
+            opaquenessLightingIcon.setImageDrawable(drawable); // icon resource
 
             Handler handler = new Handler(prefContext.getMainLooper());
             handler.postDelayed(() -> {

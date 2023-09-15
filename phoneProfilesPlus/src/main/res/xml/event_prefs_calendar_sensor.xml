@@ -98,12 +98,11 @@
             app:dMax="86400"
             app:dependency="eventCalendarEnabled"
             app:layout="@layout/mp_preference_material_widget" />
-        <Preference
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
             app:key="eventCalendarPeriodicScanningAppSettings"
             app:title="@string/phone_profiles_pref_category_background_scanning"
             app:summary="@string/phone_profiles_pref_eventBackgroundScanningAppSettings_summary"
             app:dependency="eventCalendarEnabled"
-            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
 

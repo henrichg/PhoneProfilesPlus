@@ -50,11 +50,10 @@
         app:ppEntryValues="@array/launcherValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="applicationCreateEditorShortcut"
         app:title="@string/phone_profiles_pref_createEditorShortcut"
         app:summary="@string/phone_profiles_pref_createEditorShortcut_summary"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

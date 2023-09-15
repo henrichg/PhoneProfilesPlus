@@ -7,9 +7,11 @@ import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -45,17 +47,18 @@ public class ProfilePreference extends DialogPreference {
         dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         setWidgetLayoutResource(R.layout.preference_widget_profile_preference); // resource na layout custom preference - TextView-ImageView
-
         typedArray.recycle();
 
         setPositiveButtonText(null);
-
     }
 
+    // this is caled also for setEnbaled()
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder)
     {
         super.onBindViewHolder(holder);
+
+        Log.e("ProfilePreference.onBindViewHolder", "isEnabled="+isEnabled());
 
         //preferenceTitleView = view.findViewById(R.id.applications_pref_label);  // resource na title
         //preferenceTitleView.setText(preferenceTitle);
@@ -67,6 +70,8 @@ public class ProfilePreference extends DialogPreference {
             Profile profile = dataWrapper.getProfileById(Long.parseLong(profileId), true, false, false);
             if (profile != null)
             {
+                int disabledColor = ContextCompat.getColor(prefContext, R.color.activityDisabledTextColor);
+
                 if (profile.getIsIconResourceID())
                 {
                     Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
@@ -92,6 +97,10 @@ public class ProfilePreference extends DialogPreference {
                     else
                         profileIcon.setImageBitmap(profile._iconBitmap);
                 }
+                if (!isEnabled())
+                    profileIcon.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+                else
+                    profileIcon.setColorFilter(null);
             }
             else
             {
@@ -99,6 +108,7 @@ public class ProfilePreference extends DialogPreference {
                 //    profileIcon.setImageResource(R.drawable.ic_profile_default); // icon resource
                 //else
                     profileIcon.setImageResource(R.drawable.ic_empty); // icon resource
+                profileIcon.setColorFilter(null);
             }
 
             Handler handler = new Handler(prefContext.getMainLooper());
@@ -163,6 +173,7 @@ public class ProfilePreference extends DialogPreference {
         persistString(newValue);
 
         // and notify
+        // this rewrite preference, by me, calls also onBindViewHolder() to change icon in widgetLayout,
         notifyChanged();
 
     }

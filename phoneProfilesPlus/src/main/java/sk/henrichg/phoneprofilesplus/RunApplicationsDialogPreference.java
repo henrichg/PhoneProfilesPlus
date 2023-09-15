@@ -18,6 +18,7 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -497,23 +498,31 @@ public class RunApplicationsDialogPreference extends DialogPreference {
         PackageManager packageManager = context.getApplicationContext().getPackageManager();
         ApplicationInfo app;
 
-        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+        int disabledColor = ContextCompat.getColor(context, R.color.activityDisabledTextColor);
 
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         if (!value.isEmpty() && !value.equals("-")) {
             if (splits.length == 1) {
                 packageIcon.setVisibility(View.VISIBLE);
                 packageIcon1.setImageResource(R.drawable.ic_empty);
+                packageIcon1.setColorFilter(null);
                 packageIcon2.setImageResource(R.drawable.ic_empty);
+                packageIcon2.setColorFilter(null);
                 packageIcon3.setImageResource(R.drawable.ic_empty);
+                packageIcon3.setColorFilter(null);
                 packageIcon4.setImageResource(R.drawable.ic_empty);
+                packageIcon4.setColorFilter(null);
                 packageIcons.setVisibility(View.GONE);
 
+                boolean _setEnabled = false;
                 if (Application.isShortcut(splits[0])) {
                     Intent intent = new Intent();
                     intent.setClassName(Application.getPackageName(splits[0]), Application.getActivityName(splits[0]));
                     ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-                    if (info != null)
+                    if (info != null) {
                         packageIcon.setImageDrawable(info.loadIcon(packageManager));
+                        _setEnabled = true;
+                    }
                     else
                         packageIcon.setImageResource(R.drawable.ic_empty);
                 }
@@ -529,6 +538,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                                 Drawable icon = packageManager.getApplicationIcon(app);
                                 //CharSequence name = packageManager.getApplicationLabel(app);
                                 packageIcon.setImageDrawable(icon);
+                                _setEnabled = true;
                             } else {
                                 packageIcon.setImageResource(R.drawable.ic_empty);
                             }
@@ -539,16 +549,26 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                         Intent intent = new Intent();
                         intent.setClassName(Application.getPackageName(splits[0]), activityName);
                         ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-                        if (info != null)
+                        if (info != null) {
                             packageIcon.setImageDrawable(info.loadIcon(packageManager));
+                            _setEnabled = true;
+                        }
                         else
                             packageIcon.setImageResource(R.drawable.ic_empty);
                     }
                 }
+                if (_setEnabled) {
+                    if (!isEnabled())
+                        packageIcon.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+                    else
+                        packageIcon.setColorFilter(null);
+                } else
+                    packageIcon.setColorFilter(null);
             } else {
                 packageIcons.setVisibility(View.VISIBLE);
                 packageIcon.setVisibility(View.GONE);
                 packageIcon.setImageResource(R.drawable.ic_empty);
+                packageIcon.setColorFilter(null);
 
                 ImageView packIcon = packageIcon1;
                 for (int i = 0; i < 4; i++) {
@@ -557,6 +577,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                     if (i == 2) packIcon = packageIcon3;
                     if (i == 3) packIcon = packageIcon4;
                     if (i < splits.length) {
+                        boolean _setEnabled = false;
                         if (Application.isShortcut(splits[i])) {
                             Intent intent = new Intent();
                             intent.setClassName(Application.getPackageName(splits[i]), Application.getActivityName(splits[i]));
@@ -564,6 +585,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
 
                             if (info != null) {
                                 packIcon.setImageDrawable(info.loadIcon(packageManager));
+                                _setEnabled = true;
                             } else {
                                 packIcon.setImageResource(R.drawable.ic_empty);
                             }
@@ -571,6 +593,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                         else
                         if (Application.isIntent(splits[i])) {
                             packIcon.setImageResource(R.drawable.ic_profile_pref_run_application);
+                            _setEnabled = true;
                         } else {
                             String activityName = Application.getActivityName(splits[i]);
                             if (activityName.isEmpty()) {
@@ -580,6 +603,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                                         Drawable icon = packageManager.getApplicationIcon(app);
                                         //CharSequence name = packageManager.getApplicationLabel(app);
                                         packIcon.setImageDrawable(icon);
+                                        _setEnabled = true;
                                     } else {
                                         packIcon.setImageResource(R.drawable.ic_empty);
                                     }
@@ -593,13 +617,23 @@ public class RunApplicationsDialogPreference extends DialogPreference {
 
                                 if (info != null) {
                                     packIcon.setImageDrawable(info.loadIcon(packageManager));
+                                    _setEnabled = true;
                                 } else {
                                     packIcon.setImageResource(R.drawable.ic_empty);
                                 }
                             }
                         }
-                    } else
+                        if (_setEnabled) {
+                            if (!isEnabled())
+                                packIcon.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+                            else
+                                packIcon.setColorFilter(null);
+                        } else
+                            packIcon.setColorFilter(null);
+                    } else {
                         packIcon.setImageResource(R.drawable.ic_empty);
+                        packIcon.setColorFilter(null);
+                    }
                 }
             }
         }
@@ -607,6 +641,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
             packageIcon.setVisibility(View.VISIBLE);
             packageIcons.setVisibility(View.GONE);
             packageIcon.setImageResource(R.drawable.ic_empty);
+            packageIcon.setColorFilter(null);
         }
     }
 

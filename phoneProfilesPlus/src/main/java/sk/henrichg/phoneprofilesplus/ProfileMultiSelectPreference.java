@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -95,13 +96,19 @@ public class ProfileMultiSelectPreference extends DialogPreference {
 
     private void setIcons() {
         if (!value.isEmpty() && !value.equals("-")) {
+            int disabledColor = ContextCompat.getColor(prefContext, R.color.activityDisabledTextColor);
+
             String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
             if (splits.length == 1) {
                 profileIcon.setVisibility(View.VISIBLE);
                 profileIcon1.setImageResource(R.drawable.ic_empty);
+                profileIcon1.setColorFilter(null);
                 profileIcon2.setImageResource(R.drawable.ic_empty);
+                profileIcon2.setColorFilter(null);
                 profileIcon3.setImageResource(R.drawable.ic_empty);
+                profileIcon3.setColorFilter(null);
                 profileIcon4.setImageResource(R.drawable.ic_empty);
+                profileIcon4.setColorFilter(null);
                 profileIcons.setVisibility(View.GONE);
 
                 Profile profile = dataWrapper.getProfileById(Long.parseLong(value), true, false, false);
@@ -132,13 +139,20 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                         else
                             profileIcon.setImageBitmap(profile._iconBitmap);
                     }
+                    if (!isEnabled())
+                        profileIcon.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+                    else
+                        profileIcon.setColorFilter(null);
                 }
-                else
+                else {
                     profileIcon.setImageResource(R.drawable.ic_empty); // icon resource
+                    profileIcon.setColorFilter(null);
+                }
             } else {
                 profileIcons.setVisibility(View.VISIBLE);
                 profileIcon.setVisibility(View.GONE);
                 profileIcon.setImageResource(R.drawable.ic_empty);
+                profileIcon.setColorFilter(null);
 
                 ImageView profIcon = profileIcon1;
                 for (int i = 0; i < 4; i++) {
@@ -175,12 +189,19 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                                 else
                                     profIcon.setImageBitmap(profile._iconBitmap);
                             }
+                            if (!isEnabled())
+                                profIcon.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+                            else
+                                profIcon.setColorFilter(null);
                         }
-                        else
+                        else {
                             profIcon.setImageResource(R.drawable.ic_empty); // icon resource
-
-                    } else
+                            profIcon.setColorFilter(null);
+                        }
+                    } else {
                         profIcon.setImageResource(R.drawable.ic_empty);
+                        profIcon.setColorFilter(null);
+                    }
                 }
             }
         }
@@ -188,6 +209,7 @@ public class ProfileMultiSelectPreference extends DialogPreference {
             profileIcon.setVisibility(View.VISIBLE);
             profileIcons.setVisibility(View.GONE);
             profileIcon.setImageResource(R.drawable.ic_empty);
+            profileIcon.setColorFilter(null);
         }
     }
 

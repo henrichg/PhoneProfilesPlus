@@ -18,6 +18,7 @@ import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.graphics.ColorUtils;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -109,25 +110,20 @@ public class CustomColorDialogPreference extends DialogPreference {
                 String applicationTheme = ApplicationPreferences.applicationTheme(prefContext, true);
                 boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
                 //if (GlobalGUIRoutines.isNightModeEnabled(prefContext.getApplicationContext()))
-                if (nightModeOn)
+                if (nightModeOn) {
+                    if (!isEnabled()) {
+                        color = ColorUtils.blendARGB(color, Color.BLACK, 0.8f);
+                    }
                     colorPreview.getDrawable()
                             .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.ADD));
-                else
+                }
+                else {
+                    if (!isEnabled()) {
+                        color = ColorUtils.blendARGB(color, Color.WHITE, 0.8f);
+                    }
                     colorPreview.getDrawable()
                             .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
-                /*int nightModeFlags =
-                        prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-                switch (nightModeFlags) {
-                    case Configuration.UI_MODE_NIGHT_YES:
-                        colorPreview.getDrawable()
-                                .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.ADD));
-                        break;
-                    case Configuration.UI_MODE_NIGHT_NO:
-                    case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                        colorPreview.getDrawable()
-                                .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
-                        break;
-                }*/
+                }
 
                 // Bitmap to crop for background
                 Bitmap draughtboard = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.acch_draughtboard);

@@ -4,11 +4,10 @@
     app:title="@string/profile_preferences_category_screen"
     app:key="prf_pref_screenCategory" >
 
-    <Preference
+    <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="prf_pref_deviceScreenTimeoutAndKeeepScreenOnInfo"
         app:title=""
         app:summary=""
-        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceScreenTimeout"
@@ -36,11 +35,10 @@
         app:title="@string/profile_preferences_deviceBrightness"
         app:summary="@string/brightness_pref_dialog_no_change_chb"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="prf_pref_deviceBrightness_forceSetBrightnessAtScreenOn"
         app:title="@string/phone_profiles_pref_applicationForceSetBrightnessAtScreenOn"
         app:summary="@string/profile_preferences_forceSetBrightnessAtScreenOn_summary"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.PPListPreference
@@ -52,10 +50,9 @@
         app:ppEntryValues="@array/displayRotationValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:title="@string/profile_preferences_deviceWallpaperChange"
         app:key="prf_pref_deviceWallpaperCategoryRoot"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsWallpaper" />
 
@@ -68,10 +65,9 @@
         app:ppEntryValues="@array/keyguardValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:title="@string/profile_preferences_lockDevice"
         app:key="prf_pref_lockDeviceCategoryRoot"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsLockDevice" />
 
@@ -84,11 +80,10 @@
         app:ppEntryValues="@array/headsUpNotificationsValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <Preference
+    <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="prf_pref_alwaysOnDisplayInfo"
         app:title="@string/profile_preferences_alwaysOnDisplay"
         app:summary="@string/profile_preferences_notificationLedInfo_summary"
-        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_alwaysOnDisplay"
@@ -99,11 +94,10 @@
         app:ppEntryValues="@array/alwaysOnDisplayValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <Preference
+    <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="prf_pref_screenDarkModeInfo"
         app:title="@string/profile_preferences_screenDarkMode"
         app:summary="@string/profile_preferences_darkModeInfo_summary"
-        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_screenDarkMode"

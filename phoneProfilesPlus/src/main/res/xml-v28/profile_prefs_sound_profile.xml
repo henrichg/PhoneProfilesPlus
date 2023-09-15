@@ -4,17 +4,15 @@
     app:title="@string/profile_preferences_category_sound_profile"
     app:key="prf_pref_soundProfileCategory" >
 
-    <Preference
+    <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="prf_pref_volumeIgnoreSoundModeInfo1"
         app:title="@string/profile_preferences_volumeIgnoreSoundModeInfo_title"
         app:summary="@string/profile_preferences_volumeIgnoreSoundModeInfo_summary"
-        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
+    <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="prf_pref_volumeSoundModeVibrationInfo"
         app:title="@string/profile_preferences_vvolumeSoundModeVibrationInfo_title"
         app:summary="@string/profile_preferences_volumeSoundModeVibrationInfo_summary"
-        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_volumeSoundMode"
@@ -30,11 +28,10 @@
 <!--        app:summary="@string/profile_preferences_volumeNotificationsAccessSettings_summary_notification_access"-->
 <!--        app:widgetLayout="@layout/widget_start_activity_preference"-->
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
-    <Preference
+    <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="prf_pref_volumeZenModeInfo"
         app:title="@string/profile_preferences_volumeZenModeM"
         app:summary="@string/profile_preferences_volumeZenModeMInfo_summary"
-        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_volumeZenModeM"

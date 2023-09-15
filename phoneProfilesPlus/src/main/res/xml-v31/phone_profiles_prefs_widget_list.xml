@@ -4,11 +4,10 @@
     app:key="categoryWidgetList"
     app:title="@string/phone_profiles_pref_category_widget_list">
 
-    <Preference
+    <sk.henrichg.phoneprofilesplus.ExclamationPreference
         app:key="applicationWidgetListNotWorkingMIUIInfo"
         app:title="@string/phone_profiles_pref_widget_not_working_miui_info"
         app:summary="@string/phone_profiles_pref_widget_not_working_miui_info_summary"
-        app:widgetLayout="@layout/preference_widget_exclamation_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationWidgetListHeader"
@@ -21,12 +20,11 @@
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <Preference
+    <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="applicationWidgetListCompactGridInfo"
         app:title="@string/phone_profiles_pref_applicationCompactGrid"
         app:summary="@string/phone_profiles_pref_applicationCompactGrid_info_summary"
         app:dependency="applicationWidgetListGridLayout"
-        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationWidgetListCompactGrid"

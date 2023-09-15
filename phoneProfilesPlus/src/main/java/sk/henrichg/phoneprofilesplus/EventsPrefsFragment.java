@@ -1599,10 +1599,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 if (preference == null) {
                     PreferenceScreen preferenceCategory = findPreference(rootScreen);
                     if (preferenceCategory != null) {
-                        preference = new Preference(context);
+                        preference = new ExclamationPreference(context);
                         preference.setKey(PREF_NOT_ENABLED_SOME_SENSOR);
                         preference.setIconSpaceReserved(false);
-                        preference.setWidgetLayoutResource(R.layout.preference_widget_exclamation_preference);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-99);
                         preferenceCategory.addPreference(preference);
@@ -1635,13 +1634,16 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 if (preference == null) {
                     PreferenceScreen preferenceCategory = findPreference(rootScreen);
                     if (preferenceCategory != null) {
-                        preference = new Preference(context);
+                        if (event._id > 0)
+                            preference = new StartActivityPreference(context);
+                        else
+                            preference = new ExclamationPreference(context);
                         preference.setKey(PREF_GRANT_PERMISSIONS);
                         preference.setIconSpaceReserved(false);
-                        if (event._id > 0)
-                            preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
-                        else
-                            preference.setWidgetLayoutResource(R.layout.preference_widget_exclamation_preference);
+                        //if (event._id > 0)
+                        //    preference.setWidgetLayoutResource(R.layout.preference_widget_start_activity);
+                        //else
+                        //    preference.setWidgetLayoutResource(R.layout.preference_widget_exclamation_preference);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-98);
                         preferenceCategory.addPreference(preference);
@@ -1692,10 +1694,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 if (preference == null) {
                     PreferenceScreen preferenceCategory = findPreference(rootScreen);
                     if (preferenceCategory != null) {
-                        preference = new Preference(context);
+                        preference = new StartActivityPreference(context);
                         preference.setKey(PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                         preference.setIconSpaceReserved(false);
-                        preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-97);
                         preferenceCategory.addPreference(preference);
@@ -1755,10 +1756,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 if (preference == null) {
                     PreferenceScreen preferenceCategory = findPreference(rootScreen);
                     if (preferenceCategory != null) {
-                        preference = new Preference(context);
+                        preference = new ExclamationPreference(context);
                         preference.setKey(PREF_NOT_IS_RUNNABLE);
                         preference.setIconSpaceReserved(false);
-                        preference.setWidgetLayoutResource(R.layout.preference_widget_exclamation_preference);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-100);
                         preferenceCategory.addPreference(preference);

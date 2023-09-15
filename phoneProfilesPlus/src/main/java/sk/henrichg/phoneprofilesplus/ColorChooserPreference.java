@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
+import androidx.core.graphics.ColorUtils;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -68,6 +69,19 @@ public class ColorChooserPreference extends DialogPreference {
     private void setColorInWidget() {
 
         int color = parseValue(value);
+
+        String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
+        boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
+        if (nightModeOn) {
+            if (!isEnabled()) {
+                color = ColorUtils.blendARGB(color, Color.BLACK, 0.8f);
+            }
+        }
+        else {
+            if (!isEnabled()) {
+                color = ColorUtils.blendARGB(color, Color.WHITE, 0.8f);
+            }
+        }
 
         Drawable selector = createSelector(color);
         int[][] states = new int[][]{

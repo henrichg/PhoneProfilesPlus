@@ -6621,10 +6621,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preference == null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
                         if (preferenceCategory != null) {
-                            preference = new Preference(context);
+                            preference = new StartActivityPreference(context);
                             preference.setKey(PREF_GRANT_G1_PREFERENCES);
                             preference.setIconSpaceReserved(false);
-                            preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
                             preference.setLayoutResource(R.layout.mp_preference_material_widget);
                             preference.setOrder(-100);
                             preferenceCategory.addPreference(preference);
@@ -6666,10 +6665,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (preference == null) {
                             PreferenceScreen preferenceCategory = findPreference(rootScreen);
                             if (preferenceCategory != null) {
-                                preference = new Preference(context);
+                                preference = new StartActivityPreference(context);
                                 preference.setKey(PREF_GRANT_ROOT);
                                 preference.setIconSpaceReserved(false);
-                                preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
                                 preference.setLayoutResource(R.layout.mp_preference_material_widget);
                                 preference.setOrder(-100);
                                 preferenceCategory.addPreference(preference);
@@ -6708,13 +6706,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preference == null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
                         if (preferenceCategory != null) {
-                            preference = new Preference(context);
+                            if (profile._id > 0)
+                                preference = new StartActivityPreference(context);
+                            else
+                                preference = new ExclamationPreference(context);
                             preference.setKey(PREF_GRANT_PERMISSIONS);
                             preference.setIconSpaceReserved(false);
-                            if (profile._id > 0)
-                                preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
-                            else
-                                preference.setWidgetLayoutResource(R.layout.preference_widget_exclamation_preference);
+                            //if (profile._id > 0)
+                            //    preference.setWidgetLayoutResource(R.layout.preference_widget_start_activity);
+                            //else
+                            //    preference.setWidgetLayoutResource(R.layout.preference_widget_exclamation_preference);
                             preference.setLayoutResource(R.layout.mp_preference_material_widget);
                             preference.setOrder(-100);
                             preferenceCategory.addPreference(preference);
@@ -6754,10 +6755,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preference == null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
                         if (preferenceCategory != null) {
-                            preference = new Preference(context);
+                            preference = new StartActivityPreference(context);
                             preference.setKey(PREF_NOTIFICATION_ACCESS_ENABLED);
                             preference.setIconSpaceReserved(false);
-                            preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
                             preference.setLayoutResource(R.layout.mp_preference_material_widget);
                             preference.setOrder(-100);
                             preferenceCategory.addPreference(preference);
@@ -6812,10 +6812,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preference == null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
                         if (preferenceCategory != null) {
-                            preference = new Preference(context);
+                            preference = new StartActivityPreference(context);
                             preference.setKey(PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                             preference.setIconSpaceReserved(false);
-                            preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
                             preference.setLayoutResource(R.layout.mp_preference_material_widget);
                             preference.setOrder(-97);
                             preferenceCategory.addPreference(preference);
@@ -6870,10 +6869,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (preference == null) {
                             PreferenceScreen preferenceCategory = findPreference(rootScreen);
                             if (preferenceCategory != null) {
-                                preference = new Preference(context);
+                                preference = new StartActivityPreference(context);
                                 preference.setKey(PREF_NOT_INSTALLED_PPPPS);
                                 preference.setIconSpaceReserved(false);
-                                preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
                                 preference.setLayoutResource(R.layout.mp_preference_material_widget);
                                 preference.setOrder(-97);
                                 preferenceCategory.addPreference(preference);

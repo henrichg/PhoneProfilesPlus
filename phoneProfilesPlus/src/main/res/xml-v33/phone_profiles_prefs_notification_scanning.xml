@@ -14,12 +14,11 @@
         app:title="@string/phone_profiles_pref_applicationEventNotificationEnableScanning"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="applicationEventNotificationNotificationsAccessSettings"
         app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
         app:summary="@string/phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary"
         app:dependency="applicationEventNotificationEnableScannig"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.InfoDialogPreference
@@ -28,7 +27,6 @@
         app:summary="@string/phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_1"
         app:dependency="applicationEventNotificationEnableScannig"
         app:infoText=""
-        app:widgetLayout="@layout/preference_widget_info_preference_clickable"
         app:layout="@layout/mp_preference_material_widget" />
 
     <PreferenceCategory
@@ -44,12 +42,11 @@
             app:ppEntryValues="@array/scanInPowerSaveModeMobileCellsValues"
             app:dependency="applicationEventNotificationEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <Preference
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
             app:key="applicationNotificationPowerSaveMode"
             app:title="@string/phone_profiles_pref_applicationBatterySaver"
             app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
             app:dependency="applicationEventNotificationEnableScannig"
-            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"/>
     </PreferenceCategory>
     <PreferenceCategory

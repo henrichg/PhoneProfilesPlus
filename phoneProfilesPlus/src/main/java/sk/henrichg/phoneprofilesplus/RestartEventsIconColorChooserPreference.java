@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -80,28 +81,11 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
             restartEvents._iconBitmap = bitmap;
 
         imageView.setImageBitmap(restartEvents._iconBitmap);
-
-/*
-        Drawable selector = createSelector(color);
-        int[][] states = new int[][]{
-                new int[]{-android.R.attr.state_pressed},
-                new int[]{android.R.attr.state_pressed}
-        };
-        int[] colors = new int[]{
-                shiftColor(color),
-                color
-        };
-        ColorStateList rippleColors = new ColorStateList(states, colors);
-        setBackgroundCompat(widgetLayout, new RippleDrawable(rippleColors, selector, null));
-
-//        Handler handler = new Handler(context.getMainLooper());
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                setSummary(R.string.empty_string);
-//            }
-//        }, 200);
- */
+        int disabledColor = ContextCompat.getColor(context, R.color.activityDisabledTextColor);
+        if (!isEnabled())
+            imageView.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+        else
+            imageView.setColorFilter(null);
     }
 
     @Override
