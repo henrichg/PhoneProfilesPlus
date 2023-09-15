@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="accent_color">#A35E19</color>
+    <color name="accent_color_disabled">#59A35E19</color>
     <color name="notification_color">#A35E19</color>
 </resources>

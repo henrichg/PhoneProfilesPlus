@@ -40,12 +40,10 @@ public class StartActivityPreference extends Preference {
         ImageView imageView = (ImageView) holder.findViewById(R.id.start_activity_preference_imageView1);
 
         imageView.setImageResource(R.drawable.ic_start_activity_preference_icon);
-        if (!isEnabled()) {
-            int disabledColor = ContextCompat.getColor(prefContext, R.color.activityDisabledTextColor);
-            imageView.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
-        }
+        if (!isEnabled())
+            imageView.setAlpha(0.35f);
         else
-            imageView.setColorFilter(null);
+            imageView.setAlpha(1f);
     }
 
 }

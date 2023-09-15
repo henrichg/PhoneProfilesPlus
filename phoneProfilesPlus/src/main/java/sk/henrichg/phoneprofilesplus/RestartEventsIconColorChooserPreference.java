@@ -83,9 +83,9 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
         imageView.setImageBitmap(restartEvents._iconBitmap);
         int disabledColor = ContextCompat.getColor(context, R.color.activityDisabledTextColor);
         if (!isEnabled())
-            imageView.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+            imageView.setAlpha(0.35f);
         else
-            imageView.setColorFilter(null);
+            imageView.setAlpha(1f);
     }
 
     @Override

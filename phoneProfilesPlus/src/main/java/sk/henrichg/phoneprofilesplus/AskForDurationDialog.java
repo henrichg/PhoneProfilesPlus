@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
 
 import java.util.Arrays;
 import java.util.Timer;
@@ -553,18 +557,18 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             //int disabledColor = GlobalGUIRoutines.getThemeDisabledTextColor(mActivity);
             int disabledColor = ContextCompat.getColor(mActivity, R.color.activityDisabledTextColor);
             profileName.setTextColor(disabledColor);
-            profileIcon.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+            profileIcon.setAlpha(0.35f);
             if (profileIndicators != null)
-                profileIndicators.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+                profileIndicators.setAlpha(0.35f);
         }
         else {
             profileLabel.setEnabled(true);
             profileView.setEnabled(true);
             //profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(mActivity));
             profileName.setTextColor(ContextCompat.getColor(mActivity, R.color.accent_color));
-            profileIcon.setColorFilter(null);
+            profileIcon.setAlpha(1f);
             if (profileIndicators != null)
-                profileIndicators.setColorFilter(null);
+                profileIndicators.setAlpha(1f);
         }
     }
 

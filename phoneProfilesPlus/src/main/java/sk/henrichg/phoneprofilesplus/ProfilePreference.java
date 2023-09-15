@@ -98,9 +98,9 @@ public class ProfilePreference extends DialogPreference {
                         profileIcon.setImageBitmap(profile._iconBitmap);
                 }
                 if (!isEnabled())
-                    profileIcon.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+                    profileIcon.setAlpha(0.35f);
                 else
-                    profileIcon.setColorFilter(null);
+                    profileIcon.setAlpha(1f);
             }
             else
             {
@@ -108,7 +108,7 @@ public class ProfilePreference extends DialogPreference {
                 //    profileIcon.setImageResource(R.drawable.ic_profile_default); // icon resource
                 //else
                     profileIcon.setImageResource(R.drawable.ic_empty); // icon resource
-                profileIcon.setColorFilter(null);
+                profileIcon.setAlpha(1f);
             }
 
             Handler handler = new Handler(prefContext.getMainLooper());

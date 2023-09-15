@@ -505,13 +505,13 @@ public class RunApplicationsDialogPreference extends DialogPreference {
             if (splits.length == 1) {
                 packageIcon.setVisibility(View.VISIBLE);
                 packageIcon1.setImageResource(R.drawable.ic_empty);
-                packageIcon1.setColorFilter(null);
+                packageIcon1.setAlpha(1f);
                 packageIcon2.setImageResource(R.drawable.ic_empty);
-                packageIcon2.setColorFilter(null);
+                packageIcon2.setAlpha(1f);
                 packageIcon3.setImageResource(R.drawable.ic_empty);
-                packageIcon3.setColorFilter(null);
+                packageIcon3.setAlpha(1f);
                 packageIcon4.setImageResource(R.drawable.ic_empty);
-                packageIcon4.setColorFilter(null);
+                packageIcon4.setAlpha(1f);
                 packageIcons.setVisibility(View.GONE);
 
                 boolean _setEnabled = false;
@@ -559,16 +559,16 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                 }
                 if (_setEnabled) {
                     if (!isEnabled())
-                        packageIcon.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+                        packageIcon.setAlpha(0.35f);
                     else
-                        packageIcon.setColorFilter(null);
+                        packageIcon.setAlpha(1f);
                 } else
-                    packageIcon.setColorFilter(null);
+                    packageIcon.setAlpha(1f);
             } else {
                 packageIcons.setVisibility(View.VISIBLE);
                 packageIcon.setVisibility(View.GONE);
                 packageIcon.setImageResource(R.drawable.ic_empty);
-                packageIcon.setColorFilter(null);
+                packageIcon.setAlpha(1f);
 
                 ImageView packIcon = packageIcon1;
                 for (int i = 0; i < 4; i++) {
@@ -625,14 +625,14 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                         }
                         if (_setEnabled) {
                             if (!isEnabled())
-                                packIcon.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+                                packIcon.setAlpha(0.35f);
                             else
-                                packIcon.setColorFilter(null);
+                                packIcon.setAlpha(1f);
                         } else
-                            packIcon.setColorFilter(null);
+                            packIcon.setAlpha(1f);
                     } else {
                         packIcon.setImageResource(R.drawable.ic_empty);
-                        packIcon.setColorFilter(null);
+                        packIcon.setAlpha(1f);
                     }
                 }
             }
@@ -641,7 +641,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
             packageIcon.setVisibility(View.VISIBLE);
             packageIcons.setVisibility(View.GONE);
             packageIcon.setImageResource(R.drawable.ic_empty);
-            packageIcon.setColorFilter(null);
+            packageIcon.setAlpha(1f);
         }
     }
 

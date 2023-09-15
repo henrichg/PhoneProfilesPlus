@@ -102,13 +102,13 @@ public class ProfileMultiSelectPreference extends DialogPreference {
             if (splits.length == 1) {
                 profileIcon.setVisibility(View.VISIBLE);
                 profileIcon1.setImageResource(R.drawable.ic_empty);
-                profileIcon1.setColorFilter(null);
+                profileIcon1.setAlpha(1f);
                 profileIcon2.setImageResource(R.drawable.ic_empty);
-                profileIcon2.setColorFilter(null);
+                profileIcon2.setAlpha(1f);
                 profileIcon3.setImageResource(R.drawable.ic_empty);
-                profileIcon3.setColorFilter(null);
+                profileIcon3.setAlpha(1f);
                 profileIcon4.setImageResource(R.drawable.ic_empty);
-                profileIcon4.setColorFilter(null);
+                profileIcon4.setAlpha(1f);
                 profileIcons.setVisibility(View.GONE);
 
                 Profile profile = dataWrapper.getProfileById(Long.parseLong(value), true, false, false);
@@ -140,19 +140,19 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                             profileIcon.setImageBitmap(profile._iconBitmap);
                     }
                     if (!isEnabled())
-                        profileIcon.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+                        profileIcon.setAlpha(0.35f);
                     else
-                        profileIcon.setColorFilter(null);
+                        profileIcon.setAlpha(1f);
                 }
                 else {
                     profileIcon.setImageResource(R.drawable.ic_empty); // icon resource
-                    profileIcon.setColorFilter(null);
+                    profileIcon.setAlpha(1f);
                 }
             } else {
                 profileIcons.setVisibility(View.VISIBLE);
                 profileIcon.setVisibility(View.GONE);
                 profileIcon.setImageResource(R.drawable.ic_empty);
-                profileIcon.setColorFilter(null);
+                profileIcon.setAlpha(1f);
 
                 ImageView profIcon = profileIcon1;
                 for (int i = 0; i < 4; i++) {
@@ -190,17 +190,17 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                                     profIcon.setImageBitmap(profile._iconBitmap);
                             }
                             if (!isEnabled())
-                                profIcon.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+                                profIcon.setAlpha(0.35f);
                             else
-                                profIcon.setColorFilter(null);
+                                profIcon.setAlpha(1f);
                         }
                         else {
                             profIcon.setImageResource(R.drawable.ic_empty); // icon resource
-                            profIcon.setColorFilter(null);
+                            profIcon.setAlpha(1f);
                         }
                     } else {
                         profIcon.setImageResource(R.drawable.ic_empty);
-                        profIcon.setColorFilter(null);
+                        profIcon.setAlpha(1f);
                     }
                 }
             }
@@ -209,7 +209,7 @@ public class ProfileMultiSelectPreference extends DialogPreference {
             profileIcon.setVisibility(View.VISIBLE);
             profileIcons.setVisibility(View.GONE);
             profileIcon.setImageResource(R.drawable.ic_empty);
-            profileIcon.setColorFilter(null);
+            profileIcon.setAlpha(1f);
         }
     }
 

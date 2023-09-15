@@ -43,40 +43,11 @@ public class ExclamationPreference extends Preference {
 
         ImageView imageView = (ImageView) holder.findViewById(R.id.exclamation_preference_imageView1);
 
-        Drawable drawable = AppCompatResources.getDrawable(prefContext, R.drawable.ic_exclamation_preference_icon);
-        //noinspection DataFlowIssue
-        drawable.mutate();
-
-        int disabledColor = ContextCompat.getColor(prefContext, R.color.activityDisabledTextColor);
-        String applicationTheme = ApplicationPreferences.applicationTheme(prefContext, true);
-        boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
-        //if (GlobalGUIRoutines.isNightModeEnabled(prefContext.getApplicationContext()))
-        if (nightModeOn) {
-            if (!isEnabled()) {
-                disabledColor = ColorUtils.blendARGB(disabledColor, Color.WHITE, 0.1f);
-                //noinspection DataFlowIssue
-                drawable.setTint(disabledColor);
-            }
-        }
-        else {
-            if (!isEnabled()) {
-                disabledColor = ColorUtils.blendARGB(disabledColor, Color.BLACK, 0.1f);
-                //noinspection DataFlowIssue
-                drawable.setTint(disabledColor);
-            }
-        }
-
-        imageView.setImageDrawable(drawable); // icon resource
-
-        /*
-        imageView.setImageBitmap(bitmap);
-        if (!isEnabled()) {
-            int disabledColor = ContextCompat.getColor(prefContext, R.color.activityDisabledTextColor);
-            imageView.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
-        }
+        imageView.setImageResource(R.drawable.ic_exclamation_preference_icon);
+        if (!isEnabled())
+            imageView.setAlpha(0.35f);
         else
-            imageView.setColorFilter(null);
-        */
+            imageView.setAlpha(1f);
     }
 
 }

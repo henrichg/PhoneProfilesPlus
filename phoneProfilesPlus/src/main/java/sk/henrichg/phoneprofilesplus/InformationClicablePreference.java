@@ -35,12 +35,10 @@ public class InformationClicablePreference extends Preference {
         ImageView imageView = (ImageView) holder.findViewById(R.id.info_preference_clickable_imageView1);
 
         imageView.setImageResource(R.drawable.ic_info_preference_icon_clickable);
-        if (!isEnabled()) {
-            int disabledColor = ContextCompat.getColor(prefContext, R.color.activityDisabledTextColor);
-            imageView.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
-        }
+        if (!isEnabled())
+            imageView.setAlpha(0.35f);
         else
-            imageView.setColorFilter(null);
+            imageView.setAlpha(1f);
     }
 
 }

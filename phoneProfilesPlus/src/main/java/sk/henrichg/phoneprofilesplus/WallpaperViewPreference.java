@@ -15,7 +15,6 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -258,16 +257,14 @@ public class WallpaperViewPreference extends Preference {
                 if (preference.imageView != null) {
                     if (bitmap != null) {
                         preference.imageView.setImageBitmap(bitmap);
-                        if (!preference.isEnabled()) {
-                            int disabledColor = ContextCompat.getColor(preference.prefContext, R.color.activityDisabledTextColor);
-                            preference.imageView.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
-                        }
+                        if (!preference.isEnabled())
+                            preference.imageView.setAlpha(0.35f);
                         else
-                            preference.imageView.setColorFilter(null);
+                            preference.imageView.setAlpha(1f);
                     }
                     else {
                         preference.imageView.setImageResource(R.drawable.ic_empty);
-                        preference.imageView.setColorFilter(null);
+                        preference.imageView.setAlpha(1f);
                     }
                 }
             }
