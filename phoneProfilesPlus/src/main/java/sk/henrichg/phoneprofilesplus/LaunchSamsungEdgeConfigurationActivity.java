@@ -27,6 +27,7 @@ public class LaunchSamsungEdgeConfigurationActivity extends AppCompatActivity {
         try {
             Intent intent = new Intent(this, PhoneProfilesPrefsActivity.class);
             intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT);
+            intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_HIDE_BACK_ARROW, true);
             //noinspection deprecation
             startActivityForResult(intent, 100);
         } catch (Exception e) {

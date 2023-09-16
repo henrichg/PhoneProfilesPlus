@@ -27,6 +27,7 @@ public class LaunchMobileCellsScanningActivity extends AppCompatActivity {
         try {
             Intent intent = new Intent(this, PhoneProfilesPrefsActivity.class);
             intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_MOBILE_CELLS_SCANNING_CATEGORY_ROOT);
+            intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_HIDE_BACK_ARROW, true);
             startActivity(intent);
             finish();
         } catch (Exception e) {

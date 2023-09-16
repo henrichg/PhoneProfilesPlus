@@ -55,6 +55,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
     static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
     //static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
     static final String EXTRA_RESET_EDITOR = "reset_editor";
+    static final String EXTRA_HIDE_BACK_ARROW = "extra_phone_profile_preferences_hide_back_arrow";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,17 +78,23 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
             return;
         }
 
+        Intent intent = getIntent();
+
         activityStarted = true;
+
+        boolean hideBackArrow = intent.getBooleanExtra(EXTRA_HIDE_BACK_ARROW, false);
 
         Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
         toolbar.setVisibility(View.GONE);
         toolbar = findViewById(R.id.activity_preferences_toolbar_no_subtitle);
         toolbar.setVisibility(View.VISIBLE);
+        if (hideBackArrow)
+            toolbar.setContentInsetsAbsolute(GlobalGUIRoutines.dpToPx(15), 0);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(!hideBackArrow);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(!hideBackArrow);
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
@@ -121,7 +128,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
         useAlarmClockEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, false);
 
         String extraScrollTo; //= null;
-        Intent intent = getIntent();
         //String action = intent.getAction();
         /*if (intent.hasCategory(Notification.INTENT_CATEGORY_NOTIFICATION_PREFERENCES)) {
             // activity is started from notification, scroll to notifications category
