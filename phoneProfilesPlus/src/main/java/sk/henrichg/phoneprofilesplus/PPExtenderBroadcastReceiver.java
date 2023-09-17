@@ -14,6 +14,7 @@ import android.provider.Settings;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Data;
@@ -152,16 +153,21 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        setApplicationInForeground(appContext, "");
+                        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_APPLICATION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_APPLICATION, 0);
+                        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_ORIENTATION, 0);
+
+                        /*
                         boolean applicationsAllowed = false;
                         boolean orientationAllowed = false;
 
                         DataWrapper dataWrapper4 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                         dataWrapper4.fillEventList();
-                        boolean applicationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/);
+                        boolean applicationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION);
                         if (applicationExists)
                             applicationsAllowed = (EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
                                     PreferenceAllowed.PREFERENCE_ALLOWED);
-                        boolean orientationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
+                        boolean orientationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION);
                         if (orientationExists)
                             orientationAllowed = (EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
                                     PreferenceAllowed.PREFERENCE_ALLOWED);
@@ -184,6 +190,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
+                        */
 
                     } catch (Exception e) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -205,6 +212,8 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
             case PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED:
                 final String packageName = intent.getStringExtra(EXTRA_PACKAGE_NAME);
                 final String className = intent.getStringExtra(EXTRA_CLASS_NAME);
+                //Log.e("PPExtenderBroadcastReceiver.onReceive", "(1) ACTION_FOREGROUND_APPLICATION_CHANGED packageName="+packageName);
+                //Log.e("PPExtenderBroadcastReceiver.onReceive", "(1) ACTION_FOREGROUND_APPLICATION_CHANGED className="+className);
 
                 try {
                     ComponentName componentName = new ComponentName(packageName, className);
@@ -233,19 +242,25 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
+                                        //Log.e("PPExtenderBroadcastReceiver.onReceive", "(2) ACTION_FOREGROUND_APPLICATION_CHANGED");
+                                        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_APPLICATION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_APPLICATION, 0);
+                                        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_ORIENTATION, 0);
+
+                                        /*
                                         DataWrapper dataWrapper3 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                         dataWrapper3.fillEventList();
                                         //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                                        if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/)) {
+                                        if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION)) {
 //                                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_APPLICATION (1)");
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
                                         }
-                                        if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/)) {
+                                        if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION)) {
 //                                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION (1)");
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
                                         }
                                         dataWrapper3.invalidateDataWrapper();
+                                        */
 
                                     } catch (Exception e) {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
