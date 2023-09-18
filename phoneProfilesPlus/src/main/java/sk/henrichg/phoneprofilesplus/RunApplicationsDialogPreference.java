@@ -18,7 +18,6 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -498,7 +497,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
         PackageManager packageManager = context.getApplicationContext().getPackageManager();
         ApplicationInfo app;
 
-        int disabledColor = ContextCompat.getColor(context, R.color.activityDisabledTextColor);
+        //int disabledColor = ContextCompat.getColor(context, R.color.activityDisabledTextColor);
 
         String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         if (!value.isEmpty() && !value.equals("-")) {

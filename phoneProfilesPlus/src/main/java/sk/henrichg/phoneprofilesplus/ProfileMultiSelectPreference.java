@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -96,7 +95,7 @@ public class ProfileMultiSelectPreference extends DialogPreference {
 
     private void setIcons() {
         if (!value.isEmpty() && !value.equals("-")) {
-            int disabledColor = ContextCompat.getColor(prefContext, R.color.activityDisabledTextColor);
+            //int disabledColor = ContextCompat.getColor(prefContext, R.color.activityDisabledTextColor);
 
             String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
             if (splits.length == 1) {

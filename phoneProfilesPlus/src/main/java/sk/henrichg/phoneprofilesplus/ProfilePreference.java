@@ -11,7 +11,6 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -70,7 +69,7 @@ public class ProfilePreference extends DialogPreference {
             Profile profile = dataWrapper.getProfileById(Long.parseLong(profileId), true, false, false);
             if (profile != null)
             {
-                int disabledColor = ContextCompat.getColor(prefContext, R.color.activityDisabledTextColor);
+                //int disabledColor = ContextCompat.getColor(prefContext, R.color.activityDisabledTextColor);
 
                 if (profile.getIsIconResourceID())
                 {

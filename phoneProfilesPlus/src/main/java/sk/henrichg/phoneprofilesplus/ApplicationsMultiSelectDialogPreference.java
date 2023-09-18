@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -311,7 +310,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         PackageManager packageManager = _context.getApplicationContext().getPackageManager();
         ApplicationInfo app;
 
-        int disabledColor = ContextCompat.getColor(_context, R.color.activityDisabledTextColor);
+        //int disabledColor = ContextCompat.getColor(_context, R.color.activityDisabledTextColor);
 
         String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length == 1) {

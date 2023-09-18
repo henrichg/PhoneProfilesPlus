@@ -14,7 +14,6 @@ import android.provider.Settings;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Data;

@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -81,7 +80,7 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
             restartEvents._iconBitmap = bitmap;
 
         imageView.setImageBitmap(restartEvents._iconBitmap);
-        int disabledColor = ContextCompat.getColor(context, R.color.activityDisabledTextColor);
+        //int disabledColor = ContextCompat.getColor(context, R.color.activityDisabledTextColor);
         if (!isEnabled())
             imageView.setAlpha(0.35f);
         else

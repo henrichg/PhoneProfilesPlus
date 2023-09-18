@@ -5,19 +5,18 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
 public class StartActivityPreference extends Preference {
 
-    private final Context prefContext;
+    //private final Context prefContext;
 
     public StartActivityPreference(Context context)
     {
         super(context);
 
-        prefContext = context;
+        //prefContext = context;
 
         setWidgetLayoutResource(R.layout.preference_widget_start_activity);
     }
@@ -26,7 +25,7 @@ public class StartActivityPreference extends Preference {
     {
         super(context, attrs);
 
-        prefContext = context;
+        //prefContext = context;
 
         setWidgetLayoutResource(R.layout.preference_widget_start_activity);
     }
