@@ -154,8 +154,10 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                         }
 
                         setApplicationInForeground(appContext, "");
-                        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_APPLICATION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_APPLICATION, 0);
-                        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_ORIENTATION, 0);
+
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
 
                         /*
                         boolean applicationsAllowed = false;
@@ -243,8 +245,9 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                         }
 
                                         //Log.e("PPExtenderBroadcastReceiver.onReceive", "(2) ACTION_FOREGROUND_APPLICATION_CHANGED");
-                                        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_APPLICATION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_APPLICATION, 0);
-                                        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_ORIENTATION, 0);
+                                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
+                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
 
                                         /*
                                         DataWrapper dataWrapper3 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);

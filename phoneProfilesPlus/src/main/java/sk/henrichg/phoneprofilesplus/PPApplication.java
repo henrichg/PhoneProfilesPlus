@@ -45,6 +45,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import me.drakeet.support.toast.ToastCompat;
@@ -954,8 +955,13 @@ public class PPApplication extends Application
     volatile static ScheduledExecutorService disableInternalChangeExecutor = null;
     volatile static ScheduledExecutorService delayedGuiExecutor = null;
     volatile static ScheduledExecutorService delayedAppNotificationExecutor = null;
+    volatile static ScheduledExecutorService delayedProfileListNotificationExecutor = null;
     volatile static ScheduledExecutorService delayedEventsHandlerExecutor = null;
     volatile static ScheduledExecutorService delayedProfileActivationExecutor = null;
+    volatile static ScheduledExecutorService updateGuiExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFutureUpdateGuiExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFutureDelayedAppNotificationExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFutureDelayedProfileListNotificationExecutor = null;
 
     // required for callbacks, observers, ...
     volatile static HandlerThread handlerThreadBroadcast = null;
@@ -1106,9 +1112,11 @@ public class PPApplication extends Application
         PPApplicationStatic.createPlayToneExecutor();
         PPApplicationStatic.createNonBlockedExecutor();
         PPApplicationStatic.createDelayedGuiExecutor();
-        PPApplicationStatic.createDelayedShowNotificationExecutor();
+        PPApplicationStatic.createDelayedAppNotificationExecutor();
+        PPApplicationStatic.createDelayedProfileListNotificationExecutor();
         PPApplicationStatic.createDelayedEventsHandlerExecutor();
         PPApplicationStatic.createDelayedProfileActivationExecutor();
+        PPApplicationStatic.createUpdateGuiExecutor();
 
         // keep this: it is required to use handlerThreadBroadcast for cal listener
         PPApplicationStatic.startHandlerThreadBroadcast();
@@ -1587,8 +1595,6 @@ public class PPApplication extends Application
 
         // icon widget
         try {
-            //IconWidgetProvider myWidget = new IconWidgetProvider();
-            //myWidget.updateWidgets(context, refresh);
             IconWidgetProvider.updateWidgets(context/*, true*/);
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
@@ -1603,8 +1609,6 @@ public class PPApplication extends Application
 
         // list widget
         try {
-            //ProfileListWidgetProvider myWidget = new ProfileListWidgetProvider();
-            //myWidget.updateWidgets(context, refresh);
             ProfileListWidgetProvider.updateWidgets(context/*, true*/);
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
@@ -1620,8 +1624,6 @@ public class PPApplication extends Application
         // Samsung edge panel
         if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
             try {
-                //SamsungEdgeProvider myWidget = new SamsungEdgeProvider();
-                //myWidget.updateWidgets(context, refresh);
                 SamsungEdgeProvider.updateWidgets(context/*, true*/);
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
@@ -1692,6 +1694,8 @@ public class PPApplication extends Application
             final Context appContext = context.getApplicationContext();
             LocaleHelper.setApplicationLocale(appContext);
 
+            PPApplicationStatic.createUpdateGuiExecutor();
+
             if (drawImmediattely) {
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of forceUpdateGUI");
 
@@ -1725,7 +1729,7 @@ public class PPApplication extends Application
                         //worker.shutdown();
                     }
                 };
-                PPApplication.delayedGuiExecutor.submit(runnable);
+                PPApplication.updateGuiExecutor.submit(runnable);
                 return;
             }
 
@@ -1749,6 +1753,8 @@ public class PPApplication extends Application
                     }
 
 //                    PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of forceUpdateGUI");
+//                    Log.e("PPApplication.updateGUI", "xxx in runnable xxx");
+
                     PPApplication.forceUpdateGUI(appContext, true, false, false);
                     if (longDelay) {
 //                        PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of PPAppNotification.forceDrawNotification");
@@ -1772,44 +1778,12 @@ public class PPApplication extends Application
                     //worker.shutdown();
                 }
             };
-            PPApplication.delayedGuiExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
-            /*
-            PPApplication.startHandlerThread();
-            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            //__handler.postDelayed(new PPApplication.PPHandlerThreadRunnable(
-            //        context.getApplicationContext()) {
-            __handler.postDelayed(() -> {
-//            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.updateGUI");
 
-                //Context appContext= appContextWeakRef.get();
-                //if (appContext != null) {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPApplication_updateGUI");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
-
-                        // for longDelay=true, redraw also notiification
-                        // for longDelay=false, notification redraw is called after this postDelayed()
-                        PPApplication.forceUpdateGUI(appContext, true, longDelay);
-
-                    } catch (Exception e) {
-    //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplicationStatic.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
-                        }
-                    }
-                //}
-            }, delay * 1000L);
-            */
+//            Log.e("PPApplication.updateGUI", "xxx call of shedule xxx");
+            if (scheduledFutureUpdateGuiExecutor != null)
+                scheduledFutureUpdateGuiExecutor.cancel(false);
+            scheduledFutureUpdateGuiExecutor = PPApplication.updateGuiExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
             if (!longDelay) {
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of PPAppNotification.drawNotification");

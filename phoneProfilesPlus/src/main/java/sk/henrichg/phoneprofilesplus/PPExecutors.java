@@ -41,8 +41,6 @@ class PPExecutors {
     static final String SENSOR_NAME_SENSOR_TYPE_POWER_SAVE_MODE = "SENSOR_TYPE_POWER_SAVE_MODE";
     static final String SENSOR_NAME_SENSOR_TYPE_SMS_EVENT_END = "SENSOR_TYPE_SMS_EVENT_END";
     static final String SENSOR_NAME_SENSOR_TYPE_WIFI_SCANNER = "SENSOR_TYPE_WIFI_SCANNER";
-    static final String SENSOR_NAME_SENSOR_TYPE_APPLICATION = "SENSOR_TYPE_APPLICATION";
-    static final String SENSOR_NAME_SENSOR_TYPE_ORIENTATION = "SENSOR_TYPE_ORIENTATION";
 
     static void scheduleDisableBlockProfileEventActionExecutor() {
 //        PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** PPExecutors.scheduleDisableBlockProfileEventActionExecutor", "schedule");
@@ -70,7 +68,7 @@ class PPExecutors {
         };
         PPApplicationStatic.createNonBlockedExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
-        handleEventsMianWorker(EventsHandler.SENSOR_TYPE_SOUND_PROFILE, MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG, 0);
+        handleEventsMianWorker(EventsHandler.SENSOR_TYPE_SOUND_PROFILE, MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG/*, 0*/);
     }
 
     static void scheduleDisableScreenTimeoutInternalChangeExecutor() {
@@ -100,7 +98,7 @@ class PPExecutors {
         };
         PPApplicationStatic.createNonBlockedExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
-        handleEventsMianWorker(EventsHandler.SENSOR_TYPE_VOLUMES, MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG, 0);
+        handleEventsMianWorker(EventsHandler.SENSOR_TYPE_VOLUMES, MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG/*, 0*/);
     }
 
     static void scheduleDisableBrightnessInternalChangeExecutor() {
@@ -115,7 +113,7 @@ class PPExecutors {
         };
         PPApplicationStatic.createNonBlockedExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
-        handleEventsMianWorker(EventsHandler.SENSOR_TYPE_BRIGHTNESS, MainWorker.HANDLE_EVENTS_BRIGHTNESS_WORK_TAG, 0);
+        handleEventsMianWorker(EventsHandler.SENSOR_TYPE_BRIGHTNESS, MainWorker.HANDLE_EVENTS_BRIGHTNESS_WORK_TAG/*, 0*/);
     }
 
 /*
@@ -176,6 +174,8 @@ class PPExecutors {
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 */
+
+    // !!! call this only when is needed partial wakelock or delay > 0
     static void handleEvents(Context context, int _sensorType, String _sensorName, int delay) {
 //        PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** PPExecutors.handleEvents", "schedule - " + _sensorName);
 
@@ -228,28 +228,27 @@ class PPExecutors {
         }
     }
 
-    /** @noinspection SameParameterValue*/
-    static void handleEventsMianWorker(int _sensorType, String _sensorWorkTag, int delay) {
+    static private void handleEventsMianWorker(int _sensorType, String _sensorWorkTag/*, int delay*/) {
         Data workData = new Data.Builder()
                 .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, _sensorType)
                 .build();
 
         OneTimeWorkRequest worker;
-        if (delay == 0)
+        //if (delay == 0)
             worker =
                 new OneTimeWorkRequest.Builder(MainWorker.class)
                         .addTag(_sensorWorkTag)
                         .setInputData(workData)
                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                         .build();
-        else
+        /*else
             worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(_sensorWorkTag)
                             .setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.SECONDS)
                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                            .build();
+                            .build();*/
         try {
 //                            if (PPApplicationStatic.getApplicationStarted(true, true)) {
             WorkManager workManager = PPApplication.getWorkManagerInstance();

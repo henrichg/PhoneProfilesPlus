@@ -561,17 +561,16 @@ public class ProfileListNotification {
             }
             //}
         };
-        PPApplicationStatic.createDelayedShowNotificationExecutor();
+        PPApplicationStatic.createDelayedProfileListNotificationExecutor();
 
-//        PPApplication.delayedShowNotificationExecutor.shutdownNow(); // shutdown already scheduled
-//        try {
-//            PPApplication.delayedShowNotificationExecutor.awaitTermination(1, TimeUnit.SECONDS); // shutdown already scheduled
-//        } catch (Exception ignored) {};
-
+        if (PPApplication.scheduledFutureDelayedProfileListNotificationExecutor != null)
+            PPApplication.scheduledFutureDelayedProfileListNotificationExecutor.cancel(false);
         if (drawImmediatelly)
-            PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+            PPApplication.scheduledFutureDelayedProfileListNotificationExecutor =
+                    PPApplication.delayedProfileListNotificationExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
         else
-            PPApplication.delayedGuiExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
+            PPApplication.scheduledFutureDelayedProfileListNotificationExecutor =
+                    PPApplication.delayedProfileListNotificationExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
     }
 
     static void showNotification(Context context,

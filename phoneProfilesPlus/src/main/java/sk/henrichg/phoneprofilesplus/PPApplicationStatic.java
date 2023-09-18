@@ -2366,9 +2366,13 @@ class PPApplicationStatic {
         if (PPApplication.delayedGuiExecutor == null)
             PPApplication.delayedGuiExecutor = Executors.newSingleThreadScheduledExecutor();
     }
-    static void createDelayedShowNotificationExecutor() {
+    static void createDelayedAppNotificationExecutor() {
         if (PPApplication.delayedAppNotificationExecutor == null)
             PPApplication.delayedAppNotificationExecutor = Executors.newSingleThreadScheduledExecutor();
+    }
+    static void createDelayedProfileListNotificationExecutor() {
+        if (PPApplication.delayedProfileListNotificationExecutor == null)
+            PPApplication.delayedProfileListNotificationExecutor = Executors.newSingleThreadScheduledExecutor();
     }
     static void createDelayedEventsHandlerExecutor() {
         if (PPApplication.delayedEventsHandlerExecutor == null)
@@ -2377,6 +2381,10 @@ class PPApplicationStatic {
     static void createDelayedProfileActivationExecutor() {
         if (PPApplication.delayedProfileActivationExecutor == null)
             PPApplication.delayedProfileActivationExecutor = Executors.newSingleThreadScheduledExecutor();
+    }
+    static void createUpdateGuiExecutor() {
+        if (PPApplication.updateGuiExecutor == null)
+            PPApplication.updateGuiExecutor = Executors.newSingleThreadScheduledExecutor();
     }
 
     /*
