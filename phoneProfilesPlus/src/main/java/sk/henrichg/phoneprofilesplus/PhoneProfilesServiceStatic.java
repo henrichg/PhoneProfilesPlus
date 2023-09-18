@@ -3142,7 +3142,9 @@ class PhoneProfilesServiceStatic
 
                                 if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
                                     if (PPApplication.notificationScannerRunning) {
-                                        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5);
+                                        PPExecutors.handleEvents(appContext,
+                                                new int[]{EventsHandler.SENSOR_TYPE_NOTIFICATION},
+                                                PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5);
                                     }
                                 }
                                 dataWrapper.invalidateDataWrapper();

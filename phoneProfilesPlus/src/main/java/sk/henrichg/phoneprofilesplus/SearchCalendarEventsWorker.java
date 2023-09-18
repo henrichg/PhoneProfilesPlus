@@ -46,7 +46,7 @@ public class SearchCalendarEventsWorker extends Worker {
                 // start events handler
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] SearchCalendarEventsWorker.doWork", "sensorType=SENSOR_TYPE_SEARCH_CALENDAR_EVENTS");
                 EventsHandler eventsHandler = new EventsHandler(context);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS);
+                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS});
             }
 
 //            PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** SearchCalendarEventsWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG");

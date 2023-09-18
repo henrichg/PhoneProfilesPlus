@@ -11,6 +11,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 class EventPreferencesDeviceBoot extends EventPreferences {
@@ -323,10 +324,10 @@ class EventPreferencesDeviceBoot extends EventPreferences {
                     Calendar now = Calendar.getInstance();
                     long nowAlarmTime = now.getTimeInMillis();
 
-                    if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_DEVICE_BOOT)
+                    if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_DEVICE_BOOT))
                         eventsHandler.deviceBootPassed = true;
                     else if (!_permanentRun) {
-                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_DEVICE_BOOT_EVENT_END)
+                        if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_DEVICE_BOOT_EVENT_END))
                             eventsHandler.deviceBootPassed = false;
                         else
                             eventsHandler.deviceBootPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

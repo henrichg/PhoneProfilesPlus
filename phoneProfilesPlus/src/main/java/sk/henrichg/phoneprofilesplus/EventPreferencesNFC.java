@@ -11,6 +11,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 class EventPreferencesNFC extends EventPreferences {
@@ -416,10 +417,10 @@ class EventPreferencesNFC extends EventPreferences {
                     Calendar now = Calendar.getInstance();
                     long nowAlarmTime = now.getTimeInMillis();
 
-                    if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_NFC_TAG)
+                    if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_NFC_TAG))
                         eventsHandler.nfcPassed = true;
                     else if (!_permanentRun) {
-                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_NFC_EVENT_END)
+                        if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_NFC_EVENT_END))
                             eventsHandler.nfcPassed = false;
                         else
                             eventsHandler.nfcPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

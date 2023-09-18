@@ -25,11 +25,13 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
         if (EventStatic.getGlobalEventsRunning(context)) {
             final Context appContext = context.getApplicationContext();
             if (useHandler) {
-                PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_EVENT_DELAY_START, PPExecutors.SENSOR_NAME_SENSOR_TYPE_EVENT_DELAY_START, 0);
+                PPExecutors.handleEvents(appContext,
+                        new int[]{EventsHandler.SENSOR_TYPE_EVENT_DELAY_START},
+                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_EVENT_DELAY_START, 0);
             } else {
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] EventDelayStartBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_EVENT_DELAY_START (2)");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
+                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_EVENT_DELAY_START});
             }
         }
     }

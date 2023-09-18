@@ -16,6 +16,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 class EventPreferencesPeriodic extends EventPreferences {
@@ -419,7 +420,9 @@ class EventPreferencesPeriodic extends EventPreferences {
                     _counter = 0;
                     DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicCounter(_event);
 
-                    PPExecutors.handleEvents(dataWrapper.context, EventsHandler.SENSOR_TYPE_PERIODIC, PPExecutors.SENSOR_NAME_SENSOR_TYPE_PERIODIC, 5);
+                    PPExecutors.handleEvents(dataWrapper.context,
+                            new int[]{EventsHandler.SENSOR_TYPE_PERIODIC},
+                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_PERIODIC, 5);
                 }
             } else {
                 _counter = 0;
@@ -463,10 +466,10 @@ class EventPreferencesPeriodic extends EventPreferences {
                     Calendar now = Calendar.getInstance();
                     long nowAlarmTime = now.getTimeInMillis();
 
-                    if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_PERIODIC)
+                    if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_PERIODIC))
                         eventsHandler.periodicPassed = true;
                     else {
-                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_PERIODIC_EVENT_END)
+                        if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_PERIODIC_EVENT_END))
                             eventsHandler.periodicPassed = false;
                         else
                             eventsHandler.periodicPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

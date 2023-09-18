@@ -26,7 +26,9 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
 
         if (EventStatic.getGlobalEventsRunning(context)) {
             final Context appContext = context.getApplicationContext();
-            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NFC_EVENT_END, PPExecutors.SENSOR_NAME_SENSOR_TYPE_NFC_EVENT_END, 0);
+            PPExecutors.handleEvents(appContext,
+                    new int[]{EventsHandler.SENSOR_TYPE_NFC_EVENT_END},
+                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_NFC_EVENT_END, 0);
         }
     }
 

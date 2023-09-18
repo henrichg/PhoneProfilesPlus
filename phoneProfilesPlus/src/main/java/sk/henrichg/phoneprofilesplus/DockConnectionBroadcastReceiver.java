@@ -23,7 +23,9 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
             if (accessoryEventsExists)
             {*/
                 final Context appContext = context.getApplicationContext();
-                PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_DOCK_CONNECTION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_DOCK_CONNECTION, 0);
+                PPExecutors.handleEvents(appContext,
+                        new int[]{EventsHandler.SENSOR_TYPE_DOCK_CONNECTION},
+                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_DOCK_CONNECTION, 0);
             //}
 
         }

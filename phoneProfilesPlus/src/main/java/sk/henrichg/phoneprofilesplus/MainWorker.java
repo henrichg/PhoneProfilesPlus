@@ -103,7 +103,7 @@ public class MainWorker extends Worker {
                         if (EventStatic.getGlobalEventsRunning(appContext) && (sensorType != 0)) {
                             // start events handler
                             EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(sensorType);
+                            eventsHandler.handleEvents(new int[]{sensorType});
                         }
 
                         break;
@@ -116,9 +116,9 @@ public class MainWorker extends Worker {
                         if (EventStatic.getGlobalEventsRunning(appContext)) {
 //                            Log.e("MainWorker.doWork", "HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
-
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION);
+                            eventsHandler.handleEvents(new int[]{
+                                    EventsHandler.SENSOR_TYPE_RADIO_SWITCH,
+                                    EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION});
 
                             PPApplicationStatic.restartBluetoothScanner(appContext);
                         }
@@ -436,7 +436,7 @@ public class MainWorker extends Worker {
                                 final long _time = now.getTimeInMillis() + gmtOffset;
                                 eventsHandler.setEventDeviceBootParameters(_time);
 
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_BOOT);
+                                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_DEVICE_BOOT});
 
                             }
                         }
@@ -556,7 +556,7 @@ public class MainWorker extends Worker {
         PPApplicationStatic.createContactGroupsCache(appContext, true);
 //        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache (3)");
         EventsHandler eventsHandler = new EventsHandler(appContext);
-        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED);
+        eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED});
 
         if (startForExternalApplication) {
             if ((Build.VERSION.SDK_INT < 29) || Settings.canDrawOverlays(appContext)) {

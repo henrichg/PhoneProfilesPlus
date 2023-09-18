@@ -34,7 +34,7 @@ public class ContactsContentObserverWorker extends Worker {
             PPApplicationStatic.createContactGroupsCache(appContext, true);
 
             EventsHandler eventsHandler = new EventsHandler(appContext);
-            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED);
+            eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED});
 
 //            long finish = System.currentTimeMillis();
 //            long timeElapsed = finish - start;

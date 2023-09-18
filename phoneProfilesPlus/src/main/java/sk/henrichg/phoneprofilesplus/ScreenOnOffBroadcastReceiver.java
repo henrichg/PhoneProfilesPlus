@@ -287,9 +287,10 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BRIGHTNESS);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
+                    eventsHandler.handleEvents(new int[]{
+                            EventsHandler.SENSOR_TYPE_SCREEN,
+                            EventsHandler.SENSOR_TYPE_BRIGHTNESS,
+                            EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK});
                 }
 
                 break;
@@ -327,7 +328,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
+                    eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_SCREEN});
                     // do not call this when screen is off
                     //handleEventsForBrightnessSensor();
                 }
@@ -345,8 +346,9 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BRIGHTNESS);
+                    eventsHandler.handleEvents(new int[]{
+                            EventsHandler.SENSOR_TYPE_SCREEN,
+                            EventsHandler.SENSOR_TYPE_BRIGHTNESS});
                 }
 
                 break;

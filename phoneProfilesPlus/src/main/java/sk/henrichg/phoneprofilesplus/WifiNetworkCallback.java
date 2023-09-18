@@ -234,10 +234,9 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
-
-//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_WIFI_CONNECTION");
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_CONNECTION);
+                eventsHandler.handleEvents(new int[]{
+                        EventsHandler.SENSOR_TYPE_RADIO_SWITCH,
+                        EventsHandler.SENSOR_TYPE_WIFI_CONNECTION});
 
                 PPApplicationStatic.restartWifiScanner(appContext);
             }

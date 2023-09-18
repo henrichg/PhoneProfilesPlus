@@ -190,7 +190,9 @@ public class PhoneCallsListener extends PhoneStateListener {
         if ((newNetworkRoaming != oldNetworkRoaming) || (newDataRoaming != oldDataRoaming)) {
             if (EventStatic.getGlobalEventsRunning(savedContext)) {
                 final Context appContext = savedContext.getApplicationContext();
-                PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_ROAMING, PPExecutors.SENSOR_NAME_SENSOR_TYPE_ROAMING, 0);
+                PPExecutors.handleEvents(appContext,
+                        new int[]{EventsHandler.SENSOR_TYPE_ROAMING},
+                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_ROAMING, 0);
             }
         }
 

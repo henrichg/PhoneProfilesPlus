@@ -118,7 +118,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         if (EventStatic.getGlobalEventsRunning(appContext)) {
-            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5);
+            PPExecutors.handleEvents(appContext,
+                    new int[]{EventsHandler.SENSOR_TYPE_NOTIFICATION},
+                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5);
         }
 
 //        PPApplicationStatic.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "END");
@@ -178,7 +180,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
             // application is not started
             return;
 
-        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5);
+        PPExecutors.handleEvents(appContext,
+                new int[]{EventsHandler.SENSOR_TYPE_NOTIFICATION},
+                PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5);
 
 //        PPApplicationStatic.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "END");
     }

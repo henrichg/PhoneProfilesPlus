@@ -13,6 +13,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -814,10 +815,10 @@ class EventPreferencesSMS extends EventPreferences {
                         Calendar now = Calendar.getInstance();
                         long nowAlarmTime = now.getTimeInMillis();
 
-                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_SMS)
+                        if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_SMS))
                             eventsHandler.smsPassed = true;
                         else if (!_permanentRun) {
-                            if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_SMS_EVENT_END)
+                            if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_SMS_EVENT_END))
                                 eventsHandler.smsPassed = false;
                             else
                                 eventsHandler.smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

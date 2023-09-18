@@ -47,7 +47,7 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
 
 //                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] CalendarEventExistsCheckBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
+                        eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK});
 
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                         dataWrapper.fillEventList();

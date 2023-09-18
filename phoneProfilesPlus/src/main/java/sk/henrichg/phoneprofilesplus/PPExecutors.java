@@ -30,8 +30,9 @@ class PPExecutors {
     static final String SENSOR_NAME_SENSOR_TYPE_TIME = "SENSOR_TYPE_TIME";
     static final String SENSOR_NAME_SENSOR_TYPE_HEADSET_CONNECTION = "SENSOR_TYPE_HEADSET_CONNECTION";
     static final String SENSOR_NAME_SENSOR_TYPE_LOCATION_SCANNER = "SENSOR_TYPE_LOCATION_SCANNER";
-    static final String SENSOR_NAME_SENSOR_TYPE_SCREEN = "SENSOR_TYPE_SCREEN";
-    static final String SENSOR_NAME_SENSOR_TYPE_BRIGHTNESS = "SENSOR_TYPE_BRIGHTNESS";
+    //static final String SENSOR_NAME_SENSOR_TYPE_SCREEN = "SENSOR_TYPE_SCREEN";
+    //static final String SENSOR_NAME_SENSOR_TYPE_BRIGHTNESS = "SENSOR_TYPE_BRIGHTNESS";
+    static final String SENSOR_NAME_SENSOR_TYPE_SCREEN_BRIGHTNESS = "SENSOR_TYPE_SCREEN_BRIGHTNESS";
     static final String SENSOR_NAME_SENSOR_TYPE_PHONE_CALL_EVENT_END = "SENSOR_TYPE_PHONE_CALL_EVENT_END";
     static final String SENSOR_NAME_SENSOR_TYPE_MOBILE_CELLS = "SENSOR_TYPE_MOBILE_CELLS";
     static final String SENSOR_NAME_SENSOR_TYPE_NFC_EVENT_END = "SENSOR_TYPE_NFC_EVENT_END";
@@ -176,11 +177,11 @@ class PPExecutors {
 */
 
     // !!! call this only when is needed partial wakelock or delay > 0
-    static void handleEvents(Context context, int _sensorType, String _sensorName, int delay) {
+    static void handleEvents(Context context, int[] _sensorType, String _sensorName, int delay) {
 //        PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** PPExecutors.handleEvents", "schedule - " + _sensorName);
 
         final Context appContext = context.getApplicationContext();
-        final int sensorType = _sensorType;
+        final int[] sensorType = _sensorType;
         final String sensorName = _sensorName;
 
         //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
@@ -196,7 +197,7 @@ class PPExecutors {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                if (EventStatic.getGlobalEventsRunning(appContext) && (sensorType != 0)) {
+                if (EventStatic.getGlobalEventsRunning(appContext) && (sensorType.length != 0)) {
                     // start events handler
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(sensorType);

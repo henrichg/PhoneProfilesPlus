@@ -155,8 +155,9 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                         setApplicationInForeground(appContext, "");
 
                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
+                        eventsHandler.handleEvents(new int[]{
+                                EventsHandler.SENSOR_TYPE_APPLICATION,
+                                EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION});
 
                         /*
                         boolean applicationsAllowed = false;
@@ -245,8 +246,9 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                                         //Log.e("PPExtenderBroadcastReceiver.onReceive", "(2) ACTION_FOREGROUND_APPLICATION_CHANGED");
                                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
-                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
+                                        eventsHandler.handleEvents(new int[]{
+                                                EventsHandler.SENSOR_TYPE_APPLICATION,
+                                                EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION});
 
                                         /*
                                         DataWrapper dataWrapper3 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
@@ -396,7 +398,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 //                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_SMS");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.setEventSMSParameters(origin, time, simSlot);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS);
+                                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_SMS});
                             //}
 
                         } catch (Exception e) {
@@ -445,7 +447,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 //                                Log.e("PPExtenderBroadcastReceiver.onReceive", "eventTime="+eventTime);
 //                                Log.e("PPExtenderBroadcastReceiver.onReceive", "slotIndex="+slotIndex);
                                 eventsHandler.setEventCallParameters(/*servicePhoneEvent, */callEventType, phoneNumber, eventTime, slotIndex);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL);
+                                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_PHONE_CALL});
                             //}
 
                         } catch (Exception e) {

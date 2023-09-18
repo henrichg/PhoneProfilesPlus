@@ -13,6 +13,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -978,7 +979,7 @@ class EventPreferencesCall extends EventPreferences {
                                     Calendar now = Calendar.getInstance();
                                     long nowAlarmTime = now.getTimeInMillis();
 
-                                    if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL) {
+                                    if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
 //                                        Log.e("EventPreferencesCall.doHandleEvent", "SENSOR_TYPE_PHONE_CALL");
                                         //noinspection StatementWithEmptyBody
                                         if (((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL) && (_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL)) ||
@@ -988,7 +989,7 @@ class EventPreferencesCall extends EventPreferences {
                                         else
                                             eventsHandler.callPassed = false;
                                     } else if (!_permanentRun) {
-                                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END)
+                                        if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END))
                                             eventsHandler.callPassed = false;
                                         else
                                             eventsHandler.callPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
@@ -1031,7 +1032,7 @@ class EventPreferencesCall extends EventPreferences {
                             long nowAlarmTime = now.getTimeInMillis();
 
                             if (!_permanentRun) {
-                                if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END)
+                                if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END))
                                     eventsHandler.callPassed = false;
                                 else
                                     eventsHandler.callPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

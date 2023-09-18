@@ -14,6 +14,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 class EventPreferencesAlarmClock extends EventPreferences {
@@ -437,10 +438,10 @@ class EventPreferencesAlarmClock extends EventPreferences {
                         Calendar now = Calendar.getInstance();
                         long nowAlarmTime = now.getTimeInMillis();
 
-                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_ALARM_CLOCK)
+                        if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_ALARM_CLOCK))
                             eventsHandler.alarmClockPassed = true;
                         else if (!_permanentRun) {
-                            if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END)
+                            if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END))
                                 eventsHandler.alarmClockPassed = false;
                             else
                                 eventsHandler.alarmClockPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

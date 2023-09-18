@@ -7611,7 +7611,9 @@ class ActivateProfileHelper {
             ApplicationPreferences.prefRingerMode = mode;
 
             if (savedMode != mode) {
-                PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_SOUND_PROFILE, PPExecutors.SENSOR_NAME_SENSOR_TYPE_SOUND_PROFILE, 5);
+                PPExecutors.handleEvents(context,
+                        new int[]{EventsHandler.SENSOR_TYPE_SOUND_PROFILE},
+                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_SOUND_PROFILE, 5);
             }
         }
     }
@@ -7638,7 +7640,9 @@ class ActivateProfileHelper {
             ApplicationPreferences.prefZenMode = mode;
 
             if (savedMode != mode) {
-                PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_SOUND_PROFILE, PPExecutors.SENSOR_NAME_SENSOR_TYPE_SOUND_PROFILE, 5);
+                PPExecutors.handleEvents(context,
+                        new int[]{EventsHandler.SENSOR_TYPE_SOUND_PROFILE},
+                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_SOUND_PROFILE, 5);
             }
         }
     }

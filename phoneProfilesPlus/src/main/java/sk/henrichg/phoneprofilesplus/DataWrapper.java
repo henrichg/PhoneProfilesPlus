@@ -1882,7 +1882,7 @@ class DataWrapper {
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK");
                 EventsHandler eventsHandler = new EventsHandler(context);
                 // this do not perform restart, only SENSOR_TYPE_RESTART_EVENTS perform restart
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK);
+                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK});
 
                 return;
             }
@@ -1922,10 +1922,10 @@ class DataWrapper {
             EventsHandler eventsHandler = new EventsHandler(context);
             if (manualRestart) {
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_MANUAL_RESTART_EVENTS");
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS);
+                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS});
             } else {
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS");
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
+                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RESTART_EVENTS});
             }
 //        }
     }

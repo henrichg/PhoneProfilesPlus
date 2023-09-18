@@ -81,7 +81,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
 //                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] NFCTagReadActivity,onCreate", "sensorType=SENSOR_TYPE_NFC_TAG");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.setEventNFCParameters(_tagData, _time);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_TAG);
+                        eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_NFC_TAG});
                     //}
 
                 }; //);

@@ -82,7 +82,7 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                                         if (oldRunning != _event._eventPreferencesActivatedProfile._running) {
                                             // running was changed, call EventsHandler
                                             EventsHandler eventsHandler = new EventsHandler(appContext);
-                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ACTIVATED_PROFILE);
+                                            eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_ACTIVATED_PROFILE});
                                         }
                                     }
                                 }

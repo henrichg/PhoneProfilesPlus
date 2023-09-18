@@ -467,7 +467,9 @@ class MobileCellsListener extends PhoneStateListener {
         {
 //            PPApplicationStatic.logE("[TEST BATTERY] MobileCellsListener.handleEvents", "******** ### *******");
 
-            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_MOBILE_CELLS, PPExecutors.SENSOR_NAME_SENSOR_TYPE_MOBILE_CELLS, 5);
+            PPExecutors.handleEvents(appContext,
+                    new int[]{EventsHandler.SENSOR_TYPE_MOBILE_CELLS},
+                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_MOBILE_CELLS, 5);
         }
 
         /*

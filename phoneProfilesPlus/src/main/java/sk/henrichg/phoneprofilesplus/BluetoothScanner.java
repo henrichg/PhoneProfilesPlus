@@ -377,7 +377,9 @@ class BluetoothScanner {
 
                 if (forceOneScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
-                    PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, PPExecutors.SENSOR_NAME_SENSOR_TYPE_BLUETOOTH_SCANNER, 5);
+                    PPExecutors.handleEvents(context,
+                            new int[]{EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER},
+                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_BLUETOOTH_SCANNER, 5);
                 }
 
                 BluetoothScanner.tmpBluetoothScanResults = null;
