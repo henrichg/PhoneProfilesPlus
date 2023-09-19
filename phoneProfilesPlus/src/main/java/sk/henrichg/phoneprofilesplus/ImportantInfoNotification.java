@@ -51,9 +51,9 @@ class ImportantInfoNotification {
             if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST))
                 showPPPPS = true;
 
-            Log.e("ImportantInfoNotification.showInfoNotification", "showExtender="+showExtender);
-            Log.e("ImportantInfoNotification.showInfoNotification", "ppppsVersion="+ppppsVersion);
-            Log.e("ImportantInfoNotification.showInfoNotification", "showPPPPS="+showPPPPS);
+//            Log.e("ImportantInfoNotification.showInfoNotification", "showExtender="+showExtender);
+//            Log.e("ImportantInfoNotification.showInfoNotification", "ppppsVersion="+ppppsVersion);
+//            Log.e("ImportantInfoNotification.showInfoNotification", "showPPPPS="+showPPPPS);
 
             setShowInfoNotificationOnStart(context, showInfo || showExtender || showPPPPS, packageVersionCode);
 
