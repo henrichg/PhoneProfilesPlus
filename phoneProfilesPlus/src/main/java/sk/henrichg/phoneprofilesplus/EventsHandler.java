@@ -242,35 +242,39 @@ class EventsHandler {
                 return;
             }
 
-            if (!alwaysEnabledSensors(sensorType)) {
-                boolean _continue = false;
-                for (int _sensorType : sensorType) {
+            boolean _continue = false;
+            for (int _sensorType : sensorType) {
+                if (!alwaysEnabledSensor(_sensorType)) {
+                    // _sensorType is not always sensor
+                    // check existence of sensors
                     int eventType = getEventTypeForSensor(_sensorType);
-                    if (DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(eventType) == 0) {
-                        // events not exists
-
-//                    if ((sensorType == SENSOR_TYPE_BATTERY) || (sensorType == SENSOR_TYPE_BATTERY_WITH_LEVEL))
-//                        PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
-
-                        PPApplicationStatic.setApplicationFullyStarted(context);
-//                    PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(2)");
-
-                        doEndHandler(null, null);
-
-                        //if (isRestart) {
-                        //    PPApplication.updateGUI(/*context, true, true*/);
-                        //}
-                        //else {
-                        //    PPApplication.updateGUI(/*context, true, false*/);
-                        //}
-                    } else
+                    if (DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(eventType) != 0) {
+                        // event type exists
                         _continue = true;
-                    if (!_continue)
-                        return;
+                    }
+                } else {
+                    // _sensorType is always sensor
+                    _continue = true;
                 }
             }
+            if (!_continue) {
+//                if ((sensorType == SENSOR_TYPE_BATTERY) || (sensorType == SENSOR_TYPE_BATTERY_WITH_LEVEL))
+//                PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
 
-//            Log.e("EventsHandler.handleEvents", "(2) *****************");
+                PPApplicationStatic.setApplicationFullyStarted(context);
+//                PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(2)");
+
+                doEndHandler(null, null);
+
+                //if (isRestart) {
+                //    PPApplication.updateGUI(/*context, true, true*/);
+                //}
+                //else {
+                //    PPApplication.updateGUI(/*context, true, false*/);
+                //}
+
+                return;
+            }
 
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
             dataWrapper.fillEventList();
@@ -768,23 +772,21 @@ class EventsHandler {
         }
     }
 
-    private boolean alwaysEnabledSensors (int[] sensorType) {
-        for (int _sensorType : sensorType) {
-            switch (_sensorType) {
-                case SENSOR_TYPE_SCREEN:
-                case SENSOR_TYPE_BRIGHTNESS:
-                    // call doHandleEvents for all screen on/off changes
-                case SENSOR_TYPE_PERIODIC_EVENTS_HANDLER:
-                case SENSOR_TYPE_RESTART_EVENTS:
-                case SENSOR_TYPE_MANUAL_RESTART_EVENTS:
-                case SENSOR_TYPE_EVENT_DELAY_START:
-                case SENSOR_TYPE_EVENT_DELAY_END:
-                case SENSOR_TYPE_DEVICE_IDLE_MODE:
-                case SENSOR_TYPE_SIM_STATE_CHANGED:
-                case SENSOR_TYPE_BOOT_COMPLETED:
-                case SENSOR_TYPE_CONTACTS_CACHE_CHANGED:
-                    return true;
-            }
+    private boolean alwaysEnabledSensor(int sensorType) {
+        switch (sensorType) {
+            case SENSOR_TYPE_SCREEN:
+            case SENSOR_TYPE_BRIGHTNESS:
+                // call doHandleEvents for all screen on/off changes
+            case SENSOR_TYPE_PERIODIC_EVENTS_HANDLER:
+            case SENSOR_TYPE_RESTART_EVENTS:
+            case SENSOR_TYPE_MANUAL_RESTART_EVENTS:
+            case SENSOR_TYPE_EVENT_DELAY_START:
+            case SENSOR_TYPE_EVENT_DELAY_END:
+            case SENSOR_TYPE_DEVICE_IDLE_MODE:
+            case SENSOR_TYPE_SIM_STATE_CHANGED:
+            case SENSOR_TYPE_BOOT_COMPLETED:
+            case SENSOR_TYPE_CONTACTS_CACHE_CHANGED:
+                return true;
         }
         return false;
     }
