@@ -1,5 +1,7 @@
 <img src="art/ic_launcher-web.png" width="100" height="100">  
 
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
+
 PhoneProfilesPlus (aka PPP)
 ===========================
 
