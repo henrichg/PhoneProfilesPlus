@@ -109,7 +109,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
                         if (activityName.isEmpty()) {
                             ApplicationInfo app;
                             try {
-                                app = packageManager.getApplicationInfo(packageName, 0);
+                                app = packageManager.getApplicationInfo(packageName, PackageManager.MATCH_ALL);
                                 if (app != null)
                                     selectedApplications = packageManager.getApplicationLabel(app).toString();
                             } catch (Exception e) {

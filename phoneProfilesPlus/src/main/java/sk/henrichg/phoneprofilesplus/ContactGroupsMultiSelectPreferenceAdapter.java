@@ -103,7 +103,7 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
                 boolean found = false;
                 PackageManager packageManager = context.getPackageManager();
                 try {
-                    ApplicationInfo applicationInfo = packageManager.getApplicationInfo(contactGroup.accountType, 0);
+                    ApplicationInfo applicationInfo = packageManager.getApplicationInfo(contactGroup.accountType, PackageManager.MATCH_ALL);
                     if (applicationInfo != null) {
                         contactGroup.accountType = packageManager.getApplicationLabel(applicationInfo).toString();
                         found = true;

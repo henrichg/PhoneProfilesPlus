@@ -7704,7 +7704,7 @@ class ActivateProfileHelper {
     static int isPPPPutSettingsInstalled(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_PPPPS, 0);
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_PPPPS, PackageManager.MATCH_ALL);
             boolean installed = appInfo.enabled;
             if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
@@ -7725,7 +7725,7 @@ class ActivateProfileHelper {
     static String getPPPPutSettingsVersionName(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_PPPPS, 0);
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_PPPPS, PackageManager.MATCH_ALL);
             boolean installed = appInfo.enabled;
             if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);

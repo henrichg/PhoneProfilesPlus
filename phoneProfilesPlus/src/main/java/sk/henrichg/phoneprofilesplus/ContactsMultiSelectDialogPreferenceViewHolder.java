@@ -70,7 +70,7 @@ class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHol
         String accountType = "";
         PackageManager packageManager = context.getPackageManager();
         try {
-            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(contact.accountType, 0);
+            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(contact.accountType, PackageManager.MATCH_ALL);
             if (applicationInfo != null) {
                 accountType = packageManager.getApplicationLabel(applicationInfo).toString();
                 found = true;

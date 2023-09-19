@@ -227,7 +227,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         if (activityName.isEmpty()) {
                             ApplicationInfo app;
                             try {
-                                app = packageManager.getApplicationInfo(splits[0], 0);
+                                app = packageManager.getApplicationInfo(splits[0], PackageManager.MATCH_ALL);
                                 if (app != null)
                                     prefDataSummary = packageManager.getApplicationLabel(app).toString();
                             } catch (PackageManager.NameNotFoundException e) {
@@ -344,7 +344,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 String activityName = Application.getActivityName(splits[0]);
                 if (activityName.isEmpty()) {
                     try {
-                        app = packageManager.getApplicationInfo(splits[0], 0);
+                        app = packageManager.getApplicationInfo(splits[0], PackageManager.MATCH_ALL);
                         if (app != null) {
                             Drawable icon = packageManager.getApplicationIcon(app);
                             //CharSequence name = packageManager.getApplicationLabel(app);
@@ -409,7 +409,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         String activityName = Application.getActivityName(splits[i]);
                         if (activityName.isEmpty()) {
                             try {
-                                app = packageManager.getApplicationInfo(splits[i], 0);
+                                app = packageManager.getApplicationInfo(splits[i], PackageManager.MATCH_ALL);
                                 if (app != null) {
                                     Drawable icon = packageManager.getApplicationIcon(app);
                                     //CharSequence name = packageManager.getApplicationLabel(app);

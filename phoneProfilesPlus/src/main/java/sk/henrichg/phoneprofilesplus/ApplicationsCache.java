@@ -246,7 +246,7 @@ class ApplicationsCache {
             String activityName = application.activityName;
             if (activityName.isEmpty()) {
                 try {
-                    ApplicationInfo app = packageManager.getApplicationInfo(application.packageName, 0);
+                    ApplicationInfo app = packageManager.getApplicationInfo(application.packageName, PackageManager.MATCH_ALL);
                     if (app != null)
                         dIcon = packageManager.getApplicationIcon(app);
                 } catch (Exception ignored) {}

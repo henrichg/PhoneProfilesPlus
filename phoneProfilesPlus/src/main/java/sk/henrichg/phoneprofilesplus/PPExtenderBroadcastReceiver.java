@@ -573,7 +573,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
     static int isExtenderInstalled(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_EXTENDER, 0);
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_EXTENDER, PackageManager.MATCH_ALL);
             boolean installed = appInfo.enabled;
             if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
@@ -594,7 +594,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
     static String getExtenderVersionName(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_EXTENDER, 0);
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_EXTENDER, PackageManager.MATCH_ALL);
             boolean installed = appInfo.enabled;
             if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
