@@ -103,11 +103,12 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 
 ##### Required external libs - open-source
 
-- AndroidX library: appcompat, preferences, gridlayout, cardview, recyclerview, viewpager2, constraintlayout, workmanager, splashscreen - https://developer.android.com/jetpack/androidx/versions
+- AndroidX library: appcompat, preferences, gridlayout, cardview, recyclerview, viewpager2, constraintlayout, workmanager, exifinterface - https://developer.android.com/jetpack/androidx/versions
 - Google Material components - https://github.com/material-components/material-components-android
 - google-gson - https://code.google.com/p/google-gson/
 - ACRA - https://github.com/ACRA/acra
 - guava - https://github.com/google/guava
+- AutoService = https://github.com/google/auto/tree/main/service
 - osmdroid - https://github.com/osmdroid/osmdroid
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
 - doki - https://github.com/DoubleDotLabs/doki
@@ -116,6 +117,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - volley - https://github.com/google/volley
 - ExpandableLayout - https://github.com/skydoves/ExpandableLayout
 - SmoothBottomBar - https://github.com/ibrahimsn98/SmoothBottomBar
+- AndroidHiddenApiBypass - https://github.com/LSPosed/AndroidHiddenApiBypass
 - RootTools (as module, code modified) - https://github.com/Stericson/RootTools
 - RootShell (as module, code modified) - https://github.com/Stericson/RootShell
 - time-duration-picker (as module, code modified) - https://github.com/svenwiegand/time-duration-picker
@@ -125,7 +127,6 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - RelativePopupWindow (only modified class RelativePopupWindow.java) - https://github.com/kakajika/RelativePopupWindow
 - SunriseSunset (only modified class SunriseSunset.java) - https://github.com/caarmen/SunriseSunset
 - android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/Reginer/aosp-android-jar (original repository: https://github.com/anggrayudi/android-hidden-api)
-- AndroidHiddenApiBypass - https://github.com/LSPosed/AndroidHiddenApiBypass
 - NoobCameraFlash (as module, code modified) - https://github.com/Abhi347/NoobCameraFlash
 - AutoStarter (only modified class AutoStartPermissionHelper.kt) - https://github.com/judemanutd/AutoStarter
 - ToastCompat (as module, code modified) - https://github.com/PureWriter/ToastCompat
