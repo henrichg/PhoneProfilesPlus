@@ -46,8 +46,12 @@ class ContactsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Contacts
         Contact contact = preference.contactList.get(position);
         if (contact.checked)
             return "*";
-        else
-            return contact.name.substring(0, 1);
+        else {
+            if (contact.name.length() == 0)
+                return "?";
+            else
+                return contact.name.substring(0, 1);
+        }
     }
 
     /*
