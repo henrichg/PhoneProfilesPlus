@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,6 +35,9 @@ import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+
 public class EventsPrefsFragment extends PreferenceFragmentCompat
                                     implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -45,6 +49,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private Event event;
 
     //static boolean forceStart;
+
+    private SetRedTextToPreferencesAsyncTask setRedTextToPreferencesAsyncTask = null;
 
     private static final String PREF_GRANT_PERMISSIONS = "eventGrantPermissions";
     private static final String PREF_NOT_IS_RUNNABLE = "eventNotIsRunnable";
@@ -1232,6 +1238,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     public void onDestroy() {
         super.onDestroy();
 
+        if ((setRedTextToPreferencesAsyncTask != null) &&
+                setRedTextToPreferencesAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            setRedTextToPreferencesAsyncTask.cancel(true);
+        setRedTextToPreferencesAsyncTask = null;
+
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
 
@@ -1575,238 +1586,10 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         Context context = activity.getApplicationContext();
 
-        String rootScreen = PPApplication.PREF_ROOT_SCREEN;
-
-        long event_id = activity.event_id;
-        int newEventMode = activity.newEventMode;
-        int predefinedEventIndex = activity.predefinedEventIndex;
-        final Event event = activity.getEventFromPreferences(event_id, newEventMode, predefinedEventIndex);
-
-        int errorColor = ContextCompat.getColor(context, R.color.error_color);
-
-        if (event != null) {
-            int order = 1;
-
-            // not enabled some sensor
-            if (event.isEnabledSomeSensor(context)) {
-                Preference preference = prefMng.findPreference(PREF_NOT_ENABLED_SOME_SENSOR);
-                if (preference != null) {
-                    PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                    if (preferenceCategory != null)
-                        preferenceCategory.removePreference(preference);
-                }
-            }
-            else {
-                Preference preference = prefMng.findPreference(PREF_NOT_ENABLED_SOME_SENSOR);
-                if (preference == null) {
-                    PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                    if (preferenceCategory != null) {
-                        preference = new ExclamationPreference(context);
-                        preference.setKey(PREF_NOT_ENABLED_SOME_SENSOR);
-                        preference.setIconSpaceReserved(false);
-                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                        preference.setOrder(-99);
-                        preferenceCategory.addPreference(preference);
-                    }
-                }
-                if (preference != null) {
-                    String _title = order + ". " + getString(R.string.event_preferences_no_sensor_is_enabled);
-                    ++order;
-                    Spannable title = new SpannableString(_title);
-                    title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
-                    preference.setTitle(title);
-                    _title = getString(R.string.event_preferences_sensor_parameters_location_summary);
-                    Spannable summary = new SpannableString(_title);
-                    summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
-                    preference.setSummary(summary);
-                }
-            }
-
-            // not some permissions
-            if (Permissions.checkEventPermissions(context, event, null, EventsHandler.SENSOR_TYPE_ALL).size() == 0) {
-                Preference preference = prefMng.findPreference(PREF_GRANT_PERMISSIONS);
-                if (preference != null) {
-                    PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                    if (preferenceCategory != null)
-                        preferenceCategory.removePreference(preference);
-                }
-            }
-            else {
-                Preference preference = prefMng.findPreference(PREF_GRANT_PERMISSIONS);
-                if (preference == null) {
-                    PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                    if (preferenceCategory != null) {
-                        if (event._id > 0)
-                            preference = new StartActivityPreference(context);
-                        else
-                            preference = new ExclamationPreference(context);
-                        preference.setKey(PREF_GRANT_PERMISSIONS);
-                        preference.setIconSpaceReserved(false);
-                        //if (event._id > 0)
-                        //    preference.setWidgetLayoutResource(R.layout.preference_widget_start_activity);
-                        //else
-                        //    preference.setWidgetLayoutResource(R.layout.preference_widget_exclamation_preference);
-                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                        preference.setOrder(-98);
-                        preferenceCategory.addPreference(preference);
-                    }
-                }
-                if (preference != null) {
-                    String _title = order + ". " + getString(R.string.preferences_grantPermissions_title);
-                    ++order;
-                    Spannable title = new SpannableString(_title);
-                    title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
-                    preference.setTitle(title);
-                    _title = getString(R.string.preferences_grantPermissions_summary) + " " +
-                                getString(R.string.event_preferences_red_sensors_summary) + " " +
-                                getString(R.string.event_preferences_sensor_parameters_location_summary);
-                    Spannable summary = new SpannableString(_title);
-                    summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
-                    preference.setSummary(summary);
-
-                    if (event._id > 0) {
-                        preference.setOnPreferenceClickListener(preference1 -> {
-                            Permissions.grantEventPermissions(activity, event/*, false, true*/);
-                            return false;
-                        });
-                    }
-                }
-            }
-
-            // not enabled accessibility service
-            int accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false, false);
-            /*if (accessibilityEnabled == 1) {
-                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
-                if (extenderVersion != 0) {
-                    // PPPE is installed
-                    if (PPApplication.accessibilityServiceForPPPExtenderConnected == 2)
-                        // Extender is not connected
-                        accessibilityEnabled = 0;
-                }
-            }*/
-            Preference preference = prefMng.findPreference(PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
-            if (accessibilityEnabled == 1) {
-                if (preference != null) {
-                    PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                    if (preferenceCategory != null)
-                        preferenceCategory.removePreference(preference);
-                }
-            }
-            else {
-                if (preference == null) {
-                    PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                    if (preferenceCategory != null) {
-                        preference = new StartActivityPreference(context);
-                        preference.setKey(PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
-                        preference.setIconSpaceReserved(false);
-                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                        preference.setOrder(-97);
-                        preferenceCategory.addPreference(preference);
-                    }
-                }
-                if (preference != null) {
-                    int stringRes = R.string.preferences_not_enabled_accessibility_service_title;
-                    if (accessibilityEnabled == -2)
-                        stringRes = R.string.preferences_not_installed_PPPExtender_title;
-                    else if (accessibilityEnabled == -1)
-                        stringRes = R.string.preferences_old_version_PPPExtender_title;
-                    String _title = order + ". " + getString(stringRes);
-                    ++order;
-                    Spannable title = new SpannableString(_title);
-                    title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
-                    preference.setTitle(title);
-                    if ((accessibilityEnabled == -1) || (accessibilityEnabled == -2)) {
-                        _title = getString(R.string.event_preferences_red_install_PPPExtender) + " " +
-                                getString(R.string.event_preferences_red_sensors_summary) + " " +
-                                getString(R.string.event_preferences_sensor_parameters_location_summary);
-                        Spannable summary = new SpannableString(_title);
-                        summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
-                        preference.setSummary(summary);
-
-                        preference.setOnPreferenceClickListener(preference12 -> {
-                            ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null, false);
-                            return false;
-                        });
-                    }
-                    else {
-                        _title = getString(R.string.event_preferences_red_enable_PPPExtender) + " " +
-                                getString(R.string.event_preferences_red_sensors_summary) + " " +
-                                getString(R.string.event_preferences_sensor_parameters_location_summary);
-                        Spannable summary = new SpannableString(_title);
-                        summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
-                        preference.setSummary(summary);
-
-                        preference.setOnPreferenceClickListener(preference13 -> {
-                            ExtenderDialogPreferenceFragment.enableExtender(getActivity(), null);
-                            return false;
-                        });
-                    }
-                }
-            }
-
-            // not is runnable
-            if (event.isRunnable(context, false)) {
-                preference = prefMng.findPreference(PREF_NOT_IS_RUNNABLE);
-                if (preference != null) {
-                    PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                    if (preferenceCategory != null)
-                        preferenceCategory.removePreference(preference);
-                }
-            }
-            else {
-                preference = prefMng.findPreference(PREF_NOT_IS_RUNNABLE);
-                if (preference == null) {
-                    PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                    if (preferenceCategory != null) {
-                        preference = new ExclamationPreference(context);
-                        preference.setKey(PREF_NOT_IS_RUNNABLE);
-                        preference.setIconSpaceReserved(false);
-                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                        preference.setOrder(-100);
-                        preferenceCategory.addPreference(preference);
-                    }
-                }
-                if (preference != null) {
-                    String _title = order + ". " + getString(R.string.event_preferences_not_set_underlined_parameters);
-                    ++order;
-                    Spannable title = new SpannableString(_title);
-                    title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
-                    preference.setTitle(title);
-                    _title = getString(R.string.event_preferences_not_set_underlined_parameters_summary) + " " +
-                                getString(R.string.event_preferences_red_sensors_summary) + " " +
-                                getString(R.string.event_preferences_sensor_parameters_location_summary);
-                    Spannable summary = new SpannableString(_title);
-                    summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
-                    preference.setSummary(summary);
-                }
-            }
-        }
-        else {
-            Preference preference = prefMng.findPreference(PREF_NOT_IS_RUNNABLE);
-            if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                if (preferenceCategory != null)
-                    preferenceCategory.removePreference(preference);
-            }
-            preference = prefMng.findPreference(PREF_NOT_ENABLED_SOME_SENSOR);
-            if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                if (preferenceCategory != null)
-                    preferenceCategory.removePreference(preference);
-            }
-            preference = prefMng.findPreference(PREF_GRANT_PERMISSIONS);
-            if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                if (preferenceCategory != null)
-                    preferenceCategory.removePreference(preference);
-            }
-            preference = prefMng.findPreference(PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
-            if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                if (preferenceCategory != null)
-                    preferenceCategory.removePreference(preference);
-            }
-        }
+        setRedTextToPreferencesAsyncTask =
+                new SetRedTextToPreferencesAsyncTask
+                        ((EventsPrefsActivity) getActivity(), this, prefMng, context);
+        setRedTextToPreferencesAsyncTask.execute();
     }
 
 /*
@@ -2384,6 +2167,283 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 preference.setVisible(showSensor);
             }
         }
+    }
+
+    private static class SetRedTextToPreferencesAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        Event event;
+        boolean isEnabledSomeSensor;
+        ArrayList<PermissionType> eventPermissions;
+        boolean eventIsRunnable;
+        int accessibilityEnabled;
+
+        private final WeakReference<PreferenceManager> prefMngWeakRef;
+        private final WeakReference<Context> contextWeakReference;
+        private final WeakReference<EventsPrefsActivity> activityWeakReference;
+        private final WeakReference<EventsPrefsFragment> fragmentWeakReference;
+
+        public SetRedTextToPreferencesAsyncTask(final EventsPrefsActivity activity,
+                                                final EventsPrefsFragment fragment,
+                                                final PreferenceManager prefMng,
+                                                final Context context) {
+            this.prefMngWeakRef = new WeakReference<>(prefMng);
+            this.contextWeakReference = new WeakReference<>(context);
+            this.activityWeakReference = new WeakReference<>(activity);
+            this.fragmentWeakReference = new WeakReference<>(fragment);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Context context = contextWeakReference.get();
+            EventsPrefsActivity activity = activityWeakReference.get();
+
+            if ((context != null) && (activity != null)) {
+
+                long event_id = activity.event_id;
+                int newEventMode = activity.newEventMode;
+                int predefinedEventIndex = activity.predefinedEventIndex;
+                event = activity.getEventFromPreferences(event_id, newEventMode, predefinedEventIndex);
+
+                if (event != null) {
+                    isEnabledSomeSensor = event.isEnabledSomeSensor(context);
+                    eventPermissions = Permissions.checkEventPermissions(context, event, null, EventsHandler.SENSOR_TYPE_ALL);
+                    accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false, false);
+                    eventIsRunnable = event.isRunnable(context, false);
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            Context context = contextWeakReference.get();
+            PreferenceManager prefMng = prefMngWeakRef.get();
+            EventsPrefsActivity activity = activityWeakReference.get();
+            EventsPrefsFragment fragment = fragmentWeakReference.get();
+
+            if ((context != null) && (activity != null) && (fragment != null) && (prefMng != null)) {
+
+                String rootScreen = PPApplication.PREF_ROOT_SCREEN;
+                int errorColor = ContextCompat.getColor(context, R.color.error_color);
+
+                if (event != null) {
+                    int order = 1;
+
+                    // not enabled some sensor
+                    Preference preference = prefMng.findPreference(PREF_NOT_ENABLED_SOME_SENSOR);
+                    if (isEnabledSomeSensor) {
+                        if (preference != null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null)
+                                preferenceCategory.removePreference(preference);
+                        }
+                    }
+                    else {
+                        if (preference == null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null) {
+                                preference = new ExclamationPreference(context);
+                                preference.setKey(PREF_NOT_ENABLED_SOME_SENSOR);
+                                preference.setIconSpaceReserved(false);
+                                preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                                preference.setOrder(-99);
+                                preferenceCategory.addPreference(preference);
+                            }
+                        }
+                        if (preference != null) {
+                            String _title = order + ". " + context.getString(R.string.event_preferences_no_sensor_is_enabled);
+                            ++order;
+                            Spannable title = new SpannableString(_title);
+                            title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
+                            preference.setTitle(title);
+                            _title = context.getString(R.string.event_preferences_sensor_parameters_location_summary);
+                            Spannable summary = new SpannableString(_title);
+                            summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
+                            preference.setSummary(summary);
+                        }
+                    }
+
+                    // not some permissions
+                    if (eventPermissions.size() == 0) {
+                        preference = prefMng.findPreference(PREF_GRANT_PERMISSIONS);
+                        if (preference != null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null)
+                                preferenceCategory.removePreference(preference);
+                        }
+                    }
+                    else {
+                        preference = prefMng.findPreference(PREF_GRANT_PERMISSIONS);
+                        if (preference == null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null) {
+                                if (event._id > 0)
+                                    preference = new StartActivityPreference(context);
+                                else
+                                    preference = new ExclamationPreference(context);
+                                preference.setKey(PREF_GRANT_PERMISSIONS);
+                                preference.setIconSpaceReserved(false);
+                                //if (event._id > 0)
+                                //    preference.setWidgetLayoutResource(R.layout.preference_widget_start_activity);
+                                //else
+                                //    preference.setWidgetLayoutResource(R.layout.preference_widget_exclamation_preference);
+                                preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                                preference.setOrder(-98);
+                                preferenceCategory.addPreference(preference);
+                            }
+                        }
+                        if (preference != null) {
+                            String _title = order + ". " + context.getString(R.string.preferences_grantPermissions_title);
+                            ++order;
+                            Spannable title = new SpannableString(_title);
+                            title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
+                            preference.setTitle(title);
+                            _title = context.getString(R.string.preferences_grantPermissions_summary) + " " +
+                                    context.getString(R.string.event_preferences_red_sensors_summary) + " " +
+                                    context.getString(R.string.event_preferences_sensor_parameters_location_summary);
+                            Spannable summary = new SpannableString(_title);
+                            summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
+                            preference.setSummary(summary);
+
+                            if (event._id > 0) {
+                                preference.setOnPreferenceClickListener(preference1 -> {
+                                    Permissions.grantEventPermissions(activity, event/*, false, true*/);
+                                    return false;
+                                });
+                            }
+                        }
+                    }
+
+                    preference = prefMng.findPreference(PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                    if (accessibilityEnabled == 1) {
+                        if (preference != null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null)
+                                preferenceCategory.removePreference(preference);
+                        }
+                    }
+                    else {
+                        if (preference == null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null) {
+                                preference = new StartActivityPreference(context);
+                                preference.setKey(PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                                preference.setIconSpaceReserved(false);
+                                preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                                preference.setOrder(-97);
+                                preferenceCategory.addPreference(preference);
+                            }
+                        }
+                        if (preference != null) {
+                            int stringRes = R.string.preferences_not_enabled_accessibility_service_title;
+                            if (accessibilityEnabled == -2)
+                                stringRes = R.string.preferences_not_installed_PPPExtender_title;
+                            else if (accessibilityEnabled == -1)
+                                stringRes = R.string.preferences_old_version_PPPExtender_title;
+                            String _title = order + ". " + context.getString(stringRes);
+                            ++order;
+                            Spannable title = new SpannableString(_title);
+                            title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
+                            preference.setTitle(title);
+                            if ((accessibilityEnabled == -1) || (accessibilityEnabled == -2)) {
+                                _title = context.getString(R.string.event_preferences_red_install_PPPExtender) + " " +
+                                        context.getString(R.string.event_preferences_red_sensors_summary) + " " +
+                                        context.getString(R.string.event_preferences_sensor_parameters_location_summary);
+                                Spannable summary = new SpannableString(_title);
+                                summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
+                                preference.setSummary(summary);
+
+                                preference.setOnPreferenceClickListener(preference12 -> {
+                                    ExtenderDialogPreferenceFragment.installPPPExtender(activity, null, false);
+                                    return false;
+                                });
+                            }
+                            else {
+                                _title = context.getString(R.string.event_preferences_red_enable_PPPExtender) + " " +
+                                        context.getString(R.string.event_preferences_red_sensors_summary) + " " +
+                                        context.getString(R.string.event_preferences_sensor_parameters_location_summary);
+                                Spannable summary = new SpannableString(_title);
+                                summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
+                                preference.setSummary(summary);
+
+                                preference.setOnPreferenceClickListener(preference13 -> {
+                                    ExtenderDialogPreferenceFragment.enableExtender(activity, null);
+                                    return false;
+                                });
+                            }
+                        }
+                    }
+
+                    // not is runnable
+                    if (eventIsRunnable) {
+                        preference = prefMng.findPreference(PREF_NOT_IS_RUNNABLE);
+                        if (preference != null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null)
+                                preferenceCategory.removePreference(preference);
+                        }
+                    }
+                    else {
+                        preference = prefMng.findPreference(PREF_NOT_IS_RUNNABLE);
+                        if (preference == null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null) {
+                                preference = new ExclamationPreference(context);
+                                preference.setKey(PREF_NOT_IS_RUNNABLE);
+                                preference.setIconSpaceReserved(false);
+                                preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                                preference.setOrder(-100);
+                                preferenceCategory.addPreference(preference);
+                            }
+                        }
+                        if (preference != null) {
+                            String _title = order + ". " + context.getString(R.string.event_preferences_not_set_underlined_parameters);
+                            ++order;
+                            Spannable title = new SpannableString(_title);
+                            title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
+                            preference.setTitle(title);
+                            _title = context.getString(R.string.event_preferences_not_set_underlined_parameters_summary) + " " +
+                                    context.getString(R.string.event_preferences_red_sensors_summary) + " " +
+                                    context.getString(R.string.event_preferences_sensor_parameters_location_summary);
+                            Spannable summary = new SpannableString(_title);
+                            summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
+                            preference.setSummary(summary);
+                        }
+                    }
+                }
+                else {
+                    Preference preference = prefMng.findPreference(PREF_NOT_IS_RUNNABLE);
+                    if (preference != null) {
+                        PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                        if (preferenceCategory != null)
+                            preferenceCategory.removePreference(preference);
+                    }
+                    preference = prefMng.findPreference(PREF_NOT_ENABLED_SOME_SENSOR);
+                    if (preference != null) {
+                        PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                        if (preferenceCategory != null)
+                            preferenceCategory.removePreference(preference);
+                    }
+                    preference = prefMng.findPreference(PREF_GRANT_PERMISSIONS);
+                    if (preference != null) {
+                        PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                        if (preferenceCategory != null)
+                            preferenceCategory.removePreference(preference);
+                    }
+                    preference = prefMng.findPreference(PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                    if (preference != null) {
+                        PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                        if (preferenceCategory != null)
+                            preferenceCategory.removePreference(preference);
+                    }
+                }
+
+            }
+        }
+
     }
 
 }
