@@ -2127,10 +2127,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         if ((afterDurationDoValue != null) && afterDurationDoValue.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))) {
                             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
                             long profileId = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
-                            Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
+                            //TODO len ziskanie nazvu profilu
+                            String profileName = dataWrapper.getProfileName(profileId);
                             dataWrapper.invalidateDataWrapper();
-                            if (profile != null)
-                                value = profile._name;
+                            if (profileName != null)
+                                value = profileName;
                             else {
                                 if (profileId == Profile.PROFILE_NO_ACTIVATE)
                                     value = context.getString(R.string.profile_preference_profile_end_no_activate);
@@ -2168,10 +2169,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if ((afterDurationDoValue != null) && afterDurationDoValue.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))) {
                         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
                         long profileId = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
-                        Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
+                        //TODO len ziskanie nazvu profilu
+                        String profileName = dataWrapper.getProfileName(profileId);
                         dataWrapper.invalidateDataWrapper();
-                        if (profile != null)
-                            value = profile._name;
+                        if (profileName != null)
+                            value = profileName;
                         else {
                             if (profileId == Profile.PROFILE_NO_ACTIVATE)
                                 value = context.getString(R.string.profile_preference_profile_end_no_activate);

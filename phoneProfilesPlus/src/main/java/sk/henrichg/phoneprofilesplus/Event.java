@@ -1188,12 +1188,12 @@ class Event {
                         _value.append(context.getString(R.string.event_preferences_eventStartWhenActivatedProfile)).append(StringConstants.STR_COLON_WITH_SPACE);
                         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
                         String[] splits = startWhenActivatedProfile.split(StringConstants.STR_SPLIT_REGEX);
-                        Profile profile;
                         if (splits.length == 1) {
-                            profile = dataWrapper.getProfileById(Long.parseLong(startWhenActivatedProfile), false, false, false);
-                            if (profile != null) {
+                            //TODO len ziskanie nazvu profilu
+                            String profileName = dataWrapper.getProfileName(Long.parseLong(startWhenActivatedProfile));
+                            if (profileName != null) {
                                 _value.append(StringConstants.TAG_BOLD_START_HTML)
-                                        .append(getColorForChangedPreferenceValue(profile._name, !preference.isEnabled(), context))
+                                        .append(getColorForChangedPreferenceValue(profileName, !preference.isEnabled(), context))
                                         .append(StringConstants.TAG_BOLD_END_HTML);
                             }
                         }
@@ -1793,8 +1793,9 @@ class Event {
         boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority;
         for (EventTimeline eventTimeline : eventTimelineList)
         {
-            Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
-            if ((event != null) && applicationEventUsePriority && (event._priority > this._priority)) {
+            //TODO len ziskanie priority udalosti
+            int priority = dataWrapper.getEventPriority(eventTimeline._fkEvent);
+            if (applicationEventUsePriority && (priority > this._priority)) {
                 // is running event with higher priority
                 return;
             }
@@ -2249,9 +2250,10 @@ class Event {
             boolean forceRunRunning = false;
             for (EventTimeline _eventTimeline : eventTimelineList)
             {
-                Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
+                //TODO len ziskanie _ignoreManualActivation
+                int ignoreManualActivation = dataWrapper.getEventIgnoreManualActivation(_eventTimeline._fkEvent);
                 // if application is restarted by system, ignore manual profile activation
-                if ((event != null) && event._ignoreManualActivation && PPApplication.normalServiceStart)
+                if ((ignoreManualActivation == 1) && PPApplication.normalServiceStart)
                 {
                     forceRunRunning = true;
                     break;

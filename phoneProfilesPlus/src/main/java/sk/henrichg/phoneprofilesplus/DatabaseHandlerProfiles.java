@@ -1398,6 +1398,38 @@ class DatabaseHandlerProfiles {
         }
     }
 
+    static String getProfileName(DatabaseHandler instance, long profile_id)
+    {
+        instance.importExportLock.lock();
+        try {
+            String name = "";
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_PROFILES,
+                        new String[]{DatabaseHandler.KEY_NAME},
+                        DatabaseHandler.KEY_ID + "=?",
+                        new String[]{Long.toString(profile_id)}, null, null, null, null);
+
+                if (cursor != null) {
+                    if (cursor.moveToFirst())
+                        name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_NAME));
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return name;
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
     static void getProfileIcon(DatabaseHandler instance, Profile profile)
     {
         instance.importExportLock.lock();
@@ -2263,6 +2295,39 @@ class DatabaseHandlerProfiles {
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    static boolean profileExists(DatabaseHandler instance, long profile_id) {
+        instance.importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                instance.startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT COUNT(*) " +
+                        " FROM " + DatabaseHandler.TABLE_PROFILES +
+                        " WHERE " + DatabaseHandler.KEY_ID + "=" + profile_id;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    r = cursor.getInt(0);
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return r > 0;
         } finally {
             instance.stopRunningCommand();
         }

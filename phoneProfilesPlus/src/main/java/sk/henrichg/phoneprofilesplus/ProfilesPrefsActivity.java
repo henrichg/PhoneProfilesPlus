@@ -65,10 +65,11 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         if (getIntent().getBooleanExtra(DataWrapperStatic.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
+            //TODO len test, ci profil existuje
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-            Profile profile = dataWrapper.getProfileById(profile_id, false, false, false);
+            boolean profileExists = dataWrapper.profileExists(profile_id);
             dataWrapper.invalidateDataWrapper();
-            if (profile == null) {
+            if (!profileExists) {
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.profile_preferences_profile_not_found),
                         Toast.LENGTH_SHORT);

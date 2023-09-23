@@ -29,13 +29,14 @@ public class PPTileService extends TileService {
 
         boolean isOK = false;
         if ((PPApplication.quickTileProfileId[tileId] != 0) && (PPApplication.quickTileProfileId[tileId] != -1)) {
-            Profile profile = null;
+            boolean profileExists = false;
             if (PPApplication.quickTileProfileId[tileId] != Profile.RESTART_EVENTS_PROFILE_ID) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
-                profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], false, false, false);
+                //TODO len zistovanie, ci profil existuje
+                profileExists = dataWrapper.profileExists(PPApplication.quickTileProfileId[tileId]);
                 dataWrapper.invalidateDataWrapper();
             }
-            if ((PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID) || (profile != null)) {
+            if ((PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID) || profileExists) {
                 isOK = true;
                 Intent intent = new Intent(getApplicationContext(), BackgroundActivateProfileActivity.class);
                 intent.setAction(Intent.ACTION_MAIN);

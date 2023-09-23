@@ -92,9 +92,10 @@ public class EventsPrefsActivity extends AppCompatActivity
         if (getIntent().getBooleanExtra(DataWrapperStatic.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-            Event event = dataWrapper.getEventById(event_id);
+            //TODO len zistenie ci udlaost existuje
+            boolean eventExists = dataWrapper.eventExists(event_id);
             dataWrapper.invalidateDataWrapper();
-            if (event == null) {
+            if (!eventExists) {
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.event_preferences_event_not_found),
                         Toast.LENGTH_SHORT);

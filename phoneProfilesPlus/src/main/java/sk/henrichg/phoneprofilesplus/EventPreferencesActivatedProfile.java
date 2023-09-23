@@ -83,17 +83,19 @@ class EventPreferencesActivatedProfile extends EventPreferences {
 
                 _value.append(context.getString(R.string.event_preferences_activated_profile_startProfile)).append(StringConstants.STR_COLON_WITH_SPACE);
                 DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0, 0f);
-                Profile profile = dataWrapper.getProfileById(this._startProfile, true, true, false);
-                if (profile != null) {
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profile._name, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                //TODO len ziskanie nazvu profilu
+                String profileName = dataWrapper.getProfileName(this._startProfile);
+                if (profileName != null) {
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profileName, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 } else {
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_activated_profile_endProfile)).append(StringConstants.STR_COLON_WITH_SPACE);
-                profile = dataWrapper.getProfileById(this._endProfile, true, true, false);
-                if (profile != null) {
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profile._name, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                //TODO len ziskanie nazvu profilu
+                profileName = dataWrapper.getProfileName(this._endProfile);
+                if (profileName != null) {
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profileName, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 } else {
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }

@@ -53,8 +53,9 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                         dataWrapper.fillEventList();
                         //dataWrapper.fillProfileList(false, false);
 
-                        Profile activatedProfile = dataWrapper.getProfileById(profileId, false, false, false);
-                        if (activatedProfile != null) {
+                        //TODO len zistenie ci profil existuje
+                        boolean profileExists = dataWrapper.profileExists(profileId);
+                        if (profileExists) {
 
                             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             for (Event _event : dataWrapper.eventList) {
@@ -63,7 +64,7 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                                         int oldRunning = _event._eventPreferencesActivatedProfile._running;
 
                                         long startProfile = _event._eventPreferencesActivatedProfile._startProfile;
-                                        if (activatedProfile._id == startProfile) {
+                                        if (profileId == startProfile) {
                                             _event._eventPreferencesActivatedProfile._running =
                                                     EventPreferencesActivatedProfile.RUNNING_RUNNING;
                                             // save running to database
@@ -71,7 +72,7 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                                                     updateActivatedProfileSensorRunningParameter(_event);
                                         }
                                         long endProfile = _event._eventPreferencesActivatedProfile._endProfile;
-                                        if (activatedProfile._id == endProfile) {
+                                        if (profileId == endProfile) {
                                             _event._eventPreferencesActivatedProfile._running =
                                                     EventPreferencesActivatedProfile.RUNNING_NOTRUNNING;
                                             // save running to database

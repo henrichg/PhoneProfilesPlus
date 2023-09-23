@@ -837,6 +837,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerProfiles.setProfileOrder(this, list);
     }
 
+    String getProfileName(long profile_id)
+    {
+        return DatabaseHandlerProfiles.getProfileName(this, profile_id);
+    }
+
     void getProfileIcon(Profile profile)
     {
         DatabaseHandlerProfiles.getProfileIcon(this, profile);
@@ -866,6 +871,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     void updateProfileShowInActivator(Profile profile) {
         DatabaseHandlerProfiles.updateProfileShowInActivator(this, profile);
+    }
+
+    boolean profileExists(long profile_id) {
+        return DatabaseHandlerProfiles.profileExists(this, profile_id);
     }
 
 // EVENTS --------------------------------------------------------------------------------
@@ -1095,6 +1104,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     void updateActivatedProfileSensorRunningParameter(Event event) {
         DatabaseHandlerEvents.updateActivatedProfileSensorRunningParameter(this, event);
+    }
+
+    boolean eventExists(long event_id) {
+        return DatabaseHandlerEvents.eventExists(this, event_id);
+    }
+
+    int getEventPriority(long event_id)
+    {
+        return DatabaseHandlerEvents.getEventPriority(this, event_id);
+    }
+
+    int getEventIgnoreManualActivation(long event_id)
+    {
+        return DatabaseHandlerEvents.getEventIgnoreManualActivation(this, event_id);
     }
 
 // EVENT TIMELINE ------------------------------------------------------------------

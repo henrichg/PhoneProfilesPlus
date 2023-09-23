@@ -5500,4 +5500,101 @@ class DatabaseHandlerEvents {
         }
     }
 
+    static boolean eventExists(DatabaseHandler instance, long event_id) {
+        instance.importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                instance.startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT COUNT(*) " +
+                        " FROM " + DatabaseHandler.TABLE_EVENTS +
+                        " WHERE " + DatabaseHandler.KEY_E_ID + "=" + event_id;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    r = cursor.getInt(0);
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return r > 0;
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    static int getEventPriority(DatabaseHandler instance, long event_id)
+    {
+        instance.importExportLock.lock();
+        try {
+            int priority = -1;
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                        new String[]{DatabaseHandler.KEY_E_PRIORITY},
+                        DatabaseHandler.KEY_E_ID + "=?",
+                        new String[]{Long.toString(event_id)}, null, null, null, null);
+
+                if (cursor != null) {
+                    if (cursor.moveToFirst())
+                        priority = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_PRIORITY));
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return priority;
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    static int getEventIgnoreManualActivation(DatabaseHandler instance, long event_id)
+    {
+        instance.importExportLock.lock();
+        try {
+            int ignoreManualActivation = -1;
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                        new String[]{DatabaseHandler.KEY_E_FORCE_RUN},
+                        DatabaseHandler.KEY_E_ID + "=?",
+                        new String[]{Long.toString(event_id)}, null, null, null, null);
+
+                if (cursor != null) {
+                    if (cursor.moveToFirst())
+                        ignoreManualActivation = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_FORCE_RUN));
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return ignoreManualActivation;
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
 }

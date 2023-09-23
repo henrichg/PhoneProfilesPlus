@@ -473,6 +473,34 @@ class DataWrapper {
         }
     }
 
+    private boolean profileExistsFromDB(long id)
+    {
+        return DatabaseHandler.getInstance(context).profileExists(id);
+    }
+
+    boolean profileExists(long id)
+    {
+        synchronized (profileList) {
+            if (!profileListFilled) {
+                return profileExistsFromDB(id);
+            } else {
+                boolean found = false;
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+                    Profile profile = it.next();
+                    if (profile._id == id) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                    return profileExistsFromDB(id);
+                else
+                    return true;
+            }
+        }
+    }
+
     void updateProfile(Profile profile)
     {
         if (profile != null)
@@ -650,6 +678,36 @@ class DataWrapper {
     }
 */
 
+    private String getProfileNameFromDB(long id)
+    {
+        return DatabaseHandler.getInstance(context).getProfileName(id);
+    }
+
+    String getProfileName(long id)
+    {
+        synchronized (profileList) {
+            if (!profileListFilled) {
+                return getProfileNameFromDB(id);
+            } else {
+                String name = null;
+                boolean found = false;
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+                    Profile profile = it.next();
+                    if (profile._id == id) {
+                        found = true;
+                        name = profile._name;
+                        break;
+                    }
+                }
+                if (!found)
+                    return getProfileNameFromDB(id);
+                else
+                    return name;
+            }
+        }
+    }
+
 //---------------------------------------------------
 
     void fillEventList()
@@ -741,6 +799,34 @@ class DataWrapper {
                 }
             }
             return 0;
+        }
+    }
+
+    private boolean eventExistsFromDB(long id)
+    {
+        return DatabaseHandler.getInstance(context).eventExists(id);
+    }
+
+    boolean eventExists(long id)
+    {
+        synchronized (eventList) {
+            if (!eventListFilled) {
+                return eventExistsFromDB(id);
+            } else {
+                boolean found = false;
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                    Event event = it.next();
+                    if (event._id == id) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                    return eventExistsFromDB(id);
+                else
+                    return true;
+            }
         }
     }
 
@@ -2850,5 +2936,65 @@ class DataWrapper {
         }
 
     }*/
+
+    private int getEventPriorityFromDB(long id)
+    {
+        return DatabaseHandler.getInstance(context).getEventPriority(id);
+    }
+
+    int getEventPriority(long id)
+    {
+        synchronized (eventList) {
+            if (!eventListFilled) {
+                return getEventPriorityFromDB(id);
+            } else {
+                int priority = -1;
+                boolean found = false;
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                    Event event = it.next();
+                    if (event._id == id) {
+                        found = true;
+                        priority = event._priority;
+                        break;
+                    }
+                }
+                if (!found)
+                    return getEventPriorityFromDB(id);
+                else
+                    return priority;
+            }
+        }
+    }
+
+    private int getEventIgnoreManualActivationFromDB(long id)
+    {
+        return DatabaseHandler.getInstance(context).getEventIgnoreManualActivation(id);
+    }
+
+    int getEventIgnoreManualActivation(long id)
+    {
+        synchronized (eventList) {
+            if (!eventListFilled) {
+                return getEventIgnoreManualActivationFromDB(id);
+            } else {
+                int ignoreManualActivation = -1;
+                boolean found = false;
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                    Event event = it.next();
+                    if (event._id == id) {
+                        found = true;
+                        ignoreManualActivation = (event._ignoreManualActivation) ? 1 : 0;
+                        break;
+                    }
+                }
+                if (!found)
+                    return getEventIgnoreManualActivationFromDB(id);
+                else
+                    return ignoreManualActivation;
+            }
+        }
+    }
 
 }
