@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;

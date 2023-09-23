@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,6 +39,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
+    private StartPreferencesActivityAsyncTask startPreferencesActivityAsyncTask = null;
     private FinishPreferencesActivityAsyncTask finishPreferencesActivityAsyncTask = null;
 
     private static final String BUNDLE_NEW_PROFILE_MODE = "newProfileMode";
@@ -82,15 +82,16 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             }
         }
 
-        ProfilesPrefsFragment preferenceFragment = new ProfilesPrefsRoot();
-
         if (savedInstanceState == null) {
-            loadPreferences(newProfileMode, predefinedProfileIndex);
+            startPreferencesActivityAsyncTask =
+                    new StartPreferencesActivityAsyncTask(this, newProfileMode, predefinedProfileIndex);
+            startPreferencesActivityAsyncTask.execute();
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.activity_preferences_settings, preferenceFragment)
-                    .commit();
+            //loadPreferences(newProfileMode, predefinedProfileIndex);
+            //getSupportFragmentManager()
+            //        .beginTransaction()
+            //        .replace(R.id.activity_preferences_settings, preferenceFragment)
+            //        .commit();
         }
         else {
             profile_id = savedInstanceState.getLong(PPApplication.EXTRA_PROFILE_ID, 0);
@@ -260,6 +261,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
+        if ((startPreferencesActivityAsyncTask != null) &&
+                startPreferencesActivityAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            startPreferencesActivityAsyncTask.cancel(true);
+        startPreferencesActivityAsyncTask = null;
         if ((finishPreferencesActivityAsyncTask != null) &&
                 finishPreferencesActivityAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             finishPreferencesActivityAsyncTask.cancel(true);
@@ -435,13 +440,14 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         return profile;
     }
 
-    private void loadPreferences(int new_profile_mode, int predefinedProfileIndex) {
+    private Profile loadPreferences(int new_profile_mode, int predefinedProfileIndex) {
         Profile profile = createProfile(profile_id, new_profile_mode, predefinedProfileIndex, false);
         if (profile == null)
             profile = createProfile(profile_id, PPApplication.EDIT_MODE_INSERT, predefinedProfileIndex, false);
 
         if (profile != null)
         {
+            /*
             // must be used handler for rewrite toolbar title/subtitle
             final String profileName = profile._name;
             Handler handler = new Handler(getMainLooper());
@@ -451,10 +457,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 //toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
                 toolbar.setTitle(getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profileName);
             }, 200);
+            */
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             profile.saveProfileToSharedPreferences(preferences);
         }
+
+        return profile;
     }
 
     Profile getProfileFromPreferences(long profile_id, int new_profile_mode, int predefinedProfileIndex) {
@@ -819,6 +828,62 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         }
     }
 
+    private static class StartPreferencesActivityAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        final int new_profile_mode;
+        final int predefinedProfileIndex;
+
+        Profile profile;
+
+        private final WeakReference<ProfilesPrefsActivity> activityWeakReference;
+        private ProfilesPrefsFragment fragment;
+
+        public StartPreferencesActivityAsyncTask(final ProfilesPrefsActivity activity,
+                                                  int new_profile_mode, int predefinedProfileIndex) {
+            this.activityWeakReference = new WeakReference<>(activity);
+            this.new_profile_mode = new_profile_mode;
+            this.predefinedProfileIndex = predefinedProfileIndex;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            fragment = new ProfilesPrefsRoot();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ProfilesPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".doInBackground");
+                profile = activity.loadPreferences(new_profile_mode, predefinedProfileIndex);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            ProfilesPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".onPostExecute");
+
+                activity.toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name);
+
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.activity_preferences_settings, fragment)
+                        .commit();
+
+            }
+        }
+
+    }
+
     private static class FinishPreferencesActivityAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         final int new_profile_mode;
@@ -838,7 +903,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             ProfilesPrefsActivity activity = activityWeakReference.get();
 
             if (activity != null) {
-                Log.e("ProfilesPrefsActivity.FinishPreferencesActivityAsyncTask", ".doInBackground");
+//                Log.e("ProfilesPrefsActivity.FinishPreferencesActivityAsyncTask", ".doInBackground");
                 activity.savePreferences(new_profile_mode, predefinedProfileIndex);
             }
 
@@ -852,7 +917,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             ProfilesPrefsActivity activity = activityWeakReference.get();
 
             if (activity != null) {
-                Log.e("ProfilesPrefsActivity.FinishPreferencesActivityAsyncTask", ".onPostExecute");
+//                Log.e("ProfilesPrefsActivity.FinishPreferencesActivityAsyncTask", ".onPostExecute");
 
                 activity.resultCode = RESULT_OK;
                 activity.finish();

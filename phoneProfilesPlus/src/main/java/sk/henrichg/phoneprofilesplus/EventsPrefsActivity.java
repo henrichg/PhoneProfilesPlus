@@ -49,6 +49,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     private Toolbar toolbar;
 
+    private StartPreferencesActivityAsyncTask startPreferencesActivityAsyncTask = null;
     private FinishPreferencesActivityAsyncTask finishPreferencesActivityAsyncTask = null;
 
     private static final String BUNDLE_OLD_EVENT_STATUS = "old_event_status";
@@ -108,15 +109,16 @@ public class EventsPrefsActivity extends AppCompatActivity
             }
         }
 
-        EventsPrefsFragment preferenceFragment = new EventsPrefsRoot();
-
         if (savedInstanceState == null) {
-            loadPreferences(newEventMode, predefinedEventIndex);
+            startPreferencesActivityAsyncTask =
+                    new StartPreferencesActivityAsyncTask(this, newEventMode, predefinedEventIndex);
+            startPreferencesActivityAsyncTask.execute();
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.activity_preferences_settings, preferenceFragment)
-                    .commit();
+            //event = loadPreferences(newEventMode, predefinedEventIndex);
+            //getSupportFragmentManager()
+            //        .beginTransaction()
+            //        .replace(R.id.activity_preferences_settings, preferenceFragment)
+            //        .commit();
         }
         else {
             event_id = savedInstanceState.getLong(PPApplication.EXTRA_EVENT_ID, 0);
@@ -159,6 +161,10 @@ public class EventsPrefsActivity extends AppCompatActivity
         super.onDestroy();
         event = null;
 
+        if ((startPreferencesActivityAsyncTask != null) &&
+                startPreferencesActivityAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            startPreferencesActivityAsyncTask.cancel(true);
+        startPreferencesActivityAsyncTask = null;
         if ((finishPreferencesActivityAsyncTask != null) &&
                 finishPreferencesActivityAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             finishPreferencesActivityAsyncTask.cancel(true);
@@ -400,13 +406,14 @@ public class EventsPrefsActivity extends AppCompatActivity
         return event;
     }
 
-    private void loadPreferences(int new_event_mode, int predefinedEventIndex) {
-        event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
+    private Event loadPreferences(int new_event_mode, int predefinedEventIndex) {
+        Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
         if (event == null)
             event = createEvent(getApplicationContext(), event_id, PPApplication.EDIT_MODE_INSERT, predefinedEventIndex, false);
 
         if (event != null)
         {
+            /*
             // must be used handler for rewrite toolbar title/subtitle
             final String eventName = event._name;
             Handler handler = new Handler(getMainLooper());
@@ -416,11 +423,14 @@ public class EventsPrefsActivity extends AppCompatActivity
                 //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
                 toolbar.setTitle(getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
             }, 200);
+            */
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
             event.loadSharedPreferences(preferences);
         }
+
+        return event;
     }
 
     private boolean checkPreferences(final int new_event_mode, final int predefinedEventIndex)
@@ -756,6 +766,60 @@ public class EventsPrefsActivity extends AppCompatActivity
         changeCurentLightSensorValue();
     }
 
+    private static class StartPreferencesActivityAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        final int new_event_mode;
+        final int predefinedEventIndex;
+
+        private final WeakReference<EventsPrefsActivity> activityWeakReference;
+        private EventsPrefsFragment fragment;
+
+        public StartPreferencesActivityAsyncTask(final EventsPrefsActivity activity,
+                                                 int new_event_mode, int predefinedEventIndex) {
+            this.activityWeakReference = new WeakReference<>(activity);
+            this.new_event_mode = new_event_mode;
+            this.predefinedEventIndex = predefinedEventIndex;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            fragment = new EventsPrefsRoot();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            EventsPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+                Log.e("EventsPrefsActivity.StartPreferencesActivityAsyncTask", ".doInBackground");
+                activity.event = activity.loadPreferences(new_event_mode, predefinedEventIndex);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            EventsPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+                Log.e("EventsPrefsActivity.StartPreferencesActivityAsyncTask", ".onPostExecute");
+
+                activity.toolbar.setTitle(activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + activity.event._name);
+
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.activity_preferences_settings, fragment)
+                        .commit();
+
+            }
+        }
+
+    }
+
     private static class FinishPreferencesActivityAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         final int new_event_mode;
@@ -775,7 +839,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             EventsPrefsActivity activity = activityWeakReference.get();
 
             if (activity != null) {
-                Log.e("EventsPrefsActivity.FinishPreferencesActivityAsyncTask", ".doInBackground");
+//                Log.e("EventsPrefsActivity.FinishPreferencesActivityAsyncTask", ".doInBackground");
                 activity.savePreferences(new_event_mode, predefinedEventIndex);
             }
 
@@ -789,7 +853,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             EventsPrefsActivity activity = activityWeakReference.get();
 
             if (activity != null) {
-                Log.e("EventsPrefsActivity.FinishPreferencesActivityAsyncTask", ".onPostExecute");
+//                Log.e("EventsPrefsActivity.FinishPreferencesActivityAsyncTask", ".onPostExecute");
 
                 activity.resultCode = RESULT_OK;
                 activity.finish();
