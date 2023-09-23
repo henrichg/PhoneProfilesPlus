@@ -393,7 +393,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }
 
             // load PREF_EVENT_HIDE_NOT_USED_SENSORS from Application preferences
-            Log.e("EventPrefsFragment.onActivityCreated", "ApplicationPreferences.applicationEventHideNotUsedSensors="+ApplicationPreferences.applicationEventHideNotUsedSensors);
+            //Log.e("EventPrefsFragment.onActivityCreated", "ApplicationPreferences.applicationEventHideNotUsedSensors="+ApplicationPreferences.applicationEventHideNotUsedSensors);
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(PREF_EVENT_HIDE_NOT_USED_SENSORS, ApplicationPreferences.applicationEventHideNotUsedSensors);
@@ -410,8 +410,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         setRedTextToPreferences();
 
         // update preference summary and also category summary
-        event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
-        event.setAllSummary(prefMng, preferences, getActivity().getBaseContext());
+        //event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
+        //event.setAllSummary(prefMng, preferences, getActivity().getBaseContext());
 
         Preference notificationAccessPreference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {
@@ -1211,6 +1211,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         // this is important for update preferences after PPPPS and Extender installation
         event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
+        //Log.e("EventPrefsFragment.onResume", "called event.setAllSummary()");
         event.setAllSummary(prefMng, preferences, getActivity().getBaseContext());
 
         if (!nestedFragment) {
@@ -1279,7 +1280,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(PREF_EVENT_HIDE_NOT_USED_SENSORS)) {
             // save PREF_EVENT_HIDE_NOT_USED_SENSORS into Application preferences
             boolean hideNotUsedSensors = preferences.getBoolean(PREF_EVENT_HIDE_NOT_USED_SENSORS, false);
-            Log.e("EventPrefsFragment.onSharedPreferenceChanged", "hideNotUsedSensors="+hideNotUsedSensors);
+            //Log.e("EventPrefsFragment.onSharedPreferenceChanged", "hideNotUsedSensors="+hideNotUsedSensors);
             SharedPreferences appSharedPreferences = ApplicationPreferences.getSharedPreferences(getActivity().getApplicationContext());
             if (appSharedPreferences != null) {
                 SharedPreferences.Editor editor = appSharedPreferences.edit();
@@ -1292,6 +1293,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         }
 
         event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
+        Log.e("EventPrefsFragment.onSharedPreferenceChanged", "called Event.setSummary (1)");
         event.setSummary(prefMng, key, sharedPreferences, getActivity(), true);
 
         setRedTextToPreferences();

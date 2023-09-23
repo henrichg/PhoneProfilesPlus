@@ -57,7 +57,7 @@ public class ProfilePreference extends DialogPreference {
     {
         super.onBindViewHolder(holder);
 
-        Log.e("ProfilePreference.onBindViewHolder", "isEnabled="+isEnabled());
+        //Log.e("ProfilePreference.onBindViewHolder", "isEnabled="+isEnabled());
 
         //preferenceTitleView = view.findViewById(R.id.applications_pref_label);  // resource na title
         //preferenceTitleView.setText(preferenceTitle);

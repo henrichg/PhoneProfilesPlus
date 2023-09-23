@@ -24,6 +24,7 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -466,25 +467,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         */
 
-        updateAllSummary();
-        /*
-        setCategorySummary(PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context);
-        setCategorySummary(PREF_PROFILE_SOUND_PROFILE_CATTEGORY_ROOT, context);
-        setCategorySummary(PREF_PROFILE_VOLUME_CATTEGORY_ROOT, context);
-        setCategorySummary(PREF_PROFILE_SOUNDS_CATTEGORY_ROOT, context);
-        setCategorySummary(PREF_PROFILE_TOUCH_EFFECTS_CATTEGORY_ROOT, context);
-        setCategorySummary(PREF_PROFILE_VIBRATION_INTENSITY_CATTEGORY_ROOT, context);
-        setCategorySummary(PREF_PROFILE_RADIOS_CATTEGORY_ROOT, context);
-        setCategorySummary(PREF_PROFILE_SCREEN_CATTEGORY_ROOT, context);
-        setCategorySummary(PREF_PROFILE_LED_ACCESSORIES_CATTEGORY_ROOT, context);
-        setCategorySummary(PREF_PROFILE_OTHERS_CATTEGORY_ROOT, context);
-        setCategorySummary(PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context);
-        setCategorySummary(PREF_FORCE_STOP_APPLICATIONS_CATEGORY, context);
-        setCategorySummary(PREF_LOCK_DEVICE_CATEGORY, context);
-        setCategorySummary(PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
-        setCategorySummary(PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
-        setCategorySummary(PREF_DEVICE_WALLPAPER_CATEGORY, context);
-        */
+        //updateAllSummary();
 
         setRedTextToPreferences();
 
@@ -1574,6 +1557,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         //Log.e("ProfilesPrefsFragment.onResume", "xxxxxx");
 
         // this is important for update preferences after PPPPS and Extender installation
+        //Log.e("ProfilesPrefsFragment.onResume", "called updateAllSummary");
         updateAllSummary();
 
         if (!nestedFragment) {
