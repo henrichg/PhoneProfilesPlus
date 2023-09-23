@@ -407,7 +407,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         setDivider(null); // this remove dividers for categories
 
-        setRedTextToPreferences();
+        //setRedTextToPreferences();
 
         // update preference summary and also category summary
         //event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());

@@ -469,7 +469,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         //updateAllSummary();
 
-        setRedTextToPreferences();
+        //setRedTextToPreferences();
 
         PPListPreference ringerModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
             /*if (ringerModePreference.findIndexOfValue("5") < 0) {
