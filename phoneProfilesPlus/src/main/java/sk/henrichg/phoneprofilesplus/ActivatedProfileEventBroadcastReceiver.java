@@ -53,7 +53,6 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                         dataWrapper.fillEventList();
                         //dataWrapper.fillProfileList(false, false);
 
-                        //TODO len zistenie ci profil existuje
                         boolean profileExists = dataWrapper.profileExists(profileId);
                         if (profileExists) {
 

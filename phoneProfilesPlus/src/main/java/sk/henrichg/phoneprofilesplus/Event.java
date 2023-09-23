@@ -1189,7 +1189,6 @@ class Event {
                         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
                         String[] splits = startWhenActivatedProfile.split(StringConstants.STR_SPLIT_REGEX);
                         if (splits.length == 1) {
-                            //TODO len ziskanie nazvu profilu
                             String profileName = dataWrapper.getProfileName(Long.parseLong(startWhenActivatedProfile));
                             if (profileName != null) {
                                 _value.append(StringConstants.TAG_BOLD_START_HTML)
@@ -1793,7 +1792,6 @@ class Event {
         boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority;
         for (EventTimeline eventTimeline : eventTimelineList)
         {
-            //TODO len ziskanie priority udalosti
             int priority = dataWrapper.getEventPriority(eventTimeline._fkEvent);
             if (applicationEventUsePriority && (priority > this._priority)) {
                 // is running event with higher priority
@@ -2250,7 +2248,6 @@ class Event {
             boolean forceRunRunning = false;
             for (EventTimeline _eventTimeline : eventTimelineList)
             {
-                //TODO len ziskanie _ignoreManualActivation
                 int ignoreManualActivation = dataWrapper.getEventIgnoreManualActivation(_eventTimeline._fkEvent);
                 // if application is restarted by system, ignore manual profile activation
                 if ((ignoreManualActivation == 1) && PPApplication.normalServiceStart)

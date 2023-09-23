@@ -32,7 +32,6 @@ public class PPTileService extends TileService {
             boolean profileExists = false;
             if (PPApplication.quickTileProfileId[tileId] != Profile.RESTART_EVENTS_PROFILE_ID) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
-                //TODO len zistovanie, ci profil existuje
                 profileExists = dataWrapper.profileExists(PPApplication.quickTileProfileId[tileId]);
                 dataWrapper.invalidateDataWrapper();
             }

@@ -83,7 +83,6 @@ class EventPreferencesActivatedProfile extends EventPreferences {
 
                 _value.append(context.getString(R.string.event_preferences_activated_profile_startProfile)).append(StringConstants.STR_COLON_WITH_SPACE);
                 DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0, 0f);
-                //TODO len ziskanie nazvu profilu
                 String profileName = dataWrapper.getProfileName(this._startProfile);
                 if (profileName != null) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profileName, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
@@ -92,7 +91,6 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                 }
 
                 _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_activated_profile_endProfile)).append(StringConstants.STR_COLON_WITH_SPACE);
-                //TODO len ziskanie nazvu profilu
                 profileName = dataWrapper.getProfileName(this._endProfile);
                 if (profileName != null) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profileName, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);

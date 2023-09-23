@@ -83,7 +83,6 @@ public class ProfileMultiSelectPreference extends DialogPreference {
             String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
             prefSummary = prefContext.getString(R.string.profile_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
             if (splits.length == 1) {
-                //TODO len ziskanie nazvu profilu
                 String profileName = dataWrapper.getProfileName(Long.parseLong(value));
                 if (profileName != null)
                     prefSummary = profileName;

@@ -77,7 +77,6 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
                     if (PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID)
                         toast = toast + " " + context.getString(R.string.menu_restart_events);
                     else {
-                        //TODO len ziskanie nazvu profilu
                         String profileName = dataWrapper.getProfileName(PPApplication.quickTileProfileId[tileId]);
                         if (profileName != null)
                             toast = toast + " " + profileName;
