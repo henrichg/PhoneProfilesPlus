@@ -14,7 +14,7 @@
         android:layout_gravity="center_vertical"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_profile_default" 
+        android:src="@drawable/ic_empty"
         android:contentDescription="@string/profile_preferences_profileIcon" />
     
 </LinearLayout>
