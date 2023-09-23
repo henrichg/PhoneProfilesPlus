@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
 
 import java.util.List;
@@ -14,6 +16,9 @@ class Contact {
     boolean checked = false;
     String accountType = "";
     String accountName = "";
+
+    Uri photoUri = null;
+    String displayedAccountType = "";
 
     Contact() {
     }

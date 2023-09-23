@@ -1,11 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.ContentUris;
-import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -23,13 +17,9 @@ class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHol
 
     private Contact contact;
 
-    private final Context context;
-
-    ContactsMultiSelectDialogPreferenceViewHolder(View itemView, Context context)
+    ContactsMultiSelectDialogPreferenceViewHolder(View itemView)
     {
         super(itemView);
-
-        this.context = context;
 
         imageViewPhoto = itemView.findViewById(R.id.contacts_multiselect_pref_dlg_item_icon);
         textViewDisplayName = itemView.findViewById(R.id.contacts_multiselect_pref_dlg_item_display_name);
@@ -52,7 +42,7 @@ class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHol
 
         // Display Contact data
         if (contact.photoId != 0)
-            imageViewPhoto.setImageURI(getPhotoUri(contact.contactId));
+            imageViewPhoto.setImageURI(contact.photoUri);
         else
             imageViewPhoto.setImageResource(R.drawable.ic_contacts_multiselect_dialog_preference_no_photo);
         textViewDisplayName.setText(contact.name);
@@ -66,41 +56,7 @@ class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHol
             textViewPhoneNumber.setText("");
         }
 
-        boolean found = false;
-        String accountType = "";
-        PackageManager packageManager = context.getPackageManager();
-        try {
-            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(contact.accountType, PackageManager.MATCH_ALL);
-            if (applicationInfo != null) {
-                accountType = packageManager.getApplicationLabel(applicationInfo).toString();
-                found = true;
-            }
-        } catch (Exception ignored) {}
-        if (!found) {
-            if (contact.accountType.equals("com.osp.app.signin"))
-                accountType = context.getString(R.string.contact_account_type_samsung_account);
-            if (contact.accountType.equals("com.google"))
-                accountType = context.getString(R.string.contact_account_type_google_account);
-            if (contact.accountType.equals("vnd.sec.contact.sim"))
-                accountType = context.getString(R.string.contact_account_type_sim_card);
-            if (contact.accountType.equals("vnd.sec.contact.sim2"))
-                accountType = context.getString(R.string.contact_account_type_sim_card);
-            if (contact.accountType.equals("vnd.sec.contact.phone"))
-                accountType = context.getString(R.string.contact_account_type_phone_application);
-            if (contact.accountType.equals("org.thoughtcrime.securesms"))
-                accountType = "Signal";
-            if (contact.accountType.equals("com.google.android.apps.tachyon"))
-                accountType = "Duo";
-            if (contact.accountType.equals("com.whatsapp"))
-                accountType = "WhatsApp";
-        }
-        if ((!accountType.isEmpty()) &&
-                (!contact.accountType.equals("vnd.sec.contact.sim")) &&
-                (!contact.accountType.equals("vnd.sec.contact.sim2")) &&
-                (!contact.accountType.equals("vnd.sec.contact.phone")) &&
-                (!contact.accountName.equals(accountType)))
-            accountType = accountType + StringConstants.CHAR_NEW_LINE+"  - " + contact.accountName;
-        textViewAccountType.setText(accountType);
+        textViewAccountType.setText(contact.displayedAccountType);
 
         // Tag the CheckBox with the Contact it is displaying, so that we
         // can
@@ -114,34 +70,6 @@ class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHol
     public void onClick(View v) {
         contact.toggleChecked();
         checkBox.setChecked(contact.checked);
-    }
-
-    /**
-     * @return the photo URI
-     */
-    private Uri getPhotoUri(long contactId)
-    {
-    /*    try {
-            Cursor cur = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, null,
-                            ContactsContract.Data.CONTACT_ID + "=" + photoId + " AND "
-                            + ContactsContract.Data.MIMETYPE + "='"
-                            + ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE + "'", null,
-                            null);
-            if (cur != null)
-            {
-                if (!cur.moveToFirst())
-                {
-                    return null; // no photo
-                }
-            }
-            else
-                return null; // error in cursor process
-        } catch (Exception e) {
-            return null;
-        }
-        */
-        Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
-        return Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
     }
 
 }

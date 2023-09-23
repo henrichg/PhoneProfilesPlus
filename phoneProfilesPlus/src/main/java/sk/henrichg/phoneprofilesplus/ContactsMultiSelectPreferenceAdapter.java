@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +12,10 @@ import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 class ContactsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<ContactsMultiSelectDialogPreferenceViewHolder>
                                                 implements FastScrollRecyclerView.SectionedAdapter
 {
-    private final Context context;
-
     private final ContactsMultiSelectDialogPreference preference;
 
-    ContactsMultiSelectPreferenceAdapter(Context context, ContactsMultiSelectDialogPreference preference)
+    ContactsMultiSelectPreferenceAdapter(ContactsMultiSelectDialogPreference preference)
     {
-        this.context = context;
         this.preference = preference;
     }
 
@@ -27,7 +23,7 @@ class ContactsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Contacts
     @Override
     public ContactsMultiSelectDialogPreferenceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_contacts_multiselect_preference, parent, false);
-        return new ContactsMultiSelectDialogPreferenceViewHolder(view, context);
+        return new ContactsMultiSelectDialogPreferenceViewHolder(view);
     }
 
     @Override

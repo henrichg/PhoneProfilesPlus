@@ -1,8 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
@@ -99,6 +103,44 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                             }
                         }
                     }
+
+                    contact.photoUri = getPhotoUri(contact.contactId);
+
+                    boolean found = false;
+                    String accountType = "";
+                    PackageManager packageManager = _context.getPackageManager();
+                    try {
+                        ApplicationInfo applicationInfo = packageManager.getApplicationInfo(contact.accountType, PackageManager.MATCH_ALL);
+                        if (applicationInfo != null) {
+                            accountType = packageManager.getApplicationLabel(applicationInfo).toString();
+                            found = true;
+                        }
+                    } catch (Exception ignored) {}
+                    if (!found) {
+                        if (contact.accountType.equals("com.osp.app.signin"))
+                            accountType = _context.getString(R.string.contact_account_type_samsung_account);
+                        if (contact.accountType.equals("com.google"))
+                            accountType = _context.getString(R.string.contact_account_type_google_account);
+                        if (contact.accountType.equals("vnd.sec.contact.sim"))
+                            accountType = _context.getString(R.string.contact_account_type_sim_card);
+                        if (contact.accountType.equals("vnd.sec.contact.sim2"))
+                            accountType = _context.getString(R.string.contact_account_type_sim_card);
+                        if (contact.accountType.equals("vnd.sec.contact.phone"))
+                            accountType = _context.getString(R.string.contact_account_type_phone_application);
+                        if (contact.accountType.equals("org.thoughtcrime.securesms"))
+                            accountType = "Signal";
+                        if (contact.accountType.equals("com.google.android.apps.tachyon"))
+                            accountType = "Duo";
+                        if (contact.accountType.equals("com.whatsapp"))
+                            accountType = "WhatsApp";
+                    }
+                    if ((!accountType.isEmpty()) &&
+                            (!contact.accountType.equals("vnd.sec.contact.sim")) &&
+                            (!contact.accountType.equals("vnd.sec.contact.sim2")) &&
+                            (!contact.accountType.equals("vnd.sec.contact.phone")) &&
+                            (!contact.accountName.equals(accountType)))
+                        accountType = accountType + StringConstants.CHAR_NEW_LINE+"  - " + contact.accountName;
+                    contact.displayedAccountType = accountType;
                 }
                 // move checked on top
                 int i = 0;
@@ -289,6 +331,34 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 
                 };
 
+    }
+
+    /**
+     * @return the photo URI
+     */
+    private Uri getPhotoUri(long contactId)
+    {
+    /*    try {
+            Cursor cur = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, null,
+                            ContactsContract.Data.CONTACT_ID + "=" + photoId + " AND "
+                            + ContactsContract.Data.MIMETYPE + "='"
+                            + ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE + "'", null,
+                            null);
+            if (cur != null)
+            {
+                if (!cur.moveToFirst())
+                {
+                    return null; // no photo
+                }
+            }
+            else
+                return null; // error in cursor process
+        } catch (Exception e) {
+            return null;
+        }
+        */
+        Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
+        return Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
     }
 
 }

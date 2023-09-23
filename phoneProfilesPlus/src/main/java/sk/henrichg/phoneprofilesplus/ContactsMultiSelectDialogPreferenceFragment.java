@@ -55,7 +55,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
-        listAdapter = new ContactsMultiSelectPreferenceAdapter(prefContext, preference);
+        listAdapter = new ContactsMultiSelectPreferenceAdapter(preference);
         listView.setAdapter(listAdapter);
 
         final Button unselectAllButton = view.findViewById(R.id.contacts_multiselect_pref_dlg_unselect_all);
