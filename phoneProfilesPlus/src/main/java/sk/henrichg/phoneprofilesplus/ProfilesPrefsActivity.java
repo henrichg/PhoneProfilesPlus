@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +24,7 @@ import androidx.preference.PreferenceManager;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +39,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     boolean showSaveMenu = false;
 
     private Toolbar toolbar;
+
+    private FinishPreferencesActivityAsyncTask finishPreferencesActivityAsyncTask = null;
 
     private static final String BUNDLE_NEW_PROFILE_MODE = "newProfileMode";
     private static final String BUNDLE_PREDEFINED_PROFILE_INDEX = "predefinedProfileIndex";
@@ -171,9 +176,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     getString(R.string.alert_button_no),
                     null, null,
                     (dialog1, which) -> {
-                        savePreferences(newProfileMode, predefinedProfileIndex);
-                        resultCode = RESULT_OK;
-                        finish();
+                        finishPreferencesActivityAsyncTask =
+                                new FinishPreferencesActivityAsyncTask(this, newProfileMode, predefinedProfileIndex);
+                        finishPreferencesActivityAsyncTask.execute();
+
+                        //savePreferences(newProfileMode, predefinedProfileIndex);
+                        //resultCode = RESULT_OK;
+                        //finish();
                     },
                     (dialog2, which) -> finish(),
                     null,
@@ -204,9 +213,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         }
         else
         if (itemId == R.id.profile_preferences_save) {
-            savePreferences(newProfileMode, predefinedProfileIndex);
-            resultCode = RESULT_OK;
-            finish();
+            finishPreferencesActivityAsyncTask =
+                    new FinishPreferencesActivityAsyncTask(this, newProfileMode, predefinedProfileIndex);
+            finishPreferencesActivityAsyncTask.execute();
+
+            //savePreferences(newProfileMode, predefinedProfileIndex);
+            //resultCode = RESULT_OK;
+            //finish();
             return true;
         }
         else
@@ -241,6 +254,16 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         savedInstanceState.putInt(BUNDLE_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
 
         savedInstanceState.putBoolean(PPApplication.BUNDLE_SHOW_SAVE_MENU, showSaveMenu);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if ((finishPreferencesActivityAsyncTask != null) &&
+                finishPreferencesActivityAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            finishPreferencesActivityAsyncTask.cancel(true);
+        finishPreferencesActivityAsyncTask = null;
     }
 
     @Override
@@ -794,6 +817,48 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             sequence.start();
         }
+    }
+
+    private static class FinishPreferencesActivityAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        final int new_profile_mode;
+        final int predefinedProfileIndex;
+
+        private final WeakReference<ProfilesPrefsActivity> activityWeakReference;
+
+        public FinishPreferencesActivityAsyncTask(final ProfilesPrefsActivity activity,
+                                                  int new_profile_mode, int predefinedProfileIndex) {
+            this.activityWeakReference = new WeakReference<>(activity);
+            this.new_profile_mode = new_profile_mode;
+            this.predefinedProfileIndex = predefinedProfileIndex;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ProfilesPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+                Log.e("ProfilesPrefsActivity.FinishPreferencesActivityAsyncTask", ".doInBackground");
+                activity.savePreferences(new_profile_mode, predefinedProfileIndex);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            ProfilesPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+                Log.e("ProfilesPrefsActivity.FinishPreferencesActivityAsyncTask", ".onPostExecute");
+
+                activity.resultCode = RESULT_OK;
+                activity.finish();
+            }
+        }
+
     }
 
 }

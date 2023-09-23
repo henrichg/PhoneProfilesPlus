@@ -1304,7 +1304,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         }
 
         event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
-        Log.e("EventPrefsFragment.onSharedPreferenceChanged", "called Event.setSummary (1)");
+        //Log.e("EventPrefsFragment.onSharedPreferenceChanged", "called Event.setSummary (1)");
         event.setSummary(prefMng, key, sharedPreferences, getActivity(), true);
 
         setRedTextToPreferences();

@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +28,7 @@ import androidx.preference.PreferenceManager;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +48,8 @@ public class EventsPrefsActivity extends AppCompatActivity
     final List<String> displayedSensors = new ArrayList<>();
 
     private Toolbar toolbar;
+
+    private FinishPreferencesActivityAsyncTask finishPreferencesActivityAsyncTask = null;
 
     private static final String BUNDLE_OLD_EVENT_STATUS = "old_event_status";
     private static final String BUNDLE_NEW_EVENT_MODE = "newEventMode";
@@ -153,6 +158,11 @@ public class EventsPrefsActivity extends AppCompatActivity
     public void onDestroy() {
         super.onDestroy();
         event = null;
+
+        if ((finishPreferencesActivityAsyncTask != null) &&
+                finishPreferencesActivityAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            finishPreferencesActivityAsyncTask.cancel(true);
+        finishPreferencesActivityAsyncTask = null;
     }
 
     @Override
@@ -226,9 +236,13 @@ public class EventsPrefsActivity extends AppCompatActivity
                     null, null,
                     (dialog1, which) -> {
                         if (checkPreferences(newEventMode, predefinedEventIndex)) {
-                            savePreferences(newEventMode, predefinedEventIndex);
-                            resultCode = RESULT_OK;
-                            finish();
+                            finishPreferencesActivityAsyncTask =
+                                    new EventsPrefsActivity.FinishPreferencesActivityAsyncTask(this, newEventMode, predefinedEventIndex);
+                            finishPreferencesActivityAsyncTask.execute();
+
+                            //savePreferences(newEventMode, predefinedEventIndex);
+                            //resultCode = RESULT_OK;
+                            //finish();
                         }
                     },
                     (dialog2, which) -> finish(),
@@ -261,9 +275,13 @@ public class EventsPrefsActivity extends AppCompatActivity
         else
         if (itemId == R.id.event_preferences_save) {
             if (checkPreferences(newEventMode, predefinedEventIndex)) {
-                savePreferences(newEventMode, predefinedEventIndex);
-                resultCode = RESULT_OK;
-                finish();
+                finishPreferencesActivityAsyncTask =
+                        new EventsPrefsActivity.FinishPreferencesActivityAsyncTask(this, newEventMode, predefinedEventIndex);
+                finishPreferencesActivityAsyncTask.execute();
+
+                //savePreferences(newEventMode, predefinedEventIndex);
+                //resultCode = RESULT_OK;
+                //finish();
             }
             return true;
         }
@@ -424,14 +442,22 @@ public class EventsPrefsActivity extends AppCompatActivity
                             editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
                             editor.apply();
 
-                            savePreferences(new_event_mode, predefinedEventIndex);
-                            resultCode = RESULT_OK;
-                            finish();
+                            finishPreferencesActivityAsyncTask =
+                                    new EventsPrefsActivity.FinishPreferencesActivityAsyncTask(this, new_event_mode, predefinedEventIndex);
+                            finishPreferencesActivityAsyncTask.execute();
+
+                            //savePreferences(new_event_mode, predefinedEventIndex);
+                            //resultCode = RESULT_OK;
+                            //finish();
                         },
                         (dialog2, which) -> {
-                            savePreferences(new_event_mode, predefinedEventIndex);
-                            resultCode = RESULT_OK;
-                            finish();
+                            finishPreferencesActivityAsyncTask =
+                                    new EventsPrefsActivity.FinishPreferencesActivityAsyncTask(this, new_event_mode, predefinedEventIndex);
+                            finishPreferencesActivityAsyncTask.execute();
+
+                            //savePreferences(new_event_mode, predefinedEventIndex);
+                            //resultCode = RESULT_OK;
+                            //finish();
                         },
                         null,
                         null,
@@ -466,7 +492,7 @@ public class EventsPrefsActivity extends AppCompatActivity
         return event;
     }
 
-    private void savePreferences(int new_event_mode, int predefinedEventIndex)
+    void savePreferences(int new_event_mode, int predefinedEventIndex)
     {
         final Event event = getEventFromPreferences(event_id, new_event_mode, predefinedEventIndex);
         if (event == null)
@@ -728,6 +754,48 @@ public class EventsPrefsActivity extends AppCompatActivity
     public void refreshGUIFromListener(Intent intent) {
 //        PPApplicationStatic.logE("[IN_BROADCAST] EventsPrefsActivity.refreshGUIBroadcastReceiver", "xxx");
         changeCurentLightSensorValue();
+    }
+
+    private static class FinishPreferencesActivityAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        final int new_event_mode;
+        final int predefinedEventIndex;
+
+        private final WeakReference<EventsPrefsActivity> activityWeakReference;
+
+        public FinishPreferencesActivityAsyncTask(final EventsPrefsActivity activity,
+                                                  int new_event_mode, int predefinedEventIndex) {
+            this.activityWeakReference = new WeakReference<>(activity);
+            this.new_event_mode = new_event_mode;
+            this.predefinedEventIndex = predefinedEventIndex;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            EventsPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+                Log.e("EventsPrefsActivity.FinishPreferencesActivityAsyncTask", ".doInBackground");
+                activity.savePreferences(new_event_mode, predefinedEventIndex);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            EventsPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+                Log.e("EventsPrefsActivity.FinishPreferencesActivityAsyncTask", ".onPostExecute");
+
+                activity.resultCode = RESULT_OK;
+                activity.finish();
+            }
+        }
+
     }
 
 }
