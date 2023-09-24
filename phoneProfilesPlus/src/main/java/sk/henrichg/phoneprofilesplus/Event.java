@@ -1769,12 +1769,12 @@ class Event {
 
         // check activated profile
         if (!_startWhenActivatedProfile.isEmpty()) {
-            Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-            if (activatedProfile != null) {
+            long activatedProfileId = dataWrapper.getActivatedProfileId();
+            if (activatedProfileId != -1) {
                 boolean found = false;
                 String[] splits = _startWhenActivatedProfile.split(StringConstants.STR_SPLIT_REGEX);
                 for (String split : splits) {
-                    if (activatedProfile._id == Long.parseLong(split)) {
+                    if (activatedProfileId == Long.parseLong(split)) {
                         found = true;
                         break;
                     }
@@ -1866,10 +1866,7 @@ class Event {
                 if ((PPApplication.applicationFullyStarted && PPApplication.normalServiceStart) || // normalServiceStart=true = it is not restart of application by system
                     (!this._ignoreManualActivation) ||
                     (!DataWrapperStatic.getIsManualProfileActivation(false, dataWrapper.context))) {
-                    long activatedProfileId = 0;
-                    Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-                    if (activatedProfile != null)
-                        activatedProfileId = activatedProfile._id;
+                    long activatedProfileId = dataWrapper.getActivatedProfileId();
                     if (this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId)) {
                         dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents);
                     } else {
@@ -1939,10 +1936,7 @@ class Event {
             (!DataWrapperStatic.getIsManualProfileActivation(false, dataWrapper.context))) {
             if (activateReturnProfile/* && canActivateReturnProfile()*/) {
                 if (mergedProfile == null) {
-                    Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-                    long activatedProfileId = 0;
-                    if (activatedProfile != null)
-                        activatedProfileId = activatedProfile._id;
+                    long activatedProfileId = dataWrapper.getActivatedProfileId();
                     // first activate _fkProfileEnd
                     if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE) {
                         if (_manualProfileActivationAtEnd || (_fkProfileEnd != activatedProfileId) || forRestartEvents) {

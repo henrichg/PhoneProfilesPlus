@@ -9,9 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -792,7 +790,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             EventsPrefsActivity activity = activityWeakReference.get();
 
             if (activity != null) {
-                Log.e("EventsPrefsActivity.StartPreferencesActivityAsyncTask", ".doInBackground");
+//                Log.e("EventsPrefsActivity.StartPreferencesActivityAsyncTask", ".doInBackground");
                 activity.event = activity.loadPreferences(new_event_mode, predefinedEventIndex);
             }
 
@@ -806,7 +804,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             EventsPrefsActivity activity = activityWeakReference.get();
 
             if (activity != null) {
-                Log.e("EventsPrefsActivity.StartPreferencesActivityAsyncTask", ".onPostExecute");
+//                Log.e("EventsPrefsActivity.StartPreferencesActivityAsyncTask", ".onPostExecute");
 
                 activity.toolbar.setTitle(activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + activity.event._name);
 

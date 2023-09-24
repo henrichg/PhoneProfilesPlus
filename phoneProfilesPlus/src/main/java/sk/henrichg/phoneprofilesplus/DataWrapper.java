@@ -393,6 +393,26 @@ class DataWrapper {
         return null;
     }
 
+    long getActivatedProfileIdFromDB()
+    {
+        return DatabaseHandler.getInstance(context).getActivatedProfileId();
+    }
+
+    long getActivatedProfileId()
+    {
+        synchronized (profileList) {
+            if (profileListFilled) {
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+                    Profile profile = it.next();
+                    if (profile._checked)
+                        return profile._id;
+                }
+            }
+            return getActivatedProfileIdFromDB();
+        }
+    }
+
     void setProfileActive(Profile profile)
     {
         synchronized (profileList) {
@@ -421,11 +441,9 @@ class DataWrapper {
     {
         if (event_id != 0) {
             // save before activated profile into FIFO
-            Profile activatedProfile = getActivatedProfileFromDB(false, false);
-            if (activatedProfile != null) {
-                long profileId = activatedProfile._id;
-                fifoAddProfile(profileId, event_id);
-            }
+            long activatedProfileId = getActivatedProfileIdFromDB();
+            if (activatedProfileId != -1)
+                fifoAddProfile(activatedProfileId, event_id);
         }
 
         int startupSource = PPApplication.STARTUP_SOURCE_EVENT;

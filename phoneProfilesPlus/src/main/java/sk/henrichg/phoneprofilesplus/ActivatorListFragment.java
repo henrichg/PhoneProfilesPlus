@@ -708,7 +708,7 @@ public class ActivatorListFragment extends Fragment {
 
     private static class RefreshGUIAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-        Profile profileFromDB;
+        long activatedProfileId;
         Profile profileFromDataWrapper;
 
         //boolean doNotRefresh = false;
@@ -729,11 +729,11 @@ public class ActivatorListFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             if (fragmentWeakRef.get() != null) {
                 try {
-                    profileFromDB = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
+                    activatedProfileId = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfileId();
                     dataWrapper.getEventTimelineList(true);
 
-                    if (profileFromDB != null) {
-                        profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, true,
+                    if (activatedProfileId != -1) {
+                        profileFromDataWrapper = dataWrapper.getProfileById(activatedProfileId, true,
                                 ApplicationPreferences.applicationEditorPrefIndicator, false);
                     }
 
@@ -777,7 +777,7 @@ public class ActivatorListFragment extends Fragment {
                     if (profileFromAdapter != null)
                         profileFromAdapter._checked = false;
 
-                    if (profileFromDB != null) {
+                    if (activatedProfileId != -1) {
                         if (profileFromDataWrapper != null)
                             profileFromDataWrapper._checked = true;
                         fragment.updateHeader(profileFromDataWrapper);

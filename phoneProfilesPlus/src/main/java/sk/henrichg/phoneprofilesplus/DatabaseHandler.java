@@ -827,6 +827,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return DatabaseHandlerProfiles.getActivatedProfile(this);
     }
 
+    long getActivatedProfileId()
+    {
+        return DatabaseHandlerProfiles.getActivatedProfileId(this);
+    }
+
+
     long getProfileIdByName(String name)
     {
         return DatabaseHandlerProfiles.getProfileIdByName(this, name);

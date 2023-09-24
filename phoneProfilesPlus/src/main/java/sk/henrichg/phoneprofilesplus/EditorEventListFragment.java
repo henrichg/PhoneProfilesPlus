@@ -2026,7 +2026,7 @@ public class EditorEventListFragment extends Fragment
 
     private static class RefreshGUIAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-        Profile profileFromDB;
+        long activatedProfileId;
         Profile profileFromDataWrapper;
 
         boolean doNotRefresh = false;
@@ -2053,7 +2053,7 @@ public class EditorEventListFragment extends Fragment
         protected Void doInBackground(Void... params) {
             if (fragmentWeakRef.get() != null) {
                 try {
-                    profileFromDB = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
+                    activatedProfileId = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfileId();
                     dataWrapper.getEventTimelineList(true);
 
                     // must be refreshed timelinelist for fragment.activityDataWrapper
@@ -2062,8 +2062,8 @@ public class EditorEventListFragment extends Fragment
                         fragment.activityDataWrapper.getEventTimelineList(true);
                     }
 
-                    if (profileFromDB != null) {
-                        profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, true,
+                    if (activatedProfileId != -1) {
+                        profileFromDataWrapper = dataWrapper.getProfileById(activatedProfileId, true,
                                 ApplicationPreferences.applicationEditorPrefIndicator, false);
                     }
 
@@ -2142,7 +2142,7 @@ public class EditorEventListFragment extends Fragment
             if (fragment != null) {
                 if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
                     if (!doNotRefresh) {
-                        if (profileFromDB != null) {
+                        if (activatedProfileId != -1) {
                             if (profileFromDataWrapper != null)
                                 profileFromDataWrapper._checked = true;
                             fragment.updateHeader(profileFromDataWrapper);

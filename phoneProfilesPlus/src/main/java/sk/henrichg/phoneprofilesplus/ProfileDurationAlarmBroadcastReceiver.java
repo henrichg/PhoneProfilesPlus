@@ -338,14 +338,14 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 if (DataWrapperStatic.getIsManualProfileActivation(true, appContext) ||
                         (!EventStatic.getGlobalEventsRunning(appContext)) ||
                         (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
-                    Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
+                    long _activatedProfileId = dataWrapper.getActivatedProfileId();
 
                     removeAlarm(profile, appContext);
 //                    PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileDurationAlarmBroadcastReceiver._doWork", "call of updateGUI");
                     PPApplication.updateGUI(true, false, appContext);
 
-                    if ((activatedProfile != null) &&
-                            (activatedProfile._id == profile._id) &&
+                    if ((_activatedProfileId != -1) &&
+                            (_activatedProfileId == profile._id) &&
                             (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING)) {
                         // alarm is from activated profile
 
@@ -398,7 +398,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     //eventTimeline._fkProfileEndActivated = 0;
                                     activateProfileId = 0;
 
-                                if (activateProfileId == activatedProfile._id)
+                                if (activateProfileId == _activatedProfileId)
                                     activateProfileId = 0;
                             }
 

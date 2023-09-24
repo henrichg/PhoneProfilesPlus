@@ -1318,6 +1318,45 @@ class DatabaseHandlerProfiles {
         }
     }
 
+    static long getActivatedProfileId(DatabaseHandler instance)
+    {
+        instance.importExportLock.lock();
+        try {
+            long profileId = -1;
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_PROFILES,
+                        new String[]{DatabaseHandler.KEY_ID
+                        },
+                        DatabaseHandler.KEY_CHECKED + "=?",
+                        new String[]{"1"}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    int rc = cursor.getCount();
+
+                    if (rc == 1) {
+                        profileId = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return profileId;
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
     static long getProfileIdByName(DatabaseHandler instance, String name)
     {
         instance.importExportLock.lock();

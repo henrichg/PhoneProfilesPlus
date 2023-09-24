@@ -680,8 +680,8 @@ public class EditorProfileListFragment extends Fragment
 
         PPApplicationStatic.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_PROFILE_DELETED, null, profile._name, "");
 
-        Profile activatedProfile = activityDataWrapper.getActivatedProfile(false, false);
-        if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+        long activatedProfileId = activityDataWrapper.getActivatedProfileId();
+        if (activatedProfileId == profile._id) {
             // remove alarm for profile duration
             //noinspection ConstantConditions
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, getActivity().getApplicationContext());
@@ -1566,7 +1566,7 @@ public class EditorProfileListFragment extends Fragment
 
     private static class RefreshGUIAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-        Profile profileFromDB;
+        long activatedProfileId;
         Profile profileFromDataWrapper;
 
         //boolean doNotRefresh = false;
@@ -1593,7 +1593,7 @@ public class EditorProfileListFragment extends Fragment
         protected Void doInBackground(Void... params) {
             if (fragmentWeakRef.get() != null) {
                 try {
-                    profileFromDB = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
+                    activatedProfileId = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfileId();
 
                     dataWrapper.getEventTimelineList(true);
 
@@ -1603,8 +1603,8 @@ public class EditorProfileListFragment extends Fragment
                         fragment.activityDataWrapper.getEventTimelineList(true);
                     }
 
-                    if (profileFromDB != null) {
-                        profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, true,
+                    if (activatedProfileId != -1) {
+                        profileFromDataWrapper = dataWrapper.getProfileById(activatedProfileId, true,
                                 ApplicationPreferences.applicationEditorPrefIndicator, false);
                     }
 
@@ -1656,7 +1656,7 @@ public class EditorProfileListFragment extends Fragment
                     if (profileFromAdapter != null)
                         profileFromAdapter._checked = false;
 
-                    if (profileFromDB != null) {
+                    if (activatedProfileId != -1) {
                         if (profileFromDataWrapper != null)
                             profileFromDataWrapper._checked = true;
                         fragment.updateHeader(profileFromDataWrapper);

@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -656,8 +655,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         if (profile != null) {
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
-            Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-            if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+            long activatedProfileId = dataWrapper.getActivatedProfileId();
+            if (activatedProfileId == profile._id) {
                 // set alarm for profile duration
                 ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, getApplicationContext());
                 //Profile.setActivatedProfileForDuration(getApplicationContext(), profile._id);
@@ -684,13 +683,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
                     }
                     else {
-                        if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+                        if (activatedProfileId == profile._id) {
                             dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null, true);
                         }
                     }
                 }
                 else {
-                    if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+                    if (activatedProfileId == profile._id) {
                         dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null, true);
                     }
                 }
@@ -856,7 +855,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             ProfilesPrefsActivity activity = activityWeakReference.get();
 
             if (activity != null) {
-                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".doInBackground");
+//                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".doInBackground");
                 profile = activity.loadPreferences(new_profile_mode, predefinedProfileIndex);
             }
 
@@ -870,7 +869,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             ProfilesPrefsActivity activity = activityWeakReference.get();
 
             if (activity != null) {
-                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".onPostExecute");
+//                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".onPostExecute");
 
                 activity.toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name);
 
