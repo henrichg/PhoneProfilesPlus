@@ -282,8 +282,8 @@ class ActivityLogAdapter extends CursorAdapter {
         //TextView profileName;
     }
 
-    void reload(DataWrapper dataWrapper) {
-        changeCursor(DatabaseHandler.getInstance(dataWrapper.context.getApplicationContext()).getActivityLogCursor());
+    void reload(Context context/*DataWrapper dataWrapper*/) {
+        changeCursor(DatabaseHandler.getInstance(/*dataWrapper.*/context.getApplicationContext()).getActivityLogCursor());
     }
 
     private int shiftColor(int color, Context context) {

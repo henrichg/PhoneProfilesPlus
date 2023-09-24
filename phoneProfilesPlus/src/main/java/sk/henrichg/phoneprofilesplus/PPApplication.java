@@ -969,6 +969,8 @@ public class PPApplication extends Application
     volatile static OrientationScannerHandlerThread handlerThreadOrientationScanner = null;
     // rewuired for location manager
     volatile static HandlerThread handlerThreadLocation = null;
+    // special for ProgressBar
+    volatile static HandlerThread handlerThreadProgressBar = null;
 
     //static HandlerThread handlerThread = null;
     //static HandlerThread handlerThreadCancelWork = null;
@@ -1134,6 +1136,7 @@ public class PPApplication extends Application
         //startHandlerThreadWallpaper();
         //startHandlerThreadRunApplication();
         //startHandlerThreadProfileActivation();
+        PPApplicationStatic.startHandlerThreadProgressBar();
 
         toastHandler = new Handler(getMainLooper());
         //brightnessHandler = new Handler(getMainLooper());

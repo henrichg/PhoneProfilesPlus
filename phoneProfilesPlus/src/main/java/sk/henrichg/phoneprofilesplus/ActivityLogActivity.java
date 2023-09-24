@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,7 +20,7 @@ import androidx.core.content.ContextCompat;
 
 public class ActivityLogActivity extends AppCompatActivity {
 
-    private DataWrapper dataWrapper;
+    //private DataWrapper dataWrapper;
     private ListView listView;
     private ActivityLogAdapter activityLogAdapter;
 
@@ -40,18 +41,21 @@ public class ActivityLogActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
-        dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+        //dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         listView = findViewById(R.id.activity_log_list);
 
-        // Setup cursor adapter using cursor from last step
-        Cursor activityLogCursor =  DatabaseHandler.getInstance(getApplicationContext()).getActivityLogCursor();
-        if (activityLogCursor != null) {
-            activityLogAdapter = new ActivityLogAdapter(getBaseContext(), activityLogCursor);
+        new Handler(getMainLooper()).post(() -> {
+            // Setup cursor adapter using cursor from last step
+            Cursor activityLogCursor =  DatabaseHandler.getInstance(getApplicationContext()).getActivityLogCursor();
+            if (activityLogCursor != null) {
+                activityLogAdapter = new ActivityLogAdapter(getBaseContext(), activityLogCursor);
 
-            // Attach cursor adapter to the ListView
-            listView.setAdapter(activityLogAdapter);
-        }
+                // Attach cursor adapter to the ListView
+                listView.setAdapter(activityLogAdapter);
+            }
+        });
+
     }
 
     @Override
@@ -98,7 +102,7 @@ public class ActivityLogActivity extends AppCompatActivity {
         }
         else
         if (itemId == R.id.menu_activity_log_reload) {
-            activityLogAdapter.reload(dataWrapper);
+            activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
             listView.setSelection(0);
             return true;
         }
@@ -112,7 +116,7 @@ public class ActivityLogActivity extends AppCompatActivity {
                     null, null,
                     (dialog1, which) -> {
                         DatabaseHandler.getInstance(getApplicationContext()).clearActivityLog();
-                        activityLogAdapter.reload(dataWrapper);
+                        activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
                     },
                     null,
                     null,
@@ -136,7 +140,7 @@ public class ActivityLogActivity extends AppCompatActivity {
             PPApplicationStatic.setActivityLogEnabled(getApplicationContext(), !enabled);
             if (!enabled)
                 PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_STARTED_LOGGING, null, null, "");
-            activityLogAdapter.reload(dataWrapper);
+            activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
             listView.setSelection(0);
             invalidateOptionsMenu();
             return true;
@@ -267,9 +271,11 @@ public class ActivityLogActivity extends AppCompatActivity {
         if (cursor != null)
             cursor.close();
 
+        /*
         if (dataWrapper != null)
             dataWrapper.invalidateDataWrapper();
         dataWrapper = null;
+        */
     }
 
 }
