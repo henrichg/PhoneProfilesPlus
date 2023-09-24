@@ -17,8 +17,11 @@
         <ProgressBar
             android:id="@+id/calendars_multiselect_pref_dlg_progress"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dialog_progressbar_padding"
+            style="?android:attr/progressBarStyle"
+            android:indeterminateDrawable="@drawable/ic_progressbar" />
+
     </LinearLayout>
 
     <LinearLayout

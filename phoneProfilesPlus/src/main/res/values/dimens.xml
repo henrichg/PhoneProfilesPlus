@@ -115,4 +115,6 @@
     <dimen name="auto_size_max_text_size">16dp</dimen>
     <dimen name="auto_size_max_text_size_fill">20dp</dimen>
 
+    <dimen name="dialog_progressbar_padding">15dp</dimen>
+
 </resources>

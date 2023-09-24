@@ -3,7 +3,8 @@
     android:id="@+id/activity_progress_bar_dialog_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp"
+    android:padding="@dimen/dialog_progressbar_padding"
     style="?android:attr/progressBarStyle"
-    android:indeterminate="true" />
+    android:indeterminate="true"
+    android:indeterminateDrawable="@drawable/ic_progressbar" />
 
