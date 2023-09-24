@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class ActivityLogActivity extends AppCompatActivity {
 
     //private DataWrapper dataWrapper;
     private ListView listView;
+    private LinearLayout progressLinearLayout;
     private ActivityLogAdapter activityLogAdapter;
 
     @Override
@@ -44,6 +46,19 @@ public class ActivityLogActivity extends AppCompatActivity {
         //dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         listView = findViewById(R.id.activity_log_list);
+        progressLinearLayout = findViewById(R.id.activity_log_linla_progress);
+        listView.setVisibility(View.GONE);
+        progressLinearLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         new Handler(getMainLooper()).post(() -> {
             // Setup cursor adapter using cursor from last step
@@ -53,14 +68,11 @@ public class ActivityLogActivity extends AppCompatActivity {
 
                 // Attach cursor adapter to the ListView
                 listView.setAdapter(activityLogAdapter);
+
+                progressLinearLayout.setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
             }
         });
-
-    }
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override

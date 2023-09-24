@@ -95,6 +95,23 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/activity_log_linla_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ProgressBar
+            android:id="@+id/activity_log_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dialog_progressbar_padding"
+            style="?android:attr/progressBarStyleLarge"
+            android:indeterminateDrawable="@drawable/ic_progressbar" />
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/activity_log_list"
         android:layout_width="match_parent"
@@ -108,6 +125,7 @@
         android:scrollbarStyle="outsideOverlay"
         android:fadeScrollbars="false"
         android:divider="@android:color/transparent"
-        android:listSelector="?attr/listViewItemBackground" />
+        android:listSelector="?attr/listViewItemBackground"
+        android:visibility="gone" />
 
 </LinearLayout>
