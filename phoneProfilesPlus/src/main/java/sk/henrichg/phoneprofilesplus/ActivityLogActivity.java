@@ -3,8 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,12 +19,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import java.lang.ref.WeakReference;
+
 public class ActivityLogActivity extends AppCompatActivity {
 
     //private DataWrapper dataWrapper;
     private ListView listView;
     private LinearLayout progressLinearLayout;
     private ActivityLogAdapter activityLogAdapter;
+
+    private SetAdapterAsyncTask setAdapterAsyncTask = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,19 +64,9 @@ public class ActivityLogActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        new Handler(getMainLooper()).post(() -> {
-            // Setup cursor adapter using cursor from last step
-            Cursor activityLogCursor =  DatabaseHandler.getInstance(getApplicationContext()).getActivityLogCursor();
-            if (activityLogCursor != null) {
-                activityLogAdapter = new ActivityLogAdapter(getBaseContext(), activityLogCursor);
-
-                // Attach cursor adapter to the ListView
-                listView.setAdapter(activityLogAdapter);
-
-                progressLinearLayout.setVisibility(View.GONE);
-                listView.setVisibility(View.VISIBLE);
-            }
-        });
+        setAdapterAsyncTask =
+                new SetAdapterAsyncTask(this, getApplicationContext());
+        setAdapterAsyncTask.execute();
     }
 
     @Override
@@ -283,11 +277,63 @@ public class ActivityLogActivity extends AppCompatActivity {
         if (cursor != null)
             cursor.close();
 
+        if ((setAdapterAsyncTask != null) &&
+                setAdapterAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            setAdapterAsyncTask.cancel(true);
+        setAdapterAsyncTask = null;
+
         /*
         if (dataWrapper != null)
             dataWrapper.invalidateDataWrapper();
         dataWrapper = null;
         */
+    }
+
+    private static class SetAdapterAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        private final WeakReference<Context> contextWeakReference;
+        private final WeakReference<ActivityLogActivity> activityWeakReference;
+
+        Cursor activityLogCursor = null;
+
+        public SetAdapterAsyncTask(final ActivityLogActivity activity,
+                                   final Context context) {
+            this.contextWeakReference = new WeakReference<>(context);
+            this.activityWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Context context = contextWeakReference.get();
+
+            if (context != null) {
+                activityLogCursor =  DatabaseHandler.getInstance(context.getApplicationContext()).getActivityLogCursor();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            Context context = contextWeakReference.get();
+            ActivityLogActivity activity = activityWeakReference.get();
+
+            if ((context != null) && (activity != null)) {
+                if (activityLogCursor != null) {
+                    activity.activityLogAdapter = new ActivityLogAdapter(activity.getBaseContext(), activityLogCursor);
+
+                    // Attach cursor adapter to the ListView
+                    activity.listView.setAdapter(activity.activityLogAdapter);
+
+                    activity.progressLinearLayout.setVisibility(View.GONE);
+                    activity.listView.setVisibility(View.VISIBLE);
+                }
+            }
+
+        }
+
     }
 
 }
