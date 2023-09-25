@@ -14,10 +14,8 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.hardware.camera2.CameraAccessException;
 import android.os.Build;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -26,16 +24,12 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.color.DynamicColors;
-import com.noob.noobcameraflash.managers.NoobCameraManager;
 
 import java.util.List;
 
@@ -1006,6 +1000,7 @@ class GlobalGUIRoutines {
         return intentLaunch;
     }
 
+    /*
     static void setProgressBarVisible(final LinearLayout viewGroup, final ProgressBar progressBar) {
         progressBar.setVisibility(View.GONE);
         PPApplicationStatic.startHandlerThreadProgressBar();
@@ -1018,5 +1013,6 @@ class GlobalGUIRoutines {
             } catch (Exception ignored) {}
         }, 100);
     }
+    */
 
 }
