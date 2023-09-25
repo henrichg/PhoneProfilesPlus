@@ -396,14 +396,6 @@ Je to aplikacia SysteUI Tunner. Mas ho v S10.
 
 --------------
 
-Vyskusaj nahodit mobilne data s WRITE_SECURE_SETTINGS:
-NEFUNGUJE :-(
-boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data", r4) // r4 = 1 - zapnut, 0 - vypnut
-boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data1", r5)  // r5 = 1 - zapnut, 0 - vypnut
-boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data2", r5)  // r5 = 1 - zapnut, 0 - vypnut
-
---------------------
-
 Night light (blue light filter):
 
 Vypada to, ze takto sa to robi:
@@ -780,6 +772,70 @@ Uzivatelia sa stazuju, ze je to neprehladne:
    edit line v dialogu.
    Mozno budem menit aj samotnu ikonu, uvidime, co uzivatelia.
    HOTOVO
+
+----------------
+
+Macrodroid vie zapnúť/vypnúť mobilné dáta bez root? Pozri to.
+Vraj ide,ale len na niektorých mobiloch. Cez G1 právo. Vyskúšaj na svojích, čo máš v šuplíku.
+
+Pozri zdrojáky Macrodroid kvôli tomu.
+
+Takže Macrodroid zapisuje cez Settings.Global.putInt() pre
+"mobile_data", "mobile_data1", ''mobile_data2" "1" alebo "0".
+
+Zdroj:
+MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid/action/SetDataAction.java
+
+---
+
+Vyskusaj nahodit mobilne data s WRITE_SECURE_SETTINGS:
+NEFUNGUJE :-(
+boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data", r4) // r4 = 1 - zapnut, 0 - vypnut
+boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data1", r5)  // r5 = 1 - zapnut, 0 - vypnut
+boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data2", r5)  // r5 = 1 - zapnut, 0 - vypnut
+Toto som ale netestoval:
+boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data0", r5)  // r5 = 1 - zapnut, 0 - vypnut
+
+A neviem na akom mobile som to testoval.
+
+---
+
+GUI, co ponuka nastavenie mobilnych dat v Settings:
+Honor 7a: ponuka, ze ktore su predvolene mobilne data SIM 1 alebo SIM 2, zapnutie/vypnutie je zvlast
+Galaxy S10: SIM1, SIM 2, OFF; kedj e len jedna, tak SIM 1(2), OFF
+Galaxy S21: SIM1, SIM 2, OFF; ked je len jedna, tak SIM 1(2), OFF
+Xiaomi 13Lite: ponuka, ze ktore su predvolene mobilne data SIM 1 alebo SIM 2, zapnutie/vypnutie je zvlast
+OnePlus: ponuka, ze ktore su predvolene mobilne data SIM 1 alebo SIM 2, zapnutie/vypnutie je zvlast
+
+Ja mam podporu len zapnut/vypnut. Ktoru sim, to si musi nastavit uzivatel v Settings.
+Hm, hm.
+
+Este pozri Macrodroid, ci pre "svc data" nepouziva aj parameter, ze ktora sim.
+Nie nepouziva.
+
+Na S21, S10, Pixel 6 mam "mobile_data".
+
+Na tychto nemam sim, tak testi s dvoma sim:
+- Xiaomi ma "mobile_data", "mobile_data0", ''mobile_data1"
+- Huawei novy ma "mobile_data", "mobile_data0", ''mobile_data1"
+- Huawei stary ma "mobile_data", "mobile_data0", ''mobile_data1", ''mobile_data2"
+- Nexus 5x ma "mobile_data"
+- Pixel 3a ma "mobile_data", "mobile_data1", ''mobile_data2"
+- OnePlus ma "mobile_data", "mobile_data1"
+
+---
+
+Najprv sa testuje G1:
+if (Permissions.hasPermission(appContext,  Manifest.permission.WRITE_SECURE_SETTINGS)) {
+}
+a ak nie je grantnuté, potom sa použije root.
+Aj v title preference je (G1)(R).
+Pri Mobile data ale treba dat aj info preference, ze nemusí fungovat G1 na všetkých zariadeniach.
+string.profile_preferences_deviceMobileData_21 -> zmen (R) na (G1)(R). Vo vsetkych prekladoch.
+
+
+
+
 
 
 
