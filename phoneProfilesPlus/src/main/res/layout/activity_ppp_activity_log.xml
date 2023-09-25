@@ -45,6 +45,7 @@
                 android:text="@string/activity_log_header_log_time"
                 android:textStyle="bold"
                 android:textSize="16dp"
+                android:textColor="@color/activityNormalTextColor"
                 tools:ignore="SpUsage"/>
 
             <TextView
@@ -56,6 +57,7 @@
                 android:text="@string/activity_log_header_data_type"
                 android:textStyle="bold"
                 android:textSize="16dp"
+                android:textColor="@color/activityNormalTextColor"
                 tools:ignore="SpUsage" />
 
             <TextView
@@ -67,23 +69,8 @@
                 android:text="@string/activity_log_header_data"
                 android:textStyle="bold"
                 android:textSize="16dp"
+                android:textColor="@color/activityNormalTextColor"
                 tools:ignore="SpUsage" />
-
-            <!--
-            <TextView
-                android:id="@+id/activity_log_header_event_name"
-                android:layout_weight="0.22"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp" />
-
-            <TextView
-                android:id="@+id/activity_log_header_profile_name"
-                android:layout_weight="0.30"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp" />
-            -->
 
         </LinearLayout>
 
