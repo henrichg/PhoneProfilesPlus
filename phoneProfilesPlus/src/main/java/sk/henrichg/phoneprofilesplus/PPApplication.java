@@ -268,6 +268,7 @@ public class PPApplication extends Application
     // activity log types
     static final int ALTYPE_UNDEFINED = 0;
 
+    static final int ALTYPE_LOG_TOP = 999;
     static final int ALTYPE_PROFILE_ACTIVATION = 1;
     static final int ALTYPE_APPLICATION_EXIT = 10;
     static final int ALTYPE_DATA_IMPORT = 11;

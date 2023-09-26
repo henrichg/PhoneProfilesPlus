@@ -17,6 +17,7 @@ import androidx.cursoradapter.widget.CursorAdapter;
 
 class ActivityLogAdapter extends CursorAdapter {
 
+    private final int KEY_AL_ID;
     private final int KEY_AL_LOG_DATE_TIME;
     private final int KEY_AL_LOG_TYPE;
     private final int KEY_AL_EVENT_NAME;
@@ -31,6 +32,7 @@ class ActivityLogAdapter extends CursorAdapter {
     ActivityLogAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
 
+        KEY_AL_ID = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_ID);
         KEY_AL_LOG_DATE_TIME = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_DATE_TIME);
         KEY_AL_LOG_TYPE = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_TYPE);
         KEY_AL_EVENT_NAME = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_EVENT_NAME);
@@ -39,6 +41,7 @@ class ActivityLogAdapter extends CursorAdapter {
         //KEY_AL_DURATION_DELAY = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_DURATION_DELAY);
         KEY_AL_PROFILE_EVENT_COUNT = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT);
 
+        activityTypeStrings.put(PPApplication.ALTYPE_LOG_TOP, R.string.altype_logTop);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, R.string.altype_profileActivation);
         activityTypeStrings.put(PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, R.string.altype_mergedProfileActivation);
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE, R.string.altype_afterDuration_undoProfile);
@@ -160,6 +163,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED, color);
         activityTypeColors.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND, color);
         color = shiftColor(ContextCompat.getColor(context, R.color.altype_other), context);
+        //activityTypeColors.put(PPApplication.ALTYPE_LOG_TOP, color);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_DISABLE, color);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_ENABLE, color);
         activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_START, color);
@@ -204,8 +208,14 @@ class ActivityLogAdapter extends CursorAdapter {
         //rowData.profileName  = view.findViewById(R.id.activity_log_row_profile_name);
 
         //noinspection ConstantConditions
-        rowData.logTypeColor.setBackgroundColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE)));
-        rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+        if (cursor.getInt(KEY_AL_ID) == -1) {
+            rowData.logTypeColor.setBackgroundResource(R.color.activityBackgroundColor);
+            rowData.logDateTime.setText("");
+        }
+        else {
+            rowData.logTypeColor.setBackgroundColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE)));
+            rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+        }
 
         int logType = cursor.getInt(KEY_AL_LOG_TYPE);
         //noinspection ConstantConditions
@@ -244,8 +254,14 @@ class ActivityLogAdapter extends CursorAdapter {
         MyRowViewHolder rowData = (MyRowViewHolder) view.getTag();
 
         //noinspection ConstantConditions
-        rowData.logTypeColor.setBackgroundColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE)));
-        rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+        if (cursor.getInt(KEY_AL_ID) == -1) {
+            rowData.logTypeColor.setBackgroundResource(R.color.activityBackgroundColor);
+            rowData.logDateTime.setText("");
+        }
+        else {
+            rowData.logTypeColor.setBackgroundColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE)));
+            rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+        }
 
         int logType = cursor.getInt(KEY_AL_LOG_TYPE);
         //noinspection ConstantConditions

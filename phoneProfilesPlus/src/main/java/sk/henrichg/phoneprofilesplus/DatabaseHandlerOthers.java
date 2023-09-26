@@ -96,16 +96,26 @@ class DatabaseHandlerOthers {
             try {
                 instance.startRunningCommand();
 
-                final String selectQuery = "SELECT " + DatabaseHandler.KEY_AL_ID + "," +
-                        DatabaseHandler.KEY_AL_LOG_DATE_TIME + "," +
-                        DatabaseHandler.KEY_AL_LOG_TYPE + "," +
-                        DatabaseHandler.KEY_AL_EVENT_NAME + "," +
-                        DatabaseHandler.KEY_AL_PROFILE_NAME + "," +
-                        //DatabaseHandler.KEY_AL_PROFILE_ICON + "," +
-                        //DatabaseHandler.KEY_AL_DURATION_DELAY + "," +
-                        DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT +
+                final String selectQuery =
+                        "SELECT -1 AS " + DatabaseHandler.KEY_AL_ID + "," +
+                                "CURRENT_TIMESTAMP AS " + DatabaseHandler.KEY_AL_LOG_DATE_TIME + "," +
+                                PPApplication.ALTYPE_LOG_TOP + " AS " + DatabaseHandler.KEY_AL_LOG_TYPE + "," +
+                                "\"\" AS " + DatabaseHandler.KEY_AL_EVENT_NAME + "," +
+                                "\"\" AS " + DatabaseHandler.KEY_AL_PROFILE_NAME + "," +
+                                //DatabaseHandler.KEY_AL_PROFILE_ICON + "," +
+                                //DatabaseHandler.KEY_AL_DURATION_DELAY + "," +
+                                "\"\" AS " + DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT +
+                        " UNION ALL " +
+                        "SELECT " + DatabaseHandler.KEY_AL_ID + "," +
+                                DatabaseHandler.KEY_AL_LOG_DATE_TIME + "," +
+                                DatabaseHandler.KEY_AL_LOG_TYPE + "," +
+                                DatabaseHandler.KEY_AL_EVENT_NAME + "," +
+                                DatabaseHandler.KEY_AL_PROFILE_NAME + "," +
+                                //DatabaseHandler.KEY_AL_PROFILE_ICON + "," +
+                                //DatabaseHandler.KEY_AL_DURATION_DELAY + "," +
+                                DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT +
                         " FROM " + DatabaseHandler.TABLE_ACTIVITY_LOG +
-                        " ORDER BY " + DatabaseHandler.KEY_AL_ID + " DESC";
+                        " ORDER BY " + DatabaseHandler.KEY_AL_LOG_DATE_TIME + " DESC";
 
                 //SQLiteDatabase db = this.getWritableDatabase();
                 SQLiteDatabase db = instance.getMyWritableDatabase();

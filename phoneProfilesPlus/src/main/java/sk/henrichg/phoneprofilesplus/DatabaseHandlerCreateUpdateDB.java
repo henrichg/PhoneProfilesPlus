@@ -479,7 +479,6 @@ class DatabaseHandlerCreateUpdateDB {
 
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_AL_LOG_DATE_TIME ON " + DatabaseHandler.TABLE_ACTIVITY_LOG + " (" + DatabaseHandler.KEY_AL_LOG_DATE_TIME + ")");
 
-
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_AUTOROTATE ON " + DatabaseHandler.TABLE_PROFILES + " (" + DatabaseHandler.KEY_DEVICE_AUTOROTATE + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_CONNECT_TO_SSID ON " + DatabaseHandler.TABLE_PROFILES + " (" + DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID + ")");
 
