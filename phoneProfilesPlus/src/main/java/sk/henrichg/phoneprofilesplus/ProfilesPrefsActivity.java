@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -841,12 +842,15 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         Profile profile;
 
-        private final WeakReference<ProfilesPrefsActivity> activityWeakReference;
+        //private final WeakReference<ProfilesPrefsActivity> activityWeakReference;
+        @SuppressLint("StaticFieldLeak")
+        private final ProfilesPrefsActivity activity;
         private ProfilesPrefsFragment fragment;
 
         public StartPreferencesActivityAsyncTask(final ProfilesPrefsActivity activity,
                                                   int new_profile_mode, int predefinedProfileIndex) {
-            this.activityWeakReference = new WeakReference<>(activity);
+            //this.activityWeakReference = new WeakReference<>(activity);
+            this.activity = activity;
             this.new_profile_mode = new_profile_mode;
             this.predefinedProfileIndex = predefinedProfileIndex;
         }
@@ -856,7 +860,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             super.onPreExecute();
             fragment = new ProfilesPrefsRoot();
 
-            ProfilesPrefsActivity activity = activityWeakReference.get();
+            //ProfilesPrefsActivity activity = activityWeakReference.get();
 
             if (activity != null) {
                 activity.settingsLinearLayout.setVisibility(View.GONE);
@@ -866,12 +870,12 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            ProfilesPrefsActivity activity = activityWeakReference.get();
+            //ProfilesPrefsActivity activity = activityWeakReference.get();
 
             if (activity != null) {
 //                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".doInBackground");
                 profile = activity.loadPreferences(new_profile_mode, predefinedProfileIndex);
-                GlobalUtils.sleep(200);
+                //GlobalUtils.sleep(200);
             }
 
             return null;
@@ -881,7 +885,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
-            ProfilesPrefsActivity activity = activityWeakReference.get();
+            //ProfilesPrefsActivity activity = activityWeakReference.get();
 
             if ((activity != null) && (!activity.isFinishing())) {
 //                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".onPostExecute");

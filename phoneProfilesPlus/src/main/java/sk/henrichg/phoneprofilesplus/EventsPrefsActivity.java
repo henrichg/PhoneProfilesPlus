@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -776,12 +777,15 @@ public class EventsPrefsActivity extends AppCompatActivity
         final int new_event_mode;
         final int predefinedEventIndex;
 
-        private final WeakReference<EventsPrefsActivity> activityWeakReference;
+        //private final WeakReference<EventsPrefsActivity> activityWeakReference;
+        @SuppressLint("StaticFieldLeak")
+        private final EventsPrefsActivity activity;
         private EventsPrefsFragment fragment;
 
         public StartPreferencesActivityAsyncTask(final EventsPrefsActivity activity,
                                                  int new_event_mode, int predefinedEventIndex) {
-            this.activityWeakReference = new WeakReference<>(activity);
+            //this.activityWeakReference = new WeakReference<>(activity);
+            this.activity = activity;
             this.new_event_mode = new_event_mode;
             this.predefinedEventIndex = predefinedEventIndex;
         }
@@ -791,7 +795,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             super.onPreExecute();
             fragment = new EventsPrefsRoot();
 
-            EventsPrefsActivity activity = activityWeakReference.get();
+            //EventsPrefsActivity activity = activityWeakReference.get();
 
             if (activity != null) {
                 activity.settingsLinearLayout.setVisibility(View.GONE);
@@ -801,12 +805,12 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         @Override
         protected Void doInBackground(Void... params) {
-            EventsPrefsActivity activity = activityWeakReference.get();
+            //EventsPrefsActivity activity = activityWeakReference.get();
 
             if (activity != null) {
 //                Log.e("EventsPrefsActivity.StartPreferencesActivityAsyncTask", ".doInBackground");
                 activity.event = activity.loadPreferences(new_event_mode, predefinedEventIndex);
-                GlobalUtils.sleep(200);
+                //GlobalUtils.sleep(200);
             }
 
             return null;
@@ -816,7 +820,7 @@ public class EventsPrefsActivity extends AppCompatActivity
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
-            EventsPrefsActivity activity = activityWeakReference.get();
+            //EventsPrefsActivity activity = activityWeakReference.get();
 
             if ((activity != null) && (!activity.isFinishing())) {
 //                Log.e("EventsPrefsActivity.StartPreferencesActivityAsyncTask", ".onPostExecute");
