@@ -833,7 +833,39 @@ Aj v title preference je (G1)(R).
 Pri Mobile data ale treba dat aj info preference, ze nemusí fungovat G1 na všetkých zariadeniach.
 string.profile_preferences_deviceMobileData_21 -> zmen (R) na (G1)(R). Vo vsetkych prekladoch.
 
+---
 
+Skús aspoň jeden test mobile data, na s10. Že čo sa nastavuje keď zapneš, vypneš, prepneš sim. SetEdit je tvoj kamarát.
+
+S10:
+
+Zapnuta SIM 1 -> mobile_data=1
+Zapnuta SIM 2 -> mobile_data=1
+Vypnute mobilne data -> mobile_data=0
+
+Vypada to, ze tu je aka sim je nastavena pre moblne data:
+multi_sim_data_call=1 - zmenilo sa pri zmene sim (na 2) na 2
+multi_sim_data_call_slot=0 -  - zmenilo sa pri zmene sim (na 2) na 1
+
+device_provisioning_mobile_data=1 - nezmenilo sa pri zmene sim
+
+-
+
+Xiaomi 13lite:
+
+Zapnuta SIM 1:
+mobile_data=1, mobile_data0=1, mobile_data1=1
+device_provisioning_mobile_data=1
+
+Zapnuta SIM 2:
+mobile_data=1, mobile_data0=1, mobile_data1=1
+device_provisioning_mobile_data=1
+
+Cize tu s anemeni vobec nic.
+
+----
+
+Proste to vypada, ze cez (G1) moblne data menit nejde.
 
 
 
