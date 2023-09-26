@@ -41,7 +41,7 @@ class ActivityLogAdapter extends CursorAdapter {
         //KEY_AL_DURATION_DELAY = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_DURATION_DELAY);
         KEY_AL_PROFILE_EVENT_COUNT = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT);
 
-        activityTypeStrings.put(PPApplication.ALTYPE_LOG_TOP, R.string.altype_logTop);
+        //activityTypeStrings.put(PPApplication.ALTYPE_LOG_TOP, R.string.altype_logTop);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, R.string.altype_profileActivation);
         activityTypeStrings.put(PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, R.string.altype_mergedProfileActivation);
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE, R.string.altype_afterDuration_undoProfile);
@@ -218,17 +218,20 @@ class ActivityLogAdapter extends CursorAdapter {
         }
 
         int logType = cursor.getInt(KEY_AL_LOG_TYPE);
-        //noinspection ConstantConditions
-        String logTypeText = context.getString(activityTypeStrings.get(logType));
-        if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
-            String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT);
-            if (profileEventCount != null)
-                logTypeText = logTypeText + " " + profileEventCount;
+        String logTypeText;
+        if (cursor.getInt(KEY_AL_ID) == -1) {
+            logTypeText = "---";
+        } else {
+            //noinspection ConstantConditions
+            logTypeText = context.getString(activityTypeStrings.get(logType));
+            if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
+                String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT);
+                if (profileEventCount != null)
+                    logTypeText = logTypeText + " " + profileEventCount;
+            }
         }
         rowData.logType.setText(logTypeText);
 
-        //noinspection ConstantConditions
-        rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         String logData = "";
         String event_name = cursor.getString(KEY_AL_EVENT_NAME);
         String profile_name = cursor.getString(KEY_AL_PROFILE_NAME);
@@ -264,13 +267,18 @@ class ActivityLogAdapter extends CursorAdapter {
         }
 
         int logType = cursor.getInt(KEY_AL_LOG_TYPE);
-        //noinspection ConstantConditions
-        String logTypeText = context.getString(activityTypeStrings.get(logType));
+        String logTypeText;
+        if (cursor.getInt(KEY_AL_ID) == -1) {
+            logTypeText = "---";
+        } else {
+            //noinspection ConstantConditions
+            logTypeText = context.getString(activityTypeStrings.get(logType));
 
-        if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
-            String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT);
-            if (profileEventCount != null)
-                logTypeText = logTypeText + StringConstants.STR_COLON_WITH_SPACE + profileEventCount;
+            if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
+                String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT);
+                if (profileEventCount != null)
+                    logTypeText = logTypeText + StringConstants.STR_COLON_WITH_SPACE + profileEventCount;
+            }
         }
         rowData.logType.setText(logTypeText);
 

@@ -2166,8 +2166,6 @@
 
     <string name="event_preferences_hideNotUsedSensors">Hide not used sensors</string>
 
-    <string name="altype_logTop" translatable="false">---</string>
-
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
