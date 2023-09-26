@@ -418,6 +418,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
+        ProfilesPrefsActivity activity = (ProfilesPrefsActivity) getActivity();
+
         final Context context = getActivity().getBaseContext();
 
         // must be used handler for rewrite toolbar title/subtitle
@@ -456,6 +458,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferenceSubTitle.setText(fragment.getPreferenceScreen().getTitle());
         } else {
             preferenceSubTitle.setVisibility(View.GONE);
+
+            activity.progressLinearLayout.setVisibility(View.GONE);
+            activity.settingsLinearLayout.setVisibility(View.VISIBLE);
         }
 
 

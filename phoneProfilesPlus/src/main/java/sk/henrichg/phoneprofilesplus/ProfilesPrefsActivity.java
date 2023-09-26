@@ -40,8 +40,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
-    private LinearLayout settingsLinearLayout;
-    private LinearLayout progressLinearLayout;
+    LinearLayout settingsLinearLayout;
+    LinearLayout progressLinearLayout;
 
     private StartPreferencesActivityAsyncTask startPreferencesActivityAsyncTask = null;
     private FinishPreferencesActivityAsyncTask finishPreferencesActivityAsyncTask = null;
@@ -844,7 +844,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         //private final WeakReference<ProfilesPrefsActivity> activityWeakReference;
         @SuppressLint("StaticFieldLeak")
-        private final ProfilesPrefsActivity activity;
+        private ProfilesPrefsActivity activity;
         private ProfilesPrefsFragment fragment;
 
         public StartPreferencesActivityAsyncTask(final ProfilesPrefsActivity activity,
@@ -862,10 +862,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             //ProfilesPrefsActivity activity = activityWeakReference.get();
 
-            if (activity != null) {
-                activity.settingsLinearLayout.setVisibility(View.GONE);
-                activity.progressLinearLayout.setVisibility(View.VISIBLE);
-            }
+            //if (activity != null) {
+            //    activity.settingsLinearLayout.setVisibility(View.GONE);
+            //    activity.progressLinearLayout.setVisibility(View.VISIBLE);
+            //}
         }
 
         @Override
@@ -875,7 +875,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             if (activity != null) {
 //                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".doInBackground");
                 profile = activity.loadPreferences(new_profile_mode, predefinedProfileIndex);
-                //GlobalUtils.sleep(200);
+                //GlobalUtils.sleep(100);
             }
 
             return null;
@@ -890,9 +890,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             if ((activity != null) && (!activity.isFinishing())) {
 //                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".onPostExecute");
 
-                activity.progressLinearLayout.setVisibility(View.GONE);
-                activity.settingsLinearLayout.setVisibility(View.VISIBLE);
-
                 activity.toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name);
 
                 activity.getSupportFragmentManager()
@@ -900,7 +897,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         .replace(R.id.activity_preferences_settings, fragment)
                         .commit();
 
+                //activity.progressLinearLayout.setVisibility(View.GONE);
+                //activity.settingsLinearLayout.setVisibility(View.VISIBLE);
             }
+            activity = null;
         }
 
     }

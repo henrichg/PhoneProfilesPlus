@@ -49,8 +49,8 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     private Toolbar toolbar;
 
-    private LinearLayout settingsLinearLayout;
-    private LinearLayout progressLinearLayout;
+    LinearLayout settingsLinearLayout;
+    LinearLayout progressLinearLayout;
 
     private StartPreferencesActivityAsyncTask startPreferencesActivityAsyncTask = null;
     private FinishPreferencesActivityAsyncTask finishPreferencesActivityAsyncTask = null;
@@ -779,7 +779,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         //private final WeakReference<EventsPrefsActivity> activityWeakReference;
         @SuppressLint("StaticFieldLeak")
-        private final EventsPrefsActivity activity;
+        private EventsPrefsActivity activity;
         private EventsPrefsFragment fragment;
 
         public StartPreferencesActivityAsyncTask(final EventsPrefsActivity activity,
@@ -797,10 +797,10 @@ public class EventsPrefsActivity extends AppCompatActivity
 
             //EventsPrefsActivity activity = activityWeakReference.get();
 
-            if (activity != null) {
-                activity.settingsLinearLayout.setVisibility(View.GONE);
-                activity.progressLinearLayout.setVisibility(View.VISIBLE);
-            }
+            //if (activity != null) {
+            //    activity.settingsLinearLayout.setVisibility(View.GONE);
+            //    activity.progressLinearLayout.setVisibility(View.VISIBLE);
+            //}
         }
 
         @Override
@@ -810,7 +810,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             if (activity != null) {
 //                Log.e("EventsPrefsActivity.StartPreferencesActivityAsyncTask", ".doInBackground");
                 activity.event = activity.loadPreferences(new_event_mode, predefinedEventIndex);
-                //GlobalUtils.sleep(200);
+                //GlobalUtils.sleep(100);
             }
 
             return null;
@@ -832,10 +832,10 @@ public class EventsPrefsActivity extends AppCompatActivity
                         .replace(R.id.activity_preferences_settings, fragment)
                         .commit();
 
-                activity.progressLinearLayout.setVisibility(View.GONE);
-                activity.settingsLinearLayout.setVisibility(View.VISIBLE);
-
+                //activity.progressLinearLayout.setVisibility(View.GONE);
+                //activity.settingsLinearLayout.setVisibility(View.VISIBLE);
             }
+            activity = null;
         }
 
     }
