@@ -1214,19 +1214,23 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         //Log.e("EventPrefsFragment.onResume", "xxxxxx");
 
-        // this is important for update preferences after PPPPS and Extender installation
-        event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
-        //Log.e("EventPrefsFragment.onResume", "called event.setAllSummary()");
-        event.setAllSummary(prefMng, preferences, getActivity().getBaseContext());
+        if (event != null) {
+            // this is important for update preferences after PPPPS and Extender installation
+            event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
+            //Log.e("EventPrefsFragment.onResume", "called event.setAllSummary()");
+            event.setAllSummary(prefMng, preferences, getActivity().getBaseContext());
+        }
 
         if (!nestedFragment) {
             final Context context = getActivity().getBaseContext();
 
+//            if (event != null) {
 //            event._eventPreferencesApplication.checkPreferences(prefMng, !nestedFragment, context);
 //            event._eventPreferencesOrientation.checkPreferences(prefMng, !nestedFragment, context);
 //            event._eventPreferencesSMS.checkPreferences(prefMng, !nestedFragment, context);
 //            event._eventPreferencesCall.checkPreferences(prefMng, !nestedFragment, context);
 //            event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
+//            }
             setRedTextToPreferences();
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsPrefsFragment.onResume", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
@@ -1302,9 +1306,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                         !ApplicationPreferences.applicationEventHideNotUsedSensors);
         }
 
-        event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
-        //Log.e("EventPrefsFragment.onSharedPreferenceChanged", "called Event.setSummary (1)");
-        event.setSummary(prefMng, key, sharedPreferences, getActivity(), true);
+        if (event != null) {
+            event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
+            //Log.e("EventPrefsFragment.onSharedPreferenceChanged", "called Event.setSummary (1)");
+            event.setSummary(prefMng, key, sharedPreferences, getActivity(), true);
+        }
 
         setRedTextToPreferences();
 
@@ -1319,6 +1325,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
     void doOnActivityResult(int requestCode, int resultCode, Intent data) {
         if (getActivity() == null)
+            return;
+
+        if (event == null)
             return;
 
         final Context context = getActivity().getBaseContext();

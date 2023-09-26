@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,9 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     private Toolbar toolbar;
 
+    private LinearLayout settingsLinearLayout;
+    private LinearLayout progressLinearLayout;
+
     private StartPreferencesActivityAsyncTask startPreferencesActivityAsyncTask = null;
     private FinishPreferencesActivityAsyncTask finishPreferencesActivityAsyncTask = null;
 
@@ -76,7 +80,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_preferences);
+        setContentView(R.layout.activity_profile_events_preferences);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         toolbar = findViewById(R.id.activity_preferences_toolbar);
@@ -87,6 +91,9 @@ public class EventsPrefsActivity extends AppCompatActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
+
+        settingsLinearLayout = findViewById(R.id.activity_preferences_settings);
+        progressLinearLayout = findViewById(R.id.activity_preferences_settings_linla_progress);
 
         event_id = getIntent().getLongExtra(PPApplication.EXTRA_EVENT_ID, 0L);
         old_event_status = getIntent().getIntExtra(PPApplication.EXTRA_EVENT_STATUS, -1);
@@ -783,6 +790,13 @@ public class EventsPrefsActivity extends AppCompatActivity
         protected void onPreExecute() {
             super.onPreExecute();
             fragment = new EventsPrefsRoot();
+
+            EventsPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+                activity.settingsLinearLayout.setVisibility(View.GONE);
+                activity.progressLinearLayout.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -792,6 +806,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             if (activity != null) {
 //                Log.e("EventsPrefsActivity.StartPreferencesActivityAsyncTask", ".doInBackground");
                 activity.event = activity.loadPreferences(new_event_mode, predefinedEventIndex);
+                GlobalUtils.sleep(200);
             }
 
             return null;
@@ -803,7 +818,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 
             EventsPrefsActivity activity = activityWeakReference.get();
 
-            if (activity != null) {
+            if ((activity != null) && (!activity.isFinishing())) {
 //                Log.e("EventsPrefsActivity.StartPreferencesActivityAsyncTask", ".onPostExecute");
 
                 activity.toolbar.setTitle(activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + activity.event._name);
@@ -812,6 +827,9 @@ public class EventsPrefsActivity extends AppCompatActivity
                         .beginTransaction()
                         .replace(R.id.activity_preferences_settings, fragment)
                         .commit();
+
+                activity.progressLinearLayout.setVisibility(View.GONE);
+                activity.settingsLinearLayout.setVisibility(View.VISIBLE);
 
             }
         }

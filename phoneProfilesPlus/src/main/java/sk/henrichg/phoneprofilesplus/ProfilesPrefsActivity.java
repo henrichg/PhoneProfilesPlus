@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
+    private LinearLayout settingsLinearLayout;
+    private LinearLayout progressLinearLayout;
+
     private StartPreferencesActivityAsyncTask startPreferencesActivityAsyncTask = null;
     private FinishPreferencesActivityAsyncTask finishPreferencesActivityAsyncTask = null;
 
@@ -51,7 +55,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_preferences);
+        setContentView(R.layout.activity_profile_events_preferences);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         toolbar = findViewById(R.id.activity_preferences_toolbar);
@@ -62,6 +66,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
+
+        settingsLinearLayout = findViewById(R.id.activity_preferences_settings);
+        progressLinearLayout = findViewById(R.id.activity_preferences_settings_linla_progress);
 
         profile_id = getIntent().getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
         newProfileMode = getIntent().getIntExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_UNDEFINED);
@@ -848,6 +855,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             fragment = new ProfilesPrefsRoot();
+
+            ProfilesPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+                activity.settingsLinearLayout.setVisibility(View.GONE);
+                activity.progressLinearLayout.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -857,6 +871,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             if (activity != null) {
 //                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".doInBackground");
                 profile = activity.loadPreferences(new_profile_mode, predefinedProfileIndex);
+                GlobalUtils.sleep(200);
             }
 
             return null;
@@ -868,8 +883,11 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             ProfilesPrefsActivity activity = activityWeakReference.get();
 
-            if (activity != null) {
+            if ((activity != null) && (!activity.isFinishing())) {
 //                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".onPostExecute");
+
+                activity.progressLinearLayout.setVisibility(View.GONE);
+                activity.settingsLinearLayout.setVisibility(View.VISIBLE);
 
                 activity.toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name);
 
