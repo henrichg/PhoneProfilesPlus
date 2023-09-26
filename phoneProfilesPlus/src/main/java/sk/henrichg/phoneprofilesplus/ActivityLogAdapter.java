@@ -193,21 +193,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED, color);
     }
 
-    @Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.listitem_ppp_activity_log, parent, false);
-
-        MyRowViewHolder rowData  = new MyRowViewHolder();
-
-        rowData.logTypeColor = view.findViewById(R.id.activity_log_row_color);
-        rowData.logDateTime  = view.findViewById(R.id.activity_log_row_log_date_time);
-        rowData.logType  = view.findViewById(R.id.activity_log_row_log_type);
-        rowData.logData  = view.findViewById(R.id.activity_log_row_log_data);
-        //rowData.eventName  = view.findViewById(R.id.activity_log_row_event_name);
-        //rowData.profileName  = view.findViewById(R.id.activity_log_row_profile_name);
-
-        //noinspection ConstantConditions
+    private void setRowData(MyRowViewHolder rowData, Cursor cursor, Context context) {
         if (cursor.getInt(KEY_AL_ID) == -1) {
             rowData.logTypeColor.setBackgroundResource(R.color.activityBackgroundColor);
             rowData.logDateTime.setText("");
@@ -222,7 +208,6 @@ class ActivityLogAdapter extends CursorAdapter {
         if (cursor.getInt(KEY_AL_ID) == -1) {
             logTypeText = "---";
         } else {
-            //noinspection ConstantConditions
             logTypeText = context.getString(activityTypeStrings.get(logType));
             if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
                 String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT);
@@ -245,6 +230,23 @@ class ActivityLogAdapter extends CursorAdapter {
         rowData.logData.setText(logData);
         //rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
         //rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
+    }
+
+    @Override
+    public View newView(Context context, Cursor cursor, ViewGroup parent) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.listitem_ppp_activity_log, parent, false);
+
+        MyRowViewHolder rowData  = new MyRowViewHolder();
+
+        rowData.logTypeColor = view.findViewById(R.id.activity_log_row_color);
+        rowData.logDateTime  = view.findViewById(R.id.activity_log_row_log_date_time);
+        rowData.logType  = view.findViewById(R.id.activity_log_row_log_type);
+        rowData.logData  = view.findViewById(R.id.activity_log_row_log_data);
+        //rowData.eventName  = view.findViewById(R.id.activity_log_row_event_name);
+        //rowData.profileName  = view.findViewById(R.id.activity_log_row_profile_name);
+
+        setRowData(rowData, cursor, context);
 
         view.setTag(rowData);
 
@@ -256,45 +258,7 @@ class ActivityLogAdapter extends CursorAdapter {
 
         MyRowViewHolder rowData = (MyRowViewHolder) view.getTag();
 
-        //noinspection ConstantConditions
-        if (cursor.getInt(KEY_AL_ID) == -1) {
-            rowData.logTypeColor.setBackgroundResource(R.color.activityBackgroundColor);
-            rowData.logDateTime.setText("");
-        }
-        else {
-            rowData.logTypeColor.setBackgroundColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE)));
-            rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
-        }
-
-        int logType = cursor.getInt(KEY_AL_LOG_TYPE);
-        String logTypeText;
-        if (cursor.getInt(KEY_AL_ID) == -1) {
-            logTypeText = "---";
-        } else {
-            //noinspection ConstantConditions
-            logTypeText = context.getString(activityTypeStrings.get(logType));
-
-            if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
-                String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT);
-                if (profileEventCount != null)
-                    logTypeText = logTypeText + StringConstants.STR_COLON_WITH_SPACE + profileEventCount;
-            }
-        }
-        rowData.logType.setText(logTypeText);
-
-        String logData = "";
-        String event_name = cursor.getString(KEY_AL_EVENT_NAME);
-        String profile_name = cursor.getString(KEY_AL_PROFILE_NAME);
-        if (event_name != null)
-            logData = logData + event_name;
-        if (profile_name != null) {
-            if (!logData.isEmpty())
-                logData = logData + " ";
-            logData = logData + profile_name;
-        }
-        rowData.logData.setText(logData);
-        //rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
-        //rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
+        setRowData(rowData, cursor, context);
     }
 
     private static class MyRowViewHolder {
