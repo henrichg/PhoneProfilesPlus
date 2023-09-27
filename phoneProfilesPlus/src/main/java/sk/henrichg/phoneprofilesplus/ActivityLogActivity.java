@@ -1,9 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
@@ -21,14 +25,40 @@ import androidx.core.content.ContextCompat;
 
 import java.lang.ref.WeakReference;
 
-public class ActivityLogActivity extends AppCompatActivity {
+public class ActivityLogActivity extends AppCompatActivity
+                                            implements AddedActivityLogListener {
 
     //private DataWrapper dataWrapper;
     private ListView listView;
     private LinearLayout progressLinearLayout;
     private ActivityLogAdapter activityLogAdapter;
+    private TextView addedNewLogsText;
 
     private SetAdapterAsyncTask setAdapterAsyncTask = null;
+
+    boolean addedNewLogs = false;
+
+    @Override
+    public void addedActivityLog() {
+        addedNewLogs = true;
+        addedNewLogsText.setVisibility(View.VISIBLE);
+    }
+
+    static private class AddedActivityLogBroadcastReceiver extends BroadcastReceiver {
+
+        private final AddedActivityLogListener listener;
+
+        public AddedActivityLogBroadcastReceiver(AddedActivityLogListener listener){
+            this.listener = listener;
+        }
+
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            listener.addedActivityLog();
+        }
+
+    }
+    private AddedActivityLogBroadcastReceiver addedActivityLogBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +77,24 @@ public class ActivityLogActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
+        addedNewLogs = false;
+        addedNewLogsText = findViewById(R.id.activity_log_header_added_new_logs);
+        addedNewLogsText.setVisibility(View.GONE);
+
         //dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         listView = findViewById(R.id.activity_log_list);
         progressLinearLayout = findViewById(R.id.activity_log_linla_progress);
         listView.setVisibility(View.GONE);
         progressLinearLayout.setVisibility(View.VISIBLE);
+
+        addedActivityLogBroadcastReceiver = new AddedActivityLogBroadcastReceiver(this);
+        int receiverFlags = 0;
+        if (Build.VERSION.SDK_INT >= 34)
+            receiverFlags = RECEIVER_NOT_EXPORTED;
+        registerReceiver(addedActivityLogBroadcastReceiver,
+                new IntentFilter(PPApplication.ACTION_ADDED_ACIVITY_LOG), receiverFlags);
+
     }
 
     @Override
@@ -108,6 +150,8 @@ public class ActivityLogActivity extends AppCompatActivity {
         }
         else
         if (itemId == R.id.menu_activity_log_reload) {
+            addedNewLogs = false;
+            addedNewLogsText.setVisibility(View.GONE);
             activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
             listView.setSelection(0);
             return true;
@@ -121,6 +165,8 @@ public class ActivityLogActivity extends AppCompatActivity {
                     getString(R.string.alert_button_no),
                     null, null,
                     (dialog1, which) -> {
+                        addedNewLogs = false;
+                        addedNewLogsText.setVisibility(View.GONE);
                         DatabaseHandler.getInstance(getApplicationContext()).clearActivityLog();
                         activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
                     },
@@ -273,6 +319,14 @@ public class ActivityLogActivity extends AppCompatActivity {
     protected void onDestroy()
     {
         super.onDestroy();
+
+        try {
+            unregisterReceiver(addedActivityLogBroadcastReceiver);
+            addedActivityLogBroadcastReceiver = null;
+        } catch (IllegalArgumentException e) {
+            //PPApplicationStatic.recordException(e);
+        }
+
         Cursor cursor = activityLogAdapter.getCursor();
         if (cursor != null)
             cursor.close();

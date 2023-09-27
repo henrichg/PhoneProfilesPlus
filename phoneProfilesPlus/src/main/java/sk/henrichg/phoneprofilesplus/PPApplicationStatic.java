@@ -387,6 +387,9 @@ class PPApplicationStatic {
                     //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
                     DatabaseHandler.getInstance(appContext).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
                             logType, eventName, profileName, profilesEventsCount);
+
+                    Intent intent = new Intent(PPApplication.ACTION_ADDED_ACIVITY_LOG);
+                    appContext.sendBroadcast(intent);
                 }
             }; //);
             createBasicExecutorPool();

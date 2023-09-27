@@ -74,6 +74,19 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/activity_log_header_added_new_logs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/activity_log_added_new_logs"
+            android:textSize="14sp"
+            android:textColor="@color/activityNormalTextColor"
+            android:visibility="gone" />
+
         <View
             android:id="@+id/activity_log_header_divider"
             android:layout_width="match_parent"

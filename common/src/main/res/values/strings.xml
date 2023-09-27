@@ -2166,6 +2166,8 @@
 
     <string name="event_preferences_hideNotUsedSensors">Hide not used sensors</string>
 
+    <string name="activity_log_added_new_logs">Added new logs. Use \"Reload\" to display it.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

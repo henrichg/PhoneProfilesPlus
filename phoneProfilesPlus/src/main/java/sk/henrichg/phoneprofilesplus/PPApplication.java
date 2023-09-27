@@ -676,6 +676,8 @@ public class PPApplication extends Application
     static final String ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver";
     static final String ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver";
 
+    static final String ACTION_ADDED_ACIVITY_LOG =  PPApplication.PACKAGE_NAME + ".AddedActivityLogBroadcastReceiver";
+
     static final String EXTRA_WHAT_FINISH = "what_finish";
 
     static final String EXTRA_REGISTRATION_APP = "registration_app";
