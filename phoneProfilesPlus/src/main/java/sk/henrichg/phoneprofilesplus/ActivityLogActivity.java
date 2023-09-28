@@ -36,11 +36,11 @@ public class ActivityLogActivity extends AppCompatActivity
 
     private SetAdapterAsyncTask setAdapterAsyncTask = null;
 
-    boolean addedNewLogs = false;
+    //boolean addedNewLogs = false;
 
     @Override
     public void addedActivityLog() {
-        addedNewLogs = true;
+        //addedNewLogs = true;
         addedNewLogsText.setVisibility(View.VISIBLE);
     }
 
@@ -77,7 +77,7 @@ public class ActivityLogActivity extends AppCompatActivity
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
-        addedNewLogs = false;
+        //addedNewLogs = false;
         addedNewLogsText = findViewById(R.id.activity_log_header_added_new_logs);
         addedNewLogsText.setVisibility(View.GONE);
 
@@ -151,7 +151,7 @@ public class ActivityLogActivity extends AppCompatActivity
         }
         else
         if (itemId == R.id.menu_activity_log_reload) {
-            addedNewLogs = false;
+            //addedNewLogs = false;
             addedNewLogsText.setVisibility(View.GONE);
             activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
             listView.setSelection(0);
@@ -166,7 +166,7 @@ public class ActivityLogActivity extends AppCompatActivity
                     getString(R.string.alert_button_no),
                     null, null,
                     (dialog1, which) -> {
-                        addedNewLogs = false;
+                        //addedNewLogs = false;
                         addedNewLogsText.setVisibility(View.GONE);
                         DatabaseHandler.getInstance(getApplicationContext()).clearActivityLog();
                         activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
