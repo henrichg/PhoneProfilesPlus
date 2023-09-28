@@ -154,6 +154,8 @@
                     android:id="@+id/nfc_tag_pref_dlg_empty_image"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
                     android:src="@drawable/ic_empty_list"
                     android:layout_centerInParent="true"
                     android:adjustViewBounds="true"
