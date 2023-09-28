@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -18,6 +19,8 @@ public class ProfilePreferenceFragment extends PreferenceDialogFragmentCompat {
 
     private LinearLayout linlaProgress;
     private ListView listView;
+    RelativeLayout emptyList;
+
     private ProfilePreferenceAdapter profilePreferenceAdapter;
 
     private Context prefContext;
@@ -45,6 +48,7 @@ public class ProfilePreferenceFragment extends PreferenceDialogFragmentCompat {
         linlaProgress = view.findViewById(R.id.profile_pref_dlg_linla_progress);
 
         listView = view.findViewById(R.id.profile_pref_dlg_listview);
+        emptyList = view.findViewById(R.id.profile_pref_dlg_empty);
 
         listView.setOnItemClickListener((parent, item, position, id) -> doOnItemSelected(position));
 
@@ -134,6 +138,14 @@ public class ProfilePreferenceFragment extends PreferenceDialogFragmentCompat {
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 //listView.setVisibility(View.VISIBLE);
                 fragment.linlaProgress.setVisibility(View.GONE);
+
+                if ((preference.addNoActivateItem != 1) && (preference.dataWrapper.profileList.size() == 0)) {
+                    fragment.listView.setVisibility(View.GONE);
+                    fragment.emptyList.setVisibility(View.VISIBLE);
+                } else {
+                    fragment.emptyList.setVisibility(View.GONE);
+                    fragment.listView.setVisibility(View.VISIBLE);
+                }
 
                 fragment.profilePreferenceAdapter = new ProfilePreferenceAdapter(fragment, prefContext, preference.profileId, preference.dataWrapper.profileList);
                 fragment.listView.setAdapter(fragment.profilePreferenceAdapter);

@@ -12,6 +12,7 @@ import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,6 +34,10 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
 
     private MobileCellNamesPreferenceAdapter listAdapter;
 
+    ListView cellsListView;
+    private LinearLayout linlaProgress;
+    private LinearLayout listViewRoot;
+
     private RelativeLayout locationSystemSettingsRelLa;
     private TextView locationEnabledStatusTextView;
     private AppCompatImageButton locationSystemSettingsButton;
@@ -40,6 +45,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
     private TextView connectedCellSIM2;
     private TextView connectedCellDefault;
     private Button rescanButton;
+    RelativeLayout emptyList;
 
     private RefreshListViewAsyncTask rescanAsyncTask = null;
 
@@ -67,7 +73,10 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
         PPApplication.mobileCellsForceStart = true;
         PPApplicationStatic.forceStartMobileCellsScanner(prefContext);
 
-        ListView cellsListView = view.findViewById(R.id.mobile_cell_names_pref_dlg_listview);
+        linlaProgress = view.findViewById(R.id.mobile_cell_names_pref_dlg_linla_progress);
+        listViewRoot = view.findViewById(R.id.mobile_cell_names_pref_dlg_rella_dialog);
+        cellsListView = view.findViewById(R.id.mobile_cell_names_pref_dlg_listview);
+        emptyList = view.findViewById(R.id.mobile_cell_names_pref_dlg_empty);
         listAdapter = new MobileCellNamesPreferenceAdapter(prefContext, preference);
         cellsListView.setAdapter(listAdapter);
 
@@ -318,8 +327,8 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                     sim2Exists = false;
                 }
 
-                //dataRelativeLayout.setVisibility(View.GONE);
-                //progressLinearLayout.setVisibility(View.VISIBLE);
+                fragment.listViewRoot.setVisibility(View.GONE);
+                fragment.linlaProgress.setVisibility(View.VISIBLE);
             }
         }
 
@@ -396,6 +405,18 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
 
                 preference.cellNamesList = new ArrayList<>(_cellsList);
+
+                fragment.listViewRoot.setVisibility(View.VISIBLE);
+                fragment.linlaProgress.setVisibility(View.GONE);
+
+                if (preference.cellNamesList.size() == 0) {
+                    fragment.cellsListView.setVisibility(View.GONE);
+                    fragment.emptyList.setVisibility(View.VISIBLE);
+                } else {
+                    fragment.emptyList.setVisibility(View.GONE);
+                    fragment.cellsListView.setVisibility(View.VISIBLE);
+                }
+
                 fragment.listAdapter.notifyDataSetChanged();
 
                 if ((fragment.phoneCount > 1)) {

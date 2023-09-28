@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
@@ -30,6 +31,8 @@ class MobileCellNamesDialog {
 
     private final AlertDialog mDialog;
     final EditText cellName;
+    ListView cellNamesListView;
+    RelativeLayout emptyList;
 
     private final LinearLayout linlaProgress;
     private final LinearLayout rellaDialog;
@@ -98,7 +101,8 @@ class MobileCellNamesDialog {
 //            }
 //        });
 
-        ListView cellNamesListView = layout.findViewById(R.id.mobile_cell_names_dlg_listview);
+        cellNamesListView = layout.findViewById(R.id.mobile_cell_names_dlg_listview);
+        emptyList = layout.findViewById(R.id.mobile_cell_names_dlg_empty);
         cellName = layout.findViewById(R.id.mobile_cell_names_dlg_name);
         cellName.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.highlighted_spinner_all));
         if (!showFilterItems) {
@@ -201,6 +205,14 @@ class MobileCellNamesDialog {
                 dialog.linlaProgress.setVisibility(View.GONE);
 
                 dialog.cellNamesList = new ArrayList<>(_cellNamesList);
+
+                if (dialog.cellNamesList.size() == 0) {
+                    dialog.cellNamesListView.setVisibility(View.GONE);
+                    dialog.emptyList.setVisibility(View.VISIBLE);
+                } else {
+                    dialog.emptyList.setVisibility(View.GONE);
+                    dialog.cellNamesListView.setVisibility(View.VISIBLE);
+                }
 
                 //if (dialog.preference == null) {
                 //    if (activity instanceof NotUsedMobileCellsDetectedActivity) {

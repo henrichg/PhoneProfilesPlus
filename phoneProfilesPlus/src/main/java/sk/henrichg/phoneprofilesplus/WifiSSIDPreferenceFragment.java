@@ -53,6 +53,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
     private TextView locationEnabledStatusTextView;
     private AppCompatImageButton locationSystemSettingsButton;
     private Button rescanButton;
+    RelativeLayout emptyList;
 
     private RefreshListViewAsyncTask rescanAsyncTask;
 
@@ -124,6 +125,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                 addIcon, prefContext.getApplicationContext());
 
         SSIDListView = layout.findViewById(R.id.wifi_ssid_pref_dlg_listview);
+        emptyList = layout.findViewById(R.id.wifi_ssid_pref_dlg_empty);
         listAdapter = new WifiSSIDPreferenceAdapter(prefContext, preference);
         SSIDListView.setAdapter(listAdapter);
 
@@ -758,6 +760,14 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                     WifiScanner.setForceOneWifiScan(prefContext, WifiScanner.FORCE_ONE_SCAN_DISABLED);
                     fragment.progressLinearLayout.setVisibility(View.GONE);
                     fragment.dataRelativeLayout.setVisibility(View.VISIBLE);
+
+                    if (preference.SSIDList.size() == 0) {
+                        fragment.SSIDListView.setVisibility(View.GONE);
+                        fragment.emptyList.setVisibility(View.VISIBLE);
+                    } else {
+                        fragment.emptyList.setVisibility(View.GONE);
+                        fragment.SSIDListView.setVisibility(View.VISIBLE);
+                    }
 
                     if (fragment.mDialog != null) {
                         Button positive = (fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);

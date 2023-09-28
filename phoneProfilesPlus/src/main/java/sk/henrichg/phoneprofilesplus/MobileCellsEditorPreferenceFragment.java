@@ -51,6 +51,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
     private SingleSelectListDialog mSelectorDialog;
     private SingleSelectListDialog mSortDialog;
 
+    ListView cellsListView;
     private TextView cellFilter;
     //private TextView cellName;
     private TextView connectedCellSIM1;
@@ -66,6 +67,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
     private TextView locationEnabledStatusTextView;
     private AppCompatImageButton locationSystemSettingsButton;
     private Button rescanButton;
+    RelativeLayout emptyList;
 
     private RefreshListViewAsyncTask rescanAsyncTask = null;
 
@@ -130,7 +132,8 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         connectedCellSIM2 = view.findViewById(R.id.mobile_cells_pref_dlg_connectedCell_sim2);
         connectedCellDefault = view.findViewById(R.id.mobile_cells_pref_dlg_connectedCell_simDefault);
 
-        ListView cellsListView = view.findViewById(R.id.mobile_cells_pref_dlg_listview);
+        cellsListView = view.findViewById(R.id.mobile_cells_pref_dlg_listview);
+        emptyList = view.findViewById(R.id.mobile_cells_pref_dlg_empty);
         listAdapter = new MobileCellsEditorPreferenceAdapter(prefContext, preference);
         cellsListView.setAdapter(listAdapter);
 
@@ -1201,6 +1204,15 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
                 //preference.cellsList = new ArrayList<>(_cellsList);
                 preference.filteredCellsList = new ArrayList<>(_filteredCellsList);
+
+                if (preference.filteredCellsList.size() == 0) {
+                    fragment.cellsListView.setVisibility(View.GONE);
+                    fragment.emptyList.setVisibility(View.VISIBLE);
+                } else {
+                    fragment.emptyList.setVisibility(View.GONE);
+                    fragment.cellsListView.setVisibility(View.VISIBLE);
+                }
+
                 fragment.listAdapter.notifyDataSetChanged();
 
                 /*

@@ -60,6 +60,7 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
         TooltipCompat.setTooltipText(addButton, getString(R.string.location_pref_dlg_add_button_tooltip));
 
         ListView geofencesListView = view.findViewById(R.id.location_pref_dlg_listview);
+        geofencesListView.setEmptyView(view.findViewById(R.id.location_pref_dlg_empty));
 
         listAdapter = new LocationGeofencesPreferenceAdapter(prefContext, DatabaseHandler.getInstance(prefContext.getApplicationContext()).getGeofencesCursor(), this);
         geofencesListView.setAdapter(listAdapter);

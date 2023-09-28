@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -29,6 +30,7 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
     private ListView listView = null;
     private LinearLayout linlaProgress;
     private LinearLayout rellaData;
+    RelativeLayout emptyList;
 
     private CalendarsMultiSelectPreferenceAdapter listAdapter;
 
@@ -65,6 +67,7 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
         linlaProgress = view.findViewById(R.id.calendars_multiselect_pref_dlg_linla_progress);
         rellaData = view.findViewById(R.id.calendars_multiselect_pref_dlg_rella_data);
         listView = view.findViewById(R.id.calendars_multiselect_pref_dlg_listview);
+        emptyList = view.findViewById(R.id.calendars_multiselect_pref_dlg_empty);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
             CalendarEvent calendar = (CalendarEvent)listAdapter.getItem(position);
@@ -249,6 +252,14 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
                 if (notForUnselect) {
                     fragment.rellaData.setVisibility(View.VISIBLE);
                     fragment.linlaProgress.setVisibility(View.GONE);
+
+                    if (preference.calendarList.size() == 0) {
+                        fragment.listView.setVisibility(View.GONE);
+                        fragment.emptyList.setVisibility(View.VISIBLE);
+                    } else {
+                        fragment.emptyList.setVisibility(View.GONE);
+                        fragment.listView.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         }

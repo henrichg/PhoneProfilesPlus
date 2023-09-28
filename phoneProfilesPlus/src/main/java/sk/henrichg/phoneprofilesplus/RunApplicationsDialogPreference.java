@@ -777,6 +777,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                 if (_position != -1) {
                     editedApplication.type = selectedApplication.type;
                     editedApplication.appLabel = selectedApplication.appLabel;
+                    editedApplication.icon = null;
                     editedApplication.packageName = selectedApplication.packageName;
                     editedApplication.activityName = selectedApplication.activityName;
 

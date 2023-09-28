@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -23,6 +24,7 @@ class AskForDurationActivateProfileDialog
 
     private final LinearLayout linlaProgress;
     private final ListView listView;
+    private final RelativeLayout emptyList;
 
     private ShowDialogAsyncTask showDialogAsyncTask = null;
 
@@ -64,6 +66,7 @@ class AskForDurationActivateProfileDialog
         linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
 
         listView = layout.findViewById(R.id.profile_pref_dlg_listview);
+        emptyList = layout.findViewById(R.id.profile_pref_dlg_empty);
 
         listView.setOnItemClickListener((parent, v, position, id) -> doOnItemSelected(position));
 
@@ -146,6 +149,13 @@ class AskForDurationActivateProfileDialog
             if ((dialog != null) && (activity != null)) {
                 //listView.setVisibility(View.VISIBLE);
                 dialog.linlaProgress.setVisibility(View.GONE);
+                if (dialog.dataWrapper.profileList.size() == 0) {
+                    dialog.listView.setVisibility(View.GONE);
+                    dialog.emptyList.setVisibility(View.VISIBLE);
+                } else {
+                    dialog.emptyList.setVisibility(View.GONE);
+                    dialog.listView.setVisibility(View.VISIBLE);
+                }
 
                 AskForDurationActivateProfileAdapter adapter = new AskForDurationActivateProfileAdapter(
                         dialog, activity, afterDoProfile, dialog.dataWrapper.profileList);

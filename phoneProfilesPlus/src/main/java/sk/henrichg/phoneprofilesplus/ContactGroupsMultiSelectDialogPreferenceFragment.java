@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 public class ContactGroupsMultiSelectDialogPreferenceFragment extends PreferenceDialogFragmentCompat {
 
@@ -20,8 +22,10 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
     private ContactGroupsMultiSelectDialogPreference preference;
 
     // Layout widgets.
+    ListView listView;
     private LinearLayout linlaProgress;
     private LinearLayout rellaData;
+    RelativeLayout emptyList;
 
     private ContactGroupsMultiSelectPreferenceAdapter listAdapter;
 
@@ -45,7 +49,8 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
 
         linlaProgress = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_linla_progress);
         rellaData = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_rella_data);
-        ListView listView = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_listview);
+        listView = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_listview);
+        emptyList = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_empty);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
             ContactGroup contactGroup = (ContactGroup)listAdapter.getItem(position);
@@ -169,6 +174,18 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                 if (notForUnselect) {
                     fragment.rellaData.setVisibility(View.VISIBLE);
                     fragment.linlaProgress.setVisibility(View.GONE);
+
+                    ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
+                    if (contactGroupsCache != null) {
+                        List<ContactGroup> contactGroupList = contactGroupsCache.getList();
+                        if ((contactGroupList != null) && (contactGroupList.size() == 0)) {
+                            fragment.listView.setVisibility(View.GONE);
+                            fragment.emptyList.setVisibility(View.VISIBLE);
+                        } else {
+                            fragment.emptyList.setVisibility(View.GONE);
+                            fragment.listView.setVisibility(View.VISIBLE);
+                        }
+                    }
                 }
             }
         }

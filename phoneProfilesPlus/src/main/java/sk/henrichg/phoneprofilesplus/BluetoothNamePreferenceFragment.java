@@ -54,6 +54,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
     private TextView locationEnabledStatusTextView;
     private AppCompatImageButton locationSystemSettingsButton;
     private Button rescanButton;
+    RelativeLayout emptyList;
 
     private RefreshListViewAsyncTask rescanAsyncTask;
 
@@ -126,6 +127,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                 addIcon, prefContext.getApplicationContext());
 
         bluetoothListView = layout.findViewById(R.id.bluetooth_name_pref_dlg_listview);
+        emptyList = layout.findViewById(R.id.bluetooth_name_pref_dlg_empty);
         listAdapter = new BluetoothNamePreferenceAdapter(prefContext, preference);
         bluetoothListView.setAdapter(listAdapter);
 
@@ -776,6 +778,14 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                     BluetoothScanWorker.setScanKilled(prefContext, false);
                     fragment.progressLinearLayout.setVisibility(View.GONE);
                     fragment.dataRelativeLayout.setVisibility(View.VISIBLE);
+
+                    if (preference.bluetoothList.size() == 0) {
+                        fragment.bluetoothListView.setVisibility(View.GONE);
+                        fragment.emptyList.setVisibility(View.VISIBLE);
+                    } else {
+                        fragment.emptyList.setVisibility(View.GONE);
+                        fragment.bluetoothListView.setVisibility(View.VISIBLE);
+                    }
 
                     if (fragment.mDialog != null) {
                         Button positive = (fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -29,6 +30,7 @@ public class LiveWallpapersDialogPreferenceFragment extends PreferenceDialogFrag
 
     private ListView listView;
     private LinearLayout linlaProgress;
+    RelativeLayout emptyList;
 
     private LiveWallpapersDialogPreferenceAdapter listAdapter;
 
@@ -51,6 +53,7 @@ public class LiveWallpapersDialogPreferenceFragment extends PreferenceDialogFrag
         super.onBindDialogView(view);
 
         listView = view.findViewById(R.id.live_wallpapers_pref_dlg_listview);
+        emptyList = view.findViewById(R.id.live_wallpapers_pref_dlg_empty);
         linlaProgress = view.findViewById(R.id.live_wallpapers_pref_dlg_linla_progress);
 
         listAdapter = new LiveWallpapersDialogPreferenceAdapter(prefContext, preference);
@@ -197,6 +200,14 @@ public class LiveWallpapersDialogPreferenceFragment extends PreferenceDialogFrag
 
                 fragment.linlaProgress.setVisibility(View.GONE);
                 fragment.listView.setVisibility(View.VISIBLE);
+
+                if (preference.liveWallpapersList.size() == 0) {
+                    fragment.listView.setVisibility(View.GONE);
+                    fragment.emptyList.setVisibility(View.VISIBLE);
+                } else {
+                    fragment.emptyList.setVisibility(View.GONE);
+                    fragment.listView.setVisibility(View.VISIBLE);
+                }
             }
 
         }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -20,6 +21,8 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
     private LinearLayout linlaProgress;
     private ListView listView;
     private LinearLayout listViewRoot;
+    RelativeLayout emptyList;
+
     private ProfileMultiSelectPreferenceAdapter profilePreferenceAdapter;
 
     private Context prefContext;
@@ -44,9 +47,9 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
         super.onBindDialogView(view);
 
         linlaProgress = view.findViewById(R.id.profile_multiselect_pref_dlg_linla_progress);
-
         listViewRoot = view.findViewById(R.id.profile_multiselect_pref_dlg_listview_root);
         listView = view.findViewById(R.id.profile_multiselect_pref_dlg_listview);
+        emptyList = view.findViewById(R.id.profile_multiselect_pref_dlg_empty);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
             Profile profile = (Profile)profilePreferenceAdapter.getItem(position);
@@ -188,6 +191,14 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
                 if (notForUnselect) {
                     fragment.listViewRoot.setVisibility(View.VISIBLE);
                     fragment.linlaProgress.setVisibility(View.GONE);
+                }
+
+                if (preference.dataWrapper.profileList.size() == 0) {
+                    fragment.listView.setVisibility(View.GONE);
+                    fragment.emptyList.setVisibility(View.VISIBLE);
+                } else {
+                    fragment.emptyList.setVisibility(View.GONE);
+                    fragment.listView.setVisibility(View.VISIBLE);
                 }
 
                 fragment.profilePreferenceAdapter = new ProfileMultiSelectPreferenceAdapter(fragment, prefContext, preference.dataWrapper.profileList);

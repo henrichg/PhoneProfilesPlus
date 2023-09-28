@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -37,6 +38,8 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
     private ListView nfcTagListView;
     private EditText nfcTagName;
     private AppCompatImageButton addIcon;
+    RelativeLayout emptyList;
+
     private NFCTagPreferenceAdapter listAdapter;
 
     private RefreshListViewAsyncTask rescanAsyncTask;
@@ -99,6 +102,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                 addIcon, prefContext.getApplicationContext());
 
         nfcTagListView = view.findViewById(R.id.nfc_tag_pref_dlg_listview);
+        emptyList = view.findViewById(R.id.nfc_tag_pref_dlg_empty);
         listAdapter = new NFCTagPreferenceAdapter(prefContext, preference);
         nfcTagListView.setAdapter(listAdapter);
 
@@ -441,6 +445,15 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 preference.nfcTagList = new ArrayList<>(_nfcTagList);
+
+                if (preference.nfcTagList.size() == 0) {
+                    fragment.nfcTagListView.setVisibility(View.GONE);
+                    fragment.emptyList.setVisibility(View.VISIBLE);
+                } else {
+                    fragment.emptyList.setVisibility(View.GONE);
+                    fragment.nfcTagListView.setVisibility(View.VISIBLE);
+                }
+
                 fragment.listAdapter.notifyDataSetChanged();
 
                 /*

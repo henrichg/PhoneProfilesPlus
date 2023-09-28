@@ -56,7 +56,8 @@ class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder 
                 Bitmap icon = PPApplicationStatic.getApplicationsCache().getApplicationIcon(application/*, false*/);
                 if (icon == null)
                     PPApplicationStatic.getApplicationsCache().setApplicationIcon(context, application);
-                imageViewIcon.setImageBitmap(PPApplicationStatic.getApplicationsCache().getApplicationIcon(application/*, false*/));
+                application.icon = PPApplicationStatic.getApplicationsCache().getApplicationIcon(application/*, false*/);
+                imageViewIcon.setImageBitmap(application.icon);
             }
         }
         else

@@ -28,6 +28,7 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
     private RunApplicationsDialogPreference preference;
 
     private RecyclerView applicationsListView;
+    private RelativeLayout emptyList;
     private ItemTouchHelper itemTouchHelper;
 
     private RunApplicationsDialogPreferenceAdapter listAdapter;
@@ -62,6 +63,7 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
         //applicationsListView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         applicationsListView.setLayoutManager(layoutManager);
         applicationsListView.setHasFixedSize(true);
+        emptyList = view.findViewById(R.id.run_applications_pref_dlg_empty);
 
         linlaProgress = view.findViewById(R.id.run_applications_pref_dlg_linla_progress);
         rellaDialog = view.findViewById(R.id.run_applications_pref_dlg_rella_dialog);
@@ -120,6 +122,14 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
 
     @SuppressLint("NotifyDataSetChanged")
     void updateGUI() {
+        if (preference.applicationsList.size() == 0) {
+            applicationsListView.setVisibility(View.GONE);
+            emptyList.setVisibility(View.VISIBLE);
+        } else {
+            emptyList.setVisibility(View.GONE);
+            applicationsListView.setVisibility(View.VISIBLE);
+        }
+
         applicationsListView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
         listAdapter.notifyDataSetChanged();
     }
@@ -190,14 +200,17 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
             RunApplicationsDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-
-                if (PPApplicationStatic.getApplicationsCache() != null)
-                    if (!PPApplicationStatic.getApplicationsCache().cached)
-                        PPApplicationStatic.getApplicationsCache().clearCache(false);
-
                 fragment.applicationsListView.setAdapter(fragment.listAdapter);
                 fragment.rellaDialog.setVisibility(View.VISIBLE);
                 fragment.linlaProgress.setVisibility(View.GONE);
+
+                if (preference.applicationsList.size() == 0) {
+                    fragment.applicationsListView.setVisibility(View.GONE);
+                    fragment.emptyList.setVisibility(View.VISIBLE);
+                } else {
+                    fragment.emptyList.setVisibility(View.GONE);
+                    fragment.applicationsListView.setVisibility(View.VISIBLE);
+                }
 
                 if (afterEdit && (preference.mEditorDialog != null))
                     preference.mEditorDialog.updateAfterEdit();
