@@ -104,7 +104,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     @Override
     public int getItemCount() {
         synchronized (activityDataWrapper.eventList) {
-            fragment.textViewNoData.setVisibility(
+            fragment.viewNoData.setVisibility(
                     ((activityDataWrapper.eventListFilled) &&
                      (activityDataWrapper.eventList.size() > 0))
                     ? View.GONE : View.VISIBLE);

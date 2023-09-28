@@ -43,7 +43,7 @@ class ActivatorListAdapter extends BaseAdapter
         synchronized (activityDataWrapper.profileList) {
             boolean someData = activityDataWrapper.profileListFilled &&
                     (activityDataWrapper.profileList.size() > 0);
-            fragment.textViewNoData.setVisibility(someData ? View.GONE : View.VISIBLE);
+            fragment.viewNoData.setVisibility(someData ? View.GONE : View.VISIBLE);
             /*if (fragment.gridViewDivider != null)
                 fragment.gridViewDivider.setBackgroundResource(
                         GlobalGUIRoutines.getThemeActivatorGridDividerColor(someData, fragment.getActivity()));*/

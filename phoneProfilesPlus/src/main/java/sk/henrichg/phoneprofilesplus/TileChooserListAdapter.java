@@ -28,7 +28,7 @@ class TileChooserListAdapter extends BaseAdapter {
 
     public int getCount() {
         synchronized (activityDataWrapper.profileList) {
-            fragment.textViewNoData.setVisibility(
+            fragment.viewNoData.setVisibility(
                     ((activityDataWrapper.profileListFilled &&
                             (activityDataWrapper.profileList.size() > 0))
                     ) ? View.GONE : View.VISIBLE);

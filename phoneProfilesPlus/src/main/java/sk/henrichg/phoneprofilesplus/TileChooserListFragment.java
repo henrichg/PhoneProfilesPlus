@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,7 @@ public class TileChooserListFragment extends Fragment {
     DataWrapper activityDataWrapper;
     private TileChooserListAdapter profileListAdapter;
     private ListView listView;
-    TextView textViewNoData;
+    RelativeLayout viewNoData;
     private LinearLayout progressBar;
 
     private LoadProfileListAsyncTask loadAsyncTask = null;
@@ -66,7 +67,7 @@ public class TileChooserListFragment extends Fragment {
     private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
         listView = view.findViewById(R.id.tile_chooser_profiles_list);
-        textViewNoData = view.findViewById(R.id.tile_chooser_profiles_list_empty);
+        viewNoData = view.findViewById(R.id.tile_chooser_profiles_list_empty);
         progressBar = view.findViewById(R.id.tile_chooser_profiles_list_linla_progress);
         Button cancelButton = view.findViewById(R.id.tile_chooser_profiles_list_cancel);
 
@@ -178,7 +179,7 @@ public class TileChooserListFragment extends Fragment {
 
                     synchronized (fragment.activityDataWrapper.profileList) {
                         if (fragment.activityDataWrapper.profileList.size() == 0)
-                            fragment.textViewNoData.setVisibility(View.VISIBLE);
+                            fragment.viewNoData.setVisibility(View.VISIBLE);
                     }
 
                     fragment.profileListAdapter = new TileChooserListAdapter(fragment, fragment.activityDataWrapper);

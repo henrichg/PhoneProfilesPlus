@@ -112,6 +112,25 @@
 
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/activity_log_list_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/activity_log_list_empty_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_empty_list"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:contentDescription=""
+            tools:ignore="ContentDescription" />
+
+    </RelativeLayout>
+
     <ListView
         android:id="@+id/activity_log_list"
         android:layout_width="match_parent"

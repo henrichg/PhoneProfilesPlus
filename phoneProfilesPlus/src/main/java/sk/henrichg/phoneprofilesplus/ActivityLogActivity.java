@@ -84,6 +84,7 @@ public class ActivityLogActivity extends AppCompatActivity
         //dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         listView = findViewById(R.id.activity_log_list);
+        listView.setEmptyView(findViewById(R.id.activity_log_list_empty));
         progressLinearLayout = findViewById(R.id.activity_log_linla_progress);
         listView.setVisibility(View.GONE);
         progressLinearLayout.setVisibility(View.VISIBLE);

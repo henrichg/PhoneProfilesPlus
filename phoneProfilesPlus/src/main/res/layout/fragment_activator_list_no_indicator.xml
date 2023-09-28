@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/layout_activator_list_fragment"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:animateLayoutChanges="true">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_activator_list_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:animateLayoutChanges="true">
 
     <LinearLayout
         android:id="@+id/act_prof_header"
@@ -71,6 +72,26 @@
             android:divider="@android:color/transparent" />
 <!--        android:drawSelectorOnTop="true"-->
 
+        <RelativeLayout
+            android:id="@+id/act_prof_list_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/act_prof_list_empty_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_empty_list"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:contentDescription=""
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+<!--
         <TextView
             android:id="@+id/act_prof_list_empty"
             android:layout_width="fill_parent"
@@ -80,6 +101,7 @@
             android:text="@string/profile_list_empty"
             android:gravity="center"
             android:textSize="20sp" />
+-->
 
         <LinearLayout
             android:id="@+id/act_prof_list_linla_progress"

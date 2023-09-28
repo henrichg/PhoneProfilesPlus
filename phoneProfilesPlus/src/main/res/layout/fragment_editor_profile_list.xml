@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_profiles_list_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:animateLayoutChanges="true" >
+    android:animateLayoutChanges="true">
 
     <LinearLayout
         android:id="@+id/editor_profiles_activated_profile_header"
@@ -114,6 +115,26 @@
             android:scrollbarStyle="outsideOverlay"
             android:fadeScrollbars="false" />
 
+        <RelativeLayout
+            android:id="@+id/editor_profiles_list_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/editor_profiles_list_empty_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_empty_list"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:contentDescription=""
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+<!--
         <TextView
             android:id="@+id/editor_profiles_list_empty"
             android:layout_width="match_parent"
@@ -122,6 +143,7 @@
             android:gravity="center"
             android:textSize="20sp"
             android:visibility="gone" />
+-->
 
         <LinearLayout
             android:id="@+id/editor_profiles_list_linla_progress"

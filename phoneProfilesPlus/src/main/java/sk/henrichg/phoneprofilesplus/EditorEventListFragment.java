@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,7 +60,7 @@ public class EditorEventListFragment extends Fragment
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
     Toolbar bottomToolbar;
-    TextView textViewNoData;
+    RelativeLayout viewNoData;
     private LinearLayout progressBar;
     private AppCompatSpinner orderSpinner;
     private ImageView profilePrefIndicatorImageView;
@@ -327,7 +328,7 @@ public class EditorEventListFragment extends Fragment
                 showHeaderAndBottomToolbar();
         }
 
-        textViewNoData = view.findViewById(R.id.editor_events_list_empty);
+        viewNoData = view.findViewById(R.id.editor_events_list_empty);
         progressBar = view.findViewById(R.id.editor_events_list_linla_progress);
 
         /*
@@ -556,7 +557,7 @@ public class EditorEventListFragment extends Fragment
 
                     synchronized (fragment.activityDataWrapper.eventList) {
                         if (fragment.activityDataWrapper.eventList.size() == 0)
-                            fragment.textViewNoData.setVisibility(VISIBLE);
+                            fragment.viewNoData.setVisibility(VISIBLE);
                     }
                     fragment.updateBottomMenu();
 

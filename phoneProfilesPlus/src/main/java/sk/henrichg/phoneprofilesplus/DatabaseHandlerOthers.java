@@ -96,7 +96,21 @@ class DatabaseHandlerOthers {
             try {
                 instance.startRunningCommand();
 
-                final String selectQuery =
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                String countQuery = "SELECT COUNT(0) FROM " + DatabaseHandler.TABLE_ACTIVITY_LOG;
+                cursor = db.rawQuery(countQuery, null);
+
+                int count = 0;
+                if (cursor.moveToFirst()) {
+                    count = cursor.getInt(0);
+                }
+                cursor.close();
+
+                String selectQuery = "";
+                if (count > 0)
+                    selectQuery =
                         "SELECT -1 AS " + DatabaseHandler.KEY_AL_ID + "," +
                                 "CURRENT_TIMESTAMP AS " + DatabaseHandler.KEY_AL_LOG_DATE_TIME + "," +
                                 PPApplication.ALTYPE_LOG_TOP + " AS " + DatabaseHandler.KEY_AL_LOG_TYPE + "," +
@@ -105,7 +119,8 @@ class DatabaseHandlerOthers {
                                 //DatabaseHandler.KEY_AL_PROFILE_ICON + "," +
                                 //DatabaseHandler.KEY_AL_DURATION_DELAY + "," +
                                 "\"\" AS " + DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT +
-                        " UNION ALL " +
+                                " UNION ALL ";
+                selectQuery = selectQuery +
                         "SELECT " + DatabaseHandler.KEY_AL_ID + "," +
                                 DatabaseHandler.KEY_AL_LOG_DATE_TIME + "," +
                                 DatabaseHandler.KEY_AL_LOG_TYPE + "," +
@@ -113,12 +128,9 @@ class DatabaseHandlerOthers {
                                 DatabaseHandler.KEY_AL_PROFILE_NAME + "," +
                                 //DatabaseHandler.KEY_AL_PROFILE_ICON + "," +
                                 //DatabaseHandler.KEY_AL_DURATION_DELAY + "," +
-                                DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT +
+                            DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT +
                         " FROM " + DatabaseHandler.TABLE_ACTIVITY_LOG +
                         " ORDER BY " + DatabaseHandler.KEY_AL_LOG_DATE_TIME + " DESC";
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 cursor = db.rawQuery(selectQuery, null);
             } catch (Exception e) {

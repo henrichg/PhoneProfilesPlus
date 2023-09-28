@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +55,7 @@ public class EditorProfileListFragment extends Fragment
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
     Toolbar bottomToolbar;
-    TextView textViewNoData;
+    RelativeLayout viewNoData;
     private LinearLayout progressBar;
     private ImageView profilePrefIndicatorImageView;
 
@@ -257,7 +258,7 @@ public class EditorProfileListFragment extends Fragment
                 showHeaderAndBottomToolbar();
         }
 
-        textViewNoData = view.findViewById(R.id.editor_profiles_list_empty);
+        viewNoData = view.findViewById(R.id.editor_profiles_list_empty);
         progressBar = view.findViewById(R.id.editor_profiles_list_linla_progress);
 
         final Activity activity = getActivity();
@@ -499,7 +500,7 @@ public class EditorProfileListFragment extends Fragment
 
                     synchronized (fragment.activityDataWrapper.profileList) {
                         if (fragment.activityDataWrapper.profileList.size() == 0)
-                            fragment.textViewNoData.setVisibility(View.VISIBLE);
+                            fragment.viewNoData.setVisibility(View.VISIBLE);
                     }
                     fragment.updateBottomMenu();
 

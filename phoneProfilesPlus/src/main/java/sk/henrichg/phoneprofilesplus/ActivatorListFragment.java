@@ -17,6 +17,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,7 @@ public class ActivatorListFragment extends Fragment {
     private GridView gridView = null;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
-    TextView textViewNoData;
+    RelativeLayout viewNoData;
     private LinearLayout progressBar;
     //FrameLayout gridViewDivider = null;
 
@@ -129,7 +130,7 @@ public class ActivatorListFragment extends Fragment {
             }
             //gridViewDivider = view.findViewById(R.id.act_prof_profiles_grid_divider);
         }
-        textViewNoData = view.findViewById(R.id.act_prof_list_empty);
+        viewNoData = view.findViewById(R.id.act_prof_list_empty);
         progressBar = view.findViewById(R.id.act_prof_list_linla_progress);
 
         AbsListView absListView;
@@ -376,7 +377,7 @@ public class ActivatorListFragment extends Fragment {
 
                     synchronized (fragment.activityDataWrapper.profileList) {
                         if (fragment.activityDataWrapper.profileList.size() == 0) {
-                            fragment.textViewNoData.setVisibility(View.VISIBLE);
+                            fragment.viewNoData.setVisibility(View.VISIBLE);
 
                             // no profile in list, start Editor
 

@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -102,7 +103,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     //private TextView radiusLabel;
     private TextView radiusValue;
     private PPNumberPicker numberPicker;
-    private TextView mapIsLoading;
+    private LinearLayout mapIsLoading;
 
     private AlertDialog valueDialog;
 
