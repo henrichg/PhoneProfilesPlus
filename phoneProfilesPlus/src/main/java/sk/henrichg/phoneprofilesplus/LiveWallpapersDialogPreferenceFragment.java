@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.service.wallpaper.WallpaperService;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -195,19 +196,23 @@ public class LiveWallpapersDialogPreferenceFragment extends PreferenceDialogFrag
             LiveWallpapersDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                preference.liveWallpapersList = new ArrayList<>(_wallpapersList);
-                fragment.listView.setAdapter(fragment.listAdapter);
-
                 fragment.linlaProgress.setVisibility(View.GONE);
-                fragment.listView.setVisibility(View.VISIBLE);
 
-                if (preference.liveWallpapersList.size() == 0) {
-                    fragment.listView.setVisibility(View.GONE);
-                    fragment.emptyList.setVisibility(View.VISIBLE);
-                } else {
-                    fragment.emptyList.setVisibility(View.GONE);
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
                     fragment.listView.setVisibility(View.VISIBLE);
-                }
+
+                    preference.liveWallpapersList = new ArrayList<>(_wallpapersList);
+                    fragment.listView.setAdapter(fragment.listAdapter);
+
+                    if (preference.liveWallpapersList.size() == 0) {
+                        fragment.listView.setVisibility(View.GONE);
+                        fragment.emptyList.setVisibility(View.VISIBLE);
+                    } else {
+                        fragment.emptyList.setVisibility(View.GONE);
+                        fragment.listView.setVisibility(View.VISIBLE);
+                    }
+                });
             }
 
         }

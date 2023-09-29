@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -284,11 +285,15 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
             ConnectToSSIDDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                preference.ssidList = new ArrayList<>(_SSIDList);
-                fragment.listView.setAdapter(fragment.listAdapter);
-
                 fragment.linlaProgress.setVisibility(View.GONE);
-                fragment.linLaListView.setVisibility(View.VISIBLE);
+
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
+                    fragment.linLaListView.setVisibility(View.VISIBLE);
+
+                    preference.ssidList = new ArrayList<>(_SSIDList);
+                    fragment.listView.setAdapter(fragment.listAdapter);
+                });
             }
         }
 

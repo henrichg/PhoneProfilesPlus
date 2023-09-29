@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -169,24 +170,28 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                 //if (!EditorActivity.getContactGroupsCache().cached)
                 //    EditorActivity.getContactGroupsCache().clearCache(false);
 
-                fragment.listAdapter.notifyDataSetChanged();
+                fragment.linlaProgress.setVisibility(View.GONE);
 
-                if (notForUnselect) {
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
                     fragment.rellaData.setVisibility(View.VISIBLE);
-                    fragment.linlaProgress.setVisibility(View.GONE);
 
-                    ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
-                    if (contactGroupsCache != null) {
-                        List<ContactGroup> contactGroupList = contactGroupsCache.getList();
-                        if ((contactGroupList != null) && (contactGroupList.size() == 0)) {
-                            fragment.listView.setVisibility(View.GONE);
-                            fragment.emptyList.setVisibility(View.VISIBLE);
-                        } else {
-                            fragment.emptyList.setVisibility(View.GONE);
-                            fragment.listView.setVisibility(View.VISIBLE);
+                    fragment.listAdapter.notifyDataSetChanged();
+
+                    if (notForUnselect) {
+                        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
+                        if (contactGroupsCache != null) {
+                            List<ContactGroup> contactGroupList = contactGroupsCache.getList();
+                            if ((contactGroupList != null) && (contactGroupList.size() == 0)) {
+                                fragment.listView.setVisibility(View.GONE);
+                                fragment.emptyList.setVisibility(View.VISIBLE);
+                            } else {
+                                fragment.emptyList.setVisibility(View.GONE);
+                                fragment.listView.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
-                }
+                });
             }
         }
 

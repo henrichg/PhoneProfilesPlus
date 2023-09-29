@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -147,41 +148,45 @@ class AskForDurationActivateProfileDialog
             AskForDurationActivateProfileDialog dialog = dialogWeakRef.get();
             Activity activity = activityWeakReference.get();
             if ((dialog != null) && (activity != null)) {
-                //listView.setVisibility(View.VISIBLE);
                 dialog.linlaProgress.setVisibility(View.GONE);
-                if (dialog.dataWrapper.profileList.size() == 0) {
-                    dialog.listView.setVisibility(View.GONE);
-                    dialog.emptyList.setVisibility(View.VISIBLE);
-                } else {
-                    dialog.emptyList.setVisibility(View.GONE);
+
+                final Handler handler = new Handler(activity.getMainLooper());
+                handler.post(() -> {
                     dialog.listView.setVisibility(View.VISIBLE);
-                }
-
-                AskForDurationActivateProfileAdapter adapter = new AskForDurationActivateProfileAdapter(
-                        dialog, activity, afterDoProfile, dialog.dataWrapper.profileList);
-                dialog.listView.setAdapter(adapter);
-
-                int position;
-                long iProfileId;
-                iProfileId = afterDoProfile;
-                if (iProfileId == Profile.PROFILE_NO_ACTIVATE)
-                    position = 0;
-                else {
-                    boolean found = false;
-                    position = 0;
-                    for (Profile profile : dialog.dataWrapper.profileList) {
-                        if (profile._id == iProfileId) {
-                            found = true;
-                            break;
-                        }
-                        position++;
+                    if (dialog.dataWrapper.profileList.size() == 0) {
+                        dialog.listView.setVisibility(View.GONE);
+                        dialog.emptyList.setVisibility(View.VISIBLE);
+                    } else {
+                        dialog.emptyList.setVisibility(View.GONE);
+                        dialog.listView.setVisibility(View.VISIBLE);
                     }
-                    if (found) {
-                        position++;
-                    } else
+
+                    AskForDurationActivateProfileAdapter adapter = new AskForDurationActivateProfileAdapter(
+                            dialog, activity, afterDoProfile, dialog.dataWrapper.profileList);
+                    dialog.listView.setAdapter(adapter);
+
+                    int position;
+                    long iProfileId;
+                    iProfileId = afterDoProfile;
+                    if (iProfileId == Profile.PROFILE_NO_ACTIVATE)
                         position = 0;
-                }
-                dialog.listView.setSelection(position);
+                    else {
+                        boolean found = false;
+                        position = 0;
+                        for (Profile profile : dialog.dataWrapper.profileList) {
+                            if (profile._id == iProfileId) {
+                                found = true;
+                                break;
+                            }
+                            position++;
+                        }
+                        if (found) {
+                            position++;
+                        } else
+                            position = 0;
+                    }
+                    dialog.listView.setSelection(position);
+                });
             }
         }
 

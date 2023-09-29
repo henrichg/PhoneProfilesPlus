@@ -3,10 +3,12 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -136,45 +138,49 @@ public class ProfilePreferenceFragment extends PreferenceDialogFragmentCompat {
             ProfilePreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                //listView.setVisibility(View.VISIBLE);
                 fragment.linlaProgress.setVisibility(View.GONE);
 
-                if ((preference.addNoActivateItem != 1) && (preference.dataWrapper.profileList.size() == 0)) {
-                    fragment.listView.setVisibility(View.GONE);
-                    fragment.emptyList.setVisibility(View.VISIBLE);
-                } else {
-                    fragment.emptyList.setVisibility(View.GONE);
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
                     fragment.listView.setVisibility(View.VISIBLE);
-                }
 
-                fragment.profilePreferenceAdapter = new ProfilePreferenceAdapter(fragment, prefContext, preference.profileId, preference.dataWrapper.profileList);
-                fragment.listView.setAdapter(fragment.profilePreferenceAdapter);
-
-                int position;
-                long iProfileId;
-                if (preference.profileId.isEmpty())
-                    iProfileId = 0;
-                else
-                    iProfileId = Long.parseLong(preference.profileId);
-                if ((preference.addNoActivateItem == 1) && (iProfileId == Profile.PROFILE_NO_ACTIVATE))
-                    position = 0;
-                else {
-                    boolean found = false;
-                    position = 0;
-                    for (Profile profile : preference.dataWrapper.profileList) {
-                        if (profile._id == iProfileId) {
-                            found = true;
-                            break;
-                        }
-                        position++;
+                    if ((preference.addNoActivateItem != 1) && (preference.dataWrapper.profileList.size() == 0)) {
+                        fragment.listView.setVisibility(View.GONE);
+                        fragment.emptyList.setVisibility(View.VISIBLE);
+                    } else {
+                        fragment.emptyList.setVisibility(View.GONE);
+                        fragment.listView.setVisibility(View.VISIBLE);
                     }
-                    if (found) {
-                        if (preference.addNoActivateItem == 1)
-                            position++;
-                    } else
+
+                    fragment.profilePreferenceAdapter = new ProfilePreferenceAdapter(fragment, prefContext, preference.profileId, preference.dataWrapper.profileList);
+                    fragment.listView.setAdapter(fragment.profilePreferenceAdapter);
+
+                    int position;
+                    long iProfileId;
+                    if (preference.profileId.isEmpty())
+                        iProfileId = 0;
+                    else
+                        iProfileId = Long.parseLong(preference.profileId);
+                    if ((preference.addNoActivateItem == 1) && (iProfileId == Profile.PROFILE_NO_ACTIVATE))
                         position = 0;
-                }
-                fragment.listView.setSelection(position);
+                    else {
+                        boolean found = false;
+                        position = 0;
+                        for (Profile profile : preference.dataWrapper.profileList) {
+                            if (profile._id == iProfileId) {
+                                found = true;
+                                break;
+                            }
+                            position++;
+                        }
+                        if (found) {
+                            if (preference.addNoActivateItem == 1)
+                                position++;
+                        } else
+                            position = 0;
+                    }
+                    fragment.listView.setSelection(position);
+                });
             }
         }
 

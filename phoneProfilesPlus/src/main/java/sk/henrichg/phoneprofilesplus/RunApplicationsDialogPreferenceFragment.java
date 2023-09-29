@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -200,20 +201,25 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
             RunApplicationsDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                fragment.applicationsListView.setAdapter(fragment.listAdapter);
-                fragment.rellaDialog.setVisibility(View.VISIBLE);
                 fragment.linlaProgress.setVisibility(View.GONE);
 
-                if (preference.applicationsList.size() == 0) {
-                    fragment.applicationsListView.setVisibility(View.GONE);
-                    fragment.emptyList.setVisibility(View.VISIBLE);
-                } else {
-                    fragment.emptyList.setVisibility(View.GONE);
-                    fragment.applicationsListView.setVisibility(View.VISIBLE);
-                }
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
+                    fragment.rellaDialog.setVisibility(View.VISIBLE);
 
-                if (afterEdit && (preference.mEditorDialog != null))
-                    preference.mEditorDialog.updateAfterEdit();
+                    fragment.applicationsListView.setAdapter(fragment.listAdapter);
+
+                    if (preference.applicationsList.size() == 0) {
+                        fragment.applicationsListView.setVisibility(View.GONE);
+                        fragment.emptyList.setVisibility(View.VISIBLE);
+                    } else {
+                        fragment.emptyList.setVisibility(View.GONE);
+                        fragment.applicationsListView.setVisibility(View.VISIBLE);
+                    }
+
+                    if (afterEdit && (preference.mEditorDialog != null))
+                        preference.mEditorDialog.updateAfterEdit();
+                });
             }
         }
     }

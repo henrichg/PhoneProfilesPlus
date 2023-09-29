@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -241,26 +242,30 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
             CalendarsMultiSelectDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                preference.calendarList = new ArrayList<>(_calendarList);
-                //Log.d("CalendarsMultiSelectDialogPreference.refreshListView","calendarList.size()="+calendarList.size());
+                fragment.linlaProgress.setVisibility(View.GONE);
 
-                if (fragment.listAdapter == null) {
-                    fragment.listAdapter = new CalendarsMultiSelectPreferenceAdapter(prefContext, preference.calendarList);
-                    fragment.listView.setAdapter(fragment.listAdapter);
-                } else
-                    fragment.listAdapter.setCalendarList(preference.calendarList);
-                if (notForUnselect) {
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
                     fragment.rellaData.setVisibility(View.VISIBLE);
-                    fragment.linlaProgress.setVisibility(View.GONE);
 
-                    if (preference.calendarList.size() == 0) {
-                        fragment.listView.setVisibility(View.GONE);
-                        fragment.emptyList.setVisibility(View.VISIBLE);
-                    } else {
-                        fragment.emptyList.setVisibility(View.GONE);
-                        fragment.listView.setVisibility(View.VISIBLE);
+                    preference.calendarList = new ArrayList<>(_calendarList);
+                    //Log.d("CalendarsMultiSelectDialogPreference.refreshListView","calendarList.size()="+calendarList.size());
+
+                    if (fragment.listAdapter == null) {
+                        fragment.listAdapter = new CalendarsMultiSelectPreferenceAdapter(prefContext, preference.calendarList);
+                        fragment.listView.setAdapter(fragment.listAdapter);
+                    } else
+                        fragment.listAdapter.setCalendarList(preference.calendarList);
+                    if (notForUnselect) {
+                        if (preference.calendarList.size() == 0) {
+                            fragment.listView.setVisibility(View.GONE);
+                            fragment.emptyList.setVisibility(View.VISIBLE);
+                        } else {
+                            fragment.emptyList.setVisibility(View.GONE);
+                            fragment.listView.setVisibility(View.VISIBLE);
+                        }
                     }
-                }
+                });
             }
         }
 

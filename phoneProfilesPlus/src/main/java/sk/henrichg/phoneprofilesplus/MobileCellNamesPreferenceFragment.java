@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.Settings;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
@@ -403,50 +404,53 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
             MobileCellNamesPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-
-                preference.cellNamesList = new ArrayList<>(_cellsList);
-
-                fragment.listViewRoot.setVisibility(View.VISIBLE);
                 fragment.linlaProgress.setVisibility(View.GONE);
 
-                if (preference.cellNamesList.size() == 0) {
-                    fragment.cellsListView.setVisibility(View.GONE);
-                    fragment.emptyList.setVisibility(View.VISIBLE);
-                } else {
-                    fragment.emptyList.setVisibility(View.GONE);
-                    fragment.cellsListView.setVisibility(View.VISIBLE);
-                }
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
+                    fragment.listViewRoot.setVisibility(View.VISIBLE);
 
-                fragment.listAdapter.notifyDataSetChanged();
+                    preference.cellNamesList = new ArrayList<>(_cellsList);
 
-                if ((fragment.phoneCount > 1)) {
-                    if (sim1Exists) {
-                        String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim1) + " ";
-                        if (MobileCellsScanner.isValidCellId(registeredCellSIM1)) {
-                            if ((registeredCellNameSIM1 != null) && (!registeredCellNameSIM1.isEmpty()))
-                                connectedCellName = connectedCellName + registeredCellNameSIM1 + ", ";
-                            connectedCellName = connectedCellName + registeredCellSIM1;
+                    if (preference.cellNamesList.size() == 0) {
+                        fragment.cellsListView.setVisibility(View.GONE);
+                        fragment.emptyList.setVisibility(View.VISIBLE);
+                    } else {
+                        fragment.emptyList.setVisibility(View.GONE);
+                        fragment.cellsListView.setVisibility(View.VISIBLE);
+                    }
+
+                    fragment.listAdapter.notifyDataSetChanged();
+
+                    if ((fragment.phoneCount > 1)) {
+                        if (sim1Exists) {
+                            String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim1) + " ";
+                            if (MobileCellsScanner.isValidCellId(registeredCellSIM1)) {
+                                if ((registeredCellNameSIM1 != null) && (!registeredCellNameSIM1.isEmpty()))
+                                    connectedCellName = connectedCellName + registeredCellNameSIM1 + ", ";
+                                connectedCellName = connectedCellName + registeredCellSIM1;
+                            }
+                            fragment.connectedCellSIM1.setText(connectedCellName);
                         }
-                        fragment.connectedCellSIM1.setText(connectedCellName);
-                    }
-                    if (sim2Exists) {
-                        String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim2) + " ";
-                        if (MobileCellsScanner.isValidCellId(registeredCellSIM1)) {
-                            if ((registeredCellNameSIM2 != null) && (!registeredCellNameSIM2.isEmpty()))
-                                connectedCellName = connectedCellName + registeredCellNameSIM2 + ", ";
-                            connectedCellName = connectedCellName + registeredCellSIM2;
+                        if (sim2Exists) {
+                            String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim2) + " ";
+                            if (MobileCellsScanner.isValidCellId(registeredCellSIM1)) {
+                                if ((registeredCellNameSIM2 != null) && (!registeredCellNameSIM2.isEmpty()))
+                                    connectedCellName = connectedCellName + registeredCellNameSIM2 + ", ";
+                                connectedCellName = connectedCellName + registeredCellSIM2;
+                            }
+                            fragment.connectedCellSIM2.setText(connectedCellName);
                         }
-                        fragment.connectedCellSIM2.setText(connectedCellName);
+                    } else {
+                        String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell) + " ";
+                        if (MobileCellsScanner.isValidCellId(registeredCellSIM1)) {
+                            if ((registeredCellNameDefault != null) && (!registeredCellNameDefault.isEmpty()))
+                                connectedCellName = connectedCellName + registeredCellNameDefault + ", ";
+                            connectedCellName = connectedCellName + registeredCellDefault;
+                        }
+                        fragment.connectedCellDefault.setText(connectedCellName);
                     }
-                } else {
-                    String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell) + " ";
-                    if (MobileCellsScanner.isValidCellId(registeredCellSIM1)) {
-                        if ((registeredCellNameDefault != null) && (!registeredCellNameDefault.isEmpty()))
-                            connectedCellName = connectedCellName + registeredCellNameDefault + ", ";
-                        connectedCellName = connectedCellName + registeredCellDefault;
-                    }
-                    fragment.connectedCellDefault.setText(connectedCellName);
-                }
+                });
 
             }
         }

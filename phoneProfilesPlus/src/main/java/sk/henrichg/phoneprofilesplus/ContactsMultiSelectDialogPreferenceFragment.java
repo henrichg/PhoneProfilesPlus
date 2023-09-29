@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -164,11 +165,16 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                 //if (!EditorActivity.getContactsCache().cached)
                 //    EditorActivity.getContactsCache().clearCache(false);
 
-                fragment.listAdapter.notifyDataSetChanged();
-                if (notForUnselect) {
-                    fragment.rellaData.setVisibility(View.VISIBLE);
-                    fragment.linlaProgress.setVisibility(View.GONE);
-                }
+                fragment.linlaProgress.setVisibility(View.GONE);
+
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
+                    if (notForUnselect) {
+                        fragment.rellaData.setVisibility(View.VISIBLE);
+                    }
+
+                    fragment.listAdapter.notifyDataSetChanged();
+                });
             }
         }
 

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -348,22 +349,26 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
             NotUsedMobileCellsDetectedActivity activity = activityWeakReference.get();
             if (activity != null) {
-                activity.rellaDialog.setVisibility(View.VISIBLE);
                 activity.linlaProgress.setVisibility(View.GONE);
 
-                activity.cellNamesList = new ArrayList<>(_cellNamesList);
+                final Handler handler = new Handler(activity.getMainLooper());
+                handler.post(() -> {
+                    activity.rellaDialog.setVisibility(View.VISIBLE);
 
-                activity.listAdapter.notifyDataSetChanged();
+                    activity.cellNamesList = new ArrayList<>(_cellNamesList);
 
-                activity.cellName.setText("");
-                activity.cellName.setFocusable(true);
-                activity.cellName.requestFocus();
+                    activity.listAdapter.notifyDataSetChanged();
 
-                activity.cellIdTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_cell_id) + " " + activity.mobileCellId);
-                activity.lastConnectTimeTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_connection_time) + " " +
-                        StringFormatUtils.timeDateStringFromTimestamp(activity, activity.lastConnectedTime));
+                    activity.cellName.setText("");
+                    activity.cellName.setFocusable(true);
+                    activity.cellName.requestFocus();
 
-                activity.mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
+                    activity.cellIdTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_cell_id) + " " + activity.mobileCellId);
+                    activity.lastConnectTimeTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_connection_time) + " " +
+                            StringFormatUtils.timeDateStringFromTimestamp(activity, activity.lastConnectedTime));
+
+                    activity.mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
+                });
             }
         }
 

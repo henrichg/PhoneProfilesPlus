@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -764,44 +765,48 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
             BluetoothNamePreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
+                fragment.progressLinearLayout.setVisibility(View.GONE);
 
-                preference.bluetoothList = new ArrayList<>(_bluetoothList);
-                fragment.listAdapter.notifyDataSetChanged();
-
-                if (forRescan) {
-                    BluetoothScanWorker.setScanRequest(prefContext, false);
-                    BluetoothScanWorker.setWaitForResults(prefContext, false);
-                    BluetoothScanWorker.setLEScanRequest(prefContext, false);
-                    BluetoothScanWorker.setWaitForLEResults(prefContext, false);
-                    BluetoothScanner.setForceOneBluetoothScan(prefContext, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
-                    BluetoothScanner.setForceOneLEBluetoothScan(prefContext, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
-                    BluetoothScanWorker.setScanKilled(prefContext, false);
-                    fragment.progressLinearLayout.setVisibility(View.GONE);
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
                     fragment.dataRelativeLayout.setVisibility(View.VISIBLE);
 
-                    if (preference.bluetoothList.size() == 0) {
-                        fragment.bluetoothListView.setVisibility(View.GONE);
-                        fragment.emptyList.setVisibility(View.VISIBLE);
-                    } else {
-                        fragment.emptyList.setVisibility(View.GONE);
-                        fragment.bluetoothListView.setVisibility(View.VISIBLE);
-                    }
+                    preference.bluetoothList = new ArrayList<>(_bluetoothList);
+                    fragment.listAdapter.notifyDataSetChanged();
 
-                    if (fragment.mDialog != null) {
-                        Button positive = (fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                        if (positive != null) positive.setEnabled(true);
-                    }
-                }
+                    if (forRescan) {
+                        BluetoothScanWorker.setScanRequest(prefContext, false);
+                        BluetoothScanWorker.setWaitForResults(prefContext, false);
+                        BluetoothScanWorker.setLEScanRequest(prefContext, false);
+                        BluetoothScanWorker.setWaitForLEResults(prefContext, false);
+                        BluetoothScanner.setForceOneBluetoothScan(prefContext, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+                        BluetoothScanner.setForceOneLEBluetoothScan(prefContext, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+                        BluetoothScanWorker.setScanKilled(prefContext, false);
 
-                if (!scrollToBTName.isEmpty()) {
-                    int size = preference.bluetoothList.size() - 1;
-                    for (int position = 0; position < size; position++) {
-                        if (preference.bluetoothList.get(position).getName().equalsIgnoreCase(scrollToBTName)) {
-                            fragment.bluetoothListView.setSelection(position);
-                            break;
+                        if (preference.bluetoothList.size() == 0) {
+                            fragment.bluetoothListView.setVisibility(View.GONE);
+                            fragment.emptyList.setVisibility(View.VISIBLE);
+                        } else {
+                            fragment.emptyList.setVisibility(View.GONE);
+                            fragment.bluetoothListView.setVisibility(View.VISIBLE);
+                        }
+
+                        if (fragment.mDialog != null) {
+                            Button positive = (fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                            if (positive != null) positive.setEnabled(true);
                         }
                     }
-                }
+
+                    if (!scrollToBTName.isEmpty()) {
+                        int size = preference.bluetoothList.size() - 1;
+                        for (int position = 0; position < size; position++) {
+                            if (preference.bluetoothList.get(position).getName().equalsIgnoreCase(scrollToBTName)) {
+                                fragment.bluetoothListView.setSelection(position);
+                                break;
+                            }
+                        }
+                    }
+                });
             }
         }
 

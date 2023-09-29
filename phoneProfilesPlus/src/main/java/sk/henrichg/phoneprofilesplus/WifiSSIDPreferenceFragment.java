@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -751,39 +752,44 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
             WifiSSIDPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                preference.SSIDList = new ArrayList<>(_SSIDList);
-                fragment.listAdapter.notifyDataSetChanged();
+                fragment.progressLinearLayout.setVisibility(View.GONE);
 
-                if (forRescan) {
-                    WifiScanWorker.setScanRequest(prefContext, false);
-                    WifiScanWorker.setWaitForResults(prefContext, false);
-                    WifiScanner.setForceOneWifiScan(prefContext, WifiScanner.FORCE_ONE_SCAN_DISABLED);
-                    fragment.progressLinearLayout.setVisibility(View.GONE);
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
                     fragment.dataRelativeLayout.setVisibility(View.VISIBLE);
 
-                    if (preference.SSIDList.size() == 0) {
-                        fragment.SSIDListView.setVisibility(View.GONE);
-                        fragment.emptyList.setVisibility(View.VISIBLE);
-                    } else {
-                        fragment.emptyList.setVisibility(View.GONE);
-                        fragment.SSIDListView.setVisibility(View.VISIBLE);
-                    }
+                    preference.SSIDList = new ArrayList<>(_SSIDList);
+                    fragment.listAdapter.notifyDataSetChanged();
 
-                    if (fragment.mDialog != null) {
-                        Button positive = (fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                        if (positive != null) positive.setEnabled(true);
-                    }
-                }
+                    if (forRescan) {
+                        WifiScanWorker.setScanRequest(prefContext, false);
+                        WifiScanWorker.setWaitForResults(prefContext, false);
+                        WifiScanner.setForceOneWifiScan(prefContext, WifiScanner.FORCE_ONE_SCAN_DISABLED);
 
-                if (!scrollToSSID.isEmpty()) {
-                    int size = preference.SSIDList.size() - 1;
-                    for (int position = 0; position < size; position++) {
-                        if (preference.SSIDList.get(position).ssid.equals(scrollToSSID)) {
-                            fragment.SSIDListView.setSelection(position);
-                            break;
+                        if (preference.SSIDList.size() == 0) {
+                            fragment.SSIDListView.setVisibility(View.GONE);
+                            fragment.emptyList.setVisibility(View.VISIBLE);
+                        } else {
+                            fragment.emptyList.setVisibility(View.GONE);
+                            fragment.SSIDListView.setVisibility(View.VISIBLE);
+                        }
+
+                        if (fragment.mDialog != null) {
+                            Button positive = (fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                            if (positive != null) positive.setEnabled(true);
                         }
                     }
-                }
+
+                    if (!scrollToSSID.isEmpty()) {
+                        int size = preference.SSIDList.size() - 1;
+                        for (int position = 0; position < size; position++) {
+                            if (preference.SSIDList.get(position).ssid.equals(scrollToSSID)) {
+                                fragment.SSIDListView.setSelection(position);
+                                break;
+                            }
+                        }
+                    }
+                });
             }
 
         }
