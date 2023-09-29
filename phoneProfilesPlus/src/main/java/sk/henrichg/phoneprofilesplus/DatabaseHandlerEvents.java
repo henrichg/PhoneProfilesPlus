@@ -4260,7 +4260,7 @@ class DatabaseHandlerEvents {
         }
     }
 
-    static void checkGeofence(DatabaseHandler instance, String geofences, int check) {
+    static void checkGeofence(DatabaseHandler instance, String geofences, int check, boolean ucheckAll) {
         instance.importExportLock.lock();
         try {
             try {
@@ -4274,6 +4274,12 @@ class DatabaseHandlerEvents {
                 db.beginTransaction();
 
                 try {
+                    if (ucheckAll) {
+                        // uncheck geofences
+                        values.clear();
+                        values.put(DatabaseHandler.KEY_G_CHECKED, 0);
+                        db.update(DatabaseHandler.TABLE_GEOFENCES, values, null, null);
+                    }
                     if (!geofences.isEmpty()) {
                         // check geofences
                         String[] splits = geofences.split(StringConstants.STR_SPLIT_REGEX);
@@ -4301,11 +4307,6 @@ class DatabaseHandlerEvents {
                                 }
                             }
                         }
-                    } else {
-                        // uncheck geofences
-                        values.clear();
-                        values.put(DatabaseHandler.KEY_G_CHECKED, 0);
-                        db.update(DatabaseHandler.TABLE_GEOFENCES, values, null, null);
                     }
 
                     db.setTransactionSuccessful();

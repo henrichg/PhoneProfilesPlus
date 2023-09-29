@@ -1187,8 +1187,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerEvents.deleteGeofence(this, geofenceId);
     }
 
-    void checkGeofence(String geofences, int check) {
-        DatabaseHandlerEvents.checkGeofence(this, geofences, check);
+    void checkGeofence(String geofences, int check, boolean ucheckAll) {
+        DatabaseHandlerEvents.checkGeofence(this, geofences, check, ucheckAll);
     }
 
     Cursor getGeofencesCursor() {

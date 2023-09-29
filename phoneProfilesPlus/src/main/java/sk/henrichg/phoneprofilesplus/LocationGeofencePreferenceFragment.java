@@ -91,7 +91,7 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
             long gid = viewHolder.geofenceId;
             if (preference.onlyEdit == 0) {
                 // change check status in db: 0 -> 1, 1-> 0
-                DatabaseHandler.getInstance(prefContext.getApplicationContext()).checkGeofence(String.valueOf(gid), 2);
+                DatabaseHandler.getInstance(prefContext.getApplicationContext()).checkGeofence(String.valueOf(gid), 2, false);
                 //viewHolder.radioButton.setChecked(true);
                 //updateGUIWithGeofence(gid);
                 preference.refreshListView();
@@ -132,7 +132,7 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
         if (preference.onlyEdit == 0) {
             unselectAllButton.setOnClickListener(v -> {
                 // clear all checks
-                DatabaseHandler.getInstance(prefContext.getApplicationContext()).checkGeofence("", 0);
+                DatabaseHandler.getInstance(prefContext.getApplicationContext()).checkGeofence("", 0, true);
                 preference.refreshListView();
             });
         }

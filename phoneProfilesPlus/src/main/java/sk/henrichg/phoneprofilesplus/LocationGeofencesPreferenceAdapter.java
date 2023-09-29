@@ -107,7 +107,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
 
                 // change check status in db: 0 -> 1, 1-> 0
                 long id1 = (long) chb.getTag();
-                DatabaseHandler.getInstance(context).checkGeofence(String.valueOf(id1), 2);
+                DatabaseHandler.getInstance(context).checkGeofence(String.valueOf(id1), 2, false);
 
                 //preference.updateGUIWithGeofence(id);
 

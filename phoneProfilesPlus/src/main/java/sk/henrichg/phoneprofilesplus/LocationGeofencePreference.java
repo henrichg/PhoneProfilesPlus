@@ -61,10 +61,8 @@ public class LocationGeofencePreference extends DialogPreference {
             String value = getPersistedString((String) defaultValue);
             this.defaultValue = (String)defaultValue;
 
-            // clear all checks
-            DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence("", 0);
             // check by value
-            DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(value, 1);
+            DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(value, 1, true);
             setSummary();
         }
     }
@@ -93,10 +91,8 @@ public class LocationGeofencePreference extends DialogPreference {
     void resetSummary() {
         if ((onlyEdit == 0) && (!savedInstanceState)) {
             String value = getPersistedString(defaultValue);
-            // clear all checks
-            DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence("", 0);
             // check by value
-            DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(value, 1);
+            DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(value, 1, true);
             setSummary();
         }
         savedInstanceState = false;
@@ -199,10 +195,8 @@ public class LocationGeofencePreference extends DialogPreference {
             String value = myState.value;
             defaultValue = myState.defaultValue;
 
-            // clear all checks
-            DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence("", 0);
             // check by value
-            DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(value, 1);
+            DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(value, 1, true);
             refreshListView();
             setSummary();
         }
