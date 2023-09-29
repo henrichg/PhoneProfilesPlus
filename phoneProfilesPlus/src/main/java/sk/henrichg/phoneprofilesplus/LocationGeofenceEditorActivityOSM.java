@@ -385,6 +385,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     }*/
                 }
 
+                // check edited geofence in table
                 DatabaseHandler.getInstance(getApplicationContext()).checkGeofence(String.valueOf(geofence._id), 1);
 
                 Intent returnIntent = new Intent();

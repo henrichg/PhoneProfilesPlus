@@ -105,6 +105,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
             rowData.checkBox.setOnClickListener(v -> {
                 CheckBox chb = (CheckBox) v;
 
+                // change check status in db: 0 -> 1, 1-> 0
                 long id1 = (long) chb.getTag();
                 DatabaseHandler.getInstance(context).checkGeofence(String.valueOf(id1), 2);
 

@@ -27,10 +27,14 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
     private RelativeLayout locationSystemSettingsRelLa;
     private TextView locationEnabledStatusTextView;
     private AppCompatImageButton locationSystemSettingsButton;
+    //private LinearLayout progressLinearLayout;
+    ListView geofencesListView;
 
     private Context prefContext;
 
     private LocationGeofencesPreferenceAdapter listAdapter;
+
+    //private SetAdapterAsyncTask setAdapterAsyncTask = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -59,11 +63,17 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
         AppCompatImageButton addButton = view.findViewById(R.id.location_pref_dlg_add);
         TooltipCompat.setTooltipText(addButton, getString(R.string.location_pref_dlg_add_button_tooltip));
 
-        ListView geofencesListView = view.findViewById(R.id.location_pref_dlg_listview);
+        geofencesListView = view.findViewById(R.id.location_pref_dlg_listview);
         geofencesListView.setEmptyView(view.findViewById(R.id.location_pref_dlg_empty));
+        //progressLinearLayout = view.findViewById(R.id.location_pref_dlg_linla_progress);
 
         listAdapter = new LocationGeofencesPreferenceAdapter(prefContext, DatabaseHandler.getInstance(prefContext.getApplicationContext()).getGeofencesCursor(), this);
         geofencesListView.setAdapter(listAdapter);
+        /*
+        setAdapterAsyncTask =
+                new SetAdapterAsyncTask(this, prefContext.getApplicationContext());
+        setAdapterAsyncTask.execute();
+        */
 
         geofencesListView.setOnItemClickListener((parent, v, position, id) -> {
             LocationGeofencesPreferenceViewHolder viewHolder =
@@ -80,6 +90,7 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
 
             long gid = viewHolder.geofenceId;
             if (preference.onlyEdit == 0) {
+                // change check status in db: 0 -> 1, 1-> 0
                 DatabaseHandler.getInstance(prefContext.getApplicationContext()).checkGeofence(String.valueOf(gid), 2);
                 //viewHolder.radioButton.setChecked(true);
                 //updateGUIWithGeofence(gid);
@@ -152,6 +163,12 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
         Cursor cursor = listAdapter.getCursor();
         if (cursor != null)
             cursor.close();
+
+        /*
+        if ((setAdapterAsyncTask != null) && setAdapterAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            setAdapterAsyncTask.cancel(true);
+        setAdapterAsyncTask = null;
+        */
 
         preference.fragment = null;
     }
@@ -342,4 +359,50 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
             listAdapter.reload();
     }
 
+/*
+    private static class SetAdapterAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        private final WeakReference<Context> contextWeakReference;
+        private final WeakReference<LocationGeofencePreferenceFragment> fragmentWeakReference;
+
+        Cursor geofenceCursor = null;
+
+        public SetAdapterAsyncTask(final LocationGeofencePreferenceFragment fragment,
+                                   final Context context) {
+            this.contextWeakReference = new WeakReference<>(context);
+            this.fragmentWeakReference = new WeakReference<>(fragment);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Context context = contextWeakReference.get();
+
+            if (context != null) {
+                geofenceCursor =  DatabaseHandler.getInstance(context.getApplicationContext()).getGeofencesCursor();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            Context context = contextWeakReference.get();
+            LocationGeofencePreferenceFragment fragment = fragmentWeakReference.get();
+
+            if ((context != null) && (fragment != null)) {
+                if (geofenceCursor != null) {
+                    fragment.listAdapter = new LocationGeofencesPreferenceAdapter(context, geofenceCursor, fragment);
+                    fragment.geofencesListView.setAdapter(fragment.listAdapter);
+
+                    fragment.progressLinearLayout.setVisibility(View.GONE);
+                    fragment.geofencesListView.setVisibility(View.VISIBLE);
+                }
+            }
+
+        }
+
+    }
+*/
 }

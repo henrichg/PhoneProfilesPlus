@@ -78,7 +78,7 @@ public class LocationGeofencePreference extends DialogPreference {
     void persistGeofence(boolean reset) {
         if (onlyEdit == 0) {
             if (shouldPersist()) {
-                // get value for checked
+                // get value for checked - checked are only with KEY_G_CHECKED = 1
                 String value = DatabaseHandler.getInstance(context.getApplicationContext()).getCheckedGeofences();
                 if (callChangeListener(value)) {
                     if (reset)

@@ -4281,17 +4281,20 @@ class DatabaseHandlerEvents {
                             if (!geofence.isEmpty()) {
                                 int _check = check;
                                 if (check == 2) {
+                                    // check == 2 - change checked state in db
                                     final String selectQuery = "SELECT " + DatabaseHandler.KEY_G_CHECKED +
                                             " FROM " + DatabaseHandler.TABLE_GEOFENCES +
                                             " WHERE " + DatabaseHandler.KEY_G_ID + "=" + geofence;
                                     Cursor cursor = db.rawQuery(selectQuery, null);
                                     if (cursor != null) {
                                         if (cursor.moveToFirst())
+                                            // switch caeked state in db: 1,2 -> 0, 0 -> 1
                                             _check = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_CHECKED)) == 0) ? 1 : 0;
                                         cursor.close();
                                     }
                                 }
                                 if (_check != 2) {
+                                    // save into db only check = 0, 1 = true check
                                     values.clear();
                                     values.put(DatabaseHandler.KEY_G_CHECKED, _check);
                                     db.update(DatabaseHandler.TABLE_GEOFENCES, values, DatabaseHandler.KEY_G_ID + " = ?", new String[]{geofence});
