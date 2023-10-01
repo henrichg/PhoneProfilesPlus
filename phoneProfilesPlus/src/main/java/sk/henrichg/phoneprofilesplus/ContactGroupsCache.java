@@ -321,12 +321,12 @@ class ContactGroupsCache {
 
     int getLength()
     {
-        if (cached)
-            synchronized (PPApplication.contactsCacheMutex) {
+        synchronized (PPApplication.contactsCacheMutex) {
+            if (cached)
                 return contactGroupList.size();
-            }
-        else
-            return 0;
+            else
+                return 0;
+        }
     }
 
     void updateContactGroups(List<ContactGroup> _contactGroupList) {
@@ -336,20 +336,22 @@ class ContactGroupsCache {
 
     List<ContactGroup> getList()
     {
-        if (cached)
-            return contactGroupList;
-        else
-            return null;
+        synchronized (PPApplication.contactsCacheMutex) {
+            if (cached)
+                return contactGroupList;
+            else
+                return null;
+        }
     }
 
     ContactGroup getContactGroup(int position)
     {
-        if (cached)
-            synchronized (PPApplication.contactsCacheMutex) {
+        synchronized (PPApplication.contactsCacheMutex) {
+            if (cached)
                 return contactGroupList.get(position);
-            }
-        else
-            return null;
+            else
+                return null;
+        }
     }
 
     // called only from ContactGroupsCache

@@ -485,14 +485,15 @@ class ContactsCache {
 
     List<Contact> getList(/*boolean withoutNumber*/)
     {
-        if (cached) {
+        synchronized (PPApplication.contactsCacheMutex) {
+            if (cached) {
             /*if (withoutNumber)
                 return contactListWithoutNumber;
             else*/
                 return contactList;
+            } else
+                return null;
         }
-        else
-            return null;
     }
 
     void clearCache()
