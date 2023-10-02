@@ -12,7 +12,7 @@ import java.util.List;
 class MobileCellsScanner {
 
     private final Context context;
-    private TelephonyManager telephonyManagerDefault;
+    private TelephonyManager telephonyManagerDefault = null;
     private TelephonyManager telephonyManagerSIM1 = null;
     private TelephonyManager telephonyManagerSIM2 = null;
 
@@ -111,6 +111,8 @@ class MobileCellsScanner {
             if ((simCount > 1)) {
                 if ((telephonyManagerSIM1 != null) && (mobileCellsListenerSIM1 != null)) {
                     try {
+                        telephonyManagerSIM1.listen(mobileCellsListenerSIM1, PhoneStateListener.LISTEN_NONE);
+                        GlobalUtils.sleep(1000);
                         //noinspection deprecation
                         telephonyManagerSIM1.listen(mobileCellsListenerSIM1,
                                 PhoneStateListener.LISTEN_CELL_INFO
@@ -123,6 +125,8 @@ class MobileCellsScanner {
                 }
                 if ((telephonyManagerSIM2 != null) && (mobileCellsListenerSIM2 != null)) {
                     try {
+                        telephonyManagerSIM2.listen(mobileCellsListenerSIM2, PhoneStateListener.LISTEN_NONE);
+                        GlobalUtils.sleep(1000);
                         //noinspection deprecation
                         telephonyManagerSIM2.listen(mobileCellsListenerSIM2,
                                 PhoneStateListener.LISTEN_CELL_INFO
@@ -136,12 +140,16 @@ class MobileCellsScanner {
             }
             else {
                 try {
-                    //noinspection deprecation
-                    telephonyManagerDefault.listen(mobileCellsListenerDefault,
-                            PhoneStateListener.LISTEN_CELL_INFO
-                                    | PhoneStateListener.LISTEN_CELL_LOCATION  // is required for some devices, especially with AP level < 26
-                                    | PhoneStateListener.LISTEN_SERVICE_STATE
-                            );
+                    if ((telephonyManagerDefault != null) && (mobileCellsListenerDefault != null)) {
+                        telephonyManagerDefault.listen(mobileCellsListenerDefault, PhoneStateListener.LISTEN_NONE);
+                        GlobalUtils.sleep(1000);
+                        //noinspection deprecation
+                        telephonyManagerDefault.listen(mobileCellsListenerDefault,
+                                PhoneStateListener.LISTEN_CELL_INFO
+                                        | PhoneStateListener.LISTEN_CELL_LOCATION  // is required for some devices, especially with AP level < 26
+                                        | PhoneStateListener.LISTEN_SERVICE_STATE
+                        );
+                    }
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
                 }
