@@ -573,6 +573,8 @@ class EventStatic {
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
             PPApplicationStatic.runCommand(dataWrapper.context, commandIntent);
 
+//            PPApplicationStatic.logE("[MAIN_WORKER_CALL] EventStatic.runStopEvent", "(1) xxxxxxxxxxxxxxxxxxxx");
+
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG)
@@ -627,6 +629,8 @@ class EventStatic {
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
             PPApplicationStatic.runCommand(dataWrapper.context, commandIntent);
+
+//            PPApplicationStatic.logE("[MAIN_WORKER_CALL] EventStatic.runStopEvent", "(2) xxxxxxxxxxxxxxxxxxxx");
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)

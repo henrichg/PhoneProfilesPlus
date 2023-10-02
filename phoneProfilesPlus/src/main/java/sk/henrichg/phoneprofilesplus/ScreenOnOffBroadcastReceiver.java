@@ -326,16 +326,17 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     PPApplicationStatic.restartAllScanners(appContext, false);
                 }
 
+                // Is needed this for "Always on display" to change these notifications in it. Hm.
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPAppNotification.drawNotification");
+                ProfileListNotification.drawNotification(false, appContext);
+                PPAppNotification.drawNotification(false, appContext);
+
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_SCREEN});
                     // do not call this when screen is off
                     //handleEventsForBrightnessSensor();
                 }
-
-//                PPApplicationStatic.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPAppNotification.drawNotification");
-                ProfileListNotification.drawNotification(false, appContext);
-                PPAppNotification.drawNotification(false, appContext);
 
                 break;
             }

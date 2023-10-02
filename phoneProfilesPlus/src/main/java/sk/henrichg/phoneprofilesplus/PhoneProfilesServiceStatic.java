@@ -626,7 +626,8 @@ class PhoneProfilesServiceStatic
         PPApplicationStatic.startHandlerThreadBroadcast();
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         __handler.post(() -> {
-            if (!register) {
+            // unregister and then register, when register=true
+            //if (!register) {
                 if (PPApplication.phoneCallsListenerSIM1 != null) {
                     try {
                         if (PPApplication.telephonyManagerSIM1 != null)
@@ -654,7 +655,10 @@ class PhoneProfilesServiceStatic
                     } catch (Exception ignored) {
                     }
                 }
-            } else {
+            //} else {
+            if (register) {
+                GlobalUtils.sleep(1000);
+
                 PPApplication.telephonyManagerDefault = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (PPApplication.telephonyManagerDefault != null) {
                     int simCount = PPApplication.telephonyManagerDefault.getPhoneCount();

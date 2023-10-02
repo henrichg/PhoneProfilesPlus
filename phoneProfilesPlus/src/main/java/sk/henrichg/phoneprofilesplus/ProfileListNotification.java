@@ -568,9 +568,13 @@ public class ProfileListNotification {
         if (drawImmediatelly)
             PPApplication.scheduledFutureDelayedProfileListNotificationExecutor =
                     PPApplication.delayedProfileListNotificationExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
-        else
+        else {
+            int delay = 5;
+            if (PPApplication.isScreenOn)
+                delay = 1;
             PPApplication.scheduledFutureDelayedProfileListNotificationExecutor =
-                    PPApplication.delayedProfileListNotificationExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
+                    PPApplication.delayedProfileListNotificationExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
+        }
     }
 
     static void showNotification(Context context,

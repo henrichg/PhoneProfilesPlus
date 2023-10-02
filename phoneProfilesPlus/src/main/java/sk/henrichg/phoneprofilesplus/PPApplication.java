@@ -261,6 +261,7 @@ public class PPApplication extends Application
                                                 //+"|[PPP_NOTIFICATION]"
                                                 //+"|[DUAL_SIM]"
                                                 //+"|[APPLICATION_FULLY_STARTED]"
+                                                //+"|[MAIN_WORKER_CALL]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -1742,6 +1743,10 @@ public class PPApplication extends Application
             int delay = 1;
             if (longDelay)
                 delay = 10;
+            else {
+                if (!PPApplication.isScreenOn)
+                    delay = 5;
+            }
 
 //            PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** PPApplication.updateGUI", "schedule");
 

@@ -92,6 +92,8 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
                     .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_VOLUMES)
                     .build();*/
 
+//        PPApplicationStatic.logE("[MAIN_WORKER_CALL] MobileDataNetworkCallback.doConnection", "xxxxxxxxxxxxxxxxxxxx");
+
         OneTimeWorkRequest worker =
                 new OneTimeWorkRequest.Builder(MainWorker.class)
                         .addTag(MainWorker.HANDLE_EVENTS_MOBILE_DATA_NETWORK_CALLBACK_WORK_TAG)

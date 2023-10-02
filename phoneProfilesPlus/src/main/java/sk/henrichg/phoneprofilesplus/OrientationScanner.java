@@ -267,6 +267,8 @@ class OrientationScanner implements SensorEventListener {
 
                     //interval = interval / 2;
 
+//                    PPApplicationStatic.logE("[MAIN_WORKER_CALL] OrientationScanner.runEventsHandlerForOrientationChange", "xxxxxxxxxxxxxxxxxxxx");
+
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(MainWorker.class)
                                     .addTag(MainWorker.ORIENTATION_SCANNER_WORK_TAG)

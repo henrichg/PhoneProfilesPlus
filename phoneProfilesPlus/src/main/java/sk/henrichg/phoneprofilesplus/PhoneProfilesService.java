@@ -319,6 +319,8 @@ public class PhoneProfilesService extends Service
 
         //PPApplication.startTimeOfApplicationStart = Calendar.getInstance().getTimeInMillis();
 
+//        PPApplicationStatic.logE("[MAIN_WORKER_CALL] PhoneProfilesService.onCreate", "xxxxxxxxxxxxxxxxxxxx");
+
         OneTimeWorkRequest worker =
                 new OneTimeWorkRequest.Builder(MainWorker.class)
                         .addTag(MainWorker.APPLICATION_FULLY_STARTED_WORK_TAG)
@@ -1006,6 +1008,8 @@ public class PhoneProfilesService extends Service
                             .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE, _startForExternalAppDataValue)
                             //.putBoolean(PhoneProfilesService.EXTRA_SHOW_TOAST, serviceIntent != null)
                             .build();
+
+//                    PPApplicationStatic.logE("[MAIN_WORKER_CALL] PhoneProfilesService.doForFirstStart", "xxxxxxxxxxxxxxxxxxxx");
 
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(MainWorker.class)

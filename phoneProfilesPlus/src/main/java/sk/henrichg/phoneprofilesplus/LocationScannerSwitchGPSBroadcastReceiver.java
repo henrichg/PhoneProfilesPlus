@@ -86,6 +86,9 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
             /*int keepResultsDelay = delay * 5;
             if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                 keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
+
+//                PPApplicationStatic.logE("[MAIN_WORKER_CALL] LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "xxxxxxxxxxxxxxxxxxxx");
+
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.LOCATION_SCANNER_SWITCH_GPS_WORK_TAG)

@@ -242,6 +242,7 @@ class BluetoothConnectedDevicesDetector {
 
     private static void callEventHandler(Context appContext) {
 //        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.callEventHandler", "xxxxxxxxxxxxxxxxxxxx");
+//        PPApplicationStatic.logE("[MAIN_WORKER_CALL] BluetoothConnectedDevicesDetector.callEventHandler", "xxxxxxxxxxxxxxxxxxxx");
 
         if (ApplicationPreferences.prefEventBluetoothScanRequest ||
                 ApplicationPreferences.prefEventBluetoothLEScanRequest ||

@@ -493,6 +493,8 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         PPApplication.mobileCellsForceStart = false;
         PPApplicationStatic.restartMobileCellsScanner(prefContext);
 
+//        PPApplicationStatic.logE("[MAIN_WORKER_CALL] MobileCellsEditorPreferenceFragment.onDialogClosed", "xxxxxxxxxxxxxxxxxxxx");
+
         OneTimeWorkRequest worker =
                 new OneTimeWorkRequest.Builder(MainWorker.class)
                         .addTag(MainWorker.SET_MOBILE_CELLS_AS_OLD_WORK_TAG)

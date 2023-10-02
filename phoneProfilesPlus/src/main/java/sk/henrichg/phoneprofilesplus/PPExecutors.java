@@ -69,6 +69,9 @@ class PPExecutors {
         };
         PPApplicationStatic.createNonBlockedExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+
+//        PPApplicationStatic.logE("[MAIN_WORKER_CALL] PPExecutors.scheduleDisableRingerModeInternalChangeExecutor", "xxxxxxxxxxxxxxxxxxxx");
+
         handleEventsMianWorker(EventsHandler.SENSOR_TYPE_SOUND_PROFILE, MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG/*, 0*/);
     }
 
@@ -99,6 +102,8 @@ class PPExecutors {
         };
         PPApplicationStatic.createNonBlockedExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+
+//        PPApplicationStatic.logE("[MAIN_WORKER_CALL] PPExecutors.scheduleDisableVolumesInternalChangeExecutor", "xxxxxxxxxxxxxxxxxxxx");
         handleEventsMianWorker(EventsHandler.SENSOR_TYPE_VOLUMES, MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG/*, 0*/);
     }
 
@@ -114,6 +119,8 @@ class PPExecutors {
         };
         PPApplicationStatic.createNonBlockedExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+
+//        PPApplicationStatic.logE("[MAIN_WORKER_CALL] PPExecutors.scheduleDisableBrightnessInternalChangeExecutor", "xxxxxxxxxxxxxxxxxxxx");
         handleEventsMianWorker(EventsHandler.SENSOR_TYPE_BRIGHTNESS, MainWorker.HANDLE_EVENTS_BRIGHTNESS_WORK_TAG/*, 0*/);
     }
 
@@ -233,6 +240,8 @@ class PPExecutors {
         Data workData = new Data.Builder()
                 .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, _sensorType)
                 .build();
+
+//        PPApplicationStatic.logE("[MAIN_WORKER_CALL] PPExecutors.handleEventsMianWorker", "xxxxxxxxxxxxxxxxxxxx");
 
         OneTimeWorkRequest worker;
         //if (delay == 0)

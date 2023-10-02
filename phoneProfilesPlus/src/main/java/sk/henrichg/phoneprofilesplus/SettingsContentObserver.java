@@ -231,6 +231,8 @@ class SettingsContentObserver  extends ContentObserver {
                                 .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_VOLUMES)
                                 .build();
 
+//                        PPApplicationStatic.logE("[MAIN_WORKER_CALL] SettingsContentObserver.onChange", " (1) xxxxxxxxxxxxxxxxxxxx");
+
                         OneTimeWorkRequest worker =
                                 new OneTimeWorkRequest.Builder(MainWorker.class)
                                         .addTag(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG)
@@ -304,6 +306,8 @@ class SettingsContentObserver  extends ContentObserver {
                         Data workData = new Data.Builder()
                                 .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_BRIGHTNESS)
                                 .build();
+
+//                        PPApplicationStatic.logE("[MAIN_WORKER_CALL] SettingsContentObserver.onChange", " (2) xxxxxxxxxxxxxxxxxxxx");
 
                         OneTimeWorkRequest worker =
                                 new OneTimeWorkRequest.Builder(MainWorker.class)

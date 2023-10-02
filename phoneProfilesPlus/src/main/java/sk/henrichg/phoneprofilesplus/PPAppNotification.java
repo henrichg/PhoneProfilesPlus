@@ -1421,9 +1421,13 @@ public class PPAppNotification {
         if (drawImmediatelly)
             PPApplication.scheduledFutureDelayedAppNotificationExecutor =
                     PPApplication.delayedAppNotificationExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
-        else
+        else {
+            int delay = 5;
+            if (PPApplication.isScreenOn)
+                delay = 1;
             PPApplication.scheduledFutureDelayedAppNotificationExecutor =
-                    PPApplication.delayedAppNotificationExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
+                    PPApplication.delayedAppNotificationExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
+        }
     }
 
     static void showNotification(Context context, boolean drawEmpty, boolean drawActivatedProfle, boolean drawImmediatelly) {

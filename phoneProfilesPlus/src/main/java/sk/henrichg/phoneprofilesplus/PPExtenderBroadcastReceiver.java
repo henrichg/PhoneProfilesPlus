@@ -534,6 +534,9 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                         .build();
 
                 boolean enqueuedWork = false;
+
+//                PPApplicationStatic.logE("[MAIN_WORKER_CALL] PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "xxxxxxxxxxxxxxxxxxxx");
+
                 // work for check accessibility, when Extender do not send ACTION_ACCESSIBILITY_SERVICE_CONNECTED
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)

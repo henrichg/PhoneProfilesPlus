@@ -1872,6 +1872,8 @@ public class EditorActivity extends AppCompatActivity
 
                 //IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext());
 
+//                PPApplicationStatic.logE("[MAIN_WORKER_CALL] EditorActivity.onActivityResult", "xxxxxxxxxxxxxxxxxxxx");
+
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG)

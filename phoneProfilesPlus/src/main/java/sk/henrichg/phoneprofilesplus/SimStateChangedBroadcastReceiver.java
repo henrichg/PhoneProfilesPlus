@@ -67,8 +67,8 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                     //GlobalUtils.hasSIMCard(appContext, 1);
                     //GlobalUtils.hasSIMCard(appContext, 2);
 
-                    // for Call and Roaming sensor
-                    PPApplicationStatic.registerPhoneCallsListener(false, appContext);
+                    // for Call and Roaming sensor - not needed, reister=true also unregister
+                    //PPApplicationStatic.registerPhoneCallsListener(false, appContext);
                     // for Call and SMS sensor
                     PPApplicationStatic.registerPPPExtenderReceiverForSMSCall(false, appContext);
                     PPApplicationStatic.registerReceiversForCallSensor(false, appContext);

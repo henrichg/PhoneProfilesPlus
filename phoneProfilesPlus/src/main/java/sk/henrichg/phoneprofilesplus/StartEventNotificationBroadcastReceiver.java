@@ -85,6 +85,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                         .putLong(PPApplication.EXTRA_EVENT_ID, event._id)
                         .build();
 
+//                PPApplicationStatic.logE("[MAIN_WORKER_CALL] StartEventNotificationBroadcastReceiver.setAlarm", "xxxxxxxxxxxxxxxxxxxx");
+
                 /*int keepResultsDelay = (event._repeatNotificationIntervalStart * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/

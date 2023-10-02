@@ -2541,6 +2541,9 @@ class Event {
                 /*int keepResultsDelay = (this._delayStart * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
+
+//                    PPApplicationStatic.logE("[MAIN_WORKER_CALL] Event.setDelayStartAlarm", "xxxxxxxxxxxxxxxxxxxx");
+
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(MainWorker.class)
                                     .addTag(MainWorker.EVENT_DELAY_START_WORK_TAG + "_" + (int) this._id)
@@ -2761,6 +2764,9 @@ class Event {
                 /*int keepResultsDelay = (this._delayEnd * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
+
+//                    PPApplicationStatic.logE("[MAIN_WORKER_CALL] Event.setDelayEndAlarm", "xxxxxxxxxxxxxxxxxxxx");
+
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(MainWorker.class)
                                     .addTag(MainWorker.EVENT_DELAY_END_WORK_TAG + "_" + (int) this._id)

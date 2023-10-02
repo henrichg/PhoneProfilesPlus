@@ -83,6 +83,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                             .putInt(PPApplication.EXTRA_STARTUP_SOURCE, startupSource)
                             .build();
 
+//                    PPApplicationStatic.logE("[MAIN_WORKER_CALL] ProfileDurationAlarmBroadcastReceiver.setAlarm", "xxxxxxxxxxxxxxxxxxxx");
+
                     //int keepResultsDelay = (profile._duration * 5) / 60; // conversion to minutes
                     //if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     //    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;

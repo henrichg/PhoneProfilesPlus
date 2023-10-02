@@ -121,6 +121,8 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             .putString(EXTRA_RUN_APPLICATION_DATA, runApplicationData)
                             .build();
 
+//                    PPApplicationStatic.logE("[MAIN_WORKER_CALL] RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "xxxxxxxxxxxxxxxxxxxx");
+
                 /*int keepResultsDelay = (startApplicationDelay * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
