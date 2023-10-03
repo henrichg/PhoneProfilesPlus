@@ -11,6 +11,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import androidx.preference.DialogPreference;
 
@@ -53,6 +54,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
     {
         // Get the persistent value
         value = getPersistedString((String)defaultValue);
+        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.onSetInitialValue", "value="+value);
         this.defaultValue = (String)defaultValue;
         //getValueCMSDP(); // toto cita z cache, je tam blokoanie mutexom
         setSummaryCMSDP(); // toto cita z databazy, ak je len jedne kontakt nastaveny
@@ -234,6 +236,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         if (shouldPersist())
         {
             getValue();
+            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.persistValue", "value="+value);
             persistString(value);
 
             setSummaryCMSDP();

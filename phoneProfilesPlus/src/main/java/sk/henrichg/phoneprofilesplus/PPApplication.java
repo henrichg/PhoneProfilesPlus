@@ -262,6 +262,7 @@ public class PPApplication extends Application
                                                 //+"|[DUAL_SIM]"
                                                 //+"|[APPLICATION_FULLY_STARTED]"
                                                 //+"|[MAIN_WORKER_CALL]"
+                                                +"|[CONTACTS_DIALOG]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
