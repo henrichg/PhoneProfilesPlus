@@ -165,7 +165,7 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                             {
                                 Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
                                 if (bitmap != null)
-                                    profileIcon.setImageBitmap(bitmap);
+                                    profIcon.setImageBitmap(bitmap);
                                 else {
                                     if (profile._iconBitmap != null)
                                         profIcon.setImageBitmap(profile._iconBitmap);
