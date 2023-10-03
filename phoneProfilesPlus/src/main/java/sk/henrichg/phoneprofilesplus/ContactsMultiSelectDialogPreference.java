@@ -70,7 +70,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         if (contactsCache == null)
             return;
 
-        synchronized (PPApplication.contactsCacheMutex) { //TODO tuto to pozastavi, to je uplne ze zle
+        synchronized (PPApplication.contactsCacheMutex) {
             List<Contact>  localContactList = contactsCache.getList(/*withoutNumbers*/);
             if (localContactList != null) {
                 contactList = new ArrayList<>();
