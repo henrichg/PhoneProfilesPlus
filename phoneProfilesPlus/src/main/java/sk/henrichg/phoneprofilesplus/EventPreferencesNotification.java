@@ -30,8 +30,8 @@ class EventPreferencesNotification extends EventPreferences {
     boolean _missedCall;
     int _duration;
     boolean _checkContacts;
-    String _contacts;
-    String _contactGroups;
+    String _contacts; // contactId#phoneId|...
+    String _contactGroups; // groupId|...
     int _contactListType;
     boolean _checkText;
     String _text;
@@ -1240,6 +1240,7 @@ class EventPreferencesNotification extends EventPreferences {
 
         if (!phoneNumberFound) {
             // find phone number in contacts
+            // contactId#phoneId|...
             splits = this._contacts.split(StringConstants.STR_SPLIT_REGEX);
             for (String split : splits) {
                 String[] splits2 = split.split("#");
