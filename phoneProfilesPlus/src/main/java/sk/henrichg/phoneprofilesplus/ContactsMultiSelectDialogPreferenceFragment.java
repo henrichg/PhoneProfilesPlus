@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialogFragmentCompat {
 
@@ -133,18 +134,40 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                 //    PhoneProfilesService.getContactsCache().getContactList(prefContext);
 
                 // must be first
-                PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false);
                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                if (contactsCache != null) {
+                if (contactsCache == null) {
+                    // cache not created, create it
+                    PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false);
+                    /*contactsCache = PPApplicationStatic.getContactsCache();
                     while (contactsCache.getCaching())
-                        GlobalUtils.sleep(100);
+                        GlobalUtils.sleep(100);*/
+                } else {
+                    List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
+                    if (contactList == null) {
+                        // not cached, cache it
+                        PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false);
+                        /*contactsCache = PPApplicationStatic.getContactsCache();
+                        while (contactsCache.getCaching())
+                            GlobalUtils.sleep(100);*/
+                    }
                 }
                 //must be seconds, this ads groups into contacts
-                PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false);
                 ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
-                if (contactGroupsCache != null) {
+                if (contactGroupsCache == null) {
+                    // cache not created, create it
+                    PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false);
+                    /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                     while (contactGroupsCache.getCaching())
-                        GlobalUtils.sleep(100);
+                        GlobalUtils.sleep(100);*/
+                } else {
+                    List<ContactGroup> contactGroupList = contactGroupsCache.getList(/*withoutNumbers*/);
+                    if (contactGroupList == null) {
+                        // not cached, cache it
+                        PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false);
+                        /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
+                        while (contactGroupsCache.getCaching())
+                            GlobalUtils.sleep(100);*/
+                    }
                 }
 
                 preference.getValueCMSDP();

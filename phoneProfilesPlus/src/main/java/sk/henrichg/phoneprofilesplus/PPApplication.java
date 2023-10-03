@@ -226,7 +226,7 @@ public class PPApplication extends Application
 // this si for get 0, 50 100% level
 //                                                +"|SettingsContentObserver.onChange"
 
-//                                                +"|[IN_WORKER]"
+                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_EXECUTOR]"
 //                                                +"|[EXECUTOR_CALL]"

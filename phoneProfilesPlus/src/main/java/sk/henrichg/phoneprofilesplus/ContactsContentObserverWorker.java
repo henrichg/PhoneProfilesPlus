@@ -24,14 +24,14 @@ public class ContactsContentObserverWorker extends Worker {
     public Result doWork() {
         try {
 //            long start = System.currentTimeMillis();
-//            PPApplicationStatic.logE("[IN_WORKER]  ContactsContentObserverWorker.doWork", "--------------- START");
+            PPApplicationStatic.logE("[IN_WORKER]  ContactsContentObserverWorker.doWork", "--------------- START");
 
             Context appContext = context.getApplicationContext();
 
             // must be first
-            PPApplicationStatic.createContactsCache(appContext, true);
+            PPApplicationStatic.createContactsCache(appContext, false);
             //must be seconds, this ads groups into contacts
-            PPApplicationStatic.createContactGroupsCache(appContext, true);
+            PPApplicationStatic.createContactGroupsCache(appContext, false);
 
             EventsHandler eventsHandler = new EventsHandler(appContext);
             eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED});

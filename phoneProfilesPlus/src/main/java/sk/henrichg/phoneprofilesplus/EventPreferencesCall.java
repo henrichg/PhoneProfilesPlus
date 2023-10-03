@@ -748,6 +748,7 @@ class EventPreferencesCall extends EventPreferences {
 
             if (!phoneNumberFound) {
                 // find phone number in contacts
+                // contactId#phoneId|...
                 splits = this._contacts.split(StringConstants.STR_SPLIT_REGEX);
                 for (String split : splits) {
                     String[] splits2 = split.split("#");
