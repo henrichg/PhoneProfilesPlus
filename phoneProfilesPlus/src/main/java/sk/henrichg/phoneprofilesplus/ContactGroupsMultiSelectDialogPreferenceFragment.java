@@ -148,7 +148,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                         GlobalUtils.sleep(100);*/
                 } else {
                     if (!contactsCache.getCaching()) {
-                        // not caching
+                        // caching not performed
                         List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
                         if (contactList == null) {
                             // not cached, cache it
@@ -173,7 +173,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                         GlobalUtils.sleep(100);*/
                 } else {
                     if (!contactGroupsCache.getCaching()) {
-                        // not caching
+                        // caching not performed
                         List<ContactGroup> contactGroupList = contactGroupsCache.getList(/*withoutNumbers*/);
                         if (contactGroupList == null) {
                             // not cached, cache it
