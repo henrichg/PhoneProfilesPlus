@@ -20,8 +20,8 @@ import java.util.List;
 class EventPreferencesCall extends EventPreferences {
 
     int _callEvent;
-    String _contacts;
-    String _contactGroups;
+    String _contacts; // contactId#phoneId|...
+    String _contactGroups; // groupId|...
     int _contactListType;
     boolean _permanentRun;
     int _duration;
