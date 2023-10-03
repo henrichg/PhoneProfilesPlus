@@ -886,7 +886,7 @@ Ked ho budes mat, musis prechadzat ten speci list.
    - phoneNumber
    - accountType
 3. Ak take najdes, dopln do noveho value contactid#phoneId z noveho contactlist.
-4. Ak budu vsetky kontakty hotove, zapis do udalosti do prislusneho senzora.
+4. Ak budu vsetky kontakty hotove, zapis value do udalosti do prislusneho senzora.
 
 
 
