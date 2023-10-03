@@ -36,7 +36,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         value = getPersistedString((String)defaultValue);
         this.defaultValue = (String)defaultValue;
 
-        getValueCMSDP();
+        //getValueCMSDP();
         setSummaryCMSDP();
     }
 

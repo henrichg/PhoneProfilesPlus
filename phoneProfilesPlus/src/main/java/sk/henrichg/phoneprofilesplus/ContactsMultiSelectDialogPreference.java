@@ -54,8 +54,8 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         // Get the persistent value
         value = getPersistedString((String)defaultValue);
         this.defaultValue = (String)defaultValue;
-        getValueCMSDP();
-        setSummaryCMSDP();
+        //getValueCMSDP(); // toto cita z cache, je tam blokoanie mutexom
+        setSummaryCMSDP(); // toto cita z databazy, ak je len jedne kontakt nastaveny
     }
 
     void refreshListView(@SuppressWarnings("SameParameterValue") final boolean notForUnselect) {
@@ -70,7 +70,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         if (contactsCache == null)
             return;
 
-        synchronized (PPApplication.contactsCacheMutex) {
+        synchronized (PPApplication.contactsCacheMutex) { //TODO tuto to pozastavi, to je uplne ze zle
             List<Contact>  localContactList = contactsCache.getList(/*withoutNumbers*/);
             if (localContactList != null) {
                 contactList = new ArrayList<>();

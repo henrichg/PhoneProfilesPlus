@@ -89,7 +89,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     {
         value = getPersistedString((String) defaultValue);
         this.defaultValue = (String)defaultValue;
-        getValueAMSDP();
+        //getValueAMSDP();
         setSummaryAMSDP();
     }
 
