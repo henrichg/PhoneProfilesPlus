@@ -142,13 +142,20 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                     while (contactsCache.getCaching())
                         GlobalUtils.sleep(100);*/
                 } else {
-                    List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
-                    if (contactList == null) {
-                        // not cached, cache it
-                        PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false);
-                        /*contactsCache = PPApplicationStatic.getContactsCache();
+                    if (!contactsCache.getCaching()) {
+                        // not caching
+                        List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
+                        if (contactList == null) {
+                            // not cached, cache it
+                            PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false);
+                            /*contactsCache = PPApplicationStatic.getContactsCache();
+                            while (contactsCache.getCaching())
+                                GlobalUtils.sleep(100);*/
+                        }
+                    } else {
+                        // wait for cache end
                         while (contactsCache.getCaching())
-                            GlobalUtils.sleep(100);*/
+                            GlobalUtils.sleep(100);
                     }
                 }
                 //must be seconds, this ads groups into contacts
@@ -160,13 +167,20 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                     while (contactGroupsCache.getCaching())
                         GlobalUtils.sleep(100);*/
                 } else {
-                    List<ContactGroup> contactGroupList = contactGroupsCache.getList(/*withoutNumbers*/);
-                    if (contactGroupList == null) {
-                        // not cached, cache it
-                        PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false);
-                        /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
+                    if (!contactGroupsCache.getCaching()) {
+                        // not caching
+                        List<ContactGroup> contactGroupList = contactGroupsCache.getList(/*withoutNumbers*/);
+                        if (contactGroupList == null) {
+                            // not cached, cache it
+                            PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false);
+                            /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
+                            while (contactGroupsCache.getCaching())
+                                GlobalUtils.sleep(100);*/
+                        }
+                    } else {
+                        // wait for cache end
                         while (contactGroupsCache.getCaching())
-                            GlobalUtils.sleep(100);*/
+                            GlobalUtils.sleep(100);
                     }
                 }
 
