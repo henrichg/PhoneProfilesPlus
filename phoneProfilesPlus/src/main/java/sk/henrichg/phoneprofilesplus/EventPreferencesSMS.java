@@ -20,8 +20,8 @@ import java.util.List;
 class EventPreferencesSMS extends EventPreferences {
 
     //int _smsEvent;
-    String _contacts;
-    String _contactGroups;
+    String _contacts; // contactId#phoneId|...
+    String _contactGroups; // groupId|...
     int _contactListType;
     boolean _permanentRun;
     int _duration;
@@ -706,6 +706,7 @@ class EventPreferencesSMS extends EventPreferences {
 
                     if (!phoneNumberFound) {
                         // find phone number in contacts
+                        // contactId#phoneId|...
                         splits = this._contacts.split(StringConstants.STR_SPLIT_REGEX);
                         for (String split : splits) {
                             String[] splits2 = split.split("#");
