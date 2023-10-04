@@ -31,9 +31,49 @@ class ContactsCache {
         caching = true;
 
         ArrayList<Contact> _contactList = new ArrayList<>();
+        ArrayList<ContactsInEvent> _contactInEventsCall = new ArrayList<>();
+        ArrayList<ContactsInEvent> _contactInEventsSMS = new ArrayList<>();
+        ArrayList<ContactsInEvent> _contactInEventsNotification = new ArrayList<>();
+        ArrayList<Contact> _oldContactList = new ArrayList<>();
+
+        DataWrapper dataWrapper = null;
 
         try {
             if (Permissions.checkContacts(context)) {
+
+                if (contactList.size() != 0) {
+                    dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
+                    dataWrapper.fillEventList();
+
+                    // fill array with events, which uses contact cache
+                    for (Event _event : dataWrapper.eventList) {
+                        if (_event._eventPreferencesCall._enabled) {
+                            ContactsInEvent contactsInEvent = new ContactsInEvent();
+                            contactsInEvent.event = _event;
+                            contactsInEvent.contacts = _event._eventPreferencesCall._contacts;
+                            //contactsInEvent.sensorType = EventsHandler.SENSOR_TYPE_PHONE_CALL;
+                            _contactInEventsCall.add(contactsInEvent);
+                        }
+                    }
+                    for (Event _event : dataWrapper.eventList) {
+                        if (_event._eventPreferencesSMS._enabled) {
+                            ContactsInEvent contactsInEvent = new ContactsInEvent();
+                            contactsInEvent.event = _event;
+                            contactsInEvent.contacts = _event._eventPreferencesSMS._contacts;
+                            //contactsInEvent.sensorType = EventsHandler.SENSOR_TYPE_SMS;
+                            _contactInEventsSMS.add(contactsInEvent);
+                        }
+                    }
+                    for (Event _event : dataWrapper.eventList) {
+                        if (_event._eventPreferencesNotification._enabled) {
+                            ContactsInEvent contactsInEvent = new ContactsInEvent();
+                            contactsInEvent.event = _event;
+                            contactsInEvent.contacts = _event._eventPreferencesNotification._contacts;
+                            //contactsInEvent.sensorType = EventsHandler.SENSOR_TYPE_NOTIFICATION;
+                            _contactInEventsNotification.add(contactsInEvent);
+                        }
+                    }
+                }
 
                 long contactId = 0;
                 String name = null;
@@ -163,8 +203,42 @@ class ContactsCache {
 
                 _contactList.sort(new ContactsComparator());
                 synchronized (PPApplication.contactsCacheMutex) {
+
+                    if (contactList.size() != 0) {
+                        // do copy of old contactList
+                        for (Contact _contact : contactList) {
+                            Contact dContact = new Contact();
+                            dContact.contactId = _contact.contactId;
+                            dContact.name = _contact.name;
+                            dContact.phoneId = _contact.phoneId;
+                            dContact.phoneNumber = _contact.phoneNumber;
+                            dContact.photoId = _contact.photoId;
+                            dContact.accountType = _contact.accountType;
+                            dContact.accountName = _contact.accountName;
+                            _oldContactList.add(dContact);
+                        }
+                    }
+
                     updateContacts(_contactList/*, false*/);
                     //updateContacts(_contactListWithoutNumber, true);
+
+                    if (_oldContactList.size() != 0) {
+                        for (ContactsInEvent contactsInEvent : _contactInEventsCall) {
+                            // for each contactsInEvent for call sensor
+                            contactsInEvent.event._eventPreferencesCall._contacts =
+                                    covertOldContactToNewContact(contactsInEvent, _oldContactList);
+                        }
+                        for (ContactsInEvent contactsInEvent : _contactInEventsSMS) {
+                            // for each contactsInEvent for call sensor
+                            contactsInEvent.event._eventPreferencesCall._contacts =
+                                    covertOldContactToNewContact(contactsInEvent, _oldContactList);
+                        }
+                        for (ContactsInEvent contactsInEvent : _contactInEventsNotification) {
+                            // for each contactsInEvent for call sensor
+                            contactsInEvent.event._eventPreferencesCall._contacts =
+                                    covertOldContactToNewContact(contactsInEvent, _oldContactList);
+                        }
+                    }
                 }
 
                 cached = true;
@@ -194,6 +268,9 @@ class ContactsCache {
 
             cached = false;
         }
+
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
 
         caching = false;
     }
@@ -510,6 +587,58 @@ class ContactsCache {
         return caching;
     }
 
+    private String covertOldContactToNewContact(ContactsInEvent contactsInEvent, List<Contact> _oldContactList) {
+        StringBuilder newContacts = new StringBuilder();
+
+        String[] splits = contactsInEvent.contacts.split(StringConstants.STR_SPLIT_REGEX);
+        for (String split : splits) {
+            // for each contact in contactsInEvent.contacts
+            String[] splits2 = split.split("#");
+            long _contactId = Long.parseLong(splits2[0]);
+            long _phoneId = Long.parseLong(splits2[1]);
+
+            boolean foundInNew = false;
+            // search one contact from contactsInEvent.contacts
+            for (Contact oldContact : _oldContactList) {
+                boolean foundInOld = false;
+                if (_phoneId != 0) {
+                    if ((oldContact.contactId == _contactId) && (oldContact.phoneId == _phoneId))
+                        foundInOld = true;
+                } else {
+                    if (oldContact.contactId == _contactId)
+                        foundInOld = true;
+                }
+                if (foundInOld) {
+                    // found contact in old list
+
+                    // search it in new list
+                    for (Contact newContact : contactList) {
+                        // search these fields in new contactList
+                        if (newContact.name.equals(oldContact.name) &&
+                                newContact.phoneNumber.equals(oldContact.phoneNumber) && // !!! tu hladaj ako hladas v doHandleEcent call, sms senzora
+                                newContact.accountType.equals(oldContact.accountType)) {
+                            foundInNew = true;
+                            // update contact to new contact in event
+                            if (newContacts.length() > 0)
+                                newContacts.append("|");
+                            newContacts.append(newContact.contactId).append("#").append(newContact.phoneId);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            if (!foundInNew) {
+                // get back old contact
+                if (newContacts.length() > 0)
+                    newContacts.append("|");
+                newContacts.append(split);
+            }
+        }
+
+        return newContacts.toString();
+    }
+
     private static class ContactsComparator implements Comparator<Contact> {
 
         public int compare(Contact lhs, Contact rhs) {
@@ -518,6 +647,12 @@ class ContactsCache {
             else
                 return 0;
         }
+    }
+
+    private static class ContactsInEvent {
+        Event event = null;
+        String contacts = null;
+        //int sensorType = -1;
     }
 
 }

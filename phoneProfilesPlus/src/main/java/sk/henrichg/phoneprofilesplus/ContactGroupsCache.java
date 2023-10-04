@@ -11,6 +11,7 @@ import java.util.List;
 class ContactGroupsCache {
 
     private final ArrayList<ContactGroup> contactGroupList;
+
     private boolean cached;
     private boolean caching;
     //private boolean cancelled;
@@ -177,6 +178,10 @@ class ContactGroupsCache {
         }
 
         ArrayList<ContactGroup> _contactGroupList = new ArrayList<>();
+        ArrayList<ContactGroupsInEvent> _contactGroupInEventsCall = new ArrayList<>();
+        ArrayList<ContactGroupsInEvent> _contactGroupInEventsSMS = new ArrayList<>();
+        ArrayList<ContactGroupsInEvent> _contactGroupInEventsNotification = new ArrayList<>();
+        ArrayList<ContactGroup> _oldContactGroupList = new ArrayList<>();
 
         ArrayList<Contact> _contactList = new ArrayList<>();
         //ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
@@ -191,8 +196,45 @@ class ContactGroupsCache {
 
 //        long kolegoviaGroupId = 0;
 
+        DataWrapper dataWrapper = null;
+
         try {
             if (Permissions.checkContacts(context)) {
+
+                if (contactGroupList.size() != 0) {
+                    dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
+                    dataWrapper.fillEventList();
+
+                    // fill array with events, which uses group cache
+                    for (Event _event : dataWrapper.eventList) {
+                        if (_event._eventPreferencesCall._enabled) {
+                            ContactGroupsInEvent contactGroupsInEvent = new ContactGroupsInEvent();
+                            contactGroupsInEvent.event = _event;
+                            contactGroupsInEvent.groups = _event._eventPreferencesCall._contactGroups;
+                            //contactsInEvent.sensorType = EventsHandler.SENSOR_TYPE_PHONE_CALL;
+                            _contactGroupInEventsCall.add(contactGroupsInEvent);
+                        }
+                    }
+                    for (Event _event : dataWrapper.eventList) {
+                        if (_event._eventPreferencesSMS._enabled) {
+                            ContactGroupsInEvent contactGroupsInEvent = new ContactGroupsInEvent();
+                            contactGroupsInEvent.event = _event;
+                            contactGroupsInEvent.groups = _event._eventPreferencesSMS._contactGroups;
+                            //contactsInEvent.sensorType = EventsHandler.SENSOR_TYPE_SMS;
+                            _contactGroupInEventsSMS.add(contactGroupsInEvent);
+                        }
+                    }
+                    for (Event _event : dataWrapper.eventList) {
+                        if (_event._eventPreferencesNotification._enabled) {
+                            ContactGroupsInEvent contactGroupsInEvent = new ContactGroupsInEvent();
+                            contactGroupsInEvent.event = _event;
+                            contactGroupsInEvent.groups = _event._eventPreferencesNotification._contactGroups;
+                            //contactsInEvent.sensorType = EventsHandler.SENSOR_TYPE_NOTIFICATION;
+                            _contactGroupInEventsNotification.add(contactGroupsInEvent);
+                        }
+                    }
+                }
+
                 clearGroups(_contactList);
                 //contactsCache.clearGroups(_contactListWithoutNumber);
 
@@ -277,7 +319,37 @@ class ContactGroupsCache {
                     contactsCache.updateContacts(_contactList/*, false*/);
                     //contactsCache.updateContacts(_contactListWithoutNumber, true);
 
+                    if (contactGroupList.size() != 0) {
+                        // do copy of old contactGroupList
+                        for (ContactGroup _contactGroup : contactGroupList) {
+                            ContactGroup dGroup = new ContactGroup();
+                            dGroup.groupId = _contactGroup.groupId;
+                            dGroup.name = _contactGroup.name;
+                            dGroup.accountType = _contactGroup.accountType;
+                            _oldContactGroupList.add(dGroup);
+                        }
+                    }
+
                     updateContactGroups(_contactGroupList);
+
+                    if (_oldContactGroupList.size() != 0) {
+                        for (ContactGroupsInEvent contactsInEvent : _contactGroupInEventsCall) {
+                            // for each contactsInEvent for call sensor
+                            contactsInEvent.event._eventPreferencesCall._contacts =
+                                    covertOldGroupToNewGroup(contactsInEvent, _oldContactGroupList);
+                        }
+                        for (ContactGroupsInEvent contactsInEvent : _contactGroupInEventsSMS) {
+                            // for each contactsInEvent for call sensor
+                            contactsInEvent.event._eventPreferencesCall._contacts =
+                                    covertOldGroupToNewGroup(contactsInEvent, _oldContactGroupList);
+                        }
+                        for (ContactGroupsInEvent contactsInEvent : _contactGroupInEventsNotification) {
+                            // for each contactsInEvent for call sensor
+                            contactsInEvent.event._eventPreferencesCall._contacts =
+                                    covertOldGroupToNewGroup(contactsInEvent, _oldContactGroupList);
+                        }
+                    }
+
                 }
 
                 cached = true;
@@ -315,6 +387,9 @@ class ContactGroupsCache {
 
             cached = false;
         }
+
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
 
         caching = false;
     }
@@ -417,6 +492,50 @@ class ContactGroupsCache {
         return caching;
     }
 
+    private String covertOldGroupToNewGroup(ContactGroupsInEvent groupsInEvent, List<ContactGroup> _oldContactGroupList) {
+        StringBuilder newGroups = new StringBuilder();
+
+        String[] splits = groupsInEvent.groups.split(StringConstants.STR_SPLIT_REGEX);
+        for (String split : splits) {
+            // for each group in groupsInEvent.groups
+            long _groupId = Long.parseLong(split);
+
+            boolean foundInNew = false;
+            // search one group from groupsInEvent.groups
+            for (ContactGroup oldGroup : _oldContactGroupList) {
+                boolean foundInOld = false;
+                if (oldGroup.groupId == _groupId)
+                    foundInOld = true;
+                if (foundInOld) {
+                    // found contact in old list
+
+                    // search it in new list
+                    for (ContactGroup newGroup : contactGroupList) {
+                        // search these fields in new contactGroupList
+                        if (newGroup.name.equals(oldGroup.name) &&
+                                newGroup.accountType.equals(oldGroup.accountType)) {
+                            foundInNew = true;
+                            // update group to new group in event
+                            if (newGroups.length() > 0)
+                                newGroups.append("|");
+                            newGroups.append(newGroup.groupId);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            if (!foundInNew) {
+                // get back old contact
+                if (newGroups.length() > 0)
+                    newGroups.append("|");
+                newGroups.append(split);
+            }
+        }
+
+        return newGroups.toString();
+    }
+
     private static class ContactGroupsComparator implements Comparator<ContactGroup> {
 
         public int compare(ContactGroup lhs, ContactGroup rhs) {
@@ -425,6 +544,12 @@ class ContactGroupsCache {
             else
                 return 0;
         }
+    }
+
+    private static class ContactGroupsInEvent {
+        Event event = null;
+        String groups = null;
+        //int sensorType = -1;
     }
 
 }
