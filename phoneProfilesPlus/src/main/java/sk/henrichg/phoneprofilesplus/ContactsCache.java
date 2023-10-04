@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+import android.telephony.PhoneNumberUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -615,7 +616,7 @@ class ContactsCache {
                     for (Contact newContact : contactList) {
                         // search these fields in new contactList
                         if (newContact.name.equals(oldContact.name) &&
-                                newContact.phoneNumber.equals(oldContact.phoneNumber) && // !!! tu hladaj ako hladas v doHandleEcent call, sms senzora
+                                PhoneNumberUtils.compare(newContact.phoneNumber, oldContact.phoneNumber) &&
                                 newContact.accountType.equals(oldContact.accountType)) {
                             foundInNew = true;
                             // update contact to new contact in event
