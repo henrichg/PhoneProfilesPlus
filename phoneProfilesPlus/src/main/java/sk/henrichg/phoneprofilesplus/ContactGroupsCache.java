@@ -339,13 +339,13 @@ class ContactGroupsCache {
                                     covertOldGroupToNewGroup(contactsInEvent, _oldContactGroupList);
                         }
                         for (ContactGroupsInEvent contactsInEvent : _contactGroupInEventsSMS) {
-                            // for each contactsInEvent for call sensor
-                            contactsInEvent.event._eventPreferencesCall._contacts =
+                            // for each contactsInEvent for sms sensor
+                            contactsInEvent.event._eventPreferencesSMS._contacts =
                                     covertOldGroupToNewGroup(contactsInEvent, _oldContactGroupList);
                         }
                         for (ContactGroupsInEvent contactsInEvent : _contactGroupInEventsNotification) {
-                            // for each contactsInEvent for call sensor
-                            contactsInEvent.event._eventPreferencesCall._contacts =
+                            // for each contactsInEvent for notification sensor
+                            contactsInEvent.event._eventPreferencesNotification._contacts =
                                     covertOldGroupToNewGroup(contactsInEvent, _oldContactGroupList);
                         }
                     }

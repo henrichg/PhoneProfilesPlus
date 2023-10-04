@@ -230,13 +230,13 @@ class ContactsCache {
                                     covertOldContactToNewContact(contactsInEvent, _oldContactList);
                         }
                         for (ContactsInEvent contactsInEvent : _contactInEventsSMS) {
-                            // for each contactsInEvent for call sensor
-                            contactsInEvent.event._eventPreferencesCall._contacts =
+                            // for each contactsInEvent for sms sensor
+                            contactsInEvent.event._eventPreferencesSMS._contacts =
                                     covertOldContactToNewContact(contactsInEvent, _oldContactList);
                         }
                         for (ContactsInEvent contactsInEvent : _contactInEventsNotification) {
-                            // for each contactsInEvent for call sensor
-                            contactsInEvent.event._eventPreferencesCall._contacts =
+                            // for each contactsInEvent for notification sensor
+                            contactsInEvent.event._eventPreferencesNotification._contacts =
                                     covertOldContactToNewContact(contactsInEvent, _oldContactList);
                         }
                     }
