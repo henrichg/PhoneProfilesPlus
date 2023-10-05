@@ -288,8 +288,9 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         value = myState.value;
         defaultValue = myState.defaultValue;
 
-        getValueCMSDP();
+        //getValueCMSDP();
         setSummaryCMSDP();
+        refreshListView(true);
         //notifyChanged();
     }
 

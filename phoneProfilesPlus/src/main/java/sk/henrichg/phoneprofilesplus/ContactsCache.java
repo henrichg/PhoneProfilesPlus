@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.telephony.PhoneNumberUtils;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -25,9 +26,9 @@ class ContactsCache {
         caching = false;
     }
 
-    void getContactList(Context context)
+    void getContactList(Context context, boolean fixEvents, boolean forceCache)
     {
-        if (cached || caching) return;
+        if ((cached || caching) && (!forceCache)) return;
 
         caching = true;
 
@@ -42,7 +43,9 @@ class ContactsCache {
         try {
             if (Permissions.checkContacts(context)) {
 
-                if (contactList.size() != 0) {
+                if (fixEvents && (contactList.size() != 0)) {
+                    Log.e("ContactsCache.getContactList", "contactList.size() != 0");
+
                     dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
                     dataWrapper.fillEventList();
 
@@ -74,7 +77,8 @@ class ContactsCache {
                             _contactInEventsNotification.add(contactsInEvent);
                         }
                     }
-                }
+                } else
+                    Log.e("ContactsCache.getContactList", "contactList.size() == 0");
 
                 long contactId = 0;
                 String name = null;
@@ -205,7 +209,9 @@ class ContactsCache {
                 _contactList.sort(new ContactsComparator());
                 synchronized (PPApplication.contactsCacheMutex) {
 
-                    if (contactList.size() != 0) {
+                    if (fixEvents && (contactList.size() != 0)) {
+                        Log.e("ContactsCache.getContactList", "contactList.size() != 0");
+
                         // do copy of old contactList
                         for (Contact _contact : contactList) {
                             Contact dContact = new Contact();
@@ -218,16 +224,19 @@ class ContactsCache {
                             dContact.accountName = _contact.accountName;
                             _oldContactList.add(dContact);
                         }
-                    }
+                    } else
+                        Log.e("ContactsCache.getContactList", "contactList.size() == 0");
 
                     updateContacts(_contactList/*, false*/);
                     //updateContacts(_contactListWithoutNumber, true);
 
-                    if (_oldContactList.size() != 0) {
+                    if (fixEvents && (_oldContactList.size() != 0)) {
+                        Log.e("ContactsCache.getContactList", "_oldContactList.size() != 0");
+
                         for (ContactsInEvent contactsInEvent : _contactInEventsCall) {
                             // for each contactsInEvent for call sensor
                             contactsInEvent.event._eventPreferencesCall._contacts =
-                                    covertOldContactToNewContact(contactsInEvent, _oldContactList);
+                                        covertOldContactToNewContact(contactsInEvent, _oldContactList);
                         }
                         for (ContactsInEvent contactsInEvent : _contactInEventsSMS) {
                             // for each contactsInEvent for sms sensor
@@ -239,7 +248,8 @@ class ContactsCache {
                             contactsInEvent.event._eventPreferencesNotification._contacts =
                                     covertOldContactToNewContact(contactsInEvent, _oldContactList);
                         }
-                    }
+                    } else
+                        Log.e("ContactsCache.getContactList", "_oldContactList.size() == 0");
                 }
 
                 cached = true;

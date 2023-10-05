@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -165,8 +166,8 @@ class ContactGroupsCache {
         return name;
     }
 
-    void getContactGroupListX(Context context) {
-        if (cached || caching) return;
+    void getContactGroupList(Context context, boolean fixEvents, boolean forceCache) {
+        if ((cached || caching) && (!forceCache)) return;
 
         caching = true;
         //cancelled = false;
@@ -201,7 +202,9 @@ class ContactGroupsCache {
         try {
             if (Permissions.checkContacts(context)) {
 
-                if (contactGroupList.size() != 0) {
+                if (fixEvents && (contactGroupList.size() != 0)) {
+                    Log.e("ContactGroupsCache.getContactGroupListX", "contactGroupList.size() != 0");
+
                     dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
                     dataWrapper.fillEventList();
 
@@ -233,7 +236,8 @@ class ContactGroupsCache {
                             _contactGroupInEventsNotification.add(contactGroupsInEvent);
                         }
                     }
-                }
+                } else
+                    Log.e("ContactGroupsCache.getContactGroupListX", "contactGroupList.size() == 0");
 
                 clearGroups(_contactList);
                 //contactsCache.clearGroups(_contactListWithoutNumber);
@@ -319,7 +323,9 @@ class ContactGroupsCache {
                     contactsCache.updateContacts(_contactList/*, false*/);
                     //contactsCache.updateContacts(_contactListWithoutNumber, true);
 
-                    if (contactGroupList.size() != 0) {
+                    if (fixEvents && (contactGroupList.size() != 0)) {
+                        Log.e("ContactGroupsCache.getContactGroupListX", "contactGroupList.size() != 0");
+
                         // do copy of old contactGroupList
                         for (ContactGroup _contactGroup : contactGroupList) {
                             ContactGroup dGroup = new ContactGroup();
@@ -328,27 +334,31 @@ class ContactGroupsCache {
                             dGroup.accountType = _contactGroup.accountType;
                             _oldContactGroupList.add(dGroup);
                         }
-                    }
+                    } else
+                        Log.e("ContactGroupsCache.getContactGroupListX", "contactGroupList.size() == 0");
 
                     updateContactGroups(_contactGroupList);
 
-                    if (_oldContactGroupList.size() != 0) {
-                        for (ContactGroupsInEvent contactsInEvent : _contactGroupInEventsCall) {
-                            // for each contactsInEvent for call sensor
-                            contactsInEvent.event._eventPreferencesCall._contacts =
-                                    covertOldGroupToNewGroup(contactsInEvent, _oldContactGroupList);
+                    if (fixEvents && (_oldContactGroupList.size() != 0)) {
+                        Log.e("ContactGroupsCache.getContactGroupListX", "_oldContactGroupList.size() != 0");
+
+                        for (ContactGroupsInEvent contactGroupsInEvent : _contactGroupInEventsCall) {
+                            // for each contactGroupsInEvent for call sensor
+                            contactGroupsInEvent.event._eventPreferencesCall._contacts =
+                                    covertOldGroupToNewGroup(contactGroupsInEvent, _oldContactGroupList);
                         }
-                        for (ContactGroupsInEvent contactsInEvent : _contactGroupInEventsSMS) {
-                            // for each contactsInEvent for sms sensor
-                            contactsInEvent.event._eventPreferencesSMS._contacts =
-                                    covertOldGroupToNewGroup(contactsInEvent, _oldContactGroupList);
+                        for (ContactGroupsInEvent contactGroupsInEvent : _contactGroupInEventsSMS) {
+                            // for each contactGroupsInEvent for sms sensor
+                            contactGroupsInEvent.event._eventPreferencesSMS._contacts =
+                                    covertOldGroupToNewGroup(contactGroupsInEvent, _oldContactGroupList);
                         }
-                        for (ContactGroupsInEvent contactsInEvent : _contactGroupInEventsNotification) {
-                            // for each contactsInEvent for notification sensor
-                            contactsInEvent.event._eventPreferencesNotification._contacts =
-                                    covertOldGroupToNewGroup(contactsInEvent, _oldContactGroupList);
+                        for (ContactGroupsInEvent contactGroupsInEvent : _contactGroupInEventsNotification) {
+                            // for each contactGroupsInEvent for notification sensor
+                            contactGroupsInEvent.event._eventPreferencesNotification._contacts =
+                                    covertOldGroupToNewGroup(contactGroupsInEvent, _oldContactGroupList);
                         }
-                    }
+                    } else
+                        Log.e("ContactGroupsCache.getContactGroupListX", "_oldContactGroupList.size() == 0");
 
                 }
 
