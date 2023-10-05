@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -166,8 +165,8 @@ class ContactGroupsCache {
         return name;
     }
 
-    void getContactGroupList(Context context, boolean fixEvents, boolean forceCache) {
-        if ((cached || caching) && (!forceCache)) return;
+    void getContactGroupList(Context context, boolean fixEvents/*, boolean forceCache*/) {
+        //if ((cached || caching) && (!forceCache)) return;
 
         caching = true;
         //cancelled = false;

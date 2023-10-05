@@ -25,9 +25,9 @@ class ContactsCache {
         caching = false;
     }
 
-    void getContactList(Context context, boolean fixEvents, boolean forceCache)
+    void getContactList(Context context, boolean fixEvents/*, boolean forceCache*/)
     {
-        if ((cached || caching) && (!forceCache)) return;
+        //if ((cached || caching) && (!forceCache)) return;
 
         caching = true;
 

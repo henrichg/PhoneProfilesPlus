@@ -32,8 +32,8 @@ class MobileCellNamesDialog {
 
     private final AlertDialog mDialog;
     final EditText cellName;
-    ListView cellNamesListView;
-    RelativeLayout emptyList;
+    final ListView cellNamesListView;
+    final RelativeLayout emptyList;
 
     private final LinearLayout linlaProgress;
     private final LinearLayout rellaDialog;
