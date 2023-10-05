@@ -109,7 +109,6 @@
     <string name="array_pref_widgetColor_monochrome">Siyah-Beyaz</string>
     <string name="phone_profiles_pref_applicationWidgetIconColor">Simge renk türü</string>
     <string name="profile_list_empty">Tercih yok</string>
-    <string name="event_list_empty">Durum yok</string>
     <string name="event_preferences_time_timeDays">Haftanın günleri</string>
     <string name="event_preferences_time_startTime">Başlangıç zamanı</string>
     <string name="event_preferences_time_endTime">Bitiş zamanı</string>
@@ -1444,7 +1443,6 @@
     <string name="array_location_editor_show_actual_location">Geçerli konumu göster</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Düzenlenen konumu geçerli konum olarak değiştir</string>
     <string name="array_location_editor_rename_geofence_with_address">Düzenlenen konumu adresiyle yeniden isimlendir</string>
-    <string name="location_editor_map_is_loading">Harita yükleniyor…</string>
     <string name="profile_preferences_cameraFlash">Kamera flaşı</string>
     <string name="permission_why_profile_camera_flash">kamera flaşını değiştirmek için</string>
     <string name="permission_group_name_camera">Kamera</string>

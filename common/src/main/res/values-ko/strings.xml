@@ -109,7 +109,6 @@
     <string name="array_pref_widgetColor_monochrome">흑백</string>
     <string name="phone_profiles_pref_applicationWidgetIconColor">아이콘 색상 유형</string>
     <string name="profile_list_empty">프로필 없음</string>
-    <string name="event_list_empty">이벤트 없음</string>
     <string name="event_preferences_time_timeDays">요일</string>
     <string name="event_preferences_time_startTime">시작 시간</string>
     <string name="event_preferences_time_endTime">종료 시간</string>
@@ -1444,7 +1443,6 @@
     <string name="array_location_editor_show_actual_location">Show actual location</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
     <string name="array_location_editor_rename_geofence_with_address">Rename edited location with address</string>
-    <string name="location_editor_map_is_loading">Map is loading…</string>
     <string name="profile_preferences_cameraFlash">Camera flash</string>
     <string name="permission_why_profile_camera_flash">for switch camera flash</string>
     <string name="permission_group_name_camera">Camera</string>

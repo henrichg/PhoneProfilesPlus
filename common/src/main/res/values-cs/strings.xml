@@ -109,7 +109,6 @@
     <string name="array_pref_widgetColor_monochrome">Černobílé</string>
     <string name="phone_profiles_pref_applicationWidgetIconColor">Typ barvy ikony</string>
     <string name="profile_list_empty">Žádné profily</string>
-    <string name="event_list_empty">Žádné události</string>
     <string name="event_preferences_time_timeDays">Dny v týdnu</string>
     <string name="event_preferences_time_startTime">Čas začátku</string>
     <string name="event_preferences_time_endTime">Čas konce</string>
@@ -1444,7 +1443,6 @@
     <string name="array_location_editor_show_actual_location">Zobrazit aktuální polohu</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Změnit editovanou polohu na aktuální</string>
     <string name="array_location_editor_rename_geofence_with_address">Přejmenovat editovanou polohu adresou</string>
-    <string name="location_editor_map_is_loading">Mapa se načítá…</string>
     <string name="profile_preferences_cameraFlash">Blesk fotoaparátu</string>
     <string name="permission_why_profile_camera_flash">pro přepnutí blesku fotoaparátu</string>
     <string name="permission_group_name_camera">Fotoaparát</string>

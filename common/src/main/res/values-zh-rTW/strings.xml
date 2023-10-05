@@ -109,7 +109,6 @@
     <string name="array_pref_widgetColor_monochrome">單色</string>
     <string name="phone_profiles_pref_applicationWidgetIconColor">圖示顏色類別</string>
     <string name="profile_list_empty">沒有設定檔</string>
-    <string name="event_list_empty">沒有活動</string>
     <string name="event_preferences_time_timeDays">星期週間</string>
     <string name="event_preferences_time_startTime">開始時間</string>
     <string name="event_preferences_time_endTime">結束時間</string>
@@ -1444,7 +1443,6 @@
     <string name="array_location_editor_show_actual_location">顯示實際位置</string>
     <string name="array_location_editor_change_geofence_location_to_actual">將編輯位置更為實際位置</string>
     <string name="array_location_editor_rename_geofence_with_address">用地止重新命名編輯位置</string>
-    <string name="location_editor_map_is_loading">地圖載入中…</string>
     <string name="profile_preferences_cameraFlash">相機閃光燈</string>
     <string name="permission_why_profile_camera_flash">開關相機閃光燈</string>
     <string name="permission_group_name_camera">相機</string>

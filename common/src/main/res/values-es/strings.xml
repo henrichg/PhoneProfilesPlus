@@ -109,7 +109,6 @@
     <string name="array_pref_widgetColor_monochrome">Monocromo</string>
     <string name="phone_profiles_pref_applicationWidgetIconColor">Tipo de color del icono</string>
     <string name="profile_list_empty">Sin perfiles</string>
-    <string name="event_list_empty">Sin eventos</string>
     <string name="event_preferences_time_timeDays">Días de la semana</string>
     <string name="event_preferences_time_startTime">Hora de inicio</string>
     <string name="event_preferences_time_endTime">Hora de fin</string>
@@ -1444,7 +1443,6 @@
     <string name="array_location_editor_show_actual_location">Mostrar ubicación actual</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Cambiar la ubicación editada a la actual</string>
     <string name="array_location_editor_rename_geofence_with_address">Renombrar ubicación editada con dirección</string>
-    <string name="location_editor_map_is_loading">El mapa se está cargando…</string>
     <string name="profile_preferences_cameraFlash">Flash de la cámara</string>
     <string name="permission_why_profile_camera_flash">para alternar el flash de la cámara</string>
     <string name="permission_group_name_camera">Cámara</string>

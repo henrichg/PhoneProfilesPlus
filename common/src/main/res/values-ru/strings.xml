@@ -109,7 +109,6 @@
     <string name="array_pref_widgetColor_monochrome">Монохромная</string>
     <string name="phone_profiles_pref_applicationWidgetIconColor">Тип иконки</string>
     <string name="profile_list_empty">Нет профилей</string>
-    <string name="event_list_empty">Нет событий</string>
     <string name="event_preferences_time_timeDays">Дни недели</string>
     <string name="event_preferences_time_startTime">Время начала</string>
     <string name="event_preferences_time_endTime">Время окончания</string>
@@ -1444,7 +1443,6 @@
     <string name="array_location_editor_show_actual_location">Показать текущее местоположение</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Сменить изменённое местоположение на текущее</string>
     <string name="array_location_editor_rename_geofence_with_address">Сменить название изменённого местоположения на адрес</string>
-    <string name="location_editor_map_is_loading">Карта загружается…</string>
     <string name="profile_preferences_cameraFlash">Вспышка</string>
     <string name="permission_why_profile_camera_flash">для включения/выключения вспышки</string>
     <string name="permission_group_name_camera">Камера</string>

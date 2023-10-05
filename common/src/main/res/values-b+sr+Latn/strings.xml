@@ -109,7 +109,6 @@
     <string name="array_pref_widgetColor_monochrome">Crno-belo</string>
     <string name="phone_profiles_pref_applicationWidgetIconColor">Tip boje ikone</string>
     <string name="profile_list_empty">Nema profila</string>
-    <string name="event_list_empty">Nema događaja</string>
     <string name="event_preferences_time_timeDays">Dani u nedelji</string>
     <string name="event_preferences_time_startTime">Vreme Početka</string>
     <string name="event_preferences_time_endTime">Vreme završetka</string>
@@ -1444,7 +1443,6 @@
     <string name="array_location_editor_show_actual_location">Prikaži trenutnu lokaciju</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Promeni izmenjenu lokaciju na trenutnu lokaciju</string>
     <string name="array_location_editor_rename_geofence_with_address">Zameni izmenjenu lokaciju sa adresom</string>
-    <string name="location_editor_map_is_loading">Mapa se učitava…</string>
     <string name="profile_preferences_cameraFlash">Blic</string>
     <string name="permission_why_profile_camera_flash">za uključenje blica</string>
     <string name="permission_group_name_camera">Kamera</string>
