@@ -2120,4 +2120,5 @@
     <string name="shortcut_to_mobile_cell_scanning_created_toast">Odkaz na \"Skenovanie mobilných buniek\" bol vytvorený</string>
     <string name="profile_preferences_types_R_grant_info">Kliknite sem pre udelenie práva root.</string>
     <string name="event_preferences_hideNotUsedSensors">Skryť nepoužívané senzory</string>
+    <string name="activity_log_added_new_logs">Pridané nové logy. Na ich zobrazenie použite \"Znova načítať\".</string>
 </resources>

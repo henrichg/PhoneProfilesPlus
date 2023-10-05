@@ -2120,4 +2120,5 @@
     <string name="shortcut_to_mobile_cell_scanning_created_toast">Acceso directo a \"Escaneo móvil de celdas\" creado</string>
     <string name="profile_preferences_types_R_grant_info">Haz clic aquí para conceder root.</string>
     <string name="event_preferences_hideNotUsedSensors">Ocultar sensores no usados</string>
+    <string name="activity_log_added_new_logs">Añadidos nuevos registros. Utilice \"Recargar\" para mostrarlo.</string>
 </resources>

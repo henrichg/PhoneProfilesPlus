@@ -2120,4 +2120,5 @@
     <string name="shortcut_to_mobile_cell_scanning_created_toast">Shortcut to \"Mobile cell scanning\" created</string>
     <string name="profile_preferences_types_R_grant_info">Click here to grant root.</string>
     <string name="event_preferences_hideNotUsedSensors">Hide not used sensors</string>
+    <string name="activity_log_added_new_logs">Added new logs. Use \"Reload\" to display it.</string>
 </resources>

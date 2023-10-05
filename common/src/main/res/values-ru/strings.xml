@@ -449,7 +449,7 @@
     <string name="new_empty_event">Пустое событие</string>
     <string name="new_event_predefined_events_dialog">Шаблоны событий</string>
     <string name="menu_activity_log_clear">Очистить журнал</string>
-    <string name="activity_log_clear_alert_title">Очистить текущий журнал</string>
+    <string name="activity_log_clear_alert_title">Очистить журнал событий</string>
     <string name="activity_log_clear_alert_message">Вы уверены?</string>
     <string name="phone_profiles_pref_category_location">Сканирование местоположения</string>
     <string name="phone_profiles_pref_eventLocationAppSettings_summary">Установить параметры местоположения в настройках приложения.</string>
@@ -1572,7 +1572,7 @@
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Интервал сканирования ориентации</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Интервал сканирования Wi-Fi</string>
     <string name="menu_activity_log_help">Справка</string>
-    <string name="activity_log_help_title">Справка по Журналу активности</string>
+    <string name="activity_log_help_title">Справка по Журналу событий</string>
     <string name="activity_log_help_message">Что показывается в столбцах</string>
     <string name="activity_log_help_message_mergedProfileActivation">X - количество активированных профилей, Y - количество событий, вызвавших активацию профилей.</string>
     <string name="activity_log_help_message_data_for">для</string>
@@ -2120,4 +2120,5 @@
     <string name="shortcut_to_mobile_cell_scanning_created_toast">Ярлык для \"Сканирования мобильных вышек\" создан</string>
     <string name="profile_preferences_types_R_grant_info">Нажмите сюда, чтобы предоставить права суперпользователя.</string>
     <string name="event_preferences_hideNotUsedSensors">Скрыть неиспользуемые Датчики</string>
+    <string name="activity_log_added_new_logs">Добавлены новые события. Чтобы увидеть их, нажмите \"Обновить\".</string>
 </resources>

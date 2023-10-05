@@ -276,8 +276,8 @@
     <string name="array_event_pref_bluetoothConnectionType_notInFront">Yakındaki değil (tarama aralığı içinde değil)</string>
     <string name="event_preferences_call_contact_groups">Kişi grupları</string>
     <string name="event_preferences_sms_contact_groups">Kişi mesaj grupları</string>
-    <string name="title_activity_activity_log">Faaliyet kütüğü</string>
-    <string name="menu_activity_log">Faaliyet kütüğü</string>
+    <string name="title_activity_activity_log">Faaliyet günlüğü</string>
+    <string name="menu_activity_log">Faaliyet günlüğü</string>
     <string name="altype_profileActivation">Tercih faaliyete geçti</string>
     <string name="altype_afterDuration_undoProfile">süresi bitti - Tercih geri alındı</string>
     <string name="altype_afterDuration_backgroundProfile">Süresi bitti ve sonra - varsayılan Tercih</string>
@@ -448,8 +448,8 @@
     <string name="new_profile_predefined_profiles_dialog">Önceden tanımlanmış Tercihler</string>
     <string name="new_empty_event">Boş Durum</string>
     <string name="new_event_predefined_events_dialog">Önceden tanımlanmış Durumlar</string>
-    <string name="menu_activity_log_clear">Kütüğü temizle</string>
-    <string name="activity_log_clear_alert_title">Faaliyet kütüğünü sil</string>
+    <string name="menu_activity_log_clear">Günlüğü temizle</string>
+    <string name="activity_log_clear_alert_title">Faaliyet günlüğünü sil</string>
     <string name="activity_log_clear_alert_message">Emin misiniz?</string>
     <string name="phone_profiles_pref_category_location">Konum taranıyor</string>
     <string name="phone_profiles_pref_eventLocationAppSettings_summary">Uygulama ayarlarında konum değerlerini ayarlayın.</string>
@@ -459,9 +459,9 @@
     <string name="phone_profiles_pref_eventLocationSystemSettings_summary">Lutfen konumu sistem ayarlarında açın. Bu yapılmadan, konum tarama çalışmaz.</string>
     <string name="phone_profiles_pref_applicationEventLocationsEditor">Konum düzenleyicisi</string>
     <string name="phone_profiles_pref_applicationEventLocationsUseGPS">\"Güç Tasarrufu\" modunda olmadığı zaman GPS\'i kullan</string>
-    <string name="menu_activity_log_pause">Kütüğü durdur</string>
-    <string name="menu_activity_log_play">Kütüğü başlat</string>
-    <string name="altype_pausedLogging">Kütük durduruldu</string>
+    <string name="menu_activity_log_pause">Günlüğü durdur</string>
+    <string name="menu_activity_log_play">Günlüğü başlat</string>
+    <string name="altype_pausedLogging">Günlük durduruldu</string>
     <string name="altype_startedLogging">Kütük başladı</string>
     <string name="event_pref_dialog_help">⊛ Tercih bulunamadı</string>
     <string name="permissions_for_brightness_dialog_text1">Parlaklığın seçilebilmesi için bazı izinler lazımdır.</string>
@@ -481,7 +481,7 @@
     <string name="profile_preferences_notificationLedInfo_summary">Tecrübe ediliyor. Cihazınızda çalışmayabilir.</string>
     <string name="event_type_orientation">Ekran Döndürme</string>
     <string name="event_preferences_category_eventOrientationParameters">Döndürme şartı</string>
-    <string name="event_preferences_orientation_display">Ekranı döndür</string>
+    <string name="event_preferences_orientation_display">Ekran</string>
     <string name="event_preferences_orientation_sides">Kenarlar</string>
     <string name="array_event_pref_orientationSides_displayUp">Yukarıya döndür</string>
     <string name="array_event_pref_orientationSides_displayDown">Aşağıya döndür</string>
@@ -558,7 +558,7 @@
     <string name="info_notification_event_start_order">Durumlar \"Başlama sırası\" ile çalışır. Durumların başlama sırasını Düzenleyici\'deki durumlar görünümünde \"Başlama sırası\" kısmında ayarlayabilirsiniz. Bu görünümde, Durumu \"Sıra düzenleyici\" vasıtasıyla yukarı/aşağı sürükleyebilirsiniz.</string>
     <string name="info_notification_event_start_order_handler_icon">Sıra düzenleyici:</string>
     <string name="info_notification_activate_profile_from_tasker">Tercihi, Tasker uygulamasından faal edebilirsiniz. \"System\"/\"Send Intent\" vazifesini şu değerler ile ayarlayın:</string>
-    <string name="phone_profiles_pref_deleteOldActivityLogs">Eski faaliyet kütüklerini (günler) sil</string>
+    <string name="phone_profiles_pref_deleteOldActivityLogs">Eski faaliyet günlüklerini (günler) sil</string>
     <string name="phone_profiles_pref_applicationWidgetIconBackground">Arka plan șeffaflığı</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Arka plan şeffaflığı</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Metin rengi şeffaflığı</string>
@@ -653,8 +653,8 @@
     <string name="editor_activity_targetHelps_applicationMenu_description">Uygulama menüsünü açmak için buna dokunun. Bu menüde uygulama ayarları vardır.</string>
     <string name="editor_activity_targetHelps_restartEvents_title">Durumları tekrar başlat</string>
     <string name="editor_activity_targetHelps_restartEvents_description">Durumları tekrar başlatmak için buna dokunun. El ile bir Tercih faaliyete geçirdiyseniz, Durumların otomatik başlatılması için, Durumları tekrar başlatmanız lazımdır.</string>
-    <string name="editor_activity_targetHelps_activityLog_title">Faaliyet kütüğü</string>
-    <string name="editor_activity_targetHelps_activityLog_description">Faaliyet kütüğünü açmak için buna dokunun. Kütüğe kaydedilenler: durumların Başlama/fasıla/durma faaliyetleri, Tercihlerin faaliyete geçmesi ve uygulamaların başlaması… hakkındadır.</string>
+    <string name="editor_activity_targetHelps_activityLog_title">Faaliyet günlüğü</string>
+    <string name="editor_activity_targetHelps_activityLog_description">Faaliyet günlüğünü açmak için buna dokunun. Kütüğe kaydedilenler: durumların Başlama/fasıla/durma faaliyetleri, Tercihlerin faaliyete geçmesi ve uygulamaların başlaması… hakkındadır.</string>
     <string name="editor_activity_targetHelps_newProfileButton_title">Yeni Tercih</string>
     <string name="editor_activity_targetHelps_newProfileButton_description">Yeni Tercih ilave etmek için buna dokunun.</string>
     <string name="editor_activity_targetHelps_deleteAllProfilesButton_title">Tercihlerin tamamını sil</string>
@@ -1083,7 +1083,7 @@
     <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged">Cihazınızda zil ve bildirim ses seviyeleri birleştirme bulunmuyor. Ayırnak için buraya dokunun.</string>
     <string name="phone_profiles_pref_applicationPowerParametersCategory">Pil ve güç</string>
     <string name="phone_profiles_pref_applicationOtherParametersCategory">Diğer</string>
-    <string name="activity_log_header_log_time">Kayıt zamanı</string>
+    <string name="activity_log_header_log_time">Günlük kaydı zamanı</string>
     <string name="activity_log_header_data_type">Veri türü</string>
     <string name="activity_log_header_data">Veri</string>
     <string name="profile_preferences_volumeDTMF">DTMF tonları ses seviyesi</string>
@@ -1143,10 +1143,10 @@
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Bağlantı süresine göre</string>
     <string name="menu_export_and_email">E-posta ayarları</string>
     <string name="menu_export_and_email_to_author">Yazılımcıya e-posta ayarlarını gönder</string>
-    <string name="menu_email_debug_logs_to_author">Hata ayıklama dosyalarını yazılımcıya e-posta ile gönder</string>
+    <string name="menu_email_debug_logs_to_author">Hata ayıklama günlül dosyalarını yazılımcıya e-posta ile gönder</string>
     <string name="menu_support">Destek</string>
-    <string name="email_debug_log_files_subject">Hata Kayıt dosyaları</string>
-    <string name="toast_debug_log_files_not_exists">Hata Kayıt dosyası yok</string>
+    <string name="email_debug_log_files_subject">Hata Kaydı günlük dosyaları</string>
+    <string name="toast_debug_log_files_not_exists">Hata Kaydı günlük dosyası yok</string>
     <string name="menu_email_to_author">Yazılımcıya e-posta gönder</string>
     <string name="ignore_battery_optimization_notification_title">Pilin en iyi duruma getirilme ayarı</string>
     <string name="ignore_battery_optimization_notification_text">Buraya dokunun ve PhoneProfilesPlus\'ı \"En iyi duruma getirme!\" listesine ekleyin. Ekran kapalıyken çalışmanın devam edebilmesi için bu lüzumludur.</string>
@@ -1572,7 +1572,7 @@
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Döndürme taraması aralığı</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Wi-Fi tarama aralığı</string>
     <string name="menu_activity_log_help">Yardım</string>
-    <string name="activity_log_help_title">Faaliyet kütüğü için yardım</string>
+    <string name="activity_log_help_title">Faaliyet günlüğü için yardım</string>
     <string name="activity_log_help_message">Sütunlarda hangi bilgiler görülür</string>
     <string name="activity_log_help_message_mergedProfileActivation">X, faaliyete geçirilen Tercihlerin sayısıdır, Y, Tercihleri faaliyete geçirilen Durumların sayısıdır.</string>
     <string name="activity_log_help_message_data_for">için</string>
@@ -2120,4 +2120,5 @@
     <string name="shortcut_to_mobile_cell_scanning_created_toast">\"Şebeke hücreleri taraması\" kısayolu ana ekrana eklendi</string>
     <string name="profile_preferences_types_R_grant_info">Kök izni vermek için buraya dokunun.</string>
     <string name="event_preferences_hideNotUsedSensors">Kullanılmayan şartları gizle</string>
+    <string name="activity_log_added_new_logs">Yeni günlükler eklendi. Görüntülemek için \"Yeniden Yükle\"yi kullanın.</string>
 </resources>
