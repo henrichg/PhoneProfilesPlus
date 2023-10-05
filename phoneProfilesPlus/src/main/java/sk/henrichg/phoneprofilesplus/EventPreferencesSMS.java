@@ -640,6 +640,14 @@ class EventPreferencesSMS extends EventPreferences {
                 boolean phoneNumberFound = false;
 
                 if (this._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
+                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                    if (contactsCache == null)
+                        return;
+                    List<Contact> contactList;
+                    synchronized (PPApplication.contactsCacheMutex) {
+                        contactList = contactsCache.getList(/*false*/);
+                    }
+
                     // find phone number in groups
                     String[] splits = this._contactGroups.split(StringConstants.STR_SPLIT_REGEX);
                     for (String split : splits) {
@@ -674,12 +682,7 @@ class EventPreferencesSMS extends EventPreferences {
                     }*/
 
                         if (!split.isEmpty()) {
-                            ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                            if (contactsCache == null)
-                                return;
-
                             synchronized (PPApplication.contactsCacheMutex) {
-                                List<Contact> contactList = contactsCache.getList(/*false*/);
                                 if (contactList != null) {
                                     for (Contact contact : contactList) {
                                         if (contact.groups != null) {
@@ -739,12 +742,7 @@ class EventPreferencesSMS extends EventPreferences {
                         }*/
 
                             if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
-                                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                                if (contactsCache == null)
-                                    return;
-
                                 synchronized (PPApplication.contactsCacheMutex) {
-                                    List<Contact> contactList = contactsCache.getList(/*false*/);
                                     if (contactList != null) {
                                         for (Contact contact : contactList) {
                                             if (contact.phoneId != 0) {

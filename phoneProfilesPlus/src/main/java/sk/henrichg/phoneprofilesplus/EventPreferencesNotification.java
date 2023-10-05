@@ -691,7 +691,10 @@ class EventPreferencesNotification extends EventPreferences {
 
 
     // test statusBarNotification for event parameters
-    private StatusBarNotification isNotificationActive(StatusBarNotification statusBarNotification, String packageName, boolean checkEnd/*, Context context*/) {
+    private StatusBarNotification isNotificationActive(StatusBarNotification statusBarNotification,
+                                                       String packageName,
+                                                       boolean checkEnd,
+                                                       List<Contact> contactList) {
         try {
             String packageNameFromNotification = statusBarNotification.getPackageName();
 //            Log.e("EventPreferencesNotification.isNotificationActive", "packageNameFromNotification="+packageNameFromNotification);
@@ -743,11 +746,11 @@ class EventPreferencesNotification extends EventPreferences {
                         if (_contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
                             boolean phoneNumberFound = false;
                             if (!notificationTitle.isEmpty())
-                                phoneNumberFound = isContactConfigured(notificationTitle/*, context*/);
+                                phoneNumberFound = isContactConfigured(notificationTitle, contactList);
                             if (!notificationText.isEmpty() && (!phoneNumberFound))
-                                phoneNumberFound = isContactConfigured(notificationText/*, context*/);
+                                phoneNumberFound = isContactConfigured(notificationText, contactList);
                             if (!notificationTicker.isEmpty() && (!phoneNumberFound))
-                                phoneNumberFound = isContactConfigured(notificationTicker/*, context*/);
+                                phoneNumberFound = isContactConfigured(notificationTicker, contactList);
 
                             if (_contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST)
                                 textFound = phoneNumberFound;
@@ -932,6 +935,14 @@ class EventPreferencesNotification extends EventPreferences {
                     StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
                     //noinspection RedundantLengthCheck
                     if ((statusBarNotifications != null) && (statusBarNotifications.length > 0)) {
+                        ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                        if (contactsCache == null)
+                            return false;
+                        List<Contact> contactList;
+                        synchronized (PPApplication.contactsCacheMutex) {
+                            contactList = contactsCache.getList(/*false*/);
+                        }
+
                         for (StatusBarNotification statusBarNotification : statusBarNotifications) {
 
                             // ignore PPP notification
@@ -944,7 +955,10 @@ class EventPreferencesNotification extends EventPreferences {
 
                             if (this._inCall) {
                                 // Nexus/Pixel??? stock ROM
-                                StatusBarNotification activeNotification = isNotificationActive(statusBarNotification, "com.google.android.dialer", false/*, context*/);
+                                StatusBarNotification activeNotification =
+                                        isNotificationActive(statusBarNotification,
+                                                "com.google.android.dialer", false,
+                                                contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -955,7 +969,9 @@ class EventPreferencesNotification extends EventPreferences {
                                         return true;
                                 }
                                 // Samsung, MIUI, EMUI, Sony
-                                activeNotification = isNotificationActive(statusBarNotification, "android.incallui", true/*, context*/);
+                                activeNotification = isNotificationActive(statusBarNotification,
+                                        "android.incallui", true,
+                                        contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -968,7 +984,9 @@ class EventPreferencesNotification extends EventPreferences {
                             }
                             if (this._missedCall) {
                                 // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
-                                StatusBarNotification activeNotification = isNotificationActive(statusBarNotification, "com.android.server.telecom", false/*, context*/);
+                                StatusBarNotification activeNotification = isNotificationActive(statusBarNotification,
+                                        "com.android.server.telecom", false,
+                                        contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -979,7 +997,9 @@ class EventPreferencesNotification extends EventPreferences {
                                         return true;
                                 }
                                 // MIUI
-                                activeNotification = isNotificationActive(statusBarNotification, "com.google.android.dialer", false/*, context*/);
+                                activeNotification = isNotificationActive(statusBarNotification,
+                                        "com.google.android.dialer", false,
+                                        contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -990,7 +1010,9 @@ class EventPreferencesNotification extends EventPreferences {
                                         return true;
                                 }
                                 // Samsung One UI
-                                activeNotification = isNotificationActive(statusBarNotification, "com.samsung.android.dialer", false/*, context*/);
+                                activeNotification = isNotificationActive(statusBarNotification,
+                                        "com.samsung.android.dialer", false,
+                                        contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -1001,7 +1023,9 @@ class EventPreferencesNotification extends EventPreferences {
                                         return true;
                                 }
                                 // LG
-                                activeNotification = isNotificationActive(statusBarNotification, StringConstants.PHONE_PACKAGE_NAME, false/*, context*/);
+                                activeNotification = isNotificationActive(statusBarNotification,
+                                        StringConstants.PHONE_PACKAGE_NAME, false,
+                                        contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -1012,7 +1036,9 @@ class EventPreferencesNotification extends EventPreferences {
                                         return true;
                                 }
                                 // EMUI
-                                activeNotification = isNotificationActive(statusBarNotification, "com.android.contacts", false/*, context*/);
+                                activeNotification = isNotificationActive(statusBarNotification,
+                                        "com.android.contacts", false,
+                                        contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -1029,7 +1055,9 @@ class EventPreferencesNotification extends EventPreferences {
                                 // get only package name = remove activity
                                 String packageName = Application.getPackageName(split);
                                 // search for package name in saved package names
-                                StatusBarNotification activeNotification = isNotificationActive(statusBarNotification, packageName, false/*, context*/);
+                                StatusBarNotification activeNotification = isNotificationActive(statusBarNotification,
+                                        packageName, false,
+                                        contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -1104,17 +1132,29 @@ class EventPreferencesNotification extends EventPreferences {
                 StatusBarNotification newestNotification = null;
                 StatusBarNotification activeNotification;
 
+                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                if (contactsCache == null)
+                    return null;
+                List<Contact> contactList;
+                synchronized (PPApplication.contactsCacheMutex) {
+                    contactList = contactsCache.getList(/*false*/);
+                }
+
                 for (StatusBarNotification statusBarNotification : statusBarNotifications) {
                     if (this._inCall) {
                         // Nexus/Pixel??? stock ROM
-                        activeNotification = isNotificationActive(statusBarNotification, "com.google.android.dialer", false/*, context*/);
+                        activeNotification = isNotificationActive(statusBarNotification,
+                                "com.google.android.dialer", false,
+                                contactList);
                         if (activeNotification != null) {
                             if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
                                 newestNotification = activeNotification;
                             }
                         }
                         // Samsung, MIUI, EMUI, Sony
-                        activeNotification = isNotificationActive(statusBarNotification, "android.incallui", true/*, context*/);
+                        activeNotification = isNotificationActive(statusBarNotification,
+                                "android.incallui", true,
+                                contactList);
                         if (activeNotification != null) {
                             if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
                                 newestNotification = activeNotification;
@@ -1123,28 +1163,36 @@ class EventPreferencesNotification extends EventPreferences {
                     }
                     if (this._missedCall) {
                         // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
-                        activeNotification = isNotificationActive(statusBarNotification, "com.android.server.telecom", false/*, context*/);
+                        activeNotification = isNotificationActive(statusBarNotification,
+                                "com.android.server.telecom", false,
+                                contactList);
                         if (activeNotification != null) {
                             if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
                                 newestNotification = activeNotification;
                             }
                         }
                         // Samsung One UI
-                        activeNotification = isNotificationActive(statusBarNotification, "com.samsung.android.dialer", false/*, context*/);
+                        activeNotification = isNotificationActive(statusBarNotification,
+                                "com.samsung.android.dialer", false,
+                                contactList);
                         if (activeNotification != null) {
                             if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
                                 newestNotification = activeNotification;
                             }
                         }
                         // LG
-                        activeNotification = isNotificationActive(statusBarNotification, StringConstants.PHONE_PACKAGE_NAME, false/*, context*/);
+                        activeNotification = isNotificationActive(statusBarNotification,
+                                StringConstants.PHONE_PACKAGE_NAME, false,
+                                contactList);
                         if (activeNotification != null) {
                             if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
                                 newestNotification = activeNotification;
                             }
                         }
                         // EMUI
-                        activeNotification = isNotificationActive(statusBarNotification, "com.android.contacts", false/*, context*/);
+                        activeNotification = isNotificationActive(statusBarNotification,
+                                "com.android.contacts", false,
+                                contactList);
                         if (activeNotification != null) {
                             if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
                                 newestNotification = activeNotification;
@@ -1157,7 +1205,9 @@ class EventPreferencesNotification extends EventPreferences {
                         // get only package name = remove activity
                         String packageName = Application.getPackageName(split);
                         // search for package name in saved package names
-                        activeNotification = isNotificationActive(statusBarNotification, packageName, false/*, context*/);
+                        activeNotification = isNotificationActive(statusBarNotification,
+                                packageName, false,
+                                contactList);
                         if (activeNotification != null) {
                             if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
                                 newestNotification = activeNotification;
@@ -1173,7 +1223,7 @@ class EventPreferencesNotification extends EventPreferences {
         return null;
     }
 
-    private boolean isContactConfigured(String text/*, Context context*/) {
+    private boolean isContactConfigured(String text, List<Contact> contactList) {
         boolean phoneNumberFound = false;
 
         // find phone number in groups
@@ -1210,12 +1260,7 @@ class EventPreferencesNotification extends EventPreferences {
             }*/
 
             if (!split.isEmpty()) {
-                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                if (contactsCache == null)
-                    return false;
-
                 synchronized (PPApplication.contactsCacheMutex) {
-                    List<Contact> contactList = contactsCache.getList(/*true*/);
                     if (contactList != null) {
                         for (Contact contact : contactList) {
                             if (contact.groups != null) {
@@ -1274,12 +1319,7 @@ class EventPreferencesNotification extends EventPreferences {
                 }*/
 
                 if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
-                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                    if (contactsCache == null)
-                        return false;
-
                     synchronized (PPApplication.contactsCacheMutex) {
-                        List<Contact> contactList = contactsCache.getList(/*false*/);
                         if (contactList != null) {
                             for (Contact contact : contactList) {
                                 if (contact.phoneId != 0) {

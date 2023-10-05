@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 
 import androidx.preference.DialogPreference;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
@@ -19,6 +20,8 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
     String value = "";
     private String defaultValue;
     private boolean savedInstanceState;
+
+    List<ContactGroup> contactGroupList;
 
     public ContactGroupsMultiSelectDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -49,35 +52,39 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
     {
         // change checked state by value
         ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
-        if (contactGroupsCache != null) {
-            synchronized (PPApplication.contactsCacheMutex) {
-                List<ContactGroup> contactGroupList = contactGroupsCache.getList();
-                if (contactGroupList != null) {
-                    String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                    for (ContactGroup contactGroup : contactGroupList) {
-                        contactGroup.checked = false;
-                        for (String split : splits) {
-                            try {
-                                long groupId = Long.parseLong(split);
-                                if (contactGroup.groupId == groupId)
-                                    contactGroup.checked = true;
-                            } catch (Exception e) {
-                                //PPApplicationStatic.recordException(e);
-                            }
+        if (contactGroupsCache == null)
+            return;
+
+        synchronized (PPApplication.contactsCacheMutex) {
+            List<ContactGroup> localContactGroupList = contactGroupsCache.getList();
+            if (localContactGroupList != null) {
+                contactGroupList = new ArrayList<>();
+                contactGroupList.addAll(localContactGroupList);
+
+                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+                for (ContactGroup contactGroup : contactGroupList) {
+                    contactGroup.checked = false;
+                    for (String split : splits) {
+                        try {
+                            long groupId = Long.parseLong(split);
+                            if (contactGroup.groupId == groupId)
+                                contactGroup.checked = true;
+                        } catch (Exception e) {
+                            //PPApplicationStatic.recordException(e);
                         }
                     }
-                    // move checked on top
-                    int i = 0;
-                    int ich = 0;
-                    while (i < contactGroupList.size()) {
-                        ContactGroup contactGroup = contactGroupList.get(i);
-                        if (contactGroup.checked) {
-                            contactGroupList.remove(i);
-                            contactGroupList.add(ich, contactGroup);
-                            ich++;
-                        }
-                        i++;
+                }
+                // move checked on top
+                int i = 0;
+                int ich = 0;
+                while (i < contactGroupList.size()) {
+                    ContactGroup contactGroup = contactGroupList.get(i);
+                    if (contactGroup.checked) {
+                        contactGroupList.remove(i);
+                        contactGroupList.add(ich, contactGroup);
+                        ich++;
                     }
+                    i++;
                 }
             }
         }
@@ -124,21 +131,15 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         // fill with strings of contact groups separated with |
         value = "";
         StringBuilder _value = new StringBuilder();
-        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
-        if (contactGroupsCache != null) {
-            synchronized (PPApplication.contactsCacheMutex) {
-                List<ContactGroup> contactGroupList = contactGroupsCache.getList();
-                if (contactGroupList != null) {
-                    for (ContactGroup contactGroup : contactGroupList) {
-                        if (contactGroup.checked) {
-                            //if (!value.isEmpty())
-                            //    value = value + "|";
-                            //value = value + contactGroup.groupId;
-                            if (_value.length() > 0)
-                                _value.append("|");
-                            _value.append(contactGroup.groupId);
-                        }
-                    }
+        if (contactGroupList != null) {
+            for (ContactGroup contactGroup : contactGroupList) {
+                if (contactGroup.checked) {
+                    //if (!value.isEmpty())
+                    //    value = value + "|";
+                    //value = value + contactGroup.groupId;
+                    if (_value.length() > 0)
+                        _value.append("|");
+                    _value.append(contactGroup.groupId);
                 }
             }
         }

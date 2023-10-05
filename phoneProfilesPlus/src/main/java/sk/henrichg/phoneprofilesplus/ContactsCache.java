@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.telephony.PhoneNumberUtils;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -44,7 +43,7 @@ class ContactsCache {
             if (Permissions.checkContacts(context)) {
 
                 if (fixEvents && (contactList.size() != 0)) {
-                    Log.e("ContactsCache.getContactList", "contactList.size() != 0");
+//                    Log.e("ContactsCache.getContactList", "contactList.size() != 0");
 
                     dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
                     dataWrapper.fillEventList();
@@ -77,8 +76,11 @@ class ContactsCache {
                             _contactInEventsNotification.add(contactsInEvent);
                         }
                     }
-                } else
-                    Log.e("ContactsCache.getContactList", "contactList.size() == 0");
+//                    Log.e("ContactsCache.getContactList", "_contactInEventsCall.size()="+_contactInEventsCall.size());
+//                    Log.e("ContactsCache.getContactList", "_contactInEventsSMS.size()="+_contactInEventsSMS.size());
+//                    Log.e("ContactsCache.getContactList", "_contactInEventsNotification.size()="+_contactInEventsNotification.size());
+                } //else
+//                    Log.e("ContactsCache.getContactList", "contactList.size() == 0");
 
                 long contactId = 0;
                 String name = null;
@@ -210,7 +212,7 @@ class ContactsCache {
                 synchronized (PPApplication.contactsCacheMutex) {
 
                     if (fixEvents && (contactList.size() != 0)) {
-                        Log.e("ContactsCache.getContactList", "contactList.size() != 0");
+//                        Log.e("ContactsCache.getContactList", "contactList.size() != 0");
 
                         // do copy of old contactList
                         for (Contact _contact : contactList) {
@@ -224,32 +226,39 @@ class ContactsCache {
                             dContact.accountName = _contact.accountName;
                             _oldContactList.add(dContact);
                         }
-                    } else
-                        Log.e("ContactsCache.getContactList", "contactList.size() == 0");
+//                        Log.e("ContactsCache.getContactList", "_oldContactList.size()="+_oldContactList.size());
+                    } //else
+//                        Log.e("ContactsCache.getContactList", "contactList.size() == 0");
 
                     updateContacts(_contactList/*, false*/);
                     //updateContacts(_contactListWithoutNumber, true);
 
                     if (fixEvents && (_oldContactList.size() != 0)) {
-                        Log.e("ContactsCache.getContactList", "_oldContactList.size() != 0");
+//                        Log.e("ContactsCache.getContactList", "_oldContactList.size() != 0");
 
                         for (ContactsInEvent contactsInEvent : _contactInEventsCall) {
                             // for each contactsInEvent for call sensor
+//                            Log.e("ContactsCache.getContactList", "(1) contactsInEvent.event._eventPreferencesCall._contacts="+contactsInEvent.event._eventPreferencesCall._contacts);
                             contactsInEvent.event._eventPreferencesCall._contacts =
                                         covertOldContactToNewContact(contactsInEvent, _oldContactList);
+//                            Log.e("ContactsCache.getContactList", "(2) contactsInEvent.event._eventPreferencesCall._contacts="+contactsInEvent.event._eventPreferencesCall._contacts);
                         }
                         for (ContactsInEvent contactsInEvent : _contactInEventsSMS) {
                             // for each contactsInEvent for sms sensor
+//                            Log.e("ContactsCache.getContactList", "(1) contactsInEvent.event._eventPreferencesSMS._contacts="+contactsInEvent.event._eventPreferencesSMS._contacts);
                             contactsInEvent.event._eventPreferencesSMS._contacts =
                                     covertOldContactToNewContact(contactsInEvent, _oldContactList);
+//                            Log.e("ContactsCache.getContactList", "(2) contactsInEvent.event._eventPreferencesSMS._contacts="+contactsInEvent.event._eventPreferencesSMS._contacts);
                         }
                         for (ContactsInEvent contactsInEvent : _contactInEventsNotification) {
                             // for each contactsInEvent for notification sensor
+//                            Log.e("ContactsCache.getContactList", "(1) contactsInEvent.event._eventPreferencesNotification._contacts="+contactsInEvent.event._eventPreferencesNotification._contacts);
                             contactsInEvent.event._eventPreferencesNotification._contacts =
                                     covertOldContactToNewContact(contactsInEvent, _oldContactList);
+//                            Log.e("ContactsCache.getContactList", "(2) contactsInEvent.event._eventPreferencesNotification._contacts="+contactsInEvent.event._eventPreferencesNotification._contacts);
                         }
-                    } else
-                        Log.e("ContactsCache.getContactList", "_oldContactList.size() == 0");
+                    } //else
+//                        Log.e("ContactsCache.getContactList", "_oldContactList.size() == 0");
                 }
 
                 cached = true;
@@ -578,7 +587,32 @@ class ContactsCache {
             /*if (withoutNumber)
                 return contactListWithoutNumber;
             else*/
-                return contactList;
+                //return contactList;
+
+                ArrayList<Contact> copyOfList = new ArrayList<>();
+                for (Contact contact : contactList) {
+                    Contact copOfContact = new Contact();
+                    copOfContact.contactId = contact.contactId;
+
+                    if (contact.groups != null) {
+                        copOfContact.groups = new ArrayList<>();
+                        for (Long group : contact.groups) {
+                            long _group = group;
+                            copOfContact.groups.add(_group);
+                        }
+                    } else
+                        copOfContact.groups = null;
+
+                    copOfContact.name = contact.name;
+                    copOfContact.phoneId = contact.phoneId;
+                    copOfContact.phoneNumber = contact.phoneNumber;
+                    copOfContact.photoId = contact.photoId;
+                    copOfContact.accountType = contact.accountType;
+                    copOfContact.accountName = contact.accountName;
+                    copyOfList.add(copOfContact);
+                }
+                return copyOfList;
+
             } else
                 return null;
         }
@@ -599,14 +633,26 @@ class ContactsCache {
     }
 
     private String covertOldContactToNewContact(ContactsInEvent contactsInEvent, List<Contact> _oldContactList) {
+        if (contactsInEvent.contacts == null)
+            return "";
+
         StringBuilder newContacts = new StringBuilder();
 
         String[] splits = contactsInEvent.contacts.split(StringConstants.STR_SPLIT_REGEX);
         for (String split : splits) {
             // for each contact in contactsInEvent.contacts
             String[] splits2 = split.split("#");
+
+            if (splits2[0].isEmpty())
+                continue;
+            if (splits2[1].isEmpty())
+                continue;
+
             long _contactId = Long.parseLong(splits2[0]);
             long _phoneId = Long.parseLong(splits2[1]);
+
+//            Log.e("ContactsCache.covertOldContactToNewContact", "_contactId="+_contactId);
+//            Log.e("ContactsCache.covertOldContactToNewContact", "_phoneId="+_phoneId);
 
             boolean foundInNew = false;
             // search one contact from contactsInEvent.contacts
@@ -619,6 +665,7 @@ class ContactsCache {
                     if (oldContact.contactId == _contactId)
                         foundInOld = true;
                 }
+//                Log.e("ContactsCache.covertOldContactToNewContact", "foundInOld="+foundInOld);
                 if (foundInOld) {
                     // found contact in old list
 
@@ -629,6 +676,8 @@ class ContactsCache {
                                 PhoneNumberUtils.compare(newContact.phoneNumber, oldContact.phoneNumber) &&
                                 newContact.accountType.equals(oldContact.accountType)) {
                             foundInNew = true;
+//                            Log.e("ContactsCache.covertOldContactToNewContact", "newContact.contactId="+newContact.contactId);
+//                            Log.e("ContactsCache.covertOldContactToNewContact", "newContact.phoneId="+newContact.phoneId);
                             // update contact to new contact in event
                             if (newContacts.length() > 0)
                                 newContacts.append("|");
@@ -639,6 +688,7 @@ class ContactsCache {
                     break;
                 }
             }
+//            Log.e("ContactsCache.covertOldContactToNewContact", "foundInNew="+foundInNew);
             if (!foundInNew) {
                 // get back old contact
                 if (newContacts.length() > 0)

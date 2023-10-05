@@ -62,7 +62,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
             }
         });
 
-        listAdapter = new ContactGroupsMultiSelectPreferenceAdapter(prefContext);
+        listAdapter = new ContactGroupsMultiSelectPreferenceAdapter(prefContext, preference);
         listView.setAdapter(listAdapter);
 
         final Button unselectAllButton = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_unselect_all);

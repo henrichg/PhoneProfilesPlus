@@ -203,7 +203,7 @@ class ContactGroupsCache {
             if (Permissions.checkContacts(context)) {
 
                 if (fixEvents && (contactGroupList.size() != 0)) {
-                    Log.e("ContactGroupsCache.getContactGroupListX", "contactGroupList.size() != 0");
+//                    Log.e("ContactGroupsCache.getContactGroupList", "contactGroupList.size() != 0");
 
                     dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
                     dataWrapper.fillEventList();
@@ -236,8 +236,11 @@ class ContactGroupsCache {
                             _contactGroupInEventsNotification.add(contactGroupsInEvent);
                         }
                     }
-                } else
-                    Log.e("ContactGroupsCache.getContactGroupListX", "contactGroupList.size() == 0");
+//                    Log.e("ContactGroupsCache.getContactGroupList", "_contactGroupInEventsCall.size()="+_contactGroupInEventsCall.size());
+//                    Log.e("ContactGroupsCache.getContactGroupList", "_contactGroupInEventsSMS.size()="+_contactGroupInEventsSMS.size());
+//                    Log.e("ContactGroupsCache.getContactGroupList", "_contactGroupInEventsNotification.size()="+_contactGroupInEventsNotification.size());
+                } //else
+//                    Log.e("ContactGroupsCache.getContactGroupList", "contactGroupList.size() == 0");
 
                 clearGroups(_contactList);
                 //contactsCache.clearGroups(_contactListWithoutNumber);
@@ -324,7 +327,7 @@ class ContactGroupsCache {
                     //contactsCache.updateContacts(_contactListWithoutNumber, true);
 
                     if (fixEvents && (contactGroupList.size() != 0)) {
-                        Log.e("ContactGroupsCache.getContactGroupListX", "contactGroupList.size() != 0");
+//                        Log.e("ContactGroupsCache.getContactGroupList", "contactGroupList.size() != 0");
 
                         // do copy of old contactGroupList
                         for (ContactGroup _contactGroup : contactGroupList) {
@@ -334,31 +337,38 @@ class ContactGroupsCache {
                             dGroup.accountType = _contactGroup.accountType;
                             _oldContactGroupList.add(dGroup);
                         }
-                    } else
-                        Log.e("ContactGroupsCache.getContactGroupListX", "contactGroupList.size() == 0");
+//                        Log.e("ContactGroupsCache.getContactGroupList", "_oldContactGroupList.size()="+_oldContactGroupList.size());
+                    } //else
+//                        Log.e("ContactGroupsCache.getContactGroupList", "contactGroupList.size() == 0");
 
                     updateContactGroups(_contactGroupList);
 
                     if (fixEvents && (_oldContactGroupList.size() != 0)) {
-                        Log.e("ContactGroupsCache.getContactGroupListX", "_oldContactGroupList.size() != 0");
+//                        Log.e("ContactGroupsCache.getContactGroupList", "_oldContactGroupList.size() != 0");
 
                         for (ContactGroupsInEvent contactGroupsInEvent : _contactGroupInEventsCall) {
                             // for each contactGroupsInEvent for call sensor
-                            contactGroupsInEvent.event._eventPreferencesCall._contacts =
+//                            Log.e("ContactGroupsCache.getContactGroupList", "(1) contactGroupsInEvent.event._eventPreferencesCall._contactGroups="+contactGroupsInEvent.event._eventPreferencesCall._contactGroups);
+                            contactGroupsInEvent.event._eventPreferencesCall._contactGroups =
                                     covertOldGroupToNewGroup(contactGroupsInEvent, _oldContactGroupList);
+//                            Log.e("ContactGroupsCache.getContactGroupList", "(2) contactGroupsInEvent.event._eventPreferencesCall._contactGroups="+contactGroupsInEvent.event._eventPreferencesCall._contactGroups);
                         }
                         for (ContactGroupsInEvent contactGroupsInEvent : _contactGroupInEventsSMS) {
                             // for each contactGroupsInEvent for sms sensor
-                            contactGroupsInEvent.event._eventPreferencesSMS._contacts =
+//                            Log.e("ContactGroupsCache.getContactGroupList", "(1) contactGroupsInEvent.event._eventPreferencesSMS._contactGroups="+contactGroupsInEvent.event._eventPreferencesSMS._contactGroups);
+                            contactGroupsInEvent.event._eventPreferencesSMS._contactGroups =
                                     covertOldGroupToNewGroup(contactGroupsInEvent, _oldContactGroupList);
+//                            Log.e("ContactGroupsCache.getContactGroupList", "(2) contactGroupsInEvent.event._eventPreferencesSMS._contactGroups="+contactGroupsInEvent.event._eventPreferencesSMS._contactGroups);
                         }
                         for (ContactGroupsInEvent contactGroupsInEvent : _contactGroupInEventsNotification) {
                             // for each contactGroupsInEvent for notification sensor
-                            contactGroupsInEvent.event._eventPreferencesNotification._contacts =
+//                            Log.e("ContactGroupsCache.getContactGroupList", "(1) contactGroupsInEvent.event._eventPreferencesNotification._contactGroups="+contactGroupsInEvent.event._eventPreferencesNotification._contactGroups);
+                            contactGroupsInEvent.event._eventPreferencesNotification._contactGroups =
                                     covertOldGroupToNewGroup(contactGroupsInEvent, _oldContactGroupList);
+//                            Log.e("ContactGroupsCache.getContactGroupList", "(2) contactGroupsInEvent.event._eventPreferencesNotification._contactGroups="+contactGroupsInEvent.event._eventPreferencesNotification._contactGroups);
                         }
-                    } else
-                        Log.e("ContactGroupsCache.getContactGroupListX", "_oldContactGroupList.size() == 0");
+                    } //else
+//                        Log.e("ContactGroupsCache.getContactGroupList", "_oldContactGroupList.size() == 0");
 
                 }
 
@@ -422,8 +432,19 @@ class ContactGroupsCache {
     List<ContactGroup> getList()
     {
         synchronized (PPApplication.contactsCacheMutex) {
-            if (cached)
-                return contactGroupList;
+            if (cached) {
+                //return contactGroupList;
+                ArrayList<ContactGroup> copyOfList = new ArrayList<>();
+                for (ContactGroup contactGroup : contactGroupList) {
+                    ContactGroup copOfGroup = new ContactGroup();
+                    copOfGroup.groupId = contactGroup.groupId;
+                    copOfGroup.name = contactGroup.name;
+                    copOfGroup.count = contactGroup.count;
+                    copOfGroup.accountType = contactGroup.accountType;
+                    copyOfList.add(copOfGroup);
+                }
+                return copyOfList;
+            }
             else
                 return null;
         }
@@ -503,12 +524,20 @@ class ContactGroupsCache {
     }
 
     private String covertOldGroupToNewGroup(ContactGroupsInEvent groupsInEvent, List<ContactGroup> _oldContactGroupList) {
+        if (groupsInEvent.groups == null)
+            return "";
+
         StringBuilder newGroups = new StringBuilder();
 
         String[] splits = groupsInEvent.groups.split(StringConstants.STR_SPLIT_REGEX);
         for (String split : splits) {
             // for each group in groupsInEvent.groups
+            if (split.isEmpty())
+                continue;
+
             long _groupId = Long.parseLong(split);
+
+//            Log.e("ContactGroupsCache.covertOldGroupToNewGroup", "_groupId="+_groupId);
 
             boolean foundInNew = false;
             // search one group from groupsInEvent.groups
@@ -516,15 +545,19 @@ class ContactGroupsCache {
                 boolean foundInOld = false;
                 if (oldGroup.groupId == _groupId)
                     foundInOld = true;
+//                Log.e("ContactGroupsCache.covertOldGroupToNewGroup", "foundInOld="+foundInOld);
                 if (foundInOld) {
                     // found contact in old list
 
                     // search it in new list
                     for (ContactGroup newGroup : contactGroupList) {
                         // search these fields in new contactGroupList
+//                        Log.e("ContactGroupsCache.covertOldGroupToNewGroup", "oldGroup.name="+oldGroup.name);
+//                        Log.e("ContactGroupsCache.covertOldGroupToNewGroup", "oldGroup.accountType="+oldGroup.accountType);
                         if (newGroup.name.equals(oldGroup.name) &&
                                 newGroup.accountType.equals(oldGroup.accountType)) {
                             foundInNew = true;
+//                            Log.e("ContactGroupsCache.covertOldGroupToNewGroup", "newGroup.groupId="+newGroup.groupId);
                             // update group to new group in event
                             if (newGroups.length() > 0)
                                 newGroups.append("|");
@@ -535,6 +568,7 @@ class ContactGroupsCache {
                     break;
                 }
             }
+//            Log.e("ContactGroupsCache.covertOldGroupToNewGroup", "foundInNew="+foundInNew);
             if (!foundInNew) {
                 // get back old contact
                 if (newGroups.length() > 0)
