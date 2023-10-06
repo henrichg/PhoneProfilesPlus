@@ -1600,7 +1600,7 @@ public class EditorProfileListFragment extends Fragment
 
                     // must be refreshed timelinelist for fragment.activityDataWrapper
                     EditorProfileListFragment fragment = fragmentWeakRef.get();
-                    if (fragment != null) {
+                    if ((fragment != null) && (fragment.activityDataWrapper != null)) {
                         fragment.activityDataWrapper.getEventTimelineList(true);
                     }
 

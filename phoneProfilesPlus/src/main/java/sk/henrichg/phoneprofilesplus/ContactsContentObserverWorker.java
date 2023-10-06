@@ -22,6 +22,10 @@ public class ContactsContentObserverWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        if (PPApplication.blockContactContentObserver)
+            // observwer is blocked (for exmple by profile/event preferences activity)
+            return Result.success();
+
         try {
 //            long start = System.currentTimeMillis();
             PPApplicationStatic.logE("[IN_WORKER]  ContactsContentObserverWorker.doWork", "--------------- START");

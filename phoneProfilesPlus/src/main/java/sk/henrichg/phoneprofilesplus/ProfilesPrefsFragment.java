@@ -458,11 +458,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferenceSubTitle.setText(fragment.getPreferenceScreen().getTitle());
         } else {
             preferenceSubTitle.setVisibility(View.GONE);
-
-            activity.progressLinearLayout.setVisibility(View.GONE);
-            activity.settingsLinearLayout.setVisibility(View.VISIBLE);
         }
 
+        activity.progressLinearLayout.setVisibility(View.GONE);
+        activity.settingsLinearLayout.setVisibility(View.VISIBLE);
 
         setDivider(null); // this remove dividers for categories
 

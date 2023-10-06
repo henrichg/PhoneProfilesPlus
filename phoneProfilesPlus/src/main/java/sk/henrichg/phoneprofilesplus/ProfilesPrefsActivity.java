@@ -84,12 +84,16 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.profile_preferences_profile_not_found),
                         Toast.LENGTH_SHORT);
+                PPApplication.blockContactContentObserver = false;
+                ContactsContentObserver.enqueueContactsContentObserverWorker();
                 super.finish();
                 return;
             }
         }
 
         if (savedInstanceState == null) {
+            PPApplication.blockContactContentObserver = true;
+
             startPreferencesActivityAsyncTask =
                     new StartPreferencesActivityAsyncTask(this, newProfileMode, predefinedProfileIndex);
             startPreferencesActivityAsyncTask.execute();
@@ -112,6 +116,34 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        PPApplication.blockContactContentObserver = false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        PPApplication.blockContactContentObserver = true;
+
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        //if (fragments == null)
+        //    return;
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof ContactsMultiSelectDialogPreferenceFragment) {
+                ContactsMultiSelectDialogPreferenceFragment dialogFragment =
+                        (ContactsMultiSelectDialogPreferenceFragment) fragment;
+                dialogFragment.dismiss();
+            }
+            if (fragment instanceof ContactGroupsMultiSelectDialogPreferenceFragment) {
+                ContactGroupsMultiSelectDialogPreferenceFragment dialogFragment =
+                        (ContactGroupsMultiSelectDialogPreferenceFragment) fragment;
+                dialogFragment.dismiss();
+            }
+        }
     }
 
     @Override
@@ -280,6 +312,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     @Override
     public void finish() {
+        PPApplication.blockContactContentObserver = false;
+        ContactsContentObserver.enqueueContactsContentObserverWorker();
+
         // for startActivityForResult
         Intent returnIntent = new Intent();
         returnIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile_id);

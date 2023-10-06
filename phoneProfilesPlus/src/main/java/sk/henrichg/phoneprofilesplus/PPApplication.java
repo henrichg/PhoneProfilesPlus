@@ -1051,6 +1051,8 @@ public class PPApplication extends Application
     static volatile int mobileCellsScannerDurationForAutoRegistration = 0;
     static volatile String mobileCellsScannerCellsNameForAutoRegistration = "";
 
+    static volatile boolean blockContactContentObserver = false;
+
     @Override
     public void onCreate()
     {

@@ -110,12 +110,16 @@ public class EventsPrefsActivity extends AppCompatActivity
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.event_preferences_event_not_found),
                         Toast.LENGTH_SHORT);
+                PPApplication.blockContactContentObserver = false;
+                ContactsContentObserver.enqueueContactsContentObserverWorker();
                 super.finish();
                 return;
             }
         }
 
         if (savedInstanceState == null) {
+            PPApplication.blockContactContentObserver = true;
+
             startPreferencesActivityAsyncTask =
                     new StartPreferencesActivityAsyncTask(this, newEventMode, predefinedEventIndex);
             startPreferencesActivityAsyncTask.execute();
@@ -151,6 +155,12 @@ public class EventsPrefsActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        PPApplication.blockContactContentObserver = false;
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
 
@@ -159,6 +169,28 @@ public class EventsPrefsActivity extends AppCompatActivity
             refreshGUIBroadcastReceiver = null;
         } catch (IllegalArgumentException e) {
             //PPApplicationStatic.recordException(e);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        PPApplication.blockContactContentObserver = true;
+
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        //if (fragments == null)
+        //    return;
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof ContactsMultiSelectDialogPreferenceFragment) {
+                ContactsMultiSelectDialogPreferenceFragment dialogFragment =
+                        (ContactsMultiSelectDialogPreferenceFragment) fragment;
+                dialogFragment.dismiss();
+            }
+            if (fragment instanceof ContactGroupsMultiSelectDialogPreferenceFragment) {
+                ContactGroupsMultiSelectDialogPreferenceFragment dialogFragment =
+                        (ContactGroupsMultiSelectDialogPreferenceFragment) fragment;
+                dialogFragment.dismiss();
+            }
         }
     }
 
@@ -334,6 +366,9 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     @Override
     public void finish() {
+        PPApplication.blockContactContentObserver = false;
+        ContactsContentObserver.enqueueContactsContentObserverWorker();
+
         // for startActivityForResult
         Intent returnIntent = new Intent();
         returnIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
