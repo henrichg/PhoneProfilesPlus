@@ -350,6 +350,7 @@ class ContactGroupsCache {
 //                            Log.e("ContactGroupsCache.getContactGroupList", "(1) contactGroupsInEvent.event._eventPreferencesCall._contactGroups="+contactGroupsInEvent.event._eventPreferencesCall._contactGroups);
                             contactGroupsInEvent.event._eventPreferencesCall._contactGroups =
                                     covertOldGroupToNewGroup(contactGroupsInEvent, _oldContactGroupList);
+                            DatabaseHandler.getInstance(context.getApplicationContext()).updateEvent(contactGroupsInEvent.event);
 //                            Log.e("ContactGroupsCache.getContactGroupList", "(2) contactGroupsInEvent.event._eventPreferencesCall._contactGroups="+contactGroupsInEvent.event._eventPreferencesCall._contactGroups);
                         }
                         for (ContactGroupsInEvent contactGroupsInEvent : _contactGroupInEventsSMS) {
@@ -357,6 +358,7 @@ class ContactGroupsCache {
 //                            Log.e("ContactGroupsCache.getContactGroupList", "(1) contactGroupsInEvent.event._eventPreferencesSMS._contactGroups="+contactGroupsInEvent.event._eventPreferencesSMS._contactGroups);
                             contactGroupsInEvent.event._eventPreferencesSMS._contactGroups =
                                     covertOldGroupToNewGroup(contactGroupsInEvent, _oldContactGroupList);
+                            DatabaseHandler.getInstance(context.getApplicationContext()).updateEvent(contactGroupsInEvent.event);
 //                            Log.e("ContactGroupsCache.getContactGroupList", "(2) contactGroupsInEvent.event._eventPreferencesSMS._contactGroups="+contactGroupsInEvent.event._eventPreferencesSMS._contactGroups);
                         }
                         for (ContactGroupsInEvent contactGroupsInEvent : _contactGroupInEventsNotification) {
@@ -364,6 +366,7 @@ class ContactGroupsCache {
 //                            Log.e("ContactGroupsCache.getContactGroupList", "(1) contactGroupsInEvent.event._eventPreferencesNotification._contactGroups="+contactGroupsInEvent.event._eventPreferencesNotification._contactGroups);
                             contactGroupsInEvent.event._eventPreferencesNotification._contactGroups =
                                     covertOldGroupToNewGroup(contactGroupsInEvent, _oldContactGroupList);
+                            DatabaseHandler.getInstance(context.getApplicationContext()).updateEvent(contactGroupsInEvent.event);
 //                            Log.e("ContactGroupsCache.getContactGroupList", "(2) contactGroupsInEvent.event._eventPreferencesNotification._contactGroups="+contactGroupsInEvent.event._eventPreferencesNotification._contactGroups);
                         }
                     } //else

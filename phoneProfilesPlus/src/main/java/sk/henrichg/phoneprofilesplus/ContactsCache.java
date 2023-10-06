@@ -241,6 +241,7 @@ class ContactsCache {
 //                            Log.e("ContactsCache.getContactList", "(1) contactsInEvent.event._eventPreferencesCall._contacts="+contactsInEvent.event._eventPreferencesCall._contacts);
                             contactsInEvent.event._eventPreferencesCall._contacts =
                                         covertOldContactToNewContact(contactsInEvent, _oldContactList);
+                            DatabaseHandler.getInstance(context.getApplicationContext()).updateEvent(contactsInEvent.event);
 //                            Log.e("ContactsCache.getContactList", "(2) contactsInEvent.event._eventPreferencesCall._contacts="+contactsInEvent.event._eventPreferencesCall._contacts);
                         }
                         for (ContactsInEvent contactsInEvent : _contactInEventsSMS) {
@@ -248,6 +249,7 @@ class ContactsCache {
 //                            Log.e("ContactsCache.getContactList", "(1) contactsInEvent.event._eventPreferencesSMS._contacts="+contactsInEvent.event._eventPreferencesSMS._contacts);
                             contactsInEvent.event._eventPreferencesSMS._contacts =
                                     covertOldContactToNewContact(contactsInEvent, _oldContactList);
+                            DatabaseHandler.getInstance(context.getApplicationContext()).updateEvent(contactsInEvent.event);
 //                            Log.e("ContactsCache.getContactList", "(2) contactsInEvent.event._eventPreferencesSMS._contacts="+contactsInEvent.event._eventPreferencesSMS._contacts);
                         }
                         for (ContactsInEvent contactsInEvent : _contactInEventsNotification) {
@@ -255,6 +257,7 @@ class ContactsCache {
 //                            Log.e("ContactsCache.getContactList", "(1) contactsInEvent.event._eventPreferencesNotification._contacts="+contactsInEvent.event._eventPreferencesNotification._contacts);
                             contactsInEvent.event._eventPreferencesNotification._contacts =
                                     covertOldContactToNewContact(contactsInEvent, _oldContactList);
+                            DatabaseHandler.getInstance(context.getApplicationContext()).updateEvent(contactsInEvent.event);
 //                            Log.e("ContactsCache.getContactList", "(2) contactsInEvent.event._eventPreferencesNotification._contacts="+contactsInEvent.event._eventPreferencesNotification._contacts);
                         }
                     } //else
