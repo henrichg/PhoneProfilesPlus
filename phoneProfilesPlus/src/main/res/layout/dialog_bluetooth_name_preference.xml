@@ -26,200 +26,172 @@
 
     </LinearLayout>
 
-    <RelativeLayout 
-        android:id="@+id/bluetooth_name_pref_dlg_rella_data"
+    <LinearLayout
+        android:id="@+id/bluetooth_name_pref_dlg_linla_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start" >
+        android:orientation="vertical" >
 
-        <LinearLayout
-            android:id="@+id/bluetooth_name_pref_dlg_et_btn"
+        <View
+            android:id="@+id/bluetooth_name_pref_dlg_titleBarDivider"
             android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:background="@color/dialog_divider" />
+
+        <RelativeLayout
+            android:id="@+id/bluetooth_name_pref_dlg_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/bluetooth_name_pref_dlg_empty_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/ic_empty_list"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:contentDescription=""
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/bluetooth_name_pref_dlg_listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:clipToPadding="false"
+            android:choiceMode="singleChoice"
+            android:scrollbarStyle="outsideOverlay"
+            android:fadeScrollbars="false"
+            android:divider="@android:color/transparent"
+            android:listSelector="?attr/listViewItemBackground" />
+
+        <View
+            android:id="@+id/bluetooth_name_pref_dlg_buttonBarDivider"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:background="@color/dialog_divider" />
+
+        <RelativeLayout
+            android:id="@+id/bluetooth_name_pref_dlg_locationSystemSettingsRelLa"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical" >
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp" >
 
-            <View
-                android:id="@+id/bluetooth_name_pref_dlg_buttonBarDivider"
-                android:layout_width="match_parent"
-                android:layout_marginBottom="5dp"
-                android:layout_height="@dimen/divider_height"
-                android:layout_marginStart="@dimen/divider_margin"
-                android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider" />
-
-            <RelativeLayout
-                android:id="@+id/bluetooth_name_pref_dlg_locationSystemSettingsRelLa"
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/bluetooth_name_pref_dlg_locationSystemSettingsButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp" >
+                android:padding="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_button_settings"
+                app:tint="@color/accent_color"
+                android:contentDescription="@string/location_settings_button_tooltip"
+                android:background="?attr/selectableItemBackgroundBorderless" />
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/bluetooth_name_pref_dlg_locationSystemSettingsButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_button_settings"
-                    app:tint="@color/accent_color"
-                    android:contentDescription="@string/location_settings_button_tooltip"
-                    android:background="?attr/selectableItemBackgroundBorderless" />
-
-                <TextView
-                    android:id="@+id/bluetooth_name_pref_dlg_locationEnableStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/phone_profiles_pref_eventLocationSystemSettings"
-                    android:layout_toStartOf="@id/bluetooth_name_pref_dlg_locationSystemSettingsButton" />
-
-            </RelativeLayout>
-
-            <Button
-                android:id="@+id/bluetooth_name_pref_dlg_rescanButton"
+            <TextView
+                android:id="@+id/bluetooth_name_pref_dlg_locationEnableStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/bluetooth_name_pref_dlg_rescan_button"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:minHeight="40dp"
-                android:textColor="@color/action_button_text_color"
-                android:textStyle="bold"
-                android:background="@drawable/pp_button_background_selector"
-                style="?android:attr/borderlessButtonStyle" />
+                android:layout_alignParentStart="true"
+                android:text="@string/phone_profiles_pref_eventLocationSystemSettings"
+                android:layout_toStartOf="@id/bluetooth_name_pref_dlg_locationSystemSettingsButton" />
 
-            <RelativeLayout
-                android:id="@+id/bluetooth_name_pref_dlg_et_btn2"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+        </RelativeLayout>
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/bluetooth_name_pref_dlg_helpIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_button_help"
-                    app:tint="@color/accent_color"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/help_button_tooltip"/>
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/bluetooth_name_pref_dlg_changeSelection"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toStartOf = "@id/bluetooth_name_pref_dlg_helpIcon"
-                    android:src="@drawable/ic_button_select"
-                    app:tint="@color/accent_color"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/bluetooth_name_pref_dlg_select_button_tooltip"/>
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/bluetooth_name_pref_dlg_addIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toStartOf = "@id/bluetooth_name_pref_dlg_changeSelection"
-                    android:src="@drawable/ic_button_add"
-                    app:tint="@color/accent_color"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/bluetooth_name_pref_dlg_add_button_tooltip"/>
-
-                <EditText
-                    android:id="@+id/bluetooth_name_pref_dlg_bt_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_toStartOf = "@id/bluetooth_name_pref_dlg_addIcon"
-                    android:selectAllOnFocus="true"
-                    android:hint="@string/event_preferences_bluetooth_adapter_name"
-                    android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"/>
-
-
-            </RelativeLayout>
-
-<!--            <View-->
-<!--                android:id="@+id/bluetooth_name_pref_dlg_buttonBarDivider2"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_marginBottom="5dp"-->
-<!--                android:layout_height="@dimen/divider_height"-->
-<!--                android:layout_marginStart="@dimen/divider_margin"-->
-<!--                android:layout_marginEnd="@dimen/divider_margin"-->
-            <!--                android:background="@color/dialog_divider" />-->
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/bluetooth_name_pref_dlg_linla_listview"
-            android:layout_width="fill_parent"
+        <Button
+            android:id="@+id/bluetooth_name_pref_dlg_rescanButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_above="@id/bluetooth_name_pref_dlg_et_btn"
-            android:layout_alignParentTop="true"
-            >
+            android:layout_gravity="center_horizontal"
+            android:text="@string/bluetooth_name_pref_dlg_rescan_button"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:minHeight="40dp"
+            android:textColor="@color/action_button_text_color"
+            android:textStyle="bold"
+            android:background="@drawable/pp_button_background_selector"
+            style="?android:attr/borderlessButtonStyle" />
 
-            <View
-                android:id="@+id/bluetooth_name_pref_dlg_titleBarDivider"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/divider_height"
-                android:layout_marginStart="@dimen/divider_margin"
-                android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider" />
+        <RelativeLayout
+            android:id="@+id/bluetooth_name_pref_dlg_et_btn2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-            <RelativeLayout
-                android:id="@+id/bluetooth_name_pref_dlg_empty"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone">
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/bluetooth_name_pref_dlg_helpIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_button_help"
+                app:tint="@color/accent_color"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/help_button_tooltip"/>
 
-                <ImageView
-                    android:id="@+id/bluetooth_name_pref_dlg_empty_image"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:src="@drawable/ic_empty_list"
-                    android:layout_centerInParent="true"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    android:contentDescription=""
-                    tools:ignore="ContentDescription" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/bluetooth_name_pref_dlg_changeSelection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf = "@id/bluetooth_name_pref_dlg_helpIcon"
+                android:src="@drawable/ic_button_select"
+                app:tint="@color/accent_color"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/bluetooth_name_pref_dlg_select_button_tooltip"/>
 
-            </RelativeLayout>
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/bluetooth_name_pref_dlg_addIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf = "@id/bluetooth_name_pref_dlg_changeSelection"
+                android:src="@drawable/ic_button_add"
+                app:tint="@color/accent_color"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/bluetooth_name_pref_dlg_add_button_tooltip"/>
 
-            <ListView
-                android:id="@+id/bluetooth_name_pref_dlg_listview"
+            <EditText
+                android:id="@+id/bluetooth_name_pref_dlg_bt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:clipToPadding="false"
-                android:choiceMode="singleChoice"
-                android:scrollbarStyle="outsideOverlay"
-                android:fadeScrollbars="false"
-                android:divider="@android:color/transparent"
-                android:listSelector="?attr/listViewItemBackground" />
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_toStartOf = "@id/bluetooth_name_pref_dlg_addIcon"
+                android:selectAllOnFocus="true"
+                android:hint="@string/event_preferences_bluetooth_adapter_name"
+                android:inputType="textNoSuggestions"
+                android:importantForAutofill="no"/>
 
-        </LinearLayout>
 
-    </RelativeLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

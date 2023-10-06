@@ -27,7 +27,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
 
     // Layout widgets.
     private LinearLayout linlaProgress;
-    private RelativeLayout rellaData;
+    private LinearLayout linlaData;
 
     private ContactsMultiSelectPreferenceAdapter listAdapter;
 
@@ -50,7 +50,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
         super.onBindDialogView(view);
 
         linlaProgress = view.findViewById(R.id.contacts_multiselect_pref_dlg_linla_progress);
-        rellaData = view.findViewById(R.id.contacts_multiselect_pref_dlg_rella_data);
+        linlaData = view.findViewById(R.id.contacts_multiselect_pref_dlg_linla_data);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         FastScrollRecyclerView listView = view.findViewById(R.id.contacts_multiselect_pref_dlg_listview);
@@ -118,7 +118,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
             ContactsMultiSelectDialogPreferenceFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
                 if (notForUnselect) {
-                    fragment.rellaData.setVisibility(View.GONE);
+                    fragment.linlaData.setVisibility(View.GONE);
                     fragment.linlaProgress.setVisibility(View.VISIBLE);
                 }
             }
@@ -207,7 +207,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                 final Handler handler = new Handler(prefContext.getMainLooper());
                 handler.post(() -> {
                     if (notForUnselect) {
-                        fragment.rellaData.setVisibility(View.VISIBLE);
+                        fragment.linlaData.setVisibility(View.VISIBLE);
                     }
 
                     fragment.listAdapter.notifyDataSetChanged();

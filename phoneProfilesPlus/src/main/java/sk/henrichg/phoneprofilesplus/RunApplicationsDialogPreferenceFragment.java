@@ -35,7 +35,7 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
     private RunApplicationsDialogPreferenceAdapter listAdapter;
 
     private LinearLayout linlaProgress;
-    private RelativeLayout rellaDialog;
+    private LinearLayout linlaDialog;
 
     private RefreshListViewAsyncTask asyncTask = null;
 
@@ -67,7 +67,7 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
         emptyList = view.findViewById(R.id.run_applications_pref_dlg_empty);
 
         linlaProgress = view.findViewById(R.id.run_applications_pref_dlg_linla_progress);
-        rellaDialog = view.findViewById(R.id.run_applications_pref_dlg_rella_dialog);
+        linlaDialog = view.findViewById(R.id.run_applications_pref_dlg_linla_dialog);
 
         listAdapter = new RunApplicationsDialogPreferenceAdapter(prefContext, preference, this);
 
@@ -159,7 +159,7 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
 
             RunApplicationsDialogPreferenceFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
-                fragment.rellaDialog.setVisibility(View.GONE);
+                fragment.linlaDialog.setVisibility(View.GONE);
                 fragment.linlaProgress.setVisibility(View.VISIBLE);
             }
         }
@@ -205,7 +205,7 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
 
                 final Handler handler = new Handler(prefContext.getMainLooper());
                 handler.post(() -> {
-                    fragment.rellaDialog.setVisibility(View.VISIBLE);
+                    fragment.linlaDialog.setVisibility(View.VISIBLE);
 
                     fragment.applicationsListView.setAdapter(fragment.listAdapter);
 

@@ -46,7 +46,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
     private AlertDialog mDialog;
     private SingleSelectListDialog mSelectorDialog;
     private LinearLayout progressLinearLayout;
-    private RelativeLayout dataRelativeLayout;
+    private LinearLayout dataLinearLayout;
     private ListView bluetoothListView;
     private EditText bluetoothName;
     private AppCompatImageButton addIcon;
@@ -86,7 +86,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         PPApplicationStatic.forceRegisterReceiversForBluetoothScanner(prefContext);
 
         progressLinearLayout = layout.findViewById(R.id.bluetooth_name_pref_dlg_linla_progress);
-        dataRelativeLayout = layout.findViewById(R.id.bluetooth_name_pref_dlg_rella_data);
+        dataLinearLayout = layout.findViewById(R.id.bluetooth_name_pref_dlg_linla_data);
 
         addIcon = layout.findViewById(R.id.bluetooth_name_pref_dlg_addIcon);
         TooltipCompat.setTooltipText(addIcon, getString(R.string.bluetooth_name_pref_dlg_add_button_tooltip));
@@ -636,7 +636,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
             BluetoothNamePreferenceFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
                 if (forRescan) {
-                    fragment.dataRelativeLayout.setVisibility(View.GONE);
+                    fragment.dataLinearLayout.setVisibility(View.GONE);
                     fragment.progressLinearLayout.setVisibility(View.VISIBLE);
 
                     if (fragment.mDialog != null) {
@@ -769,7 +769,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
 
                 final Handler handler = new Handler(prefContext.getMainLooper());
                 handler.post(() -> {
-                    fragment.dataRelativeLayout.setVisibility(View.VISIBLE);
+                    fragment.dataLinearLayout.setVisibility(View.VISIBLE);
 
                     preference.bluetoothList = new ArrayList<>(_bluetoothList);
                     fragment.listAdapter.notifyDataSetChanged();

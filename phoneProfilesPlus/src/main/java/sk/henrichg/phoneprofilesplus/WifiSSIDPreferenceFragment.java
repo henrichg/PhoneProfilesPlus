@@ -45,7 +45,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
     private AlertDialog mDialog;
     private SingleSelectListDialog mSelectorDialog;
     private LinearLayout progressLinearLayout;
-    private RelativeLayout dataRelativeLayout;
+    private LinearLayout dataLinearLayout;
     private ListView SSIDListView;
     private EditText SSIDName;
     private AppCompatImageButton addIcon;
@@ -85,7 +85,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
         PPApplicationStatic.forceRegisterReceiversForWifiScanner(prefContext);
 
         progressLinearLayout = layout.findViewById(R.id.wifi_ssid_pref_dlg_linla_progress);
-        dataRelativeLayout = layout.findViewById(R.id.wifi_ssid_pref_dlg_rella_data);
+        dataLinearLayout = layout.findViewById(R.id.wifi_ssid_pref_dlg_linla_data);
 
         addIcon = layout.findViewById(R.id.wifi_ssid_pref_dlg_addIcon);
         TooltipCompat.setTooltipText(addIcon, getString(R.string.wifi_ssid_pref_dlg_add_button_tooltip));
@@ -620,7 +620,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
             WifiSSIDPreferenceFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
                 if (forRescan) {
-                    fragment.dataRelativeLayout.setVisibility(View.GONE);
+                    fragment.dataLinearLayout.setVisibility(View.GONE);
                     fragment.progressLinearLayout.setVisibility(View.VISIBLE);
 
                     if (fragment.mDialog != null) {
@@ -756,7 +756,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
 
                 final Handler handler = new Handler(prefContext.getMainLooper());
                 handler.post(() -> {
-                    fragment.dataRelativeLayout.setVisibility(View.VISIBLE);
+                    fragment.dataLinearLayout.setVisibility(View.VISIBLE);
 
                     preference.SSIDList = new ArrayList<>(_SSIDList);
                     fragment.listAdapter.notifyDataSetChanged();

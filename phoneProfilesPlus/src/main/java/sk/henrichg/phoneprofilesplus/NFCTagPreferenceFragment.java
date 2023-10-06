@@ -34,7 +34,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
 
     private SingleSelectListDialog mSelectorDialog;
     //private LinearLayout progressLinearLayout;
-    //private RelativeLayout dataRelativeLayout;
+    //private LinearLayout dataLinearLayout;
     private ListView nfcTagListView;
     private EditText nfcTagName;
     private AppCompatImageButton addIcon;
@@ -61,7 +61,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
         super.onBindDialogView(view);
 
         //progressLinearLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_linla_progress);
-        //dataRelativeLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_rella_data);
+        //dataLinearLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_linla_data);
 
         addIcon = view.findViewById(R.id.nfc_tag_pref_dlg_addIcon);
         TooltipCompat.setTooltipText(addIcon, getString(R.string.nfc_tag_pref_dlg_add_button_tooltip));
@@ -373,7 +373,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
 
             /*
             if (_forRescan) {
-                dataRelativeLayout.setVisibility(View.GONE);
+                dataLinearLayout.setVisibility(View.GONE);
                 progressLinearLayout.setVisibility(View.VISIBLE);
             }
             */
@@ -459,7 +459,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                 /*
                 if (_forRescan) {
                     progressLinearLayout.setVisibility(View.GONE);
-                    dataRelativeLayout.setVisibility(View.VISIBLE);
+                    dataLinearLayout.setVisibility(View.VISIBLE);
                 }
                 */
 
