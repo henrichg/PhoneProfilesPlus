@@ -86,31 +86,28 @@ class EventPreferencesBrightness extends EventPreferences {
                 }
 
                 String[] operators = context.getResources().getStringArray(R.array.brightnessSensorOperatorValues);
+
+                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_brightness_level_from)).append(StringConstants.STR_COLON_WITH_SPACE);
                 int index = Arrays.asList(operators).indexOf(Integer.toString(this._operatorFrom));
                 if (index != -1) {
-                    _value.append(context.getString(R.string.event_preferences_brightness_operator_from)).append(StringConstants.STR_COLON_WITH_SPACE);
+                    //_value.append(context.getString(R.string.event_preferences_brightness_operator_from)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] operatorNames = context.getResources().getStringArray(R.array.brightnessSensorOperatorArray);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(operatorNames[index], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(operatorNames[index], disabled, context));
+                    String value = this._brightnessLevelFrom;
+                    int iValue = ProfileStatic.getDeviceBrightnessValue(value);
+                    _value.append(" ").append(getColorForChangedPreferenceValue(iValue + "/100", disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
-                String value = this._brightnessLevelFrom;
-                int iValue = ProfileStatic.getDeviceBrightnessValue(value);
-                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_brightness_level_from)).append(StringConstants.STR_COLON_WITH_SPACE);
-                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(iValue + "/100", disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
-
-                operators = context.getResources().getStringArray(R.array.brightnessSensorOperatorValues);
+                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_brightness_level_to)).append(StringConstants.STR_COLON_WITH_SPACE);
                 index = Arrays.asList(operators).indexOf(Integer.toString(this._operatorTo));
                 if (index != -1) {
-                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_brightness_operator_to)).append(StringConstants.STR_COLON_WITH_SPACE);
+                    //_value.append(context.getString(R.string.event_preferences_brightness_operator_from)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] operatorNames = context.getResources().getStringArray(R.array.brightnessSensorOperatorArray);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(operatorNames[index], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(operatorNames[index], disabled, context));
+                    String value = this._brightnessLevelTo;
+                    int iValue = ProfileStatic.getDeviceBrightnessValue(value);
+                    _value.append(" ").append(getColorForChangedPreferenceValue(iValue + "/100", disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
-
-                value = this._brightnessLevelTo;
-                iValue = ProfileStatic.getDeviceBrightnessValue(value);
-                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_brightness_level_to)).append(StringConstants.STR_COLON_WITH_SPACE);
-                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(iValue + "/100", disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
-
             }
         }
 
