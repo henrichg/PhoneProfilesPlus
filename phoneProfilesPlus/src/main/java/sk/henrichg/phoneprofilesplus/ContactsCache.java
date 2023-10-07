@@ -238,11 +238,11 @@ class ContactsCache {
 
                         for (ContactsInEvent contactsInEvent : _contactInEventsCall) {
                             // for each contactsInEvent for call sensor
-//                            Log.e("ContactsCache.getContactList", "(1) contactsInEvent.event._eventPreferencesCall._contacts="+contactsInEvent.event._eventPreferencesCall._contacts);
+                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.getContactList", "(1) contactsInEvent.event._eventPreferencesCall._contacts="+contactsInEvent.event._eventPreferencesCall._contacts);
                             contactsInEvent.event._eventPreferencesCall._contacts =
                                         covertOldContactToNewContact(contactsInEvent, _oldContactList);
                             DatabaseHandler.getInstance(context.getApplicationContext()).updateEvent(contactsInEvent.event);
-//                            Log.e("ContactsCache.getContactList", "(2) contactsInEvent.event._eventPreferencesCall._contacts="+contactsInEvent.event._eventPreferencesCall._contacts);
+                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.getContactList", "(2) contactsInEvent.event._eventPreferencesCall._contacts="+contactsInEvent.event._eventPreferencesCall._contacts);
                         }
                         for (ContactsInEvent contactsInEvent : _contactInEventsSMS) {
                             // for each contactsInEvent for sms sensor

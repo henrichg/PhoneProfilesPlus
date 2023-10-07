@@ -263,6 +263,7 @@ public class PPApplication extends Application
                                                 //+"|[APPLICATION_FULLY_STARTED]"
                                                 //+"|[MAIN_WORKER_CALL]"
                                                 +"|[CONTACTS_DIALOG]"
+                                                +"|[CONTACTS_CACHE]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
