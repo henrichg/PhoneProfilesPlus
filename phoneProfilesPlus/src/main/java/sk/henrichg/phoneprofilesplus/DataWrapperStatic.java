@@ -509,10 +509,10 @@ class DataWrapperStatic {
         useCustomColor = profile.getUseCustomColorForIcon();
 
         if (isIconResourceID) {
-            Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
-            if (bitmap != null)
-                profileBitmap = bitmap;
-            else {
+            //Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+            //if (bitmap != null)
+            //    profileBitmap = bitmap;
+            //else {
                 if (profile._iconBitmap != null)
                     profileBitmap = profile._iconBitmap;
                 else {
@@ -521,16 +521,16 @@ class DataWrapperStatic {
                     //profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
                     profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
                 }
-            }
+            //}
         } else {
             int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             //Log.d("---- ShortcutCreatorListFragment.generateIconBitmap","resampleBitmapUri");
             Bitmap oringBitmap = BitmapManipulator.resampleBitmapUri(iconIdentifier, width, height, true, false, context.getApplicationContext());
-            Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(context, oringBitmap);
-            if (bitmap != null)
-                profileBitmap = bitmap;
-            else {
+            //Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(context, oringBitmap);
+            //if (bitmap != null)
+            //    profileBitmap = bitmap;
+            //else {
                 if (oringBitmap != null)
                     profileBitmap = oringBitmap;
                 else {
@@ -538,7 +538,7 @@ class DataWrapperStatic {
                     //profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
                     profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
                 }
-            }
+            //}
         }
 
         if (ApplicationPreferences.applicationShortcutIconColor.equals("1")) {
@@ -555,7 +555,7 @@ class DataWrapperStatic {
                 if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75)) monochromeValue = 0xC0;
                 if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87)) monochromeValue = 0xE0;
                 //if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) monochromeValue = 0xFF;
-                profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, getActivity().getBaseContext()*/);
+                profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue);
             } else {
                 float monochromeValue = 255f;
                 String applicationWidgetIconLightness = ApplicationPreferences.applicationShortcutIconLightness;

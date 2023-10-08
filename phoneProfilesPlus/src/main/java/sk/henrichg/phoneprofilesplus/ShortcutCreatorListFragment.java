@@ -341,6 +341,8 @@ public class ShortcutCreatorListFragment extends Fragment {
                     Context context = fragment.getActivity().getApplicationContext();
 
                     if (profile != null) {
+                        //profile.releaseIconBitmap();
+                        profile.generateIconBitmap(context, false, 0, false);
 
                         if (isIconResourceID) {
                             if (profile._iconBitmap != null)
