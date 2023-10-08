@@ -180,8 +180,6 @@ public class ShortcutCreatorListFragment extends Fragment {
                     // set copy local profile list into activity profilesDataWrapper
                     fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
 
-                    this.dataWrapper.invalidateDataWrapper();
-
                     synchronized (fragment.activityDataWrapper.profileList) {
                         if (fragment.activityDataWrapper.profileList.size() == 0)
                             fragment.viewNoData.setVisibility(View.VISIBLE);

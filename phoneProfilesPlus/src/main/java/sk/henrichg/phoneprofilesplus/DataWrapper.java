@@ -1449,6 +1449,7 @@ class DataWrapper {
 
 //-------------------------------------------------------------------------------------------------------------------
 
+    // !!! do not use this especially in AsyncTasks, when it generates icons and preference indicators
     void invalidateDataWrapper()
     {
         invalidateProfileList();
