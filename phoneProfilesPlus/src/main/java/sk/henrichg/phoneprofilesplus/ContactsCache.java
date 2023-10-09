@@ -323,258 +323,6 @@ class ContactsCache {
     }
 */
 
-/*
-    void getContactList(Context context)
-    {
-        if (cached || caching) return;
-
-        caching = true;
-        //cancelled = false;
-
-        ArrayList<Contact> _contactList = new ArrayList<>();
-        //ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
-
-        try {
-            if (Permissions.checkContacts(context)) {
-                String[] projection = new String[]{
-                        ContactsContract.Contacts.HAS_PHONE_NUMBER,
-                        ContactsContract.Contacts._ID,
-                        ContactsContract.Contacts.DISPLAY_NAME,
-                        ContactsContract.Contacts.PHOTO_ID};
-                //String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1'";
-                //String order = ContactsContract.Contacts.DISPLAY_NAME + " ASC";
-
-                Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, null, null, null);
-
-                if (mCursor != null) {
-                    while (mCursor.moveToNext()) {
-                        //try{
-                        long contactId = mCursor.getLong(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
-                        String name = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
-                        if (name != null) {
-//                            String hasPhone = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER));
-                            String photoId = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.PHOTO_ID));
-                            if (Integer.parseInt(mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
-                                projection = new String[]{
-                                        ContactsContract.CommonDataKinds.Phone._ID,
-                                        ContactsContract.CommonDataKinds.Phone.NUMBER,
-                                        ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET
-                                };
-                                Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
-                                if (phones != null) {
-                                    while (phones.moveToNext()) {
-                                        long phoneId = phones.getLong(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone._ID));
-                                        String phoneNumber = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                        String accountType = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET));
-
-                                        Contact aContact = new Contact();
-                                        aContact.contactId = contactId;
-                                        aContact.name = name;
-                                        aContact.phoneId = phoneId;
-                                        aContact.phoneNumber = phoneNumber;
-                                        try {
-                                            aContact.photoId = Long.parseLong(photoId);
-                                        } catch (Exception e) {
-                                            aContact.photoId = 0;
-                                        }
-                                        aContact.accountType = accountType;
-                                        _contactList.add(aContact);
-
-                                        //if (cancelled)
-                                        //    break;
-                                    }
-                                    phones.close();
-                                }
-                            } else {
-                                Contact aContact = new Contact();
-                                aContact.contactId = contactId;
-                                aContact.name = name;
-                                aContact.phoneId = 0;
-                                aContact.phoneNumber = "";
-                                aContact.accountType = "";
-                                try {
-                                    aContact.photoId = Long.parseLong(photoId);
-                                } catch (Exception e) {
-                                    aContact.photoId = 0;
-                                }
-                                _contactList.add(aContact);
-                            }
-                        }
-
-                        //}catch(Exception e){}
-
-                        //if (cancelled)
-                        //    break;
-                    }
-                    mCursor.close();
-                }
-
-                //if (cancelled)
-                //    return;
-
-                Collections.sort(_contactList, new ContactsComparator());
-
-                cached = true;
-            }
-        } catch (SecurityException e) {
-            Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
-            //PPApplicationStatic.recordException(e);
-
-            _contactList.clear();
-            //_contactListWithoutNumber.clear();
-
-            cached = false;
-        } catch (Exception e) {
-            Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
-            PPApplicationStatic.recordException(e);
-
-            _contactList.clear();
-            //_contactListWithoutNumber.clear();
-
-            cached = false;
-        }
-
-        //if (cached) {
-        synchronized (PPApplication.contactsCacheMutex) {
-            updateContacts(_contactList);
-            //updateContacts(_contactListWithoutNumber, true);
-        }
-        //}
-
-        caching = false;
-    }
-*/
-/*
-    void getContactListX(Context context)
-    {
-        if (cached || caching) return;
-
-        caching = true;
-        //cancelled = false;
-
-        ArrayList<Contact> _contactList = new ArrayList<>();
-        //ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
-
-        try {
-            if (Permissions.checkContacts(context)) {
-
-                Map<Long, List<String>> phones = new HashMap<>();
-
-                String[] projection = new String[]{
-                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
-                        ContactsContract.CommonDataKinds.Phone.NUMBER,
-                        ContactsContract.CommonDataKinds.Phone._ID,
-                        ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET
-                };
-                String selection = //ContactsContract.Contacts.HAS_PHONE_NUMBER + "=1" + " AND " +
-                        "(" +
-                        //ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "<>'vnd.sec.contact.phone' AND " +
-                        //ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "<>'vnd.sec.contact.sim' AND " +
-                        ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "<>'com.google.android.apps.tachyon' AND " +
-                        ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "<>'org.thoughtcrime.securesms'" +
-                        ")"
-                        ;
-
-                Cursor mCursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection, selection, null, null);
-
-                if (mCursor != null) {
-                    while (mCursor.moveToNext()) {
-                        long contactId = mCursor.getLong(0);
-                        String phoneNumber = mCursor.getString(1);
-                        long phoneId = mCursor.getLong(2);
-                        List<String> list;
-                        if (phones.containsKey(contactId)) {
-                            list = phones.get(contactId);
-                        } else {
-                            list = new ArrayList<>();
-                            phones.put(contactId, list);
-                        }
-                        if (list != null)
-                            list.add(phoneId+"|"+phoneNumber);
-
-                        //if (cancelled)
-                        //    break;
-                    }
-                    mCursor.close();
-                }
-
-                //if (cancelled)
-                //    return;
-
-                projection = new String[]{
-                        ContactsContract.Contacts._ID,
-                        ContactsContract.Contacts.DISPLAY_NAME,
-                        ContactsContract.CommonDataKinds.Phone.PHOTO_ID
-                };
-
-                mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, null, null, null);
-
-                if (mCursor != null) {
-                    while (mCursor.moveToNext()) {
-                        long contactId = mCursor.getLong(0);
-                        String name = mCursor.getString(1);
-                        String photo = mCursor.getString(2);
-                        List<String> contactPhones = phones.get(contactId);
-                        if (contactPhones != null) {
-                            for (String phone : contactPhones) {
-                                String[] splits = phone.split(StringConstants.STR_SPLIT_REGEX);
-                                Contact aContact = new Contact();
-                                aContact.contactId = contactId;
-                                aContact.name = name;
-                                aContact.phoneId = Long.parseLong(splits[0]);
-                                aContact.phoneNumber = splits[1];
-                                try {
-                                    aContact.photoId = Long.parseLong(photo);
-                                } catch (Exception e) {
-                                    aContact.photoId = 0;
-                                }
-                                _contactList.add(aContact);
-                            }
-                        }
-
-                        //if (cancelled)
-                        //    break;
-                    }
-
-                    mCursor.close();
-                }
-
-                //if (cancelled)
-                //    return;
-
-                Collections.sort(_contactList, new ContactsComparator());
-
-                cached = true;
-            }
-        } catch (SecurityException e) {
-            //Log.e("ContactsCache.getContactListX", Log.getStackTraceString(e));
-            //PPApplicationStatic.recordException(e);
-
-            _contactList.clear();
-            //_contactListWithoutNumber.clear();
-
-            cached = false;
-        } catch (Exception e) {
-            //Log.e("ContactsCache.getContactListX", Log.getStackTraceString(e));
-            PPApplicationStatic.recordException(e);
-
-            _contactList.clear();
-            //_contactListWithoutNumber.clear();
-
-            cached = false;
-        }
-
-        //if (cached) {
-        synchronized (PPApplication.contactsCacheMutex) {
-            updateContacts(_contactList);
-            //updateContacts(_contactListWithoutNumber, true);
-        }
-        //}
-
-        caching = false;
-    }
-*/
-
     void updateContacts(List<Contact> _contactList/*, boolean withoutNumber*/) {
         /*if (withoutNumber) {
             contactListWithoutNumber.clear();
@@ -657,8 +405,8 @@ class ContactsCache {
             long _contactId = Long.parseLong(splits2[0]);
             long _phoneId = Long.parseLong(splits2[1]);
 
-//            Log.e("ContactsCache.covertOldContactToNewContact", "_contactId="+_contactId);
-//            Log.e("ContactsCache.covertOldContactToNewContact", "_phoneId="+_phoneId);
+            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.covertOldContactToNewContact", "_contactId="+_contactId);
+            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.covertOldContactToNewContact", "_phoneId="+_phoneId);
 
             boolean foundInNew = false;
             // search one contact from contactsInEvent.contacts
@@ -671,7 +419,7 @@ class ContactsCache {
                     if (oldContact.contactId == _contactId)
                         foundInOld = true;
                 }
-//                Log.e("ContactsCache.covertOldContactToNewContact", "foundInOld="+foundInOld);
+                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.covertOldContactToNewContact", "foundInOld="+foundInOld);
                 if (foundInOld) {
                     // found contact in old list
 
@@ -682,8 +430,8 @@ class ContactsCache {
                                 PhoneNumberUtils.compare(newContact.phoneNumber, oldContact.phoneNumber) &&
                                 newContact.accountType.equals(oldContact.accountType)) {
                             foundInNew = true;
-//                            Log.e("ContactsCache.covertOldContactToNewContact", "newContact.contactId="+newContact.contactId);
-//                            Log.e("ContactsCache.covertOldContactToNewContact", "newContact.phoneId="+newContact.phoneId);
+                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.covertOldContactToNewContact", "newContact.contactId="+newContact.contactId);
+                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.covertOldContactToNewContact", "newContact.phoneId="+newContact.phoneId);
                             // update contact to new contact in event
                             if (newContacts.length() > 0)
                                 newContacts.append("|");
@@ -694,7 +442,7 @@ class ContactsCache {
                     break;
                 }
             }
-//            Log.e("ContactsCache.covertOldContactToNewContact", "foundInNew="+foundInNew);
+            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.covertOldContactToNewContact", "foundInNew="+foundInNew);
             if (!foundInNew) {
                 // get back old contact
                 if (newContacts.length() > 0)
