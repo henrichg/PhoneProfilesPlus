@@ -83,6 +83,9 @@ class ContactsCache {
 //                    Log.e("ContactsCache.getContactList", "contactList.size() == 0");
 
                 long contactId = 0;
+                String name = null;
+                String photoId = "0";
+                //int hasPhone = 0;
 
                 String[] projection = new String[]{
                         ContactsContract.RawContacts.CONTACT_ID,
@@ -98,16 +101,14 @@ class ContactsCache {
                         //rawAccountType = removeTrailingChar(rawAccountType, '\'');
                         String rawAccountName = rawCursor.getString(2);
 
-                        String name = null;
-                        String photoId = "0";
-                        //int hasPhone = 0;
-
                         if (contactId != _contactId) {
                             // contactId cahnged
 
                             contactId = _contactId;
                             //_oneContactIdList = new ArrayList<>();
 
+                            // get name for contacyt id
+                            // all phones in contactid will be with the same name
                             projection = new String[]{
                                     //ContactsContract.Contacts.HAS_PHONE_NUMBER,
                                     //ContactsContract.Contacts._ID,
@@ -122,12 +123,12 @@ class ContactsCache {
                                     photoId = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.PHOTO_ID));
                                     //hasPhone = Integer.parseInt(mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER)));
                                 }
-                                //else
-                                //    name = null;
+                                else
+                                    name = null;
                                 mCursor.close();
                             }
-                            //else
-                            //    name = null;
+                            else
+                                name = null;
                         }
 
                         if ((name != null) && (rawAccountType != null)) {
