@@ -107,8 +107,9 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                                 }
                                 if (PPApplicationStatic.logEnabled()) {
                                     if ((contact.contactId == Long.parseLong(splits2[0])) &&
-                                            (contact.phoneId == Long.parseLong(splits2[1])) &&
-                                            contact.checked) {
+                                            (contact.phoneId == Long.parseLong(splits2[1]))) {
+                                        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
+                                                "checked checked=" + contact.checked);
                                         PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
                                                 "checked contactId#phoneId=" + contact.contactId + "#" + contact.phoneId);
                                         PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
