@@ -74,15 +74,21 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         synchronized (PPApplication.contactsCacheMutex) {
             List<Contact>  localContactList = contactsCache.getList(/*withoutNumbers*/);
             if (localContactList != null) {
+                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "localContactList.size()="+localContactList.size());
                 contactList = new ArrayList<>();
                 if (!withoutNumbers) {
                     for (Contact contact : localContactList) {
-                        if (contact.phoneId != 0)
+                        if (contact.phoneId != 0) {
+                            if ((contact.contactId == 668) && (contact.phoneId == 1353))
+                                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "***********");
                             contactList.add(contact);
+                        }
                     }
                 } else
                     contactList.addAll(localContactList);
+                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "contactList.size()="+contactList.size());
                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "value="+value);
                 for (Contact contact : contactList) {
                     if (withoutNumbers || (contact.phoneId != 0)) {
                         contact.checked = false;
@@ -98,6 +104,18 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                                     long phoneId = Long.parseLong(splits2[1]);
                                     if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
                                         contact.checked = true;
+                                }
+                                if (PPApplicationStatic.logEnabled()) {
+                                    if ((contact.contactId == Long.parseLong(splits2[0])) &&
+                                            (contact.phoneId == Long.parseLong(splits2[1])) &&
+                                            contact.checked) {
+                                        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
+                                                "checked contactId#phoneId=" + contact.contactId + "#" + contact.phoneId);
+                                        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
+                                                "checked name=" + contact.name);
+                                        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
+                                                "checked accountName=" + contact.accountName);
+                                    }
                                 }
                             } catch (Exception e) {
                                 //PPApplicationStatic.recordException(e);
@@ -155,7 +173,9 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                     }
                     i++;
                 }
-            }
+                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "after move chcecked up: contactList.size()="+contactList.size());
+            } else
+                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "!!! localContactList=null");
         }
     }
 
