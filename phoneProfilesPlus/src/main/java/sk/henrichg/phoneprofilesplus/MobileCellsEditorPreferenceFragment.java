@@ -67,7 +67,8 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
     private TextView locationEnabledStatusTextView;
     private AppCompatImageButton locationSystemSettingsButton;
     private Button rescanButton;
-    RelativeLayout emptyList;
+    private RelativeLayout emptyList;
+    private AlertDialog progressDialog = null;
 
     private RefreshListViewAsyncTask rescanAsyncTask = null;
 
@@ -123,7 +124,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
             @Override
             public void afterTextChanged(Editable s) {
-                refreshListView(false/*, Integer.MAX_VALUE*/);
+                refreshListView(false, true/*, Integer.MAX_VALUE*/);
             }
         });
 
@@ -148,7 +149,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                 preference.addCellId(cellId);
             else
                 preference.removeCellId(cellId);
-            preference.refreshListView(false/*, Integer.MAX_VALUE*/);
+            preference.refreshListView(false, false/*, Integer.MAX_VALUE*/);
         });
 
         mMobileCellsFilterDialog = new MobileCellNamesDialog((Activity)prefContext, preference, true, null);
@@ -190,7 +191,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                                         if (cellName != null) {
                                                             DatabaseHandler db = DatabaseHandler.getInstance(prefContext.getApplicationContext());
                                                             String oldCellNames = db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), which1 == 0, preference.value);
-                                                            refreshListView(false/*, Integer.MAX_VALUE*/);
+                                                            refreshListView(false, false/*, Integer.MAX_VALUE*/);
                                                             renameCellNamesFromEventsAsyncTask = new RenameCellNamesFromEventsAsyncTask(oldCellNames, cellName.getText().toString(), prefContext);
                                                             renameCellNamesFromEventsAsyncTask.execute();
                                                         }
@@ -205,7 +206,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                                         if (cellName != null) {
                                                             DatabaseHandler db = DatabaseHandler.getInstance(prefContext.getApplicationContext());
                                                             String oldCellNames = db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), false, null);
-                                                            refreshListView(false/*, Integer.MAX_VALUE*/);
+                                                            refreshListView(false, false/*, Integer.MAX_VALUE*/);
                                                             renameCellNamesFromEventsAsyncTask = new RenameCellNamesFromEventsAsyncTask(oldCellNames, cellName.getText().toString(), prefContext);
                                                             renameCellNamesFromEventsAsyncTask.execute();
                                                         }
@@ -238,7 +239,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                 switch (which) {
                                     case 0:
                                         preference.value = "";
-                                        refreshListView(false/*, Integer.MAX_VALUE*/);
+                                        refreshListView(false, false/*, Integer.MAX_VALUE*/);
                                         break;
                                     case 1:
                                         MobileCellNamesDialog mobileCellNamesDialog = new MobileCellNamesDialog(
@@ -250,7 +251,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                                             if (cell.name.equals(cellName.getText().toString()))
                                                                 preference.addCellId(cell.cellId);
                                                         }
-                                                        refreshListView(false/*, Integer.MAX_VALUE*/);
+                                                        refreshListView(false, false/*, Integer.MAX_VALUE*/);
                                                     }
                                                 });
                                         mobileCellNamesDialog.show();
@@ -260,7 +261,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                         for (MobileCellsData cell : preference.filteredCellsList) {
                                             preference.addCellId(cell.cellId);
                                         }
-                                        refreshListView(false/*, Integer.MAX_VALUE*/);
+                                        refreshListView(false, false/*, Integer.MAX_VALUE*/);
                                         break;
                                     default:
                                 }
@@ -286,7 +287,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             preference.sortCellsBy,
                             (dialog, which) -> {
                                 preference.sortCellsBy = which;
-                                refreshListView(false/*, Integer.MAX_VALUE*/);
+                                refreshListView(false, false/*, Integer.MAX_VALUE*/);
                             },
                             null,
                             false,
@@ -337,7 +338,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             if (simIsReady) {
                 rescanButton.setOnClickListener(v -> {
                     if (Permissions.grantMobileCellsDialogPermissions(prefContext, true))
-                        refreshListView(true/*, Integer.MAX_VALUE*/);
+                        refreshListView(true, true/*, Integer.MAX_VALUE*/);
                 });
             }
             else
@@ -363,7 +364,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     _cellsList.add(preference.registeredCellDataSIM1);
                                     db.saveMobileCellsList(_cellsList, true, false);
                                     preference.addCellId(preference.registeredCellDataSIM1.cellId);
-                                    MobileCellsEditorPreferenceFragment.this.refreshListView(false/*, preference.registeredCellDataSIM1.cellId*/);
+                                    refreshListView(false, false/*, preference.registeredCellDataSIM1.cellId*/);
                                 }
                             });
                     mobileCellNamesDialog.show();
@@ -384,7 +385,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     _cellsList.add(preference.registeredCellDataSIM2);
                                     db.saveMobileCellsList(_cellsList, true, false);
                                     preference.addCellId(preference.registeredCellDataSIM2.cellId);
-                                    refreshListView(false/*, preference.registeredCellDataSIM2.cellId*/);
+                                    refreshListView(false, false/*, preference.registeredCellDataSIM2.cellId*/);
                                 }
                             });
                     mobileCellNamesDialog.show();
@@ -406,7 +407,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     _cellsList.add(preference.registeredCellDataDefault);
                                     db.saveMobileCellsList(_cellsList, true, false);
                                     preference.addCellId(preference.registeredCellDataDefault.cellId);
-                                    refreshListView(false/*, preference.registeredCellDataDefault.cellId*/);
+                                    refreshListView(false, false/*, preference.registeredCellDataDefault.cellId*/);
                                 }
                             });
                     mobileCellNamesDialog.show();
@@ -457,7 +458,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
         setLocationEnableStatus();
 
-        refreshListView(false/*, Integer.MAX_VALUE*/);
+        refreshListView(false, true/*, Integer.MAX_VALUE*/);
     }
 
     @Override
@@ -468,6 +469,8 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             preference.resetSummary();
         }*/
 
+        if ((progressDialog != null) && progressDialog.isShowing())
+            progressDialog.dismiss();
         if ((mRenameDialog != null) && mRenameDialog.mDialog.isShowing())
             mRenameDialog.mDialog.dismiss();
         if ((mSelectorDialog != null) && mSelectorDialog.mDialog.isShowing())
@@ -593,9 +596,9 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         }
     }
 
-    void refreshListView(final boolean forRescan/*, final int renameCellId*/)
+    void refreshListView(final boolean forRescan, final boolean showProgress/*, final int renameCellId*/)
     {
-        rescanAsyncTask = new RefreshListViewAsyncTask(forRescan, /*renameCellId,*/ preference, this, prefContext);
+        rescanAsyncTask = new RefreshListViewAsyncTask(forRescan, showProgress, /*renameCellId,*/ preference, this, prefContext);
         rescanAsyncTask.execute();
     }
 
@@ -690,7 +693,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                 DatabaseHandler db = DatabaseHandler.getInstance(_context);
                                 db.deleteMobileCell(cellId);
                                 preference.removeCellId(cellId);
-                                refreshListView(false/*, Integer.MAX_VALUE*/);
+                                refreshListView(false, false/*, Integer.MAX_VALUE*/);
                                 for (MobileCellsData cell : preference.filteredCellsList) {
                                     if ((cell.cellId == cellId) && (cell.name != null) && (!cell.name.isEmpty())){
                                         deleteCellNamesFromEventsAsyncTask = new DeleteCellNamesFromEventsAsyncTask(cell.name, prefContext);
@@ -742,7 +745,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                         }
                                     }
                                 }
-                                refreshListView(false/*, Integer.MAX_VALUE*/);
+                                refreshListView(false, false/*, Integer.MAX_VALUE*/);
                                 deleteCellNamesFromEventsAsyncTask = new DeleteCellNamesFromEventsAsyncTask(deletedCellNames.toString(), prefContext);
                                 deleteCellNamesFromEventsAsyncTask.execute();
                             },
@@ -792,7 +795,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                         }
                                     }
                                 }
-                                refreshListView(false/*, Integer.MAX_VALUE*/);
+                                refreshListView(false, false/*, Integer.MAX_VALUE*/);
                                 deleteCellNamesFromEventsAsyncTask = new DeleteCellNamesFromEventsAsyncTask(deletedCellNames.toString(), prefContext);
                                 deleteCellNamesFromEventsAsyncTask.execute();
                             },
@@ -841,7 +844,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 //            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsEditorPreferenceFragment.RefreshListViewBroadcastReceiver", "xxx");
         //if (preference != null)
         //    preference.refreshListView(false, Integer.MAX_VALUE);
-        refreshListView(false/*, Integer.MAX_VALUE*/);
+        refreshListView(false, false/*, Integer.MAX_VALUE*/);
     }
 
     /*
@@ -864,6 +867,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
     private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         final boolean forRescan;
+        final boolean showProgress;
         //final int renameCellId;
 
         private final WeakReference<MobileCellsEditorPreference> preferenceWeakRef;
@@ -890,11 +894,13 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         boolean sim1Exists;
         boolean sim2Exists;
 
-        public RefreshListViewAsyncTask(final boolean forRescan, /*final int renameCellId,*/
+        public RefreshListViewAsyncTask(final boolean forRescan, final boolean showProgress,
+                                        /*final int renameCellId,*/
                                         MobileCellsEditorPreference preference,
                                         MobileCellsEditorPreferenceFragment fragment,
                                         Context prefContext) {
             this.forRescan = forRescan;
+            this.showProgress = showProgress;
             //this.renameCellId = renameCellId;
             this.preferenceWeakRef = new WeakReference<>(preference);
             this.fragmentWeakRef = new WeakReference<>(fragment);
@@ -907,6 +913,20 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
             MobileCellsEditorPreferenceFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
+                if (showProgress) {
+                    if (fragment.getActivity() != null) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(fragment.getActivity());
+                        dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationEventMobileCellConfigureCells);
+
+                        LayoutInflater inflater = (fragment.getLayoutInflater());
+                        View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
+                        dialogBuilder.setView(layout);
+
+                        fragment.progressDialog = dialogBuilder.create();
+                        fragment.progressDialog.show();
+                    } else
+                        fragment.progressDialog = null;
+                }
 
                 if (fragment.getActivity() != null) {
                     Context appContext = fragment.getActivity().getApplicationContext();
@@ -972,16 +992,16 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                     _registeredCellInTableDefault = fragment.preference.registeredCellInTableDefault;
                     //_registeredCellInValueDefault = fragment.preference.registeredCellInValueDefault;
                 }
-
-
-                //dataRelativeLayout.setVisibility(View.GONE);
-                //progressLinearLayout.setVisibility(View.VISIBLE);
             }
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             synchronized (PPApplication.mobileCellsScannerMutex) {
+                if (showProgress)
+                    // for better displaying progress dialog
+                    GlobalUtils.sleep(200);
+
                 MobileCellsEditorPreferenceFragment fragment = fragmentWeakRef.get();
                 MobileCellsEditorPreference preference = preferenceWeakRef.get();
                 Context prefContext = prefContextWeakRef.get();
@@ -1203,7 +1223,6 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             MobileCellsEditorPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-
                 //preference.cellsList = new ArrayList<>(_cellsList);
                 preference.filteredCellsList = new ArrayList<>(_filteredCellsList);
 
@@ -1360,6 +1379,9 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                      )),
                             fragment.addCellButtonDefault, prefContext);
                 }
+
+                if ((fragment.progressDialog != null) && fragment.progressDialog.isShowing())
+                    fragment.progressDialog.dismiss();
             }
         }
 

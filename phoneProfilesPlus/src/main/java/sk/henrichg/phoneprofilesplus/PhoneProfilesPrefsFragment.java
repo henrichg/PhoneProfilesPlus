@@ -2344,7 +2344,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG)) {
             MobileCellsEditorPreference preference = prefMng.findPreference(PREF_APPLICATION_EVENT_MOBILE_CELL_CONFIGURE_CELLS);
             if (preference != null)
-                preference.refreshListView(true/*, Integer.MAX_VALUE*/);
+                preference.refreshListView(true, true/*, Integer.MAX_VALUE*/);
         }
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELL_NAMES_SCAN_DIALOG)) {
             MobileCellNamesPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELL_NAMES);
@@ -4521,7 +4521,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     void doMobileCellsRegistrationStoppedBroadcastReceiver() {
         MobileCellsEditorPreference preference = prefMng.findPreference(PREF_APPLICATION_EVENT_MOBILE_CELL_CONFIGURE_CELLS);
         if (preference != null)
-            preference.refreshListView(true/*, Integer.MAX_VALUE*/);
+            preference.refreshListView(true, true/*, Integer.MAX_VALUE*/);
     }
 
 }
