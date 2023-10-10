@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.Settings;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
@@ -998,10 +999,6 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         @Override
         protected Void doInBackground(Void... params) {
             synchronized (PPApplication.mobileCellsScannerMutex) {
-                if (showProgress)
-                    // for better displaying progress dialog
-                    GlobalUtils.sleep(200);
-
                 MobileCellsEditorPreferenceFragment fragment = fragmentWeakRef.get();
                 MobileCellsEditorPreference preference = preferenceWeakRef.get();
                 Context prefContext = prefContextWeakRef.get();
@@ -1219,7 +1216,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
-            MobileCellsEditorPreferenceFragment fragment = fragmentWeakRef.get();
+            final MobileCellsEditorPreferenceFragment fragment = fragmentWeakRef.get();
             MobileCellsEditorPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
@@ -1380,8 +1377,12 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             fragment.addCellButtonDefault, prefContext);
                 }
 
-                if ((fragment.progressDialog != null) && fragment.progressDialog.isShowing())
-                    fragment.progressDialog.dismiss();
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
+                    if ((fragment.progressDialog != null) && fragment.progressDialog.isShowing())
+                        fragment.progressDialog.dismiss();
+                });
+
             }
         }
 
