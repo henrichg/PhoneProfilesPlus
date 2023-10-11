@@ -48,6 +48,8 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
     private MobileCellsEditorPreference preference;
     int phoneCount = 1;
 
+    //Bundle savedInstanceState;
+
     private SingleSelectListDialog mRenameDialog;
     private SingleSelectListDialog mSelectorDialog;
     private SingleSelectListDialog mSortDialog;
@@ -156,6 +158,15 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
         preference.fragment = null;
     }
+
+    /*
+    @Override
+    public @NonNull Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        Log.e("MobileCellsEditorPreferenceFragment.onCreateView", "wwwwwwwwwwwwwwwwwwwwww");
+        this.savedInstanceState = savedInstanceState;
+        return super.onCreateDialog(savedInstanceState);
+    }
+    */
 
     @Override
     protected void onBindDialogView(@NonNull View view) {
