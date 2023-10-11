@@ -2228,7 +2228,7 @@ class PPApplicationStatic {
             PPApplicationStatic.logE("PPApplication._exitApp", "set application started = false");
             setApplicationStarted(context, false);
 
-            Log.e("PPApplicationStatic.startPPService", "*********** exitByUser="+exitByUser);
+            PPApplicationStatic.logE("PPApplication._exitApp", "*********** exitByUser="+exitByUser);
             if (exitByUser) {
                 //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
                 SharedPreferences settings = ApplicationPreferences.getSharedPreferences(context);
