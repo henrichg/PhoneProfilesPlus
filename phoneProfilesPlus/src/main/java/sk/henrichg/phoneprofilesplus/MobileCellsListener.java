@@ -29,10 +29,14 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 class MobileCellsListener extends PhoneStateListener {
 
@@ -793,9 +797,35 @@ class MobileCellsListener extends PhoneStateListener {
             if (PPApplication.mobileCellsForceStart || PPApplication.mobileCellsRegistraitonForceStart) {
                 if (MobileCellsScanner.isValidCellId(_registeredCell)) {
 //                    PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] MobileCellsListener.doAutoRegistration", "xxxx");
+                    OneTimeWorkRequest worker =
+                            new OneTimeWorkRequest.Builder(MainWorker.class)
+                                    .addTag(MainWorker.MOBILE_CELLS_EDITOR_REFRESH_LISTVIEW_WORK_TAG)
+                                    .setInitialDelay(1, TimeUnit.SECONDS)
+                                    .build();
+                    try {
+                        WorkManager workManager = PPApplication.getWorkManagerInstance();
+                        if (workManager != null) {
+
+//                            //if (PPApplicationStatic.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+
+//                        PPApplicationStatic.logE("[WORKER_CALL] EditorActivity.onActivityResult", "xxx");
+                            workManager.enqueueUniqueWork(MainWorker.MOBILE_CELLS_EDITOR_REFRESH_LISTVIEW_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                        }
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                    /*
                     // broadcast for event preferences
-                    Intent refreshIntent = new Intent(MobileCellsEditorPreference.ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER);
+                    Intent refreshIntent = new Intent(MobileCellsEditorPreference.ACTION_MOBILE_CELLS_EDITOR_REFRESH_LISTVIEW_BROADCAST_RECEIVER);
                     LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
+                     */
                 }
             }
 

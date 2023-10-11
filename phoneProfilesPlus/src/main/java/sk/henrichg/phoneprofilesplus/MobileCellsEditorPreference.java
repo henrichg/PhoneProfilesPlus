@@ -42,7 +42,7 @@ public class MobileCellsEditorPreference extends DialogPreference {
 
     //private PersistValueAsyncTask persistValueAsyncTask = null;
 
-    static final String ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView";
+    static final String ACTION_MOBILE_CELLS_EDITOR_REFRESH_LISTVIEW_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".MobileCellsEditorPreference_refreshListView";
 
     public MobileCellsEditorPreference(Context prefContext, AttributeSet attrs) {
         super(prefContext, attrs);

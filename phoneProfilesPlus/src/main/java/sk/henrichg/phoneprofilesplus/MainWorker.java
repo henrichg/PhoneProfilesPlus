@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -62,6 +63,8 @@ public class MainWorker extends Worker {
     static final String DISABLE_NOT_USED_SCANNERS_WORK_TAG = "dislableNotUsedScannersWork";
     //static final String DETECT_MERGE_RING_NOTIFICATION_VOLUMES_WORK_TAG = "detectRingNotificationVolumes";
     static final String SET_MOBILE_CELLS_AS_OLD_WORK_TAG = "setMobileCellsAsOldWork";
+
+    static final String MOBILE_CELLS_EDITOR_REFRESH_LISTVIEW_WORK_TAG = "mobileCellsEditorRefreshListViewWork";
 
     final Context context;
 
@@ -262,6 +265,10 @@ public class MainWorker extends Worker {
                     case SET_MOBILE_CELLS_AS_OLD_WORK_TAG:
                         DatabaseHandler db = DatabaseHandler.getInstance(appContext);
                         db.setAllMobileCellsAsOld();
+                        break;
+                    case MOBILE_CELLS_EDITOR_REFRESH_LISTVIEW_WORK_TAG:
+                        Intent refreshIntent = new Intent(MobileCellsEditorPreference.ACTION_MOBILE_CELLS_EDITOR_REFRESH_LISTVIEW_BROADCAST_RECEIVER);
+                        LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
                         break;
                     default:
                         if (tag.startsWith(PROFILE_DURATION_WORK_TAG)) {
