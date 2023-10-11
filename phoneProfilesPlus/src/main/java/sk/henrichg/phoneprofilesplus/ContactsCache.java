@@ -419,8 +419,8 @@ class ContactsCache {
                     if (oldContact.contactId == _contactId)
                         foundInOld = true;
                 }
-                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.covertOldContactToNewContact", "foundInOld="+foundInOld);
                 if (foundInOld) {
+                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.covertOldContactToNewContact", "foundInOld=true");
                     // found contact in old list
 
                     // search it in new list
