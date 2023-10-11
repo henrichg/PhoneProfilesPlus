@@ -44,6 +44,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
         return inflater.inflate(R.layout.dialog_contacts_multiselect_preference, null, false);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
@@ -66,8 +67,13 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
             refreshListView(false);
         });
 
-        if (Permissions.grantContactsDialogPermissions(prefContext))
-            refreshListView(true);
+        if (Permissions.grantContactsDialogPermissions(prefContext)) {
+            if (preference.contactList != null)
+                preference.contactList.clear();
+            listAdapter.notifyDataSetChanged();
+            final Handler handler = new Handler(prefContext.getMainLooper());
+            handler.postDelayed(() -> refreshListView(true), 200);
+        }
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -200,7 +201,11 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                 }
         });
 
-        refreshListView("");
+        if (preference.nfcTagList != null)
+            preference.nfcTagList.clear();
+        listAdapter.notifyDataSetChanged();
+        final Handler handler = new Handler(prefContext.getMainLooper());
+        handler.postDelayed(() -> refreshListView(""), 200);
     }
 
     @Override

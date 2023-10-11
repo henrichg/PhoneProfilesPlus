@@ -83,8 +83,14 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
             refreshListView(false);
         });
 
-        if (Permissions.grantCalendarDialogPermissions(prefContext))
-            refreshListView(true);
+        if (Permissions.grantCalendarDialogPermissions(prefContext)) {
+            if (preference.calendarList != null)
+                preference.calendarList.clear();
+            if (listAdapter != null)
+                listAdapter.notifyDataSetChanged();
+            final Handler handler = new Handler(prefContext.getMainLooper());
+            handler.postDelayed(() -> refreshListView(true), 200);
+        }
 
     }
 

@@ -179,7 +179,16 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
 
         setLocationEnableStatus();
 
-        refreshListView(/*false*/);
+        if (preference.cellNamesList != null)
+            preference.cellNamesList.clear();
+        listAdapter.notifyDataSetChanged();
+        final Handler handler = new Handler(prefContext.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshListView(/*false*/);
+            }
+        }, 200);
     }
 
     @Override

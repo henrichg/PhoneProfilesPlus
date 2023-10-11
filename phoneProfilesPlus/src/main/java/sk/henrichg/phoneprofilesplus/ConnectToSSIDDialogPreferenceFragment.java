@@ -105,8 +105,13 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
 
         wifiEnabled = false;
 
-        if (Permissions.grantConnectToSSIDDialogPermissions(prefContext))
-            refreshListView();
+        if (Permissions.grantConnectToSSIDDialogPermissions(prefContext)) {
+            if (preference.ssidList != null)
+                preference.ssidList.clear();
+            listAdapter.notifyDataSetChanged();
+            final Handler handler = new Handler(prefContext.getMainLooper());
+            handler.postDelayed(this::refreshListView, 200);
+        }
     }
 
     @Override

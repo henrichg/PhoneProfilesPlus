@@ -226,8 +226,20 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
 
             setLocationEnableStatus();
 
+            /*
+            if (preference.bluetoothList != null)
+                preference.bluetoothList.clear();
+            preference.customBluetoothList.clear();
+            listAdapter.notifyDataSetChanged();
+            final Handler handler = new Handler(prefContext.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    refreshListView(false, "");
+                }
+            }, 200);
+            */
             refreshListView(false, "");
-
         });
 
         return mDialog;

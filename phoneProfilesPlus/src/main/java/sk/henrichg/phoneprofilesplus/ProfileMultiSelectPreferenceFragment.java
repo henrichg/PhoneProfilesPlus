@@ -65,7 +65,13 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
             refreshListView(false);
         });
 
-        refreshListView(true);
+        if (preference.dataWrapper != null)
+            preference.dataWrapper.invalidateProfileList();
+        if (profilePreferenceAdapter != null)
+            profilePreferenceAdapter.notifyDataSetChanged();
+        final Handler handler = new Handler(prefContext.getMainLooper());
+        handler.postDelayed(() -> refreshListView(true), 200);
+
     }
 
     @Override

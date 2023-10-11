@@ -53,9 +53,15 @@ public class ProfilePreferenceFragment extends PreferenceDialogFragmentCompat {
 
         listView.setOnItemClickListener((parent, item, position, id) -> doOnItemSelected(position));
 
-        bindViewAsyncTask = new BindViewAsyncTask(preference, this, prefContext);
-        bindViewAsyncTask.execute();
-
+        if (preference.dataWrapper != null)
+            preference.dataWrapper.invalidateProfileList();
+        if (profilePreferenceAdapter != null)
+            profilePreferenceAdapter.notifyDataSetChanged();
+        final Handler handler = new Handler(prefContext.getMainLooper());
+        handler.postDelayed(() -> {
+            bindViewAsyncTask = new BindViewAsyncTask(preference, preference.fragment, prefContext);
+            bindViewAsyncTask.execute();
+        }, 200);
     }
 
     @Override

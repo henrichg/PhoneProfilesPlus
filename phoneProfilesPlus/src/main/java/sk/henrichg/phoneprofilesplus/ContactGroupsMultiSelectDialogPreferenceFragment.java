@@ -71,8 +71,13 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
             refreshListView(false);
         });
 
-        if (Permissions.grantContactGroupsDialogPermissions(prefContext))
-            refreshListView(true);
+        if (Permissions.grantContactGroupsDialogPermissions(prefContext)) {
+            if (preference.contactGroupList != null)
+                preference.contactGroupList.clear();
+            listAdapter.notifyDataSetChanged();
+            final Handler handler = new Handler(prefContext.getMainLooper());
+            handler.postDelayed(() -> refreshListView(true), 200);
+        }
     }
 
     @Override
