@@ -259,15 +259,17 @@ class ApplicationsCache {
             }
         }
 
-        Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(dIcon, true);
-        if (bitmap != null) {
-            application.icon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
-        } else {
-            //icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
-            dIcon = AppCompatResources.getDrawable(context, R.drawable.ic_empty);
-            bitmap = BitmapManipulator.getBitmapFromDrawable(dIcon, true);
+        if (dIcon != null) {
+            Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(dIcon, true);
             if (bitmap != null) {
                 application.icon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
+            } else {
+                //icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
+                dIcon = AppCompatResources.getDrawable(context, R.drawable.ic_empty);
+                bitmap = BitmapManipulator.getBitmapFromDrawable(dIcon, true);
+                if (bitmap != null) {
+                    application.icon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
+                }
             }
         }
     }
