@@ -3,10 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
-import android.telephony.PhoneNumberUtils;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 class ContactsCache {
@@ -25,23 +23,24 @@ class ContactsCache {
         caching = false;
     }
 
-    void getContactList(Context context, boolean fixEvents/*, boolean forceCache*/)
+    void getContactList(Context context/*, boolean fixEvents*//*, boolean forceCache*/)
     {
         //if ((cached || caching) && (!forceCache)) return;
 
         caching = true;
 
         ArrayList<Contact> _contactList = new ArrayList<>();
-        ArrayList<ContactsInEvent> _contactInEventsCall = new ArrayList<>();
-        ArrayList<ContactsInEvent> _contactInEventsSMS = new ArrayList<>();
-        ArrayList<ContactsInEvent> _contactInEventsNotification = new ArrayList<>();
-        ArrayList<Contact> _oldContactList = new ArrayList<>();
+        //ArrayList<ContactsInEvent> _contactInEventsCall = new ArrayList<>();
+        //ArrayList<ContactsInEvent> _contactInEventsSMS = new ArrayList<>();
+        //ArrayList<ContactsInEvent> _contactInEventsNotification = new ArrayList<>();
+        //ArrayList<Contact> _oldContactList = new ArrayList<>();
 
-        DataWrapper dataWrapper = null;
+        //DataWrapper dataWrapper = null;
 
         try {
             if (Permissions.checkContacts(context)) {
 
+                /*
                 if (fixEvents && (contactList.size() != 0)) {
 //                    Log.e("ContactsCache.getContactList", "contactList.size() != 0");
 
@@ -81,6 +80,7 @@ class ContactsCache {
 //                    Log.e("ContactsCache.getContactList", "_contactInEventsNotification.size()="+_contactInEventsNotification.size());
                 } //else
 //                    Log.e("ContactsCache.getContactList", "contactList.size() == 0");
+                */
 
                 long contactId = 0;
                 String name = null;
@@ -210,9 +210,10 @@ class ContactsCache {
                     rawCursor.close();
                 }
 
-                _contactList.sort(new ContactsComparator());
+                //_contactList.sort(new ContactsComparator());
                 synchronized (PPApplication.contactsCacheMutex) {
 
+                    /*
                     if (fixEvents && (contactList.size() != 0)) {
 //                        Log.e("ContactsCache.getContactList", "contactList.size() != 0");
 
@@ -231,11 +232,13 @@ class ContactsCache {
 //                        Log.e("ContactsCache.getContactList", "_oldContactList.size()="+_oldContactList.size());
                     } //else
 //                        Log.e("ContactsCache.getContactList", "contactList.size() == 0");
-
                     PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.getContactList", "contactList.size()="+_contactList.size());
+                    */
+
                     updateContacts(_contactList/*, false*/);
                     //updateContacts(_contactListWithoutNumber, true);
 
+                    /*
                     if (fixEvents && (_oldContactList.size() != 0)) {
 //                        Log.e("ContactsCache.getContactList", "_oldContactList.size() != 0");
 
@@ -265,6 +268,7 @@ class ContactsCache {
                         }
                     } //else
 //                        Log.e("ContactsCache.getContactList", "_oldContactList.size() == 0");
+                    */
                 }
 
                 cached = true;
@@ -295,8 +299,8 @@ class ContactsCache {
             cached = false;
         }
 
-        if (dataWrapper != null)
-            dataWrapper.invalidateDataWrapper();
+        //if (dataWrapper != null)
+        //    dataWrapper.invalidateDataWrapper();
 
         caching = false;
     }
@@ -386,6 +390,7 @@ class ContactsCache {
         return caching;
     }
 
+/*
     private String covertOldContactToNewContact(ContactsInEvent contactsInEvent, List<Contact> _oldContactList) {
         if (contactsInEvent.contacts == null)
             return "";
@@ -409,9 +414,9 @@ class ContactsCache {
             PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.covertOldContactToNewContact", "_phoneId="+_phoneId);
 
             boolean foundInNew = false;
+            boolean foundInOld = false;
             // search one contact from contactsInEvent.contacts
             for (Contact oldContact : _oldContactList) {
-                boolean foundInOld = false;
                 if (_phoneId != 0) {
                     if ((oldContact.contactId == _contactId) && (oldContact.phoneId == _phoneId))
                         foundInOld = true;
@@ -420,9 +425,7 @@ class ContactsCache {
                         foundInOld = true;
                 }
                 if (foundInOld) {
-                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.covertOldContactToNewContact", "foundInOld=true");
                     // found contact in old list
-
                     // search it in new list
                     for (Contact newContact : contactList) {
                         // search these fields in new contactList
@@ -442,18 +445,21 @@ class ContactsCache {
                     break;
                 }
             }
+            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.covertOldContactToNewContact", "foundInOld="+foundInOld);
             PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.covertOldContactToNewContact", "foundInNew="+foundInNew);
-            if (!foundInNew) {
+            //if (foundInOld) {
                 // get back old contact
-                if (newContacts.length() > 0)
-                    newContacts.append("|");
-                newContacts.append(split);
-            }
+            //    if (newContacts.length() > 0)
+            //        newContacts.append("|");
+            //    newContacts.append(split);
+            //}
         }
 
         return newContacts.toString();
     }
+*/
 
+    /*
     private static class ContactsComparator implements Comparator<Contact> {
 
         public int compare(Contact lhs, Contact rhs) {
@@ -463,11 +469,14 @@ class ContactsCache {
                 return 0;
         }
     }
+    */
 
+    /*
     private static class ContactsInEvent {
         Event event = null;
         String contacts = null;
         //int sensorType = -1;
     }
+    */
 
 }

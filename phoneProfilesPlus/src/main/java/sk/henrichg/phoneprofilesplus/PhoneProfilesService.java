@@ -1479,6 +1479,179 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
+                //TODO
+                if (actualVersionCode <= 7050) {
+                    Log.e("PhoneProfilesService.doForPackageReplaced", "xxxxxxxxxxxxxxxxxx");
+
+                    List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
+
+                    // convert old contacts data to new
+                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                    if (contactsCache == null) {
+                        PPApplicationStatic.createContactsCache(appContext, false/*, false*//*, true*/);
+                        contactsCache = PPApplicationStatic.getContactsCache();
+                    }
+                    List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
+                    if (contactList != null) {
+                        for (Event event : eventList) {
+                            boolean dataChanged = false;
+
+                            if (!event._eventPreferencesCall._contacts.isEmpty()) {
+                                String[] splits = event._eventPreferencesCall._contacts.split(StringConstants.STR_SPLIT_REGEX);
+                                String _split = splits[0];
+                                String[] _splits2 = _split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                boolean oldData = false;
+                                try {
+                                    //noinspection unused
+                                    long l = Long.parseLong(_splits2[0]);
+                                    oldData = true;
+                                } catch (Exception ignored) {}
+                                if (oldData) {
+                                    StringBuilder newContacts = new StringBuilder();
+                                    for (String split : splits) {
+                                        String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                        long contactId = Long.parseLong(splits2[0]);
+                                        long phoneId = Long.parseLong(splits2[1]);
+
+                                        boolean found = false;
+                                        for (Contact contact : contactList) {
+                                            if (phoneId != 0) {
+                                                if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
+                                                    found = true;
+                                            } else {
+                                                if (contact.contactId == contactId)
+                                                    found = true;
+                                            }
+                                            if (found) {
+                                                if (newContacts.length() > 0)
+                                                    newContacts.append("|");
+                                                newContacts
+                                                        .append(contact.name)
+                                                        .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                        .append(contact.phoneNumber)
+                                                        .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                        .append(contact.accountType);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    event._eventPreferencesCall._contacts = newContacts.toString();
+                                    dataChanged = true;
+                                }
+                            }
+
+                            if (!event._eventPreferencesSMS._contacts.isEmpty()) {
+                                String[] splits = event._eventPreferencesSMS._contacts.split(StringConstants.STR_SPLIT_REGEX);
+                                String _split = splits[0];
+                                String[] _splits2 = _split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                boolean oldData = false;
+                                try {
+                                    //noinspection unused
+                                    long l = Long.parseLong(_splits2[0]);
+                                    oldData = true;
+                                } catch (Exception ignored) {
+                                }
+                                if (oldData) {
+                                    StringBuilder newContacts = new StringBuilder();
+                                    splits = event._eventPreferencesSMS._contacts.split(StringConstants.STR_SPLIT_REGEX);
+                                    for (String split : splits) {
+                                        String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                        if (splits2.length != 3) {
+                                            // old data
+                                            splits2 = split.split("#");
+                                            if (splits2.length != 2)
+                                                continue;
+                                            long contactId = Long.parseLong(splits2[0]);
+                                            long phoneId = Long.parseLong(splits2[1]);
+
+                                            boolean found = false;
+                                            for (Contact contact : contactList) {
+                                                if (phoneId != 0) {
+                                                    if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
+                                                        found = true;
+                                                } else {
+                                                    if (contact.contactId == contactId)
+                                                        found = true;
+                                                }
+                                                if (found) {
+                                                    if (newContacts.length() > 0)
+                                                        newContacts.append("|");
+                                                    newContacts
+                                                            .append(contact.name)
+                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                            .append(contact.phoneNumber)
+                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                            .append(contact.accountType);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    event._eventPreferencesSMS._contacts = newContacts.toString();
+                                    dataChanged = true;
+                                }
+                            }
+
+                            if (!event._eventPreferencesSMS._contacts.isEmpty()) {
+                                String[] splits = event._eventPreferencesSMS._contacts.split(StringConstants.STR_SPLIT_REGEX);
+                                String _split = splits[0];
+                                String[] _splits2 = _split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                boolean oldData = false;
+                                try {
+                                    //noinspection unused
+                                    long l = Long.parseLong(_splits2[0]);
+                                    oldData = true;
+                                } catch (Exception ignored) {
+                                }
+                                if (oldData) {
+                                    StringBuilder newContacts = new StringBuilder();
+                                    splits = event._eventPreferencesNotification._contacts.split(StringConstants.STR_SPLIT_REGEX);
+                                    for (String split : splits) {
+                                        String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                        if (splits2.length != 3) {
+                                            // old data
+                                            splits2 = split.split("#");
+                                            if (splits2.length != 2)
+                                                continue;
+                                            long contactId = Long.parseLong(splits2[0]);
+                                            long phoneId = Long.parseLong(splits2[1]);
+
+                                            boolean found = false;
+                                            for (Contact contact : contactList) {
+                                                if (phoneId != 0) {
+                                                    if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
+                                                        found = true;
+                                                } else {
+                                                    if (contact.contactId == contactId)
+                                                        found = true;
+                                                }
+                                                if (found) {
+                                                    if (newContacts.length() > 0)
+                                                        newContacts.append("|");
+                                                    newContacts
+                                                            .append(contact.name)
+                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                            .append(contact.phoneNumber)
+                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                            .append(contact.accountType);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    event._eventPreferencesNotification._contacts = newContacts.toString();
+                                    dataChanged = true;
+                                }
+                            }
+
+                            if (dataChanged)
+                                DatabaseHandler.getInstance(appContext).updateEvent(event);
+                        }
+
+                    }
+
+                }
+
             }
 
             // Keep this !!! stop tap target for package replaced

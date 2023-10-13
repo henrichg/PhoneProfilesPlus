@@ -32,6 +32,7 @@ class StringConstants {
     static final String STR_MANUAL_SPACE = "[M] ";
     static final String STR_FORMAT_INT = "%X";
     static final String STR_SPLIT_REGEX = "\\|";
+    static final String STR_SPLIT_CONTACTS_REGEX = "~#~";
     static final String TAG_BREAK_HTML = "<br>";
     static final String TAG_DOUBLE_BREAK_HTML = "<br><br>";
     static final String TAG_BOLD_START_HTML = "<b>";

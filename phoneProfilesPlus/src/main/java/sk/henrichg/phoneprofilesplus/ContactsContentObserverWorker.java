@@ -33,9 +33,9 @@ public class ContactsContentObserverWorker extends Worker {
             Context appContext = context.getApplicationContext();
 
             // must be first
-            PPApplicationStatic.createContactsCache(appContext, false, true/*, true*/);
+            PPApplicationStatic.createContactsCache(appContext, false/*, true*//*, true*/);
             //must be seconds, this ads groups into contacts
-            PPApplicationStatic.createContactGroupsCache(appContext, false, true/*, true*/);
+            PPApplicationStatic.createContactGroupsCache(appContext, false/*, true*//*, true*/);
 
             EventsHandler eventsHandler = new EventsHandler(appContext);
             eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED});

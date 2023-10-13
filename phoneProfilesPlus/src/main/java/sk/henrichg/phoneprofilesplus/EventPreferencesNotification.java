@@ -1229,36 +1229,6 @@ class EventPreferencesNotification extends EventPreferences {
         // find phone number in groups
         String[] splits = this._contactGroups.split(StringConstants.STR_SPLIT_REGEX);
         for (String split : splits) {
-            /*String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
-            String selection = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
-                    + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
-                    + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
-            String[] selectionArgs = new String[]{split};
-            Cursor mCursor = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projection, selection, selectionArgs, null);
-            if (mCursor != null) {
-                while (mCursor.moveToNext()) {
-                    String contactId = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-                    String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
-                    String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?";
-                    String[] selection2Args = new String[]{contactId};
-                    Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
-                    if (phones != null) {
-                        while (phones.moveToNext()) {
-                            String _contactName = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-
-                            if (text.toLowerCase().contains(_contactName.toLowerCase())) {
-                                phoneNumberFound = true;
-                                break;
-                            }
-                        }
-                        phones.close();
-                    }
-                    if (phoneNumberFound)
-                        break;
-                }
-                mCursor.close();
-            }*/
-
             if (!split.isEmpty()) {
                 synchronized (PPApplication.contactsCacheMutex) {
                     if (contactList != null) {
@@ -1288,56 +1258,16 @@ class EventPreferencesNotification extends EventPreferences {
             // contactId#phoneId|...
             splits = this._contacts.split(StringConstants.STR_SPLIT_REGEX);
             for (String split : splits) {
-                String[] splits2 = split.split("#");
+                String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
 
-                /*// get phone number from contacts
-                String[] projection = new String[]{ContactsContract.Contacts._ID};
-                String selection = ContactsContract.Contacts._ID + "=?";
-                String[] selectionArgs = new String[]{splits2[0]};
-                Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, selectionArgs, null);
-                if (mCursor != null) {
-                    while (mCursor.moveToNext()) {
-                        String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
-                        String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?";
-                        String[] selection2Args = new String[]{splits2[0]};
-                        Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
-                        if (phones != null) {
-                            while (phones.moveToNext()) {
-                                String _contactName = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-
-                                if (text.toLowerCase().contains(_contactName.toLowerCase())) {
-                                    phoneNumberFound = true;
-                                    break;
-                                }
-                            }
-                            phones.close();
-                        }
-                        if (phoneNumberFound)
-                            break;
-                    }
-                    mCursor.close();
-                }*/
-
-                if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
-                    synchronized (PPApplication.contactsCacheMutex) {
-                        if (contactList != null) {
-                            for (Contact contact : contactList) {
-                                if (contact.phoneId != 0) {
-                                    if ((contact.contactId == Long.parseLong(splits2[0])) && contact.phoneId == Long.parseLong(splits2[1])) {
-                                        String _contactName = contact.name;
-                                        if (text.toLowerCase().contains(_contactName.toLowerCase())) {
-                                            phoneNumberFound = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())  && (!splits2[2].isEmpty())) {
+                    String contactName = splits2[0];
+                    if (text.toLowerCase().contains(contactName.toLowerCase())) {
+                        // phone number is in sensor configured
+                        phoneNumberFound = true;
+                        break;
                     }
                 }
-
-                if (phoneNumberFound)
-                    break;
             }
         }
 

@@ -143,7 +143,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                 if (contactsCache == null) {
                     // cache not created, create it
-                    PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false, false/*, true*/);
+                    PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
                     /*contactsCache = PPApplicationStatic.getContactsCache();
                     while (contactsCache.getCaching())
                         GlobalUtils.sleep(100);*/
@@ -153,7 +153,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                         List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
                         if (contactList == null) {
                             // not cached, cache it
-                            PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false, false/*, true*/);
+                            PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
                             /*contactsCache = PPApplicationStatic.getContactsCache();
                             while (contactsCache.getCaching())
                                 GlobalUtils.sleep(100);*/
@@ -168,7 +168,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                 ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                 if (contactGroupsCache == null) {
                     // cache not created, create it
-                    PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false, false/*, true*/);
+                    PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
                     /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                     while (contactGroupsCache.getCaching())
                         GlobalUtils.sleep(100);*/
@@ -178,7 +178,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                         List<ContactGroup> contactGroupList = contactGroupsCache.getList(/*withoutNumbers*/);
                         if (contactGroupList == null) {
                             // not cached, cache it
-                            PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false, false/*, true*/);
+                            PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
                             /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                             while (contactGroupsCache.getCaching())
                                 GlobalUtils.sleep(100);*/
