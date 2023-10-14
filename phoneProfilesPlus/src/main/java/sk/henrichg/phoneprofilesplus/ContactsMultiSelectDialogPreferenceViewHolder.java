@@ -2,14 +2,16 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.ImageView;
+//import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.imageview.ShapeableImageView;
+
 class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    private final ImageView imageViewPhoto;
+    private final ShapeableImageView imageViewPhoto;
     private final TextView textViewDisplayName;
     private final TextView textViewPhoneNumber;
     private final CheckBox checkBox;
