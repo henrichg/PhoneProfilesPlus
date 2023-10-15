@@ -1551,7 +1551,6 @@ public class PhoneProfilesService extends Service
                                 }
                                 if (oldData) {
                                     StringBuilder newContacts = new StringBuilder();
-                                    splits = event._eventPreferencesSMS._contacts.split(StringConstants.STR_SPLIT_REGEX);
                                     for (String split : splits) {
                                         String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
                                         if (splits2.length != 3) {
@@ -1590,8 +1589,8 @@ public class PhoneProfilesService extends Service
                                 }
                             }
 
-                            if (!event._eventPreferencesSMS._contacts.isEmpty()) {
-                                String[] splits = event._eventPreferencesSMS._contacts.split(StringConstants.STR_SPLIT_REGEX);
+                            if (!event._eventPreferencesNotification._contacts.isEmpty()) {
+                                String[] splits = event._eventPreferencesNotification._contacts.split(StringConstants.STR_SPLIT_REGEX);
                                 String _split = splits[0];
                                 String[] _splits2 = _split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
                                 boolean oldData = false;
@@ -1603,7 +1602,6 @@ public class PhoneProfilesService extends Service
                                 }
                                 if (oldData) {
                                     StringBuilder newContacts = new StringBuilder();
-                                    splits = event._eventPreferencesNotification._contacts.split(StringConstants.STR_SPLIT_REGEX);
                                     for (String split : splits) {
                                         String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
                                         if (splits2.length != 3) {
