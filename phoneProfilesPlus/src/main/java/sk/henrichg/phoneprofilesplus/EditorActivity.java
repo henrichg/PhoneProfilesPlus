@@ -4329,6 +4329,7 @@ public class EditorActivity extends AppCompatActivity
                     // because in DatabaseHandler.importDB is recompute of volumes in profiles
                     //File exportFile = new File(sd, _applicationDataPath + "/" + PPApplication.EXPORT_APP_PREF_FILENAME);
                     File exportFile = new File(sd, PPApplication.EXPORT_APP_PREF_FILENAME);
+                    //TODO get also applicationContactsInBackupEncripted
                     appSettingsError = !activity.importApplicationPreferences(exportFile/*, 1*/);
                     //exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                     //exportFile = new File(sd, GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
@@ -4336,6 +4337,7 @@ public class EditorActivity extends AppCompatActivity
                     //    sharedProfileError = !importApplicationPreferences(exportFile, 2);
 
                     //dbError = DatabaseHandler.getInstance(_dataWrapper.context).importDB(_applicationDataPath);
+                    //TODO decript contacts only when applicationContactsInBackupEncripted==true
                     dbError = DatabaseHandler.getInstance(_dataWrapper.context).importDB(/*_applicationDataPath*/);
                     if (dbError == DatabaseHandler.IMPORT_OK) {
                         DatabaseHandler.getInstance(_dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
@@ -4528,6 +4530,7 @@ public class EditorActivity extends AppCompatActivity
 
                     File sd = activity.getApplicationContext().getExternalFilesDir(null);
 
+                    //TODO encript contacts
                     int ret = DatabaseHandler.getInstance(this.dataWrapper.context).exportDB(
                             this.deleteGeofences, this.deleteWifiSSIDs,
                             this.deleteBluetoothNames, this.deleteMobileCells
@@ -4535,6 +4538,7 @@ public class EditorActivity extends AppCompatActivity
                     if (ret == 1) {
                         //File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + PPApplication.EXPORT_APP_PREF_FILENAME);
                         File exportFile = new File(sd, PPApplication.EXPORT_APP_PREF_FILENAME);
+                        //TODO set applicationContactsInBackupEncripted=true
                         //noinspection StatementWithEmptyBody
                         if (activity.exportApplicationPreferences(exportFile, runStopEvents/*, 1*/)) {
                             /*exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);

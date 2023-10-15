@@ -278,6 +278,7 @@ class ApplicationPreferences {
     static volatile String notificationProfileListIconLightness;
     static volatile boolean notificationProfileListCustomIconLightness;
     static volatile boolean applicationEventHideNotUsedSensors;
+    //static volatile boolean applicationContactsInBackupEncripted;
 
     static volatile String applicationEventPeriodicScanningScanInTimeMultiply;
     static volatile int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -307,12 +308,10 @@ class ApplicationPreferences {
     static volatile boolean prefActivatorFragmentStartTargetHelpsFinished;
     static volatile boolean prefActivatorAdapterStartTargetHelps;
     //static volatile boolean prefActivatorAdapterStartTargetHelpsFinished;
-
     static volatile boolean prefEditorActivityStartTargetHelps;
     static volatile boolean prefEditorActivityStartTargetHelpsRunStopIndicator;
     static volatile boolean prefEditorActivityStartTargetHelpsBottomNavigation;
     static volatile boolean prefEditorActivityStartTargetHelpsFinished;
-
     static volatile boolean prefEditorFragmentStartTargetHelpsDefaultProfile;
     static volatile boolean prefEditorProfilesFragmentStartTargetHelps;
     static volatile boolean prefEditorProfilesFragmentStartTargetHelpsFilterSpinner;
@@ -321,7 +320,6 @@ class ApplicationPreferences {
     static volatile boolean prefEditorProfilesAdapterStartTargetHelpsOrder;
     static volatile boolean prefEditorProfilesAdapterStartTargetHelpsShowInActivator;
     //static volatile boolean prefEditorProfilesAdapterStartTargetHelpsFinished;
-
     static volatile boolean prefEditorEventsFragmentStartTargetHelps;
     static volatile boolean prefEditorEventsFragmentStartTargetHelpsFilterSpinner;
     static volatile boolean prefEditorEventsFragmentStartTargetHelpsOrderSpinner;
@@ -330,11 +328,9 @@ class ApplicationPreferences {
     static volatile boolean prefEditorEventsAdapterStartTargetHelpsOrder;
     static volatile boolean prefEditorEventsAdapterStartTargetHelpsStatus;
     //static volatile boolean prefEditorEventsAdapterStartTargetHelpsFinished;
-
     static volatile boolean prefProfilePrefsActivityStartTargetHelps;
     //static volatile boolean prefProfilePrefsActivityStartTargetHelpsSave;
     //static volatile boolean prefProfilePrefsActivityStartTargetHelpsFinished;
-
     static volatile boolean prefEventPrefsActivityStartTargetHelps;
     //static volatile boolean prefEventPrefsActivityStartTargetHelpsFinished;
 
@@ -582,6 +578,7 @@ class ApplicationPreferences {
     //private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
     //private static final String PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO = "activatedProfileForEventUndo";
     static final String PREF_APPLICATION_EVENT_HIDE_NOT_USED_EVENTS = "applicationEventHideNotUsedSensors";
+    static final String PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED = "applicationContactsInBackupEncripted";
 
     // scannings
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
@@ -2267,6 +2264,13 @@ class ApplicationPreferences {
     static void applicationEventHideNotUsedSensors(Context context) {
         applicationEventHideNotUsedSensors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_HIDE_NOT_USED_EVENTS, PREF_APPLICATION_EVENT_HIDE_NOT_USED_EVENTS_DEFAULT_VALUE);
     }
+
+    /*
+    static final boolean PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED_DEFAULT_VALUE = false;
+    static void applicationContactsInBackupEncripted(Context context) {
+        applicationContactsInBackupEncripted = getSharedPreferences(context).getBoolean(PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED, PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED_DEFAULT_VALUE);
+    }
+    */
 
     static void deleteBadPreferences(Context context) {
         SharedPreferences mySPrefs = getSharedPreferences(context);

@@ -702,6 +702,46 @@ class DatabaseHandlerImportExport {
                 cursorImportDB.close();
         }
 
+        //TODO
+        // decript contacts
+        boolean applicationContactsInBackupEncripted =
+                ApplicationPreferences.getSharedPreferences(instance.context)
+                        .getBoolean(ApplicationPreferences.PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED,
+                                false);
+
+        if (applicationContactsInBackupEncripted) {
+            /*
+            try {
+                cursorImportDB = db.rawQuery("SELECT " +
+                        DatabaseHandler.KEY_E_ID + "," +
+                        DatabaseHandler.KEY_E_CALL_CONTACTS + "," +
+                        DatabaseHandler.KEY_E_SMS_CONTACTS + "," +
+                        DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS +
+                        " FROM " + DatabaseHandler.TABLE_EVENTS, null);
+
+                if (cursorImportDB.moveToFirst()) {
+                    do {
+                        long eventId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+
+                        ContentValues values = new ContentValues();
+
+                        values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, ???);
+                        values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, ???);
+                        values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, ???);
+
+                        db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_ID + " = ?",
+                                new String[]{String.valueOf(eventId)});
+
+                    } while (cursorImportDB.moveToNext());
+                }
+                cursorImportDB.close();
+            } finally {
+                if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                    cursorImportDB.close();
+            }
+            */
+        }
+
         // remove all not used non-named mobile cells
         DatabaseHandlerEvents.deleteNonNamedNotUsedCells(instance, true);
 
@@ -1284,6 +1324,20 @@ class DatabaseHandlerImportExport {
                                 try {
                                     try {
                                         exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
+
+                                        //TODO encript contacts
+                                        /*
+                                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(instance.context);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED, true);
+                                        editor.apply();
+
+                                        ContentValues values = new ContentValues();
+                                        values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, ???);
+                                        values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, ???);
+                                        values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, ???);
+                                        exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, null, null);
+                                        */
+
 
                                         if (deleteGeofences) {
                                             ContentValues values = new ContentValues();
