@@ -133,9 +133,12 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
                         accountType = "Duo";
                     if (contactGroup.accountType.equals("com.whatsapp"))
                         accountType = "WhatsApp";
-                    contactGroup.displayedAccountType = accountType;
                 }
             }
+            if (accountType.isEmpty())
+                accountType = contactGroup.accountType;
+            contactGroup.displayedAccountType = accountType;
+
             textViewAccountType.setText(contactGroup.displayedAccountType);
 
             checkBox.setChecked(contactGroup.checked);

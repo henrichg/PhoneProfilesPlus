@@ -187,7 +187,7 @@ class ContactGroupsCache {
                                 // contact is in contactGroupId group
 
                                 long contactId = mCursorGroup.getLong(mCursorGroup.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-                                addGroup(contactId, contactGroupId, _contactList);
+                                addGroupToContact(contactId, contactGroupId, _contactList);
                                 //contactsCache.addGroup(contactId, contactGroupId, _contactListWithoutNumber);
                             }
                         }
@@ -216,9 +216,11 @@ class ContactGroupsCache {
 //                        Log.e("ContactGroupsCache.getContactGroupList", "_oldContactGroupList.size()="+_oldContactGroupList.size());
                     } //else
 //                        Log.e("ContactGroupsCache.getContactGroupList", "contactGroupList.size() == 0");
+                    */
 
                     updateContactGroups(_contactGroupList);
 
+                    /*
                     if (fixEvents && (_oldContactGroupList.size() != 0)) {
 //                        Log.e("ContactGroupsCache.getContactGroupList", "_oldContactGroupList.size() != 0");
 
@@ -358,7 +360,7 @@ class ContactGroupsCache {
     }
 
     // called only from ContactGroupsCache
-    void addGroup(long contactId, long contactGroupId, List<Contact> _contactList) {
+    void addGroupToContact(long contactId, long contactGroupId, List<Contact> _contactList) {
         if (_contactList == null)
             return;
 
