@@ -1479,10 +1479,8 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                //TODO
+                //TODO contacts data converson
                 if (actualVersionCode <= 7050) {
-                    Log.e("PhoneProfilesService.doForPackageReplaced", "xxxxxxxxxxxxxxxxxx");
-
                     List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
 
                     // convert old contacts data to new
