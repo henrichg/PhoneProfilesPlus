@@ -21,7 +21,7 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
-import tgio.rncryptor.RNCryptorNative;
+//import tgio.rncryptor.RNCryptorNative;
 
 class DatabaseHandlerImportExport {
 
@@ -892,7 +892,7 @@ class DatabaseHandlerImportExport {
                     cursorImportDB.close();
             }
         }
-
+        /*
         // decript contacts
         boolean applicationContactsInBackupEncripted =
                 ApplicationPreferences.getSharedPreferences(instance.context)
@@ -956,11 +956,13 @@ class DatabaseHandlerImportExport {
                     cursorImportDB.close();
             }
         }
+        */
 
         // remove all not used non-named mobile cells
         DatabaseHandlerEvents.deleteNonNamedNotUsedCells(instance, true);
 
     }
+
 
     static private void importProfiles(SQLiteDatabase db, SQLiteDatabase exportedDBObj,
                                 List<Long> exportedDBEventProfileIds, List<Long> importDBEventProfileIds) {
@@ -1541,7 +1543,7 @@ class DatabaseHandlerImportExport {
                                     try {
                                         exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
 
-
+                                        /*
                                         // encript contacts
                                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(instance.context);
                                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED, true);
@@ -1588,6 +1590,7 @@ class DatabaseHandlerImportExport {
                                             if ((cursorExportDB != null) && (!cursorExportDB.isClosed()))
                                                 cursorExportDB.close();
                                         }
+                                        */
 
 
                                         if (deleteGeofences) {
@@ -1613,22 +1616,25 @@ class DatabaseHandlerImportExport {
                                             exportedDBObj.delete(DatabaseHandler.TABLE_MOBILE_CELLS, null, null);
                                         }
 
-                                        String encriptedEmptyStr = new String(rncryptor.encrypt("", BuildConfig.encrypt_contacts_password));
+                                        //String encriptedEmptyStr = new String(rncryptor.encrypt("", BuildConfig.encrypt_contacts_password));
                                         if (deleteCall) {
                                             ContentValues _values = new ContentValues();
-                                            _values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, encriptedEmptyStr);
+                                            //_values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, encriptedEmptyStr);
+                                            _values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, "");
                                             _values.put(DatabaseHandler.KEY_E_CALL_CONTACT_GROUPS, "");
                                             exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
                                         }
                                         if (deleteSMS) {
                                             ContentValues _values = new ContentValues();
-                                            _values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, encriptedEmptyStr);
+                                            //_values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, encriptedEmptyStr);
+                                            _values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, "");
                                             _values.put(DatabaseHandler.KEY_E_SMS_CONTACT_GROUPS, "");
                                             exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
                                         }
                                         if (deleteNotification) {
                                             ContentValues _values = new ContentValues();
-                                            _values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, encriptedEmptyStr);
+                                            //_values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, encriptedEmptyStr);
+                                            _values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, "");
                                             _values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACT_GROUPS, "");
                                             exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
                                         }
