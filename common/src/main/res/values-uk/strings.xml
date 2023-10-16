@@ -1279,7 +1279,7 @@
     <string name="event_preferences_event_not_found">Подія не знайдена. Вилучена?</string>
     <string name="permissions_draw_overlays_not_allowed_alway_required">Дозвіл на \"Показувати поверх застосунків\" не надано. Надайте його. Вимога Android 10.</string>
     <string name="event_preferences_battery_level_info">Попередження про рівень заряду акумулятора</string>
-    <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Якщо нищий рівень &gt; 0% або вище рівня &lt; 100% розхід акумулятора!</string>
+    <string name="event_preferences_battery_level_info_summary" formatted="false" tools:ignore="StringFormatCount,StringFormatInvalid">Якщо нищий рівень &gt; 0% або вище рівня &lt; 100% розхід акумулятора!</string>
     <string name="event_preference_sensor_device_boot_summary">Цей датчик запустить подію одразу після завантаження пристрою. Параметри: Постійна робота, Тривалість (час роботи події).</string>
     <string name="event_type_device_boot">Завантаження пристрою</string>
     <string name="event_preferences_category_eventDeviceBootParameters">Датчик завантаження пристрою</string>
@@ -2119,4 +2119,8 @@
     <string name="profile_preferences_types_R_grant_info">Натисніть тут, щоб надати root.</string>
     <string name="event_preferences_hideNotUsedSensors">Приховати датчики які не використовуються</string>
     <string name="activity_log_added_new_logs">Додано нові журнали подій. Використовуйте \"Перезавантажити\" щоб переглянути.</string>
+    <string name="export_settings_delete_contacts_data_text1">Примітка: Контакти також будуть включені до експорту налаштувань. Якщо Ви будете ділитись резервною копією з іншими людьми, то оберіть параметри, які не слід експортувати.</string>
+    <string name="export_settings_delete_contacts_data_calls">Контакти до Датчика викликів</string>
+    <string name="export_settings_delete0_contacts_data_sms">Контакти до Датчика SMS/MMS</string>
+    <string name="export_settings_delete_contacts_data_notification">Контакти до Датчика сповіщення</string>
 </resources>

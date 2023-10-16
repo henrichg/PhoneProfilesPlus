@@ -1279,7 +1279,7 @@
     <string name="event_preferences_event_not_found">Udalosť nenájdená. Vymazaná?</string>
     <string name="permissions_draw_overlays_not_allowed_alway_required">Nemáte udelené povolenie \"Vykresliť cez ďalšie aplikácie\". Ale toto povolenie je vyžadované pre Android 10. Prosím udeľte ho.</string>
     <string name="event_preferences_battery_level_info">Upozornenie pre úroveň batérie</string>
-    <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Spodná úroveň &gt; 0% alebo horná úroveň &lt; 100% spotrebúva batériu!</string>
+    <string name="event_preferences_battery_level_info_summary" formatted="false" tools:ignore="StringFormatCount,StringFormatInvalid">Spodná úroveň &gt; 0% alebo horná úroveň &lt; 100% spotrebúva batériu!</string>
     <string name="event_preference_sensor_device_boot_summary">Tento senzor naštartuje udalosť okamžite po štarte zariadenia. Parametre: Trvalý beh, Trvanie (dĺžka udalosti).</string>
     <string name="event_type_device_boot">Štart zariadenia</string>
     <string name="event_preferences_category_eventDeviceBootParameters">Senzor štartu zariadenia</string>
@@ -2119,4 +2119,8 @@
     <string name="profile_preferences_types_R_grant_info">Kliknite sem pre udelenie práva root.</string>
     <string name="event_preferences_hideNotUsedSensors">Skryť nepoužívané senzory</string>
     <string name="activity_log_added_new_logs">Pridané nové logy. Na ich zobrazenie použite \"Znova načítať\".</string>
+    <string name="export_settings_delete_contacts_data_text1">Poznámka: Kontakty budú tiež zahrnuté v exportovaných nastaveniach. Ak zálohu zdieľate s inými ľuďmi, vyberte parametre, ktoré sa nemajú exportovať.</string>
+    <string name="export_settings_delete_contacts_data_calls">Kontakty pre Senzor hovoru</string>
+    <string name="export_settings_delete0_contacts_data_sms">Kontakty pre Senzor SMS/MMS</string>
+    <string name="export_settings_delete_contacts_data_notification">Kontakty pre Senzor notifikácií</string>
 </resources>

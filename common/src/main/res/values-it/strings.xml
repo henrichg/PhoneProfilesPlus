@@ -1279,7 +1279,7 @@
     <string name="event_preferences_event_not_found">Evento non trovato. Cancellare?</string>
     <string name="permissions_draw_overlays_not_allowed_alway_required">Non hai concesso il permesso \"Disegna su app\". Ma questa autorizzazione è necessaria per Android 10. Si prega di concederla.</string>
     <string name="event_preferences_battery_level_info">Avviso livello batteria</string>
-    <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Livello inferiore &gt; 0% o livello superiore &lt; 100% consumo della batteria!</string>
+    <string name="event_preferences_battery_level_info_summary" formatted="false" tools:ignore="StringFormatCount,StringFormatInvalid">Livello inferiore &gt; 0% o livello superiore &lt; 100% consumo della batteria!</string>
     <string name="event_preference_sensor_device_boot_summary">Questo sensore serve per avviare l\'evento immediatamente dopo l\'avvio del dispositivo. Parametri: Esecuzione permanente, Durata (durata dell\'evento).</string>
     <string name="event_type_device_boot">Avvio dispositivo</string>
     <string name="event_preferences_category_eventDeviceBootParameters">Sensore di avvio dispositivo</string>
@@ -2119,4 +2119,8 @@
     <string name="profile_preferences_types_R_grant_info">Click here to grant root.</string>
     <string name="event_preferences_hideNotUsedSensors">Hide not used sensors</string>
     <string name="activity_log_added_new_logs">Added new logs. Use \"Reload\" to display it.</string>
+    <string name="export_settings_delete_contacts_data_text1">Note: Contacts will also be included in the exported settings. If you share the backup with other people, select the parameters that should not be exported.</string>
+    <string name="export_settings_delete_contacts_data_calls">Contacts for Call sensor</string>
+    <string name="export_settings_delete0_contacts_data_sms">Contacts for SMS/MMS sensor</string>
+    <string name="export_settings_delete_contacts_data_notification">Contacts for Notification sensor</string>
 </resources>

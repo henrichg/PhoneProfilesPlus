@@ -1279,7 +1279,7 @@
     <string name="event_preferences_event_not_found">找不到事件，已删除？</string>
     <string name="permissions_draw_overlays_not_allowed_alway_required">您没有授予权限“在其他应用上显示”，但Android 10需要此权限。请授权。</string>
     <string name="event_preferences_battery_level_info">电池电量警告</string>
-    <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">较低级别 &gt; %或较高级别 &lt; 100%消耗电池！</string>
+    <string name="event_preferences_battery_level_info_summary" formatted="false" tools:ignore="StringFormatCount,StringFormatInvalid">较低级别 &gt; %或较高级别 &lt; 100%消耗电池！</string>
     <string name="event_preference_sensor_device_boot_summary">此传感器将在设备启动后立即启动事件。参数：永久运行，持续时间(事件运行持续时间)。</string>
     <string name="event_type_device_boot">设备启动</string>
     <string name="event_preferences_category_eventDeviceBootParameters">设备启动传感器</string>
@@ -2119,4 +2119,8 @@
     <string name="profile_preferences_types_R_grant_info">Click here to grant root.</string>
     <string name="event_preferences_hideNotUsedSensors">Hide not used sensors</string>
     <string name="activity_log_added_new_logs">Added new logs. Use \"Reload\" to display it.</string>
+    <string name="export_settings_delete_contacts_data_text1">Note: Contacts will also be included in the exported settings. If you share the backup with other people, select the parameters that should not be exported.</string>
+    <string name="export_settings_delete_contacts_data_calls">Contacts for Call sensor</string>
+    <string name="export_settings_delete0_contacts_data_sms">Contacts for SMS/MMS sensor</string>
+    <string name="export_settings_delete_contacts_data_notification">Contacts for Notification sensor</string>
 </resources>

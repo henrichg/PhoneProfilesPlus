@@ -183,12 +183,8 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
             preference.cellNamesList.clear();
         listAdapter.notifyDataSetChanged();
         final Handler handler = new Handler(prefContext.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                refreshListView(/*false*/);
-            }
-        }, 200);
+        /*false*/
+        handler.postDelayed(this::refreshListView, 200);
     }
 
     @Override

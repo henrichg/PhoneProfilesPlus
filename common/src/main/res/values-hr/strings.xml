@@ -1279,7 +1279,7 @@
     <string name="event_preferences_event_not_found">Događaj nije pronađen. Obrisan?</string>
     <string name="permissions_draw_overlays_not_allowed_alway_required">Nemate dozvolu za \" Pisanje preko aplikacija\". Ova je dozvola neophodna za Android 10. Omogućite je.</string>
     <string name="event_preferences_battery_level_info">Upozorenje na stanje baterije</string>
-    <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Niža vrednost &gt; 0% ili viša vrednost &lt; 100% potrošnja baterije!</string>
+    <string name="event_preferences_battery_level_info_summary" formatted="false" tools:ignore="StringFormatCount,StringFormatInvalid">Niža vrednost &gt; 0% ili viša vrednost &lt; 100% potrošnja baterije!</string>
     <string name="event_preference_sensor_device_boot_summary">Ovaj senzor će odmah posle podizanja sistema započeti događaj. Parametri: Trajni rad, Trajanje ( trajanje rada događaja).</string>
     <string name="event_type_device_boot">Startovanje uređaja</string>
     <string name="event_preferences_category_eventDeviceBootParameters">Senzor startovanja uređaja</string>
@@ -2119,4 +2119,8 @@
     <string name="profile_preferences_types_R_grant_info">Click here to grant root.</string>
     <string name="event_preferences_hideNotUsedSensors">Hide not used sensors</string>
     <string name="activity_log_added_new_logs">Added new logs. Use \"Reload\" to display it.</string>
+    <string name="export_settings_delete_contacts_data_text1">Note: Contacts will also be included in the exported settings. If you share the backup with other people, select the parameters that should not be exported.</string>
+    <string name="export_settings_delete_contacts_data_calls">Contacts for Call sensor</string>
+    <string name="export_settings_delete0_contacts_data_sms">Contacts for SMS/MMS sensor</string>
+    <string name="export_settings_delete_contacts_data_notification">Contacts for Notification sensor</string>
 </resources>

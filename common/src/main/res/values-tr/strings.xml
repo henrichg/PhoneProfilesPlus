@@ -1279,7 +1279,7 @@
     <string name="event_preferences_event_not_found">Durum bulunamadı. Silinmiş?</string>
     <string name="permissions_draw_overlays_not_allowed_alway_required">\"Uygulamalar üzerinde çiz\" iznini vermediniz. Bu izin Android 10 için lüzumludur. Lütfen izni veriniz.</string>
     <string name="event_preferences_battery_level_info">Pil seviye ikazı</string>
-    <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Alt seviye &gt; %0 veya or üst seviye &lt; %100 pil bitiyor!</string>
+    <string name="event_preferences_battery_level_info_summary" formatted="false" tools:ignore="StringFormatCount,StringFormatInvalid">Alt seviye &gt; %0 veya or üst seviye &lt; %100 pil bitiyor!</string>
     <string name="event_preference_sensor_device_boot_summary">Bu Şart, cihazınızın başlangıcından hemen sonra Durumun başlatılması içindir. Değerler: Kalıcı çalışma, Süre (Durum çalışma süresi).</string>
     <string name="event_type_device_boot">Cihaz başlangıcı</string>
     <string name="event_preferences_category_eventDeviceBootParameters">Cihaz başlangıç şartı</string>
@@ -2119,4 +2119,8 @@
     <string name="profile_preferences_types_R_grant_info">Kök izni vermek için buraya dokunun.</string>
     <string name="event_preferences_hideNotUsedSensors">Kullanılmayan şartları gizle</string>
     <string name="activity_log_added_new_logs">Yeni günlükler eklendi. Görüntülemek için \"Yeniden Yükle\"yi kullanın.</string>
+    <string name="export_settings_delete_contacts_data_text1">Note: Contacts will also be included in the exported settings. If you share the backup with other people, select the parameters that should not be exported.</string>
+    <string name="export_settings_delete_contacts_data_calls">Contacts for Call sensor</string>
+    <string name="export_settings_delete0_contacts_data_sms">Contacts for SMS/MMS sensor</string>
+    <string name="export_settings_delete_contacts_data_notification">Contacts for Notification sensor</string>
 </resources>

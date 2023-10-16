@@ -1279,7 +1279,7 @@
     <string name="event_preferences_event_not_found">Evento no encontrado. ¿Borrado?</string>
     <string name="permissions_draw_overlays_not_allowed_alway_required">No has concedido permiso para \"dibujar sobre las aplicaciones\". Este permiso es necesario para Android 10. Por favor, concédelo.</string>
     <string name="event_preferences_battery_level_info">Aviso de nivel de batería</string>
-    <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Nivel inferior &gt; 0% o nivel superior &lt; 100% ¡consume batería!</string>
+    <string name="event_preferences_battery_level_info_summary" formatted="false" tools:ignore="StringFormatCount,StringFormatInvalid">Nivel inferior &gt; 0% o nivel superior &lt; 100% ¡consume batería!</string>
     <string name="event_preference_sensor_device_boot_summary">Este sensor iniciará el evento inmediatamente después del arranque del dispositivo. Parámetros: Ejecución permanente, Duración (duración de la ejecución del evento).</string>
     <string name="event_type_device_boot">Arranque del dispositivo</string>
     <string name="event_preferences_category_eventDeviceBootParameters">Sensor de arranque del dispositivo</string>
@@ -2119,4 +2119,8 @@
     <string name="profile_preferences_types_R_grant_info">Haz clic aquí para conceder root.</string>
     <string name="event_preferences_hideNotUsedSensors">Ocultar sensores no usados</string>
     <string name="activity_log_added_new_logs">Añadidos nuevos registros. Utilice \"Recargar\" para mostrarlo.</string>
+    <string name="export_settings_delete_contacts_data_text1">Nota: Los datos de ubicación también se incluirán en la configuración exportada. Si compartes la copia de seguridad con otras personas, selecciona los parámetros que no deberían ser exportados.</string>
+    <string name="export_settings_delete_contacts_data_calls">Contactos para el sensor de llamadas</string>
+    <string name="export_settings_delete0_contacts_data_sms">Contactos para el sensor de SMS/MMS</string>
+    <string name="export_settings_delete_contacts_data_notification">Contactos para el sensor de notificaciones</string>
 </resources>

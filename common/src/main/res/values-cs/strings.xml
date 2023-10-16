@@ -1279,7 +1279,7 @@
     <string name="event_preferences_event_not_found">Událost nenalezena. Vymazána?</string>
     <string name="permissions_draw_overlays_not_allowed_alway_required">Nemáte povolení \"Vykreslit přes další aplikace\". Ale toto povolení je vyžadováno pro Android 10. Prosím udělte ho.</string>
     <string name="event_preferences_battery_level_info">Upozornění pro úroveň baterie</string>
-    <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Spodní úroveň &gt; 0% nebo horní úroveň &lt; 100% spotřebovává baterii!</string>
+    <string name="event_preferences_battery_level_info_summary" formatted="false" tools:ignore="StringFormatCount,StringFormatInvalid">Spodní úroveň &gt; 0% nebo horní úroveň &lt; 100% spotřebovává baterii!</string>
     <string name="event_preference_sensor_device_boot_summary">Tento senzor nastartuje událost okamžitě po startu zařízení. Parametry: Trvalý běh, Trvání (délka události).</string>
     <string name="event_type_device_boot">Start zařízení</string>
     <string name="event_preferences_category_eventDeviceBootParameters">Senzor startu zařízení</string>
@@ -2119,4 +2119,8 @@
     <string name="profile_preferences_types_R_grant_info">Klikněte sem pro udělení práva root.</string>
     <string name="event_preferences_hideNotUsedSensors">Skrýt nepoužívané senzory</string>
     <string name="activity_log_added_new_logs">Přidány nové logy. K jejich zobrazení použijte \"Znovu načíst\".</string>
+    <string name="export_settings_delete_contacts_data_text1">Poznámka: Kontakty budou také zahrnuty do exportovaných nastaveních. Pokud sdílíte zálohu s ostatními lidmi, vyberte parametry, které by neměly být exportovány.</string>
+    <string name="export_settings_delete_contacts_data_calls">Kontakty pro Senzor volání</string>
+    <string name="export_settings_delete0_contacts_data_sms">Kontakty pro SMS/MMS senzor</string>
+    <string name="export_settings_delete_contacts_data_notification">Kontakty pro Senzor notifikací</string>
 </resources>
