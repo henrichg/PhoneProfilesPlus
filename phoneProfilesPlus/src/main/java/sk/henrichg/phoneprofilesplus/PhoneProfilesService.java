@@ -1479,7 +1479,6 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                //TODO contacts data converson
                 if (actualVersionCode <= 7050) {
                     List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
 

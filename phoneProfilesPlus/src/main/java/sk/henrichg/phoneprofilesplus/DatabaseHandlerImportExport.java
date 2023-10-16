@@ -13,7 +13,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -894,13 +893,12 @@ class DatabaseHandlerImportExport {
             }
         }
 
-        //TODO
         // decript contacts
         boolean applicationContactsInBackupEncripted =
                 ApplicationPreferences.getSharedPreferences(instance.context)
                         .getBoolean(ApplicationPreferences.PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED,
                                 false);
-        Log.e("DatabaseHandlerImportExport.afterImportDb", "applicationContactsInBackupEncripted="+applicationContactsInBackupEncripted);
+        //Log.e("DatabaseHandlerImportExport.afterImportDb", "applicationContactsInBackupEncripted="+applicationContactsInBackupEncripted);
         if (applicationContactsInBackupEncripted) {
             try {
                 RNCryptorNative rncryptor = new RNCryptorNative();
@@ -938,9 +936,9 @@ class DatabaseHandlerImportExport {
                         } catch (Exception e) {
                             decryptedNotificationContacts = "";
                         }
-                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedCallContacts="+decryptedCallContacts);
-                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedSMSContacts="+decryptedSMSContacts);
-                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedNotificationContacts="+decryptedNotificationContacts);
+                        //Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedCallContacts="+decryptedCallContacts);
+                        //Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedSMSContacts="+decryptedSMSContacts);
+                        //Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedNotificationContacts="+decryptedNotificationContacts);
 
                         ContentValues values = new ContentValues();
                         values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, decryptedCallContacts);
@@ -1543,7 +1541,7 @@ class DatabaseHandlerImportExport {
                                         exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
 
 
-                                        //TODO encript contacts
+                                        // encript contacts
                                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(instance.context);
                                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED, true);
                                         editor.apply();
@@ -1570,9 +1568,9 @@ class DatabaseHandlerImportExport {
                                                     String encryptedCallContacts = new String(rncryptor.encrypt(callContacts, BuildConfig.encrypt_contacts_password));
                                                     String encryptedSMSContacts = new String(rncryptor.encrypt(smsContacts, BuildConfig.encrypt_contacts_password));
                                                     String encryptedNotificationContacts = new String(rncryptor.encrypt(notificationContacts, BuildConfig.encrypt_contacts_password));
-                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedCallContacts="+encryptedCallContacts);
-                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedSMSContacts="+encryptedSMSContacts);
-                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedNotificationContacts="+encryptedNotificationContacts);
+                                                    //Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedCallContacts="+encryptedCallContacts);
+                                                    //Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedSMSContacts="+encryptedSMSContacts);
+                                                    //Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedNotificationContacts="+encryptedNotificationContacts);
 
                                                     ContentValues values = new ContentValues();
                                                     values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, encryptedCallContacts);
