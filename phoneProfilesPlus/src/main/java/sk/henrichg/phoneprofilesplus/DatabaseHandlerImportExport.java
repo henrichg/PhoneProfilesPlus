@@ -1471,7 +1471,8 @@ class DatabaseHandlerImportExport {
     @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
     static int exportDB(DatabaseHandler instance,
                         boolean deleteGeofences, boolean deleteWifiSSIDs,
-                        boolean deleteBluetoothNames, boolean deleteMobileCells)
+                        boolean deleteBluetoothNames, boolean deleteMobileCells,
+                        boolean deleteCall, boolean deleteSMS, boolean deleteNotification)
     {
         instance.importExportLock.lock();
         try {
@@ -1610,6 +1611,26 @@ class DatabaseHandlerImportExport {
                                             _values.put(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS, "");
                                             exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
                                             exportedDBObj.delete(DatabaseHandler.TABLE_MOBILE_CELLS, null, null);
+                                        }
+
+                                        String encriptedEmptyStr = new String(rncryptor.encrypt("", BuildConfig.encrypt_contacts_password));
+                                        if (deleteCall) {
+                                            ContentValues _values = new ContentValues();
+                                            _values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, encriptedEmptyStr);
+                                            _values.put(DatabaseHandler.KEY_E_CALL_CONTACT_GROUPS, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
+                                        }
+                                        if (deleteSMS) {
+                                            ContentValues _values = new ContentValues();
+                                            _values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, encriptedEmptyStr);
+                                            _values.put(DatabaseHandler.KEY_E_SMS_CONTACT_GROUPS, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
+                                        }
+                                        if (deleteNotification) {
+                                            ContentValues _values = new ContentValues();
+                                            _values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, encriptedEmptyStr);
+                                            _values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACT_GROUPS, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
                                         }
 
                                     } catch (Exception ee) {

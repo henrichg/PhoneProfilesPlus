@@ -2166,6 +2166,11 @@
 
     <string name="activity_log_added_new_logs">Added new logs. Use \"Reload\" to display it.</string>
 
+    <string name="export_settings_delete_contacts_data_text1">Note: Contacts will also be included in the exported settings. If you share the backup with other people, select the parameters that should not be exported.</string>
+    <string name="export_settings_delete_contacts_data_calls">Contacts for Call sensor</string>
+    <string name="export_settings_delete0_contacts_data_sms">Contacts for SMS/MMS sensor</string>
+    <string name="export_settings_delete_contacts_data_notification">Contacts for Notification sensor</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
