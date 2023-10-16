@@ -6,6 +6,8 @@
 /.idea/misc.xml
 /build/
 
+/passwords_keys.gradle
+
 /android-betterpickers/build/
 /AndroidClearChroma/build/
 /common/build/

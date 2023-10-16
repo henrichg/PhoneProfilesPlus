@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply from: '../dependencies.gradle'
+apply from: '../passwords_keys.gradle'
 
 android {
     namespace 'sk.henrichg.phoneprofilesplus'
@@ -26,6 +27,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            buildConfigField "String", "encrypt_contacts_password", "\"$passwordsKeys.encrypt_contacts_password\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             /*firebaseCrashlytics {
                 mappingFileUploadEnabled true
@@ -34,6 +36,7 @@ android {
         debug {
             minifyEnabled false
             debuggable true
+            buildConfigField "String", "encrypt_contacts_password", "\"$passwordsKeys.encrypt_contacts_password\""
             /*firebaseCrashlytics {
                 mappingFileUploadEnabled true
             }*/
@@ -109,6 +112,8 @@ dependencies {
     implementation "com.github.skydoves:expandablelayout:1.0.7"
 
     implementation 'com.linkedin.dexmaker:dexmaker:2.28.3'
+
+    implementation 'com.github.tgio:rncryptor-native:0.0.9'
 
     implementation project(':common')
     implementation project(':ToastCompat')
