@@ -158,11 +158,12 @@
         android:supportsRtl="true"
         android:resizeableActivity="true"
         android:allowBackup="false"
-        android:persistent="true"
-        tools:replace="android:label,android:allowBackup" >
-<!--        tools:replace - required for rncryptor-native-->
+        android:persistent="true" >
 
-<!--        This not working currently, maybe is needed AGP 7.3.0-->
+<!--        tools:replace - required for rncryptor-native-->
+<!--        tools:replace="android:label,android:allowBackup"-->
+
+        <!--        This not working currently, maybe is needed AGP 7.3.0-->
 <!--        android:localeConfig="@xml/locales_config"-->
 <!--        android:roundIcon="@mipmap/ic_launcher_round"-->
 <!--        android:largeHeap="true"-->
