@@ -731,9 +731,6 @@ public class PPApplication extends Application
     static final int EDIT_MODE_EDIT = 3;
     static final int EDIT_MODE_DELETE = 4;
 
-    //TODO password for encript contacts
-    //static final String ENCRYPT_CONTACTS_PASSWORD = "H3nr1sk0Gr0n7004206220/C0nt4cts";
-
     //public static long lastUptimeTime;
     //public static long lastEpochTime;
 
