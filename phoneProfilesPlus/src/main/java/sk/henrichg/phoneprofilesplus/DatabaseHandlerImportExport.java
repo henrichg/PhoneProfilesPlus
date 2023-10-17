@@ -21,7 +21,7 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
-//import tgio.rncryptor.RNCryptorNative;
+import se.simbio.encryption.Encryption;
 
 class DatabaseHandlerImportExport {
 
@@ -892,16 +892,16 @@ class DatabaseHandlerImportExport {
                     cursorImportDB.close();
             }
         }
-        /*
+
         // decript contacts
         boolean applicationContactsInBackupEncripted =
                 ApplicationPreferences.getSharedPreferences(instance.context)
                         .getBoolean(ApplicationPreferences.PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED,
                                 false);
-        //Log.e("DatabaseHandlerImportExport.afterImportDb", "applicationContactsInBackupEncripted="+applicationContactsInBackupEncripted);
+//        Log.e("DatabaseHandlerImportExport.afterImportDb", "applicationContactsInBackupEncripted="+applicationContactsInBackupEncripted);
         if (applicationContactsInBackupEncripted) {
             try {
-                RNCryptorNative rncryptor = new RNCryptorNative();
+                Encryption encryption = Encryption.getDefault(BuildConfig.encrypt_contacts_key, BuildConfig.encrypt_contacts_salt, new byte[16]);
 
                 cursorImportDB = db.rawQuery("SELECT " +
                         DatabaseHandler.KEY_E_ID + "," +
@@ -920,25 +920,28 @@ class DatabaseHandlerImportExport {
 
                         String decryptedCallContacts;
                         try {
-                            decryptedCallContacts = rncryptor.decrypt(callContacts, BuildConfig.encrypt_contacts_password);
+                            decryptedCallContacts = encryption.decryptOrNull(callContacts);
                         } catch (Exception e) {
                             decryptedCallContacts = "";
                         }
                         String decryptedSMSContacts;
                         try {
-                            decryptedSMSContacts = rncryptor.decrypt(smsContacts, BuildConfig.encrypt_contacts_password);
+                            decryptedSMSContacts = encryption.decryptOrNull(smsContacts);
                         } catch (Exception e) {
                             decryptedSMSContacts = "";
                         }
                         String decryptedNotificationContacts;
                         try {
-                            decryptedNotificationContacts = rncryptor.decrypt(notificationContacts, BuildConfig.encrypt_contacts_password);
+                            decryptedNotificationContacts = encryption.decryptOrNull(notificationContacts);
                         } catch (Exception e) {
                             decryptedNotificationContacts = "";
                         }
-                        //Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedCallContacts="+decryptedCallContacts);
-                        //Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedSMSContacts="+decryptedSMSContacts);
-                        //Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedNotificationContacts="+decryptedNotificationContacts);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedCallContacts="+decryptedCallContacts);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedSMSContacts="+decryptedSMSContacts);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedNotificationContacts="+decryptedNotificationContacts);
+                        if (decryptedCallContacts == null) decryptedCallContacts="";
+                        if (decryptedSMSContacts == null) decryptedSMSContacts="";
+                        if (decryptedNotificationContacts == null) decryptedNotificationContacts="";
 
                         ContentValues values = new ContentValues();
                         values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, decryptedCallContacts);
@@ -956,7 +959,6 @@ class DatabaseHandlerImportExport {
                     cursorImportDB.close();
             }
         }
-        */
 
         // remove all not used non-named mobile cells
         DatabaseHandlerEvents.deleteNonNamedNotUsedCells(instance, true);
@@ -1543,13 +1545,12 @@ class DatabaseHandlerImportExport {
                                     try {
                                         exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
 
-                                        /*
                                         // encript contacts
                                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(instance.context);
                                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED, true);
                                         editor.apply();
 
-                                        RNCryptorNative rncryptor = new RNCryptorNative();
+                                        Encryption encryption = Encryption.getDefault(BuildConfig.encrypt_contacts_key, BuildConfig.encrypt_contacts_salt, new byte[16]);
 
                                         Cursor cursorExportDB = null;
                                         try {
@@ -1568,12 +1569,15 @@ class DatabaseHandlerImportExport {
                                                     String smsContacts = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_CONTACTS));
                                                     String notificationContacts = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS));
 
-                                                    String encryptedCallContacts = new String(rncryptor.encrypt(callContacts, BuildConfig.encrypt_contacts_password));
-                                                    String encryptedSMSContacts = new String(rncryptor.encrypt(smsContacts, BuildConfig.encrypt_contacts_password));
-                                                    String encryptedNotificationContacts = new String(rncryptor.encrypt(notificationContacts, BuildConfig.encrypt_contacts_password));
-                                                    //Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedCallContacts="+encryptedCallContacts);
-                                                    //Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedSMSContacts="+encryptedSMSContacts);
-                                                    //Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedNotificationContacts="+encryptedNotificationContacts);
+                                                    String encryptedCallContacts = encryption.encryptOrNull(callContacts);
+                                                    String encryptedSMSContacts = encryption.encryptOrNull(smsContacts);
+                                                    String encryptedNotificationContacts = encryption.encryptOrNull(notificationContacts);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedCallContacts="+encryptedCallContacts);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedSMSContacts="+encryptedSMSContacts);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedNotificationContacts="+encryptedNotificationContacts);
+                                                    if (encryptedCallContacts == null) encryptedCallContacts="";
+                                                    if (encryptedSMSContacts == null) encryptedSMSContacts="";
+                                                    if (encryptedNotificationContacts == null) encryptedNotificationContacts="";
 
                                                     ContentValues values = new ContentValues();
                                                     values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, encryptedCallContacts);
@@ -1590,8 +1594,6 @@ class DatabaseHandlerImportExport {
                                             if ((cursorExportDB != null) && (!cursorExportDB.isClosed()))
                                                 cursorExportDB.close();
                                         }
-                                        */
-
 
                                         if (deleteGeofences) {
                                             ContentValues _values = new ContentValues();

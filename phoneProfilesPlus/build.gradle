@@ -27,7 +27,8 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            //buildConfigField "String", "encrypt_contacts_password", "\"$passwordsKeys.encrypt_contacts_password\""
+            buildConfigField "String", "encrypt_contacts_key", "\"$passwordsKeys.encrypt_contacts_key\""
+            buildConfigField "String", "encrypt_contacts_salt", "\"$passwordsKeys.encrypt_contacts_salt\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             /*firebaseCrashlytics {
                 mappingFileUploadEnabled true
@@ -36,7 +37,8 @@ android {
         debug {
             minifyEnabled false
             debuggable true
-            //buildConfigField "String", "encrypt_contacts_password", "\"$passwordsKeys.encrypt_contacts_password\""
+            buildConfigField "String", "encrypt_contacts_key", "\"$passwordsKeys.encrypt_contacts_key\""
+            buildConfigField "String", "encrypt_contacts_salt", "\"$passwordsKeys.encrypt_contacts_salt\""
             /*firebaseCrashlytics {
                 mappingFileUploadEnabled true
             }*/
@@ -113,7 +115,7 @@ dependencies {
 
     implementation 'com.linkedin.dexmaker:dexmaker:2.28.3'
 
-    //implementation 'com.github.tgio:rncryptor-native:0.0.9'
+    implementation 'com.github.simbiose:Encryption:2.0.1'
 
     implementation project(':common')
     implementation project(':ToastCompat')
