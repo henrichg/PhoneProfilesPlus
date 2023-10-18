@@ -13,6 +13,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -668,7 +669,7 @@ class DatabaseHandlerImportExport {
                             if (!isGranted) {
                                 values.clear();
                                 values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_START, "");
-                                db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_ID + " = ?",
+                                db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                         new String[]{String.valueOf(eventId)});
                             }
                         }
@@ -690,7 +691,7 @@ class DatabaseHandlerImportExport {
                             if (!isGranted) {
                                 values.clear();
                                 values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_END, "");
-                                db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_ID + " = ?",
+                                db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                         new String[]{String.valueOf(eventId)});
                             }
                         }
@@ -948,8 +949,186 @@ class DatabaseHandlerImportExport {
                         values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, decryptedSMSContacts);
                         values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, decryptedNotificationContacts);
 
-                        db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_ID + " = ?",
+                        db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                 new String[]{String.valueOf(eventId)});
+
+                    } while (cursorImportDB.moveToNext());
+                }
+                cursorImportDB.close();
+            } finally {
+                if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                    cursorImportDB.close();
+            }
+        }
+
+        //TODO
+        // decript locations
+        boolean applicationLocationsInBackupEncripted =
+                ApplicationPreferences.getSharedPreferences(instance.context)
+                        .getBoolean(ApplicationPreferences.PREF_APPLICATION_LOCATIONS_IN_BACKUP_ENCRIPTED,
+                                false);
+//        Log.e("DatabaseHandlerImportExport.afterImportDb", "applicationContactsInBackupEncripted="+applicationContactsInBackupEncripted);
+        if (applicationLocationsInBackupEncripted) {
+            Encryption encryption = Encryption.getDefault(BuildConfig.encrypt_contacts_key, BuildConfig.encrypt_contacts_salt, new byte[16]);
+
+            try {
+                cursorImportDB = db.rawQuery("SELECT " +
+                        DatabaseHandler.KEY_E_ID + "," +
+                        DatabaseHandler.KEY_E_WIFI_SSID + "," +
+                        DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME +
+                        " FROM " + DatabaseHandler.TABLE_EVENTS, null);
+
+                if (cursorImportDB.moveToFirst()) {
+                    do {
+                        long eventId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+
+                        String wifiSSIDs = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_WIFI_SSID));
+                        String bluetoothNames = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME));
+
+                        String decryptedWifiSSIDs;
+                        try {
+                            decryptedWifiSSIDs = encryption.decryptOrNull(wifiSSIDs);
+                        } catch (Exception e) {
+                            decryptedWifiSSIDs = "";
+                        }
+                        String decryptedBluetoothNames;
+                        try {
+                            decryptedBluetoothNames = encryption.decryptOrNull(bluetoothNames);
+                        } catch (Exception e) {
+                            decryptedBluetoothNames = "";
+                        }
+                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedWifiSSIDs="+decryptedWifiSSIDs);
+                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedBluetoothNames="+decryptedBluetoothNames);
+                        if (decryptedWifiSSIDs == null) decryptedWifiSSIDs="";
+                        if (decryptedBluetoothNames == null) decryptedBluetoothNames="";
+
+                        ContentValues values = new ContentValues();
+                        values.put(DatabaseHandler.KEY_E_WIFI_SSID, decryptedWifiSSIDs);
+                        values.put(DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME, decryptedBluetoothNames);
+
+                        db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                new String[]{String.valueOf(eventId)});
+
+                    } while (cursorImportDB.moveToNext());
+                }
+                cursorImportDB.close();
+            } finally {
+                if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                    cursorImportDB.close();
+            }
+            cursorImportDB = null;
+            try {
+                cursorImportDB = db.rawQuery("SELECT " +
+                        DatabaseHandler.KEY_G_ID + "," +
+                        DatabaseHandler.KEY_G_NAME + "," +
+                        DatabaseHandler.KEY_G_LATITUDE_T + "," +
+                        DatabaseHandler.KEY_G_LONGITUDE_T +
+                        " FROM " + DatabaseHandler.TABLE_GEOFENCES, null);
+
+                if (cursorImportDB.moveToFirst()) {
+                    do {
+                        long geofenceId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_ID));
+
+                        String geofenceName = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_NAME));
+                        String latitudeT = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_LATITUDE_T));
+                        String longitudeT = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_LONGITUDE_T));
+
+                        String decryptedGeofenceName;
+                        try {
+                            decryptedGeofenceName = encryption.decryptOrNull(geofenceName);
+                        } catch (Exception e) {
+                            decryptedGeofenceName = "";
+                        }
+                        String decryptedLatitude;
+                        try {
+                            decryptedLatitude = encryption.decryptOrNull(latitudeT);
+                        } catch (Exception e) {
+                            decryptedLatitude = "";
+                        }
+                        String decryptedLongitude;
+                        try {
+                            decryptedLongitude = encryption.decryptOrNull(longitudeT);
+                        } catch (Exception e) {
+                            decryptedLongitude = "";
+                        }
+                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedGeofenceName="+decryptedGeofenceName);
+                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedLatitude="+decryptedLatitude);
+                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedLongitude="+decryptedLongitude);
+                        if (decryptedGeofenceName == null) decryptedGeofenceName="";
+                        if (decryptedLatitude == null) decryptedLatitude="";
+                        if (decryptedLongitude == null) decryptedLongitude="";
+
+                        ContentValues values = new ContentValues();
+                        values.put(DatabaseHandler.KEY_G_NAME, decryptedGeofenceName);
+                        double latitude;
+                        try {
+                            latitude = Double.parseDouble(decryptedLatitude);
+                        } catch (Exception e) {
+                            latitude = 0;
+                        }
+                        values.put(DatabaseHandler.KEY_G_LATITUDE, latitude);
+                        double longitude;
+                        try {
+                            longitude = Double.parseDouble(decryptedLongitude);
+                        } catch (Exception e) {
+                            longitude = 0;
+                        }
+                        values.put(DatabaseHandler.KEY_G_LONGITUDE, longitude);
+
+                        db.update(DatabaseHandler.TABLE_GEOFENCES, values, DatabaseHandler.KEY_G_ID + " = ?",
+                                new String[]{String.valueOf(geofenceId)});
+
+                    } while (cursorImportDB.moveToNext());
+                }
+                cursorImportDB.close();
+            } finally {
+                if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                    cursorImportDB.close();
+            }
+            cursorImportDB = null;
+            try {
+                cursorImportDB = db.rawQuery("SELECT " +
+                        DatabaseHandler.KEY_MC_ID + "," +
+                        DatabaseHandler.KEY_MC_NAME + "," +
+                        DatabaseHandler.KEY_MC_CELL_ID_T +
+                        " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS, null);
+
+                if (cursorImportDB.moveToFirst()) {
+                    do {
+                        long rCellId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_ID));
+
+                        String cellName = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
+                        String cellIdT = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID));
+
+                        String decryptedCellName;
+                        try {
+                            decryptedCellName = encryption.decryptOrNull(cellName);
+                        } catch (Exception e) {
+                            decryptedCellName = "";
+                        }
+                        String decryptedCellId;
+                        try {
+                            decryptedCellId = encryption.decryptOrNull(cellIdT);
+                        } catch (Exception e) {
+                            decryptedCellId = "";
+                        }
+                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedCellName="+decryptedCellName);
+                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedCellId="+decryptedCellId);
+                        if (decryptedCellName == null) decryptedCellName="";
+                        if (decryptedCellId == null) decryptedCellId="";
+
+                        ContentValues values = new ContentValues();
+                        values.put(DatabaseHandler.KEY_MC_NAME, decryptedCellName);
+                        int cellId;
+                        try {
+                            cellId = Integer.parseInt(decryptedCellId);
+                        } catch (Exception e) {
+                            cellId = 0;
+                        }
+                        values.put(DatabaseHandler.KEY_MC_CELL_ID, cellId);
+
+                        db.update(DatabaseHandler.TABLE_MOBILE_CELLS, values, DatabaseHandler.KEY_MC_ID + " = ?",
+                                new String[]{String.valueOf(rCellId)});
 
                     } while (cursorImportDB.moveToNext());
                 }
@@ -1584,8 +1763,135 @@ class DatabaseHandlerImportExport {
                                                     values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, encryptedSMSContacts);
                                                     values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, encryptedNotificationContacts);
 
-                                                    exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_ID + " = ?",
+                                                    exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                                                 new String[]{String.valueOf(eventId)});
+
+                                                } while (cursorExportDB.moveToNext());
+                                            }
+                                            cursorExportDB.close();
+                                        } finally {
+                                            if ((cursorExportDB != null) && (!cursorExportDB.isClosed()))
+                                                cursorExportDB.close();
+                                        }
+
+                                        //TODO
+                                        // encript locations
+                                        editor = ApplicationPreferences.getEditor(instance.context);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_LOCATIONS_IN_BACKUP_ENCRIPTED, true);
+                                        editor.apply();
+
+                                        cursorExportDB = null;
+                                        try {
+                                            cursorExportDB = exportedDBObj.rawQuery("SELECT " +
+                                                    DatabaseHandler.KEY_E_ID + "," +
+                                                    DatabaseHandler.KEY_E_WIFI_SSID + "," +
+                                                    DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME +
+                                                    " FROM " + DatabaseHandler.TABLE_EVENTS, null);
+
+                                            if (cursorExportDB.moveToFirst()) {
+                                                do {
+                                                    long eventId = cursorExportDB.getLong(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+
+                                                    String wifiSSIDs = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_WIFI_SSID));
+                                                    String bluetoothNames = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME));
+
+                                                    String encryptedWifiSSIDs = encryption.encryptOrNull(wifiSSIDs);
+                                                    String encryptedBluetoothNames = encryption.encryptOrNull(bluetoothNames);
+                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedWifiSSIDs="+encryptedWifiSSIDs);
+                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedBluetoothNames="+encryptedBluetoothNames);
+                                                    if (encryptedWifiSSIDs == null) encryptedWifiSSIDs="";
+                                                    if (encryptedBluetoothNames == null) encryptedBluetoothNames="";
+
+                                                    ContentValues values = new ContentValues();
+                                                    values.put(DatabaseHandler.KEY_E_WIFI_SSID, encryptedWifiSSIDs);
+                                                    values.put(DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME, encryptedBluetoothNames);
+
+                                                    exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                                            new String[]{String.valueOf(eventId)});
+
+                                                } while (cursorExportDB.moveToNext());
+                                            }
+                                            cursorExportDB.close();
+                                        } finally {
+                                            if ((cursorExportDB != null) && (!cursorExportDB.isClosed()))
+                                                cursorExportDB.close();
+                                        }
+                                        cursorExportDB = null;
+                                        try {
+                                            cursorExportDB = exportedDBObj.rawQuery("SELECT " +
+                                                    DatabaseHandler.KEY_G_ID + "," +
+                                                    DatabaseHandler.KEY_G_NAME + "," +
+                                                    DatabaseHandler.KEY_G_LATITUDE + "," +
+                                                    DatabaseHandler.KEY_G_LONGITUDE +
+                                                    " FROM " + DatabaseHandler.TABLE_GEOFENCES, null);
+
+                                            if (cursorExportDB.moveToFirst()) {
+                                                do {
+                                                    long geofenceId = cursorExportDB.getLong(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_ID));
+
+                                                    String geofenceName = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_NAME));
+                                                    double latitude = cursorExportDB.getDouble(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_LATITUDE));
+                                                    double longitude = cursorExportDB.getDouble(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_LONGITUDE));
+                                                    String latitudeT = String.valueOf(latitude);
+                                                    String longitudeT = String.valueOf(longitude);
+
+                                                    String encryptedGeofenceName = encryption.encryptOrNull(geofenceName);
+                                                    String encryptedLatitude = encryption.encryptOrNull(latitudeT);
+                                                    String encryptedLongitude = encryption.encryptOrNull(longitudeT);
+                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedGeofenceName="+encryptedGeofenceName);
+                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedLatitude="+encryptedLatitude);
+                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedLongitude="+encryptedLongitude);
+                                                    if (encryptedGeofenceName == null) encryptedGeofenceName="";
+                                                    if (encryptedLatitude == null) encryptedLatitude="";
+                                                    if (encryptedLongitude == null) encryptedLongitude="";
+
+                                                    ContentValues values = new ContentValues();
+                                                    values.put(DatabaseHandler.KEY_G_NAME, encryptedGeofenceName);
+                                                    values.put(DatabaseHandler.KEY_G_LATITUDE, 0);
+                                                    values.put(DatabaseHandler.KEY_G_LATITUDE_T, encryptedLatitude);
+                                                    values.put(DatabaseHandler.KEY_G_LONGITUDE, 0);
+                                                    values.put(DatabaseHandler.KEY_G_LONGITUDE_T, encryptedLongitude);
+
+                                                    exportedDBObj.update(DatabaseHandler.TABLE_GEOFENCES, values, DatabaseHandler.KEY_G_ID + " = ?",
+                                                            new String[]{String.valueOf(geofenceId)});
+
+                                                } while (cursorExportDB.moveToNext());
+                                            }
+                                            cursorExportDB.close();
+                                        } finally {
+                                            if ((cursorExportDB != null) && (!cursorExportDB.isClosed()))
+                                                cursorExportDB.close();
+                                        }
+                                        cursorExportDB = null;
+                                        try {
+                                            cursorExportDB = exportedDBObj.rawQuery("SELECT " +
+                                                    DatabaseHandler.KEY_MC_ID + "," +
+                                                    DatabaseHandler.KEY_MC_NAME + "," +
+                                                    DatabaseHandler.KEY_MC_CELL_ID +
+                                                    " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS, null);
+
+                                            if (cursorExportDB.moveToFirst()) {
+                                                do {
+                                                    long rCellId = cursorExportDB.getLong(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_ID));
+
+                                                    String cellName = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
+                                                    int cellId = cursorExportDB.getInt(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID));
+                                                    String cellIdT = String.valueOf(cellId);
+
+                                                    String encryptedCellName = encryption.encryptOrNull(cellName);
+                                                    String encryptedCelId = encryption.encryptOrNull(cellIdT);
+                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedCellName="+encryptedCellName);
+                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedCelId="+encryptedCelId);
+                                                    if (encryptedCellName == null) encryptedCellName="";
+                                                    if (encryptedCelId == null) encryptedCelId="";
+
+                                                    ContentValues values = new ContentValues();
+                                                    values.put(DatabaseHandler.KEY_MC_NAME, encryptedCellName);
+                                                    values.put(DatabaseHandler.KEY_MC_CELL_ID, 0);
+                                                    values.put(DatabaseHandler.KEY_MC_CELL_ID_T, encryptedCelId);
+
+                                                    exportedDBObj.update(DatabaseHandler.TABLE_MOBILE_CELLS, values, DatabaseHandler.KEY_MC_ID + " = ?",
+                                                            new String[]{String.valueOf(rCellId)});
 
                                                 } while (cursorExportDB.moveToNext());
                                             }
@@ -1618,25 +1924,23 @@ class DatabaseHandlerImportExport {
                                             exportedDBObj.delete(DatabaseHandler.TABLE_MOBILE_CELLS, null, null);
                                         }
 
-                                        //String encriptedEmptyStr = new String(rncryptor.encrypt("", BuildConfig.encrypt_contacts_password));
+                                        String encriptedEmptyStr = encryption.encryptOrNull("");
+                                        if (encriptedEmptyStr == null) encriptedEmptyStr = "";
                                         if (deleteCall) {
                                             ContentValues _values = new ContentValues();
-                                            //_values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, encriptedEmptyStr);
-                                            _values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, "");
+                                            _values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, encriptedEmptyStr);
                                             _values.put(DatabaseHandler.KEY_E_CALL_CONTACT_GROUPS, "");
                                             exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
                                         }
                                         if (deleteSMS) {
                                             ContentValues _values = new ContentValues();
-                                            //_values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, encriptedEmptyStr);
-                                            _values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, "");
+                                            _values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, encriptedEmptyStr);
                                             _values.put(DatabaseHandler.KEY_E_SMS_CONTACT_GROUPS, "");
                                             exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
                                         }
                                         if (deleteNotification) {
                                             ContentValues _values = new ContentValues();
-                                            //_values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, encriptedEmptyStr);
-                                            _values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, "");
+                                            _values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, encriptedEmptyStr);
                                             _values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACT_GROUPS, "");
                                             exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
                                         }

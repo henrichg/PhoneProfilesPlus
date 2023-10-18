@@ -386,7 +386,9 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_G_RADIUS + " " + DatabaseHandler.FLOAT_TYPE + ","
                 + DatabaseHandler.KEY_G_NAME + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_G_CHECKED + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_G_TRANSITION + " " + DatabaseHandler.INTEGER_TYPE
+                + DatabaseHandler.KEY_G_TRANSITION + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_G_LATITUDE_T + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_G_LONGITUDE_T + " " + DatabaseHandler.TEXT_TYPE
                 + ")";
         db.execSQL(CREATE_GEOFENCES_TABLE);
 
@@ -405,7 +407,8 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS + " " + DatabaseHandler.TEXT_TYPE + ","
-                + DatabaseHandler.KEY_MC_DO_NOT_DETECT + " " + DatabaseHandler.INTEGER_TYPE
+                + DatabaseHandler.KEY_MC_DO_NOT_DETECT + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_MC_CELL_ID_T + " " + DatabaseHandler.TEXT_TYPE
                 + ")";
         db.execSQL(CREATE_MOBILE_CELLS_TABLE);
 
@@ -896,6 +899,8 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_G_NAME, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_G_CHECKED, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_G_TRANSITION, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_G_LATITUDE_T, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_G_LONGITUDE_T, DatabaseHandler.TEXT_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_SHORTCUTS:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_S_INTENT, DatabaseHandler.TEXT_TYPE, columns);
@@ -909,6 +914,7 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_MC_DO_NOT_DETECT, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_MC_CELL_ID_T, DatabaseHandler.TEXT_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_NFC_TAGS:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_NT_NAME, DatabaseHandler.TEXT_TYPE, columns);
@@ -3465,6 +3471,13 @@ class DatabaseHandlerCreateUpdateDB {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL + "=15");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL + "=10");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL + "=15");
+        }
+
+        if (oldVersion < 2512)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_GEOFENCES + " SET " + DatabaseHandler.KEY_G_LATITUDE_T + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_GEOFENCES + " SET " + DatabaseHandler.KEY_G_LONGITUDE_T + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MOBILE_CELLS + " SET " + DatabaseHandler.KEY_MC_CELL_ID_T + "=\"\"");
         }
 
     }

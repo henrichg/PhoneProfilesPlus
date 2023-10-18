@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2511;
+    static final int DATABASE_VERSION = 2512;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -461,6 +461,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_G_NAME = "name";
     static final String KEY_G_CHECKED = "checked";
     static final String KEY_G_TRANSITION = "transition";
+    static final String KEY_G_LATITUDE_T = "latitudeT";
+    static final String KEY_G_LONGITUDE_T = "longitudeT";
 
     // Shortcuts Columns names
     static final String KEY_S_ID = "_id";
@@ -476,6 +478,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_MC_LAST_RUNNING_EVENTS = "lastRunningEvents";
     static final String KEY_MC_LAST_PAUSED_EVENTS = "lastPausedEvents";
     static final String KEY_MC_DO_NOT_DETECT = "doNotDetect";
+    static final String KEY_MC_CELL_ID_T = "cellIdT";
 
     // NFC tags Columns names
     static final String KEY_NT_ID = "_id";
