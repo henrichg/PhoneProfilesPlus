@@ -967,7 +967,7 @@ class DatabaseHandlerImportExport {
                 ApplicationPreferences.getSharedPreferences(instance.context)
                         .getBoolean(ApplicationPreferences.PREF_APPLICATION_LOCATIONS_IN_BACKUP_ENCRIPTED,
                                 false);
-//        Log.e("DatabaseHandlerImportExport.afterImportDb", "applicationContactsInBackupEncripted="+applicationContactsInBackupEncripted);
+        Log.e("DatabaseHandlerImportExport.afterImportDb", "applicationLocationsInBackupEncripted="+applicationLocationsInBackupEncripted);
         if (applicationLocationsInBackupEncripted) {
             Encryption encryption = Encryption.getDefault(BuildConfig.encrypt_contacts_key, BuildConfig.encrypt_contacts_salt, new byte[16]);
 
@@ -1098,7 +1098,7 @@ class DatabaseHandlerImportExport {
                         long rCellId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_ID));
 
                         String cellName = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
-                        String cellIdT = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID));
+                        String cellIdT = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID_T));
 
                         String decryptedCellName;
                         try {
