@@ -28,7 +28,7 @@ public class ContactsContentObserverWorker extends Worker {
 
         try {
 //            long start = System.currentTimeMillis();
-            PPApplicationStatic.logE("[IN_WORKER]  ContactsContentObserverWorker.doWork", "--------------- START");
+//            PPApplicationStatic.logE("[IN_WORKER]  ContactsContentObserverWorker.doWork", "--------------- START");
 
             Context appContext = context.getApplicationContext();
 

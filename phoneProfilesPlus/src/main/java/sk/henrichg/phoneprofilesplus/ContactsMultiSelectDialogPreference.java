@@ -54,7 +54,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
     {
         // Get the persistent value
         value = getPersistedString((String)defaultValue);
-        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.onSetInitialValue", "value="+value);
+//        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.onSetInitialValue", "value="+value);
         this.defaultValue = (String)defaultValue;
         //getValueCMSDP(); // toto cita z cache, je tam blokoanie mutexom
         setSummaryCMSDP(); // toto cita z databazy, ak je len jedne kontakt nastaveny
@@ -75,7 +75,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         synchronized (PPApplication.contactsCacheMutex) {
             List<Contact>  localContactList = contactsCache.getList(/*withoutNumbers*/);
             if (localContactList != null) {
-                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "localContactList.size()="+localContactList.size());
+//                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "localContactList.size()="+localContactList.size());
 
                 contactList = new ArrayList<>();
                 if (!withoutNumbers) {
@@ -117,8 +117,8 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                         }
 
                         if (!found) {
-                            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
-                                    "not found in contactList split=" + split);
+//                            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
+//                                    "not found in contactList split=" + split);
 
                             Contact aContact = new Contact();
                             aContact.contactId = -1000;
@@ -131,8 +131,8 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                             //_oneContactIdList.add(aContact);
                             contactList.add(aContact);
 
-                            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
-                                    "not founded split added into contactList");
+//                            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
+//                                    "not founded split added into contactList");
                         }
 
                     } catch (Exception e) {
@@ -140,8 +140,8 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                     }
                 }
 
-                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "contactList.size()="+contactList.size());
-                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "value="+value);
+//                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "contactList.size()="+contactList.size());
+//                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "value="+value);
                 for (Contact contact : contactList) {
                     if (withoutNumbers || (contact.phoneId != 0)) {
 
@@ -157,16 +157,16 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                                     if (contact.name.equals(contactName) &&
                                         contact.accountType.equals(contactAccountType)) {
                                         contact.checked = true;
-                                        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
-                                                "checked split=" + split);
+//                                        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
+//                                                "checked split=" + split);
                                     }
                                 } else {
                                     if (contact.name.equals(contactName) &&
                                         PhoneNumberUtils.compare(contact.phoneNumber, contactPhoneNumber) &&
                                         contact.accountType.equals(contactAccountType)) {
                                         contact.checked = true;
-                                        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
-                                                "checked split=" + split);
+//                                        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
+//                                                "checked split=" + split);
                                     }
                                 }
                             } catch (Exception e) {
@@ -230,9 +230,9 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                     }
                     i++;
                 }
-                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "after move chcecked up: contactList.size()="+contactList.size());
-            } else
-                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "!!! localContactList=null");
+//                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "after move chcecked up: contactList.size()="+contactList.size());
+            } //else
+//                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "!!! localContactList=null");
         }
     }
 
@@ -283,7 +283,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         if (shouldPersist())
         {
             getValue();
-            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.persistValue", "value="+value);
+//            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.persistValue", "value="+value);
             persistString(value);
 
             setSummaryCMSDP();

@@ -13,7 +13,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -967,7 +966,7 @@ class DatabaseHandlerImportExport {
                 ApplicationPreferences.getSharedPreferences(instance.context)
                         .getBoolean(ApplicationPreferences.PREF_APPLICATION_LOCATIONS_IN_BACKUP_ENCRIPTED,
                                 false);
-        Log.e("DatabaseHandlerImportExport.afterImportDb", "applicationLocationsInBackupEncripted="+applicationLocationsInBackupEncripted);
+//        Log.e("DatabaseHandlerImportExport.afterImportDb", "applicationLocationsInBackupEncripted="+applicationLocationsInBackupEncripted);
         if (applicationLocationsInBackupEncripted) {
             Encryption encryption = Encryption.getDefault(BuildConfig.encrypt_contacts_key, BuildConfig.encrypt_contacts_salt, new byte[16]);
 
@@ -997,8 +996,8 @@ class DatabaseHandlerImportExport {
                         } catch (Exception e) {
                             decryptedBluetoothNames = "";
                         }
-                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedWifiSSIDs="+decryptedWifiSSIDs);
-                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedBluetoothNames="+decryptedBluetoothNames);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedWifiSSIDs="+decryptedWifiSSIDs);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedBluetoothNames="+decryptedBluetoothNames);
                         if (decryptedWifiSSIDs == null) decryptedWifiSSIDs="";
                         if (decryptedBluetoothNames == null) decryptedBluetoothNames="";
 
@@ -1051,9 +1050,9 @@ class DatabaseHandlerImportExport {
                         } catch (Exception e) {
                             decryptedLongitude = "";
                         }
-                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedGeofenceName="+decryptedGeofenceName);
-                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedLatitude="+decryptedLatitude);
-                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedLongitude="+decryptedLongitude);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedGeofenceName="+decryptedGeofenceName);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedLatitude="+decryptedLatitude);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedLongitude="+decryptedLongitude);
                         if (decryptedGeofenceName == null) decryptedGeofenceName="";
                         if (decryptedLatitude == null) decryptedLatitude="";
                         if (decryptedLongitude == null) decryptedLongitude="";
@@ -1112,8 +1111,8 @@ class DatabaseHandlerImportExport {
                         } catch (Exception e) {
                             decryptedCellId = "";
                         }
-                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedCellName="+decryptedCellName);
-                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedCellId="+decryptedCellId);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedCellName="+decryptedCellName);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedCellId="+decryptedCellId);
                         if (decryptedCellName == null) decryptedCellName="";
                         if (decryptedCellId == null) decryptedCellId="";
 
@@ -1797,8 +1796,8 @@ class DatabaseHandlerImportExport {
 
                                                     String encryptedWifiSSIDs = encryption.encryptOrNull(wifiSSIDs);
                                                     String encryptedBluetoothNames = encryption.encryptOrNull(bluetoothNames);
-                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedWifiSSIDs="+encryptedWifiSSIDs);
-                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedBluetoothNames="+encryptedBluetoothNames);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedWifiSSIDs="+encryptedWifiSSIDs);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedBluetoothNames="+encryptedBluetoothNames);
                                                     if (encryptedWifiSSIDs == null) encryptedWifiSSIDs="";
                                                     if (encryptedBluetoothNames == null) encryptedBluetoothNames="";
 
@@ -1838,9 +1837,9 @@ class DatabaseHandlerImportExport {
                                                     String encryptedGeofenceName = encryption.encryptOrNull(geofenceName);
                                                     String encryptedLatitude = encryption.encryptOrNull(latitudeT);
                                                     String encryptedLongitude = encryption.encryptOrNull(longitudeT);
-                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedGeofenceName="+encryptedGeofenceName);
-                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedLatitude="+encryptedLatitude);
-                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedLongitude="+encryptedLongitude);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedGeofenceName="+encryptedGeofenceName);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedLatitude="+encryptedLatitude);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedLongitude="+encryptedLongitude);
                                                     if (encryptedGeofenceName == null) encryptedGeofenceName="";
                                                     if (encryptedLatitude == null) encryptedLatitude="";
                                                     if (encryptedLongitude == null) encryptedLongitude="";
@@ -1880,8 +1879,8 @@ class DatabaseHandlerImportExport {
 
                                                     String encryptedCellName = encryption.encryptOrNull(cellName);
                                                     String encryptedCelId = encryption.encryptOrNull(cellIdT);
-                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedCellName="+encryptedCellName);
-                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedCelId="+encryptedCelId);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedCellName="+encryptedCellName);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedCelId="+encryptedCelId);
                                                     if (encryptedCellName == null) encryptedCellName="";
                                                     if (encryptedCelId == null) encryptedCelId="";
 

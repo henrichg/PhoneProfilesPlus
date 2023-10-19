@@ -175,7 +175,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
@@ -226,7 +226,7 @@ public class PPApplication extends Application
 // this si for get 0, 50 100% level
 //                                                +"|SettingsContentObserver.onChange"
 
-                                                +"|[IN_WORKER]"
+//                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_EXECUTOR]"
 //                                                +"|[EXECUTOR_CALL]"
@@ -262,8 +262,8 @@ public class PPApplication extends Application
                                                 //+"|[DUAL_SIM]"
                                                 //+"|[APPLICATION_FULLY_STARTED]"
                                                 //+"|[MAIN_WORKER_CALL]"
-                                                +"|[CONTACTS_DIALOG]"
-                                                +"|[CONTACTS_CACHE]"
+                                                //+"|[CONTACTS_DIALOG]"
+                                                //+"|[CONTACTS_CACHE]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

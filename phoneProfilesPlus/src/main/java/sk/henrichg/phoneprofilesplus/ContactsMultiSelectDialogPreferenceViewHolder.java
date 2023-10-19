@@ -34,9 +34,9 @@ class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHol
             CheckBox cb = (CheckBox) v;
             Contact contact = (Contact) cb.getTag();
             contact.checked = cb.isChecked();
-            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceViewHolder.onClick", "checkbox click - contact.contactId="+contact.contactId);
-            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceViewHolder.onClick", "checkbox click - contact.name="+contact.name);
-            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceViewHolder.onClick", "checkbox click - contact.checked="+contact.checked);
+//            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceViewHolder.onClick", "checkbox click - contact.contactId="+contact.contactId);
+//            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceViewHolder.onClick", "checkbox click - contact.name="+contact.name);
+//            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceViewHolder.onClick", "checkbox click - contact.checked="+contact.checked);
         });
 
         itemView.setOnClickListener(this);
@@ -75,9 +75,9 @@ class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHol
     public void onClick(View v) {
         contact.toggleChecked();
         checkBox.setChecked(contact.checked);
-        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceViewHolder.onClick", "item click - contact.contactId="+contact.contactId);
-        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceViewHolder.onClick", "item click - contact.name="+contact.name);
-        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceViewHolder.onClick", "item click - contact.checked="+contact.checked);
+//        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceViewHolder.onClick", "item click - contact.contactId="+contact.contactId);
+//        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceViewHolder.onClick", "item click - contact.name="+contact.name);
+//        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceViewHolder.onClick", "item click - contact.checked="+contact.checked);
     }
 
 }

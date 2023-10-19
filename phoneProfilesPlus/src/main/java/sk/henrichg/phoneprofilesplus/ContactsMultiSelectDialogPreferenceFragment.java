@@ -62,7 +62,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
 
         final Button unselectAllButton = view.findViewById(R.id.contacts_multiselect_pref_dlg_unselect_all);
         unselectAllButton.setOnClickListener(v -> {
-            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceFragment.onClick", "unselectAllButton click");
+//            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceFragment.onClick", "unselectAllButton click");
             preference.value="";
             refreshListView(false);
         });
