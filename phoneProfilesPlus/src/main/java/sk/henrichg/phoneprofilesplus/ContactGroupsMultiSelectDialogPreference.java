@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import androidx.preference.DialogPreference;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
@@ -74,6 +75,9 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                         }
                     }
                 }
+
+                contactGroupList.sort(new ContactGroupsComparator());
+
                 // move checked on top
                 int i = 0;
                 int ich = 0;
@@ -248,6 +252,16 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
 
                 };
 
+    }
+
+    private static class ContactGroupsComparator implements Comparator<ContactGroup> {
+
+        public int compare(ContactGroup lhs, ContactGroup rhs) {
+            if (PPApplication.collator != null)
+                return PPApplication.collator.compare(lhs.name, rhs.name);
+            else
+                return 0;
+        }
     }
 
 }

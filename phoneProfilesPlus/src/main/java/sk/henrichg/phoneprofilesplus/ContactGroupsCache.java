@@ -195,7 +195,7 @@ class ContactGroupsCache {
                     mCursorGroup.close();
                 }
 
-                _contactGroupList.sort(new ContactGroupsComparator());
+                //_contactGroupList.sort(new ContactGroupsComparator());
 
                 synchronized (PPApplication.contactsCacheMutex) {
                     contactsCache.updateContacts(_contactList/*, false*/);
@@ -466,6 +466,7 @@ class ContactGroupsCache {
     }
     */
 
+    /*
     private static class ContactGroupsComparator implements Comparator<ContactGroup> {
 
         public int compare(ContactGroup lhs, ContactGroup rhs) {
@@ -475,6 +476,7 @@ class ContactGroupsCache {
                 return 0;
         }
     }
+    */
 
     /*
     private static class ContactGroupsInEvent {
