@@ -292,8 +292,12 @@ public class EditorProfileListFragment extends Fragment
             }
             else
             if (itemId == R.id.menu_generate_predefined_profiles) {
-                loadAsyncTask = new LoadProfileListAsyncTask(this, filterType, true);
-                loadAsyncTask.execute();
+                Handler progressBarHandler = new Handler(activity.getMainLooper());
+                Runnable progressBarRunnable = () -> {
+                    loadAsyncTask = new LoadProfileListAsyncTask(this, filterType, true);
+                    loadAsyncTask.execute();
+                };
+                progressBarHandler.post(progressBarRunnable);
                 return true;
             }
             else
@@ -304,8 +308,12 @@ public class EditorProfileListFragment extends Fragment
             synchronized (activityDataWrapper.profileList) {
                 if (!activityDataWrapper.profileListFilled) {
                     // start new AsyncTask, because old may be cancelled
-                    loadAsyncTask = new LoadProfileListAsyncTask(this, filterType, false);
-                    loadAsyncTask.execute();
+                    Handler progressBarHandler = new Handler(activity.getMainLooper());
+                    Runnable progressBarRunnable = () -> {
+                        loadAsyncTask = new LoadProfileListAsyncTask(this, filterType, false);
+                        loadAsyncTask.execute();
+                    };
+                    progressBarHandler.post(progressBarRunnable);
                 } else {
                     if (profileListAdapter != null) {
                         listView.setAdapter(profileListAdapter);
@@ -414,9 +422,6 @@ public class EditorProfileListFragment extends Fragment
 
         final boolean applicationEditorPrefIndicator;
 
-        Handler progressBarHandler;
-        Runnable progressBarRunnable;
-
         public LoadProfileListAsyncTask (EditorProfileListFragment fragment,
                                          int filterType,
                                          boolean generatePredefinedProfiles) {
@@ -437,14 +442,8 @@ public class EditorProfileListFragment extends Fragment
 
             final EditorProfileListFragment fragment = this.fragmentWeakRef.get();
 
-            if ((fragment != null) && (fragment.isAdded())) {
-                progressBarHandler = new Handler(_dataWrapper.context.getMainLooper());
-                progressBarRunnable = () -> {
-//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.LoadProfileListAsyncTask");
-                    //fragment.textViewNoData.setVisibility(GONE);
-                    fragment.progressBar.setVisibility(View.VISIBLE);
-                };
-                progressBarHandler.postDelayed(progressBarRunnable, 100);
+            if ((fragment != null) /*&& (fragment.isAdded())*/) {
+                fragment.progressBar.setVisibility(View.VISIBLE);
             }
         }
 
@@ -485,7 +484,6 @@ public class EditorProfileListFragment extends Fragment
             
             if ((fragment != null) && (fragment.isAdded())) {
                 if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
-                    progressBarHandler.removeCallbacks(progressBarRunnable);
                     fragment.progressBar.setVisibility(GONE);
 
                     fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
