@@ -1706,12 +1706,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {
             preference = findPreference(PREF_WIFI_CONTROL_INFO);
             if (preference != null) {
-                if (PPApplication.deviceIsSony)
-                    preference.setSummary(R.string.phone_profiles_pref_applicationWifiControlInfo_sony_summary);
+                //if (PPApplication.deviceIsSony)
+                //    preference.setSummary(R.string.phone_profiles_pref_applicationWifiControlInfo_sony_summary);
                 preference.setOnPreferenceClickListener(preference118 -> {
                     String message = getString(R.string.phone_profiles_pref_applicationWifiControlInfo_message);
-                    if (PPApplication.deviceIsSony)
-                        message = getString(R.string.phone_profiles_pref_applicationWifiControlInfo_sony_message);
+                    //if (PPApplication.deviceIsSony)
+                    //    message = getString(R.string.phone_profiles_pref_applicationWifiControlInfo_sony_message);
                     PPAlertDialog dialog = new PPAlertDialog(
                             preference118.getTitle(),
                             message,

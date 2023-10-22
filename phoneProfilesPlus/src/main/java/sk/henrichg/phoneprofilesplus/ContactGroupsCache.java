@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 class ContactGroupsCache {
