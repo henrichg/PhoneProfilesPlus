@@ -869,3 +869,4 @@ Proste to vypada, ze cez (G1) moblne data menit nejde.
 
 -----------------
 
+xx
