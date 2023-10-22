@@ -1076,7 +1076,7 @@ public class PPAppNotification {
                             PPApplicationStatic.recordException(e);
 //                            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                         }
-                        notificationBuilder.setLargeIcon(null);
+                        notificationBuilder.setLargeIcon((Bitmap) null);
                     }
                     else {
                         // icon will be set in NotificationCompat.BigPictureStyle() for level 31+
@@ -1145,7 +1145,7 @@ public class PPAppNotification {
                             PPApplicationStatic.recordException(e);
 //                            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                         }
-                        notificationBuilder.setLargeIcon(null);
+                        notificationBuilder.setLargeIcon((Bitmap) null);
                     } else {
                         // icon will be set in NotificationCompat.BigPictureStyle() for level 31+
                         if ((Build.VERSION.SDK_INT < 31) && notificationShowProfileIcon)
@@ -1236,7 +1236,7 @@ public class PPAppNotification {
                         PPApplicationStatic.recordException(e);
 //                        PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                     }
-                    notificationBuilder.setLargeIcon(null);
+                    notificationBuilder.setLargeIcon((Bitmap) null);
                 }
                 else {
                     if (notificationShowProfileIcon) {
@@ -1291,7 +1291,7 @@ public class PPAppNotification {
                     PPApplicationStatic.recordException(e);
 //                    PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                 }
-                notificationBuilder.setLargeIcon(null);
+                notificationBuilder.setLargeIcon((Bitmap) null);
             }
             else {
                 if (notificationShowProfileIcon) {

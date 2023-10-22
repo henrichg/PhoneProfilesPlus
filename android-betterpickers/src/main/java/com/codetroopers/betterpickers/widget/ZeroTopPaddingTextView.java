@@ -85,7 +85,7 @@ public class ZeroTopPaddingTextView extends androidx.appcompat.widget.AppCompatT
         }*/
         // no need to scale by display density because getTextSize() already returns the font
         // height in px
-        setPadding(0, (int) (-paddingRatio * getTextSize()), mPaddingRight,
+        setPadding(0, (int) (-paddingRatio * getTextSize()), getPaddingRight(),
                 (int) (-bottomPaddingRatio * getTextSize()));
     }
 
@@ -94,7 +94,7 @@ public class ZeroTopPaddingTextView extends androidx.appcompat.widget.AppCompatT
         //float bottomPaddingRatio = BOLD_FONT_BOTTOM_PADDING_RATIO;
         // no need to scale by display density because getTextSize() already returns the font
         // height in px
-        setPadding(0, (int) (-BOLD_FONT_PADDING_RATIO * getTextSize()), mPaddingRight,
+        setPadding(0, (int) (-BOLD_FONT_PADDING_RATIO * getTextSize()), getPaddingRight(),
                 (int) (-BOLD_FONT_BOTTOM_PADDING_RATIO * getTextSize()));
     }
     /*

@@ -28,7 +28,7 @@
     </content>
     <content url="file://$MODULE_DIR$/../../../android-betterpickers/src/androidTest" />
     <content url="file://$MODULE_DIR$/../../../android-betterpickers/src/androidTestDebug" />
-    <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 34, extension level 7 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.android-betterpickers.main" scope="TEST" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.common.main" scope="TEST" />

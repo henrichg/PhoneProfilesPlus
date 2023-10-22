@@ -45,7 +45,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../AndroidClearChroma/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../AndroidClearChroma/src/main/res" type="java-resource" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 34, extension level 7 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.common.main" />
     <orderEntry type="library" name="Gradle: androidx.appcompat:appcompat:1.6.1@aar" level="project" />
