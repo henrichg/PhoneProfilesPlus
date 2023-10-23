@@ -141,7 +141,7 @@ public class MainWorker extends Worker {
                             return Result.success();
 
 //                        PPApplicationStatic.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
-                        WifiNetworkCallback._doConnection(appContext);
+                        WifiNetworkCallback._doConnection(appContext, getInputData().getBoolean(WifiNetworkCallback.EXTRA_FOR_CAPABILITIES, false));
                         break;
                     case LOCATION_SCANNER_SWITCH_GPS_WORK_TAG:
                         if (!PPApplicationStatic.getApplicationStarted(true, true))
