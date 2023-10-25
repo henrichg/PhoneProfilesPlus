@@ -427,6 +427,10 @@ public class PPApplication extends Application
     static final String KEEP_SCREEN_ON_NOTIFICATION_CHANNEL = "phoneProfilesPlus_keepScreenOn";
     static final String PROFILE_LIST_NOTIFICATION_CHANNEL = "phoneProfilesPlus_profileList";
 
+    static final int APP_EXCEPTION_NOTIFICATION_ID = 17;
+    static final String APP_EXCEPTION_NOTIFICATION_TAG = PACKAGE_NAME+"_APP_EXCEPTION_NOTIFICATION";
+    static final String APP_EXCEPTION_NOTIFICATION_GROUP = PACKAGE_NAME+"_APP_EXCEPTION_NOTIFICATION_GROUP";
+
     static final int PROFILE_NOTIFICATION_ID = 100;
     static final int PROFILE_NOTIFICATION_NATIVE_ID = 500;
     static final String PROFILE_NOTIFICATION_GROUP = PACKAGE_NAME+"_ACTIVATED_PROFILE_NOTIFICATION_GROUP";

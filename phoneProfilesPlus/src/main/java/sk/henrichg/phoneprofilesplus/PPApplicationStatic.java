@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
@@ -99,7 +100,7 @@ class PPApplicationStatic {
         //__handler.post(() -> {
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
-                _cancelWork(name, forceCancel);
+            _cancelWork(name, forceCancel);
         }; //);
         createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
@@ -112,7 +113,7 @@ class PPApplicationStatic {
             cancelWork(UpdateGUIWorker.WORK_TAG, false);
         }*/
         //if (!atStart)
-            _cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG, false);
+        _cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG, false);
         for (String tag : PPApplication.elapsedAlarmsProfileDurationWork)
             _cancelWork(tag, false);
         PPApplication.elapsedAlarmsProfileDurationWork.clear();
@@ -250,17 +251,17 @@ class PPApplicationStatic {
             final Context appContext = context;
 
             if ((logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_WIFI) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS)) {
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_WIFI) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS)) {
 
                 boolean manualProfileActivation = false;
                 if (EventStatic.getGlobalEventsRunning(context)) {
@@ -268,8 +269,7 @@ class PPApplicationStatic {
                         if (!EventStatic.getForceRunEventRunning(context))
                             manualProfileActivation = true;
                     }
-                }
-                else
+                } else
                     manualProfileActivation = true;
                 if (manualProfileActivation) {
                     String title = appContext.getString(R.string.profile_activation_activation_error_title) + " " + profileName;
@@ -399,8 +399,7 @@ class PPApplicationStatic {
 
     //--------------------------------------------------------------
 
-    static private void resetLog()
-    {
+    static private void resetLog() {
         /*File sd = Environment.getExternalStorageDirectory();
         File exportDir = new File(sd, PPApplication.EXPORT_PATH);
         if (!(exportDir.exists() && exportDir.isDirectory()))
@@ -417,8 +416,7 @@ class PPApplicationStatic {
     }
 
     /** @noinspection SameParameterValue*/
-    static private void logIntoFile(String type, String tag, String text, boolean force)
-    {
+    static private void logIntoFile(String type, String tag, String text, boolean force) {
         if (!(force || PPApplication.logIntoFile))
             return;
 
@@ -462,8 +460,7 @@ class PPApplicationStatic {
         }
     }
 
-    private static boolean logContainsFilterTag(String tag)
-    {
+    private static boolean logContainsFilterTag(String tag) {
         boolean contains = false;
         String[] filterTags = PPApplication.logFilterTags.split(StringConstants.STR_SPLIT_REGEX);
         for (String filterTag : filterTags) {
@@ -512,28 +509,55 @@ class PPApplicationStatic {
     }
     */
 
-    static void logE(String tag, String text)
-    {
+    static void logE(String tag, String text) {
         if (!logEnabled())
             return;
 
-        if (logContainsFilterTag(tag))
-        {
+        if (logContainsFilterTag(tag)) {
             //if (logIntoLogCat) Log.e(tag, text);
-            if (PPApplication.logIntoLogCat) Log.e(tag, "[ "+tag+" ]" + StringConstants.STR_COLON_WITH_SPACE + text);
+            if (PPApplication.logIntoLogCat)
+                Log.e(tag, "[ " + tag + " ]" + StringConstants.STR_COLON_WITH_SPACE + text);
             logIntoFile("E", tag, text, false);
         }
     }
-    static void logException(String tag, String text)
-    {
+
+    @SuppressLint("MissingPermission")
+    static void logException(String tag, String text) {
         if (!logEnabled())
             return;
 
-        if (logContainsFilterTag(tag))
-        {
+        if (logContainsFilterTag(tag)) {
             //if (logIntoLogCat) Log.e(tag, text);
-            if (PPApplication.logIntoLogCat) Log.e("[EXCEPTION] " + tag, "[ "+tag+" ]" + StringConstants.STR_COLON_WITH_SPACE + text);
+            if (PPApplication.logIntoLogCat)
+                Log.e("[EXCEPTION] " + tag, "[ " + tag + " ]" + StringConstants.STR_COLON_WITH_SPACE + text);
             logIntoFile("E", tag, text, true);
+
+            if (DebugVersion.enabled && (PPApplication.getInstance() != null)) {
+                Context appContext = PPApplication.getInstance().getApplicationContext();
+                createExclamationNotificationChannel(appContext, false);
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                        .setColor(ContextCompat.getColor(appContext, R.color.error_color))
+                        .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                        .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification))
+                        .setContentTitle("App exception occured!!") // title for notification
+                        .setContentText("Read crash.txt") // message for notification
+                        .setAutoCancel(true); // clear notification after click
+                //mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
+                mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+                mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+
+                mBuilder.setGroup(PPApplication.APP_EXCEPTION_NOTIFICATION_GROUP);
+
+                Notification notification = mBuilder.build();
+
+                NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+                try {
+                    mNotificationManager.notify(PPApplication.APP_EXCEPTION_NOTIFICATION_TAG, PPApplication.APP_EXCEPTION_NOTIFICATION_ID, notification);
+                } catch (Exception en) {
+                    Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(en));
+                }
+            }
         }
     }
 
