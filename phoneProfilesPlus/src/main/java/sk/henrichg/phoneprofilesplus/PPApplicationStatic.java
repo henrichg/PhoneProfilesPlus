@@ -432,11 +432,7 @@ class PPApplicationStatic {
             */
 
             File path = PPApplication.getInstance().getApplicationContext().getExternalFilesDir(null);
-            File logFile;
-            if (crash)
-                logFile = new File(path, CustomACRAReportingAdministrator.CRASH_FILENAME);
-            else
-                logFile = new File(path, PPApplication.LOG_FILENAME);
+            File logFile = new File(path, PPApplication.LOG_FILENAME);
 
             if (logFile.length() > 1024 * 10000)
                 resetLog();
@@ -543,7 +539,7 @@ class PPApplicationStatic {
                         .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
                         .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification))
                         .setContentTitle("App exception occured!!") // title for notification
-                        .setContentText("Read crash.txt") // message for notification
+                        .setContentText("Read log.txt") // message for notification
                         .setAutoCancel(true); // clear notification after click
                 //mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
                 mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
