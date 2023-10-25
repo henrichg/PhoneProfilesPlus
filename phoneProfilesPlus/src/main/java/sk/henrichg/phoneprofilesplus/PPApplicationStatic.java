@@ -415,8 +415,8 @@ class PPApplicationStatic {
     }
 
     /** @noinspection SameParameterValue*/
-    static private void logIntoFile(String type, String tag, String text, boolean force) {
-        if (!(force || PPApplication.logIntoFile))
+    static private void logIntoFile(String type, String tag, String text, boolean crash) {
+        if (!(crash || PPApplication.logIntoFile))
             return;
 
         if (PPApplication.getInstance() == null)
@@ -432,7 +432,11 @@ class PPApplicationStatic {
             */
 
             File path = PPApplication.getInstance().getApplicationContext().getExternalFilesDir(null);
-            File logFile = new File(path, PPApplication.LOG_FILENAME);
+            File logFile;
+            if (crash)
+                logFile = new File(path, CustomACRAReportingAdministrator.CRASH_FILENAME);
+            else
+                logFile = new File(path, PPApplication.LOG_FILENAME);
 
             if (logFile.length() > 1024 * 10000)
                 resetLog();
