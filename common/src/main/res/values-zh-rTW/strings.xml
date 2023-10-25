@@ -2076,8 +2076,6 @@
     <string name="check_releases_fdroid_ppp_release">PhoneProfilesPlus release in F-Droid:</string>
     <string name="check_releases_appgallery_ppp_release">PhoneProfilesPlus release in Huawei AppGallery:</string>
     <string name="check_releases_ppp_release_clik_to_show">Click here to show it.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_sony_summary">\"Wi-Fi control\" special access must NOT be allowed for Sony devices. Click this to show how.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_sony_message">\"Wi-Fi control\" special access must NOT be allowed for Sony devices.\n\nIn device Settings disable \"Apps\"/\"Special app access\"/\"Wi-Fi control\" for PhoneProfilesPlus.</string>
     <string name="profile_preferences_volumeMediaChangeDuringPlay">Change media volume while playing music</string>
     <string name="phone_profiles_pref_applicationEventScanningPaused">Scanning paused</string>
     <string name="error_code">error code</string>

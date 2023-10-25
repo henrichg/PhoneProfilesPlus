@@ -2076,8 +2076,6 @@
     <string name="check_releases_fdroid_ppp_release">F-Droid\'de PhoneProfilesPlus sürümü:</string>
     <string name="check_releases_appgallery_ppp_release">Huawei AppGallery\'de PhoneProfilesPlus sürümü:</string>
     <string name="check_releases_ppp_release_clik_to_show">Göstermek için buraya dokunun.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_sony_summary">Sony cihazlarda \"Wi-Fi kontrol\" özel erişime izin verilmemeli. Nasıl yapıldığını görmek için buraya dokunun.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_sony_message">Sony cihazlarda \"Wi-Fi kontrol\" özel erişime izin verilmemeli.\n\nCihaz Ayarlarında \"Uygulamalar\"/\"Özel uygulama erişimi\"/\"Wi-Fi kontrol\"de PhoneProfilesPlus için izni kaldırınız.</string>
     <string name="profile_preferences_volumeMediaChangeDuringPlay">Müzik çalarken medya ses seviyesini değiştirme</string>
     <string name="phone_profiles_pref_applicationEventScanningPaused">Tarama duraklatıldı</string>
     <string name="error_code">hata kodu</string>
@@ -2119,8 +2117,8 @@
     <string name="profile_preferences_types_R_grant_info">Kök izni vermek için buraya dokunun.</string>
     <string name="event_preferences_hideNotUsedSensors">Kullanılmayan şartları gizle</string>
     <string name="activity_log_added_new_logs">Yeni günlükler eklendi. Görüntülemek için \"Yeniden Yükle\"yi kullanın.</string>
-    <string name="export_settings_delete_contacts_data_text1">Note: Contacts will also be included in the exported settings. If you share the backup with other people, select the parameters that should not be exported.</string>
-    <string name="export_settings_delete_contacts_data_calls">Contacts for Call sensor</string>
-    <string name="export_settings_delete0_contacts_data_sms">Contacts for SMS/MMS sensor</string>
-    <string name="export_settings_delete_contacts_data_notification">Contacts for Notification sensor</string>
+    <string name="export_settings_delete_contacts_data_text1">Dikkat: Kişiler, dışa aktarılan ayarlara da dahil edilecektir. Yedeği başka kişilerle paylaşıyorsanız, dışa aktarılmaması gereken değerleri seçin.</string>
+    <string name="export_settings_delete_contacts_data_calls">Çağrı şartı için Kişiler</string>
+    <string name="export_settings_delete0_contacts_data_sms">SMS/MMS şartı için Kişiler</string>
+    <string name="export_settings_delete_contacts_data_notification">Bildirim şartı için Kişiler</string>
 </resources>

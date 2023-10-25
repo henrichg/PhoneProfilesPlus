@@ -2076,8 +2076,6 @@
     <string name="check_releases_fdroid_ppp_release">PhoneProfilesPlus в F-Droid:</string>
     <string name="check_releases_appgallery_ppp_release">PhoneProfilesPlus в Huawei AppGallery:</string>
     <string name="check_releases_ppp_release_clik_to_show">Натисніть, щоб побачити.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_sony_summary">На приладах Sony спеціальний доступ до \"керування WiFi\" потрібно вимкнути. Натисніть, щоб побачити як.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_sony_message">На пристроях Sony дозвіл до керування Wi-Fi потрібно вимкнути.\n\n Налаштування - Дозвіл застосунків - Wi-Fi вимк для PhoneProfilesPlus.</string>
     <string name="profile_preferences_volumeMediaChangeDuringPlay">Змінити гучність мультимедіа під час відтворення музики</string>
     <string name="phone_profiles_pref_applicationEventScanningPaused">Сканування призупинено</string>
     <string name="error_code">код помилки</string>
