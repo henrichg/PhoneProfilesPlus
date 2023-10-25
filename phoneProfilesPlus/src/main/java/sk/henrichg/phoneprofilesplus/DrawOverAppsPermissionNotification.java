@@ -110,7 +110,7 @@ class DrawOverAppsPermissionNotification {
                     PPApplication.DRAW_OVER_APPS_NOTIFICATION_TAG,
                     PPApplication.DRAW_OVER_APPS_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            Log.e("DrawOverAppsPermissionNotification.showNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("DrawOverAppsPermissionNotification.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("DrawOverAppsPermissionNotification.showNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

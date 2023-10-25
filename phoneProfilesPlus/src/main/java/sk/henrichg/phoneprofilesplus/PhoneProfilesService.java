@@ -1049,7 +1049,7 @@ public class PhoneProfilesService extends Service
                 dataWrapper.invalidateDataWrapper();
 
             } catch (Exception eee) {
-                Log.e("PhoneProfilesService.doForFirstStart.2 - handler", Log.getStackTraceString(eee));
+                PPApplicationStatic.logException("PhoneProfilesService.doForFirstStart.2 - handler", Log.getStackTraceString(eee));
                 //PPApplicationStatic.recordException(eee);
                 throw eee;
             } finally {

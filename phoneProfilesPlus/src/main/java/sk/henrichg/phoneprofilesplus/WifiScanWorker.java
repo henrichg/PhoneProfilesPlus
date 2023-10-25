@@ -509,7 +509,7 @@ public class WifiScanWorker extends Worker {
             if ((wifiLock != null) && (!wifiLock.isHeld()))
                 wifiLock.acquire();
         } catch (Exception e) {
-            Log.e("WifiScanWorker.lock", Log.getStackTraceString(e));
+            PPApplicationStatic.logException("WifiScanWorker.lock", Log.getStackTraceString(e));
             //PPApplicationStatic.recordException(e);
         }
     }
@@ -521,7 +521,7 @@ public class WifiScanWorker extends Worker {
                 wifiLock.release();
             }
         } catch (Exception e) {
-            Log.e("WifiScanWorker.unlock", Log.getStackTraceString(e));
+            PPApplicationStatic.logException("WifiScanWorker.unlock", Log.getStackTraceString(e));
             //PPApplicationStatic.recordException(e);
         } finally {
             wifiLock = null;

@@ -1108,7 +1108,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     try {
                         success = autoStartPermissionHelper.getAutoStartPermission(getActivity());
                     }catch (Exception e) {
-                        Log.e("****** PhoneProfilesPrefsFragment.onActivityCreated", Log.getStackTraceString(e));
+                        PPApplicationStatic.logException("****** PhoneProfilesPrefsFragment.onActivityCreated", Log.getStackTraceString(e));
                         success = false;
                     }
                     if (!success) {

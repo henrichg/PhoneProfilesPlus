@@ -151,7 +151,7 @@ class IgnoreBatteryOptimizationNotification {
                     PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_TAG,
                     PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            Log.e("IgnoreBatteryOptimizationNotification.showNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("IgnoreBatteryOptimizationNotification.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("IgnoreBatteryOptimizationNotification.showNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

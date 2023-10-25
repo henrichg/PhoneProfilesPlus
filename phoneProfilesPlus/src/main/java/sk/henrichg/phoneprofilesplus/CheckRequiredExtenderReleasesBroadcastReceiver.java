@@ -232,7 +232,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
                     PPApplication.CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_TAG,
                     PPApplication.CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_ID, notification);
         } catch (SecurityException en) {
-            Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("CheckRequiredExtenderReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

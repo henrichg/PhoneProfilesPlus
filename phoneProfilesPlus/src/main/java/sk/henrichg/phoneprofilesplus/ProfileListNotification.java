@@ -453,7 +453,7 @@ public class ProfileListNotification {
                         PPApplication.PROFILE_LIST_NOTIFICATION_TAG,
                         PPApplication.PROFILE_LIST_NOTIFICATION_ID, notificationBuilder.build());
             } catch (SecurityException en) {
-                Log.e("ProfileListNotification._showNotification", Log.getStackTraceString(en));
+                PPApplicationStatic.logException("ProfileListNotification._showNotification", Log.getStackTraceString(en));
             } catch (Exception e) {
                 //Log.e("ProfileListNotification._showNotification", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);

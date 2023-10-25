@@ -174,7 +174,7 @@ class ImportantInfoNotification {
                     notificationTag,
                     PPApplication.IMPORTANT_INFO_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("ImportantInfoNotification.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

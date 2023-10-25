@@ -364,7 +364,7 @@ class PPApplicationStatic {
                         try {
                             mNotificationManager.notify(notificationTag, notificationId, notification);
                         } catch (SecurityException en) {
-                            Log.e("PPApplicationStatic.addActivityLog", Log.getStackTraceString(en));
+                            PPApplicationStatic.logException("PPApplicationStatic.addActivityLog", Log.getStackTraceString(en));
                         } catch (Exception e) {
                             //Log.e("ActivateProfileHelper.showError", Log.getStackTraceString(e));
                             PPApplicationStatic.recordException(e);
@@ -417,9 +417,9 @@ class PPApplicationStatic {
     }
 
     /** @noinspection SameParameterValue*/
-    static private void logIntoFile(String type, String tag, String text)
+    static private void logIntoFile(String type, String tag, String text, boolean force)
     {
-        if (!PPApplication.logIntoFile)
+        if (!(force || PPApplication.logIntoFile))
             return;
 
         if (PPApplication.getInstance() == null)
@@ -521,7 +521,19 @@ class PPApplicationStatic {
         {
             //if (logIntoLogCat) Log.e(tag, text);
             if (PPApplication.logIntoLogCat) Log.e(tag, "[ "+tag+" ]" + StringConstants.STR_COLON_WITH_SPACE + text);
-            logIntoFile("E", tag, text);
+            logIntoFile("E", tag, text, false);
+        }
+    }
+    static void logException(String tag, String text)
+    {
+        if (!logEnabled())
+            return;
+
+        if (logContainsFilterTag(tag))
+        {
+            //if (logIntoLogCat) Log.e(tag, text);
+            if (PPApplication.logIntoLogCat) Log.e("[EXCEPTION] " + tag, "[ "+tag+" ]" + StringConstants.STR_COLON_WITH_SPACE + text);
+            logIntoFile("E", tag, text, true);
         }
     }
 

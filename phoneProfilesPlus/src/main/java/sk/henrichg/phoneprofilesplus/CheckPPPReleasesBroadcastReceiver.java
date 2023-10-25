@@ -258,7 +258,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_TAG,
                     PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID, notification);
         } catch (SecurityException en) {
-            Log.e("CheckPPPReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("CheckPPPReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("CheckPPPReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

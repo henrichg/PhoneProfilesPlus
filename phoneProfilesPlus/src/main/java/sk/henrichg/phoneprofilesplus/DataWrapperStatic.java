@@ -876,7 +876,7 @@ class DataWrapperStatic {
                 // mNotificationManager.cancel(notificationID);
                 mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
             } catch (SecurityException en) {
-                Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(en));
+                PPApplicationStatic.logException("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(en));
             } catch (Exception e) {
                 //Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);

@@ -973,7 +973,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 // mNotificationManager.cancel(notificationID);
                 mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
             } catch (SecurityException en) {
-                Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(en));
+                PPApplicationStatic.logException("GrantPermissionActivity.showNotification", Log.getStackTraceString(en));
             } catch (Exception e) {
                 //Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);

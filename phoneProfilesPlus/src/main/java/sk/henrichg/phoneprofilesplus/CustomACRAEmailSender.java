@@ -124,7 +124,7 @@ public class CustomACRAEmailSender implements ReportSender {
                             context.startActivity(chooser);
 //                            Log.e("CustomACRAEmailSender.send", "mail sent");
                         } catch (Exception e) {
-                            Log.e("CustomACRAEmailSender.send", Log.getStackTraceString(e));
+                            PPApplicationStatic.logException("CustomACRAEmailSender.send", Log.getStackTraceString(e));
                         }
                     }
 
@@ -132,7 +132,7 @@ public class CustomACRAEmailSender implements ReportSender {
                 }
             }
         } catch (Exception ee) {
-            Log.e("CustomACRAEmailSender.send", Log.getStackTraceString(ee));
+            PPApplicationStatic.logException("CustomACRAEmailSender.send", Log.getStackTraceString(ee));
         }
     }
 
