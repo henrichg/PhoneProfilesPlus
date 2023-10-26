@@ -242,9 +242,11 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
             String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
             if (splits.length == 1) {
                 String[] splits2 = splits[0].split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
-                summary = splits2[0];
-                if (!withoutNumbers)
-                    summary = summary + StringConstants.CHAR_NEW_LINE + splits2[1];
+                if (splits2.length == 2) {
+                    summary = splits2[0];
+                    if (!withoutNumbers)
+                        summary = summary + StringConstants.CHAR_NEW_LINE + splits2[1];
+                }
             } else
                 summary = context.getString(R.string.contacts_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
         }
