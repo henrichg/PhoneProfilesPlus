@@ -10,7 +10,7 @@
         android:id="@+id/fragment_important_info_expandable_profiles_txt_empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/empty_string"/>
+        android:text=""/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -192,7 +192,7 @@
         android:layout_marginTop="-15dp"
         android:paddingBottom="5dp"
         android:fontFamily="monospace"
-        android:text="@string/empty_string"
+        android:text=""
         android:textSize="@dimen/important_info_text_size_monospace"
         android:id="@+id/activity_info_notification_profile_grant_1_howTo_11" />
     <TextView
@@ -233,7 +233,7 @@
         android:layout_marginTop="-15dp"
         android:paddingBottom="5dp"
         android:fontFamily="monospace"
-        android:text="@string/empty_string"
+        android:text=""
         android:textSize="@dimen/important_info_text_size_monospace"
         android:id="@+id/activity_info_notification_dialog_info_grant_1_command" />
     <TextView
@@ -312,7 +312,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:text="@string/empty_string"
+        android:text=""
         android:textSize="@dimen/important_info_text_size_monospace"
         android:id="@+id/activity_info_activate_profile_from_tasker_params"
         android:fontFamily="monospace"

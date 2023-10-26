@@ -26,7 +26,7 @@ public class CmdNfc {
             INfcAdapter adapter = INfcAdapter.Stub.asInterface(ServiceManager.getService("nfc")); // service list | grep INfcAdapter
             return enable ? adapter.enable() : adapter.disable(true);
         } catch (Throwable e) {
-            Log.e("CmdNfc.setNFC", Log.getStackTraceString(e));
+            PPApplicationStatic.logException("CmdNfc.setNFC", Log.getStackTraceString(e));
             //PPApplicationStatic.recordException(e);
             return false;
         }

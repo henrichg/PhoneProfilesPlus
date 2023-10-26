@@ -1,17 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
-import android.os.PowerManager;
-import android.util.Log;
 
-import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
 
 class AutostartPermissionNotification {
 
+/*
     static void showNotification(Context context, @SuppressWarnings("SameParameterValue") boolean useHandler) {
 //        PPApplicationStatic.logE("AutostartPermissionNotification.showNotification", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
 
@@ -121,7 +116,7 @@ class AutostartPermissionNotification {
             PPApplicationStatic.recordException(e);
         }
     }
-
+*/
     static void removeNotification(Context context)
     {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);

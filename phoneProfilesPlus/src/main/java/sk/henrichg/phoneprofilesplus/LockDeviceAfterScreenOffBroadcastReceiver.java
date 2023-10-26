@@ -73,7 +73,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LockDeviceAfterScreenOffBroadcastReceiver_executor_1");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_LockDeviceAfterScreenOffBroadcastReceiver_executor_1);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -163,7 +163,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay_2");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DataWrapper_restartEventsWithDelay_2);
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -191,12 +191,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     /*
                     long alarmTime = SystemClock.elapsedRealtime() + lockDelay;
 
-                    //if (android.os.Build.VERSION.SDK_INT >= 23)
-                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    //else
-                    //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     */
                 }
             }
@@ -211,47 +206,16 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
         if (EventStatic.getGlobalEventsRunning(context)) {
             final Context appContext = context.getApplicationContext();
             if (useHandler) {
-                PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_SCREEN, "SENSOR_TYPE_SCREEN", 0);
-                /*
-                PPApplication.startHandlerThreadBroadcast();
-                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-                //        context.getApplicationContext()) {
-                __handler.post(() -> {
-//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (1)");
-
-                    //Context appContext= appContextWeakRef.get();
-                    //if (appContext != null) {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LockDeviceAfterScreenOffBroadcastReceiver_doWork");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
-
-//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LockDeviceAfterScreenOffBroadcastReceiver", "sensorType=SENSOR_TYPE_SCREEN (1)");
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
-
-                        } catch (Exception e) {
-//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplicationStatic.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
-                                }
-                            }
-                        }
-                    //}
-                });
-                */
+                PPExecutors.handleEvents(appContext,
+                        new int[]{EventsHandler.SENSOR_TYPE_SCREEN,
+                                EventsHandler.SENSOR_TYPE_BRIGHTNESS},
+                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_SCREEN_BRIGHTNESS, 0);
             } else {
                 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LockDeviceAfterScreenOffBroadcastReceiver", "sensorType=SENSOR_TYPE_SCREEN (2)");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
+                eventsHandler.handleEvents(new int[]{
+                        EventsHandler.SENSOR_TYPE_SCREEN,
+                        EventsHandler.SENSOR_TYPE_BRIGHTNESS});
             }
         }
     }

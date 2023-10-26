@@ -24,6 +24,8 @@ class AddProfileDialog
     private final LinearLayout linlaProgress;
     private final ListView listView;
 
+    private GetProfilesAsyncTask getProfilesAsyncTask = null;
+
     AddProfileDialog(Activity activity, EditorProfileListFragment profileListFragment)
     {
         this.profileListFragment = profileListFragment;
@@ -48,13 +50,20 @@ class AddProfileDialog
 
             doShow();
         });
+        mDialog.setOnDismissListener(dialog -> {
+            if ((getProfilesAsyncTask != null) &&
+                    getProfilesAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+                getProfilesAsyncTask.cancel(true);
+            }
+            getProfilesAsyncTask = null;
+        });
 
         linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
 
         listView = layout.findViewById(R.id.profile_pref_dlg_listview);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
-            AddProfileAdapter.ViewHolder viewHolder = (AddProfileAdapter.ViewHolder) item.getTag();
+            AddProfileViewHolder viewHolder = (AddProfileViewHolder) item.getTag();
             if (viewHolder != null)
                 viewHolder.radioButton.setChecked(true);
             Handler handler = new Handler(activity.getMainLooper());
@@ -64,56 +73,8 @@ class AddProfileDialog
     }
 
     private void doShow() {
-        AddProfileDialog.GetProfilesAsyncTask asyncTask = new AddProfileDialog.GetProfilesAsyncTask(this, activity, profileListFragment.activityDataWrapper);
-        asyncTask.execute();
-
-/*        new AsyncTask<Void, Integer, Void>() {
-
-            final List<Profile> profileList = new ArrayList<>();
-
-            //@Override
-            //protected void onPreExecute()
-            //{
-            //    super.onPreExecute();
-                //listView.setVisibility(View.GONE);
-                //linlaProgress.setVisibility(View.VISIBLE);
-            //}
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
-                Profile profile;
-                profile = DataWrapper.getNonInitializedProfile(
-                        activity.getString(R.string.profile_name_default),
-                        Profile.PROFILE_ICON_DEFAULT, 0);
-                profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);
-                if (applicationEditorPrefIndicator)
-                    profile.generatePreferencesIndicator(activity.getApplicationContext(), false, 0xFF);
-                profileList.add(profile);
-                for (int index = 0; index < 7; index++) {
-                    profile = profileListFragment.activityDataWrapper.getPredefinedProfile(index, false, activity);
-                    profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);
-                    if (applicationEditorPrefIndicator)
-                        profile.generatePreferencesIndicator(activity.getApplicationContext(), false, 0xFF);
-                    profileList.add(profile);
-                }
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-
-                //listView.setVisibility(View.VISIBLE);
-                linlaProgress.setVisibility(View.GONE);
-
-                AddProfileAdapter addProfileAdapter = new AddProfileAdapter(AddProfileDialog.this, activity, profileList);
-                listView.setAdapter(addProfileAdapter);
-            }
-
-        }.execute();*/
+        getProfilesAsyncTask = new AddProfileDialog.GetProfilesAsyncTask(this, activity, profileListFragment.activityDataWrapper);
+        getProfilesAsyncTask.execute();
     }
 
     void doOnItemSelected(int position)
@@ -159,7 +120,7 @@ class AddProfileDialog
                 Profile profile;
                 profile = DataWrapperStatic.getNonInitializedProfile(
                         activity.getString(R.string.profile_name_default),
-                        Profile.PROFILE_ICON_DEFAULT, 0);
+                        StringConstants.PROFILE_ICON_DEFAULT, 0);
                 profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);
                 if (applicationEditorPrefIndicator)
                     profile.generatePreferencesIndicator(activity.getApplicationContext(), false, 0xFF, DataWrapper.IT_FOR_EDITOR, 0f);
@@ -183,11 +144,14 @@ class AddProfileDialog
             AddProfileDialog dialog = dialogWeakRef.get();
             Activity activity = activityWeakRef.get();
             if ((dialog != null) && (activity != null)) {
-                //listView.setVisibility(View.VISIBLE);
                 dialog.linlaProgress.setVisibility(View.GONE);
+                final Handler handler = new Handler(activity.getMainLooper());
+                handler.post(() -> {
+                    dialog.listView.setVisibility(View.VISIBLE);
 
-                AddProfileAdapter addProfileAdapter = new AddProfileAdapter(dialog, activity, profileList);
-                dialog.listView.setAdapter(addProfileAdapter);
+                    AddProfileAdapter addProfileAdapter = new AddProfileAdapter(dialog, activity, profileList);
+                    dialog.listView.setAdapter(addProfileAdapter);
+                });
             }
         }
 

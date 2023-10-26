@@ -16,7 +16,10 @@
         <ProgressBar
             android:id="@+id/event_pref_dlg_progress"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dialog_progressbar_padding"
+            style="?android:attr/progressBarStyle"
+            android:indeterminateDrawable="@drawable/ic_progressbar" />
 
     </LinearLayout>
 
@@ -73,7 +76,7 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="25dp"
                 android:paddingTop="5dp"
-                android:textColor="#ffff0000"
+                android:textColor="@color/error_color"
                 android:text="@string/event_pref_dialog_help"
                 android:visibility="gone"/>
 

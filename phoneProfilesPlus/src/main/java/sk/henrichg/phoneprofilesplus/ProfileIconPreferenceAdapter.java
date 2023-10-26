@@ -38,7 +38,7 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
         return position;
     }
 
-    static class ViewHolder {
+    private static class ViewHolder {
           ImageView icon;
         View mark;
           //int position;

@@ -34,7 +34,7 @@ class PPMultiSelectListPreferenceAdapter extends BaseAdapter
         return position;
     }
     
-    static class ViewHolder {
+    private static class ViewHolder {
         TextView entry;
         CheckBox checkBox;
         //int position;

@@ -3,10 +3,10 @@ package sk.henrichg.phoneprofilesplus;
 import static android.view.View.GONE;
 
 import android.animation.LayoutTransition;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -30,16 +30,17 @@ public class ActivatorListFragment extends Fragment {
 
     DataWrapper activityDataWrapper;
     private ActivatorListAdapter profileListAdapter = null;
-    private RelativeLayout activatedProfileHeader;
+    private LinearLayout activatedProfileHeader;
     private ListView listView = null;
     private GridView gridView = null;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
-    TextView textViewNoData;
+    RelativeLayout viewNoData;
     private LinearLayout progressBar;
     //FrameLayout gridViewDivider = null;
 
     private LoadProfileListAsyncTask loadAsyncTask = null;
+    private RefreshGUIAsyncTask refreshGUIAsyncTask = null;
 
     //private ValueAnimator hideAnimator;
     //private ValueAnimator showAnimator;
@@ -47,9 +48,7 @@ public class ActivatorListFragment extends Fragment {
 
     //private  static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
 
-    //public boolean targetHelpsSequenceStarted;
-    public static final String PREF_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
-    public static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profile_list_fragment_start_target_helps_finished";
+    //boolean targetHelpsSequenceStarted;
 
     static final int PORDER_FOR_EMPTY_SPACE = 1000000;
 
@@ -68,8 +67,6 @@ public class ActivatorListFragment extends Fragment {
 
         //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-
-        loadAsyncTask = new LoadProfileListAsyncTask(this);
     }
 
     @Override
@@ -133,7 +130,7 @@ public class ActivatorListFragment extends Fragment {
             }
             //gridViewDivider = view.findViewById(R.id.act_prof_profiles_grid_divider);
         }
-        textViewNoData = view.findViewById(R.id.act_prof_list_empty);
+        viewNoData = view.findViewById(R.id.act_prof_list_empty);
         progressBar = view.findViewById(R.id.act_prof_list_linla_progress);
 
         AbsListView absListView;
@@ -221,8 +218,10 @@ public class ActivatorListFragment extends Fragment {
 
         if (!activityDataWrapper.profileListFilled)
         {
-            if (!isAsyncTaskRunning())
+            if (!isAsyncTaskRunning()) {
+                loadAsyncTask = new LoadProfileListAsyncTask(this);
                 loadAsyncTask.execute();
+            }
         }
         else
         {
@@ -235,7 +234,7 @@ public class ActivatorListFragment extends Fragment {
     private static class LoadProfileListAsyncTask extends AsyncTask<Void, Void, Void> {
 
         private final WeakReference<ActivatorListFragment> fragmentWeakRef;
-        private final DataWrapper dataWrapper;
+        private DataWrapper dataWrapper;
 
         private final boolean applicationActivatorPrefIndicator;
         //private final boolean applicationActivatorHeader;
@@ -308,7 +307,7 @@ public class ActivatorListFragment extends Fragment {
                 if (globalEventsRunning) {
                     //Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
                     Profile restartEvents = DataWrapperStatic.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events),
-                            "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
+                            StringConstants.PROFILE_ICON_RESTART_EVENTS+"|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
                     restartEvents._showInActivator = true;
                     restartEvents._id = Profile.RESTART_EVENTS_PROFILE_ID;
                     dataWrapper.generateProfileIcon(restartEvents, true, false);
@@ -330,10 +329,11 @@ public class ActivatorListFragment extends Fragment {
 
                     int modulo = count % numColumns;
                     if (modulo > 0) {
-                        for (int i = 0; i < numColumns - modulo; i++) {
+                        int size = numColumns - modulo;
+                        for (int i = 0; i < size; i++) {
                             Profile profile = DataWrapperStatic.getNonInitializedProfile(
                                     dataWrapper.context.getString(R.string.profile_name_default),
-                                    Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
+                                    StringConstants.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
                             profile._showInActivator = true;
                             this.dataWrapper.profileList.add(profile);
                         }
@@ -371,24 +371,33 @@ public class ActivatorListFragment extends Fragment {
                     // set copy local event timeline list into activity profilesDataWrapper
                     fragment.activityDataWrapper.copyEventTimelineList(this.dataWrapper);
 
+                    this.dataWrapper.clearProfileList();
+                    this.dataWrapper.clearEventTimelineList();
+                    this.dataWrapper = null;
+
                     synchronized (fragment.activityDataWrapper.profileList) {
                         if (fragment.activityDataWrapper.profileList.size() == 0) {
-                            fragment.textViewNoData.setVisibility(View.VISIBLE);
+                            fragment.viewNoData.setVisibility(View.VISIBLE);
 
                             // no profile in list, start Editor
 
-                            Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorActivity.class);
+//                            Log.e("ActivatorListFragment.LoadProfileListAsyncTask", "start Editor");
+                            /*Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR_START);
-                            fragment.getActivity().startActivity(intent);
+                            fragment.getActivity().startActivity(intent);*/
 
-                            try {
-                                fragment.getActivity().finish();
-                            } catch (Exception e) {
-                                PPApplicationStatic.recordException(e);
+                            if (Build.VERSION.SDK_INT < 33) {
+                                // Activator must be displayed for grant notification permission
+                                if (((ActivatorActivity) fragment.getActivity()).firstStartOfPPP) {
+                                    try {
+                                        fragment.getActivity().finish();
+                                    } catch (Exception e) {
+                                        PPApplicationStatic.recordException(e);
+                                    }
+                                    return;
+                                }
                             }
-
-                            return;
                         }
 //                    else {
 //                        if (someErrorProfiles) {
@@ -474,6 +483,12 @@ public class ActivatorListFragment extends Fragment {
             //Log.e("ActivatorListFragment.onDestroy", "AsyncTask not finished");
             loadAsyncTask.cancel(true);
         }
+        loadAsyncTask = null;
+        if ((refreshGUIAsyncTask != null) &&
+                refreshGUIAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+            refreshGUIAsyncTask.cancel(true);
+        }
+        refreshGUIAsyncTask = null;
 
         AbsListView absListView;
         if (!ApplicationPreferences.applicationActivatorGridLayout)
@@ -487,6 +502,7 @@ public class ActivatorListFragment extends Fragment {
 
         if (activityDataWrapper != null)
             activityDataWrapper.invalidateDataWrapper();
+        activityDataWrapper = null;
     }
 
     private void updateHeader(Profile profile)
@@ -571,7 +587,7 @@ public class ActivatorListFragment extends Fragment {
                 activityDataWrapper.restartEventsWithAlert(getActivity());
             }
             else
-            if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
+            if (!ProfileStatic.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
                 PPApplication.showToastForProfileActivation = true;
                 activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);
             }
@@ -585,90 +601,11 @@ public class ActivatorListFragment extends Fragment {
         if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
 
-        ActivatorListFragment.RefreshGUIAsyncTask asyncTask = new ActivatorListFragment.RefreshGUIAsyncTask(refreshIcons, this, activityDataWrapper);
-        asyncTask.execute();
-
-/*
-        new AsyncTask<Void, Integer, Void>() {
-
-            Profile profileFromDB;
-            Profile profileFromDataWrapper;
-
-            //boolean doNotRefresh = false;
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
-                    activityDataWrapper.getEventTimelineList(true);
-
-                    if (profileFromDB != null) {
-                        profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-                                ApplicationPreferences.applicationEditorPrefIndicator, false);
-                    }
-
-
-//                    String pName;
-//                    if (profileFromDB != null) {
-//                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
-//                    } else
-//                        pName = activityDataWrapper.context.getString(R.string.profiles_header_profile_name_no_activated);
-//
-//                    if (!refresh) {
-//                        String pNameHeader = PPApplication.prefActivityProfileName1;
-//
-//                        if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-//                            doNotRefresh = true;
-//                            return null;
-//                        }
-//                    }
-//
-//                    PPApplication.setActivityProfileName(activityDataWrapper.context, 1, pName);
-
-                } catch (Exception e) {
-                    if ((activityDataWrapper != null) && (activityDataWrapper.context != null))
-                        PPApplicationStatic.recordException(e);
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-                if ((getActivity() != null) && (!getActivity().isFinishing())) {
-                    //if (!doNotRefresh) {
-                        ((ActivatorActivity) getActivity()).setEventsRunStopIndicator();
-
-                        Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
-                        if (profileFromAdapter != null)
-                            profileFromAdapter._checked = false;
-
-                        if (profileFromDB != null) {
-                            if (profileFromDataWrapper != null)
-                                profileFromDataWrapper._checked = true;
-                            updateHeader(profileFromDataWrapper);
-                            //setProfileSelection(profileFromDataWrapper, refreshIcons);
-                        } else {
-                            updateHeader(null);
-                            //setProfileSelection(null, refreshIcons);
-                        }
-
-                        profileListAdapter.notifyDataSetChanged(refreshIcons);
-                    //}
-                }
-            }
-
-        }.execute();
- */
+        refreshGUIAsyncTask = new RefreshGUIAsyncTask(refreshIcons, this, activityDataWrapper);
+        refreshGUIAsyncTask.execute();
     }
 
     void showTargetHelps() {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         if (getActivity() == null)
             return;
 
@@ -692,8 +629,8 @@ public class ActivatorListFragment extends Fragment {
 
             if (showTargetHelps) {
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-                editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                 editor.apply();
                 ApplicationPreferences.prefActivatorFragmentStartTargetHelps = false;
                 ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
@@ -731,11 +668,6 @@ public class ActivatorListFragment extends Fragment {
     }
 
     private void showAdapterTargetHelps() {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         if (getActivity() == null)
             return;
 
@@ -777,7 +709,7 @@ public class ActivatorListFragment extends Fragment {
 
     private static class RefreshGUIAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-        Profile profileFromDB;
+        long activatedProfileId;
         Profile profileFromDataWrapper;
 
         //boolean doNotRefresh = false;
@@ -798,11 +730,11 @@ public class ActivatorListFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             if (fragmentWeakRef.get() != null) {
                 try {
-                    profileFromDB = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
+                    activatedProfileId = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfileId();
                     dataWrapper.getEventTimelineList(true);
 
-                    if (profileFromDB != null) {
-                        profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, true,
+                    if (activatedProfileId != -1) {
+                        profileFromDataWrapper = dataWrapper.getProfileById(activatedProfileId, true,
                                 ApplicationPreferences.applicationEditorPrefIndicator, false);
                     }
 
@@ -846,7 +778,7 @@ public class ActivatorListFragment extends Fragment {
                     if (profileFromAdapter != null)
                         profileFromAdapter._checked = false;
 
-                    if (profileFromDB != null) {
+                    if (activatedProfileId != -1) {
                         if (profileFromDataWrapper != null)
                             profileFromDataWrapper._checked = true;
                         fragment.updateHeader(profileFromDataWrapper);

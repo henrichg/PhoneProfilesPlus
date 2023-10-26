@@ -121,11 +121,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     //int nightModeFlags =
                     //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     //switch (nightModeFlags) {
+                    applicationWidgetListBackgroundType = true; // background type = color
                     if (nightModeOn) {
                         //case Configuration.UI_MODE_NIGHT_YES:
 
                         //applicationWidgetListBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
-                        applicationWidgetListBackgroundType = true; // background type = color
                         applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
                         //applicationWidgetListShowBorder = false; // do not show border
                         applicationWidgetListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
@@ -139,7 +139,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         //case Configuration.UI_MODE_NIGHT_UNDEFINED:
 
                         //applicationWidgetListBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
-                        applicationWidgetListBackgroundType = true; // background type = color
                         applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
                         //applicationWidgetListShowBorder = false; // do not show border
                         applicationWidgetListLightnessBorder = "0";
@@ -549,7 +548,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         //if (applicationWidgetListRoundedCorners) {
         widget.setViewVisibility(R.id.widget_profile_list_background, View.VISIBLE);
-        widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.GONE);
+        //widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.GONE);
         if (applicationWidgetListShowBorder)
             widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.VISIBLE);
         else
@@ -646,7 +645,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 // create empty profile and set icon resource
                 profile = new Profile();
                 profile._name = context.getString(R.string.profiles_header_profile_name_no_activated);
-                profile._icon = Profile.PROFILE_ICON_DEFAULT+"|1|0|0";
+                profile._icon = StringConstants.PROFILE_ICON_DEFAULT+"|1|0|0";
 
                 profile.generateIconBitmap(context.getApplicationContext(),
                         applicationWidgetListIconColor.equals("1"),
@@ -755,8 +754,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             Intent intent = new Intent(context, EditorActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             */
-        // intent for start LauncherActivity on widget click
-        Intent intent = new Intent(context, LauncherActivity.class);
+        Intent intent = GlobalGUIRoutines.getIntentForStartupSource(context, PPApplication.STARTUP_SOURCE_WIDGET);
         // clear all opened activities
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_WIDGET_HEADER);
@@ -808,26 +806,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             else
                 widget.setPendingIntentTemplate(R.id.widget_profile_grid, clickPI);
         }
-        /*}
-        else
-        {
-            Intent intent = new Intent(context, LauncherActivity.class);
-            // clear all opened activities
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 300, intent,
-                                                        PendingIntent.FLAG_UPDATE_CURRENT);
-            widget.setOnClickPendingIntent(R.id.widget_profile_list_header, pendingIntent);
-
-            //if (Event.getGlobalEventsRunning()) {
-                //widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
-                Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
-                PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
-                widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events, pIntentRE);
-            //}
-            //else
-            //    widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.GONE);
-        }*/
 
         return widget;
     }
@@ -950,10 +928,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
                         //if ((appContext != null) && (appWidgetManager != null)) {
+                            DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
                             for (int appWidgetId : appWidgetIds) {
                                 //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
                                 RemoteViews layout;
-                                DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
                                 layout = buildLayout(appContext, appWidgetId, /*isLargeLayout,*/ dataWrapper);
                                 try {
                                     appWidgetManager.updateAppWidget(appWidgetId, layout);
@@ -961,6 +939,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                                     PPApplicationStatic.recordException(e);
                                 }
                             }
+                            dataWrapper.invalidateDataWrapper();
                         //}
                     }; //);
                     PPApplicationStatic.createDelayedGuiExecutor();

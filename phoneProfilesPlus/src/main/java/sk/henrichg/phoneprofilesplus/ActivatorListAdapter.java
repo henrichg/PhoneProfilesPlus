@@ -26,8 +26,6 @@ class ActivatorListAdapter extends BaseAdapter
     private final DataWrapper activityDataWrapper;
 
     //public boolean targetHelpsSequenceStarted;
-    static final String PREF_START_TARGET_HELPS = "activate_profile_list_adapter_start_target_helps";
-    //static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profile_list_adapter_start_target_helps_finished";
 
     ActivatorListAdapter(ActivatorListFragment f, /*List<Profile> pl, */DataWrapper dataWrapper)
     {
@@ -45,7 +43,7 @@ class ActivatorListAdapter extends BaseAdapter
         synchronized (activityDataWrapper.profileList) {
             boolean someData = activityDataWrapper.profileListFilled &&
                     (activityDataWrapper.profileList.size() > 0);
-            fragment.textViewNoData.setVisibility(someData ? View.GONE : View.VISIBLE);
+            fragment.viewNoData.setVisibility(someData ? View.GONE : View.VISIBLE);
             /*if (fragment.gridViewDivider != null)
                 fragment.gridViewDivider.setBackgroundResource(
                         GlobalGUIRoutines.getThemeActivatorGridDividerColor(someData, fragment.getActivity()));*/
@@ -148,7 +146,7 @@ class ActivatorListAdapter extends BaseAdapter
         notifyDataSetChanged();
     }
 
-    static class ViewHolder {
+    private static class ViewHolder {
           //ViewGroup listItemRoot;
           ImageView profileIcon;
           TextView profileName;
@@ -200,7 +198,7 @@ class ActivatorListAdapter extends BaseAdapter
 
         if ((applicationActivatorGridLayout) &&
                 (profile._porder == ActivatorListFragment.PORDER_FOR_EMPTY_SPACE)) {
-            holder.profileName.setText(R.string.empty_string);
+            holder.profileName.setText("");
             holder.profileIcon.setImageResource(R.drawable.ic_empty);
         }
         else {
@@ -286,11 +284,6 @@ class ActivatorListAdapter extends BaseAdapter
     }
 
     void showTargetHelps(final Activity activity, /*final ActivatorListFragment fragment,*/ final View listItemView) {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         if (ActivatorTargetHelpsActivity.activity == null)
             return;
 
@@ -323,7 +316,7 @@ class ActivatorListAdapter extends BaseAdapter
 
         if (ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-            editor.putBoolean(PREF_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_ADAPTER_START_TARGET_HELPS, false);
             editor.apply();
             ApplicationPreferences.prefActivatorAdapterStartTargetHelps = false;
 
@@ -371,7 +364,7 @@ class ActivatorListAdapter extends BaseAdapter
                     //targetHelpsSequenceStarted = false;
 
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-                    editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                     //editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.apply();
                     ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
@@ -404,12 +397,12 @@ class ActivatorListAdapter extends BaseAdapter
                     //targetHelpsSequenceStarted = false;
 
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-                    editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS, false);
-                    editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                    editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_ADAPTER_START_TARGET_HELPS, false);
 
-                    editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS_FINISHED, true);
-                    editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS_FINISHED, true);
+                    editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                     //editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                     editor.apply();

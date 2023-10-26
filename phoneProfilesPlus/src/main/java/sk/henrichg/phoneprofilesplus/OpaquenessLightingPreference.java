@@ -133,7 +133,11 @@ public class OpaquenessLightingPreference extends DialogPreference {
                 } catch (Exception ignored) {
                 }
             }
-            opaquenessLightingIcon.setImageResource(iconResId); // icon resource
+            opaquenessLightingIcon.setImageResource(iconResId);
+            if (!isEnabled())
+                opaquenessLightingIcon.setAlpha(0.35f);
+            else
+                opaquenessLightingIcon.setAlpha(1f);
 
             Handler handler = new Handler(prefContext.getMainLooper());
             handler.postDelayed(() -> {

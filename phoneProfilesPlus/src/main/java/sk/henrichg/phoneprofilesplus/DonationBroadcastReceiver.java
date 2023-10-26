@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.PowerManager;
 import android.util.Log;
 
@@ -94,12 +95,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
             }
             else {
-                //if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-                //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-                //else
-                //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             }
         }
     }
@@ -147,7 +143,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DonationBroadcastReceiver_doWork");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DonationBroadcastReceiver_doWork);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -245,7 +241,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 PPApplicationStatic.setDonationNotificationCount(appContext, donationNotificationCount + 1);
 
                 // show notification about "Please donate me."
-                PPApplicationStatic.createDonationNotificationChannel(appContext);
+                PPApplicationStatic.createDonationNotificationChannel(appContext, false);
 
                 NotificationCompat.Builder mBuilder;
                 Intent _intent;
@@ -253,14 +249,10 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 
                 String nTitle = appContext.getString(R.string.about_application_donate_button);
                 String nText = appContext.getString(R.string.donation_description);
-//                if (android.os.Build.VERSION.SDK_INT < 24) {
-//                    nTitle = appContext.getString(R.string.ppp_app_name);
-//                    nText = appContext.getString(R.string.about_application_donate_button) + ": " +
-//                            appContext.getString(R.string.donation_description);
-//                }
                 mBuilder = new NotificationCompat.Builder(appContext, PPApplication.DONATION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
-                        .setSmallIcon(R.drawable.ic_information_notify) // notification icon
+                        .setColor(ContextCompat.getColor(appContext, R.color.information_color))
+                        .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
+                        .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification))
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
@@ -269,16 +261,10 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
                 mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                //if (android.os.Build.VERSION.SDK_INT >= 21) {
                 mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
                 mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-                //}
 
                 Notification notification = mBuilder.build();
-                /*if (Build.VERSION.SDK_INT < 26) {
-                    notification.vibrate = null;
-                    notification.defaults &= ~DEFAULT_VIBRATE;
-                }*/
 
                 NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
                 try {
@@ -286,7 +272,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                             PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_TAG,
                             PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, notification);
                 } catch (SecurityException en) {
-                    Log.e("DonationBroadcastReceiver._doWork", Log.getStackTraceString(en));
+                    PPApplicationStatic.logException("DonationBroadcastReceiver._doWork", Log.getStackTraceString(en));
                 } catch (Exception e) {
                     //Log.e("DonationBroadcastReceiver._doWork", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);

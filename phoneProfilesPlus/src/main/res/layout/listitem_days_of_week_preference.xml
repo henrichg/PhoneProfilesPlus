@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/days_of_week_pref_dlg_item_checkbox"
-        android:text="@string/empty_string"
+        android:text=""
         android:textSize="17sp"
         android:ellipsize="end"
         android:maxLines="1"/>

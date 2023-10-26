@@ -51,7 +51,7 @@ class EventPreferencesOrientation extends EventPreferences {
     private static final String PREF_EVENT_ORIENTATION_APP_SETTINGS = "eventEnableOrientationScanningAppSettings";
     //static final String PREF_EVENT_ORIENTATION_LAUNCH_EXTENDER = "eventOrientationLaunchExtender";
 
-    private static final String PREF_EVENT_ORIENTATION_CATEGORY = "eventOrientationCategoryRoot";
+    static final String PREF_EVENT_ORIENTATION_CATEGORY = "eventOrientationCategoryRoot";
 
 
     EventPreferencesOrientation(Event event,
@@ -93,11 +93,11 @@ class EventPreferencesOrientation extends EventPreferences {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_ORIENTATION_ENABLED, _enabled);
 
-        String[] splits = this._display.split("\\|");
+        String[] splits = this._display.split(StringConstants.STR_SPLIT_REGEX);
         Set<String> set = new HashSet<>(Arrays.asList(splits));
         editor.putStringSet(PREF_EVENT_ORIENTATION_DISPLAY, set);
 
-        splits = this._sides.split("\\|");
+        splits = this._sides.split(StringConstants.STR_SPLIT_REGEX);
         set = new HashSet<>(Arrays.asList(splits));
         editor.putStringSet(PREF_EVENT_ORIENTATION_SIDES, set);
 
@@ -148,107 +148,109 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_orientation_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_orientation_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ORIENTATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + "<b>";
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_orientation), addPassStatus, DatabaseHandler.ETYPE_ORIENTATION, context);
-                    descr = descr + "</b> ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_orientation), addPassStatus, DatabaseHandler.ETYPE_ORIENTATION, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
                 if (!ApplicationPreferences.applicationEventOrientationEnableScanning) {
 //                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesOrientation.getPreferencesDescription", "******** ### *******");
                     if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile)
-                        descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
+                        _value.append("* ").append(context.getString(R.string.array_pref_applicationDisableScanning_disabled)).append("! *").append(StringConstants.TAG_BREAK_HTML);
                     else
-                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
+                        _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile)).append(StringConstants.TAG_BREAK_HTML);
+                } else {
+                    boolean scanningPaused = ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("2") &&
+                            GlobalUtils.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo);
+                    if (scanningPaused) {
+                        _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused)).append(StringConstants.TAG_BREAK_HTML);
+                    }
                 }
 
                 String selectedValues = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if (!this._display.isEmpty() && !this._display.equals("-")) {
-                    String[] splits = this._display.split("\\|");
+                    String[] splits = this._display.split(StringConstants.STR_SPLIT_REGEX);
                     String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationDisplayValues);
                     String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationDisplayArray);
                     //selectedValues = "";
-                    StringBuilder _value = new StringBuilder();
+                    StringBuilder __value = new StringBuilder();
                     for (String s : splits) {
                         int sideIdx = Arrays.asList(sideValues).indexOf(s);
                         if (sideIdx != -1) {
-                            //if (!selectedValues.isEmpty())
-                            //    selectedValues = selectedValues + ", ";
-                            //selectedValues = selectedValues + sideNames[sideIdx];
-                            if (_value.length() > 0)
-                                _value.append(", ");
-                            _value.append(sideNames[sideIdx]);
+                            if (__value.length() > 0)
+                                __value.append(", ");
+                            __value.append(sideNames[sideIdx]);
                         }
                     }
-                    selectedValues = _value.toString();
+                    selectedValues = __value.toString();
                 }
-                descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": <b>" + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
+                _value.append(context.getString(R.string.event_preferences_orientation_display)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 //SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
                 if (PPApplication.magneticFieldSensor != null) {
                     selectedValues = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if (!this._sides.isEmpty() && !this._sides.equals("-")) {
-                        String[] splits = this._sides.split("\\|");
+                        String[] splits = this._sides.split(StringConstants.STR_SPLIT_REGEX);
                         String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationSidesValues);
                         String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationSidesArray);
                         //selectedValues = "";
-                        StringBuilder _value = new StringBuilder();
+                        StringBuilder __value = new StringBuilder();
                         for (String s : splits) {
                             int pos = Arrays.asList(sideValues).indexOf(s);
                             if (pos != -1) {
-                                //if (!selectedValues.isEmpty())
-                                //    selectedValues = selectedValues + ", ";
-                                //selectedValues = selectedValues + sideNames[pos];
-                                if (_value.length() > 0)
-                                    _value.append(", ");
-                                _value.append(sideNames[pos]);
+                                if (__value.length() > 0)
+                                    __value.append(", ");
+                                __value.append(sideNames[pos]);
                             }
                         }
-                        selectedValues = _value.toString();
+                        selectedValues = __value.toString();
                     }
-                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_sides) + ": <b>" + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_sides)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 String[] distanceValues = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeValues);
                 String[] distanceNames = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeArray);
                 int i = Arrays.asList(distanceValues).indexOf(String.valueOf(this._distance));
                 if (i != -1)
-                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_distance) + ": <b>" + getColorForChangedPreferenceValue(distanceNames[i], disabled, context) + "</b>";
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_distance)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(distanceNames[i], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 if (this._checkLight) {
-                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_light) + ": <b>" +
-                            getColorForChangedPreferenceValue(this._lightMin + "-" + this._lightMax, disabled, context) + "</b>";
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_light)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(this._lightMin + "-" + this._lightMax, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
                 else {
-                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_light) + ": <b>" +
-                            getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_orientation_light_not_enabled), disabled, context) + "</b>";
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_light)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_orientation_light_not_enabled), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
                 if (extenderVersion == 0) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
                 } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
                         /*, "EventPreferencesOrientation.getPreferencesDescription"*/)) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
                 } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
+                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
                 } else if (!this._ignoredApplications.isEmpty() && !this._ignoredApplications.equals("-")) {
-                    String[] splits = this._ignoredApplications.split("\\|");
+                    String[] splits = this._ignoredApplications.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length == 1) {
                         String packageName = Application.getPackageName(splits[0]);
                         String activityName = Application.getActivityName(splits[0]);
@@ -256,11 +258,11 @@ class EventPreferencesOrientation extends EventPreferences {
                         if (activityName.isEmpty()) {
                             ApplicationInfo app;
                             try {
-                                app = packageManager.getApplicationInfo(packageName, 0);
+                                app = packageManager.getApplicationInfo(packageName, PackageManager.MATCH_ALL);
                                 if (app != null)
                                     selectedApplications = packageManager.getApplicationLabel(app).toString();
                             } catch (Exception e) {
-                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                             }
                         } else {
                             Intent intent = new Intent();
@@ -270,13 +272,13 @@ class EventPreferencesOrientation extends EventPreferences {
                                 selectedApplications = info.loadLabel(packageManager).toString();
                         }
                     } else
-                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 }
-                descr = descr + " • " + context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": <b>" + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + "</b>";
+                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_ignoreForApplications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
@@ -301,19 +303,28 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (!ApplicationPreferences.applicationEventOrientationEnableScanning) {
 //                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesOrientation.setSummary", "******** ### *******");
                     if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile) {
-                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
+                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                                 context.getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
-                        titleColor = ContextCompat.getColor(context, R.color.altype_error);
+                        titleColor = ContextCompat.getColor(context, R.color.error_color);
                     }
                     else {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_DOUBLE_NEWLINE +
                                 context.getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
                         titleColor = 0;
                     }
                 }
                 else {
-                    summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
-                            context.getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
+                    boolean scanningPaused = ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("2") &&
+                            GlobalUtils.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo);
+                    if (scanningPaused) {
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                                context.getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
+                    } else {
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                                context.getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
+                    }
                     titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
@@ -363,7 +374,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 key.equals(PREF_EVENT_ORIENTATION_LIGHT_MAX))
         {
 //            PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] EventPreferencesOrientation.setSummary", "xxx");
-            Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver");
+            Intent intent = new Intent(PPApplication.ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER);
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
             boolean hasLight = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null);
@@ -524,7 +535,7 @@ class EventPreferencesOrientation extends EventPreferences {
         if (key.equals(PREF_EVENT_ORIENTATION_ENABLED) ||
             key.equals(PREF_EVENT_ORIENTATION_CHECK_LIGHT)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
 
         if (key.equals(PREF_EVENT_ORIENTATION_DISPLAY)) {
@@ -649,7 +660,7 @@ class EventPreferencesOrientation extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -702,6 +713,7 @@ class EventPreferencesOrientation extends EventPreferences {
 
     @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+        super.checkPreferences(prefMng, onlyCategory, context);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_ORIENTATION_ENABLED) != null) {
@@ -716,14 +728,14 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (preference != null) {
                     if (!hasAccelerometer)
                         preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                                StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_no_hardware));
                     preference.setEnabled(hasAccelerometer);
                 }
                 preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_SIDES);
                 if (preference != null) {
                     if (!enabledAll)
                         preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                                StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_no_hardware));
                     preference.setEnabled(enabledAll);
                 }
                 boolean enabled = hasProximity;
@@ -731,7 +743,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (preference != null) {
                     if (!enabled)
                         preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                                StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_no_hardware));
                     preference.setEnabled(enabled);
                 }
 
@@ -740,21 +752,21 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (currentValuePreference != null) {
                     if (!enabled)
                         currentValuePreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                                StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_no_hardware));
                     currentValuePreference.setEnabled(enabled);
                 }
                 Preference minLightPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
                 if (minLightPreference != null) {
                     if (!enabled)
                         minLightPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                                StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_no_hardware));
                     minLightPreference.setEnabled(enabled);
                 }
                 Preference maxLightPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
                 if (maxLightPreference != null) {
                     if (!enabled)
                         maxLightPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                                StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_no_hardware));
                     maxLightPreference.setEnabled(enabled);
                 }
                 if (enabled) {
@@ -783,7 +795,7 @@ class EventPreferencesOrientation extends EventPreferences {
 
                             if (!OK) {
                                 PPApplication.showToast(_context.getApplicationContext(),
-                                        _context.getString(R.string.event_preferences_orientation_light_level_min) + ": " +
+                                        _context.getString(R.string.event_preferences_orientation_light_level_min) + StringConstants.STR_COLON_WITH_SPACE +
                                                 _context.getString(R.string.event_preferences_orientation_light_level_bad_value),
                                         Toast.LENGTH_SHORT);
                             }
@@ -814,7 +826,7 @@ class EventPreferencesOrientation extends EventPreferences {
 
                             if (!OK) {
                                 PPApplication.showToast(_context.getApplicationContext(),
-                                        _context.getString(R.string.event_preferences_orientation_light_level_max) + ": " +
+                                        _context.getString(R.string.event_preferences_orientation_light_level_max) + StringConstants.STR_COLON_WITH_SPACE +
                                                 _context.getString(R.string.event_preferences_orientation_light_level_bad_value),
                                         Toast.LENGTH_SHORT);
                             }
@@ -956,153 +968,164 @@ class EventPreferencesOrientation extends EventPreferences {
                         eventsHandler.notAllowedOrientation = true;
                 } else {
 //                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesOrientation.doHandleEvent", "******** ### ******* (2)");
-                    synchronized (PPApplication.orientationScannerMutex) {
-                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesServiceStatic.isOrientationScannerStarted()) {
-                            PPApplicationStatic.startHandlerThreadOrientationScanner();
-                            boolean lApplicationPassed = false;
-                            if (!_ignoredApplications.isEmpty()) {
-                                if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, true
-                                        /*, "EventPreferencesOrientation.doHandleEvent"*/)) {
-                                    String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
+
+                    boolean scanningPaused = ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("2") &&
+                            GlobalUtils.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo);
+
+                    if (!scanningPaused) {
+
+                        synchronized (PPApplication.orientationScannerMutex) {
+                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesServiceStatic.isOrientationScannerStarted()) {
+                                PPApplicationStatic.startHandlerThreadOrientationScanner();
+                                boolean lApplicationPassed = false;
+                                if (!_ignoredApplications.isEmpty()) {
+                                    if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, true
+                                            /*, "EventPreferencesOrientation.doHandleEvent"*/)) {
+                                        String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
 //                                    PPApplicationStatic.logE("EventPreferencesOrientation.doHandleEvent", "foregroundApplication="+foregroundApplication);
-                                    if (!foregroundApplication.isEmpty()) {
-                                        String[] splits = _ignoredApplications.split("\\|");
-                                        for (String split : splits) {
-                                            if (!split.isEmpty()) {
-                                                String packageName = Application.getPackageName(split);
+                                        if (!foregroundApplication.isEmpty()) {
+                                            String[] splits = _ignoredApplications.split(StringConstants.STR_SPLIT_REGEX);
+                                            for (String split : splits) {
+                                                if (!split.isEmpty()) {
+                                                    String packageName = Application.getPackageName(split);
 //                                                PPApplicationStatic.logE("EventPreferencesOrientation.doHandleEvent", "packageName="+packageName);
 
-                                                if (foregroundApplication.equals(packageName)) {
+                                                    if (foregroundApplication.equals(packageName)) {
 //                                                    PPApplicationStatic.logE("EventPreferencesOrientation.doHandleEvent", "lApplicationPassed=true");
-                                                    lApplicationPassed = true;
-                                                    break;
+                                                        lApplicationPassed = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    } else
+                                        eventsHandler.notAllowedOrientation = true;
+                                }
+                                if (!lApplicationPassed) {
+                                    boolean lDisplayPassed = false;
+                                    boolean lSidePassed = false;
+
+                                    boolean hasAccelerometer = PPApplication.accelerometerSensor != null;
+                                    boolean hasMagneticField = PPApplication.magneticFieldSensor != null;
+                                    boolean hasProximity = PPApplication.proximitySensor != null;
+                                    boolean hasLight = PPApplication.lightSensor != null;
+
+                                    boolean enabledAll = (hasAccelerometer) && (hasMagneticField);
+
+                                    boolean configuredDisplay = false;
+                                    if (hasAccelerometer) {
+                                        if (!_display.isEmpty()) {
+                                            String[] splits = _display.split(StringConstants.STR_SPLIT_REGEX);
+                                            if (splits.length > 0) {
+                                                configuredDisplay = true;
+                                                //lDisplayPassed = false;
+                                                for (String split : splits) {
+                                                    if (!split.isEmpty()) {
+                                                        try {
+                                                            int side = -1;
+                                                            try {
+                                                                side = Integer.parseInt(split);
+                                                            } catch (
+                                                                    NumberFormatException ignored) {
+                                                            }
+                                                            if (side > -1) {
+                                                                if (side == PPApplication.handlerThreadOrientationScanner.resultDisplayUp) {
+                                                                    lDisplayPassed = true;
+                                                                    break;
+                                                                }
+                                                            }
+                                                        } catch (Exception e) {
+                                                            PPApplicationStatic.recordException(e);
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
                                     }
+
+                                    boolean configuredSide = false;
+                                    if (enabledAll) {
+                                        if (!_sides.isEmpty()) {
+                                            String[] splits = _sides.split(StringConstants.STR_SPLIT_REGEX);
+                                            if (splits.length > 0) {
+                                                configuredSide = true;
+                                                //lSidePassed = false;
+                                                for (String split : splits) {
+                                                    if (!split.isEmpty()) {
+                                                        try {
+                                                            int side = -1;
+                                                            try {
+                                                                side = Integer.parseInt(split);
+                                                            } catch (
+                                                                    NumberFormatException ignored) {
+                                                            }
+                                                            if (side > -1) {
+                                                                if (side == OrientationScannerHandlerThread.DEVICE_ORIENTATION_HORIZONTAL) {
+                                                                    if (PPApplication.handlerThreadOrientationScanner.resultSideUp == PPApplication.handlerThreadOrientationScanner.resultDisplayUp) {
+                                                                        lSidePassed = true;
+                                                                        break;
+                                                                    }
+                                                                } else {
+                                                                    if (side == PPApplication.handlerThreadOrientationScanner.resultSideUp) {
+                                                                        lSidePassed = true;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                        } catch (Exception e) {
+                                                            PPApplicationStatic.recordException(e);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    boolean lDistancePassed = false;
+                                    boolean configuredDistance = false;
+                                    if (hasProximity) {
+                                        if (_distance != 0) {
+                                            configuredDistance = true;
+                                            lDistancePassed = _distance == PPApplication.handlerThreadOrientationScanner.resultDeviceDistance;
+                                        }
+                                    }
+
+                                    boolean lLightPassed = false;
+                                    boolean configuredLight = false;
+                                    if (hasLight) {
+                                        if (_checkLight) {
+                                            configuredLight = true;
+                                            int light = PPApplication.handlerThreadOrientationScanner.resultLight;
+                                            int min = Integer.parseInt(_lightMin);
+                                            int max = Integer.parseInt(_lightMax);
+                                            lLightPassed = (light >= min) && (light <= max);
+                                        }
+                                    }
+
+                                    if (configuredDisplay || configuredSide || configuredDistance || configuredLight) {
+                                        eventsHandler.orientationPassed = true;
+                                        if (configuredDisplay)
+                                            //noinspection ConstantConditions
+                                            eventsHandler.orientationPassed = eventsHandler.orientationPassed && lDisplayPassed;
+                                        if (configuredSide)
+                                            eventsHandler.orientationPassed = eventsHandler.orientationPassed && lSidePassed;
+                                        if (configuredDistance)
+                                            eventsHandler.orientationPassed = eventsHandler.orientationPassed && lDistancePassed;
+                                        if (configuredLight)
+                                            eventsHandler.orientationPassed = eventsHandler.orientationPassed && lLightPassed;
+                                    } else
+                                        eventsHandler.notAllowedOrientation = true;
+                                    //orientationPassed = lDisplayPassed || lSidePassed || lDistancePassed || lLightPassed;
                                 } else
                                     eventsHandler.notAllowedOrientation = true;
-                            }
-                            if (!lApplicationPassed) {
-                                boolean lDisplayPassed = false;
-                                boolean lSidePassed = false;
-
-                                boolean hasAccelerometer = PPApplication.accelerometerSensor != null;
-                                boolean hasMagneticField = PPApplication.magneticFieldSensor != null;
-                                boolean hasProximity = PPApplication.proximitySensor != null;
-                                boolean hasLight = PPApplication.lightSensor != null;
-
-                                boolean enabledAll = (hasAccelerometer) && (hasMagneticField);
-
-                                boolean configuredDisplay = false;
-                                if (hasAccelerometer) {
-                                    if (!_display.isEmpty()) {
-                                        String[] splits = _display.split("\\|");
-                                        if (splits.length > 0) {
-                                            configuredDisplay = true;
-                                            //lDisplayPassed = false;
-                                            for (String split : splits) {
-                                                if (!split.isEmpty()) {
-                                                    try {
-                                                        int side = -1;
-                                                        try {
-                                                            side = Integer.parseInt(split);
-                                                        } catch (NumberFormatException ignored) {
-                                                        }
-                                                        if (side > -1) {
-                                                            if (side == PPApplication.handlerThreadOrientationScanner.resultDisplayUp) {
-                                                                lDisplayPassed = true;
-                                                                break;
-                                                            }
-                                                        }
-                                                    } catch (Exception e) {
-                                                        PPApplicationStatic.recordException(e);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-                                boolean configuredSide = false;
-                                if (enabledAll) {
-                                    if (!_sides.isEmpty()) {
-                                        String[] splits = _sides.split("\\|");
-                                        if (splits.length > 0) {
-                                            configuredSide = true;
-                                            //lSidePassed = false;
-                                            for (String split : splits) {
-                                                if (!split.isEmpty()) {
-                                                    try {
-                                                        int side = -1;
-                                                        try {
-                                                            side = Integer.parseInt(split);
-                                                        } catch (NumberFormatException ignored) {
-                                                        }
-                                                        if (side > -1) {
-                                                            if (side == OrientationScannerHandlerThread.DEVICE_ORIENTATION_HORIZONTAL) {
-                                                                if (PPApplication.handlerThreadOrientationScanner.resultSideUp == PPApplication.handlerThreadOrientationScanner.resultDisplayUp) {
-                                                                    lSidePassed = true;
-                                                                    break;
-                                                                }
-                                                            } else {
-                                                                if (side == PPApplication.handlerThreadOrientationScanner.resultSideUp) {
-                                                                    lSidePassed = true;
-                                                                    break;
-                                                                }
-                                                            }
-                                                        }
-                                                    } catch (Exception e) {
-                                                        PPApplicationStatic.recordException(e);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-                                boolean lDistancePassed = false;
-                                boolean configuredDistance = false;
-                                if (hasProximity) {
-                                    if (_distance != 0) {
-                                        configuredDistance = true;
-                                        lDistancePassed = _distance == PPApplication.handlerThreadOrientationScanner.resultDeviceDistance;
-                                    }
-                                }
-
-                                boolean lLightPassed = false;
-                                boolean configuredLight = false;
-                                if (hasLight) {
-                                    if (_checkLight) {
-                                        configuredLight = true;
-                                        int light = PPApplication.handlerThreadOrientationScanner.resultLight;
-                                        int min = Integer.parseInt(_lightMin);
-                                        int max = Integer.parseInt(_lightMax);
-                                        lLightPassed = (light >= min) && (light <= max);
-                                    }
-                                }
-
-                                if (configuredDisplay || configuredSide || configuredDistance || configuredLight) {
-                                    eventsHandler.orientationPassed = true;
-                                    if (configuredDisplay)
-                                        //noinspection ConstantConditions
-                                        eventsHandler.orientationPassed = eventsHandler.orientationPassed && lDisplayPassed;
-                                    if (configuredSide)
-                                        eventsHandler.orientationPassed = eventsHandler.orientationPassed && lSidePassed;
-                                    if (configuredDistance)
-                                        eventsHandler.orientationPassed = eventsHandler.orientationPassed && lDistancePassed;
-                                    if (configuredLight)
-                                        eventsHandler.orientationPassed = eventsHandler.orientationPassed && lLightPassed;
-                                }
-                                else
-                                    eventsHandler.notAllowedOrientation = true;
-                                //orientationPassed = lDisplayPassed || lSidePassed || lDistancePassed || lLightPassed;
-                            } else
+                            } else {
                                 eventsHandler.notAllowedOrientation = true;
-                        } else {
-                            eventsHandler.notAllowedOrientation = true;
+                            }
                         }
-                    }
+                    } else
+                        eventsHandler.orientationPassed = false;
                 }
 
                 if (!eventsHandler.notAllowedOrientation) {

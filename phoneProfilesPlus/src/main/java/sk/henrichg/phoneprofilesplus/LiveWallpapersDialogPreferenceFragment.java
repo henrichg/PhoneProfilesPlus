@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.service.wallpaper.WallpaperService;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -29,6 +31,7 @@ public class LiveWallpapersDialogPreferenceFragment extends PreferenceDialogFrag
 
     private ListView listView;
     private LinearLayout linlaProgress;
+    RelativeLayout emptyList;
 
     private LiveWallpapersDialogPreferenceAdapter listAdapter;
 
@@ -51,6 +54,7 @@ public class LiveWallpapersDialogPreferenceFragment extends PreferenceDialogFrag
         super.onBindDialogView(view);
 
         listView = view.findViewById(R.id.live_wallpapers_pref_dlg_listview);
+        emptyList = view.findViewById(R.id.live_wallpapers_pref_dlg_empty);
         linlaProgress = view.findViewById(R.id.live_wallpapers_pref_dlg_linla_progress);
 
         listAdapter = new LiveWallpapersDialogPreferenceAdapter(prefContext, preference);
@@ -77,9 +81,9 @@ public class LiveWallpapersDialogPreferenceFragment extends PreferenceDialogFrag
             preference.resetSummary();
         }
 
-        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             asyncTask.cancel(true);
-        }
+        asyncTask = null;
 
         preference.fragment = null;
     }
@@ -147,7 +151,8 @@ public class LiveWallpapersDialogPreferenceFragment extends PreferenceDialogFrag
                                     new Intent(WallpaperService.SERVICE_INTERFACE),
                                     PackageManager.GET_META_DATA);
 
-                    for (int i = 0; i < availableWallpapersList.size(); i++) {
+                    int size = availableWallpapersList.size();
+                    for (int i = 0; i < size; i++) {
                         ResolveInfo wallpaperResInfo = availableWallpapersList.get(i);
 
                         WallpaperInfo info;
@@ -191,11 +196,23 @@ public class LiveWallpapersDialogPreferenceFragment extends PreferenceDialogFrag
             LiveWallpapersDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                preference.liveWallpapersList = new ArrayList<>(_wallpapersList);
-                fragment.listView.setAdapter(fragment.listAdapter);
-
                 fragment.linlaProgress.setVisibility(View.GONE);
-                fragment.listView.setVisibility(View.VISIBLE);
+
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
+                    fragment.listView.setVisibility(View.VISIBLE);
+
+                    preference.liveWallpapersList = new ArrayList<>(_wallpapersList);
+                    fragment.listView.setAdapter(fragment.listAdapter);
+
+                    if (preference.liveWallpapersList.size() == 0) {
+                        fragment.listView.setVisibility(View.GONE);
+                        fragment.emptyList.setVisibility(View.VISIBLE);
+                    } else {
+                        fragment.emptyList.setVisibility(View.GONE);
+                        fragment.listView.setVisibility(View.VISIBLE);
+                    }
+                });
             }
 
         }

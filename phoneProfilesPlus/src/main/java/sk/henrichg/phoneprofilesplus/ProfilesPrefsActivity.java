@@ -1,16 +1,18 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,13 +24,14 @@ import androidx.preference.PreferenceManager;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProfilesPrefsActivity extends AppCompatActivity {
 
     long profile_id = 0;
-    int newProfileMode = EditorProfileListFragment.EDIT_MODE_UNDEFINED;
+    int newProfileMode = PPApplication.EDIT_MODE_UNDEFINED;
     int predefinedProfileIndex = 0;
 
     private int resultCode = RESULT_CANCELED;
@@ -37,18 +40,23 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
-    public static final String PREF_START_TARGET_HELPS = "profile_preferences_activity_start_target_helps";
-    //public static final String PREF_START_TARGET_HELPS_SAVE = "profile_preferences_activity_start_target_helps_save";
-    //public static final String PREF_START_TARGET_HELPS_FINISHED = "profile_preferences_activity_start_target_helps_finished";
+    LinearLayout settingsLinearLayout;
+    LinearLayout progressLinearLayout;
+
+    private StartPreferencesActivityAsyncTask startPreferencesActivityAsyncTask = null;
+    private FinishPreferencesActivityAsyncTask finishPreferencesActivityAsyncTask = null;
+
+    private static final String BUNDLE_NEW_PROFILE_MODE = "newProfileMode";
+    private static final String BUNDLE_PREDEFINED_PROFILE_INDEX = "predefinedProfileIndex";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false, true);
+        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true);
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_preferences);
+        setContentView(R.layout.activity_profile_events_preferences);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         toolbar = findViewById(R.id.activity_preferences_toolbar);
@@ -60,44 +68,82 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
+        settingsLinearLayout = findViewById(R.id.activity_preferences_settings);
+        progressLinearLayout = findViewById(R.id.activity_preferences_settings_linla_progress);
+
         profile_id = getIntent().getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-        newProfileMode = getIntent().getIntExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
-        predefinedProfileIndex = getIntent().getIntExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+        newProfileMode = getIntent().getIntExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_UNDEFINED);
+        predefinedProfileIndex = getIntent().getIntExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
         if (getIntent().getBooleanExtra(DataWrapperStatic.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-            if (dataWrapper.getProfileById(profile_id, false, false, false) == null) {
+            boolean profileExists = dataWrapper.profileExists(profile_id);
+            dataWrapper.invalidateDataWrapper();
+            if (!profileExists) {
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.profile_preferences_profile_not_found),
                         Toast.LENGTH_SHORT);
+                PPApplication.blockContactContentObserver = false;
+                ContactsContentObserver.enqueueContactsContentObserverWorker();
                 super.finish();
                 return;
             }
         }
 
-        ProfilesPrefsFragment preferenceFragment = new ProfilesPrefsActivity.ProfilesPrefsRoot();
-
         if (savedInstanceState == null) {
-            loadPreferences(newProfileMode, predefinedProfileIndex);
+            PPApplication.blockContactContentObserver = true;
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.activity_preferences_settings, preferenceFragment)
-                    .commit();
+            startPreferencesActivityAsyncTask =
+                    new StartPreferencesActivityAsyncTask(this, newProfileMode, predefinedProfileIndex);
+            startPreferencesActivityAsyncTask.execute();
+
+            //loadPreferences(newProfileMode, predefinedProfileIndex);
+            //getSupportFragmentManager()
+            //        .beginTransaction()
+            //        .replace(R.id.activity_preferences_settings, preferenceFragment)
+            //        .commit();
         }
         else {
-            profile_id = savedInstanceState.getLong("profile_id", 0);
-            newProfileMode = savedInstanceState.getInt("newProfileMode", EditorProfileListFragment.EDIT_MODE_UNDEFINED);
-            predefinedProfileIndex = savedInstanceState.getInt("predefinedProfileIndex", 0);
+            profile_id = savedInstanceState.getLong(PPApplication.EXTRA_PROFILE_ID, 0);
+            newProfileMode = savedInstanceState.getInt(BUNDLE_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_UNDEFINED);
+            predefinedProfileIndex = savedInstanceState.getInt(BUNDLE_PREDEFINED_PROFILE_INDEX, 0);
 
-            showSaveMenu = savedInstanceState.getBoolean("showSaveMenu", false);
+            showSaveMenu = savedInstanceState.getBoolean(PPApplication.BUNDLE_SHOW_SAVE_MENU, false);
         }
     }
 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        PPApplication.blockContactContentObserver = false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        PPApplication.blockContactContentObserver = true;
+
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        //if (fragments == null)
+        //    return;
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof ContactsMultiSelectDialogPreferenceFragment) {
+                ContactsMultiSelectDialogPreferenceFragment dialogFragment =
+                        (ContactsMultiSelectDialogPreferenceFragment) fragment;
+                dialogFragment.dismiss();
+            }
+            if (fragment instanceof ContactGroupsMultiSelectDialogPreferenceFragment) {
+                ContactGroupsMultiSelectDialogPreferenceFragment dialogFragment =
+                        (ContactGroupsMultiSelectDialogPreferenceFragment) fragment;
+                dialogFragment.dismiss();
+            }
+        }
     }
 
     @Override
@@ -170,9 +216,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     getString(R.string.alert_button_no),
                     null, null,
                     (dialog1, which) -> {
-                        savePreferences(newProfileMode, predefinedProfileIndex);
-                        resultCode = RESULT_OK;
-                        finish();
+                        finishPreferencesActivityAsyncTask =
+                                new FinishPreferencesActivityAsyncTask(this, newProfileMode, predefinedProfileIndex);
+                        finishPreferencesActivityAsyncTask.execute();
+
+                        //savePreferences(newProfileMode, predefinedProfileIndex);
+                        //resultCode = RESULT_OK;
+                        //finish();
                     },
                     (dialog2, which) -> finish(),
                     null,
@@ -203,9 +253,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         }
         else
         if (itemId == R.id.profile_preferences_save) {
-            savePreferences(newProfileMode, predefinedProfileIndex);
-            resultCode = RESULT_OK;
-            finish();
+            finishPreferencesActivityAsyncTask =
+                    new FinishPreferencesActivityAsyncTask(this, newProfileMode, predefinedProfileIndex);
+            finishPreferencesActivityAsyncTask.execute();
+
+            //savePreferences(newProfileMode, predefinedProfileIndex);
+            //resultCode = RESULT_OK;
+            //finish();
             return true;
         }
         else
@@ -235,22 +289,39 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
-        savedInstanceState.putLong("profile_id", profile_id);
-        savedInstanceState.putInt("newProfileMode", newProfileMode);
-        savedInstanceState.putInt("predefinedProfileIndex", predefinedProfileIndex);
+        savedInstanceState.putLong(PPApplication.EXTRA_PROFILE_ID, profile_id);
+        savedInstanceState.putInt(BUNDLE_NEW_PROFILE_MODE, newProfileMode);
+        savedInstanceState.putInt(BUNDLE_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
 
-        savedInstanceState.putBoolean("showSaveMenu", showSaveMenu);
+        savedInstanceState.putBoolean(PPApplication.BUNDLE_SHOW_SAVE_MENU, showSaveMenu);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if ((startPreferencesActivityAsyncTask != null) &&
+                startPreferencesActivityAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            startPreferencesActivityAsyncTask.cancel(true);
+        startPreferencesActivityAsyncTask = null;
+        if ((finishPreferencesActivityAsyncTask != null) &&
+                finishPreferencesActivityAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            finishPreferencesActivityAsyncTask.cancel(true);
+        finishPreferencesActivityAsyncTask = null;
     }
 
     @Override
     public void finish() {
+        PPApplication.blockContactContentObserver = false;
+        ContactsContentObserver.enqueueContactsContentObserverWorker();
+
         // for startActivityForResult
         Intent returnIntent = new Intent();
         returnIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile_id);
-        returnIntent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, newProfileMode);
-        returnIntent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
-        returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, Permissions.grantRootChanged);
-        Permissions.grantRootChanged = false;
+        returnIntent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, newProfileMode);
+        returnIntent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
+        returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, PPApplication.grantRootChanged);
+        PPApplication.grantRootChanged = false;
         setResult(resultCode,returnIntent);
 
         super.finish();
@@ -264,13 +335,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         if (!leaveSaveMenu)
             showSaveMenu = false;
 
-        if (new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT)
+        if (new_profile_mode == PPApplication.EDIT_MODE_INSERT)
         {
             // create new profile
             if (predefinedProfileIndex == 0) {
                 profile = DataWrapperStatic.getNonInitializedProfile(
                         getBaseContext().getString(R.string.profile_name_default),
-                        Profile.PROFILE_ICON_DEFAULT, 0);
+                        StringConstants.PROFILE_ICON_DEFAULT, 0);
             }
             else {
                 profile = dataWrapper.getPredefinedProfile(predefinedProfileIndex-1, false, getBaseContext());
@@ -279,7 +350,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             showSaveMenu = true;
         }
         else
-        if (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE)
+        if (new_profile_mode == PPApplication.EDIT_MODE_DUPLICATE)
         {
             // duplicate profile
             Profile origProfile = dataWrapper.getProfileById(profile_id, false, false, false);
@@ -335,14 +406,14 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._hideStatusBarIcon,
                         origProfile._lockDevice,
                         origProfile._deviceConnectToSSID,
-                        origProfile._applicationDisableWifiScanning,
-                        origProfile._applicationDisableBluetoothScanning,
+                        origProfile._applicationEnableWifiScanning,
+                        origProfile._applicationEnableBluetoothScanning,
                         origProfile._durationNotificationSound,
                         origProfile._durationNotificationVibrate,
                         origProfile._deviceWiFiAPPrefs,
-                        origProfile._applicationDisableLocationScanning,
-                        origProfile._applicationDisableMobileCellScanning,
-                        origProfile._applicationDisableOrientationScanning,
+                        origProfile._applicationEnableLocationScanning,
+                        origProfile._applicationEnableMobileCellScanning,
+                        origProfile._applicationEnableOrientationScanning,
                         origProfile._headsUpNotifications,
                         origProfile._deviceForceStopApplicationChange,
                         origProfile._deviceForceStopApplicationPackageName,
@@ -360,13 +431,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._screenOnPermanent,
                         origProfile._volumeMuteSound,
                         origProfile._deviceLocationMode,
-                        origProfile._applicationDisableNotificationScanning,
+                        origProfile._applicationEnableNotificationScanning,
                         origProfile._generateNotification,
                         origProfile._cameraFlash,
                         origProfile._deviceNetworkTypeSIM1,
                         origProfile._deviceNetworkTypeSIM2,
-                        origProfile._deviceMobileDataSIM1,
-                        origProfile._deviceMobileDataSIM2,
+                        //origProfile._deviceMobileDataSIM1,
+                        //origProfile._deviceMobileDataSIM2,
                         origProfile._deviceDefaultSIMCards,
                         origProfile._deviceOnOffSIM1,
                         origProfile._deviceOnOffSIM2,
@@ -386,11 +457,18 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._deviceVPNSettingsPrefs,
                         origProfile._endOfActivationType,
                         origProfile._endOfActivationTime,
-                        origProfile._applicationDisablePeriodicScanning,
+                        origProfile._applicationEnablePeriodicScanning,
                         origProfile._deviceVPN,
                         origProfile._vibrationIntensityRinging,
                         origProfile._vibrationIntensityNotifications,
-                        origProfile._vibrationIntensityTouchInteraction
+                        origProfile._vibrationIntensityTouchInteraction,
+                        origProfile._volumeMediaChangeDuringPlay,
+                        origProfile._applicationWifiScanInterval,
+                        origProfile._applicationBluetoothScanInterval,
+                        origProfile._applicationBluetoothLEScanDuration,
+                        origProfile._applicationLocationScanInterval,
+                        origProfile._applicationOrientationScanInterval,
+                        origProfile._applicationPeriodicScanInterval
                 );
                 showSaveMenu = true;
             }
@@ -400,16 +478,18 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         else
             profile = dataWrapper.getProfileById(profile_id, false, false, false);
 
+        dataWrapper.invalidateDataWrapper();
         return profile;
     }
 
-    private void loadPreferences(int new_profile_mode, int predefinedProfileIndex) {
+    private Profile loadPreferences(int new_profile_mode, int predefinedProfileIndex) {
         Profile profile = createProfile(profile_id, new_profile_mode, predefinedProfileIndex, false);
         if (profile == null)
-            profile = createProfile(profile_id, EditorProfileListFragment.EDIT_MODE_INSERT, predefinedProfileIndex, false);
+            profile = createProfile(profile_id, PPApplication.EDIT_MODE_INSERT, predefinedProfileIndex, false);
 
         if (profile != null)
         {
+            /*
             // must be used handler for rewrite toolbar title/subtitle
             final String profileName = profile._name;
             Handler handler = new Handler(getMainLooper());
@@ -417,12 +497,15 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePrefsActivity.loadPreferences");
                 //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
                 //toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
-                toolbar.setTitle(getString(R.string.profile_string_0) + ": " + profileName);
+                toolbar.setTitle(getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profileName);
             }, 200);
+            */
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             profile.saveProfileToSharedPreferences(preferences);
         }
+
+        return profile;
     }
 
     Profile getProfileFromPreferences(long profile_id, int new_profile_mode, int predefinedProfileIndex) {
@@ -458,7 +541,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             profile._soundRingtoneChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, ""));
             String toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE, "");
-            String[] splits = toneString.split("\\|");
+            String[] splits = toneString.split(StringConstants.STR_SPLIT_REGEX);
             //Uri soundUri = Uri.parse(splits[0]);
             /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundRingtone = splits[0]+"|1";
@@ -467,7 +550,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
-            splits = toneString.split("\\|");
+            splits = toneString.split(StringConstants.STR_SPLIT_REGEX);
             //soundUri = Uri.parse(splits[0]);
             /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundNotification = splits[0]+"|1";
@@ -476,7 +559,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM, "");
-            splits = toneString.split("\\|");
+            splits = toneString.split(StringConstants.STR_SPLIT_REGEX);
             //soundUri = Uri.parse(splits[0]);
             /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundAlarm = splits[0]+"|1";
@@ -523,12 +606,12 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._vibrateNotifications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, ""));
             profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, ""));
             profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, "");
-            profile._applicationDisableWifiScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, ""));
-            profile._applicationDisableBluetoothScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, ""));
+            profile._applicationEnableWifiScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING, ""));
+            profile._applicationEnableBluetoothScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING, ""));
             profile._deviceWiFiAPPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, ""));
-            profile._applicationDisableLocationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, ""));
-            profile._applicationDisableMobileCellScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, ""));
-            profile._applicationDisableOrientationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, ""));
+            profile._applicationEnableLocationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING, ""));
+            profile._applicationEnableMobileCellScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING, ""));
+            profile._applicationEnableOrientationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING, ""));
             profile._headsUpNotifications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, ""));
             profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, ""));
             if (profile._deviceForceStopApplicationChange == 1)
@@ -547,19 +630,19 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._screenOnPermanent = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, ""));
             profile._volumeMuteSound = preferences.getBoolean(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, false);
             profile._deviceLocationMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, ""));
-            profile._applicationDisableNotificationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, ""));
+            profile._applicationEnableNotificationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING, ""));
             profile._generateNotification = preferences.getString(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, "");
             profile._cameraFlash = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, ""));
             profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, ""));
             profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, ""));
-            profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, ""));
-            profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, ""));
+            //profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, ""));
+            //profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, ""));
             profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "");
             profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, ""));
             profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, ""));
             profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1, "");
-            splits = toneString.split("\\|");
+            splits = toneString.split(StringConstants.STR_SPLIT_REGEX);
             //Uri soundUri = Uri.parse(splits[0]);
             /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundRingtoneSIM1 = splits[0]+"|1";
@@ -567,7 +650,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._soundRingtoneSIM1 = splits[0];//+"|0";
             profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, "");
-            splits = toneString.split("\\|");
+            splits = toneString.split(StringConstants.STR_SPLIT_REGEX);
             //soundUri = Uri.parse(splits[0]);
             /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundNotificationSIM1 = splits[0]+"|1";
@@ -575,7 +658,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._soundNotificationSIM1 = splits[0];//+"|0";
             profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2, "");
-            splits = toneString.split("\\|");
+            splits = toneString.split(StringConstants.STR_SPLIT_REGEX);
             //Uri soundUri = Uri.parse(splits[0]);
             /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundRingtoneSIM2 = splits[0]+"|1";
@@ -583,7 +666,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._soundRingtoneSIM2 = splits[0];//+"|0";
             profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, "");
-            splits = toneString.split("\\|");
+            splits = toneString.split(StringConstants.STR_SPLIT_REGEX);
             //soundUri = Uri.parse(splits[0]);
             /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundNotificationSIM2 = splits[0]+"|1";
@@ -592,11 +675,18 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._soundSameRingtoneForBothSIMCards = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, ""));
             profile._applicationDisableGloabalEventsRun = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, ""));
             profile._deviceVPNSettingsPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, ""));
-            profile._applicationDisablePeriodicScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, ""));
+            profile._applicationEnablePeriodicScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING, ""));
             profile._deviceVPN = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN, "");
             profile._vibrationIntensityRinging = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, "");
             profile._vibrationIntensityNotifications = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, "");
             profile._vibrationIntensityTouchInteraction = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, "");
+            profile._volumeMediaChangeDuringPlay = preferences.getBoolean(Profile.PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY, false);
+            profile._applicationWifiScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL, ""));
+            profile._applicationBluetoothScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL, ""));
+            profile._applicationBluetoothLEScanDuration = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION, ""));
+            profile._applicationLocationScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, ""));
+            profile._applicationOrientationScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, ""));
+            profile._applicationPeriodicScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, ""));
         }
 
         return profile;
@@ -608,15 +698,15 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         if (profile != null) {
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
-            Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-            if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+            long activatedProfileId = dataWrapper.getActivatedProfileId();
+            if (activatedProfileId == profile._id) {
                 // set alarm for profile duration
                 ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, getApplicationContext());
                 //Profile.setActivatedProfileForDuration(getApplicationContext(), profile._id);
             }
 
-            if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
-                    (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE)) {
+            if ((new_profile_mode == PPApplication.EDIT_MODE_INSERT) ||
+                    (new_profile_mode == PPApplication.EDIT_MODE_DUPLICATE)) {
                 PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_ADDED, null, profile._name, "");
 
                 // add profile into DB
@@ -636,13 +726,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
                     }
                     else {
-                        if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+                        if (activatedProfileId == profile._id) {
                             dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null, true);
                         }
                     }
                 }
                 else {
-                    if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+                    if (activatedProfileId == profile._id) {
                         dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null, true);
                     }
                 }
@@ -652,11 +742,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
 
     private void showTargetHelps() {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         //String applicationTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
 
         if (!showSaveMenu)
@@ -664,7 +749,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         if (ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-            editor.putBoolean(PREF_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_PROFILES_PREFS_ACTIVITY_START_TARGET_HELPS, false);
             editor.apply();
             ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps = false;
 
@@ -785,157 +870,116 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         }
     }
 
-//--------------------------------------------------------------------------------------------------
+    private static class StartPreferencesActivityAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-    static public class ProfilesPrefsRoot extends ProfilesPrefsFragment {
+        final int new_profile_mode;
+        final int predefinedProfileIndex;
 
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_root, rootKey);
-        }
-    }
+        Profile profile;
 
-    static public class ProfilesPrefsActivationDuration extends ProfilesPrefsFragment {
+        //private final WeakReference<ProfilesPrefsActivity> activityWeakReference;
+        @SuppressLint("StaticFieldLeak")
+        private ProfilesPrefsActivity activity;
+        private ProfilesPrefsFragment fragment;
 
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_activation_duration, rootKey);
-        }
-
-    }
-
-    static public class ProfilesPrefsSoundProfiles extends ProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_sound_profile, rootKey);
+        public StartPreferencesActivityAsyncTask(final ProfilesPrefsActivity activity,
+                                                  int new_profile_mode, int predefinedProfileIndex) {
+            //this.activityWeakReference = new WeakReference<>(activity);
+            this.activity = activity;
+            this.new_profile_mode = new_profile_mode;
+            this.predefinedProfileIndex = predefinedProfileIndex;
         }
 
-    }
-
-    static public class ProfilesPrefsVolumes extends ProfilesPrefsFragment {
-
         @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_volumes, rootKey);
+        protected void onPreExecute() {
+            super.onPreExecute();
+            fragment = new ProfilesPrefsRoot();
+
+            //ProfilesPrefsActivity activity = activityWeakReference.get();
+
+            //if (activity != null) {
+            //    activity.settingsLinearLayout.setVisibility(View.GONE);
+            //    activity.progressLinearLayout.setVisibility(View.VISIBLE);
+            //}
         }
 
-    }
-
-    static public class ProfilesPrefsSounds extends ProfilesPrefsFragment {
-
         @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_sounds, rootKey);
+        protected Void doInBackground(Void... params) {
+            //ProfilesPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+//                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".doInBackground");
+                profile = activity.loadPreferences(new_profile_mode, predefinedProfileIndex);
+                //GlobalUtils.sleep(100);
+            }
+
+            return null;
         }
 
-    }
-
-    static public class ProfilesPrefsTouchEffects extends ProfilesPrefsFragment {
-
         @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_touch_effects, rootKey);
-        }
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
 
-    }
+            //ProfilesPrefsActivity activity = activityWeakReference.get();
 
-    static public class ProfilesPrefsRadios extends ProfilesPrefsFragment {
+            if ((activity != null) && (!activity.isFinishing())) {
+//                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".onPostExecute");
 
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_radios, rootKey);
-        }
+                activity.toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name);
 
-    }
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.activity_preferences_settings, fragment)
+                        .commit();
 
-    static public class ProfilesPrefsScreen extends ProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_screen, rootKey);
+                //activity.progressLinearLayout.setVisibility(View.GONE);
+                //activity.settingsLinearLayout.setVisibility(View.VISIBLE);
+            }
+            activity = null;
         }
 
     }
 
-    static public class ProfilesPrefsApplication extends ProfilesPrefsFragment {
+    private static class FinishPreferencesActivityAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        final int new_profile_mode;
+        final int predefinedProfileIndex;
+
+        private final WeakReference<ProfilesPrefsActivity> activityWeakReference;
+
+        public FinishPreferencesActivityAsyncTask(final ProfilesPrefsActivity activity,
+                                                  int new_profile_mode, int predefinedProfileIndex) {
+            this.activityWeakReference = new WeakReference<>(activity);
+            this.new_profile_mode = new_profile_mode;
+            this.predefinedProfileIndex = predefinedProfileIndex;
+        }
 
         @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_application, rootKey);
+        protected Void doInBackground(Void... params) {
+            ProfilesPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+//                Log.e("ProfilesPrefsActivity.FinishPreferencesActivityAsyncTask", ".doInBackground");
+                activity.savePreferences(new_profile_mode, predefinedProfileIndex);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            ProfilesPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+//                Log.e("ProfilesPrefsActivity.FinishPreferencesActivityAsyncTask", ".onPostExecute");
+
+                activity.resultCode = RESULT_OK;
+                activity.finish();
+            }
         }
 
     }
 
-    static public class ProfilesPrefsOthers extends ProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_others, rootKey);
-        }
-
-    }
-
-    static public class ProfilesPrefsForceStopApplications extends ProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_force_stop, rootKey);
-        }
-
-    }
-
-    static public class ProfilesPrefsLockDevice extends ProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_lock_device, rootKey);
-        }
-
-    }
-
-    static public class ProfilesPrefsLedAccessories extends ProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_led_accessories, rootKey);
-        }
-
-    }
-
-    static public class ProfilesPrefsRadiosDualSIMSupport extends ProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_radios_dual_sim_support, rootKey);
-        }
-
-    }
-
-    static public class ProfilesPrefsSoundsDualSIMSupport extends ProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_sounds_dual_sim_support, rootKey);
-        }
-
-    }
-
-    static public class ProfilesPrefsWallpaper extends ProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_wallpaper, rootKey);
-        }
-
-    }
-
-    static public class ProfilesPrefsVibrationIntensity  extends ProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_vibration_intensity, rootKey);
-        }
-
-    }
 }

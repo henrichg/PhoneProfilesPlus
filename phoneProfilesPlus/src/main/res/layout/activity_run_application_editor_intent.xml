@@ -358,7 +358,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_toStartOf = "@id/application_editor_intent_category_btn"
                     android:textSize="16sp"
-                    android:text="@string/empty_string"
+                    android:text=""
                     android:hint="@string/application_editor_intent_hint_not_selected" />
             </RelativeLayout>
 
@@ -409,7 +409,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_toStartOf = "@id/application_editor_intent_flags_btn"
                     android:textSize="16sp"
-                    android:text="@string/empty_string"
+                    android:text=""
                     android:hint="@string/application_editor_intent_hint_not_selected" />
             </RelativeLayout>
 

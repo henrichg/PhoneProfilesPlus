@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--  Single List Item Design -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/act_prof_list_item_root"
     android:layout_width="match_parent"
     android:layout_height="60dp"
@@ -14,8 +14,7 @@
         android:id="@+id/act_prof_list_item_profile_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
         android:layout_marginStart="7dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/profile_preferences_profileIcon"
@@ -26,12 +25,11 @@
         android:id="@+id/act_prof_list_item_profile_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/act_prof_list_item_profile_icon"
+        android:layout_gravity="center_vertical"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         android:text="@string/profile_name_default"
         android:textSize="16sp"/>
 
-</RelativeLayout>
+</LinearLayout>
 

@@ -39,15 +39,19 @@ class RunApplicationEditorDialogAdapter extends RecyclerView.Adapter<RunApplicat
         holder.bindApplication(application, position);
     }
 
-    @SuppressWarnings("unused")
+    /** @noinspection unused*/
     @NonNull
     @Override
     public String getSectionName(int position) {
         Application application = dialog.applicationList.get(position);
         /*if (application.checked)
             return "*";
-        else*/
-            return application.appLabel.substring(0, 1);
+        else {*/
+            if (application.appLabel.length() == 0)
+                return "?";
+            else
+                return application.appLabel.substring(0, 1);
+        //}
     }
 
     @Override

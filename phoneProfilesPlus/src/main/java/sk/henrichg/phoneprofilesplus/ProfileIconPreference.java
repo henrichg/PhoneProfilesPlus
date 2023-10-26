@@ -39,6 +39,8 @@ public class ProfileIconPreference extends DialogPreference {
     ImageView dialogIcon;
     final Context prefContext;
 
+    private UpdateIconAsyncTask updateIconAsyncTask = null;
+
     static final int RESULT_LOAD_IMAGE = 1971;
 
     //private static final String PREF_SHOW_HELP = "profile_icon_pref_show_help";
@@ -56,7 +58,7 @@ public class ProfileIconPreference extends DialogPreference {
             R.styleable.ProfileIconPreference_iconSource);
         */
 
-        imageIdentifier = Profile.PROFILE_ICON_DEFAULT;
+        imageIdentifier = StringConstants.PROFILE_ICON_DEFAULT;
         isImageResourceID = true;
         useCustomColor = false;
         customColor = 0;
@@ -85,6 +87,16 @@ public class ProfileIconPreference extends DialogPreference {
         return a.getString(index);  // icon is returned as string
     }
 
+    @Override
+    public void onDetached() {
+        super.onDetached();
+//        Log.e("ProfileIconPreference.onDetached", "xxxxxxxxxxxx");
+        if ((updateIconAsyncTask != null) &&
+                updateIconAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            updateIconAsyncTask.cancel(true);
+        updateIconAsyncTask = null;
+    }
+
     Bitmap getBitmap() {
         int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
         int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
@@ -92,11 +104,11 @@ public class ProfileIconPreference extends DialogPreference {
     }
 
     void getValuePIDP() {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         try {
             imageIdentifier = splits[0];
         } catch (Exception e) {
-            imageIdentifier = Profile.PROFILE_ICON_DEFAULT;
+            imageIdentifier = StringConstants.PROFILE_ICON_DEFAULT;
         }
         try {
             isImageResourceID = splits[1].equals("1");
@@ -165,11 +177,11 @@ public class ProfileIconPreference extends DialogPreference {
             useCustomColor = false;
             customColor = 0;
         }
-        String[] splits = newValue.split("\\|");
+        String[] splits = newValue.split(StringConstants.STR_SPLIT_REGEX);
         try {
             imageIdentifier = splits[0];
         } catch (Exception e) {
-            imageIdentifier = Profile.PROFILE_ICON_DEFAULT;
+            imageIdentifier = StringConstants.PROFILE_ICON_DEFAULT;
         }
         try {
             isImageResourceID = splits[1].equals("1");
@@ -221,9 +233,8 @@ public class ProfileIconPreference extends DialogPreference {
             //    intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.setType("image/*");
+            intent.setType(StringConstants.MIME_TYPE_IMAGE);
 
-            //if (Build.VERSION.SDK_INT >= 26) {
                 boolean ok = false;
                 if (!isImageResourceID) {
                     try {
@@ -246,7 +257,6 @@ public class ProfileIconPreference extends DialogPreference {
                     } catch (Exception ignored) {
                     }
                 }
-            //}
 
             // is not possible to get activity from preference, used is static method
             //ProfilesPrefsFragment.setChangedProfileIconPreference(this);
@@ -259,7 +269,7 @@ public class ProfileIconPreference extends DialogPreference {
                 intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                intent.setType("image/*");
+                intent.setType(StringConstants.MIME_TYPE_IMAGE);
 
                 // is not possible to get activity from preference, used is static method
                 ProfilesPrefsFragment.setChangedProfileIconPreference(this);
@@ -269,7 +279,8 @@ public class ProfileIconPreference extends DialogPreference {
     }
 
     void updateIcon(final boolean inDialog) {
-        new UpdateIconAsyncTask(inDialog, this, prefContext).execute();
+        updateIconAsyncTask = new UpdateIconAsyncTask(inDialog, this, prefContext);
+        updateIconAsyncTask.execute();
     }
 
     void dismissDialog() {

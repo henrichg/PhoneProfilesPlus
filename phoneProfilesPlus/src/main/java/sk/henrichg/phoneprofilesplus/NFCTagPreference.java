@@ -56,7 +56,7 @@ public class NFCTagPreference extends DialogPreference {
     }
 
     private void setSummary() {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         for (String _tag : splits) {
             if (_tag.isEmpty()) {
                 setSummary(R.string.applications_multiselect_summary_text_not_selected);
@@ -81,7 +81,7 @@ public class NFCTagPreference extends DialogPreference {
     }*/
 
     void addNfcTag(String tagName) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         boolean found = false;
         for (String tag : splits) {
             if (tag.equals(tagName)) {
@@ -97,7 +97,7 @@ public class NFCTagPreference extends DialogPreference {
     }
 
     void removeNfcTag(String tagName) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         value = "";
         StringBuilder _value = new StringBuilder();
         for (String tag : splits) {
@@ -116,7 +116,7 @@ public class NFCTagPreference extends DialogPreference {
     }
 
     boolean isNfcTagSelected(String tagName) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         for (String tag : splits) {
             if (tag.equals(tagName))
                 return true;
@@ -141,24 +141,6 @@ public class NFCTagPreference extends DialogPreference {
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(prefContext);
         if (!nfcAdapter.isEnabled()) {
             if (fragment != null) {
-                /*
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-                dialogBuilder.setTitle(R.string.nfc_tag_pref_dlg_menu_writeToNfcTag);
-                dialogBuilder.setMessage(R.string.nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled);
-                dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
-                */
-
                 PPAlertDialog dialog = new PPAlertDialog(
                         prefContext.getString(R.string.nfc_tag_pref_dlg_menu_writeToNfcTag),
                         prefContext.getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled),

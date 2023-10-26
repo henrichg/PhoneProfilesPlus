@@ -7,92 +7,82 @@
 
 <h1 id="changelog">PhoneProfilesPlus Seznam změn</h1>
 
-<h2 id="version2">Verze: 6.2</h2>
+<h2 id="version2">Verze: 6.3</h2>
 
 <ul>
-    <li>Added new widget: "One row profile list".</li>
-    <li>Added new notification: "Profile list".</li>
-    <li>Change: Minimal supported Android version: 8.0.</li>
-    <li>Change: Initial support for Android 14.</li>
-    <li>Change: Changes in some GUI layouts</li>
-    <li>Change: "Settings" menu as submenu and in it "Settings", "Application theme", "Choose language".</li>
-    <li>Change: Added "Toggle ..." values for profile parameter "Location mode".</li>
-    <li>Change: Info preference for List widget "Compact grid". Changed from exclamation to info icon.</li>
-    <li>Change: Editor title: "Profiles", "Events" moved from filter to title.</li>
-    <li>Change: Added info preferences about "Profile icon and preferences indicator color type" into "Notification panel - profile icon" and "Notificaiton panel - preferences indicator" categories.</li>
-    <li>Change: Do not log "Restart events" when restart events is not called.</li>
-    <li>Change: Force rounded corners in widgets for MIUI13 (Android 12).</li>
-    <li>Change: Do not change media volume when is music active.</li>
-    <li>Change: Added info preference into profile preferences about Media volume not working in background for OnePlus devices.</li>
-    <li>Change: Added help in "Connect to SSID" profile parameter dialog, about what is displayed in this dialog.</li>
-    <li>Change: Added info for "Alarm volume" into profile preferences.</li>
-    <li>Change: Added preferences for PPPPutSettings (install, upgrade, launch) into profile preferences.</li>
-    <li>Change: Replaced 3 Extender preferences with one special preference for PhonePProfilesPlusExtender (install, upgrade, set accesiibility, launch) in profile and event preferences.</li>
-    <li>Change: Added check for new PPPPS releases.</li>
-    <li>Change: Force hide header and bottom bar in Editor in landscape orientation.</li>
-    <li>Change: Added info preferences about Edge panel not working in tablets, Z Folds.</li>
-    <li>Change: Added Icon and One row widget parameter "Fill whole space with background".</li>
-    <li>Change: Better accessibilty in GUI.</li>
-    <li>Change: Popup menus in Editor lists changed to single list dialogs.</li>
+    <li>Add: New event sensor: "Brightness sensor"</li>
+    <li>Add: Added "Change media volume while playing music" into profile preferences.</li>
+    <li>Add: Added volumes "...To" parameters into "Volumes sensor".</li>
+    <li>Add: Added "Actual brightness", "Actual volume" button into Brightness, Volume dialog.</li>
+    <li>Add: Added "PPP icon" into "Generate notification" profile parameter.</li>
+    <li>Add: Added parameters into "Generate notification": "Replace with PPP icon", "Show large icon".</li>
+    <li>Add: Added "Scanning interval" parameter in profile "Application functions".</li>
+    <li>Add: Added "Shortcut to Mobile cell scanning" into "Mobile cell scanning" app settings.</li>
+    <li>Add: Added parameter which hide not used sensors in event preferences.</li>
+    <li>Change: Mobile cells sensor - changed cell ids with cell names.</li>
     <li>Change: Decreased memory consumption.</li>
-    <li>Change: Added "Delete all unselected" into item menu for "Mobile cells" preference.</li>
-    <li>Change: Change of set/get ringtone in dual SIM.</li>
-    <li>Change: Changes in Wi-Fi and Bluetooth scanning.</li>
-    <li>Change: Added support of dual SIM tones for OnePlus.</li>
-    <li>Change: Added info preference for "Folder of image" in "Change wallpaper" profile preference.</li>
-    <li>Change: Dual SIM - change ringtone, notification tone - added "why" string for not granted Phone permission.</li>
-    <li>Change: Speaker On/Off - added check of Android version.</li>
-    <li>Change: Speed-up of check of sim cars in dual SIM support.</li>
-    <li>Change: Added custom ACRA e-mail sender for Extender and PPPPutSettings.</li>
-    <li>Change: Disable Profile List notification from lockscreen.</li>
-    <li>Change: Changes about generation of predefined profile and events.</li>
-    <li>Change: Maybe fixed displayed wrong alarm clock time in quick tile.</li>
-    <li>Change: Added note about enable accessibility service in Android 13+.</li>
-    <li>Change: Changes in Extender about restricted settings for Android 13+.</li>
-    <li>Change: Workaround for ongoing notification, which can be clear in Android 14+.</li>
-    <li>Change: Generated notification form profile - start PPP launcher instead of Editor.</li>
-    <li>Change: Generated notification form profile - redraw it when update GUI is called.</li>
-    <li>Change: Generated notification form profile - redraw it after profile parameter changed.</li>
-    <li>Change: Added info about "Unsafe app blocked" dialog into dialog for installation of PPPPS.</li>
-    <li>Change: Display only contacts with phone numbers in "Call sensor", "SMS/MMS sensor".</li>
-    <li>Change: Added display of account name for Contacts preferences dialog.</li>
-    <li>Change: Do not call not used Workers.</li>
-    <li>Change: Removed support for PhoneProfiles.</li>
-    <li>Change: Removed support of pause event from Tasker.</li>
-    <li>Change: Removed old, not more used support for profile activation from Tasker.</li>
-    <li>Change: Refresh dynamic shortcuts after delete of quick tile.</li>
-    <li>Change: Changed required versions of Extender and PPPPS.</li>
-    <li>Change: Added licenses for modules.</li>
-    <li>Change: Removed Google Play relevant informations from README.md.</li>
-    <li>Change: Added into README.md how ot install PPP from PC.</li>
-    <li>Change: Added PPPE and PPPPS GitHub url into README.md.</li>
-    <li>Change: Fixes in some GUI layouts</li>
-    <li>Change: Fixed not working language change in some GUI elements.</li>
-    <li>Change: Fixed bad display of duration in multiline when duration ends.</li>
-    <li>Change: Fixed "Generate notification" dialog enable/disable state of its views.</li>
-    <li>Change: Fixed detection of ringing and notification merge state.</li>
-    <li>Change: Fixed play notification even when system sound node is silent.</li>
-    <li>Change: Fixed detection of missed calls notification in "Notification sensor" for new MIUI.</li>
-    <li>Change: Fixes for Bluetooth LE scanning.</li>
-    <li>Change: Fixes for "Custom wallpaper from folder".</li>
-    <li>Change: Fixed background color for EditText Copy/Paste popup.</li>
-    <li>Change: Fixed test of dual SIM support.</li>
-    <li>Change: Fixed "Radio switch" sensor when device has not hardware.</li>
-    <li>Change: Fixed ACRA custom e-mail sender not working in Android 10+.</li>
-    <li>Change: Fixed mobile cells registration channel parameters.</li>
-    <li>Change: Fixed not working send e-mails with attachments in Android 14, in devices with only GMail installed.</li>
-    <li>Change: Fixed bad animation when Editor is started form Activator (Android 14).</li>
-    <li>Fix: Fixed bug for get delay start of Intent in "Run applications, shortcuts, intents".</li>
-    <li>Fix: bad working order handle in Editor profile list.</li>
-    <li>Fix: Maybe fixed not working update of Samsung edge panel.</li>
-    <li>Fix: Fixed not displayed header on Editor list scroll when item count is close to list height.</li>
-    <li>Fix: Fixed not working start of activities from background.</li>
-    <li>Fix: Maybe fixed bad working tap target in Activator.</li>
-    <li>Fix: Do not redraw profile list notification, when is disabled.</li>
-    <li>Fix: Small fixes in generating profile icon and indicators.</li>
-    <li>Fix: Maybe fixed BT disconnect in BT sensor.</li>
-    <li>Fix: Fixed check for sensor types in EventsHandler.</li>
-    <li>Fix: Fixed not displayed notification about Autostart not enabled.</li>
+    <li>Change: Decreased battery consumption.</li>
+    <li>Change: Decreased overdraw in GUI.</li>
+    <li>Change: New required PPPE and PPPPS versions.</li>
+    <li>Change: Changed installation of PPPPutSettings for Android 14+.</li>
+    <li>Change: Show info about "Unsafe app blocked" in PPPPutSettings install dialog for all Android versions.</li>
+    <li>Change: Show Important info notification at first start after first installation.</li>
+    <li>Change: Removed "Application interface"/"Launch from home screen", replaced with "Shortcut to Editor".</li>
+    <li>Change: Removed all relevant for dual sim support of mobile data. Not needed.</li>
+    <li>Change: Maybe fixed mobile data switch.</li>
+    <li>Change: Fixed Always-On display. Working in more devices.</li>
+    <li>Change: Fixed not working "Vibrate when ringing" for OnePlus.</li>
+    <li>Change: Added "Install PPPPutSetings" for "Vibrate when ringing" in Xiaomi devices.</li>
+    <li>Change: Maybe fixed displayed dialog about not set location by system, when is location configured in profile.</li>
+    <li>Change: Notification sensor: fixed disabling sensor parameters.</li>
+    <li>Change: Fixes in Wi-Fi, Bluetooth sensor.</li>
+    <li>Change: Increased default value for "Bluetooth LE scan duration".</li>
+    <li>Change: Better support of app icon in Nova Launcher.</li>
+    <li>Change: Display directly PPP service notification settings from "Additional settings in app", when "Profile list notification" is not enabled.</li>
+    <li>Change: Added displaying, if scanning is paused (configured is "... scan in time") and also block sensor handlers which these scanners using.</li>
+    <li>Change" Removed "Start on boot" parameter. Exit app disable start on boot.</li>
+    <li>Change: Do not add, into bounded devices and scan result, BT devices without name.</li>
+    <li>Change: Fixed BT sensor event handler for detected BT devices with empty name.</li>
+    <li>Change: Profile parameter "Generated notification": displayed is special dialog after click of notification.</li>
+    <li>Change: Added grant root into "Type of preferences" info dialog.</li>
+    <li>Change: Changes in Location preference. Less usage of database.</li>
+    <li>Change: Maybe fixed call, sms, notification sensor, when contacts are synchronized.</li>
+    <li>Change: Encrypt contacts in call, sms, notification sensor for backup.</li>
+    <li>Change: Added encryption of contacts for backup.</li>
+    <li>Change: Added sensors with contacts into delete secure data export dialog.</li>
+    <li>Change: Do not start Editor at first start after installation.</li>
+    <li>Change: Display Privacy policy from Activator at first start after installation.</li>
+    <li>Change: Added splash screen for Editor activity.</li>
+    <li>Change: Added "More compact" into Icon widget.</li>
+    <li>Change: Better circular progress bar.</li>)
+    <li>Change: Progress bar for refresh in all related preferences.</li>
+    <li>Change: "Activity log": added top line (---) into log list.</li>
+    <li>Change: Added mark row for top of list, text about added new logs into "Activity log".</li>
+    <li>Change: Better "empty list". Changed with image.</li>
+    <li>Change: Circular contact icon in contacts dialog.</li>
+    <li>Change: GUI changes and fixes.</li>
+    <li>Change: Added note about installation of PPP, PPPE. PPPPS from downloaded apk.</li>
+    <li>Change: Added info for "Restricted settings" about PPP installed from downloaded apk.</li>
+    <li>Change: Added info about "Restricted settings" into "Notification scanning".</li>
+    <li>Change: Use Droid-ify instead download from GitHub for Android 13+.</li>
+    <li>Change: Mark installed stores in "Check app. releases" menu.</li>
+    <li>Change: Changed README.md about PPP installation.</li>
+    <li>Change: Added "Project Map" - https://sourcespy.com/github/henrichgphoneprofilesplus/ into README.md</li>
+    <li>Change: Added "Number of downloads by version" into README.md</li>
+    <li>Fix: Removed Edge panel tag form manifest.</li>
+    <li>Fix: Fixed exponential brightness for Xiaomi devices.</li>
+    <li>Fix: Fixed generation of notification even when profile is not activated and notification is not displayed.</li>
+    <li>Fix: Fixed selector for MIUI 14. Used are no-ripple themes.</li>
+    <li>Fix: Fixed ripple list item and popup menu item selector.</li>
+    <li>Fix: Fixed bad working check of "preference allowed" for vibration intensity.</li>
+    <li>Fix: Fixed exception in CustomACRAReportingAdministrator.</li>
+    <li>Fix: Fixed vibration in playNotificationSound().</li>
+    <li>Fix: Fixed detection of volume link-unlink</li>
+    <li>Fix: Fixed freeze of scrolling of event list In Editor and Add event dialog.</li>
+    <li>Fix: Fixed not displayed permission reason string for Airplane mode, when is used option which requires Assistant.</li>
+    <li>Fix: Fixed bad working "Radio switch sensor" for Bluetooth.</li>
+    <li>Fix: Bad displayed icons in profile multiselect preference, when is set more then one icon.</li>
+    <li>Fix: Fixed bad displayed profile icons and indicators in shortcut and tile chooser activities.</li>
 </ul>
 
 <ul>
@@ -104,7 +94,7 @@
 </ul>
 
 <p>
-    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.2">Informace o vydání na GitHub.</a>
+    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.3">Informace o vydání na GitHub.</a>
 </p>
 
 </body>

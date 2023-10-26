@@ -39,7 +39,7 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CheckOnlineStatusBroadcastReceiver_onReceive");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_CheckOnlineStatusBroadcastReceiver_onReceive);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -65,7 +65,7 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
 
 
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] CheckOnlineStatusBroadcastReceiver.onReceive", "xxx");
-        Intent _intent = new Intent(PPApplication.PACKAGE_NAME + ".LocationGeofenceEditorOnlineStatusBroadcastReceiver");
+        Intent _intent = new Intent(LocationGeofenceEditorActivityOSM.ACTION_LOCATION_GEOFENCE_EDITOR_ONLINE_STATUS_BROADCAST_RECEIVER);
         LocalBroadcastManager.getInstance(context.getApplicationContext()).sendBroadcast(_intent);
     }
 

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_icon_root"
+    android:layout_width="@dimen/icon_widget_height_highest"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="?android:attr/colorBackground"
+    android:theme="@style/Theme.Material3.DynamicColors.DayNight"
+    tools:ignore="Overdraw">
+
+    <ImageView
+        android:id="@+id/widget_icon_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:scaleType="fitXY"
+        android:src="@drawable/rounded_widget_background_5"
+        android:tint="?android:attr/colorBackground"
+        android:visibility="gone"
+        tools:ignore="ContentDescription,UseAppTint" />
+
+    <LinearLayout
+        android:id="@+id/icon_widget_relLa1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/widget_ripple_background"
+        android:weightSum = "2"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/icon_widget_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:maxWidth="78dp"
+            android:maxHeight="78dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="3dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_profile_default"
+            android:contentDescription="@string/profile_preferences_profileIcon"/>
+
+        <TextView
+            android:id="@+id/icon_widget_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="3dp"
+            android:paddingEnd="3dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMaxTextSize="@dimen/auto_size_max_text_size"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/profile_name_default"
+            android:maxLines="2"
+            android:ellipsize="end"
+            tools:ignore="SpUsage" />
+<!--        android:textColor="?android:attr/textColorPrimary"-->
+
+    </LinearLayout>
+
+<!--    <ImageView-->
+<!--        android:id="@+id/widget_icon_not_rounded_border"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:gravity="center"-->
+<!--        android:scaleType="fitXY"-->
+<!--        android:src="@drawable/not_rounded_widget_border"-->
+<!--        android:visibility="gone"-->
+<!--        tools:ignore="ContentDescription" />-->
+
+    <ImageView
+        android:id="@+id/widget_icon_rounded_border"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:scaleType="fitXY"
+        android:src="@drawable/rounded_widget_border_5"
+        android:tint="?android:attr/textColorSecondary"
+        android:visibility="gone"
+        tools:ignore="ContentDescription,UseAppTint" />
+
+</FrameLayout>
+

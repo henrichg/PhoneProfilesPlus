@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
@@ -32,6 +33,9 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     private SeekBar seekBar = null;
     private TextView valueText = null;
     //private CheckBox sharedProfileChBox = null;
+    private Button actualVolumeBtn = null;
+
+    private MediaPlayer mediaPlayer = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -72,7 +76,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                         preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
                     else if (preference.volumeType.equalsIgnoreCase("DTMF"))
                         preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-                    else if ((Build.VERSION.SDK_INT >= 26) && preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
+                    else if (preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
                         preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
                     else if (preference.volumeType.equalsIgnoreCase("BLUETOOTHSCO"))
                         preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
@@ -96,6 +100,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         return inflater.inflate(R.layout.dialog_volume_preference, null, false);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
@@ -104,7 +109,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         operatorSpinner = view.findViewById(R.id.volumePrefDialogVolumesSensorOperator);
 
         if (preference.forVolumesSensor == 1) {
-            GlobalGUIRoutines.HighlightedSpinnerAdapter voiceSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+            HighlightedSpinnerAdapter voiceSpinnerAdapter = new HighlightedSpinnerAdapter(
                     (EventsPrefsActivity) context,
                     R.layout.spinner_highlighted,
                     getResources().getStringArray(R.array.volumesSensorOperatorArray));
@@ -123,6 +128,8 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         seekBar.setProgress(preference.value);
 
         valueText.setText(String.valueOf(preference.value/* + preference.minimumValue*/));
+
+        actualVolumeBtn = view.findViewById(R.id.volumePrefDialogActualVolume);
 
         if (preference.forVolumesSensor == 0) {
             operatorSpinner.setVisibility(View.GONE);
@@ -158,10 +165,12 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         if (preference.forVolumesSensor == 0) {
             valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
             seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+            actualVolumeBtn.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
         }
         else {
             valueText.setEnabled(preference.sensorOperator != 0);
             seekBar.setEnabled(preference.sensorOperator != 0);
+            actualVolumeBtn.setEnabled(preference.sensorOperator != 0);
         }
 
         seekBar.setOnSeekBarChangeListener(this);
@@ -172,6 +181,21 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         else
             operatorSpinner.setOnItemSelectedListener(this);
         //sharedProfileChBox.setOnCheckedChangeListener(this);
+
+        int actualVolume = preference.actualVolume;
+        actualVolumeBtn.setText(getString(R.string.volume_pref_dialog_actual_volume) +
+                                    StringConstants.STR_COLON_WITH_SPACE + actualVolume);
+        actualVolumeBtn.setOnClickListener(v -> {
+            preference.value = actualVolume;
+
+            // Set the valueText text.
+            valueText.setText(String.valueOf(preference.value));
+
+            seekBar.setProgress(preference.value);
+
+            preference.callChangeListener(preference.getSValue());
+        });
+
     }
 
     @Override
@@ -197,23 +221,23 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
             //AudioManager audioManager = audioManagerWeakRef.get();
 
             //if ((appContext != null) && (audioManager != null)) {
-                if (preference.defaultValueMusic != -1)
-                    ActivateProfileHelper.setMediaVolume(appContext, audioManager, preference.defaultValueMusic, true, false);
+                if (preference.usedValueMusic != -1)
+                    ActivateProfileHelper.setMediaVolume(appContext, audioManager, preference.usedValueMusic, true, false);
                 if (preference.oldMediaMuted) {
-                    EventPreferencesVolumes.internalChange = true;
+                    PPApplication.volumesInternalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                     PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
                 }
-                if (VolumeDialogPreference.mediaPlayer != null) {
+                if (mediaPlayer != null) {
                     try {
-                        if (VolumeDialogPreference.mediaPlayer.isPlaying())
-                            VolumeDialogPreference.mediaPlayer.stop();
+                        if (mediaPlayer.isPlaying())
+                            mediaPlayer.stop();
                     } catch (Exception e) {
                         //PPApplicationStatic.recordException(e);
                     }
                     try {
-                        VolumeDialogPreference.mediaPlayer.release();
+                        mediaPlayer.release();
                     } catch (Exception e) {
                         //PPApplicationStatic.recordException(e);
                     }
@@ -235,6 +259,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
 
                 valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
                 seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+                actualVolumeBtn.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
 
                 //if (isChecked)
                 //    sharedProfileChBox.setChecked(false);
@@ -291,7 +316,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
             }
 
             if (preference.oldMediaMuted && (preference.audioManager != null)) {
-                EventPreferencesVolumes.internalChange = true;
+                PPApplication.volumesInternalChange = true;
                 preference.audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                 PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
@@ -313,15 +338,15 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
 
                 //if ((appContext != null) && (audioManager != null)) {
 
-                    if (VolumeDialogPreference.mediaPlayer != null) {
+                    if (mediaPlayer != null) {
                         try {
-                            if (VolumeDialogPreference.mediaPlayer.isPlaying())
-                                VolumeDialogPreference.mediaPlayer.stop();
+                            if (mediaPlayer.isPlaying())
+                                mediaPlayer.stop();
                         } catch (Exception e) {
                             //PPApplicationStatic.recordException(e);
                         }
                         try {
-                            VolumeDialogPreference.mediaPlayer.release();
+                            mediaPlayer.release();
                         } catch (Exception e) {
                             //PPApplicationStatic.recordException(e);
                         }
@@ -331,57 +356,57 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                         if (preference.volumeType.equalsIgnoreCase("RINGTONE")) {
                             Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
                             if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
-                                VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                                mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
                             else
-                                VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
+                                mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
                         } else if (preference.volumeType.equalsIgnoreCase("NOTIFICATION")) {
                             Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION);
                             if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.NOTIFICATION_TONE_URI_NONE)))
-                                VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                                mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
                             else
-                                VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
+                                mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
                         } else if (preference.volumeType.equalsIgnoreCase("MEDIA")) {
                             Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
                             if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
-                                VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                                mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
                             else
-                                VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
+                                mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
                         } else if (preference.volumeType.equalsIgnoreCase("ALARM")) {
                             Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM);
                             if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.ALARM_TONE_URI_NONE)))
-                                VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                                mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
                             else
-                                VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
+                                mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
                         } else if (preference.volumeType.equalsIgnoreCase("SYSTEM"))
-                            VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                            mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
                         else if (preference.volumeType.equalsIgnoreCase("VOICE")) {
                             Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
                             if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
-                                VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                                mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
                             else
-                                VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
+                                mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
                         } else if (preference.volumeType.equalsIgnoreCase("DTMF"))
-                            VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
-                        else if (/*(Build.VERSION.SDK_INT >= 26) &&*/ preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
-                            VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                            mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                        else if (preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
+                            mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
                         else if (preference.volumeType.equalsIgnoreCase("BLUETOOTHSCO")) {
                             Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
                             if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
-                                VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                                mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
                             else
-                                VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
+                                mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
                         } else
-                            VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                            mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
 
-                        if (VolumeDialogPreference.mediaPlayer != null) {
+                        if (mediaPlayer != null) {
                             AudioAttributes attrs = new AudioAttributes.Builder()
                                     .setUsage(AudioAttributes.USAGE_MEDIA)
                                     .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                                     .build();
-                            VolumeDialogPreference.mediaPlayer.setAudioAttributes(attrs);
+                            mediaPlayer.setAudioAttributes(attrs);
                             //preference.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-                            VolumeDialogPreference.mediaPlayer.start();
+                            mediaPlayer.start();
                         }
                     } catch (Exception e) {
                         //Log.e("VolumeDialogPreferenceFragment.onStopTrackingTouch", Log.getStackTraceString(e));
@@ -403,12 +428,13 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (preference.forVolumesSensor == 1) {
-            ((GlobalGUIRoutines.HighlightedSpinnerAdapter)operatorSpinner.getAdapter()).setSelection(position);
+            ((HighlightedSpinnerAdapter)operatorSpinner.getAdapter()).setSelection(position);
 
             preference.sensorOperator = Integer.parseInt(preference.operatorValues[position]);
 
             valueText.setEnabled(preference.sensorOperator != 0);
             seekBar.setEnabled(preference.sensorOperator != 0);
+            actualVolumeBtn.setEnabled(preference.sensorOperator != 0);
 
             preference.callChangeListener(preference.getSValue());
         }

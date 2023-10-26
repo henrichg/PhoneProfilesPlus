@@ -58,10 +58,11 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/widget_profile_list_header_profile_root"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_toStartOf="@id/widget_profile_list_header_restart_events_click"
                 android:layout_centerVertical="true"
                 android:layout_alignParentStart="true"
@@ -73,8 +74,7 @@
                     android:id="@+id/widget_profile_list_header_profile_icon"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/profile_preferences_profileIcon"
@@ -86,8 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@id/widget_profile_list_header_profile_icon" >
+                    android:layout_gravity="center_vertical" >
 
                     <TextView
                         android:id="@+id/widget_profile_list_header_profile_name"
@@ -114,14 +113,14 @@
                         android:scaleType="fitStart"
                         android:src="@drawable/ic_empty"
                         android:visibility="gone"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
+                        android:paddingStart="@dimen/profile_name_widget_margin"
+                        android:paddingEnd="@dimen/profile_name_widget_margin"
                         tools:ignore="UseAppTint" />
 <!--                    android:tint="?android:attr/colorPrimaryDark"-->
 
                 </LinearLayout>
 
-            </RelativeLayout>
+            </LinearLayout>
 
         </RelativeLayout>
 
@@ -169,14 +168,14 @@
 
      </LinearLayout>
 
-    <ImageView
-        android:id="@+id/widget_profile_list_not_rounded_border"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/not_rounded_widget_border"
-        android:visibility="gone"
-        tools:ignore="ContentDescription" />
+<!--    <ImageView-->
+<!--        android:id="@+id/widget_profile_list_not_rounded_border"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:scaleType="fitXY"-->
+<!--        android:src="@drawable/not_rounded_widget_border"-->
+<!--        android:visibility="gone"-->
+<!--        tools:ignore="ContentDescription" />-->
 
     <ImageView
         android:id="@+id/widget_profile_list_rounded_border"

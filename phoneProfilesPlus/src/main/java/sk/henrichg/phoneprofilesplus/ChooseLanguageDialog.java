@@ -59,14 +59,14 @@ class ChooseLanguageDialog
         help = layout.findViewById(R.id.choose_language_dlg_help);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
-            ChooseLanguageAdapter.ViewHolder viewHolder = (ChooseLanguageAdapter.ViewHolder) item.getTag();
+            ChooseLanguageViewHolder viewHolder = (ChooseLanguageViewHolder) item.getTag();
             if (viewHolder != null)
                 viewHolder.radioButton.setChecked(true);
             doOnItemSelected(position);
         });
 
         String str1 = activity.getString(R.string.about_application_translations);
-        String str2 = str1 + " " + PPApplication.CROWDIN_URL + "\u00A0»»";
+        String str2 = str1 + " " + PPApplication.CROWDIN_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
         Spannable sbt = new SpannableString(str2);
         //sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -109,7 +109,7 @@ class ChooseLanguageDialog
 
         for (String languageValue : languageValues) {
             Language language = new Language();
-            if (languageValue.equals("[sys]")) {
+            if (languageValue.equals(LocaleHelper.LANG_SYS)) {
                 language.language = languageValue;
                 language.country = "";
                 language.script = "";
@@ -146,14 +146,16 @@ class ChooseLanguageDialog
         languages.sort(new LanguagesComparator());
 
         final String[] languageNameChoices = new String[languages.size()];
-        for(int i = 0; i < languages.size(); i++) languageNameChoices[i] = languages.get(i).name;
+        int size = languages.size();
+        for(int i = 0; i < size; i++) languageNameChoices[i] = languages.get(i).name;
 
         if (LocaleHelper.getIsSetSystemLanguage(activity.getApplicationContext())) {
             activity.selectedLanguage = 0;
 //            Log.e("ChooseLanguageDialog.doShow", "is set system languauge");
         } else {
 //            Log.e("ChooseLanguageDialog.doShow", "is NOT set system languauge");
-            for (int i = 0; i < languages.size(); i++) {
+            size = languages.size();
+            for (int i = 0; i < size; i++) {
                 Language language = languages.get(i);
                 String sLanguage = language.language;
                 String country = language.country;

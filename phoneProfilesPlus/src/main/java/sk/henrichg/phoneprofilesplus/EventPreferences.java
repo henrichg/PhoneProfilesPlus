@@ -76,29 +76,29 @@ abstract class EventPreferences {
             int sensorPassed = getSensorPassedFromDB(eventType, context);
             if (/*(!Event.getGlobalEventsRunning()) ||*/ (sensorPassed & SENSOR_PASSED_WAITING) == SENSOR_PASSED_WAITING) {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_WAITING, context);
-                String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-                return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[&nbsp;"+sensorTitle+"&nbsp;]");
+                String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
+                return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, "["+StringConstants.CHAR_HARD_SPACE_HTML+sensorTitle+StringConstants.CHAR_HARD_SPACE_HTML+"]");
             }
             if ((sensorPassed & SENSOR_PASSED_PASSED) == SENSOR_PASSED_PASSED) {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_PASSED, context);
-                String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-                return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[&nbsp;»&nbsp;"+sensorTitle+"&nbsp;]");
+                String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
+                return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, "["+StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_ARROW +StringConstants.CHAR_HARD_SPACE_HTML+sensorTitle+StringConstants.CHAR_HARD_SPACE_HTML+"]");
             }
             else {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_NOT_PASSED, context);
-                String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-                return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[&nbsp;"+sensorTitle+"&nbsp;]");
+                String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
+                return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, "["+StringConstants.CHAR_HARD_SPACE_HTML+sensorTitle+StringConstants.CHAR_HARD_SPACE_HTML+"]");
             }
         } else {
-            return "[&nbsp;" + sensorTitle + "&nbsp;]";//+":";
+            return "["+StringConstants.CHAR_HARD_SPACE_HTML + sensorTitle + StringConstants.CHAR_HARD_SPACE_HTML+"]";//+":";
         }
     }
 
     String getColorForChangedPreferenceValue(String preferenceValue, boolean disabled, Context context) {
         if (!disabled) {
             int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
-            String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-            return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, preferenceValue);
+            String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
+            return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, preferenceValue);
         } else
             return preferenceValue;
     }
@@ -111,7 +111,6 @@ abstract class EventPreferences {
 
     //abstract void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context);
 
-    @SuppressWarnings("unused")
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context)
     {
     }

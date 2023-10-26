@@ -6,12 +6,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -29,6 +31,7 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
     private ListView listView = null;
     private LinearLayout linlaProgress;
     private LinearLayout rellaData;
+    RelativeLayout emptyList;
 
     private CalendarsMultiSelectPreferenceAdapter listAdapter;
 
@@ -65,6 +68,7 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
         linlaProgress = view.findViewById(R.id.calendars_multiselect_pref_dlg_linla_progress);
         rellaData = view.findViewById(R.id.calendars_multiselect_pref_dlg_rella_data);
         listView = view.findViewById(R.id.calendars_multiselect_pref_dlg_listview);
+        emptyList = view.findViewById(R.id.calendars_multiselect_pref_dlg_empty);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
             CalendarEvent calendar = (CalendarEvent)listAdapter.getItem(position);
@@ -79,8 +83,14 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
             refreshListView(false);
         });
 
-        if (Permissions.grantCalendarDialogPermissions(prefContext))
-            refreshListView(true);
+        if (Permissions.grantCalendarDialogPermissions(prefContext)) {
+            if (preference.calendarList != null)
+                preference.calendarList.clear();
+            if (listAdapter != null)
+                listAdapter.notifyDataSetChanged();
+            final Handler handler = new Handler(prefContext.getMainLooper());
+            handler.postDelayed(() -> refreshListView(true), 200);
+        }
 
     }
 
@@ -93,9 +103,9 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
             preference.resetSummary();
         }
 
-        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             asyncTask.cancel(true);
-        }
+        asyncTask = null;
 
         preference.fragment = null;
     }
@@ -112,7 +122,7 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
 
         //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","value="+value);
         //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","calendarList.size()="+calendarList.size());
-        String[] splits = preference.value.split("\\|");
+        String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
         for (CalendarEvent calendar : _calendarList)
         {
             calendar.checked = false;
@@ -238,18 +248,30 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
             CalendarsMultiSelectDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                preference.calendarList = new ArrayList<>(_calendarList);
-                //Log.d("CalendarsMultiSelectDialogPreference.refreshListView","calendarList.size()="+calendarList.size());
+                fragment.linlaProgress.setVisibility(View.GONE);
 
-                if (fragment.listAdapter == null) {
-                    fragment.listAdapter = new CalendarsMultiSelectPreferenceAdapter(prefContext, preference.calendarList);
-                    fragment.listView.setAdapter(fragment.listAdapter);
-                } else
-                    fragment.listAdapter.setCalendarList(preference.calendarList);
-                if (notForUnselect) {
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
                     fragment.rellaData.setVisibility(View.VISIBLE);
-                    fragment.linlaProgress.setVisibility(View.GONE);
-                }
+
+                    preference.calendarList = new ArrayList<>(_calendarList);
+                    //Log.d("CalendarsMultiSelectDialogPreference.refreshListView","calendarList.size()="+calendarList.size());
+
+                    if (fragment.listAdapter == null) {
+                        fragment.listAdapter = new CalendarsMultiSelectPreferenceAdapter(prefContext, preference.calendarList);
+                        fragment.listView.setAdapter(fragment.listAdapter);
+                    } else
+                        fragment.listAdapter.setCalendarList(preference.calendarList);
+                    if (notForUnselect) {
+                        if (preference.calendarList.size() == 0) {
+                            fragment.listView.setVisibility(View.GONE);
+                            fragment.emptyList.setVisibility(View.VISIBLE);
+                        } else {
+                            fragment.emptyList.setVisibility(View.GONE);
+                            fragment.listView.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
             }
         }
 

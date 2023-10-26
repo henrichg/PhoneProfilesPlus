@@ -4,11 +4,10 @@
     app:title="@string/profile_preferences_category_sound_profile"
     app:key="prf_pref_soundProfileCategory" >
 
-    <Preference
+    <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="prf_pref_volumeIgnoreSoundModeInfo1"
         app:title="@string/profile_preferences_volumeIgnoreSoundModeInfo_title"
         app:summary="@string/profile_preferences_volumeIgnoreSoundModeInfo_summary"
-        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_volumeSoundMode"
@@ -40,10 +39,11 @@
         app:ppEntries="@array/vibrateWhenRingingArray"
         app:ppEntryValues="@array/vibrateWhenRingingValues"
         app:layout="@layout/mp_preference_material_widget" />
-<!--    <sk.henrichg.phoneprofilesplus.PPPPSDialogPreference-->
-<!--        app:title="@string/pppps_pref_dialog_title"-->
-<!--        app:summary="@string/empty_string"-->
-<!--        app:key="prf_pref_soundProfilePPPPS"-->
-<!--        app:layout="@layout/mp_preference_material_widget" />-->
+
+    <sk.henrichg.phoneprofilesplus.PPPPSDialogPreference
+        app:title="@string/pppps_pref_dialog_title"
+        app:summary=""
+        app:key="prf_pref_soundProfilePPPPS"
+        app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

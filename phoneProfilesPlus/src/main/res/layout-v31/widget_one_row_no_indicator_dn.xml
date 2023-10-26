@@ -27,6 +27,7 @@
         android:paddingEnd="0dp"
         android:layout_gravity="center">
 
+        <!-- must be RelativeLayout for best vertical center -->
         <RelativeLayout
             android:id="@+id/widget_one_row_header_restart_events_click"
             android:layout_width="55dp"
@@ -51,10 +52,11 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/widget_one_row_header_profile_root"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_toStartOf="@id/widget_one_row_header_restart_events_click"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
@@ -66,7 +68,7 @@
                 android:id="@+id/widget_one_row_header_profile_icon"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/profile_preferences_profileIcon"
                 android:scaleType="fitCenter"
@@ -76,8 +78,7 @@
                 android:id="@+id/widget_one_row_header_profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/widget_one_row_header_profile_icon"
+                android:layout_gravity="center_vertical"
                 android:paddingStart="@dimen/profile_name_widget_margin"
                 android:paddingEnd="@dimen/profile_name_widget_margin"
                 android:text="@string/profile_name_default"
@@ -88,18 +89,18 @@
                 tools:ignore="SpUsage" />
 <!--            android:textColor="?android:attr/textColorPrimary"-->
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/widget_one_row_not_rounded_border"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/not_rounded_widget_border"
-        android:visibility="gone"
-        tools:ignore="ContentDescription" />
+<!--    <ImageView-->
+<!--        android:id="@+id/widget_one_row_not_rounded_border"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:scaleType="fitXY"-->
+<!--        android:src="@drawable/not_rounded_widget_border"-->
+<!--        android:visibility="gone"-->
+<!--        tools:ignore="ContentDescription" />-->
 
     <ImageView
         android:id="@+id/widget_one_row_rounded_border"

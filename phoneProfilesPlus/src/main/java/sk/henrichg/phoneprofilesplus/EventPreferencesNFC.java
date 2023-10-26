@@ -11,6 +11,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 class EventPreferencesNFC extends EventPreferences {
@@ -25,7 +26,7 @@ class EventPreferencesNFC extends EventPreferences {
     private static final String PREF_EVENT_NFC_PERMANENT_RUN = "eventNFCPermanentRun";
     private static final String PREF_EVENT_NFC_DURATION = "eventNFCDuration";
 
-    private static final String PREF_EVENT_NFC_CATEGORY = "eventNFCCategoryRoot";
+    static final String PREF_EVENT_NFC_CATEGORY = "eventNFCCategoryRoot";
 
     EventPreferencesNFC(Event event,
                                boolean enabled,
@@ -71,23 +72,23 @@ class EventPreferencesNFC extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_nfc_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_nfc_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + "<b>";
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_nfc), addPassStatus, DatabaseHandler.ETYPE_NFC, context);
-                    descr = descr + "</b> ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_nfc), addPassStatus, DatabaseHandler.ETYPE_NFC, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
-                descr = descr + context.getString(R.string.event_preferences_nfc_nfcTags) + ": ";
+                _value.append(context.getString(R.string.event_preferences_nfc_nfcTags)).append(StringConstants.STR_COLON_WITH_SPACE);
                 String selectedNfcTags;// = "";
                 StringBuilder value = new StringBuilder();
-                String[] splits = this._nfcTags.split("\\|");
+                String[] splits = this._nfcTags.split(StringConstants.STR_SPLIT_REGEX);
                 for (String _tag : splits) {
                     if (_tag.isEmpty()) {
                         //selectedNfcTags = selectedNfcTags + context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -104,15 +105,15 @@ class EventPreferencesNFC extends EventPreferences {
                     }
                 }
                 selectedNfcTags = value.toString();
-                descr = descr + "<b>" + getColorForChangedPreferenceValue(selectedNfcTags, disabled, context) + "</b> • ";
+                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedNfcTags, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
                 if (this._permanentRun)
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 else
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
+                    _value.append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
@@ -135,7 +136,7 @@ class EventPreferencesNFC extends EventPreferences {
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_NFC_DURATION);
             if (preference != null) {
-                preference.setEnabled(value.equals("false"));
+                preference.setEnabled(value.equals(StringConstants.FALSE_STRING));
             }
         }
         if (key.equals(PREF_EVENT_NFC_DURATION)) {
@@ -173,7 +174,7 @@ class EventPreferencesNFC extends EventPreferences {
         if (key.equals(PREF_EVENT_NFC_ENABLED) ||
             key.equals(PREF_EVENT_NFC_PERMANENT_RUN)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
         if (key.equals(PREF_EVENT_NFC_NFC_TAGS) ||
             key.equals(PREF_EVENT_NFC_DURATION))
@@ -225,7 +226,7 @@ class EventPreferencesNFC extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_NFC_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -245,6 +246,7 @@ class EventPreferencesNFC extends EventPreferences {
     @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context)
     {
+        super.checkPreferences(prefMng, onlyCategory, context);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_NFC_ENABLED) != null) {
@@ -364,12 +366,7 @@ class EventPreferencesNFC extends EventPreferences {
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     }
                     else {
-                        //if (android.os.Build.VERSION.SDK_INT >= 23)
-                            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                        //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                        //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                        //else
-                        //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                     }
                 }
             }
@@ -382,7 +379,7 @@ class EventPreferencesNFC extends EventPreferences {
 
             boolean tagFound = false;
 
-            String[] splits = this._nfcTags.split("\\|");
+            String[] splits = this._nfcTags.split(StringConstants.STR_SPLIT_REGEX);
             for (String tag : splits) {
                 if (tag.equals(tagName)) {
                     tagFound = true;
@@ -420,10 +417,10 @@ class EventPreferencesNFC extends EventPreferences {
                     Calendar now = Calendar.getInstance();
                     long nowAlarmTime = now.getTimeInMillis();
 
-                    if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_NFC_TAG)
+                    if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_NFC_TAG))
                         eventsHandler.nfcPassed = true;
                     else if (!_permanentRun) {
-                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_NFC_EVENT_END)
+                        if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_NFC_EVENT_END))
                             eventsHandler.nfcPassed = false;
                         else
                             eventsHandler.nfcPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

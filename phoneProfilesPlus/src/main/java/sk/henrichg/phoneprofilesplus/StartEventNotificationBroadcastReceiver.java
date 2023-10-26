@@ -85,6 +85,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                         .putLong(PPApplication.EXTRA_EVENT_ID, event._id)
                         .build();
 
+//                PPApplicationStatic.logE("[MAIN_WORKER_CALL] StartEventNotificationBroadcastReceiver.setAlarm", "xxxxxxxxxxxxxxxxxxxx");
+
                 /*int keepResultsDelay = (event._repeatNotificationIntervalStart * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
@@ -146,12 +148,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                 } else {
                     long alarmTime = SystemClock.elapsedRealtime() + event._repeatNotificationIntervalStart * 1000L;
 
-                    //if (android.os.Build.VERSION.SDK_INT >= 23)
-                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    //else
-                    //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                 }
             }
         }
@@ -180,7 +177,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":StartEventNotificationBroadcastReceiver_doWork");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_StartEventNotificationBroadcastReceiver_doWork);
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 

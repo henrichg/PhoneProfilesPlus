@@ -3,11 +3,10 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
@@ -26,11 +25,6 @@ class LocationScanner
 
     final Context context;
     //private final DataWrapper dataWrapper;
-
-    static volatile boolean useGPS = true; // must be static
-    static volatile boolean mUpdatesStarted = false; // must be static
-
-    static volatile boolean mTransitionsUpdated = false;
 
     static final int INTERVAL_DIVIDE_VALUE = 6;
     static final int INTERVAL_DIVIDE_VALUE_FOR_GPS = 3;
@@ -51,7 +45,7 @@ class LocationScanner
                     if (mLocationManager == null)
                         mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
                     if (resetUseGPS)
-                        useGPS = true;
+                        PPApplication.locationScannerUseGPS = true;
 
                     final Context appContext = context.getApplicationContext();
                     //PPApplication.startHandlerThreadPPScanners(/*"LocationScanner.onConnected"*/);
@@ -68,7 +62,7 @@ class LocationScanner
                             PowerManager.WakeLock wakeLock = null;
                             try {
                                 if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LocationScanner_connect");
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_LocationScanner_connect);
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
@@ -160,7 +154,7 @@ class LocationScanner
                 }
             }
 
-            mTransitionsUpdated = true;
+            PPApplication.locationScannerTransitionsUpdated = true;
         }
     }
 
@@ -168,7 +162,7 @@ class LocationScanner
         synchronized (PPApplication.locationScannerMutex) {
             // clear all geofence transitions
             DatabaseHandler.getInstance(context).clearAllGeofenceTransitions();
-            mTransitionsUpdated = false;
+            PPApplication.locationScannerTransitionsUpdated = false;
         }
     }
 
@@ -178,7 +172,7 @@ class LocationScanner
         String provider;
 
         boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
-        if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
+        if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!PPApplication.locationScannerUseGPS)) {
             provider = LocationManager.NETWORK_PROVIDER;
         } else {
             provider = LocationManager.GPS_PROVIDER;
@@ -257,12 +251,17 @@ class LocationScanner
      * Requests location updates from the FusedLocationApi.
      */
     String startLocationUpdates() {
-        if (!ApplicationPreferences.applicationEventLocationEnableScanning)
+        boolean scanningPaused = ApplicationPreferences.applicationEventLocationScanInTimeMultiply.equals("2") &&
+                GlobalUtils.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo);
+
+        if ((!ApplicationPreferences.applicationEventLocationEnableScanning) || scanningPaused)
             return "";
 
         String provider = "";
 
-        if ((!mUpdatesStarted) /*|| mUpdateTransitionsByLastKnownLocationIsRunning*/) {
+        if ((!PPApplication.locationScannerUpdatesStarted) /*|| mUpdateTransitionsByLastKnownLocationIsRunning*/) {
             synchronized (PPApplication.locationScannerMutex) {
                 try {
                     if (Permissions.checkLocation(context)) {
@@ -307,14 +306,14 @@ class LocationScanner
 
                                         mListenerEnabled = true;
 
-                                        mUpdatesStarted = true;
+                                        PPApplication.locationScannerUpdatesStarted = true;
                                     }
                                     else
                                         PPApplicationStatic.cancelWork(LocationSensorWorker.LOCATION_SENSOR_WORK_TAG, false);
 
                                 } catch (SecurityException securityException) {
                                     // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
-                                    mUpdatesStarted = false;
+                                    PPApplication.locationScannerUpdatesStarted = false;
                                     return "";
                                 }
                             }
@@ -324,7 +323,7 @@ class LocationScanner
                         }
                     }
                 } catch (Exception e) {
-                    mUpdatesStarted = false;
+                    PPApplication.locationScannerUpdatesStarted = false;
                 }
             }
         }
@@ -351,7 +350,7 @@ class LocationScanner
         // stopped state. Doing so helps battery performance and is especially
         // recommended in applications that request frequent location updates.
 
-        if (mUpdatesStarted) {
+        if (PPApplication.locationScannerUpdatesStarted) {
             synchronized (PPApplication.locationScannerMutex) {
                 if (mListenerEnabled) {
                     try {
@@ -360,7 +359,7 @@ class LocationScanner
                         if (mLocationManager != null)
                             mLocationManager.removeUpdates(mLocationListener);
                         mListenerEnabled = false;
-                        mUpdatesStarted = false;
+                        PPApplication.locationScannerUpdatesStarted = false;
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
                     }
@@ -374,7 +373,7 @@ class LocationScanner
             try {
                 Location location;
                 if (provider.isEmpty()) {
-                    if (useGPS)
+                    if (PPApplication.locationScannerUseGPS)
                         location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     else
                         location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -404,6 +403,13 @@ class LocationScanner
         if (location.getAccuracy() > 500)
             return;
 
+        boolean scanningPaused = ApplicationPreferences.applicationEventLocationScanInTimeMultiply.equals("2") &&
+                GlobalUtils.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo);
+        if (scanningPaused)
+            return;
+
         synchronized (PPApplication.locationScannerLastLocationMutex) {
             if (PPApplication.lastLocation == null) {
                 PPApplication.lastLocation = new Location("GL");
@@ -420,34 +426,11 @@ class LocationScanner
                     if (callEventsHandler) {
 //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LocationScanner.doLocationChanged", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
                         PPExecutors.handleEvents(PPApplication.locationScanner.context,
-                                EventsHandler.SENSOR_TYPE_LOCATION_SCANNER,
-                                "SENSOR_TYPE_LOCATION_SCANNER",
-                                0);
-                        //EventsHandler eventsHandler = new EventsHandler(PPApplication.locationScanner.context);
-                        //eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_SCANNER);
+                                new int[]{EventsHandler.SENSOR_TYPE_LOCATION_SCANNER},
+                                PPExecutors.SENSOR_NAME_SENSOR_TYPE_LOCATION_SCANNER, 0);
                     }
                 }
             }
-        }
-    }
-
-    static class LocationScannerListener implements LocationListener {
-
-        public void onLocationChanged(Location location) {
-//            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onLocationChanged", "xxx");
-            doLocationChanged(location, false);
-        }
-
-        public void onProviderDisabled(String provider) {
-//            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onProviderDisabled", "xxx");
-        }
-
-        public void onProviderEnabled(String provider) {
-//            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onProviderEnabled", "xxx");
-        }
-
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-//            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onStatusChanged", "xxx");
         }
     }
 
@@ -470,7 +453,7 @@ class LocationScanner
                         GlobalUtils.sleep(1000);
 
                         // force useGPS
-                        LocationScanner.useGPS = true;
+                        PPApplication.locationScannerUseGPS = true;
 
                         // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
                         String provider = PPApplication.locationScanner.startLocationUpdates();
@@ -495,10 +478,11 @@ class LocationScanner
     private void showNotification() {
         String nText = context.getString(R.string.location_scanner_location_not_working_notification_text);
 
-        PPApplicationStatic.createExclamationNotificationChannel(context);
+        PPApplicationStatic.createExclamationNotificationChannel(context.getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                 .setContentTitle(context.getString(R.string.location_scanner_location_not_working_notification_title)) // title for notification
                 .setContentText(nText) // message for notification
                 .setAutoCancel(true); // clear notification after click
@@ -510,11 +494,8 @@ class LocationScanner
         mBuilder.setContentIntent(pi);
 
         mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-        //{
         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        //}
 
         mBuilder.setGroup(PPApplication.SYTEM_CONFIGURATION_ERRORS_NOTIFICATION_GROUP);
 
@@ -524,7 +505,7 @@ class LocationScanner
                     PPApplication.LOCATION_NOT_WORKING_NOTIFICATION_TAG,
                     PPApplication.LOCATION_NOT_WORKING_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            Log.e("LocationScanner.showNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("LocationScanner.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("LocationScanner.showNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

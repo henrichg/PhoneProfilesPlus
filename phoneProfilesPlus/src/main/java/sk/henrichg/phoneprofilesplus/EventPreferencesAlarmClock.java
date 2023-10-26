@@ -14,6 +14,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 class EventPreferencesAlarmClock extends EventPreferences {
@@ -31,7 +32,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
     private static final String PREF_EVENT_ALARM_CLOCK_APPLICATIONS = "eventAlarmClockApplications";
     private static final String PREF_EVENT_ALARM_CLOCK_SUPPORTED_APPS = "eventAlarmClockSupportedAppsInfo";
 
-    private static final String PREF_EVENT_ALARM_CLOCK_CATEGORY = "eventAlarmClockCategoryRoot";
+    static final String PREF_EVENT_ALARM_CLOCK_CATEGORY = "eventAlarmClockCategoryRoot";
 
     EventPreferencesAlarmClock(Event event,
                                     boolean enabled,
@@ -80,27 +81,27 @@ class EventPreferencesAlarmClock extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_alarm_clock_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_alarm_clock_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ALARM_CLOCK_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + "<b>";
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_alarm_clock), addPassStatus, DatabaseHandler.ETYPE_ALARM_CLOCK, context);
-                    descr = descr + "</b> ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_alarm_clock), addPassStatus, DatabaseHandler.ETYPE_ALARM_CLOCK, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
                 if (this._permanentRun)
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 else
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
+                    _value.append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if (!this._applications.isEmpty() && !this._applications.equals("-")) {
-                    String[] splits = this._applications.split("\\|");
+                    String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length == 1) {
                         String packageName = Application.getPackageName(splits[0]);
                         String activityName = Application.getActivityName(splits[0]);
@@ -108,11 +109,11 @@ class EventPreferencesAlarmClock extends EventPreferences {
                         if (activityName.isEmpty()) {
                             ApplicationInfo app;
                             try {
-                                app = packageManager.getApplicationInfo(packageName, 0);
+                                app = packageManager.getApplicationInfo(packageName, PackageManager.MATCH_ALL);
                                 if (app != null)
                                     selectedApplications = packageManager.getApplicationLabel(app).toString();
                             } catch (Exception e) {
-                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                             }
                         } else {
                             Intent intent = new Intent();
@@ -122,15 +123,15 @@ class EventPreferencesAlarmClock extends EventPreferences {
                                 selectedApplications = info.loadLabel(packageManager).toString();
                         }
                     } else
-                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 }
 
-                descr = descr + " • ";
-                descr = descr + context.getString(R.string.event_preferences_alarm_clock_applications) + ": <b>" + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + "</b>";
+                _value.append(StringConstants.STR_BULLET);
+                _value.append(context.getString(R.string.event_preferences_alarm_clock_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
@@ -153,7 +154,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_DURATION);
             if (preference != null) {
-                preference.setEnabled(value.equals("false"));
+                preference.setEnabled(value.equals(StringConstants.FALSE_STRING));
             }
         }
         if (key.equals(PREF_EVENT_ALARM_CLOCK_DURATION)) {
@@ -191,7 +192,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         if (key.equals(PREF_EVENT_ALARM_CLOCK_ENABLED) ||
             key.equals(PREF_EVENT_ALARM_CLOCK_PERMANENT_RUN)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
         if (key.equals(PREF_EVENT_ALARM_CLOCK_DURATION)||
             key.equals(PREF_EVENT_ALARM_CLOCK_APPLICATIONS))
@@ -209,21 +210,21 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
         InfoDialogPreference preference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_SUPPORTED_APPS);
         if (preference != null) {
-            String supportedApps = "<ul>" +
-                    "<li>Google Clock</li>" +
-                    "<li>Samsung Clock</li>" +
-                    "<li>Sony Clock</li>" +
-                    "<li>AMdroid</li>" +
-                    "<li>Alarm Clock XTreme free</li>" +
-                    "<li>Alarm Clock XTreme</li>" +
-                    "<li>Alarmy (Sleep if u can)</li>" +
-                    "<li>Early Bird Alarm Clock</li>" +
-                    "<li>Good Morning Alarm Clock</li>" +
-                    "<li>I Can't Wake Up! Alarm Clock</li>" +
-                    "<li>Sleep as Android</li>" +
-                    "<li>Timely</li>" +
-                    "<li>Alarm Klock</li>" +
-                    "</ul>"
+            String supportedApps = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+                                                             "Google Clock"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Samsung Clock"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Sony Clock"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"AMdroid"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Alarm Clock XTreme free"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Alarm Clock XTreme"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Alarmy (Sleep if u can)"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Early Bird Alarm Clock"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Good Morning Alarm Clock"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"I Can't Wake Up! Alarm Clock"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Sleep as Android"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Timely"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Alarm Klock" +
+                    StringConstants.TAG_LIST_END_LAST_ITEM_HTML
                     ;
             preference.setInfoText(supportedApps);
             preference.setIsHtml(true);
@@ -254,7 +255,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -262,14 +263,12 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
     boolean isRunnable(Context context)
     {
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-            return super.isRunnable(context);
-        //else
-        //    return false;
+        return super.isRunnable(context);
     }
 
     @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+        super.checkPreferences(prefMng, onlyCategory, context);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_ENABLED) != null) {
@@ -369,12 +368,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     }
                     else {
-                        //if (android.os.Build.VERSION.SDK_INT >= 23)
-                            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                        //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                        //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                        //else
-                        //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                     }
                 }
             }
@@ -417,7 +411,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
             // applications are not configured
             return false;
 
-        String[] splits = this._applications.split("\\|");
+        String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
         for (String split : splits) {
             // get only package name = remove activity
             String packageName = Application.getPackageName(split);
@@ -444,10 +438,10 @@ class EventPreferencesAlarmClock extends EventPreferences {
                         Calendar now = Calendar.getInstance();
                         long nowAlarmTime = now.getTimeInMillis();
 
-                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_ALARM_CLOCK)
+                        if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_ALARM_CLOCK))
                             eventsHandler.alarmClockPassed = true;
                         else if (!_permanentRun) {
-                            if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END)
+                            if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END))
                                 eventsHandler.alarmClockPassed = false;
                             else
                                 eventsHandler.alarmClockPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

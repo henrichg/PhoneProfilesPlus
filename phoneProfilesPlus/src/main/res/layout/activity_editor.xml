@@ -55,7 +55,6 @@
             android:layout_alignParentTop="true"
             android:paddingBottom="0dp"
             android:orientation="vertical"
-            android:background="@color/primary"
             android:elevation="0dp" >
 
             <androidx.appcompat.widget.Toolbar
@@ -128,6 +127,7 @@
             </androidx.appcompat.widget.Toolbar>
 
         </LinearLayout>
+<!--        android:background="@color/primary"-->
 
         <FrameLayout
             android:id="@+id/editor_list_container_frLa1"

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -24,10 +25,15 @@ class ImportantInfoNotification {
             int packageVersionCode = PPApplicationStatic.getVersionCode(pInfo);
             int savedVersionCode = getShowInfoNotificationOnStartVersion(context);
 
-            // do not show notification, version code is not saved
+            // show notification for display Quick giude, when version code is not saved
             // typically it is for new users
             if (savedVersionCode == 0) {
                 setShowInfoNotificationOnStart(context, false, packageVersionCode);
+
+                showNotification(context, false, true,
+                        context.getString(R.string.info_notification_title),
+                        context.getString(R.string.info_notification_text),
+                        PPApplication.IMPORTANT_INFO_NOTIFICATION_TAG);
                 return;
             }
 
@@ -45,22 +51,26 @@ class ImportantInfoNotification {
             if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST))
                 showPPPPS = true;
 
-            setShowInfoNotificationOnStart(context, (showInfo || showExtender || showPPPPS), packageVersionCode);
+//            Log.e("ImportantInfoNotification.showInfoNotification", "showExtender="+showExtender);
+//            Log.e("ImportantInfoNotification.showInfoNotification", "ppppsVersion="+ppppsVersion);
+//            Log.e("ImportantInfoNotification.showInfoNotification", "showPPPPS="+showPPPPS);
+
+            setShowInfoNotificationOnStart(context, showInfo || showExtender || showPPPPS, packageVersionCode);
 
             if (/*(savedVersionCode == 0) ||*/ getShowInfoNotificationOnStart(context, packageVersionCode)) {
 
                 if (showInfo)
-                    showNotification(context, false/*savedVersionCode == 0*/,
+                    showNotification(context, false, false,
                             context.getString(R.string.info_notification_title),
                             context.getString(R.string.info_notification_text),
                             PPApplication.IMPORTANT_INFO_NOTIFICATION_TAG);
                 if (showExtender)
-                    showNotification(context, false/*savedVersionCode == 0*/,
+                    showNotification(context, false, false,
                             context.getString(R.string.info_notification_title),
                             context.getString(R.string.important_info_accessibility_service_new_version_notification),
                             PPApplication.IMPORTANT_INFO_NOTIFICATION_EXTENDER_TAG);
                 if (showPPPPS)
-                    showNotification(context, false/*savedVersionCode == 0*/,
+                    showNotification(context, false, false,
                             context.getString(R.string.info_notification_title),
                             context.getString(R.string.important_info_pppps_new_version_notification),
                             PPApplication.IMPORTANT_INFO_NOTIFICATION_PPPPS_TAG);
@@ -122,15 +132,11 @@ class ImportantInfoNotification {
         }*/
 
         /*if (news1804) {
-            if (android.os.Build.VERSION.SDK_INT >= 23) {
-                news = true;
-            }
+            news = true;
         }*/
 
         /*if (news1772) {
-            //if (android.os.Build.VERSION.SDK_INT >= 21) {
-                news = true;
-            //}
+            news = true;
         }*/
 
         if (afterInstall)
@@ -141,11 +147,14 @@ class ImportantInfoNotification {
 
     static private void showNotification(Context context,
                                          @SuppressWarnings("SameParameterValue") boolean firstInstallation,
-                                         String title, String text, String notificationTag) {
-        PPApplicationStatic.createExclamationNotificationChannel(context);
+                                         boolean showQuickGuide,
+                                         String title, String text,
+                                         @SuppressWarnings("SameParameterValue") String notificationTag) {
+        PPApplicationStatic.createExclamationNotificationChannel(context.getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                 .setContentTitle(title) // title for notification
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
@@ -153,21 +162,19 @@ class ImportantInfoNotification {
         Intent intent = new Intent(context, ImportantInfoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(EXTRA_FIRST_INSTALLATION, firstInstallation);
+        intent.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, showQuickGuide);
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-        //{
-            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
-            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        //}
+        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {
             mNotificationManager.notify(
                     notificationTag,
                     PPApplication.IMPORTANT_INFO_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("ImportantInfoNotification.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

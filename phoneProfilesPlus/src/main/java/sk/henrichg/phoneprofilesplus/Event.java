@@ -7,8 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.BitmapFactory;
 import android.os.SystemClock;
 import android.os.Vibrator;
+import android.text.Spanned;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -67,6 +69,7 @@ class Event {
     EventPreferencesCalendar _eventPreferencesCalendar;
     EventPreferencesWifi _eventPreferencesWifi;
     EventPreferencesScreen _eventPreferencesScreen;
+    EventPreferencesBrightness _eventPreferencesBrightness;
     EventPreferencesBluetooth _eventPreferencesBluetooth;
     EventPreferencesSMS _eventPreferencesSMS;
     EventPreferencesNotification _eventPreferencesNotification;
@@ -84,6 +87,8 @@ class Event {
     EventPreferencesActivatedProfile _eventPreferencesActivatedProfile;
     EventPreferencesRoaming _eventPreferencesRoaming;
     EventPreferencesVPN _eventPreferencesVPN;
+
+    Spanned _peferencesDecription;
 
     static final int ESTATUS_STOP = 0;
     static final int ESTATUS_PAUSE = 1;
@@ -127,11 +132,12 @@ class Event {
     private static final String PREF_EVENT_START_WHEN_ACTIVATED_PROFILE = "eventStartWhenActivatedProfile";
     private static final String PREF_EVENT_DELAY_END = "eventDelayEnd";
     private static final String PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION = "eventNoPauseByManualActivation";
-    private static final String PREF_EVENT_END_OTHERS = "eventEndOthersCategoryRoot";
     //private static final String PREF_EVENT_AT_END_HOW_UNDO = "eventAtEndHowUndo";
     private static final String PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END = "manualProfileActivationAtEnd";
-    private  static final String PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE = "eventStartNotificationSoundPlayAlsoInSilentMode";
-    private  static final String PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE = "eventEndNotificationSoundPlayAlsoInSilentMode";
+    private static final String PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE = "eventStartNotificationSoundPlayAlsoInSilentMode";
+    private static final String PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE = "eventEndNotificationSoundPlayAlsoInSilentMode";
+    private static final String PREF_EVENT_START_OTHERS_CATEGORY_ROOT = "eventStartOthersCategoryRoot";
+    private static final String PREF_EVENT_END_OTHERS_CATEGORY_ROOT = "eventEndOthersCategoryRoot";
 
     static final String PREF_GLOBAL_EVENTS_RUN_STOP = "globalEventsRunStop";
     static final String PREF_EVENTS_BLOCKED = "eventsBlocked";
@@ -142,9 +148,7 @@ class Event {
     static final int EVENT_ALARM_TIME_SOFT_OFFSET = 5000;
 
     // Empty constructor
-    Event(){
-        createEventPreferences();
-    }
+    Event(){}
 
     // constructor
     Event(long id,
@@ -315,6 +319,8 @@ class Event {
         this._notificationSoundStartPlayAlsoInSilentMode = event._notificationSoundStartPlayAlsoInSilentMode;
         this._notificationSoundEndPlayAlsoInSilentMode = event._notificationSoundEndPlayAlsoInSilentMode;
 
+        this._peferencesDecription = event._peferencesDecription;
+
         //this._undoCalled = event._undoCalled;
 
         copyEventPreferences(event);
@@ -355,9 +361,15 @@ class Event {
         this._eventPreferencesScreen = new EventPreferencesScreen(this, false, 1, false);
     }
 
+    private void createEventPreferencesBrightness()
+    {
+        this._eventPreferencesBrightness = new EventPreferencesBrightness(this, false, 0, "50|0|1|0", 0, "50|0|1|0");
+    }
+
+
     private void createEventPreferencesBluetooth()
     {
-        this._eventPreferencesBluetooth = new EventPreferencesBluetooth(this, false, "", 0/*, 0*/);
+        this._eventPreferencesBluetooth = new EventPreferencesBluetooth(this, false, "", 1/*, 0*/);
     }
 
     private void createEventPreferencesSMS()
@@ -429,6 +441,13 @@ class Event {
                 "0|0|0",
                 "0|0|0",
                 "0|0|0",
+                "0|0|0",
+                "0|0|0",
+                "0|0|0",
+                "0|0|0",
+                "0|0|0",
+                "0|0|0",
+                "0|0|0",
                 "0|0|0"
         );
     }
@@ -457,6 +476,7 @@ class Event {
         createEventPreferencesCalendar();
         createEventPreferencesWiFi();
         createEventPreferencesScreen();
+        createEventPreferencesBrightness();
         createEventPreferencesBluetooth();
         createEventPreferencesSMS();
         createEventPreferencesNotification();
@@ -492,6 +512,8 @@ class Event {
             createEventPreferencesWiFi();
         if (this._eventPreferencesScreen == null)
             createEventPreferencesScreen();
+        if (this._eventPreferencesBrightness == null)
+            createEventPreferencesBrightness();
         if (this._eventPreferencesBluetooth == null)
             createEventPreferencesBluetooth();
         if (this._eventPreferencesSMS == null)
@@ -533,6 +555,7 @@ class Event {
         this._eventPreferencesCalendar.copyPreferences(fromEvent);
         this._eventPreferencesWifi.copyPreferences(fromEvent);
         this._eventPreferencesScreen.copyPreferences(fromEvent);
+        this._eventPreferencesBrightness.copyPreferences(fromEvent);
         this._eventPreferencesBluetooth.copyPreferences(fromEvent);
         this._eventPreferencesSMS.copyPreferences(fromEvent);
         this._eventPreferencesNotification.copyPreferences(fromEvent);
@@ -568,6 +591,8 @@ class Event {
                         (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesScreen._enabled &&
                         (EventStatic.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesBrightness._enabled &&
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesBluetooth._enabled &&
                         (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesSMS._enabled &&
@@ -643,6 +668,8 @@ class Event {
             runnable = runnable && this._eventPreferencesWifi.isRunnable(appContext);
         if (this._eventPreferencesScreen._enabled)
             runnable = runnable && this._eventPreferencesScreen.isRunnable(appContext);
+        if (this._eventPreferencesBrightness._enabled)
+            runnable = runnable && this._eventPreferencesBrightness.isRunnable(appContext);
         if (this._eventPreferencesBluetooth._enabled)
             runnable = runnable && this._eventPreferencesBluetooth.isRunnable(appContext);
         if (this._eventPreferencesSMS._enabled)
@@ -693,6 +720,7 @@ class Event {
                             this._eventPreferencesCalendar._enabled ||
                             this._eventPreferencesWifi._enabled ||
                             this._eventPreferencesScreen._enabled ||
+                            this._eventPreferencesBrightness._enabled ||
                             this._eventPreferencesBluetooth._enabled ||
                             this._eventPreferencesSMS._enabled ||
                             this._eventPreferencesNotification._enabled ||
@@ -726,6 +754,8 @@ class Event {
                 accessibilityEnabled = this._eventPreferencesWifi.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesScreen._enabled)
                 accessibilityEnabled = this._eventPreferencesScreen.isAccessibilityServiceEnabled(context, againCheckInDelay);
+            if (this._eventPreferencesBrightness._enabled)
+                accessibilityEnabled = this._eventPreferencesBrightness.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesBluetooth._enabled)
                 accessibilityEnabled = this._eventPreferencesBluetooth.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesSMS._enabled)
@@ -805,6 +835,7 @@ class Event {
         this._eventPreferencesCalendar.loadSharedPreferences(preferences);
         this._eventPreferencesWifi.loadSharedPreferences(preferences);
         this._eventPreferencesScreen.loadSharedPreferences(preferences);
+        this._eventPreferencesBrightness.loadSharedPreferences(preferences);
         this._eventPreferencesBluetooth.loadSharedPreferences(preferences);
         this._eventPreferencesSMS.loadSharedPreferences(preferences);
         this._eventPreferencesNotification.loadSharedPreferences(preferences);
@@ -869,6 +900,7 @@ class Event {
         this._eventPreferencesCalendar.saveSharedPreferences(preferences);
         this._eventPreferencesWifi.saveSharedPreferences(preferences);
         this._eventPreferencesScreen.saveSharedPreferences(preferences);
+        this._eventPreferencesBrightness.saveSharedPreferences(preferences);
         this._eventPreferencesBluetooth.saveSharedPreferences(preferences);
         this._eventPreferencesSMS.saveSharedPreferences(preferences);
         this._eventPreferencesNotification.saveSharedPreferences(preferences);
@@ -940,9 +972,9 @@ class Event {
                 boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority;
                 String summary = context.getString(R.string.event_preferences_event_priorityInfo_summary);
                 if (applicationEventUsePriority)
-                    summary = context.getString(R.string.event_preferences_priority_appSettings_enabled) + "\n\n" + summary;
+                    summary = context.getString(R.string.event_preferences_priority_appSettings_enabled) + StringConstants.STR_DOUBLE_NEWLINE + summary;
                 else {
-                    summary = context.getString(R.string.event_preferences_priority_appSettings_disabled) + "\n\n" + summary + "\n"+
+                    summary = context.getString(R.string.event_preferences_priority_appSettings_disabled) + StringConstants.STR_DOUBLE_NEWLINE + summary + StringConstants.CHAR_NEW_LINE+
                             context.getString(R.string.phone_profiles_pref_eventUsePriorityAppSettings_summary);
                 }
                 preference.setSummary(summary);
@@ -1043,7 +1075,7 @@ class Event {
             if (hasVibrator) {
                 if (preference != null)
                     preference.setVisible(true);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, value.equals("true"), false, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, value.equals(StringConstants.TRUE_STRING), false, false, false, false);
             } else {
                 if (preference != null)
                     preference.setVisible(false);
@@ -1134,10 +1166,10 @@ class Event {
                 manualProfileActivationAtEndChanged = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, false);
                 repeatInterval = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL_START, "0"));
             }
-            Preference preference = prefMng.findPreference("eventStartOthersCategoryRoot");
+            Preference preference = prefMng.findPreference(PREF_EVENT_START_OTHERS_CATEGORY_ROOT);
             if (preference != null) {
                 boolean bold = (//forceRunChanged ||
-                                manualProfileActivationChanged ||
+                        manualProfileActivationChanged ||
                                 profileStartWhenActivatedChanged ||
                                 delayStartChanged ||
                                 notificationSoundStartChanged ||
@@ -1146,81 +1178,89 @@ class Event {
                                 notificationSoundStartPlayAlsoInSilentMode);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, false, false);
                 if (bold) {
-                    String summary = "";
-                    //if (forceRunChanged)
-                    //    summary = summary + "[»] " + context.getString(R.string.event_preferences_ForceRun);
+                    StringBuilder _value = new StringBuilder();
                     if (manualProfileActivationChanged) {
-                        /*if (!summary.isEmpty())*/ summary = summary + " • ";
-                        summary = summary + context.getString(R.string.event_preferences_manualProfileActivation);
+                        /*if (_value.length() > 0)*/ _value.append(StringConstants.STR_BULLET);
+                        _value.append(context.getString(R.string.event_preferences_manualProfileActivation));
                     }
                     if (profileStartWhenActivatedChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
-                        summary = summary + context.getString(R.string.event_preferences_eventStartWhenActivatedProfile) + ": ";
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+                        _value.append(context.getString(R.string.event_preferences_eventStartWhenActivatedProfile)).append(StringConstants.STR_COLON_WITH_SPACE);
                         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
-                        String[] splits = startWhenActivatedProfile.split("\\|");
-                        Profile profile;
+                        String[] splits = startWhenActivatedProfile.split(StringConstants.STR_SPLIT_REGEX);
                         if (splits.length == 1) {
-                            profile = dataWrapper.getProfileById(Long.parseLong(startWhenActivatedProfile), false, false, false);
-                            if (profile != null) {
-                                summary = summary + "<b>" + getColorForChangedPreferenceValue(profile._name, !preference.isEnabled(), context) + "</b>";
+                            String profileName = dataWrapper.getProfileName(Long.parseLong(startWhenActivatedProfile));
+                            if (profileName != null) {
+                                _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                        .append(getColorForChangedPreferenceValue(profileName, !preference.isEnabled(), context))
+                                        .append(StringConstants.TAG_BOLD_END_HTML);
                             }
                         }
                         else {
-                            summary = summary + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length, !preference.isEnabled(), context) + "</b>";
+                            _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                    .append(getColorForChangedPreferenceValue(context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length, !preference.isEnabled(), context))
+                                    .append(StringConstants.TAG_BOLD_END_HTML);
                         }
+                        dataWrapper.invalidateDataWrapper();
                     }
                     if (delayStartChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
-                        summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayStart), !preference.isEnabled(), context) + "</b>";
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+                        _value.append(context.getString(R.string.event_preferences_delayStart)).append(StringConstants.STR_COLON_WITH_SPACE);
+                        _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayStart), !preference.isEnabled(), context))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                     }
                     if (notificationSoundStartChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
-                        summary = summary + context.getString(R.string.event_preferences_notificationSound);
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+                        _value.append(context.getString(R.string.event_preferences_notificationSound));
                     }
                     if (notificationVibrateStartChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
-                        summary = summary + context.getString(R.string.event_preferences_notificationVibrate);
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+                        _value.append(context.getString(R.string.event_preferences_notificationVibrate));
                     }
                     if (notificationRepeatStartChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
-                        summary = summary + context.getString(R.string.event_preferences_notificationRepeat) + ": ";
-                        summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), context) + "</b>";
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+                        _value.append(context.getString(R.string.event_preferences_notificationRepeat)).append(StringConstants.STR_COLON_WITH_SPACE);
+                        _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), context))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
 
                     }
-                    preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
+                    preference.setSummary(StringFormatUtils.fromHtml(_value.toString(), false, false, false, 0, 0, true));
                 }
                 else
                     preference.setSummary("");
             }
-            preference = prefMng.findPreference("eventEndOthersCategoryRoot");
+            preference = prefMng.findPreference(PREF_EVENT_END_OTHERS_CATEGORY_ROOT);
             if (preference != null) {
                 boolean bold = (delayEndChanged ||
-                                notificationSoundEndChanged ||
-                                notificationVibrateEndChanged ||
-                                manualProfileActivationAtEndChanged ||
-                                notificationSoundEndPlayAlsoInSilentMode);
+                        notificationSoundEndChanged ||
+                        notificationVibrateEndChanged ||
+                        manualProfileActivationAtEndChanged ||
+                        notificationSoundEndPlayAlsoInSilentMode);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, false, false);
                 if (bold) {
-                    String summary = "";
+                    StringBuilder _value = new StringBuilder();
                     if (manualProfileActivationAtEndChanged) {
-                        /*if (!summary.isEmpty())*/ summary = summary + " • ";
-                        summary = summary + context.getString(R.string.event_preferences_manualProfileActivationAtEnd);
+                        /*if (_value.length() > 0)*/ _value.append(StringConstants.STR_BULLET);
+                        _value.append(context.getString(R.string.event_preferences_manualProfileActivationAtEnd));
                     }
                     if (delayEndChanged) {
-                        /*if (!summary.isEmpty())*/ summary = summary + " • ";
-                        summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayEnd), !preference.isEnabled(), context) + "</b>";
+                        /*if (_value.length() > 0)*/ _value.append(StringConstants.STR_BULLET);
+                        _value.append(context.getString(R.string.event_preferences_delayStart)).append(StringConstants.STR_COLON_WITH_SPACE);
+                        _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayEnd), !preference.isEnabled(), context))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                     }
                     if (notificationSoundEndChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
-                        summary = summary + context.getString(R.string.event_preferences_notificationSound);
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+                        _value.append(context.getString(R.string.event_preferences_notificationSound));
                     }
                     if (notificationVibrateEndChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
-                        summary = summary + context.getString(R.string.event_preferences_notificationVibrate);
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+                        _value.append(context.getString(R.string.event_preferences_notificationVibrate));
                     }
-                    preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
+                    preference.setSummary(StringFormatUtils.fromHtml(_value.toString(), false, false, false, 0, 0, true));
                 }
                 else
                     preference.setSummary("");
@@ -1268,7 +1308,7 @@ class Event {
                 key.equals(PREF_EVENT_PROFILE_END) ||
                 key.equals(PREF_EVENT_AT_END_DO) ||
                 //key.equals(PREF_EVENT_AT_END_HOW_UNDO) ||
-                key.equals(PREF_EVENT_END_OTHERS)) {
+                key.equals(PREF_EVENT_END_OTHERS_CATEGORY_ROOT)) {
             //boolean value = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
             /*if (value) {
                 Preference preference = prefMng.findPreference(PREF_EVENT_PROFILE_END);
@@ -1298,7 +1338,7 @@ class Event {
                     //preference.setEnabled(value2.equals("0"));
                     preference.setEnabled(true);
 
-                preference = prefMng.findPreference(PREF_EVENT_END_OTHERS);
+                preference = prefMng.findPreference(PREF_EVENT_END_OTHERS_CATEGORY_ROOT);
                 if (preference != null)
                     preference.setEnabled(true);
             }
@@ -1318,8 +1358,10 @@ class Event {
             _eventPreferencesCalendar.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesWifi.setSummary(prefMng, key, preferences, context);
             _eventPreferencesWifi.setCategorySummary(prefMng, preferences, context);
-            _eventPreferencesScreen.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesScreen.setSummary(prefMng, key, preferences/*, context*/);
             _eventPreferencesScreen.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesBrightness.setSummary(prefMng, key, preferences/*, context*/);
+            _eventPreferencesBrightness.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesBluetooth.setSummary(prefMng, key, preferences, context);
             _eventPreferencesBluetooth.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesSMS.setSummary(prefMng, key, preferences, context);
@@ -1340,7 +1382,7 @@ class Event {
             _eventPreferencesRadioSwitch.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesAlarmClock.setSummary(prefMng, key, preferences, context);
             _eventPreferencesAlarmClock.setCategorySummary(prefMng, preferences, context);
-            _eventPreferencesDeviceBoot.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesDeviceBoot.setSummary(prefMng, key, preferences/*, context*/);
             _eventPreferencesDeviceBoot.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesSoundProfile.setSummary(prefMng, key, preferences, context);
             _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);
@@ -1361,10 +1403,10 @@ class Event {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_IGNORE_MANUAL_ACTIVATION);
         if (preference != null)
-            preference.setTitle("[»] " + context.getString(R.string.event_preferences_ForceRun));
+            preference.setTitle(StringConstants.STR_ARROW_INDICATOR +" " + context.getString(R.string.event_preferences_ForceRun));
         preference = prefMng.findPreference(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION);
         if (preference != null)
-            preference.setTitle("[»»] " + context.getString(R.string.event_preferences_noPauseByManualActivation));
+            preference.setTitle(StringConstants.STR_DOUBLE_ARROW_INDICATOR+" " + context.getString(R.string.event_preferences_noPauseByManualActivation));
 
         setSummary(prefMng, PREF_EVENT_ENABLED, preferences, context, false);
         setSummary(prefMng, PREF_EVENT_NAME, preferences, context, false);
@@ -1403,8 +1445,10 @@ class Event {
         _eventPreferencesCalendar.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesWifi.setAllSummary(prefMng, preferences, context);
         _eventPreferencesWifi.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesScreen.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesScreen.setAllSummary(prefMng, preferences/*, context*/);
         _eventPreferencesScreen.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesBrightness.setAllSummary(prefMng, preferences/*, context*/);
+        _eventPreferencesBrightness.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesBluetooth.setAllSummary(prefMng, preferences, context);
         _eventPreferencesBluetooth.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesSMS.setAllSummary(prefMng, preferences, context);
@@ -1425,7 +1469,7 @@ class Event {
         _eventPreferencesRadioSwitch.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesAlarmClock.setAllSummary(prefMng, preferences, context);
         _eventPreferencesAlarmClock.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesDeviceBoot.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesDeviceBoot.setAllSummary(prefMng, preferences/*, context*/);
         _eventPreferencesDeviceBoot.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesSoundProfile.setAllSummary(prefMng, preferences, context);
         _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);
@@ -1443,158 +1487,162 @@ class Event {
 
     String getPreferencesDescription(Context context, boolean addPassStatus)
     {
-        String description;
-
-        description = "";
+        StringBuilder _value = new StringBuilder();
 
         if (_eventPreferencesTime._enabled) {
             String desc = _eventPreferencesTime.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesPeriodic._enabled) {
             String desc = _eventPreferencesPeriodic.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesCalendar._enabled) {
             String desc = _eventPreferencesCalendar.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesBattery._enabled) {
             String desc = _eventPreferencesBattery.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesCall._enabled) {
             String desc = _eventPreferencesCall.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesSMS._enabled) {
             String desc = _eventPreferencesSMS.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesRoaming._enabled) {
             String desc = _eventPreferencesRoaming.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesRadioSwitch._enabled) {
             String desc = _eventPreferencesRadioSwitch.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesVPN._enabled) {
             String desc = _eventPreferencesVPN.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesLocation._enabled) {
             String desc = _eventPreferencesLocation.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesWifi._enabled) {
             String desc = _eventPreferencesWifi.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesBluetooth._enabled) {
             String desc = _eventPreferencesBluetooth.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesMobileCells._enabled) {
             String desc = _eventPreferencesMobileCells.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesAccessories._enabled) {
             String desc = _eventPreferencesAccessories.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesScreen._enabled) {
             String desc = _eventPreferencesScreen.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
+        }
+
+        if (_eventPreferencesBrightness._enabled) {
+            String desc = _eventPreferencesBrightness.getPreferencesDescription(true, addPassStatus, false, context);
+            if (desc != null)
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesNotification._enabled) {
             String desc = _eventPreferencesNotification.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesSoundProfile._enabled) {
             String desc = _eventPreferencesSoundProfile.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesVolumes._enabled) {
             String desc = _eventPreferencesVolumes.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesApplication._enabled) {
             String desc = _eventPreferencesApplication.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesOrientation._enabled) {
             String desc = _eventPreferencesOrientation.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesNFC._enabled) {
             String desc = _eventPreferencesNFC.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesAlarmClock._enabled) {
             String desc = _eventPreferencesAlarmClock.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesDeviceBoot._enabled) {
             String desc = _eventPreferencesDeviceBoot.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
         if (_eventPreferencesActivatedProfile._enabled) {
             String desc = _eventPreferencesActivatedProfile.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
-        if (description.isEmpty())
-            description = context.getString(R.string.event_preferences_no_sensor_is_enabled);
+        if (_value.length() == 0)
+            _value.append(context.getString(R.string.event_preferences_no_sensor_is_enabled));
 
-        return description;
+        return _value.toString();
     }
 
     void checkSensorsPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
@@ -1605,6 +1653,7 @@ class Event {
         _eventPreferencesCalendar.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesWifi.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesScreen.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesBrightness.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesBluetooth.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesSMS.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesNotification.checkPreferences(prefMng, onlyCategory, context);
@@ -1720,12 +1769,12 @@ class Event {
 
         // check activated profile
         if (!_startWhenActivatedProfile.isEmpty()) {
-            Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-            if (activatedProfile != null) {
+            long activatedProfileId = dataWrapper.getActivatedProfileId();
+            if (activatedProfileId != -1) {
                 boolean found = false;
-                String[] splits = _startWhenActivatedProfile.split("\\|");
+                String[] splits = _startWhenActivatedProfile.split(StringConstants.STR_SPLIT_REGEX);
                 for (String split : splits) {
-                    if (activatedProfile._id == Long.parseLong(split)) {
+                    if (activatedProfileId == Long.parseLong(split)) {
                         found = true;
                         break;
                     }
@@ -1743,8 +1792,8 @@ class Event {
         boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority;
         for (EventTimeline eventTimeline : eventTimelineList)
         {
-            Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
-            if ((event != null) && applicationEventUsePriority && (event._priority > this._priority)) {
+            int priority = dataWrapper.getEventPriority(eventTimeline._fkEvent);
+            if (applicationEventUsePriority && (priority > this._priority)) {
                 // is running event with higher priority
                 return;
             }
@@ -1817,10 +1866,7 @@ class Event {
                 if ((PPApplication.applicationFullyStarted && PPApplication.normalServiceStart) || // normalServiceStart=true = it is not restart of application by system
                     (!this._ignoreManualActivation) ||
                     (!DataWrapperStatic.getIsManualProfileActivation(false, dataWrapper.context))) {
-                    long activatedProfileId = 0;
-                    Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-                    if (activatedProfile != null)
-                        activatedProfileId = activatedProfile._id;
+                    long activatedProfileId = dataWrapper.getActivatedProfileId();
                     if (this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId)) {
                         dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents);
                     } else {
@@ -1890,10 +1936,7 @@ class Event {
             (!DataWrapperStatic.getIsManualProfileActivation(false, dataWrapper.context))) {
             if (activateReturnProfile/* && canActivateReturnProfile()*/) {
                 if (mergedProfile == null) {
-                    Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-                    long activatedProfileId = 0;
-                    if (activatedProfile != null)
-                        activatedProfileId = activatedProfile._id;
+                    long activatedProfileId = dataWrapper.getActivatedProfileId();
                     // first activate _fkProfileEnd
                     if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE) {
                         if (_manualProfileActivationAtEnd || (_fkProfileEnd != activatedProfileId) || forRestartEvents) {
@@ -1937,7 +1980,7 @@ class Event {
                                     //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
                                     // remove profiles from this event
                                     for (String fromFifo : activateProfilesFIFO) {
-                                        String[] splits = fromFifo.split("\\|");
+                                        String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
                                         if (!splits[1].equals(String.valueOf(_id))) {
                                             // profile is not from this event
                                             newActivateProfilesFIFO.add(fromFifo);
@@ -1948,7 +1991,7 @@ class Event {
                                     size = newActivateProfilesFIFO.size();
                                     if (size > 0) {
                                         String fromFifo = newActivateProfilesFIFO.get(size - 1);
-                                        String[] splits = fromFifo.split("\\|");
+                                        String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
                                         activateProfile = Long.parseLong(splits[0]);
                                     } else
                                         activateProfile = 0;
@@ -2029,7 +2072,7 @@ class Event {
                                     //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
                                     // remove profiles from this event
                                     for (String fromFifo : activateProfilesFIFO) {
-                                        String[] splits = fromFifo.split("\\|");
+                                        String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
                                         if (!splits[1].equals(String.valueOf(_id))) {
                                             // profile is not from this event
                                             newActivateProfilesFIFO.add(fromFifo);
@@ -2040,7 +2083,7 @@ class Event {
                                     size = newActivateProfilesFIFO.size();
                                     if (size > 0) {
                                         String fromFifo = newActivateProfilesFIFO.get(size - 1);
-                                        String[] splits = fromFifo.split("\\|");
+                                        String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
                                         activateProfile = Long.parseLong(splits[0]);
                                     } else
                                         activateProfile = 0;
@@ -2199,9 +2242,9 @@ class Event {
             boolean forceRunRunning = false;
             for (EventTimeline _eventTimeline : eventTimelineList)
             {
-                Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
+                int ignoreManualActivation = dataWrapper.getEventIgnoreManualActivation(_eventTimeline._fkEvent);
                 // if application is restarted by system, ignore manual profile activation
-                if ((event != null) && event._ignoreManualActivation && PPApplication.normalServiceStart)
+                if ((ignoreManualActivation == 1) && PPApplication.normalServiceStart)
                 {
                     forceRunRunning = true;
                     break;
@@ -2315,6 +2358,7 @@ class Event {
         _eventPreferencesAccessories.setSensorPassed(_eventPreferencesAccessories.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesRadioSwitch.setSensorPassed(_eventPreferencesRadioSwitch.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesScreen.setSensorPassed(_eventPreferencesScreen.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesBrightness.setSensorPassed(_eventPreferencesBrightness.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesSMS.setSensorPassed(_eventPreferencesSMS.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesTime.setSensorPassed(_eventPreferencesTime.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesWifi.setSensorPassed(_eventPreferencesWifi.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
@@ -2341,6 +2385,7 @@ class Event {
             _eventPreferencesCalendar.setSystemEventForStart(context);
             _eventPreferencesWifi.setSystemEventForStart(context);
             _eventPreferencesScreen.setSystemEventForStart(context);
+            _eventPreferencesBrightness.setSystemEventForStart(context);
             _eventPreferencesBluetooth.setSystemEventForStart(context);
             _eventPreferencesSMS.setSystemEventForStart(context);
             _eventPreferencesNotification.setSystemEventForStart(context);
@@ -2371,6 +2416,7 @@ class Event {
             _eventPreferencesCalendar.setSystemEventForPause(context);
             _eventPreferencesWifi.setSystemEventForPause(context);
             _eventPreferencesScreen.setSystemEventForPause(context);
+            _eventPreferencesBrightness.setSystemEventForPause(context);
             _eventPreferencesBluetooth.setSystemEventForPause(context);
             _eventPreferencesSMS.setSystemEventForPause(context);
             _eventPreferencesNotification.setSystemEventForPause(context);
@@ -2401,6 +2447,7 @@ class Event {
             _eventPreferencesCalendar.removeSystemEvent(context);
             _eventPreferencesWifi.removeSystemEvent(context);
             _eventPreferencesScreen.removeSystemEvent(context);
+            _eventPreferencesBrightness.removeSystemEvent(context);
             _eventPreferencesBluetooth.removeSystemEvent(context);
             _eventPreferencesSMS.removeSystemEvent(context);
             _eventPreferencesNotification.removeSystemEvent(context);
@@ -2494,9 +2541,12 @@ class Event {
                 /*int keepResultsDelay = (this._delayStart * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
+
+//                    PPApplicationStatic.logE("[MAIN_WORKER_CALL] Event.setDelayStartAlarm", "xxxxxxxxxxxxxxxxxxxx");
+
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(MainWorker.class)
-                                    .addTag(MainWorker.EVENT_DELAY_START_TAG_WORK + "_" + (int) this._id)
+                                    .addTag(MainWorker.EVENT_DELAY_START_WORK_TAG + "_" + (int) this._id)
                                     .setInitialDelay(this._delayStart, TimeUnit.SECONDS)
                                     .build();
                     try {
@@ -2513,9 +2563,9 @@ class Event {
 //                            //}
 
 //                                PPApplicationStatic.logE("[WORKER_CALL] Event.setDelayStartAlarm", "xxx");
-                                workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_START_TAG_WORK + "_" + (int) this._id,
+                                workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_START_WORK_TAG + "_" + (int) this._id,
                                         ExistingWorkPolicy.REPLACE, worker);
-                                PPApplication.elapsedAlarmsEventDelayStartWork.add(MainWorker.EVENT_DELAY_START_TAG_WORK + "_" + (int) this._id);
+                                PPApplication.elapsedAlarmsEventDelayStartWork.add(MainWorker.EVENT_DELAY_START_WORK_TAG + "_" + (int) this._id);
 
                                 Calendar now = Calendar.getInstance();
                                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -2561,12 +2611,7 @@ class Event {
                     } else {
                         long alarmTime = SystemClock.elapsedRealtime() + this._delayStart * 1000L;
 
-                        //if (android.os.Build.VERSION.SDK_INT >= 23)
-                            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                        //else
-                        //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                        //else
-                        //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     }
 
                     Calendar now = Calendar.getInstance();
@@ -2588,7 +2633,7 @@ class Event {
 
         if (_isInDelayStart) {
             String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_start_acronym) +
-                    ": " + StringFormatUtils.getDurationString(_delayStart) +")";
+                    StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getDurationString(_delayStart) +")";
             PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_START_DELAY, evenName, null, "");
         }
 
@@ -2634,7 +2679,7 @@ class Event {
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
         }
-        PPApplicationStatic.cancelWork(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id), false);
+        PPApplicationStatic.cancelWork(MainWorker.EVENT_DELAY_START_WORK_TAG +"_"+((int) this._id), false);
         // moved to cancelWork
         //PPApplication.elapsedAlarmsEventDelayStartWork.remove(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id));
 
@@ -2719,9 +2764,12 @@ class Event {
                 /*int keepResultsDelay = (this._delayEnd * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
+
+//                    PPApplicationStatic.logE("[MAIN_WORKER_CALL] Event.setDelayEndAlarm", "xxxxxxxxxxxxxxxxxxxx");
+
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(MainWorker.class)
-                                    .addTag(MainWorker.EVENT_DELAY_END_TAG_WORK + "_" + (int) this._id)
+                                    .addTag(MainWorker.EVENT_DELAY_END_WORK_TAG + "_" + (int) this._id)
                                     .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
                                     .build();
                     try {
@@ -2738,9 +2786,9 @@ class Event {
 //                            //}
 
 //                                PPApplicationStatic.logE("[WORKER_CALL] Event.setDelayEndAlarm", "xxx");
-                                workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_END_TAG_WORK + "_" + (int) this._id,
+                                workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_END_WORK_TAG + "_" + (int) this._id,
                                         ExistingWorkPolicy.REPLACE, worker);
-                                PPApplication.elapsedAlarmsEventDelayEndWork.add(MainWorker.EVENT_DELAY_END_TAG_WORK + "_" + (int) this._id);
+                                PPApplication.elapsedAlarmsEventDelayEndWork.add(MainWorker.EVENT_DELAY_END_WORK_TAG + "_" + (int) this._id);
 
                                 Calendar now = Calendar.getInstance();
                                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -2788,13 +2836,8 @@ class Event {
                     } else {
                         long alarmTime = SystemClock.elapsedRealtime() + this._delayEnd * 1000L;
 
-                        //if (android.os.Build.VERSION.SDK_INT >= 23)
-                            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                            //alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-                        //else
-                        //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                        //else
-                        //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                        //alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
                     }
 
                     Calendar now = Calendar.getInstance();
@@ -2816,7 +2859,7 @@ class Event {
 
         if (_isInDelayEnd) {
             String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_end_acronym) +
-                    ": " + StringFormatUtils.getDurationString(_delayEnd) +")";
+                    StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getDurationString(_delayEnd) +")";
             PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_END_DELAY, evenName, null, "");
         }
 
@@ -2872,7 +2915,7 @@ class Event {
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
         }
-        PPApplicationStatic.cancelWork(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id), false);
+        PPApplicationStatic.cancelWork(MainWorker.EVENT_DELAY_END_WORK_TAG +"_"+((int) this._id), false);
         // moved to cancelWork
         //PPApplication.elapsedAlarmsEventDelayEndWork.remove(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id));
 
@@ -2924,16 +2967,13 @@ class Event {
 
                 String nTitle = context.getString(R.string.start_event_notification_title);
                 String nText = context.getString(R.string.start_event_notification_text1);
-                nText = nText + ": " + _name;
+                nText = nText + StringConstants.STR_COLON_WITH_SPACE + _name;
                 nText = nText + ". " + context.getString(R.string.start_event_notification_text2);
-//                if (android.os.Build.VERSION.SDK_INT < 24) {
-//                    nTitle = context.getString(R.string.ppp_app_name);
-//                    nText = context.getString(R.string.start_event_notification_title) + ": " + nText;
-//                }
-                PPApplicationStatic.createNotifyEventStartNotificationChannel(context);
+                PPApplicationStatic.createNotifyEventStartNotificationChannel(context.getApplicationContext(), false);
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.NOTIFY_EVENT_START_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                        .setSmallIcon(R.drawable.ic_information_notify) // notification icon
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.information_color))
+                        .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
+                        .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_information_notification))
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
@@ -2942,13 +2982,11 @@ class Event {
                 PendingIntent pi = PendingIntent.getActivity(context, (int) _id, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
                 mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                //if (android.os.Build.VERSION.SDK_INT >= 21) {
-                    mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
-                    mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-                //}
+                mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
+                mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
                 // Android 12 - this do not starts activity - OK
-                Intent deleteIntent = new Intent(StartEventNotificationDeletedReceiver.START_EVENT_NOTIFICATION_DELETED_ACTION);
+                Intent deleteIntent = new Intent(StartEventNotificationDeletedReceiver.ACTION_START_EVENT_NOTIFICATION_DELETED);
                 deleteIntent.putExtra(PPApplication.EXTRA_EVENT_ID, _id);
                 PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, (int) _id, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setDeleteIntent(deletePendingIntent);
@@ -2956,12 +2994,6 @@ class Event {
                 mBuilder.setGroup(PPApplication.NOTIFY_EVENT_START_NOTIFICATION_GROUP);
 
                 Notification notification = mBuilder.build();
-                /*if (Build.VERSION.SDK_INT < 26) {
-                    notification.sound = null;
-                    notification.vibrate = null;
-                    notification.defaults &= ~DEFAULT_SOUND;
-                    notification.defaults &= ~DEFAULT_VIBRATE;
-                }*/
 
                 NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
                 try {
@@ -2970,7 +3002,7 @@ class Event {
                     //mNotificationManager.cancel(notificationTag, notificationID);
                     mNotificationManager.notify(notificationTag, notificationID, notification);
                 } catch (SecurityException en) {
-                    Log.e("Event.notifyEventStart", Log.getStackTraceString(en));
+                    PPApplicationStatic.logException("Event.notifyEventStart", Log.getStackTraceString(en));
                 } catch (Exception e) {
                     //Log.e("Event.notifyEventStart", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);
@@ -2980,7 +3012,7 @@ class Event {
             }
 
             //if (playSound)
-            PhoneProfilesServiceStatic.playNotificationSound(
+            PlayRingingNotification.playNotificationSound(
                     notificationSoundStart,
                     notificationVibrateStart,
                     playAlsoInSilentMode, context);
@@ -3001,7 +3033,7 @@ class Event {
         if (!notificationSoundEnd.isEmpty() || notificationVibrateEnd) {
 
             //if (playSound)
-            PhoneProfilesServiceStatic.playNotificationSound(
+            PlayRingingNotification.playNotificationSound(
                     notificationSoundEnd,
                     notificationVibrateEnd,
                     playAlsoInSilentMode, context);
@@ -3014,8 +3046,8 @@ class Event {
     String getColorForChangedPreferenceValue(String preferenceValue, boolean disabled, Context context) {
         if (!disabled) {
             int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
-            String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-            return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, preferenceValue);
+            String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
+            return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, preferenceValue);
         } else
             return preferenceValue;
     }

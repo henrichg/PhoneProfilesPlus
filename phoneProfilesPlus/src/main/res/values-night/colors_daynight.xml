@@ -5,93 +5,99 @@
 
     <color name="navigationBar">#000000</color>
 
-    <color name="activityBackgroundColor">#FF1B1B1B</color>
+    <color name="activityBackgroundColor">#1B1B1B</color>
     <!--    <color name="activityBackgroundColor">#FF201a18</color>-->
 
-    <color name="activityNormalTextColor">#FFefefef</color>
-    <color name="activitySecondaryTextColor">#CFFFFFFF</color>
-    <color name="activityDisabledTextColor">#2FFFFFFF</color>
-    <color name="activityCommandBackgroundColor">#1Fffffff</color>
-    <color name="activityPopupMenuBackgroundColor">#FF151515</color>
-    <color name="activityTitleTextColor">#FFffffff</color>
-    <color name="dialogTitleTextColor">#FFffffff</color>
+    <color name="activityNormalTextColor">#efefef</color>
+    <color name="activitySecondaryTextColor">#C9C9C9</color>
+    <color name="activityDisabledTextColor">#707070</color>
+    <color name="activityCommandBackgroundColor">#303030</color>
+    <color name="activityPopupMenuBackgroundColor">#151515</color>
+    <color name="activityTitleTextColor">#ffffff</color>
+    <color name="dialogTitleTextColor">#ffffff</color>
 
-    <color name="rippleRectangeleItemBackgroundColor">#FF606060</color>
-    <color name="rippleOvalItemBackgroundColor">#FF707070</color>
+    <color name="rippleRectangeleItemBackgroundColor">#606060</color>
+    <color name="rippleOvalItemBackgroundColor">#707070</color>
+    <color name="noRippleRectangeleItemBackgroundColor">#404040</color>
+<!--    <color name="noRippleOvalItemBackgroundColor">#808080</color>-->
 
     <!--    <color name="activityDisabledTextColor">#4Dffdad3</color>-->
     <!--    <color name="activityCommandBackgroundColor">#1Fffdad3</color>-->
-    <!--    <color name="activityPopupMenuBackgroundColor">#FF1a1513</color>-->
+    <!--    <color name="activityPopupMenuBackgroundColor">#1a1513</color>-->
     <!--    <color name="activityPopupMenuClickedItemBackgroundColor">#37ffdad3</color>-->
-    <!--    <color name="activityPreferenceTitleTextColor">#FFd5d5d5</color>-->
-    <!--    <color name="activityPreferenceSummaryTextColor">#FFa5a5a5</color>-->
+    <!--    <color name="activityPreferenceTitleTextColor">#d5d5d5</color>-->
+    <!--    <color name="activityPreferenceSummaryTextColor">#a5a5a5</color>-->
 
     <!--    <color name="changedPreferenceValueTextColor">#FFd4d4d4</color>-->
 
 <!--    <color name="notificationDecorationColor">#cc893e</color>-->
 
-    <color name="smoothBottomBarIconTint">#FFFFFFFF</color>
-    <color name="smoothBottomBarTextColor">#FFE0E0E0</color>
+    <color name="smoothBottomBarIconTint">#FFFFFF</color>
+    <color name="smoothBottomBarTextColor">#E0E0E0</color>
 
-    <color name="dialog_divider">#25ffffff</color>
-    <color name="popup_window_divider">#25ffffff</color>
-    <color name="scrollbar_color">#25ffffff</color>
+    <color name="dialog_divider">#3f3f3f</color>
+    <color name="popup_window_divider">#3f3f3f</color>
+    <color name="scrollbar_color">#404040</color>
 
-    <!--    <color name="editorFilterTitleColor">#FFFFFFFF</color>-->
-    <color name="editorFilterBackgroundColor">#FF272727</color>
+    <!--    <color name="editorFilterTitleColor">#FFFFFF</color>-->
+<!--    <color name="editorFilterBackgroundColor">#303030</color>-->
 
-    <color name="tabTargetHelpOuterCircleColor">#FFb37761</color>
+    <color name="tabTargetHelpOuterCircleColor">#b37761</color>
     <color name="tabTargetHelpTargetCircleColor">#1B1B1B</color>
-    <color name="tabTargetHelpTitleTextColor">#FF000000</color>
-    <color name="tabTargetHelpDescriptionTextColor">#FF000000</color>
+    <color name="tabTargetHelpTitleTextColor">#000000</color>
+    <color name="tabTargetHelpDescriptionTextColor">#000000</color>
 
-    <color name="fastScrollTrackPP">#27ffffff</color>
-    <color name="fastScrollThumbInactivePP">#60ffffff</color>
-    <!--    <color name="fastScrollTrackPP">#27ffdad3</color>-->
-    <!--    <color name="fastScrollThumbInactivePP">#60f8b162</color>-->
+    <color name="fastScrollTrackPP">#303030</color>
+    <color name="fastScrollThumbInactivePP">#f8b367</color>
+    <color name="fastScrollThumbPP">#f8b367</color>
+    <color name="fastScrollPopupBackgroundPP">#f8b367</color>
+    <color name="fastScrollPopupTextPP">#FFFFFF</color>
 
-    <color name="fastScrollThumbPP">#fff8b367</color>
-    <color name="fastScrollPopupBackgroundPP">#fff8b367</color>
-    <color name="fastScrollPopupTextPP">#FFFFFFFF</color>
+    <color name="eventStopTextColor">#b5b5b5</color>
 
-    <color name="eventStopTextColor">#FFb5b5b5</color>
+<!--    <color name="notSelectedIconColor">#c5c5c5</color>-->
 
-<!--    <color name="notSelectedIconColor">#FFc5c5c5</color>-->
+    <color name="sensor_pass_status_passed">#67F86A</color>
+    <color name="sensor_pass_status_not_passed">#67ACF8</color>
+    <color name="sensor_pass_status_waiting">#F867F4</color>
 
-    <color name="sensor_pass_status_passed">#FF67F86A</color>
-    <color name="sensor_pass_status_not_passed">#FF67ACF8</color>
-    <color name="sensor_pass_status_waiting">#FFF867F4</color>
-
-    <color name="map_edited_location_marker_stroke">#fff8b367</color>
+    <color name="map_edited_location_marker_stroke">#f8b367</color>
+    <!-- this must be with aplha -->
     <color name="map_edited_location_marker_fill">#77f8b162</color>
-    <color name="map_last_location_marker_stroke">#FF84d2ef</color>
+    <color name="map_last_location_marker_stroke">#84d2ef</color>
+    <!-- this must be with aplha -->
     <color name="map_last_location_marker_fill">#7784d2ef</color>
 
-    <color name="toastBackgroundColor">#FF3a3a3a</color>
-    <color name="toastTextColor">#FFFFFFFF</color>
-    <color name="toastBorderColor">#FF707070</color>
+    <color name="toastBackgroundColor">#3a3a3a</color>
+    <color name="toastTextColor">#FFFFFF</color>
+    <color name="toastBorderColor">#707070</color>
 
-    <color name="dialogBorderColor">#FF3f3f3f</color>
-    <color name="buttonBorderColor">#FF656565</color>
-    <!--    <color name="dialogBorderColor">#FF423c3a</color>-->
-    <!--    <color name="buttonBorderColor">#FF735c55</color>-->
+    <color name="dokiHeaderBackgroundColor">#303030</color>
 
-    <color name="buttonBackgroundColor">#FF151515</color>
-    <color name="buttonClickedBackgroundColor">#FF303030</color>
-    <color name="popupMenuBorderColor">#FF3f3f3f</color>
-    <!--    <color name="buttonBackgroundColor">#FF1a1513</color>-->
-    <!--    <color name="buttonClickedBackgroundColor">#FF403430</color>-->
-    <!--    <color name="popupMenuBorderColor">#FF423c3a</color>-->
+    <color name="dialogBorderColor">#3f3f3f</color>
+    <color name="buttonBorderColor">#656565</color>
+    <!--    <color name="dialogBorderColor">#423c3a</color>-->
+    <!--    <color name="buttonBorderColor">#735c55</color>-->
 
-    <color name="altype_profile">#FF67F86A</color>
-    <color name="altype_eventStart">#FFf8b367</color>
-    <color name="altype_eventEnd">#FF67ACF8</color>
-    <color name="altype_eventDelayStartEnd">#FFF867F4</color>
-    <color name="altype_restartEvents">#FFc1c068</color>
-    <color name="altype_error">#FFFF2424</color>
-    <color name="altype_other">#FF7F7F7F</color>
+    <color name="buttonBackgroundColor">#151515</color>
+    <color name="buttonClickedBackgroundColor">#303030</color>
+    <color name="popupMenuBorderColor">#3f3f3f</color>
+    <!--    <color name="buttonBackgroundColor">#1a1513</color>-->
+    <!--    <color name="buttonClickedBackgroundColor">#403430</color>-->
+    <!--    <color name="popupMenuBorderColor">#423c3a</color>-->
 
-    <color name="event_status_stop">#FFb5b5b5</color>
+    <color name="altype_profile">#67F86A</color>
+    <color name="altype_eventStart">#f8b367</color>
+    <color name="altype_eventEnd">#67ACF8</color>
+    <color name="altype_eventDelayStartEnd">#F867F4</color>
+    <color name="altype_restartEvents">#c1c068</color>
+    <color name="altype_error">#FF2424</color>
+    <color name="altype_other">#7F7F7F</color>
+
+    <color name="event_status_stop">#b5b5b5</color>
+
+    <color name="error_color">#FF2424</color>
+    <color name="information_color">#67ACF8</color>
 
     <!--    <color name="bottom_navigation_indicator">#80E99B7F</color>-->
 

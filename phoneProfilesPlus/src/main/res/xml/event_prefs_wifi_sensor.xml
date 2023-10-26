@@ -9,30 +9,27 @@
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventEnableWiFiScanningAppSettings"
         app:title="@string/phone_profiles_pref_category_wifi_scanning"
         app:summary="@string/phone_profiles_pref_eventWifiAppSettings_summary"
         app:dependency="eventWiFiEnabled"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventWiFiLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
         app:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:dependency="eventWiFiEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventWiFiKeepOnSystemSettings"
         app:title="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings"
         app:summary="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:dependency="eventWiFiEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_wifi_connection_type"
-        app:summary="@string/array_event_pref_wifiConnectionType_connected"
+        app:summary="@string/array_event_pref_wifiConnectionType_inFront"
         app:key="eventWiFiConnectionType"
         app:defaultValue="1"
         app:ppEntries="@array/eventWifiConnectionTypeArray"

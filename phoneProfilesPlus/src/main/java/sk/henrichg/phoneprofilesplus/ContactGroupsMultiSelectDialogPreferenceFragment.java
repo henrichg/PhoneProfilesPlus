@@ -3,16 +3,19 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 public class ContactGroupsMultiSelectDialogPreferenceFragment extends PreferenceDialogFragmentCompat {
 
@@ -20,8 +23,10 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
     private ContactGroupsMultiSelectDialogPreference preference;
 
     // Layout widgets.
+    ListView listView;
     private LinearLayout linlaProgress;
     private LinearLayout rellaData;
+    RelativeLayout emptyList;
 
     private ContactGroupsMultiSelectPreferenceAdapter listAdapter;
 
@@ -45,7 +50,8 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
 
         linlaProgress = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_linla_progress);
         rellaData = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_rella_data);
-        ListView listView = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_listview);
+        listView = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_listview);
+        emptyList = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_empty);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
             ContactGroup contactGroup = (ContactGroup)listAdapter.getItem(position);
@@ -56,7 +62,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
             }
         });
 
-        listAdapter = new ContactGroupsMultiSelectPreferenceAdapter(prefContext);
+        listAdapter = new ContactGroupsMultiSelectPreferenceAdapter(prefContext, preference);
         listView.setAdapter(listAdapter);
 
         final Button unselectAllButton = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_unselect_all);
@@ -65,8 +71,13 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
             refreshListView(false);
         });
 
-        if (Permissions.grantContactGroupsDialogPermissions(prefContext))
-            refreshListView(true);
+        if (Permissions.grantContactGroupsDialogPermissions(prefContext)) {
+            if (preference.contactGroupList != null)
+                preference.contactGroupList.clear();
+            listAdapter.notifyDataSetChanged();
+            final Handler handler = new Handler(prefContext.getMainLooper());
+            handler.postDelayed(() -> refreshListView(true), 200);
+        }
     }
 
     @Override
@@ -78,9 +89,9 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
             preference.resetSummary();
         }
 
-        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             asyncTask.cancel(true);
-        }
+        asyncTask = null;
 
         //EditorActivity.getContactGroupsCache().cancelCaching();
         //if (!EditorActivity.getContactGroupsCache().cached)
@@ -133,18 +144,54 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                 //    EditorActivity.getContactGroupsCache().getContactGroupList(prefContext);
 
                 // must be first
-                PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false);
                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                if (contactsCache != null) {
+                if (contactsCache == null) {
+                    // cache not created, create it
+                    PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
+                    /*contactsCache = PPApplicationStatic.getContactsCache();
                     while (contactsCache.getCaching())
-                        GlobalUtils.sleep(100);
+                        GlobalUtils.sleep(100);*/
+                } else {
+                    if (!contactsCache.getCaching()) {
+                        // caching not performed
+                        List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
+                        if (contactList == null) {
+                            // not cached, cache it
+                            PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
+                            /*contactsCache = PPApplicationStatic.getContactsCache();
+                            while (contactsCache.getCaching())
+                                GlobalUtils.sleep(100);*/
+                        }
+                    } else {
+                        // wait for cache end
+                        while (contactsCache.getCaching())
+                            GlobalUtils.sleep(100);
+                    }
                 }
                 //must be seconds, this ads groups into contacts
-                PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false);
                 ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
-                if (contactGroupsCache != null) {
+                if (contactGroupsCache == null) {
+                    // cache not created, create it
+                    PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
+                    /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                     while (contactGroupsCache.getCaching())
-                        GlobalUtils.sleep(100);
+                        GlobalUtils.sleep(100);*/
+                } else {
+                    if (!contactGroupsCache.getCaching()) {
+                        // caching not performed
+                        List<ContactGroup> contactGroupList = contactGroupsCache.getList(/*withoutNumbers*/);
+                        if (contactGroupList == null) {
+                            // not cached, cache it
+                            PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
+                            /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
+                            while (contactGroupsCache.getCaching())
+                                GlobalUtils.sleep(100);*/
+                        }
+                    } else {
+                        // wait for cache end
+                        while (contactGroupsCache.getCaching())
+                            GlobalUtils.sleep(100);
+                    }
                 }
 
                 preference.getValueCMSDP();
@@ -164,12 +211,28 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                 //if (!EditorActivity.getContactGroupsCache().cached)
                 //    EditorActivity.getContactGroupsCache().clearCache(false);
 
-                fragment.listAdapter.notifyDataSetChanged();
+                fragment.linlaProgress.setVisibility(View.GONE);
 
-                if (notForUnselect) {
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
                     fragment.rellaData.setVisibility(View.VISIBLE);
-                    fragment.linlaProgress.setVisibility(View.GONE);
-                }
+
+                    fragment.listAdapter.notifyDataSetChanged();
+
+                    if (notForUnselect) {
+                        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
+                        if (contactGroupsCache != null) {
+                            List<ContactGroup> contactGroupList = contactGroupsCache.getList();
+                            if ((contactGroupList != null) && (contactGroupList.size() == 0)) {
+                                fragment.listView.setVisibility(View.GONE);
+                                fragment.emptyList.setVisibility(View.VISIBLE);
+                            } else {
+                                fragment.emptyList.setVisibility(View.GONE);
+                                fragment.listView.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+                });
             }
         }
 

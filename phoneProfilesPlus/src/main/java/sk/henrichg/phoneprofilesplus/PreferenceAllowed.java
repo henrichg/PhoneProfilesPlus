@@ -69,7 +69,7 @@ class PreferenceAllowed {
             case PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION: return context.getString(R.string.preference_not_allowed_reason_not_granted_phone_permission);
             case PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT: return context.getString(R.string.preference_not_allowed_reason_not_set_as_assistant);
             case PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS: return context.getString(R.string.preference_not_allowed_reason_not_installed_ppps);
-            default: return context.getString(R.string.empty_string);
+            default: return "";
         }
     }
 
@@ -87,14 +87,9 @@ class PreferenceAllowed {
             assistantParameter = Integer.parseInt(sharedPreferences.getString(preferenceKey, "0")) >= 4;
         }
 
-        if (RootUtils.isRooted(fromUIThread)) {
+        if ((!assistantParameter) && RootUtils.isRooted(/*fromUIThread*/)) {
             // device is rooted
 
-            /*if ((Build.VERSION.SDK_INT < 26) && assistantParameter) {
-                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
-                preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
-            } else {*/
                 if (profile != null) {
                     // test if grant root is disabled
                     if (profile._deviceAirplaneMode < 4) {
@@ -103,7 +98,9 @@ class PreferenceAllowed {
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                         }
                     }
-                } else if (sharedPreferences != null) {
+                } else
+                //noinspection ConstantValue
+                if (sharedPreferences != null) {
                     if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -124,9 +121,7 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
-            //}
         } else {
-            //if (Build.VERSION.SDK_INT >= 26) {
                 if (assistantParameter) {
                     // check if default Assistent is set to PPP
                     if (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context)) {
@@ -157,24 +152,12 @@ class PreferenceAllowed {
                                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         }
                     }
-                    }
-            /*} else {
-                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                if (assistantParameter) {
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
-                    preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
-                } else {
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                    if ((profile != null) && (profile._deviceAirplaneMode != 0)) {
-                        preferenceAllowed.notAllowedRoot = true;
-                    }
                 }
-            }*/
         }
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(PreferenceAllowed preferenceAllowed,
-                  Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread) {
+                  Profile profile, SharedPreferences sharedPreferences/*, boolean fromUIThread*/) {
 
         if (PPApplication.HAS_FEATURE_WIFI) {
             // device has Wifi
@@ -192,7 +175,7 @@ class PreferenceAllowed {
                 requiresRoot = preferenceValue.equals("6") || preferenceValue.equals("7") || preferenceValue.equals("8");
             }
 
-            if (requiresRoot && RootUtils.isRooted(fromUIThread)) {
+            if (requiresRoot && RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 if (profile != null) {
@@ -246,7 +229,7 @@ class PreferenceAllowed {
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA(PreferenceAllowed preferenceAllowed,
-            String preferenceKey, Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread, Context context) {
+            String preferenceKey, Profile profile, SharedPreferences sharedPreferences, /*boolean fromUIThread,*/ Context context) {
         Context appContext = context.getApplicationContext();
 
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
@@ -265,8 +248,8 @@ class PreferenceAllowed {
             }
 
             if (connManager != null) {
-                //if (android.os.Build.VERSION.SDK_INT >= 21) {
                 Network[] networks = connManager.getAllNetworks();
+                //noinspection ConstantValue,RedundantLengthCheck
                 if ((networks != null) && (networks.length > 0)) {
                     for (Network network : networks) {
                         try {
@@ -292,10 +275,6 @@ class PreferenceAllowed {
                         }
                     }
                 }
-                    /*} else {
-                        NetworkInfo ni = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-                        mobileDataSupported = ni != null;
-                    }*/
             }
             //else
             //    mobileDataSupported = false;
@@ -317,16 +296,16 @@ class PreferenceAllowed {
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             }
             else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 if (profile != null) {
                     // test if grant root is disabled
                     if ((profile._deviceMobileData != 0)) {
                         if (applicationNeverAskForGrantRoot) {
-                            //noinspection UnusedAssignment
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 }
@@ -366,7 +345,7 @@ class PreferenceAllowed {
 
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
-                    GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                    HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                     boolean sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
 
                     if (!sim0Exists) {
@@ -394,11 +373,11 @@ class PreferenceAllowed {
         }
     }
 
+    /*
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM(PreferenceAllowed preferenceAllowed,
                                                                            String preferenceKey, Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread, Context context) {
         Context appContext = context.getApplicationContext();
 
-        //if (Build.VERSION.SDK_INT >= 26) {
 
             boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
@@ -416,22 +395,21 @@ class PreferenceAllowed {
                 }
 
                 if (connManager != null) {
-                    //if (android.os.Build.VERSION.SDK_INT >= 21) {
                     Network[] networks = connManager.getAllNetworks();
                     if ((networks != null) && (networks.length > 0)) {
                         for (Network network : networks) {
                             try {
-                                /*if (Build.VERSION.SDK_INT < 28) {
-                                    NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
-                                    if (ntkInfo != null) {
-                                        if (ntkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
-                                            mobileDataSupported = true;
-                                            PPApplicationStatic.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "mobileDataSupported=true");
-                                            break;
-                                        }
-                                    }
-                                }
-                                else {*/
+                                //if (Build.VERSION.SDK_INT < 28) {
+                                //    NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
+                                //    if (ntkInfo != null) {
+                                //        if (ntkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+                                //            mobileDataSupported = true;
+                                //            PPApplicationStatic.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "mobileDataSupported=true");
+                                //            break;
+                                //        }
+                                //    }
+                                //}
+                                //else {
                                 NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                 if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
                                     mobileDataSupported = true;
@@ -443,10 +421,6 @@ class PreferenceAllowed {
                             }
                         }
                     }
-                    /*} else {
-                        NetworkInfo ni = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-                        mobileDataSupported = ni != null;
-                    }*/
                 }
                 //else
                 //    mobileDataSupported = false;
@@ -510,14 +484,14 @@ class PreferenceAllowed {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                            /*if (!sim1Exists) {
-                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                            }
-                            if (!sim2Exists) {
-                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                            }*/
+                            //if (!sim1Exists) {
+                            //    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            //    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            //}
+                            //if (!sim2Exists) {
+                            //    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            //    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            //}
                         } else {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -541,12 +515,8 @@ class PreferenceAllowed {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
-        /*} else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
-        }*/
     }
+    */
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS(PreferenceAllowed preferenceAllowed) {
         if (PPApplication.HAS_FEATURE_TELEPHONY)
@@ -578,7 +548,7 @@ class PreferenceAllowed {
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                     } else
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else if (RootUtils.isRooted(fromUIThread)) {
+                } else if (RootUtils.isRooted(/*fromUIThread*/)) {
                     // device is rooted
 
                     if (profile != null) {
@@ -697,7 +667,7 @@ class PreferenceAllowed {
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC(PreferenceAllowed preferenceAllowed,
-            Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread, Context context) {
+            Profile profile, SharedPreferences sharedPreferences, /*boolean fromUIThread,*/ Context context) {
 
         Context appContext = context.getApplicationContext();
 
@@ -717,7 +687,7 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             }
             else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
 
                 if (profile != null) {
                     // test if grant root is disabled
@@ -777,21 +747,6 @@ class PreferenceAllowed {
         //if (Build.VERSION.SDK_INT < 30) {
             if (PPApplication.HAS_FEATURE_WIFI) {
                 // device has Wifi
-                /*if (android.os.Build.VERSION.SDK_INT < 26) {
-                    if (WifiApManager.canExploitWifiAP(appContext)) {
-                        if (profile != null) {
-                            if (profile._deviceWiFiAP != 0)
-                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                        }
-                        else
-                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                    }
-                    else {
-                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                    }
-                } else*/
                 if (Build.VERSION.SDK_INT < 28) {
                     if (WifiApManager.canExploitWifiTethering(appContext)) {
                         if (profile != null) {
@@ -801,7 +756,7 @@ class PreferenceAllowed {
                         else
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                     }
-                    else if (RootUtils.isRooted(fromUIThread)) {
+                    else if (RootUtils.isRooted(/*fromUIThread*/)) {
                         // device is rooted
 
                         if (profile != null) {
@@ -902,7 +857,7 @@ class PreferenceAllowed {
 
         String preferenceKey = Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING;
 
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+        if ((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) || PPApplication.deviceIsOnePlus) {
             if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
                 if (profile != null) {
                     if (profile._vibrateWhenRinging != 0)
@@ -911,7 +866,7 @@ class PreferenceAllowed {
                 else
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 if (profile != null) {
@@ -999,7 +954,7 @@ class PreferenceAllowed {
                     } else
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                 } else
-                if (RootUtils.isRooted(fromUIThread)) {
+                if (RootUtils.isRooted(/*fromUIThread*/)) {
                     // device is rooted
 
                     if (profile != null) {
@@ -1078,6 +1033,7 @@ class PreferenceAllowed {
             boolean fromUIThread, Context context) {
 
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
+        _preferenceAllowed.copyFrom(preferenceAllowed);
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
@@ -1087,7 +1043,7 @@ class PreferenceAllowed {
                 } else
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
@@ -1141,6 +1097,7 @@ class PreferenceAllowed {
             boolean fromUIThread, Context context) {
 
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
+        _preferenceAllowed.copyFrom(preferenceAllowed);
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
 //        Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS", "_preferenceAllowed.allowed="+_preferenceAllowed.allowed);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -1151,7 +1108,7 @@ class PreferenceAllowed {
                 } else
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
@@ -1206,6 +1163,7 @@ class PreferenceAllowed {
             boolean fromUIThread, Context context) {
 
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
+        _preferenceAllowed.copyFrom(preferenceAllowed);
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
@@ -1215,7 +1173,7 @@ class PreferenceAllowed {
                 } else
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
@@ -1317,7 +1275,7 @@ class PreferenceAllowed {
                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
         }
         else
-        if (RootUtils.isRooted(fromUIThread)) {
+        if (RootUtils.isRooted(/*fromUIThread*/)) {
             // device is rooted
 
             if (profile != null) {
@@ -1378,7 +1336,7 @@ class PreferenceAllowed {
 
                 final int phoneType = telephonyManager.getPhoneType();
                 if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
-                    if (RootUtils.isRooted(fromUIThread)) {
+                    if (RootUtils.isRooted(/*fromUIThread*/)) {
                         // device is rooted
 
                         if (profile != null) {
@@ -1422,7 +1380,7 @@ class PreferenceAllowed {
                         }
 
                         boolean sim0Exists;
-                        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                         sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
 
                         if (!sim0Exists) {
@@ -1459,7 +1417,6 @@ class PreferenceAllowed {
 
         Context appContext = context.getApplicationContext();
 
-        //if (Build.VERSION.SDK_INT >= 26) {
             boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
             if (PPApplication.HAS_FEATURE_TELEPHONY) {
@@ -1470,7 +1427,7 @@ class PreferenceAllowed {
 
                     final int phoneType = telephonyManager.getPhoneType();
                     if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
-                        if (RootUtils.isRooted(fromUIThread)) {
+                        if (RootUtils.isRooted(/*fromUIThread*/)) {
                             // device is rooted
 
                             if (profile != null) {
@@ -1545,11 +1502,6 @@ class PreferenceAllowed {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
-        /*} else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
-        }*/
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED(PreferenceAllowed preferenceAllowed,
@@ -1573,7 +1525,7 @@ class PreferenceAllowed {
                 } else
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 if (profile != null) {
@@ -1734,7 +1686,7 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             }
             else
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 if (profile != null) {
@@ -1803,13 +1755,7 @@ class PreferenceAllowed {
 
         //Context appContext = context.getApplicationContext();
 
-        //if (android.os.Build.VERSION.SDK_INT >= 26)
-            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-        /*else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
-        }*/
+        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY(PreferenceAllowed preferenceAllowed,
@@ -1821,15 +1767,16 @@ class PreferenceAllowed {
 
         String preferenceKey = Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY;
 
-        //if (android.os.Build.VERSION.SDK_INT >= 26) {
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(appContext) > 0) {
+            if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 if (profile != null) {
-                    if (profile._alwaysOnDisplay != 0)
+                    if (profile._headsUpNotifications != 0)
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
+                }
+                else
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-            } else
-            if (RootUtils.isRooted(fromUIThread)) {
+            }
+            else
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 if (profile != null) {
@@ -1860,18 +1807,14 @@ class PreferenceAllowed {
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
             } else {
-                if ((profile != null) && (profile._alwaysOnDisplay != 0)) {
-                    preferenceAllowed.notAllowedPPPPS = true;
-                }
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                if ((profile != null) && (profile._alwaysOnDisplay != 0)) {
+                    //return preferenceAllowed;
+                    //preferenceAllowed.notAllowedRoot = true;
+                    preferenceAllowed.notAllowedG1 = true;
+                }
             }
-        /*}
-        else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
-        }*/
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_DARK_MODE(PreferenceAllowed preferenceAllowed,
@@ -1893,7 +1836,7 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             }
             else
-            if (RootUtils.isRooted(fromUIThread))
+            if (RootUtils.isRooted(/*fromUIThread*/))
             {
                 // device is rooted
                 if (profile != null) {
@@ -1960,8 +1903,7 @@ class PreferenceAllowed {
         }
     }
 
-    static void isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(PreferenceAllowed preferenceAllowed,
-                                                                     @SuppressWarnings("unused") Context context) {
+    static void isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(PreferenceAllowed preferenceAllowed/*, Context context*/) {
         boolean flashAvailable;
 
         if (PPApplication.HAS_FEATURE_CAMERA_FLASH) {
@@ -1995,14 +1937,13 @@ class PreferenceAllowed {
 
         String preferenceKey = Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS;
 
-        //if (Build.VERSION.SDK_INT >= 26) {
             //if (PPApplication.HAS_FEATURE_TELEPHONY) {
             final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 int phoneCount = telephonyManager.getPhoneCount();
 //                        PPApplicationStatic.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "phoneCount="+phoneCount);
 
-                if (RootUtils.isRooted(fromUIThread)) {
+                if (RootUtils.isRooted(/*fromUIThread*/)) {
                     // device is rooted
                     if (profile != null) {
                         // test if grant root is disabled
@@ -2060,7 +2001,6 @@ class PreferenceAllowed {
             //    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
             //    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             //}
-        //}
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM(PreferenceAllowed preferenceAllowed,
@@ -2071,7 +2011,7 @@ class PreferenceAllowed {
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
         if (Build.VERSION.SDK_INT >= 29) {
-            if (RootUtils.isRooted(fromUIThread)) {
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
 
                 if (profile != null) {
@@ -2149,7 +2089,6 @@ class PreferenceAllowed {
 
         Context appContext = context.getApplicationContext();
 
-        //if (Build.VERSION.SDK_INT >= 26) {
             if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                     (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
@@ -2180,12 +2119,6 @@ class PreferenceAllowed {
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_by_ppp);
             }
-        /*}
-        else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_by_ppp);
-        }*/
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(PreferenceAllowed preferenceAllowed,
@@ -2196,7 +2129,6 @@ class PreferenceAllowed {
 
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
-        //if (Build.VERSION.SDK_INT >= 26) {
             if (((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -2218,7 +2150,7 @@ class PreferenceAllowed {
                             } else
                                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         } else
-                        if (RootUtils.isRooted(fromUIThread)) {
+                        if (RootUtils.isRooted(/*fromUIThread*/)) {
                             // device is rooted
 
                             if (profile != null) {
@@ -2289,11 +2221,6 @@ class PreferenceAllowed {
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_by_ppp);
             }
-        /*} else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-        }*/
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(PreferenceAllowed preferenceAllowed,
@@ -2305,7 +2232,6 @@ class PreferenceAllowed {
 
         String preferenceKey = Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS;
 
-        //if (Build.VERSION.SDK_INT >= 26) {
             if ((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
                     PPApplication.deviceIsOnePlus) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -2319,7 +2245,7 @@ class PreferenceAllowed {
                             } else
                                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         } else
-                        if (RootUtils.isRooted(fromUIThread)) {
+                        if (RootUtils.isRooted(/*fromUIThread*/)) {
                             // device is rooted
 
                             if (profile != null) {
@@ -2372,11 +2298,6 @@ class PreferenceAllowed {
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported);
             }
-        /*} else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-        }*/
     }
 
 }

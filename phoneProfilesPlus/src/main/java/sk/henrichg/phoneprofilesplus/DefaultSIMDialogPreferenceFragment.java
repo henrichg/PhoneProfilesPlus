@@ -72,7 +72,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         //preference.dualSIMSupported = false;
 
         //if (transactionCodeVoice != -1) {
-            GlobalGUIRoutines.HighlightedSpinnerAdapter voiceSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+            HighlightedSpinnerAdapter voiceSpinnerAdapter = new HighlightedSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
                     R.layout.spinner_highlighted,
                     getResources().getStringArray(R.array.defaultSIMVoiceArray));
@@ -83,7 +83,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
             voiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    ((GlobalGUIRoutines.HighlightedSpinnerAdapter) voiceSpinner.getAdapter()).setSelection(position);
+                    ((HighlightedSpinnerAdapter) voiceSpinner.getAdapter()).setSelection(position);
 //                    PPApplicationStatic.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.voiceSpinner.onItemSelected", "position="+position);
                     preference.voiceValue = position;
                 }
@@ -102,7 +102,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         }*/
 
         //if (transactionCodeSMS != -1) {
-            GlobalGUIRoutines.HighlightedSpinnerAdapter smsSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+            HighlightedSpinnerAdapter smsSpinnerAdapter = new HighlightedSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
                     R.layout.spinner_highlighted,
                     getResources().getStringArray(R.array.defaultSIMSMSArray));
@@ -113,7 +113,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
             smsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    ((GlobalGUIRoutines.HighlightedSpinnerAdapter) smsSpinner.getAdapter()).setSelection(position);
+                    ((HighlightedSpinnerAdapter) smsSpinner.getAdapter()).setSelection(position);
 //                    PPApplicationStatic.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.smsSpinner.onItemSelected", "position="+position);
                     preference.smsValue = position;
                 }
@@ -132,7 +132,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         }*/
 
         //if (transactionCodeData != -1) {
-            GlobalGUIRoutines.HighlightedSpinnerAdapter dataSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+            HighlightedSpinnerAdapter dataSpinnerAdapter = new HighlightedSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
                     R.layout.spinner_highlighted,
                     getResources().getStringArray(R.array.defaultSIMDataArray));
@@ -143,7 +143,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
             dataSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    ((GlobalGUIRoutines.HighlightedSpinnerAdapter) dataSpinner.getAdapter()).setSelection(position);
+                    ((HighlightedSpinnerAdapter) dataSpinner.getAdapter()).setSelection(position);
 //                    PPApplicationStatic.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.dataSpinner.onItemSelected", "position="+position);
                     preference.dataValue = position;
                 }

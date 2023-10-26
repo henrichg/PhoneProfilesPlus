@@ -46,7 +46,7 @@ class ConfiguredProfilePreferencesAdapter extends BaseAdapter
         return position;
     }
     
-    static class ViewHolder {
+    private static class ViewHolder {
         ImageView preferenceIcon;
         ImageView preferenceIcon2;
         TextView preferenceString;
@@ -79,7 +79,7 @@ class ConfiguredProfilePreferencesAdapter extends BaseAdapter
 //                (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
 //                                    == Configuration.UI_MODE_NIGHT_YES;
         String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
-        boolean nightModeOn = !applicationTheme.equals("white");
+        boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
 
         if (configuredPreferences.preferenceIcon == 0) {
             holder.preferenceIcon.setVisibility(View.GONE);

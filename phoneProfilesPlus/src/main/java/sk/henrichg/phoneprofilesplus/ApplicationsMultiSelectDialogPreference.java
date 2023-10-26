@@ -89,7 +89,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     {
         value = getPersistedString((String) defaultValue);
         this.defaultValue = (String)defaultValue;
-        getValueAMSDP();
+        //getValueAMSDP();
         setSummaryAMSDP();
     }
 
@@ -101,7 +101,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         if (PPApplicationStatic.getApplicationsCache() != null) {
             List<Application> cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(true);
             if (cachedApplicationList != null) {
-                String[] splits = value.split("\\|");
+                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                 for (Application application : cachedApplicationList) {
                     application.checked = false;
                     for (String split : splits) {
@@ -160,7 +160,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 // notification scanner
                 ok = false;
                 prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + _context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+                        StringConstants.STR_COLON_WITH_SPACE + _context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
             } else if (systemSettings.equals("accessibility_2.0")) {
                 // PPPExtender
                 int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(_context);
@@ -168,20 +168,20 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 if (extenderVersion == 0) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + _context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+                            StringConstants.STR_COLON_WITH_SPACE + _context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
                 } else if (extenderVersion < requiredVersion) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                            StringConstants.STR_COLON_WITH_SPACE + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true
                         /*, "ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory (accessibility_2.0)"*/)) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + _context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                            StringConstants.STR_COLON_WITH_SPACE + _context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
                 } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + _context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
+                            StringConstants.STR_COLON_WITH_SPACE + _context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
                 }
             } else if (systemSettings.equals("accessibility_5.0")) {
                 // PPPExtender
@@ -190,27 +190,27 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 if (extenderVersion == 0) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + _context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+                            StringConstants.STR_COLON_WITH_SPACE + _context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
                 } else if (extenderVersion < requiredVersion) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                            StringConstants.STR_COLON_WITH_SPACE + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true
                         /*, "ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory (accessibility_5.0)"*/)) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + _context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                            StringConstants.STR_COLON_WITH_SPACE + _context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
                 } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + _context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
+                            StringConstants.STR_COLON_WITH_SPACE + _context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
                 }
             }
         }
         if (ok) {
             if (!value.isEmpty() && !value.equals("-")) {
-                String[] splits = value.split("\\|");
-                prefDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+                prefDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 if (splits.length == 1) {
                     PackageManager packageManager = _context.getPackageManager();
                     /*if (Application.isShortcut(splits[0])) {
@@ -227,7 +227,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         if (activityName.isEmpty()) {
                             ApplicationInfo app;
                             try {
-                                app = packageManager.getApplicationInfo(splits[0], 0);
+                                app = packageManager.getApplicationInfo(splits[0], PackageManager.MATCH_ALL);
                                 if (app != null)
                                     prefDataSummary = packageManager.getApplicationLabel(app).toString();
                             } catch (PackageManager.NameNotFoundException e) {
@@ -310,18 +310,30 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         PackageManager packageManager = _context.getApplicationContext().getPackageManager();
         ApplicationInfo app;
 
-        String[] splits = value.split("\\|");
+        //int disabledColor = ContextCompat.getColor(_context, R.color.activityDisabledTextColor);
 
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length == 1) {
             packageIcon.setVisibility(View.VISIBLE);
+            packageIcon1.setImageResource(R.drawable.ic_empty);
+            packageIcon1.setAlpha(1f);
+            packageIcon2.setImageResource(R.drawable.ic_empty);
+            packageIcon2.setAlpha(1f);
+            packageIcon3.setImageResource(R.drawable.ic_empty);
+            packageIcon3.setAlpha(1f);
+            packageIcon4.setImageResource(R.drawable.ic_empty);
+            packageIcon4.setAlpha(1f);
             packageIcons.setVisibility(View.GONE);
 
+            boolean _setEnabled = false;
             /*if (Application.isShortcut(splits[0])) {
                 Intent intent = new Intent();
                 intent.setClassName(Application.getPackageName(splits[0]), Application.getActivityName(splits[0]));
                 ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-                if (info != null)
+                if (info != null) {
                     packageIcon.setImageDrawable(info.loadIcon(packageManager));
+                    _setEnabled = true;
+                }
                 else
                     packageIcon.setImageResource(R.drawable.ic_empty);
             }
@@ -332,11 +344,12 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 String activityName = Application.getActivityName(splits[0]);
                 if (activityName.isEmpty()) {
                     try {
-                        app = packageManager.getApplicationInfo(splits[0], 0);
+                        app = packageManager.getApplicationInfo(splits[0], PackageManager.MATCH_ALL);
                         if (app != null) {
                             Drawable icon = packageManager.getApplicationIcon(app);
                             //CharSequence name = packageManager.getApplicationLabel(app);
                             packageIcon.setImageDrawable(icon);
+                            _setEnabled = true;
                         } else {
                             packageIcon.setImageResource(R.drawable.ic_empty);
                         }
@@ -348,17 +361,27 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                     Intent intent = new Intent();
                     intent.setClassName(Application.getPackageName(splits[0]), activityName);
                     ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-                    if (info != null)
+                    if (info != null) {
                         packageIcon.setImageDrawable(info.loadIcon(packageManager));
+                        _setEnabled = true;
+                    }
                     else
                         packageIcon.setImageResource(R.drawable.ic_empty);
                 }
             }
+            if (_setEnabled) {
+                if (!isEnabled())
+                    packageIcon.setAlpha(0.35f);
+                else
+                    packageIcon.setAlpha(1f);
+            } else
+                packageIcon.setAlpha(1f);
         }
         else {
             packageIcon.setVisibility(View.GONE);
             packageIcons.setVisibility(View.VISIBLE);
             packageIcon.setImageResource(R.drawable.ic_empty);
+            packageIcon.setAlpha(1f);
 
             ImageView packIcon = packageIcon1;
             for (int i = 0; i < 4; i++)
@@ -368,7 +391,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 if (i == 2) packIcon = packageIcon3;
                 if (i == 3) packIcon = packageIcon4;
                 if (i < splits.length) {
-
+                    boolean _setEnabled = false;
                     /*if (Application.isShortcut(splits[i])) {
                         Intent intent = new Intent();
                         intent.setClassName(Application.getPackageName(splits[i]), Application.getActivityName(splits[i]));
@@ -386,11 +409,12 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         String activityName = Application.getActivityName(splits[i]);
                         if (activityName.isEmpty()) {
                             try {
-                                app = packageManager.getApplicationInfo(splits[i], 0);
+                                app = packageManager.getApplicationInfo(splits[i], PackageManager.MATCH_ALL);
                                 if (app != null) {
                                     Drawable icon = packageManager.getApplicationIcon(app);
                                     //CharSequence name = packageManager.getApplicationLabel(app);
                                     packIcon.setImageDrawable(icon);
+                                    _setEnabled = true;
                                 } else {
                                     packIcon.setImageResource(R.drawable.ic_empty);
                                 }
@@ -405,14 +429,24 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
                             if (info != null) {
                                 packIcon.setImageDrawable(info.loadIcon(packageManager));
+                                _setEnabled = true;
                             } else {
                                 packIcon.setImageResource(R.drawable.ic_empty);
                             }
                         }
                     }
+                    if (_setEnabled) {
+                        if (!isEnabled())
+                            packIcon.setAlpha(0.35f);
+                        else
+                            packIcon.setAlpha(1f);
+                    } else
+                        packIcon.setAlpha(1f);
                 }
-                else
+                else {
                     packIcon.setImageResource(R.drawable.ic_empty);
+                    packIcon.setAlpha(1f);
+                }
             }
         }
     }

@@ -49,14 +49,13 @@ public class PPAppNotification {
         }
 
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._showNotification", "call of createPPPAppNotificationChannel()");
-        PPApplicationStatic.createPPPAppNotificationChannel(appContext);
+        PPApplicationStatic.createPPPAppNotificationChannel(appContext, false);
 
-        // intent to LauncherActivity, for click on notification
         Intent launcherIntent;
         if (Build.VERSION.SDK_INT < 31) {
             launcherIntent = new Intent(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
         } else {
-            launcherIntent = new Intent(appContext, LauncherActivity.class);
+            launcherIntent = GlobalGUIRoutines.getIntentForStartupSource(appContext, PPApplication.STARTUP_SOURCE_NOTIFICATION);
             // clear all opened activities
             launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
             // setup startupSource
@@ -128,7 +127,7 @@ public class PPAppNotification {
                 notificationUseDecoration = ApplicationPreferences.notificationUseDecoration;
                 notificationShowRestartEventsAsButton = ApplicationPreferences.notificationShowRestartEventsAsButton;
 
-                notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon /*|| (Build.VERSION.SDK_INT < 24)*/;
+                notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon;
                 notificationProfileIconColor = ApplicationPreferences.notificationProfileIconColor;
                 notificationProfileIconLightness = ApplicationPreferences.notificationProfileIconLightness;
                 notificationCustomProfileIconLightness = ApplicationPreferences.notificationCustomProfileIconLightness;
@@ -177,8 +176,7 @@ public class PPAppNotification {
         if (notificationNotificationStyle.equals("0")) {
             // ----- create content view
 
-            //useDecorator = (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) || (Build.VERSION.SDK_INT >= 26);
-            useDecorator = /*useDecorator &&*/ notificationUseDecoration;
+            useDecorator = notificationUseDecoration;
 
             switch (notificationBackgroundColor) {
                 case "1":
@@ -471,7 +469,7 @@ public class PPAppNotification {
         else
         {
             isIconResourceID = true;
-            iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
+            iconIdentifier = StringConstants.PROFILE_ICON_DEFAULT;
             if (!forFirstStart)
                 pName = appContext.getString(R.string.profiles_header_profile_name_no_activated);
             else
@@ -489,7 +487,6 @@ public class PPAppNotification {
             pIntent = PendingIntent.getActivity(appContext, requestCode, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // ----- create notificationBuilders
-        //if (Build.VERSION.SDK_INT >= 26) {
         notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
         /*}
         else {
@@ -763,7 +760,6 @@ public class PPAppNotification {
         if ((notificationShowButtonExit) && useDecorator) {
             // add action button to stop application
 
-            // intent to LauncherActivity, for click on notification
             Intent exitAppIntent = new Intent(appContext, ExitApplicationActivity.class);
             // clear all opened activities
             exitAppIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -790,7 +786,7 @@ public class PPAppNotification {
         }
         if (Build.VERSION.SDK_INT >= 33) {
 //            Log.e("PPAppNotification._showNotification", "add delete intent");
-            Intent deleteIntent = new Intent(PPAppNotificationDeletedReceiver.PP_APP_NOTIFICATION_DELETED_ACTION);
+            Intent deleteIntent = new Intent(PPAppNotificationDeletedReceiver.ACTION_PP_APP_NOTIFICATION_DELETED);
             PendingIntent deletePendingIntent = PendingIntent.getBroadcast(appContext, 0, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             notificationBuilder.setDeleteIntent(deletePendingIntent);
         }
@@ -804,16 +800,6 @@ public class PPAppNotification {
         }
 
         if (phoneProfilesNotification != null) {
-
-            /*if (Build.VERSION.SDK_INT < 26) {
-                phoneProfilesNotification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
-                phoneProfilesNotification.ledOnMS = 0;
-                phoneProfilesNotification.ledOffMS = 0;
-                phoneProfilesNotification.sound = null;
-                phoneProfilesNotification.vibrate = null;
-                phoneProfilesNotification.defaults &= ~NotificationCompat.DEFAULT_SOUND;
-                phoneProfilesNotification.defaults &= ~NotificationCompat.DEFAULT_VIBRATE;
-            }*/
 
             // do not use Notification.FLAG_ONGOING_EVENT,
             // with this flag, is not possible to colapse this notification
@@ -1090,7 +1076,7 @@ public class PPAppNotification {
                             PPApplicationStatic.recordException(e);
 //                            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                         }
-                        notificationBuilder.setLargeIcon(null);
+                        notificationBuilder.setLargeIcon((Bitmap) null);
                     }
                     else {
                         // icon will be set in NotificationCompat.BigPictureStyle() for level 31+
@@ -1159,7 +1145,7 @@ public class PPAppNotification {
                             PPApplicationStatic.recordException(e);
 //                            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                         }
-                        notificationBuilder.setLargeIcon(null);
+                        notificationBuilder.setLargeIcon((Bitmap) null);
                     } else {
                         // icon will be set in NotificationCompat.BigPictureStyle() for level 31+
                         if ((Build.VERSION.SDK_INT < 31) && notificationShowProfileIcon)
@@ -1250,7 +1236,7 @@ public class PPAppNotification {
                         PPApplicationStatic.recordException(e);
 //                        PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                     }
-                    notificationBuilder.setLargeIcon(null);
+                    notificationBuilder.setLargeIcon((Bitmap) null);
                 }
                 else {
                     if (notificationShowProfileIcon) {
@@ -1305,7 +1291,7 @@ public class PPAppNotification {
                     PPApplicationStatic.recordException(e);
 //                    PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                 }
-                notificationBuilder.setLargeIcon(null);
+                notificationBuilder.setLargeIcon((Bitmap) null);
             }
             else {
                 if (notificationShowProfileIcon) {
@@ -1324,10 +1310,10 @@ public class PPAppNotification {
 
     static void clearOldNotification(Context context) {
         boolean clear = false;
-        if (Build.MANUFACTURER.equals("HMD Global"))
+        if (Build.MANUFACTURER.equals(PPApplication.MANUFACTURER_HMD_GLOBAL))
             // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
             clear = true;
-        if (PPApplication.deviceIsLG && (!Build.MODEL.contains("Nexus")) && (Build.VERSION.SDK_INT == 28))
+        if (PPApplication.deviceIsLG && (!Build.MODEL.contains(PPApplication.MODEL_NEXUS)) && (Build.VERSION.SDK_INT == 28))
             // clear it for redraw icon in "Glance view" for LG with Android 9
             clear = true;
         if (clear) {
@@ -1400,11 +1386,13 @@ public class PPAppNotification {
             PowerManager.WakeLock wakeLock = null;
             try {
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPAppNotification_drawProfileNotification");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPAppNotification_drawProfileNotification);
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification.drawNotification", "call of forceDrawNotification");
+//                Log.e("PPAppNotification.drawNotification", "xxx in runnable xxx");
+
                 forceDrawNotification(appContext);
 
 //                long finish = System.currentTimeMillis();
@@ -1425,105 +1413,24 @@ public class PPAppNotification {
             }
             //}
         };
-        PPApplicationStatic.createDelayedShowNotificationExecutor();
+        PPApplicationStatic.createDelayedAppNotificationExecutor();
 
-//        PPApplication.delayedShowNotificationExecutor.shutdownNow(); // shutdown already scheduled
-//        try {
-//            PPApplication.delayedShowNotificationExecutor.awaitTermination(1, TimeUnit.SECONDS); // shutdown already scheduled
-//        } catch (Exception ignored) {};
-
+//        Log.e("PPAppNotification.drawNotification", "xxx call of shedule xxx");
+        if (PPApplication.scheduledFutureDelayedAppNotificationExecutor != null)
+            PPApplication.scheduledFutureDelayedAppNotificationExecutor.cancel(false);
         if (drawImmediatelly)
-            PPApplication.delayedAppNotificationExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
-        else
-            PPApplication.delayedAppNotificationExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
-
-        /*if (drawImmediatelly) {
-            final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThread();
-            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            //__handler.postDelayed(new PPApplication.PPHandlerThreadRunnable(
-            //        context.getApplicationContext()) {
-            __handler.postDelayed(() -> {
-//            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.drawNotification");
-
-                //Context appContext= appContextWeakRef.get();
-                //if (appContext != null) {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_drawNotification");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    boolean doNotShowNotification;
-                    synchronized (PPApplication.applicationPreferencesMutex) {
-                        doNotShowNotification = PPApplication.doNotShowPPPAppNotification;
-                    }
-
-                    if (!doNotShowNotification) {
-                        if (PhoneProfilesService.getInstance() != null) {
-
-                            clearOldNotification();
-
-                            if (PhoneProfilesService.getInstance() != null) {
-                                synchronized (PPApplication.showPPPNotificationMutex) {
-                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
-                                    PhoneProfilesService.getInstance()._showNotification(dataWrapper, false);
-                                }
-                            }
-                        }
-                    }
-
-                } catch (Exception e) {
-//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PhoneProfilesService.drawNotification", Log.getStackTraceString(e));
-                    PPApplicationStatic.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-                //}
-            }, 200);
-        } else {
-            OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(ShowProfileNotificationWorker.class)
-                            .addTag(ShowProfileNotificationWorker.WORK_TAG)
-                            .setInitialDelay(1, TimeUnit.SECONDS)
-                            .build();
-            try {
-                // EVEN WHEN SERVICE IS NOT FULLY STARTED, SHOW NOTIFICATION IS REQUIRED !!!
-                // FOR THIS REASON, DO NOT TEST serviceHasFirstStart
-                if (PPApplicationStatic.getApplicationStarted(false)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance();
-                    if (workManager != null) {
-
-//                    //if (PPApplicationStatic.logEnabled()) {
-//                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosForUniqueWork(ShowProfileNotificationWorker.WORK_TAG);
-//                    try {
-//                        List<WorkInfo> workInfoList = statuses.get();
-//                    } catch (Exception ignored) {
-//                    }
-//                    //}
-
-//                    PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.showProfileNotification", "xxx");
-                        workManager.enqueueUniqueWork(ShowProfileNotificationWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                    }
-                }
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-
+            PPApplication.scheduledFutureDelayedAppNotificationExecutor =
+                    PPApplication.delayedAppNotificationExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+        else {
+            int delay = 5;
+            if (PPApplication.isScreenOn)
+                delay = 1;
+            PPApplication.scheduledFutureDelayedAppNotificationExecutor =
+                    PPApplication.delayedAppNotificationExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
         }
-        */
     }
 
     static void showNotification(Context context, boolean drawEmpty, boolean drawActivatedProfle, boolean drawImmediatelly) {
-        //if (Build.VERSION.SDK_INT >= 26) {
         //if (DebugVersion.enabled)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
@@ -1536,7 +1443,6 @@ public class PPAppNotification {
             dataWrapper.invalidateDataWrapper();
             //return; // do not return, dusplay activated profile immediatelly
         }
-        //}
 
         //if (DebugVersion.enabled)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);

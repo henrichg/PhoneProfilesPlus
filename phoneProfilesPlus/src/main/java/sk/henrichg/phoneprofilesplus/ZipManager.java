@@ -42,7 +42,7 @@ class ZipManager {
 
 			return true;
 		} catch (Exception e) {
-			Log.e("ZipManager.zip", Log.getStackTraceString(e));
+			PPApplicationStatic.logException("ZipManager.zip", Log.getStackTraceString(e));
 			return false;
 		}
 	}
@@ -74,7 +74,7 @@ class ZipManager {
 			zin.close();
 			return true;
 		} catch (Exception e) {
-			Log.e("ZipManager.unzip", Log.getStackTraceString(e));
+			PPApplicationStatic.logException("ZipManager.unzip", Log.getStackTraceString(e));
 			return false;
 		}
 	}

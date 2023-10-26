@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_cell_names_pref_dlg_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
+
+    <LinearLayout 
+        android:id="@+id/mobile_cell_names_pref_dlg_linla_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+        
+        <ProgressBar
+            android:id="@+id/mobile_cell_names_pref_dlg_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dialog_progressbar_padding"
+            style="?android:attr/progressBarStyle"
+            android:indeterminateDrawable="@drawable/ic_progressbar" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/mobile_cell_names_pref_dlg_rella_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <View
+            android:id="@+id/mobile_cell_names_pref_dlg_titleBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:background="@color/dialog_divider" />
+
+        <RelativeLayout
+            android:id="@+id/mobile_cell_names_pref_dlg_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/mobile_cell_names_pref_dlg_empty_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/ic_empty_list"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:contentDescription=""
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/mobile_cell_names_pref_dlg_listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:clipToPadding="false"
+            android:choiceMode="singleChoice"
+            android:scrollbarStyle="outsideOverlay"
+            android:fadeScrollbars="false"
+            android:divider="@android:color/transparent"
+            android:listSelector="?attr/listViewItemBackground" />
+
+        <View
+            android:id="@+id/mobile_cell_names_pref_dlg_buttonBarDivider"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:background="@color/dialog_divider" />
+
+        <TextView
+            android:id="@+id/mobile_cell_names_pref_dlg_connectedCell_simDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mobile_cell_names_pref_dlg_connected_cell"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/mobile_cell_names_pref_dlg_connectedCell_sim1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mobile_cell_names_pref_dlg_connected_cell_sim1"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/mobile_cell_names_pref_dlg_connectedCell_sim2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mobile_cell_names_pref_dlg_connected_cell_sim2"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="10dp" />
+
+        <RelativeLayout
+            android:id="@+id/mobile_cell_names_pref_dlg_locationSystemSettingsRelLa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp" >
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/mobile_cell_names_pref_dlg_locationSystemSettingsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_button_settings"
+                app:tint="@color/accent_color"
+                android:contentDescription="@string/location_settings_button_tooltip"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+
+            <TextView
+                android:id="@+id/mobile_cell_names_pref_dlg_locationEnableStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="@string/phone_profiles_pref_eventLocationSystemSettings"
+                android:layout_toStartOf="@id/mobile_cell_names_pref_dlg_locationSystemSettingsButton" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/mobile_cell_names_pref_dlg_rescanButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/wifi_ssid_pref_dlg_rescan_button"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="0dp"
+            android:minHeight="40dp"
+            android:textColor="@color/action_button_text_color"
+            android:textStyle="bold"
+            android:background="@drawable/pp_button_background_selector"
+            style="?android:attr/borderlessButtonStyle" />
+
+    </LinearLayout>
+
+</LinearLayout>

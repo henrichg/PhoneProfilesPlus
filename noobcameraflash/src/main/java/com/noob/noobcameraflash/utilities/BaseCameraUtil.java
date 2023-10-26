@@ -6,13 +6,12 @@ import android.content.Context;
  * Created by Abhishek on 08-12-2016.
  */
 
-@SuppressWarnings({"SameParameterValue", "unused"})
 public abstract class BaseCameraUtil implements CameraFlashUtility {
     private final Context mContext;
 
     //private boolean torchModeOn = false;
-    private TorchMode mTorchMode = TorchMode.None;
-    private TorchModeCallback mTorchModeCallback;
+    //private TorchMode mTorchMode = TorchMode.None;
+    //private TorchModeCallback mTorchModeCallback;
 
     //region Constructors
     BaseCameraUtil(Context context) {
@@ -21,23 +20,29 @@ public abstract class BaseCameraUtil implements CameraFlashUtility {
     //endregion
 
     //region Overrides
+    /*
     @Override
     public boolean isFlashOn() {
         return mTorchMode == TorchMode.SwitchedOn;
     }
+    */
 
+    /*
     @Override
     public void setTorchModeCallback(TorchModeCallback torchModeCallback) {
         mTorchModeCallback = torchModeCallback;
     }
+    */
     //endregion
 
+    /*
     //protected methods
     void onCameraTorchModeChanged(TorchMode torchMode) {
         if (mTorchModeCallback != null) {
             mTorchModeCallback.onTorchModeChanged(torchMode);
         }
     }
+    */
 
     //endregion
 
@@ -47,12 +52,15 @@ public abstract class BaseCameraUtil implements CameraFlashUtility {
         return mContext;
     }
 
+    /*
     public TorchMode getTorchMode() {
         return mTorchMode;
     }
-
+    */
+    /*
     void setTorchMode(TorchMode torchMode) {
         mTorchMode = torchMode;
     }
+    */
     //endregion
 }

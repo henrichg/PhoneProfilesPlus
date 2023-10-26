@@ -29,46 +29,57 @@ public class NotificationsPreferncesActivity extends AppCompatActivity {
         super.onStart();
 
         if (activityStarted) {
-            GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false, false);
+            if (ApplicationPreferences.notificationProfileListDisplayNotification) {
+                GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
 
-            SingleSelectListDialog dialog = new SingleSelectListDialog(
-                    false,
-                    getString(R.string.notifications_preferences_notification_type),
-                    null,
-                    R.array.notificationPreferencesNotificationTypeArray,
-                    SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
-                    (dialog1, which) -> {
-                        switch (which) {
-                            case 0:
-                                try {
-                                    Intent intent = new Intent(this, PhoneProfilesPrefsActivity.class);
-                                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categoryAppNotificationRoot");
-                                    //noinspection deprecation
-                                    startActivityForResult(intent, 100);
-                                } catch (Exception e) {
-                                    finish();
-                                }
-                                break;
-                            case 1:
-                                try {
-                                    Intent intent = new Intent(this, PhoneProfilesPrefsActivity.class);
-                                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categoryProfileListNotificationRoot");
-                                    //noinspection deprecation
-                                    startActivityForResult(intent, 100);
-                                } catch (Exception e) {
-                                    finish();
-                                }
-                                break;
-                            default:
-                        }
-                    },
-                    dialog12 -> finish(),
-                    false,
-                    this);
+                SingleSelectListDialog dialog = new SingleSelectListDialog(
+                        false,
+                        getString(R.string.notifications_preferences_notification_type),
+                        null,
+                        R.array.notificationPreferencesNotificationTypeArray,
+                        SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
+                        (dialog1, which) -> {
+                            switch (which) {
+                                case 0:
+                                    try {
+                                        Intent intent = new Intent(this, PhoneProfilesPrefsActivity.class);
+                                        intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_APP_NOTIFICATION_CATEGORY_ROOT);
+                                        //noinspection deprecation
+                                        startActivityForResult(intent, 100);
+                                    } catch (Exception e) {
+                                        finish();
+                                    }
+                                    break;
+                                case 1:
+                                    try {
+                                        Intent intent = new Intent(this, PhoneProfilesPrefsActivity.class);
+                                        intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT);
+                                        //noinspection deprecation
+                                        startActivityForResult(intent, 100);
+                                    } catch (Exception e) {
+                                        finish();
+                                    }
+                                    break;
+                                default:
+                            }
+                        },
+                        dialog12 -> finish(),
+                        false,
+                        this);
 
-            if (!isFinishing())
-                dialog.show();
+                if (!isFinishing())
+                    dialog.show();
 
+            } else {
+                try {
+                    Intent intent = new Intent(this, PhoneProfilesPrefsActivity.class);
+                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_APP_NOTIFICATION_CATEGORY_ROOT);
+                    //noinspection deprecation
+                    startActivityForResult(intent, 100);
+                } catch (Exception e) {
+                    finish();
+                }
+            }
         }
         else {
             if (!isFinishing())

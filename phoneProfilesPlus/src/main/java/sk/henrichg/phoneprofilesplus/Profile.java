@@ -7,14 +7,14 @@ import android.graphics.Bitmap;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
+import android.util.ArrayMap;
 
 import androidx.core.graphics.ColorUtils;
 import androidx.palette.graphics.Palette;
 
 import java.util.Calendar;
-import java.util.HashMap;
 
-public class Profile {
+class Profile {
 
     long _id;
     String _name;
@@ -69,12 +69,12 @@ public class Profile {
     boolean _hideStatusBarIcon;
     int _lockDevice;
     String _deviceConnectToSSID;
-    int _applicationDisableWifiScanning;
-    int _applicationDisableBluetoothScanning;
+    int _applicationEnableWifiScanning;
+    int _applicationEnableBluetoothScanning;
     int _deviceWiFiAPPrefs;
-    int _applicationDisableLocationScanning;
-    int _applicationDisableMobileCellScanning;
-    int _applicationDisableOrientationScanning;
+    int _applicationEnableLocationScanning;
+    int _applicationEnableMobileCellScanning;
+    int _applicationEnableOrientationScanning;
     int _headsUpNotifications;
     int _deviceForceStopApplicationChange;
     String _deviceForceStopApplicationPackageName;
@@ -92,13 +92,13 @@ public class Profile {
     int _screenOnPermanent;
     boolean _volumeMuteSound;
     int _deviceLocationMode;
-    int _applicationDisableNotificationScanning;
+    int _applicationEnableNotificationScanning;
     String _generateNotification;
     int _cameraFlash;
     int _deviceNetworkTypeSIM1;
     int _deviceNetworkTypeSIM2;
-    int _deviceMobileDataSIM1;
-    int _deviceMobileDataSIM2;
+    //int _deviceMobileDataSIM1;
+    //int _deviceMobileDataSIM2;
     String _deviceDefaultSIMCards;
     int _deviceOnOffSIM1;
     int _deviceOnOffSIM2;
@@ -118,21 +118,33 @@ public class Profile {
     int _deviceVPNSettingsPrefs;
     int _endOfActivationType;
     int _endOfActivationTime;
-    int _applicationDisablePeriodicScanning;
+    int _applicationEnablePeriodicScanning;
     String _deviceVPN;
     String _vibrationIntensityRinging;
     String _vibrationIntensityNotifications;
     String _vibrationIntensityTouchInteraction;
+    boolean _volumeMediaChangeDuringPlay;
+    int _applicationWifiScanInterval;
+    int _applicationBluetoothScanInterval;
+    int _applicationBluetoothLEScanDuration;
+    int _applicationLocationScanInterval;
+    int _applicationOrientationScanInterval;
+    int _applicationPeriodicScanInterval;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
     //int _ringerModeForZenMode;
 
     static final long PROFILE_NO_ACTIVATE = -999;
+    static final long RESTART_EVENTS_PROFILE_ID = -888L;
+    //static final long SHARED_PROFILE_ID = -999L;
+    //static final int SHARED_PROFILE_VALUE = 99;
+    //static final String SHARED_PROFILE_VALUE_STR = "99";
 
     //private static final String PREF_PROFILE_ID = "prf_pref_id";
     static final String PREF_PROFILE_NAME = "prf_pref_profileName";
     static final String PREF_PROFILE_ICON = "prf_pref_profileIcon";
+    static final String PREF_PROFILE_ICON_WITHOUT_ICON = "prf_pref_profileIcon_withoutIcon";
     //private static final String PREF_PROFILE_CHECKED = "prf_pref_checked";
     static final String PREF_PROFILE_VOLUME_RINGER_MODE = "prf_pref_volumeRingerMode";
     static final String PREF_PROFILE_VOLUME_ZEN_MODE = "prf_pref_volumeZenMode";
@@ -153,6 +165,7 @@ public class Profile {
     static final String PREF_PROFILE_DEVICE_BLUETOOTH = "prf_pref_deviceBluetooth";
     static final String PREF_PROFILE_DEVICE_SCREEN_TIMEOUT = "prf_pref_deviceScreenTimeout";
     static final String PREF_PROFILE_DEVICE_BRIGHTNESS = "prf_pref_deviceBrightness";
+    static final String PREF_PROFILE_DEVICE_BRIGHTNESS_WITHOUT_LEVEL = "prf_pref_deviceBrightness_withoutLevel";
     static final String PREF_PROFILE_DEVICE_WALLPAPER_CHANGE = "prf_pref_deviceWallpaperChange";
     static final String PREF_PROFILE_DEVICE_WALLPAPER = "prf_pref_deviceWallpaper";
     static final String PREF_PROFILE_DEVICE_MOBILE_DATA = "prf_pref_deviceMobileData";
@@ -162,6 +175,7 @@ public class Profile {
     static final String PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME = "prf_pref_deviceRunApplicationPackageName";
     static final String PREF_PROFILE_DEVICE_AUTOSYNC = "prf_pref_deviceAutosync";
     static final String PREF_PROFILE_SHOW_IN_ACTIVATOR = "prf_pref_showInActivator";
+    static final String PREF_PROFILE_SHOW_IN_ACTIVATOR_NOT_SHOW = "prf_pref_showInActivator_notShow";
     static final String PREF_PROFILE_DEVICE_AUTOROTATE = "prf_pref_deviceAutoRotation";
     static final String PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS = "prf_pref_deviceLocationServicePrefs";
     static final String PREF_PROFILE_VOLUME_SPEAKER_PHONE = "prf_pref_volumeSpeakerPhone";
@@ -184,13 +198,13 @@ public class Profile {
     static final String PREF_PROFILE_HIDE_STATUS_BAR_ICON = "prf_pref_hideStatusBarIcon";
     static final String PREF_PROFILE_LOCK_DEVICE = "prf_pref_lockDevice";
     static final String PREF_PROFILE_DEVICE_CONNECT_TO_SSID = "prf_pref_deviceConnectToSSID";
-    static final String PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING = "prf_pref_applicationDisableWifiScanning";
-    static final String PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING = "prf_pref_applicationDisableBluetoothScanning";
+    static final String PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING = "prf_pref_applicationEnableWifiScanning";
+    static final String PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING = "prf_pref_applicationEnableBluetoothScanning";
     //static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
     static final String PREF_PROFILE_DEVICE_WIFI_AP_PREFS = "prf_pref_deviceWiFiAPPrefs";
-    static final String PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING = "prf_pref_applicationDisableLocationScanning";
-    static final String PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING = "prf_pref_applicationDisableMobileCellScanning";
-    static final String PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING = "prf_pref_applicationDisableOrientationScanning";
+    static final String PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING = "prf_pref_applicationEnableLocationScanning";
+    static final String PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING = "prf_pref_applicationEnableMobileCellScanning";
+    static final String PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING = "prf_pref_applicationEnableOrientationScanning";
     static final String PREF_PROFILE_HEADS_UP_NOTIFICATIONS = "prf_pref_headsUpNotifications";
     static final String PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE = "prf_pref_deviceForceStopApplicationChange";
     static final String PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME = "prf_pref_deviceForceStopApplicationPackageName";
@@ -207,13 +221,13 @@ public class Profile {
     static final String PREF_PROFILE_SCREEN_ON_PERMANENT = "prf_pref_screenOnPermanent";
     static final String PREF_PROFILE_VOLUME_MUTE_SOUND = "prf_pref_volumeMuteSound";
     static final String PREF_PROFILE_DEVICE_LOCATION_MODE = "prf_pref_deviceLocationMode";
-    static final String PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING = "prf_pref_applicationDisableNotificationScanning";
+    static final String PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING = "prf_pref_applicationEnableNotificationScanning";
     static final String PREF_PROFILE_GENERATE_NOTIFICATION = "prf_pref_generateNotification";
     static final String PREF_PROFILE_CAMERA_FLASH = "prf_pref_cameraFlash";
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1 = "prf_pref_deviceNetworkTypeSIM1";
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 = "prf_pref_deviceNetworkTypeSIM2";
-    static final String PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1 = "prf_pref_deviceMobileDataSIM1";
-    static final String PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2 = "prf_pref_deviceMobileDataSIM2";
+    //static final String PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1 = "prf_pref_deviceMobileDataSIM1";
+    //static final String PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2 = "prf_pref_deviceMobileDataSIM2";
     static final String PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS = "prf_pref_deviceDefaultSIMCards";
     static final String PREF_PROFILE_DEVICE_ONOFF_SIM1 = "prf_pref_deviceOnOffSIM1";
     static final String PREF_PROFILE_DEVICE_ONOFF_SIM2 = "prf_pref_deviceOnOffSIM2";
@@ -232,28 +246,36 @@ public class Profile {
     static final String PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS = "prf_pref_deviceVPNSettingsPrefs";
     static final String PREF_PROFILE_END_OF_ACTIVATION_TYPE = "prf_pref_endOfActivationType";
     static final String PREF_PROFILE_END_OF_ACTIVATION_TIME = "prf_pref_endOfActivationTime";
-    static final String PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING = "prf_pref_applicationDisablePeriodicScanning";
+    static final String PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING = "prf_pref_applicationEnablePeriodicScanning";
     static final String PREF_PROFILE_DEVICE_VPN = "prf_pref_deviceVPN";
     static final String PREF_PROFILE_VIBRATION_INTENSITY_RINGING = "prf_pref_vibrationIntensityRinging";
     static final String PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS = "prf_pref_vibrationIntensityNotifications";
     static final String PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION = "prf_pref_vibrationIntensityTouchInteraction";
+    static final String PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY = "prf_pref_volumeMediaChangeDuringPlay";
+    static final String PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL = "prf_pref_applicationWifiScanInterval";
+    static final String PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL = "prf_pref_applicationBluetoothScanInterval";
+    static final String PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION = "prf_pref_applicationBluetoothLEScanDuration";
+    static final String PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL = "prf_pref_applicationLocationUpdateInterval";
+    static final String PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL = "prf_pref_applicationOrientationScanInterval";
+    static final String PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL = "prf_pref_applicationPeriodicScanningScanInterval";
 
-    static final HashMap<String, Boolean> defaultValuesBoolean;
+    static final ArrayMap<String, Boolean> defaultValuesBoolean;
     static {
-        defaultValuesBoolean = new HashMap<>();
+        defaultValuesBoolean = new ArrayMap<>();
         defaultValuesBoolean.put(PREF_PROFILE_SHOW_IN_ACTIVATOR, false);
-        defaultValuesBoolean.put("prf_pref_showInActivator_notShow", false);
+        defaultValuesBoolean.put(PREF_PROFILE_SHOW_IN_ACTIVATOR_NOT_SHOW, false);
         defaultValuesBoolean.put(PREF_PROFILE_ASK_FOR_DURATION, false);
         defaultValuesBoolean.put(PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, false);
         defaultValuesBoolean.put(PREF_PROFILE_HIDE_STATUS_BAR_ICON, false);
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
+        defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY, false);
     }
-    static final HashMap<String, String> defaultValuesString;
+    static final ArrayMap<String, String> defaultValuesString;
     static {
-        defaultValuesString = new HashMap<>();
+        defaultValuesString = new ArrayMap<>();
         defaultValuesString.put(PREF_PROFILE_NAME, "");
-        defaultValuesString.put(PREF_PROFILE_ICON, "ic_profile_default|1|0|0");
-        defaultValuesString.put("prf_pref_profileIcon_withoutIcon", "|1|0|0");
+        defaultValuesString.put(PREF_PROFILE_ICON, StringConstants.PROFILE_ICON_DEFAULT+"|1|0|0");
+        defaultValuesString.put(PREF_PROFILE_ICON_WITHOUT_ICON, "|1|0|0");
         defaultValuesString.put(PREF_PROFILE_DURATION, "0");
         defaultValuesString.put(PREF_PROFILE_AFTER_DURATION_DO, "0");
         defaultValuesString.put(PREF_PROFILE_DURATION_NOTIFICATION_SOUND, "");
@@ -286,7 +308,7 @@ public class Profile {
         defaultValuesString.put(PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_KEYGUARD, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_BRIGHTNESS, "50|1|1|0");
-        defaultValuesString.put("prf_pref_deviceBrightness_withoutLevel", "|1|1|0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_BRIGHTNESS_WITHOUT_LEVEL, "|1|1|0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_AUTOROTATE, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_POWER_SAVE_MODE, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, "0");
@@ -298,13 +320,13 @@ public class Profile {
         defaultValuesString.put(PREF_PROFILE_VIBRATE_WHEN_RINGING, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER_FOR, "0");
         defaultValuesString.put(PREF_PROFILE_LOCK_DEVICE, "0");
-        defaultValuesString.put(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, "^just_any^");
-        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, "0");
-        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, StringConstants.CONNECTTOSSID_JUSTANY);
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_WIFI_AP_PREFS, "0");
-        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, "0");
-        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, "0");
-        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING, "0");
         defaultValuesString.put(PREF_PROFILE_HEADS_UP_NOTIFICATIONS, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, "-");
@@ -320,13 +342,13 @@ public class Profile {
         defaultValuesString.put(PREF_PROFILE_ALWAYS_ON_DISPLAY, "0");
         defaultValuesString.put(PREF_PROFILE_SCREEN_ON_PERMANENT, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_LOCATION_MODE, "0");
-        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING, "0");
         defaultValuesString.put(PREF_PROFILE_GENERATE_NOTIFICATION, "0|0||");
         defaultValuesString.put(PREF_PROFILE_CAMERA_FLASH, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0");
-        defaultValuesString.put(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0");
-        defaultValuesString.put(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0");
+        //defaultValuesString.put(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0");
+        //defaultValuesString.put(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_ONOFF_SIM1, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_ONOFF_SIM2, "0");
@@ -346,11 +368,17 @@ public class Profile {
         defaultValuesString.put(PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, "0");
         defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TYPE, "0");
         defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TIME, "0");
-        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_VPN, "0|0|||0");
         defaultValuesString.put(PREF_PROFILE_VIBRATION_INTENSITY_RINGING, "-1|1");
         defaultValuesString.put(PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, "-1|1");
         defaultValuesString.put(PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, "-1|1");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL, "15");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL, "15");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION, "15");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, "15");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, "10");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, "15");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -375,23 +403,10 @@ public class Profile {
 
     static final int BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET = -99;
 
-    static final String CONNECTTOSSID_JUSTANY = "^just_any^";
-    //static final String CONNECTTOSSID_SHAREDPROFILE = "^default_profile^";
-
-    //static final long SHARED_PROFILE_ID = -999L;
-    static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
-    static final long RESTART_EVENTS_PROFILE_ID = -888L;
-
     static final int NO_CHANGE_VALUE = 0;
-    //static final int SHARED_PROFILE_VALUE = 99;
     static final String NO_CHANGE_VALUE_STR = "0";
-    //static final String SHARED_PROFILE_VALUE_STR = "99";
+
     static final int BRIGHTNESS_VALUE_FOR_DARK_MODE = 30;
-
-    //private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
-    static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
-    //private static final String PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO = "activatedProfileForEventUndo";
-
     static final double MIN_PROFILE_ICON_LUMINANCE = 0.3d;
 
     static final int[] profileIconId = {
@@ -597,13 +612,13 @@ public class Profile {
     static final String ic_profile_wifi = "ic_profile_wifi";
     static final String ic_profile_mobile_data = "ic_profile_mobile_data";
 
-    static final HashMap<String, Integer> profileIconIdMap;
+    static final ArrayMap<String, Integer> profileIconIdMap;
     static {
-        profileIconIdMap = new HashMap<>();
+        profileIconIdMap = new ArrayMap<>();
 
-        profileIconIdMap.put("ic_profile_restart_events", R.drawable.ic_profile_restart_events);
+        profileIconIdMap.put(StringConstants.PROFILE_ICON_RESTART_EVENTS, R.drawable.ic_profile_restart_events);
 
-        profileIconIdMap.put(PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default);
+        profileIconIdMap.put(StringConstants.PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default);
         profileIconIdMap.put(ic_profile_home, R.drawable.ic_profile_home);
         profileIconIdMap.put(ic_profile_home_2, R.drawable.ic_profile_home_2);
         profileIconIdMap.put(ic_profile_home_3, R.drawable.ic_profile_home_3);
@@ -708,10 +723,10 @@ public class Profile {
         profileIconIdMap.put(ic_profile_mobile_data, R.drawable.ic_profile_mobile_data);
     }
     
-    static final HashMap<String, Integer> profileIconNotifyId;
+    static final ArrayMap<String, Integer> profileIconNotifyId;
     static {
-        profileIconNotifyId = new HashMap<>();
-        profileIconNotifyId.put(PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default_notify);
+        profileIconNotifyId = new ArrayMap<>();
+        profileIconNotifyId.put(StringConstants.PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default_notify);
         profileIconNotifyId.put(ic_profile_home, R.drawable.ic_profile_home_notify);
         profileIconNotifyId.put(ic_profile_home_2, R.drawable.ic_profile_home_2_notify);
         profileIconNotifyId.put(ic_profile_home_3, R.drawable.ic_profile_home_3_notify);
@@ -816,10 +831,10 @@ public class Profile {
         profileIconNotifyId.put(ic_profile_mobile_data, R.drawable.ic_profile_mobile_data_notify);
     }
 
-    static final HashMap<String, Integer> profileIconNotifyColorId;
+    static final ArrayMap<String, Integer> profileIconNotifyColorId;
     static {
-        profileIconNotifyColorId = new HashMap<>();
-        profileIconNotifyColorId.put(PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default_notify_color);
+        profileIconNotifyColorId = new ArrayMap<>();
+        profileIconNotifyColorId.put(StringConstants.PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default_notify_color);
         profileIconNotifyColorId.put(ic_profile_home, R.drawable.ic_profile_home_notify_color);
         profileIconNotifyColorId.put(ic_profile_home_2, R.drawable.ic_profile_home_2_notify_color);
         profileIconNotifyColorId.put(ic_profile_home_3, R.drawable.ic_profile_home_3_notify_color);
@@ -934,6 +949,7 @@ public class Profile {
         //this._customColor = Color.YELLOW;
 
         this._iconBitmap = null;
+        this._preferencesIndicator = null;
     }
 
     // constructor
@@ -988,14 +1004,14 @@ public class Profile {
                    boolean hideStatusBarIcon,
                    int lockDevice,
                    String deviceConnectToSSID,
-                   int applicationDisableWifiScanning,
-                   int applicationDisableBluetoothScanning,
+                   int applicationEnableWifiScanning,
+                   int applicationEnableBluetoothScanning,
                    String durationNotificationSound,
                    boolean durationNotificationVibrate,
                    int deviceWiFiAPPrefs,
-                   int applicationDisableLocationScanning,
-                   int applicationDisableMobileCellScanning,
-                   int applicationDisableOrientationScanning,
+                   int applicationEnableLocationScanning,
+                   int applicationEnableMobileCellScanning,
+                   int applicationEnableOrientationScanning,
                    int headsUpNotifications,
                    int deviceForceStopApplicationChange,
                    String deviceForceStopApplicationPackageName,
@@ -1013,13 +1029,13 @@ public class Profile {
                    int screenOnPermanent,
                    boolean volumeMuteSound,
                    int deviceLocationMode,
-                   int applicationDisableNotificationScanning,
+                   int applicationEnableNotificationScanning,
                    String generateNotification,
                    int cameraFlash,
                    int deviceNetworkTypeSIM1,
                    int deviceNetworkTypeSIM2,
-                   int deviceMobileDataSIM1,
-                   int deviceMobileDataSIM2,
+                   //int deviceMobileDataSIM1,
+                   //int deviceMobileDataSIM2,
                    String deviceDefaultSIMCards,
                    int deviceOnOffSIM1,
                    int deviceOnOffSIM2,
@@ -1039,11 +1055,18 @@ public class Profile {
                    int deviceVPNSettingsPrefs,
                    int endOfActivationType,
                    int endOfActivationTime,
-                   int applicationDisablePeriodicScanning,
+                   int applicationEnablePeriodicScanning,
                    String deviceVPN,
                    String vibrationIntensityRinging,
                    String vibrationIntensityNotifications,
-                   String vibrationIntensityTouchInteraction
+                   String vibrationIntensityTouchInteraction,
+                   boolean volumeMediaChangeDuringPlay,
+                   int applicationWifiScanInterval,
+                   int applicationBluetoothScanInterval,
+                   int applicationBluetoothLEScanDuration,
+                   int applicationLocationScanInterval,
+                   int applicationOrientationScanInterval,
+                   int applicationPeriodicScanInterval
             )
     {
         this._id = id;
@@ -1099,12 +1122,12 @@ public class Profile {
         this._hideStatusBarIcon = hideStatusBarIcon;
         this._lockDevice = lockDevice;
         this._deviceConnectToSSID = deviceConnectToSSID;
-        this._applicationDisableWifiScanning = applicationDisableWifiScanning;
-        this._applicationDisableBluetoothScanning = applicationDisableBluetoothScanning;
+        this._applicationEnableWifiScanning = applicationEnableWifiScanning;
+        this._applicationEnableBluetoothScanning = applicationEnableBluetoothScanning;
         this._deviceWiFiAPPrefs = deviceWiFiAPPrefs;
-        this._applicationDisableLocationScanning = applicationDisableLocationScanning;
-        this._applicationDisableMobileCellScanning = applicationDisableMobileCellScanning;
-        this._applicationDisableOrientationScanning = applicationDisableOrientationScanning;
+        this._applicationEnableLocationScanning = applicationEnableLocationScanning;
+        this._applicationEnableMobileCellScanning = applicationEnableMobileCellScanning;
+        this._applicationEnableOrientationScanning = applicationEnableOrientationScanning;
         this._headsUpNotifications = headsUpNotifications;
         this._deviceForceStopApplicationChange = deviceForceStopApplicationChange;
         this._deviceForceStopApplicationPackageName = deviceForceStopApplicationPackageName;
@@ -1121,13 +1144,13 @@ public class Profile {
         this._screenOnPermanent = screenOnPermanent;
         this._volumeMuteSound = volumeMuteSound;
         this._deviceLocationMode = deviceLocationMode;
-        this._applicationDisableNotificationScanning = applicationDisableNotificationScanning;
+        this._applicationEnableNotificationScanning = applicationEnableNotificationScanning;
         this._generateNotification = generateNotification;
         this._cameraFlash = cameraFlash;
         this._deviceNetworkTypeSIM1 = deviceNetworkTypeSIM1;
         this._deviceNetworkTypeSIM2 = deviceNetworkTypeSIM2;
-        this._deviceMobileDataSIM1 = deviceMobileDataSIM1;
-        this._deviceMobileDataSIM2 = deviceMobileDataSIM2;
+        //this._deviceMobileDataSIM1 = deviceMobileDataSIM1;
+        //this._deviceMobileDataSIM2 = deviceMobileDataSIM2;
         this._deviceDefaultSIMCards = deviceDefaultSIMCards;
         this._deviceOnOffSIM1 = deviceOnOffSIM1;
         this._deviceOnOffSIM2 = deviceOnOffSIM2;
@@ -1147,11 +1170,18 @@ public class Profile {
         this._deviceVPNSettingsPrefs = deviceVPNSettingsPrefs;
         this._endOfActivationType = endOfActivationType;
         this._endOfActivationTime = endOfActivationTime;
-        this._applicationDisablePeriodicScanning = applicationDisablePeriodicScanning;
+        this._applicationEnablePeriodicScanning = applicationEnablePeriodicScanning;
         this._deviceVPN = deviceVPN;
         this._vibrationIntensityRinging = vibrationIntensityRinging;
         this._vibrationIntensityNotifications = vibrationIntensityNotifications;
         this._vibrationIntensityTouchInteraction = vibrationIntensityTouchInteraction;
+        this._volumeMediaChangeDuringPlay = volumeMediaChangeDuringPlay;
+        this._applicationWifiScanInterval = applicationWifiScanInterval;
+        this._applicationBluetoothScanInterval = applicationBluetoothScanInterval;
+        this._applicationBluetoothLEScanDuration = applicationBluetoothLEScanDuration;
+        this._applicationLocationScanInterval = applicationLocationScanInterval;
+        this._applicationOrientationScanInterval = applicationOrientationScanInterval;
+        this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1209,14 +1239,14 @@ public class Profile {
             boolean hideStatusBarIcon,
             int lockDevice,
             String deviceConnectToSSID,
-            int applicationDisableWifiScanning,
-            int applicationDisableBluetoothScanning,
+            int applicationEnableWifiScanning,
+            int applicationEnableBluetoothScanning,
             String durationNotificationSound,
             boolean durationNotificationVibrate,
             int deviceWiFiAPPrefs,
-            int applicationDisableLocationScanning,
-            int applicationDisableMobileCellScanning,
-            int applicationDisableOrientationScanning,
+            int applicationEnableLocationScanning,
+            int applicationEnableMobileCellScanning,
+            int applicationEnableOrientationScanning,
             int headsUpNotifications,
             int deviceForceStopApplicationChange,
             String deviceForceStopApplicationPackageName,
@@ -1234,13 +1264,13 @@ public class Profile {
             int screenOnPermanent,
             boolean volumeMuteSound,
             int deviceLocationMode,
-            int applicationDisableNotificationScanning,
+            int applicationEnableNotificationScanning,
             String generateNotification,
             int cameraFlash,
             int deviceNetworkTypeSIM1,
             int deviceNetworkTypeSIM2,
-            int deviceMobileDataSIM1,
-            int deviceMobileDataSIM2,
+            //int deviceMobileDataSIM1,
+            //int deviceMobileDataSIM2,
             String deviceDefaultSIMCards,
             int deviceOnOffSIM1,
             int deviceOnOffSIM2,
@@ -1260,11 +1290,18 @@ public class Profile {
             int deviceVPNSettingsPrefs,
             int endOfActivationType,
             int endOfActivationTime,
-            int applicationDisablePeriodicScanning,
+            int applicationEnablePeriodicScanning,
             String deviceVPN,
             String vibrationIntensityRinging,
             String vibrationIntensityNotifications,
-            String vibrationIntensityTouchInteraction
+            String vibrationIntensityTouchInteraction,
+            boolean volumeMediaChangeDuringPlay,
+            int applicationWifiScanInterval,
+            int applicationBluetoothScanInterval,
+            int applicationBluetoothLEScanDuration,
+            int applicationLocationScanInterval,
+            int applicationOrientationScanInterval,
+            int applicationPeriodicScanInterval
     )
     {
         this._name = name;
@@ -1319,12 +1356,12 @@ public class Profile {
         this._hideStatusBarIcon = hideStatusBarIcon;
         this._lockDevice = lockDevice;
         this._deviceConnectToSSID = deviceConnectToSSID;
-        this._applicationDisableWifiScanning = applicationDisableWifiScanning;
-        this._applicationDisableBluetoothScanning = applicationDisableBluetoothScanning;
+        this._applicationEnableWifiScanning = applicationEnableWifiScanning;
+        this._applicationEnableBluetoothScanning = applicationEnableBluetoothScanning;
         this._deviceWiFiAPPrefs = deviceWiFiAPPrefs;
-        this._applicationDisableLocationScanning = applicationDisableLocationScanning;
-        this._applicationDisableMobileCellScanning = applicationDisableMobileCellScanning;
-        this._applicationDisableOrientationScanning = applicationDisableOrientationScanning;
+        this._applicationEnableLocationScanning = applicationEnableLocationScanning;
+        this._applicationEnableMobileCellScanning = applicationEnableMobileCellScanning;
+        this._applicationEnableOrientationScanning = applicationEnableOrientationScanning;
         this._headsUpNotifications = headsUpNotifications;
         this._deviceForceStopApplicationChange = deviceForceStopApplicationChange;
         this._deviceForceStopApplicationPackageName = deviceForceStopApplicationPackageName;
@@ -1341,13 +1378,13 @@ public class Profile {
         this._screenOnPermanent = screenOnPermanent;
         this._volumeMuteSound = volumeMuteSound;
         this._deviceLocationMode = deviceLocationMode;
-        this._applicationDisableNotificationScanning = applicationDisableNotificationScanning;
+        this._applicationEnableNotificationScanning = applicationEnableNotificationScanning;
         this._generateNotification = generateNotification;
         this._cameraFlash = cameraFlash;
         this._deviceNetworkTypeSIM1 = deviceNetworkTypeSIM1;
         this._deviceNetworkTypeSIM2 = deviceNetworkTypeSIM2;
-        this._deviceMobileDataSIM1 = deviceMobileDataSIM1;
-        this._deviceMobileDataSIM2 = deviceMobileDataSIM2;
+        //this._deviceMobileDataSIM1 = deviceMobileDataSIM1;
+        //this._deviceMobileDataSIM2 = deviceMobileDataSIM2;
         this._deviceDefaultSIMCards = deviceDefaultSIMCards;
         this._deviceOnOffSIM1 = deviceOnOffSIM1;
         this._deviceOnOffSIM2 = deviceOnOffSIM2;
@@ -1367,11 +1404,18 @@ public class Profile {
         this._deviceVPNSettingsPrefs = deviceVPNSettingsPrefs;
         this._endOfActivationType = endOfActivationType;
         this._endOfActivationTime = endOfActivationTime;
-        this._applicationDisablePeriodicScanning = applicationDisablePeriodicScanning;
+        this._applicationEnablePeriodicScanning = applicationEnablePeriodicScanning;
         this._deviceVPN = deviceVPN;
         this._vibrationIntensityRinging = vibrationIntensityRinging;
         this._vibrationIntensityNotifications = vibrationIntensityNotifications;
         this._vibrationIntensityTouchInteraction = vibrationIntensityTouchInteraction;
+        this._volumeMediaChangeDuringPlay = volumeMediaChangeDuringPlay;
+        this._applicationWifiScanInterval = applicationWifiScanInterval;
+        this._applicationBluetoothScanInterval = applicationBluetoothScanInterval;
+        this._applicationBluetoothLEScanDuration = applicationBluetoothLEScanDuration;
+        this._applicationLocationScanInterval = applicationLocationScanInterval;
+        this._applicationOrientationScanInterval = applicationOrientationScanInterval;
+        this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1433,12 +1477,12 @@ public class Profile {
         this._hideStatusBarIcon = profile._hideStatusBarIcon;
         this._lockDevice = profile._lockDevice;
         this._deviceConnectToSSID = profile._deviceConnectToSSID;
-        this._applicationDisableWifiScanning = profile._applicationDisableWifiScanning;
-        this._applicationDisableBluetoothScanning = profile._applicationDisableBluetoothScanning;
+        this._applicationEnableWifiScanning = profile._applicationEnableWifiScanning;
+        this._applicationEnableBluetoothScanning = profile._applicationEnableBluetoothScanning;
         this._deviceWiFiAPPrefs = profile._deviceWiFiAPPrefs;
-        this._applicationDisableLocationScanning = profile._applicationDisableLocationScanning;
-        this._applicationDisableMobileCellScanning = profile._applicationDisableMobileCellScanning;
-        this._applicationDisableOrientationScanning = profile._applicationDisableOrientationScanning;
+        this._applicationEnableLocationScanning = profile._applicationEnableLocationScanning;
+        this._applicationEnableMobileCellScanning = profile._applicationEnableMobileCellScanning;
+        this._applicationEnableOrientationScanning = profile._applicationEnableOrientationScanning;
         this._headsUpNotifications = profile._headsUpNotifications;
         this._deviceForceStopApplicationChange = profile._deviceForceStopApplicationChange;
         this._deviceForceStopApplicationPackageName = profile._deviceForceStopApplicationPackageName;
@@ -1455,13 +1499,13 @@ public class Profile {
         this._screenOnPermanent = profile._screenOnPermanent;
         this._volumeMuteSound = profile._volumeMuteSound;
         this._deviceLocationMode = profile._deviceLocationMode;
-        this._applicationDisableNotificationScanning = profile._applicationDisableNotificationScanning;
+        this._applicationEnableNotificationScanning = profile._applicationEnableNotificationScanning;
         this._generateNotification = profile._generateNotification;
         this._cameraFlash = profile._cameraFlash;
         this._deviceNetworkTypeSIM1 = profile._deviceNetworkTypeSIM1;
         this._deviceNetworkTypeSIM2 = profile._deviceNetworkTypeSIM2;
-        this._deviceMobileDataSIM1 = profile._deviceMobileDataSIM1;
-        this._deviceMobileDataSIM2 = profile._deviceMobileDataSIM2;
+        //this._deviceMobileDataSIM1 = profile._deviceMobileDataSIM1;
+        //this._deviceMobileDataSIM2 = profile._deviceMobileDataSIM2;
         this._deviceDefaultSIMCards = profile._deviceDefaultSIMCards;
         this._deviceOnOffSIM1 = profile._deviceOnOffSIM1;
         this._deviceOnOffSIM2 = profile._deviceOnOffSIM2;
@@ -1481,11 +1525,18 @@ public class Profile {
         this._deviceVPNSettingsPrefs = profile._deviceVPNSettingsPrefs;
         this._endOfActivationType = profile._endOfActivationType;
         this._endOfActivationTime = profile._endOfActivationTime;
-        this._applicationDisablePeriodicScanning = profile._applicationDisablePeriodicScanning;
+        this._applicationEnablePeriodicScanning = profile._applicationEnablePeriodicScanning;
         this._deviceVPN = profile._deviceVPN;
         this._vibrationIntensityRinging = profile._vibrationIntensityRinging;
         this._vibrationIntensityNotifications = profile._vibrationIntensityNotifications;
         this._vibrationIntensityTouchInteraction = profile._vibrationIntensityTouchInteraction;
+        this._volumeMediaChangeDuringPlay = profile._volumeMediaChangeDuringPlay;
+        this._applicationWifiScanInterval = profile._applicationWifiScanInterval;
+        this._applicationBluetoothScanInterval = profile._applicationBluetoothScanInterval;
+        this._applicationBluetoothLEScanDuration = profile._applicationBluetoothLEScanDuration;
+        this._applicationLocationScanInterval = profile._applicationLocationScanInterval;
+        this._applicationOrientationScanInterval = profile._applicationOrientationScanInterval;
+        this._applicationPeriodicScanInterval = profile._applicationPeriodicScanInterval;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1696,18 +1747,18 @@ public class Profile {
                     this._notificationLed = withProfile._notificationLed;
                 if (withProfile._lockDevice != 0)
                     this._lockDevice = withProfile._lockDevice;
-                if (withProfile._applicationDisableWifiScanning != 0)
-                    this._applicationDisableWifiScanning = withProfile._applicationDisableWifiScanning;
-                if (withProfile._applicationDisableBluetoothScanning != 0)
-                    this._applicationDisableBluetoothScanning = withProfile._applicationDisableBluetoothScanning;
+                if (withProfile._applicationEnableWifiScanning != 0)
+                    this._applicationEnableWifiScanning = withProfile._applicationEnableWifiScanning;
+                if (withProfile._applicationEnableBluetoothScanning != 0)
+                    this._applicationEnableBluetoothScanning = withProfile._applicationEnableBluetoothScanning;
                 if (withProfile._deviceWiFiAPPrefs != 0)
                     this._deviceWiFiAPPrefs = withProfile._deviceWiFiAPPrefs;
-                if (withProfile._applicationDisableLocationScanning != 0)
-                    this._applicationDisableLocationScanning = withProfile._applicationDisableLocationScanning;
-                if (withProfile._applicationDisableMobileCellScanning != 0)
-                    this._applicationDisableMobileCellScanning = withProfile._applicationDisableMobileCellScanning;
-                if (withProfile._applicationDisableOrientationScanning != 0)
-                    this._applicationDisableOrientationScanning = withProfile._applicationDisableOrientationScanning;
+                if (withProfile._applicationEnableLocationScanning != 0)
+                    this._applicationEnableLocationScanning = withProfile._applicationEnableLocationScanning;
+                if (withProfile._applicationEnableMobileCellScanning != 0)
+                    this._applicationEnableMobileCellScanning = withProfile._applicationEnableMobileCellScanning;
+                if (withProfile._applicationEnableOrientationScanning != 0)
+                    this._applicationEnableOrientationScanning = withProfile._applicationEnableOrientationScanning;
                 if (withProfile._headsUpNotifications != 0)
                     this._headsUpNotifications = withProfile._headsUpNotifications;
                 if (withProfile._deviceForceStopApplicationChange != 0) {
@@ -1740,8 +1791,8 @@ public class Profile {
                     this._screenOnPermanent = withProfile._screenOnPermanent;
                 if (withProfile._deviceLocationMode != 0)
                     this._deviceLocationMode = withProfile._deviceLocationMode;
-                if (withProfile._applicationDisableNotificationScanning != 0)
-                    this._applicationDisableNotificationScanning = withProfile._applicationDisableNotificationScanning;
+                if (withProfile._applicationEnableNotificationScanning != 0)
+                    this._applicationEnableNotificationScanning = withProfile._applicationEnableNotificationScanning;
                 if (withProfile.getGenerateNotificationGenerate())
                     this._generateNotification = withProfile._generateNotification;
                 if (withProfile._cameraFlash != 0)
@@ -1750,6 +1801,7 @@ public class Profile {
                     this._deviceNetworkTypeSIM1 = withProfile._deviceNetworkTypeSIM1;
                 if (withProfile._deviceNetworkTypeSIM2 != 0)
                     this._deviceNetworkTypeSIM2 = withProfile._deviceNetworkTypeSIM2;
+                /*
                 if (withProfile._deviceMobileDataSIM1 != 0) {
                     if (withProfile._deviceMobileDataSIM1 != 3) // toggle
                         this._deviceMobileDataSIM1 = withProfile._deviceMobileDataSIM1;
@@ -1770,6 +1822,7 @@ public class Profile {
                             this._deviceMobileDataSIM2 = 1;
                     }
                 }
+                */
                 if (!withProfile._deviceDefaultSIMCards.equals("0|0|0"))
                     this._deviceDefaultSIMCards = withProfile._deviceDefaultSIMCards;
                 if (withProfile._deviceOnOffSIM1 != 0) {
@@ -1814,8 +1867,8 @@ public class Profile {
                     this._applicationDisableGloabalEventsRun = withProfile._applicationDisableGloabalEventsRun;
                 if (withProfile._deviceVPNSettingsPrefs != 0)
                     this._deviceVPNSettingsPrefs = withProfile._deviceVPNSettingsPrefs;
-                if (withProfile._applicationDisablePeriodicScanning != 0)
-                    this._applicationDisablePeriodicScanning = withProfile._applicationDisablePeriodicScanning;
+                if (withProfile._applicationEnablePeriodicScanning != 0)
+                    this._applicationEnablePeriodicScanning = withProfile._applicationEnablePeriodicScanning;
                 if (!withProfile._deviceVPN.startsWith("0"))
                     this._deviceVPN = withProfile._deviceVPN;
                 if (withProfile.getVibrationIntensityRingingChange())
@@ -1824,9 +1877,22 @@ public class Profile {
                     this._vibrationIntensityNotifications = withProfile._vibrationIntensityNotifications;
                 if (withProfile.getVibrationIntensityTouchInteractionChange())
                     this._vibrationIntensityTouchInteraction = withProfile._vibrationIntensityTouchInteraction;
-
                 if (withProfile._volumeMuteSound)
                     this._volumeMuteSound = true;
+                if (withProfile._volumeMediaChangeDuringPlay)
+                    this._volumeMediaChangeDuringPlay = true;
+                if (withProfile._applicationWifiScanInterval != 0)
+                    this._applicationWifiScanInterval = withProfile._applicationWifiScanInterval;
+                if (withProfile._applicationBluetoothScanInterval != 0)
+                    this._applicationBluetoothScanInterval = withProfile._applicationBluetoothScanInterval;
+                if (withProfile._applicationBluetoothLEScanDuration != 0)
+                    this._applicationBluetoothLEScanDuration = withProfile._applicationBluetoothLEScanDuration;
+                if (withProfile._applicationLocationScanInterval != 0)
+                    this._applicationLocationScanInterval = withProfile._applicationLocationScanInterval;
+                if (withProfile._applicationOrientationScanInterval != 0)
+                    this._applicationOrientationScanInterval = withProfile._applicationOrientationScanInterval;
+                if (withProfile._applicationPeriodicScanInterval != 0)
+                    this._applicationPeriodicScanInterval = withProfile._applicationPeriodicScanInterval;
             }
 
             // set merged profile as activated
@@ -2034,22 +2100,37 @@ public class Profile {
             if (!this._deviceConnectToSSID.equals(withProfile._deviceConnectToSSID)) {
                 return false;
             }
-            if (this._applicationDisableWifiScanning != withProfile._applicationDisableWifiScanning) {
+            if (this._applicationEnableWifiScanning != withProfile._applicationEnableWifiScanning) {
                 return false;
             }
-            if (this._applicationDisableBluetoothScanning != withProfile._applicationDisableBluetoothScanning) {
+            if (this._applicationWifiScanInterval != withProfile._applicationWifiScanInterval) {
+                return false;
+            }
+            if (this._applicationEnableBluetoothScanning != withProfile._applicationEnableBluetoothScanning) {
+                return false;
+            }
+            if (this._applicationBluetoothScanInterval != withProfile._applicationBluetoothScanInterval) {
+                return false;
+            }
+            if (this._applicationBluetoothLEScanDuration != withProfile._applicationBluetoothLEScanDuration) {
                 return false;
             }
             if (this._deviceWiFiAPPrefs != withProfile._deviceWiFiAPPrefs) {
                 return false;
             }
-            if (this._applicationDisableLocationScanning != withProfile._applicationDisableLocationScanning) {
+            if (this._applicationEnableLocationScanning != withProfile._applicationEnableLocationScanning) {
                 return false;
             }
-            if (this._applicationDisableMobileCellScanning != withProfile._applicationDisableMobileCellScanning) {
+            if (this._applicationLocationScanInterval != withProfile._applicationLocationScanInterval) {
                 return false;
             }
-            if (this._applicationDisableOrientationScanning != withProfile._applicationDisableOrientationScanning) {
+            if (this._applicationEnableMobileCellScanning != withProfile._applicationEnableMobileCellScanning) {
+                return false;
+            }
+            if (this._applicationEnableOrientationScanning != withProfile._applicationEnableOrientationScanning) {
+                return false;
+            }
+            if (this._applicationOrientationScanInterval != withProfile._applicationOrientationScanInterval) {
                 return false;
             }
             if (this._headsUpNotifications != withProfile._headsUpNotifications) {
@@ -2099,7 +2180,7 @@ public class Profile {
             if (this._deviceLocationMode != withProfile._deviceLocationMode) {
                 return false;
             }
-            if (this._applicationDisableNotificationScanning != withProfile._applicationDisableNotificationScanning) {
+            if (this._applicationEnableNotificationScanning != withProfile._applicationEnableNotificationScanning) {
                 return false;
             }
             if (!this._generateNotification.equals(withProfile._generateNotification)) {
@@ -2114,12 +2195,12 @@ public class Profile {
             if (this._deviceNetworkTypeSIM2 != withProfile._deviceNetworkTypeSIM2) {
                 return false;
             }
-            if (this._deviceMobileDataSIM1 != withProfile._deviceMobileDataSIM1) {
-                return false;
-            }
-            if (this._deviceMobileDataSIM2 != withProfile._deviceMobileDataSIM2) {
-                return false;
-            }
+            //if (this._deviceMobileDataSIM1 != withProfile._deviceMobileDataSIM1) {
+            //    return false;
+            //}
+            //if (this._deviceMobileDataSIM2 != withProfile._deviceMobileDataSIM2) {
+            //    return false;
+            //}
             if (!this._deviceDefaultSIMCards.equals(withProfile._deviceDefaultSIMCards)) {
                 return false;
             }
@@ -2170,7 +2251,10 @@ public class Profile {
             if (this._deviceVPNSettingsPrefs != withProfile._deviceVPNSettingsPrefs) {
                 return false;
             }
-            if (this._applicationDisablePeriodicScanning != withProfile._applicationDisablePeriodicScanning) {
+            if (this._applicationEnablePeriodicScanning != withProfile._applicationEnablePeriodicScanning) {
+                return false;
+            }
+            if (this._applicationPeriodicScanInterval != withProfile._applicationPeriodicScanInterval) {
                 return false;
             }
             if (!this._deviceVPN.equals(withProfile._deviceVPN)) {
@@ -2185,6 +2269,9 @@ public class Profile {
             if (!this._vibrationIntensityTouchInteraction.equals(withProfile._vibrationIntensityTouchInteraction)) {
                 return false;
             }
+            if (this._volumeMediaChangeDuringPlay != withProfile._volumeMediaChangeDuringPlay) {
+                return false;
+            }
 
             return true;
         }
@@ -2196,10 +2283,10 @@ public class Profile {
     {
         String value;
         try {
-            String[] splits = _icon.split("\\|");
+            String[] splits = _icon.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[0];
         } catch (Exception e) {
-            value = "ic_profile_default";
+            value = StringConstants.PROFILE_ICON_DEFAULT;
         }
         return value;
     }
@@ -2209,7 +2296,7 @@ public class Profile {
     {
         boolean value;
         try {
-            String[] splits = _icon.split("\\|");
+            String[] splits = _icon.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[1].equals("1");
 
         } catch (Exception e) {
@@ -2222,7 +2309,7 @@ public class Profile {
     boolean getUseCustomColorForIcon() {
         boolean value;
         try {
-            String[] splits = _icon.split("\\|");
+            String[] splits = _icon.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[2].equals("1");
 
         } catch (Exception e) {
@@ -2235,7 +2322,7 @@ public class Profile {
     int getIconCustomColor() {
         int value;
         try {
-            String[] splits = _icon.split("\\|");
+            String[] splits = _icon.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[3]);
         } catch (Exception e) {
             value = 0;
@@ -2256,7 +2343,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeRingtone.split("\\|");
+            String[] splits = _volumeRingtone.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2266,7 +2353,7 @@ public class Profile {
 
     void setVolumeRingtoneValue(@SuppressWarnings("SameParameterValue") int value) {
         try {
-            String[] splits = _volumeRingtone.split("\\|");
+            String[] splits = _volumeRingtone.split(StringConstants.STR_SPLIT_REGEX);
             splits[0] = String.valueOf(value);
             _volumeRingtone = "";
             StringBuilder _volume = new StringBuilder();
@@ -2287,7 +2374,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeNotification.split("\\|");
+            String[] splits = _volumeNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2299,7 +2386,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeNotification.split("\\|");
+            String[] splits = _volumeNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2311,7 +2398,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeNotification.split("\\|");
+            String[] splits = _volumeNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2321,7 +2408,7 @@ public class Profile {
 
     void setVolumeNotificationValue(@SuppressWarnings("SameParameterValue") int value) {
         try {
-            String[] splits = _volumeNotification.split("\\|");
+            String[] splits = _volumeNotification.split(StringConstants.STR_SPLIT_REGEX);
             splits[0] = String.valueOf(value);
             _volumeNotification = "";
             StringBuilder _volume = new StringBuilder();
@@ -2342,7 +2429,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeMedia.split("\\|");
+            String[] splits = _volumeMedia.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2354,7 +2441,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeMedia.split("\\|");
+            String[] splits = _volumeMedia.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2366,7 +2453,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeMedia.split("\\|");
+            String[] splits = _volumeMedia.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2378,7 +2465,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeAlarm.split("\\|");
+            String[] splits = _volumeAlarm.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2390,7 +2477,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeAlarm.split("\\|");
+            String[] splits = _volumeAlarm.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2402,7 +2489,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeAlarm.split("\\|");
+            String[] splits = _volumeAlarm.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2414,7 +2501,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeSystem.split("\\|");
+            String[] splits = _volumeSystem.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2426,7 +2513,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeSystem.split("\\|");
+            String[] splits = _volumeSystem.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2438,7 +2525,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeSystem.split("\\|");
+            String[] splits = _volumeSystem.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2450,7 +2537,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeVoice.split("\\|");
+            String[] splits = _volumeVoice.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2462,7 +2549,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeVoice.split("\\|");
+            String[] splits = _volumeVoice.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2474,7 +2561,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeVoice.split("\\|");
+            String[] splits = _volumeVoice.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2486,7 +2573,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeDTMF.split("\\|");
+            String[] splits = _volumeDTMF.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2498,7 +2585,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeDTMF.split("\\|");
+            String[] splits = _volumeDTMF.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2510,7 +2597,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeDTMF.split("\\|");
+            String[] splits = _volumeDTMF.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2522,7 +2609,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeAccessibility.split("\\|");
+            String[] splits = _volumeAccessibility.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2534,7 +2621,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeAccessibility.split("\\|");
+            String[] splits = _volumeAccessibility.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2546,7 +2633,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeAccessibility.split("\\|");
+            String[] splits = _volumeAccessibility.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2558,7 +2645,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeBluetoothSCO.split("\\|");
+            String[] splits = _volumeBluetoothSCO.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2570,7 +2657,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeBluetoothSCO.split("\\|");
+            String[] splits = _volumeBluetoothSCO.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2582,7 +2669,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeBluetoothSCO.split("\\|");
+            String[] splits = _volumeBluetoothSCO.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2596,7 +2683,7 @@ public class Profile {
         int defaultValue = 50;
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
             if ((value < 0) || (value > maximumValue))
                 value = defaultValue;
@@ -2610,7 +2697,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2622,7 +2709,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[3]);
         } catch (Exception e) {
             value = 0;
@@ -2634,7 +2721,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 1;
@@ -2646,7 +2733,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[4]);
         } catch (Exception e) {
             value = 1;
@@ -2682,7 +2769,7 @@ public class Profile {
         long percentage = convertBrightnessToPercents(value, maxValue, minValue);
 
         //value|noChange|automatic|sharedProfile
-        String[] splits = _deviceBrightness.split("\\|");
+        String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
         // hm, found brightness values without default profile :-/
         if (splits.length == 4)
             _deviceBrightness = String.valueOf(percentage)+"|"+splits[1]+"|"+splits[2]+"|"+ splits[3];
@@ -2700,7 +2787,7 @@ public class Profile {
             percentage = Math.round(value * 50 + 50);
 
         //value|noChange|automatic|sharedProfile
-        String[] splits = _deviceBrightness.split("\\|");
+        String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
         // hm, found brightness values without default profile :-/
         if (splits.length == 4)
             _deviceBrightness = String.valueOf(percentage)+"|"+splits[1]+"|"+splits[2]+"|"+ splits[3];
@@ -2713,7 +2800,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2725,7 +2812,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2737,7 +2824,7 @@ public class Profile {
     {
         String value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[2];
         } catch (Exception e) {
             value = "";
@@ -2749,7 +2836,7 @@ public class Profile {
     {
         String value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[3];
         } catch (Exception e) {
             value = "";
@@ -2757,16 +2844,42 @@ public class Profile {
         return value;
     }
 
-    boolean getGenerateNotificationSharedProfile()
+    boolean getGenerateNotificationShowLargeIcon()
     {
         int value;
+        try {
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
+            value = Integer.parseInt(splits[4]);
+        } catch (Exception e) {
+            value = 0;
+        }
+        return value == 1;
+    }
+
+    boolean getGenerateNotificationReplaceWithPPPIcon()
+    {
+        int value;
+        try {
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
+            value = Integer.parseInt(splits[5]);
+        } catch (Exception e) {
+            value = 0;
+        }
+        return value == 1;
+    }
+
+    @SuppressWarnings("SameReturnValue")
+    boolean getGenerateNotificationSharedProfile()
+    {
+        /*int value;
         try {
             String[] splits = _generateNotification.split("\\|");
             value = Integer.parseInt(splits[4]);
         } catch (Exception e) {
             value = 0;
         }
-        return value == 1;
+        return value == 1;*/
+        return false;
     }
 
     //----------------------------------
@@ -2785,7 +2898,7 @@ public class Profile {
             if (_iconBitmap == null)
             {
                 // no icon found, set default icon
-                _icon = "ic_profile_default|1|0|0";
+                _icon = StringConstants.PROFILE_ICON_DEFAULT+"|1|0|0";
                 if (monochrome)
                 {
                     //int iconResource = context.getResources().getIdentifier(getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME);
@@ -2871,7 +2984,7 @@ public class Profile {
             //(context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
             //== Configuration.UI_MODE_NIGHT_YES;
             String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
-            boolean nightModeOn = !applicationTheme.equals("white");
+            boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
 
             if (nightModeOn) {
                 int iconColor;
@@ -2907,7 +3020,7 @@ public class Profile {
                 //(activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 //== Configuration.UI_MODE_NIGHT_YES;
                 String applicationTheme = ApplicationPreferences.applicationTheme(activity, true);
-                boolean nightModeOn = !applicationTheme.equals("white");
+                boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
 
                 if (nightModeOn) {
                     int iconColor;
@@ -2970,9 +3083,10 @@ public class Profile {
     {
         if (_iconBitmap != null)
         {
-            if (!_iconBitmap.isRecycled()) {
+            //if (!_iconBitmap.isRecycled())
+            try {
                 _iconBitmap.recycle();
-            }
+            } catch (Exception ignored) {}
             _iconBitmap = null;
         }
     }
@@ -2981,8 +3095,10 @@ public class Profile {
     {
         if (_preferencesIndicator != null)
         {
-            if (!_preferencesIndicator.isRecycled())
+            //if (!_preferencesIndicator.isRecycled())
+            try {
                 _preferencesIndicator.recycle();
+            } catch (Exception ignored) {}
             _preferencesIndicator = null;
         }
     }
@@ -3002,7 +3118,7 @@ public class Profile {
                 }
             }
             if (!showEndTime) {
-                durationString = "[\u00A0" + context.getString(R.string.profile_event_name_ask_for_duration) + "\u00A0]";
+                durationString = "[" + StringConstants.CHAR_HARD_SPACE + context.getString(R.string.profile_event_name_ask_for_duration) + StringConstants.CHAR_HARD_SPACE + "]";
             }
         }
         else
@@ -3039,7 +3155,7 @@ public class Profile {
 
                         if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
                             // configured time is not expired
-                            durationString = "(" + context.getString(R.string.end_of_activation_time_end_acronym) + ": " +
+                            durationString = "(" + context.getString(R.string.end_of_activation_time_end_acronym) + StringConstants.STR_COLON_WITH_SPACE +
                                     StringFormatUtils.getTimeString(endOfActivationTime) + ")";
                             showEndTime = true;
                         }
@@ -3047,23 +3163,23 @@ public class Profile {
                 }
                 if (!showEndTime) {
                     //if (!_checked)
-                        durationString = "[" + context.getString(R.string.end_of_activation_time_acronym) + ": " + StringFormatUtils.getTimeString(_endOfActivationTime) + "]";
+                        durationString = "[" + context.getString(R.string.end_of_activation_time_acronym) + StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getTimeString(_endOfActivationTime) + "]";
                 }
             }
         }
         int startSpan = profileName.length();
         if (!indicators.isEmpty()) {
             if (multiLine)
-                profileName = profileName + "\n" + indicators;
+                profileName = profileName + StringConstants.CHAR_NEW_LINE + indicators;
             else
                 profileName = profileName + " " + indicators;
         }
         if (!durationString.isEmpty()) {
             if (durationInNextLine) {
                 if (showEndTime /*_checked*/)
-                    profileName = durationString + "\n" + profileName;
+                    profileName = durationString + StringConstants.CHAR_NEW_LINE + profileName;
                 else
-                    profileName = profileName + "\n" + durationString;
+                    profileName = profileName + StringConstants.CHAR_NEW_LINE + durationString;
             }
             else
                 profileName = profileName + " " + durationString;
@@ -3101,13 +3217,13 @@ public class Profile {
         editor.putString(PREF_PROFILE_VOLUME_SYSTEM, this._volumeSystem);
         editor.putString(PREF_PROFILE_VOLUME_VOICE, this._volumeVoice);
         editor.putString(PREF_PROFILE_SOUND_RINGTONE_CHANGE, Integer.toString(this._soundRingtoneChange));
-        String[] splits = this._soundRingtone.split("\\|");
+        String[] splits = this._soundRingtone.split(StringConstants.STR_SPLIT_REGEX);
         editor.putString(PREF_PROFILE_SOUND_RINGTONE, splits[0]);
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, Integer.toString(this._soundNotificationChange));
-        splits = this._soundNotification.split("\\|");
+        splits = this._soundNotification.split(StringConstants.STR_SPLIT_REGEX);
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION, splits[0]);
         editor.putString(PREF_PROFILE_SOUND_ALARM_CHANGE, Integer.toString(this._soundAlarmChange));
-        splits = this._soundAlarm.split("\\|");
+        splits = this._soundAlarm.split(StringConstants.STR_SPLIT_REGEX);
         editor.putString(PREF_PROFILE_SOUND_ALARM, splits[0]);
         editor.putString(PREF_PROFILE_DEVICE_AIRPLANE_MODE, Integer.toString(this._deviceAirplaneMode));
         editor.putString(PREF_PROFILE_DEVICE_WIFI, Integer.toString(this._deviceWiFi));
@@ -3137,12 +3253,12 @@ public class Profile {
         editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_FOR, Integer.toString(this._deviceWallpaperFor));
         editor.putString(PREF_PROFILE_LOCK_DEVICE, Integer.toString(this._lockDevice));
         editor.putString(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, this._deviceConnectToSSID);
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, Integer.toString(this._applicationDisableWifiScanning));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, Integer.toString(this._applicationDisableBluetoothScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING, Integer.toString(this._applicationEnableWifiScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING, Integer.toString(this._applicationEnableBluetoothScanning));
         editor.putString(PREF_PROFILE_DEVICE_WIFI_AP_PREFS, Integer.toString(this._deviceWiFiAPPrefs));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, Integer.toString(this._applicationDisableLocationScanning));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, Integer.toString(this._applicationDisableMobileCellScanning));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, Integer.toString(this._applicationDisableOrientationScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING, Integer.toString(this._applicationEnableLocationScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING, Integer.toString(this._applicationEnableMobileCellScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING, Integer.toString(this._applicationEnableOrientationScanning));
         editor.putString(PREF_PROFILE_HEADS_UP_NOTIFICATIONS, Integer.toString(this._headsUpNotifications));
         editor.putString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, Integer.toString(this._deviceForceStopApplicationChange));
         editor.putString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, this._deviceForceStopApplicationPackageName);
@@ -3159,38 +3275,45 @@ public class Profile {
         editor.putString(PREF_PROFILE_SCREEN_ON_PERMANENT, Integer.toString(this._screenOnPermanent));
         editor.putBoolean(PREF_PROFILE_VOLUME_MUTE_SOUND, this._volumeMuteSound);
         editor.putString(PREF_PROFILE_DEVICE_LOCATION_MODE, Integer.toString(this._deviceLocationMode));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, Integer.toString(this._applicationDisableNotificationScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING, Integer.toString(this._applicationEnableNotificationScanning));
         editor.putString(PREF_PROFILE_GENERATE_NOTIFICATION, this._generateNotification);
         editor.putString(PREF_PROFILE_CAMERA_FLASH, Integer.toString(this._cameraFlash));
         editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, Integer.toString(this._deviceNetworkTypeSIM1));
         editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, Integer.toString(this._deviceNetworkTypeSIM2));
-        editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, Integer.toString(this._deviceMobileDataSIM1));
-        editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, Integer.toString(this._deviceMobileDataSIM2));
+        //editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, Integer.toString(this._deviceMobileDataSIM1));
+        //editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, Integer.toString(this._deviceMobileDataSIM2));
         editor.putString(PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, this._deviceDefaultSIMCards);
         editor.putString(PREF_PROFILE_DEVICE_ONOFF_SIM1, Integer.toString(this._deviceOnOffSIM1));
         editor.putString(PREF_PROFILE_DEVICE_ONOFF_SIM2, Integer.toString(this._deviceOnOffSIM2));
         editor.putString(PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, Integer.toString(this._soundRingtoneChangeSIM1));
-        splits = this._soundRingtoneSIM1.split("\\|");
+        splits = this._soundRingtoneSIM1.split(StringConstants.STR_SPLIT_REGEX);
         editor.putString(PREF_PROFILE_SOUND_RINGTONE_SIM1, splits[0]);
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, Integer.toString(this._soundNotificationChangeSIM1));
-        splits = this._soundNotificationSIM1.split("\\|");
+        splits = this._soundNotificationSIM1.split(StringConstants.STR_SPLIT_REGEX);
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_SIM1, splits[0]);
         editor.putString(PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, Integer.toString(this._soundRingtoneChangeSIM2));
-        splits = this._soundRingtoneSIM2.split("\\|");
+        splits = this._soundRingtoneSIM2.split(StringConstants.STR_SPLIT_REGEX);
         editor.putString(PREF_PROFILE_SOUND_RINGTONE_SIM2, splits[0]);
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, Integer.toString(this._soundNotificationChangeSIM2));
-        splits = this._soundNotificationSIM2.split("\\|");
+        splits = this._soundNotificationSIM2.split(StringConstants.STR_SPLIT_REGEX);
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_SIM2, splits[0]);
         editor.putString(PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, Integer.toString(this._soundSameRingtoneForBothSIMCards));
         editor.putString(PREF_PROFILE_DEVICE_LIVE_WALLPAPER, this._deviceLiveWallpaper);
         editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_FOLDER, this._deviceWallpaperFolder);
         editor.putString(PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, Integer.toString(this._applicationDisableGloabalEventsRun));
         editor.putString(PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, Integer.toString(this._deviceVPNSettingsPrefs));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, Integer.toString(this._applicationDisablePeriodicScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING, Integer.toString(this._applicationEnablePeriodicScanning));
         editor.putString(PREF_PROFILE_DEVICE_VPN, this._deviceVPN);
         editor.putString(PREF_PROFILE_VIBRATION_INTENSITY_RINGING, this._vibrationIntensityRinging);
         editor.putString(PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, this._vibrationIntensityNotifications);
         editor.putString(PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, this._vibrationIntensityTouchInteraction);
+        editor.putBoolean(PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY, this._volumeMediaChangeDuringPlay);
+        editor.putString(PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL, Integer.toString(this._applicationWifiScanInterval));
+        editor.putString(PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL, Integer.toString(this._applicationBluetoothScanInterval));
+        editor.putString(PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION, Integer.toString(this._applicationBluetoothLEScanDuration));
+        editor.putString(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, Integer.toString(this._applicationLocationScanInterval));
+        editor.putString(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, Integer.toString(this._applicationOrientationScanInterval));
+        editor.putString(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, Integer.toString(this._applicationPeriodicScanInterval));
 
         editor.apply();
     }
@@ -3254,10 +3377,10 @@ public class Profile {
         return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityRinging);
     }
 
-    @SuppressWarnings("unused")
+    /*
     void setVibrationIntensityRingingValue(int value) {
         try {
-            String[] splits = _vibrationIntensityRinging.split("\\|");
+            String[] splits = _vibrationIntensityRinging.split(StringConstants.STR_SPLIT_REGEX);
             splits[0] = String.valueOf(value);
             _vibrationIntensityRinging = "";
             StringBuilder _value = new StringBuilder();
@@ -3273,6 +3396,7 @@ public class Profile {
         } catch (Exception ignore) {
         }
     }
+    */
 
     int getVibrationIntensityNotificationsValue() {
         return ProfileStatic.getVibrationIntensityValue(_vibrationIntensityNotifications);
@@ -3283,10 +3407,10 @@ public class Profile {
         return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityNotifications);
     }
 
-    @SuppressWarnings("unused")
+    /*
     void setVibrationIntensityNotificationsValue(int value) {
         try {
-            String[] splits = _vibrationIntensityNotifications.split("\\|");
+            String[] splits = _vibrationIntensityNotifications.split(StringConstants.STR_SPLIT_REGEX);
             splits[0] = String.valueOf(value);
             _vibrationIntensityNotifications = "";
             StringBuilder _value = new StringBuilder();
@@ -3302,6 +3426,7 @@ public class Profile {
         } catch (Exception ignore) {
         }
     }
+    */
 
     int getVibrationIntensityTouchInteractionValue() {
         return ProfileStatic.getVibrationIntensityValue(_vibrationIntensityTouchInteraction);
@@ -3312,10 +3437,10 @@ public class Profile {
         return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityTouchInteraction);
     }
 
-    @SuppressWarnings("unused")
+    /*
     void setVibrationIntensityTouchInteractionValue(int value) {
         try {
-            String[] splits = _vibrationIntensityTouchInteraction.split("\\|");
+            String[] splits = _vibrationIntensityTouchInteraction.split(StringConstants.STR_SPLIT_REGEX);
             splits[0] = String.valueOf(value);
             _vibrationIntensityTouchInteraction = "";
             StringBuilder _value = new StringBuilder();
@@ -3331,5 +3456,6 @@ public class Profile {
         } catch (Exception ignore) {
         }
     }
+    */
 
 }

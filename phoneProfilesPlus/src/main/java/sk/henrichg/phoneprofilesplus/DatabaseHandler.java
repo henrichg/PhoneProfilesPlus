@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2501;
+    static final int DATABASE_VERSION = 2512;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -101,6 +101,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_ACTIVATED_PROFILE = 42;
     static final int ETYPE_ROAMING = 43;
     static final int ETYPE_VPN = 44;
+    static final int ETYPE_BRIGHTNESS = 45;
 
     // Profiles Table Columns names
     static final String KEY_ID = "id";
@@ -157,12 +158,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_HIDE_STATUS_BAR_ICON = "hideStatusBarIcon";
     static final String KEY_LOCK_DEVICE = "lockDevice";
     static final String KEY_DEVICE_CONNECT_TO_SSID = "deviceConnectToSSID";
-    static final String KEY_APPLICATION_DISABLE_WIFI_SCANNING = "applicationDisableWifiScanning";
-    static final String KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING = "applicationDisableBluetoothScanning";
+    static final String KEY_APPLICATION_ENABLE_WIFI_SCANNING = "applicationDisableWifiScanning";
+    static final String KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING = "applicationDisableBluetoothScanning";
     static final String KEY_DEVICE_WIFI_AP_PREFS = "deviceWifiAPPrefs";
-    static final String KEY_APPLICATION_DISABLE_LOCATION_SCANNING = "applicationDisableLocationScanning";
-    static final String KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING = "applicationDisableMobileCellScanning";
-    static final String KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING = "applicationDisableOrientationScanning";
+    static final String KEY_APPLICATION_ENABLE_LOCATION_SCANNING = "applicationDisableLocationScanning";
+    static final String KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING = "applicationDisableMobileCellScanning";
+    static final String KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING = "applicationDisableOrientationScanning";
     static final String KEY_HEADS_UP_NOTIFICATIONS = "headsUpNotifications";
     static final String KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE = "deviceForceStopApplicationChange";
     static final String KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME = "deviceForceStopApplicationPackageName";
@@ -180,7 +181,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_SCREEN_ON_PERMANENT = "screenOnPermanent";
     static final String KEY_VOLUME_MUTE_SOUND = "volumeMuteSound";
     static final String KEY_DEVICE_LOCATION_MODE = "deviceLocationMode";
-    static final String KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING = "applicationDisableNotificationScanning";
+    static final String KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING = "applicationDisableNotificationScanning";
     static final String KEY_GENERATE_NOTIFICATION = "generateNotification";
     static final String KEY_CAMERA_FLASH = "cameraFlash";
     static final String KEY_DEVICE_NETWORK_TYPE_SIM1 = "deviceNetworkTypeSIM1";
@@ -206,11 +207,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_DEVICE_VPN_SETTINGS_PREFS = "deviceVPNSettingsPrefs";
     static final String KEY_END_OF_ACTIVATION_TYPE = "endOfActivationType";
     static final String KEY_END_OF_ACTIVATION_TIME = "endOfActivationTime";
-    static final String KEY_APPLICATION_DISABLE_PERIODIC_SCANNING = "applicationDisablePeriodicScanning";
+    static final String KEY_APPLICATION_ENABLE_PERIODIC_SCANNING = "applicationDisablePeriodicScanning";
     static final String KEY_DEVICE_VPN = "deviceVPN";
     static final String KEY_VIBRATION_INTENSITY_RINGING = "vibrationIntensityRinging";
     static final String KEY_VIBRATION_INTENSITY_NOTIFICATIONS = "vibrationIntensityNotificaitons";
     static final String KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION = "vibrationIntensityTouchInteraction";
+    static final String KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY = "volumeMediaChangeDuringPlay";
+    static final String KEY_APPLICATION_WIFI_SCAN_INTERVAL = "applicationWifiScanInterval";
+    static final String KEY_APPLICATION_BLUETOOTH_SCAN_INTERVAL = "applicationBluetoothScanInterval";
+    static final String KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION = "applicationBluetoothLEScanDuration";
+    static final String KEY_APPLICATION_LOCATION_UPDATE_INTERVAL = "applicationLocationUpdateInterval";
+    static final String KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL = "applicationDOrientationScanInterval";
+    static final String KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL = "applicationPeriodicScanningScanInterval";
 
     // Events Table Columns names
     static final String KEY_E_ID = "id";
@@ -393,14 +401,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_VOLUMES_SENSOR_PASSED = "volumesSensorPassed";
     static final String KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE = "notificationSoundStartPlayAlsoInSilentMode";
     static final String KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE = "notificationSoundEndPlayAlsoInSilentMode";
-    static final String KEY_E_VOLUMES_RINGTONE = "volumesRingtone";
-    static final String KEY_E_VOLUMES_NOTIFICATION = "volumesNotification";
-    static final String KEY_E_VOLUMES_MEDIA = "volumesMedia";
-    static final String KEY_E_VOLUMES_ALARM = "volumesAlarm";
-    static final String KEY_E_VOLUMES_SYSTEM = "volumesSystem";
-    static final String KEY_E_VOLUMES_VOICE = "volumesVoice";
-    static final String KEY_E_VOLUMES_BLUETOOTHSCO = "volumesBluetoothSCO";
-    static final String KEY_E_VOLUMES_ACCESSIBILITY = "volumesAccessibility";
+    static final String KEY_E_VOLUMES_RINGTONE_FROM = "volumesRingtone";
+    static final String KEY_E_VOLUMES_NOTIFICATION_FROM = "volumesNotification";
+    static final String KEY_E_VOLUMES_MEDIA_FROM = "volumesMedia";
+    static final String KEY_E_VOLUMES_ALARM_FROM = "volumesAlarm";
+    static final String KEY_E_VOLUMES_SYSTEM_FROM = "volumesSystem";
+    static final String KEY_E_VOLUMES_VOICE_FROM = "volumesVoice";
+    static final String KEY_E_VOLUMES_BLUETOOTHSCO_FROM = "volumesBluetoothSCO";
+    static final String KEY_E_VOLUMES_ACCESSIBILITY_FROM = "volumesAccessibility";
     static final String KEY_E_ACTIVATED_PROFILE_ENABLED = "activatedProfileEnabled";
     static final String KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED = "activatedProfileSensorPassed";
     static final String KEY_E_ACTIVATED_PROFILE_START_PROFILE = "activatedProfileStartProfile";
@@ -414,6 +422,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_VPN_ENABLED = "vpnEnabled";
     static final String KEY_E_VPN_CONNECTION_STATUS = "vpnConnectionStatus";
     static final String KEY_E_VPN_SENSOR_PASSED = "vpnSensorPassed";
+    static final String KEY_E_BRIGHTNESS_ENABLED = "brightnessEnabled";
+    static final String KEY_E_BRIGHTNESS_OPERATOR_FROM = "brightnessOperatorFrom";
+    static final String KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_FROM = "brightnessBrightnessLevelFrom";
+    static final String KEY_E_BRIGHTNESS_OPERATOR_TO = "brightnessOperatorTo";
+    static final String KEY_E_BRIGHTNESS_BRIGHTNESS_LEVEL_TO = "brightnessBrightnessLevelTo";
+    static final String KEY_E_BRIGHTNESS_SENSOR_PASSED = "brightnessSensorPassed";
+    static final String KEY_E_VOLUMES_RINGTONE_TO = "volumesRingtoneTo";
+    static final String KEY_E_VOLUMES_NOTIFICATION_TO = "volumesNotificationTo";
+    static final String KEY_E_VOLUMES_MEDIA_TO = "volumesMediaTo";
+    static final String KEY_E_VOLUMES_ALARM_TO = "volumesAlarmTo";
+    static final String KEY_E_VOLUMES_SYSTEM_TO = "volumesSystemTo";
+    static final String KEY_E_VOLUMES_VOICE_TO = "volumesVoiceTo";
+    static final String KEY_E_VOLUMES_BLUETOOTHSCO_TO = "volumesBluetoothSCOTo";
+    static final String KEY_E_VOLUMES_ACCESSIBILITY_TO = "volumesAccessibilityTo";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";
@@ -439,6 +461,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_G_NAME = "name";
     static final String KEY_G_CHECKED = "checked";
     static final String KEY_G_TRANSITION = "transition";
+    static final String KEY_G_LATITUDE_T = "latitudeT";
+    static final String KEY_G_LONGITUDE_T = "longitudeT";
 
     // Shortcuts Columns names
     static final String KEY_S_ID = "_id";
@@ -454,6 +478,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_MC_LAST_RUNNING_EVENTS = "lastRunningEvents";
     static final String KEY_MC_LAST_PAUSED_EVENTS = "lastPausedEvents";
     static final String KEY_MC_DO_NOT_DETECT = "doNotDetect";
+    static final String KEY_MC_CELL_ID_T = "cellIdT";
 
     // NFC tags Columns names
     static final String KEY_NT_ID = "_id";
@@ -805,6 +830,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return DatabaseHandlerProfiles.getActivatedProfile(this);
     }
 
+    long getActivatedProfileId()
+    {
+        return DatabaseHandlerProfiles.getActivatedProfileId(this);
+    }
+
+
     long getProfileIdByName(String name)
     {
         return DatabaseHandlerProfiles.getProfileIdByName(this, name);
@@ -813,6 +844,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     void setProfileOrder(List<Profile> list)
     {
         DatabaseHandlerProfiles.setProfileOrder(this, list);
+    }
+
+    String getProfileName(long profile_id)
+    {
+        return DatabaseHandlerProfiles.getProfileName(this, profile_id);
     }
 
     void getProfileIcon(Profile profile)
@@ -844,6 +880,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     void updateProfileShowInActivator(Profile profile) {
         DatabaseHandlerProfiles.updateProfileShowInActivator(this, profile);
+    }
+
+    boolean profileExists(long profile_id) {
+        return DatabaseHandlerProfiles.profileExists(this, profile_id);
     }
 
 // EVENTS --------------------------------------------------------------------------------
@@ -1075,6 +1115,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerEvents.updateActivatedProfileSensorRunningParameter(this, event);
     }
 
+    boolean eventExists(long event_id) {
+        return DatabaseHandlerEvents.eventExists(this, event_id);
+    }
+
+    int getEventPriority(long event_id)
+    {
+        return DatabaseHandlerEvents.getEventPriority(this, event_id);
+    }
+
+    int getEventIgnoreManualActivation(long event_id)
+    {
+        return DatabaseHandlerEvents.getEventIgnoreManualActivation(this, event_id);
+    }
+
 // EVENT TIMELINE ------------------------------------------------------------------
 
     // Adding time line
@@ -1136,8 +1190,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerEvents.deleteGeofence(this, geofenceId);
     }
 
-    void checkGeofence(String geofences, int check) {
-        DatabaseHandlerEvents.checkGeofence(this, geofences, check);
+    void checkGeofence(String geofences, int check, boolean ucheckAll) {
+        DatabaseHandlerEvents.checkGeofence(this, geofences, check, ucheckAll);
     }
 
     Cursor getGeofencesCursor() {
@@ -1188,12 +1242,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerEvents.addMobileCellsToList(this, cellsList, onlyCellId, false);
     }
 
+    /** @noinspection SameParameterValue*/
     void saveMobileCellsList(List<MobileCellsData> cellsList, boolean _new, boolean renameExistingCell) {
         DatabaseHandlerEvents.saveMobileCellsList(this, cellsList, _new, renameExistingCell);
     }
 
-    void renameMobileCellsList(List<MobileCellsData> cellsList, String name, boolean _new, String value) {
-        DatabaseHandlerEvents.renameMobileCellsList(this, cellsList, name, _new, value);
+    String renameMobileCellsList(List<MobileCellsData> cellsList, String cellName, boolean _new, String selectedIds) {
+        return DatabaseHandlerEvents.renameMobileCellsList(this, cellsList, cellName, _new, selectedIds);
     }
 
     void deleteMobileCell(int mobileCell) {
@@ -1204,12 +1259,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerEvents.updateMobileCellLastConnectedTime(this, mobileCell, lastConnectedTime);
     }
 
+    void setAllMobileCellsAsOld() {
+        DatabaseHandlerEvents.setAllMobileCellsAsOld(this);
+    }
+
     void addMobileCellNamesToList(List<String> cellNamesList) {
         DatabaseHandlerEvents.addMobileCellNamesToList(this, cellNamesList);
     }
 
     int getNewMobileCellsCount() {
         return DatabaseHandlerEvents.getNewMobileCellsCount(this);
+    }
+
+    int getMobileCellNameCount(String cellName) {
+        return DatabaseHandlerEvents.getMobileCellNameCount(this, cellName);
     }
 
     // Updating single event
@@ -1222,8 +1285,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return DatabaseHandlerEvents.isMobileCellSaved(this, mobileCell);
     }
 
-    void loadMobileCellsSensorPausedEvents(List<NotUsedMobileCells> eventList/*, boolean outsideParameter*/) {
-        DatabaseHandlerEvents.loadMobileCellsSensorPausedEvents(this, eventList);
+    void loadMobileCellsSensorEvents(List<MobileCellsSensorEvent> eventList/*, boolean outsideParameter*/) {
+        DatabaseHandlerEvents.loadMobileCellsSensorEvents(this, eventList);
     }
 
     String getEventMobileCellsCells(long eventId) {
@@ -1313,10 +1376,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     int exportDB(boolean deleteGeofences, boolean deleteWifiSSIDs,
-                 boolean deleteBluetoothNames, boolean deleteMobileCells)
+                 boolean deleteBluetoothNames, boolean deleteMobileCells,
+                 boolean deleteCall, boolean deleteSMS, boolean deleteNotification)
     {
         return DatabaseHandlerImportExport.exportDB(this,
-                    deleteGeofences, deleteWifiSSIDs, deleteBluetoothNames, deleteMobileCells
+                    deleteGeofences, deleteWifiSSIDs, deleteBluetoothNames, deleteMobileCells,
+                    deleteCall, deleteSMS, deleteNotification
                 );
     }
 

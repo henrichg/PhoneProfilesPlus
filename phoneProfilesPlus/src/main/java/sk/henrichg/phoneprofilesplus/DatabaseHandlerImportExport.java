@@ -21,7 +21,19 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
+import se.simbio.encryption.Encryption;
+
 class DatabaseHandlerImportExport {
+
+    static final String PREF_MAXIMUM_VOLUME_RING = "maximumVolume_ring";
+    static final String PREF_MAXIMUM_VOLUME_NOTIFICATION = "maximumVolume_notification";
+    static final String PREF_MAXIMUM_VOLUME_MUSIC = "maximumVolume_music";
+    static final String PREF_MAXIMUM_VOLUME_ALARM = "maximumVolume_alarm";
+    static final String PREF_MAXIMUM_VOLUME_SYSTEM = "maximumVolume_system";
+    static final String PREF_MAXIMUM_VOLUME_VOICE_CALL = "maximumVolume_voiceCall";
+    static final String PREF_MAXIMUM_VOLUME_DTMF = "maximumVolume_dtmf";
+    static final String PREF_MAXIMUM_VOLUME_ACCESSIBILITY = "maximumVolume_accessibility";
+    static final String PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO = "maximumVolume_bluetoothSCO";
 
     static private boolean tableExists(String tableName, SQLiteDatabase db)
     {
@@ -55,11 +67,61 @@ class DatabaseHandlerImportExport {
         return false;
     }
 
+    static private void recalculateVolume(Cursor cursorImportDB, String volumeField, ContentValues values,
+                                          AudioManager audioManager, int volumeStream,
+                                          int maximumVolumeFromSharedPrefs) {
+        try {
+            String value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(volumeField));
+            if (value != null) {
+                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+                int volume = Integer.parseInt(splits[0]);
+                float fVolume = volume;
+
+                // get percentage of value from imported data
+                float percentage;
+                if (maximumVolumeFromSharedPrefs > 0)
+                    percentage = fVolume / maximumVolumeFromSharedPrefs * 100f;
+                else
+                    percentage = fVolume / audioManager.getStreamMaxVolume(volumeStream);
+                if (percentage > 100f)
+                    percentage = 100f;
+
+                // get value from percentage for actual system max volume
+                fVolume = audioManager.getStreamMaxVolume(volumeStream) / 100f * percentage;
+                volume = Math.round(fVolume);
+
+                if (splits.length == 3)
+                    values.put(volumeField, volume + "|" + splits[1] + "|" + splits[2]);
+                else
+                    values.put(volumeField, volume + "|" + splits[1]);
+            }
+        } catch (IllegalArgumentException e) {
+            // java.lang.IllegalArgumentException: Bad stream type X
+            //PPApplicationStatic.recordException(e);
+        } catch (Exception e) {
+            //Log.e("DatabaseHandlerImportExport.afterImportDb", Log.getStackTraceString(e));
+            PPApplicationStatic.recordException(e);
+        }
+    }
+
     static private void afterImportDb(DatabaseHandler instance, SQLiteDatabase db) {
         Cursor cursorImportDB = null;
 
         // update volumes by device max value
         try {
+            // these shared preferences are put during export of data, values are from AudioManager
+            // for import, these data are values from source of imported data (may be from another device)
+            SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(instance.context);
+            int maximumVolumeRing = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_RING, 0);
+            int maximumVolumeNotification = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_NOTIFICATION, 0);
+            int maximumVolumeMusic = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_MUSIC, 0);
+            int maximumVolumeAlarm = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_ALARM, 0);
+            int maximumVolumeSystem = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_SYSTEM, 0);
+            int maximumVolumeVoiceCall = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_VOICE_CALL, 0);
+            int maximumVolumeDTFM = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_DTMF, 0);
+            int maximumVolumeAccessibility = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_ACCESSIBILITY, 0);
+            int maximumVolumeBluetoothSCO = sharedPreferences.getInt(PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO, 0);
+
             cursorImportDB = db.rawQuery("SELECT " +
                     DatabaseHandler.KEY_ID + ","+
                     DatabaseHandler.KEY_VOLUME_RINGTONE + ","+
@@ -76,16 +138,6 @@ class DatabaseHandlerImportExport {
             AudioManager audioManager = (AudioManager) instance.context.getSystemService(Context.AUDIO_SERVICE);
             if (audioManager != null) {
                 // these values are saved during export of PPP data
-                SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(instance.context);
-                int maximumVolumeRing = sharedPreferences.getInt("maximumVolume_ring", 0);
-                int maximumVolumeNotification = sharedPreferences.getInt("maximumVolume_notification", 0);
-                int maximumVolumeMusic = sharedPreferences.getInt("maximumVolume_music", 0);
-                int maximumVolumeAlarm = sharedPreferences.getInt("maximumVolume_alarm", 0);
-                int maximumVolumeSystem = sharedPreferences.getInt("maximumVolume_system", 0);
-                int maximumVolumeVoiceCall = sharedPreferences.getInt("maximumVolume_voiceCall", 0);
-                int maximumVolumeDTFM = sharedPreferences.getInt("maximumVolume_dtmf", 0);
-                int maximumVolumeAccessibility = sharedPreferences.getInt("maximumVolume_accessibility", 0);
-                int maximumVolumeBluetoothSCO = sharedPreferences.getInt("maximumVolume_bluetoothSCO", 0);
 
                 if (cursorImportDB.moveToFirst()) {
                     do {
@@ -94,233 +146,32 @@ class DatabaseHandlerImportExport {
 
                         ContentValues values = new ContentValues();
 
-                        String value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_RINGTONE));
-                        try {
-                            String[] splits = value.split("\\|");
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeRing > 0)
-                                percentage = fVolume / maximumVolumeRing * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_RINGTONE, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_RINGTONE, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            //Log.e("DatabaseHandlerImportExport.afterImportDb", Log.getStackTraceString(e));
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_RINGTONE, values,
+                                audioManager, AudioManager.STREAM_RING, maximumVolumeRing);
 
-                        value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_NOTIFICATION));
-                        try {
-                            String[] splits = value.split("\\|");
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeNotification > 0)
-                                percentage = fVolume / maximumVolumeNotification * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION) * 100f;
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_NOTIFICATION, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_NOTIFICATION, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_NOTIFICATION, values,
+                                audioManager, AudioManager.STREAM_NOTIFICATION, maximumVolumeNotification);
 
-                        value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_MEDIA));
-                        try {
-                            String[] splits = value.split("\\|");
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeMusic > 0)
-                                percentage = fVolume / maximumVolumeMusic * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) * 100f;
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_MEDIA, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_MEDIA, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_MEDIA, values,
+                                audioManager, AudioManager.STREAM_MUSIC, maximumVolumeMusic);
 
-                        value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_ALARM));
-                        try {
-                            String[] splits = value.split("\\|");
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeAlarm > 0)
-                                percentage = fVolume / maximumVolumeAlarm * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM) * 100f;
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_ALARM, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_ALARM, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_ALARM, values,
+                                audioManager, AudioManager.STREAM_ALARM, maximumVolumeAlarm);
 
-                        value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_SYSTEM));
-                        try {
-                            String[] splits = value.split("\\|");
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeSystem > 0)
-                                percentage = fVolume / maximumVolumeSystem * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM) * 100f;
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_SYSTEM, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_SYSTEM, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_SYSTEM, values,
+                                audioManager, AudioManager.STREAM_SYSTEM, maximumVolumeSystem);
 
-                        value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_VOICE));
-                        try {
-                            String[] splits = value.split("\\|");
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeVoiceCall > 0)
-                                percentage = fVolume / maximumVolumeVoiceCall * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL) * 100f;
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_VOICE, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_VOICE, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_VOICE, values,
+                                audioManager, AudioManager.STREAM_VOICE_CALL, maximumVolumeVoiceCall);
 
-                        value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_DTMF));
-                        try {
-                            String[] splits = value.split("\\|");
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeDTFM > 0)
-                                percentage = fVolume / maximumVolumeDTFM * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF) * 100f;
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_DTMF, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_DTMF, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_DTMF, values,
+                                audioManager, AudioManager.STREAM_DTMF, maximumVolumeDTFM);
 
-                        //if (Build.VERSION.SDK_INT >= 26) {
-                            value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_ACCESSIBILITY));
-                            try {
-                                String[] splits = value.split("\\|");
-                                int volume = Integer.parseInt(splits[0]);
-                                float fVolume = volume;
-                                float percentage;
-                                if (maximumVolumeAccessibility > 0)
-                                    percentage = fVolume / maximumVolumeAccessibility * 100f;
-                                else
-                                    percentage = fVolume / audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY) * 100f;
-                                if (percentage > 100f)
-                                    percentage = 100f;
-                                fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY) / 100f * percentage;
-                                volume = Math.round(fVolume);
-                                if (splits.length == 3)
-                                    values.put(DatabaseHandler.KEY_VOLUME_ACCESSIBILITY, volume + "|" + splits[1] + "|" + splits[2]);
-                                else
-                                    values.put(DatabaseHandler.KEY_VOLUME_ACCESSIBILITY, volume + "|" + splits[1]);
-                            } catch (IllegalArgumentException e) {
-                                // java.lang.IllegalArgumentException: Bad stream type 10 - Android 6
-                                //PPApplicationStatic.recordException(e);
-                            } catch (Exception e) {
-                                PPApplicationStatic.recordException(e);
-                            }
-                        //}
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_ACCESSIBILITY, values,
+                                audioManager, AudioManager.STREAM_ACCESSIBILITY, maximumVolumeAccessibility);
 
-                        value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO));
-                        try {
-                            String[] splits = value.split("\\|");
-                            int volume = Integer.parseInt(splits[0]);
-                            float fVolume = volume;
-                            float percentage;
-                            if (maximumVolumeBluetoothSCO > 0)
-                                percentage = fVolume / maximumVolumeBluetoothSCO * 100f;
-                            else
-                                percentage = fVolume / audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO) * 100f;
-                            if (percentage > 100f)
-                                percentage = 100f;
-                            fVolume = audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO) / 100f * percentage;
-                            volume = Math.round(fVolume);
-                            if (splits.length == 3)
-                                values.put(DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO, volume + "|" + splits[1] + "|" + splits[2]);
-                            else
-                                values.put(DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO, volume + "|" + splits[1]);
-                        } catch (IllegalArgumentException e) {
-                            // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplicationStatic.recordException(e);
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO, values,
+                                audioManager, AudioManager.STREAM_BLUETOOTH_SCO, maximumVolumeBluetoothSCO);
 
                         // updating row
                         if (values.size() > 0)
@@ -330,6 +181,85 @@ class DatabaseHandlerImportExport {
                 }
             }
             cursorImportDB.close();
+
+            cursorImportDB = db.rawQuery("SELECT " +
+                    DatabaseHandler.KEY_E_ID + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_RINGTONE_TO + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_TO + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_MEDIA_TO + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_ALARM_TO + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_SYSTEM_TO + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_VOICE_TO + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_TO + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM + ","+
+                    DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_TO +
+                    " FROM " + DatabaseHandler.TABLE_EVENTS, null);
+
+            if (audioManager != null) {
+                // these values are saved during export of PPP data
+
+                if (cursorImportDB.moveToFirst()) {
+                    do {
+
+                        long eventId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+
+                        ContentValues values = new ContentValues();
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM, values,
+                                audioManager, AudioManager.STREAM_RING, maximumVolumeRing);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_RINGTONE_TO, values,
+                                audioManager, AudioManager.STREAM_RING, maximumVolumeRing);
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM, values,
+                                audioManager, AudioManager.STREAM_NOTIFICATION, maximumVolumeNotification);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_TO, values,
+                                audioManager, AudioManager.STREAM_NOTIFICATION, maximumVolumeNotification);
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM, values,
+                                audioManager, AudioManager.STREAM_MUSIC, maximumVolumeMusic);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_MEDIA_TO, values,
+                                audioManager, AudioManager.STREAM_MUSIC, maximumVolumeMusic);
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM, values,
+                                audioManager, AudioManager.STREAM_ALARM, maximumVolumeAlarm);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_ALARM_TO, values,
+                                audioManager, AudioManager.STREAM_ALARM, maximumVolumeAlarm);
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM, values,
+                                audioManager, AudioManager.STREAM_SYSTEM, maximumVolumeSystem);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_SYSTEM_TO, values,
+                                audioManager, AudioManager.STREAM_SYSTEM, maximumVolumeSystem);
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM, values,
+                                audioManager, AudioManager.STREAM_VOICE_CALL, maximumVolumeVoiceCall);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_VOICE_TO, values,
+                                audioManager, AudioManager.STREAM_VOICE_CALL, maximumVolumeVoiceCall);
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_FROM, values,
+                                audioManager, AudioManager.STREAM_ACCESSIBILITY, maximumVolumeAccessibility);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_TO, values,
+                                audioManager, AudioManager.STREAM_ACCESSIBILITY, maximumVolumeAccessibility);
+
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM, values,
+                                audioManager, AudioManager.STREAM_BLUETOOTH_SCO, maximumVolumeBluetoothSCO);
+                        recalculateVolume(cursorImportDB, DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_TO, values,
+                                audioManager, AudioManager.STREAM_BLUETOOTH_SCO, maximumVolumeBluetoothSCO);
+
+                        // updating row
+                        if (values.size() > 0)
+                            db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                    new String[]{String.valueOf(eventId)});
+                    } while (cursorImportDB.moveToNext());
+                }
+            }
+
         } finally {
             if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
                 cursorImportDB.close();
@@ -337,22 +267,20 @@ class DatabaseHandlerImportExport {
 
         // clear dual sim parameters for device without dual sim support
         int phoneCount = 1;
-        //if (Build.VERSION.SDK_INT >= 26) {
             TelephonyManager telephonyManager = (TelephonyManager) instance.context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 phoneCount = telephonyManager.getPhoneCount();
             }
-        //}
         if (phoneCount < 2) {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1 + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2 + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1 + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2 + "=0");
 
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1 + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2 + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1 + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2 + "=0");
+            //db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1 + "=0");
+            //db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2 + "=0");
+            //db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1 + "=0");
+            //db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2 + "=0");
 
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS + "=\"0|0|0\"");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS + "=\"0|0|0\"");
@@ -446,7 +374,7 @@ class DatabaseHandlerImportExport {
                     }
 
                     String tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_RINGTONE));
-                    String[] splits = tone.split("\\|");
+                    String[] splits = tone.split(StringConstants.STR_SPLIT_REGEX);
                     String ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
                         if (ringtone.contains("content://media/external")) {
@@ -471,7 +399,7 @@ class DatabaseHandlerImportExport {
                         }
                     }
                     tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_RINGTONE_SIM1));
-                    splits = tone.split("\\|");
+                    splits = tone.split(StringConstants.STR_SPLIT_REGEX);
                     ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
                         if (ringtone.contains("content://media/external")) {
@@ -496,7 +424,7 @@ class DatabaseHandlerImportExport {
                         }
                     }
                     tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_RINGTONE_SIM2));
-                    splits = tone.split("\\|");
+                    splits = tone.split(StringConstants.STR_SPLIT_REGEX);
                     ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
                         if (ringtone.contains("content://media/external")) {
@@ -521,7 +449,7 @@ class DatabaseHandlerImportExport {
                         }
                     }
                     tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_NOTIFICATION));
-                    splits = tone.split("\\|");
+                    splits = tone.split(StringConstants.STR_SPLIT_REGEX);
                     ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
                         if (ringtone.contains("content://media/external")) {
@@ -546,7 +474,7 @@ class DatabaseHandlerImportExport {
                         }
                     }
                     tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_NOTIFICATION_SIM1));
-                    splits = tone.split("\\|");
+                    splits = tone.split(StringConstants.STR_SPLIT_REGEX);
                     ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
                         if (ringtone.contains("content://media/external")) {
@@ -571,7 +499,7 @@ class DatabaseHandlerImportExport {
                         }
                     }
                     tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_NOTIFICATION_SIM2));
-                    splits = tone.split("\\|");
+                    splits = tone.split(StringConstants.STR_SPLIT_REGEX);
                     ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
                         if (ringtone.contains("content://media/external")) {
@@ -596,7 +524,7 @@ class DatabaseHandlerImportExport {
                         }
                     }
                     tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_ALARM));
-                    splits = tone.split("\\|");
+                    splits = tone.split(StringConstants.STR_SPLIT_REGEX);
                     ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
                         if (ringtone.contains("content://media/external")) {
@@ -740,7 +668,7 @@ class DatabaseHandlerImportExport {
                             if (!isGranted) {
                                 values.clear();
                                 values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_START, "");
-                                db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_ID + " = ?",
+                                db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                         new String[]{String.valueOf(eventId)});
                             }
                         }
@@ -762,7 +690,7 @@ class DatabaseHandlerImportExport {
                             if (!isGranted) {
                                 values.clear();
                                 values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_END, "");
-                                db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_ID + " = ?",
+                                db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                         new String[]{String.valueOf(eventId)});
                             }
                         }
@@ -776,10 +704,443 @@ class DatabaseHandlerImportExport {
                 cursorImportDB.close();
         }
 
+        // convert contacts data to new format
+        ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+        if (contactsCache == null) {
+            PPApplicationStatic.createContactsCache(instance.context, false/*, false*//*, true*/);
+            contactsCache = PPApplicationStatic.getContactsCache();
+        }
+        List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
+        if (contactList != null) {
+            try {
+                cursorImportDB = db.rawQuery("SELECT " +
+                        DatabaseHandler.KEY_E_ID + "," +
+                        DatabaseHandler.KEY_E_CALL_CONTACTS + "," +
+                        DatabaseHandler.KEY_E_SMS_CONTACTS + "," +
+                        DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS +
+                        " FROM " + DatabaseHandler.TABLE_EVENTS, null);
+
+                if (cursorImportDB.moveToFirst()) {
+                    do {
+                        long eventId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+
+                        boolean dataChanged = false;
+                        ContentValues values = new ContentValues();
+
+                        String callContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTACTS));
+                        String smsContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_CONTACTS));
+                        String notificationContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS));
+
+                        if (!callContacts.isEmpty()) {
+                            String[] splits = callContacts.split(StringConstants.STR_SPLIT_REGEX);
+                            String _split = splits[0];
+                            String[] _splits2 = _split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                            boolean oldData = false;
+                            try {
+                                //noinspection unused
+                                long l = Long.parseLong(_splits2[0]);
+                                oldData = true;
+                            } catch (Exception ignored) {}
+                            if (oldData) {
+                                StringBuilder newContacts = new StringBuilder();
+                                for (String split : splits) {
+                                    String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                    long contactId = Long.parseLong(splits2[0]);
+                                    long phoneId = Long.parseLong(splits2[1]);
+
+                                    boolean found = false;
+                                    for (Contact contact : contactList) {
+                                        if (phoneId != 0) {
+                                            if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
+                                                found = true;
+                                        } else {
+                                            if (contact.contactId == contactId)
+                                                found = true;
+                                        }
+                                        if (found) {
+                                            if (newContacts.length() > 0)
+                                                newContacts.append("|");
+                                            newContacts
+                                                    .append(contact.name)
+                                                    .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                    .append(contact.phoneNumber)
+                                                    .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                    .append(contact.accountType);
+                                            break;
+                                        }
+                                    }
+                                }
+                                callContacts = newContacts.toString();
+                                values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, callContacts);
+                                dataChanged = true;
+                            }
+                        }
+
+                        if (!smsContacts.isEmpty()) {
+                            String[] splits = smsContacts.split(StringConstants.STR_SPLIT_REGEX);
+                            String _split = splits[0];
+                            String[] _splits2 = _split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                            boolean oldData = false;
+                            try {
+                                //noinspection unused
+                                long l = Long.parseLong(_splits2[0]);
+                                oldData = true;
+                            } catch (Exception ignored) {
+                            }
+                            if (oldData) {
+                                StringBuilder newContacts = new StringBuilder();
+                                for (String split : splits) {
+                                    String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                    if (splits2.length != 3) {
+                                        // old data
+                                        splits2 = split.split("#");
+                                        if (splits2.length != 2)
+                                            continue;
+                                        long contactId = Long.parseLong(splits2[0]);
+                                        long phoneId = Long.parseLong(splits2[1]);
+
+                                        boolean found = false;
+                                        for (Contact contact : contactList) {
+                                            if (phoneId != 0) {
+                                                if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
+                                                    found = true;
+                                            } else {
+                                                if (contact.contactId == contactId)
+                                                    found = true;
+                                            }
+                                            if (found) {
+                                                if (newContacts.length() > 0)
+                                                    newContacts.append("|");
+                                                newContacts
+                                                        .append(contact.name)
+                                                        .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                        .append(contact.phoneNumber)
+                                                        .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                        .append(contact.accountType);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                smsContacts = newContacts.toString();
+                                values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, smsContacts);
+                                dataChanged = true;
+                            }
+                        }
+
+                        if (!notificationContacts.isEmpty()) {
+                            String[] splits = notificationContacts.split(StringConstants.STR_SPLIT_REGEX);
+                            String _split = splits[0];
+                            String[] _splits2 = _split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                            boolean oldData = false;
+                            try {
+                                //noinspection unused
+                                long l = Long.parseLong(_splits2[0]);
+                                oldData = true;
+                            } catch (Exception ignored) {
+                            }
+                            if (oldData) {
+                                StringBuilder newContacts = new StringBuilder();
+                                for (String split : splits) {
+                                    String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                    if (splits2.length != 3) {
+                                        // old data
+                                        splits2 = split.split("#");
+                                        if (splits2.length != 2)
+                                            continue;
+                                        long contactId = Long.parseLong(splits2[0]);
+                                        long phoneId = Long.parseLong(splits2[1]);
+
+                                        boolean found = false;
+                                        for (Contact contact : contactList) {
+                                            if (phoneId != 0) {
+                                                if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
+                                                    found = true;
+                                            } else {
+                                                if (contact.contactId == contactId)
+                                                    found = true;
+                                            }
+                                            if (found) {
+                                                if (newContacts.length() > 0)
+                                                    newContacts.append("|");
+                                                newContacts
+                                                        .append(contact.name)
+                                                        .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                        .append(contact.phoneNumber)
+                                                        .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                        .append(contact.accountType);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                notificationContacts = newContacts.toString();
+                                values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, notificationContacts);
+                                dataChanged = true;
+                            }
+                        }
+
+                        if (dataChanged)
+                            db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_ID + " = ?",
+                                    new String[]{String.valueOf(eventId)});
+
+                    } while (cursorImportDB.moveToNext());
+                }
+                cursorImportDB.close();
+            } finally {
+                if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                    cursorImportDB.close();
+            }
+        }
+
+        // decript contacts
+        boolean applicationContactsInBackupEncripted =
+                ApplicationPreferences.getSharedPreferences(instance.context)
+                        .getBoolean(ApplicationPreferences.PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED,
+                                false);
+//        Log.e("DatabaseHandlerImportExport.afterImportDb", "applicationContactsInBackupEncripted="+applicationContactsInBackupEncripted);
+        if (applicationContactsInBackupEncripted) {
+            try {
+                Encryption encryption = Encryption.getDefault(BuildConfig.encrypt_contacts_key, BuildConfig.encrypt_contacts_salt, new byte[16]);
+
+                cursorImportDB = db.rawQuery("SELECT " +
+                        DatabaseHandler.KEY_E_ID + "," +
+                        DatabaseHandler.KEY_E_CALL_CONTACTS + "," +
+                        DatabaseHandler.KEY_E_SMS_CONTACTS + "," +
+                        DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS +
+                        " FROM " + DatabaseHandler.TABLE_EVENTS, null);
+
+                if (cursorImportDB.moveToFirst()) {
+                    do {
+                        long eventId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+
+                        String callContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTACTS));
+                        String smsContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_CONTACTS));
+                        String notificationContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS));
+
+                        String decryptedCallContacts;
+                        try {
+                            decryptedCallContacts = encryption.decryptOrNull(callContacts);
+                        } catch (Exception e) {
+                            decryptedCallContacts = "";
+                        }
+                        String decryptedSMSContacts;
+                        try {
+                            decryptedSMSContacts = encryption.decryptOrNull(smsContacts);
+                        } catch (Exception e) {
+                            decryptedSMSContacts = "";
+                        }
+                        String decryptedNotificationContacts;
+                        try {
+                            decryptedNotificationContacts = encryption.decryptOrNull(notificationContacts);
+                        } catch (Exception e) {
+                            decryptedNotificationContacts = "";
+                        }
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedCallContacts="+decryptedCallContacts);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedSMSContacts="+decryptedSMSContacts);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedNotificationContacts="+decryptedNotificationContacts);
+                        if (decryptedCallContacts == null) decryptedCallContacts="";
+                        if (decryptedSMSContacts == null) decryptedSMSContacts="";
+                        if (decryptedNotificationContacts == null) decryptedNotificationContacts="";
+
+                        ContentValues values = new ContentValues();
+                        values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, decryptedCallContacts);
+                        values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, decryptedSMSContacts);
+                        values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, decryptedNotificationContacts);
+
+                        db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                new String[]{String.valueOf(eventId)});
+
+                    } while (cursorImportDB.moveToNext());
+                }
+                cursorImportDB.close();
+            } finally {
+                if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                    cursorImportDB.close();
+            }
+        }
+
+        boolean applicationLocationsInBackupEncripted =
+                ApplicationPreferences.getSharedPreferences(instance.context)
+                        .getBoolean(ApplicationPreferences.PREF_APPLICATION_LOCATIONS_IN_BACKUP_ENCRIPTED,
+                                false);
+//        Log.e("DatabaseHandlerImportExport.afterImportDb", "applicationLocationsInBackupEncripted="+applicationLocationsInBackupEncripted);
+        if (applicationLocationsInBackupEncripted) {
+            Encryption encryption = Encryption.getDefault(BuildConfig.encrypt_contacts_key, BuildConfig.encrypt_contacts_salt, new byte[16]);
+
+            try {
+                cursorImportDB = db.rawQuery("SELECT " +
+                        DatabaseHandler.KEY_E_ID + "," +
+                        DatabaseHandler.KEY_E_WIFI_SSID + "," +
+                        DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME +
+                        " FROM " + DatabaseHandler.TABLE_EVENTS, null);
+
+                if (cursorImportDB.moveToFirst()) {
+                    do {
+                        long eventId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+
+                        String wifiSSIDs = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_WIFI_SSID));
+                        String bluetoothNames = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME));
+
+                        String decryptedWifiSSIDs;
+                        try {
+                            decryptedWifiSSIDs = encryption.decryptOrNull(wifiSSIDs);
+                        } catch (Exception e) {
+                            decryptedWifiSSIDs = "";
+                        }
+                        String decryptedBluetoothNames;
+                        try {
+                            decryptedBluetoothNames = encryption.decryptOrNull(bluetoothNames);
+                        } catch (Exception e) {
+                            decryptedBluetoothNames = "";
+                        }
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedWifiSSIDs="+decryptedWifiSSIDs);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedBluetoothNames="+decryptedBluetoothNames);
+                        if (decryptedWifiSSIDs == null) decryptedWifiSSIDs="";
+                        if (decryptedBluetoothNames == null) decryptedBluetoothNames="";
+
+                        ContentValues values = new ContentValues();
+                        values.put(DatabaseHandler.KEY_E_WIFI_SSID, decryptedWifiSSIDs);
+                        values.put(DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME, decryptedBluetoothNames);
+
+                        db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                new String[]{String.valueOf(eventId)});
+
+                    } while (cursorImportDB.moveToNext());
+                }
+                cursorImportDB.close();
+            } finally {
+                if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                    cursorImportDB.close();
+            }
+            cursorImportDB = null;
+            try {
+                cursorImportDB = db.rawQuery("SELECT " +
+                        DatabaseHandler.KEY_G_ID + "," +
+                        DatabaseHandler.KEY_G_NAME + "," +
+                        DatabaseHandler.KEY_G_LATITUDE_T + "," +
+                        DatabaseHandler.KEY_G_LONGITUDE_T +
+                        " FROM " + DatabaseHandler.TABLE_GEOFENCES, null);
+
+                if (cursorImportDB.moveToFirst()) {
+                    do {
+                        long geofenceId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_ID));
+
+                        String geofenceName = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_NAME));
+                        String latitudeT = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_LATITUDE_T));
+                        String longitudeT = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_LONGITUDE_T));
+
+                        String decryptedGeofenceName;
+                        try {
+                            decryptedGeofenceName = encryption.decryptOrNull(geofenceName);
+                        } catch (Exception e) {
+                            decryptedGeofenceName = "";
+                        }
+                        String decryptedLatitude;
+                        try {
+                            decryptedLatitude = encryption.decryptOrNull(latitudeT);
+                        } catch (Exception e) {
+                            decryptedLatitude = "";
+                        }
+                        String decryptedLongitude;
+                        try {
+                            decryptedLongitude = encryption.decryptOrNull(longitudeT);
+                        } catch (Exception e) {
+                            decryptedLongitude = "";
+                        }
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedGeofenceName="+decryptedGeofenceName);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedLatitude="+decryptedLatitude);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedLongitude="+decryptedLongitude);
+                        if (decryptedGeofenceName == null) decryptedGeofenceName="";
+                        if (decryptedLatitude == null) decryptedLatitude="";
+                        if (decryptedLongitude == null) decryptedLongitude="";
+
+                        ContentValues values = new ContentValues();
+                        values.put(DatabaseHandler.KEY_G_NAME, decryptedGeofenceName);
+                        double latitude;
+                        try {
+                            latitude = Double.parseDouble(decryptedLatitude);
+                        } catch (Exception e) {
+                            latitude = 0;
+                        }
+                        values.put(DatabaseHandler.KEY_G_LATITUDE, latitude);
+                        double longitude;
+                        try {
+                            longitude = Double.parseDouble(decryptedLongitude);
+                        } catch (Exception e) {
+                            longitude = 0;
+                        }
+                        values.put(DatabaseHandler.KEY_G_LONGITUDE, longitude);
+
+                        db.update(DatabaseHandler.TABLE_GEOFENCES, values, DatabaseHandler.KEY_G_ID + " = ?",
+                                new String[]{String.valueOf(geofenceId)});
+
+                    } while (cursorImportDB.moveToNext());
+                }
+                cursorImportDB.close();
+            } finally {
+                if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                    cursorImportDB.close();
+            }
+            cursorImportDB = null;
+            try {
+                cursorImportDB = db.rawQuery("SELECT " +
+                        DatabaseHandler.KEY_MC_ID + "," +
+                        DatabaseHandler.KEY_MC_NAME + "," +
+                        DatabaseHandler.KEY_MC_CELL_ID_T +
+                        " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS, null);
+
+                if (cursorImportDB.moveToFirst()) {
+                    do {
+                        long rCellId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_ID));
+
+                        String cellName = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
+                        String cellIdT = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID_T));
+
+                        String decryptedCellName;
+                        try {
+                            decryptedCellName = encryption.decryptOrNull(cellName);
+                        } catch (Exception e) {
+                            decryptedCellName = "";
+                        }
+                        String decryptedCellId;
+                        try {
+                            decryptedCellId = encryption.decryptOrNull(cellIdT);
+                        } catch (Exception e) {
+                            decryptedCellId = "";
+                        }
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedCellName="+decryptedCellName);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedCellId="+decryptedCellId);
+                        if (decryptedCellName == null) decryptedCellName="";
+                        if (decryptedCellId == null) decryptedCellId="";
+
+                        ContentValues values = new ContentValues();
+                        values.put(DatabaseHandler.KEY_MC_NAME, decryptedCellName);
+                        int cellId;
+                        try {
+                            cellId = Integer.parseInt(decryptedCellId);
+                        } catch (Exception e) {
+                            cellId = 0;
+                        }
+                        values.put(DatabaseHandler.KEY_MC_CELL_ID, cellId);
+
+                        db.update(DatabaseHandler.TABLE_MOBILE_CELLS, values, DatabaseHandler.KEY_MC_ID + " = ?",
+                                new String[]{String.valueOf(rCellId)});
+
+                    } while (cursorImportDB.moveToNext());
+                }
+                cursorImportDB.close();
+            } finally {
+                if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                    cursorImportDB.close();
+            }
+        }
+
         // remove all not used non-named mobile cells
         DatabaseHandlerEvents.deleteNonNamedNotUsedCells(instance, true);
 
     }
+
 
     static private void importProfiles(SQLiteDatabase db, SQLiteDatabase exportedDBObj,
                                 List<Long> exportedDBEventProfileIds, List<Long> importDBEventProfileIds) {
@@ -864,7 +1225,7 @@ class DatabaseHandlerImportExport {
                                     if (columnNamesExportedDB[i].equals(DatabaseHandler.KEY_E_START_WHEN_ACTIVATED_PROFILE)) {
                                         String fkProfiles = cursorExportedDB.getString(i);
                                         if (!fkProfiles.isEmpty()) {
-                                            String[] splits = fkProfiles.split("\\|");
+                                            String[] splits = fkProfiles.split(StringConstants.STR_SPLIT_REGEX);
                                             StringBuilder newFkProfiles = new StringBuilder();
                                             for (String split : splits) {
                                                 long fkProfile = Long.parseLong(split);
@@ -1290,7 +1651,8 @@ class DatabaseHandlerImportExport {
     @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
     static int exportDB(DatabaseHandler instance,
                         boolean deleteGeofences, boolean deleteWifiSSIDs,
-                        boolean deleteBluetoothNames, boolean deleteMobileCells)
+                        boolean deleteBluetoothNames, boolean deleteMobileCells,
+                        boolean deleteCall, boolean deleteSMS, boolean deleteNotification)
     {
         instance.importExportLock.lock();
         try {
@@ -1359,27 +1721,223 @@ class DatabaseHandlerImportExport {
                                     try {
                                         exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
 
+                                        // encript contacts
+                                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(instance.context);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED, true);
+                                        editor.apply();
+
+                                        Encryption encryption = Encryption.getDefault(BuildConfig.encrypt_contacts_key, BuildConfig.encrypt_contacts_salt, new byte[16]);
+
+                                        Cursor cursorExportDB = null;
+                                        try {
+                                            cursorExportDB = exportedDBObj.rawQuery("SELECT " +
+                                                    DatabaseHandler.KEY_E_ID + "," +
+                                                    DatabaseHandler.KEY_E_CALL_CONTACTS + "," +
+                                                    DatabaseHandler.KEY_E_SMS_CONTACTS + "," +
+                                                    DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS +
+                                                    " FROM " + DatabaseHandler.TABLE_EVENTS, null);
+
+                                            if (cursorExportDB.moveToFirst()) {
+                                                do {
+                                                    long eventId = cursorExportDB.getLong(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+
+                                                    String callContacts = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTACTS));
+                                                    String smsContacts = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_CONTACTS));
+                                                    String notificationContacts = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS));
+
+                                                    String encryptedCallContacts = encryption.encryptOrNull(callContacts);
+                                                    String encryptedSMSContacts = encryption.encryptOrNull(smsContacts);
+                                                    String encryptedNotificationContacts = encryption.encryptOrNull(notificationContacts);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedCallContacts="+encryptedCallContacts);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedSMSContacts="+encryptedSMSContacts);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedNotificationContacts="+encryptedNotificationContacts);
+                                                    if (encryptedCallContacts == null) encryptedCallContacts="";
+                                                    if (encryptedSMSContacts == null) encryptedSMSContacts="";
+                                                    if (encryptedNotificationContacts == null) encryptedNotificationContacts="";
+
+                                                    ContentValues values = new ContentValues();
+                                                    values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, encryptedCallContacts);
+                                                    values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, encryptedSMSContacts);
+                                                    values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, encryptedNotificationContacts);
+
+                                                    exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                                                new String[]{String.valueOf(eventId)});
+
+                                                } while (cursorExportDB.moveToNext());
+                                            }
+                                            cursorExportDB.close();
+                                        } finally {
+                                            if ((cursorExportDB != null) && (!cursorExportDB.isClosed()))
+                                                cursorExportDB.close();
+                                        }
+
+                                        editor = ApplicationPreferences.getEditor(instance.context);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_LOCATIONS_IN_BACKUP_ENCRIPTED, true);
+                                        editor.apply();
+
+                                        cursorExportDB = null;
+                                        try {
+                                            cursorExportDB = exportedDBObj.rawQuery("SELECT " +
+                                                    DatabaseHandler.KEY_E_ID + "," +
+                                                    DatabaseHandler.KEY_E_WIFI_SSID + "," +
+                                                    DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME +
+                                                    " FROM " + DatabaseHandler.TABLE_EVENTS, null);
+
+                                            if (cursorExportDB.moveToFirst()) {
+                                                do {
+                                                    long eventId = cursorExportDB.getLong(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+
+                                                    String wifiSSIDs = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_WIFI_SSID));
+                                                    String bluetoothNames = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME));
+
+                                                    String encryptedWifiSSIDs = encryption.encryptOrNull(wifiSSIDs);
+                                                    String encryptedBluetoothNames = encryption.encryptOrNull(bluetoothNames);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedWifiSSIDs="+encryptedWifiSSIDs);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedBluetoothNames="+encryptedBluetoothNames);
+                                                    if (encryptedWifiSSIDs == null) encryptedWifiSSIDs="";
+                                                    if (encryptedBluetoothNames == null) encryptedBluetoothNames="";
+
+                                                    ContentValues values = new ContentValues();
+                                                    values.put(DatabaseHandler.KEY_E_WIFI_SSID, encryptedWifiSSIDs);
+                                                    values.put(DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME, encryptedBluetoothNames);
+
+                                                    exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                                            new String[]{String.valueOf(eventId)});
+
+                                                } while (cursorExportDB.moveToNext());
+                                            }
+                                            cursorExportDB.close();
+                                        } finally {
+                                            if ((cursorExportDB != null) && (!cursorExportDB.isClosed()))
+                                                cursorExportDB.close();
+                                        }
+                                        cursorExportDB = null;
+                                        try {
+                                            cursorExportDB = exportedDBObj.rawQuery("SELECT " +
+                                                    DatabaseHandler.KEY_G_ID + "," +
+                                                    DatabaseHandler.KEY_G_NAME + "," +
+                                                    DatabaseHandler.KEY_G_LATITUDE + "," +
+                                                    DatabaseHandler.KEY_G_LONGITUDE +
+                                                    " FROM " + DatabaseHandler.TABLE_GEOFENCES, null);
+
+                                            if (cursorExportDB.moveToFirst()) {
+                                                do {
+                                                    long geofenceId = cursorExportDB.getLong(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_ID));
+
+                                                    String geofenceName = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_NAME));
+                                                    double latitude = cursorExportDB.getDouble(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_LATITUDE));
+                                                    double longitude = cursorExportDB.getDouble(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_G_LONGITUDE));
+                                                    String latitudeT = String.valueOf(latitude);
+                                                    String longitudeT = String.valueOf(longitude);
+
+                                                    String encryptedGeofenceName = encryption.encryptOrNull(geofenceName);
+                                                    String encryptedLatitude = encryption.encryptOrNull(latitudeT);
+                                                    String encryptedLongitude = encryption.encryptOrNull(longitudeT);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedGeofenceName="+encryptedGeofenceName);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedLatitude="+encryptedLatitude);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedLongitude="+encryptedLongitude);
+                                                    if (encryptedGeofenceName == null) encryptedGeofenceName="";
+                                                    if (encryptedLatitude == null) encryptedLatitude="";
+                                                    if (encryptedLongitude == null) encryptedLongitude="";
+
+                                                    ContentValues values = new ContentValues();
+                                                    values.put(DatabaseHandler.KEY_G_NAME, encryptedGeofenceName);
+                                                    values.put(DatabaseHandler.KEY_G_LATITUDE, 0);
+                                                    values.put(DatabaseHandler.KEY_G_LATITUDE_T, encryptedLatitude);
+                                                    values.put(DatabaseHandler.KEY_G_LONGITUDE, 0);
+                                                    values.put(DatabaseHandler.KEY_G_LONGITUDE_T, encryptedLongitude);
+
+                                                    exportedDBObj.update(DatabaseHandler.TABLE_GEOFENCES, values, DatabaseHandler.KEY_G_ID + " = ?",
+                                                            new String[]{String.valueOf(geofenceId)});
+
+                                                } while (cursorExportDB.moveToNext());
+                                            }
+                                            cursorExportDB.close();
+                                        } finally {
+                                            if ((cursorExportDB != null) && (!cursorExportDB.isClosed()))
+                                                cursorExportDB.close();
+                                        }
+                                        cursorExportDB = null;
+                                        try {
+                                            cursorExportDB = exportedDBObj.rawQuery("SELECT " +
+                                                    DatabaseHandler.KEY_MC_ID + "," +
+                                                    DatabaseHandler.KEY_MC_NAME + "," +
+                                                    DatabaseHandler.KEY_MC_CELL_ID +
+                                                    " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS, null);
+
+                                            if (cursorExportDB.moveToFirst()) {
+                                                do {
+                                                    long rCellId = cursorExportDB.getLong(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_ID));
+
+                                                    String cellName = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
+                                                    int cellId = cursorExportDB.getInt(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID));
+                                                    String cellIdT = String.valueOf(cellId);
+
+                                                    String encryptedCellName = encryption.encryptOrNull(cellName);
+                                                    String encryptedCelId = encryption.encryptOrNull(cellIdT);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedCellName="+encryptedCellName);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedCelId="+encryptedCelId);
+                                                    if (encryptedCellName == null) encryptedCellName="";
+                                                    if (encryptedCelId == null) encryptedCelId="";
+
+                                                    ContentValues values = new ContentValues();
+                                                    values.put(DatabaseHandler.KEY_MC_NAME, encryptedCellName);
+                                                    values.put(DatabaseHandler.KEY_MC_CELL_ID, 0);
+                                                    values.put(DatabaseHandler.KEY_MC_CELL_ID_T, encryptedCelId);
+
+                                                    exportedDBObj.update(DatabaseHandler.TABLE_MOBILE_CELLS, values, DatabaseHandler.KEY_MC_ID + " = ?",
+                                                            new String[]{String.valueOf(rCellId)});
+
+                                                } while (cursorExportDB.moveToNext());
+                                            }
+                                            cursorExportDB.close();
+                                        } finally {
+                                            if ((cursorExportDB != null) && (!cursorExportDB.isClosed()))
+                                                cursorExportDB.close();
+                                        }
+
                                         if (deleteGeofences) {
-                                            ContentValues values = new ContentValues();
-                                            values.put(DatabaseHandler.KEY_E_LOCATION_GEOFENCES, "");
-                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, null, null);
+                                            ContentValues _values = new ContentValues();
+                                            _values.put(DatabaseHandler.KEY_E_LOCATION_GEOFENCES, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
                                             exportedDBObj.delete(DatabaseHandler.TABLE_GEOFENCES, null, null);
                                         }
                                         if (deleteWifiSSIDs) {
-                                            ContentValues values = new ContentValues();
-                                            values.put(DatabaseHandler.KEY_E_WIFI_SSID, "");
-                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, null, null);
+                                            ContentValues _values = new ContentValues();
+                                            _values.put(DatabaseHandler.KEY_E_WIFI_SSID, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
                                         }
                                         if (deleteBluetoothNames) {
-                                            ContentValues values = new ContentValues();
-                                            values.put(DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME, "");
-                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, null, null);
+                                            ContentValues _values = new ContentValues();
+                                            _values.put(DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
                                         }
                                         if (deleteMobileCells) {
-                                            ContentValues values = new ContentValues();
-                                            values.put(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS, "");
-                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, null, null);
+                                            ContentValues _values = new ContentValues();
+                                            _values.put(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
                                             exportedDBObj.delete(DatabaseHandler.TABLE_MOBILE_CELLS, null, null);
+                                        }
+
+                                        String encriptedEmptyStr = encryption.encryptOrNull("");
+                                        if (encriptedEmptyStr == null) encriptedEmptyStr = "";
+                                        if (deleteCall) {
+                                            ContentValues _values = new ContentValues();
+                                            _values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, encriptedEmptyStr);
+                                            _values.put(DatabaseHandler.KEY_E_CALL_CONTACT_GROUPS, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
+                                        }
+                                        if (deleteSMS) {
+                                            ContentValues _values = new ContentValues();
+                                            _values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, encriptedEmptyStr);
+                                            _values.put(DatabaseHandler.KEY_E_SMS_CONTACT_GROUPS, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
+                                        }
+                                        if (deleteNotification) {
+                                            ContentValues _values = new ContentValues();
+                                            _values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, encriptedEmptyStr);
+                                            _values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACT_GROUPS, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
                                         }
 
                                     } catch (Exception ee) {

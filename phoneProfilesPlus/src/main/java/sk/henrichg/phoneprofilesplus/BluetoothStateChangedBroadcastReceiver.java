@@ -40,13 +40,14 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothStateChangedBroadcastReceiver_onReceive");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BluetoothStateChangedBroadcastReceiver_onReceive);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
                         // remove connected devices list
                         if (bluetoothState == BluetoothAdapter.STATE_OFF) {
-                            BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, false);
+                            BluetoothConnectionBroadcastReceiver.clearConnectedDevices(/*appContext, false*/);
+                            // this also clears shared preferences
                             BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
                         }
 
@@ -70,28 +71,24 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     //}
                                 }
 
-                                if (!(ApplicationPreferences.prefEventBluetoothScanRequest ||
+                                if (ApplicationPreferences.prefEventBluetoothScanRequest ||
                                         ApplicationPreferences.prefEventBluetoothLEScanRequest ||
                                         ApplicationPreferences.prefEventBluetoothWaitForResult ||
                                         ApplicationPreferences.prefEventBluetoothLEWaitForResult ||
-                                        ApplicationPreferences.prefEventBluetoothEnabledForScan)) {
+                                        ApplicationPreferences.prefEventBluetoothEnabledForScan)
+                                    PhoneProfilesServiceStatic.cancelBluetoothWorker(appContext, true, false);
+
 
                                     // start events handler
 
-//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
-                                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+//                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+                                EventsHandler eventsHandler = new EventsHandler(appContext);
+                                eventsHandler.handleEvents(new int[]{
+                                        EventsHandler.SENSOR_TYPE_RADIO_SWITCH,
+                                        EventsHandler.SENSOR_TYPE_BLUETOOTH_STATE,
+                                        EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION});
 
-                                    // start events handler
-
-//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BLUETOOTH_STATE");
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_STATE);
-
-                                    // start events handler
-
-//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BLUETOOTH_CONNECTION");
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION);
-                                }
+                                PPApplicationStatic.restartBluetoothScanner(appContext);
 
                             }
                         }

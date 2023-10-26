@@ -37,8 +37,9 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
 
         //noinspection resource
         final TypedArray ta = context.getResources().obtainTypedArray(R.array.colorChooserDialog_colors);
-        mColors = new int[ta.length()];
-        for (int i = 0; i < ta.length(); i++) {
+        int length = ta.length();
+        mColors = new int[length];
+        for (int i = 0; i < length; i++) {
             mColors[i] = ta.getColor(i, 0);
         }
         ta.recycle();
@@ -70,36 +71,20 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
 
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
         Profile restartEvents = DataWrapperStatic.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events),
-                "ic_profile_restart_events|1|1|"+color, 0);
+                StringConstants.PROFILE_ICON_RESTART_EVENTS+"|1|1|"+color, 0);
         restartEvents.generateIconBitmap(dataWrapper.context, false, 0, false);
+        dataWrapper.invalidateDataWrapper();
 
         Bitmap bitmap = restartEvents.increaseProfileIconBrightnessForContext(context, restartEvents._iconBitmap);
         if (bitmap != null)
             restartEvents._iconBitmap = bitmap;
 
         imageView.setImageBitmap(restartEvents._iconBitmap);
-
-/*
-        Drawable selector = createSelector(color);
-        int[][] states = new int[][]{
-                new int[]{-android.R.attr.state_pressed},
-                new int[]{android.R.attr.state_pressed}
-        };
-        int[] colors = new int[]{
-                shiftColor(color),
-                color
-        };
-        ColorStateList rippleColors = new ColorStateList(states, colors);
-        setBackgroundCompat(widgetLayout, new RippleDrawable(rippleColors, selector, null));
-
-//        Handler handler = new Handler(context.getMainLooper());
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                setSummary(R.string.empty_string);
-//            }
-//        }, 200);
- */
+        //int disabledColor = ContextCompat.getColor(context, R.color.activityDisabledTextColor);
+        if (!isEnabled())
+            imageView.setAlpha(0.35f);
+        else
+            imageView.setAlpha(1f);
     }
 
     @Override
@@ -166,36 +151,39 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
 //                break;
 //        }
 
+        final String COLOR1 = "#6E6E6E";
+        final String COLOR2 = "#AEAEAE";
+
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);
         coloredCircle.setShape(GradientDrawable.OVAL);
-        if (applicationTheme.equals("white")) {
+        if (applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE)) {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
             //else
-            coloredCircle.setStroke(1, Color.parseColor("#6E6E6E"));
+            coloredCircle.setStroke(1, Color.parseColor(COLOR1));
         }
         else {
             //if (position == 0) // white color
             //    coloredCircle.setStroke(2, Color.parseColor("#AEAEAE"));
             //else
-                coloredCircle.setStroke(1, Color.parseColor("#6E6E6E"));
+                coloredCircle.setStroke(1, Color.parseColor(COLOR1));
         }
 
         GradientDrawable darkerCircle = new GradientDrawable();
         darkerCircle.setColor(shiftColor(color));
         darkerCircle.setShape(GradientDrawable.OVAL);
-        if (applicationTheme.equals("white")) {
+        if (applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE)) {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
             //else
-                coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
+                coloredCircle.setStroke(2, Color.parseColor(COLOR1));
         }
         else {
             //if (position == 0) // white color
             //    darkerCircle.setStroke(2, Color.parseColor("#AEAEAE"));
             //else
-                darkerCircle.setStroke(2, Color.parseColor("#AEAEAE"));
+                darkerCircle.setStroke(2, Color.parseColor(COLOR2));
         }
 
         StateListDrawable stateListDrawable = new StateListDrawable();

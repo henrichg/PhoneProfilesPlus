@@ -2,22 +2,16 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.graphics.ColorUtils;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -30,7 +24,6 @@ public class CustomColorDialogPreference extends DialogPreference {
     final int chromaColorMode;
     final int chromaIndicatorMode;
 
-    private AppCompatImageView backgroundPreview;
     private AppCompatImageView colorPreview;
 
     // Custom xml attributes.
@@ -65,28 +58,9 @@ public class CustomColorDialogPreference extends DialogPreference {
     {
         super.onBindViewHolder(holder);
 
-        backgroundPreview = (AppCompatImageView)holder.findViewById(R.id.dialog_color_chooser_pref_background_preview);
         colorPreview = (AppCompatImageView)holder.findViewById(R.id.dialog_color_chooser_pref_color_preview);
 
         setColorInWidget();
-    }
-
-    private Bitmap getRoundedCroppedBitmap(Bitmap bitmap, int widthLight, int heightLight, float radius) {
-        Bitmap output = Bitmap.createBitmap(widthLight, heightLight, Bitmap.Config.ARGB_8888);
-
-        Canvas canvas = new Canvas(output);
-        Paint paintColor = new Paint();
-        paintColor.setFlags(Paint.ANTI_ALIAS_FLAG);
-
-        RectF rectF = new RectF(new Rect(0, 0, widthLight, heightLight));
-
-        canvas.drawRoundRect(rectF, radius, radius, paintColor);
-
-        Paint paintImage = new Paint();
-        paintImage.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-        canvas.drawBitmap(bitmap, -(bitmap.getWidth() - widthLight)/2f , -(bitmap.getHeight() - heightLight)/2f, paintImage);
-
-        return output;
     }
 
     private void setColorInWidget() {
@@ -99,44 +73,23 @@ public class CustomColorDialogPreference extends DialogPreference {
 
         try {
             if (colorPreview != null) {
-                int shapeWidth = getContext().getResources()
-                        .getDimensionPixelSize(R.dimen.acch_shape_preference_width);
-                float radius = shapeWidth / 2.0f;
-
                 colorPreview.setImageResource(R.drawable.acch_circle);
 
                 // Update color
                 String applicationTheme = ApplicationPreferences.applicationTheme(prefContext, true);
-                boolean nightModeOn = !applicationTheme.equals("white");
-                //if (GlobalGUIRoutines.isNightModeEnabled(prefContext.getApplicationContext()))
-                if (nightModeOn)
+                boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
+                if (!isEnabled()) {
+                    color = ColorUtils.setAlphaComponent(color, 89);
+                }
+                if (nightModeOn) {
                     colorPreview.getDrawable()
                             .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.ADD));
-                else
+                }
+                else {
                     colorPreview.getDrawable()
                             .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
-                /*int nightModeFlags =
-                        prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-                switch (nightModeFlags) {
-                    case Configuration.UI_MODE_NIGHT_YES:
-                        colorPreview.getDrawable()
-                                .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.ADD));
-                        break;
-                    case Configuration.UI_MODE_NIGHT_NO:
-                    case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                        colorPreview.getDrawable()
-                                .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
-                        break;
-                }*/
-
-                // Bitmap to crop for background
-                Bitmap draughtboard = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.acch_draughtboard);
-                //noinspection SuspiciousNameCombination
-                draughtboard = getRoundedCroppedBitmap(draughtboard, shapeWidth, shapeWidth, radius);
-                backgroundPreview.setImageBitmap(draughtboard);
-
+                }
                 colorPreview.invalidate();
-                backgroundPreview.invalidate();
             }
             //setSummary(summaryPreference);
         } catch (Exception e) {

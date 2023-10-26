@@ -9,10 +9,12 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Build;
@@ -57,7 +59,6 @@ class PPApplicationStatic {
         if (workManager != null) {
             ListenableFuture<List<WorkInfo>> statuses;
             statuses = workManager.getWorkInfosForUniqueWork(name);
-            //noinspection TryWithIdenticalCatches
             try {
                 List<WorkInfo> workInfoList = statuses.get();
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
@@ -73,9 +74,9 @@ class PPApplicationStatic {
                     }
                 }
 
-                if (name.startsWith(MainWorker.EVENT_DELAY_START_TAG_WORK))
+                if (name.startsWith(MainWorker.EVENT_DELAY_START_WORK_TAG))
                     PPApplication.elapsedAlarmsEventDelayStartWork.remove(name);
-                if (name.startsWith(MainWorker.EVENT_DELAY_END_TAG_WORK))
+                if (name.startsWith(MainWorker.EVENT_DELAY_END_WORK_TAG))
                     PPApplication.elapsedAlarmsEventDelayEndWork.remove(name);
                 if (name.startsWith(MainWorker.PROFILE_DURATION_WORK_TAG))
                     PPApplication.elapsedAlarmsProfileDurationWork.remove(name);
@@ -84,9 +85,7 @@ class PPApplicationStatic {
                 if (name.startsWith(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG))
                     PPApplication.elapsedAlarmsStartEventNotificationWork.remove(name);
 
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -100,7 +99,7 @@ class PPApplicationStatic {
         //__handler.post(() -> {
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
-                _cancelWork(name, forceCancel);
+            _cancelWork(name, forceCancel);
         }; //);
         createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
@@ -113,7 +112,7 @@ class PPApplicationStatic {
             cancelWork(UpdateGUIWorker.WORK_TAG, false);
         }*/
         //if (!atStart)
-            _cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG, false);
+        _cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG, false);
         for (String tag : PPApplication.elapsedAlarmsProfileDurationWork)
             _cancelWork(tag, false);
         PPApplication.elapsedAlarmsProfileDurationWork.clear();
@@ -145,11 +144,11 @@ class PPApplicationStatic {
         _cancelWork(RestartEventsWithDelayWorker.WORK_TAG_2, false);
         //_cancelWork(GeofenceScanWorker.WORK_TAG, false);
         //_cancelWork(GeofenceScanWorker.WORK_TAG_SHORT, false);
-        _cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK, false);
+        _cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_WORK_TAG, false);
         _cancelWork(LocationGeofenceEditorActivityOSM.FETCH_ADDRESS_WORK_TAG_OSM, false);
         //if (atStart)
         //    cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, false);
-        _cancelWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK, false);
+        _cancelWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_WORK_TAG, false);
         /*if (atStart) {
             cancelWork(PACKAGE_REPLACED_WORK_TAG, false);
             cancelWork(AFTER_FIRST_START_WORK_TAG, false);
@@ -251,17 +250,17 @@ class PPApplicationStatic {
             final Context appContext = context;
 
             if ((logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_WIFI) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS)) {
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_WIFI) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS)) {
 
                 boolean manualProfileActivation = false;
                 if (EventStatic.getGlobalEventsRunning(context)) {
@@ -269,8 +268,7 @@ class PPApplicationStatic {
                         if (!EventStatic.getForceRunEventRunning(context))
                             manualProfileActivation = true;
                     }
-                }
-                else
+                } else
                     manualProfileActivation = true;
                 if (manualProfileActivation) {
                     String title = appContext.getString(R.string.profile_activation_activation_error_title) + " " + profileName;
@@ -340,12 +338,13 @@ class PPApplicationStatic {
                             break;
                     }
                     if (!text.isEmpty()) {
-                        text = appContext.getString(R.string.profile_activation_activation_error) + ": " + text + ".";
+                        text = appContext.getString(R.string.profile_activation_activation_error) + StringConstants.STR_COLON_WITH_SPACE + text + ".";
 
-                        PPApplicationStatic.createExclamationNotificationChannel(appContext);
+                        PPApplicationStatic.createExclamationNotificationChannel(appContext, false);
                         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                                .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
-                                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                                .setColor(ContextCompat.getColor(appContext, R.color.error_color))
+                                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                                .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification))
                                 .setContentTitle(title) // title for notification
                                 .setContentText(text) // message for notification
                                 .setAutoCancel(true); // clear notification after click
@@ -353,11 +352,8 @@ class PPApplicationStatic {
                         //PendingIntent pi = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                         //mBuilder.setContentIntent(pi);
                         mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                        //if (android.os.Build.VERSION.SDK_INT >= 21)
-                        //{
                         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
                         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-                        //}
 
                         mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_ERRORS_NOTIFICATION_GROUP);
 
@@ -367,7 +363,7 @@ class PPApplicationStatic {
                         try {
                             mNotificationManager.notify(notificationTag, notificationId, notification);
                         } catch (SecurityException en) {
-                            Log.e("PPApplicationStatic.addActivityLog", Log.getStackTraceString(en));
+                            PPApplicationStatic.logException("PPApplicationStatic.addActivityLog", Log.getStackTraceString(en));
                         } catch (Exception e) {
                             //Log.e("ActivateProfileHelper.showError", Log.getStackTraceString(e));
                             PPApplicationStatic.recordException(e);
@@ -390,6 +386,9 @@ class PPApplicationStatic {
                     //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
                     DatabaseHandler.getInstance(appContext).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
                             logType, eventName, profileName, profilesEventsCount);
+
+                    Intent intent = new Intent(PPApplication.ACTION_ADDED_ACIVITY_LOG);
+                    appContext.sendBroadcast(intent);
                 }
             }; //);
             createBasicExecutorPool();
@@ -399,8 +398,7 @@ class PPApplicationStatic {
 
     //--------------------------------------------------------------
 
-    static private void resetLog()
-    {
+    static private void resetLog() {
         /*File sd = Environment.getExternalStorageDirectory();
         File exportDir = new File(sd, PPApplication.EXPORT_PATH);
         if (!(exportDir.exists() && exportDir.isDirectory()))
@@ -416,9 +414,9 @@ class PPApplicationStatic {
         logFile.delete();
     }
 
-    static private void logIntoFile(String type, String tag, String text)
-    {
-        if (!PPApplication.logIntoFile)
+    /** @noinspection SameParameterValue*/
+    static private void logIntoFile(String type, String tag, String text, boolean crash) {
+        if (!(crash || PPApplication.logIntoFile))
             return;
 
         if (PPApplication.getInstance() == null)
@@ -461,10 +459,9 @@ class PPApplicationStatic {
         }
     }
 
-    private static boolean logContainsFilterTag(String tag)
-    {
+    private static boolean logContainsFilterTag(String tag) {
         boolean contains = false;
-        String[] filterTags = PPApplication.logFilterTags.split("\\|");
+        String[] filterTags = PPApplication.logFilterTags.split(StringConstants.STR_SPLIT_REGEX);
         for (String filterTag : filterTags) {
             if (!filterTag.contains("!")) {
                 if (tag.contains(filterTag)) {
@@ -481,7 +478,7 @@ class PPApplicationStatic {
         return (PPApplication.logIntoLogCat || PPApplication.logIntoFile);
     }
 
-    @SuppressWarnings("unused")
+    /*
     static void logI(String tag, String text)
     {
         if (!logEnabled())
@@ -490,12 +487,13 @@ class PPApplicationStatic {
         if (logContainsFilterTag(tag))
         {
             //if (logIntoLogCat) Log.i(tag, text);
-            if (PPApplication.logIntoLogCat) Log.i(tag, "[ "+tag+" ]" + ": " + text);
+            if (PPApplication.logIntoLogCat) Log.i(tag, "[ "+tag+" ]" + StringConstants.STR_COLON_WITH_SPACE + text);
             logIntoFile("I", tag, text);
         }
     }
+    */
 
-    @SuppressWarnings("unused")
+    /*
     static void logW(String tag, String text)
     {
         if (!logEnabled())
@@ -504,25 +502,65 @@ class PPApplicationStatic {
         if (logContainsFilterTag(tag))
         {
             //if (logIntoLogCat) Log.w(tag, text);
-            if (PPApplication.logIntoLogCat) Log.w(tag, "[ "+tag+" ]" + ": " + text);
+            if (PPApplication.logIntoLogCat) Log.w(tag, "[ "+tag+" ]" + StringConstants.STR_COLON_WITH_SPACE + text);
             logIntoFile("W", tag, text);
         }
     }
+    */
 
-    static void logE(String tag, String text)
-    {
+    static void logE(String tag, String text) {
         if (!logEnabled())
             return;
 
-        if (logContainsFilterTag(tag))
-        {
+        if (logContainsFilterTag(tag)) {
             //if (logIntoLogCat) Log.e(tag, text);
-            if (PPApplication.logIntoLogCat) Log.e(tag, "[ "+tag+" ]" + ": " + text);
-            logIntoFile("E", tag, text);
+            if (PPApplication.logIntoLogCat)
+                Log.e(tag, "[ " + tag + " ]" + StringConstants.STR_COLON_WITH_SPACE + text);
+            logIntoFile("E", tag, text, false);
         }
     }
 
-    @SuppressWarnings("unused")
+    @SuppressLint("MissingPermission")
+    static void logException(String tag, String text) {
+        if (!logEnabled())
+            return;
+
+        if (logContainsFilterTag(tag)) {
+            //if (logIntoLogCat) Log.e(tag, text);
+            if (PPApplication.logIntoLogCat)
+                Log.e("[EXCEPTION] " + tag, "[ " + tag + " ]" + StringConstants.STR_COLON_WITH_SPACE + text);
+            logIntoFile("E", tag, text, true);
+
+            if (DebugVersion.enabled && (PPApplication.getInstance() != null)) {
+                Context appContext = PPApplication.getInstance().getApplicationContext();
+                createExclamationNotificationChannel(appContext, false);
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                        .setColor(ContextCompat.getColor(appContext, R.color.error_color))
+                        .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                        .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification))
+                        .setContentTitle("App exception occured!!") // title for notification
+                        .setContentText("Read log.txt") // message for notification
+                        .setAutoCancel(true); // clear notification after click
+                //mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
+                mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+                mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+
+                mBuilder.setGroup(PPApplication.APP_EXCEPTION_NOTIFICATION_GROUP);
+
+                Notification notification = mBuilder.build();
+
+                NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+                try {
+                    mNotificationManager.notify(PPApplication.APP_EXCEPTION_NOTIFICATION_TAG, PPApplication.APP_EXCEPTION_NOTIFICATION_ID, notification);
+                } catch (Exception en) {
+                    Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(en));
+                }
+            }
+        }
+    }
+
+    /*
     static void logD(String tag, String text)
     {
         if (!logEnabled())
@@ -531,10 +569,11 @@ class PPApplicationStatic {
         if (logContainsFilterTag(tag))
         {
             //if (logIntoLogCat) Log.d(tag, text);
-            if (PPApplication.logIntoLogCat) Log.d(tag, "[ "+tag+" ]" + ": " + text);
+            if (PPApplication.logIntoLogCat) Log.d(tag, "[ "+tag+" ]" + StringConstants.STR_COLON_WITH_SPACE + text);
             logIntoFile("D", tag, text);
         }
     }
+    */
 
     /*
     public static String intentToString(Intent intent) {
@@ -600,12 +639,19 @@ class PPApplicationStatic {
 
     //--------------------------------------------------------------
 
-    static void startPPService(Context context, Intent serviceIntent) {
+    static void startPPService(Context context, Intent serviceIntent, boolean enableStartOnBoot) {
         //if (isPPService)
         //    PhoneProfilesService.startForegroundNotification = true;
-        /*if (Build.VERSION.SDK_INT < 26)
-            context.getApplicationContext().startService(serviceIntent);
-        else {*/
+
+        if (enableStartOnBoot) {
+            SharedPreferences settings = ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, true);
+            editor.apply();
+
+            ApplicationPreferences.applicationStartOnBoot(context);
+        }
+
             boolean notificationsEnbaled = true;
             if (Build.VERSION.SDK_INT >= 33) {
                 NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -614,11 +660,10 @@ class PPApplicationStatic {
             }
             if (notificationsEnbaled)
                 context.getApplicationContext().startForegroundService(serviceIntent);
-        //}
     }
 
     static void runCommand(Context context, Intent intent) {
-//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PPApplication.runCommand", "xxx");
+//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PPApplicationStatic.runCommand", "xxx");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
@@ -711,7 +756,7 @@ class PPApplicationStatic {
             //ApplicationPreferences.applicationEditorSaveEditorState(context);
             ApplicationPreferences.notificationPrefIndicator(context);
             ApplicationPreferences.notificationPrefIndicatorLightness(context);
-            ApplicationPreferences.applicationHomeLauncher(context);
+            //ApplicationPreferences.applicationHomeLauncher(context);
             ApplicationPreferences.applicationWidgetLauncher(context);
             ApplicationPreferences.applicationNotificationLauncher(context);
             ApplicationPreferences.applicationEventWifiScanInterval(context);
@@ -892,7 +937,7 @@ class PPApplicationStatic {
             ApplicationPreferences.notificationProfileListDisplayNotification(context);
             //ApplicationPreferences.notificationProfileListShowInStatusBar(context);
             //ApplicationPreferences.notificationProfileListHideInLockScreen(context);
-            ApplicationPreferences.notificationProfileListStatusBarStyle(context);
+            //ApplicationPreferences.notificationProfileListStatusBarStyle(context);
             ApplicationPreferences.notificationProfileListBackgroundColor(context);
             ApplicationPreferences.notificationProfileListBackgroundCustomColor(context);
             ApplicationPreferences.notificationProfileListPrefArrowsMarkLightness(context);
@@ -900,6 +945,8 @@ class PPApplicationStatic {
             ApplicationPreferences.notificationProfileListIconColor(context);
             ApplicationPreferences.notificationProfileListIconLightness(context);
             ApplicationPreferences.notificationProfileListCustomIconLightness(context);
+            ApplicationPreferences.applicationEventHideNotUsedSensors(context);
+            //ApplicationPreferences.applicationContactsInBackupEncripted(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);
@@ -1216,11 +1263,10 @@ class PPApplicationStatic {
 
     // notification channels -------------------------
 
-    static void createPPPAppNotificationChannel(/*Profile profile, */Context context) {
-        //if (Build.VERSION.SDK_INT >= 26) {
+    static void createPPPAppNotificationChannel(Context context, boolean forceChange) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.PROFILE_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.PROFILE_NOTIFICATION_CHANNEL) != null))
                     return;// true;
 
                 // The user-visible name of the channel.
@@ -1248,7 +1294,6 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        //}
         //return true;
     }
 
@@ -1261,11 +1306,10 @@ class PPApplicationStatic {
             recordException(e);
         }
     }
-    static void createMobileCellsRegistrationNotificationChannel(Context context) {
-        //if (Build.VERSION.SDK_INT >= 26) {
+    static void createMobileCellsRegistrationNotificationChannel(Context context, boolean forceChange) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL_SILENT) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL_SILENT) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1289,20 +1333,18 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        //}
     }
 
-    static void createInformationNotificationChannel(Context context) {
-        //if (Build.VERSION.SDK_INT >= 26) {
+    static void createInformationNotificationChannel(Context context, boolean forceChange) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.INFORMATION_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.INFORMATION_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_information);
                 // The user-visible description of the channel.
-                String description = context.getString(R.string.empty_string);
+                String description = "";
 
                 // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
                 // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
@@ -1320,20 +1362,18 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        //}
     }
 
-    static void createExclamationNotificationChannel(Context context) {
-        //if (Build.VERSION.SDK_INT >= 26) {
+    static void createExclamationNotificationChannel(Context context, boolean forceChange) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_exclamation);
                 // The user-visible description of the channel.
-                String description = context.getString(R.string.empty_string);
+                String description = "";
 
                 NotificationChannel channel = new NotificationChannel(PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_HIGH);
 
@@ -1349,14 +1389,12 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        //}
     }
 
-    static void createGrantPermissionNotificationChannel(Context context) {
-        //if (Build.VERSION.SDK_INT >= 26) {
+    static void createGrantPermissionNotificationChannel(Context context, boolean forceChange) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1381,14 +1419,12 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        //}
     }
 
-    static void createNotifyEventStartNotificationChannel(Context context) {
-        //if (Build.VERSION.SDK_INT >= 26) {
+    static void createNotifyEventStartNotificationChannel(Context context, boolean forceChange) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.NOTIFY_EVENT_START_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.NOTIFY_EVENT_START_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1412,14 +1448,12 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        //}
     }
 
-    static void createMobileCellsNewCellNotificationChannel(Context context) {
-        //if (Build.VERSION.SDK_INT >= 26) {
+    static void createMobileCellsNewCellNotificationChannel(Context context, boolean forceChange) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1444,20 +1478,18 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        //}
     }
 
-    static void createDonationNotificationChannel(Context context) {
-        //if (Build.VERSION.SDK_INT >= 26) {
+    static void createDonationNotificationChannel(Context context, boolean forceChange) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.DONATION_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.DONATION_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_donation);
                 // The user-visible description of the channel.
-                String description = context.getString(R.string.empty_string);
+                String description = context.getString(R.string.notification_channel_donation_description);
 
                 // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
                 // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
@@ -1475,14 +1507,12 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        //}
     }
 
-    static void createNewReleaseNotificationChannel(Context context) {
-        //if (Build.VERSION.SDK_INT >= 26) {
+    static void createNewReleaseNotificationChannel(Context context, boolean forceChange) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1506,45 +1536,12 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        //}
     }
 
-    /*
-    static void createCrashReportNotificationChannel(Context context) {
-        //if (Build.VERSION.SDK_INT >= 26) {
+    static void createGeneratedByProfileNotificationChannel(Context context, boolean forceChange) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(CRASH_REPORT_NOTIFICATION_CHANNEL) != null)
-                    return;
-
-                // The user-visible name of the channel.
-                CharSequence name = context.getString(R.string.notification_channel_crash_report);
-                // The user-visible description of the channel.
-                String description = context.getString(R.string.empty_string);
-
-                NotificationChannel channel = new NotificationChannel(CRASH_REPORT_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
-
-                // Configure the notification channel.
-                channel.setDescription(description);
-                channel.enableLights(true);
-                channel.enableVibration(true);
-                //channel.setSound(null, null);
-                channel.setShowBadge(true);
-                channel.setBypassDnd(true);
-
-                notificationManager.createNotificationChannel(channel);
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-        //}
-    }
-    */
-
-    static void createGeneratedByProfileNotificationChannel(Context context) {
-        //if (Build.VERSION.SDK_INT >= 26) {
-            try {
-                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1568,14 +1565,12 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        //}
     }
 
-    static void createKeepScreenOnNotificationChannel(Context context) {
-        //if (Build.VERSION.SDK_INT >= 26) {
+    static void createKeepScreenOnNotificationChannel(Context context, boolean forceChange) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1601,14 +1596,12 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        //}
     }
 
-    static void createProfileListNotificationChannel(Context context) {
-        //if (Build.VERSION.SDK_INT >= 26) {
+    static void createProfileListNotificationChannel(Context context, boolean forceChange) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.PROFILE_LIST_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.PROFILE_LIST_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1634,23 +1627,23 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        //}
     }
 
-    static void createNotificationChannels(Context appContext) {
-        createDonationNotificationChannel(appContext);
-        createExclamationNotificationChannel(appContext);
-        createGeneratedByProfileNotificationChannel(appContext);
-        createGrantPermissionNotificationChannel(appContext);
-        createInformationNotificationChannel(appContext);
-        createKeepScreenOnNotificationChannel(appContext);
-        createMobileCellsNewCellNotificationChannel(appContext);
-        createMobileCellsRegistrationNotificationChannel(appContext);
+    static void createNotificationChannels(Context appContext,
+                                           @SuppressWarnings("SameParameterValue") boolean forceChange) {
+        createDonationNotificationChannel(appContext, forceChange);
+        createExclamationNotificationChannel(appContext, forceChange);
+        createGeneratedByProfileNotificationChannel(appContext, forceChange);
+        createGrantPermissionNotificationChannel(appContext, forceChange);
+        createInformationNotificationChannel(appContext, forceChange);
+        createKeepScreenOnNotificationChannel(appContext, forceChange);
+        createMobileCellsNewCellNotificationChannel(appContext, forceChange);
+        createMobileCellsRegistrationNotificationChannel(appContext, forceChange);
         deleteOldMobileCellsRegistrationNotificationChannel(appContext);
-        createNewReleaseNotificationChannel(appContext);
-        createNotifyEventStartNotificationChannel(appContext);
-        createPPPAppNotificationChannel(appContext);
-        createProfileListNotificationChannel(appContext);
+        createNewReleaseNotificationChannel(appContext, forceChange);
+        createNotifyEventStartNotificationChannel(appContext, forceChange);
+        createPPPAppNotificationChannel(appContext, forceChange);
+        createProfileListNotificationChannel(appContext, forceChange);
 
         //createCrashReportNotificationChannel(appContext);
     }
@@ -1693,6 +1686,7 @@ class PPApplicationStatic {
         }
     }
 
+    /** @noinspection SameParameterValue*/
     static void registerPhoneCallsListener(boolean register, Context context) {
         try {
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
@@ -2079,10 +2073,7 @@ class PPApplicationStatic {
 
     /*
     static boolean isScreenOn(PowerManager powerManager) {
-        //if (Build.VERSION.SDK_INT >= 20)
-            return powerManager.isInteractive();
-        //else
-        //    return powerManager.isScreenOn();
+        return powerManager.isInteractive();
     }
     */
 
@@ -2115,7 +2106,7 @@ class PPApplicationStatic {
     */
 
     private static void _exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity,
-                               final boolean shutdown, final boolean removeNotifications) {
+                               final boolean shutdown, final boolean removeNotifications, final boolean exitByUser) {
         try {
             PPApplicationStatic.logE("PPApplication._exitApp", "shutdown="+shutdown);
 
@@ -2273,6 +2264,25 @@ class PPApplicationStatic {
             PPApplicationStatic.logE("PPApplication._exitApp", "set application started = false");
             setApplicationStarted(context, false);
 
+            PPApplicationStatic.logE("PPApplication._exitApp", "*********** exitByUser="+exitByUser);
+            if (exitByUser) {
+                //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
+                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(context);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
+
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, false);
+                editor.apply();
+
+                ApplicationPreferences.applicationEventNeverAskForEnableRun(context);
+                ApplicationPreferences.applicationNeverAskForGrantRoot(context);
+                ApplicationPreferences.applicationNeverAskForGrantG1Permission(context);
+
+                ApplicationPreferences.applicationStartOnBoot(context);
+            }
+
         } catch (Exception e) {
             //Log.e("PPApplication._exitApp", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
@@ -2280,7 +2290,7 @@ class PPApplicationStatic {
     }
 
     static void exitApp(final boolean useHandler, final Context context, final DataWrapper dataWrapper, final Activity activity,
-                                 final boolean shutdown, boolean removeNotifications) {
+                                 final boolean fromShutdown, final boolean removeNotifications, final boolean exitByUser) {
         try {
             if (useHandler) {
                 //PPApplication.startHandlerThread(/*"PPApplication.exitApp"*/);
@@ -2299,7 +2309,7 @@ class PPApplicationStatic {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPApplication_exitApp");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPApplication_exitApp);
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -2309,7 +2319,7 @@ class PPApplicationStatic {
                                 } catch (Exception ignored) {
                                 }
                             }
-                            _exitApp(context, dataWrapper, activity, shutdown, removeNotifications);
+                            _exitApp(context, dataWrapper, activity, fromShutdown, removeNotifications, exitByUser);
 
                         } catch (Exception e) {
 //                            Log.e("[IN_EXECUTOR] PPApplication.exitApp", Log.getStackTraceString(e));
@@ -2328,74 +2338,13 @@ class PPApplicationStatic {
                 PPApplication.basicExecutorPool.submit(runnable);
             }
             else
-                _exitApp(context, dataWrapper, activity, shutdown, removeNotifications);
+                _exitApp(context, dataWrapper, activity, fromShutdown, removeNotifications, exitByUser);
         } catch (Exception e) {
             recordException(e);
         }
     }
 
     static void showDoNotKillMyAppDialog(final Activity activity) {
-/*
-        new AsyncTask<Void, Void, String>() {
-            @Override
-            protected String doInBackground(Void... voids) {
-                try {
-                    return ((JSONObject) new JSONTokener(
-                            InputStreamUtil.read(new URL("https://dontkillmyapp.com/api/v2/"+Build.MANUFACTURER.toLowerCase().replaceAll(" ", "-")+".json").openStream())).nextValue()
-                    ).getString("user_solution").replaceAll("\\[[Yy]our app\\]", activity.getString(R.string.app_name));
-                } catch (Exception e) {
-                    // This vendor is not in the DontKillMyApp list
-                    Log.e("PPApplication.showDoNotKillMyAppDialog", Log.getStackTraceString(e));
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(String result) {
-                try {
-                    if (result != null) {
-                        String head = "<head><style>img{max-width: 100%; width:auto; height: auto;}</style></head>";
-                        String html = "<html>" + head + "<body>" + result + "</body></html>";
-
-                        WebView wv = new WebView(activity);
-                        WebSettings settings = wv.getSettings();
-                        WebSettings.LayoutAlgorithm layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING;
-                        settings.setLayoutAlgorithm(layoutAlgorithm);
-                        wv.loadData(html, "text/html; charset=utf-8", "UTF-8");
-                        wv.setWebViewClient(new WebViewClient() {
-                            @Override
-                            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                                view.loadUrl(url);
-                                return true;
-                            }
-                        });
-
-                        new AlertDialog.Builder(activity)
-                                .setTitle("How to make my app work")
-                                .setView(wv).setPositiveButton(android.R.string.ok, null).show();
-
-                    }
-                    else {
-                        String url = "https://dontkillmyapp.com/";
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(url));
-                        try {
-                            activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                        } catch (Exception ignored) {}
-                    }
-                } catch (Exception e) {
-                    Log.e("PPApplication.showDoNotKillMyAppDialog", Log.getStackTraceString(e));
-                    String url = "https://dontkillmyapp.com/";
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    try {
-                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    } catch (Exception ignored) {}
-                }
-            }
-        }.execute();
-*/
-
         if (activity != null) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle);
@@ -2457,9 +2406,13 @@ class PPApplicationStatic {
         if (PPApplication.delayedGuiExecutor == null)
             PPApplication.delayedGuiExecutor = Executors.newSingleThreadScheduledExecutor();
     }
-    static void createDelayedShowNotificationExecutor() {
+    static void createDelayedAppNotificationExecutor() {
         if (PPApplication.delayedAppNotificationExecutor == null)
             PPApplication.delayedAppNotificationExecutor = Executors.newSingleThreadScheduledExecutor();
+    }
+    static void createDelayedProfileListNotificationExecutor() {
+        if (PPApplication.delayedProfileListNotificationExecutor == null)
+            PPApplication.delayedProfileListNotificationExecutor = Executors.newSingleThreadScheduledExecutor();
     }
     static void createDelayedEventsHandlerExecutor() {
         if (PPApplication.delayedEventsHandlerExecutor == null)
@@ -2468,6 +2421,10 @@ class PPApplicationStatic {
     static void createDelayedProfileActivationExecutor() {
         if (PPApplication.delayedProfileActivationExecutor == null)
             PPApplication.delayedProfileActivationExecutor = Executors.newSingleThreadScheduledExecutor();
+    }
+    static void createUpdateGuiExecutor() {
+        if (PPApplication.updateGuiExecutor == null)
+            PPApplication.updateGuiExecutor = Executors.newSingleThreadScheduledExecutor();
     }
 
     /*
@@ -2593,6 +2550,13 @@ class PPApplicationStatic {
         }
     }
     */
+
+    static void startHandlerThreadProgressBar(/*String from*/) {
+        if (PPApplication.handlerThreadProgressBar == null) {
+            PPApplication.handlerThreadProgressBar = new HandlerThread("PPHandlerThreadProgressBar", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            PPApplication.handlerThreadProgressBar.start();
+        }
+    }
 
     static void setBlockProfileEventActions(boolean enable) {
         // if blockProfileEventActions = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
@@ -2785,7 +2749,7 @@ class PPApplicationStatic {
 
     // contacts and contact groups cache -----------------
 
-    static void createContactsCache(Context context, boolean clear)
+    static void createContactsCache(Context context, boolean clear/*, boolean fixEvents*//*, boolean forceCache*/)
     {
         if (clear) {
             if (PPApplication.contactsCache != null)
@@ -2793,7 +2757,7 @@ class PPApplicationStatic {
         }
         if (PPApplication.contactsCache == null)
             PPApplication.contactsCache = new ContactsCache();
-        PPApplication.contactsCache.getContactList(context);
+        PPApplication.contactsCache.getContactList(context/*, fixEvents*//*, forceCache*/);
     }
 
     static ContactsCache getContactsCache()
@@ -2801,7 +2765,7 @@ class PPApplicationStatic {
         return PPApplication.contactsCache;
     }
 
-    static void createContactGroupsCache(Context context, boolean clear)
+    static void createContactGroupsCache(Context context, boolean clear/*, boolean fixEvents*//*, boolean forceCache*/)
     {
         if (clear) {
             if (PPApplication.contactGroupsCache != null)
@@ -2809,7 +2773,7 @@ class PPApplicationStatic {
         }
         if (PPApplication.contactGroupsCache == null)
             PPApplication.contactGroupsCache = new ContactGroupsCache();
-        PPApplication.contactGroupsCache.getContactGroupListX(context);
+        PPApplication.contactGroupsCache.getContactGroupList(context/*, fixEvents*//*, forceCache*/);
     }
 
     static ContactGroupsCache getContactGroupsCache()
@@ -2908,12 +2872,6 @@ class PPApplicationStatic {
     }
 
     // get PPP version from relases.md ----------------------------------------------
-
-    static class PPPReleaseData {
-        String versionNameInReleases = "";
-        int versionCodeInReleases = 0;
-        boolean critical = true;
-    }
 
     static PPPReleaseData getReleaseData(String contents, boolean forceDoData, Context appContext) {
         // this must be added when you tests debug branch

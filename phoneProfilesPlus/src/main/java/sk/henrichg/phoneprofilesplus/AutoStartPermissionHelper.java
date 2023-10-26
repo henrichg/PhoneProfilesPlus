@@ -77,15 +77,14 @@ class AutoStartPermissionHelper  {
     private final String PACKAGE_NOKIA_MAIN = "com.evenwell.powersaving.g3";
     private final String PACKAGE_NOKIA_COMPONENT = "com.evenwell.powersaving.g3.exception.PowerSaverExceptionActivity";
 
-    /***
+    /*
      * Samsung
-     */
-    @SuppressWarnings("unused")
     private final String BRAND_SAMSUNG = "samsung";
     private final String PACKAGE_SAMSUNG_MAIN = "com.samsung.android.lool";
     private final String PACKAGE_SAMSUNG_COMPONENT = "com.samsung.android.sm.ui.battery.BatteryActivity";
     private final String PACKAGE_SAMSUNG_COMPONENT_2 = "com.samsung.android.sm.battery.ui.usage.CheckableAppListActivity";
     private final String PACKAGE_SAMSUNG_COMPONENT_3 = "com.samsung.android.sm.battery.ui.BatteryActivity";
+    */
 
     /**
      * Oppo
@@ -107,6 +106,11 @@ class AutoStartPermissionHelper  {
     private final String PACKAGE_ONE_PLUS_ACTION = "com.android.settings.action.BACKGROUND_OPTIMIZE";
     private final String PACKAGE_ONE_PLUS_COMPONENT_FALLBACK = "com.oplus.securitypermission.startup.StartupAppListActivity";
     private final String PACKAGE_ONE_PLUS_COMPONENT_FALLBACK_A = "com.oneplus.security.startupapp.StartupAppListActivity";
+//    private final String BRAND_ONE_PLUS = "oneplus";
+//    private final String  PACKAGE_ONE_PLUS_MAIN = "com.oneplus.security";
+//    private final String  PACKAGE_ONE_PLUS_COMPONENT =
+//            "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity";
+//    private final String  PACKAGE_ONE_PLUS_ACTION = "com.android.settings.action.BACKGROUND_OPTIMIZE";
 
     private final List<String> PACKAGES_TO_CHECK_FOR_PERMISSION = Arrays.asList(
             PACKAGE_ASUS_MAIN,
@@ -120,8 +124,9 @@ class AutoStartPermissionHelper  {
             PACKAGE_NOKIA_MAIN,
             PACKAGE_HUAWEI_MAIN,
 //            PACKAGE_SAMSUNG_MAIN,
-            PACKAGE_ONE_PLUS_MAIN,
-            PACKAGE_ONE_PLUS_FALLBACK);
+            PACKAGE_ONE_PLUS_MAIN
+//            PACKAGE_ONE_PLUS_FALLBACK  commented because not working :-(
+    );
 
     boolean getAutoStartPermission(Context context) {
 
@@ -172,7 +177,7 @@ class AutoStartPermissionHelper  {
             try {
                 startIntent(context, PACKAGE_XIAOMI_MAIN, PACKAGE_XIAOMI_COMPONENT);
             } catch (Exception e) {
-                Log.e("AutoStartPermissionHelper.autoStartXiaomi", Log.getStackTraceString(e));
+                PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartXiaomi", Log.getStackTraceString(e));
                 //e.printStackTrace();
                 return false;
             }
@@ -188,12 +193,12 @@ class AutoStartPermissionHelper  {
             try {
                 startIntent(context, PACKAGE_ASUS_MAIN, PACKAGE_ASUS_COMPONENT);
             } catch (Exception e) {
-                Log.e("AutoStartPermissionHelper.autoStartAsus", Log.getStackTraceString(e));
+                PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartAsus", Log.getStackTraceString(e));
                 //e.printStackTrace();
                 try {
                     startIntent(context, PACKAGE_ASUS_MAIN, PACKAGE_ASUS_COMPONENT_FALLBACK);
                 } catch (Exception ex) {
-                    Log.e("AutoStartPermissionHelper.autoStartAsus", Log.getStackTraceString(ex));
+                    PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartAsus", Log.getStackTraceString(ex));
                     //ex.printStackTrace();
                     return false;
                 }
@@ -210,7 +215,7 @@ class AutoStartPermissionHelper  {
             try {
                 startIntent(context, PACKAGE_LETV_MAIN, PACKAGE_LETV_COMPONENT);
             } catch (Exception e) {
-                Log.e("AutoStartPermissionHelper.autoStartLetv", Log.getStackTraceString(e));
+                PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartLetv", Log.getStackTraceString(e));
                 //e.printStackTrace();
                 return false;
             }
@@ -226,7 +231,7 @@ class AutoStartPermissionHelper  {
             try {
                 startIntent(context, PACKAGE_HONOR_MAIN, PACKAGE_HONOR_COMPONENT);
             } catch (Exception e) {
-                Log.e("AutoStartPermissionHelper.autoStartHonor", Log.getStackTraceString(e));
+                PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartHonor", Log.getStackTraceString(e));
                 //e.printStackTrace();
                 return false;
             }
@@ -242,12 +247,12 @@ class AutoStartPermissionHelper  {
             try {
                 startIntent(context, PACKAGE_HUAWEI_MAIN, PACKAGE_HUAWEI_COMPONENT);
             } catch (Exception e) {
-                Log.e("AutoStartPermissionHelper.autoStartHuawei", Log.getStackTraceString(e));
+                PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartHuawei", Log.getStackTraceString(e));
                 //e.printStackTrace();
                 try {
                     startIntent(context, PACKAGE_HUAWEI_MAIN, PACKAGE_HUAWEI_COMPONENT_FALLBACK);
                 } catch (Exception ex) {
-                    Log.e("AutoStartPermissionHelper.autoStartHuawei", Log.getStackTraceString(ex));
+                    PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartHuawei", Log.getStackTraceString(ex));
                     //ex.printStackTrace();
                     return false;
                 }
@@ -266,19 +271,19 @@ class AutoStartPermissionHelper  {
                 startIntent(context, PACKAGE_OPPO_MAIN, PACKAGE_OPPO_COMPONENT);
                 ok = true;
             } catch (Exception e) {
-                Log.e("AutoStartPermissionHelper.autoStartOppo", Log.getStackTraceString(e));
+                PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartOppo", Log.getStackTraceString(e));
                 //e.printStackTrace();
                 try {
                     startIntent(context, PACKAGE_OPPO_FALLBACK, PACKAGE_OPPO_COMPONENT_FALLBACK);
                     ok = true;
                 } catch (Exception ex) {
-                    Log.e("AutoStartPermissionHelper.autoStartOppo", Log.getStackTraceString(ex));
+                    PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartOppo", Log.getStackTraceString(ex));
                     //ex.printStackTrace();
                     try {
                         startIntent(context, PACKAGE_OPPO_MAIN, PACKAGE_OPPO_COMPONENT_FALLBACK_A);
                         ok = true;
                     } catch (Exception exx) {
-                        Log.e("AutoStartPermissionHelper.autoStartOppo", Log.getStackTraceString(exx));
+                        PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartOppo", Log.getStackTraceString(exx));
                         //exx.printStackTrace();
                         ok = false;
                     }
@@ -292,17 +297,17 @@ class AutoStartPermissionHelper  {
             try {
                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                 intent.addCategory(Intent.CATEGORY_DEFAULT);
-                intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+                intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE +PPApplication.PACKAGE_NAME));
                 try {
                     context.startActivity(intent);
                     ok = true;
                 } catch (Exception ex) {
-                    Log.e("AutoStartPermissionHelper.autoStartOppo", Log.getStackTraceString(ex));
+                    PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartOppo", Log.getStackTraceString(ex));
                     //ex.printStackTrace();
                     //ok = false;
                 }
             } catch (Exception e) {
-                Log.e("AutoStartPermissionHelper.autoStartOppo", Log.getStackTraceString(e));
+                PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartOppo", Log.getStackTraceString(e));
                 //e.printStackTrace();
                 //ok = false;
             }
@@ -316,17 +321,17 @@ class AutoStartPermissionHelper  {
             try {
                 startIntent(context, PACKAGE_VIVO_MAIN, PACKAGE_VIVO_COMPONENT);
             } catch (Exception e) {
-                Log.e("AutoStartPermissionHelper.autoStartVivo", Log.getStackTraceString(e));
+                PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartVivo", Log.getStackTraceString(e));
                 //e.printStackTrace();
                 try {
                     startIntent(context, PACKAGE_VIVO_FALLBACK, PACKAGE_VIVO_COMPONENT_FALLBACK);
                 } catch (Exception ex) {
-                    Log.e("AutoStartPermissionHelper.autoStartVivo", Log.getStackTraceString(ex));
+                    PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartVivo", Log.getStackTraceString(ex));
                     //ex.printStackTrace();
                     try {
                         startIntent(context, PACKAGE_VIVO_MAIN, PACKAGE_VIVO_COMPONENT_FALLBACK_A);
                     } catch (Exception exx) {
-                        Log.e("AutoStartPermissionHelper.autoStartVivo", Log.getStackTraceString(exx));
+                        PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartVivo", Log.getStackTraceString(exx));
                         //exx.printStackTrace();
                         return false;
                     }
@@ -344,7 +349,7 @@ class AutoStartPermissionHelper  {
             try {
                 startIntent(context, PACKAGE_NOKIA_MAIN, PACKAGE_NOKIA_COMPONENT);
             } catch (Exception e) {
-                Log.e("AutoStartPermissionHelper.autoStartNokia", Log.getStackTraceString(e));
+                PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartNokia", Log.getStackTraceString(e));
                 //e.printStackTrace();
                 return false;
             }
@@ -355,7 +360,7 @@ class AutoStartPermissionHelper  {
         return true;
     }
 
-    @SuppressWarnings("unused")
+    /*
     private boolean autoStartSamsung(Context context) {
         if (isPackageExists(context, PACKAGE_SAMSUNG_MAIN)) {
             try {
@@ -383,6 +388,7 @@ class AutoStartPermissionHelper  {
 
         return true;
     }
+    */
 
     private boolean autoStartOnePlus(Context context) {
         boolean ok;
@@ -391,25 +397,25 @@ class AutoStartPermissionHelper  {
                 startIntent(context, PACKAGE_ONE_PLUS_MAIN, PACKAGE_ONE_PLUS_COMPONENT);
                 ok = true;
             } catch (Exception e) {
-                Log.e("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(e));
+                PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(e));
                 //e.printStackTrace();
                 try {
                     startIntent(context, PACKAGE_ONE_PLUS_FALLBACK, PACKAGE_ONE_PLUS_COMPONENT_FALLBACK);
                     ok = true;
                 } catch (Exception ex) {
-                    Log.e("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(ex));
+                    PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(ex));
                     //ex.printStackTrace();
                     try {
                         startIntent(context, PACKAGE_ONE_PLUS_MAIN, PACKAGE_ONE_PLUS_COMPONENT_FALLBACK_A);
                         ok = true;
                     } catch (Exception exx) {
-                        Log.e("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(exx));
+                        PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(exx));
                         //exx.printStackTrace();
                         try {
                             startAction(context, PACKAGE_ONE_PLUS_ACTION);
                             ok = true;
                         } catch (Exception exxx) {
-                            Log.e("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(exxx));
+                            PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(exxx));
                             //exxx.printStackTrace();
                             ok = false;
                         }
@@ -424,7 +430,53 @@ class AutoStartPermissionHelper  {
             try {
                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                 intent.addCategory(Intent.CATEGORY_DEFAULT);
-                intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+                intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE +PPApplication.PACKAGE_NAME));
+                try {
+                    context.startActivity(intent);
+                    ok = true;
+                } catch (Exception ex) {
+                    PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(ex));
+                    //ex.printStackTrace();
+                    //ok = false;
+                }
+            } catch (Exception e) {
+                PPApplicationStatic.logException("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(e));
+                //e.printStackTrace();
+                //ok = false;
+            }
+        }
+
+        return ok;
+    }
+
+/*
+    private boolean autoStartOnePlus(Context context) {
+        boolean ok;
+        if (isPackageExists(context, PACKAGE_ONE_PLUS_MAIN)) {
+            try {
+                startIntent(context, PACKAGE_ONE_PLUS_MAIN, PACKAGE_ONE_PLUS_COMPONENT);
+                ok = true;
+            } catch (Exception e) {
+                Log.e("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(e));
+                //e.printStackTrace();
+                try {
+                    startAction(context, PACKAGE_ONE_PLUS_ACTION);
+                    ok = true;
+                } catch (Exception exxx) {
+                    Log.e("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(exxx));
+                    //exxx.printStackTrace();
+                    ok = false;
+                }
+            }
+        } else {
+            ok = false;
+        }
+
+        if (!ok) {
+            try {
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.addCategory(Intent.CATEGORY_DEFAULT);
+                intent.setData(Uri.parse(PPApplication.DATA_PACKAGE+PPApplication.PACKAGE_NAME));
                 try {
                     context.startActivity(intent);
                     ok = true;
@@ -442,7 +494,7 @@ class AutoStartPermissionHelper  {
 
         return ok;
     }
-
+*/
     private void startIntent(Context context, String packageName, String componentName) {
         try {
             Intent intent = new Intent();
@@ -450,7 +502,7 @@ class AutoStartPermissionHelper  {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } catch (Exception exception) {
-            Log.e("AutoStartPermissionHelper.startIntent", Log.getStackTraceString(exception));
+            PPApplicationStatic.logException("AutoStartPermissionHelper.startIntent", Log.getStackTraceString(exception));
             //exception.printStackTrace();
             throw exception;
         }
@@ -463,7 +515,7 @@ class AutoStartPermissionHelper  {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } catch (Exception exception) {
-            Log.e("AutoStartPermissionHelper.startAction", Log.getStackTraceString(exception));
+            PPApplicationStatic.logException("AutoStartPermissionHelper.startAction", Log.getStackTraceString(exception));
             //exception.printStackTrace();
             throw exception;
         }

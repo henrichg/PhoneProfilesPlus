@@ -2,7 +2,7 @@
 <resources>
     <style name="DialogTheme_dayNight" parent="@style/Base.Theme.PhoneProfilesTheme_dialog_dayNight">
         <item name="listViewItemBackground">@drawable/listview_item_background</item>
-        <item name="popupMenuItemBackground">@drawable/popup_menu_item_background_selector</item>
+        <item name="popupMenuItemBackground">@drawable/popup_menu_item_background</item>
 
 <!--        <item name="windowFixedWidthMajor">65%</item>-->
 <!--        <item name="windowFixedWidthMinor">85%</item>-->

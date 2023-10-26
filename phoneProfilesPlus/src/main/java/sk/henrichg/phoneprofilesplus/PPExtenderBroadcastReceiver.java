@@ -15,6 +15,7 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.text.TextUtils;
 
+import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -56,6 +57,8 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
         if ((intent == null) || (intent.getAction() == null))
             return;
 
+//        PPApplicationStatic.logE("[IN_BROADCAST] PPExtenderBroadcastReceiver.onReceive", intent.getAction());
+
         final Context appContext = context.getApplicationContext();
 
         switch (intent.getAction()) {
@@ -64,25 +67,31 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                         /*, "PPExtenderBroadcastReceiver.onReceive (ACTION_PPPEXTENDER_STARTED)"*/);
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED:
-                // cancel ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG
-                PPApplicationStatic._cancelWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, false);
+                if (PPApplication.accessibilityServiceForPPPExtenderConnected != 1) {
+                    // cancel ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG
+                    PPApplicationStatic._cancelWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, false);
 
-                PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
-                //PPApplication.startHandlerThreadBroadcast(/*"PPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED"*/);
-                //final Handler __handler0 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                //__handler0.post(new PPApplication.PPHandlerThreadRunnable(
-                //        context.getApplicationContext()) {
-                //__handler0.post(() -> {
-                Runnable runnable = () -> {
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(appContext);
+                    notificationManager.cancel(
+                            PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_TAG,
+                            PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_ID);
+
+                    PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
+                    //PPApplication.startHandlerThreadBroadcast(/*"PPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED"*/);
+                    //final Handler __handler0 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                    //__handler0.post(new PPApplication.PPHandlerThreadRunnable(
+                    //        context.getApplicationContext()) {
+                    //__handler0.post(() -> {
+                    Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
 
-                    //Context appContext= appContextWeakRef.get();
-                    //if (appContext != null) {
+                        //Context appContext= appContextWeakRef.get();
+                        //if (appContext != null) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_CONNECTED);
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -92,6 +101,10 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 //dataWrapper2.fillProfileList(false, false);
                                 PhoneProfilesServiceStatic.registerPPPExtenderReceiver(true, dataWrapper2, appContext);
                                 PPApplicationStatic.restartAllScanners(appContext, false);
+
+                                PPApplicationStatic.addActivityLog(dataWrapper2.context, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED,
+                                        null, null, "");
+
                                 dataWrapper2.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
                             }
 
@@ -106,16 +119,20 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
-                    //}
-                }; //);
-                PPApplicationStatic.createEventsHandlerExecutor();
-                PPApplication.eventsHandlerExecutor.submit(runnable);
+                        //}
+                    }; //);
+                    PPApplicationStatic.createEventsHandlerExecutor();
+                    PPApplication.eventsHandlerExecutor.submit(runnable);
+                }
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND:
                 // cancel ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG
                 PPApplicationStatic._cancelWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, false);
 
                 PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
+
+                PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND,
+                        null, null, "");
 
                 //PPApplication.startHandlerThreadBroadcast(/*"PPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND"*/);
                 //final Handler __handler1 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
@@ -131,23 +148,32 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_UNBIND");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_UNBIND);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        DataWrapper dataWrapper4 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                        dataWrapper4.fillEventList();
+                        setApplicationInForeground(appContext, "");
 
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(new int[]{
+                                EventsHandler.SENSOR_TYPE_APPLICATION,
+                                EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION});
+
+                        /*
                         boolean applicationsAllowed = false;
                         boolean orientationAllowed = false;
-                        boolean applicationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/);
+
+                        DataWrapper dataWrapper4 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                        dataWrapper4.fillEventList();
+                        boolean applicationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION);
                         if (applicationExists)
                             applicationsAllowed = (EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
                                     PreferenceAllowed.PREFERENCE_ALLOWED);
-                        boolean orientationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
+                        boolean orientationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION);
                         if (orientationExists)
                             orientationAllowed = (EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
                                     PreferenceAllowed.PREFERENCE_ALLOWED);
+                        dataWrapper4.invalidateDataWrapper();
 
                         if ((applicationsAllowed) || (orientationAllowed)) {
                             setApplicationInForeground(appContext, "");
@@ -166,6 +192,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
+                        */
 
                     } catch (Exception e) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -187,6 +214,8 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
             case PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED:
                 final String packageName = intent.getStringExtra(EXTRA_PACKAGE_NAME);
                 final String className = intent.getStringExtra(EXTRA_CLASS_NAME);
+                //Log.e("PPExtenderBroadcastReceiver.onReceive", "(1) ACTION_FOREGROUND_APPLICATION_CHANGED packageName="+packageName);
+                //Log.e("PPExtenderBroadcastReceiver.onReceive", "(1) ACTION_FOREGROUND_APPLICATION_CHANGED className="+className);
 
                 try {
                     ComponentName componentName = new ComponentName(packageName, className);
@@ -211,23 +240,31 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver_onReceive_ACTION_FOREGROUND_APPLICATION_CHANGED");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_FOREGROUND_APPLICATION_CHANGED);
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
+                                        //Log.e("PPExtenderBroadcastReceiver.onReceive", "(2) ACTION_FOREGROUND_APPLICATION_CHANGED");
+                                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                                        eventsHandler.handleEvents(new int[]{
+                                                EventsHandler.SENSOR_TYPE_APPLICATION,
+                                                EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION});
+
+                                        /*
                                         DataWrapper dataWrapper3 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                         dataWrapper3.fillEventList();
                                         //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-
                                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                                        if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/)) {
+                                        if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION)) {
 //                                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_APPLICATION (1)");
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
                                         }
-                                        if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/)) {
+                                        if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION)) {
 //                                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION (1)");
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
                                         }
+                                        dataWrapper3.invalidateDataWrapper();
+                                        */
 
                                     } catch (Exception e) {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -264,13 +301,13 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver_onReceive_ACTION_FORCE_STOP_APPLICATIONS_END");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_FORCE_STOP_APPLICATIONS_END);
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
                             Profile profile = DatabaseHandler.getInstance(appContext).getProfile(profileId, false);
                             if (profile != null) {
-                                SharedPreferences sharedPreferences = appContext.getSharedPreferences("temp_pppExtenderBroadcastReceiver", Context.MODE_PRIVATE);
+                                SharedPreferences sharedPreferences = appContext.getSharedPreferences(PPApplication.TMP_SHARED_PREFS_PPP_EXTENDER_BROADCAST_RECEIVER, Context.MODE_PRIVATE);
                                 profile.saveProfileToSharedPreferences(sharedPreferences);
 //                                Log.e("PPExtenderBroadcastReceiver.onReceive", "call of ActivateProfileHelper.executeForInteractivePreferences");
                                 ActivateProfileHelper.executeForInteractivePreferences(profile, appContext, sharedPreferences);
@@ -315,7 +352,8 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                         }
                         if (subscriptionList != null) {
 //                            PPApplicationStatic.logE("[DUAL_SIM] PPExtenderBroadcastReceiver.onReceive", "subscriptionList.size()=" + subscriptionList.size());
-                            for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                            int size = subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/
+                            for (int i = 0; i < size; i++) {
                                 // Get the active subscription ID for a given SIM card.
                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
 //                                PPApplicationStatic.logE("[DUAL_SIM] PPExtenderBroadcastReceiver.onReceive", "subscriptionInfo=" + subscriptionInfo);
@@ -352,7 +390,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver_onReceive_ACTION_SMS_MMS_RECEIVED");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_SMS_MMS_RECEIVED);
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -360,7 +398,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 //                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_SMS");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.setEventSMSParameters(origin, time, simSlot);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS);
+                                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_SMS});
                             //}
 
                         } catch (Exception e) {
@@ -397,15 +435,19 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver_onReceive_ACTION_CALL_RECEIVED");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_CALL_RECEIVED);
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
                             //if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false) > 0) {
 //                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_PHONE_CALL");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
+//                                Log.e("PPExtenderBroadcastReceiver.onReceive", "callEventType="+callEventType);
+//                                Log.e("PPExtenderBroadcastReceiver.onReceive", "phoneNumber="+phoneNumber);
+//                                Log.e("PPExtenderBroadcastReceiver.onReceive", "eventTime="+eventTime);
+//                                Log.e("PPExtenderBroadcastReceiver.onReceive", "slotIndex="+slotIndex);
                                 eventsHandler.setEventCallParameters(/*servicePhoneEvent, */callEventType, phoneNumber, eventTime, slotIndex);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL);
+                                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_PHONE_CALL});
                             //}
 
                         } catch (Exception e) {
@@ -492,6 +534,9 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                         .build();
 
                 boolean enqueuedWork = false;
+
+//                PPApplicationStatic.logE("[MAIN_WORKER_CALL] PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "xxxxxxxxxxxxxxxxxxxx");
+
                 // work for check accessibility, when Extender do not send ACTION_ACCESSIBILITY_SERVICE_CONNECTED
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
@@ -531,7 +576,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
     static int isExtenderInstalled(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_EXTENDER, 0);
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_EXTENDER, PackageManager.MATCH_ALL);
             boolean installed = appInfo.enabled;
             if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
@@ -552,7 +597,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
     static String getExtenderVersionName(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_EXTENDER, 0);
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_EXTENDER, PackageManager.MATCH_ALL);
             boolean installed = appInfo.enabled;
             if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);

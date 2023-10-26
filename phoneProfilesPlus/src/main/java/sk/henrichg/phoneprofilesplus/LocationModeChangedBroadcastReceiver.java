@@ -34,7 +34,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LocationModeChangedBroadcastReceiver_onReceive");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_LocationModeChangedBroadcastReceiver_onReceive);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -42,7 +42,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
 //                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LocationModeChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                            eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RADIO_SWITCH});
 
                         }
 
@@ -61,7 +61,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
 //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LocationScanner.LocationCallback", "sensorType=SENSOR_TYPE_LOCATION_MODE");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE);
+                        eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_LOCATION_MODE});
 
                     } catch (Exception e) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));

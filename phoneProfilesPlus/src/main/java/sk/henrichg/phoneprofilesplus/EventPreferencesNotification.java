@@ -30,8 +30,8 @@ class EventPreferencesNotification extends EventPreferences {
     boolean _missedCall;
     int _duration;
     boolean _checkContacts;
-    String _contacts;
-    String _contactGroups;
+    String _contacts; // contactId#phoneId|...
+    String _contactGroups; // groupId|...
     int _contactListType;
     boolean _checkText;
     String _text;
@@ -50,7 +50,7 @@ class EventPreferencesNotification extends EventPreferences {
     private static final String PREF_EVENT_NOTIFICATION_TEXT = "eventNotificationText";
     static final String PREF_EVENT_NOTIFICATION_APP_SETTINGS = "eventEnableNotificationScanningAppSettings";
 
-    private static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategoryRoot";
+    static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategoryRoot";
 
     EventPreferencesNotification(Event event,
                                         boolean enabled,
@@ -134,95 +134,104 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_notification_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_notification_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + "<b>";
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_notifications), addPassStatus, DatabaseHandler.ETYPE_NOTIFICATION, context);
-                    descr = descr + "</b> ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_notifications), addPassStatus, DatabaseHandler.ETYPE_NOTIFICATION, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
                 if (!ApplicationPreferences.applicationEventNotificationEnableScanning) {
                     if (!ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile)
-                        descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
+                        _value.append("* ").append(context.getString(R.string.array_pref_applicationDisableScanning_disabled)).append("! *").append(StringConstants.TAG_BREAK_HTML);
                     else
-                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
+                        _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile)).append(StringConstants.TAG_BREAK_HTML);
                 } else if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
-                    descr = descr + "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *";
+                    _value.append("* ").append(context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary)).append("! *");
                 } else {
-                    //descr = descr + context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + "<br>";
+                    boolean scanningPaused = ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2") &&
+                            GlobalUtils.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo);
+                    if (scanningPaused) {
+                        _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused)).append(StringConstants.TAG_BREAK_HTML);
+                    } else {
 
-                    if (this._inCall) {
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_inCall), disabled, context) + "</b>";
-                    }
-                    if (this._missedCall) {
-                        if (this._inCall)
-                            descr = descr + " • ";
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_missedCall), disabled, context) + "</b>";
-                    }
-                    String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-                    if (!this._applications.isEmpty() && !this._applications.equals("-")) {
-                        String[] splits = this._applications.split("\\|");
-                        if (splits.length == 1) {
-                            String packageName = Application.getPackageName(splits[0]);
-                            String activityName = Application.getActivityName(splits[0]);
-                            PackageManager packageManager = context.getPackageManager();
-                            if (activityName.isEmpty()) {
-                                ApplicationInfo app;
-                                try {
-                                    app = packageManager.getApplicationInfo(packageName, 0);
-                                    if (app != null)
-                                        selectedApplications = packageManager.getApplicationLabel(app).toString();
-                                } catch (Exception e) {
-                                    selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                        //descr = descr + context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + "<br>";
+
+                        if (this._inCall) {
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_inCall), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        }
+                        if (this._missedCall) {
+                            if (this._inCall)
+                                _value.append(StringConstants.STR_BULLET);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_missedCall), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        }
+                        String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                        if (!this._applications.isEmpty() && !this._applications.equals("-")) {
+                            String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
+                            if (splits.length == 1) {
+                                String packageName = Application.getPackageName(splits[0]);
+                                String activityName = Application.getActivityName(splits[0]);
+                                PackageManager packageManager = context.getPackageManager();
+                                if (activityName.isEmpty()) {
+                                    ApplicationInfo app;
+                                    try {
+                                        app = packageManager.getApplicationInfo(packageName, PackageManager.MATCH_ALL);
+                                        if (app != null)
+                                            selectedApplications = packageManager.getApplicationLabel(app).toString();
+                                    } catch (Exception e) {
+                                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
+                                    }
+                                } else {
+                                    Intent intent = new Intent();
+                                    intent.setClassName(packageName, activityName);
+                                    ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                                    if (info != null)
+                                        selectedApplications = info.loadLabel(packageManager).toString();
                                 }
-                            } else {
-                                Intent intent = new Intent();
-                                intent.setClassName(packageName, activityName);
-                                ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-                                if (info != null)
-                                    selectedApplications = info.loadLabel(packageManager).toString();
-                            }
-                        } else
-                            selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                            } else
+                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
+                        }
+                        if (this._inCall || this._missedCall)
+                            _value.append(StringConstants.STR_BULLET);
+                        _value.append(context.getString(R.string.event_preferences_notifications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+
+                        if (this._checkContacts) {
+                            _value.append(StringConstants.STR_BULLET);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkContacts), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_COLON_WITH_SPACE);
+
+                            _value.append(context.getString(R.string.event_preferences_notifications_contact_groups)).append(StringConstants.STR_COLON_WITH_SPACE);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
+
+                            _value.append(context.getString(R.string.event_preferences_notifications_contacts)).append(StringConstants.STR_COLON_WITH_SPACE);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
+
+                            _value.append(context.getString(R.string.event_preferences_contactListType)).append(StringConstants.STR_COLON_WITH_SPACE);
+                            String[] contactListTypes = context.getResources().getStringArray(R.array.eventNotificationContactListTypeArray);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        }
+                        if (this._checkText) {
+                            _value.append(StringConstants.STR_BULLET);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkText), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_COLON_WITH_SPACE);
+
+                            _value.append(context.getString(R.string.event_preferences_notifications_text)).append(StringConstants.STR_COLON_WITH_SPACE);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_text, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        }
+                        _value.append(StringConstants.STR_BULLET);
+                        _value.append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     }
-                    if (this._inCall || this._missedCall)
-                        descr = descr + " • ";
-                    descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": <b>" + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + "</b>";
-
-                    if (this._checkContacts) {
-                        descr = descr + " • ";
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkContacts), disabled, context) + "</b>: ";
-
-                        descr = descr + context.getString(R.string.event_preferences_notifications_contact_groups) + ": ";
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context) + "</b> • ";
-
-                        descr = descr + context.getString(R.string.event_preferences_notifications_contacts) + ": ";
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context), disabled, context) + "</b> • ";
-
-                        descr = descr + context.getString(R.string.event_preferences_contactListType) + ": ";
-                        String[] contactListTypes = context.getResources().getStringArray(R.array.eventNotificationContactListTypeArray);
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context) + "</b>";
-                    }
-                    if (this._checkText) {
-                        descr = descr + " • ";
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkText), disabled, context) + "</b>: ";
-
-                        descr = descr + context.getString(R.string.event_preferences_notifications_text) + ": ";
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(_text, disabled, context) + "</b>";
-                    }
-                    descr = descr + " • ";
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
                 }
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
@@ -246,19 +255,28 @@ class EventPreferencesNotification extends EventPreferences {
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventNotificationEnableScanning) {
                     if (!ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile) {
-                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
+                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                                 context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
-                        titleColor = ContextCompat.getColor(context, R.color.altype_error);
+                        titleColor = ContextCompat.getColor(context, R.color.error_color);
                     }
                     else {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_DOUBLE_NEWLINE +
                                 context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
                         titleColor = 0;
                     }
                 }
                 else {
-                    summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
-                            context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
+                    boolean scanningPaused = ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2") &&
+                            GlobalUtils.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo);
+                    if (scanningPaused) {
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                                context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
+                    } else {
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                                context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
+                    }
                     titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
@@ -282,15 +300,33 @@ class EventPreferencesNotification extends EventPreferences {
         if (key.equals(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                String summary = context.getString(R.string.event_preferences_volumeNotificationsAccessSettings_summary);
+                int titleColor;
+                String summary = context.getString(R.string.event_preferences_volumeNotificationsAccessSettings_summary2);
                 if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext(), true)) {
-                    summary = "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *\n\n"+
+                    summary = "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE+
                             summary;
+                    titleColor = ContextCompat.getColor(context, R.color.error_color);
                 }
                 else {
-                    summary = context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + ".\n\n"+
+                    summary = context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+
                             summary;
+                    titleColor = 0;
                 }
+                CharSequence sTitle = preference.getTitle();
+                int titleLenght = 0;
+                if (sTitle != null)
+                    titleLenght = sTitle.length();
+                Spannable sbt = new SpannableString(sTitle);
+                Object[] spansToRemove = sbt.getSpans(0, titleLenght, Object.class);
+                for(Object span: spansToRemove){
+                    if(span instanceof CharacterStyle)
+                        sbt.removeSpan(span);
+                }
+                if (preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false)) {
+                    if (titleColor != 0)
+                        sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+                preference.setTitle(sbt);
                 preference.setSummary(summary);
             }
         }
@@ -312,24 +348,25 @@ class EventPreferencesNotification extends EventPreferences {
                 listPreference.setSummary(summary);
             }
         }
+
         if (key.equals(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS)) {
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
             if (preference != null) {
-                preference.setEnabled(value.equals("true"));
+                preference.setEnabled(value.equals(StringConstants.TRUE_STRING));
             }
             preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
             if (preference != null) {
-                preference.setEnabled(value.equals("true"));
+                preference.setEnabled(value.equals(StringConstants.TRUE_STRING));
             }
             preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
             if (preference != null) {
-                preference.setEnabled(value.equals("true"));
+                preference.setEnabled(value.equals(StringConstants.TRUE_STRING));
             }
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_CHECK_TEXT)) {
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
             if (preference != null) {
-                preference.setEnabled(value.equals("true"));
+                preference.setEnabled(value.equals(StringConstants.TRUE_STRING));
             }
         }
 
@@ -402,7 +439,7 @@ class EventPreferencesNotification extends EventPreferences {
             key.equals(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS) ||
             key.equals(PREF_EVENT_NOTIFICATION_CHECK_TEXT)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)||
             key.equals(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS) ||
@@ -461,7 +498,7 @@ class EventPreferencesNotification extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -494,61 +531,62 @@ class EventPreferencesNotification extends EventPreferences {
 
     @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+        super.checkPreferences(prefMng, onlyCategory, context);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_NOTIFICATION_ENABLED) != null) {
-                boolean enabled = ApplicationPreferences.applicationEventNotificationEnableScanning &&
-                        PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true);
-                Preference notififcationAccess = prefMng.findPreference(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
+                //boolean enabled = /*ApplicationPreferences.applicationEventNotificationEnableScanning &&*/
+                //        PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true);
+                //Preference notififcationAccess = prefMng.findPreference(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
                 ApplicationsMultiSelectDialogPreference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
-                Preference ringingCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
-                Preference missedCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
+                //Preference ringingCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
+                //Preference missedCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
                 SwitchPreferenceCompat checkContactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS);
                 Preference contactGroupsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
                 Preference contactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
                 SwitchPreferenceCompat checkTextPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_TEXT);
                 Preference textPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
                 Preference contactListTypePreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
-                Preference maximumDuration = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
+                //Preference maximumDuration = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
 
-                if (notififcationAccess != null) {
+                /*if (notififcationAccess != null) {
                     notififcationAccess.setEnabled(ApplicationPreferences.applicationEventNotificationEnableScanning);
-                }
+                }*/
                 if (applicationsPreference != null) {
-                    applicationsPreference.setEnabled(enabled);
+                    //applicationsPreference.setEnabled(enabled);
                     applicationsPreference.setSummaryAMSDP();
                 }
-                if (ringingCallPreference != null) {
-                    ringingCallPreference.setEnabled(enabled);
-                }
-                if (missedCallPreference != null) {
-                    missedCallPreference.setEnabled(enabled);
-                }
-                if (checkContactsPreference != null) {
-                    checkContactsPreference.setEnabled(enabled);
-                }
+                //if (ringingCallPreference != null) {
+                //    ringingCallPreference.setEnabled(enabled);
+                //}
+                //if (missedCallPreference != null) {
+                //    missedCallPreference.setEnabled(enabled);
+                //}
+                //if (checkContactsPreference != null) {
+                //    checkContactsPreference.setEnabled(enabled);
+                //}
                 if (contactGroupsPreference != null) {
                     boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
-                    contactGroupsPreference.setEnabled(enabled && checkEnabled);
+                    contactGroupsPreference.setEnabled(/*enabled &&*/ checkEnabled);
                 }
                 if (contactsPreference != null) {
                     boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
-                    contactsPreference.setEnabled(enabled && checkEnabled);
+                    contactsPreference.setEnabled(/*enabled &&*/ checkEnabled);
                 }
                 if (contactListTypePreference != null) {
                     boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
-                    contactListTypePreference.setEnabled(enabled && checkEnabled);
+                    contactListTypePreference.setEnabled(/*enabled &&*/ checkEnabled);
                 }
-                if (checkTextPreference != null) {
-                    checkTextPreference.setEnabled(enabled);
-                }
+                //if (checkTextPreference != null) {
+                //    checkTextPreference.setEnabled(enabled);
+                //}
                 if (textPreference != null) {
                     boolean checkEnabled = (checkTextPreference != null) && (checkTextPreference.isChecked());
-                    textPreference.setEnabled(enabled && checkEnabled);
+                    textPreference.setEnabled(/*enabled &&*/ checkEnabled);
                 }
-                if (maximumDuration != null) {
-                    maximumDuration.setEnabled(enabled);
-                }
+                //if (maximumDuration != null) {
+                //    maximumDuration.setEnabled(enabled);
+                //}
 
                 setSummary(prefMng, PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS, preferences, context);
                 setSummary(prefMng, PREF_EVENT_NOTIFICATION_APP_SETTINGS, preferences, context);
@@ -645,12 +683,7 @@ class EventPreferencesNotification extends EventPreferences {
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 }
                 else {
-                    //if (android.os.Build.VERSION.SDK_INT >= 23)
-                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                    //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                    //else
-                    //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                 }
             }
         }
@@ -658,7 +691,10 @@ class EventPreferencesNotification extends EventPreferences {
 
 
     // test statusBarNotification for event parameters
-    private StatusBarNotification isNotificationActive(StatusBarNotification statusBarNotification, String packageName, boolean checkEnd/*, Context context*/) {
+    private StatusBarNotification isNotificationActive(StatusBarNotification statusBarNotification,
+                                                       String packageName,
+                                                       boolean checkEnd,
+                                                       List<Contact> contactList) {
         try {
             String packageNameFromNotification = statusBarNotification.getPackageName();
 //            Log.e("EventPreferencesNotification.isNotificationActive", "packageNameFromNotification="+packageNameFromNotification);
@@ -710,11 +746,11 @@ class EventPreferencesNotification extends EventPreferences {
                         if (_contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
                             boolean phoneNumberFound = false;
                             if (!notificationTitle.isEmpty())
-                                phoneNumberFound = isContactConfigured(notificationTitle/*, context*/);
+                                phoneNumberFound = isContactConfigured(notificationTitle, contactList);
                             if (!notificationText.isEmpty() && (!phoneNumberFound))
-                                phoneNumberFound = isContactConfigured(notificationText/*, context*/);
+                                phoneNumberFound = isContactConfigured(notificationText, contactList);
                             if (!notificationTicker.isEmpty() && (!phoneNumberFound))
-                                phoneNumberFound = isContactConfigured(notificationTicker/*, context*/);
+                                phoneNumberFound = isContactConfigured(notificationTicker, contactList);
 
                             if (_contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST)
                                 textFound = phoneNumberFound;
@@ -747,7 +783,7 @@ class EventPreferencesNotification extends EventPreferences {
                                     continue;
                             }
 
-                            String[] textSplits = _text.split("\\|");
+                            String[] textSplits = _text.split(StringConstants.STR_SPLIT_REGEX);
 
                             String[] positiveList = new String[textSplits.length];
                             String[] negativeList = new String[textSplits.length];
@@ -897,7 +933,16 @@ class EventPreferencesNotification extends EventPreferences {
             if (service != null) {
                 try {
                     StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
+                    //noinspection RedundantLengthCheck
                     if ((statusBarNotifications != null) && (statusBarNotifications.length > 0)) {
+                        ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                        if (contactsCache == null)
+                            return false;
+                        List<Contact> contactList;
+                        synchronized (PPApplication.contactsCacheMutex) {
+                            contactList = contactsCache.getList(/*false*/);
+                        }
+
                         for (StatusBarNotification statusBarNotification : statusBarNotifications) {
 
                             // ignore PPP notification
@@ -910,7 +955,10 @@ class EventPreferencesNotification extends EventPreferences {
 
                             if (this._inCall) {
                                 // Nexus/Pixel??? stock ROM
-                                StatusBarNotification activeNotification = isNotificationActive(statusBarNotification, "com.google.android.dialer", false/*, context*/);
+                                StatusBarNotification activeNotification =
+                                        isNotificationActive(statusBarNotification,
+                                                "com.google.android.dialer", false,
+                                                contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -921,7 +969,9 @@ class EventPreferencesNotification extends EventPreferences {
                                         return true;
                                 }
                                 // Samsung, MIUI, EMUI, Sony
-                                activeNotification = isNotificationActive(statusBarNotification, "android.incallui", true/*, context*/);
+                                activeNotification = isNotificationActive(statusBarNotification,
+                                        "android.incallui", true,
+                                        contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -934,7 +984,9 @@ class EventPreferencesNotification extends EventPreferences {
                             }
                             if (this._missedCall) {
                                 // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
-                                StatusBarNotification activeNotification = isNotificationActive(statusBarNotification, "com.android.server.telecom", false/*, context*/);
+                                StatusBarNotification activeNotification = isNotificationActive(statusBarNotification,
+                                        "com.android.server.telecom", false,
+                                        contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -945,7 +997,9 @@ class EventPreferencesNotification extends EventPreferences {
                                         return true;
                                 }
                                 // MIUI
-                                activeNotification = isNotificationActive(statusBarNotification, "com.google.android.dialer", false/*, context*/);
+                                activeNotification = isNotificationActive(statusBarNotification,
+                                        "com.google.android.dialer", false,
+                                        contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -956,7 +1010,9 @@ class EventPreferencesNotification extends EventPreferences {
                                         return true;
                                 }
                                 // Samsung One UI
-                                activeNotification = isNotificationActive(statusBarNotification, "com.samsung.android.dialer", false/*, context*/);
+                                activeNotification = isNotificationActive(statusBarNotification,
+                                        "com.samsung.android.dialer", false,
+                                        contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -967,7 +1023,9 @@ class EventPreferencesNotification extends EventPreferences {
                                         return true;
                                 }
                                 // LG
-                                activeNotification = isNotificationActive(statusBarNotification, "com.android.phone", false/*, context*/);
+                                activeNotification = isNotificationActive(statusBarNotification,
+                                        StringConstants.PHONE_PACKAGE_NAME, false,
+                                        contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -978,7 +1036,9 @@ class EventPreferencesNotification extends EventPreferences {
                                         return true;
                                 }
                                 // EMUI
-                                activeNotification = isNotificationActive(statusBarNotification, "com.android.contacts", false/*, context*/);
+                                activeNotification = isNotificationActive(statusBarNotification,
+                                        "com.android.contacts", false,
+                                        contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -990,12 +1050,14 @@ class EventPreferencesNotification extends EventPreferences {
                                 }
                             }
 
-                            String[] splits = this._applications.split("\\|");
+                            String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                             for (String split : splits) {
                                 // get only package name = remove activity
                                 String packageName = Application.getPackageName(split);
                                 // search for package name in saved package names
-                                StatusBarNotification activeNotification = isNotificationActive(statusBarNotification, packageName, false/*, context*/);
+                                StatusBarNotification activeNotification = isNotificationActive(statusBarNotification,
+                                        packageName, false,
+                                        contactList);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -1048,7 +1110,7 @@ class EventPreferencesNotification extends EventPreferences {
                 return true;
         }
 
-        String[] splits = this._applications.split("\\|");
+        String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
         for (String split : splits) {
             // get only package name = remove activity
             String packageName = Application.getPackageName(split);
@@ -1070,17 +1132,29 @@ class EventPreferencesNotification extends EventPreferences {
                 StatusBarNotification newestNotification = null;
                 StatusBarNotification activeNotification;
 
+                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                if (contactsCache == null)
+                    return null;
+                List<Contact> contactList;
+                synchronized (PPApplication.contactsCacheMutex) {
+                    contactList = contactsCache.getList(/*false*/);
+                }
+
                 for (StatusBarNotification statusBarNotification : statusBarNotifications) {
                     if (this._inCall) {
                         // Nexus/Pixel??? stock ROM
-                        activeNotification = isNotificationActive(statusBarNotification, "com.google.android.dialer", false/*, context*/);
+                        activeNotification = isNotificationActive(statusBarNotification,
+                                "com.google.android.dialer", false,
+                                contactList);
                         if (activeNotification != null) {
                             if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
                                 newestNotification = activeNotification;
                             }
                         }
                         // Samsung, MIUI, EMUI, Sony
-                        activeNotification = isNotificationActive(statusBarNotification, "android.incallui", true/*, context*/);
+                        activeNotification = isNotificationActive(statusBarNotification,
+                                "android.incallui", true,
+                                contactList);
                         if (activeNotification != null) {
                             if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
                                 newestNotification = activeNotification;
@@ -1089,28 +1163,36 @@ class EventPreferencesNotification extends EventPreferences {
                     }
                     if (this._missedCall) {
                         // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
-                        activeNotification = isNotificationActive(statusBarNotification, "com.android.server.telecom", false/*, context*/);
+                        activeNotification = isNotificationActive(statusBarNotification,
+                                "com.android.server.telecom", false,
+                                contactList);
                         if (activeNotification != null) {
                             if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
                                 newestNotification = activeNotification;
                             }
                         }
                         // Samsung One UI
-                        activeNotification = isNotificationActive(statusBarNotification, "com.samsung.android.dialer", false/*, context*/);
+                        activeNotification = isNotificationActive(statusBarNotification,
+                                "com.samsung.android.dialer", false,
+                                contactList);
                         if (activeNotification != null) {
                             if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
                                 newestNotification = activeNotification;
                             }
                         }
                         // LG
-                        activeNotification = isNotificationActive(statusBarNotification, "com.android.phone", false/*, context*/);
+                        activeNotification = isNotificationActive(statusBarNotification,
+                                StringConstants.PHONE_PACKAGE_NAME, false,
+                                contactList);
                         if (activeNotification != null) {
                             if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
                                 newestNotification = activeNotification;
                             }
                         }
                         // EMUI
-                        activeNotification = isNotificationActive(statusBarNotification, "com.android.contacts", false/*, context*/);
+                        activeNotification = isNotificationActive(statusBarNotification,
+                                "com.android.contacts", false,
+                                contactList);
                         if (activeNotification != null) {
                             if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
                                 newestNotification = activeNotification;
@@ -1118,12 +1200,14 @@ class EventPreferencesNotification extends EventPreferences {
                         }
                     }
 
-                    String[] splits = this._applications.split("\\|");
+                    String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                     for (String split : splits) {
                         // get only package name = remove activity
                         String packageName = Application.getPackageName(split);
                         // search for package name in saved package names
-                        activeNotification = isNotificationActive(statusBarNotification, packageName, false/*, context*/);
+                        activeNotification = isNotificationActive(statusBarNotification,
+                                packageName, false,
+                                contactList);
                         if (activeNotification != null) {
                             if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
                                 newestNotification = activeNotification;
@@ -1139,49 +1223,14 @@ class EventPreferencesNotification extends EventPreferences {
         return null;
     }
 
-    private boolean isContactConfigured(String text/*, Context context*/) {
+    private boolean isContactConfigured(String text, List<Contact> contactList) {
         boolean phoneNumberFound = false;
 
         // find phone number in groups
-        String[] splits = this._contactGroups.split("\\|");
+        String[] splits = this._contactGroups.split(StringConstants.STR_SPLIT_REGEX);
         for (String split : splits) {
-            /*String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
-            String selection = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
-                    + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
-                    + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
-            String[] selectionArgs = new String[]{split};
-            Cursor mCursor = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projection, selection, selectionArgs, null);
-            if (mCursor != null) {
-                while (mCursor.moveToNext()) {
-                    String contactId = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-                    String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
-                    String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?";
-                    String[] selection2Args = new String[]{contactId};
-                    Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
-                    if (phones != null) {
-                        while (phones.moveToNext()) {
-                            String _contactName = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-
-                            if (text.toLowerCase().contains(_contactName.toLowerCase())) {
-                                phoneNumberFound = true;
-                                break;
-                            }
-                        }
-                        phones.close();
-                    }
-                    if (phoneNumberFound)
-                        break;
-                }
-                mCursor.close();
-            }*/
-
             if (!split.isEmpty()) {
-                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                if (contactsCache == null)
-                    return false;
-
                 synchronized (PPApplication.contactsCacheMutex) {
-                    List<Contact> contactList = contactsCache.getList(/*true*/);
                     if (contactList != null) {
                         for (Contact contact : contactList) {
                             if (contact.groups != null) {
@@ -1206,63 +1255,19 @@ class EventPreferencesNotification extends EventPreferences {
 
         if (!phoneNumberFound) {
             // find phone number in contacts
-            splits = this._contacts.split("\\|");
+            // contactId#phoneId|...
+            splits = this._contacts.split(StringConstants.STR_SPLIT_REGEX);
             for (String split : splits) {
-                String[] splits2 = split.split("#");
+                String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
 
-                /*// get phone number from contacts
-                String[] projection = new String[]{ContactsContract.Contacts._ID};
-                String selection = ContactsContract.Contacts._ID + "=?";
-                String[] selectionArgs = new String[]{splits2[0]};
-                Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, selectionArgs, null);
-                if (mCursor != null) {
-                    while (mCursor.moveToNext()) {
-                        String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
-                        String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?";
-                        String[] selection2Args = new String[]{splits2[0]};
-                        Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
-                        if (phones != null) {
-                            while (phones.moveToNext()) {
-                                String _contactName = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-
-                                if (text.toLowerCase().contains(_contactName.toLowerCase())) {
-                                    phoneNumberFound = true;
-                                    break;
-                                }
-                            }
-                            phones.close();
-                        }
-                        if (phoneNumberFound)
-                            break;
-                    }
-                    mCursor.close();
-                }*/
-
-                if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
-                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                    if (contactsCache == null)
-                        return false;
-
-                    synchronized (PPApplication.contactsCacheMutex) {
-                        List<Contact> contactList = contactsCache.getList(/*false*/);
-                        if (contactList != null) {
-                            for (Contact contact : contactList) {
-                                if (contact.phoneId != 0) {
-                                    if ((contact.contactId == Long.parseLong(splits2[0])) && contact.phoneId == Long.parseLong(splits2[1])) {
-                                        String _contactName = contact.name;
-                                        if (text.toLowerCase().contains(_contactName.toLowerCase())) {
-                                            phoneNumberFound = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())  && (!splits2[2].isEmpty())) {
+                    String contactName = splits2[0];
+                    if (text.toLowerCase().contains(contactName.toLowerCase())) {
+                        // phone number is in sensor configured
+                        phoneNumberFound = true;
+                        break;
                     }
                 }
-
-                if (phoneNumberFound)
-                    break;
             }
         }
 
@@ -1273,14 +1278,23 @@ class EventPreferencesNotification extends EventPreferences {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
             if ((EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                eventsHandler.notificationPassed = isNotificationVisible(eventsHandler.context);
 
-                if (!eventsHandler.notAllowedNotification) {
-                    if (eventsHandler.notificationPassed)
-                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
-                    else
-                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-                }
+                boolean scanningPaused = ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2") &&
+                        GlobalUtils.isNowTimeBetweenTimes(
+                                ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
+                                ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo);
+
+                if (!scanningPaused) {
+                    eventsHandler.notificationPassed = isNotificationVisible(eventsHandler.context);
+
+                    if (!eventsHandler.notAllowedNotification) {
+                        if (eventsHandler.notificationPassed)
+                            setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                        else
+                            setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                    }
+                } else
+                    eventsHandler.notificationPassed = false;
             } else
                 eventsHandler.notAllowedNotification = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);

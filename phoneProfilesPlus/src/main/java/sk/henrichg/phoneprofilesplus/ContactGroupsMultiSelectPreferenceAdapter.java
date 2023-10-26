@@ -15,20 +15,26 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
 {
     private final LayoutInflater inflater;
     private final Context context;
+    private final ContactGroupsMultiSelectDialogPreference preference;
 
-    ContactGroupsMultiSelectPreferenceAdapter(Context context)
+    ContactGroupsMultiSelectPreferenceAdapter(Context context, ContactGroupsMultiSelectDialogPreference preference)
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
         this.context = context;
+        this.preference = preference;
     }
 
     public int getCount() {
-        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
+        if (preference.contactGroupList != null)
+            return preference.contactGroupList.size();
+        else
+            return 0;
+        /*ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
         if (contactGroupsCache != null)
             return contactGroupsCache.getLength();
         else
-            return 0;
+            return 0;*/
     }
 
     public Object getItem(int position) {
@@ -85,57 +91,57 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
             textViewAccountType = viewHolder.textViewAccountType;
         }
 
-        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
-        if (contactGroupsCache != null) {
-            // Contact group to display
-            ContactGroup contactGroup = contactGroupsCache.getContactGroup(position);
-            //System.out.println(String.valueOf(position));
+        // Contact group to display
+        ContactGroup contactGroup = null;
+        if (preference.contactGroupList != null)
+            contactGroup = preference.contactGroupList.get(position);
 
+        if (contactGroup != null) {
             // Tag the CheckBox with the ContactGroup it is displaying, so that we
             // can
             // access the ContactGroup in onClick() when the CheckBox is toggled.
             checkBox.setTag(contactGroup);
 
-            if (contactGroup != null) {
-                // Display ContactGroup data
-                textViewDisplayName.setText(contactGroup.name + " (" + contactGroup.count + ")");
+            // Display ContactGroup data
+            textViewDisplayName.setText(contactGroup.name + " (" + contactGroup.count + ")");
 
-                boolean found = false;
-                PackageManager packageManager = context.getPackageManager();
-                try {
-                    ApplicationInfo applicationInfo = packageManager.getApplicationInfo(contactGroup.accountType, 0);
-                    if (applicationInfo != null) {
-                        contactGroup.accountType = packageManager.getApplicationLabel(applicationInfo).toString();
-                        found = true;
-                    }
-                } catch (Exception ignored) {}
-                if (!found) {
-                    if (contactGroup.accountType.equals("com.osp.app.signin"))
-                        contactGroup.accountType = context.getString(R.string.contact_account_type_samsung_account);
-                    if (contactGroup.accountType.equals("com.google"))
-                        contactGroup.accountType = context.getString(R.string.contact_account_type_google_account);
-                    if (contactGroup.accountType.equals("vnd.sec.contact.sim"))
-                        contactGroup.accountType = context.getString(R.string.contact_account_type_sim_card);
-                    if (contactGroup.accountType.equals("vnd.sec.contact.sim2"))
-                        contactGroup.accountType = context.getString(R.string.contact_account_type_sim_card);
-                    if (contactGroup.accountType.equals("vnd.sec.contact.phone"))
-                        contactGroup.accountType = context.getString(R.string.contact_account_type_phone_application);
-                    if (contactGroup.accountType.equals("org.thoughtcrime.securesms"))
-                        contactGroup.accountType = "Signal";
-                    if (contactGroup.accountType.equals("com.google.android.apps.tachyon"))
-                        contactGroup.accountType = "Duo";
-                    if (contactGroup.accountType.equals("com.whatsapp"))
-                        contactGroup.accountType = "WhatsApp";
+            boolean found = false;
+            String accountType = "";
+            PackageManager packageManager = context.getPackageManager();
+            try {
+                ApplicationInfo applicationInfo = packageManager.getApplicationInfo(contactGroup.accountType, PackageManager.MATCH_ALL);
+                if (applicationInfo != null) {
+                    accountType = packageManager.getApplicationLabel(applicationInfo).toString();
+                    found = true;
                 }
-                textViewAccountType.setText(contactGroup.accountType);
+            } catch (Exception ignored) {}
+            if (!found) {
+                if (contactGroup.accountType != null) {
+                    if (contactGroup.accountType.equals("com.osp.app.signin"))
+                        accountType = context.getString(R.string.contact_account_type_samsung_account);
+                    if (contactGroup.accountType.equals("com.google"))
+                        accountType = context.getString(R.string.contact_account_type_google_account);
+                    if (contactGroup.accountType.equals("vnd.sec.contact.sim"))
+                        accountType = context.getString(R.string.contact_account_type_sim_card);
+                    if (contactGroup.accountType.equals("vnd.sec.contact.sim2"))
+                        accountType = context.getString(R.string.contact_account_type_sim_card);
+                    if (contactGroup.accountType.equals("vnd.sec.contact.phone"))
+                        accountType = context.getString(R.string.contact_account_type_phone_application);
+                    if (contactGroup.accountType.equals("org.thoughtcrime.securesms"))
+                        accountType = "Signal";
+                    if (contactGroup.accountType.equals("com.google.android.apps.tachyon"))
+                        accountType = "Duo";
+                    if (contactGroup.accountType.equals("com.whatsapp"))
+                        accountType = "WhatsApp";
+                }
+            }
+            if (accountType.isEmpty())
+                accountType = contactGroup.accountType;
+            contactGroup.displayedAccountType = accountType;
 
-                checkBox.setChecked(contactGroup.checked);
-            }
-            else {
-                textViewDisplayName.setText(context.getString(R.string.empty_string));
-                checkBox.setChecked(false);
-                textViewAccountType.setText(context.getString(R.string.empty_string));
-            }
+            textViewAccountType.setText(contactGroup.displayedAccountType);
+
+            checkBox.setChecked(contactGroup.checked);
         }
 
         return convertView;

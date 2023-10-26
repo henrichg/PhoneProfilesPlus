@@ -47,7 +47,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ScreenOnOffBroadcastReceiver_onReceive");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ScreenOnOffBroadcastReceiver_onReceive);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -90,6 +90,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 //                                                        PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (2)", "adaptive brightness value=" + profile.getDeviceBrightnessAdaptiveValue(appContext));
 //                                                    }
                                                     try {
+                                                        PPApplication.brightnessInternalChange = true;
                                                         if (profile.getDeviceBrightnessAutomatic()) {
                                                             Settings.System.putInt(appContext.getContentResolver(),
                                                                     Settings.System.SCREEN_BRIGHTNESS_MODE,
@@ -117,6 +118,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                                                     Settings.System.SCREEN_BRIGHTNESS,
                                                                     profile.getDeviceBrightnessManualValue(appContext));
                                                         }
+                                                        PPExecutors.scheduleDisableBrightnessInternalChangeExecutor();
                                                     } catch (Exception ignored) {
                                                     }
 //                                                    if (PPApplicationStatic.logEnabled()) {
@@ -135,6 +137,9 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                     }
                                 }
                             }
+
+                            // is not needed to call event hander, is called from doScreenOnOff()
+                            BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
 
                             break;
                         }
@@ -188,7 +193,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             });
                             */
                             if (PPApplication.lockDeviceActivityDisplayed) {
-                                Intent finishIntent = new Intent(PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver");
+//                                PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
+                                Intent finishIntent = new Intent(LockDeviceActivity.ACTION_FINISH_LOCK_DEVICE_ACTIVITY_BROADCAST_RECEIVER);
                                 LocalBroadcastManager.getInstance(context).sendBroadcast(finishIntent);
                             }
 
@@ -277,12 +283,14 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPAppNotification.drawNotification");
                 ProfileListNotification.drawNotification(false, appContext);
-                sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(false, appContext);
+                PPAppNotification.drawNotification(false, appContext);
 
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
+                    eventsHandler.handleEvents(new int[]{
+                            EventsHandler.SENSOR_TYPE_SCREEN,
+                            EventsHandler.SENSOR_TYPE_BRIGHTNESS,
+                            EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK});
                 }
 
                 break;
@@ -318,14 +326,17 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     PPApplicationStatic.restartAllScanners(appContext, false);
                 }
 
-                if (EventStatic.getGlobalEventsRunning(appContext)) {
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
-                }
-
+                // Is needed this for "Always on display" to change these notifications in it. Hm.
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPAppNotification.drawNotification");
                 ProfileListNotification.drawNotification(false, appContext);
-                sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(false, appContext);
+                PPAppNotification.drawNotification(false, appContext);
+
+                if (EventStatic.getGlobalEventsRunning(appContext)) {
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_SCREEN});
+                    // do not call this when screen is off
+                    //handleEventsForBrightnessSensor();
+                }
 
                 break;
             }
@@ -336,11 +347,14 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
+                    eventsHandler.handleEvents(new int[]{
+                            EventsHandler.SENSOR_TYPE_SCREEN,
+                            EventsHandler.SENSOR_TYPE_BRIGHTNESS});
                 }
 
                 break;
             }
         }
     }
+
 }

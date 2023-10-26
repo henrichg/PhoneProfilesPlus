@@ -249,9 +249,9 @@ public final class TabLayoutMediator {
 
     private static final Method sSetScrollPosition;
     private static final Method sSelectTab;
-    private static final String SET_SCROLL_POSITION_NAME = "TabLayout.setScrollPosition(int, float,"
+    private static final String EXCEPTION_DESC_SET_SCROLL_POSITION_NAME = "TabLayout.setScrollPosition(int, float,"
             + " boolean, boolean)";
-    private static final String SELECT_TAB_NAME = "TabLayout.selectTab(TabLayout.Tab, boolean)";
+    private static final String EXCEPTION_DESC_SELECT_TAB_NAME = "TabLayout.selectTab(TabLayout.Tab, boolean)";
 
     static {
         try {
@@ -275,10 +275,10 @@ public final class TabLayoutMediator {
                 sSetScrollPosition.invoke(tabLayout, position, positionOffset, updateSelectedText,
                         updateIndicatorPosition);
             } else {
-                throwMethodNotFound(SET_SCROLL_POSITION_NAME);
+                throwMethodNotFound(EXCEPTION_DESC_SET_SCROLL_POSITION_NAME);
             }
         } catch (Exception e) {
-            throwInvokeFailed(SET_SCROLL_POSITION_NAME);
+            throwInvokeFailed(EXCEPTION_DESC_SET_SCROLL_POSITION_NAME);
         }
     }
 
@@ -287,10 +287,10 @@ public final class TabLayoutMediator {
             if (sSelectTab != null) {
                 sSelectTab.invoke(tabLayout, tab, updateIndicator);
             } else {
-                throwMethodNotFound(SELECT_TAB_NAME);
+                throwMethodNotFound(EXCEPTION_DESC_SELECT_TAB_NAME);
             }
         } catch (Exception e) {
-            throwInvokeFailed(SELECT_TAB_NAME);
+            throwInvokeFailed(EXCEPTION_DESC_SELECT_TAB_NAME);
         }
     }
 

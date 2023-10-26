@@ -23,8 +23,9 @@ import java.util.Locale;
  * Control that allows the user to easily input a time duration made up of hours, minutes and seconds, like known from
  * the Lollipop stock timer app.
  *
+ * @noinspection EmptyMethod
  */
-@SuppressWarnings({"FieldCanBeLocal", "ConstantConditions", "unused"})
+@SuppressWarnings({"FieldCanBeLocal", "ConstantConditions"})
 public class TimeDurationPicker extends FrameLayout {
 
     public static final int HH_MM_SS = 0;
@@ -47,22 +48,20 @@ public class TimeDurationPicker extends FrameLayout {
     private final View numPad;
     private final Button[] numPadButtons;
     private final Button numPadMeasureButton;
-    private OnDurationChangedListener changeListener = null;
+    //private OnDurationChangedListener changeListener = null;
     private final TextView secondsLabel;
     private final TextView hoursLabel;
     private final TextView minutesLabel;
 
-    /**
+    /*
      * Implement this interface and set it using #setOnDurationChangeListener to get informed about input changes.
-     */
     interface OnDurationChangedListener {
-        /**
          * Called whenever the input (the displayed duration string) changes.
          * @param view the view that fired the event
          * @param duration the new duration in milli seconds
-         */
         void onDurationChanged(TimeDurationPicker view, long duration);
     }
+    */
 
     public TimeDurationPicker(Context context) {
         this(context, null);
@@ -197,13 +196,14 @@ public class TimeDurationPicker extends FrameLayout {
         updateUnits();
     }
 
-    /**
+    /*
+    /*
      * Sets a listener to be informed of updates to the entered duration.
      * @param listener the listener to be informed or {@code null} if no one should be informed.
-     */
     public void setOnDurationChangeListener(OnDurationChangedListener listener) {
         changeListener = listener;
     }
+    */
 
     /**
      * Sets the text appearance for the entered duration (the large numbers in the upper area).
@@ -221,13 +221,13 @@ public class TimeDurationPicker extends FrameLayout {
         applyTextAppearance(/*getContext(),*/ resId, unitLabelViews);
     }
 
-    /**
+    /*
      * Sets the text appearance for the number pad buttons.
      * @param resId resource id of the style describing the text appearance.
-     */
     public void setButtonTextAppearance(int resId) {
-        applyTextAppearance(/*getContext(),*/ resId, numPadButtons);
+        applyTextAppearance(resId, numPadButtons);
     }
+    */
 
     /**
      * Sets the icon to be shown on the backspace button.
@@ -261,13 +261,13 @@ public class TimeDurationPicker extends FrameLayout {
         displayRow.setBackgroundColor(color);
     }
 
-    /**
+    /*
      * Sets the padding to be used for the number pad buttons.
      * @param padding padding in pixels
-     */
     public void setNumPadButtonPadding(int padding) {
         applyPadding(padding, numPadButtons);
     }
+    */
 
     //
     // style helpers
@@ -292,12 +292,7 @@ public class TimeDurationPicker extends FrameLayout {
     }
 
     private void applyTextAppearance(/*Context context,*/ int resId, final TextView[] targetViews) {
-        //if (Build.VERSION.SDK_INT < 23) {
-        //    for (TextView view : targetViews) view.setTextAppearance(context, resId);
-        //}
-        //else {
-            for (TextView view : targetViews) view.setTextAppearance(resId);
-        //}
+        for (TextView view : targetViews) view.setTextAppearance(resId);
     }
 
     private void applyIcon(TypedArray attrs, int attributeIndex, ImageView targetView) {
@@ -351,14 +346,16 @@ public class TimeDurationPicker extends FrameLayout {
         hoursView.setText(input.getHoursString());
         minutesView.setText(input.getMinutesString());
         secondsView.setText(input.getSecondsString());
-        fireDurationChangeListener();
+        //fireDurationChangeListener();
     }
 
+    /*
     private void fireDurationChangeListener() {
         if (changeListener != null) {
             changeListener.onDurationChanged(this, input.getDuration());
         }
     }
+    */
 
     //
     // layouting

@@ -15,6 +15,7 @@
         <attr name="sensorOperator" format="integer" />
     </declare-styleable>
     <declare-styleable name="PPBrightnessDialogPreference">
+        <attr name="bForBrightnessSensor" format="integer" />
         <attr name="bNoChange" format="integer" />
         <attr name="bAutomatic" format="integer" />
         <attr name="bChangeLevel" format="integer" />
@@ -67,6 +68,8 @@
         <attr name="gnIconType" format="integer" />
         <attr name="gnNotificationTitle" format="string" />
         <attr name="gnNotificationBody" format="string" />
+        <attr name="gnShowLargeIcon" format="integer" />
+        <attr name="gnReplaceWithPPPIcon" format="integer" />
     </declare-styleable>
     <declare-styleable name="OpaquenessLightingPference">
         <attr name="showLighting" format="boolean" />

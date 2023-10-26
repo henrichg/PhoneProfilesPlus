@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,7 +24,7 @@ public class TileChooserListFragment extends Fragment {
     DataWrapper activityDataWrapper;
     private TileChooserListAdapter profileListAdapter;
     private ListView listView;
-    TextView textViewNoData;
+    RelativeLayout viewNoData;
     private LinearLayout progressBar;
 
     private LoadProfileListAsyncTask loadAsyncTask = null;
@@ -66,13 +66,13 @@ public class TileChooserListFragment extends Fragment {
     private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
         listView = view.findViewById(R.id.tile_chooser_profiles_list);
-        textViewNoData = view.findViewById(R.id.tile_chooser_profiles_list_empty);
+        viewNoData = view.findViewById(R.id.tile_chooser_profiles_list_empty);
         progressBar = view.findViewById(R.id.tile_chooser_profiles_list_linla_progress);
         Button cancelButton = view.findViewById(R.id.tile_chooser_profiles_list_cancel);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
             if (getActivity() != null) {
-                TileChooserListAdapter.ViewHolder viewHolder = (TileChooserListAdapter.ViewHolder) item.getTag();
+                TileChooserListViewHolder viewHolder = (TileChooserListViewHolder) item.getTag();
                 if (viewHolder != null)
                     viewHolder.radioButton.setChecked(true);
                 Handler handler = new Handler(getActivity().getMainLooper());
@@ -150,7 +150,7 @@ public class TileChooserListFragment extends Fragment {
             // add restart events
             //Profile profile = DataWrapper.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
             Profile profile = DataWrapperStatic.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events),
-                    "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
+                    StringConstants.PROFILE_ICON_RESTART_EVENTS+"|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
             profile.generateIconBitmap(dataWrapper.context, false, 0, false);
             this.dataWrapper.profileList.add(0, profile);
 
@@ -173,11 +173,10 @@ public class TileChooserListFragment extends Fragment {
 
                     // set copy local profile list into activity profilesDataWrapper
                     fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
-                    this.dataWrapper.clearProfileList();
 
                     synchronized (fragment.activityDataWrapper.profileList) {
                         if (fragment.activityDataWrapper.profileList.size() == 0)
-                            fragment.textViewNoData.setVisibility(View.VISIBLE);
+                            fragment.viewNoData.setVisibility(View.VISIBLE);
                     }
 
                     fragment.profileListAdapter = new TileChooserListAdapter(fragment, fragment.activityDataWrapper);
@@ -197,9 +196,9 @@ public class TileChooserListFragment extends Fragment {
     {
         super.onDestroy();
 
-        if (isAsyncTaskRunning()) {
+        if (isAsyncTaskRunning())
             loadAsyncTask.cancel(true);
-        }
+        loadAsyncTask = null;
 
         if (listView != null)
             listView.setAdapter(null);

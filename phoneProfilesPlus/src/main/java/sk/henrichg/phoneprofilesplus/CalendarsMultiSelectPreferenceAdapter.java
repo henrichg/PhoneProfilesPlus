@@ -94,7 +94,7 @@ class CalendarsMultiSelectPreferenceAdapter extends BaseAdapter
         checkBox.setTag(calendar);
 
         // Display Contact data
-        calendarColor.setBackgroundColor(0xff000000 + calendar.color);
+        calendarColor.setBackgroundColor(/*0xff000000*/ + calendar.color);
         textViewDisplayName.setText(calendar.name);
 
         //Log.d("CalendarsMultiSelectPreferenceAdapter.getView","calendar.checked="+calendar.checked);

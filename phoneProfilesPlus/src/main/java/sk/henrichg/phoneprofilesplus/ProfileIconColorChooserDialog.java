@@ -58,9 +58,10 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
 
         //noinspection resource
         final TypedArray ta = activity.getResources().obtainTypedArray(R.array.colorChooserDialog_colors);
-        mColors = new int[ta.length()];
+        int length = ta.length();
+        mColors = new int[length];
         int preselect = -1;
-        for (int i = 0; i < ta.length(); i++) {
+        for (int i = 0; i < length; i++) {
             mColors[i] = ta.getColor(i, 0);
             if (preference.useCustomColor && (mColors[i] == preference.customColor))
                 preselect = i;
@@ -153,7 +154,8 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
 
         final GridLayout list = layout.findViewById(R.id.dialog_color_chooser_grid);
 
-        for (int i = 0; i < list.getChildCount(); i++) {
+        int count = list.getChildCount();
+        for (int i = 0; i < count; i++) {
             FrameLayout child = (FrameLayout) list.getChildAt(i);
             child.setTag(i);
             child.setOnClickListener(this);
@@ -254,33 +256,36 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
                 break;
         }*/
 
+        final String COLOR1 = "#6E6E6E";
+        final String COLOR2 = "#AEAEAE";
+
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);
         coloredCircle.setShape(GradientDrawable.OVAL);
-        if (applicationTheme.equals("white")) {
+        if (applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE)) {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
             //else
-            coloredCircle.setStroke(1, Color.parseColor("#6E6E6E"));
+            coloredCircle.setStroke(1, Color.parseColor(COLOR1));
         } else {
             //if (position == 0) // white color
             //    coloredCircle.setStroke(2, Color.parseColor("#AEAEAE"));
             //else
-            coloredCircle.setStroke(1, Color.parseColor("#6E6E6E"));
+            coloredCircle.setStroke(1, Color.parseColor(COLOR1));
         }
         GradientDrawable darkerCircle = new GradientDrawable();
         darkerCircle.setColor(shiftColor(color));
         darkerCircle.setShape(GradientDrawable.OVAL);
-        if (applicationTheme.equals("white")) {
+        if (applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE)) {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
             //else
-            coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
+            coloredCircle.setStroke(2, Color.parseColor(COLOR1));
         } else {
             //if (position == 0) // white color
             //    darkerCircle.setStroke(2, Color.parseColor("#AEAEAE"));
             //else
-            darkerCircle.setStroke(2, Color.parseColor("#AEAEAE"));
+            darkerCircle.setStroke(2, Color.parseColor(COLOR2));
         }
 
         StateListDrawable stateListDrawable = new StateListDrawable();

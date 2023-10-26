@@ -158,13 +158,14 @@
         android:supportsRtl="true"
         android:resizeableActivity="true"
         android:allowBackup="false"
-        android:persistent="true"
-        tools:ignore="UnusedAttribute" >
-<!--        This not working currently, maybe is needed AGP 7.3.0-->
+        android:persistent="true" >
+
+<!--        tools:replace - required for rncryptor-native-->
+<!--        tools:replace="android:label,android:allowBackup"-->
+
+        <!--        This not working currently, maybe is needed AGP 7.3.0-->
 <!--        android:localeConfig="@xml/locales_config"-->
-
 <!--        android:roundIcon="@mipmap/ic_launcher_round"-->
-
 <!--        android:largeHeap="true"-->
 
         <!-- keep application persistent
@@ -224,12 +225,13 @@
 <!--            android:name="com.samsung.android.cocktail.mode"-->
 <!--            android:value="edge_single_plus" />-->
 
+        <!-- !!! android:theme must be set here -->
         <activity
-            android:name=".LauncherActivity"
+            android:name=".ActivatorActivity"
             android:label="@string/title_activity_phone_profiles"
             android:excludeFromRecents="true"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyAppCompatActivity"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.activator"
+            android:theme="@style/ActivatorTheme_dayNight"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -238,19 +240,20 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ActivatorActivity"
-            android:label="@string/title_activity_activator"
-            android:excludeFromRecents="true"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
-            android:theme="@style/ActivatorTheme_dayNight">
-        </activity>
-
+        <!-- android:theme must be used, because of flickering of withe bacground in Huawei -->
         <activity
             android:name=".EditorActivity"
             android:label="@string/title_activity_editor"
-            android:theme="@style/Theme.PhoneProfilesTheme_withToolbar_dayNight">
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.editor"
+            android:theme="@style/Theme.PhoneProfilesTheme_withToolbar_dayNight"
+            tools:ignore="IntentFilterExportedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
         </activity>
+
         <activity
             android:name=".ProfilesPrefsActivity"
             android:label="@string/title_activity_profile_preferences">
@@ -285,7 +288,7 @@
         <activity
             android:name=".BackgroundActivateProfileActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.shortcut"
             android:theme="@style/EmptyAppCompatActivity"
             tools:ignore="IntentFilterExportedReceiver">
@@ -298,7 +301,7 @@
         <activity
             android:name=".ActionForExternalApplicationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
             android:theme="@style/EmptyAppCompatActivity"
             tools:ignore="IntentFilterExportedReceiver">
@@ -315,7 +318,7 @@
         <activity
             android:name=".RestartEventsFromGUIActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -334,7 +337,7 @@
         <activity
             android:name=".GrantPermissionActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -344,7 +347,7 @@
         <activity
             android:name=".LaunchShortcutActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -365,7 +368,7 @@
         <activity
             android:name=".NFCTagReadActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity"
             tools:ignore="IntentFilterExportedReceiver">
@@ -383,7 +386,7 @@
         </activity>
         <activity
             android:name=".ActivatorTargetHelpsActivity"
-            android:label="@string/empty_string"
+            android:label=""
             android:excludeFromRecents="true"
             android:theme="@style/EmptyTargetHelpsActivity">
         </activity>
@@ -397,7 +400,7 @@
         <activity
             android:name=".ExitApplicationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -408,15 +411,15 @@
         </activity>
         <activity
             android:name=".NotUsedMobileCellsDetectedActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
+<!--        android:excludeFromRecents="true"-->
         <activity
             android:name=".CheckPPPReleasesActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -431,7 +434,7 @@
         <activity
             android:name=".CheckCriticalPPPReleasesDisableActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -447,7 +450,7 @@
         <activity
             android:name=".TileChooserLongClickActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.shortcut"
             android:theme="@style/EmptyAppCompatActivity"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
@@ -459,14 +462,14 @@
         <activity
             android:name=".CheckRequiredExtenderReleasesActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
             android:name=".AutostartPermissionActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -474,7 +477,7 @@
             android:name=".LaunchWidgetIconConfigurationActivity"
             android:exported="true"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -482,7 +485,7 @@
             android:name=".LaunchWidgetOneRowConfigurationActivity"
             android:exported="true"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -490,7 +493,7 @@
             android:name=".LaunchWidgetListConfigurationActivity"
             android:exported="true"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -498,26 +501,19 @@
             android:name=".LaunchSamsungEdgeConfigurationActivity"
             android:exported="true"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
-<!--        <activity-->
-<!--            android:name=".GrantNotificationPermissionAtFirstStartActivity"-->
-<!--            android:excludeFromRecents="true"-->
-<!--            android:label="@string/empty_string"-->
-<!--            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"-->
-<!--            android:theme="@style/EmptyAppCompatActivity">-->
-<!--        </activity>-->
         <activity
             android:name=".LogCrashActivity"
-            android:label="@string/empty_string">
+            android:label="">
         </activity>
         <activity
             android:name=".LaunchWidgetOneRowProfileListConfigurationActivity"
             android:exported="true"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -532,7 +528,26 @@
                 <category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".GenerateNotificationAfterClickActivity"
+            android:label=""
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
+        </activity>
+<!--        android:excludeFromRecents="true"-->
+        <activity
+            android:name=".LaunchMobileCellsScanningActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
 
         <!-- implicit broadcast receivers, in Android O exception group -->
         <!-- https://developer.android.com/guide/components/broadcast-exceptions.html -->

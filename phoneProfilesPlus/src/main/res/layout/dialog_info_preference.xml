@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
-            android:text="@string/empty_string"
+            android:text=""
             android:textSize="16sp" />
 
         <CheckBox
@@ -50,7 +50,7 @@
             android:layout_marginStart="-5dp"
             android:layout_marginTop="15dp"
             android:buttonTint="@color/checkbox_radiobutton_color"
-            android:text="@string/empty_string"
+            android:text=""
             android:visibility="gone" />
 
     </LinearLayout>

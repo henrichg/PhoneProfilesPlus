@@ -70,6 +70,11 @@ class RunApplicationEditorDialog
     static final String EXTRA_APPLICATION = "application";
     static final String EXTRA_PP_INTENT = "ppIntent";
 
+    static final String RUN_APPLICATIONS_TYPE_MARK_APPLICATION = "(A) ";
+    static final String RUN_APPLICATIONS_TYPE_MARK_SHORTCUT = "(S) ";
+    static final String RUN_APPLICATIONS_TYPE_MARK_INTENT = "(I) ";
+
+
     RunApplicationEditorDialog(Activity activity, RunApplicationsDialogPreference preference,
                                final Application application)
     {
@@ -141,7 +146,7 @@ class RunApplicationEditorDialog
         });
 
         filterSpinner = layout.findViewById(R.id.run_applications_editor_dialog_filter_spinner);
-        GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        HighlightedSpinnerAdapter spinnerAdapter = new HighlightedSpinnerAdapter(
                 activity,
                 R.layout.spinner_highlighted,
                 activity.getResources().getStringArray(R.array.runApplicationsEditorDialogFilterArray));
@@ -188,7 +193,7 @@ class RunApplicationEditorDialog
 
             @SuppressLint("NotifyDataSetChanged")
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
 
                 selectedFilter = Integer.parseInt(filterValues[position]);
                 if (selectedFilter == 2)
@@ -200,6 +205,7 @@ class RunApplicationEditorDialog
                 listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                 listView.setAdapter(null);
                 listView.setAdapter(listAdapter);
+                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                 listAdapter.notifyDataSetChanged();
                 //listView.setAdapter(listAdapter);
 
@@ -341,7 +347,7 @@ class RunApplicationEditorDialog
         if (selectedPosition != -1) {
             selectedApplication = getSelectedApplication();
             if (selectedApplication != null) {
-                applicationIcon = PPApplicationStatic.getApplicationsCache().getApplicationIcon(selectedApplication, false);
+                applicationIcon = PPApplicationStatic.getApplicationsCache().getApplicationIcon(selectedApplication/*, false*/);
             }
         }
         if (selectedApplication != null) {
@@ -354,13 +360,13 @@ class RunApplicationEditorDialog
             String appName = "";
             switch (selectedApplication.type) {
                 case Application.TYPE_APPLICATION:
-                    appName = "(A) ";
+                    appName = RUN_APPLICATIONS_TYPE_MARK_APPLICATION;
                     break;
                 case Application.TYPE_SHORTCUT:
-                    appName = "(S) ";
+                    appName = RUN_APPLICATIONS_TYPE_MARK_SHORTCUT;
                     break;
                 case Application.TYPE_INTENT:
-                    appName = "(I) ";
+                    appName = RUN_APPLICATIONS_TYPE_MARK_INTENT;
                     break;
             }
             appName = appName + selectedApplication.appLabel;
@@ -412,10 +418,7 @@ class RunApplicationEditorDialog
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context context = view.getContext();
         PopupMenu popup;
-        //if (android.os.Build.VERSION.SDK_INT >= 19)
         popup = new PopupMenu(context, view, Gravity.END);
-        //else
-        //    popup = new PopupMenu(context, view);
 
         int position = (int) view.getTag();
         final Application application = applicationList.get(position);

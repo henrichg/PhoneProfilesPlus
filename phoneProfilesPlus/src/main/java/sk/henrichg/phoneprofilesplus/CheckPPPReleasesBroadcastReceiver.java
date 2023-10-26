@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.PowerManager;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
@@ -48,7 +50,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
         long alarmTime;
 
-        // TODO remove for release
+        //TODO remove for release
         /*if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 
@@ -91,12 +93,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
             }
             else {
-                //if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-                //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-                //else
-                //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             }
         }
     }
@@ -144,7 +141,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CheckGitHubReleasesBroadcastReceiver_doWork");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_CheckGitHubReleasesBroadcastReceiver_doWork);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -161,13 +158,13 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                             //Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
                             //boolean amazonAppStoreInstalled = (intent != null);
 
-                            Intent intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+                            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
                             boolean huaweiAppGalleryInstalled = (intent != null);
 
-                            intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
+                            intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
                             boolean fdroidInstalled = (intent != null);
 
-                            intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
+                            intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                             boolean droidifyInstalled = (intent != null);
 
                             getVersion = !(huaweiAppGalleryInstalled || fdroidInstalled || droidifyInstalled);
@@ -224,7 +221,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         }
 
         // show notification for check new release
-        PPApplicationStatic.createNewReleaseNotificationChannel(appContext);
+        PPApplicationStatic.createNewReleaseNotificationChannel(appContext, false);
 
         NotificationCompat.Builder mBuilder;
         Intent _intent;
@@ -234,11 +231,12 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, versionCodeInReleases);
         _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CRITICAL, critical);
 
-        String nTitle = appContext.getString(R.string.ppp_app_name) + ": " + appContext.getString(R.string.menu_check_github_releases);
+        String nTitle = appContext.getString(R.string.ppp_app_name) + StringConstants.STR_COLON_WITH_SPACE + appContext.getString(R.string.menu_check_github_releases);
         String nText = appContext.getString(R.string.check_ppp_releases_notification);
         mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_information_notify) // notification icon
+                .setColor(ContextCompat.getColor(appContext, R.color.information_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification))
                 .setContentTitle(nTitle) // title for notification
                 .setContentText(nText)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
@@ -247,18 +245,12 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        //if (android.os.Build.VERSION.SDK_INT >= 21) {
         mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        //}
 
         mBuilder.setGroup(PPApplication.CHECK_RELEASES_GROUP);
 
         Notification notification = mBuilder.build();
-        /*if (Build.VERSION.SDK_INT < 26) {
-            notification.vibrate = null;
-            notification.defaults &= ~DEFAULT_VIBRATE;
-        }*/
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
         try {
@@ -266,7 +258,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_TAG,
                     PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID, notification);
         } catch (SecurityException en) {
-            Log.e("CheckPPPReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("CheckPPPReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("CheckPPPReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
@@ -283,42 +275,69 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
             RequestQueue queue = Volley.newRequestQueue(appContext);
             String url;
             if (DebugVersion.enabled)
-                url = PPApplication.PPP_RELEASES_DEBUG_URL;
+                url = PPApplication.PPP_RELEASES_MD_DEBUG_URL;
             else
-                url = PPApplication.PPP_RELEASES_URL;
+                url = PPApplication.PPP_RELEASES_MD_URL;
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET,
                     url,
                     response -> {
-                        boolean showNotification;
-                        boolean critical = true;
-                        String versionNameInReleases = "";
-                        int versionCodeInReleases = 0;
 
                         //String contents = response;
 
-                        PPApplicationStatic.PPPReleaseData pppReleaseData =
+                        final PPPReleaseData pppReleaseData =
                                 PPApplicationStatic.getReleaseData(response, true, appContext);
 
-                        showNotification = pppReleaseData != null;
-                        if (showNotification) {
-                            critical = pppReleaseData.critical;
-                            versionNameInReleases = pppReleaseData.versionNameInReleases;
-                            versionCodeInReleases = pppReleaseData.versionCodeInReleases;
-                        }
+                        if (pppReleaseData != null) {
+                            if (Build.VERSION.SDK_INT >= 33) {
+                                // check IzzyOnDroid repo
 
-                        try {
-                            if (showNotification) {
-                                showNotification(appContext,
-                                        versionNameInReleases,
-                                        versionCodeInReleases,
-                                        critical);
+                                RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
+                                String izzyRepoURL = PPApplication.DROIDIFY_PPP_LATEST_APK_RELEASE_URL_BEGIN;
+                                izzyRepoURL = izzyRepoURL + pppReleaseData.versionCodeInReleases + ".apk";
+//                                Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", "izzyRepoURL=" + izzyRepoURL);
+                                StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,
+                                        izzyRepoURL,
+                                        response1 -> {
+//                                            Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", "latest installed - xxxxxxxxxxxxxxxx");
+                                        },
+                                        error -> {
+                                            if ((error.networkResponse != null) && (error.networkResponse.statusCode == 404)) {
+//                                                Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", "latest NOT installed - xxxxxxxxxxxxxxxx");
+                                                try {
+                                                    boolean critical = pppReleaseData.critical;
+                                                    String versionNameInReleases = pppReleaseData.versionNameInReleases;
+                                                    int versionCodeInReleases = pppReleaseData.versionCodeInReleases;
+
+                                                    showNotification(appContext,
+                                                            versionNameInReleases,
+                                                            versionCodeInReleases,
+                                                            critical);
+
+                                                } catch (Exception e) {
+//                                              Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", Log.getStackTraceString(e));
+                                                }
+                                            }
+                                        });
+                                queueIzzyRepo.add(stringRequestIzzyRepo);
+                            } else {
+//                                Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", "yyyyyyyyyyyy");
+
+                                try {
+                                    boolean critical = pppReleaseData.critical;
+                                    String versionNameInReleases = pppReleaseData.versionNameInReleases;
+                                    int versionCodeInReleases = pppReleaseData.versionCodeInReleases;
+
+                                    showNotification(appContext,
+                                            versionNameInReleases,
+                                            versionCodeInReleases,
+                                            critical);
+
+                                } catch (Exception e) {
+//                                    Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", Log.getStackTraceString(e));
+                                }
                             }
-
-                        } catch (Exception e) {
-//                            Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", Log.getStackTraceString(e));
                         }
-
                     },
                     error -> {
 //                        Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", Log.getStackTraceString(error));

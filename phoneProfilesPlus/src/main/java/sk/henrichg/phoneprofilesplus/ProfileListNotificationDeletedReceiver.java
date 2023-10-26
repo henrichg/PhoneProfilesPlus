@@ -6,7 +6,7 @@ import android.content.Intent;
 
 public class ProfileListNotificationDeletedReceiver extends BroadcastReceiver {
 
-    static final String PROFILE_LIST_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".ProfileListNotificationDeletedReceiver.ACTION_DELETED";
+    static final String ACTION_PROFILE_LIST_NOTIFICATION_DELETED = PPApplication.PACKAGE_NAME + ".ProfileListNotificationDeletedReceiver.ACTION_DELETED";
 
     @Override
     public void onReceive(Context context, Intent intent) {

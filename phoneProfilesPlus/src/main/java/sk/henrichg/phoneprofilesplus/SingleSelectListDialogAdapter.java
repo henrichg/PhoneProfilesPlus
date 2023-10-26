@@ -36,7 +36,7 @@ class SingleSelectListDialogAdapter extends BaseAdapter
         return position;
     }
     
-    static class ViewHolder {
+    private static class ViewHolder {
         TextView label;
         RadioButton radioButton;
         //int position;

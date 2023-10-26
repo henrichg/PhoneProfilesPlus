@@ -110,7 +110,7 @@ class EventStatic {
         //if (checked)
         //    return preferenceAllowed;
 
-        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
 
         if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED) ||
                 preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM))
@@ -238,10 +238,7 @@ class EventStatic {
         /*
         if (preferenceKey.equals(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED))
         {
-            //if (android.os.Build.VERSION.SDK_INT >= 21)
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            //else
-            //    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             return preferenceAllowed;
         }
         //if (checked)
@@ -459,7 +456,7 @@ class EventStatic {
 
             dataWrapper.getEventTimelineList(true);
             if (event.getStatusFromDB(dataWrapper.context) == Event.ESTATUS_STOP) {
-                if (!EventsPrefsFragment.isRedTextNotificationRequired(event, false, dataWrapper.context)) {
+                if (!EventStatic.isRedTextNotificationRequired(event, false, dataWrapper.context)) {
                     // pause event
                     //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context);
 
@@ -479,7 +476,7 @@ class EventStatic {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorEventListFragment_runStopEvent_1");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EditorEventListFragment_runStopEvent_1);
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -531,7 +528,7 @@ class EventStatic {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorEventListFragment_runStopEvent_2");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EditorEventListFragment_runStopEvent_2);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -561,7 +558,7 @@ class EventStatic {
             // redraw event list
             //updateListView(event, false, false, true, 0);
             if (editor != null)
-                editor.redrawEventListFragment(event, EditorEventListFragment.EDIT_MODE_EDIT);
+                editor.redrawEventListFragment(event, PPApplication.EDIT_MODE_EDIT);
 
             // restart events
             //activityDataWrapper.restartEvents(false, true, true, true, true);
@@ -575,6 +572,8 @@ class EventStatic {
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
             PPApplicationStatic.runCommand(dataWrapper.context, commandIntent);
+
+//            PPApplicationStatic.logE("[MAIN_WORKER_CALL] EventStatic.runStopEvent", "(1) xxxxxxxxxxxxxxxxxxxx");
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
@@ -616,7 +615,7 @@ class EventStatic {
             // redraw event list
             //updateListView(event, false, false, true, 0);
             if (editor != null)
-                editor.redrawEventListFragment(event, EditorEventListFragment.EDIT_MODE_EDIT);
+                editor.redrawEventListFragment(event, PPApplication.EDIT_MODE_EDIT);
 
             // restart events
             //activityDataWrapper.restartEvents(false, true, true, true, true);
@@ -630,6 +629,8 @@ class EventStatic {
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
             PPApplicationStatic.runCommand(dataWrapper.context, commandIntent);
+
+//            PPApplicationStatic.logE("[MAIN_WORKER_CALL] EventStatic.runStopEvent", "(2) xxxxxxxxxxxxxxxxxxxx");
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
@@ -657,6 +658,21 @@ class EventStatic {
             }
         }
         return true;
+    }
+
+    static boolean isRedTextNotificationRequired(Event event, boolean againCheckInDelay, Context context) {
+        Context appContext = context.getApplicationContext();
+        boolean enabledSomeSensor = event.isEnabledSomeSensor(appContext);
+        boolean grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null, EventsHandler.SENSOR_TYPE_ALL).size() == 0;
+        /*if (Build.VERSION.SDK_INT >= 29) {
+            if (!Settings.canDrawOverlays(context))
+                grantedAllPermissions = false;
+        }*/
+        boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false, againCheckInDelay) == 1;
+
+        boolean eventIsRunnable = event.isRunnable(appContext, false);
+
+        return ((!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable));
     }
 
 }

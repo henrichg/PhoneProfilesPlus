@@ -28,7 +28,7 @@ class EventPreferencesApplication extends EventPreferences {
     //static final String PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
     //static final String PREF_EVENT_APPLICATION_LAUNCH_EXTENDER = "eventApplicationLaunchExtender";
 
-    private static final String PREF_EVENT_APPLICATION_CATEGORY = "eventApplicationCategoryRoot";
+    static final String PREF_EVENT_APPLICATION_CATEGORY = "eventApplicationCategoryRoot";
 
     EventPreferencesApplication(Event event,
                                        boolean enabled,
@@ -74,37 +74,38 @@ class EventPreferencesApplication extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_application_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_application_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + "<b>";
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_applications), addPassStatus, DatabaseHandler.ETYPE_APPLICATION, context);
-                    descr = descr + "</b> ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_applications), addPassStatus, DatabaseHandler.ETYPE_APPLICATION, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
                 String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
                 if (extenderVersion == 0) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
                 } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
                         /*, "EventPreferencesApplication.getPreferencesDescription"*/)) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
-                } if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
+                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
-                } else
-                    if (!this._applications.isEmpty() && !this._applications.equals("-")) {
-                    String[] splits = this._applications.split("\\|");
+                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
+                }
+                else
+                if (!this._applications.isEmpty() && !this._applications.equals("-")) {
+                    String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length == 1) {
                         String packageName = Application.getPackageName(splits[0]);
                         String activityName = Application.getActivityName(splits[0]);
@@ -112,11 +113,11 @@ class EventPreferencesApplication extends EventPreferences {
                         if (activityName.isEmpty()) {
                             ApplicationInfo app;
                             try {
-                                app = packageManager.getApplicationInfo(packageName, 0);
+                                app = packageManager.getApplicationInfo(packageName, PackageManager.MATCH_ALL);
                                 if (app != null)
                                     selectedApplications = packageManager.getApplicationLabel(app).toString();
                             } catch (Exception e) {
-                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                             }
                         } else {
                             Intent intent = new Intent();
@@ -126,16 +127,16 @@ class EventPreferencesApplication extends EventPreferences {
                                 selectedApplications = info.loadLabel(packageManager).toString();
                         }
                     } else
-                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 }
-                descr = descr + context.getString(R.string.event_preferences_applications_applications) + ": <b>" + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + "</b>";
+                _value.append(context.getString(R.string.event_preferences_applications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 //descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": " +selectedApplications + "; ";
                 //descr = descr + context.getString(R.string.pref_event_duration) + ": " +tmp._duration;
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key/*, String value*/, Context context)
@@ -275,7 +276,7 @@ class EventPreferencesApplication extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -310,6 +311,7 @@ class EventPreferencesApplication extends EventPreferences {
 
     @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+        super.checkPreferences(prefMng, onlyCategory, context);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED) != null) {
@@ -365,7 +367,7 @@ class EventPreferencesApplication extends EventPreferences {
                     String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
 
                     if (!foregroundApplication.isEmpty()) {
-                        String[] splits = _applications.split("\\|");
+                        String[] splits = _applications.split(StringConstants.STR_SPLIT_REGEX);
                         for (String split : splits) {
                             String packageName = Application.getPackageName(split);
 

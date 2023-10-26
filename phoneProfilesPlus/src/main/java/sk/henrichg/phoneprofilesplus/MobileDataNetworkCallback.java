@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 
+import androidx.annotation.NonNull;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -20,7 +21,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
     MobileDataNetworkCallback(/*Context context*/) { /*this.context = context.getApplicationContext();*/ }
 
     @Override
-    public void onLost(Network network) {
+    public void onLost(@NonNull Network network) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onLost", "xxx");
         //connected = false;
         doConnection();
@@ -34,20 +35,20 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
     }
 
     @Override
-    public void onLosing(Network network, int maxMsToLive) {
+    public void onLosing(@NonNull Network network, int maxMsToLive) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onLosing", "xxx");
         doConnection();
     }
 
     @Override
-    public void onAvailable(Network network) {
+    public void onAvailable(@NonNull Network network) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onAvailable", "xxx");
         //connected = true;
         doConnection();
     }
 
     @Override
-    public void onCapabilitiesChanged (Network network, NetworkCapabilities networkCapabilities) {
+    public void onCapabilitiesChanged (@NonNull Network network, @NonNull NetworkCapabilities networkCapabilities) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onCapabilitiesChanged", "xxx");
         doConnection();
     }
@@ -60,7 +61,6 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
             return;
 
 /*
-        if (Build.VERSION.SDK_INT >= 26) {
             // configured is PPApplication.handlerThreadBroadcast handler (see PhoneProfilesService.registerCallbacks()
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             PowerManager.WakeLock wakeLock = null;
@@ -84,13 +84,15 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
                 }
             }
         }
-        else {*/
+*/
 
             // !!! must be used MainWorker with delay ans REPLACE, because is often called this onChange
             // for change volumes
             /*Data workData = new Data.Builder()
                     .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_VOLUMES)
                     .build();*/
+
+//        PPApplicationStatic.logE("[MAIN_WORKER_CALL] MobileDataNetworkCallback.doConnection", "xxxxxxxxxxxxxxxxxxxx");
 
         OneTimeWorkRequest worker =
                 new OneTimeWorkRequest.Builder(MainWorker.class)
@@ -100,7 +102,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                         .build();
         try {
-            if (PPApplicationStatic.getApplicationStarted(true, true)) {
+//            if (PPApplicationStatic.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
@@ -116,7 +118,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
 //                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
                     //workManager.enqueue(worker);
                     workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_MOBILE_DATA_NETWORK_CALLBACK_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                }
+//                }
             }
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
@@ -162,7 +164,6 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
             PPApplication.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             */
-//        }
     }
 
     static void _doConnection(Context appContext) {
@@ -177,7 +178,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
 
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MobileDataNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RADIO_SWITCH});
             }
         }
     }

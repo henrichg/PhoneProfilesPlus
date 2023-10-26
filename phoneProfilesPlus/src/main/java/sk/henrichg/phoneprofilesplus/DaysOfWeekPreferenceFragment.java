@@ -53,7 +53,7 @@ public class DaysOfWeekPreferenceFragment extends PreferenceDialogFragmentCompat
             boolean[] daySet = new boolean[7];
 
             preference.getValue();
-            String[] splits = preference.value.split("\\|");
+            String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
             if (!preference.value.isEmpty()) {
                 for (String split : splits) {
                     if (split.equals(DaysOfWeekPreference.allValue)) {

@@ -42,7 +42,7 @@ public class VPNDialogPreference extends DialogPreference {
 
     private void getValueVDP()
     {
-        String[] splits = sValue.split("\\|");
+        String[] splits = sValue.split(StringConstants.STR_SPLIT_REGEX);
         try {
             vpnApplication = Integer.parseInt(splits[0]);
             enableVPN = splits[1].equals("0");

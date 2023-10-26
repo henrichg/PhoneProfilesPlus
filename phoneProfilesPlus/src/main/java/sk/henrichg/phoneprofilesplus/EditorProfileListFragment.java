@@ -50,12 +50,12 @@ public class EditorProfileListFragment extends Fragment
     DataWrapper activityDataWrapper;
 
     private View rootView;
-    RelativeLayout activatedProfileHeader;
+    LinearLayout activatedProfileHeader;
     RecyclerView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
     Toolbar bottomToolbar;
-    TextView textViewNoData;
+    RelativeLayout viewNoData;
     private LinearLayout progressBar;
     private ImageView profilePrefIndicatorImageView;
 
@@ -63,6 +63,8 @@ public class EditorProfileListFragment extends Fragment
     private ItemTouchHelper itemTouchHelper;
 
     private LoadProfileListAsyncTask loadAsyncTask = null;
+    private RefreshGUIAsyncTask refreshGUIAsyncTask = null;
+    private SetVisibleRedTextInHeaderAsyncTask setVisibleRedTextInHeaderAsyncTask = null;
 
     Profile scrollToProfile = null;
 
@@ -70,23 +72,14 @@ public class EditorProfileListFragment extends Fragment
     //private ValueAnimator showAnimator;
     //private int headerHeight;
 
-    static final int EDIT_MODE_UNDEFINED = 0;
-    static final int EDIT_MODE_INSERT = 1;
-    static final int EDIT_MODE_DUPLICATE = 2;
-    static final int EDIT_MODE_EDIT = 3;
-    static final int EDIT_MODE_DELETE = 4;
-
-    static final String FILTER_TYPE_ARGUMENT = "filter_type";
-    //static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
+    static final String BUNDLE_FILTER_TYPE = "filter_type";
+    //static final String BUNDLE_START_TARGET_HELPS = "start_target_helps";
 
     static final int FILTER_TYPE_ALL = 0;
     static final int FILTER_TYPE_SHOW_IN_ACTIVATOR = 1;
     static final int FILTER_TYPE_NO_SHOW_IN_ACTIVATOR = 2;
 
-    //public boolean targetHelpsSequenceStarted;
-    public static final String PREF_START_TARGET_HELPS = "editor_profile_list_fragment_start_target_helps";
-    public static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
-    public static final String PREF_START_TARGET_HELPS_FINISHED = "editor_profile_list_fragment_start_target_helps_finished";
+    //boolean targetHelpsSequenceStarted;
 
     private int filterType = FILTER_TYPE_ALL;
 
@@ -132,9 +125,7 @@ public class EditorProfileListFragment extends Fragment
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-//        Log.e("EditorProfileListFragment.onCreate", "xxxx");
 
         // this is really important in order to save the state across screen
         // configuration changes for example
@@ -142,7 +133,7 @@ public class EditorProfileListFragment extends Fragment
         setRetainInstance(true);
 
         filterType = getArguments() != null ? 
-                getArguments().getInt(FILTER_TYPE_ARGUMENT, EditorProfileListFragment.FILTER_TYPE_ALL) :
+                getArguments().getInt(BUNDLE_FILTER_TYPE, EditorProfileListFragment.FILTER_TYPE_ALL) :
                     EditorProfileListFragment.FILTER_TYPE_ALL;
 
         //noinspection ConstantConditions
@@ -156,7 +147,6 @@ public class EditorProfileListFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_editor_profile_list, container, false);
-
         return rootView;
     }
 
@@ -268,7 +258,7 @@ public class EditorProfileListFragment extends Fragment
                 showHeaderAndBottomToolbar();
         }
 
-        textViewNoData = view.findViewById(R.id.editor_profiles_list_empty);
+        viewNoData = view.findViewById(R.id.editor_profiles_list_empty);
         progressBar = view.findViewById(R.id.editor_profiles_list_linla_progress);
 
         final Activity activity = getActivity();
@@ -296,14 +286,18 @@ public class EditorProfileListFragment extends Fragment
             else
             if (itemId == R.id.menu_default_profile) {
                 Intent intent = new Intent(activity, PhoneProfilesPrefsActivity.class);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_PROFILE_ACTIVATION_CATEGORY_ROOT);
                 startActivity(intent);
                 return true;
             }
             else
             if (itemId == R.id.menu_generate_predefined_profiles) {
-                loadAsyncTask = new LoadProfileListAsyncTask(this, filterType, true);
-                loadAsyncTask.execute();
+                Handler progressBarHandler = new Handler(activity.getMainLooper());
+                Runnable progressBarRunnable = () -> {
+                    loadAsyncTask = new LoadProfileListAsyncTask(this, filterType, true);
+                    loadAsyncTask.execute();
+                };
+                progressBarHandler.post(progressBarRunnable);
                 return true;
             }
             else
@@ -314,8 +308,12 @@ public class EditorProfileListFragment extends Fragment
             synchronized (activityDataWrapper.profileList) {
                 if (!activityDataWrapper.profileListFilled) {
                     // start new AsyncTask, because old may be cancelled
-                    loadAsyncTask = new LoadProfileListAsyncTask(this, filterType, false);
-                    loadAsyncTask.execute();
+                    Handler progressBarHandler = new Handler(activity.getMainLooper());
+                    Runnable progressBarRunnable = () -> {
+                        loadAsyncTask = new LoadProfileListAsyncTask(this, filterType, false);
+                        loadAsyncTask.execute();
+                    };
+                    progressBarHandler.post(progressBarRunnable);
                 } else {
                     if (profileListAdapter != null) {
                         listView.setAdapter(profileListAdapter);
@@ -327,9 +325,9 @@ public class EditorProfileListFragment extends Fragment
                     }
                     else {
                         if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
-                            EditorProfileListFragment.sortAlphabetically(activityDataWrapper.profileList);
+                            sortAlphabetically(activityDataWrapper.profileList);
                         else
-                            EditorProfileListFragment.sortByPOrder(activityDataWrapper.profileList);
+                            sortByPOrder(activityDataWrapper.profileList);
                         // update activity for activated profile
                         Profile profile = activityDataWrapper.getActivatedProfile(true,
                                 ApplicationPreferences.applicationEditorPrefIndicator);
@@ -346,6 +344,7 @@ public class EditorProfileListFragment extends Fragment
 
                         listView.setAdapter(profileListAdapter);
                     }
+                    listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     profileListAdapter.notifyDataSetChanged(false);
                 }
             }
@@ -353,9 +352,9 @@ public class EditorProfileListFragment extends Fragment
         else {
             synchronized (activityDataWrapper.profileList) {
                 if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
-                    EditorProfileListFragment.sortAlphabetically(activityDataWrapper.profileList);
+                    sortAlphabetically(activityDataWrapper.profileList);
                 else
-                    EditorProfileListFragment.sortByPOrder(activityDataWrapper.profileList);
+                    sortByPOrder(activityDataWrapper.profileList);
                 // update activity for activated profile
                 Profile profile = activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator);
@@ -378,6 +377,7 @@ public class EditorProfileListFragment extends Fragment
                     scrollToProfile = null;
                 }
 
+                fragment.listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                 profileListAdapter.notifyDataSetChanged(false);
 
                 if (profilePos != ListView.INVALID_POSITION)
@@ -413,7 +413,7 @@ public class EditorProfileListFragment extends Fragment
     private static class LoadProfileListAsyncTask extends AsyncTask<Void, Void, Void> {
 
         final WeakReference<EditorProfileListFragment> fragmentWeakRef;
-        final DataWrapper _dataWrapper;
+        DataWrapper _dataWrapper;
         //final Context _baseContext;
         final int _filterType;
         final boolean _generatePredefinedProfiles;
@@ -421,9 +421,6 @@ public class EditorProfileListFragment extends Fragment
         //boolean defaultEventsGenerated = false;
 
         final boolean applicationEditorPrefIndicator;
-
-        Handler progressBarHandler;
-        Runnable progressBarRunnable;
 
         public LoadProfileListAsyncTask (EditorProfileListFragment fragment,
                                          int filterType,
@@ -445,14 +442,8 @@ public class EditorProfileListFragment extends Fragment
 
             final EditorProfileListFragment fragment = this.fragmentWeakRef.get();
 
-            if ((fragment != null) && (fragment.isAdded())) {
-                progressBarHandler = new Handler(_dataWrapper.context.getMainLooper());
-                progressBarRunnable = () -> {
-//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.LoadProfileListAsyncTask");
-                    //fragment.textViewNoData.setVisibility(GONE);
-                    fragment.progressBar.setVisibility(View.VISIBLE);
-                };
-                progressBarHandler.postDelayed(progressBarRunnable, 100);
+            if ((fragment != null) /*&& (fragment.isAdded())*/) {
+                fragment.progressBar.setVisibility(View.VISIBLE);
             }
         }
 
@@ -460,11 +451,12 @@ public class EditorProfileListFragment extends Fragment
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
 
+            EditorProfileListFragment fragment = this.fragmentWeakRef.get();
+
             if (_generatePredefinedProfiles) {
                 if (_dataWrapper.profileList.size() == 0) {
                     // no profiles in DB, generate default profiles
                     // PPApplication.restoreFinished = Google auto-backup finished
-                    EditorProfileListFragment fragment = this.fragmentWeakRef.get();
                     if ((fragment != null) && (fragment.getActivity() != null)) {
                         _dataWrapper.fillPredefinedProfileList(true, applicationEditorPrefIndicator, fragment.getActivity());
                         defaultProfilesGenerated = true;
@@ -472,11 +464,13 @@ public class EditorProfileListFragment extends Fragment
                 }
             }
 
-            // sort list
-            if (_filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
-                EditorProfileListFragment.sortAlphabetically(_dataWrapper.profileList);
-            else
-                EditorProfileListFragment.sortByPOrder(_dataWrapper.profileList);
+            if ((fragment != null) && (fragment.getActivity() != null)) {
+                // sort list
+                if (_filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
+                    fragment.sortAlphabetically(_dataWrapper.profileList);
+                else
+                    fragment.sortByPOrder(_dataWrapper.profileList);
+            }
 
             return null;
         }
@@ -490,7 +484,6 @@ public class EditorProfileListFragment extends Fragment
             
             if ((fragment != null) && (fragment.isAdded())) {
                 if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
-                    progressBarHandler.removeCallbacks(progressBarRunnable);
                     fragment.progressBar.setVisibility(GONE);
 
                     fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
@@ -499,11 +492,13 @@ public class EditorProfileListFragment extends Fragment
                     //_dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
                     // set local profile list into activity dataWrapper
                     fragment.activityDataWrapper.copyProfileList(_dataWrapper);
+
                     _dataWrapper.clearProfileList();
+                    _dataWrapper = null;
 
                     synchronized (fragment.activityDataWrapper.profileList) {
                         if (fragment.activityDataWrapper.profileList.size() == 0)
-                            fragment.textViewNoData.setVisibility(View.VISIBLE);
+                            fragment.viewNoData.setVisibility(View.VISIBLE);
                     }
                     fragment.updateBottomMenu();
 
@@ -520,6 +515,7 @@ public class EditorProfileListFragment extends Fragment
                     Profile profile = fragment.activityDataWrapper.getActivatedProfile(true,
                             applicationEditorPrefIndicator);
                     fragment.updateHeader(profile);
+                    fragment.listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     fragment.profileListAdapter.notifyDataSetChanged(false);
                     //if (!ApplicationPreferences.applicationEditorHeader(_dataWrapper.context))
                     //    fragment.setProfileSelection(profile);
@@ -560,6 +556,17 @@ public class EditorProfileListFragment extends Fragment
     void stopRunningAsyncTask() {
         if (loadAsyncTask != null)
             loadAsyncTask.cancel(true);
+        if ((refreshGUIAsyncTask != null) &&
+                refreshGUIAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+            refreshGUIAsyncTask.cancel(true);
+        }
+        refreshGUIAsyncTask = null;
+        if ((setVisibleRedTextInHeaderAsyncTask != null) &&
+                setVisibleRedTextInHeaderAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+            setVisibleRedTextInHeaderAsyncTask.cancel(true);
+        }
+        setVisibleRedTextInHeaderAsyncTask = null;
+
         if (activityDataWrapper != null) {
             synchronized (activityDataWrapper.eventList) {
                 activityDataWrapper.invalidateDataWrapper();
@@ -591,7 +598,6 @@ public class EditorProfileListFragment extends Fragment
     public void onDestroy()
     {
         super.onDestroy();
-//        Log.e("EditorProfileListFragment.onDestroy", "xxxx");
 
         if (isAsyncTaskRunning()) {
             //Log.e("EditorProfileListFragment.onDestroy", "AsyncTask not finished");
@@ -605,6 +611,7 @@ public class EditorProfileListFragment extends Fragment
 
         if (activityDataWrapper != null)
             activityDataWrapper.invalidateDataWrapper();
+        activityDataWrapper = null;
     }
 
     @Override
@@ -634,12 +641,12 @@ public class EditorProfileListFragment extends Fragment
             //if (startTargetHelps)
             showAdapterTargetHelps();
 
-            editMode = EDIT_MODE_EDIT;
+            editMode = PPApplication.EDIT_MODE_EDIT;
         }
         else
         {
             // add new profile
-            editMode = EDIT_MODE_INSERT;
+            editMode = PPApplication.EDIT_MODE_INSERT;
         }
 
         // Notify the active callbacks interface (the activity, if the
@@ -652,7 +659,7 @@ public class EditorProfileListFragment extends Fragment
         int editMode;
 
         // duplicate profile
-        editMode = EDIT_MODE_DUPLICATE;
+        editMode = PPApplication.EDIT_MODE_DUPLICATE;
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
@@ -672,8 +679,8 @@ public class EditorProfileListFragment extends Fragment
 
         PPApplicationStatic.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_PROFILE_DELETED, null, profile._name, "");
 
-        Profile activatedProfile = activityDataWrapper.getActivatedProfile(false, false);
-        if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+        long activatedProfileId = activityDataWrapper.getActivatedProfileId();
+        if (activatedProfileId == profile._id) {
             // remove alarm for profile duration
             //noinspection ConstantConditions
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, getActivity().getApplicationContext());
@@ -685,7 +692,7 @@ public class EditorProfileListFragment extends Fragment
             List<String> activateProfilesFIFO = activityDataWrapper.fifoGetActivatedProfiles();
             List<String> newActivateProfilesFIFO = new ArrayList<>();
             for (String toFifo : activateProfilesFIFO) {
-                String[] splits = toFifo.split("\\|");
+                String[] splits = toFifo.split(StringConstants.STR_SPLIT_REGEX);
                 long profileId = Long.parseLong(splits[0]);
                 if (profileId != profile._id)
                     newActivateProfilesFIFO.add(toFifo);
@@ -699,6 +706,7 @@ public class EditorProfileListFragment extends Fragment
         profileListAdapter.deleteItemNoNotify(profile);
         DatabaseHandler.getInstance(activityDataWrapper.context).deleteProfile(profile);
 
+        listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
         profileListAdapter.notifyDataSetChanged();
 
         if (!EventStatic.getGlobalEventsRunning(activityDataWrapper.context)) {
@@ -713,7 +721,7 @@ public class EditorProfileListFragment extends Fragment
             activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
         }
 
-        activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
+        DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(activityDataWrapper.context);
 
         /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -724,7 +732,7 @@ public class EditorProfileListFragment extends Fragment
         commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
         PPApplicationStatic.runCommand(getActivity(), commandIntent);
 
-        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
+        onStartProfilePreferencesCallback.onStartProfilePreferences(null, PPApplication.EDIT_MODE_DELETE, 0);
     }
 
     void showEditMenu(View view)
@@ -736,7 +744,7 @@ public class EditorProfileListFragment extends Fragment
 
         SingleSelectListDialog dialog = new SingleSelectListDialog(
                 true,
-                getString(R.string.profile_string_0) + ": " + profile._name,
+                getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name,
                 getString(R.string.tooltip_options_menu),
                 R.array.profileListItemEditArray,
                 SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
@@ -763,10 +771,7 @@ public class EditorProfileListFragment extends Fragment
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         final Context _context = view.getContext();
         PopupMenu popup;
-        //if (android.os.Build.VERSION.SDK_INT >= 19)
-            popup = new PopupMenu(_context, view, Gravity.END);
-        //else
-        //    popup = new PopupMenu(context, view);
+        popup = new PopupMenu(_context, view, Gravity.END);
         getActivity().getMenuInflater().inflate(R.menu.profile_list_item_edit, popup.getMenu());
 
         final Profile profile = (Profile)view.getTag();
@@ -810,7 +815,7 @@ public class EditorProfileListFragment extends Fragment
         final Profile _profile = profile;
 
         PPAlertDialog dialog = new PPAlertDialog(
-                getString(R.string.profile_string_0) + ": " + profile._name,
+                getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name,
                 getString(R.string.delete_profile_alert_message),
                 getString(R.string.alert_button_yes),
                 getString(R.string.alert_button_no),
@@ -863,6 +868,7 @@ public class EditorProfileListFragment extends Fragment
                         DatabaseHandler.getInstance(activityDataWrapper.context).deleteAllProfiles();
                         DatabaseHandler.getInstance(activityDataWrapper.context).unlinkAllEvents();
 
+                        listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                         profileListAdapter.notifyDataSetChanged();
 
                         //Profile profile = databaseHandler.getActivatedProfile();
@@ -871,7 +877,7 @@ public class EditorProfileListFragment extends Fragment
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorProfileListFragment.deleteAllProfiles", "call of updateGUI");
                         PPApplication.updateGUI(true, false, activityDataWrapper.context);
 
-                        activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
+                        DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(activityDataWrapper.context);
 
                         /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -882,7 +888,7 @@ public class EditorProfileListFragment extends Fragment
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
                         PPApplicationStatic.runCommand(getActivity(), commandIntent);
 
-                        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
+                        onStartProfilePreferencesCallback.onStartProfilePreferences(null, PPApplication.EDIT_MODE_DELETE, 0);
                     },
                     null,
                     null,
@@ -969,7 +975,8 @@ public class EditorProfileListFragment extends Fragment
         if (!newDisplayedText.equals(oldDisplayedText))
             activatedProfileHeader.setVisibility(View.VISIBLE);
 
-        new UpdateHeaderAsyncTask(this).execute();
+        setVisibleRedTextInHeaderAsyncTask = new SetVisibleRedTextInHeaderAsyncTask(this);
+        setVisibleRedTextInHeaderAsyncTask.execute();
     }
 
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)
@@ -986,7 +993,7 @@ public class EditorProfileListFragment extends Fragment
                     profileListAdapter.activateProfile(profile);
                 updateHeader(profile);
 
-                activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
+                DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(activityDataWrapper.context);
 
              }
              //if (resultCode == Activity.RESULT_CANCELED)
@@ -998,7 +1005,7 @@ public class EditorProfileListFragment extends Fragment
 
     void activateProfile(Profile profile/*, boolean interactive*/)
     {
-        if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, true, activityDataWrapper.context)) {
+        if (!ProfileStatic.isRedTextNotificationRequired(profile, true, activityDataWrapper.context)) {
             PPApplication.showToastForProfileActivation = true;
             activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity(), false);
         }
@@ -1079,6 +1086,8 @@ public class EditorProfileListFragment extends Fragment
                     refreshIcons = true;
                 }
             }*/
+            if (listView != null)
+                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
             profileListAdapter.notifyDataSetChanged(refreshIcons);
 
             if (setPosition || newProfile) {
@@ -1112,7 +1121,7 @@ public class EditorProfileListFragment extends Fragment
     }
     */
 
-    private static void sortAlphabetically(List<Profile> profileList)
+    private void sortAlphabetically(List<Profile> profileList)
     {
         class AlphabeticallyComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
@@ -1125,7 +1134,7 @@ public class EditorProfileListFragment extends Fragment
         profileList.sort(new AlphabeticallyComparator());
     }
 
-    private static void sortByPOrder(List<Profile> profileList)
+    private void sortByPOrder(List<Profile> profileList)
     {
         class ByPOrderComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
@@ -1143,127 +1152,10 @@ public class EditorProfileListFragment extends Fragment
         if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
 
-        EditorProfileListFragment.RefreshGUIAsyncTask asyncTask =
-                new EditorProfileListFragment.RefreshGUIAsyncTask(
+        refreshGUIAsyncTask =
+                new RefreshGUIAsyncTask(
                         refreshIcons, setPosition, profileId, this, activityDataWrapper);
-        asyncTask.execute();
-
-/*        new AsyncTask<Void, Integer, Void>() {
-
-            Profile profileFromDB;
-            Profile profileFromDataWrapper;
-            boolean _refreshIcons;
-
-            //boolean doNotRefresh = false;
-
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
-                _refreshIcons = refreshIcons;
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
-                    if (profileFromDB != null) {
-                        profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-                                ApplicationPreferences.applicationEditorPrefIndicator, false);
-                    }
-
-//                    String pName;
-//                    if (profileFromDB != null) {
-//                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
-//                    } else
-//                        pName = activityDataWrapper.context.getString(R.string.profiles_header_profile_name_no_activated);
-//
-//                    if (!refresh) {
-//                        String pNameHeader = PPApplication.prefActivityProfileName2;
-//
-//                        if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-//                            doNotRefresh = true;
-//                            return null;
-//                        }
-//                    }
-//
-//                    PPApplication.setActivityProfileName(activityDataWrapper.context, 2, pName);
-//                    PPApplication.setActivityProfileName(activityDataWrapper.context, 3, pName);
-
-                    if (profileId != 0) {
-                        //if (getActivity() != null) {
-                        Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getProfile(profileId, false);
-                        activityDataWrapper.updateProfile(profileFromDB);
-                        _refreshIcons = true;
-                        //}
-                    }
-                } catch (Exception e) {
-                    if ((activityDataWrapper != null) && (activityDataWrapper.context != null))
-                        PPApplicationStatic.recordException(e);
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-                if ((getActivity() != null) && (!getActivity().isFinishing())) {
-                    //if (!doNotRefresh) {
-                        Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
-                        if (profileFromAdapter != null)
-                            profileFromAdapter._checked = false;
-
-                        if (profileFromDB != null) {
-                            if (profileFromDataWrapper != null)
-                                profileFromDataWrapper._checked = true;
-                            updateHeader(profileFromDataWrapper);
-                            //updateListView(profileFromDataWrapper, false, _refreshIcons, setPosition);
-                        } else {
-                            updateHeader(null);
-                            //updateListView(null, false, _refreshIcons, setPosition);
-                        }
-                        updateListView(null, false, _refreshIcons, setPosition);
-                    //}
-                }
-            }
-
-        }.execute();*/
-
-        /*Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
-
-        String pName;
-        if (profileFromDB != null)
-            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
-        else
-            pName = getString(R.string.profiles_header_profile_name_no_activated);
-
-        if (!refresh) {
-            String pNameHeader = PPApplication.prefActivityProfileName2;
-
-            if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-                return;
-            }
-        }
-
-        PPApplication.setActivityProfileName(activityDataWrapper.context, 2, pName);
-        PPApplication.setActivityProfileName(activityDataWrapper.context, 3, pName);
-
-        Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
-        if (profileFromAdapter != null)
-            profileFromAdapter._checked = false;
-
-        if (profileFromDB != null) {
-            Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-                    ApplicationPreferences.applicationEditorPrefIndicator, false);
-            if (profileFromDataWrapper != null)
-                profileFromDataWrapper._checked = true;
-            updateHeader(profileFromDataWrapper);
-            updateListView(profileFromDataWrapper, false, refreshIcons, setPosition, profileId);
-        } else {
-            updateHeader(null);
-            updateListView(null, false, refreshIcons, setPosition, 0);
-        }*/
+        refreshGUIAsyncTask.execute();
     }
 
     void removeAdapter() {
@@ -1281,7 +1173,7 @@ public class EditorProfileListFragment extends Fragment
 
         final Profile profile = (Profile) view.getTag();
 
-        if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
+        if (!ProfileStatic.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
 
             int value;
             if (profile._showInActivator)
@@ -1291,7 +1183,7 @@ public class EditorProfileListFragment extends Fragment
 
             SingleSelectListDialog dialog = new SingleSelectListDialog(
                     true,
-                    getString(R.string.profile_string_0) + ": " + profile._name,
+                    getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name,
                     getString(R.string.profile_preferences_showInActivator),
                     R.array.profileListItemShowInActivatorArray,
                     value,
@@ -1301,7 +1193,7 @@ public class EditorProfileListFragment extends Fragment
                                 profile._showInActivator = false;
                                 DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
                                 //profileListAdapter.notifyDataSetChanged();
-                                ((EditorActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+                                ((EditorActivity) getActivity()).redrawProfileListFragment(profile, PPApplication.EDIT_MODE_EDIT);
 
                                 PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
                                         getString(R.string.show_profile_in_activator_not_show_toast),
@@ -1311,7 +1203,7 @@ public class EditorProfileListFragment extends Fragment
                                 profile._showInActivator = true;
                                 DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
                                 //profileListAdapter.notifyDataSetChanged();
-                                ((EditorActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+                                ((EditorActivity) getActivity()).redrawProfileListFragment(profile, PPApplication.EDIT_MODE_EDIT);
 
                                 PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
                                         getString(R.string.show_profile_in_activator_show_toast),
@@ -1330,10 +1222,7 @@ public class EditorProfileListFragment extends Fragment
             Context _context = view.getContext();
             //Context context = new ContextThemeWrapper(getActivity().getBaseContext(), R.style.PopupMenu_editorItem_dayNight);
             PopupMenu popup;
-            //if (android.os.Build.VERSION.SDK_INT >= 19)
             popup = new PopupMenu(_context, view, Gravity.END);
-            //else
-            //    popup = new PopupMenu(context, view);
             getActivity().getMenuInflater().inflate(R.menu.profile_list_item_show_in_activator, popup.getMenu());
 
             // show icons
@@ -1433,11 +1322,6 @@ public class EditorProfileListFragment extends Fragment
     }
 
     void showTargetHelps() {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         if (getActivity() == null)
             return;
 
@@ -1464,9 +1348,9 @@ public class EditorProfileListFragment extends Fragment
                 //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-                editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.putBoolean(PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
-                editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FILTER_SPINNER, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_DEFAULT_PROFILE, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFilterSpinner = false;
@@ -1585,7 +1469,7 @@ public class EditorProfileListFragment extends Fragment
                                 //targetHelpsSequenceStarted = false;
 
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-                                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                                 editor.apply();
                                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
 
@@ -1602,14 +1486,14 @@ public class EditorProfileListFragment extends Fragment
                                 //targetHelpsSequenceStarted = false;
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
 
-                                editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
-                                editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
+                                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
                                 if (filterType == FILTER_TYPE_SHOW_IN_ACTIVATOR)
-                                    editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
+                                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
                                 if (filterType == FILTER_TYPE_ALL)
-                                    editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+                                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
 
-                                editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                                 //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                                 editor.apply();
@@ -1630,7 +1514,7 @@ public class EditorProfileListFragment extends Fragment
                 //targetHelpsSequenceStarted = true;
 
                 editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+                editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = false;
 
@@ -1649,11 +1533,6 @@ public class EditorProfileListFragment extends Fragment
     }
 
     private void showAdapterTargetHelps() {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         if (getActivity() == null)
             return;
 
@@ -1669,7 +1548,7 @@ public class EditorProfileListFragment extends Fragment
         else {
             //targetHelpsSequenceStarted = false;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
-            editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
             //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
             editor.apply();
             ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
@@ -1686,7 +1565,7 @@ public class EditorProfileListFragment extends Fragment
 
     private static class RefreshGUIAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-        Profile profileFromDB;
+        long activatedProfileId;
         Profile profileFromDataWrapper;
 
         //boolean doNotRefresh = false;
@@ -1713,18 +1592,18 @@ public class EditorProfileListFragment extends Fragment
         protected Void doInBackground(Void... params) {
             if (fragmentWeakRef.get() != null) {
                 try {
-                    profileFromDB = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
+                    activatedProfileId = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfileId();
 
                     dataWrapper.getEventTimelineList(true);
 
                     // must be refreshed timelinelist for fragment.activityDataWrapper
                     EditorProfileListFragment fragment = fragmentWeakRef.get();
-                    if (fragment != null) {
+                    if ((fragment != null) && (fragment.activityDataWrapper != null)) {
                         fragment.activityDataWrapper.getEventTimelineList(true);
                     }
 
-                    if (profileFromDB != null) {
-                        profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, true,
+                    if (activatedProfileId != -1) {
+                        profileFromDataWrapper = dataWrapper.getProfileById(activatedProfileId, true,
                                 ApplicationPreferences.applicationEditorPrefIndicator, false);
                     }
 
@@ -1776,7 +1655,7 @@ public class EditorProfileListFragment extends Fragment
                     if (profileFromAdapter != null)
                         profileFromAdapter._checked = false;
 
-                    if (profileFromDB != null) {
+                    if (activatedProfileId != -1) {
                         if (profileFromDataWrapper != null)
                             profileFromDataWrapper._checked = true;
                         fragment.updateHeader(profileFromDataWrapper);
@@ -1793,14 +1672,14 @@ public class EditorProfileListFragment extends Fragment
 
     }
 
-    private static class UpdateHeaderAsyncTask extends AsyncTask<Void, Integer, Void> {
+    private static class SetVisibleRedTextInHeaderAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         boolean redTextVisible = false;
         DataWrapper _dataWrapper;
 
         private final WeakReference<EditorProfileListFragment> fragmentWeakRef;
 
-        public UpdateHeaderAsyncTask(final EditorProfileListFragment fragment) {
+        public SetVisibleRedTextInHeaderAsyncTask(final EditorProfileListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<>(fragment);
         }
 
@@ -1813,9 +1692,12 @@ public class EditorProfileListFragment extends Fragment
                     _dataWrapper.copyProfileList(fragment.activityDataWrapper);
 
                     for (Profile profile : _dataWrapper.profileList) {
-                        if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, _dataWrapper.context))
+                        if (ProfileStatic.isRedTextNotificationRequired(profile, false, _dataWrapper.context))
                             redTextVisible = true;
                     }
+
+                    _dataWrapper.clearProfileList();
+                    _dataWrapper = null;
                 }
             }
 

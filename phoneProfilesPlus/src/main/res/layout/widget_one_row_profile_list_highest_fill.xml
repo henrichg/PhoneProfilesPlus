@@ -34,12 +34,13 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/empty_string"
+            android:contentDescription=""
             android:scaleType="fitCenter"
             android:src="@drawable/ic_widget_profile_list_scroll_right"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_ripple_list_item" />
+            android:background="@drawable/widget_ripple_list_item"
+            tools:ignore="ContentDescription" />
 
         <LinearLayout
             android:id="@+id/widget_one_row_profile_list_profiles"
@@ -58,12 +59,13 @@
                 android:padding="5dp"
                 android:layout_gravity="center_vertical"
                 android:adjustViewBounds="true"
-                android:contentDescription="@string/empty_string"
+                android:contentDescription=""
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_widget_profile_list_scroll_left"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="@drawable/widget_ripple_list_item" />
+                android:background="@drawable/widget_ripple_list_item"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_1_root"
@@ -640,14 +642,14 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/widget_one_row_profile_list_not_rounded_border"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/not_rounded_widget_border"
-        android:visibility="gone"
-        tools:ignore="ContentDescription" />
+<!--    <ImageView-->
+<!--        android:id="@+id/widget_one_row_profile_list_not_rounded_border"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:scaleType="fitXY"-->
+<!--        android:src="@drawable/not_rounded_widget_border"-->
+<!--        android:visibility="gone"-->
+<!--        tools:ignore="ContentDescription" />-->
 
     <ImageView
         android:id="@+id/widget_one_row_profile_list_rounded_border"

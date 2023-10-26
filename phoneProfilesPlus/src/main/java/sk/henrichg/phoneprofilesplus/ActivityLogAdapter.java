@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,11 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.cursoradapter.widget.CursorAdapter;
 
-import java.util.HashMap;
-
 //import android.widget.CursorAdapter;
 
 class ActivityLogAdapter extends CursorAdapter {
 
+    private final int KEY_AL_ID;
     private final int KEY_AL_LOG_DATE_TIME;
     private final int KEY_AL_LOG_TYPE;
     private final int KEY_AL_EVENT_NAME;
@@ -26,12 +26,13 @@ class ActivityLogAdapter extends CursorAdapter {
     //private final int KEY_AL_DURATION_DELAY;
     private final int KEY_AL_PROFILE_EVENT_COUNT;
 
-    private final HashMap<Integer, Integer> activityTypeStrings = new HashMap<>();
-    private final HashMap<Integer, Integer> activityTypeColors = new HashMap<>();
+    private final SparseIntArray activityTypeStrings = new SparseIntArray();
+    private final SparseIntArray activityTypeColors = new SparseIntArray();
 
     ActivityLogAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
 
+        KEY_AL_ID = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_ID);
         KEY_AL_LOG_DATE_TIME = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_DATE_TIME);
         KEY_AL_LOG_TYPE = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_TYPE);
         KEY_AL_EVENT_NAME = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_EVENT_NAME);
@@ -40,6 +41,7 @@ class ActivityLogAdapter extends CursorAdapter {
         //KEY_AL_DURATION_DELAY = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_DURATION_DELAY);
         KEY_AL_PROFILE_EVENT_COUNT = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT);
 
+        //activityTypeStrings.put(PPApplication.ALTYPE_LOG_TOP, R.string.altype_logTop);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, R.string.altype_profileActivation);
         activityTypeStrings.put(PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, R.string.altype_mergedProfileActivation);
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE, R.string.altype_afterDuration_undoProfile);
@@ -99,6 +101,10 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS, R.string.altype_afterEndOfActivationTime_restartEvents);
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE, R.string.altype_afterEndOfActivationTime_specificProfile);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN, R.string.altype_profileError_setVPN);
+        activityTypeStrings.put(PPApplication.ALTYPE_TIMEZONE_CHANGED, R.string.altype_timezone_changed);
+        activityTypeStrings.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED, R.string.altype_extender_accessibility_service_enabled);
+        activityTypeStrings.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED, R.string.altype_extender_accessibility_service_not_enabled);
+        activityTypeStrings.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND, R.string.altype_extender_accessibility_service_unbind);
 
         //int otherColor = R.color.altype_other;
         /*
@@ -154,7 +160,10 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_WIFI, color);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP, color);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS, color);
+        activityTypeColors.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED, color);
+        activityTypeColors.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND, color);
         color = shiftColor(ContextCompat.getColor(context, R.color.altype_other), context);
+        //activityTypeColors.put(PPApplication.ALTYPE_LOG_TOP, color);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_DISABLE, color);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_ENABLE, color);
         activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_START, color);
@@ -180,6 +189,47 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_SYSTEM_RESTART, color);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ADDED, color);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_ADDED, color);
+        activityTypeColors.put(PPApplication.ALTYPE_TIMEZONE_CHANGED, color);
+        activityTypeColors.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED, color);
+    }
+
+    private void setRowData(MyRowViewHolder rowData, Cursor cursor, Context context) {
+        if (cursor.getInt(KEY_AL_ID) == -1) {
+            rowData.logTypeColor.setBackgroundResource(R.color.activityBackgroundColor);
+            rowData.logDateTime.setText("");
+        }
+        else {
+            rowData.logTypeColor.setBackgroundColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE)));
+            rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+        }
+
+        int logType = cursor.getInt(KEY_AL_LOG_TYPE);
+        String logTypeText;
+        if (cursor.getInt(KEY_AL_ID) == -1) {
+            logTypeText = "---";
+        } else {
+            logTypeText = context.getString(activityTypeStrings.get(logType));
+            if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
+                String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT);
+                if (profileEventCount != null)
+                    logTypeText = logTypeText + " " + profileEventCount;
+            }
+        }
+        rowData.logType.setText(logTypeText);
+
+        String logData = "";
+        String event_name = cursor.getString(KEY_AL_EVENT_NAME);
+        String profile_name = cursor.getString(KEY_AL_PROFILE_NAME);
+        if (event_name != null)
+            logData = logData + event_name;
+        if (profile_name != null) {
+            if (!logData.isEmpty())
+                logData = logData + " ";
+            logData = logData + profile_name;
+        }
+        rowData.logData.setText(logData);
+        //rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
+        //rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
     }
 
     @Override
@@ -196,35 +246,7 @@ class ActivityLogAdapter extends CursorAdapter {
         //rowData.eventName  = view.findViewById(R.id.activity_log_row_event_name);
         //rowData.profileName  = view.findViewById(R.id.activity_log_row_profile_name);
 
-        //noinspection ConstantConditions
-        rowData.logTypeColor.setBackgroundColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE)));
-        rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
-
-        int logType = cursor.getInt(KEY_AL_LOG_TYPE);
-        //noinspection ConstantConditions
-        String logTypeText = context.getString(activityTypeStrings.get(logType));
-        if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
-            String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT);
-            if (profileEventCount != null)
-                logTypeText = logTypeText + " " + profileEventCount;
-        }
-        rowData.logType.setText(logTypeText);
-
-        //noinspection ConstantConditions
-        rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
-        String logData = "";
-        String event_name = cursor.getString(KEY_AL_EVENT_NAME);
-        String profile_name = cursor.getString(KEY_AL_PROFILE_NAME);
-        if (event_name != null)
-            logData = logData + event_name;
-        if (profile_name != null) {
-            if (!logData.isEmpty())
-                logData = logData + " ";
-            logData = logData + profile_name;
-        }
-        rowData.logData.setText(logData);
-        //rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
-        //rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
+        setRowData(rowData, cursor, context);
 
         view.setTag(rowData);
 
@@ -236,34 +258,7 @@ class ActivityLogAdapter extends CursorAdapter {
 
         MyRowViewHolder rowData = (MyRowViewHolder) view.getTag();
 
-        //noinspection ConstantConditions
-        rowData.logTypeColor.setBackgroundColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE)));
-        rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
-
-        int logType = cursor.getInt(KEY_AL_LOG_TYPE);
-        //noinspection ConstantConditions
-        String logTypeText = context.getString(activityTypeStrings.get(logType));
-
-        if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
-            String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT);
-            if (profileEventCount != null)
-                logTypeText = logTypeText + ": " + profileEventCount;
-        }
-        rowData.logType.setText(logTypeText);
-
-        String logData = "";
-        String event_name = cursor.getString(KEY_AL_EVENT_NAME);
-        String profile_name = cursor.getString(KEY_AL_PROFILE_NAME);
-        if (event_name != null)
-            logData = logData + event_name;
-        if (profile_name != null) {
-            if (!logData.isEmpty())
-                logData = logData + " ";
-            logData = logData + profile_name;
-        }
-        rowData.logData.setText(logData);
-        //rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
-        //rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
+        setRowData(rowData, cursor, context);
     }
 
     private static class MyRowViewHolder {
@@ -275,13 +270,13 @@ class ActivityLogAdapter extends CursorAdapter {
         //TextView profileName;
     }
 
-    void reload(DataWrapper dataWrapper) {
-        changeCursor(DatabaseHandler.getInstance(dataWrapper.context.getApplicationContext()).getActivityLogCursor());
+    void reload(Context context/*DataWrapper dataWrapper*/) {
+        changeCursor(DatabaseHandler.getInstance(/*dataWrapper.*/context.getApplicationContext()).getActivityLogCursor());
     }
 
     private int shiftColor(int color, Context context) {
         String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
-        if (!applicationTheme.equals("dark")) {
+        if (!applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_DARK)) {
             float[] hsv = new float[3];
             Color.colorToHSV(color, hsv);
             hsv[2] = 0.75f; // value component

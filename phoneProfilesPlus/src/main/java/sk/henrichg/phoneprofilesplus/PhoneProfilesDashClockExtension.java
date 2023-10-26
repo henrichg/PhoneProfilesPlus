@@ -108,7 +108,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                             profileName = DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, dataWrapper);
                         } else {
                             isIconResourceID = true;
-                            iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
+                            iconIdentifier = StringConstants.PROFILE_ICON_DEFAULT;
                             profileName = appContext.getString(R.string.profiles_header_profile_name_no_activated);
                         }
                         int iconResource;
@@ -117,12 +117,12 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                             iconResource = ProfileStatic.getIconResource(iconIdentifier);
                         else
                             //iconResource = getResources().getIdentifier(Profile.PROFILE_ICON_DEFAULT, "drawable", PPApplication.PACKAGE_NAME);
-                            iconResource = ProfileStatic.getIconResource(Profile.PROFILE_ICON_DEFAULT);
+                            iconResource = ProfileStatic.getIconResource(StringConstants.PROFILE_ICON_DEFAULT);
 
                         /////////////////////////////////////////////////////////////
 
                         // intent
-                        Intent intent = new Intent(this, LauncherActivity.class);
+                        Intent intent = GlobalGUIRoutines.getIntentForStartupSource(this, PPApplication.STARTUP_SOURCE_WIDGET);
                         // clear all opened activities
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
@@ -131,15 +131,12 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         //if (ApplicationPreferences.prefEventsBlocked) {
                         if (EventStatic.getEventsBlocked(appContext)) {
                             if (EventStatic.getForceRunEventRunning(appContext)) {
-                                /*if (android.os.Build.VERSION.SDK_INT >= 16)
-                                    status = "\u23E9";
-                                else*/
-                                status = "[»]";
+                                status = StringConstants.STR_ARROW_INDICATOR;
                             } else {
                                 /*if (android.os.Build.VERSION.SDK_INT >= 16)
                                     status = "\uD83D\uDC46";
                                 else */
-                                status = "[M]";
+                                status = StringConstants.STR_MANUAL;
                             }
                         }
 
@@ -152,7 +149,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                                 .status(status)
                                 .expandedTitle(profileName)
                                 .expandedBody(indicators.getString(profile, /*0,*/ appContext))
-                                .contentDescription("PhoneProfilesPlus - " + profileName)
+                                .contentDescription(StringConstants.PHONE_PROFILES_PLUS +" - " + profileName)
                                 .clickIntent(intent));
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);

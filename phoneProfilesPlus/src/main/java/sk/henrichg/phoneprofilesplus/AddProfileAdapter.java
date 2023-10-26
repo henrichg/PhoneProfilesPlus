@@ -7,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -47,17 +45,9 @@ class AddProfileAdapter extends BaseAdapter {
         return position;
     }
 
-    static class ViewHolder {
-        RadioButton radioButton;
-        ImageView profileIcon;
-        TextView profileLabel;
-        ImageView profileIndicator;
-        //int position;
-    }
-
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        ViewHolder holder;
+        AddProfileViewHolder holder;
 
         View vi = convertView;
 
@@ -70,7 +60,7 @@ class AddProfileAdapter extends BaseAdapter {
             else
                 vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_profile_no_indicator, parent, false);
 
-            holder = new ViewHolder();
+            holder = new AddProfileViewHolder();
             holder.radioButton = vi.findViewById(R.id.profile_pref_dlg_item_radio_button);
             holder.profileIcon = vi.findViewById(R.id.profile_pref_dlg_item_icon);
             holder.profileLabel = vi.findViewById(R.id.profile_pref_dlg_item_label);
@@ -80,7 +70,7 @@ class AddProfileAdapter extends BaseAdapter {
         }
         else
         {
-            holder = (ViewHolder)vi.getTag();
+            holder = (AddProfileViewHolder)vi.getTag();
         }
 
         Profile profile;

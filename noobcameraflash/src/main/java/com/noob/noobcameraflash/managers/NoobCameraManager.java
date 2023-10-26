@@ -12,7 +12,6 @@ import com.noob.noobcameraflash.utilities.CameraUtilMarshMallow;
  * Created by abhi on 23/10/16.
  */
 
-@SuppressWarnings("unused")
 public class NoobCameraManager {
     private CameraFlashUtility mCameraUtil;
     //region singleton
@@ -33,13 +32,17 @@ public class NoobCameraManager {
         mCameraUtil = new CameraUtilMarshMallow(context);
     }
 
+    /*
     public void setCameraUtil(CameraFlashUtility cameraUtil) {
         mCameraUtil = cameraUtil;
     }
+    */
 
+    /*
     public boolean isFlashOn() {
         return mCameraUtil.isFlashOn();
     }
+    */
 
     public void turnOnFlash() throws CameraAccessException {
         mCameraUtil.turnOnFlash();
@@ -49,6 +52,7 @@ public class NoobCameraManager {
         mCameraUtil.turnOffFlash();
     }
 
+    /*
     public void toggleFlash() throws CameraAccessException {
         if (isFlashOn()) {
             turnOffFlash();
@@ -56,6 +60,7 @@ public class NoobCameraManager {
             turnOnFlash();
         }
     }
+    */
 
     //May or may not release all resources
     public void release() {

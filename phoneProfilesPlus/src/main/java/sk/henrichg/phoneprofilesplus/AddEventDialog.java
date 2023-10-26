@@ -27,6 +27,8 @@ class AddEventDialog
     final ListView listView;
     final TextView help;
 
+    private GetEventsAsyncTask getEventsAsyncTask = null;
+
     AddEventDialog(Activity activity, EditorEventListFragment eventListFragment)
     {
         this.eventListFragment = eventListFragment;
@@ -51,6 +53,13 @@ class AddEventDialog
 
             doShow();
         });
+        mDialog.setOnDismissListener(dialog -> {
+            if ((getEventsAsyncTask != null) &&
+                    getEventsAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+                getEventsAsyncTask.cancel(true);
+            }
+            getEventsAsyncTask = null;
+        });
 
         linlaProgress = layout.findViewById(R.id.event_pref_dlg_linla_progress);
         rellaData = layout.findViewById(R.id.event_pref_dlg_rella_data);
@@ -59,7 +68,7 @@ class AddEventDialog
         help = layout.findViewById(R.id.event_pref_dlg_help);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
-            AddEventAdapter.ViewHolder viewHolder = (AddEventAdapter.ViewHolder) item.getTag();
+            AddEventViewHolder viewHolder = (AddEventViewHolder) item.getTag();
             if (viewHolder != null)
                 viewHolder.radioButton.setChecked(true);
             Handler handler = new Handler(activity.getMainLooper());
@@ -69,55 +78,8 @@ class AddEventDialog
     }
 
     private void doShow() {
-         GetEventsAsyncTask asyncTask = new GetEventsAsyncTask(this, activity, eventListFragment.activityDataWrapper);
-         asyncTask.execute();
-
-/*        new AsyncTask<Void, Integer, Void>() {
-
-            final List<Event> eventList = new ArrayList<>();
-            boolean profileNotExists = false;
-
-            //@Override
-            //protected void onPreExecute()
-            //{
-            //    super.onPreExecute();
-                //rellaData.setVisibility(View.GONE);
-                //linlaProgress.setVisibility(View.VISIBLE);
-            //}
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                Event event;
-                event = DataWrapper.getNonInitializedEvent(activity.getString(R.string.event_name_default), 0);
-                eventList.add(event);
-                for (int index = 0; index < 6; index++) {
-                    event = eventListFragment.activityDataWrapper.getPredefinedEvent(index, false, activity);
-                    if (event._fkProfileStart == 0)
-                        profileNotExists = true;
-                    if (event._fkProfileEnd == 0)
-                        profileNotExists = true;
-                    eventList.add(event);
-                }
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-
-                linlaProgress.setVisibility(View.GONE);
-                rellaData.setVisibility(View.VISIBLE);
-
-                if (profileNotExists)
-                    help.setVisibility(View.VISIBLE);
-
-                AddEventAdapter addEventAdapter = new AddEventAdapter(AddEventDialog.this, activity, eventList);
-                listView.setAdapter(addEventAdapter);
-            }
-
-        }.execute(); */
+        getEventsAsyncTask = new GetEventsAsyncTask(this, activity, eventListFragment.activityDataWrapper);
+        getEventsAsyncTask.execute();
     }
 
     void doOnItemSelected(int position)
@@ -169,6 +131,9 @@ class AddEventDialog
                         profileNotExists = true;
                     if (event._fkProfileEnd == 0)
                         profileNotExists = true;
+                    event._peferencesDecription = StringFormatUtils.fromHtml(
+                            event.getPreferencesDescription(activity, false),
+                            true, true, false, 0, 0, true);
                     eventList.add(event);
                 }
             }

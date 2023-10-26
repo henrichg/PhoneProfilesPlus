@@ -68,7 +68,7 @@ class ProfilePreferenceAdapter extends BaseAdapter {
         return position;
     }
 
-    static class ViewHolder {
+    private static class ViewHolder {
         ImageView profileIcon;
         TextView profileLabel;
         ImageView profileIndicator;

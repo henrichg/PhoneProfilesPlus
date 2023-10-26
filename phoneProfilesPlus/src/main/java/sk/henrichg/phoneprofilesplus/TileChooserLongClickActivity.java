@@ -36,7 +36,6 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        //if (android.os.Build.VERSION.SDK_INT >= 26) {
             ComponentName qsTile = intent.getParcelableExtra(Intent.EXTRA_COMPONENT_NAME);
             if (qsTile != null) {
                 if (qsTile.getClassName().contains("PPTileService1"))
@@ -50,10 +49,6 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
                 else if (qsTile.getClassName().contains("PPTileService5"))
                     tileId = 5;
             }
-        //}
-        //else {
-            // add dialog for displaying not support for change tile parameter for this android api
-        //}
     }
 
     @Override
@@ -159,7 +154,7 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
 
-            AutostartPermissionNotification.showNotification(getApplicationContext(), true);
+            //AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
@@ -172,7 +167,7 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //            PPApplicationStatic.logE("[START_PP_SERVICE] TileChooserLongClickActivity.startPPServiceWhenNotStarted", "(1)");
-            PPApplicationStatic.startPPService(this, serviceIntent);
+            PPApplicationStatic.startPPService(this, serviceIntent, true);
             //return true;
         } /*else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {

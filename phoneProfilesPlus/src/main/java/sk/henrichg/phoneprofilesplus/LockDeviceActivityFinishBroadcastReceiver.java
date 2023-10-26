@@ -38,7 +38,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
         }
-        PPApplicationStatic._cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, false);
+        PPApplicationStatic._cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_WORK_TAG, false);
     }
 
     static void setAlarm(Context context)
@@ -178,12 +178,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                     /*
                     long alarmTime = SystemClock.elapsedRealtime() + delay * 1000;
 
-                    //if (android.os.Build.VERSION.SDK_INT >= 23)
-                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    //else
-                    //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     */
                 }
             }
@@ -194,7 +189,8 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         //if (PhoneProfilesService.getInstance() != null) {
             //if (PPApplication.lockDeviceActivity != null) {
             if (PPApplication.lockDeviceActivityDisplayed) {
-                Intent finishIntent = new Intent(PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver");
+//                PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] LockDeviceActivityFinishBroadcastReceiver.doWork", "xxx");
+                Intent finishIntent = new Intent(LockDeviceActivity.ACTION_FINISH_LOCK_DEVICE_ACTIVITY_BROADCAST_RECEIVER);
                 LocalBroadcastManager.getInstance(context).sendBroadcast(finishIntent);
             }
         //}

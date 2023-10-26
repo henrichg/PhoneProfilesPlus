@@ -40,7 +40,7 @@ public class DefaultSIMDialogPreference extends DialogPreference {
 
     private void getValueDSDP()
     {
-        String[] splits = sValue.split("\\|");
+        String[] splits = sValue.split(StringConstants.STR_SPLIT_REGEX);
         try {
             voiceValue = Integer.parseInt(splits[0]);
         } catch (Exception e) {
@@ -62,7 +62,7 @@ public class DefaultSIMDialogPreference extends DialogPreference {
     {
         String prefVolumeDataSummary;
 
-        prefVolumeDataSummary = _context.getString(R.string.default_sim_subscription_voice) + ": ";
+        prefVolumeDataSummary = _context.getString(R.string.default_sim_subscription_voice) + StringConstants.STR_COLON_WITH_SPACE;
         String[] arrayStrings = _context.getResources().getStringArray(R.array.defaultSIMVoiceArray);
         try {
             prefVolumeDataSummary = prefVolumeDataSummary + arrayStrings[voiceValue];
@@ -71,7 +71,7 @@ public class DefaultSIMDialogPreference extends DialogPreference {
 
         prefVolumeDataSummary = prefVolumeDataSummary + "; ";
 
-        prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.default_sim_subscription_sms) + ": ";
+        prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.default_sim_subscription_sms) + StringConstants.STR_COLON_WITH_SPACE;
         arrayStrings = _context.getResources().getStringArray(R.array.defaultSIMSMSArray);
         try {
             prefVolumeDataSummary = prefVolumeDataSummary + arrayStrings[smsValue];
@@ -80,7 +80,7 @@ public class DefaultSIMDialogPreference extends DialogPreference {
 
         prefVolumeDataSummary = prefVolumeDataSummary + "; ";
 
-        prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.default_sim_subscription_data) + ": ";
+        prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.default_sim_subscription_data) + StringConstants.STR_COLON_WITH_SPACE;
         arrayStrings = _context.getResources().getStringArray(R.array.defaultSIMDataArray);
         try {
             prefVolumeDataSummary = prefVolumeDataSummary + arrayStrings[dataValue];

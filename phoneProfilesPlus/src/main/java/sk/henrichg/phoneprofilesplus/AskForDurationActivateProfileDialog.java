@@ -2,10 +2,12 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -23,6 +25,9 @@ class AskForDurationActivateProfileDialog
 
     private final LinearLayout linlaProgress;
     private final ListView listView;
+    private final RelativeLayout emptyList;
+
+    private ShowDialogAsyncTask showDialogAsyncTask = null;
 
     AskForDurationActivateProfileDialog(Activity activity, AskForDurationDialog askForDurationDialog)
     {
@@ -50,17 +55,27 @@ class AskForDurationActivateProfileDialog
 
             doShow();
         });
+        mDialog.setOnDismissListener(dialog -> {
+            if ((showDialogAsyncTask != null) &&
+                    showDialogAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+                showDialogAsyncTask.cancel(true);
+            }
+            showDialogAsyncTask = null;
+            dataWrapper.invalidateDataWrapper();
+        });
 
         linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
 
         listView = layout.findViewById(R.id.profile_pref_dlg_listview);
+        emptyList = layout.findViewById(R.id.profile_pref_dlg_empty);
 
         listView.setOnItemClickListener((parent, v, position, id) -> doOnItemSelected(position));
 
     }
 
     private void doShow() {
-        new ShowDialogAsyncTask(askForDurationDialog.mAfterDoProfile, this, activity).execute();
+        showDialogAsyncTask = new ShowDialogAsyncTask(askForDurationDialog.mAfterDoProfile, this, activity);
+        showDialogAsyncTask.execute();
     }
 
     void doOnItemSelected(int position)
@@ -133,34 +148,45 @@ class AskForDurationActivateProfileDialog
             AskForDurationActivateProfileDialog dialog = dialogWeakRef.get();
             Activity activity = activityWeakReference.get();
             if ((dialog != null) && (activity != null)) {
-                //listView.setVisibility(View.VISIBLE);
                 dialog.linlaProgress.setVisibility(View.GONE);
 
-                AskForDurationActivateProfileAdapter adapter = new AskForDurationActivateProfileAdapter(
-                        dialog, activity, afterDoProfile, dialog.dataWrapper.profileList);
-                dialog.listView.setAdapter(adapter);
-
-                int position;
-                long iProfileId;
-                iProfileId = afterDoProfile;
-                if (iProfileId == Profile.PROFILE_NO_ACTIVATE)
-                    position = 0;
-                else {
-                    boolean found = false;
-                    position = 0;
-                    for (Profile profile : dialog.dataWrapper.profileList) {
-                        if (profile._id == iProfileId) {
-                            found = true;
-                            break;
-                        }
-                        position++;
+                final Handler handler = new Handler(activity.getMainLooper());
+                handler.post(() -> {
+                    dialog.listView.setVisibility(View.VISIBLE);
+                    if (dialog.dataWrapper.profileList.size() == 0) {
+                        dialog.listView.setVisibility(View.GONE);
+                        dialog.emptyList.setVisibility(View.VISIBLE);
+                    } else {
+                        dialog.emptyList.setVisibility(View.GONE);
+                        dialog.listView.setVisibility(View.VISIBLE);
                     }
-                    if (found) {
-                        position++;
-                    } else
+
+                    AskForDurationActivateProfileAdapter adapter = new AskForDurationActivateProfileAdapter(
+                            dialog, activity, afterDoProfile, dialog.dataWrapper.profileList);
+                    dialog.listView.setAdapter(adapter);
+
+                    int position;
+                    long iProfileId;
+                    iProfileId = afterDoProfile;
+                    if (iProfileId == Profile.PROFILE_NO_ACTIVATE)
                         position = 0;
-                }
-                dialog.listView.setSelection(position);
+                    else {
+                        boolean found = false;
+                        position = 0;
+                        for (Profile profile : dialog.dataWrapper.profileList) {
+                            if (profile._id == iProfileId) {
+                                found = true;
+                                break;
+                            }
+                            position++;
+                        }
+                        if (found) {
+                            position++;
+                        } else
+                            position = 0;
+                    }
+                    dialog.listView.setSelection(position);
+                });
             }
         }
 

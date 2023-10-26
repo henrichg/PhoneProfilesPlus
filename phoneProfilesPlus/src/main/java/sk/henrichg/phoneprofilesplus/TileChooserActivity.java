@@ -18,11 +18,12 @@ public class TileChooserActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.setTheme(this, true, false, false, true, false, false);
+
         super.onCreate(savedInstanceState);
 
 //        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] TileChooserActivity.onCreate", "xxx");
 
-        GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, true, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
@@ -163,8 +164,14 @@ public class TileChooserActivity extends AppCompatActivity {
                 ProfileListNotification.drawNotification(true, getApplicationContext());
                 DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
-                sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(true, getApplicationContext());
+                PPAppNotification.drawNotification(true, getApplicationContext());
             }
+
+            //!!!! THIS IS IMPORTANT BECAUSE WITHOUT THIS IS GENERATED CRASH
+            //  java.lang.NullPointerException: Attempt to invoke virtual method 'void android.content.BroadcastReceiver.onReceive(android.content.Context, android.content.Intent)'
+            //  on a null object reference
+            //  at androidx.localbroadcastmanager.content.LocalBroadcastManager.executePendingBroadcasts(LocalBroadcastManager.java:313)
+            finish();
         }
     }
 
@@ -206,7 +213,7 @@ public class TileChooserActivity extends AppCompatActivity {
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
 
-            AutostartPermissionNotification.showNotification(getApplicationContext(), true);
+            //AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
@@ -219,7 +226,7 @@ public class TileChooserActivity extends AppCompatActivity {
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //            PPApplicationStatic.logE("[START_PP_SERVICE] TileChooserActivity.startPPServiceWhenNotStarted", "(1)");
-            PPApplicationStatic.startPPService(this, serviceIntent);
+            PPApplicationStatic.startPPService(this, serviceIntent, true);
             //return true;
         } /*else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {

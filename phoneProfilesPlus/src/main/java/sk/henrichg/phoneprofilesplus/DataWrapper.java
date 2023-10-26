@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 //import me.drakeet.support.toast.ToastCompat;
 
-public class DataWrapper {
+class DataWrapper {
 
     final Context context;
     //private boolean forGUI = false;
@@ -53,8 +53,8 @@ public class DataWrapper {
 
     //static final String EXTRA_INTERACTIVE = "interactive";
 
-    private static final String ACTIVATED_PROFILES_FIFO_COUNT_PREF = "activated_profiles_fifo_count";
-    private static final String ACTIVATED_PROFILES_FIFO_ID_PREF = "activated_profiles_fifo_id";
+    private static final String PREF_ACTIVATED_PROFILES_FIFO_COUNT = "activated_profiles_fifo_count";
+    private static final String PREF_ACTIVATED_PROFILES_FIFO_ID = "activated_profiles_fifo_id";
 
     static final int IT_FOR_EDITOR = 1;
     static final int IT_FOR_NOTIFICATION = 2;
@@ -193,24 +193,13 @@ public class DataWrapper {
 
         switch (index) {
             case 0:
-                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_home), "ic_profile_home_2", index+1);
+                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_home), Profile.ic_profile_home_2, index+1);
                 profile._showInActivator = true;
-                //if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (ActivateProfileHelper.canChangeZenMode(context)) {
-                        profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
-                        profile._volumeZenMode = Profile.ZENMODE_ALL; // ALL
-                        /*if (android.os.Build.VERSION.SDK_INT >= 23) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 1; // ALL
-                        } else if (android.os.Build.VERSION.SDK_INT >= 21) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 1; // ALL
-                        } else
-                            profile._volumeRingerMode = 1;*/
-                    } else
-                        profile._volumeRingerMode = Profile.RINGERMODE_RING;
-                //} else
-                //    profile._volumeRingerMode = 1;
+                if (ActivateProfileHelper.canChangeZenMode(context)) {
+                    profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
+                    profile._volumeZenMode = Profile.ZENMODE_ALL; // ALL
+                } else
+                    profile._volumeRingerMode = Profile.RINGERMODE_RING;
                 profile._volumeRingtone = getVolumeLevelString(71, maximumValueRing) + "|0|0";
                 profile._volumeNotification = getVolumeLevelString(86, maximumValueNotification) + "|0|0";
                 profile._volumeAlarm = getVolumeLevelString(100, maximumValueAlarm) + "|0|0";
@@ -219,24 +208,13 @@ public class DataWrapper {
                 //profile._deviceBrightness = "60|0|0|0";
                 break;
             case 1:
-                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_outdoor), "ic_profile_outdoors_1", index+1);
+                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_outdoor), Profile.ic_profile_outdoors_1, index+1);
                 profile._showInActivator = true;
-                //if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (ActivateProfileHelper.canChangeZenMode(context)) {
-                        profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
-                        profile._volumeZenMode = Profile.ZENMODE_ALL; // ALL
-                        /*if (android.os.Build.VERSION.SDK_INT >= 23) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 1; // ALL
-                        } else if (android.os.Build.VERSION.SDK_INT >= 21) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 1; // ALL
-                        } else
-                            profile._volumeRingerMode = 2;*/
-                    } else
-                        profile._volumeRingerMode = Profile.RINGERMODE_RING;
-                //} else
-                //    profile._volumeRingerMode = 2;
+                if (ActivateProfileHelper.canChangeZenMode(context)) {
+                    profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
+                    profile._volumeZenMode = Profile.ZENMODE_ALL; // ALL
+                } else
+                    profile._volumeRingerMode = Profile.RINGERMODE_RING;
                 profile._volumeRingtone = getVolumeLevelString(100, maximumValueRing) + "|0|0";
                 profile._volumeNotification = getVolumeLevelString(100, maximumValueNotification) + "|0|0";
                 profile._volumeAlarm = getVolumeLevelString(100, maximumValueAlarm) + "|0|0";
@@ -245,24 +223,13 @@ public class DataWrapper {
                 //profile._deviceBrightness = "255|0|0|0";
                 break;
             case 2:
-                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_work), "ic_profile_work_5", index+1);
+                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_work), Profile.ic_profile_work_5, index+1);
                 profile._showInActivator = true;
-                //if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (ActivateProfileHelper.canChangeZenMode(context)) {
-                        profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
-                        profile._volumeZenMode = Profile.ZENMODE_ALL_AND_VIBRATE; // ALL with vibration
-                        /*if (android.os.Build.VERSION.SDK_INT >= 23) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 4; // ALL with vibration
-                        } else if (android.os.Build.VERSION.SDK_INT >= 21) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 4; // ALL with vibration
-                        } else
-                            profile._volumeRingerMode = 1;*/
-                    } else
-                        profile._volumeRingerMode = Profile.RINGERMODE_RING;
-                //} else
-                //    profile._volumeRingerMode = 1;
+                if (ActivateProfileHelper.canChangeZenMode(context)) {
+                    profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
+                    profile._volumeZenMode = Profile.ZENMODE_ALL_AND_VIBRATE; // ALL with vibration
+                } else
+                    profile._volumeRingerMode = Profile.RINGERMODE_RING;
                 profile._volumeRingtone = getVolumeLevelString(57, maximumValueRing) + "|0|0";
                 profile._volumeNotification = getVolumeLevelString(71, maximumValueNotification) + "|0|0";
                 profile._volumeAlarm = getVolumeLevelString(57, maximumValueAlarm) + "|0|0";
@@ -271,24 +238,13 @@ public class DataWrapper {
                 //profile._deviceBrightness = "60|0|0|0";
                 break;
             case 3:
-                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_meeting), "ic_profile_meeting_2", index+1);
+                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_meeting), Profile.ic_profile_meeting_2, index+1);
                 profile._showInActivator = true;
-                //if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (ActivateProfileHelper.canChangeZenMode(context)) {
-                        profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
-                        profile._volumeZenMode = Profile.ZENMODE_NONE; // NONE
-                        /*if (android.os.Build.VERSION.SDK_INT >= 23) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 3; // NONE
-                        } else if (android.os.Build.VERSION.SDK_INT >= 21) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 3; // NONE
-                        } else
-                            profile._volumeRingerMode = 4;*/
-                    } else
-                        profile._volumeRingerMode = Profile.RINGERMODE_SILENT;
-                //} else
-                //    profile._volumeRingerMode = 4;
+                if (ActivateProfileHelper.canChangeZenMode(context)) {
+                    profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
+                    profile._volumeZenMode = Profile.ZENMODE_NONE; // NONE
+                } else
+                    profile._volumeRingerMode = Profile.RINGERMODE_SILENT;
                 profile._volumeRingtone = getVolumeLevelString(57, maximumValueRing) + "|0|0";
                 profile._volumeNotification = getVolumeLevelString(71, maximumValueNotification) + "|0|0";
                 profile._volumeAlarm = getVolumeLevelString(57, maximumValueAlarm) + "|0|0";
@@ -297,24 +253,13 @@ public class DataWrapper {
                 //profile._deviceBrightness = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET+"|1|1|0";
                 break;
             case 4:
-                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_sleep), "ic_profile_sleep", index+1);
+                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_sleep), Profile.ic_profile_sleep, index+1);
                 profile._showInActivator = true;
-                //if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (ActivateProfileHelper.canChangeZenMode(context)) {
-                        profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
-                        profile._volumeZenMode = Profile.ZENMODE_ALARMS; // ALARMS
-                        /*if (android.os.Build.VERSION.SDK_INT >= 23) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 6; // ALARMS
-                        } else if (android.os.Build.VERSION.SDK_INT >= 21) {
-                            profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 3; // NONE
-                        } else
-                            profile._volumeRingerMode = 4;*/
-                    } else
-                        profile._volumeRingerMode = Profile.RINGERMODE_SILENT;
-                //} else
-                //    profile._volumeRingerMode = 4;
+                if (ActivateProfileHelper.canChangeZenMode(context)) {
+                    profile._volumeRingerMode = Profile.RINGERMODE_ZENMODE;
+                    profile._volumeZenMode = Profile.ZENMODE_ALARMS; // ALARMS
+                } else
+                    profile._volumeRingerMode = Profile.RINGERMODE_SILENT;
                 profile._volumeRingtone = getVolumeLevelString(71, maximumValueRing) + "|0|0";
                 profile._volumeNotification = getVolumeLevelString(86, maximumValueNotification) + "|0|0";
                 profile._volumeAlarm = getVolumeLevelString(100, maximumValueAlarm) + "|0|0";
@@ -323,26 +268,26 @@ public class DataWrapper {
                 //profile._deviceBrightness = "10|0|0|0";
                 break;
             case 5:
-                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_low), "ic_profile_battery_1", index+1);
+                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_low), Profile.ic_profile_battery_1, index+1);
                 profile._showInActivator = false;
                 profile._deviceAutoSync = 2;
-                if (RootUtils.isRooted(true))
+                if (RootUtils.isRooted(/*true*/))
                     profile._deviceMobileData = 2;
                 profile._deviceWiFi = 2;
                 profile._deviceBluetooth = 2;
-                if (RootUtils.isRooted(true) ||
+                if (RootUtils.isRooted(/*true*/) ||
                         Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS))
                     profile._deviceGPS = 2;
                 break;
             case 6:
-                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_ok), "ic_profile_battery_3", index+1);
+                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_ok), Profile.ic_profile_battery_3, index+1);
                 profile._showInActivator = false;
                 profile._deviceAutoSync = 1;
-                if (RootUtils.isRooted(true))
+                if (RootUtils.isRooted(/*true*/))
                     profile._deviceMobileData = 1;
                 profile._deviceWiFi = 1;
                 profile._deviceBluetooth = 1;
-                if (RootUtils.isRooted(true) ||
+                if (RootUtils.isRooted(/*true*/) ||
                         Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS))
                     profile._deviceGPS = 1;
                 break;
@@ -378,11 +323,11 @@ public class DataWrapper {
 
     void clearProfileList() {
         synchronized (profileList) {
-            for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
-                //noinspection unused
-                Profile profile = it.next(); // this must be called
-                it.remove();
-            }
+            //for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+            //    /*Profile profile =*/ it.next(); // this must be called
+            //    it.remove();
+            //}
+            profileList.clear();
             profileListFilled = false;
         }
     }
@@ -390,14 +335,15 @@ public class DataWrapper {
     {
         synchronized (profileList) {
             //if (profileListFilled)
-            //{
-                for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+            //
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
                     Profile profile = it.next();
                     profile.releaseIconBitmap();
                     profile.releasePreferencesIndicator();
-                    it.remove();
                 }
             //}
+            profileList.clear();
             profileListFilled = false;
         }
     }
@@ -447,6 +393,26 @@ public class DataWrapper {
         return null;
     }
 
+    long getActivatedProfileIdFromDB()
+    {
+        return DatabaseHandler.getInstance(context).getActivatedProfileId();
+    }
+
+    long getActivatedProfileId()
+    {
+        synchronized (profileList) {
+            if (profileListFilled) {
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+                    Profile profile = it.next();
+                    if (profile._checked)
+                        return profile._id;
+                }
+            }
+            return getActivatedProfileIdFromDB();
+        }
+    }
+
     void setProfileActive(Profile profile)
     {
         synchronized (profileList) {
@@ -475,11 +441,9 @@ public class DataWrapper {
     {
         if (event_id != 0) {
             // save before activated profile into FIFO
-            Profile activatedProfile = getActivatedProfileFromDB(false, false);
-            if (activatedProfile != null) {
-                long profileId = activatedProfile._id;
-                fifoAddProfile(profileId, event_id);
-            }
+            long activatedProfileId = getActivatedProfileIdFromDB();
+            if (activatedProfileId != -1)
+                fifoAddProfile(activatedProfileId, event_id);
         }
 
         int startupSource = PPApplication.STARTUP_SOURCE_EVENT;
@@ -527,6 +491,34 @@ public class DataWrapper {
         }
     }
 
+    private boolean profileExistsFromDB(long id)
+    {
+        return DatabaseHandler.getInstance(context).profileExists(id);
+    }
+
+    boolean profileExists(long id)
+    {
+        synchronized (profileList) {
+            if (!profileListFilled) {
+                return profileExistsFromDB(id);
+            } else {
+                boolean found = false;
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+                    Profile profile = it.next();
+                    if (profile._id == id) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                    return profileExistsFromDB(id);
+                else
+                    return true;
+            }
+        }
+    }
+
     void updateProfile(Profile profile)
     {
         if (profile != null)
@@ -568,7 +560,7 @@ public class DataWrapper {
 
                 String oldFkProfiles = event._startWhenActivatedProfile;
                 if (!oldFkProfiles.isEmpty()) {
-                    String[] splits = oldFkProfiles.split("\\|");
+                    String[] splits = oldFkProfiles.split(StringConstants.STR_SPLIT_REGEX);
                     StringBuilder newFkProfiles = new StringBuilder();
                     for (String split : splits) {
                         long fkProfile = Long.parseLong(split);
@@ -639,7 +631,7 @@ public class DataWrapper {
             boolean isIconResourceID = profile.getIsIconResourceID();
             String iconIdentifier = profile.getIconIdentifier();
             DatabaseHandler.getInstance(context).getProfileIcon(profile);
-            if (isIconResourceID && iconIdentifier.equals("ic_profile_default") && (!profile.getIsIconResourceID())) {
+            if (isIconResourceID && iconIdentifier.equals(StringConstants.PROFILE_ICON_DEFAULT) && (!profile.getIsIconResourceID())) {
                 if (generateIcon)
                     profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                 if (generateIndicators)
@@ -657,12 +649,13 @@ public class DataWrapper {
             profile.generatePreferencesIndicator(context, monochrome, indicatorsMonoValue, indicatorsType, indicatorsLightnessValue);
     }
 
+/*  moved into DataWrapperStatic
     void setDynamicLauncherShortcutsFromMainThread()
     {
         //final DataWrapper dataWrapper = copyDataWrapper();
 
         final Context appContext = context;
-        //PPApplication.startHandlerThread(/*"DataWrapper.setDynamicLauncherShortcutsFromMainThread"*/);
+        //PPApplication.startHandlerThread();
         //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(
         //        context, dataWrapper, null, null) {
@@ -675,12 +668,11 @@ public class DataWrapper {
             //Profile profile = profileWeakRef.get();
             //Activity activity = activityWeakRef.get();
 
-            //if ((appContext != null) && (dataWrapper != null) /*&& (profile != null) && (activity != null)*/) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_setDynamicLauncherShortcutsFromMainThread");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DataWrapper_setDynamicLauncherShortcutsFromMainThread);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -701,6 +693,37 @@ public class DataWrapper {
         }; //);
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
+    }
+*/
+
+    private String getProfileNameFromDB(long id)
+    {
+        return DatabaseHandler.getInstance(context).getProfileName(id);
+    }
+
+    String getProfileName(long id)
+    {
+        synchronized (profileList) {
+            if (!profileListFilled) {
+                return getProfileNameFromDB(id);
+            } else {
+                String name = null;
+                boolean found = false;
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+                    Profile profile = it.next();
+                    if (profile._id == id) {
+                        found = true;
+                        name = profile._name;
+                        break;
+                    }
+                }
+                if (!found)
+                    return getProfileNameFromDB(id);
+                else
+                    return name;
+            }
+        }
     }
 
 //---------------------------------------------------
@@ -797,13 +820,46 @@ public class DataWrapper {
         }
     }
 
-    void updateEvent(Event event)
+    private boolean eventExistsFromDB(long id)
+    {
+        return DatabaseHandler.getInstance(context).eventExists(id);
+    }
+
+    boolean eventExists(long id)
+    {
+        synchronized (eventList) {
+            if (!eventListFilled) {
+                return eventExistsFromDB(id);
+            } else {
+                boolean found = false;
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                    Event event = it.next();
+                    if (event._id == id) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                    return eventExistsFromDB(id);
+                else
+                    return true;
+            }
+        }
+    }
+
+    void updateEvent(Event event, Activity activity)
     {
         if (event != null)
         {
             Event origEvent = getEventById(event._id);
-            if (origEvent != null)
+            if (origEvent != null) {
                 origEvent.copyEvent(event);
+                if (activity != null)
+                    origEvent._peferencesDecription = StringFormatUtils.fromHtml(
+                            origEvent.getPreferencesDescription(activity, true),
+                            true, true, false, 0, 0, true);
+            }
         }
     }
 
@@ -856,7 +912,7 @@ public class DataWrapper {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_stopEventsForProfileFromMainThread");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DataWrapper_stopEventsForProfileFromMainThread);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -939,7 +995,7 @@ public class DataWrapper {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_pauseAllEventsForGlobalStopEvents");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DataWrapper_pauseAllEventsForGlobalStopEvents);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -1009,7 +1065,7 @@ public class DataWrapper {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_stopAllEventsFromMainThread");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DataWrapper_stopAllEventsFromMainThread);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -1195,7 +1251,7 @@ public class DataWrapper {
                 //if (event._fkProfileStart == 0)
                 //    event._fkProfileStart = getPredefinedProfile(0, true, baseContext)._id;
                 //event._undoneProfile = false;
-                event._atEndDo = Event.EATENDDO_NONE;
+                event._atEndDo = Event.EATENDDO_RESTART_EVENTS;
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._monday = true;
                 event._eventPreferencesTime._tuesday = true;
@@ -1213,7 +1269,7 @@ public class DataWrapper {
                 //if (event._fkProfileStart == 0)
                 //    event._fkProfileStart = getPredefinedProfile(0, true, baseContext)._id;
                 //event._undoneProfile = false;
-                event._atEndDo = Event.EATENDDO_NONE;
+                event._atEndDo = Event.EATENDDO_RESTART_EVENTS;
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._saturday = true;
                 event._eventPreferencesTime._sunday = true;
@@ -1228,7 +1284,7 @@ public class DataWrapper {
                 //if (event._fkProfileStart == 0)
                 //    event._fkProfileStart = getPredefinedProfile(2, true, baseContext)._id;
                 //event._undoneProfile = true;
-                event._atEndDo = Event.EATENDDO_NONE;
+                event._atEndDo = Event.EATENDDO_RESTART_EVENTS;
                 event._priority = Event.EPRIORITY_HIGHER;
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._monday = true;
@@ -1247,7 +1303,7 @@ public class DataWrapper {
                 //if (event._fkProfileStart == 0)
                 //    event._fkProfileStart = getPredefinedProfile(4, true, baseContext)._id;
                 //event._undoneProfile = false;
-                event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
+                event._atEndDo = Event.EATENDDO_RESTART_EVENTS;
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._monday = true;
                 event._eventPreferencesTime._tuesday = true;
@@ -1301,16 +1357,9 @@ public class DataWrapper {
                 event._ignoreManualActivation = true;
                 event._noPauseByManualActivation = false;
                 event._eventPreferencesBattery._enabled = true;
-                //if (Build.VERSION.SDK_INT >= 21) {
-                    event._eventPreferencesBattery._levelLow = 0;
-                    event._eventPreferencesBattery._levelHight = 100;
-                    event._eventPreferencesBattery._powerSaveMode = true;
-                /*}
-                else {
-                    event._eventPreferencesBattery._levelLow = 0;
-                    event._eventPreferencesBattery._levelHight = 10;
-                    event._eventPreferencesBattery._powerSaveMode = false;
-                }*/
+                event._eventPreferencesBattery._levelLow = 0;
+                event._eventPreferencesBattery._levelHight = 100;
+                event._eventPreferencesBattery._powerSaveMode = true;
                 event._eventPreferencesBattery._charging = 0;
                 event._eventPreferencesBattery._plugged = "";
                 break;
@@ -1400,6 +1449,7 @@ public class DataWrapper {
 
 //-------------------------------------------------------------------------------------------------------------------
 
+    // !!! do not use this especially in AsyncTasks, when it generates icons and preference indicators
     void invalidateDataWrapper()
     {
         invalidateProfileList();
@@ -1543,7 +1593,7 @@ public class DataWrapper {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_activateProfileFromMainThread");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DataWrapper_activateProfileFromMainThread);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -1612,7 +1662,7 @@ public class DataWrapper {
         try {
             String profileName = DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, this);
             PPApplication.showToast(context.getApplicationContext(),
-                    context.getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
+                    context.getString(R.string.toast_profile_activated_0) + StringConstants.STR_COLON_WITH_SPACE + profileName + " " +
                             context.getString(R.string.toast_profile_activated_1),
                     Toast.LENGTH_SHORT);
         }
@@ -1631,7 +1681,7 @@ public class DataWrapper {
                             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR)))
         {
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false, false, false, false);
+            GlobalGUIRoutines.setTheme(activity, true, true, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(activity);
 
             final Profile _profile = profile;
@@ -1649,7 +1699,7 @@ public class DataWrapper {
             }
             else {
                 PPAlertDialog dialog = new PPAlertDialog(
-                        activity.getString(R.string.profile_string_0) + ": " + profile._name,
+                        activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name,
                         activity.getString(R.string.activate_profile_alert_message),
                         activity.getString(R.string.alert_button_yes),
                         activity.getString(R.string.alert_button_no),
@@ -1666,7 +1716,7 @@ public class DataWrapper {
                                         (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
                                         (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
                                     if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                                        PhoneProfilesServiceStatic.playNotificationSound(
+                                        PlayRingingNotification.playNotificationSound(
                                                 ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
                                                 ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
                                             false, _dataWrapper.context);
@@ -1710,7 +1760,7 @@ public class DataWrapper {
         }
         else
         {
-            GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false, false, false, false);
+            GlobalGUIRoutines.setTheme(activity, true, true, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(activity);
 
             if (profile._askForDuration/* && interactive*/) {
@@ -1937,7 +1987,7 @@ public class DataWrapper {
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK");
                 EventsHandler eventsHandler = new EventsHandler(context);
                 // this do not perform restart, only SENSOR_TYPE_RESTART_EVENTS perform restart
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK);
+                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK});
 
                 return;
             }
@@ -1977,10 +2027,10 @@ public class DataWrapper {
             EventsHandler eventsHandler = new EventsHandler(context);
             if (manualRestart) {
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_MANUAL_RESTART_EVENTS");
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS);
+                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS});
             } else {
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS");
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
+                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RESTART_EVENTS});
             }
 //        }
     }
@@ -2095,7 +2145,7 @@ public class DataWrapper {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithRescan");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DataWrapper_restartEventsWithRescan);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -2146,7 +2196,8 @@ public class DataWrapper {
                 finish = ApplicationPreferences.applicationClose;
             else
                 finish = (activity instanceof RestartEventsFromGUIActivity) ||
-                        (activity instanceof BackgroundActivateProfileActivity);
+                        (activity instanceof BackgroundActivateProfileActivity) ||
+                        (activity instanceof GenerateNotificationAfterClickActivity);
             if (finish) {
                 final Handler handler = new Handler(context.getMainLooper());
                 handler.post(() -> {
@@ -2182,7 +2233,8 @@ public class DataWrapper {
                         if (activity instanceof ActivatorActivity)
                             finish = ApplicationPreferences.applicationClose;
                         else if ((activity instanceof RestartEventsFromGUIActivity) ||
-                                (activity instanceof BackgroundActivateProfileActivity))
+                                (activity instanceof BackgroundActivateProfileActivity) ||
+                                (activity instanceof GenerateNotificationAfterClickActivity))
                             finish = true;
                         else
                             finish = false;
@@ -2192,7 +2244,7 @@ public class DataWrapper {
                         boolean serviceStarted = GlobalUtils.isServiceRunning(context, PhoneProfilesService.class, false);
                         if (!serviceStarted) {
 
-                            AutostartPermissionNotification.showNotification(context, true);
+                            //AutostartPermissionNotification.showNotification(context, true);
 
                             PPApplicationStatic.setApplicationStarted(context, true);
                             Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
@@ -2203,10 +2255,10 @@ public class DataWrapper {
                             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //                    PPApplicationStatic.logE("[START_PP_SERVICE] DataWrapper.restartEventsWithAlert", "xxx");
-                            PPApplicationStatic.startPPService(context, serviceIntent);
+                            PPApplicationStatic.startPPService(context, serviceIntent, true);
                         } else {
                             if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                                PhoneProfilesServiceStatic.playNotificationSound(
+                                PlayRingingNotification.playNotificationSound(
                                         ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
                                         ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
                                 false, context);
@@ -2263,7 +2315,7 @@ public class DataWrapper {
             }
 
             if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                PhoneProfilesServiceStatic.playNotificationSound(
+                PlayRingingNotification.playNotificationSound(
                         ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
                         ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
                         false, context);
@@ -2333,7 +2385,7 @@ public class DataWrapper {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DataWrapper_restartEventsWithDelay);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -2457,6 +2509,48 @@ public class DataWrapper {
                 PPApplication.updateGUI(true, false, activity);
             }
         }
+    }
+
+    void runStopEventsFronGeneratedNotification(final Activity activity) {
+        ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(context.getApplicationContext(), PhoneProfilesService.class);
+        if (serviceInfo == null) {
+            // service is not running
+            return;
+        }
+
+        boolean eventRunningEnabled = EventStatic.getGlobalEventsRunning(activity);
+        String title;
+        if (eventRunningEnabled)
+            title = activity.getString(R.string.menu_stop_events);
+        else
+            title = activity.getString(R.string.menu_run_events);
+        PPAlertDialog dialog = new PPAlertDialog(
+                title,
+                activity.getString(R.string.stop_events_alert_message),
+                activity.getString(R.string.alert_button_yes),
+                activity.getString(R.string.alert_button_no),
+                null, null,
+                (dialog1, which) -> {
+                    if (globalRunStopEvents(eventRunningEnabled)) {
+                        //PPAppNotification.showNotification(/*activity.getApplicationContext()*/true, false);
+
+//                    PPApplicationStatic.logE("[PPP_NOTIFICATION] DataWrapper.runStopEventsWithAlert (1)", "call of updateGUI");
+                        PPApplication.updateGUI(true, false, activity);
+                    }
+                    activity.finish();
+                },
+                (dialog2, which) -> activity.finish(),
+                null,
+                dialogInterface -> activity.finish(),
+                null,
+                true, true,
+                false, false,
+                true,
+                activity
+        );
+
+        if (!activity.isFinishing())
+            dialog.show();
     }
 
     boolean globalRunStopEvents(boolean stop) {
@@ -2620,6 +2714,9 @@ public class DataWrapper {
                         case DatabaseHandler.ETYPE_SCREEN:
                             sensorEnabled = _event._eventPreferencesScreen._enabled;
                             break;
+                        case DatabaseHandler.ETYPE_BRIGHTNESS:
+                            sensorEnabled = _event._eventPreferencesBrightness._enabled;
+                            break;
                         case DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED:
                             sensorEnabled = _event._eventPreferencesBluetooth._enabled;
                             sensorEnabled = sensorEnabled &&
@@ -2764,7 +2861,7 @@ public class DataWrapper {
                 boolean profileEnabled;
                 switch (profileType) {
                     case DatabaseHandler.PTYPE_CONNECT_TO_SSID:
-                        profileEnabled = !_profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY);
+                        profileEnabled = !_profile._deviceConnectToSSID.equals(StringConstants.CONNECTTOSSID_JUSTANY);
                         break;
                     case DatabaseHandler.PTYPE_FORCE_STOP:
                         profileEnabled = _profile._deviceForceStopApplicationChange != 0;
@@ -2786,12 +2883,12 @@ public class DataWrapper {
     List<String> fifoGetActivatedProfiles() {
         //synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.ACTIVATED_PROFILES_FIFO_PREFS_NAME, Context.MODE_PRIVATE);
-            int count = preferences.getInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, -1);
+            int count = preferences.getInt(PREF_ACTIVATED_PROFILES_FIFO_COUNT, -1);
 
             List<String> activateProfilesFifo = new ArrayList<>();
             if (count > -1) {
                 for (int i = 0; i < count; i++) {
-                    String profileId = preferences.getString(ACTIVATED_PROFILES_FIFO_ID_PREF + i, "0|0");
+                    String profileId = preferences.getString(PREF_ACTIVATED_PROFILES_FIFO_ID + i, "0|0");
                     activateProfilesFifo.add(profileId);
                 }
             }
@@ -2808,12 +2905,13 @@ public class DataWrapper {
             editor.clear();
 
             if (activateProfilesFifo == null)
-                editor.putInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, -1);
+                editor.putInt(PREF_ACTIVATED_PROFILES_FIFO_COUNT, -1);
             else {
-                editor.putInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, activateProfilesFifo.size());
+                editor.putInt(PREF_ACTIVATED_PROFILES_FIFO_COUNT, activateProfilesFifo.size());
 
-                for (int i = 0; i < activateProfilesFifo.size(); i++) {
-                    editor.putString(ACTIVATED_PROFILES_FIFO_ID_PREF + i, activateProfilesFifo.get(i));
+                int size = activateProfilesFifo.size();
+                for (int i = 0; i < size; i++) {
+                    editor.putString(PREF_ACTIVATED_PROFILES_FIFO_ID + i, activateProfilesFifo.get(i));
                 }
             }
 
@@ -2857,5 +2955,65 @@ public class DataWrapper {
         }
 
     }*/
+
+    private int getEventPriorityFromDB(long id)
+    {
+        return DatabaseHandler.getInstance(context).getEventPriority(id);
+    }
+
+    int getEventPriority(long id)
+    {
+        synchronized (eventList) {
+            if (!eventListFilled) {
+                return getEventPriorityFromDB(id);
+            } else {
+                int priority = -1;
+                boolean found = false;
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                    Event event = it.next();
+                    if (event._id == id) {
+                        found = true;
+                        priority = event._priority;
+                        break;
+                    }
+                }
+                if (!found)
+                    return getEventPriorityFromDB(id);
+                else
+                    return priority;
+            }
+        }
+    }
+
+    private int getEventIgnoreManualActivationFromDB(long id)
+    {
+        return DatabaseHandler.getInstance(context).getEventIgnoreManualActivation(id);
+    }
+
+    int getEventIgnoreManualActivation(long id)
+    {
+        synchronized (eventList) {
+            if (!eventListFilled) {
+                return getEventIgnoreManualActivationFromDB(id);
+            } else {
+                int ignoreManualActivation = -1;
+                boolean found = false;
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                    Event event = it.next();
+                    if (event._id == id) {
+                        found = true;
+                        ignoreManualActivation = (event._ignoreManualActivation) ? 1 : 0;
+                        break;
+                    }
+                }
+                if (!found)
+                    return getEventIgnoreManualActivationFromDB(id);
+                else
+                    return ignoreManualActivation;
+            }
+        }
+    }
 
 }

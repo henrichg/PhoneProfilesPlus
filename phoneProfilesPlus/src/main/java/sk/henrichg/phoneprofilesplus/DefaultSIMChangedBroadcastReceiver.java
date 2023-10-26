@@ -20,52 +20,9 @@ public class DefaultSIMChangedBroadcastReceiver extends BroadcastReceiver {
             return;
 
         final Context appContext = context.getApplicationContext();
-        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_RADIO_SWITCH, "SENSOR_TYPE_RADIO_SWITCH", 0);
-        /*
-        PPApplication.startHandlerThreadBroadcast();
-        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-        //        context.getApplicationContext()) {
-        __handler.post(() -> {
-//          PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DefaultSIMChangedBroadcastReceiver.onReceive");
-
-            //Context appContext= appContextWeakRef.get();
-            //if (appContext != null) {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DefaultSIMChangedBroadcastReceiver_onReceive");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    if (Event.getGlobalEventsRunning()) {
-                        if (PhoneProfilesService.getInstance() != null) {
-
-                            // start events handler
-
-//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DefaultSIMChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
-
-                        }
-                    }
-
-
-                } catch (Exception e) {
-//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplicationStatic.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-            //}
-        });
-        */
+        PPExecutors.handleEvents(appContext,
+                new int[]{EventsHandler.SENSOR_TYPE_RADIO_SWITCH},
+                PPExecutors.SENSOR_NAME_SENSOR_TYPE_RADIO_SWITCH, 0);
     }
 
 }

@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.content.Context.RECEIVER_NOT_EXPORTED;
+
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -11,6 +13,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -50,7 +53,10 @@ class TwilightScanner {
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         filter.addAction(TwilightScanner.ACTION_UPDATE_TWILIGHT_STATE);
-        context.registerReceiver(mUpdateLocationReceiver, filter);
+        int receiverFlags = 0;
+        if (Build.VERSION.SDK_INT >= 34)
+            receiverFlags = RECEIVER_NOT_EXPORTED;
+        context.registerReceiver(mUpdateLocationReceiver, filter, receiverFlags);
 
         mLocationHandler.enableLocationUpdates();
     }
@@ -78,72 +84,9 @@ class TwilightScanner {
                     return;
 
                 if (EventStatic.getGlobalEventsRunning(context)) {
-
-                    PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_TIME, "SENSOR_TYPE_TIME", 10);
-                    /*
-                    Data workData = new Data.Builder()
-                            .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_TIME)
-                            .build();
-
-                    OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(MainWorker.class)
-                                    .addTag(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG)
-                                    .setInputData(workData)
-                                    .setInitialDelay(10, TimeUnit.SECONDS) // 10 seconds to get location
-                                    //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                                    .build();
-                    try {
-                        if (PPApplicationStatic.getApplicationStarted(true)) {
-                            WorkManager workManager = PPApplication.getWorkManagerInstance();
-                            if (workManager != null) {
-
-//                                //if (PPApplicationStatic.logEnabled()) {
-//                                ListenableFuture<List<WorkInfo>> statuses;
-//                                statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG);
-//                                try {
-//                                    List<WorkInfo> workInfoList = statuses.get();
-//                                } catch (Exception ignored) {
-//                                }
-//                                //}
-
-//                                PPApplicationStatic.logE("[WORKER_CALL] TwilightScanner.setTwilightState", "xxx");
-                                //workManager.enqueue(worker);
-                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                            }
-                        }
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
-                    */
-
-                    /*
-                    PPApplication.startHandlerThread();//"TwilightScanner.setTwilightState"
-                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":TwilightScanner_setTwilightState");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
-
-                                EventsHandler eventsHandler = new EventsHandler(appContext);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
-
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
-                                }
-                            }
-                        }
-                    });
-                    */
+                    PPExecutors.handleEvents(context,
+                            new int[]{EventsHandler.SENSOR_TYPE_TIME},
+                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_TIME, 10);
                 }
             }
         }
@@ -496,10 +439,7 @@ class TwilightScanner {
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(nextUpdate, infoPendingIntent);
                         mAlarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
-                        //if (android.os.Build.VERSION.SDK_INT >= 23)
-                            mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
-                        //else
-                        //    mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
+                        mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
                     }
                 }
             }

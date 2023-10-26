@@ -111,7 +111,7 @@ class RootUtils {
         return PPApplication.rootMutex.rooted;
     }
 
-    static boolean isRooted(@SuppressWarnings("unused") boolean fromUIThread) {
+    static boolean isRooted(/*boolean fromUIThread*/) {
         if (PPApplication.rootMutex.rootChecked)
             return PPApplication.rootMutex.rooted;
 
@@ -130,7 +130,7 @@ class RootUtils {
         /*if (onlyCheck && rootMutex.grantRootChecked)
             return rootMutex.rootGranted;*/
 
-        if (isRooted(false)) {
+        if (isRooted(/*false*/)) {
             synchronized (PPApplication.rootMutex) {
                 try {
                     //noinspection StatementWithEmptyBody
@@ -197,6 +197,7 @@ class RootUtils {
      *
      * @return true if SELinux set to enforcing, or false in the case of
      *         permissive or not present
+     * @noinspection MismatchedJavadocCode
      */
     /*public static boolean isSELinuxEnforcing()
     {
@@ -209,21 +210,19 @@ class RootUtils {
 
                 // First known firmware with SELinux built-in was a 4.2 (17)
                 // leak
-                //if (android.os.Build.VERSION.SDK_INT >= 17) {
-                    // Detect enforcing through sysfs, not always present
-                    File f = new File("/sys/fs/selinux/enforce");
-                    if (f.exists()) {
+                // Detect enforcing through sysfs, not always present
+                File f = new File("/sys/fs/selinux/enforce");
+                if (f.exists()) {
+                    try {
+                        InputStream is = new FileInputStream("/sys/fs/selinux/enforce");
                         try {
-                            InputStream is = new FileInputStream("/sys/fs/selinux/enforce");
-                            try {
-                                enforcing = (is.read() == '1');
-                            } finally {
-                                is.close();
-                            }
-                        } catch (Exception ignored) {
+                            enforcing = (is.read() == '1');
+                        } finally {
+                            is.close();
                         }
+                    } catch (Exception ignored) {
                     }
-                //}
+                }
 
                 isSELinuxEnforcing = enforcing;
                 isSELinuxEnforcingChecked = true;
@@ -306,13 +305,12 @@ class RootUtils {
                 PPApplication.serviceListMutex.serviceList.clear();
         }
 
-        if (isRooted(false)) {
+        if (isRooted(/*false*/)) {
             synchronized (PPApplication.rootMutex) {
                 //noinspection RegExpRedundantEscape,RegExpSimplifiable
                 final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
 
                 Command command = new Command(0, /*false,*/ "service list") {
-                    @SuppressWarnings("unused")
                     @Override
                     public void commandOutput(int id, String line) {
                         Matcher matcher = compile.matcher(line);

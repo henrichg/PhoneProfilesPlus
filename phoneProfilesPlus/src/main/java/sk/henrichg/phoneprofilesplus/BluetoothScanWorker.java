@@ -32,9 +32,7 @@ public class BluetoothScanWorker extends Worker {
     static final String WORK_TAG  = "BluetoothScanJob";
     static final String WORK_TAG_SHORT  = "BluetoothScanJobShort";
 
-    public static volatile BluetoothAdapter bluetooth = null;
-
-    static volatile List<BluetoothDeviceData> tmpScanLEResults = null;
+    static volatile BluetoothAdapter bluetooth = null;
 
     private static final String PREF_EVENT_BLUETOOTH_SCAN_REQUEST = "eventBluetoothScanRequest";
     private static final String PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS = "eventBluetoothWaitForResults";
@@ -207,7 +205,7 @@ public class BluetoothScanWorker extends Worker {
                                 .setInitialDelay(interval, TimeUnit.MINUTES)
                                 .addTag(BluetoothScanWorker.WORK_TAG)
                                 .build();
-                        if (PPApplicationStatic.getApplicationStarted(true, true)) {
+//                        if (PPApplicationStatic.getApplicationStarted(true, true)) {
 
 //                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
@@ -220,13 +218,13 @@ public class BluetoothScanWorker extends Worker {
 
 //                            PPApplicationStatic.logE("[WORKER_CALL] BluetoothScanWorker._scheduleWork", "(1)");
                             workManager.enqueueUniqueWork(BluetoothScanWorker.WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
-                        }
+//                        }
                     } else {
                         //waitForFinish();
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(BluetoothScanWorker.class)
                                 .addTag(BluetoothScanWorker.WORK_TAG_SHORT)
                                 .build();
-                        if (PPApplicationStatic.getApplicationStarted(true, true)) {
+//                        if (PPApplicationStatic.getApplicationStarted(true, true)) {
 
 //                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
@@ -239,7 +237,7 @@ public class BluetoothScanWorker extends Worker {
 
 //                            PPApplicationStatic.logE("[WORKER_CALL] BluetoothScanWorker._scheduleWork", "(2)");
                             workManager.enqueueUniqueWork(BluetoothScanWorker.WORK_TAG_SHORT, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
-                        }
+//                        }
                     }
                 }
             }
@@ -327,7 +325,6 @@ public class BluetoothScanWorker extends Worker {
                         else
                             statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                         boolean allFinished = true;
-                        //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();
                             for (WorkInfo workInfo : workInfoList) {
@@ -337,9 +334,7 @@ public class BluetoothScanWorker extends Worker {
                                     break;
                                 }
                             }
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
+                        } catch (ExecutionException | InterruptedException e) {
                             e.printStackTrace();
                         }
                         if (allFinished) {
@@ -389,7 +384,6 @@ public class BluetoothScanWorker extends Worker {
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
-                    //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
                         boolean running = false;
@@ -399,10 +393,7 @@ public class BluetoothScanWorker extends Worker {
                             break;
                         }
                         return running;
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                        return false;
-                    } catch (InterruptedException e) {
+                    } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                         return false;
                     }
@@ -429,7 +420,6 @@ public class BluetoothScanWorker extends Worker {
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
-                    //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
                         boolean running = false;
@@ -439,10 +429,7 @@ public class BluetoothScanWorker extends Worker {
                             break;
                         }
                         return running;
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                        return false;
-                    } catch (InterruptedException e) {
+                    } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                         return false;
                     }
@@ -464,15 +451,11 @@ public class BluetoothScanWorker extends Worker {
     /*
     static BluetoothAdapter getBluetoothAdapter(Context context) {
         BluetoothAdapter adapter;
-        //if (android.os.Build.VERSION.SDK_INT < 18)
-        //    adapter = BluetoothAdapter.getDefaultAdapter();
-        //else {
         BluetoothManager bluetoothManager = (BluetoothManager)context.getSystemService(Context.BLUETOOTH_SERVICE);
         if (bluetoothManager != null)
             adapter = bluetoothManager.getAdapter();
         else
             adapter = null;
-        //}
         return adapter;
     }
     */
@@ -614,7 +597,7 @@ public class BluetoothScanWorker extends Worker {
             }
 
             BluetoothScanner bluetoothScanner = new BluetoothScanner(context);
-            bluetoothScanner.doScan(fromDialog);
+            bluetoothScanner.doScan(/*fromDialog*/);
         }
         //dataWrapper.invalidateDataWrapper();
     }
@@ -624,9 +607,7 @@ public class BluetoothScanWorker extends Worker {
     {
         unlock();
         if (getBluetoothEnabledForScan(context)) {
-            if (Build.VERSION.SDK_INT >= 26)
-                CmdBluetooth.setBluetooth(false);
-            else
+            //    CmdBluetooth.setBluetooth(false);
                 bluetooth.disable();
         }
         setBluetoothEnabledForScan(context, false);
@@ -656,10 +637,7 @@ public class BluetoothScanWorker extends Worker {
 
     @SuppressLint("MissingPermission")
     static int getBluetoothType(BluetoothDevice device) {
-        //if (android.os.Build.VERSION.SDK_INT >= 18)
         return device.getType();
-        //else
-        //    return 1; // BluetoothDevice.DEVICE_TYPE_CLASSIC
     }
 
     @SuppressLint("MissingPermission")
@@ -681,7 +659,9 @@ public class BluetoothScanWorker extends Worker {
                     //boundedDevicesList.clear();
                     if (boundedDevices != null) {
                         for (BluetoothDevice device : boundedDevices) {
-                            boundedDevicesList.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
+                            String name = device.getName();
+                            if ((name != null) && (!name.isEmpty()))
+                                boundedDevicesList.add(new BluetoothDeviceData(name, device.getAddress(),
                                     getBluetoothType(device), false, 0, true, false));
                         }
                     }
@@ -691,8 +671,8 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    private static final String SCAN_RESULT_COUNT_PREF = "count";
-    private static final String SCAN_RESULT_DEVICE_PREF = "device";
+    private static final String PREF_SCAN_RESULT_COUNT = "count";
+    private static final String PREF_SCAN_RESULT_DEVICE = "device";
 
     //public static void getBoundedDevicesList(Context context)
     static List<BluetoothDeviceData> getBoundedDevicesList(Context context)
@@ -707,12 +687,12 @@ public class BluetoothScanWorker extends Worker {
 
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_BOUNDED_DEVICES_LIST_PREFS_NAME, Context.MODE_PRIVATE);
 
-            int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, 0);
+            int count = preferences.getInt(PREF_SCAN_RESULT_COUNT, 0);
 
             Gson gson = new Gson();
 
             for (int i = 0; i < count; i++) {
-                String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
+                String json = preferences.getString(PREF_SCAN_RESULT_DEVICE + i, "");
                 if (!json.isEmpty()) {
                     BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
                     device.configured = true;
@@ -735,13 +715,14 @@ public class BluetoothScanWorker extends Worker {
 
             editor.clear();
 
-            editor.putInt(SCAN_RESULT_COUNT_PREF, boundedDevicesList.size());
+            int size = boundedDevicesList.size();
+            editor.putInt(PREF_SCAN_RESULT_COUNT, size);
 
             Gson gson = new Gson();
 
-            for (int i = 0; i < boundedDevicesList.size(); i++) {
+            for (int i = 0; i < size; i++) {
                 String json = gson.toJson(boundedDevicesList.get(i));
-                editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
+                editor.putString(PREF_SCAN_RESULT_DEVICE + i, json);
             }
 
             editor.apply();
@@ -754,12 +735,12 @@ public class BluetoothScanWorker extends Worker {
             List<BluetoothDeviceData> scanResults = new ArrayList<>();
 
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_CL_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
-            int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
+            int count = preferences.getInt(PREF_SCAN_RESULT_COUNT, -1);
 
             if (count >= 0) {
                 Gson gson = new Gson();
                 for (int i = 0; i < count; i++) {
-                    String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
+                    String json = preferences.getString(PREF_SCAN_RESULT_DEVICE + i, "");
                     if (!json.isEmpty()) {
                         BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
                         device.scanned = true;
@@ -769,12 +750,12 @@ public class BluetoothScanWorker extends Worker {
             }
 
             preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_LE_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
-            count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
+            count = preferences.getInt(PREF_SCAN_RESULT_COUNT, -1);
 
             if (count >= 0) {
                 Gson gson = new Gson();
                 for (int i = 0; i < count; i++) {
-                    String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
+                    String json = preferences.getString(PREF_SCAN_RESULT_DEVICE + i, "");
                     if (!json.isEmpty()) {
                         BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
                         device.scanned = true;
@@ -796,7 +777,7 @@ public class BluetoothScanWorker extends Worker {
             SharedPreferences.Editor editor = preferences.edit();
 
             editor.clear();
-            editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
+            editor.putInt(PREF_SCAN_RESULT_COUNT, -1);
 
             editor.apply();
 
@@ -804,7 +785,7 @@ public class BluetoothScanWorker extends Worker {
             editor = preferences.edit();
 
             editor.clear();
-            editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
+            editor.putInt(PREF_SCAN_RESULT_COUNT, -1);
 
             editor.apply();
         }
@@ -818,12 +799,13 @@ public class BluetoothScanWorker extends Worker {
 
             editor.clear();
 
-            editor.putInt(SCAN_RESULT_COUNT_PREF, scanResults.size());
+            int size = scanResults.size();
+            editor.putInt(PREF_SCAN_RESULT_COUNT, size);
 
             Gson gson = new Gson();
-            for (int i = 0; i < scanResults.size(); i++) {
+            for (int i = 0; i < size; i++) {
                 String json = gson.toJson(scanResults.get(i));
-                editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
+                editor.putString(PREF_SCAN_RESULT_DEVICE + i, json);
             }
 
             editor.apply();
@@ -838,12 +820,13 @@ public class BluetoothScanWorker extends Worker {
 
             editor.clear();
 
-            editor.putInt(SCAN_RESULT_COUNT_PREF, scanResults.size());
+            int size = scanResults.size();
+            editor.putInt(PREF_SCAN_RESULT_COUNT, size);
 
             Gson gson = new Gson();
-            for (int i = 0; i < scanResults.size(); i++) {
+            for (int i = 0; i < size; i++) {
                 String json = gson.toJson(scanResults.get(i));
-                editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
+                editor.putString(PREF_SCAN_RESULT_DEVICE + i, json);
             }
 
             editor.apply();
@@ -888,27 +871,35 @@ public class BluetoothScanWorker extends Worker {
 
     static void addLEScanResult(BluetoothDeviceData device) {
         synchronized (PPApplication.bluetoothLEScanMutex) {
-            if (tmpScanLEResults == null)
-                tmpScanLEResults = new ArrayList<>();
+            if (BluetoothScanner.tmpScanLEResults == null)
+                BluetoothScanner.tmpScanLEResults = new ArrayList<>();
 
-            boolean found = false;
-            for (BluetoothDeviceData _device : tmpScanLEResults) {
-                if (_device.address.equals(device.address)) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                for (BluetoothDeviceData _device : tmpScanLEResults) {
-                    if (_device.getName().equalsIgnoreCase(device.getName())) {
+            String btName = device.getName();
+            if (!btName.isEmpty()) {
+                // do not add device without name
+
+                boolean found = false;
+                for (BluetoothDeviceData tmpDevice : BluetoothScanner.tmpScanLEResults) {
+                    if ((!tmpDevice.getAddress().isEmpty()) &&
+                            (!device.getAddress().isEmpty()) &&
+                            tmpDevice.getAddress().equals(device.getAddress())) {
                         found = true;
                         break;
                     }
                 }
-            }
-            if (!found) {
-                if (tmpScanLEResults != null) // maybe set to null by startLEScan() or finishLEScan()
-                    tmpScanLEResults.add(new BluetoothDeviceData(device.name, device.address, device.type, false, 0, false, true));
+                if (!found) {
+                    for (BluetoothDeviceData tmpDevice : BluetoothScanner.tmpScanLEResults) {
+                        if ((!tmpDevice.getName().isEmpty()) &&
+                                tmpDevice.getName().equalsIgnoreCase(btName)) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                if (!found) {
+                    if (BluetoothScanner.tmpScanLEResults != null) // maybe set to null by startLEScan() or finishLEScan()
+                        BluetoothScanner.tmpScanLEResults.add(new BluetoothDeviceData(device.getName(), device.getAddress(), device.type, false, 0, false, true));
+                }
             }
         }
     }

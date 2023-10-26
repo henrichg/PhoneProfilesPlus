@@ -29,12 +29,13 @@ public class PPTileService extends TileService {
 
         boolean isOK = false;
         if ((PPApplication.quickTileProfileId[tileId] != 0) && (PPApplication.quickTileProfileId[tileId] != -1)) {
-            Profile profile = null;
+            boolean profileExists = false;
             if (PPApplication.quickTileProfileId[tileId] != Profile.RESTART_EVENTS_PROFILE_ID) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
-                profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], false, false, false);
+                profileExists = dataWrapper.profileExists(PPApplication.quickTileProfileId[tileId]);
+                dataWrapper.invalidateDataWrapper();
             }
-            if ((PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID) || (profile != null)) {
+            if ((PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID) || profileExists) {
                 isOK = true;
                 Intent intent = new Intent(getApplicationContext(), BackgroundActivateProfileActivity.class);
                 intent.setAction(Intent.ACTION_MAIN);
@@ -190,6 +191,7 @@ public class PPTileService extends TileService {
                     else {
                         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
                         Profile profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], true, false, false);
+                        dataWrapper.invalidateDataWrapper();
                         if (profile != null) {
                             tile.setLabel(profile._name);
                             if (Build.VERSION.SDK_INT >= 29) {
@@ -215,7 +217,6 @@ public class PPTileService extends TileService {
                             else
                                 tile.setState(Tile.STATE_INACTIVE);
                         }
-                        dataWrapper.invalidateDataWrapper();
                     }
                     tile.updateTile();
 

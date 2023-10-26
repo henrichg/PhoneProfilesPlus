@@ -1,9 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,9 +16,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
 
-public class PhoneProfilesPrefsActivity extends AppCompatActivity {
+public class PhoneProfilesPrefsActivity extends AppCompatActivity
+        implements MobileCellsRegistrationCountDownListener,
+                   MobileCellsRegistrationStoppedListener
+{
 
     boolean activityStarted = false;
 
@@ -46,13 +49,17 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     //int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
-    public static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
-    //public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
-    public static final String EXTRA_RESET_EDITOR = "reset_editor";
+    private MobileCellsRegistrationCountDownBroadcastReceiver mobileCellsRegistrationCountDownBroadcastReceiver = null;
+    private MobileCellsRegistrationStoppedBroadcastReceiver mobileCellsRegistrationNewCellsBroadcastReceiver = null;
+
+    static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
+    //static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
+    static final String EXTRA_RESET_EDITOR = "reset_editor";
+    static final String EXTRA_HIDE_BACK_ARROW = "extra_phone_profile_preferences_hide_back_arrow";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false, true); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -71,17 +78,23 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             return;
         }
 
+        Intent intent = getIntent();
+
         activityStarted = true;
+
+        boolean hideBackArrow = intent.getBooleanExtra(EXTRA_HIDE_BACK_ARROW, false);
 
         Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
         toolbar.setVisibility(View.GONE);
         toolbar = findViewById(R.id.activity_preferences_toolbar_no_subtitle);
         toolbar.setVisibility(View.VISIBLE);
+        if (hideBackArrow)
+            toolbar.setContentInsetsAbsolute(GlobalGUIRoutines.dpToPx(15), 0);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(!hideBackArrow);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(!hideBackArrow);
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
@@ -89,9 +102,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
         //activeLanguage = preferences.getString(ApplicationPreferences.PREF_APPLICATION_LANGUAGE, "system");
-        String defaultValue = "white";
+        String defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE;
         if (Build.VERSION.SDK_INT >= 28)
-            defaultValue = "night_mode";
+            defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE;
         activeTheme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_THEME, defaultValue);
         //activeNightModeOffTheme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "white");
         showEditorPrefIndicator = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);
@@ -115,7 +128,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         useAlarmClockEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, false);
 
         String extraScrollTo; //= null;
-        Intent intent = getIntent();
         //String action = intent.getAction();
         /*if (intent.hasCategory(Notification.INTENT_CATEGORY_NOTIFICATION_PREFERENCES)) {
             // activity is started from notification, scroll to notifications category
@@ -145,13 +157,13 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             }
 
             if (widgetType == PPApplication.WIDGET_TYPE_ICON)
-                extraScrollTo = "categoryWidgetIconRoot";
+                extraScrollTo = PREF_WIDGET_ICON_CATEGORY;
             else
             if (widgetType == PPApplication.WIDGET_TYPE_ONE_ROW)
-                extraScrollTo = "categoryWidgetOneRowRoot";
+                extraScrollTo = PREF_WIDGET_ONE_ROW_CATEGORY;
             else
             if (widgetType == PPApplication.WIDGET_TYPE_LIST)
-                extraScrollTo = "categoryWidgetListRoot";
+                extraScrollTo = PREF_WIDGET_LISY_CATEGORY;
         }*/
         //else {
             extraScrollTo = intent.getStringExtra(EXTRA_SCROLL_TO);
@@ -161,76 +173,76 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         PhoneProfilesPrefsFragment preferenceFragment = new PhoneProfilesPrefsRoot();
         if (extraScrollTo != null) {
             switch (extraScrollTo) {
-                case "categorySystemRoot":
+                case PhoneProfilesPrefsFragment.PREF_SYSTEM_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsSystem();
                     break;
-                case "categoryPermissionsRoot":
+                case PhoneProfilesPrefsFragment.PREF_PERMISSIONS_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsPermissions();
                     break;
-                case "profileActivationCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_PROFILE_ACTIVATION_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsProfileActivation();
                     break;
-                case "eventRunCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_EVENT_RUN_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsEventRun();
                     break;
-                case "categoryAppNotificationRoot":
+                case PhoneProfilesPrefsFragment.PREF_APP_NOTIFICATION_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsAppNotification();
                     break;
-                case "specialProfileParametersCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_SPECIAL_PROFILE_PARAMETERS_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsSpecialProfileParameters();
                     break;
-                case "periodicScanningCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_PERIODIC_SCANNING_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsPeriodicScanning();
                     break;
-                case "locationScanningCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_LOCATION_SCANNING_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsLocationScanning();
                     break;
-                case "wifiScanningCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_WIFI_SCANNING_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsWifiScanning();
                     break;
-                case "bluetoothScanningCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_BLUETOOTH_SCANNING_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsBluetoothScanning();
                     break;
-                case "mobileCellsScanningCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_MOBILE_CELLS_SCANNING_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsMobileCellsScanning();
                     break;
-                case "orientationScanningCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_ORIENTATION_SCANNING_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsOrientationScanning();
                     break;
-                case "notificationScanningCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_NOTIFICATION_SCANNING_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsNotificationScanning();
                     break;
-                case "applicationInterfaceCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_APPLICATION_INTERFACE_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsInterface();
                     break;
-                case "categoryApplicationStartRoot":
+                case PhoneProfilesPrefsFragment.PREF_APPLICATION_START_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsApplicationStart();
                     break;
-                case "categoryActivatorRoot":
+                case PhoneProfilesPrefsFragment.PREF_ACTIVATOR_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsActivator();
                     break;
-                case "categoryEditorRoot":
+                case PhoneProfilesPrefsFragment.PREF_EDITOR_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsEditor();
                     break;
-                case "categoryWidgetListRoot":
+                case PhoneProfilesPrefsFragment.PREF_WIDGET_LIST_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsWidgetList();
                     break;
-                case "categoryWidgetOneRowRoot":
+                case PhoneProfilesPrefsFragment.PREF_WIDGET_ONE_ROW_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsWidgetOneRow();
                     break;
-                case "categoryWidgetIconRoot":
+                case PhoneProfilesPrefsFragment.PREF_WIDGET_ICON_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsWidgetIcon();
                     break;
-                case "categoryShortcutRoot":
+                case PhoneProfilesPrefsFragment.PREF_SHORTCUT_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsShortcut();
                     break;
-                case "categorySamsungEdgePanelRoot":
+                case PhoneProfilesPrefsFragment.PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsSamsungEdgePanel();
                     break;
-                case "categoryWidgetOneRowProfileListRoot":
+                case PhoneProfilesPrefsFragment.PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsWidgetOneRowProfileList();
                     break;
-                case "categoryProfileListNotificationRoot":
+                case PhoneProfilesPrefsFragment.PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsProfileListNotification();
                     break;
             }
@@ -272,8 +284,30 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             if (!isFinishing())
                 finish();
         } else {
-            Permissions.grantNotificationsPermission(this);
+            // this is for API 33+
+            if (!Permissions.grantNotificationsPermission(this)) {
+                if (mobileCellsRegistrationCountDownBroadcastReceiver == null) {
+                    IntentFilter intentFilter = new IntentFilter();
+                    intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
+                    mobileCellsRegistrationCountDownBroadcastReceiver = new MobileCellsRegistrationCountDownBroadcastReceiver(this);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    registerReceiver(mobileCellsRegistrationCountDownBroadcastReceiver, intentFilter, receiverFlags);
+                }
+
+                if (mobileCellsRegistrationNewCellsBroadcastReceiver == null) {
+                    IntentFilter intentFilter = new IntentFilter();
+                    intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
+                    mobileCellsRegistrationNewCellsBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver(this);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    registerReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver, intentFilter, receiverFlags);
+                }
+            }
         }
+
     }
 
     @SuppressWarnings("SameReturnValue")
@@ -315,7 +349,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
-            AutostartPermissionNotification.showNotification(getApplicationContext(), true);
+            //AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
@@ -328,7 +362,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //            PPApplicationStatic.logE("[START_PP_SERVICE] PhoneProfilesPrefsActivity.startPPServiceWhenNotStarted", "(1)");
-            PPApplicationStatic.startPPService(this, serviceIntent);
+            PPApplicationStatic.startPPService(this, serviceIntent, true);
             //return true;
         } /*else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
@@ -370,8 +404,14 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 ProfileListNotification.drawNotification(true, getApplicationContext());
                 DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
-                sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(true, getApplicationContext());
+                PPAppNotification.drawNotification(true, getApplicationContext());
             }
+
+            //!!!! THIS IS IMPORTANT BECAUSE WITHOUT THIS IS GENERATED CRASH
+            //  java.lang.NullPointerException: Attempt to invoke virtual method 'void android.content.BroadcastReceiver.onReceive(android.content.Context, android.content.Intent)'
+            //  on a null object reference
+            //  at androidx.localbroadcastmanager.content.LocalBroadcastManager.executePendingBroadcasts(LocalBroadcastManager.java:313)
+            finish();
         }
         else {
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
@@ -385,6 +425,24 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (activityStarted) {
             if (!fromFinish)
                 doPreferenceChanges();
+        }
+
+        if (mobileCellsRegistrationCountDownBroadcastReceiver != null) {
+            try {
+                unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);
+            } catch (IllegalArgumentException e) {
+                //PPApplicationStatic.recordException(e);
+            }
+            mobileCellsRegistrationCountDownBroadcastReceiver = null;
+        }
+
+        if (mobileCellsRegistrationNewCellsBroadcastReceiver != null) {
+            try {
+                unregisterReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver);
+            } catch (IllegalArgumentException e) {
+                //PPApplicationStatic.recordException(e);
+            }
+            mobileCellsRegistrationNewCellsBroadcastReceiver = null;
         }
 
         super.onStop();
@@ -402,7 +460,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             // for startActivityForResult
             returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, invalidateEditor);
-            Permissions.grantRootChanged = false;
+            PPApplication.grantRootChanged = false;
 
             //if (appWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
             //    Intent resultValue = new Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
@@ -411,7 +469,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 setResult(RESULT_OK, returnIntent);
         }
         else {
-            Permissions.grantRootChanged = false;
+            PPApplication.grantRootChanged = false;
             setResult(RESULT_CANCELED);//, returnIntent);
         }
 
@@ -449,7 +507,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         PPApplicationStatic.loadApplicationPreferences(getApplicationContext());
 
-        sk.henrichg.phoneprofilesplus.PPAppNotification.forceDrawNotificationFromSettings(appContext);
+        PPAppNotification.forceDrawNotificationFromSettings(appContext);
 
         // !! must be after PPApplication.loadApplicationPreferences()
         if (ApplicationPreferences.notificationProfileListDisplayNotification)
@@ -458,9 +516,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             ProfileListNotification.disable(getApplicationContext());
 
        //try {
-            /*if ((Build.VERSION.SDK_INT < 26)) {
-                PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
-            }*/
         PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, ApplicationPreferences.applicationEventPeriodicScanningEnableScanning);
         PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, ApplicationPreferences.applicationEventPeriodicScanningScanInterval);
         PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScanning);
@@ -478,8 +533,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             // PPApplicationStatic.recordException(e);
         //}
 
-        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-        dataWrapper.setDynamicLauncherShortcutsFromMainThread();
+        DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(appContext);
 
         /*
         if (PhoneProfilesService.getInstance() != null) {
@@ -505,7 +559,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsActivity.doPreferenceChanges", "call of updateGUI");
         PPApplication.updateGUI(true, false, getApplicationContext());
 
-        if (Permissions.grantRootChanged) {
+        if (PPApplication.grantRootChanged) {
             invalidateEditor = true;
         }
 
@@ -605,7 +659,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesPrefsActivity_doPreferenceChanges");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PhoneProfilesPrefsActivity_doPreferenceChanges);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -677,701 +731,54 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         //}
     }
 
+    private static class MobileCellsRegistrationCountDownBroadcastReceiver extends BroadcastReceiver {
 
-//--------------------------------------------------------------------------------------------------
+        private final MobileCellsRegistrationCountDownListener listener;
 
-    static public class PhoneProfilesPrefsRoot extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_root, rootKey);
-        }
-
-        /*
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-        }
-        */
-    }
-
-    static public class PhoneProfilesPrefsInterface extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)){
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_interface, rootKey);
+        public MobileCellsRegistrationCountDownBroadcastReceiver(
+                MobileCellsRegistrationCountDownListener listener){
+            this.listener = listener;
         }
 
         @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_THEME, ApplicationPreferences.applicationThemeDefaultValue()));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER, ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER, ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER, ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR, ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ICON_COLOR_DEFAULT_VALUE));
-            //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON, ApplicationPreferences.PREF_APPLICATION_INCREASE_BRIGHTNESS_FOR_PROFILE_ICON_DEFAULT_VALUE));
+        public void onReceive( Context context, Intent intent ) {
+            listener.countDownFromListener(intent);
         }
 
     }
 
-    static public class PhoneProfilesPrefsApplicationStart extends PhoneProfilesPrefsFragment {
+    @Override
+    public void countDownFromListener(Intent intent) {
+//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsRegistrationCountDownBroadcastReceiver.onReceive", "xxx");
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
+        if (fragment != null) {
+            long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
+            ((PhoneProfilesPrefsFragment) fragment).doMobileCellsRegistrationCountDownBroadcastReceiver(millisUntilFinished);
+        }
+    }
 
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
+    private static class MobileCellsRegistrationStoppedBroadcastReceiver extends BroadcastReceiver {
 
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_application_start, rootKey);
+        private final MobileCellsRegistrationStoppedListener listener;
+
+        public MobileCellsRegistrationStoppedBroadcastReceiver(
+                MobileCellsRegistrationStoppedListener listener){
+            this.listener = listener;
         }
 
         @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATE, ApplicationPreferences.PREF_APPLICATION_ACTIVATE_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_EVENTS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_START_EVENTS, ApplicationPreferences.PREF_APPLICATION_START_EVENTS_DEFAULT_VALUE));
+        public void onReceive( Context context, Intent intent ) {
+            listener.registrationStoppedFromListener();
         }
 
     }
 
-    static public class PhoneProfilesPrefsSystem extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_system, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK_DEFAULT_VALUE));
-        }
-
-    }
-
-    static public class PhoneProfilesPrefsPermissions extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_permissions, rootKey);
-        }
-
-        /*
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-        }
-        */
-    }
-
-    static public class PhoneProfilesPrefsAppNotification extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_app_notification, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE, ApplicationPreferences.notificationStatusBarStyleDefaultValue()));
-            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE, ApplicationPreferences.notificationNotificationStyleDefaultValue()));
-            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, ApplicationPreferences.notificationUseDecorationDefaultValue()));
-            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR, ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, fromPreference.getInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR, ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, ApplicationPreferences.notificationShowProfileIconDefaultValue()));
-            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS, ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS, ApplicationPreferences.PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR, ApplicationPreferences.notificationPrefIndicatorDefaultValue()));
-            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS, ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON, ApplicationPreferences.notificationShowRestartEventsAsButtonDefaultValue()));
-            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT, ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT_DEFAULT_VALUE));
-        }
-
-    }
-
-    static public class PhoneProfilesPrefsProfileActivation extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_profile_activation, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE, ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND, ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE, ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ALERT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_ALERT, ApplicationPreferences.PREF_APPLICATION_ALERT_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND, ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_VIBRATE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_VIBRATE, ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_VIBRATE_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, ApplicationPreferences.PREF_NOTIFICATION_TOAST_DEFAULT_VALUE));
-        }
-
-    }
-
-    static public class PhoneProfilesPrefsSpecialProfileParameters extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_special_profile_parameters, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON, ApplicationPreferences.PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_DEFAULT_VALUE));
-        }
-
-    }
-
-    static public class PhoneProfilesPrefsEventRun extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_event_run, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT_DEFAULT_VALUE));
-        }
-    }
-
-    static public class PhoneProfilesPrefsPeriodicScanning extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_periodic_scanning, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_POWER_SAVE_MODE, ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY, ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM, ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO, ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON, ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE));
-        }
-    }
-
-    static public class PhoneProfilesPrefsLocationScanning extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_location_scanning, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE, ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY, ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_FROM, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_FROM, ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_TO, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_TO, ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_USE_GPS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_USE_GPS, ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_USE_GPS_DEFAULT_VALUE));
-        }
-
-    }
-
-    static public class PhoneProfilesPrefsWifiScanning extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_wifi_scanning, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF, ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT, ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE, ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY, ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM, ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO, ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_ONLY_WHEN_SCREEN_IS_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_ONLY_WHEN_SCREEN_IS_ON, ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE));
-        }
-    }
-
-    static public class PhoneProfilesPrefsBluetoothScanning extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_bluetooth_scanning, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF, ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION, ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE, ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY, ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_FROM, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_FROM, ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_TO, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_TO, ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_ONLY_WHEN_SCREEN_IS_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_ONLY_WHEN_SCREEN_IS_ON, ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE));
-        }
-    }
-
-    static public class PhoneProfilesPrefsMobileCellsScanning extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_mobile_cells_scanning, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED, ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE, ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY, ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_FROM, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_FROM, ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_TO, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_TO, ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_ONLY_WHEN_SCREEN_IS_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_ONLY_WHEN_SCREEN_IS_ON, ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE));
-        }
-    }
-
-    static public class PhoneProfilesPrefsOrientationScanning extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_orientation_scanning, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE, ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY, ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_FROM, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_FROM, ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_TO, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_TO, ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE));
-        }
-    }
-
-    static public class PhoneProfilesPrefsNotificationScanning extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_notification_scanning, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE, ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY, ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_FROM, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_FROM, ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_FROM_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_TO, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_TO, ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_TO_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE));
-        }
-    }
-
-    static public class PhoneProfilesPrefsActivator extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_activator, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_LONG_PRESS_ACTIVATION, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_LONG_PRESS_ACTIVATION, ApplicationPreferences.PREF_APPLICATION_LONG_PRESS_ACTIVATION_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_CLOSE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_CLOSE, ApplicationPreferences.PREF_APPLICATION_CLOSE_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS, ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST, ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS, ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS_DEFAULT_VALUE));
-        }
-    }
-
-    static public class PhoneProfilesPrefsEditor extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_editor, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR, ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS_DEFAULT_VALUE));
-        }
-    }
-
-    static public class PhoneProfilesPrefsWidgetList extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_widget_list, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_COMPACT_GRID, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_COMPACT_GRID, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_COMPACT_GRID_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE, ApplicationPreferences.applicationWidgetListChangeColorsByNightModeDefaultValue(getContext())));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND, ApplicationPreferences.applicationWidgetListBackgroundDefaultValue(getContext())));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER_DEFAULT_VALUE));
-            //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS,ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE));
-        }
-    }
-
-    static public class PhoneProfilesPrefsWidgetOneRow extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_widget_one_row, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LAYOUT_HEIGHT, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LAYOUT_HEIGHT, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LAYOUT_HEIGHT_DEFAULT_VALUE));
-            //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_FILL_BACKGROUND, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_FILL_BACKGROUND, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_FILL_BACKGROUND_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE,ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightModeDefaultValue(getContext())));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, ApplicationPreferences.applicationWidgetOneRowBackgroundDefaultValue(getContext())));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER_DEFAULT_VALUE));
-            //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS,ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE));
-        }
-    }
-
-    static public class PhoneProfilesPrefsWidgetIcon extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_widget_icon, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, ApplicationPreferences.applicationWidgetIconChangeColorsByNightModeDefaultValue(getContext())));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND, ApplicationPreferences.applicationWidgetIconBackgroundDefaultValue(getContext())));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER_DEFAULT_VALUE));
-            //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS,ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE));
-        }
-    }
-
-    static public class PhoneProfilesPrefsShortcut extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_shortcut, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR, ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE));
-        }
-    }
-
-    static public class PhoneProfilesPrefsSamsungEdgePanel extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_samsung_edge_panel, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_HEADER, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_HEADER, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_HEADER_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE, ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightModeDefaultValue()));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, ApplicationPreferences.applicationSamsungEdgeBackgroundDefaultValue()));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON, ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE));
-        }
-    }
-
-    static public class PhoneProfilesPrefsWidgetOneRowProfileList extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_widget_one_row_profile_list, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LAYOUT_HEIGHT, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LAYOUT_HEIGHT, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LAYOUT_HEIGHT_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_FILL_BACKGROUND, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_FILL_BACKGROUND, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_FILL_BACKGROUND_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE,ApplicationPreferences.applicationWidgetOneRowProfileListChangeColorsByNightModeDefaultValue(getContext())));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND, ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundDefaultValue(getContext())));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_TYPE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_TYPE, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_TYPE_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_B, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_B, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_B_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_SHOW_BORDER, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_SHOW_BORDER, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_SHOW_BORDER_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS,ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE, ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE_DEFAULT_VALUE));
-        }
-    }
-
-    static public class PhoneProfilesPrefsProfileListNotification extends PhoneProfilesPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            PreferenceManager prefMng = getPreferenceManager();
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            if ((getContext() != null) && (preferences != null)) {
-                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                loadSharedPreferences(preferences, applicationPreferences);
-            }
-
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_profile_list_notification, rootKey);
-        }
-
-        @Override
-        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_DISPLAY_NOTIFICATION, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_DISPLAY_NOTIFICATION, ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_DISPLAY_NOTIFICATION_DEFAULT_VALUE));
-            //editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR, ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR_DEFAULT_VALUE));
-            //editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_HIDE_IN_LOCKSCREEN, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_HIDE_IN_LOCKSCREEN, ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_HIDE_IN_LOCKSCREEN_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_STATUS_BAR_STYLE, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_STATUS_BAR_STYLE, ApplicationPreferences.notificationProfileListStatusBarStyleDefaultValue()));
-            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_COLOR, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_COLOR, ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_COLOR_DEFAULT_VALUE));
-            editor.putInt(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_CUSTOM_COLOR, fromPreference.getInt(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_CUSTOM_COLOR, ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_CUSTOM_COLOR_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ARROWS_MARK_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ARROWS_MARK_LIGHTNESS, ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE, ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ICON_COLOR, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ICON_COLOR, ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ICON_COLOR_DEFAULT_VALUE));
-            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ICON_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ICON_LIGHTNESS, ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ICON_LIGHTNESS_DEFAULT_VALUE));
-            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE));
-        }
-
+    @Override
+    public void registrationStoppedFromListener() {
+//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsRegistrationStoppedBroadcastReceiver.onReceive", "xxx");
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
+        if (fragment != null)
+            ((PhoneProfilesPrefsFragment)fragment).doMobileCellsRegistrationStoppedBroadcastReceiver();
     }
 
 }

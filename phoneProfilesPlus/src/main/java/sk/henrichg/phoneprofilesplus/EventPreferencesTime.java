@@ -42,7 +42,7 @@ class EventPreferencesTime extends EventPreferences {
     static final String PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS = "eventTimeLocationSystemSettings";
     static final String PREF_EVENT_TIME_APP_SETTINGS = "eventTimePeriodicScanningAppSettings";
 
-    private static final String PREF_EVENT_TIME_CATEGORY = "eventTimeCategoryRoot";
+    static final String PREF_EVENT_TIME_CATEGORY = "eventTimeCategoryRoot";
 
     static final int TIME_TYPE_EXACT = 0;
     private static final int TIME_TYPE_SUNRISE_SUNSET = 1;
@@ -121,7 +121,7 @@ class EventPreferencesTime extends EventPreferences {
         this._enabled = preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false);
 
         String sDays = preferences.getString(PREF_EVENT_TIME_DAYS, DaysOfWeekPreference.allValue);
-        String[] splits = sDays.split("\\|");
+        String[] splits = sDays.split(StringConstants.STR_SPLIT_REGEX);
         if (splits[0].equals(DaysOfWeekPreference.allValue))
         {
             this._sunday = true;
@@ -162,22 +162,22 @@ class EventPreferencesTime extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_time_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_time_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + "<b>";
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_time), addPassStatus, DatabaseHandler.ETYPE_TIME, context);
-                    descr = descr + "</b> ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_time), addPassStatus, DatabaseHandler.ETYPE_TIME, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
                 if (_timeType != TIME_TYPE_EXACT) {
                     if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
-                        descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
+                        _value.append("* ").append(context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary)).append("! *").append(StringConstants.TAG_BREAK_HTML);
                     }
                 }
 
@@ -194,7 +194,7 @@ class EventPreferencesTime extends EventPreferences {
                 for (int i = 0; i < 7; i++)
                     allDays = allDays && daySet[i];
 
-                descr = descr + context.getString(R.string.event_preferences_time_timeDays) + ": ";
+                _value.append(context.getString(R.string.event_preferences_time_timeDays)).append(StringConstants.STR_COLON_WITH_SPACE);
                 //if (allDays) {
                 //    descr = descr + "<b>" + context.getString(R.string.array_pref_event_all) + "</b>";
                 //    descr = descr + " ";
@@ -213,10 +213,10 @@ class EventPreferencesTime extends EventPreferences {
                             value.append(namesOfDay[dayOfWeek + 1]).append(" ");
                     }
                     _descr = value.toString();
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
-                descr = descr + "• " + context.getString(R.string.event_preferences_time_timeType) + ": ";
+                _value.append(StringConstants.CHAR_BULLET).append(" ").append(context.getString(R.string.event_preferences_time_timeType)).append(StringConstants.STR_COLON_WITH_SPACE);
                 String _descr = "";
                 switch (_timeType) {
                     case TIME_TYPE_EXACT:
@@ -229,13 +229,12 @@ class EventPreferencesTime extends EventPreferences {
                         _descr = _descr + context.getString(R.string.event_preference_sensor_time_type_sunset_sunrise);
                         break;
                 }
-                descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
+                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 if (_timeType == TIME_TYPE_EXACT) {
-                    descr = descr + " • ";
+                    _value.append(StringConstants.STR_BULLET);
 
-                    descr = descr + context.getString(R.string.event_preferences_time_startTime)+"-"+
-                            context.getString(R.string.event_preferences_time_endTime)+": ";
+                    _value.append(context.getString(R.string.event_preferences_time_startTime)).append("-").append(context.getString(R.string.event_preferences_time_endTime)).append(StringConstants.STR_COLON_WITH_SPACE);
 
                     _descr = "";
                     Calendar calendar = Calendar.getInstance();
@@ -249,7 +248,7 @@ class EventPreferencesTime extends EventPreferences {
                     _descr = _descr + "-";
                     _descr = _descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
                     //}
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                     if (addBullet) {
                         if (EventStatic.getGlobalEventsRunning(context)) {
@@ -257,19 +256,19 @@ class EventPreferencesTime extends EventPreferences {
                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                             String alarmTimeS;
                             if (_event.getStatus() == Event.ESTATUS_PAUSE) {
-                                alarmTime = computeAlarm(true, context);
+                                alarmTime = computeAlarm(true/*, context*/);
                                 // date and time format by user system settings configuration
                                 alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                                descr = descr + "<br>"; //'\n';
-                                descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                                _value.append(StringConstants.TAG_BREAK_HTML);
+                                _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append("-> ").append(alarmTimeS);
                             } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
-                                alarmTime = computeAlarm(false, context);
+                                alarmTime = computeAlarm(false/*, context*/);
                                 // date and time format by user system settings configuration
                                 alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                                descr = descr + "<br>"; //'\n';
-                                descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                                _value.append(StringConstants.TAG_BREAK_HTML);
+                                _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append("-> ").append(alarmTimeS);
                             }
                         }
                     }
@@ -279,17 +278,15 @@ class EventPreferencesTime extends EventPreferences {
                         if (PPApplication.twilightScanner != null) {
                             TwilightState twilightState = PPApplication.twilightScanner.getTwilightState(/*true*/);
                             if (twilightState != null) {
-                                long startTime = computeAlarm(true, context);
-                                long endTime = computeAlarm(false, context);
+                                long startTime = computeAlarm(true/*, context*/);
+                                long endTime = computeAlarm(false/*, context*/);
                                 if ((startTime != 0) && (endTime != 0)) {
-                                    descr = descr + " • ";
+                                    _value.append(StringConstants.STR_BULLET);
 
                                     if (_timeType == TIME_TYPE_SUNRISE_SUNSET)
-                                        descr = descr + context.getString(R.string.event_preference_sensor_time_sunrise) + "-" +
-                                                context.getString(R.string.event_preference_sensor_time_sunset) + ": ";
+                                        _value.append(context.getString(R.string.event_preference_sensor_time_sunrise)).append("-").append(context.getString(R.string.event_preference_sensor_time_sunset)).append(StringConstants.STR_COLON_WITH_SPACE);
                                     else
-                                        descr = descr + context.getString(R.string.event_preference_sensor_time_sunset) + "-" +
-                                                context.getString(R.string.event_preference_sensor_time_sunrise) + ": ";
+                                        _value.append(context.getString(R.string.event_preference_sensor_time_sunset)).append("-").append(context.getString(R.string.event_preference_sensor_time_sunrise)).append(StringConstants.STR_COLON_WITH_SPACE);
 
                                     _descr = "";
                                     Calendar calendar = Calendar.getInstance();
@@ -298,7 +295,7 @@ class EventPreferencesTime extends EventPreferences {
                                     calendar.setTimeInMillis(endTime);
                                     _descr = _descr + "-";
                                     _descr = _descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
-                                    descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
+                                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                                     if (addBullet) {
                                         if (EventStatic.getGlobalEventsRunning(context)) {
@@ -306,19 +303,19 @@ class EventPreferencesTime extends EventPreferences {
                                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                                             String alarmTimeS;
                                             if (_event.getStatus() == Event.ESTATUS_PAUSE) {
-                                                alarmTime = computeAlarm(true, context);
+                                                alarmTime = computeAlarm(true/*, context*/);
                                                 // date and time format by user system settings configuration
                                                 alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                                                descr = descr + "<br>"; //'\n';
-                                                descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                                                _value.append(StringConstants.TAG_BREAK_HTML);
+                                                _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append("-> ").append(alarmTimeS);
                                             } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
-                                                alarmTime = computeAlarm(false, context);
+                                                alarmTime = computeAlarm(false/*, context*/);
                                                 // date and time format by user system settings configuration
                                                 alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                                                descr = descr + "<br>"; //'\n';
-                                                descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                                                _value.append(StringConstants.TAG_BREAK_HTML);
+                                                _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append("-> ").append(alarmTimeS);
                                             }
                                         }
                                     }
@@ -331,7 +328,7 @@ class EventPreferencesTime extends EventPreferences {
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     // dayOfWeek: value are (for example) Calendar.SUNDAY-1
@@ -369,7 +366,7 @@ class EventPreferencesTime extends EventPreferences {
                 //int titleColor;
                 if (!ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
                     //if (!ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile) {
-                        summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + ".\n\n" +
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                                             context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                         //titleColor = ContextCompat.getColor(context, R.color.altype_error);
                     //}
@@ -380,8 +377,17 @@ class EventPreferencesTime extends EventPreferences {
                     //}
                 }
                 else {
-                    summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
-                            context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    boolean scanningPaused = ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiply.equals("2") &&
+                            GlobalUtils.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo);
+                    if (scanningPaused) {
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                                context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    } else {
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                                context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    }
                     //titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
@@ -427,11 +433,11 @@ class EventPreferencesTime extends EventPreferences {
             if (preference != null) {
                 String summary = context.getString(R.string.event_preference_sensor_time_locationSystemSettings_summary);
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
-                    summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *\n\n"+
+                    summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE+
                             summary;
                 }
                 else {
-                    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + ".\n\n"+
+                    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+
                             summary;
                 }
                 preference.setSummary(summary);
@@ -466,7 +472,7 @@ class EventPreferencesTime extends EventPreferences {
 
         if (key.equals(PREF_EVENT_TIME_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
         if (key.equals(PREF_EVENT_TIME_DAYS) ||
                 key.equals(PREF_EVENT_TIME_TYPE) ||
@@ -511,7 +517,7 @@ class EventPreferencesTime extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -537,6 +543,7 @@ class EventPreferencesTime extends EventPreferences {
 
     @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+        super.checkPreferences(prefMng, onlyCategory, context);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_TIME_ENABLED) != null) {
@@ -547,8 +554,7 @@ class EventPreferencesTime extends EventPreferences {
         setCategorySummary(prefMng, preferences, context);
     }
 
-    private long computeAlarm(boolean startEvent,
-                              @SuppressWarnings("unused") Context context)
+    private long computeAlarm(boolean startEvent/*, Context context*/)
     {
         Calendar now = Calendar.getInstance();
 
@@ -978,11 +984,11 @@ class EventPreferencesTime extends EventPreferences {
         if (!(isRunnable(context) && _enabled))
             return;
 
-        long alarmTime = computeAlarm(true, context/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
+        long alarmTime = computeAlarm(true/*, context*/);
         if (alarmTime > 0)
             setAlarm(true, alarmTime, context);
 
-        alarmTime = computeAlarm(false, context/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
+        alarmTime = computeAlarm(false/*, context*/);
         if (alarmTime > 0)
             setAlarm(false, alarmTime, context);
     }
@@ -1001,11 +1007,11 @@ class EventPreferencesTime extends EventPreferences {
         if (!(isRunnable(context) && _enabled))
             return;
 
-        long alarmTime = computeAlarm(false, context/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
+        long alarmTime = computeAlarm(false/*, context*/);
         if (alarmTime > 0)
             setAlarm(false, alarmTime, context);
 
-        alarmTime = computeAlarm(true, context/*_timeType == EventPreferencesTime.TIME_TYPE_EXACT*/);
+        alarmTime = computeAlarm(true/*, context*/);
         if (alarmTime > 0)
             setAlarm(true, alarmTime, context);
     }
@@ -1099,12 +1105,7 @@ class EventPreferencesTime extends EventPreferences {
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
             }
             else {
-                //if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                //else
-                //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
             }
         }
     }
@@ -1120,8 +1121,8 @@ class EventPreferencesTime extends EventPreferences {
                 long startAlarmTime;
                 long endAlarmTime;
 
-                startAlarmTime = computeAlarm(true, eventsHandler.context);
-                endAlarmTime = computeAlarm(false, eventsHandler.context);
+                startAlarmTime = computeAlarm(true/*, eventsHandler.context*/);
+                endAlarmTime = computeAlarm(false/*, eventsHandler.context*/);
 
                 Calendar now = Calendar.getInstance();
                 long nowAlarmTime = now.getTimeInMillis();

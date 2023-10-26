@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -73,9 +72,10 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         }
 
         if (activityStarted) {
-            if (!Permissions.grantNotificationsPermission(this)) {
+            // do not grant notifications form this activity
+            //if (!Permissions.grantNotificationsPermission(this)) {
                 activateProfile();
-            }
+            //}
         }
         else {
             if (!isFinishing())
@@ -90,7 +90,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
             if (profile_id == Profile.RESTART_EVENTS_PROFILE_ID) {
                 //if (Event.getGlobalEventsRunning()) {
                 // set theme and language for dialog alert ;-)
-                GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false, false);
+                GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
                 //GlobalGUIRoutines.setLanguage(this);
 
                 dataWrapper.restartEventsWithAlert(this);
@@ -135,10 +135,12 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
     {
         super.onDestroy();
 
-        //dataWrapper.invalidateDataWrapper();
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
         dataWrapper = null;
     }
 
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -150,13 +152,14 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
                 ProfileListNotification.drawNotification(true, getApplicationContext());
                 DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
-                sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(true, getApplicationContext());
+                PPAppNotification.drawNotification(true, getApplicationContext());
                 activateProfile();
             }
             //if (!isFinishing())
             //    finish();
         }
     }
+    */
 
     @Override
     public void finish()
@@ -174,7 +177,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
 
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
-            AutostartPermissionNotification.showNotification(getApplicationContext(), true);
+            //AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
@@ -187,7 +190,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //            PPApplicationStatic.logE("[START_PP_SERVICE] ActivatorActivity.startPPServiceWhenNotStarted", "(1)");
-            PPApplicationStatic.startPPService(this, serviceIntent);
+            PPApplicationStatic.startPPService(this, serviceIntent, true);
             return true;
         } else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {

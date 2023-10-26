@@ -15,7 +15,7 @@
         android:layout_marginEnd="10dp"
         android:layout_gravity="center_vertical"
         android:src="@drawable/ic_ppp_icon_for_toast"
-        android:contentDescription="@string/app_name" />
+        android:contentDescription="@string/ppp_app_name" />
 
     <TextView
         android:id="@+id/custom_toast_message"
@@ -24,6 +24,6 @@
         android:layout_marginEnd="5dp"
         android:textSize="14sp"
         android:textColor="@color/toastTextColor"
-        android:text="@string/empty_string" />
+        android:text="" />
 
 </LinearLayout>

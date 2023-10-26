@@ -61,7 +61,7 @@ public class VibrationIntensityPreference extends DialogPreference {
 
     private void getValueVIDP()
     {
-        String[] splits = sValue.split("\\|");
+        String[] splits = sValue.split(StringConstants.STR_SPLIT_REGEX);
         try {
             value = Integer.parseInt(splits[0]);
             if (value == -1)
@@ -150,7 +150,7 @@ public class VibrationIntensityPreference extends DialogPreference {
     }
 
     static boolean changeEnabled(String value) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 return Integer.parseInt(splits[1]) == 0;

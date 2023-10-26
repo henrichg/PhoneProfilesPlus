@@ -9,33 +9,36 @@
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <View
-        android:id="@+id/write_nfc_tag_touch_divider"
+        android:id="@+id/do_not_kill_my_app_dialog_divider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
-        android:layout_marginStart="@dimen/divider_margin"
-        android:layout_marginEnd="@dimen/divider_margin"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:background="@color/dialog_divider" />
-
-    <!--<WebView-->
-    <!--android:id="@+id/do_not_kill_my_app_dialog_webView"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_marginTop="15dp">-->
-    <!--</WebView>-->
+<!--
+    <WebView
+        android:id="@+id/do_not_kill_my_app_dialog_webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10"
+        />
+-->
 
     <dev.doubledot.doki.views.DokiContentView
         android:id="@+id/do_not_kill_my_app_dialog_dokiContentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/divider_margin"
-        android:layout_marginEnd="@dimen/divider_margin"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:dokiPrimaryTextColor="@color/activityNormalTextColor"
         app:dokiSecondaryTextColor="@color/activitySecondaryTextColor"
         app:dokiBackgroundColor="@color/activityBackgroundColor"
-        app:dokiHeaderBackgroundColor="@color/editorFilterBackgroundColor"
+        app:dokiHeaderBackgroundColor="@color/dokiHeaderBackgroundColor"
         app:dokiDividerColor="@color/dialog_divider"
         app:dokiActiveIconsColor="@color/activityNormalTextColor"
         app:dokiInactiveIconsColor="@color/activityDisabledTextColor"
         app:dokiImgBorderColor="@color/dialog_divider" />
+
 
 </LinearLayout>

@@ -26,8 +26,6 @@ public class WifiSSIDPreference extends DialogPreference {
     List<WifiSSIDData> SSIDList;
     final List<WifiSSIDData> customSSIDList;
 
-    static volatile boolean forceRegister = false;
-
     public WifiSSIDPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -52,7 +50,7 @@ public class WifiSSIDPreference extends DialogPreference {
     }
 
     void addSSID(String ssid) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         boolean found = false;
         for (String _ssid : splits) {
             if (_ssid.equals(ssid)) {
@@ -68,7 +66,7 @@ public class WifiSSIDPreference extends DialogPreference {
     }
 
     void removeSSID(String ssid) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         value = "";
         StringBuilder _value = new StringBuilder();
         for (String _ssid : splits) {
@@ -87,7 +85,7 @@ public class WifiSSIDPreference extends DialogPreference {
     }
 
     boolean isSSIDSelected(String ssid) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         for (String _ssid : splits) {
             if (_ssid.equals(ssid))
                 return true;
@@ -113,17 +111,17 @@ public class WifiSSIDPreference extends DialogPreference {
                     ": "+context.getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
         }
         else {*/
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         for (String _ssid : splits) {
             if (_ssid.isEmpty()) {
                 setSummary(R.string.applications_multiselect_summary_text_not_selected);
             } else if (splits.length == 1) {
                 switch (_ssid) {
                     case EventPreferencesWifi.ALL_SSIDS_VALUE:
-                        setSummary("[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb) + "\u00A0]");
+                        setSummary("[" + StringConstants.CHAR_HARD_SPACE + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb) + StringConstants.CHAR_HARD_SPACE + "]");
                         break;
                     case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
-                        setSummary("[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb) + "\u00A0]");
+                        setSummary("[" + StringConstants.CHAR_HARD_SPACE + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb) + StringConstants.CHAR_HARD_SPACE + "]");
                         break;
                     default:
                         setSummary(_ssid);

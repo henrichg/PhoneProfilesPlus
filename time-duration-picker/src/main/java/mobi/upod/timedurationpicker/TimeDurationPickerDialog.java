@@ -28,12 +28,12 @@ public class TimeDurationPickerDialog extends AlertDialog implements DialogInter
     /**
      * The callback used to indicate the user is done entering the duration.
      */
-    @SuppressWarnings("unused")
     public interface OnDurationSetListener {
         /**
          * Called when the user leaves the dialog using the OK button.
          * @param view the picker view.
          * @param duration the duration that was entered.
+         * @noinspection unused
          */
         void onDurationSet(TimeDurationPicker view, long duration);
     }

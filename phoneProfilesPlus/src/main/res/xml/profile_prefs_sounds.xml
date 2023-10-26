@@ -47,12 +47,11 @@
         app:dependency="prf_pref_soundNotificationChange"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:title="@string/profile_preferences_deviceDualSIMSupport"
         app:key="prf_pref_soundsDualSIMSupportCategoryRoot"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsSoundsDualSIMSupport" />
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsSoundsDualSIMSupport" />
 
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_soundAlarmChange"

@@ -30,8 +30,8 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
             if (intent.getAction().equals(WifiManager.WIFI_STATE_CHANGED_ACTION)) {
                 // WifiStateChangedBroadcastReceiver
 
-                if (WifiScanWorker.wifi == null)
-                    WifiScanWorker.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+                //if (WifiScanWorker.wifi == null)
+                //    WifiScanWorker.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
 
                 final int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
 
@@ -50,7 +50,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiStateChangedBroadcastReceiver_onReceive");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_WifiStateChangedBroadcastReceiver_onReceive);
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -64,7 +64,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     // ignore for wifi scanning
 
                                     if (PhoneProfilesService.getInstance() != null) {
-                                        if (!PPApplication.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+                                        if (!PPApplication.connectToSSID.equals(StringConstants.CONNECTTOSSID_JUSTANY)) {
                                             WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                                             if (wifiManager != null) {
                                                 List<WifiConfiguration> list = null;
@@ -118,24 +118,21 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                         }
                                     }*/
 
-                                    if (!(ApplicationPreferences.prefEventWifiScanRequest ||
+                                    if (ApplicationPreferences.prefEventWifiScanRequest ||
                                             ApplicationPreferences.prefEventWifiWaitForResult ||
-                                            ApplicationPreferences.prefEventWifiEnabledForScan)) {
+                                            ApplicationPreferences.prefEventWifiEnabledForScan)
+                                        PhoneProfilesServiceStatic.cancelWifiWorker(appContext, true, false);
 
-                                        // start events handler
+                                    // start events handler
 
-//                                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] WifiStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
-                                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] WifiStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+                                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                                    eventsHandler.handleEvents(new int[]{
+                                            EventsHandler.SENSOR_TYPE_RADIO_SWITCH,
+                                            EventsHandler.SENSOR_TYPE_WIFI_STATE,
+                                            EventsHandler.SENSOR_TYPE_WIFI_CONNECTION});
 
-                                        // start events handler
-
-//                                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] WifiStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_WIFI_STATE");
-                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_STATE);
-
-//                                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] WifiStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_WIFI_CONNECTION");
-                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_CONNECTION);
-                                    }
+                                    PPApplicationStatic.restartWifiScanner(appContext);
                                 }
                             }
 

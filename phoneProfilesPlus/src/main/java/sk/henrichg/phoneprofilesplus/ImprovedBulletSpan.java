@@ -13,7 +13,7 @@ public final class ImprovedBulletSpan implements LeadingMarginSpan {
     private Path mBulletPath;
     private final int bulletRadius;
     private final int gapWidth;
-    private final int color;
+    //private final int color;
 
     public int getLeadingMargin(boolean first) {
         return 2 * this.bulletRadius + this.gapWidth;
@@ -58,26 +58,27 @@ public final class ImprovedBulletSpan implements LeadingMarginSpan {
 
     }
 
-    @SuppressWarnings("unused")
+    /*
     public int getBulletRadius() {
         return this.bulletRadius;
     }
+    */
 
-    @SuppressWarnings("unused")
+    /*
     public int getGapWidth() {
         return this.gapWidth;
     }
-
-    @SuppressWarnings("unused")
+    */
+    /*
     public int getColor() {
         return this.color;
     }
+    */
 
-    ImprovedBulletSpan(int bulletRadius, int gapWidth,
-                       @SuppressWarnings("SameParameterValue") int color) {
+    ImprovedBulletSpan(int bulletRadius, int gapWidth/*, int color*/) {
         this.bulletRadius = bulletRadius;
         this.gapWidth = gapWidth;
-        this.color = color;
+        //this.color = color;
     }
 
 }

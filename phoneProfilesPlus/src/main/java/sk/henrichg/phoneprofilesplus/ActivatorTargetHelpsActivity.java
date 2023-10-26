@@ -12,8 +12,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class ActivatorTargetHelpsActivity extends AppCompatActivity {
 
-    public static volatile ActivatorTargetHelpsActivity activity;
-    //public static ActivatorActivity activatorActivity;
+    static volatile ActivatorTargetHelpsActivity activity;
+    //static ActivatorActivity activatorActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class ActivatorTargetHelpsActivity extends AppCompatActivity {
         //GlobalGUIRoutines.setLanguage(this);
 
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] ActivatorTargetHelpsActivity.onStart", "xxx");
-        Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver");
+        Intent intent = new Intent(ActivatorActivity.ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER);
         intent.putExtra(ActivatorActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, true);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
         //ActivatorActivity.getInstance().showTargetHelps();

@@ -67,7 +67,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":TimeChangedReceiver_onReceive");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_TimeChangedReceiver_onReceive);
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -101,7 +101,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, appContext);
 
             if (profile._deviceRunApplicationChange == 1) {
-                String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
+                String[] splits = profile._deviceRunApplicationPackageName.split(StringConstants.STR_SPLIT_REGEX);
                 for (String split : splits) {
                     RunApplicationWithDelayBroadcastReceiver.removeDelayAlarm(appContext, split);
                     //RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, split);
@@ -119,7 +119,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 //        PPApplicationStatic.logE("[WORKER_CALL] TimeChangedReceiver.doWork", "xxx");
         LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
         LockDeviceActivityFinishBroadcastReceiver.doWork(appContext);
-        LocationScanner.useGPS = true;
+        PPApplication.locationScannerUseGPS = true;
         LocationScannerSwitchGPSBroadcastReceiver.doWork(appContext);
 
         DonationBroadcastReceiver.setAlarm(appContext);
@@ -146,6 +146,9 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         else {
             dataWrapper.restartEventsWithRescan(false, false, false, false);
         }*/
+
+        PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_TIMEZONE_CHANGED,
+                null, null, "");
         dataWrapper.restartEventsWithRescan(true, true, false, false, logRestart, false);
     }
 

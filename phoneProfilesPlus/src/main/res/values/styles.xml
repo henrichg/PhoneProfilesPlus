@@ -5,7 +5,7 @@
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Toast</item>
-        <item name="android:background">#00000000</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:colorForeground">#000</item>
@@ -16,7 +16,7 @@
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Toast</item>
-        <item name="android:background">#00000000</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:colorForeground">#000</item>
@@ -37,7 +37,7 @@
 <!--        <item name="android:windowDisablePreview">true</item>-->
 <!--        <item name="android:windowIsTranslucent">true</item>-->
 <!--        <item name="android:windowAnimationStyle">@android:style/Animation.Toast</item>-->
-<!--        <item name="android:background">#00000000</item>-->
+<!--        <item name="android:background">@android:color/transparent</item>-->
 <!--        <item name="android:windowBackground">@android:color/transparent</item>-->
 <!--        <item name="android:windowNoTitle">true</item>-->
 <!--        <item name="android:colorForeground">#000</item>-->
@@ -205,6 +205,10 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/activityNormalTextColor</item>
         <item name="android:textColorHint">@color/activityDisabledTextColor</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize" parent="">
+        <item name="cornerSize">50%</item>
     </style>
 
 </resources>

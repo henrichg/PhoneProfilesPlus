@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
@@ -21,27 +22,26 @@ public class MobileCellsRegistrationService extends Service
         implements MobileCellsRegistrationServiceStopRegistrationListener {
 
     // this is for show remaining time in "Cell registration" event sensor preference summary
-    public static final String ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_COUNTDOWN";
-    public static final String EXTRA_COUNTDOWN = "countdown";
+    static final String ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_COUNTDOWN";
+    static final String EXTRA_COUNTDOWN = "countdown";
 
     // this is for stop button in notification
     static final String ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_STOP_BUTTON";
 
     // this is for show new cell count in "Cell registration" event sensor preference summary
-    public static final String ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_NEW_CELL";
-    public static final String EXTRA_NEW_CELL_VALUE = "new_cell_value";
+    static final String ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_NEW_CELL";
+    //static final String EXTRA_NEW_CELL_VALUE = "new_cell_value";
 
     private CountDownTimer countDownTimer = null;
 
     static volatile boolean serviceStarted = false;
-    static volatile boolean forceStart;
     private Context context;
 
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION = "mobile_cells_autoregistration_duration";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION = "mobile_cells_autoregistration_remaining_duration";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME = "mobile_cells_autoregistration_cell_name";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED = "mobile_cells_autoregistration_enabled";
-    private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST = "mobile_cells_autoregistration_event_list";
+    //private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST = "mobile_cells_autoregistration_event_list";
 
     private MobileCellsRegistrationStopButtonBroadcastReceiver mobileCellsRegistrationStopButtonBroadcastReceiver = null;
 
@@ -52,7 +52,7 @@ public class MobileCellsRegistrationService extends Service
 
         context = this;
 
-        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
+        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(getApplicationContext(), false);
         removeResultNotification();
         showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
     }
@@ -70,7 +70,7 @@ public class MobileCellsRegistrationService extends Service
         if (remainingDuration > 0) {
             serviceStarted = true;
 
-            forceStart = true;
+            PPApplication.mobileCellsRegistraitonForceStart = true;
             PPApplicationStatic.forceStartMobileCellsScanner(this);
 
             //MobileCellsScanner.autoRegistrationService = this;
@@ -80,10 +80,13 @@ public class MobileCellsRegistrationService extends Service
                 intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
                 mobileCellsRegistrationStopButtonBroadcastReceiver =
                         new MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver(this);
-                context.registerReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver, intentFilter);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                context.registerReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver, intentFilter, receiverFlags);
             }
 
-            PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
+            PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(getApplicationContext(), false);
 
             countDownTimer = new CountDownTimer(remainingDuration * 1000L, 1000) {
 
@@ -106,7 +109,7 @@ public class MobileCellsRegistrationService extends Service
                 public void onFinish() {
                     //Log.d("MobileCellsRegistrationService", "Timer finished");
 
-                    if (serviceStarted && (MobileCellsScanner.enabledAutoRegistration))
+                    if (serviceStarted && (PPApplication.mobileCellsScannerEnabledAutoRegistration))
                         stopRegistration();
                 }
             };
@@ -153,7 +156,7 @@ public class MobileCellsRegistrationService extends Service
 
             //MobileCellsScanner.autoRegistrationService = null;
 
-            forceStart = false;
+            PPApplication.mobileCellsRegistraitonForceStart = false;
             PPApplicationStatic.restartMobileCellsScanner(this);
 
             showResultNotification();
@@ -178,11 +181,8 @@ public class MobileCellsRegistrationService extends Service
             text = getString(R.string.mobile_cells_registration_pref_dlg_status_started);
             String time = getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
             long iValue = millisUntilFinished / 1000;
-            time = time + ": " + StringFormatUtils.getDurationString((int) iValue);
+            time = time + StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getDurationString((int) iValue);
             text = text + "; " + time;
-//            if (android.os.Build.VERSION.SDK_INT < 24) {
-//                text = text + " (" + getString(R.string.ppp_app_name) + ")";
-//            }
         }
         else {
             text = getString(R.string.mobile_cells_registration_pref_dlg_status_stopped);
@@ -190,8 +190,9 @@ public class MobileCellsRegistrationService extends Service
 
         //PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL_SILENT)
-                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_information_notify) // notification icon
+                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.information_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_information_notification))
                 .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
                 .setContentText(text) // message for notification
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
@@ -207,11 +208,8 @@ public class MobileCellsRegistrationService extends Service
         }
 
         mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-        //{
-            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
-            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        //}
+        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
         mBuilder.setGroup(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_GROUP);
 
@@ -233,7 +231,7 @@ public class MobileCellsRegistrationService extends Service
     }
 
     private void stopRegistration() {
-        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
+        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(getApplicationContext(), false);
         showNotification(0);
         GlobalUtils.sleep(500);
 
@@ -254,25 +252,20 @@ public class MobileCellsRegistrationService extends Service
         long iValue = DatabaseHandler.getInstance(getApplicationContext()).getNewMobileCellsCount();
         newCount = newCount + " " + iValue;
         text = text + "; " + newCount;
-//        if (android.os.Build.VERSION.SDK_INT < 24) {
-//            text = text+" ("+getString(R.string.ppp_app_name)+")";
-//        }
 
-        PPApplicationStatic.createInformationNotificationChannel(this);
+        PPApplicationStatic.createInformationNotificationChannel(getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_information_notify) // notification icon
+                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.information_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_information_notification))
                 .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
                 .setContentText(text) // message for notification
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
                 .setAutoCancel(true); // clear notification after click
 
         //mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-        //{
-            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
-            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        //}
+        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
         mBuilder.setGroup(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_GROUP);
 
@@ -283,7 +276,7 @@ public class MobileCellsRegistrationService extends Service
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_TAG,
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID, notification);
         } catch (SecurityException en) {
-            Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
@@ -303,10 +296,10 @@ public class MobileCellsRegistrationService extends Service
 
     static void getMobileCellsAutoRegistration(Context context) {
         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(context);
-        MobileCellsScanner.durationForAutoRegistration = preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
-        MobileCellsScanner.cellsNameForAutoRegistration = preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
-        MobileCellsScanner.enabledAutoRegistration = preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
-        MobileCellsScanner.getAllEvents(preferences, PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST);
+        PPApplication.mobileCellsScannerDurationForAutoRegistration = preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
+        PPApplication.mobileCellsScannerCellsNameForAutoRegistration = preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
+        PPApplication.mobileCellsScannerEnabledAutoRegistration = preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
+        //MobileCellsScanner.getAllEvents(preferences, PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST);
     }
 
     static void setMobileCellsAutoRegistration(Context context, boolean clear) {
@@ -316,17 +309,17 @@ public class MobileCellsRegistrationService extends Service
             editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
             editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
             setMobileCellsAutoRegistrationRemainingDuration(context, 0);
-            MobileCellsScanner.durationForAutoRegistration = 0;
-            MobileCellsScanner.cellsNameForAutoRegistration = "";
-            MobileCellsScanner.enabledAutoRegistration = false;
-            MobileCellsScanner.clearEventList();
+            PPApplication.mobileCellsScannerDurationForAutoRegistration = 0;
+            PPApplication.mobileCellsScannerCellsNameForAutoRegistration = "";
+            PPApplication.mobileCellsScannerEnabledAutoRegistration = false;
+            //MobileCellsScanner.clearEventList();
         }
         else {
-            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, MobileCellsScanner.durationForAutoRegistration);
-            editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, MobileCellsScanner.cellsNameForAutoRegistration);
-            editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, MobileCellsScanner.enabledAutoRegistration);
+            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, PPApplication.mobileCellsScannerDurationForAutoRegistration);
+            editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, PPApplication.mobileCellsScannerCellsNameForAutoRegistration);
+            editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, PPApplication.mobileCellsScannerEnabledAutoRegistration);
         }
-        MobileCellsScanner.saveAllEvents(editor, PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST);
+        //MobileCellsScanner.saveAllEvents(editor, PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST);
         editor.apply();
     }
 

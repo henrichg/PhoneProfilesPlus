@@ -189,45 +189,10 @@ public class PhoneCallsListener extends PhoneStateListener {
 
         if ((newNetworkRoaming != oldNetworkRoaming) || (newDataRoaming != oldDataRoaming)) {
             if (EventStatic.getGlobalEventsRunning(savedContext)) {
-                //if (useHandler) {
                 final Context appContext = savedContext.getApplicationContext();
-                PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_ROAMING, "SENSOR_TYPE_ROAMING", 0);
-                /*
-                PPApplication.startHandlerThreadBroadcast();
-                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-                //        context.getApplicationContext()) {
-                __handler.post(() -> {
-//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneCallListener.onServiceStateChanged");
-
-                    //Context appContext= appContextWeakRef.get();
-                    //if (appContext != null) {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneCallListener_onServiceStateChanged");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
-
-//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PhoneCallListener.onServiceStateChanged", "sensorType=SENSOR_TYPE_ROAMING");
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ROAMING);
-
-                    } catch (Exception e) {
-//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplicationStatic.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
-                        }
-                    }
-                    //}
-                });
-                */
+                PPExecutors.handleEvents(appContext,
+                        new int[]{EventsHandler.SENSOR_TYPE_ROAMING},
+                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_ROAMING, 0);
             }
         }
 
@@ -236,7 +201,7 @@ public class PhoneCallsListener extends PhoneStateListener {
     protected void onIncomingCallStarted(/*String number, Date eventTime*/)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallStarted", "xxx");
-        doCall(savedContext, SERVICE_PHONE_EVENT_START, true, false/*, number, eventTime*/);
+        doCall(savedContext, SERVICE_PHONE_EVENT_START, true/*, false, number, eventTime*/);
     }
 
     //protected void onOutgoingCallStarted(/*String number, Date eventTime*/)
@@ -247,35 +212,35 @@ public class PhoneCallsListener extends PhoneStateListener {
     protected void onIncomingCallAnswered(/*String number, Date eventTime*/)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallAnswered", "xxx");
-        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, true, false/*, number, eventTime*/);
+        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, true/*, false, number, eventTime*/);
     }
 
     protected void onOutgoingCallAnswered(/*String number, Date eventTime*/)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onOutgoingCallAnswered", "xxx");
-        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, false, false/*, number, eventTime*/);
+        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, false/*, false, number, eventTime*/);
     }
 
     protected void onIncomingCallEnded(/*String number, Date eventTime*/)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallEnded", "xxx");
-        doCall(savedContext, SERVICE_PHONE_EVENT_END, true, false/*, number, eventTime*/);
+        doCall(savedContext, SERVICE_PHONE_EVENT_END, true/*, false, number, eventTime*/);
     }
 
     protected void onOutgoingCallEnded(/*String number, Date eventTime*/)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onOutgoingCallEnded", "xxx");
-        doCall(savedContext, SERVICE_PHONE_EVENT_END, false, false/*, number, eventTime*/);
+        doCall(savedContext, SERVICE_PHONE_EVENT_END, false/*, false, number, eventTime*/);
     }
 
     protected void onMissedCall(/*String number, Date eventTime*/)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onMissedCall", "xxx");
-        doCall(savedContext, SERVICE_PHONE_EVENT_END, true, true/*, number, eventTime*/);
+        doCall(savedContext, SERVICE_PHONE_EVENT_END, true/*, true, number, eventTime*/);
     }
 
     private void doCall(Context context, final int phoneEvent,
-                        final boolean incoming, final boolean missed/*,
+                        final boolean incoming/*, final boolean missed,
                             final String number, final Date eventTime*/) {
         final Context appContext = context.getApplicationContext();
         //PPApplication.startHandlerThreadBroadcast(/*"PhoneCallsListener.doCall"*/);
@@ -297,10 +262,10 @@ public class PhoneCallsListener extends PhoneStateListener {
                         callStarted(incoming, /*number, eventTime,*/ appContext);
                         break;
                     case SERVICE_PHONE_EVENT_ANSWER:
-                        callAnswered(incoming, /*number, eventTime,*/ appContext);
+                        callAnswered(/*incoming,*/ /*number, eventTime,*/ appContext);
                         break;
                     case SERVICE_PHONE_EVENT_END:
-                        callEnded(incoming, missed, /*number, eventTime,*/ appContext);
+                        callEnded(incoming, /*missed,*/ /*number, eventTime,*/ appContext);
                         break;
                 }
 
@@ -310,10 +275,9 @@ public class PhoneCallsListener extends PhoneStateListener {
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
-    @SuppressWarnings("UnusedReturnValue")
-    private static boolean setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
+    private static void /*boolean*/ setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
         synchronized (PPApplication.notUnlinkVolumesMutex) {
-            if (!RingerModeChangeReceiver.notUnlinkVolumes) {
+            if (!PPApplication.ringerModeNotUnlinkVolumes) {
                 boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;
                 if (unlinkEnabled) {
                     int systemZenMode = ActivateProfileHelper.getSystemZenMode(context);
@@ -322,16 +286,16 @@ public class PhoneCallsListener extends PhoneStateListener {
                         //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
                         final Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
                         if (profile != null) {
-                            SharedPreferences sharedPreferences = context.getSharedPreferences("temp_phoneCallBroadcastReceiver", Context.MODE_PRIVATE);
+                            SharedPreferences sharedPreferences = context.getSharedPreferences(PPApplication.TMP_SHARED_PREFS_PHONE_CALL_BROADCAST_RECEIVER, Context.MODE_PRIVATE);
                             profile.saveProfileToSharedPreferences(sharedPreferences);
                             ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context, sharedPreferences);
-                            return true;
+                            //return true;
                         }
                         //dataWrapper.invalidateDataWrapper();
                     }
                 }
             }
-            return false;
+            //return false;
         }
     }
 
@@ -405,7 +369,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         }
     }
 
-    private static void callAnswered(@SuppressWarnings("unused") boolean incoming,
+    private static void callAnswered(/*boolean incoming,*/
             /*String phoneNumber, Date eventTime,*/ Context context)
     {
         speakerphoneSelected = false;
@@ -413,7 +377,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        PhoneProfilesServiceStatic.stopSimulatingRingingCall(true, context.getApplicationContext());
+        PlayRingingNotification.stopSimulatingRingingCall(true, context.getApplicationContext());
 
         // Delay 2 seconds mode changed to MODE_IN_CALL
         long start = SystemClock.uptimeMillis();
@@ -480,13 +444,13 @@ public class PhoneCallsListener extends PhoneStateListener {
     }
 
     private static void callEnded(boolean incoming,
-                                  @SuppressWarnings("unused") boolean missed,
+                                  /*boolean missed,*/
             /*String phoneNumber, Date eventTime,*/ Context context)
     {
         if (audioManager == null)
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        PhoneProfilesServiceStatic.stopSimulatingRingingCall(false, context.getApplicationContext());
+        PlayRingingNotification.stopSimulatingRingingCall(false, context.getApplicationContext());
 
         // audio mode is set to MODE_IN_CALL by system
 
@@ -536,7 +500,7 @@ public class PhoneCallsListener extends PhoneStateListener {
             //}
         }
 
-        PPExecutors.scheduleDisableInternalChangeExecutor();
+        PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
         PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
         /*PPApplication.startHandlerThreadInternalChangeToFalse();

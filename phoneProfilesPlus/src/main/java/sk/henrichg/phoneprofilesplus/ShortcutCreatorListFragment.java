@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.pm.ShortcutInfoCompat;
@@ -29,10 +29,11 @@ public class ShortcutCreatorListFragment extends Fragment {
     DataWrapper activityDataWrapper;
     private ShortcutCreatorListAdapter profileListAdapter;
     private ListView listView;
-    TextView textViewNoData;
+    RelativeLayout viewNoData;
     private LinearLayout progressBar;
 
     private LoadProfileListAsyncTask loadAsyncTask = null;
+    private CreateShortcutAsyncTask createShortcutAsyncTask = null;
 
     public ShortcutCreatorListFragment() {
     }
@@ -71,13 +72,13 @@ public class ShortcutCreatorListFragment extends Fragment {
     private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
         listView = view.findViewById(R.id.shortcut_profiles_list);
-        textViewNoData = view.findViewById(R.id.shortcut_profiles_list_empty);
+        viewNoData = view.findViewById(R.id.shortcut_profiles_list_empty);
         progressBar = view.findViewById(R.id.shortcut_profiles_list_linla_progress);
         Button cancelButton = view.findViewById(R.id.shortcut_profiles_list_cancel);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
             if (getActivity() != null) {
-                ShortcutCreatorListAdapter.ViewHolder viewHolder = (ShortcutCreatorListAdapter.ViewHolder) item.getTag();
+                ShortcutCreatorListViewHolder viewHolder = (ShortcutCreatorListViewHolder) item.getTag();
                 if (viewHolder != null)
                     viewHolder.radioButton.setChecked(true);
                 Handler handler = new Handler(getActivity().getMainLooper());
@@ -155,7 +156,7 @@ public class ShortcutCreatorListFragment extends Fragment {
             // add restart events
             //Profile profile = DataWrapper.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
             Profile profile = DataWrapperStatic.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events),
-                    "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
+                    StringConstants.PROFILE_ICON_RESTART_EVENTS+"|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
             profile.generateIconBitmap(dataWrapper.context, false, 0, false);
             this.dataWrapper.profileList.add(0, profile);
 
@@ -178,11 +179,10 @@ public class ShortcutCreatorListFragment extends Fragment {
 
                     // set copy local profile list into activity profilesDataWrapper
                     fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
-                    this.dataWrapper.clearProfileList();
 
                     synchronized (fragment.activityDataWrapper.profileList) {
                         if (fragment.activityDataWrapper.profileList.size() == 0)
-                            fragment.textViewNoData.setVisibility(View.VISIBLE);
+                            fragment.viewNoData.setVisibility(View.VISIBLE);
                     }
 
                     fragment.profileListAdapter = new ShortcutCreatorListAdapter(fragment, fragment.activityDataWrapper);
@@ -205,6 +205,11 @@ public class ShortcutCreatorListFragment extends Fragment {
         if (isAsyncTaskRunning()) {
             loadAsyncTask.cancel(true);
         }
+        loadAsyncTask = null;
+        if ((createShortcutAsyncTask != null) &&
+                createShortcutAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            createShortcutAsyncTask.cancel(true);
+        createShortcutAsyncTask = null;
 
         if (listView != null)
             listView.setAdapter(null);
@@ -217,7 +222,8 @@ public class ShortcutCreatorListFragment extends Fragment {
 
     void createShortcut(final int position)
     {
-        new CreateShortcutAsyncTask(position, this).execute();
+        createShortcutAsyncTask = new CreateShortcutAsyncTask(position, this);
+        createShortcutAsyncTask.execute();
     }
 
     /*
@@ -335,6 +341,8 @@ public class ShortcutCreatorListFragment extends Fragment {
                     Context context = fragment.getActivity().getApplicationContext();
 
                     if (profile != null) {
+                        //profile.releaseIconBitmap();
+                        profile.generateIconBitmap(context, false, 0, false);
 
                         if (isIconResourceID) {
                             if (profile._iconBitmap != null)
@@ -356,9 +364,6 @@ public class ShortcutCreatorListFragment extends Fragment {
                                 profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
                             }
                         }
-                        //if (Build.VERSION.SDK_INT < 26)
-                        //    shortcutOverlayBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_shortcut_overlay, false, context);
-
                         if (ApplicationPreferences.applicationShortcutIconColor.equals("1")) {
                             if (isIconResourceID || useCustomColor) {
                                 // icon is from resource or colored by custom color
@@ -408,10 +413,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                             }
                         }
 
-                        //if (Build.VERSION.SDK_INT < 26)
-                        //    profileShortcutBitmap = fragment.combineImages(profileBitmap, shortcutOverlayBitmap);
-                        //else
-                            profileShortcutBitmap = profileBitmap;
+                        profileShortcutBitmap = profileBitmap;
                         //intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, profileShortcutBitmap);
                         shortcutBuilderCompat.setIcon(IconCompat.createWithBitmap(profileShortcutBitmap));
                     }

@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -64,14 +65,16 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     private Runnable errorLocationRunnable = null;
     private boolean errorLocationDisplayed = false;
 
-    static final int SUCCESS_RESULT = 0;
-    static final int FAILURE_RESULT = 1;
-    static final String RESULT_CODE = PPApplication.PACKAGE_NAME + ".RESULT_CODE";
-    static final String RESULT_DATA_KEY = PPApplication.PACKAGE_NAME + ".RESULT_DATA_KEY";
-    static final String LATITUDE_EXTRA = PPApplication.PACKAGE_NAME + ".LATITUDE_EXTRA";
-    static final String LONGITUDE_EXTRA = PPApplication.PACKAGE_NAME + ".LONGITUDE_EXTRA";
-    static final String UPDATE_NAME_EXTRA = PPApplication.PACKAGE_NAME + ".UPDATE_NAME_EXTRA";
+    static final int WORKRES_SUCCESS_RESULT = 0;
+    static final int WORKRES_FAILURE_RESULT = 1;
+    static final String WORKRES_RESULT_CODE = PPApplication.PACKAGE_NAME + ".RESULT_CODE";
+    static final String WORKRES_RESULT_DATA_KEY = PPApplication.PACKAGE_NAME + ".RESULT_DATA_KEY";
+    static final String WORKRES_LATITUDE_EXTRA = PPApplication.PACKAGE_NAME + ".LATITUDE_EXTRA";
+    static final String WORKRES_LONGITUDE_EXTRA = PPApplication.PACKAGE_NAME + ".LONGITUDE_EXTRA";
+    static final String WORKRES_UPDATE_NAME_EXTRA = PPApplication.PACKAGE_NAME + ".UPDATE_NAME_EXTRA";
     private static final int RESULT_LOCATION_SETTINGS = 2992;
+
+    static final String ACTION_LOCATION_GEOFENCE_EDITOR_ONLINE_STATUS_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".LocationGeofenceEditorOnlineStatusBroadcastReceiver";
 
     /**
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
@@ -100,7 +103,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     //private TextView radiusLabel;
     private TextView radiusValue;
     private PPNumberPicker numberPicker;
-    private TextView mapIsLoading;
+    private LinearLayout mapIsLoading;
 
     private AlertDialog valueDialog;
 
@@ -117,7 +120,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, true, false);
+        GlobalGUIRoutines.setTheme(this, false, false, false, false, true, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -172,7 +175,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 //                (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
 //                                    == Configuration.UI_MODE_NIGHT_YES;
         String applicationTheme = ApplicationPreferences.applicationTheme(this, true);
-        boolean nightModeOn = !applicationTheme.equals("white");
+        boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
 
         /*boolean isNightMode;
         String applicationThene = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
@@ -382,7 +385,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     }*/
                 }
 
-                DatabaseHandler.getInstance(getApplicationContext()).checkGeofence(String.valueOf(geofence._id), 1);
+                // check edited geofence in table
+                DatabaseHandler.getInstance(getApplicationContext()).checkGeofence(String.valueOf(geofence._id), 1, false);
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, geofence._id);
@@ -472,7 +476,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         if (checkOnlineStatusBroadcatReceiver == null) {
             checkOnlineStatusBroadcatReceiver = new LocationGeofenceEditorOnlineStatusBroadcastReceiver(this);
             LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(checkOnlineStatusBroadcatReceiver,
-                    new IntentFilter(PPApplication.PACKAGE_NAME + ".LocationGeofenceEditorOnlineStatusBroadcastReceiver"));
+                    new IntentFilter(ACTION_LOCATION_GEOFENCE_EDITOR_ONLINE_STATUS_BROADCAST_RECEIVER));
         }
 
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -663,67 +667,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         if (!errorLocationDisplayed) {
             errorLocationDisplayed = true;
 
-            /*
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.location_editor_title);
-            dialogBuilder.setMessage(R.string.location_editor_enable_location_summary);
-            dialogBuilder.setCancelable(true);
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-
-            dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                boolean ok = false;
-                //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
-                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getApplicationContext())) {
-                    try {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivityForResult(intent, RESULT_LOCATION_SETTINGS);
-                        ok = true;
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
-                }
-                if (!ok) {
-                    AlertDialog.Builder dialogBuilder1 = new AlertDialog.Builder(LocationGeofenceEditorActivityOSM.this);
-                    dialogBuilder1.setMessage(R.string.setting_screen_not_found_alert);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder1.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog _dialog = dialogBuilder1.create();
-
-//                            _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
-
-                    if (!isFinishing())
-                        _dialog.show();
-                }
-
-                errorLocationDisplayed = false;
-
-            });
-
-            dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> errorLocationDisplayed = false);
-            dialogBuilder.setOnCancelListener(dialog -> errorLocationDisplayed = false);
-
-            AlertDialog dialog = dialogBuilder.create();
-
-            //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            //            @Override
-            //            public void onShow(DialogInterface dialog) {
-            //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-            //                if (positive != null) positive.setAllCaps(false);
-            //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-            //                if (negative != null) negative.setAllCaps(false);
-            //            }
-            //        });
-            */
-
             PPAlertDialog dialog = new PPAlertDialog(
                     getString(R.string.location_editor_title),
                     getString(R.string.location_editor_enable_location_summary),
@@ -899,9 +842,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         startService(intent);*/
 
         Data workData = new Data.Builder()
-                .putDouble(LATITUDE_EXTRA, mLocation.getLatitude())
-                .putDouble(LONGITUDE_EXTRA, mLocation.getLongitude())
-                .putBoolean(UPDATE_NAME_EXTRA, updateName)
+                .putDouble(WORKRES_LATITUDE_EXTRA, mLocation.getLatitude())
+                .putDouble(WORKRES_LONGITUDE_EXTRA, mLocation.getLongitude())
+                .putBoolean(WORKRES_UPDATE_NAME_EXTRA, updateName)
                 .build();
 
         OneTimeWorkRequest fetchAddressWorkerOSM =
@@ -936,18 +879,18 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
                                     Data outputData = workInfo.getOutputData();
 
-                                    int resultCode = outputData.getInt(RESULT_CODE, FAILURE_RESULT);
+                                    int resultCode = outputData.getInt(WORKRES_RESULT_CODE, WORKRES_FAILURE_RESULT);
 
                                     boolean enableAddressButton = false;
-                                    if (resultCode == SUCCESS_RESULT) {
+                                    if (resultCode == WORKRES_SUCCESS_RESULT) {
 
                                         // Display the address string
                                         // or an error message sent from the intent service.
-                                        String addressOutput = outputData.getString(RESULT_DATA_KEY);
+                                        String addressOutput = outputData.getString(WORKRES_RESULT_DATA_KEY);
 
                                         addressText.setText(addressOutput);
 
-                                        if (outputData.getBoolean(UPDATE_NAME_EXTRA, false))
+                                        if (outputData.getBoolean(WORKRES_UPDATE_NAME_EXTRA, false))
                                             geofenceNameEditText.setText(addressOutput);
 
                                         //updateEditedMarker(false);
@@ -1366,26 +1309,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     public void showDialogAndRefreshFromListener(Context context) {
         if (!CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext())) {
             if (!isFinishing()) {
-                /*
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                dialogBuilder.setTitle(R.string.location_editor_title);
-                dialogBuilder.setMessage(R.string.location_editor_connection_is_offline);
-                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-
-                dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                AlertDialog dialog = dialogBuilder.create();
-
-                //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                //            @Override
-                //            public void onShow(DialogInterface dialog) {
-                //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                //                if (positive != null) positive.setAllCaps(false);
-                //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                //                if (negative != null) negative.setAllCaps(false);
-                //            }
-                //        });
-                */
-
                 PPAlertDialog dialog = new PPAlertDialog(
                         getString(R.string.location_editor_title),
                         getString(R.string.location_editor_connection_is_offline),

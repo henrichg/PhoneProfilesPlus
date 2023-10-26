@@ -67,7 +67,7 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
 
         if (activityStarted) {
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false, false, false);
+            GlobalGUIRoutines.setTheme(this, true, false, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
             //dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
@@ -112,7 +112,8 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
     {
         super.onDestroy();
 
-        //dataWrapper.invalidateDataWrapper();
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
         dataWrapper = null;
     }
 
@@ -133,7 +134,7 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
 
-            AutostartPermissionNotification.showNotification(getApplicationContext(), true);
+            //AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
@@ -146,7 +147,7 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //            PPApplicationStatic.logE("[START_PP_SERVICE] RestartEventsFromGUIActivity.startPPServiceWhenNotStarted", "(1)");
-            PPApplicationStatic.startPPService(this, serviceIntent);
+            PPApplicationStatic.startPPService(this, serviceIntent, true);
             return true;
         } else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {

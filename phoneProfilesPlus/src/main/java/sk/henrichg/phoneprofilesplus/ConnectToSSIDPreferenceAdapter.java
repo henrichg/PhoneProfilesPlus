@@ -37,7 +37,7 @@ class ConnectToSSIDPreferenceAdapter extends BaseAdapter
         return position;
     }
     
-    static class ViewHolder {
+    private static class ViewHolder {
         TextView SSIDName;
         RadioButton radioButton;
         //int position;
@@ -66,8 +66,8 @@ class ConnectToSSIDPreferenceAdapter extends BaseAdapter
             holder = (ViewHolder)vi.getTag();
         }
 
-        if (Profile.CONNECTTOSSID_JUSTANY.equals(wifiSSID.ssid)) {
-            holder.SSIDName.setText("[\u00A0" + context.getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any) + "\u00A0]");
+        if (StringConstants.CONNECTTOSSID_JUSTANY.equals(wifiSSID.ssid)) {
+            holder.SSIDName.setText("[" + StringConstants.CHAR_HARD_SPACE + context.getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any) + StringConstants.CHAR_HARD_SPACE + "]");
         } else {
             String ssid = wifiSSID.ssid.replace("\"", "");
             holder.SSIDName.setText(ssid);

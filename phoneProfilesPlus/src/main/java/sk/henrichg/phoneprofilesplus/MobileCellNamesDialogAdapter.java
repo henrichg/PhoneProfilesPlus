@@ -37,7 +37,7 @@ class MobileCellNamesDialogAdapter extends BaseAdapter {
         return i;
     }
 
-    static class ViewHolder {
+    private static class ViewHolder {
         TextView cellName;
         //int position;
     }

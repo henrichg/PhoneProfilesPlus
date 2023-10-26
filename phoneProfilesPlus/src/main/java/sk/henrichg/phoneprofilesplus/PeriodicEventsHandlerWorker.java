@@ -37,7 +37,12 @@ public class PeriodicEventsHandlerWorker extends Worker {
                 // application is not started
                 return Result.success();
 
-            if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
+            boolean scanningPaused = ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiply.equals("2") &&
+                    GlobalUtils.isNowTimeBetweenTimes(
+                            ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom,
+                            ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo);
+
+            if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning && (!scanningPaused)) {
 
                 //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
                 boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
@@ -84,7 +89,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     if (callEventsHandler) {
 //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PeriodicEventsHandlerWorker.doWork", "sensorType=SENSOR_TYPE_PERIODIC_EVENTS_HANDLER");
                         EventsHandler eventsHandler = new EventsHandler(getApplicationContext());
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PERIODIC_EVENTS_HANDLER);
+                        eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_PERIODIC_EVENTS_HANDLER});
                     }
                 }
 

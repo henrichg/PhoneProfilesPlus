@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply from: '../dependencies.gradle'
+apply from: '../passwords_keys.gradle'
 
 android {
     namespace 'sk.henrichg.phoneprofilesplus'
@@ -26,6 +27,8 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            buildConfigField "String", "encrypt_contacts_key", "\"$passwordsKeys.encrypt_contacts_key\""
+            buildConfigField "String", "encrypt_contacts_salt", "\"$passwordsKeys.encrypt_contacts_salt\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             /*firebaseCrashlytics {
                 mappingFileUploadEnabled true
@@ -34,6 +37,8 @@ android {
         debug {
             minifyEnabled false
             debuggable true
+            buildConfigField "String", "encrypt_contacts_key", "\"$passwordsKeys.encrypt_contacts_key\""
+            buildConfigField "String", "encrypt_contacts_salt", "\"$passwordsKeys.encrypt_contacts_salt\""
             /*firebaseCrashlytics {
                 mappingFileUploadEnabled true
             }*/
@@ -43,6 +48,12 @@ android {
         abortOnError false
         disable 'ManifestResource', 'LongLogTag', 'AppBundleLocaleChanges'
     }
+    bundle {
+        language {
+            // this keeps all language strings
+            enableSplit = false
+        }
+    }
 }
 
 dependencies {
@@ -50,18 +61,20 @@ dependencies {
 
     implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.3'
 
-    implementation "com.google.guava:guava:31.1-android" //31.0.1-android"
+    implementation "com.google.guava:guava:32.1.2-android" //31.1-android"
     implementation "ch.acra:acra-mail:$ppVersions.acra"
     implementation "ch.acra:acra-notification:$ppVersions.acra"
 
     // for custom e-mail sender used in Pixel devices with Android 13
     // https://github.com/ACRA/acra/tree/master/examples/acra-basic-java-example
-    annotationProcessor("com.google.auto.service:auto-service:1.0.1")
-    compileOnly("com.google.auto.service:auto-service-annotations:1.0.1")
+    annotationProcessor("com.google.auto.service:auto-service:$ppVersions.autoservice")
+    compileOnly("com.google.auto.service:auto-service-annotations:$ppVersions.autoservice")
 
     implementation 'androidx.work:work-runtime:2.8.1' //2.7.1
 
     implementation 'androidx.exifinterface:exifinterface:1.3.6'
+
+    //implementation "androidx.core:core-splashscreen:1.0.1"
 
     implementation "androidx.recyclerview:recyclerview:$ppVersions.recyclerView"
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
@@ -85,7 +98,7 @@ dependencies {
 
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
 
-    implementation 'org.osmdroid:osmdroid-android:6.1.16'
+    implementation 'org.osmdroid:osmdroid-android:6.1.17'
 
     implementation 'com.google.code.gson:gson:2.10.1' //2.9.1'
 
@@ -101,6 +114,8 @@ dependencies {
     implementation "com.github.skydoves:expandablelayout:1.0.7"
 
     implementation 'com.linkedin.dexmaker:dexmaker:2.28.3'
+
+    implementation 'com.github.simbiose:Encryption:2.0.1'
 
     implementation project(':common')
     implementation project(':ToastCompat')

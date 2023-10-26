@@ -70,11 +70,11 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
     private String[] flagArray;
     private boolean[] flagIndices;
 
-    public static final String EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY = "dialogPreferenceStartApplicationDelay";
+    static final String EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY = "dialogPreferenceStartApplicationDelay";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -122,7 +122,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         });
 
         intentIntentTypeSpinner = findViewById(R.id.application_editor_intent_intent_type_spinner);
-        GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        HighlightedSpinnerAdapter spinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentIntentTypeArray));
@@ -133,7 +133,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentIntentTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)intentIntentTypeSpinner.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)intentIntentTypeSpinner.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -153,7 +153,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentMimeType.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentActionSpinner = findViewById(R.id.application_editor_intent_action_spinner);
-        spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        spinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentActionArray));
@@ -164,10 +164,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentActionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)intentActionSpinner.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)intentActionSpinner.getAdapter()).setSelection(position);
 
                 if (position == 0) {
-                    intentActionEdit.setText(R.string.empty_string);
+                    intentActionEdit.setText("");
                     intentActionEdit.setEnabled(false);
                 }
                 else
@@ -175,7 +175,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                     intentActionEdit.setEnabled(true);
                 }
                 else {
-                    intentActionEdit.setText(R.string.empty_string);
+                    intentActionEdit.setText("");
                     intentActionEdit.setEnabled(false);
                 }
             }
@@ -217,7 +217,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                                 //    categoryValue = categoryValue + "\n";
                                 //categoryValue = categoryValue + categoryArray[i];
                                 if (value.length() > 0)
-                                    value.append("\n");
+                                    value.append(StringConstants.CHAR_NEW_LINE);
                                 value.append(categoryArray[i]);
                             }
                             ++i;
@@ -260,7 +260,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                                 //    flagsValue = flagsValue + "\n";
                                 //flagsValue = flagsValue + flagArray[i];
                                 if (value.length() > 0)
-                                    value.append("\n");
+                                    value.append(StringConstants.CHAR_NEW_LINE);
                                 value.append(flagArray[i]);
                             }
                             ++i;
@@ -282,7 +282,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraKeyValue1.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentExtraSpinner1  = findViewById(R.id.application_editor_intent_extra_type_spinner_1);
-        spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        spinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
@@ -293,7 +293,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)intentExtraSpinner1.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)intentExtraSpinner1.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -306,7 +306,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraKeyValue2.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentExtraSpinner2  = findViewById(R.id.application_editor_intent_extra_type_spinner_2);
-        spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        spinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
@@ -317,7 +317,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)intentExtraSpinner2.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)intentExtraSpinner2.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -330,7 +330,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraKeyValue3.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentExtraSpinner3  = findViewById(R.id.application_editor_intent_extra_type_spinner_3);
-        spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        spinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
@@ -341,7 +341,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)intentExtraSpinner3.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)intentExtraSpinner3.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -354,7 +354,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraKeyValue4.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentExtraSpinner4  = findViewById(R.id.application_editor_intent_extra_type_spinner_4);
-        spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        spinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
@@ -365,7 +365,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)intentExtraSpinner4.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)intentExtraSpinner4.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -378,7 +378,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraKeyValue5.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentExtraSpinner5  = findViewById(R.id.application_editor_intent_extra_type_spinner_5);
-        spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        spinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
@@ -389,7 +389,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)intentExtraSpinner5.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)intentExtraSpinner5.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -409,7 +409,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
             if ((ppIntent._action == null) || ppIntent._action.isEmpty()) {
                 intentActionSpinner.setSelection(0);
-                intentActionEdit.setText(R.string.empty_string);
+                intentActionEdit.setText("");
             } else {
                 boolean custom = true;
                 for (String action : actionsArray) {
@@ -426,16 +426,16 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                     if (position == -1)
                         position = 0;
                     intentActionSpinner.setSelection(position);
-                    intentActionEdit.setText(R.string.empty_string);
+                    intentActionEdit.setText("");
                 }
             }
             intentActionEdit.setEnabled(false);
 
             if (ppIntent._categories != null) {
-                String categoryValue = ppIntent._categories.replaceAll("\\|", "\n");
+                String categoryValue = ppIntent._categories.replaceAll(StringConstants.STR_SPLIT_REGEX, StringConstants.CHAR_NEW_LINE);
                 categoryTextView.setText(categoryValue);
                 List<String> stringList = new ArrayList<>(Arrays.asList(categoryArray));
-                String[] splits = ppIntent._categories.split("\\|");
+                String[] splits = ppIntent._categories.split(StringConstants.STR_SPLIT_REGEX);
                 for (String category : splits) {
                     int i = stringList.indexOf(category);
                     if (i != -1) {
@@ -445,10 +445,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
             }
 
             if (ppIntent._flags != null) {
-                String flagsValue = ppIntent._flags.replaceAll("\\|", "\n");
+                String flagsValue = ppIntent._flags.replaceAll(StringConstants.STR_SPLIT_REGEX, StringConstants.CHAR_NEW_LINE);
                 flagsTextView.setText(flagsValue);
                 List<String> stringList = new ArrayList<>(Arrays.asList(flagArray));
-                String[] splits = ppIntent._flags.split("\\|");
+                String[] splits = ppIntent._flags.split(StringConstants.STR_SPLIT_REGEX);
                 for (String flag : splits) {
                     int i = stringList.indexOf(flag);
                     if (i != -1)
@@ -894,7 +894,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                 intent.setType(ppIntent._mimeType);
 
             if ((ppIntent._categories != null) && (!ppIntent._categories.isEmpty())) {
-                String[] splits = ppIntent._categories.split("\\|");
+                String[] splits = ppIntent._categories.split(StringConstants.STR_SPLIT_REGEX);
                 for (String category : splits) {
                     switch (category) {
                         case "CATEGORY_ALTERNATIVE":
@@ -1012,7 +1012,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
             }
 
             if ((ppIntent._flags != null) && (!ppIntent._flags.isEmpty())) {
-                String[] splits = ppIntent._flags.split("\\|");
+                String[] splits = ppIntent._flags.split(StringConstants.STR_SPLIT_REGEX);
                 for (String flag : splits) {
                     switch (flag) {
                         case "FLAG_ACTIVITY_BROUGHT_TO_FRONT":
@@ -1037,8 +1037,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
                             break;
                         case "FLAG_ACTIVITY_LAUNCH_ADJACENT":
-                            //if (Build.VERSION.SDK_INT >= 24)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT);
                             break;
                         case "FLAG_ACTIVITY_MATCH_EXTERNAL":
                             if (Build.VERSION.SDK_INT >= 28)
@@ -1048,8 +1047,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                             break;
                         case "FLAG_ACTIVITY_NEW_DOCUMENT":
-                            //if (Build.VERSION.SDK_INT >= 21)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
                             break;
                         case "FLAG_ACTIVITY_NEW_TASK":
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1073,8 +1071,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                             break;
                         case "FLAG_ACTIVITY_RETAIN_IN_RECENTS":
-                            //if (Build.VERSION.SDK_INT >= 21)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_RETAIN_IN_RECENTS);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_RETAIN_IN_RECENTS);
                             break;
                         case "FLAG_ACTIVITY_SINGLE_TOP":
                             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -1095,8 +1092,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                             break;
                         case "FLAG_GRANT_PREFIX_URI_PERMISSION":
-                            //if (Build.VERSION.SDK_INT >= 21)
-                                intent.addFlags(Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);
+                            intent.addFlags(Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);
                             break;
                         case "FLAG_GRANT_READ_URI_PERMISSION":
                             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -1120,8 +1116,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
                             break;
                         case "FLAG_RECEIVER_VISIBLE_TO_INSTANT_APPS":
-                            //if (Build.VERSION.SDK_INT >= 26)
-                                intent.addFlags(Intent.FLAG_RECEIVER_VISIBLE_TO_INSTANT_APPS);
+                            intent.addFlags(Intent.FLAG_RECEIVER_VISIBLE_TO_INSTANT_APPS);
                             break;
                     }
                 }
@@ -1146,7 +1141,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intent.putExtra(ppIntent._extraKey1, Double.valueOf(ppIntent._extraValue1));
                         break;
                     case 5:
-                        boolean value = ppIntent._extraValue1.equalsIgnoreCase("true") || ppIntent._extraValue1.equals("1");
+                        boolean value = ppIntent._extraValue1.equalsIgnoreCase(StringConstants.TRUE_STRING) || ppIntent._extraValue1.equals("1");
                         intent.putExtra(ppIntent._extraKey1, value);
                         break;
                 }
@@ -1170,7 +1165,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intent.putExtra(ppIntent._extraKey2, Double.valueOf(ppIntent._extraValue2));
                         break;
                     case 5:
-                        boolean value = ppIntent._extraValue2.equalsIgnoreCase("true") || ppIntent._extraValue2.equals("1");
+                        boolean value = ppIntent._extraValue2.equalsIgnoreCase(StringConstants.TRUE_STRING) || ppIntent._extraValue2.equals("1");
                         intent.putExtra(ppIntent._extraKey2, value);
                         break;
                 }
@@ -1194,7 +1189,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intent.putExtra(ppIntent._extraKey3, Double.valueOf(ppIntent._extraValue3));
                         break;
                     case 5:
-                        boolean value = ppIntent._extraValue3.equalsIgnoreCase("true") || ppIntent._extraValue3.equals("1");
+                        boolean value = ppIntent._extraValue3.equalsIgnoreCase(StringConstants.TRUE_STRING) || ppIntent._extraValue3.equals("1");
                         intent.putExtra(ppIntent._extraKey3, value);
                         break;
                 }
@@ -1218,7 +1213,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intent.putExtra(ppIntent._extraKey4, Double.valueOf(ppIntent._extraValue4));
                         break;
                     case 5:
-                        boolean value = ppIntent._extraValue4.equalsIgnoreCase("true") || ppIntent._extraValue4.equals("1");
+                        boolean value = ppIntent._extraValue4.equalsIgnoreCase(StringConstants.TRUE_STRING) || ppIntent._extraValue4.equals("1");
                         intent.putExtra(ppIntent._extraKey4, value);
                         break;
                 }
@@ -1242,7 +1237,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intent.putExtra(ppIntent._extraKey5, Double.valueOf(ppIntent._extraValue5));
                         break;
                     case 5:
-                        boolean value = ppIntent._extraValue5.equalsIgnoreCase("true") || ppIntent._extraValue5.equals("1");
+                        boolean value = ppIntent._extraValue5.equalsIgnoreCase(StringConstants.TRUE_STRING) || ppIntent._extraValue5.equals("1");
                         intent.putExtra(ppIntent._extraKey5, value);
                         break;
                 }

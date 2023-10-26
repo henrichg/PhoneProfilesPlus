@@ -52,7 +52,7 @@
                 android:text="@string/generate_notification_pref_dialog_icon_type" />
 
             <RadioGroup
-                android:id="@+id/generateNotificationPrefDialogInformationIconRG"
+                android:id="@+id/generateNotificationPrefDialogSmallIconRG"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -79,6 +79,25 @@
                     android:textSize="16sp"
                     android:text="@string/generate_notification_pref_dialog_profile_icon_rb"/>
             </RadioGroup>
+
+            <CheckBox
+                android:id="@+id/generateNotificationPrefDialogReplaceWithPPPIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-2dp"
+                android:buttonTint="@color/checkbox_radiobutton_color"
+                android:textSize="16sp"
+                android:text="@string/generate_notification_pref_dialog_replace_with_ppp_icon_chb" />
+
+            <CheckBox
+                android:id="@+id/generateNotificationPrefDialogShowLargeIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-2dp"
+                android:layout_marginBottom="10dp"
+                android:buttonTint="@color/checkbox_radiobutton_color"
+                android:textSize="16sp"
+                android:text="@string/generate_notification_pref_dialog_large_icon_chb" />
 
             <TextView
                 android:id="@+id/generateNotificationPrefDialogNotificationTitleLabel"

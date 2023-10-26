@@ -27,6 +27,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
         try {
 //            long start = System.currentTimeMillis();
 //            PPApplicationStatic.logE("[IN_WORKER] AvoidRescheduleReceiverWorker.doWork", "--------------- START");
+//            PPApplicationStatic.logE("[MAIN_WORKER_CALL] AvoidRescheduleReceiverWorker.doWork", "**************");
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)

@@ -4,11 +4,10 @@
     app:title="@string/profile_preferences_category_volumes"
     app:key="prf_pref_volumeCategory" >
 
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="prf_pref_volumeUnlinkVolumesAppSettings"
         app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
         app:summary="@string/info_notification_unlink_ringer_notification_volumes"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
     <SwitchPreferenceCompat
@@ -26,14 +25,13 @@
         <Preference
             app:key="prf_pref_volumeSoundMode_info"
             app:title="@string/profile_preferences_configureSoundMode_info"
-            app:summary="@string/empty_string"
+            app:summary=""
             app:layout="@layout/mp_preference_material_widget" />
 
-        <Preference
+        <sk.henrichg.phoneprofilesplus.InformationPreference
             app:key="prf_pref_volumeIgnoreSoundModeInfo2"
             app:title="@string/profile_preferences_volumeIgnoreSoundModeInfo_title"
             app:summary="@string/profile_preferences_volumeIgnoreSoundModeInfo_summary"
-            app:widgetLayout="@layout/preference_widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
 
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
@@ -44,11 +42,10 @@
             app:layout="@layout/mp_preference_material_widget"
             app:title="@string/profile_preferences_volumeRingtone"
             app:summary="@string/volume_pref_dialog_no_change_chb" />
-        <Preference
+        <sk.henrichg.phoneprofilesplus.InformationPreference
             app:key="prf_pref_volumeRingtone0Info"
             app:title="@string/profile_preferences_volumeRingtone0Info_title"
             app:summary="@string/profile_preferences_volumeRingtone0Info_summary"
-            app:widgetLayout="@layout/preference_widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
             app:key="prf_pref_volumeNotification"
@@ -64,17 +61,15 @@
             app:summary="@string/profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <Preference
+        <sk.henrichg.phoneprofilesplus.InformationPreference
             app:key="prf_pref_volumeMediaInfo"
             app:title="@string/profile_preferences_volumeMedia"
             app:summary="@string/profile_preferences_volumeMediaInfo_summary"
-            app:widgetLayout="@layout/preference_widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
-        <Preference
+        <sk.henrichg.phoneprofilesplus.ExclamationPreference
             app:key="prf_pref_volumeMediaOnePlusInfo"
             app:title="@string/profile_preferences_volumeMedia"
             app:summary="@string/profile_preferences_volumeMediaOnePlusInfo_summary"
-            app:widgetLayout="@layout/preference_widget_exclamation_preference"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
             app:key="prf_pref_volumeMedia"
@@ -84,12 +79,16 @@
             app:title="@string/profile_preferences_volumeMedia"
             app:summary="@string/volume_pref_dialog_no_change_chb"
             app:layout="@layout/mp_preference_material_widget" />
+        <SwitchPreferenceCompat
+            app:key="prf_pref_volumeMediaChangeDuringPlay"
+            app:title="@string/profile_preferences_volumeMediaChangeDuringPlay"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget" />
 
-        <Preference
+        <sk.henrichg.phoneprofilesplus.InformationPreference
             app:key="prf_pref_volumeAlarmInfo"
             app:title="@string/profile_preferences_volumeAlarm"
             app:summary="@string/profile_preferences_volumeAlarmInfo_summary"
-            app:widgetLayout="@layout/preference_widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
             app:key="prf_pref_volumeAlarm"

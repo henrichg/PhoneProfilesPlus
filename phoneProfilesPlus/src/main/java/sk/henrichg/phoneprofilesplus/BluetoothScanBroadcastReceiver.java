@@ -23,7 +23,11 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
         if (ApplicationPreferences.prefForceOneBluetoothScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
-            if (!ApplicationPreferences.applicationEventBluetoothEnableScanning)
+            boolean scanningPaused = ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2") &&
+                    GlobalUtils.isNowTimeBetweenTimes(
+                            ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
+                            ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo);
+            if ((!ApplicationPreferences.applicationEventBluetoothEnableScanning) || scanningPaused)
                 // scanning is disabled
                 return;
         }
@@ -57,7 +61,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothScanBroadcastReceiver_onReceive");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BluetoothScanBroadcastReceiver_onReceive);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -90,39 +94,47 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                             }
 
                                             synchronized (PPApplication.bluetoothCLScanMutex) {
-                                                //String btNameD = device.getName();
-                                                //String btNameE = "";
                                                 @SuppressLint("MissingPermission")
                                                 String btName = device.getName();
+                                                if (btName == null)
+                                                    btName = "";
 //                                                PPApplicationStatic.logE("[IN_BROADCAST] BluetoothScanBroadcastReceiver.onReceive","btName="+btName);
 //                                                PPApplicationStatic.logE("[IN_BROADCAST] BluetoothScanBroadcastReceiver.onReceive","deviceName="+deviceName);
-                                                if (deviceName != null) {
+                                                if ((deviceName != null) && (!deviceName.isEmpty())) {
                                                     //btNameE = deviceName;
                                                     //btName = btNameE;
                                                     btName = deviceName;
                                                 }
+//                                                PPApplicationStatic.logE("[IN_BROADCAST] BluetoothScanBroadcastReceiver.onReceive","btName="+btName);
 
                                                 if (BluetoothScanner.tmpBluetoothScanResults == null)
                                                     BluetoothScanner.tmpBluetoothScanResults = new ArrayList<>();
 
-                                                boolean found = false;
-                                                for (BluetoothDeviceData _device : BluetoothScanner.tmpBluetoothScanResults) {
-                                                    if (_device.address.equals(device.getAddress())) {
-                                                        found = true;
-                                                        break;
-                                                    }
-                                                }
-                                                if (!found) {
-                                                    for (BluetoothDeviceData _device : BluetoothScanner.tmpBluetoothScanResults) {
-                                                        if (_device.getName().equalsIgnoreCase(/*device.getName()*/btName)) {
+                                                if (!btName.isEmpty()) {
+                                                    // do not add device without name
+
+                                                    boolean found = false;
+                                                    for (BluetoothDeviceData tmpDevice : BluetoothScanner.tmpBluetoothScanResults) {
+                                                        if ((!tmpDevice.getAddress().isEmpty()) &&
+                                                                (!device.getAddress().isEmpty()) &&
+                                                                tmpDevice.getAddress().equals(device.getAddress())) {
                                                             found = true;
                                                             break;
                                                         }
                                                     }
-                                                }
-                                                if (!found) {
-                                                    BluetoothScanner.tmpBluetoothScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
-                                                            BluetoothScanWorker.getBluetoothType(device), false, 0, false, true));
+                                                    if (!found) {
+                                                        for (BluetoothDeviceData tmpDevice : BluetoothScanner.tmpBluetoothScanResults) {
+                                                            if ((!tmpDevice.getName().isEmpty()) &&
+                                                                    tmpDevice.getName().equalsIgnoreCase(btName)) {
+                                                                found = true;
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                    if (!found) {
+                                                        BluetoothScanner.tmpBluetoothScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
+                                                                BluetoothScanWorker.getBluetoothType(device), false, 0, false, true));
+                                                    }
                                                 }
                                             }
                                             break;

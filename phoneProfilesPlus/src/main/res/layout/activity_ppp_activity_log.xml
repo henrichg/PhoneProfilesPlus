@@ -33,7 +33,7 @@
                 android:layout_width="5dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:text="@string/empty_string"
+                android:text=""
                 android:textStyle="bold"/>
 
             <TextView
@@ -45,6 +45,7 @@
                 android:text="@string/activity_log_header_log_time"
                 android:textStyle="bold"
                 android:textSize="16dp"
+                android:textColor="@color/activityNormalTextColor"
                 tools:ignore="SpUsage"/>
 
             <TextView
@@ -56,6 +57,7 @@
                 android:text="@string/activity_log_header_data_type"
                 android:textStyle="bold"
                 android:textSize="16dp"
+                android:textColor="@color/activityNormalTextColor"
                 tools:ignore="SpUsage" />
 
             <TextView
@@ -67,25 +69,23 @@
                 android:text="@string/activity_log_header_data"
                 android:textStyle="bold"
                 android:textSize="16dp"
+                android:textColor="@color/activityNormalTextColor"
                 tools:ignore="SpUsage" />
 
-            <!--
-            <TextView
-                android:id="@+id/activity_log_header_event_name"
-                android:layout_weight="0.22"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp" />
-
-            <TextView
-                android:id="@+id/activity_log_header_profile_name"
-                android:layout_weight="0.30"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp" />
-            -->
-
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/activity_log_header_added_new_logs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/activity_log_added_new_logs"
+            android:textSize="14sp"
+            android:textColor="@color/activityNormalTextColor"
+            android:visibility="gone" />
 
         <View
             android:id="@+id/activity_log_header_divider"
@@ -94,6 +94,42 @@
             android:background="@color/dialog_divider" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_log_linla_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ProgressBar
+            android:id="@+id/activity_log_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dialog_progressbar_padding"
+            style="?android:attr/progressBarStyleLarge"
+            android:indeterminateDrawable="@drawable/ic_progressbar" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/activity_log_list_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/activity_log_list_empty_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_empty_list"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:contentDescription=""
+            tools:ignore="ContentDescription" />
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/activity_log_list"
@@ -108,6 +144,7 @@
         android:scrollbarStyle="outsideOverlay"
         android:fadeScrollbars="false"
         android:divider="@android:color/transparent"
-        android:listSelector="?attr/listViewItemBackground" />
+        android:listSelector="?attr/listViewItemBackground"
+        android:visibility="gone" />
 
 </LinearLayout>

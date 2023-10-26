@@ -30,7 +30,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PackageReplacedReceiver_onReceive");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PackageReplacedReceiver_onReceive);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -61,7 +61,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
 //                                PPApplicationStatic.logE("[START_PP_SERVICE] PackageReplacedReceiver.onReceive", "xxx");
-                                PPApplicationStatic.startPPService(appContext, serviceIntent);
+                                PPApplicationStatic.startPPService(appContext, serviceIntent, true);
                             } catch (Exception e) {
                                 PPApplicationStatic.recordException(e);
                             }

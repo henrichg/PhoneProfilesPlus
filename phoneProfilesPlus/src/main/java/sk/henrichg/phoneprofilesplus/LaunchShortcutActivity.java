@@ -9,10 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LaunchShortcutActivity extends AppCompatActivity {
 
-    public static final String EXTRA_PACKAGE_NAME = "packageName";
-    public static final String EXTRA_ACTIVITY_NAME = "activityName";
-    public static final String EXTRA_DIALOG_PREFERENCE_POSITION = "dialogPreferencePosition";
-    public static final String EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY = "dialogPreferenceStartApplicationDelay";
+    static final String EXTRA_PACKAGE_NAME = "packageName";
+    static final String EXTRA_ACTIVITY_NAME = "activityName";
+    static final String EXTRA_DIALOG_PREFERENCE_POSITION = "dialogPreferencePosition";
+    static final String EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY = "dialogPreferenceStartApplicationDelay";
 
     private String packageName;
     private String activityName;

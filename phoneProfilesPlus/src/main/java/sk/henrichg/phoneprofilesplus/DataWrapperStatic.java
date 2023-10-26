@@ -1,14 +1,19 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.NonNull;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Icon;
+import android.os.Build;
+import android.os.PowerManager;
 import android.provider.Settings;
+import android.service.notification.StatusBarNotification;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
@@ -28,7 +33,7 @@ class DataWrapperStatic {
         //noinspection ConstantConditions
         return new Profile(
                 name,
-                icon + Profile.defaultValuesString.get("prf_pref_profileIcon_withoutIcon"),
+                icon + Profile.defaultValuesString.get(Profile.PREF_PROFILE_ICON_WITHOUT_ICON),
                 false,
                 order,
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_RINGER_MODE)),
@@ -48,7 +53,7 @@ class DataWrapperStatic {
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WIFI)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_BLUETOOTH)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT)),
-                Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + Profile.defaultValuesString.get("prf_pref_deviceBrightness_withoutLevel"),
+                Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS_WITHOUT_LEVEL),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)),
@@ -57,7 +62,7 @@ class DataWrapperStatic {
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE)),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_AUTOSYNC)),
-                Profile.defaultValuesBoolean.get("prf_pref_showInActivator_notShow"),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR_NOT_SHOW),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_AUTOROTATE)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE)),
@@ -77,14 +82,14 @@ class DataWrapperStatic {
                 Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_LOCK_DEVICE)),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING)),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING)),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND),
                 Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS)),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING)),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING)),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME),
@@ -102,13 +107,13 @@ class DataWrapperStatic {
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT)),
                 Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE)),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING)),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_GENERATE_NOTIFICATION),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CAMERA_FLASH)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2)),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1)),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2)),
+                //Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1)),
+                //Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2)),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2)),
@@ -128,11 +133,18 @@ class DataWrapperStatic {
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING)),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION)
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL))
                 );
     }
 
@@ -200,17 +212,17 @@ class DataWrapperStatic {
             if (EventStatic.getGlobalEventsRunning(context)) {
                 if (EventStatic.getEventsBlocked(context)) {
                     if (EventStatic.getForceRunEventRunning(context))
-                        manualIndicators = "[»]";
+                        manualIndicators = StringConstants.STR_ARROW_INDICATOR;
                     else
-                        manualIndicators = "[M]";
+                        manualIndicators = StringConstants.STR_MANUAL;
                 }
             }
             else
-                manualIndicators = "[M]";
+                manualIndicators = StringConstants.STR_MANUAL;
 
             String _eventName = getLastStartedEventName(dataWrapper, profile, context);
             if (!_eventName.equals("?"))
-                eventName = "[\u00A0" + _eventName + "\u00A0]";
+                eventName = "[" +  StringConstants.CHAR_HARD_SPACE + _eventName + StringConstants.CHAR_HARD_SPACE + "]";
 
             if (!manualIndicators.isEmpty())
                 eventName = manualIndicators + " " + eventName;
@@ -221,7 +233,7 @@ class DataWrapperStatic {
 
         Spannable sName;
         if (addDuration) {
-            if (!addEventName || manualIndicators.equals("[M]"))
+            if (!addEventName || manualIndicators.equals(StringConstants.STR_MANUAL))
                 sName = profile.getProfileNameWithDuration(eventName, indicators, multiLine, durationInNextLine, context);
             else {
                 String name = profile._name;
@@ -229,7 +241,7 @@ class DataWrapperStatic {
                     name = name + " " + eventName;
                 if (!indicators.isEmpty()) {
                     if (multiLine)
-                        name = name + "\n" + indicators;
+                        name = name + StringConstants.CHAR_NEW_LINE + indicators;
                     else
                         name = name + " " + indicators;
                 }
@@ -242,7 +254,7 @@ class DataWrapperStatic {
                 name = name + " " + eventName;
             if (!indicators.isEmpty()) {
                 if (multiLine)
-                    name = name + "\n" + indicators;
+                    name = name + StringConstants.CHAR_NEW_LINE + indicators;
                 else
                     name = name + " " + indicators;
             }
@@ -497,10 +509,10 @@ class DataWrapperStatic {
         useCustomColor = profile.getUseCustomColorForIcon();
 
         if (isIconResourceID) {
-            Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
-            if (bitmap != null)
-                profileBitmap = bitmap;
-            else {
+            //Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+            //if (bitmap != null)
+            //    profileBitmap = bitmap;
+            //else {
                 if (profile._iconBitmap != null)
                     profileBitmap = profile._iconBitmap;
                 else {
@@ -509,16 +521,16 @@ class DataWrapperStatic {
                     //profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
                     profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
                 }
-            }
+            //}
         } else {
             int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             //Log.d("---- ShortcutCreatorListFragment.generateIconBitmap","resampleBitmapUri");
             Bitmap oringBitmap = BitmapManipulator.resampleBitmapUri(iconIdentifier, width, height, true, false, context.getApplicationContext());
-            Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(context, oringBitmap);
-            if (bitmap != null)
-                profileBitmap = bitmap;
-            else {
+            //Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(context, oringBitmap);
+            //if (bitmap != null)
+            //    profileBitmap = bitmap;
+            //else {
                 if (oringBitmap != null)
                     profileBitmap = oringBitmap;
                 else {
@@ -526,7 +538,7 @@ class DataWrapperStatic {
                     //profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
                     profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
                 }
-            }
+            //}
         }
 
         if (ApplicationPreferences.applicationShortcutIconColor.equals("1")) {
@@ -543,7 +555,7 @@ class DataWrapperStatic {
                 if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75)) monochromeValue = 0xC0;
                 if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87)) monochromeValue = 0xE0;
                 //if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) monochromeValue = 0xFF;
-                profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, getActivity().getBaseContext()*/);
+                profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue);
             } else {
                 float monochromeValue = 255f;
                 String applicationWidgetIconLightness = ApplicationPreferences.applicationShortcutIconLightness;
@@ -606,56 +618,60 @@ class DataWrapperStatic {
     }
 
     static void setDynamicLauncherShortcuts(final Context appContext) {
-        //if (android.os.Build.VERSION.SDK_INT >= 25) {
-            try {
-                //final Context appContext = context;
-                LocaleHelper.setApplicationLocale(appContext);
+        try {
+            //final Context appContext = context;
+            LocaleHelper.setApplicationLocale(appContext);
 
-                ShortcutManager shortcutManager = appContext.getSystemService(ShortcutManager.class);
+            ShortcutManager shortcutManager = appContext.getSystemService(ShortcutManager.class);
 
-                if (shortcutManager != null) {
-                    final int limit = 4;
+            if (shortcutManager != null) {
+                final int limit = 4;
 
-                    //List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(true);
-                    List<Profile> countedProfiles = DatabaseHandler.getInstance(appContext).getProfilesInQuickTilesForDynamicShortcuts();
-                    List<Profile> notCountedProfiles = DatabaseHandler.getInstance(appContext).getProfilesForDynamicShortcuts(/*false*/);
+                //List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(true);
+                List<Profile> countedProfiles = DatabaseHandler.getInstance(appContext).getProfilesInQuickTilesForDynamicShortcuts();
+                List<Profile> notCountedProfiles = DatabaseHandler.getInstance(appContext).getProfilesForDynamicShortcuts(/*false*/);
 
-                    ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
+                ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
 
-                    //Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
-                    Profile _profile = getNonInitializedProfile(appContext.getString(R.string.menu_restart_events),
-                            "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
-                    _profile.generateIconBitmap(appContext, false, 0, false);
-                    // first profile is restart events
-                    shortcuts.add(createShortcutInfo(_profile, true, appContext));
+                //Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
+                Profile _profile = getNonInitializedProfile(appContext.getString(R.string.menu_restart_events),
+                        StringConstants.PROFILE_ICON_RESTART_EVENTS+"|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
+                _profile.generateIconBitmap(appContext, false, 0, false);
+                // first profile is restart events
+                shortcuts.add(createShortcutInfo(_profile, true, appContext));
 
-                    int shortcutsCount = 0;
-                    for (Profile profile : countedProfiles) {
+                int shortcutsCount = 0;
+                for (Profile profile : countedProfiles) {
+                    profile.generateIconBitmap(appContext, false, 0, false);
+                    shortcuts.add(createShortcutInfo(profile, false, appContext));
+                    ++shortcutsCount;
+                    if (shortcutsCount == limit)
+                        break;
+                }
+
+                //int shortcutsCount = countedProfiles.size();
+                if (shortcutsCount < limit) {
+                    for (Profile profile : notCountedProfiles) {
                         profile.generateIconBitmap(appContext, false, 0, false);
                         shortcuts.add(createShortcutInfo(profile, false, appContext));
                         ++shortcutsCount;
                         if (shortcutsCount == limit)
                             break;
                     }
-
-                    //int shortcutsCount = countedProfiles.size();
-                    if (shortcutsCount < limit) {
-                        for (Profile profile : notCountedProfiles) {
-                            profile.generateIconBitmap(appContext, false, 0, false);
-                            shortcuts.add(createShortcutInfo(profile, false, appContext));
-                            ++shortcutsCount;
-                            if (shortcutsCount == limit)
-                                break;
-                        }
-                    }
+                }
 
 //                    PPApplicationStatic.logE("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcuts.size()="+shortcuts.size());
 
-                    shortcutManager.removeAllDynamicShortcuts();
-                    if (shortcuts.size() > 0)
-                        shortcutManager.addDynamicShortcuts(shortcuts);
+                shortcutManager.removeAllDynamicShortcuts();
+                if (shortcuts.size() > 0) {
+                    shortcutManager.addDynamicShortcuts(shortcuts);
+                    if (Build.VERSION.SDK_INT >= 30) {
+                        for (ShortcutInfo shortcut : shortcuts)
+                            shortcutManager.pushDynamicShortcut(shortcut);
+                    }
                 }
-            } catch (Exception e) {
+            }
+        } catch (Exception e) {
 //                java.lang.IllegalStateException: Launcher activity not found for package sk.henrichg.phoneprofilesplus
 //                at android.os.Parcel.createException(Parcel.java:2096)
 //                at android.os.Parcel.readException(Parcel.java:2056)
@@ -665,14 +681,59 @@ class DataWrapperStatic {
 //                at sk.henrichg.phoneprofilesplus.DataWrapper.setDynamicLauncherShortcuts(DataWrapper.java:818)
 //                - Generated, when device is rooted?
 
-                //Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
+            //Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
+            PPApplicationStatic.recordException(e);
+        }
+    }
+
+    static void setDynamicLauncherShortcutsFromMainThread(final Context appContext)
+    {
+        //final DataWrapper dataWrapper = copyDataWrapper();
+
+        //PPApplication.startHandlerThread(/*"DataWrapper.setDynamicLauncherShortcutsFromMainThread"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+        //__handler.post(new PPHandlerThreadRunnable(
+        //        context, dataWrapper, null, null) {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
+//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
+
+            //Context appContext= appContextWeakRef.get();
+            //DataWrapper dataWrapper = dataWrapperWeakRef.get();
+            //Profile profile = profileWeakRef.get();
+            //Activity activity = activityWeakRef.get();
+
+            //if ((appContext != null) && (dataWrapper != null) /*&& (profile != null) && (activity != null)*/) {
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DataWrapper_setDynamicLauncherShortcutsFromMainThread);
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
+
+                DataWrapperStatic.setDynamicLauncherShortcuts(appContext);
+
+            } catch (Exception e) {
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
+                    }
+                }
             }
-        //}
+            //}
+        }; //);
+        PPApplicationStatic.createBasicExecutorPool();
+        PPApplication.basicExecutorPool.submit(runnable);
     }
 
     static final String EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION = "from_red_text_preferences_notification";
 
+    // return == true -> is error in profile/event, notification was displayed
     static boolean displayPreferencesErrorNotification(Profile profile, Event event, boolean againCheckAccessibilityInDelay, Context context) {
         if ((profile == null) && (event == null))
             return false;
@@ -680,7 +741,7 @@ class DataWrapperStatic {
         if (!PPApplicationStatic.getApplicationStarted(true, false))
             return false;
 
-        if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, againCheckAccessibilityInDelay, context))) {
+        if ((profile != null) && (!ProfileStatic.isRedTextNotificationRequired(profile, againCheckAccessibilityInDelay, context))) {
             // clear notification
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             try {
@@ -693,7 +754,7 @@ class DataWrapperStatic {
 
             return false;
         }
-        if ((event != null) && (!EventsPrefsFragment.isRedTextNotificationRequired(event, againCheckAccessibilityInDelay, context))) {
+        if ((event != null) && (!EventStatic.isRedTextNotificationRequired(event, againCheckAccessibilityInDelay, context))) {
             // clear notification
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             try {
@@ -715,93 +776,111 @@ class DataWrapperStatic {
 
         Intent intent = null;
 
-        if (profile != null) {
-            intent = new Intent(context, ProfilesPrefsActivity.class);
-            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            intent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-            intent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
-        }
-        if (event != null) {
-            intent = new Intent(context, EventsPrefsActivity.class);
-            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-            intent.putExtra(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
-            intent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_EDIT);
-            intent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
-        }
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        boolean alreadyExists = false;
 
         if (profile != null) {
-            nTitle = context.getString(R.string.profile_preferences_red_texts_title);
-            nText = context.getString(R.string.profile_preferences_red_texts_text_1) + " " +
-                    "\"" + profile._name + "\" " +
-                    context.getString(R.string.preferences_red_texts_text_2) + " " +
-                    context.getString(R.string.preferences_red_texts_text_click);
-//            if (android.os.Build.VERSION.SDK_INT < 24) {
-//                nTitle = context.getString(R.string.ppp_app_name);
-//                nText = context.getString(R.string.profile_preferences_red_texts_title) + ": " +
-//                        context.getString(R.string.profile_preferences_red_texts_text_1) + " " +
-//                        "\"" + profile._name + "\" " +
-//                        context.getString(R.string.preferences_red_texts_text_2) + " " +
-//                        context.getString(R.string.preferences_red_texts_text_click);
-//            }
-
-            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
             notificationID = PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id;
             notificationTag = PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile._id;
+
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
+                for (StatusBarNotification notification : notifications) {
+                    String tag = notification.getTag();
+                    if ((tag != null) && tag.contains(notificationTag)) {
+                        if (notification.getId() == notificationID) {
+                            alreadyExists = true;
+                        }
+                    }
+                }
+            }
+
+            if (!alreadyExists) {
+                nTitle = context.getString(R.string.profile_preferences_red_texts_title);
+                nText = context.getString(R.string.profile_preferences_red_texts_text_1) + " " +
+                        "\"" + profile._name + "\" " +
+                        context.getString(R.string.preferences_red_texts_text_2) + " " +
+                        context.getString(R.string.preferences_red_texts_text_click);
+
+                intent = new Intent(context, ProfilesPrefsActivity.class);
+                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_EDIT);
+                intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+
+                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+            }
         }
 
         if (event != null) {
-            nTitle = context.getString(R.string.event_preferences_red_texts_title);
-            nText = context.getString(R.string.event_preferences_red_texts_text_1) + " " +
-                    "\"" + event._name + "\" " +
-                    context.getString(R.string.preferences_red_texts_text_2) + " " +
-                    context.getString(R.string.preferences_red_texts_text_click);
-//            if (android.os.Build.VERSION.SDK_INT < 24) {
-//                nTitle = context.getString(R.string.ppp_app_name);
-//                nText = context.getString(R.string.event_preferences_red_texts_title) + ": " +
-//                        context.getString(R.string.event_preferences_red_texts_text_1) + " " +
-//                        "\"" + event._name + "\" " +
-//                        context.getString(R.string.preferences_red_texts_text_2) + " " +
-//                        context.getString(R.string.preferences_red_texts_text_click);
-//            }
-
-            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
             notificationID = PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id;
             notificationTag = PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id;
+
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
+                for (StatusBarNotification notification : notifications) {
+                    String tag = notification.getTag();
+                    if ((tag != null) && tag.contains(notificationTag)) {
+                        if (notification.getId() == notificationID) {
+                            alreadyExists = true;
+                        }
+                    }
+                }
+            }
+
+            if (!alreadyExists) {
+                nTitle = context.getString(R.string.event_preferences_red_texts_title);
+                nText = context.getString(R.string.event_preferences_red_texts_text_1) + " " +
+                        "\"" + event._name + "\" " +
+                        context.getString(R.string.preferences_red_texts_text_2) + " " +
+                        context.getString(R.string.preferences_red_texts_text_click);
+
+                intent = new Intent(context, EventsPrefsActivity.class);
+                intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+                intent.putExtra(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
+                intent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, PPApplication.EDIT_MODE_EDIT);
+                intent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+
+                intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+            }
         }
 
-        intent.putExtra(EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, true);
+        if (!alreadyExists) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        PPApplicationStatic.createGrantPermissionNotificationChannel(context);
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                .setContentTitle(nTitle) // title for notification
-                .setContentText(nText) // message for notification
-                .setAutoCancel(true); // clear notification after click
-        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+            intent.putExtra(EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, true);
 
-        PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(pi);
+            PPApplicationStatic.createGrantPermissionNotificationChannel(context.getApplicationContext(), false);
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
+                    .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                    .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
+                    .setContentTitle(nTitle) // title for notification
+                    .setContentText(nText) // message for notification
+                    .setAutoCancel(true); // clear notification after click
+            mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
 
-        mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
-        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
-        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        mBuilder.setOnlyAlertOnce(true);
+            PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            mBuilder.setContentIntent(pi);
 
-        mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_ERRORS_NOTIFICATION_GROUP);
+            mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+            mBuilder.setOnlyAlertOnce(true);
 
-        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
-        try {
-            // do not cancel, mBuilder.setOnlyAlertOnce(true); will not be working
-            // mNotificationManager.cancel(notificationID);
-            mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
-        } catch (SecurityException en) {
-            Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(en));
-        } catch (Exception e) {
-            //Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(e));
-            PPApplicationStatic.recordException(e);
+            mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_ERRORS_NOTIFICATION_GROUP);
+
+            NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+            try {
+                // do not cancel, mBuilder.setOnlyAlertOnce(true); will not be working
+                // mNotificationManager.cancel(notificationID);
+                mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
+            } catch (SecurityException en) {
+                PPApplicationStatic.logException("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(en));
+            } catch (Exception e) {
+                //Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(e));
+                PPApplicationStatic.recordException(e);
+            }
         }
 
         return true;

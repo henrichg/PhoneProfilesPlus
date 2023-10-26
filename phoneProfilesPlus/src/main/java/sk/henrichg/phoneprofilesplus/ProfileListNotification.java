@@ -1,12 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.content.Context.RECEIVER_NOT_EXPORTED;
 import static android.view.View.VISIBLE;
 
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ProfileListNotification {
 
-    static volatile ArrowsBroadcastReceiver arrowsBroadcastReceiver = null;
+    private static volatile ProfileListNotificationArrowsBroadcastReceiver arrowsBroadcastReceiver = null;
 
     private static final int[] profileIconId = {
             R.id.notification_profile_list_profile_icon_1, R.id.notification_profile_list_profile_icon_2,
@@ -64,18 +64,18 @@ public class ProfileListNotification {
             R.id.notification_profile_list_profile_icon_15_root
     };
 
-    private static int displayedPage = 0;
-    private static int profileCount = 0;
+    static volatile int displayedPage = 0;
+    static volatile int profileCount = 0;
 
     private static final int MAX_PROFILE_COUNT = 15;
 
     //static final String ACTION_REFRESH_PROFILELISTNOTIFICATION = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_PROFILELISTNOTIFICATION";
-    private static final String ACTION_LEFT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_NOTIFICATION_LEFT_ARROW_CLICK";
-    private static final String ACTION_RIGHT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_NOTIFICATION_RIGHT_ARROW_CLICK";
+    static final String ACTION_LEFT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_NOTIFICATION_LEFT_ARROW_CLICK";
+    static final String ACTION_RIGHT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_NOTIFICATION_RIGHT_ARROW_CLICK";
     private static final int PROFILE_ID_ACTIVATE_PROFILE_ID = 1000;
 
 
-    static private void _showNotification(final Context context/*, boolean forFirstStart*/)
+    static void _showNotification(final Context context/*, boolean forFirstStart*/)
     {
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "start");
 
@@ -98,7 +98,7 @@ public class ProfileListNotification {
         String notificationProfileListBackgroundColor;
         int notificationProfileListBackgroundCustomColor;
         int notificationProfileListNumberOfProfilesPerPage;
-        String notificationProfileListStatusBarStyle;
+        //String notificationProfileListStatusBarStyle;
 
         synchronized (PPApplication.applicationPreferencesMutex) {
             notificationProfileListDisplayNotification = ApplicationPreferences.notificationProfileListDisplayNotification;
@@ -111,14 +111,14 @@ public class ProfileListNotification {
             notificationProfileListNumberOfProfilesPerPage = ApplicationPreferences.notificationProfileListNumberOfProfilesPerPage;
             notificationProfileListBackgroundColor = ApplicationPreferences.notificationProfileListBackgroundColor;
             notificationProfileListBackgroundCustomColor = ApplicationPreferences.notificationProfileListBackgroundCustomColor;
-            notificationProfileListStatusBarStyle = ApplicationPreferences.notificationProfileListStatusBarStyle;
+            //notificationProfileListStatusBarStyle = ApplicationPreferences.notificationProfileListStatusBarStyle;
         }
 
         if (!notificationProfileListDisplayNotification)
             return;
 
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "call of createProfileListNotificationChannel()");
-        PPApplicationStatic.createProfileListNotificationChannel(appContext);
+        PPApplicationStatic.createProfileListNotificationChannel(appContext, false);
 
         NotificationCompat.Builder notificationBuilder;
 
@@ -193,7 +193,7 @@ public class ProfileListNotification {
         if (EventStatic.getGlobalEventsRunning(context)) {
             //restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
             restartEvents = DataWrapperStatic.getNonInitializedProfile(appContext.getString(R.string.menu_restart_events),
-                    "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
+                    StringConstants.PROFILE_ICON_RESTART_EVENTS+"|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
             restartEvents._showInActivator = true;
             restartEvents._id = Profile.RESTART_EVENTS_PROFILE_ID;
             newProfileList.add(0, restartEvents);
@@ -204,13 +204,15 @@ public class ProfileListNotification {
 
         dataWrapper.setProfileList(newProfileList);
 
-        profileCount = 0;
+        int _profileCount = 0;
         for (Profile profile : dataWrapper.profileList) {
-            if (profile._showInActivator)
-                profileCount++;
+            if (profile._showInActivator) {
+                _profileCount++;
+            }
         }
-        if (profileCount > MAX_PROFILE_COUNT)
-            profileCount = MAX_PROFILE_COUNT;
+        if (_profileCount > MAX_PROFILE_COUNT)
+            _profileCount = MAX_PROFILE_COUNT;
+        profileCount = _profileCount;
 
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "profileCount="+profileCount);
 
@@ -259,7 +261,6 @@ public class ProfileListNotification {
         */
 
         // ----- create notificationBuilders
-        //if (Build.VERSION.SDK_INT >= 26) {
             notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_LIST_NOTIFICATION_CHANNEL);
             //notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
         /*}
@@ -317,8 +318,8 @@ public class ProfileListNotification {
                 break;
         }
 
-        setSmallIcon(activatedProfile,
-                notificationProfileListStatusBarStyle,
+        setSmallIcon(/*activatedProfile,
+                notificationProfileListStatusBarStyle,*/
                 notificationProfileListIconColor,
                 notificationBuilder, appContext);
 
@@ -385,16 +386,17 @@ public class ProfileListNotification {
             }
         }
         //if (Event.getGlobalEventsRunning() && PPApplicationStatic.getApplicationStarted(true)) {
+
         // left arrow
         if (displayedPage > 0)
             contentView.setViewVisibility(R.id.notification_profile_list_scroll_left_arrow, VISIBLE);
         else
             contentView.setViewVisibility(R.id.notification_profile_list_scroll_left_arrow, View.GONE);
-
         Intent intentLeftArrow = new Intent();
         intentLeftArrow.setAction(ACTION_LEFT_ARROW_CLICK);
         PendingIntent pIntentLeftArrow = PendingIntent.getBroadcast(appContext, 2, intentLeftArrow, PendingIntent.FLAG_UPDATE_CURRENT);
         contentView.setOnClickPendingIntent(R.id.notification_profile_list_scroll_left_arrow, pIntentLeftArrow);
+
         // right arrow
         if ((displayedPage < profileCount / notificationProfileListNumberOfProfilesPerPage) &&
                 (profileCount > notificationProfileListNumberOfProfilesPerPage))
@@ -419,7 +421,7 @@ public class ProfileListNotification {
         //}
         if (Build.VERSION.SDK_INT >= 33) {
 //            Log.e("PPAppNotification._showNotification", "add delete intent");
-            Intent deleteIntent = new Intent(ProfileListNotificationDeletedReceiver.PROFILE_LIST_NOTIFICATION_DELETED_ACTION);
+            Intent deleteIntent = new Intent(ProfileListNotificationDeletedReceiver.ACTION_PROFILE_LIST_NOTIFICATION_DELETED);
             PendingIntent deletePendingIntent = PendingIntent.getBroadcast(appContext, 0, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             notificationBuilder.setDeleteIntent(deletePendingIntent);
         }
@@ -441,16 +443,6 @@ public class ProfileListNotification {
 
         if (profileListNotification != null) {
 
-            /*if (Build.VERSION.SDK_INT < 26) {
-                profileListNotification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
-                profileListNotification.ledOnMS = 0;
-                profileListNotification.ledOffMS = 0;
-                profileListNotification.sound = null;
-                profileListNotification.vibrate = null;
-                profileListNotification.defaults &= ~NotificationCompat.DEFAULT_SOUND;
-                profileListNotification.defaults &= ~NotificationCompat.DEFAULT_VIBRATE;
-            }*/
-
             // do not use Notification.FLAG_ONGOING_EVENT,
             // with this flag, is not possible to colapse this notification
             profileListNotification.flags |= Notification.FLAG_NO_CLEAR; //| Notification.FLAG_ONGOING_EVENT;
@@ -461,7 +453,7 @@ public class ProfileListNotification {
                         PPApplication.PROFILE_LIST_NOTIFICATION_TAG,
                         PPApplication.PROFILE_LIST_NOTIFICATION_ID, notificationBuilder.build());
             } catch (SecurityException en) {
-                Log.e("ProfileListNotification._showNotification", Log.getStackTraceString(en));
+                PPApplicationStatic.logException("ProfileListNotification._showNotification", Log.getStackTraceString(en));
             } catch (Exception e) {
                 //Log.e("ProfileListNotification._showNotification", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
@@ -474,10 +466,10 @@ public class ProfileListNotification {
 
     static void clearOldNotification(Context context) {
         boolean clear = false;
-        if (Build.MANUFACTURER.equals("HMD Global"))
+        if (Build.MANUFACTURER.equals(PPApplication.MANUFACTURER_HMD_GLOBAL))
             // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
             clear = true;
-        if (PPApplication.deviceIsLG && (!Build.MODEL.contains("Nexus")) && (Build.VERSION.SDK_INT == 28))
+        if (PPApplication.deviceIsLG && (!Build.MODEL.contains(PPApplication.MODEL_NEXUS)) && (Build.VERSION.SDK_INT == 28))
             // clear it for redraw icon in "Glance view" for LG with Android 9
             clear = true;
         if (clear) {
@@ -544,7 +536,7 @@ public class ProfileListNotification {
             PowerManager.WakeLock wakeLock = null;
             try {
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ProfileListNotification_drawNotification");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ProfileListNotification_drawNotification);
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -569,17 +561,20 @@ public class ProfileListNotification {
             }
             //}
         };
-        PPApplicationStatic.createDelayedShowNotificationExecutor();
+        PPApplicationStatic.createDelayedProfileListNotificationExecutor();
 
-//        PPApplication.delayedShowNotificationExecutor.shutdownNow(); // shutdown already scheduled
-//        try {
-//            PPApplication.delayedShowNotificationExecutor.awaitTermination(1, TimeUnit.SECONDS); // shutdown already scheduled
-//        } catch (Exception ignored) {};
-
+        if (PPApplication.scheduledFutureDelayedProfileListNotificationExecutor != null)
+            PPApplication.scheduledFutureDelayedProfileListNotificationExecutor.cancel(false);
         if (drawImmediatelly)
-            PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
-        else
-            PPApplication.delayedGuiExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
+            PPApplication.scheduledFutureDelayedProfileListNotificationExecutor =
+                    PPApplication.delayedProfileListNotificationExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+        else {
+            int delay = 5;
+            if (PPApplication.isScreenOn)
+                delay = 1;
+            PPApplication.scheduledFutureDelayedProfileListNotificationExecutor =
+                    PPApplication.delayedProfileListNotificationExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
+        }
     }
 
     static void showNotification(Context context,
@@ -588,7 +583,6 @@ public class ProfileListNotification {
         if (!ApplicationPreferences.notificationProfileListDisplayNotification)
             return;
 
-        //if (Build.VERSION.SDK_INT >= 26) {
         //if (DebugVersion.enabled)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
@@ -649,9 +643,8 @@ public class ProfileListNotification {
         //}
     }
 
-    @SuppressWarnings("unused")
-    private static void setSmallIcon(Profile activatedProfile,
-                                     String notificationProfileListStatusBarStyle,
+    private static void setSmallIcon(/*Profile activatedProfile,
+                                     String notificationProfileListStatusBarStyle,*/
                                      String notificationProfileListIconColor,
 
                                      NotificationCompat.Builder notificationBuilder,
@@ -659,7 +652,7 @@ public class ProfileListNotification {
 
         int decoratorColor = ContextCompat.getColor(appContext, R.color.notification_color);
 
-        notificationBuilder.setSmallIcon(R.drawable.ic_app_notification_icon);
+        notificationBuilder.setSmallIcon(R.drawable.ic_ppp_notification);
 
 /*
         if (activatedProfile == null) {
@@ -934,11 +927,14 @@ public class ProfileListNotification {
 
     static void enable(boolean clear, Context appContext) {
         if (arrowsBroadcastReceiver == null) {
-            arrowsBroadcastReceiver = new ArrowsBroadcastReceiver();
+            arrowsBroadcastReceiver = new ProfileListNotificationArrowsBroadcastReceiver();
             IntentFilter intentFilter5 = new IntentFilter();
             intentFilter5.addAction(ACTION_RIGHT_ARROW_CLICK);
             intentFilter5.addAction(ACTION_LEFT_ARROW_CLICK);
-            appContext.registerReceiver(arrowsBroadcastReceiver, intentFilter5);
+            int receiverFlags = 0;
+            if (Build.VERSION.SDK_INT >= 34)
+                receiverFlags = RECEIVER_NOT_EXPORTED;
+            appContext.registerReceiver(arrowsBroadcastReceiver, intentFilter5, receiverFlags);
         }
 
         synchronized (PPApplication.applicationPreferencesMutex) {
@@ -965,34 +961,6 @@ public class ProfileListNotification {
                 arrowsBroadcastReceiver = null;
             } catch (Exception e) {
                 arrowsBroadcastReceiver = null;
-            }
-        }
-    }
-
-
-    public static class ArrowsBroadcastReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-//            PPApplicationStatic.logE("[PPP_NOTIFICATION] ArrowsBroadcastReceiver.onReceive", "xxx");
-            String action = intent.getAction();
-            if (action != null) {
-//                PPApplicationStatic.logE("[PPP_NOTIFICATION] ArrowsBroadcastReceiver.onReceive", "action="+action);
-
-                if (action.equalsIgnoreCase(ACTION_RIGHT_ARROW_CLICK)) {
-                    if ((displayedPage < profileCount / ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage) &&
-                            (profileCount > ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage)) {
-                        ++displayedPage;
-                        _showNotification(context/*, false*/);
-                    }
-                }
-                else
-                if (action.equalsIgnoreCase(ACTION_LEFT_ARROW_CLICK)) {
-                    if (displayedPage > 0) {
-                        --displayedPage;
-                        _showNotification(context/*, false*/);
-                    }
-                }
             }
         }
     }

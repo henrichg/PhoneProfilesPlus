@@ -17,7 +17,7 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
         //setAnimationStyle(0);
 
         final TextView textView = popupView.findViewById(R.id.event_status_popup_window_text7);
-        textView.setText(fragment.getString(R.string.popup_window_events_status_show_info) + "\u00A0»»");
+        textView.setText(fragment.getString(R.string.popup_window_events_status_show_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
         textView.setClickable(true);
         textView.setOnClickListener(v -> {
             if (fragment.getActivity() != null) {
@@ -35,7 +35,7 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
             final Event _event = event;
 
             TextView eventName = popupView.findViewById(R.id.event_status_popup_window_text0);
-            eventName.setText(fragment.getString(R.string.event_string_0)+": "+event._name);
+            eventName.setText(fragment.getString(R.string.event_string_0)+StringConstants.STR_COLON_WITH_SPACE+event._name);
 
             final SwitchCompat checkBox = popupView.findViewById(R.id.event_status_popup_window_checkbox);
             checkBox.setChecked(event.getStatus() != Event.ESTATUS_STOP);

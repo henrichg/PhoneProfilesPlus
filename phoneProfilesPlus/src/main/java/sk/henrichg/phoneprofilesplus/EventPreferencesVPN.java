@@ -15,7 +15,7 @@ class EventPreferencesVPN extends EventPreferences {
     static final String PREF_EVENT_VPN_ENABLED = "eventVPNEnabled";
     private static final String PREF_EVENT_VPN_CONNECTION_STATUS = "eventVPNConnectionStatus";
 
-    private static final String PREF_EVENT_VPN_CATEGORY = "eventVPNCategoryRoot";
+    static final String PREF_EVENT_VPN_CATEGORY = "eventVPNCategoryRoot";
 
     EventPreferencesVPN(Event event,
                         boolean enabled,
@@ -44,32 +44,31 @@ class EventPreferencesVPN extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_vpn_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_vpn_summary));
         } else {
             if (addBullet) {
-                descr = descr + "<b>";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_vpn), addPassStatus, DatabaseHandler.ETYPE_VPN, context);
-                descr = descr + "</b> ";
+                _value.append(StringConstants.TAG_BOLD_START_HTML);
+                _value.append(getPassStatusString(context.getString(R.string.event_type_vpn), addPassStatus, DatabaseHandler.ETYPE_VPN, context));
+                _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
             }
 
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_VPN_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                descr = descr + context.getString(R.string.pref_event_vpn_connection_status) + ": ";
+                _value.append(context.getString(R.string.pref_event_vpn_connection_status)).append(StringConstants.STR_COLON_WITH_SPACE);
                 String[] fields = context.getResources().getStringArray(R.array.eventVPNArray);
-                descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._connectionStatus], disabled, context) + "</b>";
+                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._connectionStatus], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
             }
             else {
-                descr = descr + context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context);
+                _value.append(context.getString(R.string.profile_preferences_device_not_allowed)).append(StringConstants.STR_COLON_WITH_SPACE).append(preferenceAllowed.getNotAllowedPreferenceReasonString(context));
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context) {
@@ -117,7 +116,7 @@ class EventPreferencesVPN extends EventPreferences {
 
         if (key.equals(PREF_EVENT_VPN_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true" : "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
 
         if (key.equals(PREF_EVENT_VPN_CONNECTION_STATUS))
@@ -155,7 +154,7 @@ class EventPreferencesVPN extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_VPN_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -172,6 +171,7 @@ class EventPreferencesVPN extends EventPreferences {
 
     @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+        super.checkPreferences(prefMng, onlyCategory, context);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_VPN_ENABLED) != null) {
@@ -206,10 +206,10 @@ class EventPreferencesVPN extends EventPreferences {
 
                 if (!eventsHandler.notAllowedVPN) {
                     if (_connectionStatus == 0)
-                        eventsHandler.vpnPassed = VPNNetworkCallback.connected;
+                        eventsHandler.vpnPassed = PPApplication.vpnNetworkConnected;
                     else
                     if (_connectionStatus == 1)
-                        eventsHandler.vpnPassed = !VPNNetworkCallback.connected;
+                        eventsHandler.vpnPassed = !PPApplication.vpnNetworkConnected;
                     else
                         eventsHandler.vpnPassed = false;
 

@@ -69,7 +69,8 @@ public class LiveWallpapersDialogPreference extends DialogPreference {
                             new Intent(WallpaperService.SERVICE_INTERFACE),
                             PackageManager.GET_META_DATA);
 
-            for (int i = 0; i < availableWallpapersList.size(); i++) {
+            int size = availableWallpapersList.size();
+            for (int i = 0; i < size; i++) {
                 ResolveInfo wallpaperResInfo = availableWallpapersList.get(i);
 
                 WallpaperInfo info;

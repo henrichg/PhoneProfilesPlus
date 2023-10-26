@@ -20,7 +20,7 @@ import java.util.Locale;
 class GlobalUtils {
 
     static void switchKeyguard(Context context) {
-//        PPApplicationStatic.logE("[IN_THREAD_HANDLER] GlobalUtils.switchKeyguard", "EXTRA_SWITCH_KEYGUARD");
+//        PPApplicationStatic.logE("[IN_THREAD_HANDLER] GlobalUtils.switchKeyguard", "********");
 
         //boolean isScreenOn;
         //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -318,7 +318,6 @@ class GlobalUtils {
 
     static Collator getCollator(/*Context context*/)
     {
-        //if (android.os.Build.VERSION.SDK_INT < 24) {
         // get application Locale
 //            String lang = ApplicationPreferences.applicationLanguage(context);
 
@@ -331,11 +330,7 @@ class GlobalUtils {
 //                else
 //                    appLocale = new Locale(langSplit[0], langSplit[1]);
 //            } else {
-        //if (Build.VERSION.SDK_INT >= 24) {
-        //appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
-        //} else {
-        //    appLocale = Resources.getSystem().getConfiguration().locale;
-        //}
+//                appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
 //            }
 
         // application locale
@@ -343,11 +338,6 @@ class GlobalUtils {
 
         // get collator for application locale
         return Collator.getInstance(appLocale);
-//        }
-//        else {
-//            //Log.d("GlobalGUIRoutines.getCollator", java.util.Locale.getDefault().toString());
-//            return Collator.getInstance();
-//        }
     }
 
     // ----------------------
@@ -403,7 +393,8 @@ class GlobalUtils {
                     if (subscriptionList != null) {
                         int callStateSIM1 = TelephonyManager.CALL_STATE_IDLE;
                         int callStateSIM2 = TelephonyManager.CALL_STATE_IDLE;
-                        for (int i = 0; i < subscriptionList.size(); i++) {
+                        int size = subscriptionList.size();
+                        for (int i = 0; i < size; i++) {
                             // Get the active subscription ID for a given SIM card.
                             SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                             if (subscriptionInfo != null) {
@@ -439,11 +430,6 @@ class GlobalUtils {
         return TelephonyManager.CALL_STATE_IDLE;
     }
 
-    static class HasSIMCardData {
-        boolean hasSIM1;
-        boolean hasSIM2;
-    }
-
     static HasSIMCardData hasSIMCard(Context appContext) {
         //PPApplicationStatic.logE("GlobalUtils.hasSIMCard", "xxxx");
 
@@ -465,7 +451,8 @@ class GlobalUtils {
                         PPApplicationStatic.recordException(e);
                     }
                     if (subscriptionList != null) {
-                        for (int i = 0; i < subscriptionList.size(); i++) {
+                        int size = subscriptionList.size();
+                        for (int i = 0; i < size; i++) {
                             // Get the active subscription ID for a given SIM card.
                             SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                             if (subscriptionInfo != null) {
@@ -498,9 +485,6 @@ class GlobalUtils {
     static int getSIMCardFromSubscriptionId(Context appContext, int subscriptionId) {
         TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
-            /*if (Build.VERSION.SDK_INT < 26) {
-                return 0;
-            } else {*/
                 if (Permissions.checkPhone(appContext)) {
                     SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                     //SubscriptionManager.from(context);
@@ -514,7 +498,8 @@ class GlobalUtils {
                         }
                         if (subscriptionList != null) {
                             int simCard = 0;
-                            for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                            int size = subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/
+                            for (int i = 0; i < size; i++) {
                                 // Get the active subscription ID for a given SIM card.
                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                                 if ((subscriptionInfo != null) &&
@@ -530,7 +515,6 @@ class GlobalUtils {
                         return 0;
                 } else
                     return -1;
-            //}
         }
         return -1;
     }

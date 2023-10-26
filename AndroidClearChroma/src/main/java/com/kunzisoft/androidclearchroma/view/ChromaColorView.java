@@ -28,7 +28,7 @@ import com.kunzisoft.androidclearchroma.IndicatorMode;
 import com.kunzisoft.androidclearchroma.R;
 import com.kunzisoft.androidclearchroma.colormode.Channel;
 import com.kunzisoft.androidclearchroma.colormode.ColorMode;
-import com.kunzisoft.androidclearchroma.listener.OnColorChangedListener;
+//import com.kunzisoft.androidclearchroma.listener.OnColorChangedListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ import java.util.List;
  * Chroma color view to show a color view with channels
  * @author JJamet
  */
-@SuppressWarnings({"resource", "unused"})
+@SuppressWarnings({"resource"})
 public class ChromaColorView extends RelativeLayout {
 
     private final Context context;
@@ -52,7 +52,7 @@ public class ChromaColorView extends RelativeLayout {
     private EditText colorEdit;
     //private TextView colorEditButton;
 
-    private OnColorChangedListener mOnColorChangedListener;
+    //private OnColorChangedListener mOnColorChangedListener;
 
     public ChromaColorView(Context context) {
         super(context);
@@ -72,11 +72,13 @@ public class ChromaColorView extends RelativeLayout {
         init(context, attrs);
     }
 
+    /*
     public ChromaColorView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         this.context = context;
         init(context, attrs);
     }
+    */
 
     private void init(Context context, @Nullable AttributeSet attributeSet) {
 
@@ -117,8 +119,8 @@ public class ChromaColorView extends RelativeLayout {
             }
             currentColor = colorMode.getColorMode().evaluateColor(channels);
             // Listener for color selected in real time
-            if (mOnColorChangedListener != null)
-                mOnColorChangedListener.onColorChanged(currentColor);
+            //if (mOnColorChangedListener != null)
+            //    mOnColorChangedListener.onColorChanged(currentColor);
 
             // Change view for visibility of color
             DrawableCompat.setTint(colorView.getDrawable(), currentColor);
@@ -267,9 +269,11 @@ public class ChromaColorView extends RelativeLayout {
         super.invalidate();
     }
 
+    /*
     public void setOnColorChangedListener(OnColorChangedListener listener) {
         mOnColorChangedListener = listener;
     }
+    */
 
     public int getCurrentColor() {
         return currentColor;
@@ -280,18 +284,22 @@ public class ChromaColorView extends RelativeLayout {
         invalidate();
     }
 
+    /*
     public ColorMode getColorMode() {
         return colorMode;
     }
+    */
 
     public void setColorMode(@NonNull ColorMode colorMode) {
         this.colorMode = colorMode;
         invalidate();
     }
 
+    /*
     public IndicatorMode getIndicatorMode() {
         return indicatorMode;
     }
+    */
 
     public void setIndicatorMode(@NonNull IndicatorMode indicatorMode) {
         this.indicatorMode = indicatorMode;

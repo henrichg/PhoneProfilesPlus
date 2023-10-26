@@ -12,11 +12,17 @@ import java.util.Locale;
 
 class LocaleHelper {
 
-    private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
-    private static final String SELECTED_COUNTRY = "Locale.Helper.Selected.Country";
-    private static final String SELECTED_SCRIPT = "Locale.Helper.Selected.Script";
+    private static final String PREF_SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
+    private static final String PREF_SELECTED_COUNTRY = "Locale.Helper.Selected.Country";
+    private static final String PREF_SELECTED_SCRIPT = "Locale.Helper.Selected.Script";
 
-    private static final String IS_SET_SYSTEM_LANGUAGE = "Locale.Helper.IsSetSystemLanguage";
+    private static final String PREF_IS_SET_SYSTEM_LANGUAGE = "Locale.Helper.IsSetSystemLanguage";
+
+    static final String LANG_SYS = "[sys]";
+    private static final String LANG_EN = "en";
+    private static final String LANG_LATN = "Latn";
+    private static final String LANG_SR = "sr";
+
 
     public static Context onAttach(Context context) {
         String language;
@@ -32,20 +38,20 @@ class LocaleHelper {
                 //noinspection ConstantConditions
                 script = systemLocales.get(0).getScript();
             } catch (Exception e) {
-                language = "en";
+                language = LANG_EN;
                 country = "";
                 script = "";
             }
         } else {
             try {
                 //noinspection ConstantConditions
-                language = getPersistedData(context, SELECTED_LANGUAGE, systemLocales.get(0).getLanguage());
+                language = getPersistedData(context, PREF_SELECTED_LANGUAGE, systemLocales.get(0).getLanguage());
                 //noinspection ConstantConditions
-                country = getPersistedData(context, SELECTED_COUNTRY, systemLocales.get(0).getCountry());
+                country = getPersistedData(context, PREF_SELECTED_COUNTRY, systemLocales.get(0).getCountry());
                 //noinspection ConstantConditions
-                script = getPersistedData(context, SELECTED_SCRIPT, systemLocales.get(0).getScript());
+                script = getPersistedData(context, PREF_SELECTED_SCRIPT, systemLocales.get(0).getScript());
             } catch (Exception e) {
-                language = "en";
+                language = LANG_EN;
                 country = "";
                 script = "";
             }
@@ -62,7 +68,7 @@ class LocaleHelper {
     /*
     public static Context onAttach(Context context, String defaultLanguage) {
         String lang = getPersistedData(context, defaultLanguage);
-        if (lang.equals("[sys]")) {
+        if (lang.equals(LANG_SYS)) {
             LocaleListCompat systemLocales = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration());
             lang = systemLocales.get(0).getLanguage();
         }
@@ -71,26 +77,26 @@ class LocaleHelper {
     */
 
     public static String getLanguage(Context context) {
-        return getPersistedData(context, SELECTED_LANGUAGE, Locale.getDefault().getLanguage());
+        return getPersistedData(context, PREF_SELECTED_LANGUAGE, Locale.getDefault().getLanguage());
     }
 
     public static String getCountry(Context context) {
-        return getPersistedData(context, SELECTED_COUNTRY, Locale.getDefault().getCountry());
+        return getPersistedData(context, PREF_SELECTED_COUNTRY, Locale.getDefault().getCountry());
     }
 
     public static String getScript(Context context) {
-        return getPersistedData(context, SELECTED_SCRIPT, Locale.getDefault().getScript());
+        return getPersistedData(context, PREF_SELECTED_SCRIPT, Locale.getDefault().getScript());
     }
 
     public static boolean getIsSetSystemLanguage(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(IS_SET_SYSTEM_LANGUAGE, true);
+        return preferences.getBoolean(PREF_IS_SET_SYSTEM_LANGUAGE, true);
     }
 
     public static void setIsSetSystemLanguage(Context context, boolean value) {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(IS_SET_SYSTEM_LANGUAGE, value);
+        editor.putBoolean(PREF_IS_SET_SYSTEM_LANGUAGE, value);
         editor.apply();
     }
 
@@ -104,7 +110,7 @@ class LocaleHelper {
         String countryToStore = country;
         String scriptToStore = script;
 
-        if (language.equals("[sys]")) {
+        if (language.equals(LANG_SYS)) {
             LocaleListCompat systemLocales = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration());
             try {
                 //noinspection ConstantConditions
@@ -115,7 +121,7 @@ class LocaleHelper {
                 scriptToStore = systemLocales.get(0).getScript();
             } catch (Exception e) {
 //                Log.e("LocaleHelper.setLocale", Log.getStackTraceString(e));
-                languageToStore = "en";
+                languageToStore = LANG_EN;
                 countryToStore = "";
                 scriptToStore = "";
             }
@@ -128,9 +134,9 @@ class LocaleHelper {
         Context localizedContext = updateResources(context, languageToStore, countryToStore, scriptToStore, !persist);
 
         if ((localizedContext != null) && persist) {
-            persist(context, SELECTED_LANGUAGE, languageToStore);
-            persist(context, SELECTED_COUNTRY, countryToStore);
-            persist(context, SELECTED_SCRIPT, scriptToStore);
+            persist(context, PREF_SELECTED_LANGUAGE, languageToStore);
+            persist(context, PREF_SELECTED_COUNTRY, countryToStore);
+            persist(context, PREF_SELECTED_SCRIPT, scriptToStore);
         }
 
         return localizedContext;
@@ -150,20 +156,20 @@ class LocaleHelper {
                 //noinspection ConstantConditions
                 script = systemLocales.get(0).getScript();
             } catch (Exception e) {
-                language = "en";
+                language = LANG_EN;
                 country = "";
                 script = "";
             }
         } else {
             try {
                 //noinspection ConstantConditions
-                language = getPersistedData(context, SELECTED_LANGUAGE, systemLocales.get(0).getLanguage());
+                language = getPersistedData(context, PREF_SELECTED_LANGUAGE, systemLocales.get(0).getLanguage());
                 //noinspection ConstantConditions
-                country = getPersistedData(context, SELECTED_COUNTRY, systemLocales.get(0).getCountry());
+                country = getPersistedData(context, PREF_SELECTED_COUNTRY, systemLocales.get(0).getCountry());
                 //noinspection ConstantConditions
-                script = getPersistedData(context, SELECTED_SCRIPT, systemLocales.get(0).getScript());
+                script = getPersistedData(context, PREF_SELECTED_SCRIPT, systemLocales.get(0).getScript());
             } catch (Exception e) {
-                language = "en";
+                language = LANG_EN;
                 country = "";
                 script = "";
             }
@@ -175,8 +181,8 @@ class LocaleHelper {
             locale = new Locale(language);
         if (!country.isEmpty())
             locale = new Locale(language, country);
-        if (script.equals("Latn"))
-            locale = new Locale.Builder().setLanguage("sr").setScript("Latn").build();
+        if (script.equals(LANG_LATN))
+            locale = new Locale.Builder().setLanguage(LANG_SR).setScript(LANG_LATN).build();
 
 //        Log.e("LocaleHelper.setApplicationLocale", "language="+language);
 //        Log.e("LocaleHelper.setApplicationLocale", "country="+country);
@@ -219,8 +225,8 @@ class LocaleHelper {
             locale = new Locale(language);
         if (!country.isEmpty())
             locale = new Locale(language, country);
-        if (script.equals("Latn"))
-            locale = new Locale.Builder().setLanguage("sr").setScript("Latn").build();
+        if (script.equals(LANG_LATN))
+            locale = new Locale.Builder().setLanguage(LANG_SR).setScript(LANG_LATN).build();
 
         if (locale != null) {
             Locale.setDefault(locale);

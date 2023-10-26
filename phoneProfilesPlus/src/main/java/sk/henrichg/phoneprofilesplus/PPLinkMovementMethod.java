@@ -106,8 +106,8 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
         @Override
         public void onLongPress(MotionEvent e) {
             // Notified when a long press occurs.
-            String text = mBuffer.toString().replace("\u00A0»»", "");
-            text = text.replace(" »»", "");
+            String text = mBuffer.toString().replace(StringConstants.STR_HARD_SPACE_DOUBLE_ARROW, "");
+            text = text.replace(" "+StringConstants.STR_DOUBLE_ARROW, "");
 
             if (mListener != null) {
                 //Log.e("PPLinkMovementMethod.onLongPress", "----> Long Click Occurs on TextView with ID: " + mWidget.getId() + "\n" +
@@ -118,7 +118,7 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
         }
 
         private LinkType getLinkTye(String link) {
-            String emailLink = link.replace("mailto:", "");
+            String emailLink = link.replace(StringConstants.INTENT_DATA_MAIL_TO_COLON, "");
             if (Patterns.PHONE.matcher(link).matches())
                 return LinkType.PHONE;
             else if (Patterns.WEB_URL.matcher(link).matches())
@@ -138,10 +138,10 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
                     PPApplicationStatic.recordException(e);
                 }
             } else if (linkType == LinkType.EMAIL_ADDRESS) {
-                String emailLink = link.replace("mailto:", "");
+                String emailLink = link.replace(StringConstants.INTENT_DATA_MAIL_TO_COLON, "");
 
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                intent.setData(Uri.parse(StringConstants.INTENT_DATA_MAIL_TO_COLON)); // only email apps should handle this
                 String[] email = {emailLink};
                 intent.putExtra(Intent.EXTRA_EMAIL, email);
                 try {
@@ -155,8 +155,8 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
         @Override
         public boolean onSingleTapConfirmed(MotionEvent event) {
             // Notified when tap occurs.
-            String linkText = getLinkText(mWidget, mBuffer, event).replace("\u00A0»»", "");
-            linkText = linkText.replace(" »»", "");
+            String linkText = getLinkText(mWidget, mBuffer, event).replace(StringConstants.STR_HARD_SPACE_DOUBLE_ARROW, "");
+            linkText = linkText.replace(" "+StringConstants.STR_DOUBLE_ARROW, "");
             final String linkUrl = getLinkURL(mWidget, mBuffer, event);
 
             LinkType linkTypeUrl = getLinkTye(linkUrl);

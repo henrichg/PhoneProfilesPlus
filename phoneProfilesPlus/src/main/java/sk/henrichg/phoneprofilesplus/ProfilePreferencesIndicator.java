@@ -64,7 +64,7 @@ class ProfilePreferencesIndicator {
 
             // must be used check for theme, because context is application context, not activity context
             String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
-            if (applicationTheme.equals("dark")) {
+            if (applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_DARK)) {
                 if (disabled)
                     paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_dark), PorterDuff.Mode.SRC_ATOP));
                 else
@@ -84,6 +84,12 @@ class ProfilePreferencesIndicator {
             // add icon into profile preferences indicator
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
+
+            if (bitmapResult != null) {
+                try {
+                    bitmapResult.recycle();
+                } catch (Exception ignored) {}
+            }
         }
         else
         if ((indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
@@ -186,6 +192,12 @@ class ProfilePreferencesIndicator {
             // add icon into profile preferences indicator
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
+
+            if (bitmapResult != null) {
+                try {
+                    bitmapResult.recycle();
+                } catch (Exception ignored) {}
+            }
         }
         else
         if (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_DYNAMIC_COLORS) {
@@ -240,6 +252,12 @@ class ProfilePreferencesIndicator {
             // add icon into profile preferences indicator
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
+
+            if (bitmapResult != null) {
+                try {
+                    bitmapResult.recycle();
+                } catch (Exception ignored) {}
+            }
         }
         else
         if ((indicatorsType == DataWrapper.IT_FOR_WIDGET) ||
@@ -321,6 +339,12 @@ class ProfilePreferencesIndicator {
             // add icon into profile preferences indicator
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
+
+            if (bitmapResult != null) {
+                try {
+                    bitmapResult.recycle();
+                } catch (Exception ignored) {}
+            }
         }
         else
         if (indicatorsType == DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS) {
@@ -375,7 +399,18 @@ class ProfilePreferencesIndicator {
             // add icon into profile preferences indicator
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
+
+            if (bitmapResult != null) {
+                try {
+                    bitmapResult.recycle();
+                } catch (Exception ignored) {}
+            }
         }
+
+        try {
+            preferenceBitmap.recycle();
+        } catch (Exception ignored) {}
+
     }
 
     void fillArrays(Profile profile, boolean fillStrings, //boolean monochrome,
@@ -384,7 +419,7 @@ class ProfilePreferencesIndicator {
         countPreferences = 0;
         if (profile != null)
         {
-            SharedPreferences sharedPreferences = appContext.getSharedPreferences("temp_profilePreferencesIndicator", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = appContext.getSharedPreferences(PPApplication.TMP_SHARED_PREFS_PROFILE_PREFERENCES_INDICATOR, Context.MODE_PRIVATE);
             profile.saveProfileToSharedPreferences(sharedPreferences);
 
             if (profile._volumeRingerMode != 0) {
@@ -406,7 +441,7 @@ class ProfilePreferencesIndicator {
                         // zen mode
                         if (profile._volumeZenMode == 1) {
                             if (fillPreferences) {
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + StringConstants.STR_COLON_WITH_SPACE +
                                         appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
                                         appContext.getString(R.string.array_pref_zenModeArray_off);
                                 if (addVibrateIndicator)
@@ -435,7 +470,7 @@ class ProfilePreferencesIndicator {
                         }
                         if (profile._volumeZenMode == 2) {
                             if (fillPreferences) {
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + StringConstants.STR_COLON_WITH_SPACE +
                                         appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
                                         appContext.getString(R.string.array_pref_zenModeArray_priority);
                                 if (addVibrateIndicator)
@@ -464,7 +499,7 @@ class ProfilePreferencesIndicator {
                         }
                         if (profile._volumeZenMode == 3) {
                             if (fillPreferences)
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + StringConstants.STR_COLON_WITH_SPACE +
                                         appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
                                         appContext.getString(R.string.array_pref_zenModeArray_totalSilence);
                             if (fillStrings)
@@ -478,7 +513,7 @@ class ProfilePreferencesIndicator {
                         }
                         if (profile._volumeZenMode == 4) {
                             if (fillPreferences)
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + StringConstants.STR_COLON_WITH_SPACE +
                                         appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
                                         appContext.getString(R.string.array_pref_zenModeArray_offButVibration);
                             if (fillStrings) {
@@ -496,7 +531,7 @@ class ProfilePreferencesIndicator {
                         }
                         if (profile._volumeZenMode == 5) {
                             if (fillPreferences)
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + StringConstants.STR_COLON_WITH_SPACE +
                                         appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
                                         appContext.getString(R.string.array_pref_zenModeArray_priorityWithVibration);
                             if (fillStrings) {
@@ -514,7 +549,7 @@ class ProfilePreferencesIndicator {
                         }
                         if (profile._volumeZenMode == 6) {
                             if (fillPreferences)
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + StringConstants.STR_COLON_WITH_SPACE +
                                         appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
                                         appContext.getString(R.string.array_pref_zenModeArray_alarms);
                             if (fillStrings)
@@ -530,7 +565,7 @@ class ProfilePreferencesIndicator {
                         // sound mode sound
                         if ((profile._volumeRingerMode == 1) || (profile._volumeRingerMode == 2)) {
                             if (fillPreferences) {
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + StringConstants.STR_COLON_WITH_SPACE +
                                         appContext.getString(R.string.array_pref_soundModeArray_sound);
                                 if (addVibrateIndicator)
                                     preferences[countPreferences] = preferences[countPreferences] + ", " +
@@ -559,7 +594,7 @@ class ProfilePreferencesIndicator {
                         // sound mode vibrate
                         if ((profile._volumeRingerMode == 2) || (profile._volumeRingerMode == 3)) {
                             if (fillPreferences)
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + StringConstants.STR_COLON_WITH_SPACE +
                                         appContext.getString(R.string.array_pref_soundModeArray_vibration);
                             if (fillStrings)
                                 strings[countDrawables++] = "vibr";
@@ -573,7 +608,7 @@ class ProfilePreferencesIndicator {
                         // sound mode alarms only
                         if (profile._volumeRingerMode == 4) {
                             if (fillPreferences) {
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + StringConstants.STR_COLON_WITH_SPACE +
                                         appContext.getString(R.string.array_pref_soundModeArray_silentM);
                                 if (addVibrateIndicator)
                                     preferences[countPreferences] = preferences[countPreferences] + ", " +
@@ -606,7 +641,7 @@ class ProfilePreferencesIndicator {
             if (profile._volumeMuteSound &&
                     (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 if (fillPreferences)
-                    preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeMuteSound) + ": " +
+                    preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeMuteSound) + StringConstants.STR_COLON_WITH_SPACE +
                             appContext.getString(R.string.array_pref_hardwareModeArray_off);
                 if (fillStrings)
                     strings[countDrawables++] = "volm";
@@ -675,7 +710,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (profile._volumeSpeakerPhone == 1) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSpeakerPhone) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSpeakerPhone) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "spe:1";
@@ -688,7 +723,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._volumeSpeakerPhone == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSpeakerPhone) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSpeakerPhone) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "spe:0";
@@ -699,6 +734,26 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
+                }
+            }
+
+            // vibration intensity
+            if (profile.getVibrationIntensityRingingChange() ||
+                    profile.getVibrationIntensityNotificationsChange() ||
+                    profile.getVibrationIntensityTouchInteractionChange()) {
+                if ((ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                    if (fillPreferences)
+                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_vibrationIntensityAll);
+                    if (fillStrings)
+                        strings[countDrawables++] = "vibi";
+                    else {
+                        disabled[countDrawables] = false;
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_intensity;
+                    }
+                    if (fillPreferences)
+                        countItems[countPreferences++] = 1;
                 }
             }
 
@@ -722,8 +777,7 @@ class ProfilePreferencesIndicator {
                 }
             }
 
-            if (//(Build.VERSION.SDK_INT >= 26) &&
-                    ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
+            if (((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
                             (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
                             (PPApplication.deviceIsOnePlus))) {
@@ -788,7 +842,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ON_TOUCH, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._soundOnTouch == 1) || (profile._soundOnTouch == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_soundOnTouch) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_soundOnTouch) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "sto:1";
@@ -801,7 +855,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._soundOnTouch == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_soundOnTouch) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_soundOnTouch) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "sto:0";
@@ -819,7 +873,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_vibrationOnTouch) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_vibrationOnTouch) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "vto:1";
@@ -832,7 +886,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._vibrationOnTouch == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_vibrationOnTouch) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_vibrationOnTouch) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "vto:0";
@@ -850,7 +904,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._dtmfToneWhenDialing == 1) || (profile._dtmfToneWhenDialing == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_dtmfToneWhenDialing) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_dtmfToneWhenDialing) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "dtd:1";
@@ -863,7 +917,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._dtmfToneWhenDialing == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_dtmfToneWhenDialing) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_dtmfToneWhenDialing) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "dtd:0";
@@ -882,7 +936,7 @@ class ProfilePreferencesIndicator {
                     if ((profile._deviceAirplaneMode == 1) || (profile._deviceAirplaneMode == 3) ||
                             (profile._deviceAirplaneMode == 4)  || (profile._deviceAirplaneMode == 6)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAirplaneMode) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAirplaneMode) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "arm:1";
@@ -895,7 +949,7 @@ class ProfilePreferencesIndicator {
                     }
                     if ((profile._deviceAirplaneMode == 2) || (profile._deviceAirplaneMode == 5)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAirplaneMode) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAirplaneMode) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "arm:0";
@@ -913,7 +967,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceAutoSync == 1) || (profile._deviceAutoSync == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAutosync) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAutosync) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "asy:1";
@@ -926,7 +980,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._deviceAutoSync == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAutosync) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAutosync) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "asy:0";
@@ -949,7 +1003,7 @@ class ProfilePreferencesIndicator {
                             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                                 if ((profile._deviceOnOffSIM1 == 1) || (profile._deviceOnOffSIM1 == 3)) {
                                     if (fillPreferences)
-                                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceOnOff_SIM1) + ": " +
+                                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceOnOff_SIM1) + StringConstants.STR_COLON_WITH_SPACE +
                                                 appContext.getString(R.string.array_pref_hardwareModeArray_on);
                                     if (fillStrings)
                                         strings[countDrawables++] = "so1:1";
@@ -962,7 +1016,7 @@ class ProfilePreferencesIndicator {
                                 }
                                 if (profile._deviceOnOffSIM1 == 2) {
                                     if (fillPreferences)
-                                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceOnOff_SIM1) + ": " +
+                                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceOnOff_SIM1) + StringConstants.STR_COLON_WITH_SPACE +
                                                 appContext.getString(R.string.array_pref_hardwareModeArray_off);
                                     if (fillStrings)
                                         strings[countDrawables++] = "so1:0";
@@ -979,7 +1033,7 @@ class ProfilePreferencesIndicator {
                             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                                 if ((profile._deviceOnOffSIM2 == 1) || (profile._deviceOnOffSIM2 == 3)) {
                                     if (fillPreferences)
-                                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceOnOff_SIM2) + ": " +
+                                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceOnOff_SIM2) + StringConstants.STR_COLON_WITH_SPACE +
                                                 appContext.getString(R.string.array_pref_hardwareModeArray_on);
                                     if (fillStrings)
                                         strings[countDrawables++] = "so2:1";
@@ -992,7 +1046,7 @@ class ProfilePreferencesIndicator {
                                 }
                                 if (profile._deviceOnOffSIM2 == 2) {
                                     if (fillPreferences)
-                                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceOnOff_SIM2) + ": " +
+                                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceOnOff_SIM2) + StringConstants.STR_COLON_WITH_SPACE +
                                                 appContext.getString(R.string.array_pref_hardwareModeArray_off);
                                     if (fillStrings)
                                         strings[countDrawables++] = "so2:0";
@@ -1010,7 +1064,6 @@ class ProfilePreferencesIndicator {
             }
 
             // default sim card
-            //if (Build.VERSION.SDK_INT >= 26) {
                 if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
                     if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -1031,14 +1084,13 @@ class ProfilePreferencesIndicator {
                         }
                     }
                 }
-            //}
 
             // mobile data
             if (profile._deviceMobileData != 0) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceMobileData == 1) || (profile._deviceMobileData == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceMobileData_21) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceMobileData_21) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "mda:1";
@@ -1051,7 +1103,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._deviceMobileData == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceMobileData_21) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceMobileData_21) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "mda:0";
@@ -1064,7 +1116,7 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            //if (Build.VERSION.SDK_INT >= 26) {
+                /*
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
@@ -1131,7 +1183,7 @@ class ProfilePreferencesIndicator {
                         }
                     }
                 }
-            //}
+                */
 
             // mobile data preferences
             if (profile._deviceMobileDataPrefs == 1) {
@@ -1158,7 +1210,7 @@ class ProfilePreferencesIndicator {
                             (profile._deviceWiFi == 6) ||
                             (profile._deviceWiFi == 8)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceWiFi) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceWiFi) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "wif:1";
@@ -1172,7 +1224,7 @@ class ProfilePreferencesIndicator {
                     if ((profile._deviceWiFi == 2) ||
                         (profile._deviceWiFi == 7)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceWiFi) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceWiFi) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "wif:0";
@@ -1191,7 +1243,7 @@ class ProfilePreferencesIndicator {
                     if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         if ((profile._deviceWiFiAP == 1) || (profile._deviceWiFiAP == 3) || (profile._deviceWiFiAP == 4) || (profile._deviceWiFiAP == 5)) {
                             if (fillPreferences)
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceWiFiAP) + ": " +
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceWiFiAP) + StringConstants.STR_COLON_WITH_SPACE +
                                         appContext.getString(R.string.array_pref_hardwareModeArray_on);
                             if (fillStrings)
                                 strings[countDrawables++] = "wap:1";
@@ -1204,7 +1256,7 @@ class ProfilePreferencesIndicator {
                         }
                         if (profile._deviceWiFiAP == 2) {
                             if (fillPreferences)
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceWiFiAP) + ": " +
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceWiFiAP) + StringConstants.STR_COLON_WITH_SPACE +
                                         appContext.getString(R.string.array_pref_hardwareModeArray_off);
                             if (fillStrings)
                                 strings[countDrawables++] = "wap:0";
@@ -1234,7 +1286,7 @@ class ProfilePreferencesIndicator {
                 }
             }
             // connect to ssid
-            if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+            if (!profile._deviceConnectToSSID.equals(StringConstants.CONNECTTOSSID_JUSTANY)) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (fillPreferences)
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceConnectToSSID);
@@ -1253,7 +1305,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceBluetooth == 1) || (profile._deviceBluetooth == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceBluetooth) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceBluetooth) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "blt:1";
@@ -1266,7 +1318,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._deviceBluetooth == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceBluetooth) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceBluetooth) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "blt:0";
@@ -1284,7 +1336,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (profile._deviceLocationMode > 1) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceLocationMode) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceLocationMode) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "lom:1";
@@ -1297,7 +1349,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._deviceLocationMode == 1) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceLocationMode) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceLocationMode) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "lom:0";
@@ -1315,7 +1367,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceGPS == 1) || (profile._deviceGPS == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceGPS) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceGPS) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "gps:1";
@@ -1328,7 +1380,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._deviceGPS == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceGPS) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceGPS) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "gps:0";
@@ -1361,7 +1413,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceNFC == 1) || (profile._deviceNFC == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNFC) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNFC) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "nfc:1";
@@ -1374,7 +1426,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._deviceNFC == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNFC) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNFC) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "nfc:0";
@@ -1402,8 +1454,7 @@ class ProfilePreferencesIndicator {
                         countItems[countPreferences++] = 1;
                 }
             }
-            //if (Build.VERSION.SDK_INT >= 26) {
-                //final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
@@ -1437,7 +1488,6 @@ class ProfilePreferencesIndicator {
                         }
                     }
                 }
-            //}
             // network type prefs
             if (profile._deviceNetworkTypePrefs != 0) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -1456,7 +1506,7 @@ class ProfilePreferencesIndicator {
             // VPN
             if (!profile._deviceVPN.startsWith("0")) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_VPN, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    String[] splits = profile._deviceVPN.split("\\|");
+                    String[] splits = profile._deviceVPN.split(StringConstants.STR_SPLIT_REGEX);
                     boolean enableVPN;
                     try {
                         enableVPN = splits[1].equals("0");
@@ -1467,7 +1517,7 @@ class ProfilePreferencesIndicator {
                     //noinspection IfStatementWithIdenticalBranches
                     if (enableVPN) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceVPN)  + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceVPN)  + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "vpn:1";
@@ -1479,7 +1529,7 @@ class ProfilePreferencesIndicator {
                             countItems[countPreferences++] = 1;
                     } else {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceVPN) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceVPN) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "vpn:0";
@@ -1528,7 +1578,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (profile.getDeviceBrightnessAutomatic()) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceBrightness) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceBrightness) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.profile_preferences_deviceBrightness_automatic);
                         if (fillStrings)
                             strings[countDrawables++] = "bri:a";
@@ -1539,7 +1589,7 @@ class ProfilePreferencesIndicator {
                     }
                     else {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceBrightness) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceBrightness) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.profile_preferences_deviceBrightness_manual);
                         if (fillStrings)
                             strings[countDrawables++] = "bri:m";
@@ -1557,7 +1607,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                     if (profile._deviceAutoRotate == 6) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAutoRotation) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAutoRotation) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "art:0";
@@ -1570,7 +1620,7 @@ class ProfilePreferencesIndicator {
                     }
                     else {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAutoRotation) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceAutoRotation) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "art:1";
@@ -1587,7 +1637,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._screenOnPermanent == 1) || (profile._screenOnPermanent == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceScreenOnPermanent) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceScreenOnPermanent) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "son:1";
@@ -1600,7 +1650,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._screenOnPermanent == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceScreenOnPermanent) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceScreenOnPermanent) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "son:0";
@@ -1633,7 +1683,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_KEYGUARD, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceKeyguard == 1) || (profile._deviceKeyguard == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceKeyguard) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceKeyguard) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "kgu:1";
@@ -1646,7 +1696,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._deviceKeyguard == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceKeyguard) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceKeyguard) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "kgu:0";
@@ -1697,7 +1747,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._notificationLed == 1) || (profile._notificationLed == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_notificationLed) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_notificationLed) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "nld:1";
@@ -1710,7 +1760,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._notificationLed == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_notificationLed) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_notificationLed) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "nld:0";
@@ -1728,7 +1778,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._headsUpNotifications == 1) || (profile._headsUpNotifications == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_headsUpNotifications) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_headsUpNotifications) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "hup:1";
@@ -1741,7 +1791,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._headsUpNotifications == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_headsUpNotifications) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_headsUpNotifications) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "hup:0";
@@ -1759,7 +1809,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._alwaysOnDisplay == 1) || (profile._alwaysOnDisplay == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_alwaysOnDisplay) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_alwaysOnDisplay) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "aod:1";
@@ -1772,7 +1822,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._alwaysOnDisplay == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_alwaysOnDisplay) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_alwaysOnDisplay) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "aod:0";
@@ -1790,7 +1840,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (profile._screenDarkMode == 1) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_screenDarkMode) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_screenDarkMode) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "dkm:1";
@@ -1803,7 +1853,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._screenDarkMode == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_screenDarkMode) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_screenDarkMode) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "dkm:0";
@@ -1822,7 +1872,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._devicePowerSaveMode == 1) || (profile._devicePowerSaveMode == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_devicePowerSaveMode) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_devicePowerSaveMode) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "psm:1";
@@ -1835,7 +1885,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._devicePowerSaveMode == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_devicePowerSaveMode) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_devicePowerSaveMode) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "psm:0";
@@ -1918,7 +1968,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CAMERA_FLASH, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._cameraFlash == 1) || (profile._cameraFlash == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_cameraFlash) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_cameraFlash) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "fla:1";
@@ -1931,7 +1981,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._cameraFlash == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_cameraFlash) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_cameraFlash) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "fla:0";
@@ -1945,12 +1995,12 @@ class ProfilePreferencesIndicator {
                 }
             }
 
-            // disable wifi scanning
-            if (profile._applicationDisableWifiScanning != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableWifiScanning == 1) || (profile._applicationDisableWifiScanning == 3)) {
+            // enable wifi scanning
+            if (profile._applicationEnableWifiScanning != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._applicationEnableWifiScanning == 1) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableWifiScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableWifiScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
                         if (fillStrings)
                             strings[countDrawables++] = "wfs:0";
@@ -1961,9 +2011,9 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._applicationDisableWifiScanning == 2) {
+                    if ((profile._applicationEnableWifiScanning == 2) || (profile._applicationEnableWifiScanning == 3)){
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableWifiScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableWifiScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "wfs:1";
@@ -1976,12 +2026,12 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            // disable bluetooth scanning
-            if (profile._applicationDisableBluetoothScanning != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableBluetoothScanning == 1) || (profile._applicationDisableBluetoothScanning == 3)) {
+            // enable bluetooth scanning
+            if (profile._applicationEnableBluetoothScanning != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._applicationEnableBluetoothScanning == 1) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableBluetoothScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableBluetoothScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
                         if (fillStrings)
                             strings[countDrawables++] = "bls:0";
@@ -1992,9 +2042,9 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._applicationDisableBluetoothScanning == 2) {
+                    if ((profile._applicationEnableBluetoothScanning == 2) || (profile._applicationEnableBluetoothScanning == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableBluetoothScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableBluetoothScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "bls:1";
@@ -2007,12 +2057,12 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            // disable location scanning
-            if (profile._applicationDisableLocationScanning != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableLocationScanning == 1) || (profile._applicationDisableLocationScanning == 3)) {
+            // enable location scanning
+            if (profile._applicationEnableLocationScanning != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._applicationEnableLocationScanning == 1) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableLocationScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableLocationScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
                         if (fillStrings)
                             strings[countDrawables++] = "los:0";
@@ -2023,9 +2073,9 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._applicationDisableLocationScanning == 2) {
+                    if ((profile._applicationEnableLocationScanning == 2) || (profile._applicationEnableLocationScanning == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableLocationScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableLocationScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "los:1";
@@ -2038,12 +2088,12 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            // disable mobile cell scanning
-            if (profile._applicationDisableMobileCellScanning != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableMobileCellScanning == 1) || (profile._applicationDisableMobileCellScanning == 3)) {
+            // enable mobile cell scanning
+            if (profile._applicationEnableMobileCellScanning != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._applicationEnableMobileCellScanning == 1) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableMobileCellScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableMobileCellScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
                         if (fillStrings)
                             strings[countDrawables++] = "mcs:0";
@@ -2054,9 +2104,9 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._applicationDisableMobileCellScanning == 2) {
+                    if ((profile._applicationEnableMobileCellScanning == 2)  || (profile._applicationEnableMobileCellScanning == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableMobileCellScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableMobileCellScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "mcs:1";
@@ -2069,12 +2119,12 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            // disable orientation scanning
-            if (profile._applicationDisableOrientationScanning != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableOrientationScanning == 1) || (profile._applicationDisableOrientationScanning == 3)) {
+            // enable orientation scanning
+            if (profile._applicationEnableOrientationScanning != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._applicationEnableOrientationScanning == 1) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableOrientationScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableOrientationScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
                         if (fillStrings)
                             strings[countDrawables++] = "ors:0";
@@ -2085,9 +2135,9 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._applicationDisableOrientationScanning == 2) {
+                    if ((profile._applicationEnableOrientationScanning == 2) || (profile._applicationEnableOrientationScanning == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableOrientationScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableOrientationScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "ors:1";
@@ -2100,12 +2150,12 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            // disable notification scanning
-            if (profile._applicationDisableNotificationScanning != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableNotificationScanning == 1) || (profile._applicationDisableNotificationScanning == 3)) {
+            // enable notification scanning
+            if (profile._applicationEnableNotificationScanning != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._applicationEnableNotificationScanning == 1) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableNotificationScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableNotificationScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
                         if (fillStrings)
                             strings[countDrawables++] = "nos:0";
@@ -2116,9 +2166,9 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._applicationDisableNotificationScanning == 2) {
+                    if ((profile._applicationEnableNotificationScanning == 2) || (profile._applicationEnableNotificationScanning == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableNotificationScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableNotificationScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "nos:1";
@@ -2131,12 +2181,12 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            // disable wifi scanning
+            // disable global events run
             if (profile._applicationDisableGloabalEventsRun != 0) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableGloabalEventsRun == 1) || (profile._applicationDisableGloabalEventsRun == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableGlobalEventsRun) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableGlobalEventsRun) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableGlobalEventsRun_disabled);
                         if (fillStrings)
                             strings[countDrawables++] = "ern:0";
@@ -2149,7 +2199,7 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._applicationDisableGloabalEventsRun == 2) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableGlobalEventsRun) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableGlobalEventsRun) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableGlobalEventsRun_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "ern:1";
@@ -2162,15 +2212,15 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            // disable notification scanning
-            if (profile._applicationDisablePeriodicScanning != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisablePeriodicScanning == 1) || (profile._applicationDisablePeriodicScanning == 3)) {
+            // enable periodic scanning
+            if (profile._applicationEnablePeriodicScanning != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._applicationEnablePeriodicScanning == 1) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnablePeriodicScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnablePeriodicScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
                         if (fillStrings)
-                            strings[countDrawables++] = "pes:0";
+                            strings[countDrawables++] = "pes:1";
                         else {
                             disabled[countDrawables] = true;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_periodic_off;
@@ -2178,12 +2228,12 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._applicationDisablePeriodicScanning == 2) {
+                    if ((profile._applicationEnablePeriodicScanning == 2) || (profile._applicationEnablePeriodicScanning == 3)) {
                         if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnablePeriodicScanning) + ": " +
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnablePeriodicScanning) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
-                            strings[countDrawables++] = "pes:1";
+                            strings[countDrawables++] = "pes:0";
                         else {
                             disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_periodic_off;
@@ -2191,25 +2241,6 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                }
-            }
-            // vibration intensity
-            if (profile.getVibrationIntensityRingingChange() ||
-                    profile.getVibrationIntensityNotificationsChange() ||
-                    profile.getVibrationIntensityTouchInteractionChange()) {
-                if ((ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                    if (fillPreferences)
-                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_vibrationIntensityAll);
-                    if (fillStrings)
-                        strings[countDrawables++] = "vibi";
-                    else {
-                        disabled[countDrawables] = false;
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_intensity;
-                    }
-                    if (fillPreferences)
-                        countItems[countPreferences++] = 1;
                 }
             }
         }
@@ -2249,40 +2280,53 @@ class ProfilePreferencesIndicator {
 
     }
 
-    //private int maxLength;
-    private String addIntoIndicator(String indicator, String preference/*, int maxLineLength*/)
+    /*
+    private String addIntoIndicator(String indicator, String preference)
     {
         String ind = indicator;
-        /*if (maxLineLength > 0) {
-            if (ind.length() > maxLength) {
-                ind = ind + '\n';
-                maxLength += maxLineLength;
-            }
-            else
-                if (!ind.isEmpty()) ind = ind + "-";
-        }
-        else*/
-            if (!ind.isEmpty()) ind = ind + " • ";
+        //if (maxLineLength > 0) {
+        //    if (ind.length() > maxLength) {
+        //        ind = ind + '\n';
+        //        maxLength += maxLineLength;
+        //   }
+        //    else
+        //        if (!ind.isEmpty()) ind = ind + "-";
+        //}
+        //else
+            if (!ind.isEmpty()) ind = ind + StringConstants.STR_BULLET;
 
         ind = ind + preference;
         return ind;
     }
+    */
 
-    String getString(Profile profile, /*int maxLineLength,*/ Context context) {
+    String getString(Profile profile, Context context) {
         // profile preferences indicator
 
         Context appContext = context.getApplicationContext();
 
         fillArrays(profile, true, /*false,*/ false, /*0,*/ appContext);
 
+        StringBuilder indicators = new StringBuilder();
+        if (countDrawables > 0) {
+            //maxLength = maxLineLength;
+            for (int i = 0; i < countDrawables; i++) {
+                if (indicators.length() > 0) indicators.append(StringConstants.STR_BULLET);
+                indicators.append(strings[i]);
+            }
+        }
+        return indicators.toString();
+
+        /*
         String indicator1 = "";
         if (countDrawables > 0) {
             //maxLength = maxLineLength;
             for (int i = 0; i < countDrawables; i++)
-                indicator1 = addIntoIndicator(indicator1, strings[i]/*, maxLineLength*/);
+                indicator1 = addIntoIndicator(indicator1, strings[i]);
         }
 
         return indicator1;
+        */
     }
 
     private int saturateColor(int color) {

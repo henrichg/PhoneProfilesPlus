@@ -3,11 +3,11 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -25,7 +25,7 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
 
     // Layout widgets.
     private LinearLayout linlaProgress;
-    private RelativeLayout rellaData;
+    private LinearLayout linlaData;
 
     private ApplicationsMultiSelectPreferenceAdapter listAdapter;
 
@@ -43,12 +43,13 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
         return inflater.inflate(R.layout.dialog_applications_multiselect_preference, null, false);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         linlaProgress = view.findViewById(R.id.applications_multiselect_pref_dlg_linla_progress);
-        rellaData = view.findViewById(R.id.applications_multiselect_pref_dlg_rella_data);
+        linlaData = view.findViewById(R.id.applications_multiselect_pref_dlg_linla_data);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         FastScrollRecyclerView listView = view.findViewById(R.id.applications_multiselect_pref_dlg_listview);
@@ -71,7 +72,11 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
             refreshListView(false);
         });
 
-        refreshListView(true);
+        if (preference.applicationList != null)
+            preference.applicationList.clear();
+        listAdapter.notifyDataSetChanged();
+        final Handler handler = new Handler(prefContext.getMainLooper());
+        handler.postDelayed(() -> refreshListView(true), 200);
     }
 
     @Override
@@ -125,7 +130,7 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
             ApplicationsMultiSelectDialogPreferenceFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
                 if (notForUnselect) {
-                    fragment.rellaData.setVisibility(View.GONE);
+                    fragment.linlaData.setVisibility(View.GONE);
                     fragment.linlaProgress.setVisibility(View.VISIBLE);
                 }
             }
@@ -157,15 +162,20 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
             ApplicationsMultiSelectDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                if (PPApplicationStatic.getApplicationsCache() != null)
+                /*if (PPApplicationStatic.getApplicationsCache() != null)
                     if (!PPApplicationStatic.getApplicationsCache().cached)
-                        PPApplicationStatic.getApplicationsCache().clearCache(false);
+                        PPApplicationStatic.getApplicationsCache().clearCache(false);*/
 
-                fragment.listAdapter.notifyDataSetChanged();
-                if (notForUnselect) {
-                    fragment.rellaData.setVisibility(View.VISIBLE);
-                    fragment.linlaProgress.setVisibility(View.GONE);
-                }
+                fragment.linlaProgress.setVisibility(View.GONE);
+
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
+                    if (notForUnselect) {
+                        fragment.linlaData.setVisibility(View.VISIBLE);
+                    }
+
+                    fragment.listAdapter.notifyDataSetChanged();
+                });
             }
         }
     }

@@ -21,7 +21,9 @@
         <ProgressBar
             android:id="@+id/log_crah_activity_progress"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleLarge"
+            android:indeterminateDrawable="@drawable/ic_progressbar" />
 
     </LinearLayout>
 

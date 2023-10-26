@@ -48,7 +48,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":RunApplicationWithDelayBroadcastReceiver_onReceive");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_RunApplicationWithDelayBroadcastReceiver_onReceive);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -76,7 +76,8 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
     private static int hashData(String runApplicationData) {
         int sLength = runApplicationData.length();
         int sum = 0;
-        for(int i = 0 ; i < sLength-1 ; i++){
+        int length = sLength-1;
+        for(int i = 0 ; i < length; i++){
             sum += runApplicationData.charAt(i)<<(5*i);
         }
         return sum;
@@ -119,6 +120,8 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             .putString(PPApplication.EXTRA_PROFILE_NAME, profileName)
                             .putString(EXTRA_RUN_APPLICATION_DATA, runApplicationData)
                             .build();
+
+//                    PPApplicationStatic.logE("[MAIN_WORKER_CALL] RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "xxxxxxxxxxxxxxxxxxxx");
 
                 /*int keepResultsDelay = (startApplicationDelay * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
@@ -183,12 +186,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     } else {
                         long alarmTime = SystemClock.elapsedRealtime() + startApplicationDelay * 1000L;
 
-                        //if (android.os.Build.VERSION.SDK_INT >= 23)
-                            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                        //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                        //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                        //else
-                        //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     }
                 }
             }

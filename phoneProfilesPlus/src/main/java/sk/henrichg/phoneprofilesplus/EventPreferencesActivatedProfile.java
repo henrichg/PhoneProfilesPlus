@@ -19,7 +19,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
     private static final String PREF_EVENT_ACTIVATED_PROFILE_START_PROFILE = "eventActivatedProfileStartProfile";
     private static final String PREF_EVENT_ACTIVATED_PROFILE_END_PROFILE = "eventActivatedProfileEndProfile";
 
-    private static final String PREF_EVENT_ACTIVATED_PROFILE_CATEGORY = "eventActivatedProfileCategoryRoot";
+    static final String PREF_EVENT_ACTIVATED_PROFILE_CATEGORY = "eventActivatedProfileCategoryRoot";
 
     static final int RUNNING_NOTSET = 0;
     static final int RUNNING_RUNNING = 1;
@@ -68,39 +68,40 @@ class EventPreferencesActivatedProfile extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_activated_profile_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_activated_profile_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACTIVATED_PROFILE_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + "<b>";
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_activated_profile), addPassStatus, DatabaseHandler.ETYPE_ACTIVATED_PROFILE, context);
-                    descr = descr + "</b> ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_activated_profile), addPassStatus, DatabaseHandler.ETYPE_ACTIVATED_PROFILE, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
-                descr = descr + context.getString(R.string.event_preferences_activated_profile_startProfile) + ": ";
+                _value.append(context.getString(R.string.event_preferences_activated_profile_startProfile)).append(StringConstants.STR_COLON_WITH_SPACE);
                 DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0, 0f);
-                Profile profile = dataWrapper.getProfileById(this._startProfile, true, true, false);
-                if (profile != null) {
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(profile._name, disabled, context) + "</b>";
+                String profileName = dataWrapper.getProfileName(this._startProfile);
+                if (profileName != null) {
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profileName, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 } else {
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context) + "</b>";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
-                descr = descr + " • " + context.getString(R.string.event_preferences_activated_profile_endProfile) + ": ";
-                profile = dataWrapper.getProfileById(this._endProfile, true, true, false);
-                if (profile != null) {
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(profile._name, disabled, context) + "</b>";
+                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_activated_profile_endProfile)).append(StringConstants.STR_COLON_WITH_SPACE);
+                profileName = dataWrapper.getProfileName(this._endProfile);
+                if (profileName != null) {
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profileName, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 } else {
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context) + "</b>";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
+                dataWrapper.invalidateDataWrapper();
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
@@ -160,7 +161,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
 
         if (key.equals(PREF_EVENT_ACTIVATED_PROFILE_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true" : "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
         if (key.equals(PREF_EVENT_ACTIVATED_PROFILE_START_PROFILE) ||
                 key.equals(PREF_EVENT_ACTIVATED_PROFILE_END_PROFILE)) {
@@ -199,7 +200,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -218,6 +219,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
 
     @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+        super.checkPreferences(prefMng, onlyCategory, context);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_ENABLED) != null) {

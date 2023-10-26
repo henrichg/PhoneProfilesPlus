@@ -5,7 +5,7 @@
     app:key="eventStartOthersCategory" >
 
     <sk.henrichg.phoneprofilesplus.ProfileMultiSelectPreference
-        app:defaultValue="@string/empty_string"
+        app:defaultValue=""
         app:key="eventStartWhenActivatedProfile"
         app:title="@string/event_preferences_eventStartWhenActivatedProfile"
         app:layout="@layout/mp_preference_material_widget" />

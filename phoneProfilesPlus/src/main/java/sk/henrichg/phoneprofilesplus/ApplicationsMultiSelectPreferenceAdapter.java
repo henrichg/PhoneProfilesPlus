@@ -26,7 +26,7 @@ class ApplicationsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Appl
         resource = R.layout.listitem_applications_multiselect_preference;
 
         View view = LayoutInflater.from(parent.getContext()).inflate(resource, parent, false);
-        return new ApplicationsMultiSelectDialogPreferenceViewHolder(view);
+        return new ApplicationsMultiSelectDialogPreferenceViewHolder(view/*, preference.getContext()*/);
     }
 
     @Override
@@ -38,15 +38,19 @@ class ApplicationsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Appl
         holder.bindApplication(application);
     }
 
-    @SuppressWarnings("unused")
+    /** @noinspection unused*/
     @NonNull
     @Override
     public String getSectionName(int position) {
         Application application = preference.applicationList.get(position);
         if (application.checked)
             return "*";
-        else
-            return application.appLabel.substring(0, 1);
+        else {
+            if (application.appLabel.length() == 0)
+                return "?";
+            else
+                return application.appLabel.substring(0, 1);
+        }
     }
 
     @Override

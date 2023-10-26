@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="22dp"
                 android:layout_marginEnd="22dp"
-                android:text="@string/empty_string"
+                android:text=""
                 android:textSize="16sp"
                 android:scrollbars="vertical" />
 
@@ -48,7 +48,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="22dp"
                 android:layout_marginEnd="22dp"
-                android:text="@string/empty_string"
+                android:text=""
                 android:textSize="16sp" />
 
             <Button
@@ -64,6 +64,17 @@
                 android:background="@drawable/pp_button_background_selector"
                 android:visibility="gone"
                 style="?android:attr/borderlessButtonStyle" />
+
+            <TextView
+                android:id="@+id/install_ppp_pppe_from_github_dialog_apk_installation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:text=""
+                android:textSize="16sp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

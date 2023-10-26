@@ -11,6 +11,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 class EventPreferencesDeviceBoot extends EventPreferences {
@@ -23,7 +24,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
     private static final String PREF_EVENT_DEVICE_BOOT_PERMANENT_RUN = "eventDeviceBootPermanentRun";
     private static final String PREF_EVENT_DEVICE_BOOT_DURATION = "eventDeviceBootDuration";
 
-    private static final String PREF_EVENT_DEVICE_BOOT_CATEGORY = "eventDeviceBootCategoryRoot";
+    static final String PREF_EVENT_DEVICE_BOOT_CATEGORY = "eventDeviceBootCategoryRoot";
 
     EventPreferencesDeviceBoot(Event event,
                                boolean enabled,
@@ -65,27 +66,27 @@ class EventPreferencesDeviceBoot extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_device_boot_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_device_boot_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_DEVICE_BOOT_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + "<b>";
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_device_boot), addPassStatus, DatabaseHandler.ETYPE_DEVICE_BOOT, context);
-                    descr = descr + "</b> ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_device_boot), addPassStatus, DatabaseHandler.ETYPE_DEVICE_BOOT, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
                 if (this._permanentRun)
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 else
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
+                    _value.append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value/*, Context context*/)
@@ -108,7 +109,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_DEVICE_BOOT_DURATION);
             if (preference != null) {
-                preference.setEnabled(value.equals("false"));
+                preference.setEnabled(value.equals(StringConstants.FALSE_STRING));
             }
         }
         if (key.equals(PREF_EVENT_DEVICE_BOOT_DURATION)) {
@@ -123,8 +124,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         }
     }
 
-    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences,
-                    @SuppressWarnings("unused") Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences/*, Context context*/)
     {
         if (preferences == null)
             return;
@@ -136,7 +136,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         if (key.equals(PREF_EVENT_DEVICE_BOOT_ENABLED) ||
             key.equals(PREF_EVENT_DEVICE_BOOT_PERMANENT_RUN)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false"/*, context*/);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING/*, context*/);
         }
         if (key.equals(PREF_EVENT_DEVICE_BOOT_DURATION))
         {
@@ -144,11 +144,11 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         }
     }
 
-    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences/*, Context context*/)
     {
-        setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_ENABLED, preferences, context);
-        setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_PERMANENT_RUN, preferences, context);
-        setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_DURATION, preferences, context);
+        setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_ENABLED, preferences);
+        setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_PERMANENT_RUN, preferences);
+        setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_DURATION, preferences);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
@@ -175,7 +175,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_DEVICE_BOOT_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -184,18 +184,16 @@ class EventPreferencesDeviceBoot extends EventPreferences {
     @Override
     boolean isRunnable(Context context)
     {
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-            return super.isRunnable(context);
-        //else
-        //    return false;
+        return super.isRunnable(context);
     }
 
     @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+        super.checkPreferences(prefMng, onlyCategory, context);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_DEVICE_BOOT_ENABLED) != null) {
-                setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_ENABLED, preferences, context);
+                setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_ENABLED, preferences);
             }
         }
         setCategorySummary(prefMng, preferences, context);
@@ -291,12 +289,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     }
                     else {
-                        //if (android.os.Build.VERSION.SDK_INT >= 23)
-                            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                        //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                        //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                        //else
-                        //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                     }
                 }
             }
@@ -331,10 +324,10 @@ class EventPreferencesDeviceBoot extends EventPreferences {
                     Calendar now = Calendar.getInstance();
                     long nowAlarmTime = now.getTimeInMillis();
 
-                    if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_DEVICE_BOOT)
+                    if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_DEVICE_BOOT))
                         eventsHandler.deviceBootPassed = true;
                     else if (!_permanentRun) {
-                        if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_DEVICE_BOOT_EVENT_END)
+                        if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_DEVICE_BOOT_EVENT_END))
                             eventsHandler.deviceBootPassed = false;
                         else
                             eventsHandler.deviceBootPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));

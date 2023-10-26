@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.net.Uri;
@@ -32,10 +31,6 @@ class SettingsContentObserver  extends ContentObserver {
     //private int defaultRingerMode = 0;
     private static volatile int previousScreenTimeout = 0;
 
-    static volatile int savedBrightness;
-    static volatile float savedAdaptiveBrightness;
-    static volatile int savedBrightnessMode;
-
     private final Context context;
 
     SettingsContentObserver(Context c, Handler handler) {
@@ -56,9 +51,9 @@ class SettingsContentObserver  extends ContentObserver {
             //previousVolumeAccessibilityPrompt = audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY);
         }
 
-        savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
-        savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-        savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+        PPApplication.savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+        PPApplication.savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+        //savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
     }
 
     /*
@@ -78,34 +73,34 @@ class SettingsContentObserver  extends ContentObserver {
             int delta = previousVolume - currentVolume;
 
             if (delta > 0) {
-                if (!RingerModeChangeReceiver.internalChange) {
+                if (!PPApplication.ringerModeInternalChange) {
                     if (volumeStream == AudioManager.STREAM_RING) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
-                            RingerModeChangeReceiver.notUnlinkVolumes = true;
+                            PPApplication.ringerModeNotUnlinkVolumes = true;
                         }
                         ActivateProfileHelper.setRingerVolume(context, currentVolume);
-                        PhoneProfilesService.ringingVolume = currentVolume;
+                        PlayRingingNotification.simulatingRingingCallActualRingingVolume = currentVolume;
                     }
                     if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
-                            RingerModeChangeReceiver.notUnlinkVolumes = true;
+                            PPApplication.ringerModeNotUnlinkVolumes = true;
                         }
                         ActivateProfileHelper.setNotificationVolume(context, currentVolume);
                         //PhoneProfilesService.notificationVolume = currentVolume;
                     }
                 }
             } else if (delta < 0) {
-                if (!RingerModeChangeReceiver.internalChange) {
+                if (!PPApplication.ringerModeInternalChange) {
                     if (volumeStream == AudioManager.STREAM_RING) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
-                            RingerModeChangeReceiver.notUnlinkVolumes = true;
+                            PPApplication.ringerModeNotUnlinkVolumes = true;
                         }
                         ActivateProfileHelper.setRingerVolume(context, currentVolume);
-                        PhoneProfilesService.ringingVolume = currentVolume;
+                        PlayRingingNotification.simulatingRingingCallActualRingingVolume = currentVolume;
                     }
                     if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
-                            RingerModeChangeReceiver.notUnlinkVolumes = true;
+                            PPApplication.ringerModeNotUnlinkVolumes = true;
                         }
                         ActivateProfileHelper.setNotificationVolume(context, currentVolume);
                         //PhoneProfilesService.notificationVolume = currentVolume;
@@ -121,6 +116,8 @@ class SettingsContentObserver  extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange, Uri uri) {
+//        PPApplicationStatic.logE("SettingsContentObserver.onChange", "(2)");
+
         //super.onChange(selfChange);
 
 //        PPApplicationStatic.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
@@ -128,6 +125,7 @@ class SettingsContentObserver  extends ContentObserver {
 
         boolean okSetting = false;
         boolean volumeChange = false;
+        boolean brightnessChange = false;
 
         if (uri != null) {
             String sUri = uri.toString();
@@ -142,25 +140,33 @@ class SettingsContentObserver  extends ContentObserver {
                 //(sUri.contains(Settings.System.VOLUME_ACCESSIBILITY))) -- not received
             ) {
                 //PPApplicationStatic.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
-
                 okSetting = true;
                 volumeChange = true;
             }
             else
-            if (sUri.contains(Settings.System.SCREEN_BRIGHTNESS_MODE))
+            if (sUri.endsWith(Settings.System.SCREEN_BRIGHTNESS_MODE)) {
                 okSetting = true;
+                brightnessChange = true;
+            }
             else
-            if (sUri.contains(Settings.System.SCREEN_BRIGHTNESS))
+            if (sUri.endsWith(Settings.System.SCREEN_BRIGHTNESS)) {
                 okSetting = true;
+                brightnessChange = true;
+            }
             else
-            if (sUri.contains(Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ))
+            if (sUri.contains(Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ)) {
                 okSetting = true;
+                brightnessChange = true;
+            }
             else
             if (sUri.contains(Settings.System.SCREEN_OFF_TIMEOUT))
                 okSetting = true;
         }
-        else
+        else {
             okSetting = true;
+            volumeChange = true;
+            brightnessChange = true;
+        }
 
         if (!okSetting)
             return;
@@ -182,6 +188,7 @@ class SettingsContentObserver  extends ContentObserver {
                 int newVolumeNotification = volumeChangeDetect(AudioManager.STREAM_NOTIFICATION, previousVolumeNotification, notificationMuted, audioManager);
 
                 if ((newVolumeRing != -1) && (newVolumeNotification != -1)) {
+                    /* commented because this is bad, bad detection of link-unlink.
                     if (((!ringMuted) && (previousVolumeRing != newVolumeRing)) ||
                             ((!notificationMuted) && (previousVolumeNotification != newVolumeNotification))) {
                         // volumes changed
@@ -199,6 +206,7 @@ class SettingsContentObserver  extends ContentObserver {
                             }
                         }
                     }
+                    */
 
                     if (!ringMuted)
                         previousVolumeRing = newVolumeRing;
@@ -207,11 +215,10 @@ class SettingsContentObserver  extends ContentObserver {
                 }
 
             }
-            //previousVolumeVoice = volumeChangeDetect(AudioManager.STREAM_VOICE_CALL, previousVolumeVoice, audioManager);
             //////////////
         }
         if (volumeChange) {
-            if (!EventPreferencesVolumes.internalChange) {
+            if (!PPApplication.volumesInternalChange) {
 
                 if (PPApplicationStatic.getApplicationStarted(true, true)) {
                     // application is started
@@ -224,6 +231,8 @@ class SettingsContentObserver  extends ContentObserver {
                                 .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_VOLUMES)
                                 .build();
 
+//                        PPApplicationStatic.logE("[MAIN_WORKER_CALL] SettingsContentObserver.onChange", " (1) xxxxxxxxxxxxxxxxxxxx");
+
                         OneTimeWorkRequest worker =
                                 new OneTimeWorkRequest.Builder(MainWorker.class)
                                         .addTag(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG)
@@ -232,7 +241,7 @@ class SettingsContentObserver  extends ContentObserver {
                                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                         .build();
                         try {
-                            if (PPApplicationStatic.getApplicationStarted(true, true)) {
+//                            if (PPApplicationStatic.getApplicationStarted(true, true)) {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 if (workManager != null) {
 
@@ -249,51 +258,10 @@ class SettingsContentObserver  extends ContentObserver {
                                     //workManager.enqueue(worker);
                                     workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                                 }
-                            }
+//                            }
                         } catch (Exception e) {
                             PPApplicationStatic.recordException(e);
                         }
-
-                        /*
-                        final Context appContext = context.getApplicationContext();
-                        // handler is not needed because is already used:
-                        //PPApplication.settingsContentObserver = new SettingsContentObserver(appContext, new Handler(PPApplication.handlerThreadBroadcast.getLooper()));
-
-                        //PPApplication.startHandlerThreadBroadcast();
-                        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                        //__handler.post(() -> {
-//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=SettingsContentObserver.onChange");
-
-                            //Context appContext= appContextWeakRef.get();
-                            //if (appContext != null) {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":SettingsContentObserver_onReceive");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
-
-//                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] SettingsContentObserver.onChange", "sensorType=SENSOR_TYPE_VOLUMES");
-                                EventsHandler eventsHandler = new EventsHandler(appContext);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_VOLUMES);
-
-                            } catch (Exception e) {
-//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplicationStatic.recordException(e);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
-                                }
-                            }
-                            //}
-                        //});
-                        //}
-                        */
-
                     }
                 }
             }
@@ -302,7 +270,7 @@ class SettingsContentObserver  extends ContentObserver {
         ////// screen timeout change
         int screenTimeout = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
         if (screenTimeout != -1) {
-            if (!ActivateProfileHelper.disableScreenTimeoutInternalChange) {
+            if (!PPApplication.disableScreenTimeoutInternalChange) {
                 if (previousScreenTimeout != screenTimeout) {
                     ActivateProfileHelper.setActivatedProfileScreenTimeoutWhenScreenOff(context, 0);
                 }
@@ -310,17 +278,70 @@ class SettingsContentObserver  extends ContentObserver {
             previousScreenTimeout = screenTimeout;
         }
 
-        if (!ActivateProfileHelper.brightnessDialogInternalChange) {
-            savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
-            savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-            savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+        if (brightnessChange) {
+            if (!PPApplication.brightnessInternalChange) {
+                PPApplication.savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+                PPApplication.savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+                //PPApplication.savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
 
-            // TODO this is for log brightness values to log file
-            //  use only for check brightness values 0%, 50%, 100% by user,
-            //  when in his device brightness not working good
-//            PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessMode="+savedBrightnessMode);
-//            PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightness="+savedBrightness);
-//            PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);
+                //TODO this is for log brightness values to log file
+                //  use only for check brightness values 0%, 50%, 100% by user,
+                //  when in his device brightness not working good
+                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessModeForDialog=" + PPApplication.savedBrightnessModeForDialog);
+                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessForDialog=" + PPApplication.savedBrightnessForDialog);
+                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);
+
+                //PowerManager pm = context.getSystemService(PowerManager.class);
+                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "minimun brightnress="+pm.getMinimumScreenBrightnessSetting());
+                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "maximum brightnress="+pm.getMaximumScreenBrightnessSetting());
+                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "default brightnress="+pm.getDefaultScreenBrightnessSetting());
+
+                if (PPApplicationStatic.getApplicationStarted(true, true)) {
+                    // application is started
+
+                    if (EventStatic.getGlobalEventsRunning(context)) {
+
+                        // !!! must be used MainWorker with delay and REPLACE, because is often called this onChange
+                        // for change volumes
+                        Data workData = new Data.Builder()
+                                .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_BRIGHTNESS)
+                                .build();
+
+//                        PPApplicationStatic.logE("[MAIN_WORKER_CALL] SettingsContentObserver.onChange", " (2) xxxxxxxxxxxxxxxxxxxx");
+
+                        OneTimeWorkRequest worker =
+                                new OneTimeWorkRequest.Builder(MainWorker.class)
+                                        .addTag(MainWorker.HANDLE_EVENTS_BRIGHTNESS_WORK_TAG)
+                                        .setInputData(workData)
+                                        .setInitialDelay(5, TimeUnit.SECONDS)
+                                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                        .build();
+                        try {
+//                            if (PPApplicationStatic.getApplicationStarted(true, true)) {
+                            WorkManager workManager = PPApplication.getWorkManagerInstance();
+                            if (workManager != null) {
+
+//                            //if (PPApplicationStatic.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+//
+//                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+                                //workManager.enqueue(worker);
+                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BRIGHTNESS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                            }
+//                            }
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                    }
+                }
+
+            }
         }
 
         /////////////
@@ -328,6 +349,7 @@ class SettingsContentObserver  extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange) {
+//        PPApplicationStatic.logE("SettingsContentObserver.onChange", "(1)");
         onChange(selfChange, null);
     }
 

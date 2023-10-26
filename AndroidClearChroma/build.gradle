@@ -33,7 +33,7 @@ android {
 
 dependencies {
     //implementation fileTree(include: ['*.jar'], dir: 'libs')
-
+    api project(':common')
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 }

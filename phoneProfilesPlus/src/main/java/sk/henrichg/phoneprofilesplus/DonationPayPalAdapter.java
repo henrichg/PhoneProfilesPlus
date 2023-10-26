@@ -69,7 +69,7 @@ class DonationPayPalAdapter extends BaseAdapter
         return -1;
     }
     */
-    static class ViewHolder {
+    private static class ViewHolder {
           TextView price;
     }
 

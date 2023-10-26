@@ -107,7 +107,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
             infoText1.setVisibility(View.VISIBLE);
             infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
-            infoText1.setText(getString(R.string.important_info_accessibility_service_new_version_2) +  "\u00A0»»");
+            infoText1.setText(getString(R.string.important_info_accessibility_service_new_version_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText1.setVisibility(View.VISIBLE);
             infoText1.setOnClickListener(v -> ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null, false));
         }
@@ -123,7 +123,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version);
             infoText1.setVisibility(View.VISIBLE);
             infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version_2);
-            infoText1.setText(getString(R.string.important_info_pppps_new_version_2) +  "\u00A0»»");
+            infoText1.setText(getString(R.string.important_info_pppps_new_version_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText1.setVisibility(View.VISIBLE);
             infoText1.setOnClickListener(v -> PPPPSDialogPreferenceFragment.installPPPPutSettings(getActivity(), null, false));
         }
@@ -133,7 +133,6 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version_2);
             infoText1.setVisibility(View.GONE);
         }
-
 
 
         TextView infoTextNews = view.findViewById(R.id.activity_info_notification_news);
@@ -155,62 +154,10 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         final Context context = activity.getApplicationContext();
 
-        /*        if (news4550) {
-            if (Build.VERSION.SDK_INT >= 28) {
-                TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
-                if (infoText21 != null) {
-                    infoText21.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            boolean ok = false;
-                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-                                try {
-                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                    startActivity(intent);
-                                    ok = true;
-                                } catch (Exception ignored) {}
-                            }
-                            if (!ok) {
-                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                AlertDialog dialog = dialogBuilder.create();
-    //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-    //                                @Override
-    //                                public void onShow(DialogInterface dialog) {
-    //                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-    //                                    if (positive != null) positive.setAllCaps(false);
-    //                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-    //                                    if (negative != null) negative.setAllCaps(false);
-    //                                }
-    //                            });
-                                if (!activity.isFinishing())
-                                    dialog.show();
-                            }
-                        }
-                    });
-                }
-                TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
-                if (infoText22 != null)
-                    infoText22.setVisibility(View.GONE);
-                news = true;
-            }
-            else {
-                TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
-                if (infoText22 != null)
-                    infoText22.setVisibility(View.GONE);
-                TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
-                if (infoText21 != null)
-                    infoText21.setVisibility(View.GONE);
-            }
-        }
-        else {*/
         TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
         if (infoText22 != null) {
             if (Build.VERSION.SDK_INT >= 28) {
-                infoText22.setText(context.getString(R.string.important_info_profile_mobileCellsScanning_location) +  "\u00A0»»");
+                infoText22.setText(context.getString(R.string.important_info_profile_mobileCellsScanning_location) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
                 infoText22.setOnClickListener(v -> {
                     boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
@@ -253,7 +200,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView infoText20 = view.findViewById(R.id.activity_info_notification_wifiScanning_location);
         if (infoText20 != null) {
-            infoText20.setText(context.getString(R.string.important_info_profile_wifiScanning_location) +  "\u00A0»»");
+            infoText20.setText(context.getString(R.string.important_info_profile_wifiScanning_location) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText20.setOnClickListener(v -> {
                 boolean ok = false;
                 if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
@@ -291,7 +238,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
         infoText22 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location);
         if (infoText22 != null) {
-            infoText22.setText(context.getString(R.string.important_info_profile_bluetoothScanning_location) +  "\u00A0»»");
+            infoText22.setText(context.getString(R.string.important_info_profile_bluetoothScanning_location) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText22.setOnClickListener(v -> {
                 boolean ok = false;
                 if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
@@ -330,7 +277,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView infoText10a = view.findViewById(R.id.activity_info_notification_app_standby);
         if (infoText10a != null) {
-            infoText10a.setText(context.getString(R.string.important_info_android_doze_mode) +  "\u00A0»»");
+            infoText10a.setText(context.getString(R.string.important_info_android_doze_mode) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText10a.setOnClickListener(v -> {
 //                    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 //                    String packageName = PPApplication.PACKAGE_NAME;
@@ -376,17 +323,17 @@ public class ImportantInfoHelpFragment extends Fragment {
         if (infoText670 != null) {
             infoText670.setText(fragment.getString(R.string.important_info_do_not_kill_my_app1) + " " +
                     fragment.getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_webSiteName) + " " +
-                    fragment.getString(R.string.important_info_do_not_kill_my_app2) + "\u00A0»»");
+                    fragment.getString(R.string.important_info_do_not_kill_my_app2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText670.setOnClickListener(v -> PPApplicationStatic.showDoNotKillMyAppDialog(activity));
         }
 
         TextView infoText40 = view.findViewById(R.id.activity_info_default_profile);
         if (infoText40 != null) {
-            infoText40.setText(context.getString(R.string.important_info_default_profile) +  "\u00A0»»");
+            infoText40.setText(context.getString(R.string.important_info_default_profile) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText40.setOnClickListener(v -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_PROFILE_ACTIVATION_CATEGORY_ROOT);
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 fragment.startActivity(intent);
             });
@@ -394,7 +341,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         infoText10a = view.findViewById(R.id.activity_info_notification_application_settings);
         if (infoText10a != null) {
-            infoText10a.setText(context.getString(R.string.important_info_android_look_application_settings) +  "\u00A0»»");
+            infoText10a.setText(context.getString(R.string.important_info_android_look_application_settings) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText10a.setOnClickListener(v -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -406,17 +353,17 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView infoText100 = view.findViewById(R.id.activity_info_profile_activation2);
         if (infoText100 != null) {
-            String text = "<ol>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text2) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text3) + "</li>" +
-                    "</ol>";
+            String text = StringConstants.TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML +
+                             fragment.getString(R.string.important_info_profile_activation_text2) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text3) +
+                    StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML;
             infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_profile_activation3);
         if (infoText100 != null) {
             String text =
-                    fragment.getString(R.string.important_info_profile_activation_text4) + "\n" +
-                            fragment.getString(R.string.important_info_profile_activation_text5) + "\n\n" +
+                    fragment.getString(R.string.important_info_profile_activation_text4) + StringConstants.CHAR_NEW_LINE +
+                            fragment.getString(R.string.important_info_profile_activation_text5) + StringConstants.STR_DOUBLE_NEWLINE +
                             fragment.getString(R.string.important_info_profile_activation_text6)
             ;
             infoText100.setText(text);
@@ -424,120 +371,120 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         infoText100 = view.findViewById(R.id.activity_info_profile_activation9);
         if (infoText100 != null) {
-            String text = "<ul>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text9) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text10) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text11) + "</li>" +
-                    "</ul>";
+            String text = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+                                                               fragment.getString(R.string.important_info_profile_activation_text9) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text10) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text11) +
+                    StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
             infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_event_activation9);
         if (infoText100 != null) {
-            String text = "<ul>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text9) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text10) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text11) + "</li>" +
-                    "</ul>";
+            String text = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+                                                               fragment.getString(R.string.important_info_profile_activation_text9) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text10) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text11) +
+                    StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
             infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_preference_types);
         if (infoText100 != null) {
-            String text = "<ul>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_install_pppps) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_grant) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_root) + "</li>" +
+            String text =StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+                                                               fragment.getString(R.string.important_info_profile_install_pppps) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_grant) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_root) + StringConstants.TAG_LIST_ITEM_END_HTML +
                     //"<li>" + fragment.getString(R.string.important_info_profile_settings) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_interactive) +
-                    "</ul>"
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_interactive) +
+                    StringConstants.TAG_LIST_END_LAST_ITEM_HTML
                     ;
             infoText100.setText(StringFormatUtils.fromHtml(text, true, false, false, 0, 0, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_3);
         if (infoText100 != null) {
-            String text = "<ol>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_3) + "</li>" +
-                    "</ol>"
+            String text = StringConstants.TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML +
+                        fragment.getString(R.string.important_info_profile_grant_1_howTo_3) +
+                    StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML
             ;
             infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_4);
         if (infoText100 != null) {
-            String text = "<ol>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_4) + "</li>" +
-                    "</ol>"
+            String text = StringConstants.TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML +
+                        fragment.getString(R.string.important_info_profile_grant_1_howTo_4) +
+                    StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML
             ;
             infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 2, 17, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_6);
         if (infoText100 != null) {
-            String text = "<ol>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_6) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_7) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_8) +
-                    "</ol>"
+            String text = StringConstants.TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML +
+                                                               fragment.getString(R.string.important_info_profile_grant_1_howTo_6) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_grant_1_howTo_7) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_grant_1_howTo_8) +
+                    StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML
             ;
             infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_10);
         if (infoText100 != null) {
-            String text = "<ol>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_10) + "</li>" +
-                    "</ol>"
+            String text = StringConstants.TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML +
+                        fragment.getString(R.string.important_info_profile_grant_1_howTo_10) +
+                    StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML
             ;
             infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 4, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_20);
         if (infoText100 != null) {
-            String text = fragment.getString(R.string.important_info_profile_grant_1_howTo_20_1) + "<br>" +
+            String text = fragment.getString(R.string.important_info_profile_grant_1_howTo_20_1) + StringConstants.TAG_BREAK_HTML +
                     fragment.getString(R.string.important_info_profile_grant_1_howTo_20_2) +
-                    "<ul>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_3) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_4) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_5) +
-                    "</ul>" +
+                    StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+                                                               fragment.getString(R.string.important_info_profile_grant_1_howTo_20_3) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_4) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_5) +
+                    StringConstants.TAG_LIST_END_LAST_ITEM_HTML +
                     fragment.getString(R.string.important_info_profile_grant_1_howTo_20_6);
             infoText100.setText(StringFormatUtils.fromHtml(text, true, false, false, 0, 0, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_event_not_started_1);
         if (infoText100 != null) {
-            String text = "<ol>" +
-                    "<li>" + fragment.getString(R.string.info_notification_event_not_started_2) + "</li>" +
-                    "<li>" + fragment.getString(R.string.info_notification_event_not_started_3) + "</li>" +
-                    "<li>" + fragment.getString(R.string.info_notification_event_not_started_4) + "</li>" +
-                    "<li>" + fragment.getString(R.string.info_notification_event_priority_new) +
-                    "</ol>"
+            String text = StringConstants.TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML +
+                                                               fragment.getString(R.string.info_notification_event_not_started_2) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.info_notification_event_not_started_3) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.info_notification_event_not_started_4) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.info_notification_event_priority_new) +
+                    StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML
             ;
             infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_event_event_sensors_2);
         if (infoText100 != null) {
-            String text = "<ol>" +
-                    "<li>" + fragment.getString(R.string.important_info_event_event_sensors_waiting) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_event_event_sensors_passed) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_event_event_sensors_not_pased) + "</li>" +
-                    "</ol>"
+            String text = StringConstants.TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML +
+                                                               fragment.getString(R.string.important_info_event_event_sensors_waiting) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_event_event_sensors_passed) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_event_event_sensors_not_pased) +
+                    StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML
                     ;
             infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_1);
         if (infoText100 != null) {
-            String text = "<ul>" +
-                    "<li>" + fragment.getString(R.string.info_notification_manage_events_from_tasker_restart_events) + "</li>" +
-                    "</ul>"
+            String text = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+                        fragment.getString(R.string.info_notification_manage_events_from_tasker_restart_events) +
+                    StringConstants.TAG_LIST_END_LAST_ITEM_HTML
             ;
             infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_2);
         if (infoText100 != null) {
-            String text = "<ul>" +
-                    "<li>" + fragment.getString(R.string.info_notification_manage_events_from_tasker_enable_run_for_event) + "</li>" +
-                    "</ul>"
+            String text = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+                        fragment.getString(R.string.info_notification_manage_events_from_tasker_enable_run_for_event) +
+                    StringConstants.TAG_LIST_END_LAST_ITEM_HTML
             ;
             infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
         }
@@ -553,19 +500,19 @@ public class ImportantInfoHelpFragment extends Fragment {
         */
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_4);
         if (infoText100 != null) {
-            String text = "<ul>" +
-                    "<li>" + fragment.getString(R.string.info_notification_manage_events_from_tasker_stop_event) + "</li>" +
-                    "</ul>"
+            String text = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+                        fragment.getString(R.string.info_notification_manage_events_from_tasker_stop_event) +
+                    StringConstants.TAG_LIST_END_LAST_ITEM_HTML
             ;
             infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
         }
 
         TextView infoText41 = view.findViewById(R.id.activity_info_activate_profile_from_tasker_params);
         if (infoText41 != null) {
-            String str = "Send Intent [\n" +  //↵
-                    " Action:sk.henrichg.phoneprofilesplus.ACTION_ACTIVATE_PROFILE\n" +
-                    " Extra:profile_name:profile name\n" +
-                    " Target:Activity\n" +
+            String str = "Send Intent ["+StringConstants.CHAR_NEW_LINE +  //↵
+                    " Action:sk.henrichg.phoneprofilesplus.ACTION_ACTIVATE_PROFILE"+StringConstants.CHAR_NEW_LINE +
+                    " Extra:profile_name:profile name"+StringConstants.CHAR_NEW_LINE +
+                    " Target:Activity"+StringConstants.CHAR_NEW_LINE +
                     "]";
             Spannable spannable = new SpannableString(str);
             //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
@@ -578,9 +525,9 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView infoText42 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_restart_events);
         if (infoText42 != null) {
-            String str = "Send Intent [\n" +
-                    " Action:sk.henrichg.phoneprofilesplus.ACTION_RESTART_EVENTS\n" +
-                    " Target:Activity\n" +
+            String str = "Send Intent ["+StringConstants.CHAR_NEW_LINE +
+                    " Action:sk.henrichg.phoneprofilesplus.ACTION_RESTART_EVENTS"+StringConstants.CHAR_NEW_LINE +
+                    " Target:Activity"+StringConstants.CHAR_NEW_LINE +
                     "]";
             Spannable spannable = new SpannableString(str);
             //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
@@ -592,10 +539,10 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
         TextView infoText43 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_enable_run_for_event);
         if (infoText43 != null) {
-            String str = "Send Intent [\n" +
-                    " Action:sk.henrichg.phoneprofilesplus.ACTION_ENABLE_RUN_FOR_EVENT\n" +
-                    " Extra:event_name:event name\n" +
-                    " Target:Activity\n" +
+            String str = "Send Intent ["+StringConstants.CHAR_NEW_LINE +
+                    " Action:sk.henrichg.phoneprofilesplus.ACTION_ENABLE_RUN_FOR_EVENT"+StringConstants.CHAR_NEW_LINE +
+                    " Extra:event_name:event name"+StringConstants.CHAR_NEW_LINE +
+                    " Target:Activity"+StringConstants.CHAR_NEW_LINE +
                     "]";
             Spannable spannable = new SpannableString(str);
             //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
@@ -624,10 +571,10 @@ public class ImportantInfoHelpFragment extends Fragment {
         */
         TextView infoText45 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_stop_event);
         if (infoText45 != null) {
-            String str = "Send Intent [\n" +
-                    " Action:sk.henrichg.phoneprofilesplus.ACTION_STOP_EVENT\n" +
-                    " Extra:event_name:event name\n" +
-                    " Target:Activity\n" +
+            String str = "Send Intent ["+StringConstants.CHAR_NEW_LINE +
+                    " Action:sk.henrichg.phoneprofilesplus.ACTION_STOP_EVENT"+StringConstants.CHAR_NEW_LINE +
+                    " Extra:event_name:event name"+StringConstants.CHAR_NEW_LINE +
+                    " Target:Activity"+StringConstants.CHAR_NEW_LINE +
                     "]";
             Spannable spannable = new SpannableString(str);
             //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
@@ -653,7 +600,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView infoTextGrant1Command = view.findViewById(R.id.activity_info_notification_dialog_info_grant_1_command);
         if (infoTextGrant1Command != null) {
-            String str = "adb\u00A0shell\u00A0pm\u00A0grant\u00A0" + PPApplication.PACKAGE_NAME + "\u00A0" +
+            String str = "adb"+StringConstants.CHAR_HARD_SPACE+"shell"+StringConstants.CHAR_HARD_SPACE+"pm"+StringConstants.CHAR_HARD_SPACE+"grant"+StringConstants.CHAR_HARD_SPACE + PPApplication.PACKAGE_NAME + StringConstants.CHAR_HARD_SPACE +
                     "android.permission.WRITE_SECURE_SETTINGS";
             Spannable spannable = new SpannableString(str);
             //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
@@ -675,7 +622,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         TextView translationTextView = view.findViewById(R.id.activity_info_translations);
         if (translationTextView != null) {
             String str1 = fragment.getString(R.string.about_application_translations);
-            String str2 = str1 + "\n" + PPApplication.CROWDIN_URL + "\u00A0»»";
+            String str2 = str1 + StringConstants.CHAR_NEW_LINE + PPApplication.CROWDIN_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
             Spannable spannable = new SpannableString(str2);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -715,9 +662,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                     fragment.getString(R.string.important_info_profile_grant_1_howTo_0_1) + ":";
             String str2;
             if (DebugVersion.enabled)
-                str2 = str1 + "\n" + PPApplication.HELP_HOW_TO_GRANT_G1_URL_DEVEL + "\u00A0»»";
+                str2 = str1 + StringConstants.CHAR_NEW_LINE + PPApplication.HELP_HOW_TO_GRANT_G1_URL_DEVEL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
             else
-                str2 = str1 + "\n" + PPApplication.HELP_HOW_TO_GRANT_G1_URL + "\u00A0»»";
+                str2 = str1 + StringConstants.CHAR_NEW_LINE + PPApplication.HELP_HOW_TO_GRANT_G1_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
             Spannable spannable = new SpannableString(str2);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -807,7 +754,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 */
         TextView helpForPPPPSTextView = view.findViewById(R.id.activity_info_notification_profile_pppps_howTo_2);
         if (helpForPPPPSTextView != null) {
-            String str1 = fragment.getString(R.string.important_info_profile_pppps_howTo_2) +  "\u00A0»»";
+            String str1 = fragment.getString(R.string.important_info_profile_pppps_howTo_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
             Spannable spannable = new SpannableString(str1);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -826,12 +773,6 @@ public class ImportantInfoHelpFragment extends Fragment {
             //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
             helpForPPPPSTextView.setText(spannable);
             helpForPPPPSTextView.setMovementMethod(LinkMovementMethod.getInstance());
-            /*AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_translations),
-                getString(R.string.important_info_translations),
-                getString(R.string.about_application_translations2),
-                getString(R.string.about_application_translations_subject),
-                AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
-                true, activity);*/
         }
 
     }
@@ -942,7 +883,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
 
         PackageManager packageManager = activity.getPackageManager();
-        Intent _intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
+        Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
         boolean galaxyStoreInstalled = (_intent != null);
 
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && galaxyStoreInstalled) {

@@ -3,10 +3,12 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -18,10 +20,14 @@ public class ProfilePreferenceFragment extends PreferenceDialogFragmentCompat {
 
     private LinearLayout linlaProgress;
     private ListView listView;
+    RelativeLayout emptyList;
+
     private ProfilePreferenceAdapter profilePreferenceAdapter;
 
     private Context prefContext;
     ProfilePreference preference;
+
+    private BindViewAsyncTask bindViewAsyncTask;
 
     @SuppressLint("InflateParams")
     @Override
@@ -43,15 +49,28 @@ public class ProfilePreferenceFragment extends PreferenceDialogFragmentCompat {
         linlaProgress = view.findViewById(R.id.profile_pref_dlg_linla_progress);
 
         listView = view.findViewById(R.id.profile_pref_dlg_listview);
+        emptyList = view.findViewById(R.id.profile_pref_dlg_empty);
 
         listView.setOnItemClickListener((parent, item, position, id) -> doOnItemSelected(position));
 
-        new BindViewAsyncTask(preference, this, prefContext).execute();
-
+        if (preference.dataWrapper != null)
+            preference.dataWrapper.invalidateProfileList();
+        if (profilePreferenceAdapter != null)
+            profilePreferenceAdapter.notifyDataSetChanged();
+        final Handler handler = new Handler(prefContext.getMainLooper());
+        handler.postDelayed(() -> {
+            bindViewAsyncTask = new BindViewAsyncTask(preference, preference.fragment, prefContext);
+            bindViewAsyncTask.execute();
+        }, 200);
     }
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
+        if ((bindViewAsyncTask != null) &&
+                bindViewAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            bindViewAsyncTask.cancel(true);
+        bindViewAsyncTask = null;
+
         preference.fragment = null;
     }
 
@@ -124,37 +143,49 @@ public class ProfilePreferenceFragment extends PreferenceDialogFragmentCompat {
             ProfilePreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                //listView.setVisibility(View.VISIBLE);
                 fragment.linlaProgress.setVisibility(View.GONE);
 
-                fragment.profilePreferenceAdapter = new ProfilePreferenceAdapter(fragment, prefContext, preference.profileId, preference.dataWrapper.profileList);
-                fragment.listView.setAdapter(fragment.profilePreferenceAdapter);
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
+                    fragment.listView.setVisibility(View.VISIBLE);
 
-                int position;
-                long iProfileId;
-                if (preference.profileId.isEmpty())
-                    iProfileId = 0;
-                else
-                    iProfileId = Long.parseLong(preference.profileId);
-                if ((preference.addNoActivateItem == 1) && (iProfileId == Profile.PROFILE_NO_ACTIVATE))
-                    position = 0;
-                else {
-                    boolean found = false;
-                    position = 0;
-                    for (Profile profile : preference.dataWrapper.profileList) {
-                        if (profile._id == iProfileId) {
-                            found = true;
-                            break;
-                        }
-                        position++;
+                    if ((preference.addNoActivateItem != 1) && (preference.dataWrapper.profileList.size() == 0)) {
+                        fragment.listView.setVisibility(View.GONE);
+                        fragment.emptyList.setVisibility(View.VISIBLE);
+                    } else {
+                        fragment.emptyList.setVisibility(View.GONE);
+                        fragment.listView.setVisibility(View.VISIBLE);
                     }
-                    if (found) {
-                        if (preference.addNoActivateItem == 1)
-                            position++;
-                    } else
+
+                    fragment.profilePreferenceAdapter = new ProfilePreferenceAdapter(fragment, prefContext, preference.profileId, preference.dataWrapper.profileList);
+                    fragment.listView.setAdapter(fragment.profilePreferenceAdapter);
+
+                    int position;
+                    long iProfileId;
+                    if (preference.profileId.isEmpty())
+                        iProfileId = 0;
+                    else
+                        iProfileId = Long.parseLong(preference.profileId);
+                    if ((preference.addNoActivateItem == 1) && (iProfileId == Profile.PROFILE_NO_ACTIVATE))
                         position = 0;
-                }
-                fragment.listView.setSelection(position);
+                    else {
+                        boolean found = false;
+                        position = 0;
+                        for (Profile profile : preference.dataWrapper.profileList) {
+                            if (profile._id == iProfileId) {
+                                found = true;
+                                break;
+                            }
+                            position++;
+                        }
+                        if (found) {
+                            if (preference.addNoActivateItem == 1)
+                                position++;
+                        } else
+                            position = 0;
+                    }
+                    fragment.listView.setSelection(position);
+                });
             }
         }
 

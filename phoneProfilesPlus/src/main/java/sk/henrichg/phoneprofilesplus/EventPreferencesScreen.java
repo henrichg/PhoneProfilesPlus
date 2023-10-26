@@ -23,7 +23,7 @@ class EventPreferencesScreen extends EventPreferences {
     private static final String PREF_EVENT_SCREEN_EVENT_TYPE = "eventScreenEventType";
     private static final String PREF_EVENT_SCREEN_WHEN_UNLOCKED = "eventScreenWhenUnlocked";
 
-    private static final String PREF_EVENT_SCREEN_CATEGORY = "eventScreenCategoryRoot";
+    static final String PREF_EVENT_SCREEN_CATEGORY = "eventScreenCategoryRoot";
 
     EventPreferencesScreen(Event event,
                                     boolean enabled,
@@ -61,37 +61,37 @@ class EventPreferencesScreen extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_screen_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_screen_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_SCREEN_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + "<b>";
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_screen), addPassStatus, DatabaseHandler.ETYPE_SCREEN, context);
-                    descr = descr + "</b> ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_screen), addPassStatus, DatabaseHandler.ETYPE_SCREEN, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
                 String[] eventListTypes = context.getResources().getStringArray(R.array.eventScreenEventTypeValues);
                 int index = Arrays.asList(eventListTypes).indexOf(Integer.toString(this._eventType));
                 if (index != -1) {
-                    descr = descr + context.getString(R.string.event_preferences_screen_event_type) + ": ";
+                    _value.append(context.getString(R.string.event_preferences_screen_event_type)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] eventListTypeNames = context.getResources().getStringArray(R.array.eventScreenEventTypeArray);
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(eventListTypeNames[index], disabled, context) + "</b>";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(eventListTypeNames[index], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 if (this._whenUnlocked) {
                     if (this._eventType == EventPreferencesScreen.ETYPE_SCREENON)
-                        descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenUnlocked), disabled, context) + "</b>";
+                        _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenUnlocked), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     else
-                        descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenLocked), disabled, context) + "</b>";
+                        _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenLocked), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value/*, Context context*/)
@@ -127,8 +127,7 @@ class EventPreferencesScreen extends EventPreferences {
         }
     }
 
-    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences,
-                    @SuppressWarnings("unused") Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences/*, Context context*/)
     {
         if (preferences == null)
             return;
@@ -140,7 +139,7 @@ class EventPreferencesScreen extends EventPreferences {
         if (key.equals(PREF_EVENT_SCREEN_ENABLED) ||
             key.equals(PREF_EVENT_SCREEN_WHEN_UNLOCKED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false"/*, context*/);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING/*, context*/);
         }
         if (key.equals(PREF_EVENT_SCREEN_EVENT_TYPE))
         {
@@ -148,11 +147,11 @@ class EventPreferencesScreen extends EventPreferences {
         }
     }
 
-    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences/*, Context context*/)
     {
-        setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences, context);
-        setSummary(prefMng, PREF_EVENT_SCREEN_EVENT_TYPE, preferences, context);
-        setSummary(prefMng, PREF_EVENT_SCREEN_WHEN_UNLOCKED, preferences, context);
+        setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences);
+        setSummary(prefMng, PREF_EVENT_SCREEN_EVENT_TYPE, preferences);
+        setSummary(prefMng, PREF_EVENT_SCREEN_WHEN_UNLOCKED, preferences);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
@@ -179,7 +178,7 @@ class EventPreferencesScreen extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_SCREEN_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -188,6 +187,7 @@ class EventPreferencesScreen extends EventPreferences {
     @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context)
     {
+        super.checkPreferences(prefMng, onlyCategory, context);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_SCREEN_ENABLED) != null) {
@@ -209,7 +209,7 @@ class EventPreferencesScreen extends EventPreferences {
                     });
                 }
 
-                setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences, context);
+                setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences);
             }
         }
         setCategorySummary(prefMng, preferences, context);

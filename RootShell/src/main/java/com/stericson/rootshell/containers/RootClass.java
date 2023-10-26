@@ -2,7 +2,6 @@ package com.stericson.rootshell.containers;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -12,9 +11,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/** @noinspection InstantiationOfUtilityClass*/
 /* #ANNOTATIONS @SupportedAnnotationTypes("com.stericson.rootshell.containers.RootClass.Candidate") */
 /* #ANNOTATIONS @SupportedSourceVersion(SourceVersion.RELEASE_6) */
-@SuppressWarnings({"InstantiationOfUtilityClass", "unused"})
 public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
 
     /* #ANNOTATIONS
@@ -26,7 +25,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
     }
     */
 
-    static volatile String PATH_TO_DX = "/Users/Chris/Projects/android-sdk-macosx/build-tools/18.0.1/dx";
+    //static volatile String PATH_TO_DX = "/Users/Chris/Projects/android-sdk-macosx/build-tools/18.0.1/dx";
 
     enum READ_STATE {
         STARTING, FOUND_ANNOTATION
@@ -49,9 +48,10 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
         classConstructor.newInstance(actualArgs);
     }
 
-    @SuppressWarnings("unused")
+    /*
     public @interface Candidate {
     }
+    */
 
     @SuppressWarnings("InnerClassMayBeStatic")
     public class RootArgs {
@@ -69,7 +69,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
     // I reckon it would be better to investigate classes using getAttribute()
     // however this method allows the developer to simply select "Run" on RootClass
     // and immediately re-generate the necessary jar file.
-    @SuppressWarnings({"RegExpSimplifiable", "FieldCanBeLocal", "IndexOfReplaceableByContains", "TryWithIdenticalCatches", "ToArrayCallWithZeroLengthArrayArgument", "ConstantConditions", "ResultOfMethodCallIgnored", "StatementWithEmptyBody"})
+    @SuppressWarnings({"RegExpSimplifiable", "FieldCanBeLocal", "IndexOfReplaceableByContains", "ToArrayCallWithZeroLengthArrayArgument", "ConstantConditions", "ResultOfMethodCallIgnored", "StatementWithEmptyBody"})
     static public class AnnotationsFinder {
 
         private final String AVOIDDIRPATH = "stericson" + File.separator + "rootshell" + File.separator;
@@ -144,8 +144,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                 jarBuilder.directory(builtPath);
                 try {
                     jarBuilder.start().waitFor();
-                } catch (IOException ignored) {
-                } catch (InterruptedException ignored) {
+                } catch (IOException | InterruptedException ignored) {
                 }
 
                 String strRawFolder; // = "res" + File.separator + "raw";
@@ -175,8 +174,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                 ProcessBuilder dexBuilder = new ProcessBuilder(cmd);
                 try {
                     dexBuilder.start().waitFor();
-                } catch (IOException ignored) {
-                } catch (InterruptedException ignored) {
+                } catch (IOException | InterruptedException ignored) {
                 }
             }
             System.out.println("All done. ::: anbuild.dex should now be in your project's src" + File.separator + "main" + File.separator + "res" + File.separator + "raw" + File.separator + " folder :::");
@@ -236,8 +234,6 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                             break;
                     }
                 }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }

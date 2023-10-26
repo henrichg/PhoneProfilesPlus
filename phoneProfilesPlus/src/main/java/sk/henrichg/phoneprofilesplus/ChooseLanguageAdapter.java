@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 class ChooseLanguageAdapter extends BaseAdapter {
 
@@ -40,15 +39,9 @@ class ChooseLanguageAdapter extends BaseAdapter {
         return position;
     }
 
-    static class ViewHolder {
-        RadioButton radioButton;
-        TextView languageLabel;
-        //int position;
-    }
-
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        ViewHolder holder;
+        ChooseLanguageViewHolder holder;
 
         View vi = convertView;
 
@@ -56,14 +49,14 @@ class ChooseLanguageAdapter extends BaseAdapter {
         {
             vi = LayoutInflater.from(context).inflate(R.layout.listitem_choose_language, parent, false);
 
-            holder = new ViewHolder();
+            holder = new ChooseLanguageViewHolder();
             holder.radioButton = vi.findViewById(R.id.choose_language_dlg_item_radio_button);
             holder.languageLabel = vi.findViewById(R.id.choose_language_dlg_item_label);
             vi.setTag(holder);
         }
         else
         {
-            holder = (ViewHolder)vi.getTag();
+            holder = (ChooseLanguageViewHolder)vi.getTag();
         }
 
         if ((position >= 0) && (position < getCount())) {

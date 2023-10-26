@@ -3,7 +3,7 @@
 
     <style name="Theme.PhoneProfilesTheme_withToolbar_dayNight" parent="@style/Base.Theme.PhoneProfilesTheme_withToolbar_dayNight">
         <item name="listViewItemBackground">@drawable/listview_item_background</item>
-        <item name="popupMenuItemBackground">@drawable/popup_menu_item_background_selector</item>
+        <item name="popupMenuItemBackground">@drawable/popup_menu_item_background</item>
 
         <item name="android:popupMenuStyle">@style/PopupMenu_dayNight</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenu_dayNight</item>

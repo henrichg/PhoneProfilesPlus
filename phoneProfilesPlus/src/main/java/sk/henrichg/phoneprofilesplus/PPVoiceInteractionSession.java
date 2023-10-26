@@ -71,8 +71,6 @@ public final class PPVoiceInteractionSession extends VoiceInteractionSession {
             intent3.putExtra("android.settings.extra.battery_saver_mode_enabled", bundle.getBoolean("android.settings.extra.battery_saver_mode_enabled"));
             startVoiceActivity(intent3);
         }
-        //if (Build.VERSION.SDK_INT >= 26) {
-            setUiEnabled(false);
-        //}
+        setUiEnabled(false);
     }
 }

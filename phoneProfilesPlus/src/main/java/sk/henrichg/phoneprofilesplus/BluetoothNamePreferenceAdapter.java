@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 
 class BluetoothNamePreferenceAdapter extends BaseAdapter
@@ -42,13 +40,6 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
         return position;
     }
     
-    static class ViewHolder {
-        TextView bluetoothName;
-        CheckBox checkBox;
-        AppCompatImageButton itemEditMenu;
-        //int position;
-    }
-
     @SuppressLint("SetTextI18n")
     public View getView(final int position, View convertView, ViewGroup parent)
     {
@@ -56,19 +47,19 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
         BluetoothDeviceData bluetoothDevice = preference.bluetoothList.get(position);
         //System.out.println(String.valueOf(position));
 
-        ViewHolder holder;
+        BluetoothNamePreferenceViewHolder holder;
         
         View vi = convertView;
         if (convertView == null)
         {
             vi = inflater.inflate(R.layout.listitem_bluetooth_name_preference, parent, false);
-            holder = new ViewHolder();
+            holder = new BluetoothNamePreferenceViewHolder();
             holder.bluetoothName = vi.findViewById(R.id.bluetooth_name_pref_dlg_item_label);
             holder.checkBox = vi.findViewById(R.id.bluetooth_name_pref_dlg_item_checkbox);
             holder.itemEditMenu = vi.findViewById(R.id.bluetooth_name_pref_dlg_item_edit_menu);
             vi.setTag(holder);
         } else {
-            holder = (ViewHolder) vi.getTag();
+            holder = (BluetoothNamePreferenceViewHolder) vi.getTag();
         }
 
         // must be set, without this not working long click
@@ -78,9 +69,9 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
         holder.itemEditMenu.setFocusableInTouchMode(false);
 
         if (bluetoothDevice.getName().equalsIgnoreCase(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE))
-            holder.bluetoothName.setText(/*"[DU] " + */"[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb) + "\u00A0]");
+            holder.bluetoothName.setText(/*"[DU] " + */"[" + StringConstants.CHAR_HARD_SPACE + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb) + StringConstants.CHAR_HARD_SPACE + "]");
         else if (bluetoothDevice.getName().equalsIgnoreCase(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))
-            holder.bluetoothName.setText(/*"[DU] " + */"[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb) + "\u00A0]");
+            holder.bluetoothName.setText(/*"[DU] " + */"[" + StringConstants.CHAR_HARD_SPACE + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb) + StringConstants.CHAR_HARD_SPACE + "]");
         else {
             /*String sType;
             if (bluetoothDevice.type == BluetoothDevice.DEVICE_TYPE_CLASSIC)

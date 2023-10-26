@@ -80,14 +80,12 @@ public class ProfileMultiSelectPreference extends DialogPreference {
     {
         String prefSummary = prefContext.getString(R.string.profile_multiselect_summary_text_not_selected);
         if (!value.isEmpty() && !value.equals("-")) {
-            String[] splits = value.split("\\|");
-            prefSummary = prefContext.getString(R.string.profile_multiselect_summary_text_selected) + ": " + splits.length;
+            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+            prefSummary = prefContext.getString(R.string.profile_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
             if (splits.length == 1) {
-                Profile profile = dataWrapper.getProfileById(Long.parseLong(value), false, false, false);
-                if (profile != null)
-                {
-                    prefSummary = profile._name;
-                }
+                String profileName = dataWrapper.getProfileName(Long.parseLong(value));
+                if (profileName != null)
+                    prefSummary = profileName;
             }
         }
         setSummary(prefSummary);
@@ -95,13 +93,19 @@ public class ProfileMultiSelectPreference extends DialogPreference {
 
     private void setIcons() {
         if (!value.isEmpty() && !value.equals("-")) {
-            String[] splits = value.split("\\|");
+            //int disabledColor = ContextCompat.getColor(prefContext, R.color.activityDisabledTextColor);
+
+            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
             if (splits.length == 1) {
                 profileIcon.setVisibility(View.VISIBLE);
                 profileIcon1.setImageResource(R.drawable.ic_empty);
+                profileIcon1.setAlpha(1f);
                 profileIcon2.setImageResource(R.drawable.ic_empty);
+                profileIcon2.setAlpha(1f);
                 profileIcon3.setImageResource(R.drawable.ic_empty);
+                profileIcon3.setAlpha(1f);
                 profileIcon4.setImageResource(R.drawable.ic_empty);
+                profileIcon4.setAlpha(1f);
                 profileIcons.setVisibility(View.GONE);
 
                 Profile profile = dataWrapper.getProfileById(Long.parseLong(value), true, false, false);
@@ -132,13 +136,20 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                         else
                             profileIcon.setImageBitmap(profile._iconBitmap);
                     }
+                    if (!isEnabled())
+                        profileIcon.setAlpha(0.35f);
+                    else
+                        profileIcon.setAlpha(1f);
                 }
-                else
+                else {
                     profileIcon.setImageResource(R.drawable.ic_empty); // icon resource
+                    profileIcon.setAlpha(1f);
+                }
             } else {
                 profileIcons.setVisibility(View.VISIBLE);
                 profileIcon.setVisibility(View.GONE);
                 profileIcon.setImageResource(R.drawable.ic_empty);
+                profileIcon.setAlpha(1f);
 
                 ImageView profIcon = profileIcon1;
                 for (int i = 0; i < 4; i++) {
@@ -154,7 +165,7 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                             {
                                 Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
                                 if (bitmap != null)
-                                    profileIcon.setImageBitmap(bitmap);
+                                    profIcon.setImageBitmap(bitmap);
                                 else {
                                     if (profile._iconBitmap != null)
                                         profIcon.setImageBitmap(profile._iconBitmap);
@@ -175,12 +186,19 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                                 else
                                     profIcon.setImageBitmap(profile._iconBitmap);
                             }
+                            if (!isEnabled())
+                                profIcon.setAlpha(0.35f);
+                            else
+                                profIcon.setAlpha(1f);
                         }
-                        else
+                        else {
                             profIcon.setImageResource(R.drawable.ic_empty); // icon resource
-
-                    } else
+                            profIcon.setAlpha(1f);
+                        }
+                    } else {
                         profIcon.setImageResource(R.drawable.ic_empty);
+                        profIcon.setAlpha(1f);
+                    }
                 }
             }
         }
@@ -188,6 +206,7 @@ public class ProfileMultiSelectPreference extends DialogPreference {
             profileIcon.setVisibility(View.VISIBLE);
             profileIcons.setVisibility(View.GONE);
             profileIcon.setImageResource(R.drawable.ic_empty);
+            profileIcon.setAlpha(1f);
         }
     }
 

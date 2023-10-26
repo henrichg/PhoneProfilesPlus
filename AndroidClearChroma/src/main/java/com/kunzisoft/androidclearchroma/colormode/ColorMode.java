@@ -12,10 +12,10 @@ import com.kunzisoft.androidclearchroma.colormode.mode.RGB;
  * Enumeration of each color mode
  * @author JJamet
  */
-@SuppressWarnings("unused")
 public enum ColorMode {
     RGB(0), HSV(1), ARGB(2), CMYK(3), CMYK255(4), HSL(5);
 
+    /** @noinspection FieldCanBeLocal, unused */
     private final int i;
 
     /**
@@ -26,13 +26,13 @@ public enum ColorMode {
         i = id;
     }
 
-    /**
+    /*
      * Get unique ID of mode
      * @return ID
-     */
     public int getId() {
         return i;
     }
+    */
 
     /**
      * Get color mode object link to mode
@@ -56,11 +56,10 @@ public enum ColorMode {
         }
     }
 
-    /**
+    /*
      * Retrieves the color mode from id.
      * @param id Unique ID
      * @return Color mode
-     */
     public static ColorMode getColorModeFromId(int id) {
         switch (id) {
             case(0):
@@ -78,4 +77,5 @@ public enum ColorMode {
                 return HSL;
         }
     }
+     */
 }

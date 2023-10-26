@@ -3,11 +3,13 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -20,6 +22,8 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
     private LinearLayout linlaProgress;
     private ListView listView;
     private LinearLayout listViewRoot;
+    RelativeLayout emptyList;
+
     private ProfileMultiSelectPreferenceAdapter profilePreferenceAdapter;
 
     private Context prefContext;
@@ -44,9 +48,9 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
         super.onBindDialogView(view);
 
         linlaProgress = view.findViewById(R.id.profile_multiselect_pref_dlg_linla_progress);
-
         listViewRoot = view.findViewById(R.id.profile_multiselect_pref_dlg_listview_root);
         listView = view.findViewById(R.id.profile_multiselect_pref_dlg_listview);
+        emptyList = view.findViewById(R.id.profile_multiselect_pref_dlg_empty);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
             Profile profile = (Profile)profilePreferenceAdapter.getItem(position);
@@ -61,7 +65,13 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
             refreshListView(false);
         });
 
-        refreshListView(true);
+        if (preference.dataWrapper != null)
+            preference.dataWrapper.invalidateProfileList();
+        if (profilePreferenceAdapter != null)
+            profilePreferenceAdapter.notifyDataSetChanged();
+        final Handler handler = new Handler(prefContext.getMainLooper());
+        handler.postDelayed(() -> refreshListView(true), 200);
+
     }
 
     @Override
@@ -98,7 +108,7 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
 
             if (notForUnselect) {
                 if (!preference.value.isEmpty()) {
-                    String[] splits = preference.value.split("\\|");
+                    String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
                     for (String split : splits) {
                         Profile profile = preference.dataWrapper.getProfileById(Long.parseLong(split), false, false, false);
                         if (profile != null)
@@ -185,13 +195,25 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
             ProfileMultiSelectPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                if (notForUnselect) {
-                    fragment.listViewRoot.setVisibility(View.VISIBLE);
-                    fragment.linlaProgress.setVisibility(View.GONE);
-                }
+                fragment.linlaProgress.setVisibility(View.GONE);
 
-                fragment.profilePreferenceAdapter = new ProfileMultiSelectPreferenceAdapter(fragment, prefContext, preference.dataWrapper.profileList);
-                fragment.listView.setAdapter(fragment.profilePreferenceAdapter);
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
+                    if (notForUnselect) {
+                        fragment.listViewRoot.setVisibility(View.VISIBLE);
+                    }
+
+                    if (preference.dataWrapper.profileList.size() == 0) {
+                        fragment.listView.setVisibility(View.GONE);
+                        fragment.emptyList.setVisibility(View.VISIBLE);
+                    } else {
+                        fragment.emptyList.setVisibility(View.GONE);
+                        fragment.listView.setVisibility(View.VISIBLE);
+                    }
+
+                    fragment.profilePreferenceAdapter = new ProfileMultiSelectPreferenceAdapter(fragment, prefContext, preference.dataWrapper.profileList);
+                    fragment.listView.setAdapter(fragment.profilePreferenceAdapter);
+                });
             }
         }
 

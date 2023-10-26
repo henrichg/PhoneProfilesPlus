@@ -18,10 +18,11 @@
         android:checked="false"
         android:focusable="false" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/event_pref_dlg_item_reLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginBottom="8dp">
 
         <TextView
@@ -38,24 +39,23 @@
             android:id="@+id/event_pref_dlg_item_preferences_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/event_pref_dlg_item_event_name"
             android:layout_marginTop="5dp"
             android:textSize="14sp"
             android:scrollHorizontally="true"
             tools:ignore="SmallSp"/>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/event_pref_dlg_item_profile_profiles_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_below="@id/event_pref_dlg_item_preferences_description" >
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp" >
 
             <ImageView
                 android:id="@+id/event_pref_dlg_item_profile_start_icon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
                 android:contentDescription="@string/editor_event_list_item_profile_start_icon"
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
@@ -68,9 +68,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="2dp"
-                android:layout_toEndOf="@id/event_pref_dlg_item_profile_start_icon">
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="2dp">
 
                 <TextView
                     android:id="@+id/event_pref_dlg_item_profile_start_name"
@@ -98,20 +97,20 @@
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/event_pref_dlg_item_reLa2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_below="@id/event_pref_dlg_item_profile_profiles_root" >
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp" >
 
             <ImageView
                 android:id="@+id/event_pref_dlg_item_profile_end_icon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
                 android:contentDescription="@string/editor_event_list_item_profile_end_icon"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
@@ -124,9 +123,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="2dp"
-                android:layout_toEndOf="@id/event_pref_dlg_item_profile_end_icon">
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="2dp">
 
                 <TextView
                     android:id="@+id/event_pref_dlg_item_profile_end_name"
@@ -154,8 +152,8 @@
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

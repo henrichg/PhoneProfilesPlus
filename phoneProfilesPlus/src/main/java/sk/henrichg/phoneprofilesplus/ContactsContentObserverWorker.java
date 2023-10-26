@@ -22,6 +22,10 @@ public class ContactsContentObserverWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        if (PPApplication.blockContactContentObserver)
+            // observwer is blocked (for exmple by profile/event preferences activity)
+            return Result.success();
+
         try {
 //            long start = System.currentTimeMillis();
 //            PPApplicationStatic.logE("[IN_WORKER]  ContactsContentObserverWorker.doWork", "--------------- START");
@@ -29,12 +33,12 @@ public class ContactsContentObserverWorker extends Worker {
             Context appContext = context.getApplicationContext();
 
             // must be first
-            PPApplicationStatic.createContactsCache(appContext, true);
+            PPApplicationStatic.createContactsCache(appContext, false/*, true*//*, true*/);
             //must be seconds, this ads groups into contacts
-            PPApplicationStatic.createContactGroupsCache(appContext, true);
+            PPApplicationStatic.createContactGroupsCache(appContext, false/*, true*//*, true*/);
 
             EventsHandler eventsHandler = new EventsHandler(appContext);
-            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED);
+            eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED});
 
 //            long finish = System.currentTimeMillis();
 //            long timeElapsed = finish - start;

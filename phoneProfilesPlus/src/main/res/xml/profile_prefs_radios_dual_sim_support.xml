@@ -7,7 +7,7 @@
     <Preference
         app:key="prf_pref_deviceRadiosDualSIMSupportInfo"
         app:title="@string/profile_preferences_deviceDualSIMSupport_summary"
-        app:summary="@string/empty_string"
+        app:summary=""
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.DefaultSIMDialogPreference

@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.database.Cursor;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -35,12 +34,11 @@ public class RingtonePreference extends DialogPreference {
     //String oldRingtoneUri;
 
     final String ringtoneType;
-    private final boolean showSilent;
-    private final boolean showDefault;
-    private final int simCard;
+    final boolean showSilent;
+    final boolean showDefault;
+    final int simCard;
 
     final Map<String, String> toneList = new LinkedHashMap<>();
-    RefreshListViewAsyncTask asyncTask = null;
 
     private final Context prefContext;
 
@@ -49,6 +47,13 @@ public class RingtonePreference extends DialogPreference {
     private static volatile boolean oldMediaMuted = false;
     private static volatile Timer playTimer = null;
     private static volatile boolean ringtoneIsPlayed = false;
+
+    RingtonePreferenceRefreshListViewAsyncTask asyncTask = null;
+    private SetRingtoneAsyncTask setRingtoneAsyncTask = null;
+
+    static final String RINGTONE_TYPE_RINGTONE = "ringtone";
+    static final String RINGTONE_TYPE_NOTIFICATION = "notification";
+    static final String RINGTONE_TYPE_ALARM = "alarm";
 
     public RingtonePreference(Context context, AttributeSet attrs)
     {
@@ -67,13 +72,13 @@ public class RingtonePreference extends DialogPreference {
         if (!showSilent && showDefault) {
             if (ringtoneType != null) {
                 switch (ringtoneType) {
-                    case "ringtone":
+                    case RINGTONE_TYPE_RINGTONE:
                         ringtoneUri = Settings.System.DEFAULT_RINGTONE_URI.toString();
                         break;
-                    case "notification":
+                    case RINGTONE_TYPE_NOTIFICATION:
                         ringtoneUri = Settings.System.DEFAULT_NOTIFICATION_URI.toString();
                         break;
-                    case "alarm":
+                    case RINGTONE_TYPE_ALARM:
                         ringtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI.toString();
                         break;
                 }
@@ -90,7 +95,7 @@ public class RingtonePreference extends DialogPreference {
     {
         // set ringtone uri from preference value
         String value = getPersistedString((String) defaultValue);
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         ringtoneUri = splits[0];
         this.defaultValue = (String)defaultValue;
         setSummary("");
@@ -100,7 +105,7 @@ public class RingtonePreference extends DialogPreference {
     void refreshListView() {
         if ((fragment != null) && (fragment.getDialog() != null) && fragment.getDialog().isShowing()) {
             if (Permissions.checkRingtonePreference(prefContext)) {
-                asyncTask = new RefreshListViewAsyncTask(this, prefContext);
+                asyncTask = new RingtonePreferenceRefreshListViewAsyncTask(this, prefContext);
                 asyncTask.execute();
             }
         }
@@ -111,7 +116,8 @@ public class RingtonePreference extends DialogPreference {
         if (!onlySetName)
             ringtoneUri = newRingtoneUri;
 
-        new SetRingtoneAsyncTask(this, prefContext).execute();
+        setRingtoneAsyncTask = new SetRingtoneAsyncTask(this, prefContext);
+        setRingtoneAsyncTask.execute();
 
         if (!onlySetName) {
             //View positive =
@@ -161,7 +167,7 @@ public class RingtonePreference extends DialogPreference {
                         if (oldMediaVolume > -1)
                             ActivateProfileHelper.setMediaVolume(appContext, audioManager, oldMediaVolume, true, false);
                         if (oldMediaMuted) {
-                            EventPreferencesVolumes.internalChange = true;
+                            PPApplication.volumesInternalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                             PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
@@ -218,8 +224,8 @@ public class RingtonePreference extends DialogPreference {
                             mediaPlayer.setDataSource(appContext, _ringtoneUri);
                         }
 
-                        EventPreferencesVolumes.internalChange = true;
-                        RingerModeChangeReceiver.internalChange = true;
+                        PPApplication.volumesInternalChange = true;
+                        PPApplication.ringerModeInternalChange = true;
 
                         AudioAttributes attrs = new AudioAttributes.Builder()
                                 .setUsage(AudioAttributes.USAGE_MEDIA)
@@ -241,21 +247,21 @@ public class RingtonePreference extends DialogPreference {
                         int maximumRingtoneValue = 0;
 
                         switch (ringtoneType) {
-                            case "ringtone":
+                            case RINGTONE_TYPE_RINGTONE:
                                 maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
                                 if (!oldMediaMuted)
                                     ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
                                 else
                                     ringtoneVolume = Math.round(maximumRingtoneValue * 0.75f);
                                 break;
-                            case "notification":
+                            case RINGTONE_TYPE_NOTIFICATION:
                                 maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
                                 if (!oldMediaMuted)
                                     ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
                                 else
                                     ringtoneVolume = Math.round(maximumRingtoneValue * 0.75f);
                                 break;
-                            case "alarm":
+                            case RINGTONE_TYPE_ALARM:
                                 maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
                                 if (!oldMediaMuted)
                                     ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
@@ -270,7 +276,7 @@ public class RingtonePreference extends DialogPreference {
                         int mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
                         if (oldMediaMuted) {
-                            EventPreferencesVolumes.internalChange = true;
+                            PPApplication.volumesInternalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                         }
                         ActivateProfileHelper.setMediaVolume(appContext, audioManager, mediaVolume, true, false);
@@ -302,7 +308,7 @@ public class RingtonePreference extends DialogPreference {
                                         if (oldMediaVolume > -1)
                                             ActivateProfileHelper.setMediaVolume(appContext, audioManager, oldMediaVolume, true, false);
                                         if (oldMediaMuted) {
-                                            EventPreferencesVolumes.internalChange = true;
+                                            PPApplication.volumesInternalChange = true;
                                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         }
                                     }
@@ -310,7 +316,7 @@ public class RingtonePreference extends DialogPreference {
                                     ringtoneIsPlayed = false;
                                     mediaPlayer = null;
 
-                                    PPExecutors.scheduleDisableInternalChangeExecutor();
+                                    PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
                                     PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                                     /*PPApplication.startHandlerThreadInternalChangeToFalse();
@@ -336,7 +342,7 @@ public class RingtonePreference extends DialogPreference {
                             preference.stopPlayRingtone();
                         } catch (Exception ignored) {}
 
-                        PPExecutors.scheduleDisableInternalChangeExecutor();
+                        PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
                         PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                         /*PPApplication.startHandlerThreadInternalChangeToFalse();
@@ -377,7 +383,7 @@ public class RingtonePreference extends DialogPreference {
     void resetSummary() {
         if (!savedInstanceState) {
             String value = getPersistedString(defaultValue);
-            String[] splits = value.split("\\|");
+            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
             ringtoneUri = splits[0];
             setSummary("");
             setRingtone("", true);
@@ -421,6 +427,19 @@ public class RingtonePreference extends DialogPreference {
         setRingtone("", true);
     }
 
+    @Override
+    public void onDetached() {
+        super.onDetached();
+        if ((asyncTask != null) &&
+                asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            asyncTask.cancel(true);
+        asyncTask = null;
+        if ((setRingtoneAsyncTask != null) &&
+                setRingtoneAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            setRingtoneAsyncTask.cancel(true);
+        setRingtoneAsyncTask = null;
+    }
+
     // From DialogPreference
     private static class SavedState extends BaseSavedState {
 
@@ -460,7 +479,8 @@ public class RingtonePreference extends DialogPreference {
         }
     }
 
-    static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
+/*
+    private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         //Ringtone defaultRingtone;
         private final Map<String, String> _toneList = new LinkedHashMap<>();
@@ -474,26 +494,6 @@ public class RingtonePreference extends DialogPreference {
             this.prefContextWeakRef = new WeakReference<>(prefContext);
         }
 
-        /*
-        @Override
-        protected void onPreExecute()
-        {
-            super.onPreExecute();
-
-            RingtonePreference preference = preferenceWeakRef.get();
-            if (preference != null) {
-                if (preference.toneList.size() > 0) {
-                    if (preference.fragment != null)
-                        preference.fragment.hideProgress();
-                }
-            }
-
-            //RingtonePreference preference = preferenceWeakRef.get();
-            //if ((preference != null) && (preference.fragment != null))
-            //    preference.fragment.showProgress();
-        }
-        */
-
         @Override
         protected Void doInBackground(Void... params) {
             RingtonePreference preference = preferenceWeakRef.get();
@@ -503,19 +503,19 @@ public class RingtonePreference extends DialogPreference {
                 RingtoneManager manager = new RingtoneManager(prefContext);
 
                 Uri uri;// = null;
-                        /*switch (ringtoneType) {
-                            case "ringtone":
-                                uri = Settings.System.DEFAULT_RINGTONE_URI;
-                                break;
-                            case "notification":
-                                uri = Settings.System.DEFAULT_NOTIFICATION_URI;
-                                break;
-                            case "alarm":
-                                uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
-                                break;
-                        }
+                //switch (ringtoneType) {
+                //    case "ringtone":
+                //        uri = Settings.System.DEFAULT_RINGTONE_URI;
+                //        break;
+                //    case "notification":
+                //        uri = Settings.System.DEFAULT_NOTIFICATION_URI;
+                //        break;
+                //    case "alarm":
+                //        uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+                //        break;
+                //}
 
-                        defaultRingtone = RingtoneManager.getRingtone(prefContext, uri);*/
+                //defaultRingtone = RingtoneManager.getRingtone(prefContext, uri);
 
                 if (preference.showSilent) {
                     _toneList.put("", prefContext.getString(R.string.ringtone_preference_none));
@@ -576,11 +576,9 @@ public class RingtonePreference extends DialogPreference {
                     try {
                         Cursor cursor = manager.getCursor();
 
-                                /*
-                                profile._soundRingtone=content://settings/system/ringtone
-                                profile._soundNotification=content://settings/system/notification_sound
-                                profile._soundAlarm=content://settings/system/alarm_alert
-                                */
+                        //profile._soundRingtone=content://settings/system/ringtone
+                        //profile._soundNotification=content://settings/system/notification_sound
+                        //profile._soundAlarm=content://settings/system/alarm_alert
 
                         while (cursor.moveToNext()) {
                             String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
@@ -618,12 +616,12 @@ public class RingtonePreference extends DialogPreference {
                 preference.toneList.clear();
                 preference.toneList.putAll(_toneList);
 
-                        /*if (defaultRingtone == null) {
-                            // ringtone not found
-                            //View positive = getButton(DialogInterface.BUTTON_POSITIVE);
-                            //positive.setEnabled(false);
-                            setPositiveButtonText(null);
-                        }*/
+                //if (defaultRingtone == null) {
+                //    // ringtone not found
+                //    //View positive = getButton(DialogInterface.BUTTON_POSITIVE);
+                //    //positive.setEnabled(false);
+                //    setPositiveButtonText(null);
+                //}
 
                 if (preference.fragment != null)
                     preference.fragment.updateListView(true);
@@ -631,6 +629,7 @@ public class RingtonePreference extends DialogPreference {
         }
 
     }
+*/
 
     private static class SetRingtoneAsyncTask extends AsyncTask<Void, Integer, Void> {
 

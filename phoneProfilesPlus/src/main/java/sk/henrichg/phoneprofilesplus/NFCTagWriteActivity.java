@@ -21,12 +21,12 @@ public class NFCTagWriteActivity extends AppCompatActivity {
 
     private TextView writableTextView;
 
-    public static final String EXTRA_TAG_NAME = "tag_name";
-    public static final String EXTRA_TAG_DB_ID = "tag_db_id";
+    static final String EXTRA_TAG_NAME = "tag_name";
+    static final String EXTRA_TAG_DB_ID = "tag_db_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -59,7 +59,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             nfcManager.onActivityCreate();
 
             writableTextView = findViewById(R.id.write_nfc_tag_writable);
-            writableTextView.setText(R.string.empty_string);
+            writableTextView.setText("");
 
             nfcManager.setOnTagReadListener(tagData -> {
 //                    PPApplicationStatic.logE("[IN_LISTENER] NFCTagWriteActivity.onTagRead", "xxx");
@@ -77,7 +77,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                     if (nfcManager.tagIsWritable)
                         writableTextView.setText(R.string.nfc_tag_pref_dlg_writeToNfcTag_writable);
                     else {
-                        writableTextView.setTextColor(ContextCompat.getColor(this, R.color.altype_error));
+                        writableTextView.setTextColor(ContextCompat.getColor(this, R.color.error_color));
                         writableTextView.setText(R.string.nfc_tag_pref_dlg_writeToNfcTag_not_writable);
                     }
                 }
@@ -102,7 +102,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
 //                    PPApplicationStatic.logE("[IN_LISTENER] NFCTagWriteActivity.onTagWriteError", "xxx");
 
                 String text = getString(R.string.write_nfc_tag_error);
-                text = text + ": " + exception.getType().toString();
+                text = text + StringConstants.STR_COLON_WITH_SPACE + exception.getType().toString();
                 if (nfcManager.tagRead) {
                     if (nfcManager.tagIsWritable)
                         text = text + " (" + getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_writable) + ")";
@@ -110,7 +110,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                         text = text + " (" + getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_not_writable) + ")";
                     }
                 }
-                writableTextView.setTextColor(ContextCompat.getColor(this, R.color.altype_error));
+                writableTextView.setTextColor(ContextCompat.getColor(this, R.color.error_color));
                 writableTextView.setText(text);
                 //ToastCompat.makeText(getApplicationContext(), exception.getType().toString(), Toast.LENGTH_LONG).show();
                 //ToastCompat.makeText(getApplicationContext().this, R.string.write_nfc_tag_error, Toast.LENGTH_LONG).show();

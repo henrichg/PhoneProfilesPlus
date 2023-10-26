@@ -2,12 +2,93 @@ package sk.henrichg.phoneprofilesplus;
 
 class BrightnessLookup {
 
+/*
+    // https://stackoverflow.com/questions/73220966/how-to-get-the-brightness-percentage-in-android
+
+    static final int GAMMA_SPACE_MIN = 0;
+    static final int GAMMA_SPACE_MAX = 65535;
+
+    // Hybrid Log Gamma constant values
+    private static final float R = 0.5f;
+    private static final float A = 0.17883277f;
+    private static final float B = 0.28466892f;
+    private static final float C = 0.55991073f;
+
+    static int convertLinearToGammaFloat(float val, float min, float max) {
+        // For some reason, HLG normalizes to the range [0, 12] rather than [0, 1]
+        final float normalizedVal = PPMathUtils.norm(min, max, val) * 12;
+        float ret;
+        if (normalizedVal <= 1f) {
+            ret = PPMathUtils.sqrt(normalizedVal) * R;
+        } else {
+            ret = A * PPMathUtils.log(normalizedVal - B) + C;
+        }
+
+        ret = PPMathUtils.lerp(GAMMA_SPACE_MIN, GAMMA_SPACE_MAX, ret);
+        //ret = ret / GAMMA_SPACE_MAX * max;
+        //ret = ret * max;
+
+        int iret = Math.round(ret);
+
+        return iret;
+    }
+
+    static double getPercentage(double value, int min, int max) {
+        if (value > max) {
+            return 1.0;
+        }
+        if (value < min) {
+            return 0.0;
+        }
+        return (value - min) / (max - min);
+    }
+
+    static int convertGammaToLinear(int val, int min, int max) {
+        final float normalizedVal = PPMathUtils.norm(GAMMA_SPACE_MIN, GAMMA_SPACE_MAX, val);
+        final float ret;
+        if (normalizedVal <= R) {
+            ret = PPMathUtils.sq(normalizedVal / R);
+        } else {
+            ret = PPMathUtils.exp((normalizedVal - C) / A) + B;
+        }
+
+        // HLG is normalized to the range [0, 12], so we need to re-normalize to the range [0, 1]
+        // in order to derive the correct setting value.
+        return Math.round(PPMathUtils.lerp(min, max, ret / 12));
+    }
+
+    static float convertGammaToLinearFloat(float val, float min, float max) {
+        final float normalizedVal = PPMathUtils.norm(GAMMA_SPACE_MIN, GAMMA_SPACE_MAX, val);
+        Log.e("BrightnessLookup.convertLinearToGammaFloat", "normalizedVal="+normalizedVal);
+        final float ret;
+        if (normalizedVal <= R) {
+            ret = PPMathUtils.sq(normalizedVal / R);
+        } else {
+            ret = PPMathUtils.exp((normalizedVal - C) / A) + B;
+        }
+        Log.e("BrightnessLookup.convertLinearToGammaFloat", "ret="+ret);
+
+        // HLG is normalized to the range [0, 12], ensure that value is within that range,
+        // it shouldn't be out of bounds.
+        final float normalizedRet = PPMathUtils.constrain(ret, 0, 12);
+        Log.e("BrightnessLookup.convertLinearToGammaFloat", "normalizedRet="+normalizedRet);
+
+        // Re-normalize to the range [0, 1]
+        // in order to derive the correct setting value.
+        return PPMathUtils.lerp(min, max, normalizedRet / 12);
+    }
+*/
+
+    //https://tunjid.medium.com/reverse-engineering-android-pies-logarithmic-brightness-curve-ecd41739d7a2
+
     private static final int FLICKER_THRESHOLD = 24;
 
     static int lookup(int query, boolean isByte) {
+        int[][] _table = (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ? tableXiaomi : table;
+
         int low = 0;
         int mid = 0;
-        int high = table.length - 1;
+        int high = _table.length - 1;
         boolean increasing = true;
 
         // No direct mapping for bytes, just crawl for the lower values
@@ -15,7 +96,7 @@ class BrightnessLookup {
 
         while (low <= high) {
             mid = (low + high) / 2;
-            int key = table[mid][isByte ? 0 : 1];
+            int key = _table[mid][isByte ? 0 : 1];
             int diff = query - key;
             increasing = diff > 0;
 
@@ -28,13 +109,15 @@ class BrightnessLookup {
     }
 
     private static int crawl(int query, int index, boolean isByte, boolean increasing) {
+        int[][] _table = (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ? tableXiaomi : table;
+
         int i = index;
-        int num = table.length;
+        int num = _table.length;
         int key = isByte ? 0 : 1;
         int value = isByte ? 1 : 0;
 
-        if (increasing) { for (; i < num; i++) if (table[i][key] >= query) return table[i][value]; }
-        else for (; i >= 0; i--) if (table[i][key] <= query) return table[i][value];
+        if (increasing) { for (; i < num; i++) if (_table[i][key] >= query) return _table[i][value]; }
+        else for (; i >= 0; i--) if (_table[i][key] <= query) return _table[i][value];
 
         return 0;
     }
@@ -261,4 +344,224 @@ class BrightnessLookup {
             {254, 100},
             {255, 100}
     };
+
+    private static final int[][] tableXiaomi = {
+            {0, 0},
+            {1, 1},
+            {2, 2},
+            {3, 3},
+            {4, 4},
+            {5, 5},
+            {6, 6},
+            {7, 7},
+            {8, 8},
+            {9, 9},
+            {10, 10},
+            {11, 11},
+            {12, 12},
+            {13, 13},
+            {14, 14},
+            {15, 15},
+            {16, 16},
+            {17, 17},
+            {18, 18},
+            {19, 19},
+            {20, 20},
+            {21, 21},
+            {22, 22},
+            {23, 23},
+            {24, 24},
+            {25, 25},
+            {26, 26},
+            {27, 27},
+            {28, 28},
+            {29, 29},
+            {30, 30},
+            {31, 31},
+            {32, 32},
+            {33, 33},
+            {34, 34},
+            {35, 35},
+            {36, 36},
+            {37, 37},
+            {38, 38},
+            {39, 39},
+            {40, 40},
+            {41, 41},
+            {42, 42},
+            {43, 43},
+            {44, 44},
+            {45, 44},
+            {46, 45},
+            {47, 45},
+            {48, 46},
+            {49, 46},
+            {50, 47},
+            {51, 47},
+            {52, 48},
+            {53, 48},
+            {54, 49},
+            {55, 50},
+            {57, 51},
+            {58, 52},
+            {60, 53},
+            {61, 54},
+            {63, 55},
+            {64, 56},
+            {65, 57},
+            {66, 58},
+            {67, 59},
+            {70, 60},
+            {71, 61},
+            {73, 62},
+            {76, 63},
+            {79, 64},
+            {80, 65},
+            {81, 66},
+            {84, 67},
+            {86, 68},
+            {89, 69},
+            {90, 70},
+            {92, 71},
+            {94, 72},
+            {96, 73},
+            {98, 74},
+            {100, 75},
+            {104, 75},
+            {107, 76},
+            {109, 76},
+            {112, 76},
+            {114, 77},
+            {150, 77},
+            {119, 77},
+            {122, 77},
+            {124, 78},
+            {127, 78},
+            {130, 78},
+            {132, 78},
+            {133, 78},
+            {134, 79},
+            {135, 79},
+            {136, 79},
+            {137, 79},
+            {138, 80},
+            {139, 80},
+            {140, 80},
+            {141, 80},
+            {142, 80},
+            {143, 81},
+            {144, 81},
+            {145, 81},
+            {146, 81},
+            {147, 82},
+            {148, 82},
+            {149, 82},
+            {150, 82},
+            {151, 82},
+            {152, 83},
+            {153, 83},
+            {154, 83},
+            {155, 83},
+            {156, 83},
+            {157, 84},
+            {158, 84},
+            {159, 84},
+            {160, 84},
+            {161, 84},
+            {162, 84},
+            {163, 85},
+            {164, 85},
+            {165, 85},
+            {166, 85},
+            {167, 85},
+            {168, 85},
+            {169, 86},
+            {170, 86},
+            {171, 86},
+            {172, 86},
+            {173, 87},
+            {174, 87},
+            {175, 87},
+            {176, 87},
+            {177, 88},
+            {178, 88},
+            {179, 88},
+            {180, 88},
+            {181, 88},
+            {182, 89},
+            {183, 89},
+            {184, 89},
+            {185, 89},
+            {186, 90},
+            {187, 90},
+            {188, 90},
+            {189, 90},
+            {190, 90},
+            {191, 91},
+            {192, 91},
+            {193, 91},
+            {194, 91},
+            {195, 91},
+            {196, 92},
+            {197, 92},
+            {198, 92},
+            {199, 92},
+            {200, 92},
+            {201, 93},
+            {202, 93},
+            {203, 93},
+            {204, 93},
+            {205, 94},
+            {206, 94},
+            {207, 94},
+            {208, 94},
+            {209, 94},
+            {210, 95},
+            {211, 95},
+            {212, 95},
+            {213, 95},
+            {214, 95},
+            {215, 95},
+            {216, 96},
+            {217, 96},
+            {218, 96},
+            {219, 96},
+            {220, 96},
+            {221, 96},
+            {222, 96},
+            {223, 97},
+            {224, 97},
+            {225, 97},
+            {226, 97},
+            {227, 97},
+            {228, 97},
+            {229, 97},
+            {230, 97},
+            {231, 98},
+            {232, 98},
+            {233, 98},
+            {234, 98},
+            {235, 98},
+            {236, 98},
+            {237, 98},
+            {238, 98},
+            {239, 98},
+            {240, 98},
+            {241, 98},
+            {242, 99},
+            {243, 99},
+            {244, 99},
+            {245, 99},
+            {246, 99},
+            {247, 99},
+            {248, 99},
+            {249, 99},
+            {250, 99},
+            {251, 99},
+            {252, 99},
+            {253, 99},
+            {254, 100},
+            {255, 100}
+    };
+
 }

@@ -21,6 +21,8 @@ public class LockDeviceActivity extends AppCompatActivity
     private View view = null;
     private boolean displayed = false;
 
+    static final String ACTION_FINISH_LOCK_DEVICE_ACTIVITY_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver";
+
     static private class FinishActivityBroadcastReceiver extends BroadcastReceiver {
 
         private final FinishLockDeviceActivityListener listener;
@@ -34,7 +36,7 @@ public class LockDeviceActivity extends AppCompatActivity
             listener.finishActivityFromListener();
         }
     }
-    private LockDeviceActivity.FinishActivityBroadcastReceiver finishActivityBroadcastReceiver;
+    private FinishActivityBroadcastReceiver finishActivityBroadcastReceiver;
 
     @SuppressLint({"WrongConstant", "InflateParams"})
     @Override
@@ -45,15 +47,14 @@ public class LockDeviceActivity extends AppCompatActivity
 //        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] LockDeviceActivity.onCreate", "xxx");
 
         boolean canWriteSettings;// = true;
-        //if (android.os.Build.VERSION.SDK_INT >= 23)
-            canWriteSettings = Settings.System.canWrite(getApplicationContext());
+        canWriteSettings = Settings.System.canWrite(getApplicationContext());
 
         if (/*(PhoneProfilesService.getInstance() != null) &&*/ canWriteSettings) {
             //PPApplication.lockDeviceActivity = this;
 
             finishActivityBroadcastReceiver = new LockDeviceActivity.FinishActivityBroadcastReceiver(this);
             LocalBroadcastManager.getInstance(this).registerReceiver(finishActivityBroadcastReceiver,
-                        new IntentFilter(PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver"));
+                        new IntentFilter(ACTION_FINISH_LOCK_DEVICE_ACTIVITY_BROADCAST_RECEIVER));
             //finishActivityBroadcastReceiver = new LockDeviceActivity.FinishActivityBroadcastReceiver(this);
             //registerReceiver(finishActivityBroadcastReceiver, new IntentFilter(
             //        PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver"));
@@ -74,10 +75,7 @@ public class LockDeviceActivity extends AppCompatActivity
 
             WindowManager.LayoutParams params = new WindowManager.LayoutParams();
             params.flags = 1808;
-            //if (android.os.Build.VERSION.SDK_INT < 26)
-            //    params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
-            //else
-                params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+            params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             params.gravity = Gravity.TOP;
             params.width = -1;
             params.height = -1;
@@ -208,8 +206,7 @@ public class LockDeviceActivity extends AppCompatActivity
 
         if (finishActivityBroadcastReceiver != null) {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(finishActivityBroadcastReceiver);
-            //unregisterReceiver(finishActivityBroadcastReceiver);
-            //finishActivityBroadcastReceiver = null;
+            finishActivityBroadcastReceiver = null;
         }
     }
 

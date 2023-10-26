@@ -6,7 +6,7 @@ import android.content.Intent;
 
 public class KeepScreenOnNotificationDeletedReceiver extends BroadcastReceiver {
 
-    static final String KEEP_SCREEN_ON_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".KeepScreenOnNotificationDeletedReceiver.ACTION_DELETED";
+    static final String ACTION_KEEP_SCREEN_ON_NOTIFICATION_DELETED = PPApplication.PACKAGE_NAME + ".KeepScreenOnNotificationDeletedReceiver.ACTION_DELETED";
 
     @Override
     public void onReceive(Context context, Intent intent) {

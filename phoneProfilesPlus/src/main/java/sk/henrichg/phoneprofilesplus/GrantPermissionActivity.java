@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,8 +31,8 @@ import java.util.List;
 public class GrantPermissionActivity extends AppCompatActivity {
 
     private int grantType;
-    private ArrayList<Permissions.PermissionType> permissions;
-    static private volatile ArrayList<Permissions.PermissionType> permissionsForRecheck;
+    private ArrayList<PermissionType> permissions;
+    static private volatile ArrayList<PermissionType> permissionsForRecheck;
     private boolean mergedProfile;
     private boolean forceGrant;
     //private boolean mergedNotification;
@@ -88,6 +89,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     //static final String NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".GrantPermissionActivity.PERMISSIONS_NOTIFICATION_DELETED";
 
+    private static final String BUNDLE_STARTED = "started";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +134,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         restoredInstanceState = savedInstanceState != null;
         if (restoredInstanceState) {
-            started = savedInstanceState.getBoolean("started", false);
+            started = savedInstanceState.getBoolean(BUNDLE_STARTED, false);
         }
 
         if (!started && onlyNotification) {
@@ -251,22 +254,19 @@ public class GrantPermissionActivity extends AppCompatActivity {
         GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
-    /*
     @Override
     protected void onDestroy()
     {
         super.onDestroy();
-
-        if ((geofenceEditorAsyncTask != null) && geofenceEditorAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
-            geofenceEditorAsyncTask.cancel(true);
-        }
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
+        dataWrapper = null;
     }
-    */
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putBoolean("started", started);
+        savedInstanceState.putBoolean(BUNDLE_STARTED, started);
     }
 
     private boolean canShowRationale(Context context, boolean forceGrant) {
@@ -287,7 +287,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (permissions != null) {
             whyPermissionType = new boolean[20][100];
 
-            for (Permissions.PermissionType permissionType : permissions) {
+            for (PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                     showRequestWriteSettings = Permissions.getShowRequestWriteSettingsPermission(context) || forceGrant;
                     whyPermissionType[0][permissionType.type] = true;
@@ -371,48 +371,49 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showNotification(context);
             }
             else {*/
-            String showRequestString;
+            StringBuilder _showRequestValue = new StringBuilder();
 
             /*if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE)
                 showRequestString = context.getString(R.string.permissions_for_install_tone_text1) + "<br><br>";
             else*/ if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION)
-                showRequestString = context.getString(R.string.permissions_for_play_ringtone_notification_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_play_ringtone_notification_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER)
-                showRequestString = context.getString(R.string.permissions_for_wallpaper_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_wallpaper_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_WALLPAPER_FOLDER)
-                showRequestString = context.getString(R.string.permissions_for_wallpaper_folder_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_wallpaper_folder_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON)
-                showRequestString = context.getString(R.string.permissions_for_custom_profile_icon_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_custom_profile_icon_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_EXPORT)
-                showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_export_app_data_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL)
-                showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_export_app_data_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_IMPORT)
-                showRequestString = context.getString(R.string.permissions_for_import_app_data_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_import_app_data_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_SHARED_IMPORT)
-                showRequestString = context.getString(R.string.permissions_for_import_app_data_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_import_app_data_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG)
-                showRequestString = context.getString(R.string.permissions_for_wifi_bt_scan_dialog_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_wifi_bt_scan_dialog_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG)
-                showRequestString = context.getString(R.string.permissions_for_calendar_dialog_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_calendar_dialog_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_CONTACT_DIALOG)
-                showRequestString = context.getString(R.string.permissions_for_contacts_dialog_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_contacts_dialog_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY)
-                showRequestString = context.getString(R.string.permissions_for_location_geofence_editor_activity_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_location_geofence_editor_activity_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG)
-                showRequestString = context.getString(R.string.permissions_for_brightness_dialog_text1) + "<br><br>";
-            else if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG)
-                showRequestString = context.getString(R.string.permissions_for_mobile_cells_scan_dialog_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_brightness_dialog_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
+            else if ((grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG) ||
+                     (grantType == Permissions.GRANT_TYPE_MOBILE_CELL_NAMES_SCAN_DIALOG))
+                _showRequestValue.append(context.getString(R.string.permissions_for_mobile_cells_scan_dialog_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG)
-                showRequestString = context.getString(R.string.permissions_for_mobile_cells_registration_dialog_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_mobile_cells_registration_dialog_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             //else if (grantType == Permissions.GRANT_TYPE_LOG_TO_FILE)
             //    showRequestString = context.getString(R.string.permissions_for_log_to_file_text1) + "<br><br>";
             else if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR)
-                showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_export_app_data_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_CONNECT_TO_SSID_DIALOG)
-                showRequestString = context.getString(R.string.permissions_for_connect_to_ssid_dialog_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_connect_to_ssid_dialog_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_BACKGROUND_LOCATION)
-                showRequestString = context.getString(R.string.permissions_for_background_location_text1) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_background_location_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else
             if (grantType == Permissions.GRANT_TYPE_EVENT){
                     /*if (mergedNotification) {
@@ -420,92 +421,92 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         showRequestString = showRequestString + context.getString(R.string.permissions_for_event_text2) + "<br><br>";
                     }
                     else {*/
-                showRequestString = context.getString(R.string.permissions_for_event_text1) + " ";
+                _showRequestValue.append(context.getString(R.string.permissions_for_event_text1)).append(" ");
                 if (event != null)
-                    showRequestString = showRequestString + "\"" + event._name + "\" ";
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_event_text2) + "<br><br>";
+                    _showRequestValue.append("\"").append(event._name).append("\" ");
+                _showRequestValue.append(context.getString(R.string.permissions_for_event_text2)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
                 //}
             }
             else {
                 if (mergedProfile/* || mergedNotification*/) {
-                    showRequestString = context.getString(R.string.permissions_for_profile_text1m) + " ";
+                    _showRequestValue.append(context.getString(R.string.permissions_for_profile_text1m)).append(" ");
                 }
                 else {
-                    showRequestString = context.getString(R.string.permissions_for_profile_text1) + " ";
+                    _showRequestValue.append(context.getString(R.string.permissions_for_profile_text1)).append(" ");
                     if (profile != null)
-                        showRequestString = showRequestString + "\"" + profile._name + "\" ";
+                        _showRequestValue.append("\"").append(profile._name).append("\" ");
                 }
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
+                _showRequestValue.append(context.getString(R.string.permissions_for_profile_text2)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             }
 
-            String whyString = "";
+            StringBuilder _whyValue = new StringBuilder();
             if (showRequestWriteSettings) {
-                whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_write_settings) + "</b>";
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_START_HTML);
+                _whyValue.append(StringConstants.TAG_BOLD_START_HTML).append(context.getString(R.string.permission_group_name_write_settings)).append(StringConstants.TAG_BOLD_END_HTML);
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[0]);
                 //if (whyPermissionString != null)
-                    whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                _whyValue.append(whyPermissionString);
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_END_HTML);
             }
             if (showRequestReadExternalStorage || showRequestWriteExternalStorage) {
-                whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_storage) + "</b>";
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_START_HTML);
+                _whyValue.append(StringConstants.TAG_BOLD_START_HTML).append(context.getString(R.string.permission_group_name_storage)).append(StringConstants.TAG_BOLD_END_HTML);
                 boolean[] permissionTypes = new boolean[100];
                 for (int i = 0; i < 100; i++) {
                     permissionTypes[i] = whyPermissionType[3][i] || whyPermissionType[6][i];
                 }
                 String whyPermissionString = getWhyPermissionString(permissionTypes);
                 //if (whyPermissionString != null)
-                    whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                _whyValue.append(whyPermissionString);
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_END_HTML);
             }
             if (showRequestReadPhoneState) {
-                whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_phone) + "</b>";
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_START_HTML);
+                _whyValue.append(StringConstants.TAG_BOLD_START_HTML).append(context.getString(R.string.permission_group_name_phone)).append(StringConstants.TAG_BOLD_END_HTML);
                 boolean[] permissionTypes = new boolean[100];
                 for (int i = 0; i < 100; i++) {
                     permissionTypes[i] = whyPermissionType[4][i] || whyPermissionType[5][i];
                 }
                 String whyPermissionString = getWhyPermissionString(permissionTypes);
                 //if (whyPermissionString != null)
-                    whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                _whyValue.append(whyPermissionString);
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_END_HTML);
             }
             if (showRequestReadCalendar) {
-                whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_calendar) + "</b>";
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_START_HTML);
+                _whyValue.append(StringConstants.TAG_BOLD_START_HTML).append(context.getString(R.string.permission_group_name_calendar)).append(StringConstants.TAG_BOLD_END_HTML);
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[7]);
                 //if (whyPermissionString != null)
-                    whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                _whyValue.append(whyPermissionString);
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_END_HTML);
             }
             if (showRequestReadContacts) {
-                whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_contacts) + "</b>";
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_START_HTML);
+                _whyValue.append(StringConstants.TAG_BOLD_START_HTML).append(context.getString(R.string.permission_group_name_contacts)).append(StringConstants.TAG_BOLD_END_HTML);
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[8]);
                 //if (whyPermissionString != null)
-                    whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                _whyValue.append(whyPermissionString);
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_END_HTML);
             }
             if (showRequestAccessCoarseLocation || showRequestAccessFineLocation /*|| showRequestAccessBackgroundLocation*/) {
-                whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_location) + "</b>";
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_START_HTML);
+                _whyValue.append(StringConstants.TAG_BOLD_START_HTML).append(context.getString(R.string.permission_group_name_location)).append(StringConstants.TAG_BOLD_END_HTML);
                 boolean[] permissionTypes = new boolean[100];
                 for (int i = 0; i < 100; i++) {
                     permissionTypes[i] = whyPermissionType[12][i] || whyPermissionType[13][i] /*|| whyPermissionType[14][i]*/;
                 }
                 String whyPermissionString = getWhyPermissionString(permissionTypes);
                 //if (whyPermissionString != null)
-                    whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                _whyValue.append(whyPermissionString);
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_END_HTML);
             }
             if (showRequestAccessBackgroundLocation) {
-                whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_background_location) + "</b>";
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_START_HTML);
+                _whyValue.append(StringConstants.TAG_BOLD_START_HTML).append(context.getString(R.string.permission_group_name_background_location)).append(StringConstants.TAG_BOLD_END_HTML);
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[14]);
                 //if (whyPermissionString != null)
-                    whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                _whyValue.append(whyPermissionString);
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_END_HTML);
             }
             /*if (showRequestAccessNotificationPolicy) {
                 whyString = whyString + "<li>";
@@ -516,113 +517,86 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 whyString = whyString + "</li>";
             }*/
             if (showRequestDrawOverlays) {
-                whyString = whyString + "<li>";
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_START_HTML);
                 if (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
-                    whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_draw_overlays) + "</b>";
+                    _whyValue.append(StringConstants.TAG_BOLD_START_HTML).append(context.getString(R.string.permission_group_name_draw_overlays)).append(StringConstants.TAG_BOLD_END_HTML);
                 else
-                    whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_draw_overlays_miui) + "</b>";
+                    _whyValue.append(StringConstants.TAG_BOLD_START_HTML).append(context.getString(R.string.permission_group_name_draw_overlays_miui)).append(StringConstants.TAG_BOLD_END_HTML);
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[2]);
                 //if (whyPermissionString != null)
-                    whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                _whyValue.append(whyPermissionString);
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_END_HTML);
             }
             if (showRequestCamera) {
-                whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_camera) + "</b>";
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_START_HTML);
+                _whyValue.append(StringConstants.TAG_BOLD_START_HTML).append(context.getString(R.string.permission_group_name_camera)).append(StringConstants.TAG_BOLD_END_HTML);
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[15]);
                 //if (whyPermissionString != null)
-                whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                _whyValue.append(whyPermissionString);
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_END_HTML);
             }
             if (showRequestMicrophone) {
-                whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_microphone) + "</b>";
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_START_HTML);
+                _whyValue.append(StringConstants.TAG_BOLD_START_HTML).append(context.getString(R.string.permission_group_name_microphone)).append(StringConstants.TAG_BOLD_END_HTML);
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[16]);
                 //if (whyPermissionString != null)
-                whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                _whyValue.append(whyPermissionString);
+                _whyValue.append(StringConstants.TAG_LIST_ITEM_END_HTML);
             }
-            if (!whyString.isEmpty())
-                showRequestString = "<ul>" + whyString + "</ul>";
 
-            showRequestString = showRequestString + "<br>";
+            if (_whyValue.length() > 0) {
+                _showRequestValue.append(StringConstants.TAG_LIST_START_HTML).append(_whyValue).append(StringConstants.TAG_LIST_END_HTML);
+            }
+
+            _showRequestValue.append(StringConstants.TAG_BREAK_HTML);
 
             /*if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_install_tone_text2);
             else*/ if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_play_ringtone_notification_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_play_ringtone_notification_text2));
             else if (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_wallpaper_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_wallpaper_text2));
             else if (grantType == Permissions.GRANT_TYPE_WALLPAPER_FOLDER)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_wallpaper_folder_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_wallpaper_folder_text2));
             else if (grantType == Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_custom_profile_icon_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_custom_profile_icon_text2));
             else if (grantType == Permissions.GRANT_TYPE_EXPORT)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_export_app_data_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_export_app_data_text2));
             else if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_export_app_data_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_export_app_data_text2));
             else if (grantType == Permissions.GRANT_TYPE_IMPORT)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_import_app_data_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_import_app_data_text2));
             else if (grantType == Permissions.GRANT_TYPE_SHARED_IMPORT)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_import_app_data_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_import_app_data_text2));
             else if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_wifi_bt_scan_dialog_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_wifi_bt_scan_dialog_text2));
             else if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_calendar_dialog_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_calendar_dialog_text2));
             else if (grantType == Permissions.GRANT_TYPE_CONTACT_DIALOG)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_contacts_dialog_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_contacts_dialog_text2));
             else if (grantType == Permissions.GRANT_TYPE_EVENT)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_event_text3);
+                _showRequestValue.append(context.getString(R.string.permissions_for_event_text3));
             else if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_location_geofence_editor_activity_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_location_geofence_editor_activity_text2));
             else if (grantType == Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_brightness_dialog_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_brightness_dialog_text2));
             //else if (grantType == Permissions.GRANT_TYPE_LOG_TO_FILE)
             //    showRequestString = showRequestString + context.getString(R.string.permissions_for_log_to_file_text2);
             else if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_export_app_data_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_export_app_data_text2));
             else if (grantType == Permissions.GRANT_TYPE_CONNECT_TO_SSID_DIALOG)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_connect_to_ssid_dialog_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_connect_to_ssid_dialog_text2));
             else if (grantType == Permissions.GRANT_TYPE_BACKGROUND_LOCATION)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_background_location_text2);
+                _showRequestValue.append(context.getString(R.string.permissions_for_background_location_text2));
             else
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text3);
+                _showRequestValue.append(context.getString(R.string.permissions_for_profile_text3));
 
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false, false);
+            GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
-            /*
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.permissions_alert_title);
-            dialogBuilder.setMessage(StringFormatUtils.fromHtml(showRequestString, true, false, 0, 0));
-            dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                int iteration = 4;
-                if (showRequestWriteSettings)
-                    iteration = 1;
-                //else if (showRequestAccessNotificationPolicy)
-                //    iteration = 2;
-                else if (showRequestDrawOverlays)
-                    iteration = 3;
-                requestPermissions(iteration, canShowRationale(context, false));
-            });
-            dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> finish());
-            dialogBuilder.setOnCancelListener(dialog -> finish());
-            AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
-            */
-
             PPAlertDialog dialog = new PPAlertDialog(getString(R.string.permissions_alert_title),
-                    StringFormatUtils.fromHtml(showRequestString, true, false, false, 0, 0, true),
+                    StringFormatUtils.fromHtml(_showRequestValue.toString(), true, false, false, 0, 0, true),
                     getString(android.R.string.ok), getString(android.R.string.cancel), null, null,
                     (dialog1, which) -> {
                         int iteration = 4;
@@ -654,7 +628,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             showRequestDrawOverlays = false;
 
             if (permissions != null) {
-                for (Permissions.PermissionType permissionType : permissions) {
+                for (PermissionType permissionType : permissions) {
                     if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                         showRequestWriteSettings = true;
                     }
@@ -686,162 +660,162 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 switch (permissionType) {
                     //case Permissions.PERMISSION_PROFILE_VOLUME_PREFERENCES:
                     //    break;
-                    case Permissions.PERMISSION_PROFILE_VIBRATION_ON_TOUCH:
+                    case Permissions.PERMISSION_TYPE_PROFILE_VIBRATION_ON_TOUCH:
                         s = getString(R.string.permission_why_profile_vibration_on_touch);
                         break;
-                    case Permissions.PERMISSION_PROFILE_RINGTONES:
+                    case Permissions.PERMISSION_TYPE_PROFILE_RINGTONES:
                         s = getString(R.string.permission_why_profile_ringtones);
                         break;
-                    case Permissions.PERMISSION_PROFILE_SCREEN_TIMEOUT:
+                    case Permissions.PERMISSION_TYPE_PROFILE_SCREEN_TIMEOUT:
                         s = getString(R.string.permission_why_profile_screen_timeout);
                         break;
-                    case Permissions.PERMISSION_PROFILE_SCREEN_BRIGHTNESS:
+                    case Permissions.PERMISSION_TYPE_PROFILE_SCREEN_BRIGHTNESS:
                         s = getString(R.string.permission_why_profile_screen_brightness);
                         break;
-                    case Permissions.PERMISSION_PROFILE_AUTOROTATION:
+                    case Permissions.PERMISSION_TYPE_PROFILE_AUTOROTATION:
                         s = getString(R.string.permission_why_profile_autorotation);
                         break;
-                    case Permissions.PERMISSION_PROFILE_IMAGE_WALLPAPER:
-                    case Permissions.PERMISSION_PROFILE_WALLPAPER_FOLDER:
+                    case Permissions.PERMISSION_TYPE_PROFILE_IMAGE_WALLPAPER:
+                    case Permissions.PERMISSION_TYPE_PROFILE_WALLPAPER_FOLDER:
                         s = getString(R.string.permission_why_profile_wallpaper);
                         break;
-                    case Permissions.PERMISSION_PROFILE_RADIO_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_PROFILE_RADIO_PREFERENCES:
                         if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && (Build.VERSION.SDK_INT >= 28))
                             s = getString(R.string.permission_why_profile_radio_preferences_emui);
                         else
                             s = getString(R.string.permission_why_profile_radio_preferences);
                         break;
-                    case Permissions.PERMISSION_PROFILE_PHONE_STATE_BROADCAST:
+                    case Permissions.PERMISSION_TYPE_PROFILE_PHONE_STATE_BROADCAST:
                         s = getString(R.string.permission_why_profile_phone_state_broadcast);
                         break;
-                    case Permissions.PERMISSION_PROFILE_CUSTOM_PROFILE_ICON:
+                    case Permissions.PERMISSION_TYPE_PROFILE_CUSTOM_PROFILE_ICON:
                         s = getString(R.string.permission_why_profile_custom_profile_icon);
                         break;
                     /*case Permissions.PERMISSION_INSTALL_TONE:
                         s = getString(R.string.permission_why_install_tone);
                         break;*/
-                    case Permissions.PERMISSION_EXPORT:
+                    case Permissions.PERMISSION_TYPE_EXPORT:
                         s = getString(R.string.permission_why_export);
                         break;
-                    case Permissions.PERMISSION_IMPORT:
+                    case Permissions.PERMISSION_TYPE_IMPORT:
                         s = getString(R.string.permission_why_import);
                         break;
-                    case Permissions.PERMISSION_EVENT_CALENDAR_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_CALENDAR_PREFERENCES:
                         s = getString(R.string.permission_why_event_calendar_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_CALL_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_CALL_PREFERENCES:
                         s = getString(R.string.permission_why_event_call_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_ORIENTATION_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_ORIENTATION_PREFERENCES:
                         s = getString(R.string.permission_why_event_orientation_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_SMS_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_SMS_PREFERENCES:
                         s = getString(R.string.permission_why_event_sms_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_RADIO_SWITCH_PREFERENCES:
                         s = getString(R.string.permission_why_event_radio_switch_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_LOCATION_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_LOCATION_PREFERENCES:
                         s = getString(R.string.permission_why_event_location_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_WIFI_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_WIFI_PREFERENCES:
                         s = getString(R.string.permission_why_event_wifi_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_BLUETOOTH_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_BLUETOOTH_PREFERENCES:
                         s = getString(R.string.permission_why_event_bluetooth_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_BLUETOOTH_SWITCH_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_BLUETOOTH_SWITCH_PREFERENCES:
                         s = getString(R.string.permission_why_event_bluetooth_preferences_emui);
                         break;
-                    case Permissions.PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_MOBILE_CELLS_PREFERENCES:
                         s = getString(R.string.permission_why_event_mobile_cells_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_CONTACTS_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_EVENT_CONTACTS_PREFERENCE:
                         s = getString(R.string.permission_why_event_contacts_preference);
                         break;
-                    case Permissions.PERMISSION_PROFILE_NOTIFICATION_LED:
+                    case Permissions.PERMISSION_TYPE_PROFILE_NOTIFICATION_LED:
                         s = getString(R.string.permission_why_profile_notification_led);
                         break;
-                    case Permissions.PERMISSION_PROFILE_VIBRATE_WHEN_RINGING:
+                    case Permissions.PERMISSION_TYPE_PROFILE_VIBRATE_WHEN_RINGING:
                         s = getString(R.string.permission_why_profile_vibrate_when_ringing);
                         break;
-                    case Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION:
+                    case Permissions.PERMISSION_TYPE_PLAY_RINGTONE_NOTIFICATION:
                         s = getString(R.string.permission_why_play_ringtone_notification);
                         break;
 //                    case Permissions.PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY:
 //                        s = getString(R.string.permission_why_profile_access_notification_policy);
 //                        break;
-                    case Permissions.PERMISSION_PROFILE_LOCK_DEVICE:
+                    case Permissions.PERMISSION_TYPE_PROFILE_LOCK_DEVICE:
                         s = getString(R.string.permission_why_profile_lock_device);
                         break;
-                    case Permissions.PERMISSION_RINGTONE_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_RINGTONE_PREFERENCE:
                         s = getString(R.string.permission_why_ringtone_preference);
                         break;
-                    case Permissions.PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING:
+                    case Permissions.PERMISSION_TYPE_PROFILE_DTMF_TONE_WHEN_DIALING:
                         s = getString(R.string.permission_why_profile_dtmf_tone_when_dialing);
                         break;
-                    case Permissions.PERMISSION_PROFILE_SOUND_ON_TOUCH:
+                    case Permissions.PERMISSION_TYPE_PROFILE_SOUND_ON_TOUCH:
                         s = getString(R.string.permission_why_profile_sound_on_touch);
                         break;
-                    case Permissions.PERMISSION_BRIGHTNESS_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_BRIGHTNESS_PREFERENCE:
                         s = getString(R.string.permission_why_brightness_preference);
                         break;
-                    case Permissions.PERMISSION_IMAGE_WALLPAPER_PREFERENCE:
-                    case Permissions.PERMISSION_WALLPAPER_FOLDER_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_IMAGE_WALLPAPER_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_WALLPAPER_FOLDER_PREFERENCE:
                         s = getString(R.string.permission_why_wallpaper_preference);
                         break;
-                    case Permissions.PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_CUSTOM_PROFILE_ICON_PREFERENCE:
                         s = getString(R.string.permission_why_custom_profile_icon_preference);
                         break;
-                    case Permissions.PERMISSION_LOCATION_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_LOCATION_PREFERENCE:
                         s = getString(R.string.permission_why_location_preference);
                         break;
-                    case Permissions.PERMISSION_CALENDAR_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_CALENDAR_PREFERENCE:
                         s = getString(R.string.permission_why_calendar_preference);
                         break;
                     //case Permissions.PERMISSION_LOG_TO_FILE:
                     //    s = getString(R.string.permission_why_log_to_file);
                     //    break;
-                    case Permissions.PERMISSION_EVENT_TIME_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_TIME_PREFERENCES:
                         s = getString(R.string.permission_why_event_time_preferences);
                         break;
-                    case Permissions.PERMISSION_PROFILE_ALWAYS_ON_DISPLAY:
+                    case Permissions.PERMISSION_TYPE_PROFILE_ALWAYS_ON_DISPLAY:
                         s = getString(R.string.permission_why_profile_always_on_display);
                         break;
-                    case Permissions.PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_PROFILE_CONNECT_TO_SSID_PREFERENCE:
                         s = getString(R.string.permission_why_profile_connect_to_ssid_preference);
                         break;
-                    case Permissions.PERMISSION_PROFILE_SCREEN_ON_PERMANENT:
+                    case Permissions.PERMISSION_TYPE_PROFILE_SCREEN_ON_PERMANENT:
                         s = getString(R.string.permission_why_profile_screen_on_permanent);
                         break;
-                    case Permissions.PERMISSION_PROFILE_CAMERA_FLASH:
+                    case Permissions.PERMISSION_TYPE_PROFILE_CAMERA_FLASH:
                         s = getString(R.string.permission_why_profile_camera_flash);
                         break;
-                    case Permissions.PERMISSION_BACGROUND_LOCATION:
+                    case Permissions.PERMISSION_TYPE_BACGROUND_LOCATION:
                         s = getString(R.string.permission_why_profile_background_location);
                         break;
-                    case Permissions.PERMISSION_PROFILE_MICROPHONE:
+                    case Permissions.PERMISSION_TYPE_PROFILE_MICROPHONE:
                         s = getString(R.string.permission_why_profile_default_assistant);
                         break;
-                    case Permissions.PERMISSION_EVENT_ROAMING_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_ROAMING_PREFERENCES:
                         s = getString(R.string.permission_why_event_roaming_preferences);
                         break;
-                    case Permissions.PERMISSION_PROFILE_WIREGUARD:
+                    case Permissions.PERMISSION_TYPE_PROFILE_WIREGUARD:
                         s = getString(R.string.permission_why_profile_wireguard);
                         break;
-                    case Permissions.PERMISSION_PROFILE_RUN_APPLICATIONS:
+                    case Permissions.PERMISSION_TYPE_PROFILE_RUN_APPLICATIONS:
                         s = getString(R.string.permission_why_profile_run_applications);
                         break;
-                    case Permissions.PERMISSION_PROFILE_INTERACTIVE_PREFEREBCES:
+                    case Permissions.PERMISSION_TYPE_PROFILE_INTERACTIVE_PREFEREBCES:
                         s = getString(R.string.permission_why_profile_interactive_preferences);
                         break;
-                    case Permissions.PERMISSION_PROFILE_CLOSE_ALL_APPLICATIONS:
+                    case Permissions.PERMISSION_TYPE_PROFILE_CLOSE_ALL_APPLICATIONS:
                         s = getString(R.string.permission_why_profile_close_all_applications);
                         break;
-                    case Permissions.PERMISSION_PROFILE_PPP_PUT_SETTINGS:
+                    case Permissions.PERMISSION_TYPE_PROFILE_PPP_PUT_SETTINGS:
                         s = getString(R.string.permission_why_profile_ppp_put_settings);
                         break;
-                    case Permissions.PERMISSION_PROFILE_RINGTONES_DUAL_SIM:
+                    case Permissions.PERMISSION_TYPE_PROFILE_RINGTONES_DUAL_SIM:
                         s = getString(R.string.permission_why_profile_ringtones_dual_sim);
                         break;
                 }
@@ -860,7 +834,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             String notificationTag;
             NotificationCompat.Builder mBuilder;
 
-            PPApplicationStatic.createGrantPermissionNotificationChannel(context);
+            PPApplicationStatic.createGrantPermissionNotificationChannel(context, false);
 
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -868,11 +842,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE) {
                 String nTitle = context.getString(R.string.permissions_notification_text);
                 String nText = context.getString(R.string.permissions_for_install_tone_big_text_notification);
-                if (android.os.Build.VERSION.SDK_INT < 24) {
-                    nTitle = context.getString(R.string.ppp_app_name);
-                    nText = context.getString(R.string.permissions_notification_text) + ": " +
-                            context.getString(R.string.permissions_for_install_tone_big_text_notification);
-                }
                 mBuilder = new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
                         .setColor(ContextCompat.getColor(context, R.color.primary))
                         .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
@@ -884,14 +853,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
             } else*/ if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION) {
                 String nTitle = context.getString(R.string.permissions_notification_text);
                 String nText = context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification);
-//                if (android.os.Build.VERSION.SDK_INT < 24) {
-//                    nTitle = context.getString(R.string.ppp_app_name);
-//                    nText = context.getString(R.string.permissions_notification_text) + ": " +
-//                            context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification);
-//                }
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                        .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                        .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                        .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
@@ -901,11 +866,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             } /*else if (grantType == Permissions.GRANT_TYPE_LOG_TO_FILE) {
                 String nTitle = context.getString(R.string.permissions_notification_text);
                 String nText = context.getString(R.string.permissions_for_log_to_file_big_text_notification);
-                if (android.os.Build.VERSION.SDK_INT < 24) {
-                    nTitle = context.getString(R.string.ppp_app_name);
-                    nText = context.getString(R.string.permissions_notification_text) + ": " +
-                            context.getString(R.string.permissions_for_log_to_file_big_text_notification);
-                }
                 mBuilder = new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
                         .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
                         .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
@@ -918,10 +878,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }*/ else if (grantType == Permissions.GRANT_TYPE_EVENT) {
                 String nTitle = context.getString(R.string.permissions_for_event_text_notification);
                 String nText = "";
-//                if (android.os.Build.VERSION.SDK_INT < 24) {
-//                    nTitle = context.getString(R.string.ppp_app_name);
-//                    nText = context.getString(R.string.permissions_for_event_text_notification) + ": ";
-//                }
             /*if (mergedNotification) {
                 nText = nText + context.getString(R.string.permissions_for_event_text1m) + " " +
                         context.getString(R.string.permissions_for_event_big_text_notification);
@@ -933,8 +889,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 nText = nText + context.getString(R.string.permissions_for_event_big_text_notification);
                 //}
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                        .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                        .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                        .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText) // message for notification
                         .setAutoCancel(true); // clear notification after click
@@ -954,10 +911,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             } else {
                 String nTitle = context.getString(R.string.permissions_for_profile_text_notification);
                 String nText = "";
-//                if (android.os.Build.VERSION.SDK_INT < 24) {
-//                    nTitle = context.getString(R.string.ppp_app_name);
-//                    nText = context.getString(R.string.permissions_for_profile_text_notification) + ": ";
-//                }
                 if (mergedProfile/* || mergedNotification*/) {
                     nText = nText + context.getString(R.string.permissions_for_profile_text1m) + " " +
                             context.getString(R.string.permissions_for_profile_big_text_notification);
@@ -968,8 +921,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     nText = nText + context.getString(R.string.permissions_for_profile_big_text_notification);
                 }
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                        .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                        .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                        .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText) // message for notification
                         .setAutoCancel(true); // clear notification after click
@@ -1008,10 +962,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
             mBuilder.setContentIntent(pi);
             mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
             mBuilder.setOnlyAlertOnce(true);
-            //if (android.os.Build.VERSION.SDK_INT >= 21) {
-                mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
-                mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-            //}
+            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
             mBuilder.setGroup(PPApplication.GRANT_PERMISSIONS_NOTIFICATION_GROUP);
 
@@ -1021,7 +973,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 // mNotificationManager.cancel(notificationID);
                 mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
             } catch (SecurityException en) {
-                Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(en));
+                PPApplicationStatic.logException("GrantPermissionActivity.showNotification", Log.getStackTraceString(en));
             } catch (Exception e) {
                 //Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
@@ -1051,7 +1003,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
 
                 Context context = getApplicationContext();
-                for (Permissions.PermissionType permissionType : this.permissions) {
+                for (PermissionType permissionType : this.permissions) {
                     if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                         if (!Settings.System.canWrite(context)) {
                             allGranted = false;
@@ -1100,42 +1052,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 //forceGrant = false;
                 //if (!forceGrant) {
                     // set theme and language for dialog alert ;-)
-                    GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false, false);
+                    GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
                     //GlobalGUIRoutines.setLanguage(this);
-
-                    /*
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                    dialogBuilder.setTitle(R.string.permissions_alert_title);
-                    dialogBuilder.setMessage(R.string.permissions_write_settings_not_allowed_confirm);
-                    dialogBuilder.setPositiveButton(R.string.permission_not_ask_button, (dialog, which) -> {
-                        Permissions.setShowRequestWriteSettingsPermission(context, false);
-                        if (rationaleAlreadyShown)
-                            removePermission(Manifest.permission.WRITE_SETTINGS);
-                        requestPermissions(3, withRationale);
-                    });
-                    dialogBuilder.setNegativeButton(R.string.permission_ask_button, (dialog, which) -> {
-                        Permissions.setShowRequestWriteSettingsPermission(context, true);
-                        if (rationaleAlreadyShown)
-                            removePermission(Manifest.permission.WRITE_SETTINGS);
-                        requestPermissions(3, withRationale);
-                    });
-                    dialogBuilder.setOnCancelListener(dialog -> {
-                        if (rationaleAlreadyShown)
-                            removePermission(Manifest.permission.WRITE_SETTINGS);
-                        requestPermissions(3, withRationale);
-                    });
-                    AlertDialog dialog = dialogBuilder.create();
-
-//                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
-                    */
 
                 PPAlertDialog dialog = new PPAlertDialog(
                         getString(R.string.permissions_alert_title),
@@ -1266,56 +1184,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 //forceGrant = false;
                 //if (!forceGrant) {
                     // set theme and language for dialog alert ;-)
-                    GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false, false);
+                    GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
                     //GlobalGUIRoutines.setLanguage(this);
-
-                    /*
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                    dialogBuilder.setTitle(R.string.permissions_alert_title);
-                    if (Build.VERSION.SDK_INT >= 29) {
-                        dialogBuilder.setMessage(R.string.permissions_draw_overlays_not_allowed_alway_required);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                            Permissions.setShowRequestDrawOverlaysPermission(context, true);
-                            if (rationaleAlreadyShown)
-                                removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
-                            requestPermissions(4, withRationale);
-                        });
-                    }
-                    else {
-                        if (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
-                            dialogBuilder.setMessage(R.string.permissions_draw_overlays_not_allowed_confirm);
-                        else
-                            dialogBuilder.setMessage(R.string.permissions_draw_overlays_not_allowed_confirm_miui);
-                        dialogBuilder.setPositiveButton(R.string.permission_not_ask_button, (dialog, which) -> {
-                            Permissions.setShowRequestDrawOverlaysPermission(context, false);
-                            if (rationaleAlreadyShown)
-                                removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
-                            requestPermissions(4, withRationale);
-                        });
-                        dialogBuilder.setNegativeButton(R.string.permission_ask_button, (dialog, which) -> {
-                            Permissions.setShowRequestDrawOverlaysPermission(context, true);
-                            if (rationaleAlreadyShown)
-                                removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
-                            requestPermissions(4, withRationale);
-                        });
-                    }
-                    dialogBuilder.setOnCancelListener(dialog -> {
-                        if (rationaleAlreadyShown)
-                            removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
-                        requestPermissions(4, withRationale);
-                    });
-                    AlertDialog dialog = dialogBuilder.create();
-
-//                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
-                    */
 
                 CharSequence message;
                 CharSequence positiveText;
@@ -1413,7 +1283,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 finishActivity = permissionsChanged && (!locationPermission);
             }
             if (!permissionsChanged) {
-                boolean smsPermission = Permissions.checkSMS(context);
+                boolean smsPermission = Permissions.checkSMS(/*context*/);
                 permissionsChanged = Permissions.getSMSPermission(context) != smsPermission;
                 // finish Editor when permission is disabled
                 finishActivity = permissionsChanged && (!smsPermission);
@@ -1449,7 +1319,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 finishActivity = permissionsChanged && (!microphonePermission);
             }
             if (!permissionsChanged) {
-                boolean sensorsPermission = Permissions.checkSensors(context);
+                boolean sensorsPermission = Permissions.checkSensors(/*context*/);
                 permissionsChanged = Permissions.getSensorsPermission(context) != sensorsPermission;
                 // finish Editor when permission is disabled
                 finishActivity = permissionsChanged && (!sensorsPermission);
@@ -1470,7 +1340,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (!finishActivity) {
                 boolean granted = false;
                 if (permissions != null) {
-                    for (Permissions.PermissionType permissionType : permissions) {
+                    for (PermissionType permissionType : permissions) {
                         if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
                             granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
                         }
@@ -1517,13 +1387,13 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         if (iteration == 1) {
             boolean writeSettingsFound = false;
-            for (Permissions.PermissionType permissionType : permissions) {
+            for (PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                     //if (!PPApplication.romIsMIUI) {
                         if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS, getApplicationContext())) {
                             writeSettingsFound = true;
                             final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                            intent.setData(Uri.parse("package:" + PPApplication.PACKAGE_NAME));
+                            intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE + PPApplication.PACKAGE_NAME));
                             intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                             //noinspection deprecation
                             startActivityForResult(intent, WRITE_SETTINGS_REQUEST_CODE);
@@ -1535,7 +1405,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             // MIUI 8
                             Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                             localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
-                            localIntent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
+                            localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
                             intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                             startActivityForResult(localIntent, WRITE_SETTINGS_REQUEST_CODE);
                             writeSettingsFound = true;
@@ -1544,7 +1414,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                                 // MIUI 5/6/7
                                 Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                                 localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
-                                localIntent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
+                                localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
                                 intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                                 startActivityForResult(localIntent, WRITE_SETTINGS_REQUEST_CODE);
                                 writeSettingsFound = true;
@@ -1578,14 +1448,13 @@ public class GrantPermissionActivity extends AppCompatActivity {
         else
         if (iteration == 3) {
             boolean drawOverlaysFound = false;
-            //boolean api25 = android.os.Build.VERSION.SDK_INT >= 25;
-            for (Permissions.PermissionType permissionType : permissions) {
-                if (/*api25 && */permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
+            for (PermissionType permissionType : permissions) {
+                if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
                     //if (!PPApplication.romIsMIUI) {
                         if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getApplicationContext())) {
                             drawOverlaysFound = true;
                             final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                            intent.setData(Uri.parse("package:" + PPApplication.PACKAGE_NAME));
+                            intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE + PPApplication.PACKAGE_NAME));
                             intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                             //noinspection deprecation
                             startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);
@@ -1597,7 +1466,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             // MIUI 8
                             Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                             localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
-                            localIntent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
+                            localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
                             intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                             startActivityForResult(localIntent, DRAW_OVERLAYS_REQUEST_CODE);
                             drawOverlaysFound = true;
@@ -1607,7 +1476,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                                 // MIUI 5/6/7
                                 Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                                 localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
-                                localIntent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
+                                localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
                                 intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                                 startActivityForResult(localIntent, DRAW_OVERLAYS_REQUEST_CODE);
                                 drawOverlaysFound = true;
@@ -1625,7 +1494,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         else {
             boolean grantBackgroundLocation = false;
             List<String> permList = new ArrayList<>();
-            for (Permissions.PermissionType permissionType : permissions) {
+            for (PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
                     grantBackgroundLocation = true;
                 }
@@ -1644,7 +1513,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     Permissions.saveAllPermissions(getApplicationContext(), false);
                     Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                     //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                    intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+                    intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE +PPApplication.PACKAGE_NAME));
                     if (GlobalGUIRoutines.activityIntentExists(intent, getApplicationContext())) {
                         //noinspection deprecation
                         startActivityForResult(intent, Permissions.REQUEST_CODE/*_FORCE_GRANT*/ + grantType);
@@ -1655,7 +1524,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
                 else {
                     String[] permArray = new String[permList.size()];
-                    for (int i = 0; i < permList.size(); i++) {
+                    int size = permList.size();
+                    for (int i = 0; i < size; i++) {
                         permArray[i] = permList.get(i);
                     }
 
@@ -1668,7 +1538,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             else {
                 Context context = getApplicationContext();
                 boolean allGranted = true;
-                for (Permissions.PermissionType permissionType : permissions) {
+                for (PermissionType permissionType : permissions) {
                     if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                         if (!Settings.System.canWrite(context)) {
                             allGranted = false;
@@ -1701,7 +1571,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     private void removePermission(final String permission) {
         if (permissions != null) {
-            for (Permissions.PermissionType permissionType : permissions) {
+            for (PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(permission)) {
                     permissions.remove(permissionType);
                     break;
@@ -1838,7 +1708,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             finish();
             Permissions.removeEventNotification(context);
             if (permissions != null) {
-                for (Permissions.PermissionType permissionType : permissions) {
+                for (PermissionType permissionType : permissions) {
 
                     if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION) ||
                         permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
@@ -1873,7 +1743,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 Permissions.brightnessDialogPreference.enableViews();*/
         }
         else
-        if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG) {
+        if ((grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG) ||
+                (grantType == Permissions.GRANT_TYPE_MOBILE_CELL_NAMES_SCAN_DIALOG)) {
             setResult(Activity.RESULT_OK);
             finish();
             /*if (Permissions.mobileCellsPreference != null)

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -34,7 +35,7 @@ class IgnoreBatteryOptimizationNotification {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":IgnoreBatteryOptimizationNotification_showNotification");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_IgnoreBatteryOptimizationNotification_showNotification);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -95,10 +96,11 @@ class IgnoreBatteryOptimizationNotification {
 
     @SuppressLint("BatteryLife")
     static private void showNotification(Context context, String title, String text) {
-        PPApplicationStatic.createExclamationNotificationChannel(context);
+        PPApplicationStatic.createExclamationNotificationChannel(context.getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                 .setContentTitle(title) // title for notification
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
@@ -114,7 +116,7 @@ class IgnoreBatteryOptimizationNotification {
         //    DO NOT USE IT, CHANGE IS NOT DISPLAYED IN SYSTEM SETTINGS
         //    But in ONEPLUS it IS ONLY SOLUTION !!!
             intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-            intent.setData(Uri.parse("package:" + packageName));
+            intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE + packageName));
         //    if (!GlobalGUIRoutines.activityIntentExists(intent, context)) {
         //        intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
         //    }
@@ -149,7 +151,7 @@ class IgnoreBatteryOptimizationNotification {
                     PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_TAG,
                     PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            Log.e("IgnoreBatteryOptimizationNotification.showNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("IgnoreBatteryOptimizationNotification.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("IgnoreBatteryOptimizationNotification.showNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

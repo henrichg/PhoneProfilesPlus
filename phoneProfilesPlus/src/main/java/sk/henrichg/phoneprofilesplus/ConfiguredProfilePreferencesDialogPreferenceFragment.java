@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -21,7 +20,8 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragment extends Prefer
     private ConfiguredProfilePreferencesDialogPreference preference;
 
     private ListView listView;
-    private LinearLayout linlaProgress;
+    //private LinearLayout linlaProgress;
+    //private ProgressBar progressBar;
 
     private ConfiguredProfilePreferencesAdapter listAdapter;
 
@@ -46,7 +46,8 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragment extends Prefer
 
         buttonsDivider = view.findViewById(R.id.profile_pref_dlg_listview_buttonBarDivider);
         listView = view.findViewById(R.id.configured_profile_preferences_pref_dlg_listview);
-        linlaProgress = view.findViewById(R.id.configured_profile_preferences_pref_dlg_linla_progress);
+        //linlaProgress = view.findViewById(R.id.configured_profile_preferences_pref_dlg_linla_progress);
+        //progressBar = view.findViewById(R.id.configured_profile_preferences_pref_dlg_progress);
 
         listAdapter = new ConfiguredProfilePreferencesAdapter(prefContext, preference);
 
@@ -87,11 +88,12 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragment extends Prefer
         protected void onPreExecute() {
             super.onPreExecute();
 
-            ConfiguredProfilePreferencesDialogPreferenceFragment fragment = fragmentWeakRef.get();
-            if (fragment != null) {
-                fragment.listView.setVisibility(View.GONE);
-                fragment.linlaProgress.setVisibility(View.VISIBLE);
-            }
+            //ConfiguredProfilePreferencesDialogPreferenceFragment fragment = fragmentWeakRef.get();
+            //if (fragment != null) {
+                //fragment.listView.setVisibility(View.GONE);
+                //fragment.linlaProgress.setVisibility(View.VISIBLE);
+                //GlobalGUIRoutines.setProgressBarVisible(fragment.linlaProgress, fragment.progressBar);
+            //}
 
             _preferencesList = new ArrayList<>();
         }
@@ -106,6 +108,7 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragment extends Prefer
 
                     DataWrapper dataWrapper = new DataWrapper(prefContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
                     Profile profile = dataWrapper.getProfileById(preference.profile_id, false, false, false);
+                    dataWrapper.invalidateDataWrapper();
                     if (profile != null) {
                         ProfilePreferencesIndicator indicators = new ProfilePreferencesIndicator();
                         indicators.fillArrays(profile, false, /*false,*/ true, /*DataWrapper.IT_FOR_EDITOR,*/ prefContext);
@@ -167,8 +170,8 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragment extends Prefer
                 preference.preferencesList = new ArrayList<>(_preferencesList);
                 fragment.listView.setAdapter(fragment.listAdapter);
 
-                fragment.linlaProgress.setVisibility(View.GONE);
-                fragment.listView.setVisibility(View.VISIBLE);
+                //fragment.linlaProgress.setVisibility(View.GONE);
+                //fragment.listView.setVisibility(View.VISIBLE);
 
                 if (preference.preferencesList.size() <= 1)
                     fragment.buttonsDivider.setVisibility(View.GONE);

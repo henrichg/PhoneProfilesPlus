@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
@@ -51,22 +52,27 @@ class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder 
         this.application = application;
 
         if (this.application.type != Application.TYPE_INTENT) {
-            if (PPApplicationStatic.getApplicationsCache() != null)
-                imageViewIcon.setImageBitmap(PPApplicationStatic.getApplicationsCache().getApplicationIcon(application, false));
+            if (PPApplicationStatic.getApplicationsCache() != null) {
+                Bitmap icon = PPApplicationStatic.getApplicationsCache().getApplicationIcon(application/*, false*/);
+                if (icon == null)
+                    PPApplicationStatic.getApplicationsCache().setApplicationIcon(context, application);
+                application.icon = PPApplicationStatic.getApplicationsCache().getApplicationIcon(application/*, false*/);
+                imageViewIcon.setImageBitmap(application.icon);
+            }
         }
         else
             imageViewIcon.setImageResource(R.drawable.ic_profile_pref_run_application);
-        String text = "(A) " + application.appLabel;
+        String text = RunApplicationEditorDialog.RUN_APPLICATIONS_TYPE_MARK_APPLICATION + application.appLabel;
         if (application.shortcutId > 0) {
             Shortcut shortcut = DatabaseHandler.getInstance(context.getApplicationContext()).getShortcut(application.shortcutId);
             if (shortcut != null)
-                text = "(S) " + shortcut._name;
+                text = RunApplicationEditorDialog.RUN_APPLICATIONS_TYPE_MARK_SHORTCUT + shortcut._name;
         }
         else
         if (application.intentId > 0) {
             PPIntent intent = DatabaseHandler.getInstance(context.getApplicationContext()).getIntent(application.intentId);
             if (intent != null)
-                text = "(I) " + intent._name;
+                text = RunApplicationEditorDialog.RUN_APPLICATIONS_TYPE_MARK_INTENT + intent._name;
         }
         textViewAppName.setText(text);
         boolean errorColor = false;
@@ -107,7 +113,7 @@ class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder 
                     sbt.removeSpan(span);
             }
             if (errorColor) {
-                sbt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(context, R.color.altype_error)), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                sbt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(context, R.color.error_color)), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             textView.setText(sbt);
         }

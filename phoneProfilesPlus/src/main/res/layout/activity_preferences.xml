@@ -14,7 +14,6 @@
         android:id="@+id/activity_preferences_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
         app:titleTextAppearance="@style/PreferenceToolbarTitleText"
@@ -23,12 +22,12 @@
         app:contentInsetStart="72dp"
         app:navigationIcon="?attr/homeAsUpIndicator"
         android:elevation="1dp" />
+<!--    android:background="@color/primary"-->
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_preferences_toolbar_no_subtitle"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
         app:contentInsetEnd="0dp"
@@ -36,6 +35,7 @@
         app:navigationIcon="?attr/homeAsUpIndicator"
         android:elevation="1dp"
         android:visibility="gone"/>
+<!--    android:background="@color/primary"-->
 
     <TextView
         android:id="@+id/activity_preferences_subtitle"

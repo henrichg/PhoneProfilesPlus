@@ -24,12 +24,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
@@ -54,190 +49,46 @@ class GlobalGUIRoutines {
     static final String OPAQUENESS_LIGHTNESS_87 = "87";
     static final String OPAQUENESS_LIGHTNESS_100 = "100";
 
-    /*
-    // https://stackoverflow.com/questions/40221711/android-context-getresources-updateconfiguration-deprecated
-    // but my solution working also in Android 8.1
-    public static void setLanguage(Context context)//, boolean restart)
-    {
-        //if (android.os.Build.VERSION.SDK_INT < 24) {
-
-            String lang = ApplicationPreferences.applicationLanguage(context);
-
-            Locale appLocale;
-
-            if (!lang.equals("system")) {
-                String[] langSplit = lang.split("-");
-                if (langSplit.length == 1)
-                    appLocale = new Locale(lang);
-                else {
-                    if ((langSplit[0].equals("sr")) && (langSplit[1].equals("Latn")))
-                        appLocale = new Locale.Builder().setLanguage("sr").setScript("Latn").build();
-                    else
-                        appLocale = new Locale(langSplit[0], langSplit[1]);
-                }
-            } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                    appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
-                else
-                    appLocale = Resources.getSystem().getConfiguration().locale;
-            }
-
-            Locale.setDefault(appLocale);
-            Configuration appConfig = new Configuration();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                appConfig.setLocale(appLocale);
-            else
-                appConfig.locale = appLocale;
-
-            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            //    Context context  = context.createConfigurationContext(appConfig);
-            //else
-            context.getResources().updateConfiguration(appConfig, context.getResources().getDisplayMetrics());
-        //}
-
-        // collator for application locale sorting
-        collator = getCollator(context);
-
-        PPApplication.createNotificationChannels(context);
-    }
-*/
-
     static void setTheme(Activity activity, boolean forPopup,
-                                boolean withToolbar/*, boolean withDrawerLayout*/,
-                                boolean forActivator, boolean forDialog,
+                                boolean withToolbar,
+                                /*boolean forEditor,*/ boolean forActivator, boolean forDialog,
                                 boolean forLocationEditor, boolean forPreference)
     {
         int theme = getTheme(forPopup, withToolbar,
-                /*withDrawerLayout,*/ forActivator,
+                /*forEditor,*/ forActivator,
                 forDialog, forLocationEditor, forPreference,
                 activity);
         if (theme != 0)
             activity.setTheme(theme);
     }
 
-    static int getTheme(boolean forPopup, boolean withToolbar, /*boolean withDrawerLayout,*/
-                        boolean forActivator, boolean forDialog,
+    static int getTheme(boolean forPopup, boolean withToolbar,
+                        /*boolean forEditor,*/ boolean forActivator, boolean forDialog,
                         boolean forLocationEditor, boolean forPreferences,
                         Context context) {
-        switch (ApplicationPreferences.applicationTheme(context, false)) {
-            /*case "color":
-                if (forPopup) {
-                    if (withToolbar)
-                        return R.style.PopupTheme_withToolbar_color;
-                    else
-                        return R.style.PopupTheme_color;
-                } else {
-                    if (withToolbar) {
-                        //if (withDrawerLayout)
-                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_color;
-                        //else
-                            return R.style.Theme_PhoneProfilesTheme_withToolbar_color;
-                    } else
-                        return R.style.Theme_PhoneProfilesTheme_color;
-                }*/
-            case "white":
-                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                /*if (forPopup) {
-                    if (withToolbar)
-                        return R.style.PopupTheme_withToolbar_white;
-                    else
-                        return R.style.PopupTheme_white;
-                } else {
-                    if (withToolbar) {
-                        //if (withDrawerLayout)
-                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_white;
-                        //else
-                            return R.style.Theme_PhoneProfilesTheme_withToolbar_white;
-                    } else
-                        return R.style.Theme_PhoneProfilesTheme_white;
-                }*/
-                break;
-            case "dark":
-                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                /*if (forPopup) {
-                    if (withToolbar)
-                        return R.style.PopupTheme_withToolbar_dark;
-                    else
-                        return R.style.PopupTheme_dark;
-                } else {
-                    if (withToolbar) {
-                        //if (withDrawerLayout)
-                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
-                        //else
-                            return R.style.Theme_PhoneProfilesTheme_withToolbar_dark;
-                    } else
-                        return R.style.Theme_PhoneProfilesTheme_dark;
-                }
-                */
-                break;
-            /*case "dlight":
-                if (forPopup) {
-                    if (withToolbar)
-                        return R.style.PopupTheme_withToolbar_dlight;
-                    else
-                        return R.style.PopupTheme_dlight;
-                } else {
-                    if (withToolbar) {
-                        //if (withDrawerLayout)
-                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dlight;
-                        //else
-                            return R.style.Theme_PhoneProfilesTheme_withToolbar_dlight;
-                    } else
-                        return R.style.Theme_PhoneProfilesTheme_dlight;
-                }*/
-            case "night_mode":
-                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                /*if (forPopup) {
-                    if (withToolbar)
-                        return R.style.PopupTheme_withToolbar_dayNight;
-                    else
-                        return R.style.PopupTheme_dayNight;
-                } else {
-                    if (withToolbar) {
-                        //if (withDrawerLayout)
-                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
-                        //else
-                        return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
-                    } else
-                        return R.style.Theme_PhoneProfilesTheme_dayNight;
-                }*/
-                break;
-            default:
-                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                /*if (forPopup) {
-                    if (withToolbar)
-                        return R.style.PopupTheme_withToolbar_white;
-                    else
-                        return R.style.PopupTheme_white;
-                } else {
-                    if (withToolbar) {
-                        //if (withDrawerLayout)
-                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_white;
-                        //else
-                        return R.style.Theme_PhoneProfilesTheme_withToolbar_white;
-                    } else
-                        return R.style.Theme_PhoneProfilesTheme_white;
-                }*/
-                /*if (forPopup) {
-                    if (withToolbar)
-                        return R.style.PopupTheme_withToolbar_color;
-                    else
-                        return R.style.PopupTheme_color;
-                } else {
-                    if (withToolbar) {
-                        //if (withDrawerLayout)
-                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_color;
-                        //else
-                            return R.style.Theme_PhoneProfilesTheme_withToolbar_color;
-                    } else
-                        return R.style.Theme_PhoneProfilesTheme_color;
-                }*/
+        // !!! this must be called
+        /*String applicationTheme =*/ ApplicationPreferences.applicationTheme(context, true);
+//        if (forEditor)
+//            Log.e("GlobalGUIRoutines.getTheme", "applicationTheme="+applicationTheme);
+
+        int miuiVersion = -1;
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+//            Log.e("GlobalGUIRoutines.getTheme", "Build.VERSION.INCREMENTAL="+Build.VERSION.INCREMENTAL);
+            String[] splits = Build.VERSION.INCREMENTAL.split("\\.");
+//            Log.e("GlobalGUIRoutines.getTheme", "splits[0]="+splits[0]);
+            miuiVersion = Integer.parseInt(splits[0].substring(1));
+//            Log.e("GlobalGUIRoutines.getTheme", "miuiVersion="+miuiVersion);
         }
+
         if (forActivator) {
             if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33)
                     return R.style.ActivatorTheme_dayNight;
                 else
+                    return R.style.ActivatorTheme_dayNight_noRipple;
+            }
+            else
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
                     return R.style.ActivatorTheme_dayNight_noRipple;
             }
             else {
@@ -256,6 +107,10 @@ class GlobalGUIRoutines {
                 else
                     return R.style.DialogTheme_dayNight_noRipple;
             }
+            else
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
+                return R.style.DialogTheme_dayNight_noRipple;
+            }
             else {
                 if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
                         (Build.VERSION.SDK_INT >= 33))
@@ -273,6 +128,10 @@ class GlobalGUIRoutines {
                     return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight_noRipple;
             }
             else
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
+                return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight_noRipple;
+            }
+            else
                 return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight;
         }
         else
@@ -284,30 +143,42 @@ class GlobalGUIRoutines {
                     return R.style.Theme_PhoneProfilesTheme_preferences_dayNight_noRipple;
             }
             else
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
+                return R.style.Theme_PhoneProfilesTheme_preferences_dayNight_noRipple;
+            }
+            else
                 return R.style.Theme_PhoneProfilesTheme_preferences_dayNight;
         }
         else
         if (forPopup) {
             if (PPApplication.deviceIsOnePlus) {
-                if (Build.VERSION.SDK_INT >= 33){
+                if (Build.VERSION.SDK_INT >= 33) {
                     if (withToolbar)
                         return R.style.PopupTheme_withToolbar_dayNight;
                     else
                         return R.style.PopupTheme_dayNight;
-                }
-                else {
+                } else {
                     if (withToolbar)
                         return R.style.PopupTheme_withToolbar_dayNight_noRipple;
                     else
                         return R.style.PopupTheme_dayNight_noRipple;
                 }
-            } else {
+            }
+            else
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
+                if (withToolbar)
+                    return R.style.PopupTheme_withToolbar_dayNight_noRipple;
+                else
+                    return R.style.PopupTheme_dayNight_noRipple;
+            }
+            else {
                 if (withToolbar)
                     return R.style.PopupTheme_withToolbar_dayNight;
                 else
                     return R.style.PopupTheme_dayNight;
             }
-        } else {
+        }
+        else {
             if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33) {
                     if (withToolbar) {
@@ -320,7 +191,15 @@ class GlobalGUIRoutines {
                     } else
                         return R.style.Theme_PhoneProfilesTheme_dayNight_noRipple;
                 }
-            } else {
+            }
+            else
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
+                if (withToolbar) {
+                    return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight_noRipple;
+                } else
+                    return R.style.Theme_PhoneProfilesTheme_dayNight_noRipple;
+            }
+            else {
                 if (withToolbar) {
                     return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
                 } else
@@ -343,13 +222,13 @@ class GlobalGUIRoutines {
 
     private static void switchNightMode(Context appContext) {
         switch (ApplicationPreferences.applicationTheme(appContext, false)) {
-            case "white":
+            case ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 break;
-            case "dark":
+            case ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_DARK:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 break;
-            case "night_mode":
+            case ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                 break;
         }
@@ -409,12 +288,12 @@ class GlobalGUIRoutines {
                 // remove bullet
                 String s = title.toString();
                 title = s;
-                if (s.startsWith("• "))
-                    title = TextUtils.replace(title, new String[]{"• "}, new CharSequence[]{""});
+                if (s.startsWith(StringConstants.CHAR_BULLET +" "))
+                    title = TextUtils.replace(title, new String[]{StringConstants.CHAR_BULLET +" "}, new CharSequence[]{""});
 
                 // remove arrows
-                if (s.startsWith("» "))
-                    title = TextUtils.replace(title, new String[]{"» "}, new CharSequence[]{""});
+                if (s.startsWith(StringConstants.CHAR_ARROW +" "))
+                    title = TextUtils.replace(title, new String[]{StringConstants.CHAR_ARROW +" "}, new CharSequence[]{""});
 
                 // remove underline
                 //s = title.toString();
@@ -425,10 +304,10 @@ class GlobalGUIRoutines {
                 //if (underline)
                 //    title = TextUtils.concat("[!] ", title);
                 if (bold)
-                    title = TextUtils.concat("• ", title);
+                    title = TextUtils.concat(StringConstants.CHAR_BULLET +" ", title);
                 else
                 if (addArrows)
-                    title = TextUtils.concat("» ", title);
+                    title = TextUtils.concat(StringConstants.CHAR_ARROW +" ", title);
 
                 //}
                 Spannable sbt = new SpannableString(title);
@@ -456,7 +335,7 @@ class GlobalGUIRoutines {
 //                        Log.e("GlobalGUIRoutines.setPreferenceTitleStyleX", "enabled="+enabled);
 //                    }
                     if (errorColor && enabled)
-                        sbt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(preference.getContext(), R.color.altype_error)), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        sbt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(preference.getContext(), R.color.error_color)), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 preference.setTitle(sbt);
             }
@@ -500,6 +379,13 @@ class GlobalGUIRoutines {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
+    /*
+    static int dpToPx2(float dp, Context context)
+    {
+        return (int) (dp * context.getResources().getDisplayMetrics().density);
+    }
+    */
+
     static int dip(float dp) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics()));
     }
@@ -513,6 +399,14 @@ class GlobalGUIRoutines {
     {
         return (int) (px / Resources.getSystem().getDisplayMetrics().density);
     } */
+
+    /*
+    static Float getRawDimensionInDp(Resources resources, @DimenRes int dimenResId) {
+        TypedValue value = new TypedValue();
+        resources.getValue(dimenResId, value, true);
+        return TypedValue.complexToFloat(value.data);
+    }
+    */
 
     /**
      * Uses reflection to access divider private attribute and override its color
@@ -601,15 +495,7 @@ class GlobalGUIRoutines {
             Display display = windowManager.getDefaultDisplay();
             Point size = new Point();
 
-            //if (Build.VERSION.SDK_INT >= 17) {
-                display.getRealSize(size);
-            //} else {
-            //    try {
-            //        size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
-            //        size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
-            //    } catch (Exception ignored) {
-            //    }
-            //}
+            display.getRealSize(size);
 
             return size;
         }
@@ -794,7 +680,7 @@ class GlobalGUIRoutines {
 //                (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
 //                                    == Configuration.UI_MODE_NIGHT_YES;
 
-        if (ApplicationPreferences.applicationTheme(context, true).equals("white")/*!nightModeOn*/) {
+        if (ApplicationPreferences.applicationTheme(context, true).equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE)/*!nightModeOn*/) {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit);
         } else {
@@ -966,19 +852,12 @@ class GlobalGUIRoutines {
             nText = activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
                     "\"" + profile._name + "\" " +
                     activity.getString(R.string.preferences_red_texts_text_2);
-//            if (android.os.Build.VERSION.SDK_INT < 24) {
-//                nTitle = activity.getString(R.string.ppp_app_name);
-//                nText = activity.getString(R.string.profile_preferences_red_texts_title) + ": " +
-//                        activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
-//                        "\"" + profile._name + "\" " +
-//                        activity.getString(R.string.preferences_red_texts_text_2);
-//            }
             if (forShowInActivator)
                 nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_3_new);
             else
                 nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
 
-            nText = nText + "\n\n" + activity.getString(R.string.profile_preferences_red_texts_text_4);
+            nText = nText + StringConstants.STR_DOUBLE_NEWLINE + activity.getString(R.string.profile_preferences_red_texts_text_4);
         }
 
         if (event != null) {
@@ -986,19 +865,12 @@ class GlobalGUIRoutines {
             nText = activity.getString(R.string.event_preferences_red_texts_text_1) + " " +
                     "\"" + event._name + "\" " +
                     activity.getString(R.string.preferences_red_texts_text_2);
-//            if (android.os.Build.VERSION.SDK_INT < 24) {
-//                nTitle = activity.getString(R.string.ppp_app_name);
-//                nText = activity.getString(R.string.event_preferences_red_texts_title) + ": " +
-//                        activity.getString(R.string.event_preferences_red_texts_text_1) + " " +
-//                        "\"" + event._name + "\" " +
-//                        activity.getString(R.string.preferences_red_texts_text_2);
-//            }
             if (forRunStopEvent)
                 nText = nText + " " + activity.getString(R.string.event_preferences_red_texts_text_2);
             else
                 nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
 
-            nText = nText + "\n\n" + activity.getString(R.string.event_preferences_red_texts_text_4);
+            nText = nText + StringConstants.STR_DOUBLE_NEWLINE + activity.getString(R.string.event_preferences_red_texts_text_4);
         }
 
         String positiveText;
@@ -1007,9 +879,6 @@ class GlobalGUIRoutines {
         DialogInterface.OnClickListener negativeClick = null;
 
         if ((profile != null) || (event != null)) {
-            //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            //dialogBuilder.setTitle(nTitle);
-            //dialogBuilder.setMessage(nText);
             if (forProfile) {
                 positiveText = activity.getString(R.string.show_dialog_about_red_text_show_profile_preferences);
                 positiveClick = (dialog, which) -> {
@@ -1019,8 +888,8 @@ class GlobalGUIRoutines {
                         if (forActivator)
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                        intent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                        intent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+                        intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_EDIT);
+                        intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
                     } else {
                                 intent = new Intent(activity.getBaseContext(), EditorActivity.class);
                                 if (forActivator)
@@ -1063,8 +932,8 @@ class GlobalGUIRoutines {
                         if (forActivator)
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-                        intent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                        intent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+                        intent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, PPApplication.EDIT_MODE_EDIT);
+                        intent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, 0);
                     } else {
                                 intent = new Intent(activity.getBaseContext(), EditorActivity.class);
                                 if (forActivator)
@@ -1082,18 +951,6 @@ class GlobalGUIRoutines {
                     }
                 };
             }
-            //dialogBuilder.setCancelable(!forActivator);
-            //AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
 
             PPAlertDialog dialog = new PPAlertDialog(nTitle, nText,
                     positiveText, negativeText, null, null,
@@ -1113,40 +970,49 @@ class GlobalGUIRoutines {
         }
     }
 
+    static Intent getIntentForStartupSource(Context context, int startupSource) {
+        Intent intentLaunch;
 
-    static class HighlightedSpinnerAdapter extends ArrayAdapter<String> {
-
-        private int mSelectedIndex = -1;
-        private final Activity activity;
-
-        HighlightedSpinnerAdapter(Activity activity, int textViewResourceId, String[] objects) {
-            super(activity, textViewResourceId, objects);
-            this.activity = activity;
+        switch (startupSource) {
+            case PPApplication.STARTUP_SOURCE_NOTIFICATION:
+                if (ApplicationPreferences.applicationNotificationLauncher.equals(StringConstants.EXTRA_ACTIVATOR))
+                    intentLaunch = new Intent(context.getApplicationContext(), ActivatorActivity.class);
+                else
+                    intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
+                break;
+            case PPApplication.STARTUP_SOURCE_WIDGET:
+                if (ApplicationPreferences.applicationWidgetLauncher.equals(StringConstants.EXTRA_ACTIVATOR))
+                    intentLaunch = new Intent(context.getApplicationContext(), ActivatorActivity.class);
+                else
+                    intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
+                break;
+            case PPApplication.STARTUP_SOURCE_EDITOR_WIDGET_HEADER:
+                intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
+                //startupSource = PPApplication.STARTUP_SOURCE_WIDGET;
+                break;
+            default:
+                //if (ApplicationPreferences.applicationHomeLauncher.equals("activator"))
+                    intentLaunch = new Intent(context.getApplicationContext(), ActivatorActivity.class);
+                //else
+                //    intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
+                break;
         }
-
-        @Override
-        public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent){
-            View itemView =  super.getDropDownView(position, convertView, parent);
-
-            TextView itemText = itemView.findViewById(android.R.id.text1);
-            if (itemText != null) {
-                if (position == mSelectedIndex) {
-                    //itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(activity));
-                    itemText.setTextColor(ContextCompat.getColor(activity, R.color.accent_color));
-                } else {
-                    //itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(activity));
-                    itemText.setTextColor(ContextCompat.getColor(activity, R.color.activitySecondaryTextColor));
-                }
-            }
-
-            return itemView;
-        }
-
-        void setSelection(int position) {
-            mSelectedIndex =  position;
-            notifyDataSetChanged();
-        }
-
+        return intentLaunch;
     }
+
+    /*
+    static void setProgressBarVisible(final LinearLayout viewGroup, final ProgressBar progressBar) {
+        progressBar.setVisibility(View.GONE);
+        PPApplicationStatic.startHandlerThreadProgressBar();
+        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        __handler.postDelayed(() -> {
+            try {
+                if (viewGroup.isVisibleToUser()) {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            } catch (Exception ignored) {}
+        }, 100);
+    }
+    */
 
 }

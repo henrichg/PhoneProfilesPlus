@@ -9,6 +9,8 @@ class ContactGroup {
     boolean checked = false;
     String accountType = "";
 
+    String displayedAccountType = "";
+
     ContactGroup() {
     }
 
@@ -20,4 +22,5 @@ class ContactGroup {
     void toggleChecked() {
         checked = !checked;
     }
+
 }

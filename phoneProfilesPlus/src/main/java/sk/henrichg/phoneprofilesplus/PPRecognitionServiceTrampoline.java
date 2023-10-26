@@ -123,7 +123,7 @@ public class PPRecognitionServiceTrampoline extends RecognitionService {
                 try {
                     runnable.run();
                 } catch (RemoteException e) {
-                    Log.e("PPRecognitionServiceTrampoline.createRecognitionListener", Log.getStackTraceString(e));
+                    PPApplicationStatic.logException("PPRecognitionServiceTrampoline.createRecognitionListener", Log.getStackTraceString(e));
                 }
             }
         };

@@ -35,7 +35,7 @@ public class WifiScanWorker extends Worker {
     static final String WORK_TAG_SHORT  = "WifiScanJobShort";
     static final String WORK_TAG_START_SCAN = "startWifiScanWork";
 
-    public static volatile WifiManager wifi = null;
+    static volatile WifiManager wifi = null;
     private static volatile WifiManager.WifiLock wifiLock = null;
 
     private static final String PREF_EVENT_WIFI_SCAN_REQUEST = "eventWifiScanRequest";
@@ -332,7 +332,6 @@ public class WifiScanWorker extends Worker {
                         else
                             statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                         boolean allFinished = true;
-                        //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();
                             for (WorkInfo workInfo : workInfoList) {
@@ -342,9 +341,7 @@ public class WifiScanWorker extends Worker {
                                     break;
                                 }
                             }
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
+                        } catch (ExecutionException | InterruptedException e) {
                             e.printStackTrace();
                         }
                         if (allFinished) {
@@ -395,7 +392,6 @@ public class WifiScanWorker extends Worker {
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
-                    //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
                         boolean running = false;
@@ -405,10 +401,7 @@ public class WifiScanWorker extends Worker {
                             break;
                         }
                         return running;
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                        return false;
-                    } catch (InterruptedException e) {
+                    } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                         return false;
                     }
@@ -435,7 +428,6 @@ public class WifiScanWorker extends Worker {
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
                         statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
-                    //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
                         boolean running = false;
@@ -445,10 +437,7 @@ public class WifiScanWorker extends Worker {
                             break;
                         }
                         return running;
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                        return false;
-                    } catch (InterruptedException e) {
+                    } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                         return false;
                     }
@@ -520,7 +509,7 @@ public class WifiScanWorker extends Worker {
             if ((wifiLock != null) && (!wifiLock.isHeld()))
                 wifiLock.acquire();
         } catch (Exception e) {
-            Log.e("WifiScanWorker.lock", Log.getStackTraceString(e));
+            PPApplicationStatic.logException("WifiScanWorker.lock", Log.getStackTraceString(e));
             //PPApplicationStatic.recordException(e);
         }
     }
@@ -532,7 +521,7 @@ public class WifiScanWorker extends Worker {
                 wifiLock.release();
             }
         } catch (Exception e) {
-            Log.e("WifiScanWorker.unlock", Log.getStackTraceString(e));
+            PPApplicationStatic.logException("WifiScanWorker.unlock", Log.getStackTraceString(e));
             //PPApplicationStatic.recordException(e);
         } finally {
             wifiLock = null;
@@ -701,7 +690,7 @@ public class WifiScanWorker extends Worker {
 
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 //boolean isScreenOn = PPApplication.isScreenOn(pm);
-                //if ((android.os.Build.VERSION.SDK_INT < 21) || (_scanResults.size() > 0) || isScreenOn) {
+                //if ((_scanResults.size() > 0) || isScreenOn) {
                 //scanResults.clear();
                 for (ScanResult _device : _scanResults) {
                     boolean found = false;
@@ -727,8 +716,8 @@ public class WifiScanWorker extends Worker {
         saveScanResults(context, scanResults);
     }
 
-    private static final String SCAN_RESULT_COUNT_PREF = "count";
-    private static final String SCAN_RESULT_DEVICE_PREF = "device";
+    private static final String PREF_SCAN_RESULT_COUNT = "count";
+    private static final String PREF_SCAN_RESULT_DEVICE = "device";
 
     //public static void getWifiConfigurationList(Context context)
     static List<WifiSSIDData> getWifiConfigurationList(Context context)
@@ -743,12 +732,12 @@ public class WifiScanWorker extends Worker {
 
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.WIFI_CONFIGURATION_LIST_PREFS_NAME, Context.MODE_PRIVATE);
 
-            int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, 0);
+            int count = preferences.getInt(PREF_SCAN_RESULT_COUNT, 0);
 
             Gson gson = new Gson();
 
             for (int i = 0; i < count; i++) {
-                String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
+                String json = preferences.getString(PREF_SCAN_RESULT_DEVICE + i, "");
                 if (!json.isEmpty()) {
                     WifiSSIDData device = gson.fromJson(json, WifiSSIDData.class);
                     device.configured = true;
@@ -772,13 +761,14 @@ public class WifiScanWorker extends Worker {
 
             editor.clear();
 
-            editor.putInt(SCAN_RESULT_COUNT_PREF, wifiConfigurationList.size());
+            int size = wifiConfigurationList.size();
+            editor.putInt(PREF_SCAN_RESULT_COUNT, size);
 
             Gson gson = new Gson();
 
-            for (int i = 0; i < wifiConfigurationList.size(); i++) {
+            for (int i = 0; i < size; i++) {
                 String json = gson.toJson(wifiConfigurationList.get(i));
-                editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
+                editor.putString(PREF_SCAN_RESULT_DEVICE + i, json);
             }
 
             editor.apply();
@@ -790,7 +780,7 @@ public class WifiScanWorker extends Worker {
     {
         synchronized (PPApplication.wifiScanResultsMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
-            int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
+            int count = preferences.getInt(PREF_SCAN_RESULT_COUNT, -1);
 
             if (count > -1) {
                 List<WifiSSIDData> scanResults = new ArrayList<>();
@@ -798,7 +788,7 @@ public class WifiScanWorker extends Worker {
                 Gson gson = new Gson();
 
                 for (int i = 0; i < count; i++) {
-                    String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
+                    String json = preferences.getString(PREF_SCAN_RESULT_DEVICE + i, "");
                     if (!json.isEmpty()) {
                         WifiSSIDData device = gson.fromJson(json, WifiSSIDData.class);
                         device.scanned = true;
@@ -824,15 +814,16 @@ public class WifiScanWorker extends Worker {
             editor.clear();
 
             if (scanResults == null)
-                editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
+                editor.putInt(PREF_SCAN_RESULT_COUNT, -1);
             else {
-                editor.putInt(SCAN_RESULT_COUNT_PREF, scanResults.size());
+                int size = scanResults.size();
+                editor.putInt(PREF_SCAN_RESULT_COUNT, size);
 
                 Gson gson = new Gson();
 
-                for (int i = 0; i < scanResults.size(); i++) {
+                for (int i = 0; i < size; i++) {
                     String json = gson.toJson(scanResults.get(i));
-                    editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
+                    editor.putString(PREF_SCAN_RESULT_DEVICE + i, json);
                 }
             }
 
@@ -846,7 +837,7 @@ public class WifiScanWorker extends Worker {
             SharedPreferences.Editor editor = preferences.edit();
 
             editor.clear();
-            editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
+            editor.putInt(PREF_SCAN_RESULT_COUNT, -1);
 
             editor.apply();
         }
@@ -882,7 +873,8 @@ public class WifiScanWorker extends Worker {
                 listOfConfigurations = wifiManager.getConfiguredNetworks();
 
             if (listOfConfigurations != null) {
-                for (int index = 0; index < listOfConfigurations.size(); index++) {
+                int size = listOfConfigurations.size();
+                for (int index = 0; index < size; index++) {
                     WifiConfiguration configuration = listOfConfigurations.get(index);
                     //noinspection deprecation
                     if (configuration.networkId == wifiInfo.getNetworkId()) {

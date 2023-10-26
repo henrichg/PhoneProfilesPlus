@@ -41,13 +41,13 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
             PowerManager.WakeLock wakeLock = null;
             try {
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MobileDataStateChangedContentObserver_onChange");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_MobileDataStateChangedContentObserver_onChange);
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
 //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MobileDataStateChangedContentObserver.onChange", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RADIO_SWITCH});
 
             } catch (Exception e) {
 //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MobileDataStateChangedContentObserver.onChange", Log.getStackTraceString(e));
@@ -69,7 +69,6 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 //        PPApplicationStatic.logE("[IN_OBSERVER] MobileDataStateChangedContentObserver.onChange", "current thread="+Thread.currentThread());
 
         if (PPApplication.HAS_FEATURE_TELEPHONY) {
-            //if (Build.VERSION.SDK_INT >= 26) {
                 boolean actualStateSIM1 = ActivateProfileHelper.isMobileData(context, 1);
                 boolean actualStateSIM2 = ActivateProfileHelper.isMobileData(context, 2);
                 if (previousStateSIM1 != actualStateSIM1) {
@@ -80,7 +79,6 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
                     doOnChange(/*selfChange, uri*/);
                     previousStateSIM2 = actualStateSIM2;
                 }
-            //}
             boolean actualState = ActivateProfileHelper.isMobileData(context, 0);
             if (previousState != actualState) {
                 doOnChange(/*selfChange, uri*/);

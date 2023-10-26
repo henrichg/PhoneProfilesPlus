@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/profile_multiselect_pref_dlg_item_root"
     android:layout_width="match_parent"
-    android:layout_height="48dp" >
+    android:layout_height="48dp"
+    android:orientation="horizontal" >
 
     <CheckBox
         android:id="@+id/profile_multiselect_pref_dlg_item_checkbox"
@@ -10,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="@dimen/chackBox_radioButton_spacing_for_list_items"
-        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
         android:buttonTint="@color/checkbox_radiobutton_color"
         android:checked="false"
         android:focusable="false" />
@@ -19,8 +20,7 @@
         android:id="@+id/profile_multiselect_pref_dlg_item_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/profile_multiselect_pref_dlg_item_checkbox"
+        android:layout_gravity="center_vertical"
         android:adjustViewBounds="true"
         android:contentDescription="@string/profile_preferences_profileIcon"
         android:scaleType="fitCenter"
@@ -32,8 +32,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/profile_multiselect_pref_dlg_item_icon"
-        android:layout_centerVertical="true">
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:id="@+id/profile_multiselect_pref_dlg_item_label"
@@ -47,4 +46,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

@@ -406,16 +406,16 @@
         <item>0</item>
     </string-array>
     <string-array name="eventBluetoothConnectionTypeArray">
-        <item>@string/array_event_pref_bluetoothConnectionType_connected</item>
         <item>@string/array_event_pref_bluetoothConnectionType_inFront</item>
-        <item>@string/array_event_pref_bluetoothConnectionType_notConnected</item>
+        <item>@string/array_event_pref_bluetoothConnectionType_connected</item>
         <item>@string/array_event_pref_bluetoothConnectionType_notInFront</item>
+        <item>@string/array_event_pref_bluetoothConnectionType_notConnected</item>
     </string-array>
     <string-array name="eventBluetoothConnectionTypeValues">
-        <item>0</item>
         <item>1</item>
-        <item>2</item>
+        <item>0</item>
         <item>3</item>
+        <item>2</item>
     </string-array>
     <string-array name="eventSMSContactListTypeArray">
         <item>@string/array_event_pref_contact_list_type_white_list</item>
@@ -578,12 +578,18 @@
         <item>@string/default_profile_name_battery_low</item>
     </string-array>
     <string-array name="addEventPredefinedEndProfilesArray">
-        <item>@string/empty_string</item>
-        <item>@string/empty_string</item>
-        <item>@string/empty_string</item>
-        <item>@string/empty_string</item>
-        <item>@string/empty_string</item>
-        <item>@string/empty_string</item>
+        <!--suppress CheckTagEmptyBody -->
+        <item></item>
+        <!--suppress CheckTagEmptyBody -->
+        <item></item>
+        <!--suppress CheckTagEmptyBody -->
+        <item></item>
+        <!--suppress CheckTagEmptyBody -->
+        <item></item>
+        <!--suppress CheckTagEmptyBody -->
+        <item></item>
+        <!--suppress CheckTagEmptyBody -->
+        <item></item>
         <item>@string/default_profile_name_battery_ok</item>
     </string-array>
     <string-array name="addEventPredefinedStartProfileIconsArray">
@@ -800,12 +806,24 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <string-array name="applicationDisableScanningArray">
+    <string-array name="applicationEnableScanningArray">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_applicationDisableScanning_enabled</item>
+        <item>@string/array_pref_applicationDisableScanning_enabled_with_interval</item>
+        <item>@string/array_pref_applicationDisableScanning_disabled</item>
+    </string-array>
+    <string-array name="applicationEnableScanningValues">
+        <item>0</item>
+        <item>2</item>
+        <item>3</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="applicationEnableScanningNoIntervalArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_applicationDisableScanning_enabled</item>
         <item>@string/array_pref_applicationDisableScanning_disabled</item>
     </string-array>
-    <string-array name="applicationDisableScanningValues">
+    <string-array name="applicationEnableScanningNoIntervalValues">
         <item>0</item>
         <item>2</item>
         <item>1</item>
@@ -1417,6 +1435,18 @@
         <item>5</item>
         <item>6</item>
     </string-array>
+    <string-array name="widgetIconLayoutHeightArray">
+        <item>@string/array_pref_iconWidget_layoutHeight_moreCompact</item>
+        <item>@string/array_pref_oneRowWidget_layoutHeight_compact</item>
+        <item>@string/array_pref_oneRowWidget_layoutHeight_normal</item>
+        <item>@string/array_pref_oneRowWidget_layoutHeight_large</item>
+    </string-array>
+    <string-array name="widgetIconLayoutHeightValues">
+        <item>3</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
     <string-array name="widgetOneRowLayoutHeightArray">
         <item>@string/array_pref_oneRowWidget_layoutHeight_compact</item>
         <item>@string/array_pref_oneRowWidget_layoutHeight_normal</item>
@@ -1624,6 +1654,22 @@
         <item>4</item>
         <item>5</item>
         <item>6</item>
+    </string-array>
+    <string-array name="brightnessSensorOperatorArray">
+        <item>@string/array_pref_volumesSensorOperator_equalsTo</item>
+        <item>@string/array_pref_volumesSensorOperator_doNotEqualsTo</item>
+        <item>@string/array_pref_volumesSensorOperator_islessThen</item>
+        <item>@string/array_pref_volumesSensorOperator_isGreaterThen</item>
+        <item>@string/array_pref_volumesSensorOperator_isLessOrEqualTo</item>
+        <item>@string/array_pref_volumesSensorOperator_isGreaterOrEqualTo</item>
+    </string-array>
+    <string-array name="brightnessSensorOperatorValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 
 </resources>

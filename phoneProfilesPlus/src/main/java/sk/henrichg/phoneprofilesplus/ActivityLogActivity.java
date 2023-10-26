@@ -1,14 +1,20 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,15 +23,46 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-public class ActivityLogActivity extends AppCompatActivity {
+import java.lang.ref.WeakReference;
 
-    private DataWrapper dataWrapper;
+public class ActivityLogActivity extends AppCompatActivity
+                                            implements AddedActivityLogListener {
+
+    //private DataWrapper dataWrapper;
     private ListView listView;
+    private LinearLayout progressLinearLayout;
     private ActivityLogAdapter activityLogAdapter;
+    private TextView addedNewLogsText;
+
+    private SetAdapterAsyncTask setAdapterAsyncTask = null;
+
+    //boolean addedNewLogs = false;
+
+    @Override
+    public void addedActivityLog() {
+        //addedNewLogs = true;
+        addedNewLogsText.setVisibility(View.VISIBLE);
+    }
+
+    static private class AddedActivityLogBroadcastReceiver extends BroadcastReceiver {
+
+        private final AddedActivityLogListener listener;
+
+        public AddedActivityLogBroadcastReceiver(AddedActivityLogListener listener){
+            this.listener = listener;
+        }
+
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            listener.addedActivityLog();
+        }
+
+    }
+    private AddedActivityLogBroadcastReceiver addedActivityLogBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -40,23 +77,39 @@ public class ActivityLogActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
-        dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+        //addedNewLogs = false;
+        addedNewLogsText = findViewById(R.id.activity_log_header_added_new_logs);
+        addedNewLogsText.setVisibility(View.GONE);
+
+        //dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         listView = findViewById(R.id.activity_log_list);
+        listView.setEmptyView(findViewById(R.id.activity_log_list_empty));
+        progressLinearLayout = findViewById(R.id.activity_log_linla_progress);
+        listView.setVisibility(View.GONE);
+        progressLinearLayout.setVisibility(View.VISIBLE);
 
-        // Setup cursor adapter using cursor from last step
-        Cursor activityLogCursor =  DatabaseHandler.getInstance(getApplicationContext()).getActivityLogCursor();
-        if (activityLogCursor != null) {
-            activityLogAdapter = new ActivityLogAdapter(getBaseContext(), activityLogCursor);
+        addedActivityLogBroadcastReceiver = new AddedActivityLogBroadcastReceiver(this);
+        int receiverFlags = 0;
+        if (Build.VERSION.SDK_INT >= 34)
+            receiverFlags = RECEIVER_NOT_EXPORTED;
+        registerReceiver(addedActivityLogBroadcastReceiver,
+                new IntentFilter(PPApplication.ACTION_ADDED_ACIVITY_LOG), receiverFlags);
 
-            // Attach cursor adapter to the ListView
-            listView.setAdapter(activityLogAdapter);
-        }
     }
 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        setAdapterAsyncTask =
+                new SetAdapterAsyncTask(this, getApplicationContext());
+        setAdapterAsyncTask.execute();
     }
 
     @Override
@@ -98,7 +151,9 @@ public class ActivityLogActivity extends AppCompatActivity {
         }
         else
         if (itemId == R.id.menu_activity_log_reload) {
-            activityLogAdapter.reload(dataWrapper);
+            //addedNewLogs = false;
+            addedNewLogsText.setVisibility(View.GONE);
+            activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
             listView.setSelection(0);
             return true;
         }
@@ -111,8 +166,10 @@ public class ActivityLogActivity extends AppCompatActivity {
                     getString(R.string.alert_button_no),
                     null, null,
                     (dialog1, which) -> {
+                        //addedNewLogs = false;
+                        addedNewLogsText.setVisibility(View.GONE);
                         DatabaseHandler.getInstance(getApplicationContext()).clearActivityLog();
-                        activityLogAdapter.reload(dataWrapper);
+                        activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
                     },
                     null,
                     null,
@@ -136,7 +193,7 @@ public class ActivityLogActivity extends AppCompatActivity {
             PPApplicationStatic.setActivityLogEnabled(getApplicationContext(), !enabled);
             if (!enabled)
                 PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_STARTED_LOGGING, null, null, "");
-            activityLogAdapter.reload(dataWrapper);
+            activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
             listView.setSelection(0);
             invalidateOptionsMenu();
             return true;
@@ -154,83 +211,85 @@ public class ActivityLogActivity extends AppCompatActivity {
 
             TextView infoTextView = layout.findViewById(R.id.info_pref_dialog_info_text);
 
-            String message = "";
+            StringBuilder _value = new StringBuilder();
 
-            message = message + "<b>" + getString(R.string.activity_log_help_message_colors) + ":</b><br>";
+            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getString(R.string.activity_log_help_message_colors)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
 
             int color = ContextCompat.getColor(this, R.color.altype_profile);
-            String colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
-            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_profile_activation) + "<br>";
+            String colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
+            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
+            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_profile_activation)).append(StringConstants.TAG_BREAK_HTML);
 
             color = ContextCompat.getColor(this, R.color.altype_eventStart);
-            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
-            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_event_start) + "<br>";
+            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
+            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
+            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_event_start)).append(StringConstants.TAG_BREAK_HTML);
 
             color = ContextCompat.getColor(this, R.color.altype_eventEnd);
-            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
-            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_event_end) + "<br>";
+            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
+            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
+            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_event_end)).append(StringConstants.TAG_BREAK_HTML);
 
             color = ContextCompat.getColor(this, R.color.altype_restartEvents);
-            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
-            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_restart_events) + "<br>";
+            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
+            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
+            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_restart_events)).append(StringConstants.TAG_BREAK_HTML);
 
             color = ContextCompat.getColor(this, R.color.altype_eventDelayStartEnd);
-            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
-            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_event_delay_start_end) + "<br>";
+            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
+            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
+            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_event_delay_start_end)).append(StringConstants.TAG_BREAK_HTML);
 
             color = ContextCompat.getColor(this, R.color.altype_error);
-            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
-            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_error) + "<br>";
+            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
+            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
+            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_error)).append(StringConstants.TAG_BREAK_HTML);
 
             color = ContextCompat.getColor(this, R.color.altype_other);
-            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
-            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_others);
+            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
+            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
+            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_others));
 
-            message = message + "<br><br>";
-            message = message + "<b>" + getString(R.string.activity_log_help_message) + ":</b><br><br>";
+            _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
+            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getString(R.string.activity_log_help_message)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
 
-            message = message + "<ul><li><b>" + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X&nbsp;[&nbsp;Y&nbsp;]\":</b><br>";
-            message = message + getString(R.string.activity_log_help_message_mergedProfileActivation) + "</li></ul>";
+            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(StringConstants.TAG_BOLD_START_HTML).append("\"").append(getString(R.string.activity_log_header_data_type)).append("\"=");
+            _value.append("\"").append(getString(R.string.altype_mergedProfileActivation)).append(": X")
+                    .append(StringConstants.CHAR_HARD_SPACE_HTML).append("[").append(StringConstants.CHAR_HARD_SPACE_HTML).append("Y").append(StringConstants.CHAR_HARD_SPACE_HTML).append("]\":")
+                    .append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
+            _value.append(getString(R.string.activity_log_help_message_mergedProfileActivation)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
 
-            message = message + "<br>";
-            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
-            message = message + getString(R.string.activity_log_help_message_data_for) + " ";
-            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + "\"" + getString(R.string.altype_profileActivation) + "\":</b><br>";
-            message = message + getString(R.string.activity_log_help_message_data_profileName) + "<br>";
-            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI) + "</li></ul>";
+            _value.append(StringConstants.TAG_BREAK_HTML);
+            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(StringConstants.TAG_BOLD_START_HTML).append(" \"").append(getString(R.string.activity_log_header_data)).append("\" ");
+            _value.append(getString(R.string.activity_log_help_message_data_for)).append(" ");
+            _value.append("\"").append(getString(R.string.activity_log_header_data_type)).append("\"=");
+            _value.append("\"").append(getString(R.string.altype_profileActivation)).append("\":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
+            _value.append(getString(R.string.activity_log_help_message_data_profileName)).append(StringConstants.TAG_BREAK_HTML);
+            _value.append(getString(R.string.activity_log_help_message_data_displayedInGUI)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
 
-            message = message + "<br>";
-            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
-            message = message + getString(R.string.activity_log_help_message_data_for) + " ";
-            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + "\":</b><br>";
-            message = message + getString(R.string.activity_log_help_message_data_profileNameEventName) + "<br>";
-            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI) + "</li></ul>";
+            _value.append(StringConstants.TAG_BREAK_HTML);
+            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(StringConstants.TAG_BOLD_START_HTML).append(" \"").append(getString(R.string.activity_log_header_data)).append("\" ");
+            _value.append(getString(R.string.activity_log_help_message_data_for)).append(" ");
+            _value.append("\"").append(getString(R.string.activity_log_header_data_type)).append("\"=");
+            _value.append("\"").append(getString(R.string.altype_mergedProfileActivation)).append("\":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
+            _value.append(getString(R.string.activity_log_help_message_data_profileNameEventName)).append(StringConstants.TAG_BREAK_HTML);
+            _value.append(getString(R.string.activity_log_help_message_data_displayedInGUI)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
 
-            message = message + "<br>";
-            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
-            message = message + getString(R.string.activity_log_help_message_data_for) + " ";
-            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + getString(R.string.activity_log_help_message_data_otherProfileDataTypes) + ":</b><br>";
-            message = message + getString(R.string.activity_log_help_message_data_profileName_otherDataTypes) + "</li></ul>";
+            _value.append(StringConstants.TAG_BREAK_HTML);
+            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(StringConstants.TAG_BOLD_START_HTML).append(" \"").append(getString(R.string.activity_log_header_data)).append("\" ");
+            _value.append(getString(R.string.activity_log_help_message_data_for)).append(" ");
+            _value.append("\"").append(getString(R.string.activity_log_header_data_type)).append("\"=");
+            _value.append(getString(R.string.activity_log_help_message_data_otherProfileDataTypes)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
+            _value.append(getString(R.string.activity_log_help_message_data_profileName_otherDataTypes)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
 
-            message = message + "<br>";
-            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
-            message = message + getString(R.string.activity_log_help_message_data_for) + " ";
-            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + getString(R.string.activity_log_help_message_data_otherEventDataTypes) + ":</b><br>";
-            message = message + getString(R.string.activity_log_help_message_data_eventName_otherDataTypes) + "</li></ul>";
+            _value.append(StringConstants.TAG_BREAK_HTML);
+            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(StringConstants.TAG_BOLD_START_HTML).append(" \"").append(getString(R.string.activity_log_header_data)).append("\" ");
+            _value.append(getString(R.string.activity_log_help_message_data_for)).append(" ");
+            _value.append("\"").append(getString(R.string.activity_log_header_data_type)).append("\"=");
+            _value.append(getString(R.string.activity_log_help_message_data_otherEventDataTypes)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
+            _value.append(getString(R.string.activity_log_help_message_data_eventName_otherDataTypes)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
 
-            infoTextView.setText(StringFormatUtils.fromHtml(message, true, true, false, 0, 0, true));
+            infoTextView.setText(StringFormatUtils.fromHtml(_value.toString(), true, true, false, 0, 0, true));
 
             infoTextView.setClickable(true);
             infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -261,9 +320,75 @@ public class ActivityLogActivity extends AppCompatActivity {
     protected void onDestroy()
     {
         super.onDestroy();
+
+        try {
+            unregisterReceiver(addedActivityLogBroadcastReceiver);
+            addedActivityLogBroadcastReceiver = null;
+        } catch (IllegalArgumentException e) {
+            //PPApplicationStatic.recordException(e);
+        }
+
         Cursor cursor = activityLogAdapter.getCursor();
         if (cursor != null)
             cursor.close();
+
+        if ((setAdapterAsyncTask != null) &&
+                setAdapterAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            setAdapterAsyncTask.cancel(true);
+        setAdapterAsyncTask = null;
+
+        /*
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
+        dataWrapper = null;
+        */
+    }
+
+    private static class SetAdapterAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        private final WeakReference<Context> contextWeakReference;
+        private final WeakReference<ActivityLogActivity> activityWeakReference;
+
+        Cursor activityLogCursor = null;
+
+        public SetAdapterAsyncTask(final ActivityLogActivity activity,
+                                   final Context context) {
+            this.contextWeakReference = new WeakReference<>(context);
+            this.activityWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Context context = contextWeakReference.get();
+
+            if (context != null) {
+                activityLogCursor =  DatabaseHandler.getInstance(context.getApplicationContext()).getActivityLogCursor();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            Context context = contextWeakReference.get();
+            ActivityLogActivity activity = activityWeakReference.get();
+
+            if ((context != null) && (activity != null)) {
+                if (activityLogCursor != null) {
+                    activity.activityLogAdapter = new ActivityLogAdapter(activity.getBaseContext(), activityLogCursor);
+
+                    // Attach cursor adapter to the ListView
+                    activity.listView.setAdapter(activity.activityLogAdapter);
+
+                    activity.progressLinearLayout.setVisibility(View.GONE);
+                    activity.listView.setVisibility(View.VISIBLE);
+                }
+            }
+
+        }
+
     }
 
 }

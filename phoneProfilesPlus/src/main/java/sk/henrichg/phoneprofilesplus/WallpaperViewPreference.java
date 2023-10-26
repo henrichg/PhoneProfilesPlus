@@ -29,6 +29,8 @@ public class WallpaperViewPreference extends Preference {
     private final Context prefContext;
     private ImageView imageView;
 
+    private BindViewAsyncTask bindViewAsyncTask = null;
+
     static final int RESULT_LOAD_IMAGE = 1970;
 
     public WallpaperViewPreference(Context context, AttributeSet attrs)
@@ -50,7 +52,17 @@ public class WallpaperViewPreference extends Preference {
 
         imageView = (ImageView) holder.findViewById(R.id.imageview_pref_imageview);
 
-        new BindViewAsyncTask(this).execute();
+        bindViewAsyncTask = new BindViewAsyncTask(this);
+        bindViewAsyncTask.execute();
+    }
+
+    @Override
+    public void onDetached() {
+        super.onDetached();
+        if ((bindViewAsyncTask != null) &&
+                bindViewAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            bindViewAsyncTask.cancel(true);
+        bindViewAsyncTask = null;
     }
 
     @Override
@@ -142,9 +154,8 @@ public class WallpaperViewPreference extends Preference {
             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
             intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.setType("image/*");
+            intent.setType(StringConstants.MIME_TYPE_IMAGE);
 
-            //if (Build.VERSION.SDK_INT >= 26) {
                 boolean ok = false;
                 if (!(imageIdentifier.isEmpty() || imageIdentifier.equals("-"))) {
                     try {
@@ -165,7 +176,6 @@ public class WallpaperViewPreference extends Preference {
                     } catch (Exception ignored) {
                     }
                 }
-            //}
 
             // is not possible to get activity from preference, used is static method
             //ProfilesPrefsFragment.setChangedWallpaperViewPreference(this);
@@ -245,10 +255,17 @@ public class WallpaperViewPreference extends Preference {
             WallpaperViewPreference preference = preferenceWeakRef.get();
             if (preference != null) {
                 if (preference.imageView != null) {
-                    if (bitmap != null)
+                    if (bitmap != null) {
                         preference.imageView.setImageBitmap(bitmap);
-                    else
+                        if (!preference.isEnabled())
+                            preference.imageView.setAlpha(0.35f);
+                        else
+                            preference.imageView.setAlpha(1f);
+                    }
+                    else {
                         preference.imageView.setImageResource(R.drawable.ic_empty);
+                        preference.imageView.setAlpha(1f);
+                    }
                 }
             }
         }

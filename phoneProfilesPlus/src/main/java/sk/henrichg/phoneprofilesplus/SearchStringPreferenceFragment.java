@@ -43,15 +43,15 @@ public class SearchStringPreferenceFragment extends PreferenceDialogFragmentComp
         final ImageView helpIcon = view.findViewById(R.id.search_string_pref_dlg_helpIcon);
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(v -> {
-            String helpString = "<ul>" +
-                    "<li>" + getString(R.string.pref_dlg_info_about_wildcards_1) + "</li>" +
-                    "<li>" + getString(R.string.pref_dlg_info_about_wildcards_5) + "</li>" +
-                    "<li>" + getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
+            String helpString = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+                                                               getString(R.string.pref_dlg_info_about_wildcards_1) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.pref_dlg_info_about_wildcards_5) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
                     getString(R.string.calendar_pref_dlg_info_about_wildcards) + " " +
                     getString(R.string.pref_dlg_info_about_wildcards_6) + ", " +
-                    getString(R.string.pref_dlg_info_about_wildcards_3) + "</li>" +
-                    "<li>" + getString(R.string.pref_dlg_info_about_wildcards_4) + "</li>" +
-                    "</ul>";
+                    getString(R.string.pref_dlg_info_about_wildcards_3) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.pref_dlg_info_about_wildcards_4) +
+                    StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
             DialogHelpPopupWindow.showPopup(helpIcon, R.string.menu_help, (Activity) prefContext, /*getDialog(),*/ helpString, true);
         });
 

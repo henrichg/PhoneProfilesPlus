@@ -83,6 +83,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                             .putInt(PPApplication.EXTRA_STARTUP_SOURCE, startupSource)
                             .build();
 
+//                    PPApplicationStatic.logE("[MAIN_WORKER_CALL] ProfileDurationAlarmBroadcastReceiver.setAlarm", "xxxxxxxxxxxxxxxxxxxx");
+
                     //int keepResultsDelay = (profile._duration * 5) / 60; // conversion to minutes
                     //if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     //    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
@@ -142,12 +144,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     } else {
                         alarmTime = SystemClock.elapsedRealtime() + profile._duration * 1000L;
 
-                        //if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                        //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                        //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                        //else
-                        //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     }
                     //this._isInDelay = true;
                 }
@@ -195,12 +192,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     } else {
                         alarmTime = SystemClock.elapsedRealtime() + profile._duration * 1000L;
 
-                        //if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                        //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                        //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                        //else
-                        //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     }
                     //this._isInDelay = true;
                 }
@@ -310,7 +302,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ProfileDurationAlarmBroadcastReceiver_doWork");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ProfileDurationAlarmBroadcastReceiver_doWork);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -348,19 +340,19 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 if (DataWrapperStatic.getIsManualProfileActivation(true, appContext) ||
                         (!EventStatic.getGlobalEventsRunning(appContext)) ||
                         (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
-                    Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
+                    long _activatedProfileId = dataWrapper.getActivatedProfileId();
 
                     removeAlarm(profile, appContext);
 //                    PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileDurationAlarmBroadcastReceiver._doWork", "call of updateGUI");
                     PPApplication.updateGUI(true, false, appContext);
 
-                    if ((activatedProfile != null) &&
-                            (activatedProfile._id == profile._id) &&
+                    if ((_activatedProfileId != -1) &&
+                            (_activatedProfileId == profile._id) &&
                             (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING)) {
                         // alarm is from activated profile
 
                         if (!profile._durationNotificationSound.isEmpty() || profile._durationNotificationVibrate) {
-                            PhoneProfilesServiceStatic.playNotificationSound(
+                            PlayRingingNotification.playNotificationSound(
                                     profile._durationNotificationSound,
                                     profile._durationNotificationVibrate,
                                     false, appContext);
@@ -400,7 +392,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     size = activateProfilesFIFO.size();
                                     if (size > 0) {
                                         String fromFifo = activateProfilesFIFO.get(size - 1);
-                                        String[] splits = fromFifo.split("\\|");
+                                        String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
                                         activateProfileId = Long.parseLong(splits[0]);
                                     } else
                                         activateProfileId = 0;
@@ -408,7 +400,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     //eventTimeline._fkProfileEndActivated = 0;
                                     activateProfileId = 0;
 
-                                if (activateProfileId == activatedProfile._id)
+                                if (activateProfileId == _activatedProfileId)
                                     activateProfileId = 0;
                             }
 

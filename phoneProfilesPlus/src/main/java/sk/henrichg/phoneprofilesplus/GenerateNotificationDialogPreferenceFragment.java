@@ -32,6 +32,8 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
     private RadioButton informationIconRBtn = null;
     private RadioButton exclamationIconRBtn = null;
     private RadioButton profileIconRBtn = null;
+    private CheckBox showLargeIconChBtn = null;
+    private CheckBox replaceWithPPPIconChBtn = null;
     private EditText notificationTitleEdtText = null;
     private EditText notificationBodyEdtText = null;
     private TextView iconTypeLabel = null;
@@ -63,6 +65,8 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
                 preference.iconType = 2;
             else
                 preference.iconType = 0;
+            preference.replaceWithPPPIcon = replaceWithPPPIconChBtn.isChecked() ? 1 : 0;
+            preference.showLargeIcon = showLargeIconChBtn.isChecked() ? 1 : 0;
             preference.notificationTitle = notificationTitleEdtText.getText().toString();
             preference.notificationBody = notificationBodyEdtText.getText().toString();
 
@@ -95,6 +99,8 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
             informationIconRBtn.setChecked(preference.iconType == 0);
             exclamationIconRBtn.setChecked(preference.iconType == 1);
             profileIconRBtn.setChecked(preference.iconType == 2);
+            replaceWithPPPIconChBtn.setChecked(preference.replaceWithPPPIcon == 1);
+            showLargeIconChBtn.setChecked(preference.showLargeIcon == 1);
             notificationTitleEdtText.setText(preference.notificationTitle);
             notificationBodyEdtText.setText(preference.notificationBody);
 
@@ -102,9 +108,12 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
         });
 
         generateChBtn = layout.findViewById(R.id.generateNotificationPrefDialogGenerate);
+
         informationIconRBtn = layout.findViewById(R.id.generateNotificationPrefDialogInformationIcon);
         exclamationIconRBtn = layout.findViewById(R.id.generateNotificationPrefDialogExclamationIcon);
         profileIconRBtn = layout.findViewById(R.id.generateNotificationPrefDialogProfileIcon);
+        replaceWithPPPIconChBtn = layout.findViewById(R.id.generateNotificationPrefDialogReplaceWithPPPIcon);
+        showLargeIconChBtn = layout.findViewById(R.id.generateNotificationPrefDialogShowLargeIcon);
 
         notificationTitleEdtText = layout.findViewById(R.id.generateNotificationPrefDialogNotificationTitle);
         notificationTitleEdtText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
@@ -147,6 +156,8 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
         informationIconRBtn.setEnabled(checked);
         exclamationIconRBtn.setEnabled(checked);
         profileIconRBtn.setEnabled(checked);
+        replaceWithPPPIconChBtn.setEnabled(checked);
+        showLargeIconChBtn.setEnabled(checked);
         notificationTitleEdtText.setEnabled(checked);
         notificationBodyEdtText.setEnabled(checked);
         iconTypeLabel.setEnabled(checked);

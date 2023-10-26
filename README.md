@@ -1,18 +1,19 @@
 <img src="art/ic_launcher-web.png" width="100" height="100">  
 
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
+
 PhoneProfilesPlus (aka PPP)
 ===========================
 
-[![version](https://img.shields.io/badge/version-6.2-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.2)
+[![version](https://img.shields.io/badge/version-6.3-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.3)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
+[![Project Map](https://sourcespy.com/shield.svg)](https://sourcespy.com/github/henrichgphoneprofilesplus/)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 [![Project Map](https://sourcespy.com/shield.svg)](https://sourcespy.com/github/henrichgphoneprofilesplus/)
 
 ### Sources of PhoneProfilesPlus:
-
-- __[GitHub PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores:
 
@@ -23,21 +24,28 @@ __Huawei AppGallery:__
 - [PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000)  
 - [Store application (download)](https://consumer.huawei.com/en/mobileservices/appgallery/)
 
-__APKPure:__
-- [PPP release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)  
-- [Store application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)
+__Droid-ify (F-Droid alternative, preferred over GitHub):__
+- [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
+- [Store applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)
+  &nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
 
 __F-Droid:__
 - [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
 &nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
 - [Store application (download)](https://www.f-droid.org/)
 
-__Droid-ify (F-Droid alternative):__  
-- [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)  
-- [Store applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)
-&nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
+__APKPure:__
+- [PPP release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)
+- [Store application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)
 
-__If it is not possible to install PhoneProfilesPlus from GitHub or other sources directly on the device, then it can be installed from PC.__
+__GitHub (better is using Droid-ify instead):__
+
+- NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Droid-ify, if in your device is not supported application store, and install PhoneProfilesPlus from it.
+
+- [PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)
+  &nbsp;&nbsp;&nbsp;_[Number of downloads by version](https://hanadigital.github.io/grev/?user=henrichg&repo=phoneprofilesplus)_
+
+__If is not possible to install PhoneProfilesPlus from the downloaded apk file directly on your device, you can install it from your computer.__
 - [Show how](docs/install_apk_from_pc.md)
 
 ### Applications required for some PhoneProfilesPlus features:
@@ -96,11 +104,12 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 
 ##### Required external libs - open-source
 
-- AndroidX library: appcompat, preferences, gridlayout, cardview, recyclerview, viewpager2, constraintlayout, workmanager - https://developer.android.com/jetpack/androidx/versions
+- AndroidX library: appcompat, preferences, gridlayout, cardview, recyclerview, viewpager2, constraintlayout, workmanager, exifinterface - https://developer.android.com/jetpack/androidx/versions
 - Google Material components - https://github.com/material-components/material-components-android
 - google-gson - https://code.google.com/p/google-gson/
 - ACRA - https://github.com/ACRA/acra
 - guava - https://github.com/google/guava
+- AutoService = https://github.com/google/auto/tree/main/service
 - osmdroid - https://github.com/osmdroid/osmdroid
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
 - doki - https://github.com/DoubleDotLabs/doki
@@ -109,6 +118,8 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - volley - https://github.com/google/volley
 - ExpandableLayout - https://github.com/skydoves/ExpandableLayout
 - SmoothBottomBar - https://github.com/ibrahimsn98/SmoothBottomBar
+- AndroidHiddenApiBypass - https://github.com/LSPosed/AndroidHiddenApiBypass
+- Encryption - https://github.com/simbiose/Encryption
 - RootTools (as module, code modified) - https://github.com/Stericson/RootTools
 - RootShell (as module, code modified) - https://github.com/Stericson/RootShell
 - time-duration-picker (as module, code modified) - https://github.com/svenwiegand/time-duration-picker
@@ -118,7 +129,6 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - RelativePopupWindow (only modified class RelativePopupWindow.java) - https://github.com/kakajika/RelativePopupWindow
 - SunriseSunset (only modified class SunriseSunset.java) - https://github.com/caarmen/SunriseSunset
 - android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/Reginer/aosp-android-jar (original repository: https://github.com/anggrayudi/android-hidden-api)
-- AndroidHiddenApiBypass - https://github.com/LSPosed/AndroidHiddenApiBypass
 - NoobCameraFlash (as module, code modified) - https://github.com/Abhi347/NoobCameraFlash
 - AutoStarter (only modified class AutoStartPermissionHelper.kt) - https://github.com/judemanutd/AutoStarter
 - ToastCompat (as module, code modified) - https://github.com/PureWriter/ToastCompat

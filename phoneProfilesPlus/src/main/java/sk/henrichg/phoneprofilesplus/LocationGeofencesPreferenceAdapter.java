@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 
 class LocationGeofencesPreferenceAdapter extends CursorAdapter {
@@ -31,7 +29,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
     LocationGeofencesPreferenceAdapter(Context context, Cursor cursor, LocationGeofencePreferenceFragment preferenceFragment) {
         super(context, cursor, 0);
 
-        this.context = context;
+        this.context = context.getApplicationContext();
         this.preferenceFragment = preferenceFragment;
 
         KEY_G_ID = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_ID);
@@ -54,7 +52,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         else
             view = inflater.inflate(R.layout.listitem_location_preference_no_chb, parent, false);
 
-        ViewHolder rowData  = new ViewHolder();
+        LocationGeofencesPreferenceViewHolder rowData  = new LocationGeofencesPreferenceViewHolder();
 
         if (preferenceFragment.preference.onlyEdit == 0)
             rowData.checkBox = view.findViewById(R.id.location_pref_dlg_item_checkBox);
@@ -73,7 +71,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        ViewHolder rowData = (ViewHolder) view.getTag();
+        LocationGeofencesPreferenceViewHolder rowData = (LocationGeofencesPreferenceViewHolder) view.getTag();
 
         // must be set, without this not working long click
         if (preferenceFragment.preference.onlyEdit == 0) {
@@ -86,7 +84,8 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         getView(rowData, cursor/*, false*/);
     }
 
-    private void getView(final ViewHolder rowData, /*Context context,*/ Cursor cursor/*, boolean newView*/) {
+    private void getView(final LocationGeofencesPreferenceViewHolder rowData, /*Context context,*/
+                         Cursor cursor/*, boolean newView*/) {
         boolean checked = cursor.getInt(KEY_G_CHECKED) == 1;
         long id = cursor.getLong(KEY_G_ID);
 
@@ -96,7 +95,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
             rowData.checkBox.setChecked(checked);
             rowData.checkBox.setTag(id);
         }
-        if (DatabaseHandler.getInstance(preferenceFragment.preference.dataWrapper.context).isGeofenceUsed(id))
+        if (DatabaseHandler.getInstance(context).isGeofenceUsed(id))
             rowData.name.setTypeface(null, Typeface.BOLD);
         else
             rowData.name.setTypeface(null, Typeface.NORMAL);
@@ -106,8 +105,9 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
             rowData.checkBox.setOnClickListener(v -> {
                 CheckBox chb = (CheckBox) v;
 
+                // change check status in db: 0 -> 1, 1-> 0
                 long id1 = (long) chb.getTag();
-                DatabaseHandler.getInstance(preferenceFragment.preference.dataWrapper.context).checkGeofence(String.valueOf(id1), 2);
+                DatabaseHandler.getInstance(context).checkGeofence(String.valueOf(id1), 2, false);
 
                 //preference.updateGUIWithGeofence(id);
 
@@ -122,16 +122,9 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
 
     }
 
-    public static class ViewHolder {
-        CheckBox checkBox;
-        TextView name;
-        AppCompatImageButton itemEditMenu;
-        long geofenceId;
-    }
-
-    public void reload(DataWrapper dataWrapper) {
+    public void reload() {
         //selectedRB = null;
-        changeCursor(DatabaseHandler.getInstance(dataWrapper.context).getGeofencesCursor());
+        changeCursor(DatabaseHandler.getInstance(context).getGeofencesCursor());
     }
 
 }

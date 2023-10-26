@@ -23,43 +23,9 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
             if (accessoryEventsExists)
             {*/
                 final Context appContext = context.getApplicationContext();
-                PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_DOCK_CONNECTION, "SENSOR_TYPE_DOCK_CONNECTION", 0);
-                /*
-                PPApplication.startHandlerThreadBroadcast();
-                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-                //        context.getApplicationContext()) {
-                __handler.post(() -> {
-//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DockConnectionBroadcastReceiver.onReceive");
-
-                    //Context appContext= appContextWeakRef.get();
-                    //if (appContext != null) {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DockConnectionBroadcastReceiver_onReceive");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
-
-//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DockConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DOCK_CONNECTION");
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DOCK_CONNECTION);
-
-                        } catch (Exception e) {
-//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplicationStatic.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
-                                }
-                            }
-                        }
-                    //}
-                });
-                */
+                PPExecutors.handleEvents(appContext,
+                        new int[]{EventsHandler.SENSOR_TYPE_DOCK_CONNECTION},
+                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_DOCK_CONNECTION, 0);
             //}
 
         }

@@ -21,7 +21,11 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
             return;
 
         if (ApplicationPreferences.prefForceOneWifiScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
-            if (!ApplicationPreferences.applicationEventWifiEnableScanning)
+            boolean scanningPaused = ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("2") &&
+                    GlobalUtils.isNowTimeBetweenTimes(
+                            ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
+                            ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo);
+            if ((!ApplicationPreferences.applicationEventWifiEnableScanning) || scanningPaused)
                 // scanning is disabled
                 return;
         }
@@ -57,7 +61,9 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                         if (forceOneScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                         {
-                            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_WIFI_SCANNER, "SENSOR_TYPE_WIFI_SCANNER", 5);
+                            PPExecutors.handleEvents(appContext,
+                                    new int[]{EventsHandler.SENSOR_TYPE_WIFI_SCANNER},
+                                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_WIFI_SCANNER, 5);
                         }
 
                     }

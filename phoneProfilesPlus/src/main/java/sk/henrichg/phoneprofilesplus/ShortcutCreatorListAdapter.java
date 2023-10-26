@@ -7,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 class ShortcutCreatorListAdapter extends BaseAdapter {
 
@@ -30,7 +28,7 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
 
     public int getCount() {
         synchronized (activityDataWrapper.profileList) {
-            fragment.textViewNoData.setVisibility(
+            fragment.viewNoData.setVisibility(
                     ((activityDataWrapper.profileListFilled &&
                             (activityDataWrapper.profileList.size() > 0))
                     ) ? View.GONE : View.VISIBLE);
@@ -49,16 +47,8 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
         return position;
     }
 
-    static class ViewHolder {
-        RadioButton radioButton;
-        ImageView profileIcon;
-        TextView profileName;
-        ImageView profileIndicator;
-        //int position;
-    }
-
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        ShortcutCreatorListViewHolder holder;
         
         View vi = convertView;
 
@@ -72,7 +62,7 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
                 vi = inflater.inflate(R.layout.listitem_shortcut, parent, false);
             else
                 vi = inflater.inflate(R.layout.listitem_shortcut_no_indicator, parent, false);
-            holder = new ViewHolder();
+            holder = new ShortcutCreatorListViewHolder();
             holder.radioButton = vi.findViewById(R.id.shortcut_list_item_radiobtn);
             holder.profileName = vi.findViewById(R.id.shortcut_list_item_profile_name);
             holder.profileIcon = vi.findViewById(R.id.shortcut_list_item_profile_icon);
@@ -82,7 +72,7 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
         }
         else
         {
-            holder = (ViewHolder)vi.getTag();
+            holder = (ShortcutCreatorListViewHolder)vi.getTag();
         }
 
 

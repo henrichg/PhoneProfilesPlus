@@ -11,9 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
@@ -47,7 +45,8 @@ class AddEventAdapter extends BaseAdapter {
         //noinspection resource
         TypedArray profileStartIconsTypedArray = c.getResources().obtainTypedArray(R.array.addEventPredefinedStartProfileIconsArray);
         profileStartIconsArray = new int[profileStartIconsTypedArray.length()];
-        for (int i = 0; i < profileStartIconsTypedArray.length(); i++) {
+        int length = profileStartIconsTypedArray.length();
+        for (int i = 0; i < length; i++) {
             profileStartIconsArray[i] = profileStartIconsTypedArray.getResourceId(i, -1);
         }
         profileStartIconsTypedArray.recycle();
@@ -55,7 +54,8 @@ class AddEventAdapter extends BaseAdapter {
         //noinspection resource
         TypedArray profileEndIconsTypedArray = c.getResources().obtainTypedArray(R.array.addEventPredefinedEndProfileIconsArray);
         profileEndIconsArray = new int[profileEndIconsTypedArray.length()];
-        for (int i = 0; i < profileEndIconsTypedArray.length(); i++) {
+        int lenght = profileEndIconsTypedArray.length();
+        for (int i = 0; i < lenght; i++) {
             profileEndIconsArray[i] = profileEndIconsTypedArray.getResourceId(i, -1);
         }
         profileEndIconsTypedArray.recycle();
@@ -75,23 +75,9 @@ class AddEventAdapter extends BaseAdapter {
         return position;
     }
 
-    static class ViewHolder {
-        RadioButton radioButton;
-        TextView eventName;
-        TextView eventPreferencesDescription;
-        //RelativeLayout profilesRoot;
-        ImageView profileStartIcon;
-        TextView profileStartName;
-        ImageView profileStartIndicator;
-        ImageView profileEndIcon;
-        TextView profileEndName;
-        ImageView profileEndIndicator;
-        //int position;
-    }
-
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        ViewHolder holder;
+        AddEventViewHolder holder;
 
         View vi = convertView;
 
@@ -104,7 +90,7 @@ class AddEventAdapter extends BaseAdapter {
                 vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event, parent, false);
             else
                 vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event_no_indicator, parent, false);
-            holder = new ViewHolder();
+            holder = new AddEventViewHolder();
             holder.radioButton = vi.findViewById(R.id.event_pref_dlg_item_radio_button);
             holder.eventName = vi.findViewById(R.id.event_pref_dlg_item_event_name);
             holder.profileStartName = vi.findViewById(R.id.event_pref_dlg_item_profile_start_name);
@@ -125,7 +111,7 @@ class AddEventAdapter extends BaseAdapter {
         }
         else
         {
-            holder = (ViewHolder)vi.getTag();
+            holder = (AddEventViewHolder)vi.getTag();
         }
 
 
@@ -140,31 +126,31 @@ class AddEventAdapter extends BaseAdapter {
 
                 if (event._ignoreManualActivation) {
                     if (event._noPauseByManualActivation)
-                        eventName = eventName + "\n" + eventPriority + "[»»]";
+                        eventName = eventName + StringConstants.CHAR_NEW_LINE + eventPriority + StringConstants.STR_DOUBLE_ARROW_INDICATOR;
                     else
-                        eventName = eventName + "\n" + eventPriority + "[»]";
+                        eventName = eventName + StringConstants.CHAR_NEW_LINE + eventPriority + StringConstants.STR_ARROW_INDICATOR;
                 }
                 else
-                    eventName = eventName + "\n" + eventPriority;
+                    eventName = eventName + StringConstants.CHAR_NEW_LINE + eventPriority;
             }
             else {
                 if (event._ignoreManualActivation) {
                     if (event._noPauseByManualActivation)
-                        eventName = eventName + "\n" + "[»»]";
+                        eventName = eventName + StringConstants.CHAR_NEW_LINE + StringConstants.STR_DOUBLE_ARROW_INDICATOR;
                     else
-                        eventName = eventName + "\n" + "[»]";
+                        eventName = eventName + StringConstants.CHAR_NEW_LINE + StringConstants.STR_ARROW_INDICATOR;
                 }
             }
 
             if (!event._startWhenActivatedProfile.isEmpty()) {
-                String[] splits = event._startWhenActivatedProfile.split("\\|");
+                String[] splits = event._startWhenActivatedProfile.split(StringConstants.STR_SPLIT_REGEX);
                 Profile profile;
                 if (splits.length == 1) {
                     profile = dialog.eventListFragment.activityDataWrapper.getProfileById(Long.parseLong(event._startWhenActivatedProfile), false, false, false);
                     if (profile != null)
-                        eventName = eventName + " " + "[#] " + profile._name;
+                        eventName = eventName + " [#] " + profile._name;
                 } else {
-                    eventName = eventName + " " + "[#] " + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length;
+                    eventName = eventName + " [#] " + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length;
                 }
             }
 
@@ -189,8 +175,11 @@ class AddEventAdapter extends BaseAdapter {
                     }
                     else {
                         holder.eventPreferencesDescription.setVisibility(View.VISIBLE);
-                        String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
-                        holder.eventPreferencesDescription.setText(StringFormatUtils.fromHtml(eventPrefDescription, true, true, false, 0, 0, true));
+                        //String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
+                        //holder.eventPreferencesDescription.setText(StringFormatUtils.fromHtml(eventPrefDescription, true, true, false, 0, 0, true));
+                        if (event._peferencesDecription != null)
+                            holder.eventPreferencesDescription.setText(event._peferencesDecription);
+
                         /*
                         RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.profilesRoot.getLayoutParams();
                         parameter.setMargins(0, -GlobalGUIRoutines.dpToPx(14), 0, 0); // left, top, right, bottom
@@ -206,7 +195,7 @@ class AddEventAdapter extends BaseAdapter {
             {
                 String profileName = profile._name;
                 if (event._manualProfileActivation)
-                    profileName = "[M] " + profileName;
+                    profileName = StringConstants.STR_MANUAL_SPACE + profileName;
                 if (event._delayStart > 0)
                     profileName = "[" + StringFormatUtils.getDurationString(event._delayStart) + "] " + profileName;
                 holder.profileStartName.setText(profileName);
@@ -258,8 +247,8 @@ class AddEventAdapter extends BaseAdapter {
             {
                 String profileName = profileStartNamesArray[position];
                 if (position > 0) {
-                    profileName = "(*) " + profileName;
-                    holder.profileStartName.setTextColor(ContextCompat.getColor(context, R.color.altype_error));
+                    profileName = "⊛ " + profileName;
+                    holder.profileStartName.setTextColor(ContextCompat.getColor(context, R.color.error_color));
                 }
                 else
                     holder.profileStartName.setTextColor(defaultColor);
@@ -300,7 +289,7 @@ class AddEventAdapter extends BaseAdapter {
                     String profileName;
                     //if (event._atEndHowUndo == 0) {
                         if (event._manualProfileActivationAtEnd)
-                            profileName = "[M] " + profile._name;
+                            profileName = StringConstants.STR_MANUAL_SPACE + profile._name;
                         else
                             profileName = profile._name;
                         if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
@@ -360,10 +349,10 @@ class AddEventAdapter extends BaseAdapter {
                         profileName = profileEndNamesArray[position];
                         if ((position > 0) && (!profileName.isEmpty())) {
                             if (event._manualProfileActivationAtEnd)
-                                profileName = "(*) [M] " + profileName;
+                                profileName = "⊛ " + StringConstants.STR_MANUAL_SPACE + profileName;
                             else
-                                profileName = "(*) " + profileName;
-                            holder.profileEndName.setTextColor(ContextCompat.getColor(context, R.color.altype_error));
+                                profileName = "⊛ " + profileName;
+                            holder.profileEndName.setTextColor(ContextCompat.getColor(context, R.color.error_color));
                         } else
                             holder.profileEndName.setTextColor(defaultColor);
                     //}
@@ -372,7 +361,7 @@ class AddEventAdapter extends BaseAdapter {
                     if (profileName.isEmpty()) {
                         if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) {
                             if (event._manualProfileActivationAtEnd)
-                                profileName = "[M] " + vi.getResources().getString(R.string.event_preference_profile_undone);
+                                profileName = StringConstants.STR_MANUAL_SPACE + vi.getResources().getString(R.string.event_preference_profile_undone);
                             else
                                 profileName = vi.getResources().getString(R.string.event_preference_profile_undone);
                         }
@@ -389,7 +378,7 @@ class AddEventAdapter extends BaseAdapter {
                     }
                     else {
                         if (event._manualProfileActivationAtEnd)
-                            profileName =  "[M] " + profileName;
+                            profileName =  StringConstants.STR_MANUAL_SPACE + profileName;
                         if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
                             profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_undone);
                         else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)

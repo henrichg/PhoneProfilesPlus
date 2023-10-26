@@ -17,6 +17,8 @@ public class GenerateNotificationDialogPreference extends DialogPreference {
     // Custom xml attributes.
     int generate;
     int iconType;
+    int replaceWithPPPIcon;
+    int showLargeIcon;
     String notificationTitle;
     String notificationBody;
 
@@ -37,6 +39,10 @@ public class GenerateNotificationDialogPreference extends DialogPreference {
                 R.styleable.PPGenerateNotificationDialogPreference_gnGenerate, 0);
         iconType = typedArray.getInteger(
                 R.styleable.PPGenerateNotificationDialogPreference_gnIconType, 0);
+        replaceWithPPPIcon = typedArray.getInteger(
+                R.styleable.PPGenerateNotificationDialogPreference_gnReplaceWithPPPIcon, 0);
+        showLargeIcon = typedArray.getInteger(
+                R.styleable.PPGenerateNotificationDialogPreference_gnShowLargeIcon, 0);
         notificationTitle = typedArray.getString(
                 R.styleable.PPGenerateNotificationDialogPreference_gnNotificationTitle);
         notificationBody = typedArray.getString(
@@ -58,7 +64,7 @@ public class GenerateNotificationDialogPreference extends DialogPreference {
 
     private void getValueGNDP()
     {
-        String[] splits = sValue.split("\\|");
+        String[] splits = sValue.split(StringConstants.STR_SPLIT_REGEX);
         try {
             generate = Integer.parseInt(splits[0]);
         } catch (Exception e) {
@@ -79,6 +85,16 @@ public class GenerateNotificationDialogPreference extends DialogPreference {
         } catch (Exception e) {
             notificationBody = "";
         }
+        try {
+            showLargeIcon = Integer.parseInt(splits[4]);
+        } catch (Exception e) {
+            showLargeIcon = 0;
+        }
+        try {
+            replaceWithPPPIcon = Integer.parseInt(splits[5]);
+        } catch (Exception e) {
+            replaceWithPPPIcon = 0;
+        }
     }
 
     private void setSummaryGNDP()
@@ -87,7 +103,7 @@ public class GenerateNotificationDialogPreference extends DialogPreference {
         if (generate == 0)
             prefVolumeDataSummary = _context.getString(R.string.preference_profile_generate_notification_no_generate);
         else {
-            prefVolumeDataSummary = _context.getString(R.string.preference_profile_generate_notification_generate) + ": ";
+            prefVolumeDataSummary = _context.getString(R.string.preference_profile_generate_notification_generate) + StringConstants.STR_COLON_WITH_SPACE;
             if (iconType == 0)
                 prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.preference_profile_generate_notification_information_icon) + "; ";
             else
@@ -95,6 +111,12 @@ public class GenerateNotificationDialogPreference extends DialogPreference {
                 prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.preference_profile_generate_notification_exclamation_icon) + "; ";
             else
                 prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.preference_profile_generate_notification_profile_icon) + "; ";
+
+            if (replaceWithPPPIcon == 1)
+                prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.preference_profile_generate_notification_replace_with_ppp_icon) + "; ";
+
+            if (showLargeIcon == 1)
+                prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.preference_profile_generate_notification_show_large_icon) + "; ";
 
             prefVolumeDataSummary = prefVolumeDataSummary + notificationTitle + ", " + notificationBody;
         }
@@ -106,7 +128,9 @@ public class GenerateNotificationDialogPreference extends DialogPreference {
         return generate
                 + "|" + iconType
                 + "|" + notificationTitle
-                + "|" + notificationBody;
+                + "|" + notificationBody
+                + "|" + showLargeIcon
+                + "|" + replaceWithPPPIcon;
     }
 
     void persistValue() {
@@ -128,7 +152,7 @@ public class GenerateNotificationDialogPreference extends DialogPreference {
     */
 
     static boolean changeEnabled(String value) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 return Integer.parseInt(splits[0]) == 1;

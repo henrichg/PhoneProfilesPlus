@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 /**
  * Displays text with no padding at the top.
  */
-@SuppressWarnings({"ConstantConditions", "EmptyMethod", "unused"})
+@SuppressWarnings({"ConstantConditions", "EmptyMethod"})
 public class ZeroTopPaddingTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     //private static final float NORMAL_FONT_PADDING_RATIO = 0.328f;
@@ -42,7 +42,7 @@ public class ZeroTopPaddingTextView extends androidx.appcompat.widget.AppCompatT
     //private static final Typeface SAN_SERIF_BOLD = Typeface.create("san-serif", Typeface.BOLD);
     //private static final Typeface SAN_SERIF_CONDENSED_BOLD = Typeface.create("sans-serif-condensed", Typeface.BOLD);
 
-    private int mPaddingRight = 0;
+    //private int mPaddingRight = 0;
 
     //private String decimalSeparator = "";
     //private String timeSeparator = "";
@@ -85,7 +85,7 @@ public class ZeroTopPaddingTextView extends androidx.appcompat.widget.AppCompatT
         }*/
         // no need to scale by display density because getTextSize() already returns the font
         // height in px
-        setPadding(0, (int) (-paddingRatio * getTextSize()), mPaddingRight,
+        setPadding(0, (int) (-paddingRatio * getTextSize()), getPaddingRight(),
                 (int) (-bottomPaddingRatio * getTextSize()));
     }
 
@@ -94,12 +94,13 @@ public class ZeroTopPaddingTextView extends androidx.appcompat.widget.AppCompatT
         //float bottomPaddingRatio = BOLD_FONT_BOTTOM_PADDING_RATIO;
         // no need to scale by display density because getTextSize() already returns the font
         // height in px
-        setPadding(0, (int) (-BOLD_FONT_PADDING_RATIO * getTextSize()), mPaddingRight,
+        setPadding(0, (int) (-BOLD_FONT_PADDING_RATIO * getTextSize()), getPaddingRight(),
                 (int) (-BOLD_FONT_BOTTOM_PADDING_RATIO * getTextSize()));
     }
-
+    /*
     public void setPaddingRight(int padding) {
         mPaddingRight = padding;
         updatePadding();
     }
+    */
 }

@@ -2,24 +2,17 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.telephony.PhoneStateListener;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 class MobileCellsScanner {
 
     private final Context context;
-    private TelephonyManager telephonyManagerDefault;
+    private TelephonyManager telephonyManagerDefault = null;
     private TelephonyManager telephonyManagerSIM1 = null;
     private TelephonyManager telephonyManagerSIM2 = null;
 
@@ -27,21 +20,11 @@ class MobileCellsScanner {
     MobileCellsListener mobileCellsListenerSIM1 = null;
     MobileCellsListener mobileCellsListenerSIM2 = null;
 
-    //static volatile String lastRunningEventsNotOutside = "";
-    static volatile String lastPausedEvents = "";
-
-    //static volatile boolean forceStart = false;
-
-    static volatile boolean enabledAutoRegistration = false;
-    static volatile int durationForAutoRegistration = 0;
-    static volatile String cellsNameForAutoRegistration = "";
-
     // must be this, because of Collections.synchronizedList
-    @SuppressWarnings("Convert2Diamond")
-    static final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
+    //static final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
 
-    static final String NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
-    static final String NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION = PPApplication.PACKAGE_NAME + ".MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION";
+    //static final String ACTION_NEW_MOBILE_CELLS_NOTIFICATION_DELETED = PPApplication.PACKAGE_NAME + ".MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
+    static final String ACTION_NEW_MOBILE_CELLS_NOTIFICATION_DISABLE = PPApplication.PACKAGE_NAME + ".MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION";
 
     //private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_PHONE_STATE = "show_enable_location_notification_phone_state";
 
@@ -57,7 +40,7 @@ class MobileCellsScanner {
         TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
             int simCount = telephonyManager.getPhoneCount();
-            if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (simCount > 1)) {
+            if ((simCount > 1)) {
                 SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                 //SubscriptionManager.from(appContext);
                 if (mSubscriptionManager != null) {
@@ -69,7 +52,8 @@ class MobileCellsScanner {
                         //PPApplicationStatic.recordException(e);
                     }
                     if (subscriptionList != null) {
-                        for (int i = 0; i < subscriptionList.size(); i++) {
+                        int size = subscriptionList.size();
+                        for (int i = 0; i < size; i++) {
                             // Get the active subscription ID for a given SIM card.
                             SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                             if (subscriptionInfo != null) {
@@ -77,13 +61,13 @@ class MobileCellsScanner {
                                 if (subscriptionInfo.getSimSlotIndex() == 0) {
                                     if (telephonyManagerSIM1 == null) {
                                         telephonyManagerSIM1 = telephonyManager.createForSubscriptionId(subscriptionId);
-                                        mobileCellsListenerSIM1 = new MobileCellsListener(subscriptionInfo, context, this, telephonyManagerSIM1);
+                                        mobileCellsListenerSIM1 = new MobileCellsListener(/*subscriptionInfo, */context, this, telephonyManagerSIM1);
                                     }
                                 }
                                 if (subscriptionInfo.getSimSlotIndex() == 1) {
                                     if (telephonyManagerSIM2 == null) {
                                         telephonyManagerSIM2 = telephonyManager.createForSubscriptionId(subscriptionId);
-                                        mobileCellsListenerSIM2 = new MobileCellsListener(subscriptionInfo, context, this, telephonyManagerSIM2);
+                                        mobileCellsListenerSIM2 = new MobileCellsListener(/*subscriptionInfo, */context, this, telephonyManagerSIM2);
                                     }
                                 }
                             }
@@ -93,7 +77,7 @@ class MobileCellsScanner {
             }
             else {
                 telephonyManagerDefault = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-                mobileCellsListenerDefault = new MobileCellsListener(null, context, this, telephonyManagerDefault);
+                mobileCellsListenerDefault = new MobileCellsListener(/*null, */context, this, telephonyManagerDefault);
             }
         }
 
@@ -124,9 +108,11 @@ class MobileCellsScanner {
                 PPApplication.HAS_FEATURE_TELEPHONY &&
                 Permissions.checkLocation(context.getApplicationContext())) {
             int simCount = telephonyManager.getPhoneCount();
-            if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (simCount > 1)) {
+            if ((simCount > 1)) {
                 if ((telephonyManagerSIM1 != null) && (mobileCellsListenerSIM1 != null)) {
                     try {
+                        telephonyManagerSIM1.listen(mobileCellsListenerSIM1, PhoneStateListener.LISTEN_NONE);
+                        GlobalUtils.sleep(1000);
                         //noinspection deprecation
                         telephonyManagerSIM1.listen(mobileCellsListenerSIM1,
                                 PhoneStateListener.LISTEN_CELL_INFO
@@ -139,6 +125,8 @@ class MobileCellsScanner {
                 }
                 if ((telephonyManagerSIM2 != null) && (mobileCellsListenerSIM2 != null)) {
                     try {
+                        telephonyManagerSIM2.listen(mobileCellsListenerSIM2, PhoneStateListener.LISTEN_NONE);
+                        GlobalUtils.sleep(1000);
                         //noinspection deprecation
                         telephonyManagerSIM2.listen(mobileCellsListenerSIM2,
                                 PhoneStateListener.LISTEN_CELL_INFO
@@ -152,12 +140,16 @@ class MobileCellsScanner {
             }
             else {
                 try {
-                    //noinspection deprecation
-                    telephonyManagerDefault.listen(mobileCellsListenerDefault,
-                            PhoneStateListener.LISTEN_CELL_INFO
-                                    | PhoneStateListener.LISTEN_CELL_LOCATION  // is required for some devices, especially with AP level < 26
-                                    | PhoneStateListener.LISTEN_SERVICE_STATE
-                            );
+                    if ((telephonyManagerDefault != null) && (mobileCellsListenerDefault != null)) {
+                        telephonyManagerDefault.listen(mobileCellsListenerDefault, PhoneStateListener.LISTEN_NONE);
+                        GlobalUtils.sleep(1000);
+                        //noinspection deprecation
+                        telephonyManagerDefault.listen(mobileCellsListenerDefault,
+                                PhoneStateListener.LISTEN_CELL_INFO
+                                        | PhoneStateListener.LISTEN_CELL_LOCATION  // is required for some devices, especially with AP level < 26
+                                        | PhoneStateListener.LISTEN_SERVICE_STATE
+                        );
+                    }
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
                 }
@@ -254,14 +246,12 @@ class MobileCellsScanner {
 
     boolean isNotUsedCellsNotificationEnabled() {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.isNotUsedCellsNotificationEnabled", "******** ### *******");
-        /*if (Build.VERSION.SDK_INT >= 26) {
+        /*
             NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
             return channel.getImportance() != NotificationManager.IMPORTANCE_NONE;
-        }
-        else {*/
+        */
             return ApplicationPreferences.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled;
-        //}
     }
 
     static boolean isValidCellId(int cid) {
@@ -276,7 +266,7 @@ class MobileCellsScanner {
             return;
 
         if (!forConnect) {
-            enabledAutoRegistration = true;
+            PPApplication.mobileCellsScannerEnabledAutoRegistration = true;
             // save to shared preferences
             MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
         }
@@ -284,12 +274,12 @@ class MobileCellsScanner {
             // read from shared preferences
             MobileCellsRegistrationService.getMobileCellsAutoRegistration(context);
 
-        if (enabledAutoRegistration) {
+        if (PPApplication.mobileCellsScannerEnabledAutoRegistration) {
 //            PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.startAutoRegistration", "******** ### *******  start registration service");
             try {
                 // start registration service
                 Intent serviceIntent = new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class);
-                PPApplicationStatic.startPPService(context, serviceIntent);
+                PPApplicationStatic.startPPService(context, serviceIntent, false);
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }
@@ -309,6 +299,7 @@ class MobileCellsScanner {
         }
     }
 
+/*
     static boolean isEventAdded(long event_id) {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.isEventAdded", "******** ### *******");
         synchronized (autoRegistrationEventList) {
@@ -367,11 +358,12 @@ class MobileCellsScanner {
             editor.putString(key, json);
         }
     }
-
+*/
+/*
     static String addCellId(String cells, int cellId) {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.addCellId", "******** ### *******");
 
-        String[] splits = cells.split("\\|");
+        String[] splits = cells.split(StringConstants.STR_SPLIT_REGEX);
         String sCellId = Integer.toString(cellId);
         boolean found = false;
         for (String cell : splits) {
@@ -389,7 +381,7 @@ class MobileCellsScanner {
         }
         return cells;
     }
-
+*/
     /*
     private static boolean getShowEnableLocationNotification(Context context)
     {

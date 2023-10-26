@@ -25,7 +25,7 @@ class EventPreferencesAccessories extends EventPreferences {
     static final String PREF_EVENT_ACCESSORIES_ENABLED = "eventPeripheralEnabled";
     private static final String PREF_EVENT_ACCESSORIES_TYPE = "eventAccessoryType";
 
-    private static final String PREF_EVENT_ACCESSORIES_CATEGORY = "eventAccessoriesCategoryRoot";
+    static final String PREF_EVENT_ACCESSORIES_CATEGORY = "eventAccessoriesCategoryRoot";
 
     private static final int ACCESSORY_TYPE_DESK_DOCK = 0;
     private static final int ACCESSORY_TYPE_CAR_DOCK = 1;
@@ -56,7 +56,7 @@ class EventPreferencesAccessories extends EventPreferences {
 
         String[] splits;
         if (this._accessoryType != null)
-            splits = this._accessoryType.split("\\|");
+            splits = this._accessoryType.split(StringConstants.STR_SPLIT_REGEX);
         else
             splits = new String[]{};
         Set<String> set = new HashSet<>(Arrays.asList(splits));
@@ -82,23 +82,23 @@ class EventPreferencesAccessories extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_accessories_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_accessories_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACCESSORIES_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + "<b>";
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_peripheral), addPassStatus, DatabaseHandler.ETYPE_ACCESSORY, context);
-                    descr = descr + "</b> ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_peripheral), addPassStatus, DatabaseHandler.ETYPE_ACCESSORY, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
-                descr = descr + context.getString(R.string.event_preferences_peripheral_type) + ": ";
+                _value.append(context.getString(R.string.event_preferences_peripheral_type)).append(StringConstants.STR_COLON_WITH_SPACE);
                 String selectedAccessory = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if ((this._accessoryType != null) && !this._accessoryType.isEmpty() && !this._accessoryType.equals("-")) {
-                    String[] splits = this._accessoryType.split("\\|");
+                    String[] splits = this._accessoryType.split(StringConstants.STR_SPLIT_REGEX);
                     List<String> accessoryTypeValues = Arrays.asList(context.getResources().getStringArray(R.array.eventAccessoryTypeValues));
                     String[] accessoryTypeNames = context.getResources().getStringArray(R.array.eventAccessoryTypeArray);
                     //selectedAccessory = "";
@@ -116,11 +116,13 @@ class EventPreferencesAccessories extends EventPreferences {
                     }
                     selectedAccessory = value.toString();
                 }
-                descr = descr + "<b>" + getColorForChangedPreferenceValue(selectedAccessory, disabled, context) + "</b>";
+                _value.append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(getColorForChangedPreferenceValue(selectedAccessory, disabled, context))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value/*, Context context*/)
@@ -168,7 +170,7 @@ class EventPreferencesAccessories extends EventPreferences {
 
         if (key.equals(PREF_EVENT_ACCESSORIES_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false"/*, context*/);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING/*, context*/);
         }
         if (key.equals(PREF_EVENT_ACCESSORIES_TYPE))
         {
@@ -232,7 +234,7 @@ class EventPreferencesAccessories extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_ACCESSORIES_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -250,6 +252,7 @@ class EventPreferencesAccessories extends EventPreferences {
 
     @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+        super.checkPreferences(prefMng, onlyCategory, context);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_ACCESSORIES_ENABLED) != null) {
@@ -282,7 +285,7 @@ class EventPreferencesAccessories extends EventPreferences {
             int oldSensorPassed = getSensorPassed();
             if (EventStatic.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!this._accessoryType.isEmpty()) {
-                    String[] splits = this._accessoryType.split("\\|");
+                    String[] splits = this._accessoryType.split(StringConstants.STR_SPLIT_REGEX);
                     for (String split : splits) {
                         int accessoryType = Integer.parseInt(split);
 

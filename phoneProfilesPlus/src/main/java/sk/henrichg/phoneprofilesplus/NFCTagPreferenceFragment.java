@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -33,10 +35,12 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
 
     private SingleSelectListDialog mSelectorDialog;
     //private LinearLayout progressLinearLayout;
-    //private RelativeLayout dataRelativeLayout;
+    //private LinearLayout dataLinearLayout;
     private ListView nfcTagListView;
     private EditText nfcTagName;
     private AppCompatImageButton addIcon;
+    RelativeLayout emptyList;
+
     private NFCTagPreferenceAdapter listAdapter;
 
     private RefreshListViewAsyncTask rescanAsyncTask;
@@ -58,7 +62,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
         super.onBindDialogView(view);
 
         //progressLinearLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_linla_progress);
-        //dataRelativeLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_rella_data);
+        //dataLinearLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_linla_data);
 
         addIcon = view.findViewById(R.id.nfc_tag_pref_dlg_addIcon);
         TooltipCompat.setTooltipText(addIcon, getString(R.string.nfc_tag_pref_dlg_add_button_tooltip));
@@ -99,13 +103,14 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                 addIcon, prefContext.getApplicationContext());
 
         nfcTagListView = view.findViewById(R.id.nfc_tag_pref_dlg_listview);
+        emptyList = view.findViewById(R.id.nfc_tag_pref_dlg_empty);
         listAdapter = new NFCTagPreferenceAdapter(prefContext, preference);
         nfcTagListView.setAdapter(listAdapter);
 
         nfcTagListView.setOnItemClickListener((parent, item, position, id) -> {
             String ssid = preference.nfcTagList.get(position)._name;
-            NFCTagPreferenceAdapter.ViewHolder viewHolder =
-                    (NFCTagPreferenceAdapter.ViewHolder) item.getTag();
+            NFCTagPreferenceViewHolder viewHolder =
+                    (NFCTagPreferenceViewHolder) item.getTag();
             viewHolder.checkBox.setChecked(!preference.isNfcTagSelected(ssid));
             if (viewHolder.checkBox.isChecked())
                 preference.addNfcTag(ssid);
@@ -196,7 +201,11 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                 }
         });
 
-        refreshListView("");
+        if (preference.nfcTagList != null)
+            preference.nfcTagList.clear();
+        listAdapter.notifyDataSetChanged();
+        final Handler handler = new Handler(prefContext.getMainLooper());
+        handler.postDelayed(() -> refreshListView(""), 200);
     }
 
     @Override
@@ -212,6 +221,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
 
         if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             rescanAsyncTask.cancel(true);
+        rescanAsyncTask = null;
 
         preference.fragment = null;
     }
@@ -240,10 +250,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         final Context viewContext = view.getContext();
         PopupMenu popup;
-        //if (android.os.Build.VERSION.SDK_INT >= 19)
         popup = new PopupMenu(viewContext, view, Gravity.END);
-        //else
-        //    popup = new PopupMenu(context, view);
         new MenuInflater(viewContext).inflate(R.menu.nfc_tag_pref_dlg_item_edit, popup.getMenu());
 
         int tagPos = (int)view.getTag();
@@ -264,7 +271,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
             else
             if (itemId == R.id.nfc_tag_pref_dlg_item_menu_change) {
                 if (!nfcTagName.getText().toString().isEmpty()) {
-                    String[] splits = preference.value.split("\\|");
+                    String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
                     preference.value = "";
                     StringBuilder value = new StringBuilder();
                     boolean found = false;
@@ -371,7 +378,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
 
             /*
             if (_forRescan) {
-                dataRelativeLayout.setVisibility(View.GONE);
+                dataLinearLayout.setVisibility(View.GONE);
                 progressLinearLayout.setVisibility(View.VISIBLE);
             }
             */
@@ -395,7 +402,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
 
                 // add all from value
                 boolean found;
-                String[] splits = preference.value.split("\\|");
+                String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
                 for (String tag : splits) {
                     if (!tag.isEmpty()) {
                         found = false;
@@ -443,17 +450,27 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 preference.nfcTagList = new ArrayList<>(_nfcTagList);
+
+                if (preference.nfcTagList.size() == 0) {
+                    fragment.nfcTagListView.setVisibility(View.GONE);
+                    fragment.emptyList.setVisibility(View.VISIBLE);
+                } else {
+                    fragment.emptyList.setVisibility(View.GONE);
+                    fragment.nfcTagListView.setVisibility(View.VISIBLE);
+                }
+
                 fragment.listAdapter.notifyDataSetChanged();
 
                 /*
                 if (_forRescan) {
                     progressLinearLayout.setVisibility(View.GONE);
-                    dataRelativeLayout.setVisibility(View.VISIBLE);
+                    dataLinearLayout.setVisibility(View.VISIBLE);
                 }
                 */
 
                 if (!scrollToTag.isEmpty()) {
-                    for (int position = 0; position < preference.nfcTagList.size() - 1; position++) {
+                    int size = preference.nfcTagList.size() - 1;
+                    for (int position = 0; position < size; position++) {
                         if (preference.nfcTagList.get(position)._name.equals(scrollToTag)) {
                             fragment.nfcTagListView.setSelection(position);
                             break;

@@ -29,7 +29,11 @@ class BluetoothLEScanCallback extends ScanCallback {
             // application is not started
             return;
         if (ApplicationPreferences.prefForceOneBluetoothScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
-            if (!ApplicationPreferences.applicationEventBluetoothEnableScanning)
+            boolean scanningPaused = ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2") &&
+                GlobalUtils.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo);
+            if ((!ApplicationPreferences.applicationEventBluetoothEnableScanning) || scanningPaused)
                 // scanning is disabled
                 return;
         }
@@ -50,13 +54,13 @@ class BluetoothLEScanCallback extends ScanCallback {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothLEScanCallback21_onScanResult");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BluetoothLEScanCallback21_onScanResult);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
                     @SuppressLint("MissingPermission")
                     String btName = device.getName();
-                    if (btName != null) {
+                    if ((btName != null) && (!btName.isEmpty())) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] BluetoothLEScanCallback.onScanResult", "btName="+btName);
 
                         BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
@@ -92,7 +96,11 @@ class BluetoothLEScanCallback extends ScanCallback {
             return;
 
         if (ApplicationPreferences.prefForceOneBluetoothLEScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
-            if (!ApplicationPreferences.applicationEventBluetoothEnableScanning)
+            boolean scanningPaused = ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2") &&
+                    GlobalUtils.isNowTimeBetweenTimes(
+                            ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
+                            ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo);
+            if ((!ApplicationPreferences.applicationEventBluetoothEnableScanning) || scanningPaused)
                 // scanning is disabled
                 return;
         }
@@ -116,7 +124,7 @@ class BluetoothLEScanCallback extends ScanCallback {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothLEScanCallback21_onBatchScanResults");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BluetoothLEScanCallback21_onBatchScanResults);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -124,7 +132,7 @@ class BluetoothLEScanCallback extends ScanCallback {
                         @SuppressLint("MissingPermission")
                         String btName = device.getName();
 
-                        if (btName != null) {
+                        if ((btName != null) && (!btName.isEmpty())) {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] BluetoothLEScanCallback.onBatchScanResults", "btName="+btName);
 
                             BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),

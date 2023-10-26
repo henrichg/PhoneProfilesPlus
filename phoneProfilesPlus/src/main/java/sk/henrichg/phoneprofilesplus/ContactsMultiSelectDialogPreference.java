@@ -1,16 +1,21 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
-import android.database.Cursor;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
+import android.telephony.PhoneNumberUtils;
 import android.util.AttributeSet;
 
 import androidx.preference.DialogPreference;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ContactsMultiSelectDialogPreference extends DialogPreference
@@ -49,9 +54,10 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
     {
         // Get the persistent value
         value = getPersistedString((String)defaultValue);
+//        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.onSetInitialValue", "value="+value);
         this.defaultValue = (String)defaultValue;
-        getValueCMSDP();
-        setSummaryCMSDP();
+        //getValueCMSDP(); // toto cita z cache, je tam blokoanie mutexom
+        setSummaryCMSDP(); // toto cita z databazy, ak je len jedne kontakt nastaveny
     }
 
     void refreshListView(@SuppressWarnings("SameParameterValue") final boolean notForUnselect) {
@@ -69,37 +75,149 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         synchronized (PPApplication.contactsCacheMutex) {
             List<Contact>  localContactList = contactsCache.getList(/*withoutNumbers*/);
             if (localContactList != null) {
+//                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "localContactList.size()="+localContactList.size());
+
                 contactList = new ArrayList<>();
                 if (!withoutNumbers) {
                     for (Contact contact : localContactList) {
-                        if (contact.phoneId != 0)
+                        if (contact.phoneId != 0) {
                             contactList.add(contact);
+                        }
                     }
                 } else
                     contactList.addAll(localContactList);
-                String[] splits = value.split("\\|");
+
+                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+
+                // add from value not found in contact cache
+                for (String split : splits) {
+                    try {
+                        boolean found = false;
+
+                        String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                        String contactName = splits2[0];
+                        String contactPhoneNumber = splits2[1];
+                        String contactAccountType = splits2[2];
+
+                        for (Contact contact : contactList) {
+                            if (withoutNumbers) {
+                                if (contact.name.equals(contactName) &&
+                                    contact.accountType.equals(contactAccountType)) {
+                                    found = true;
+                                    break;
+                                }
+                            } else {
+                                if (contact.name.equals(contactName) &&
+                                        PhoneNumberUtils.compare(contact.phoneNumber, contactPhoneNumber) &&
+                                        contact.accountType.equals(contactAccountType)) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (!found) {
+//                            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
+//                                    "not found in contactList split=" + split);
+
+                            Contact aContact = new Contact();
+                            aContact.contactId = -1000;
+                            aContact.name = contactName;
+                            aContact.phoneId = 0;
+                            aContact.phoneNumber = contactPhoneNumber;
+                            aContact.photoId = 0;
+                            aContact.accountType = contactAccountType; //accountType;
+                            aContact.accountName = contactAccountType;
+                            //_oneContactIdList.add(aContact);
+                            contactList.add(aContact);
+
+//                            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
+//                                    "not founded split added into contactList");
+                        }
+
+                    } catch (Exception e) {
+                        //PPApplicationStatic.recordException(e);
+                    }
+                }
+
+//                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "contactList.size()="+contactList.size());
+//                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "value="+value);
                 for (Contact contact : contactList) {
                     if (withoutNumbers || (contact.phoneId != 0)) {
+
+                        // set checked for contacts in value
                         contact.checked = false;
                         for (String split : splits) {
                             try {
-                                String[] splits2 = split.split("#");
-                                long contactId = Long.parseLong(splits2[0]);
+                                String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                String contactName = splits2[0];
+                                String contactPhoneNumber = splits2[1];
+                                String contactAccountType = splits2[2];
                                 if (withoutNumbers) {
-                                    if (contact.contactId == contactId)
+                                    if (contact.name.equals(contactName) &&
+                                        contact.accountType.equals(contactAccountType)) {
                                         contact.checked = true;
-                                }
-                                else {
-                                    long phoneId = Long.parseLong(splits2[1]);
-                                    if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
+//                                        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
+//                                                "checked split=" + split);
+                                    }
+                                } else {
+                                    if (contact.name.equals(contactName) &&
+                                        PhoneNumberUtils.compare(contact.phoneNumber, contactPhoneNumber) &&
+                                        contact.accountType.equals(contactAccountType)) {
                                         contact.checked = true;
+//                                        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
+//                                                "checked split=" + split);
+                                    }
                                 }
                             } catch (Exception e) {
                                 //PPApplicationStatic.recordException(e);
                             }
                         }
                     }
+
+                    contact.photoUri = getPhotoUri(contact.contactId);
+
+                    boolean found = false;
+                    String accountType = "";
+                    PackageManager packageManager = _context.getPackageManager();
+                    try {
+                        ApplicationInfo applicationInfo = packageManager.getApplicationInfo(contact.accountType, PackageManager.MATCH_ALL);
+                        if (applicationInfo != null) {
+                            accountType = packageManager.getApplicationLabel(applicationInfo).toString();
+                            found = true;
+                        }
+                    } catch (Exception ignored) {}
+                    if (!found) {
+                        if (contact.accountType.equals("com.osp.app.signin"))
+                            accountType = _context.getString(R.string.contact_account_type_samsung_account);
+                        if (contact.accountType.equals("com.google"))
+                            accountType = _context.getString(R.string.contact_account_type_google_account);
+                        if (contact.accountType.equals("vnd.sec.contact.sim"))
+                            accountType = _context.getString(R.string.contact_account_type_sim_card);
+                        if (contact.accountType.equals("vnd.sec.contact.sim2"))
+                            accountType = _context.getString(R.string.contact_account_type_sim_card);
+                        if (contact.accountType.equals("vnd.sec.contact.phone"))
+                            accountType = _context.getString(R.string.contact_account_type_phone_application);
+                        if (contact.accountType.equals("org.thoughtcrime.securesms"))
+                            accountType = "Signal";
+                        if (contact.accountType.equals("com.google.android.apps.tachyon"))
+                            accountType = "Duo";
+                        if (contact.accountType.equals("com.whatsapp"))
+                            accountType = "WhatsApp";
+                    }
+                    if ((!accountType.isEmpty()) &&
+                            (!contact.accountType.equals("vnd.sec.contact.sim")) &&
+                            (!contact.accountType.equals("vnd.sec.contact.sim2")) &&
+                            (!contact.accountType.equals("vnd.sec.contact.phone")) &&
+                            (!contact.accountName.equals(accountType)))
+                        accountType = accountType + StringConstants.CHAR_NEW_LINE+"  - " + contact.accountName;
+                    if (accountType.isEmpty())
+                        accountType = contact.accountType;
+                    contact.displayedAccountType = accountType;
                 }
+
+                contactList.sort(new ContactsComparator());
+
                 // move checked on top
                 int i = 0;
                 int ich = 0;
@@ -112,51 +230,23 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                     }
                     i++;
                 }
-            }
+//                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "after move chcecked up: contactList.size()="+contactList.size());
+            } //else
+//                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "!!! localContactList=null");
         }
     }
 
     static String getSummary(String value, boolean withoutNumbers, Context context) {
         String summary = context.getString(R.string.contacts_multiselect_summary_text_not_selected);
-        if (Permissions.checkContacts(context)) {
-            if (!value.isEmpty()) {
-                String[] splits = value.split("\\|");
-                if (splits.length == 1) {
-                    boolean found = false;
-                    String[] projection = new String[]{
-                            ContactsContract.Contacts._ID,
-                            ContactsContract.Contacts.DISPLAY_NAME,
-                            ContactsContract.Contacts.PHOTO_ID};
-                    String[] splits2 = splits[0].split("#");
-                    String selection = ContactsContract.Contacts._ID + "=" + splits2[0];
-                    Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, null, null);
-
-                    if (mCursor != null) {
-                        while (mCursor.moveToNext()) {
-                            selection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + splits2[0] + " AND " +
-                                    ContactsContract.CommonDataKinds.Phone._ID + "=" + splits2[1];
-                            Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, selection, null, null);
-                            if (phones != null) {
-                                //while (phones.moveToNext()) {
-                                if (phones.moveToFirst()) {
-                                    found = true;
-                                    summary = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
-                                    if (!withoutNumbers)
-                                        summary = summary + "\n" + phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                    //break;
-                                }
-                                phones.close();
-                            }
-                            if (found)
-                                break;
-                        }
-                        mCursor.close();
-                    }
-                    if (!found)
-                        summary = context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
-                } else
-                    summary = context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
-            }
+        if (!value.isEmpty()) {
+            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+            if (splits.length == 1) {
+                String[] splits2 = splits[0].split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                summary = splits2[0];
+                if (!withoutNumbers)
+                    summary = summary + StringConstants.CHAR_NEW_LINE + splits2[1];
+            } else
+                summary = context.getString(R.string.contacts_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
         }
         return summary;
     }
@@ -176,12 +266,13 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
             {
                 if (contact.checked)
                 {
-                    //if (!value.isEmpty())
-                    //    value = value + "|";
-                    //value = value + contact.contactId + "#" + contact.phoneId;
                     if (_value.length() > 0)
                         _value.append("|");
-                    _value.append(contact.contactId).append("#").append(contact.phoneId);
+                    _value.append(contact.name)
+                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                            .append(contact.phoneNumber)
+                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                            .append(contact.accountType);
                 }
             }
         }
@@ -192,6 +283,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         if (shouldPersist())
         {
             getValue();
+//            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.persistValue", "value="+value);
             persistString(value);
 
             setSummaryCMSDP();
@@ -243,8 +335,9 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         value = myState.value;
         defaultValue = myState.defaultValue;
 
-        getValueCMSDP();
+        //getValueCMSDP();
         setSummaryCMSDP();
+        refreshListView(true);
         //notifyChanged();
     }
 
@@ -289,6 +382,48 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 
                 };
 
+    }
+
+    /**
+     * @return the photo URI
+     */
+    private Uri getPhotoUri(long contactId)
+    {
+    /*    try {
+            Cursor cur = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, null,
+                            ContactsContract.Data.CONTACT_ID + "=" + photoId + " AND "
+                            + ContactsContract.Data.MIMETYPE + "='"
+                            + ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE + "'", null,
+                            null);
+            if (cur != null)
+            {
+                if (!cur.moveToFirst())
+                {
+                    return null; // no photo
+                }
+            }
+            else
+                return null; // error in cursor process
+        } catch (Exception e) {
+            return null;
+        }
+        */
+        try {
+            Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
+            return Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private static class ContactsComparator implements Comparator<Contact> {
+
+        public int compare(Contact lhs, Contact rhs) {
+            if (PPApplication.collator != null)
+                return PPApplication.collator.compare(lhs.name, rhs.name);
+            else
+                return 0;
+        }
     }
 
 }

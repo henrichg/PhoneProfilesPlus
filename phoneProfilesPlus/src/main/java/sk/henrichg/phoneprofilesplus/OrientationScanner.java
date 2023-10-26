@@ -25,6 +25,13 @@ class OrientationScanner implements SensorEventListener {
         if (PhoneProfilesService.getInstance() == null)
             return;
 
+        boolean scanningPaused = ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("2") &&
+                GlobalUtils.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo);
+        if (scanningPaused)
+            return;
+
         final Context appContext = PhoneProfilesService.getInstance().getApplicationContext();
 
         final int sensorType = event.sensor.getType();
@@ -190,7 +197,7 @@ class OrientationScanner implements SensorEventListener {
             try {
                 // redraw light current value preference
 //                PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OrientationScanner.onSensorChanged", "xxx");
-                Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver");
+                Intent intent = new Intent(PPApplication.ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER);
                 LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
             } catch (Exception ignored) {}
 
@@ -259,6 +266,8 @@ class OrientationScanner implements SensorEventListener {
                     }
 
                     //interval = interval / 2;
+
+//                    PPApplicationStatic.logE("[MAIN_WORKER_CALL] OrientationScanner.runEventsHandlerForOrientationChange", "xxxxxxxxxxxxxxxxxxxx");
 
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(MainWorker.class)

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tile_chooser_profiles_list_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/tile_chooser_profiles_list_linla_progress"
@@ -16,7 +17,10 @@
         <ProgressBar
             android:id="@+id/tile_chooser_profiles_list_progress"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dialog_progressbar_padding"
+            style="?android:attr/progressBarStyle"
+            android:indeterminateDrawable="@drawable/ic_progressbar" />
 
     </LinearLayout>
 
@@ -50,6 +54,27 @@
             android:listSelector="?attr/listViewItemBackground" />
 <!--        android:drawSelectorOnTop="true"-->
 
+        <RelativeLayout
+            android:id="@+id/tile_chooser_profiles_list_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/tile_chooser_profiles_list_empty_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/ic_empty_list"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:contentDescription=""
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+<!--
         <TextView
             android:id="@+id/tile_chooser_profiles_list_empty"
             android:layout_width="match_parent"
@@ -58,6 +83,7 @@
             android:gravity="center"
             android:textSize="20sp"
             android:visibility="gone" />
+-->
 
         <View
             android:id="@+id/tile_chooser_profiles_list_bottomDivider"

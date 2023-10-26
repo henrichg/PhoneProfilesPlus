@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -39,13 +41,15 @@ public class ActivatorActivity extends AppCompatActivity
 {
 
     private boolean activityStarted = false;
+    boolean firstStartOfPPP = false;
+    boolean privacyPolicyDisplayed = false;
 
     private Toolbar toolbar;
     private ImageView eventsRunStopIndicator;
 
-    //public boolean targetHelpsSequenceStarted;
-    public static final String PREF_START_TARGET_HELPS = "activate_profiles_activity_start_target_helps";
-    public static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profiles_activity_start_target_helps_finished";
+    static final String ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver";
+
+    //boolean targetHelpsSequenceStarted;
 
     static private class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
 
@@ -60,7 +64,7 @@ public class ActivatorActivity extends AppCompatActivity
             listener.refreshGUIFromListener(intent);
         }
     }
-    private final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
+    private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver;
 
     static final String EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY = "show_target_helps_for_activity";
     static private class ShowTargetHelpsBroadcastReceiver extends BroadcastReceiver {
@@ -75,7 +79,7 @@ public class ActivatorActivity extends AppCompatActivity
             listener.showTargetHelpsFromListener(intent);
         }
     }
-    private final ShowTargetHelpsBroadcastReceiver showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
+    private ShowTargetHelpsBroadcastReceiver showTargetHelpsBroadcastReceiver;
 
     static private class FinishActivityBroadcastReceiver extends BroadcastReceiver {
         private final FinishActivityActivatorEditorListener listener;
@@ -89,13 +93,16 @@ public class ActivatorActivity extends AppCompatActivity
             listener.finishActivityFromListener(intent);
         }
     }
-    private final FinishActivityBroadcastReceiver finishBroadcastReceiver = new FinishActivityBroadcastReceiver(this);
+    private FinishActivityBroadcastReceiver finishBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.setTheme(this, true, true, true, false, false, false);
+
         super.onCreate(savedInstanceState);
 
-        GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true, false, false, false);
+        firstStartOfPPP = PPApplicationStatic.getSavedVersionCode(getApplicationContext()) == 0;
+
         //GlobalGUIRoutines.setLanguage(this);
 
     //-----------------------------------------------------------------------------------
@@ -129,6 +136,7 @@ public class ActivatorActivity extends AppCompatActivity
         //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivatorActivity.onCreate - setContentView");
 
         if (ApplicationPreferences.applicationActivatorIncreaseBrightness) {
+            PPApplication.brightnessInternalChange = true;
             Window win = getWindow();
             WindowManager.LayoutParams layoutParams = win.getAttributes();
 //            int actualBightnessMode = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
@@ -177,7 +185,11 @@ public class ActivatorActivity extends AppCompatActivity
             }
         });
 
-        getApplicationContext().registerReceiver(finishBroadcastReceiver, new IntentFilter(PPApplication.ACTION_FINISH_ACTIVITY));
+        finishBroadcastReceiver = new FinishActivityBroadcastReceiver(this);
+        int receiverFlags = 0;
+        if (Build.VERSION.SDK_INT >= 34)
+            receiverFlags = RECEIVER_NOT_EXPORTED;
+        getApplicationContext().registerReceiver(finishBroadcastReceiver, new IntentFilter(PPApplication.ACTION_FINISH_ACTIVITY), receiverFlags);
     }
 
     @Override
@@ -188,7 +200,6 @@ public class ActivatorActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
         if (doServiceStart) {
@@ -204,18 +215,23 @@ public class ActivatorActivity extends AppCompatActivity
         }
 
         if (activityStarted) {
-            Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
-            intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "editor");
-            getApplicationContext().sendBroadcast(intent);
+            // this is for API 33+
+            if (!Permissions.grantNotificationsPermission(this)) {
+                Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
+                intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, StringConstants.EXTRA_EDITOR);
+                getApplicationContext().sendBroadcast(intent);
 
-            LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
-                    new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivatorGUIBroadcastReceiver"));
-            LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
-                    new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver"));
+                refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
+                LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
+                        new IntentFilter(PPApplication.ACTION_REFRESH_ACTIVATOR_GUI_BROADCAST_RECEIVER));
+                showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
+                LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
+                        new IntentFilter(ActivatorActivity.ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER));
 
-            refreshGUI(/*true,*/ false);
+                refreshGUI(/*true,*/ false);
 
-            Permissions.grantNotificationsPermission(this);
+                showPrivacyPolicy();
+            }
         }
         else {
             if (!isFinishing())
@@ -224,6 +240,22 @@ public class ActivatorActivity extends AppCompatActivity
 
         //-----------------------------------------------------------------------------------------
 
+    }
+
+    private void showPrivacyPolicy() {
+        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+            if (firstStartOfPPP && (!privacyPolicyDisplayed)) {
+                String url = PPApplication.PRIVACY_POLICY_URL;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    startActivity(Intent.createChooser(i, getString(R.string.privacy_policy_web_browser_chooser)));
+                    privacyPolicyDisplayed = true;
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                }
+            }
+        }
     }
 
     @Override
@@ -240,8 +272,14 @@ public class ActivatorActivity extends AppCompatActivity
                 ProfileListNotification.drawNotification(true, getApplicationContext());
                 DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
-                sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(true, getApplicationContext());
+                PPAppNotification.drawNotification(true, getApplicationContext());
             }
+
+            //!!!! THIS IS IMPORTANT BECAUSE WITHOUT THIS IS GENERATED CRASH
+            //  java.lang.NullPointerException: Attempt to invoke virtual method 'void android.content.BroadcastReceiver.onReceive(android.content.Context, android.content.Intent)'
+            //  on a null object reference
+            //  at androidx.localbroadcastmanager.content.LocalBroadcastManager.executePendingBroadcasts(LocalBroadcastManager.java:313)
+            finish();
         }
     }
 
@@ -284,7 +322,7 @@ public class ActivatorActivity extends AppCompatActivity
 
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
-            AutostartPermissionNotification.showNotification(getApplicationContext(), true);
+            //AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
@@ -297,7 +335,7 @@ public class ActivatorActivity extends AppCompatActivity
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //            PPApplicationStatic.logE("[START_PP_SERVICE] ActivatorActivity.startPPServiceWhenNotStarted", "(1)");
-            PPApplicationStatic.startPPService(this, serviceIntent);
+            PPApplicationStatic.startPPService(this, serviceIntent, true);
             //return true;
         }/* else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
@@ -324,8 +362,13 @@ public class ActivatorActivity extends AppCompatActivity
     protected void onStop()
     {
         super.onStop();
+        PPApplication.brightnessInternalChange = false;
+        PPExecutors.scheduleDisableBrightnessInternalChangeExecutor();
+
         LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+        refreshGUIBroadcastReceiver = null;
         LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
+        showTargetHelpsBroadcastReceiver = null;
 
         //if (targetHelpsSequenceStarted) {
             if (ActivatorTargetHelpsActivity.activity != null)
@@ -343,7 +386,9 @@ public class ActivatorActivity extends AppCompatActivity
         } catch (Exception e) {
             //PPApplicationStatic.recordException(e);
         }
+        finishBroadcastReceiver = null;
     }
+
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -492,11 +537,6 @@ public class ActivatorActivity extends AppCompatActivity
     }
 
     private void showTargetHelps() {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         boolean startTargetHelps = ApplicationPreferences.prefActivatorActivityStartTargetHelps;
 
         if (startTargetHelps ||
@@ -509,7 +549,7 @@ public class ActivatorActivity extends AppCompatActivity
                 //Log.d("ActivateProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS, false);
                 editor.apply();
                 ApplicationPreferences.prefActivatorActivityStartTargetHelps = false;
 
@@ -597,7 +637,7 @@ public class ActivatorActivity extends AppCompatActivity
                         //targetHelpsSequenceStarted = false;
 
                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                        editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
+                        editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS_FINISHED, true);
                         editor.apply();
                         ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = true;
 
@@ -619,12 +659,12 @@ public class ActivatorActivity extends AppCompatActivity
                         //targetHelpsSequenceStarted = false;
 
                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                        editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS, false);
-                        editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS, false);
-                        editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS, false);
+                        editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS, false);
+                        editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS, false);
+                        editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_ADAPTER_START_TARGET_HELPS, false);
 
-                        editor.putBoolean(ActivatorActivity.PREF_START_TARGET_HELPS_FINISHED, true);
-                        editor.putBoolean(ActivatorListFragment.PREF_START_TARGET_HELPS_FINISHED, true);
+                        editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS_FINISHED, true);
+                        editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                         //editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                         editor.apply();
@@ -659,7 +699,7 @@ public class ActivatorActivity extends AppCompatActivity
                 //targetHelpsSequenceStarted = true;
 
                 editor = ApplicationPreferences.getEditor(getApplicationContext());
-                editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
+                editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS_FINISHED, false);
                 editor.apply();
                 ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished = false;
 
@@ -672,8 +712,8 @@ public class ActivatorActivity extends AppCompatActivity
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorActivity.showTargetHelps (2)");
 
-//                        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] ActivatorActivity.showTargetHelps", "xxx");
-                    Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver");
+//                    PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] ActivatorActivity.showTargetHelps", "xxx");
+                    Intent intent = new Intent(ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER);
                     intent.putExtra(ActivatorActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
                     LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
                     /*if (ActivatorActivity.getInstance() != null) {
@@ -762,7 +802,7 @@ public class ActivatorActivity extends AppCompatActivity
         if (action != null) {
             if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
                 String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
-                if (what.equals("activator")) {
+                if (what.equals(StringConstants.EXTRA_ACTIVATOR)) {
                     try {
                         setResult(Activity.RESULT_CANCELED);
                         finishAffinity();

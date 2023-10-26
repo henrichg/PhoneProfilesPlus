@@ -10,8 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.telephony.TelephonyManager;
@@ -21,66 +19,64 @@ import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
-//import com.google.gson.Gson;
-
 class Permissions {
 
-    //static final int PERMISSION_PROFILE_VOLUME_PREFERENCES = 1;
-    static final int PERMISSION_PROFILE_VIBRATION_ON_TOUCH = 2;
-    static final int PERMISSION_PROFILE_RINGTONES = 3;
-    static final int PERMISSION_PROFILE_SCREEN_TIMEOUT = 4;
-    static final int PERMISSION_PROFILE_SCREEN_BRIGHTNESS = 5;
-    static final int PERMISSION_PROFILE_AUTOROTATION = 6;
-    static final int PERMISSION_PROFILE_IMAGE_WALLPAPER = 7;
-    static final int PERMISSION_PROFILE_RADIO_PREFERENCES = 8;
-    static final int PERMISSION_PROFILE_PHONE_STATE_BROADCAST = 9;
-    static final int PERMISSION_PROFILE_CUSTOM_PROFILE_ICON = 10;
-    //static final int PERMISSION_INSTALL_TONE = 11;
-    static final int PERMISSION_EXPORT = 12;
-    static final int PERMISSION_IMPORT = 13;
-    static final int PERMISSION_EVENT_CALENDAR_PREFERENCES = 15;
-    static final int PERMISSION_EVENT_CALL_PREFERENCES = 16;
-    static final int PERMISSION_EVENT_SMS_PREFERENCES = 17;
-    static final int PERMISSION_EVENT_LOCATION_PREFERENCES = 18;
-    static final int PERMISSION_EVENT_CONTACTS_PREFERENCE = 19;
-    static final int PERMISSION_PROFILE_NOTIFICATION_LED = 20;
-    static final int PERMISSION_PROFILE_VIBRATE_WHEN_RINGING = 21;
-    static final int PERMISSION_PLAY_RINGTONE_NOTIFICATION = 22;
-    //static final int PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY = 23;
-    static final int PERMISSION_PROFILE_LOCK_DEVICE = 24;
-    static final int PERMISSION_RINGTONE_PREFERENCE = 25;
-    static final int PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING = 26;
-    static final int PERMISSION_PROFILE_SOUND_ON_TOUCH = 27;
-    static final int PERMISSION_BRIGHTNESS_PREFERENCE = 28;
-    static final int PERMISSION_IMAGE_WALLPAPER_PREFERENCE = 29;
-    static final int PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE = 30;
-    static final int PERMISSION_LOCATION_PREFERENCE = 31;
-    static final int PERMISSION_CALENDAR_PREFERENCE = 32;
-    static final int PERMISSION_EVENT_ORIENTATION_PREFERENCES = 33;
-    static final int PERMISSION_EVENT_WIFI_PREFERENCES = 34;
-    static final int PERMISSION_EVENT_BLUETOOTH_PREFERENCES = 35;
-    static final int PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES = 36;
-    //static final int PERMISSION_LOG_TO_FILE = 37;
-    static final int PERMISSION_EVENT_BLUETOOTH_SWITCH_PREFERENCES = 38;
-    static final int PERMISSION_EVENT_TIME_PREFERENCES = 39;
-    static final int PERMISSION_PROFILE_ALWAYS_ON_DISPLAY = 40;
-    static final int PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE = 41;
-    static final int PERMISSION_PROFILE_SCREEN_ON_PERMANENT = 42;
-    static final int PERMISSION_PROFILE_CAMERA_FLASH = 43;
-    static final int PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES = 44;
-    static final int PERMISSION_BACGROUND_LOCATION = 45;
-    //static final int PERMISSION_PROFILE_VIBRATE_NOTIFICATIONS = 46;
-    static final int PERMISSION_PROFILE_WALLPAPER_FOLDER = 47;
-    static final int PERMISSION_WALLPAPER_FOLDER_PREFERENCE = 48;
-    static final int PERMISSION_PROFILE_MICROPHONE = 49;
-    static final int PERMISSION_EVENT_ROAMING_PREFERENCES = 50;
-    static final int PERMISSION_PROFILE_WIREGUARD = 51;
-    //static final int PERMISSION_PROFILE_VIBRATION_INTENSITY = 52;
-    static final int PERMISSION_PROFILE_RUN_APPLICATIONS = 53;
-    static final int PERMISSION_PROFILE_INTERACTIVE_PREFEREBCES = 54;
-    static final int PERMISSION_PROFILE_CLOSE_ALL_APPLICATIONS = 55;
-    static final int PERMISSION_PROFILE_PPP_PUT_SETTINGS = 56;
-    static final int PERMISSION_PROFILE_RINGTONES_DUAL_SIM = 57;
+    //static final int PERMISSION_TYPE_PROFILE_VOLUME_PREFERENCES = 1;
+    static final int PERMISSION_TYPE_PROFILE_VIBRATION_ON_TOUCH = 2;
+    static final int PERMISSION_TYPE_PROFILE_RINGTONES = 3;
+    static final int PERMISSION_TYPE_PROFILE_SCREEN_TIMEOUT = 4;
+    static final int PERMISSION_TYPE_PROFILE_SCREEN_BRIGHTNESS = 5;
+    static final int PERMISSION_TYPE_PROFILE_AUTOROTATION = 6;
+    static final int PERMISSION_TYPE_PROFILE_IMAGE_WALLPAPER = 7;
+    static final int PERMISSION_TYPE_PROFILE_RADIO_PREFERENCES = 8;
+    static final int PERMISSION_TYPE_PROFILE_PHONE_STATE_BROADCAST = 9;
+    static final int PERMISSION_TYPE_PROFILE_CUSTOM_PROFILE_ICON = 10;
+    //static final int PERMISSION_TYPE_INSTALL_TONE = 11;
+    static final int PERMISSION_TYPE_EXPORT = 12;
+    static final int PERMISSION_TYPE_IMPORT = 13;
+    static final int PERMISSION_TYPE_EVENT_CALENDAR_PREFERENCES = 15;
+    static final int PERMISSION_TYPE_EVENT_CALL_PREFERENCES = 16;
+    static final int PERMISSION_TYPE_EVENT_SMS_PREFERENCES = 17;
+    static final int PERMISSION_TYPE_EVENT_LOCATION_PREFERENCES = 18;
+    static final int PERMISSION_TYPE_EVENT_CONTACTS_PREFERENCE = 19;
+    static final int PERMISSION_TYPE_PROFILE_NOTIFICATION_LED = 20;
+    static final int PERMISSION_TYPE_PROFILE_VIBRATE_WHEN_RINGING = 21;
+    static final int PERMISSION_TYPE_PLAY_RINGTONE_NOTIFICATION = 22;
+    //static final int PERMISSION_TYPE_PROFILE_ACCESS_NOTIFICATION_POLICY = 23;
+    static final int PERMISSION_TYPE_PROFILE_LOCK_DEVICE = 24;
+    static final int PERMISSION_TYPE_RINGTONE_PREFERENCE = 25;
+    static final int PERMISSION_TYPE_PROFILE_DTMF_TONE_WHEN_DIALING = 26;
+    static final int PERMISSION_TYPE_PROFILE_SOUND_ON_TOUCH = 27;
+    static final int PERMISSION_TYPE_BRIGHTNESS_PREFERENCE = 28;
+    static final int PERMISSION_TYPE_IMAGE_WALLPAPER_PREFERENCE = 29;
+    static final int PERMISSION_TYPE_CUSTOM_PROFILE_ICON_PREFERENCE = 30;
+    static final int PERMISSION_TYPE_LOCATION_PREFERENCE = 31;
+    static final int PERMISSION_TYPE_CALENDAR_PREFERENCE = 32;
+    static final int PERMISSION_TYPE_EVENT_ORIENTATION_PREFERENCES = 33;
+    static final int PERMISSION_TYPE_EVENT_WIFI_PREFERENCES = 34;
+    static final int PERMISSION_TYPE_EVENT_BLUETOOTH_PREFERENCES = 35;
+    static final int PERMISSION_TYPE_EVENT_MOBILE_CELLS_PREFERENCES = 36;
+    //static final int PERMISSION_TYPE_LOG_TO_FILE = 37;
+    static final int PERMISSION_TYPE_EVENT_BLUETOOTH_SWITCH_PREFERENCES = 38;
+    static final int PERMISSION_TYPE_EVENT_TIME_PREFERENCES = 39;
+    static final int PERMISSION_TYPE_PROFILE_ALWAYS_ON_DISPLAY = 40;
+    static final int PERMISSION_TYPE_PROFILE_CONNECT_TO_SSID_PREFERENCE = 41;
+    static final int PERMISSION_TYPE_PROFILE_SCREEN_ON_PERMANENT = 42;
+    static final int PERMISSION_TYPE_PROFILE_CAMERA_FLASH = 43;
+    static final int PERMISSION_TYPE_EVENT_RADIO_SWITCH_PREFERENCES = 44;
+    static final int PERMISSION_TYPE_BACGROUND_LOCATION = 45;
+    //static final int PERMISSION_TYPE_PROFILE_VIBRATE_NOTIFICATIONS = 46;
+    static final int PERMISSION_TYPE_PROFILE_WALLPAPER_FOLDER = 47;
+    static final int PERMISSION_TYPE_WALLPAPER_FOLDER_PREFERENCE = 48;
+    static final int PERMISSION_TYPE_PROFILE_MICROPHONE = 49;
+    static final int PERMISSION_TYPE_EVENT_ROAMING_PREFERENCES = 50;
+    static final int PERMISSION_TYPE_PROFILE_WIREGUARD = 51;
+    //static final int PERMISSION_TYPE_PROFILE_VIBRATION_INTENSITY = 52;
+    static final int PERMISSION_TYPE_PROFILE_RUN_APPLICATIONS = 53;
+    static final int PERMISSION_TYPE_PROFILE_INTERACTIVE_PREFEREBCES = 54;
+    static final int PERMISSION_TYPE_PROFILE_CLOSE_ALL_APPLICATIONS = 55;
+    static final int PERMISSION_TYPE_PROFILE_PPP_PUT_SETTINGS = 56;
+    static final int PERMISSION_TYPE_PROFILE_RINGTONES_DUAL_SIM = 57;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -106,6 +102,7 @@ class Permissions {
     static final int GRANT_TYPE_CONNECT_TO_SSID_DIALOG = 22;
     static final int GRANT_TYPE_BACKGROUND_LOCATION = 23;
     static final int GRANT_TYPE_WALLPAPER_FOLDER = 24;
+    static final int GRANT_TYPE_MOBILE_CELL_NAMES_SCAN_DIALOG = 25;
 
     static final int REQUEST_CODE = 5000;
     //static final int REQUEST_CODE_FORCE_GRANT = 6000;
@@ -138,7 +135,7 @@ class Permissions {
     //static ContactGroupsMultiSelectDialogPreference contactGroupsMultiSelectDialogPreference = null;
     //static LocationGeofenceEditorActivity locationGeofenceEditorActivity = null;
     //static BrightnessDialogPreference brightnessDialogPreference = null;
-    //static MobileCellsPreference mobileCellsPreference = null;
+    //static MobileCellsEditorPreference mobileCellsPreference = null;
     //static MobileCellsRegistrationDialogPreference mobileCellsRegistrationDialogPreference = null;
     //static RingtonePreference ringtonePreference = null;
 
@@ -150,7 +147,7 @@ class Permissions {
 
     private static final String PREF_PERMISSIONS_CHANGED = "permissionsChanged";
 
-    static final String WIREGUARD_CONTROL_TUNNELS = "com.wireguard.android.permission.CONTROL_TUNNELS";
+    static final String PERMISSION_WIREGUARD_CONTROL_TUNNELS = "com.wireguard.android.permission.CONTROL_TUNNELS";
 
     // permission groups
     private static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSION = "writeSystemSettingsPermission";
@@ -167,44 +164,6 @@ class Permissions {
     private static final String PREF_READ_STORAGE_PERMISSION = "readStoragePermission";
     private static final String PREF_WRITE_STORAGE_PERMISSION = "writeStoragePermission";
     //private static final String PREF_CALL_LOGS_PERMISSION = "callLogsPermission";
-
-    static volatile boolean grantRootChanged = false;
-
-    static class PermissionType implements Parcelable {
-        final int type;
-        final String permission;
-
-        PermissionType (int type, String permission) {
-            this.type = type;
-            this.permission = permission;
-        }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(this.type);
-            dest.writeString(this.permission);
-        }
-
-        PermissionType(Parcel in) {
-            this.type = in.readInt();
-            this.permission = in.readString();
-        }
-
-        public static final Parcelable.Creator<PermissionType> CREATOR = new Parcelable.Creator<PermissionType>() {
-            public PermissionType createFromParcel(Parcel source) {
-                return new PermissionType(source);
-            }
-
-            public PermissionType[] newArray(int size) {
-                return new PermissionType[size];
-            }
-        };
-    }
 
     static boolean hasPermission(Context context, String permission) {
         return context.checkPermission(permission, PPApplication.pid, PPApplication.uid) == PackageManager.PERMISSION_GRANTED;
@@ -321,11 +280,11 @@ class Permissions {
                 grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
             if (permissions != null) {
                 if (!grantedReadExternalStorage)
-                    permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_EXTERNAL_STORAGE));
+                    permissions.add(new PermissionType(Permissions.PERMISSION_TYPE_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_EXTERNAL_STORAGE));
                 if (!grantedContacts)
-                    permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_CONTACTS));
+                    permissions.add(new PermissionType(Permissions.PERMISSION_TYPE_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_CONTACTS));
                 if (!grantedDrawOverApps)
-                    permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, permission.SYSTEM_ALERT_WINDOW));
+                    permissions.add(new PermissionType(Permissions.PERMISSION_TYPE_PLAY_RINGTONE_NOTIFICATION, permission.SYSTEM_ALERT_WINDOW));
             }
             return grantedReadExternalStorage && grantedContacts;
         } catch (Exception e) {
@@ -343,7 +302,7 @@ class Permissions {
                     setShowRequestWriteSettingsPermission(context, true);
                 if (!granted) {
                     if (permissions != null)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATION_ON_TOUCH, permission.WRITE_SETTINGS));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_VIBRATION_ON_TOUCH, permission.WRITE_SETTINGS));
                 }
                 return granted;
             } else
@@ -363,7 +322,7 @@ class Permissions {
                     setShowRequestWriteSettingsPermission(context, true);
                 if (!granted) {
                     if (permissions != null)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATE_WHEN_RINGING, permission.WRITE_SETTINGS));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_VIBRATE_WHEN_RINGING, permission.WRITE_SETTINGS));
                 }
             }
         } catch (Exception ignored) {}
@@ -452,7 +411,7 @@ class Permissions {
                 if (granted)
                     setShowRequestWriteSettingsPermission(context, true);
                 if ((permissions != null) && (!granted))
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_NOTIFICATION_LED, permission.WRITE_SETTINGS));
+                    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_NOTIFICATION_LED, permission.WRITE_SETTINGS));
             }
         } catch (Exception ignored) {}
     }
@@ -481,11 +440,11 @@ class Permissions {
                     setShowRequestWriteSettingsPermission(context, true);
                 if (permissions != null) {
                     if (!grantedSystemSettings)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.WRITE_SETTINGS));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RINGTONES, permission.WRITE_SETTINGS));
                     if (!grantedStorage)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.READ_EXTERNAL_STORAGE));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RINGTONES, permission.READ_EXTERNAL_STORAGE));
                     if (!grantedReadPhoneState)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES_DUAL_SIM, permission.READ_PHONE_STATE));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RINGTONES_DUAL_SIM, permission.READ_PHONE_STATE));
                 }
                 return grantedSystemSettings && grantedStorage;
             } else
@@ -522,7 +481,7 @@ class Permissions {
                     setShowRequestDrawOverlaysPermission(context, true);*/
                 if (permissions != null) {
                     if (!grantedWriteSettings)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_TIMEOUT, permission.WRITE_SETTINGS));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_SCREEN_TIMEOUT, permission.WRITE_SETTINGS));
                     /*if (!grantedDrawOverlays)
                         permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_TIMEOUT, permission.SYSTEM_ALERT_WINDOW));*/
                 }
@@ -544,7 +503,7 @@ class Permissions {
             //    setShowRequestDrawOverlaysPermission(context, true);
             if (permissions != null) {
                 if (!grantedWriteSettings)
-                    permissions.add(new PermissionType(PERMISSION_BRIGHTNESS_PREFERENCE, permission.WRITE_SETTINGS));
+                    permissions.add(new PermissionType(PERMISSION_TYPE_BRIGHTNESS_PREFERENCE, permission.WRITE_SETTINGS));
                 //if (!grantedDrawOverlays)
                 //    permissions.add(new PermissionType(PERMISSION_BRIGHTNESS_PREFERENCE, permission.SYSTEM_ALERT_WINDOW));
             }
@@ -567,7 +526,7 @@ class Permissions {
                 //    setShowRequestDrawOverlaysPermission(context, true);
                 if (permissions != null) {
                     if (!grantedWriteSettings)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
                     //if (!grantedDrawOverlays)
                     //    permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.SYSTEM_ALERT_WINDOW));
                 }
@@ -588,7 +547,7 @@ class Permissions {
                 if (granted)
                     setShowRequestWriteSettingsPermission(context, true);
                 if ((permissions != null) && (!granted))
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_AUTOROTATION, permission.WRITE_SETTINGS));
+                    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_AUTOROTATION, permission.WRITE_SETTINGS));
                 return granted;
             } else
                 return true;
@@ -617,9 +576,9 @@ class Permissions {
             }
             if ((permissions != null) && ((!drawOverAppsGranted) || (!externalStorageGranted))) {
                 if (!drawOverAppsGranted)
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_IMAGE_WALLPAPER, permission.SYSTEM_ALERT_WINDOW));
+                    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_IMAGE_WALLPAPER, permission.SYSTEM_ALERT_WINDOW));
                 if (!externalStorageGranted)
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_IMAGE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
+                    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_IMAGE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
             }
             return drawOverAppsGranted && externalStorageGranted;
 
@@ -635,7 +594,7 @@ class Permissions {
             if (profile._deviceWallpaperChange == 3) {
                 boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
                 if ((permissions != null) && (!granted))
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_WALLPAPER_FOLDER, permission.READ_EXTERNAL_STORAGE));
+                    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_WALLPAPER_FOLDER, permission.READ_EXTERNAL_STORAGE));
                 return granted;
             } else
                 return true;
@@ -649,13 +608,12 @@ class Permissions {
 
         if (fromProfile) {
             try {
-                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-                Profile _profile = DatabaseHandler.getInstance(dataWrapper.context).getProfile(profile._id, false);
+                Profile _profile = DatabaseHandler.getInstance(context.getApplicationContext()).getProfile(profile._id, false);
                 if (_profile == null) return;// true;
                 if (!_profile.getIsIconResourceID()) {
                     boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
                     if ((permissions != null) && (!granted))
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
                 }
             } catch (Exception ignored) {
             }
@@ -663,7 +621,7 @@ class Permissions {
             if (!profile.getIsIconResourceID()) {
                 boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
                 if ((permissions != null) && (!granted))
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
+                    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
             }
         }
     }
@@ -674,10 +632,10 @@ class Permissions {
         try {
             boolean grantedWireGuardPermission = true;
             if (profile._deviceVPN.startsWith("4"))
-                grantedWireGuardPermission = ContextCompat.checkSelfPermission(context, WIREGUARD_CONTROL_TUNNELS) == PackageManager.PERMISSION_GRANTED;
+                grantedWireGuardPermission = ContextCompat.checkSelfPermission(context, PERMISSION_WIREGUARD_CONTROL_TUNNELS) == PackageManager.PERMISSION_GRANTED;
             if (permissions != null) {
                 if (!grantedWireGuardPermission)
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_WIREGUARD, WIREGUARD_CONTROL_TUNNELS));
+                    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_WIREGUARD, PERMISSION_WIREGUARD_CONTROL_TUNNELS));
             }
             return grantedWireGuardPermission;
         } catch (Exception e) {
@@ -768,7 +726,7 @@ class Permissions {
             }
             boolean grantedReadPhoneState = true;
             if ((profile._deviceMobileData != 0) ||
-                    (profile._deviceMobileDataSIM1 != 0) || (profile._deviceMobileDataSIM2 != 0) ||
+                    //(profile._deviceMobileDataSIM1 != 0) || (profile._deviceMobileDataSIM2 != 0) ||
                     (profile._deviceNetworkType != 0) ||
                     (profile._deviceNetworkTypeSIM1 != 0) || (profile._deviceNetworkTypeSIM2 != 0) ||
                     (!profile._deviceDefaultSIMCards.equals("0|0|0")) ||
@@ -778,15 +736,15 @@ class Permissions {
             //    granted = checkNFC(context);
             if (permissions != null) {
                 if (!grantedWriteSettings)
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.WRITE_SETTINGS));
+                    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RADIO_PREFERENCES, permission.WRITE_SETTINGS));
                 if (!grantedReadPhoneState)
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.READ_PHONE_STATE));
+                    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RADIO_PREFERENCES, permission.READ_PHONE_STATE));
                 //permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.MODIFY_PHONE_STATE));
             }
             boolean grantedAccessCoarseLocation = true;
             boolean grantedAccessFineLocation = true;
             boolean grantedAccessBackgroundLocation = true;
-            if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+            if (!profile._deviceConnectToSSID.equals(StringConstants.CONNECTTOSSID_JUSTANY)) {
                 grantedAccessCoarseLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                 grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                 //noinspection ConstantConditions
@@ -796,9 +754,9 @@ class Permissions {
             }
             if (permissions != null) {
                 if (!grantedAccessFineLocation)
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RADIO_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                 if (!grantedAccessCoarseLocation)
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RADIO_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
                 // only for API 29 add also background location For 30+ must be granted separatelly
                 /*if (Build.VERSION.SDK_INT == 29) {
                     if (!grantedAccessBackgroundLocation)
@@ -806,7 +764,7 @@ class Permissions {
                 }*/
                 if (Build.VERSION.SDK_INT >= 29) {
                     if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RADIO_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                 }
             }
         } catch (Exception ignored) {}
@@ -856,7 +814,7 @@ class Permissions {
                 boolean grantedReadPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
                 if (permissions != null) {
                     if (!grantedReadPhoneState)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_STATE_BROADCAST, permission.READ_PHONE_STATE));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_PHONE_STATE_BROADCAST, permission.READ_PHONE_STATE));
                 }
             }
         } catch (Exception ignored) {}
@@ -910,7 +868,6 @@ class Permissions {
     static void checkProfileAlwaysOnDisplay(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;
 
-        //if (android.os.Build.VERSION.SDK_INT >= 26) {
         try {
             if (profile._alwaysOnDisplay != 0) {
                 boolean granted = Settings.System.canWrite(context);
@@ -918,12 +875,11 @@ class Permissions {
                     setShowRequestWriteSettingsPermission(context, true);
                 if (!granted) {
                     if (permissions != null)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_ALWAYS_ON_DISPLAY, permission.WRITE_SETTINGS));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_ALWAYS_ON_DISPLAY, permission.WRITE_SETTINGS));
                 }
             }
         } catch (Exception ignored) {
         }
-        //}
     }
 
     static boolean checkLockDevice(Context context) {
@@ -954,9 +910,9 @@ class Permissions {
                     setShowRequestDrawOverlaysPermission(context, true);
                 if (permissions != null) {
                     if (!grantedWriteSettings)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_LOCK_DEVICE, permission.WRITE_SETTINGS));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_LOCK_DEVICE, permission.WRITE_SETTINGS));
                     if (!grantedDrawOverlays)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_LOCK_DEVICE, permission.SYSTEM_ALERT_WINDOW));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_LOCK_DEVICE, permission.SYSTEM_ALERT_WINDOW));
                 }
                 return grantedWriteSettings && grantedDrawOverlays;
             } else
@@ -976,7 +932,7 @@ class Permissions {
                     setShowRequestWriteSettingsPermission(context, true);
                 if (!granted) {
                     if (permissions != null)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING, permission.WRITE_SETTINGS));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_DTMF_TONE_WHEN_DIALING, permission.WRITE_SETTINGS));
                 }
                 return granted;
             } else
@@ -996,7 +952,7 @@ class Permissions {
                     setShowRequestWriteSettingsPermission(context, true);
                 if (!granted) {
                     if (permissions != null)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_SOUND_ON_TOUCH, permission.WRITE_SETTINGS));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_SOUND_ON_TOUCH, permission.WRITE_SETTINGS));
                 }
                 return granted;
             } else
@@ -1029,7 +985,7 @@ class Permissions {
                     setShowRequestDrawOverlaysPermission(context, true);
                 if (permissions != null) {
                     if (!grantedDrawOverlays)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_ON_PERMANENT, permission.SYSTEM_ALERT_WINDOW));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_SCREEN_ON_PERMANENT, permission.SYSTEM_ALERT_WINDOW));
                 }
                 return grantedDrawOverlays;
             } else
@@ -1046,7 +1002,7 @@ class Permissions {
             if (profile._cameraFlash != 0) {
                 boolean granted = ContextCompat.checkSelfPermission(context, permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
                 if ((permissions != null) && (!granted))
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_CAMERA_FLASH, permission.CAMERA));
+                    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_CAMERA_FLASH, permission.CAMERA));
                 return granted;
             } else
                 return true;
@@ -1058,22 +1014,19 @@ class Permissions {
     static void checkProfileMicrophone(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return /*true*/;
 
-        //if (Build.VERSION.SDK_INT >= 26) {
         try {
             if ((profile._deviceAirplaneMode >= 4)/* &&
                     (!PPApplication.isRooted(false))*/) {
                 // if deice is not rooted, required is set PPP as default assistant
                 boolean granted = ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
                 if ((permissions != null) && (!granted))
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_MICROPHONE, permission.RECORD_AUDIO));
+                    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_MICROPHONE, permission.RECORD_AUDIO));
             //    return /*granted*/;
             } //else
                 //return /*true*/;
         } catch (Exception e) {
             //return /*false*/;
         }
-        //} //else
-            //return /*true*/;
     }
 
     static void checkProfileRunApplications(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
@@ -1087,7 +1040,7 @@ class Permissions {
                         setShowRequestDrawOverlaysPermission(context, true);
                     if (permissions != null) {
                         if (!grantedDrawOverlays)
-                            permissions.add(new PermissionType(PERMISSION_PROFILE_RUN_APPLICATIONS, permission.SYSTEM_ALERT_WINDOW));
+                            permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RUN_APPLICATIONS, permission.SYSTEM_ALERT_WINDOW));
                     }
                     //return grantedDrawOverlays;
                 } //else
@@ -1114,7 +1067,7 @@ class Permissions {
                         setShowRequestDrawOverlaysPermission(context, true);
                     if (permissions != null) {
                         if (!grantedDrawOverlays)
-                            permissions.add(new PermissionType(PERMISSION_PROFILE_INTERACTIVE_PREFEREBCES, permission.SYSTEM_ALERT_WINDOW));
+                            permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_INTERACTIVE_PREFEREBCES, permission.SYSTEM_ALERT_WINDOW));
                     }
                     //return grantedDrawOverlays;
                 } //else
@@ -1137,7 +1090,7 @@ class Permissions {
                         setShowRequestDrawOverlaysPermission(context, true);
                     if (permissions != null) {
                         if (!grantedDrawOverlays)
-                            permissions.add(new PermissionType(PERMISSION_PROFILE_CLOSE_ALL_APPLICATIONS, permission.SYSTEM_ALERT_WINDOW));
+                            permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_CLOSE_ALL_APPLICATIONS, permission.SYSTEM_ALERT_WINDOW));
                     }
                     //return grantedDrawOverlays;
                 } //else
@@ -1160,7 +1113,7 @@ class Permissions {
                         setShowRequestDrawOverlaysPermission(context, true);
                     if (permissions != null) {
                         if (!grantedDrawOverlays)
-                            permissions.add(new PermissionType(PERMISSION_PROFILE_PPP_PUT_SETTINGS, permission.SYSTEM_ALERT_WINDOW));
+                            permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_PPP_PUT_SETTINGS, permission.SYSTEM_ALERT_WINDOW));
                     }
                     //return grantedDrawOverlays;
                 //} //else
@@ -1206,7 +1159,7 @@ class Permissions {
                     if (event._eventPreferencesCall._enabled) {
                         boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
                         if ((permissions != null) && (!granted))
-                            permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_CONTACTS));
+                            permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.READ_CONTACTS));
                     }
                 }
             } catch (Exception ignored) {
@@ -1217,7 +1170,7 @@ class Permissions {
                 if (preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, false)) {
                     boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
                     if ((permissions != null) && (!granted))
-                        permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_CONTACTS));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.READ_CONTACTS));
                 }
             }
         }
@@ -1233,7 +1186,7 @@ class Permissions {
                     if (event._eventPreferencesSMS._enabled) {
                         boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
                         if ((permissions != null) && (!granted))
-                            permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_CONTACTS));
+                            permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_SMS_PREFERENCES, permission.READ_CONTACTS));
                     }
                 }
             } catch (Exception ignored) {}
@@ -1244,7 +1197,7 @@ class Permissions {
                     if (preferences.getBoolean(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, false)) {
                         boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
                         if ((permissions != null) && (!granted))
-                            permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_CONTACTS));
+                            permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_SMS_PREFERENCES, permission.READ_CONTACTS));
                     }
                 }
             } catch (Exception ignored) {}
@@ -1269,7 +1222,7 @@ class Permissions {
                     if (event._eventPreferencesCalendar._enabled) {
                         boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED;
                         if ((permissions != null) && (!granted))
-                            permissions.add(new PermissionType(PERMISSION_EVENT_CALENDAR_PREFERENCES, permission.READ_CALENDAR));
+                            permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALENDAR_PREFERENCES, permission.READ_CALENDAR));
                     }
                 }
             } catch (Exception ignored) {
@@ -1280,14 +1233,14 @@ class Permissions {
                 if (preferences.getBoolean(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, false)) {
                     boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED;
                     if ((permissions != null) && (!granted))
-                        permissions.add(new PermissionType(PERMISSION_EVENT_CALENDAR_PREFERENCES, permission.READ_CALENDAR));
+                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALENDAR_PREFERENCES, permission.READ_CALENDAR));
                 }
             }
         }
     }
 
     @SuppressWarnings("SameReturnValue")
-    static boolean checkSMS(@SuppressWarnings("unused") Context context) {
+    static boolean checkSMS(/*Context context*/) {
         return true;
         /*
         try {
@@ -1373,13 +1326,13 @@ class Permissions {
                              (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)))) {
                             if (permissions != null) {
                                 if (!grantedAccessFineLocation)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
                                 // only for API 29 add also background location For 30+ must be granted separatelly
                                 if (Build.VERSION.SDK_INT >= 29) {
                                     if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
-                                        permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                                 }
                             }
                         }
@@ -1391,13 +1344,13 @@ class Permissions {
                              (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
                             if (permissions != null) {
                                 if (!grantedAccessFineLocation)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
                                 // only for API 29 add also background location For 30+ must be granted separatelly
                                 if (Build.VERSION.SDK_INT >= 29) {
                                     if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
-                                        permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                                 }
                             }
                         }
@@ -1407,13 +1360,13 @@ class Permissions {
                         if (event._eventPreferencesMobileCells._enabled) {
                             if (permissions != null) {
                                 if (!grantedAccessFineLocation)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
                                 // only for API 29 add also background location For 30+ must be granted separatelly
                                 if (Build.VERSION.SDK_INT >= 29) {
                                     if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
-                                        permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                                 }
                             }
                         }
@@ -1424,13 +1377,13 @@ class Permissions {
                             (event._eventPreferencesTime._timeType != EventPreferencesTime.TIME_TYPE_EXACT)) {
                             if (permissions != null) {
                                 if (!grantedAccessFineLocation)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_TIME_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_TIME_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
                                 // only for API 29 add also background location For 30+ must be granted separatelly
                                 if (Build.VERSION.SDK_INT >= 29) {
                                     if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
-                                        permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                                 }
                             }
                         }
@@ -1440,13 +1393,13 @@ class Permissions {
                         if (event._eventPreferencesLocation._enabled) {
                             if (permissions != null) {
                                 if (!grantedAccessFineLocation)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
                                 // only for API 29 add also background location For 30+ must be granted separatelly
                                 if (Build.VERSION.SDK_INT >= 29) {
                                     if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
-                                        permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                                 }
                             }
                         }
@@ -1473,17 +1426,17 @@ class Permissions {
 
                 if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER)) {
                     if ((preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false) &&
-                        ((Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "0")) == EventPreferencesWifi.CTYPE_NEARBY) ||
-                         (Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "0")) == EventPreferencesWifi.CTYPE_NOT_NEARBY)))) {
+                        ((Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "1")) == EventPreferencesWifi.CTYPE_NEARBY) ||
+                         (Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "1")) == EventPreferencesWifi.CTYPE_NOT_NEARBY)))) {
                         if (permissions != null) {
                             if (!grantedAccessFineLocation)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
                             // only for API 29 add also background location For 30+ must be granted separatelly
                             if (Build.VERSION.SDK_INT >= 29) {
                                 if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
                     }
@@ -1491,17 +1444,17 @@ class Permissions {
 
                 if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
                     if (preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false) &&
-                        ((Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "0")) == EventPreferencesBluetooth.CTYPE_NEARBY) ||
-                         (Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "0")) == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
+                        ((Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "1")) == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                         (Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "1")) == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
                         if (permissions != null) {
                             if (!grantedAccessFineLocation)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
                             // only for API 29 add also background location For 30+ must be granted separatelly
                             if (Build.VERSION.SDK_INT >= 29) {
                                 if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
                     }
@@ -1511,13 +1464,13 @@ class Permissions {
                     if (preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
                         if (permissions != null) {
                             if (!grantedAccessFineLocation)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
                             // only for API 29 add also background location For 30+ must be granted separatelly
                             if (Build.VERSION.SDK_INT >= 29) {
                                 if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
                     }
@@ -1528,13 +1481,13 @@ class Permissions {
                         (Integer.parseInt(preferences.getString(EventPreferencesTime.PREF_EVENT_TIME_TYPE, "0")) != EventPreferencesTime.TIME_TYPE_EXACT)) {
                         if (permissions != null) {
                             if (!grantedAccessFineLocation)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_TIME_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_TIME_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
                             // only for API 29 add also background location For 30+ must be granted separatelly
                             if (Build.VERSION.SDK_INT >= 29) {
                                 if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
                     }
@@ -1544,13 +1497,13 @@ class Permissions {
                     if (preferences.getBoolean(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false)) {
                         if (permissions != null) {
                             if (!grantedAccessFineLocation)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
                             // only for API 29 add also background location For 30+ must be granted separatelly
                             if (Build.VERSION.SDK_INT >= 29) {
                                 if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
                     }
@@ -1574,7 +1527,7 @@ class Permissions {
                         boolean granted = checkBluetoothForEMUI(context);
                         if (permissions != null) {
                             if (!granted)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_SWITCH_PREFERENCES, permission.WRITE_SETTINGS));
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_BLUETOOTH_SWITCH_PREFERENCES, permission.WRITE_SETTINGS));
                         }
                     }
                 }
@@ -1583,12 +1536,12 @@ class Permissions {
         } else {
             if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
                 if (preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false) &&
-                        ((Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "0")) == EventPreferencesBluetooth.CTYPE_NEARBY) ||
-                         (Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "0")) == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
+                        ((Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "1")) == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                         (Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "1")) == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
                     boolean granted = checkBluetoothForEMUI(context);
                     if (permissions != null) {
                         if (!granted)
-                            permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_SWITCH_PREFERENCES, permission.WRITE_SETTINGS));
+                            permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_BLUETOOTH_SWITCH_PREFERENCES, permission.WRITE_SETTINGS));
                     }
                 }
             }
@@ -1615,17 +1568,16 @@ class Permissions {
                         if (event._eventPreferencesCall._enabled) {
                             if (permissions != null) {
                                 if (!grantedPhoneState)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
                             }
                         }
                     }
 
-                    //if (Build.VERSION.SDK_INT >= 26) {
                         if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
                             if (event._eventPreferencesMobileCells._enabled) {
                                 if (permissions != null) {
                                     if (!grantedPhoneState)
-                                        permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.READ_PHONE_STATE));
+                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_MOBILE_CELLS_PREFERENCES, permission.READ_PHONE_STATE));
                                 }
                             }
                         }
@@ -1634,7 +1586,7 @@ class Permissions {
                             if (event._eventPreferencesSMS._enabled) {
                                 if (permissions != null) {
                                     if (!grantedPhoneState)
-                                        permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_PHONE_STATE));
+                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_SMS_PREFERENCES, permission.READ_PHONE_STATE));
                                 }
                             }
                         }
@@ -1650,7 +1602,7 @@ class Permissions {
                                         if (phoneCount > 1) {
                                             if (permissions != null) {
                                                 if (!grantedPhoneState)
-                                                    permissions.add(new PermissionType(PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES, permission.READ_PHONE_STATE));
+                                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_RADIO_SWITCH_PREFERENCES, permission.READ_PHONE_STATE));
                                             }
                                         }
                                     }
@@ -1662,12 +1614,10 @@ class Permissions {
                             if (event._eventPreferencesRoaming._enabled) {
                                 if (permissions != null) {
                                     if (!grantedPhoneState)
-                                        permissions.add(new PermissionType(PERMISSION_EVENT_ROAMING_PREFERENCES, permission.READ_PHONE_STATE));
+                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_ROAMING_PREFERENCES, permission.READ_PHONE_STATE));
                                 }
                             }
                         }
-
-                    //}
 
                 }
 
@@ -1689,17 +1639,16 @@ class Permissions {
                     if (preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, false)) {
                         if (permissions != null) {
                             if (!grantedPhoneState)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
                         }
                     }
                 }
 
-                //if (Build.VERSION.SDK_INT >= 26) {
                     if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
                         if (preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
                             if (permissions != null) {
                                 if (!grantedPhoneState)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.READ_PHONE_STATE));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_MOBILE_CELLS_PREFERENCES, permission.READ_PHONE_STATE));
                             }
                         }
                     }
@@ -1708,7 +1657,7 @@ class Permissions {
                         if (preferences.getBoolean(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, false)) {
                             if (permissions != null) {
                                 if (!grantedPhoneState)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_PHONE_STATE));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_SMS_PREFERENCES, permission.READ_PHONE_STATE));
                             }
                         }
                     }
@@ -1725,7 +1674,7 @@ class Permissions {
                                     if (phoneCount > 1) {
                                         if (permissions != null) {
                                             if (!grantedPhoneState)
-                                                permissions.add(new PermissionType(PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES, permission.READ_PHONE_STATE));
+                                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_RADIO_SWITCH_PREFERENCES, permission.READ_PHONE_STATE));
                                         }
                                     }
                                 }
@@ -1737,12 +1686,10 @@ class Permissions {
                         if (preferences.getBoolean(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, false)) {
                             if (permissions != null) {
                                 if (!grantedPhoneState)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_ROAMING_PREFERENCES, permission.READ_PHONE_STATE));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_ROAMING_PREFERENCES, permission.READ_PHONE_STATE));
                             }
                         }
                     }
-
-                //}
 
             }
 
@@ -1759,16 +1706,13 @@ class Permissions {
 
     static boolean checkMicrophone(Context context) {
         try {
-            //if (Build.VERSION.SDK_INT >= 26)
-                return (ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED);
-            //else
-            //    return true;
+            return (ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED);
         } catch (Exception e) {
             return false;
         }
     }
 
-    static boolean checkSensors(@SuppressWarnings("unused") Context context) {
+    static boolean checkSensors(/*Context context*/) {
         try {
             return true;
         } catch (Exception e) {
@@ -1902,7 +1846,7 @@ class Permissions {
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_IMAGE_WALLPAPER_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
+                permissions.add(new PermissionType(PERMISSION_TYPE_IMAGE_WALLPAPER_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1926,7 +1870,7 @@ class Permissions {
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_WALLPAPER_FOLDER_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
+                permissions.add(new PermissionType(PERMISSION_TYPE_WALLPAPER_FOLDER_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1950,7 +1894,7 @@ class Permissions {
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
+                permissions.add(new PermissionType(PERMISSION_TYPE_CUSTOM_PROFILE_ICON_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1996,8 +1940,8 @@ class Permissions {
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_EXPORT, permission.READ_EXTERNAL_STORAGE));
-                permissions.add(new PermissionType(PERMISSION_EXPORT, permission.WRITE_EXTERNAL_STORAGE));
+                permissions.add(new PermissionType(PERMISSION_TYPE_EXPORT, permission.READ_EXTERNAL_STORAGE));
+                permissions.add(new PermissionType(PERMISSION_TYPE_EXPORT, permission.WRITE_EXTERNAL_STORAGE));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2022,8 +1966,8 @@ class Permissions {
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_IMPORT, permission.READ_EXTERNAL_STORAGE));
-                permissions.add(new PermissionType(PERMISSION_IMPORT, permission.WRITE_EXTERNAL_STORAGE));
+                permissions.add(new PermissionType(PERMISSION_TYPE_IMPORT, permission.READ_EXTERNAL_STORAGE));
+                permissions.add(new PermissionType(PERMISSION_TYPE_IMPORT, permission.WRITE_EXTERNAL_STORAGE));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2100,8 +2044,8 @@ class Permissions {
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
-                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_TYPE_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_TYPE_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
                 // only for API 29 add also background location For 30+ must be granted separatelly
                 //if (Build.VERSION.SDK_INT == 29)
                 //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
@@ -2134,8 +2078,8 @@ class Permissions {
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
-                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_TYPE_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_TYPE_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
                 // only for API 29 add also background location For 30+ must be granted separatelly
                 //if (Build.VERSION.SDK_INT == 29)
                 //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
@@ -2168,7 +2112,7 @@ class Permissions {
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_CALENDAR_PREFERENCE, permission.READ_CALENDAR));
+                permissions.add(new PermissionType(PERMISSION_TYPE_CALENDAR_PREFERENCE, permission.READ_CALENDAR));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2192,7 +2136,7 @@ class Permissions {
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS_PREFERENCE, permission.READ_CONTACTS));
+                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CONTACTS_PREFERENCE, permission.READ_CONTACTS));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2217,7 +2161,7 @@ class Permissions {
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS_PREFERENCE, permission.READ_CONTACTS));
+                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CONTACTS_PREFERENCE, permission.READ_CONTACTS));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2276,8 +2220,8 @@ class Permissions {
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
-                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_TYPE_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_TYPE_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
                 // only for API 29 add also background location For 30+ must be granted separatelly
                 //if (Build.VERSION.SDK_INT == 29)
                 //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
@@ -2304,28 +2248,33 @@ class Permissions {
         return granted;
     }
 
-    static boolean grantMobileCellsDialogPermissions(Context context) {
+    static boolean grantMobileCellsDialogPermissions(Context context, boolean forMobileCellsEditor) {
         boolean granted = checkLocation(context);
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
-                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_TYPE_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_TYPE_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
                 // only for API 29 add also background location For 30+ must be granted separatelly
                 //if (Build.VERSION.SDK_INT == 29)
                 //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
-                //if (Build.VERSION.SDK_INT >= 26)
-                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.READ_PHONE_STATE));
+                permissions.add(new PermissionType(PERMISSION_TYPE_LOCATION_PREFERENCE, permission.READ_PHONE_STATE));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
+                if (forMobileCellsEditor)
+                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
+                else
+                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELL_NAMES_SCAN_DIALOG);
                 intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                 //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                 intent.putExtra(EXTRA_FORCE_GRANT, true);
                 intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
-                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
+                if (forMobileCellsEditor)
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
+                else
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELL_NAMES_SCAN_DIALOG);
                 //wifiSSIDPreference = null;
                 //bluetoothNamePreference = null;
                 //locationGeofenceEditorActivity = null;
@@ -2344,8 +2293,8 @@ class Permissions {
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
-                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_TYPE_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_TYPE_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
                 // only for API 29 add also background location For 30+ must be granted separatelly
                 //if (Build.VERSION.SDK_INT == 29)
                 //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
@@ -2377,7 +2326,7 @@ class Permissions {
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_RINGTONE_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
+                permissions.add(new PermissionType(PERMISSION_TYPE_RINGTONE_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2401,8 +2350,8 @@ class Permissions {
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_FINE_LOCATION));
-                permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
                 // only for API 29 add also background location For 30+ must be granted separatelly
                 //if (Build.VERSION.SDK_INT == 29)
                 //    permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
@@ -2437,7 +2386,7 @@ class Permissions {
             if (grantedOldLocationTypes && (!grantedBackgroundLocation)) {
                 try {
                     ArrayList<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_BACGROUND_LOCATION, permission.ACCESS_BACKGROUND_LOCATION));
+                    permissions.add(new PermissionType(PERMISSION_TYPE_BACGROUND_LOCATION, permission.ACCESS_BACKGROUND_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2744,8 +2693,8 @@ class Permissions {
         editor.putBoolean(PREF_LOCATION_PERMISSION, Permissions.checkLocation(context));
         editor.putBoolean(PREF_MICROPHONE_PERMISSION, Permissions.checkMicrophone(context));
         editor.putBoolean(PREF_PHONE_PERMISSION, Permissions.checkPhone(context));
-        editor.putBoolean(PREF_SENSORS_PERMISSION, Permissions.checkSensors(context));
-        editor.putBoolean(PREF_SMS_PERMISSION, Permissions.checkSMS(context));
+        editor.putBoolean(PREF_SENSORS_PERMISSION, Permissions.checkSensors(/*context*/));
+        editor.putBoolean(PREF_SMS_PERMISSION, Permissions.checkSMS(/*context*/));
         editor.putBoolean(PREF_READ_STORAGE_PERMISSION, Permissions.checkReadStorage(context));
         editor.putBoolean(PREF_WRITE_STORAGE_PERMISSION, Permissions.checkWriteStorage(context));
 
@@ -2846,136 +2795,6 @@ class Permissions {
 
     static void grantRootX(final ProfilesPrefsFragment profilesFragment,
                            final Activity activity) {
-        /*
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.phone_profiles_pref_grantRootPermission);
-        String message = activity.getString(R.string.phone_profiles_pref_grantRootPermission_summary) + "\n";
-        dialogBuilder.setMessage(message);
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-        //dialogBuilder.setView(doNotShowAgain);
-
-        final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(activity);
-        FrameLayout container = new FrameLayout(activity);
-        container.addView(doNotShowAgain);
-        FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT);
-        containerParams.leftMargin = GlobalGUIRoutines.dpToPx(20);
-        container.setLayoutParams(containerParams);
-
-        FrameLayout superContainer = new FrameLayout(activity);
-        superContainer.addView(container);
-
-        dialogBuilder.setView(superContainer);
-
-        doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
-        if (profilesFragment == null) {
-            doNotShowAgain.setEnabled(false);
-            doNotShowAgain.setChecked(false);
-        }
-        else
-            doNotShowAgain.setChecked(ApplicationPreferences.applicationNeverAskForGrantRoot);
-        doNotShowAgain.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (profilesFragment != null) {
-                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, isChecked);
-                editor.apply();
-                ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
-            }
-        });
-
-        dialogBuilder.setPositiveButton(R.string.alert_button_grant, (dialog, which) -> {
-            grantRootChanged = true;
-            if (profilesFragment == null) {
-                // always ask for grant root, when grant is invocked from PPP Settings
-                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
-                editor.apply();
-                ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
-            } else {
-                //grantRootChanged = true;
-                profilesFragment.setRedTextToPreferences();
-            }
-
-            boolean ok = false;
-            PackageManager packageManager = activity.getPackageManager();
-            // SuperSU
-            Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
-            if (intent != null) {
-                intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                try {
-                    // startActivityForResult not working, it is external application
-                    activity.startActivity(intent);
-                    //PPApplication.initRoot();
-                    synchronized (PPApplication.rootMutex) {
-                        PPApplication.rootMutex.rootChecked = false;
-                    }
-                    ok = true;
-                } catch (Exception ignore) {
-                }
-            }
-            if (!ok) {
-                // MAGISK
-                intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
-                if (intent != null) {
-                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    try {
-                        intent.putExtra("section", "superuser");
-                        // startActivityForResult not working, it is external application
-                        activity.startActivity(intent);
-                        //PPApplication.initRoot();
-                        synchronized (PPApplication.rootMutex) {
-                            PPApplication.rootMutex.rootChecked = false;
-                        }
-                        ok = true;
-                    } catch (Exception ignore) {
-                    }
-                }
-            }
-            if (!ok) {
-                AlertDialog.Builder dialogBuilder1 = new AlertDialog.Builder(activity);
-                dialogBuilder1.setMessage(R.string.phone_profiles_pref_grantRootPermission_otherManagers);
-                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                dialogBuilder1.setPositiveButton(android.R.string.ok, null);
-                AlertDialog dialog2 = dialogBuilder1.create();
-
-//                    dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
-
-                if (!activity.isFinishing())
-                    dialog2.show();
-            }
-        });
-        dialogBuilder.setNegativeButton(R.string.alert_button_not_grant, (dialog, which) -> {
-            if (profilesFragment != null) {
-                grantRootChanged = true;
-                profilesFragment.setRedTextToPreferences();
-            }
-        });
-        AlertDialog dialog = dialogBuilder.create();
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-        */
-
         boolean checkBoxEnabled = true;
         boolean checkBoxChecked;
         if (profilesFragment == null) {
@@ -2990,7 +2809,7 @@ class Permissions {
                 null,
                 activity.getString(R.string.alert_message_enable_event_check_box),
                 (dialog1, which) -> {
-                    grantRootChanged = true;
+                    PPApplication.grantRootChanged = true;
                     if (profilesFragment == null) {
                         // always ask for grant root, when grant is invocked from PPP Settings
                         SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
@@ -3041,24 +2860,6 @@ class Permissions {
                         }
                     }
                     if (!ok) {
-                        /*
-                        AlertDialog.Builder dialogBuilder1 = new AlertDialog.Builder(activity);
-                        dialogBuilder1.setMessage(R.string.phone_profiles_pref_grantRootPermission_otherManagers);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder1.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog2 = dialogBuilder1.create();
-
-//                    dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
-                        */
-
                         PPAlertDialog dialog2 = new PPAlertDialog(
                                 activity.getString(R.string.phone_profiles_pref_grantRootPermission),
                                 activity.getString(R.string.phone_profiles_pref_grantRootPermission_otherManagers),
@@ -3082,7 +2883,7 @@ class Permissions {
                 },
                 (dialog2, which) -> {
                     if (profilesFragment != null) {
-                        grantRootChanged = true;
+                        PPApplication.grantRootChanged = true;
                         profilesFragment.setRedTextToPreferences();
                     }
                 },
@@ -3108,77 +2909,6 @@ class Permissions {
     }
 
     static void grantG1Permission(final ProfilesPrefsFragment fragment, final Activity activity) {
-        /*
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.profile_preferences_types_G1_permission);
-        dialogBuilder.setMessage(R.string.phone_profiles_pref_grantG1Permission_summary);
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-        //dialogBuilder.setView(doNotShowAgain);
-
-        if (fragment != null) {
-            AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(activity);
-
-            FrameLayout container = new FrameLayout(activity);
-            container.addView(doNotShowAgain);
-            FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT);
-            containerParams.leftMargin = GlobalGUIRoutines.dpToPx(20);
-            container.setLayoutParams(containerParams);
-
-            FrameLayout superContainer = new FrameLayout(activity);
-            superContainer.addView(container);
-
-            dialogBuilder.setView(superContainer);
-
-            doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
-            doNotShowAgain.setChecked(ApplicationPreferences.applicationNeverAskForGrantG1Permission);
-            doNotShowAgain.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, isChecked);
-                editor.apply();
-                ApplicationPreferences.applicationNeverAskForGrantG1Permission(activity.getApplicationContext());
-            });
-        }
-
-        dialogBuilder.setPositiveButton(R.string.alert_button_grant, (dialog, which) -> {
-            if (fragment != null) {
-                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
-                editor.apply();
-                ApplicationPreferences.applicationNeverAskForGrantG1Permission(activity.getApplicationContext());
-
-                //grantRootChanged = true;
-                fragment.setRedTextToPreferences();
-            }
-
-            Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);
-            intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
-            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 1);
-            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_grant_1_howTo_1);
-            activity.startActivity(intentLaunch);
-        });
-        dialogBuilder.setNegativeButton(R.string.alert_button_not_grant, (dialog, which) -> {
-            if (fragment != null) {
-                //grantRootChanged = true;
-                fragment.setRedTextToPreferences();
-            }
-        });
-        AlertDialog dialog = dialogBuilder.create();
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-        */
-
         PPAlertDialog dialog = new PPAlertDialog(activity.getString(R.string.profile_preferences_types_G1_permission),
                 activity.getString(R.string.phone_profiles_pref_grantG1Permission_summary),
                 activity.getString(R.string.alert_button_grant), activity.getString(R.string.alert_button_not_grant),
@@ -3234,57 +2964,6 @@ class Permissions {
             NotificationManager notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 if (!notificationManager.areNotificationsEnabled()) {
-
-                    /*
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                    dialogBuilder.setTitle(R.string.ppp_app_name);
-                    dialogBuilder.setMessage(R.string.notifications_permission_text);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(R.string.enable_notificaitons_button, (dialog, which) -> {
-
-                        boolean ok = false;
-
-                        Intent intent = new Intent();
-                        intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-                        intent.putExtra(Settings.EXTRA_APP_PACKAGE, PPApplication.PACKAGE_NAME);
-
-                        if (GlobalGUIRoutines.activityIntentExists(intent, activity.getApplicationContext())) {
-                            try {
-                                activity.startActivityForResult(intent, NOTIFICATIONS_PERMISSION_REQUEST_CODE);
-                                ok = true;
-                            } catch (Exception e) {
-                                PPApplicationStatic.recordException(e);
-                            }
-                        }
-                        if (!ok) {
-                            AlertDialog.Builder dialogBuilder1 = new AlertDialog.Builder(activity);
-                            dialogBuilder1.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder1.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog _dialog = dialogBuilder1.create();
-
-//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                    @Override
-//                                    public void onShow(DialogInterface dialog) {
-//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                        if (positive != null) positive.setAllCaps(false);
-//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                        if (negative != null) negative.setAllCaps(false);
-//                                    }
-//                                });
-
-                            if (!activity.isFinishing())
-                                _dialog.show();
-                        }
-
-                    });
-                    //dialogBuilder.setNegativeButton(R.string.dont_enable_notificaitons_button, null);
-
-                    AlertDialog dialog = dialogBuilder.create();
-                    dialog.setCancelable(false);
-                    dialog.setCanceledOnTouchOutside(false);
-                    */
-
                     PPAlertDialog dialog = new PPAlertDialog(
                             activity.getString(R.string.ppp_app_name),
                             activity.getString(R.string.notifications_permission_text),
@@ -3302,6 +2981,7 @@ class Permissions {
                                     try {
                                         activity.startActivityForResult(intent, NOTIFICATIONS_PERMISSION_REQUEST_CODE);
                                         ok = true;
+                                        //dialog1.dismiss();
                                     } catch (Exception e) {
                                         PPApplicationStatic.recordException(e);
                                     }

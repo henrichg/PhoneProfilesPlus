@@ -67,7 +67,7 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PTileService_chooseTileBroadcastReceiver_onReceive");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PTileService_chooseTileBroadcastReceiver_onReceive);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -77,14 +77,15 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
                     if (PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID)
                         toast = toast + " " + context.getString(R.string.menu_restart_events);
                     else {
-                        Profile profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], false, false, false);
-                        toast = toast + " " + profile._name;
+                        String profileName = dataWrapper.getProfileName(PPApplication.quickTileProfileId[tileId]);
+                        if (profileName != null)
+                            toast = toast + " " + profileName;
                     }
                     PPApplication.showToast(context.getApplicationContext(), toast, Toast.LENGTH_LONG);
 
                     DataWrapperStatic.setDynamicLauncherShortcuts(appContext);
 
-                    dataWrapper.invalidateProfileList();
+                    dataWrapper.invalidateDataWrapper();
                 } catch (Exception e) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);

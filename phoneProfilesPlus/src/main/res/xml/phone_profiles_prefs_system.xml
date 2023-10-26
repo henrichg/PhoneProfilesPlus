@@ -11,24 +11,22 @@
         <Preference
             app:key="applicationUnlinkRingerNotificationVolumesInfo"
             app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary"
-            app:summary="@string/empty_string"
+            app:summary=""
             app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="applicationUnlinkRingerNotificationVolumes"
             app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
             app:defaultValue="false"
             app:layout="@layout/mp_preference_material_widget" />
-        <Preference
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
             app:key="applicationUnlinkRingerNotificationVolumesImportantInfo"
             app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
             app:summary="@string/phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary"
-            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget" />
-        <Preference
+        <sk.henrichg.phoneprofilesplus.InformationPreference
             app:key="applicationForceSetMergeRingNotificationVolumesInfo"
             app:title="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes"
             app:summary="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info"
-            app:widgetLayout="@layout/preference_widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.PPListPreference
             app:key="applicationForceSetMergeRingNotificationVolumes"
@@ -44,23 +42,20 @@
         app:key="applicationPowerParametersCategory"
         app:title="@string/phone_profiles_pref_applicationPowerParametersCategory"
         app:layout="@layout/mp_preference_category" >
-        <Preference
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
             app:key="applicationBatteryOptimization"
             app:title="@string/phone_profiles_pref_applicationBatteryOptimization"
             app:summary="@string/phone_profiles_pref_applicationBatteryOptimization_summary"
-            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"/>
-        <Preference
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
             app:key="applicationDoNotKillMyApp"
             app:title="@string/phone_profiles_pref_applicationDoNotKillMyApp"
             app:summary="@string/phone_profiles_pref_applicationDoNotKillMyApp_summary1"
-            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"/>
-        <Preference
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
             app:key="applicationSystemPowerSaveMode"
             app:title="@string/phone_profiles_pref_applicationBatterySaver"
             app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
-            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"/>
     </PreferenceCategory>
 

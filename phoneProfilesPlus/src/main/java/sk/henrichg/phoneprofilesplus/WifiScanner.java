@@ -159,70 +159,9 @@ class WifiScanner {
                                 if (ApplicationPreferences.prefEventWifiWaitForResult) {
                                     if (ApplicationPreferences.prefForceOneWifiScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                     {
-
-                                        PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER, "SENSOR_TYPE_WIFI_SCANNER", 5);
-                                        /*
-                                        Data workData = new Data.Builder()
-                                                .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER)
-                                                .build();
-
-                                        OneTimeWorkRequest worker =
-                                                new OneTimeWorkRequest.Builder(MainWorker.class)
-                                                        .addTag(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG)
-                                                        .setInputData(workData)
-                                                        .setInitialDelay(5, TimeUnit.SECONDS)
-                                                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                                                        .build();
-                                        try {
-                                            if (PPApplicationStatic.getApplicationStarted(true)) {
-                                                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                                                if (workManager != null) {
-
-//                                                    //if (PPApplicationStatic.logEnabled()) {
-//                                                    ListenableFuture<List<WorkInfo>> statuses;
-//                                                    statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG);
-//                                                    try {
-//                                                        List<WorkInfo> workInfoList = statuses.get();
-//                                                    } catch (Exception ignored) {
-//                                                    }
-//                                                    //}
-
-//                                                    PPApplicationStatic.logE("[WORKER_CALL] WifiScanner.doScan", "xxx");
-                                                    //workManager.enqueue(worker);
-                                                    workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                                                }
-                                            }
-                                        } catch (Exception e) {
-                                            PPApplicationStatic.recordException(e);
-                                        }
-                                        */
-
-                                        /*PPApplication.startHandlerThread("WifiScanner.doScan");
-                                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                                        handler.postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
-                                                PowerManager.WakeLock wakeLock = null;
-                                                try {
-                                                    if (powerManager != null) {
-                                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiScanner_doScan");
-                                                        wakeLock.acquire(10 * 60 * 1000);
-                                                    }
-
-                                                    // start events handler
-                                                    EventsHandler eventsHandler = new EventsHandler(context);
-                                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
-                                                } finally {
-                                                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                                                        try {
-                                                            wakeLock.release();
-                                                        } catch (Exception ignored) {}
-                                                    }
-                                                }
-                                            }
-                                        }, 5000);*/
-                                        //PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5, context);
+                                        PPExecutors.handleEvents(context,
+                                                new int[]{EventsHandler.SENSOR_TYPE_WIFI_SCANNER},
+                                                PPExecutors.SENSOR_NAME_SENSOR_TYPE_WIFI_SCANNER, 5);
                                     }
                                 }
                             }
@@ -370,8 +309,7 @@ class WifiScanner {
             if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                 // this must be disabled because scanning not working, when wifi is disabled after disabled WiFi AP
                 // Tested and scanning working ;-)
-                //if (android.os.Build.VERSION.SDK_INT >= 18)
-                    isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
+                isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
             }
             isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
             if (!isWifiEnabled)
@@ -481,7 +419,6 @@ class WifiScanner {
     }
 
     private static boolean isLocationEnabled(Context context/*, String scanType*/) {
-        //if (Build.VERSION.SDK_INT >= 23) {
             // check for Location Settings
 
             /* isScanAlwaysAvailable() may be disabled for unknown reason :-(
@@ -512,10 +449,6 @@ class WifiScanner {
 
                         String nTitle = notificationText;
                         String nText = notificationBigText;
-                        if (android.os.Build.VERSION.SDK_INT < 24) {
-                            nTitle = context.getString(R.string.ppp_app_name);
-                            nText = notificationText + ": " + notificationBigText;
-                        }
                         PPApplication.createExclamationNotificationChannel(context);
                         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                                 .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
@@ -526,7 +459,7 @@ class WifiScanner {
                         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
 
                         int requestCode;
-                        //notificationIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "wifiScanningCategory");
+                        //notificationIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_WIFI_SCANNING_CATEGORY);
                         requestCode = 1;
                         //notificationIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
 
@@ -556,12 +489,6 @@ class WifiScanner {
                 setShowEnableLocationNotification(context, true, scanType);*/
                 return true;
             }
-
-        /*}
-        else {
-            //setShowEnableLocationNotification(context, true, scanType);
-            return true;
-        }*/
     }
 
 }

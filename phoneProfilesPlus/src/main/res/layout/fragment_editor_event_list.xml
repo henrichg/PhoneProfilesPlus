@@ -8,10 +8,11 @@
     android:orientation="vertical"
     android:animateLayoutChanges="true">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/editor_events_activated_profile_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginTop="-6dp"
         android:layout_marginBottom="5dp"
         android:paddingStart="12dp"
@@ -20,7 +21,7 @@
         android:paddingBottom="6dp"
         android:layout_alignParentTop="true" >
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/editor_events_activated_profile_header_subgroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,8 +32,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="1dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
+                android:layout_gravity="center_vertical"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/profile_preferences_profileIcon"
                 android:scaleType="fitCenter"
@@ -44,8 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="-1dp"
                 android:orientation="vertical"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/editor_events_activated_profile_icon" >
+                android:layout_gravity="center_vertical" >
 
                 <TextView
                     android:id="@+id/editor_events_activated_profile_name"
@@ -53,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:text="@string/empty_string"
+                    android:text=""
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:ellipsize="end"
@@ -75,7 +74,7 @@
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/editor_events_activated_profile_red_text"
@@ -83,12 +82,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginTop="5dp"
-            android:layout_below="@id/editor_events_activated_profile_header_subgroup"
             android:text="@string/event_preferences_red_texts_in_header"
-            android:textColor="@color/altype_error"
+            android:textColor="@color/error_color"
             android:visibility="gone"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/editor_events_list_frLa1"
@@ -117,6 +115,26 @@
             android:scrollbarStyle="outsideOverlay"
             android:fadeScrollbars="false"/>
 
+        <RelativeLayout
+            android:id="@+id/editor_events_list_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/editor_events_list_empty_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_empty_list"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:contentDescription=""
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+<!--
         <TextView
             android:id="@+id/editor_events_list_empty"
             android:layout_width="fill_parent"
@@ -125,6 +143,7 @@
             android:gravity="center"
             android:textSize="20sp"
             android:visibility="gone" />
+-->
 
         <LinearLayout
             android:id="@+id/editor_events_list_linla_progress"
@@ -137,7 +156,9 @@
             <ProgressBar
                 android:id="@+id/editor_events_list_progress"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                style="?android:attr/progressBarStyleLarge"
+                android:indeterminateDrawable="@drawable/ic_progressbar" />
 
         </LinearLayout>
 
@@ -157,7 +178,6 @@
         android:layout_height="55dp"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:background="@color/primary"
         android:theme="?attr/bottomToolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu" >
 
@@ -180,6 +200,7 @@
                 android:textSize="15dp"
                 android:clickable="true"
                 android:text="@string/editor_drawer_title_events_order"
+                android:textColor="@color/activityNormalTextColor"
                 android:maxLines="1"
                 android:focusable="true"
                 tools:ignore="SpUsage"/>
@@ -199,5 +220,6 @@
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
+<!--    android:background="@color/primary"-->
 
 </RelativeLayout>

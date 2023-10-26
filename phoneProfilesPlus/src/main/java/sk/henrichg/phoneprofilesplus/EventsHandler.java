@@ -9,6 +9,7 @@ import android.telephony.TelephonyManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -17,7 +18,7 @@ class EventsHandler {
 
     final Context context;
 
-    int sensorType;
+    int[] sensorType;
 
     private int oldRingerMode;
     //private int oldSystemRingerMode;
@@ -50,6 +51,7 @@ class EventsHandler {
     boolean notAllowedCalendar;
     boolean notAllowedWifi;
     boolean notAllowedScreen;
+    boolean notAllowedBrightness;
     boolean notAllowedBluetooth;
     boolean notAllowedSms;
     boolean notAllowedNotification;
@@ -75,6 +77,7 @@ class EventsHandler {
     boolean calendarPassed;
     boolean wifiPassed;
     boolean screenPassed;
+    boolean brightnessPassed;
     boolean bluetoothPassed;
     boolean smsPassed;
     boolean notificationPassed;
@@ -146,16 +149,18 @@ class EventsHandler {
     static final int SENSOR_TYPE_VPN = 51;
     static final int SENSOR_TYPE_SIM_STATE_CHANGED = 52;
     static final int SENSOR_TYPE_BOOT_COMPLETED = 53;
+    static final int SENSOR_TYPE_BRIGHTNESS = 54;
     static final int SENSOR_TYPE_ALL = 999;
 
-    public EventsHandler(Context context) {
+    EventsHandler(Context context) {
         this.context = context.getApplicationContext();
     }
 
-    void handleEvents(int sensorType) {
+    void handleEvents(int[] sensorType) {
         synchronized (PPApplication.eventsHandlerMutex) {
-            boolean manualRestart = sensorType == SENSOR_TYPE_MANUAL_RESTART_EVENTS;
-            boolean isRestart = (sensorType == SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
+//            Log.e("EventsHandler.handleEvents", "(1) *****************");
+            boolean manualRestart = Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_MANUAL_RESTART_EVENTS);
+            boolean isRestart = (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_RESTART_EVENTS)) || manualRestart;
 
             if (!PPApplicationStatic.getApplicationStarted(true, true))
                 // application is not started
@@ -237,28 +242,38 @@ class EventsHandler {
                 return;
             }
 
-            if (!alwaysEnabledSensors(sensorType)) {
-                int eventType = getEventTypeForSensor(sensorType);
-                if (DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(eventType/*, false*/) == 0) {
-                    // events not exists
-
-//                    if ((sensorType == SENSOR_TYPE_BATTERY) || (sensorType == SENSOR_TYPE_BATTERY_WITH_LEVEL))
-//                        PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
-
-                    PPApplicationStatic.setApplicationFullyStarted(context);
-//                    PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(2)");
-
-                    doEndHandler(null, null);
-
-                    //if (isRestart) {
-                    //    PPApplication.updateGUI(/*context, true, true*/);
-                    //}
-                    //else {
-                    //    PPApplication.updateGUI(/*context, true, false*/);
-                    //}
-
-                    return;
+            boolean _continue = false;
+            for (int _sensorType : sensorType) {
+                if (!alwaysEnabledSensor(_sensorType)) {
+                    // _sensorType is not always sensor
+                    // check existence of sensors
+                    int eventType = getEventTypeForSensor(_sensorType);
+                    if (DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(eventType) != 0) {
+                        // event type exists
+                        _continue = true;
+                    }
+                } else {
+                    // _sensorType is always sensor
+                    _continue = true;
                 }
+            }
+            if (!_continue) {
+//                if ((sensorType == SENSOR_TYPE_BATTERY) || (sensorType == SENSOR_TYPE_BATTERY_WITH_LEVEL))
+//                PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
+
+                PPApplicationStatic.setApplicationFullyStarted(context);
+//                PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(2)");
+
+                doEndHandler(null, null);
+
+                //if (isRestart) {
+                //    PPApplication.updateGUI(/*context, true, true*/);
+                //}
+                //else {
+                //    PPApplication.updateGUI(/*context, true, false*/);
+                //}
+
+                return;
             }
 
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
@@ -280,11 +295,13 @@ class EventsHandler {
                     }
                 }
             }
-            if ((sensorType == SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED) ||
-                    (sensorType == SENSOR_TYPE_SEARCH_CALENDAR_EVENTS) ||
-                    (sensorType == SENSOR_TYPE_CALENDAR) ||
-                    (sensorType == SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK) ||
-                    saveCalendarStartEndTime) {
+
+            if (Arrays.stream(sensorType).anyMatch(i ->
+                    (i == SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED) ||
+                    (i == SENSOR_TYPE_SEARCH_CALENDAR_EVENTS) ||
+                    (i == SENSOR_TYPE_CALENDAR) ||
+                    (i == SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK))
+                    || saveCalendarStartEndTime) {
                 // search for calendar events
                 for (Event _event : dataWrapper.eventList) {
                     if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
@@ -301,7 +318,9 @@ class EventsHandler {
                 // for restart events, set startTime to 0
                 dataWrapper.clearSensorsStartTime();
             } else {
-                if ((sensorType == SENSOR_TYPE_SMS) || (sensorType == SENSOR_TYPE_CONTACTS_CACHE_CHANGED)) {
+                if (Arrays.stream(sensorType).anyMatch(i ->
+                        (i == SENSOR_TYPE_SMS) ||
+                        (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
                     // search for sms events, save start time
                     for (Event _event : dataWrapper.eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -311,7 +330,8 @@ class EventsHandler {
                         }
                     }
                 }
-                if (sensorType == SENSOR_TYPE_NFC_TAG) {
+
+                if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_NFC_TAG)) {
                     // search for nfc events, save start time
                     for (Event _event : dataWrapper.eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -321,7 +341,9 @@ class EventsHandler {
                         }
                     }
                 }
-                if ((sensorType == SENSOR_TYPE_PHONE_CALL) || (sensorType == SENSOR_TYPE_CONTACTS_CACHE_CHANGED)) {
+                if (Arrays.stream(sensorType).anyMatch(i ->
+                        (i == SENSOR_TYPE_PHONE_CALL) ||
+                        (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
                     // search for call events, save start time
                     for (Event _event : dataWrapper.eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -334,7 +356,7 @@ class EventsHandler {
                         }
                     }
                 }
-                if (sensorType == SENSOR_TYPE_ALARM_CLOCK) {
+                if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_ALARM_CLOCK)) {
                     // search for alarm clock events, save start time
                     for (Event _event : dataWrapper.eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -344,7 +366,7 @@ class EventsHandler {
                         }
                     }
                 }
-                if (sensorType == SENSOR_TYPE_DEVICE_BOOT) {
+                if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_DEVICE_BOOT)) {
                     // search for device boot events, save start time
                     for (Event _event : dataWrapper.eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -355,7 +377,7 @@ class EventsHandler {
                     }
                 }
 
-                if (sensorType == SENSOR_TYPE_PERIODIC_EVENTS_HANDLER) {
+                if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_PERIODIC_EVENTS_HANDLER)) {
                     // search for periodic events, save start time
                     for (Event _event : dataWrapper.eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -365,7 +387,7 @@ class EventsHandler {
                         }
                     }
                 }
-                if (sensorType == SENSOR_TYPE_PERIODIC) {
+                if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_PERIODIC)) {
                     // search for periodic events, save start time
                     for (Event _event : dataWrapper.eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -377,8 +399,8 @@ class EventsHandler {
                 }
             }
 
-            boolean forDelayStartAlarm = (sensorType == SENSOR_TYPE_EVENT_DELAY_START);
-            boolean forDelayEndAlarm = (sensorType == SENSOR_TYPE_EVENT_DELAY_END);
+            boolean forDelayStartAlarm = Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_EVENT_DELAY_START);
+            boolean forDelayEndAlarm = Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_EVENT_DELAY_END);
 
             // no refresh notification and widgets
             PPApplication.lockRefresh = true;
@@ -396,11 +418,11 @@ class EventsHandler {
             List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
 
             sortEventsByStartOrderDesc(dataWrapper.eventList);
+            Event notifiedPausedEvent = null;
             if (isRestart) {
 
 
                 // 1. pause events
-                Event notifiedPausedEvent = null;
                 for (Event _event : dataWrapper.eventList) {
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -478,7 +500,6 @@ class EventsHandler {
             } else {
 
                 //1. pause events
-                Event notifiedPausedEvent = null;
                 for (Event _event : dataWrapper.eventList) {
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -697,7 +718,7 @@ class EventsHandler {
                     PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION,
                             null,
                             DataWrapperStatic.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
-                            mergedProfilesCount + "\u00A0[\u00A0" + usedEventsCount + "\u00A0]");
+                            mergedProfilesCount + StringConstants.CHAR_HARD_SPACE +"["+StringConstants.CHAR_HARD_SPACE + usedEventsCount + StringConstants.CHAR_HARD_SPACE + "]");
 
                     dataWrapper.activateProfileFromEvent(0, mergedProfile._id, false, true, isRestart);
                     // wait for profile activation
@@ -708,7 +729,7 @@ class EventsHandler {
             //if (!notified) {
                 // notify default profile
                 if (!defaultProfileNotificationSound.isEmpty() || defaultProfileNotificationVibrate) {
-                    PhoneProfilesServiceStatic.playNotificationSound(
+                    PlayRingingNotification.playNotificationSound(
                             defaultProfileNotificationSound,
                             defaultProfileNotificationVibrate,
                             false, context);
@@ -736,7 +757,8 @@ class EventsHandler {
             }
             else {
                 // refresh only Editor
-                Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver");
+//                PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] EventsHandler.handleEvents", "xxx");
+                Intent refreshIntent = new Intent(PPApplication.ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER);
                 refreshIntent.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
                 //refreshIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profileId);
                 //refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
@@ -750,12 +772,11 @@ class EventsHandler {
         }
     }
 
-    private boolean alwaysEnabledSensors (int sensorType) {
+    private boolean alwaysEnabledSensor(int sensorType) {
         switch (sensorType) {
             case SENSOR_TYPE_SCREEN:
+            case SENSOR_TYPE_BRIGHTNESS:
                 // call doHandleEvents for all screen on/off changes
-                //eventType = DatabaseHandler.ETYPE_SCREEN;
-                //sensorEnabled = _event._eventPreferencesScreen._enabled;
             case SENSOR_TYPE_PERIODIC_EVENTS_HANDLER:
             case SENSOR_TYPE_RESTART_EVENTS:
             case SENSOR_TYPE_MANUAL_RESTART_EVENTS:
@@ -843,13 +864,16 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_VOLUMES;
             case SENSOR_TYPE_SCREEN:
                 return DatabaseHandler.ETYPE_SCREEN;
+            case SENSOR_TYPE_BRIGHTNESS:
+                return DatabaseHandler.ETYPE_BRIGHTNESS;
             default:
                 return DatabaseHandler.ETYPE_ALL;
         }
     }
 
     private void doEndHandler(DataWrapper dataWrapper, Profile mergedProfile) {
-        if ((sensorType == SENSOR_TYPE_PHONE_CALL) && (dataWrapper != null)) {
+
+        if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_PHONE_CALL) && (dataWrapper != null)) {
             TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
             // doEndHandler is called even if no event exists, but ringing call simulation is only for running event with call sensor
@@ -914,7 +938,7 @@ class EventsHandler {
                 setEventCallParameters(EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED, "", 0, 0);
         }
         else
-        if (sensorType == SENSOR_TYPE_PHONE_CALL_EVENT_END) {
+        if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_PHONE_CALL_EVENT_END)) {
             setEventCallParameters(EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED, "", 0, 0);
         }
     }
@@ -943,6 +967,7 @@ class EventsHandler {
         notAllowedCalendar = false;
         notAllowedWifi = false;
         notAllowedScreen = false;
+        notAllowedBrightness = false;
         notAllowedBluetooth = false;
         notAllowedSms = false;
         notAllowedNotification = false;
@@ -968,6 +993,7 @@ class EventsHandler {
         calendarPassed = true;
         wifiPassed = true;
         screenPassed = true;
+        brightnessPassed = true;
         bluetoothPassed = true;
         smsPassed = true;
         notificationPassed = true;
@@ -993,6 +1019,7 @@ class EventsHandler {
         event._eventPreferencesCalendar.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesWifi.doHandleEvent(this, forRestartEvents);
         event._eventPreferencesScreen.doHandleEvent(this/*, forRestartEvents*/);
+        event._eventPreferencesBrightness.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesBluetooth.doHandleEvent(this, forRestartEvents);
         event._eventPreferencesSMS.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesNotification.doHandleEvent(this/*, forRestartEvents*/);
@@ -1061,6 +1088,13 @@ class EventsHandler {
             anySensorEnabled = true;
             if (!notAllowedScreen)
                 allPassed &= screenPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesBrightness._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedBrightness)
+                allPassed &= brightnessPassed;
             else
                 someNotAllowed = true;
         }

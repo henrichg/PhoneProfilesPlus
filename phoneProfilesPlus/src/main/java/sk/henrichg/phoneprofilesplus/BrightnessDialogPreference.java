@@ -20,6 +20,7 @@ public class BrightnessDialogPreference extends DialogPreference {
     //int sharedProfile;
     //int disableSharedProfile;
     int changeLevel;
+    final int forBrightnessSensor;
 
     //private final int defaultValue = 50;
     final int maximumValue = 100;
@@ -46,10 +47,13 @@ public class BrightnessDialogPreference extends DialogPreference {
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.PPBrightnessDialogPreference);
 
+        forBrightnessSensor = typedArray.getInteger(
+                R.styleable.PPBrightnessDialogPreference_bForBrightnessSensor, 0);
+
         noChange = typedArray.getInteger(
-                R.styleable.PPBrightnessDialogPreference_bNoChange, 1);
+                R.styleable.PPBrightnessDialogPreference_bNoChange, (forBrightnessSensor == 0) ? 1 : 0);
         automatic = typedArray.getInteger(
-                R.styleable.PPBrightnessDialogPreference_bAutomatic, 1);
+                R.styleable.PPBrightnessDialogPreference_bAutomatic, (forBrightnessSensor == 0) ? 1 : 0);
         /*sharedProfile = typedArray.getInteger(
                 R.styleable.BrightnessDialogPreference_bSharedProfile, 0);
         disableSharedProfile = typedArray.getInteger(
@@ -73,7 +77,6 @@ public class BrightnessDialogPreference extends DialogPreference {
         /*savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
                 Profile.convertPercentsToBrightnessManualValue(50, context));
         savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
-        //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
         savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);*/
         //Window win = ((Activity)context).getWindow();
         //WindowManager.LayoutParams layoutParams = win.getAttributes();
@@ -98,14 +101,14 @@ public class BrightnessDialogPreference extends DialogPreference {
 
     private void getValueBDP()
     {
-        String[] splits = sValue.split("\\|");
+        String[] splits = sValue.split(StringConstants.STR_SPLIT_REGEX);
         try {
             value = Integer.parseInt(splits[0]);
-            if (value == Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET) {
+            /*if (value == Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET) {
                 // brightness is not set, change it to default adaptive brightness value
                 int halfValue = maximumValue / 2;
                 value = Math.round(SettingsContentObserver.savedAdaptiveBrightness * halfValue + halfValue);
-            }
+            }*/
             if ((value < 0) || (value > maximumValue)) {
                 value = 50;
             }
@@ -113,24 +116,30 @@ public class BrightnessDialogPreference extends DialogPreference {
             value = 50;
         }
         //value = value - minimumValue;
-        try {
-            noChange = Integer.parseInt(splits[1]);
-        } catch (Exception e) {
-            noChange = 1;
-        }
-        try {
-            automatic = Integer.parseInt(splits[2]);
-        } catch (Exception e) {
-            automatic = 1;
-        }
-        /*try {
-            sharedProfile = Integer.parseInt(splits[3]);
-        } catch (Exception e) {
-            sharedProfile = 0;
-        }*/
-        try {
-            changeLevel = Integer.parseInt(splits[4]);
-        } catch (Exception e) {
+        if (forBrightnessSensor == 0) {
+            try {
+                noChange = Integer.parseInt(splits[1]);
+            } catch (Exception e) {
+                noChange = 1;
+            }
+            try {
+                automatic = Integer.parseInt(splits[2]);
+            } catch (Exception e) {
+                automatic = 1;
+            }
+            /*try {
+                sharedProfile = Integer.parseInt(splits[3]);
+            } catch (Exception e) {
+                sharedProfile = 0;
+            }*/
+            try {
+                changeLevel = Integer.parseInt(splits[4]);
+            } catch (Exception e) {
+                changeLevel = 1;
+            }
+        } else {
+            noChange = 0;
+            automatic = 0;
             changeLevel = 1;
         }
 
@@ -145,27 +154,25 @@ public class BrightnessDialogPreference extends DialogPreference {
     private void setSummaryBDP()
     {
         String prefVolumeDataSummary;
-        if (noChange == 1)
-            prefVolumeDataSummary = _context.getString(R.string.preference_profile_no_change);
-        /*else
-        if (sharedProfile == 1)
+        if (forBrightnessSensor == 0) {
+            if (noChange == 1)
+                prefVolumeDataSummary = _context.getString(R.string.preference_profile_no_change);
+            /*else
+            if (sharedProfile == 1)
             prefVolumeDataSummary = _context.getString(R.string.preference_profile_default_profile);*/
-        else
-        {
-            if (automatic == 1)
-            {
-                //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
+            else {
+                if (automatic == 1) {
                     prefVolumeDataSummary = _context.getString(R.string.preference_profile_adaptiveBrightness);
-                //else
-                //    prefVolumeDataSummary = _context.getString(R.string.preference_profile_autoBrightness);
-            }
-            else
-                prefVolumeDataSummary = _context.getString(R.string.preference_profile_manual_brightness);
+                } else
+                    prefVolumeDataSummary = _context.getString(R.string.preference_profile_manual_brightness);
 
-            if ((changeLevel == 1) /*&& (adaptiveAllowed || automatic == 0)*/) {
-                String _value = value + " / " + maximumValue;
-                prefVolumeDataSummary = prefVolumeDataSummary + "; " + _value;
+                if ((changeLevel == 1) /*&& (adaptiveAllowed || automatic == 0)*/) {
+                    String _value = value + " / " + maximumValue;
+                    prefVolumeDataSummary = prefVolumeDataSummary + "; " + _value;
+                }
             }
+        } else {
+            prefVolumeDataSummary = value + " / " + maximumValue;
         }
         setSummary(prefVolumeDataSummary);
     }
@@ -196,7 +203,7 @@ public class BrightnessDialogPreference extends DialogPreference {
     }
 
     static boolean changeEnabled(String value) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 return Integer.parseInt(splits[1]) == 0;

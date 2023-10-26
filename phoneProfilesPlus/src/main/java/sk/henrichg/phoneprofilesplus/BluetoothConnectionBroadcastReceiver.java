@@ -13,8 +13,8 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
@@ -43,25 +43,25 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             // BluetoothConnectionBroadcastReceiver
 
 //            PPApplicationStatic.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "action="+action);
+//            Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "[2] action="+action);
 
             final BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 //            PPApplicationStatic.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "device="+device);
 
-            if (device == null)
-                return;
-
-//            PPApplicationStatic.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "device="+device.getName());
+            //if (device == null)
+            //    return;
 
             //final boolean connected = action.equals(BluetoothDevice.ACTION_ACL_CONNECTED);
             final String newName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
 //            PPApplicationStatic.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "newName="+newName);
 
+            // this is important, because ACTION_NAME_CHANGED is called very often
             if (action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
                 if (newName == null) {
                     return;
                 }
                 try {
-                    if (newName.equals(device.getName())) {
+                    if ((device != null) && newName.equals(device.getName())) {
                         return;
                     }
                 } catch (SecurityException e) {
@@ -69,13 +69,20 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 }
             }
 
+//            if (device != null) {
+////            PPApplicationStatic.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "device="+device.getName());
+//                Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "[2] device.name=" + device.getName());
+//                Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "[2] device.address=" + device.getAddress());
+//            }
+
             final Context appContext = context.getApplicationContext();
             //PPApplication.startHandlerThreadBroadcast(/*"BluetoothConnectionBroadcastReceiver.onReceive"*/);
             //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothConnectionBroadcastReceiver.onReceive");
+//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothConnectionBroadcastReceiver.onReceive");
+//                Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "[2] start of executor");
 
                 //Context appContext= appContextWeakRef.get();
                 //BluetoothDevice device = deviceWeakRef.get();
@@ -85,68 +92,28 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothConnectionBroadcastReceiver_onReceive");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BluetoothConnectionBroadcastReceiver_onReceive);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
-
-                        getConnectedDevices(appContext);
-
-                        //if (device != null) {
-
-
-                        try {
-                            switch (action) {
-                                case BluetoothDevice.ACTION_ACL_CONNECTED:
-                                    addConnectedDevice(device);
-                                    break;
-                                case BluetoothDevice.ACTION_NAME_CHANGED:
-                                    //noinspection ConstantConditions
-                                    if (newName != null) {
-                                        changeDeviceName(device, newName);
-                                    }
-                                    break;
-                                default:
-                                    removeConnectedDevice(device);
-                                    break;
-                            }
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
-
-                        saveConnectedDevices(appContext);
-
 
                         if (EventStatic.getGlobalEventsRunning(appContext)) {
 
                             //if (lastState != currState)
                             //{
 
+                            /*
                             if (!(ApplicationPreferences.prefEventBluetoothScanRequest ||
                                     ApplicationPreferences.prefEventBluetoothLEScanRequest ||
                                     ApplicationPreferences.prefEventBluetoothWaitForResult ||
                                     ApplicationPreferences.prefEventBluetoothLEWaitForResult ||
                                     ApplicationPreferences.prefEventBluetoothEnabledForScan)) {
-                                // bluetooth is not scanned
+                             */
 
+//                                Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "**** START of getConnectedDevices");
+                                // is needed to call event hander
+                                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
 
-                                /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-                                boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED) > 0;
-                                dataWrapper.invalidateDataWrapper();
-
-                                if (bluetoothEventsExists)
-                                {
-                                */
-                                // start events handler
-
-//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
-                                EventsHandler eventsHandler = new EventsHandler(appContext);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
-
-//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BLUETOOTH_CONNECTION");
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION);
-
-                                //}
-                            }
+                            //}
                         }
                         //}
 
@@ -164,18 +131,19 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 //}
             }; //);
             PPApplicationStatic.createEventsHandlerExecutor();
-            PPApplication.eventsHandlerExecutor.submit(runnable);
+            //PPApplication.eventsHandlerExecutor.submit(runnable);
+            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 15, TimeUnit.SECONDS);
         }
 
     }
 
-    private static final String CONNECTED_DEVICES_COUNT_PREF = "count";
-    private static final String CONNECTED_DEVICES_DEVICE_PREF = "device";
+    private static final String PREF_CONNECTED_DEVICES_COUNT = "count";
+    private static final String PREF_CONNECTED_DEVICES_DEVICE = "device";
 
+    @SuppressLint("MissingPermission")
     static void getConnectedDevices(Context context)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
-
             if (connectedDevices == null)
                 connectedDevices = new ArrayList<>();
 
@@ -183,13 +151,13 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME, Context.MODE_PRIVATE);
 
-            int count = preferences.getInt(CONNECTED_DEVICES_COUNT_PREF, 0);
+            int count = preferences.getInt(PREF_CONNECTED_DEVICES_COUNT, 0);
 
             Gson gson = new Gson();
 
             int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
             for (int i = 0; i < count; i++) {
-                String json = preferences.getString(CONNECTED_DEVICES_DEVICE_PREF + i, "");
+                String json = preferences.getString(PREF_CONNECTED_DEVICES_DEVICE + i, "");
                 if (!json.isEmpty()) {
                     BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
 
@@ -217,19 +185,21 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
             editor.clear();
 
-            editor.putInt(CONNECTED_DEVICES_COUNT_PREF, connectedDevices.size());
+            editor.putInt(PREF_CONNECTED_DEVICES_COUNT, connectedDevices.size());
 
             Gson gson = new Gson();
 
-            for (int i = 0; i < connectedDevices.size(); i++) {
+            int size = connectedDevices.size();
+            for (int i = 0; i < size; i++) {
                 String json = gson.toJson(connectedDevices.get(i));
-                editor.putString(CONNECTED_DEVICES_DEVICE_PREF + i, json);
+                editor.putString(PREF_CONNECTED_DEVICES_DEVICE + i, json);
             }
 
             editor.apply();
         }
     }
 
+/*
     @SuppressLint("MissingPermission")
     private static void addConnectedDevice(BluetoothDevice device)
     {
@@ -290,16 +260,16 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 connectedDevices.remove(deviceToRemove);
         }
     }
-
-    static void clearConnectedDevices(Context context, boolean onlyOld)
+*/
+    static void clearConnectedDevices(/*Context context, boolean onlyOld*/)
     {
-        if (onlyOld) {
-            getConnectedDevices(context);
-        }
+        //if (onlyOld) {
+        //    getConnectedDevices(context);
+        //}
 
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             if (connectedDevices != null) {
-                if (onlyOld) {
+                /*if (onlyOld) {
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                     for (Iterator<BluetoothDeviceData> it = connectedDevices.iterator(); it.hasNext(); ) {
                         BluetoothDeviceData device = it.next();
@@ -311,12 +281,13 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                             it.remove();
                     }
                 }
-                else
+                else*/
                     connectedDevices.clear();
             }
         }
     }
 
+/*
     @SuppressLint("MissingPermission")
     private static void changeDeviceName(BluetoothDevice device, String deviceName)
     {
@@ -339,28 +310,41 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             }
         }
     }
+*/
 
-    static void addConnectedDeviceData(List<BluetoothDeviceData> detectedDevices)
+    static void addConnectedDeviceData(List<BluetoothDeviceData> newConnectedDevices)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
-            for (BluetoothDeviceData device : detectedDevices) {
+            for (BluetoothDeviceData newDevice : newConnectedDevices) {
                 boolean found = false;
-                for (BluetoothDeviceData _device : connectedDevices) {
-                    if (_device.getAddress().equals(device.getAddress())) {
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    for (BluetoothDeviceData _device : connectedDevices) {
-                        if (_device.getName().equalsIgnoreCase(device.getName())) {
-                            found = true;
-                            break;
+
+                String newName = newDevice.getName();
+                if (!newName.isEmpty()) {
+                    // do not add device without name
+
+                    String newAddress = newDevice.getAddress();
+                    if (!newAddress.isEmpty()) {
+                        for (BluetoothDeviceData connectedDevice : connectedDevices) {
+                            if ((!connectedDevice.getAddress().isEmpty()) &&
+                                    connectedDevice.getAddress().equals(newAddress)) {
+                                found = true;
+                                break;
+                            }
                         }
                     }
-                }
-                if (!found) {
-                    connectedDevices.add(device);
+                    if (!found) {
+                        for (BluetoothDeviceData connectedDevice : connectedDevices) {
+                            String connectedName = connectedDevice.getName();
+                            if ((!connectedName.isEmpty()) &&
+                                    connectedName.equalsIgnoreCase(newName)) {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!found) {
+                        connectedDevices.add(newDevice);
+                    }
                 }
             }
         }
@@ -379,33 +363,48 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     if (deviceData != null) {
                         // is device connected to deviceData ???
 
-                        boolean found = false;
-                        for (BluetoothDeviceData _device : connectedDevices) {
-                            if (_device.address.equals(deviceData.getAddress())) {
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (!found) {
-                            for (BluetoothDeviceData _device : connectedDevices) {
-                                String _deviceName = _device.getName().trim();
-                                String deviceDataName = deviceData.getName().trim();
-                                if (_deviceName.equalsIgnoreCase(deviceDataName)) {
-                                    found = true;
-                                    break;
+                        String deviceDataName = deviceData.getName().trim();
+                        if (!deviceDataName.isEmpty()) {
+                            // device without empty name is not supported
+
+                            boolean found = false;
+
+                            String deviceDataAddress = deviceData.getAddress();
+                            if (!deviceDataAddress.isEmpty()) {
+                                for (BluetoothDeviceData connectedDevice : connectedDevices) {
+                                    if ((!connectedDevice.getAddress().isEmpty()) &&
+                                            connectedDevice.getAddress().equals(deviceDataAddress)) {
+                                        found = true;
+                                        break;
+                                    }
                                 }
                             }
+                            if (!found) {
+                                for (BluetoothDeviceData connectedDevice : connectedDevices) {
+                                    String connectedName = connectedDevice.getName().trim();
+                                    if ((!connectedName.isEmpty()) &&
+                                            connectedName.equalsIgnoreCase(deviceDataName)) {
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            return found;
                         }
-                        return found;
                     }
                     else {
                         // is device connected to sensorDeviceName ???
+                        // for this do not check for address
 
-                        for (BluetoothDeviceData _device : connectedDevices) {
-                            String device = _device.getName().trim().toUpperCase();
-                            String _adapterName = sensorDeviceName.trim().toUpperCase();
-                            if (Wildcard.match(device, _adapterName, '_', '%', true)) {
-                                return true;
+                        String sensorName = sensorDeviceName.trim().toUpperCase();
+                        if (!sensorName.isEmpty()) {
+                            for (BluetoothDeviceData connectedDevice : connectedDevices) {
+                                String connectedName = connectedDevice.getName().trim().toUpperCase();
+                                if ((!connectedName.isEmpty()) &&
+                                        Wildcard.match(connectedName, sensorName, '_', '%', true)) {
+                                    return true;
+                                }
                             }
                         }
                     }

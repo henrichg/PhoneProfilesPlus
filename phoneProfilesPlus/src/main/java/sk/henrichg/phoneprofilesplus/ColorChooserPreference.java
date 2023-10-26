@@ -1,20 +1,21 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.graphics.ColorUtils;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -24,7 +25,8 @@ public class ColorChooserPreference extends DialogPreference {
 
     ColorChooserPreferenceFragment fragment;
 
-    private FrameLayout widgetLayout;
+    //private FrameLayout widgetLayout;
+    private AppCompatImageView colorPreview;
 
     String value;
 
@@ -39,8 +41,9 @@ public class ColorChooserPreference extends DialogPreference {
 
         //noinspection resource
         final TypedArray ta = context.getResources().obtainTypedArray(R.array.colorChooserDialog_colors);
-        mColors = new int[ta.length()];
-        for (int i = 0; i < ta.length(); i++) {
+        int length = ta.length();
+        mColors = new int[length];
+        for (int i = 0; i < length; i++) {
             mColors[i] = ta.getColor(i, 0);
         }
         ta.recycle();
@@ -55,7 +58,7 @@ public class ColorChooserPreference extends DialogPreference {
     {
         super.onBindViewHolder(holder);
 
-        widgetLayout = (FrameLayout)holder.findViewById(R.id.dialog_color_chooser_pref_color);
+        colorPreview = (AppCompatImageView)holder.findViewById(R.id.dialog_color_chooser_pref_color);
 
         setColorInWidget();
     }
@@ -68,17 +71,24 @@ public class ColorChooserPreference extends DialogPreference {
 
         int color = parseValue(value);
 
-        Drawable selector = createSelector(color);
-        int[][] states = new int[][]{
-                new int[]{-android.R.attr.state_pressed},
-                new int[]{android.R.attr.state_pressed}
-        };
-        int[] colors = new int[]{
-                shiftColor(color),
-                color
-        };
-        ColorStateList rippleColors = new ColorStateList(states, colors);
-        setBackgroundCompat(widgetLayout, new RippleDrawable(rippleColors, selector, null));
+        colorPreview.setImageResource(R.drawable.acch_circle);
+
+        // Update color
+        String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
+        boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
+        if (!isEnabled()) {
+            color = ColorUtils.setAlphaComponent(color, 89);
+        }
+        if (nightModeOn) {
+            colorPreview.getDrawable()
+                    .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.ADD));
+        }
+        else {
+            colorPreview.getDrawable()
+                    .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
+        }
+
+        colorPreview.invalidate();
 
 //        Handler handler = new Handler(context.getMainLooper());
 //        handler.postDelayed(new Runnable() {
@@ -150,36 +160,39 @@ public class ColorChooserPreference extends DialogPreference {
                 break;
         }*/
 
+        final String COLOR1 = "#6E6E6E";
+        final String COLOR2 = "#AEAEAE";
+
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);
         coloredCircle.setShape(GradientDrawable.OVAL);
-        if (applicationTheme.equals("white")) {
+        if (applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE)) {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
             //else
-                coloredCircle.setStroke(1, Color.parseColor("#6E6E6E"));
+                coloredCircle.setStroke(1, Color.parseColor(COLOR1));
         }
         else {
             //if (position == 0) // white color
             //    coloredCircle.setStroke(2, Color.parseColor("#AEAEAE"));
             //else
-                coloredCircle.setStroke(1, Color.parseColor("#6E6E6E"));
+                coloredCircle.setStroke(1, Color.parseColor(COLOR1));
         }
 
         GradientDrawable darkerCircle = new GradientDrawable();
         darkerCircle.setColor(shiftColor(color));
         darkerCircle.setShape(GradientDrawable.OVAL);
-        if (applicationTheme.equals("white")) {
+        if (applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE)) {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
             //else
-                coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
+                coloredCircle.setStroke(2, Color.parseColor(COLOR1));
         }
         else {
             //if (position == 0) // white color
             //    darkerCircle.setStroke(2, Color.parseColor("#AEAEAE"));
             //else
-                darkerCircle.setStroke(2, Color.parseColor("#AEAEAE"));
+                darkerCircle.setStroke(2, Color.parseColor(COLOR2));
         }
 
         StateListDrawable stateListDrawable = new StateListDrawable();

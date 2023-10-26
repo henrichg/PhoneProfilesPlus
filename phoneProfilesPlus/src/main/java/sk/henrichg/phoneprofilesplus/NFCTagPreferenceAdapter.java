@@ -7,9 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 
 class NFCTagPreferenceAdapter extends BaseAdapter
@@ -42,34 +40,26 @@ class NFCTagPreferenceAdapter extends BaseAdapter
         return position;
     }
     
-    static class ViewHolder {
-        TextView tagName;
-        //TextView tagUid;
-        CheckBox checkBox;
-        AppCompatImageButton itemEditMenu;
-        //int position;
-    }
-
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         // NFC tag to display
         NFCTag nfcTag = preference.nfcTagList.get(position);
         //System.out.println(String.valueOf(position));
 
-        ViewHolder holder;
+        NFCTagPreferenceViewHolder holder;
         
         View vi = convertView;
         if (convertView == null)
         {
             vi = inflater.inflate(R.layout.listitem_nfc_tag_preference, parent, false);
-            holder = new ViewHolder();
+            holder = new NFCTagPreferenceViewHolder();
             holder.tagName = vi.findViewById(R.id.nfc_tag_pref_dlg_item_tagName);
             //holder.tagUid = vi.findViewById(R.id.nfc_tag_pref_dlg_item_tagUid);
             holder.checkBox = vi.findViewById(R.id.nfc_tag_pref_dlg_item_checkbox);
             holder.itemEditMenu = vi.findViewById(R.id.nfc_tag_pref_dlg_item_edit_menu);
             vi.setTag(holder);
         } else {
-            holder = (ViewHolder) vi.getTag();
+            holder = (NFCTagPreferenceViewHolder) vi.getTag();
         }
 
         // must be set, without this not working long click

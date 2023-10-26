@@ -7,7 +7,7 @@
     <Preference
         app:key="applicationSamsungEdgeInfo"
         app:title="@string/phone_profiles_pref_application_samsung_edge_info"
-        app:summary="@string/empty_string"
+        app:summary=""
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.PPListPreference

@@ -36,9 +36,9 @@ import java.util.TimeZone;
  * @see <a href="http://en.wikipedia.org/wiki/Julian_day">Julian Day on Wikipedia</a>
  * @see <a href="http://en.wikipedia.org/wiki/Sunrise_equation">Sunrise equation on Wikipedia</a>
  */
-@SuppressWarnings("unused")
 public final class SunriseSunset {
 
+    /*
     public enum DayPeriod {
         DAY,
         CIVIL_TWILIGHT,
@@ -46,21 +46,22 @@ public final class SunriseSunset {
         ASTRONOMICAL_TWILIGHT,
         NIGHT
     }
+    */
 
     /**
      * The altitude of the sun (solar elevation angle) at the moment of sunrise or sunset: -0.833
      */
     public static final double SUN_ALTITUDE_SUNRISE_SUNSET = -0.833;
 
-    /**
+    /*
      * The altitude of the sun (solar elevation angle) at the moment of civil twilight: -6.0
      */
-    public static final double SUN_ALTITUDE_CIVIL_TWILIGHT = -6.0;
+    //public static final double SUN_ALTITUDE_CIVIL_TWILIGHT = -6.0;
 
-    /**
+    /*
      * The altitude of the sun (solar elevation angle) at the moment of nautical twilight: -12.0
      */
-    public static final double SUN_ALTITUDE_NAUTICAL_TWILIGHT = -12.0;
+    //public static final double SUN_ALTITUDE_NAUTICAL_TWILIGHT = -12.0;
 
     /**
      * The altitude of the sun (solar elevation angle) at the moment of astronomical twilight: -18.0
@@ -70,7 +71,7 @@ public final class SunriseSunset {
     private static final int JULIAN_DATE_2000_01_01 = 2451545;
     private static final double CONST_0009 = 0.0009;
     private static final double CONST_360 = 360;
-    private static final long MILLISECONDS_IN_DAY = 60 * 60 * 24 * 1000;
+    //private static final long MILLISECONDS_IN_DAY = 60 * 60 * 24 * 1000;
 
     /**
      * Intermediate variables used in the sunrise equation
@@ -228,7 +229,7 @@ public final class SunriseSunset {
         return gregorianDate;
     }
 
-    /**
+    /*
      * Calculate the civil twilight time for the given date and given location.
      *
      * @param day       The day for which to calculate civil twilight
@@ -237,13 +238,13 @@ public final class SunriseSunset {
      * @return a two-element Gregorian Calendar array. The first element is the
      * civil twilight dawn, the second element is the civil twilight dusk.
      * This will return null if there is no civil twilight. (Ex: no twilight in Antarctica in December)
-     */
     public static Calendar[] getCivilTwilight(final Calendar day,
                                               final double latitude, double longitude) {
         return getSunriseSunset(day, latitude, longitude, SUN_ALTITUDE_CIVIL_TWILIGHT);
     }
+    */
 
-    /**
+    /*
      * Calculate the nautical twilight time for the given date and given location.
      *
      * @param day       The day for which to calculate nautical twilight
@@ -252,11 +253,11 @@ public final class SunriseSunset {
      * @return a two-element Gregorian Calendar array. The first element is the
      * nautical twilight dawn, the second element is the nautical twilight dusk.
      * This will return null if there is no nautical twilight. (Ex: no twilight in Antarctica in December)
-     */
     public static Calendar[] getNauticalTwilight(final Calendar day,
                                                  final double latitude, double longitude) {
         return getSunriseSunset(day, latitude, longitude, SUN_ALTITUDE_NAUTICAL_TWILIGHT);
     }
+    */
 
     /**
      * Calculate the astronomical twilight time for the given date and given location.
@@ -387,7 +388,7 @@ public final class SunriseSunset {
         return new Calendar[]{gregRise, gregSet};
     }
 
-    /**
+    /*
      * Calculate the solar noon time for the given date and given location.
      * This is based on the Wikipedia article on the Sunrise equation.
      *
@@ -396,7 +397,6 @@ public final class SunriseSunset {
      * @param longitude   the longitude of the location in degrees (West is negative)
      * @return            a Calendar with the time set to solar noon for the given day.
      * @see <a href="http://en.wikipedia.org/wiki/Sunrise_equation">Sunrise equation on Wikipedia</a>
-     */
     public static Calendar getSolarNoon(final Calendar day, final double latitude, double longitude) {
         SolarEquationVariables solarEquationVariables = getSolarEquationVariables(day, longitude);
 
@@ -421,27 +421,27 @@ public final class SunriseSunset {
         gregNoon.setTimeInMillis(gregNoonUTC.getTimeInMillis());
         return gregNoon;
     }
+    */
 
-    /**
+    /*
      * @param latitude  the latitude of the location in degrees.
      * @param longitude the longitude of the location in degrees (West is negative)
      * @return true if it is currently day at the given location. This returns
      * true if the current time at the location is after the sunrise and
      * before the sunset for that location.
-     */
     public static boolean isDay(double latitude, double longitude) {
         Calendar now = Calendar.getInstance();
         return isDay(now, latitude, longitude);
     }
+    */
 
-    /**
+    /*
      * @param calendar  a datetime
      * @param latitude  the latitude of the location in degrees.
      * @param longitude the longitude of the location in degrees (West is negative)
      * @return true if it is day at the given location and given datetime. This returns
      * true if the given datetime at the location is after the sunrise and
      * before the sunset for that location.
-     */
     public static boolean isDay(Calendar calendar, double latitude, double longitude) {
         Calendar[] sunriseSunset = getSunriseSunset(calendar, latitude, longitude);
         // In extreme latitudes, there may be no sunrise/sunset time in summer or
@@ -466,18 +466,19 @@ public final class SunriseSunset {
         Calendar sunset = sunriseSunset[1];
         return calendar.after(sunrise) && calendar.before(sunset);
     }
+    */
 
-    /**
+    /*
      * @param latitude  the latitude of the location in degrees.
      * @param longitude the longitude of the location in degrees (West is negative)
      * @return true if it is night at the given location currently. This returns
      * true if the current time at the location is after the astronomical twilight dusk and
      * before the astronomical twilight dawn for that location.
-     */
     public static boolean isNight(double latitude, double longitude) {
         Calendar now = Calendar.getInstance();
         return isNight(now, latitude, longitude);
     }
+    */
 
     /**
      * @param calendar  a datetime
@@ -513,26 +514,25 @@ public final class SunriseSunset {
         return calendar.before(dawn) || calendar.after(dusk);
     }
 
-    /**
+    /*
      * @param latitude  the latitude of the location in degrees.
      * @param longitude the longitude of the location in degrees (West is negative)
      * @return true if it is currently civil twilight at the current time at the given location.
      * This returns true if the current time at the location is between sunset and civil twilight dusk
      * or between civil twilight dawn and sunrise.
-     */
     public static boolean isCivilTwilight(double latitude, double longitude) {
         Calendar today = Calendar.getInstance();
         return isCivilTwilight(today, latitude, longitude);
     }
+    */
 
-    /**
+    /*
      * @param calendar the datetime for which to determine if it's civil twilight in the given location
      * @param latitude  the latitude of the location in degrees.
      * @param longitude the longitude of the location in degrees (West is negative)
      * @return true if it is civil twilight at the given location and the given calendar.
      * This returns true if the given time at the location is between sunset and civil twilight dusk
      * or between civil twilight dawn and sunrise.
-     */
     public static boolean isCivilTwilight(Calendar calendar, double latitude, double longitude) {
         Calendar[] sunriseSunset = getSunriseSunset(calendar, latitude, longitude);
         if (sunriseSunset == null) return false;
@@ -542,27 +542,27 @@ public final class SunriseSunset {
         return (calendar.after(sunriseSunset[1]) && calendar.before(civilTwilight[1])
                 || (calendar.after(civilTwilight[0]) && calendar.before(sunriseSunset[0])));
     }
+    */
 
-    /**
+    /*
      * @param latitude  the latitude of the location in degrees.
      * @param longitude the longitude of the location in degrees (West is negative)
      * @return true if it is currently nautical twilight at the current time at the given location.
      * This returns true if the current time at the location is between civil and nautical twilight dusk
      * or between nautical and civil twilight dawn.
-     */
     public static boolean isNauticalTwilight(double latitude, double longitude) {
         Calendar today = Calendar.getInstance();
         return isNauticalTwilight(today, latitude, longitude);
     }
+    */
 
-    /**
+    /*
      * @param calendar the datetime for which to determine if it's nautical twilight in the given location
      * @param latitude  the latitude of the location in degrees.
      * @param longitude the longitude of the location in degrees (West is negative)
      * @return true if it is nautical twilight at the given location and the given calendar.
      * This returns true if the given time at the location is between civil and nautical twilight dusk
      * or between nautical and civil twilight dawn.
-     */
     public static boolean isNauticalTwilight(Calendar calendar, double latitude, double longitude) {
         Calendar[] civilTwilight = getCivilTwilight(calendar, latitude, longitude);
         if (civilTwilight == null) return false;
@@ -572,27 +572,27 @@ public final class SunriseSunset {
         return (calendar.after(civilTwilight[1]) && calendar.before(nauticalTwilight[1])
                 || (calendar.after(nauticalTwilight[0]) && calendar.before(civilTwilight[0])));
     }
+    */
 
-    /**
+    /*
      * @param latitude  the latitude of the location in degrees.
      * @param longitude the longitude of the location in degrees (West is negative)
      * @return true if it is currently astronomical twilight at the current time at the given location.
      * This returns true if the current time at the location is between nautical and astronomical twilight dusk
      * or between astronomical and nautical twilight dawn.
-     */
     public static boolean isAstronomicalTwilight(double latitude, double longitude) {
         Calendar today = Calendar.getInstance();
         return isAstronomicalTwilight(today, latitude, longitude);
     }
+    */
 
-    /**
+    /*
      * @param calendar the datetime for which to determine if it's astronomical twilight in the given location
      * @param latitude  the latitude of the location in degrees.
      * @param longitude the longitude of the location in degrees (West is negative)
      * @return true if it is astronomical twilight at the given location and the given calendar.
      * This returns true if the given time at the location is between nautical and astronomical twilight dusk
      * or between astronomical and nautical twilight dawn.
-     */
     public static boolean isAstronomicalTwilight(Calendar calendar, double latitude, double longitude) {
         Calendar[] nauticalTwilight = getNauticalTwilight(calendar, latitude, longitude);
         if (nauticalTwilight == null) return false;
@@ -602,29 +602,30 @@ public final class SunriseSunset {
         return (calendar.after(nauticalTwilight[1]) && calendar.before(astronomicalTwilight[1])
                 || (calendar.after(astronomicalTwilight[0]) && calendar.before(nauticalTwilight[0])));
     }
+    */
 
-    /**
+    /*
      * @param latitude  the latitude of the location in degrees.
      * @param longitude the longitude of the location in degrees (West is negative)
      * @return true if it is civil, nautical, or astronomical twilight currently at the given location.
-     */
     public static boolean isTwilight(double latitude, double longitude) {
         Calendar today = Calendar.getInstance();
         return isTwilight(today, latitude, longitude);
     }
+    */
 
-    /**
+    /*
      * @param latitude  the latitude of the location in degrees.
      * @param longitude the longitude of the location in degrees (West is negative)
      * @param calendar the given datetime to check for twilight
      * @return true if at the given location and calendar, it is civil, nautical, or astronomical twilight.
-     */
     public static boolean isTwilight(Calendar calendar, double latitude, double longitude) {
         return isCivilTwilight(calendar, latitude, longitude)
                 || isNauticalTwilight(calendar, latitude, longitude)
                 || isAstronomicalTwilight(calendar, latitude, longitude);
     }
-
+    */
+    /*
     public static DayPeriod getDayPeriod(Calendar calendar, double latitude, double longitude) {
         if (isDay(calendar, latitude, longitude)) return DayPeriod.DAY;
         if (isCivilTwilight(calendar, latitude, longitude)) return DayPeriod.CIVIL_TWILIGHT;
@@ -634,14 +635,13 @@ public final class SunriseSunset {
         if (isNight(calendar, latitude, longitude)) return DayPeriod.NIGHT;
         return DayPeriod.NIGHT;
     }
-
-    /**
+    */
+    /*
      *
      * @param calendar the datetime for which to determine the day length
      * @param latitude  the latitude of the location in degrees.
      * @param longitude the longitude of the location in degrees (West is negative)
      * @return the number of milliseconds between sunrise and sunset.
-     */
     public static long getDayLength(Calendar calendar, double latitude, double longitude) {
         Calendar[] sunriseSunset = getSunriseSunset(calendar, latitude, longitude);
         if (sunriseSunset == null) {
@@ -662,5 +662,6 @@ public final class SunriseSunset {
         }
         return sunriseSunset[1].getTimeInMillis() - sunriseSunset[0].getTimeInMillis();
     }
+    */
 
 }

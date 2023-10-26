@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
@@ -95,7 +96,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
         if (action != null) {
             boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
             if (!serviceStarted) {
-                AutostartPermissionNotification.showNotification(getApplicationContext(), true);
+                //AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
                 PPApplicationStatic.setApplicationStarted(getApplicationContext(), true);
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
@@ -125,7 +126,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION, action);
                 }
 //                PPApplicationStatic.logE("[START_PP_SERVICE] ActionForExternalApplicationActivity.onStart", "xxx");
-                PPApplicationStatic.startPPService(this, serviceIntent);
+                PPApplicationStatic.startPPService(this, serviceIntent, true);
                 finish();
                 return;
             }
@@ -187,7 +188,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                         PowerManager.WakeLock wakeLock = null;
                                         try {
                                             if (powerManager != null) {
-                                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActionForExternalApplicationActivity_ACTION_ENABLE_RUN_FOR_EVENT");
+                                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ActionForExternalApplicationActivity_ACTION_ENABLE_RUN_FOR_EVENT);
                                                 wakeLock.acquire(10 * 60 * 1000);
                                             }
 
@@ -308,7 +309,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                         PowerManager.WakeLock wakeLock = null;
                                         try {
                                             if (powerManager != null) {
-                                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActionForExternalApplicationActivity_ACTION_STOP_EVENT");
+                                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ActionForExternalApplicationActivity_ACTION_STOP_EVENT);
                                                 wakeLock.acquire(10 * 60 * 1000);
                                             }
 
@@ -374,11 +375,21 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
     }
     */
 
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
+        dataWrapper = null;
+    }
+
     private void showNotification(String title, String text) {
-        PPApplicationStatic.createExclamationNotificationChannel(getApplicationContext());
+        PPApplicationStatic.createExclamationNotificationChannel(getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.error_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                 .setContentTitle(title) // title for notification
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
@@ -388,11 +399,8 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);*/
         mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-        //{
-            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
-            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        //}
+        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
         mBuilder.setGroup(PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_GROUP);
 
@@ -402,7 +410,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_TAG,
                     PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

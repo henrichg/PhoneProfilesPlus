@@ -33,7 +33,7 @@ class EventPreferencesBattery extends EventPreferences {
     private static final String PREF_EVENT_BATTERY_POWER_SAVE_MODE = "eventBatteryPowerSaveMode";
     static final String PREF_EVENT_BATTERY_BATTERY_SAVER_SYSTEM_SETTINGS = "eventBatteryBatterySaver";
 
-    private static final String PREF_EVENT_BATTERY_CATEGORY = "eventBatteryCategoryRoot";
+    static final String PREF_EVENT_BATTERY_CATEGORY = "eventBatteryCategoryRoot";
 
     EventPreferencesBattery(Event event,
                                     boolean enabled,
@@ -74,7 +74,7 @@ class EventPreferencesBattery extends EventPreferences {
 
         String[] splits;
         if (this._plugged != null)
-            splits = this._plugged.split("\\|");
+            splits = this._plugged.split(StringConstants.STR_SPLIT_REGEX);
         else
             splits = new String[]{};
         Set<String> set = new HashSet<>(Arrays.asList(splits));
@@ -121,32 +121,32 @@ class EventPreferencesBattery extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_battery_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_battery_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + "<b>";
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_battery), addPassStatus, DatabaseHandler.ETYPE_BATTERY, context);
-                    descr = descr + "</b> ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_battery), addPassStatus, DatabaseHandler.ETYPE_BATTERY, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
-                descr = descr + context.getString(R.string.pref_event_battery_level);
-                descr = descr + ": <b>" + getColorForChangedPreferenceValue(this._levelLow + "% - " + this._levelHight + "%", disabled, context) + "</b>";
+                _value.append(context.getString(R.string.pref_event_battery_level));
+                _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(this._levelLow + "% - " + this._levelHight + "%", disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 if (this._powerSaveMode)
-                    descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_battery_power_save_mode), disabled, context) + "</b>";
+                    _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_battery_power_save_mode), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 else {
-                    descr = descr + " • " + context.getString(R.string.pref_event_battery_charging);
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.pref_event_battery_charging));
                     String[] charging = context.getResources().getStringArray(R.array.eventBatteryChargingArray);
-                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(charging[this._charging], disabled, context) + "</b>";
+                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(charging[this._charging], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                     String selectedPlugged = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if ((this._plugged != null) && !this._plugged.isEmpty() && !this._plugged.equals("-")) {
-                        String[] splits = this._plugged.split("\\|");
+                        String[] splits = this._plugged.split(StringConstants.STR_SPLIT_REGEX);
                         List<String> pluggedValues = Arrays.asList(context.getResources().getStringArray(R.array.eventBatteryPluggedValues));
                         String[] pluggedNames = context.getResources().getStringArray(R.array.eventBatteryPluggedArray);
                         //selectedPlugged = "";
@@ -164,12 +164,12 @@ class EventPreferencesBattery extends EventPreferences {
                         }
                         selectedPlugged = value.toString();
                     }
-                    descr = descr + " • " + context.getString(R.string.event_preferences_battery_plugged) + ": <b>" + getColorForChangedPreferenceValue(selectedPlugged, disabled, context) + "</b>";
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_battery_plugged)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedPlugged, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value/*, Context context*/)
@@ -238,7 +238,7 @@ class EventPreferencesBattery extends EventPreferences {
         if (key.equals(PREF_EVENT_BATTERY_ENABLED) ||
             key.equals(PREF_EVENT_BATTERY_POWER_SAVE_MODE)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true" : "false"/*, context*/);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING/*, context*/);
         }
         if (key.equals(PREF_EVENT_BATTERY_LEVEL_LOW) ||
             key.equals(PREF_EVENT_BATTERY_LEVEL_HIGHT) ||
@@ -312,7 +312,7 @@ class EventPreferencesBattery extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_BATTERY_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -321,6 +321,7 @@ class EventPreferencesBattery extends EventPreferences {
     @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context)
     {
+        super.checkPreferences(prefMng, onlyCategory, context);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_BATTERY_ENABLED) != null) {
@@ -354,7 +355,7 @@ class EventPreferencesBattery extends EventPreferences {
 
                         if (!OK) {
                             PPApplication.showToast(_context.getApplicationContext(),
-                                    _context.getString(R.string.event_preferences_battery_level_low) + ": " +
+                                    _context.getString(R.string.event_preferences_battery_level_low) + StringConstants.STR_COLON_WITH_SPACE +
                                             _context.getString(R.string.event_preferences_battery_level_bad_value),
                                     Toast.LENGTH_SHORT);
                         }
@@ -385,7 +386,7 @@ class EventPreferencesBattery extends EventPreferences {
 
                         if (!OK) {
                             PPApplication.showToast(_context.getApplicationContext(),
-                                    _context.getString(R.string.event_preferences_battery_level_hight) + ": " +
+                                    _context.getString(R.string.event_preferences_battery_level_hight) + StringConstants.STR_COLON_WITH_SPACE +
                                             _context.getString(R.string.event_preferences_battery_level_bad_value),
                                     Toast.LENGTH_SHORT);
                         }
@@ -489,7 +490,7 @@ class EventPreferencesBattery extends EventPreferences {
                         eventsHandler.batteryPassed = eventsHandler.batteryPassed && (!isCharging);
                     if (/*(!sensorType.equals(EventsHandler.SENSOR_TYPE_BATTERY)) &&*/
                             (_plugged != null) && (!_plugged.isEmpty())) {
-                        String[] splits = _plugged.split("\\|");
+                        String[] splits = _plugged.split(StringConstants.STR_SPLIT_REGEX);
                         if (splits.length > 0) {
                             boolean passed = false;
                             for (String split : splits) {

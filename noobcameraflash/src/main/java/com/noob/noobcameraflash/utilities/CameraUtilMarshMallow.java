@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 /**
  * Created by Abhishek on 28-11-2015.
  */
-@SuppressWarnings("unused")
 public class CameraUtilMarshMallow extends BaseCameraUtil {
     private CameraManager mCameraManager;
     private CameraManager.TorchCallback mTorchCallback;
@@ -28,16 +27,16 @@ public class CameraUtilMarshMallow extends BaseCameraUtil {
                 @Override
                 public void onTorchModeUnavailable(@NonNull String cameraId) {
                     super.onTorchModeUnavailable(cameraId);
-                    onCameraTorchModeChanged(TorchMode.Unavailable);
+                    //onCameraTorchModeChanged(TorchMode.Unavailable);
                 }
 
                 @Override
                 public void onTorchModeChanged(@NonNull String cameraId, boolean enabled) {
                     super.onTorchModeChanged(cameraId, enabled);
-                    if (enabled)
+                    /*if (enabled)
                         setTorchMode(TorchMode.SwitchedOn);
                     else
-                        setTorchMode(TorchMode.SwitchedOff);
+                        setTorchMode(TorchMode.SwitchedOff);*/
                 }
             };
             mCameraManager.registerTorchCallback(mTorchCallback, null);
@@ -59,7 +58,7 @@ public class CameraUtilMarshMallow extends BaseCameraUtil {
                 Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
                 if ((facing != null) && (facing == CameraCharacteristics.LENS_FACING_BACK)) {
                     getCameraManager().setTorchMode(id, true);
-                    setTorchMode(TorchMode.SwitchedOn);
+                    //setTorchMode(TorchMode.SwitchedOn);
                 }
             }
         }
@@ -75,7 +74,7 @@ public class CameraUtilMarshMallow extends BaseCameraUtil {
                 Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
                 if ((facing != null) && (facing == CameraCharacteristics.LENS_FACING_BACK)) {
                     getCameraManager().setTorchMode(id, false);
-                    setTorchMode(TorchMode.SwitchedOff);
+                    //setTorchMode(TorchMode.SwitchedOff);
                 }
             }
         }

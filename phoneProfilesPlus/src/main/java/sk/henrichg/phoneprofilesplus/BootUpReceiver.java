@@ -23,8 +23,7 @@ public class BootUpReceiver extends BroadcastReceiver {
         if (action != null) {
 
             // support for Direct boot
-            //if (Build.VERSION.SDK_INT >= 24)
-            //    okAction = action.equals(Intent.ACTION_LOCKED_BOOT_COMPLETED);
+            // okAction = action.equals(Intent.ACTION_LOCKED_BOOT_COMPLETED);
 
             //if (!okAction)
                 okAction = action.equals(Intent.ACTION_BOOT_COMPLETED) ||
@@ -61,7 +60,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BootUpReceiver_onReceive");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BootUpReceiver_onReceive);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -92,7 +91,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //                                PPApplicationStatic.logE("[START_PP_SERVICE] BootUpReceiver.onReceive", "xxx");
-                                PPApplicationStatic.startPPService(appContext, serviceIntent);
+                                PPApplicationStatic.startPPService(appContext, serviceIntent, true);
                             } else {
                                 // start events handler
 
@@ -114,7 +113,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
 //                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BootUpReceiver.onReceive", "sensorType=SENSOR_TYPE_BOOT_COMPLETED");
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BOOT_COMPLETED);
+                                    eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_BOOT_COMPLETED});
                                 }
                             }
                         } else {
@@ -130,7 +129,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 }
                             }
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                            PPApplicationStatic.exitApp(false, appContext, dataWrapper, null, false, true);
+                            PPApplicationStatic.exitApp(false, appContext, dataWrapper, null, false, true, false);
                         }
 
                     } catch (Exception e) {

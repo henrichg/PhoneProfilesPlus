@@ -96,19 +96,41 @@ class DatabaseHandlerOthers {
             try {
                 instance.startRunningCommand();
 
-                final String selectQuery = "SELECT " + DatabaseHandler.KEY_AL_ID + "," +
-                        DatabaseHandler.KEY_AL_LOG_DATE_TIME + "," +
-                        DatabaseHandler.KEY_AL_LOG_TYPE + "," +
-                        DatabaseHandler.KEY_AL_EVENT_NAME + "," +
-                        DatabaseHandler.KEY_AL_PROFILE_NAME + "," +
-                        //DatabaseHandler.KEY_AL_PROFILE_ICON + "," +
-                        //DatabaseHandler.KEY_AL_DURATION_DELAY + "," +
-                        DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT +
-                        " FROM " + DatabaseHandler.TABLE_ACTIVITY_LOG +
-                        " ORDER BY " + DatabaseHandler.KEY_AL_ID + " DESC";
-
-                //SQLiteDatabase db = this.getWritableDatabase();
+                //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                String countQuery = "SELECT COUNT(0) FROM " + DatabaseHandler.TABLE_ACTIVITY_LOG;
+                cursor = db.rawQuery(countQuery, null);
+
+                int count = 0;
+                if (cursor.moveToFirst()) {
+                    count = cursor.getInt(0);
+                }
+                cursor.close();
+
+                String selectQuery = "";
+                if (count > 0)
+                    selectQuery =
+                        "SELECT -1 AS " + DatabaseHandler.KEY_AL_ID + "," +
+                                "CURRENT_TIMESTAMP AS " + DatabaseHandler.KEY_AL_LOG_DATE_TIME + "," +
+                                PPApplication.ALTYPE_LOG_TOP + " AS " + DatabaseHandler.KEY_AL_LOG_TYPE + "," +
+                                "\"\" AS " + DatabaseHandler.KEY_AL_EVENT_NAME + "," +
+                                "\"\" AS " + DatabaseHandler.KEY_AL_PROFILE_NAME + "," +
+                                //DatabaseHandler.KEY_AL_PROFILE_ICON + "," +
+                                //DatabaseHandler.KEY_AL_DURATION_DELAY + "," +
+                                "\"\" AS " + DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT +
+                                " UNION ALL ";
+                selectQuery = selectQuery +
+                        "SELECT " + DatabaseHandler.KEY_AL_ID + "," +
+                                DatabaseHandler.KEY_AL_LOG_DATE_TIME + "," +
+                                DatabaseHandler.KEY_AL_LOG_TYPE + "," +
+                                DatabaseHandler.KEY_AL_EVENT_NAME + "," +
+                                DatabaseHandler.KEY_AL_PROFILE_NAME + "," +
+                                //DatabaseHandler.KEY_AL_PROFILE_ICON + "," +
+                                //DatabaseHandler.KEY_AL_DURATION_DELAY + "," +
+                            DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT +
+                        " FROM " + DatabaseHandler.TABLE_ACTIVITY_LOG +
+                        " ORDER BY " + DatabaseHandler.KEY_AL_LOG_DATE_TIME + " DESC";
 
                 cursor = db.rawQuery(selectQuery, null);
             } catch (Exception e) {
@@ -148,8 +170,13 @@ class DatabaseHandlerOthers {
                         DatabaseHandler.KEY_VIBRATE_WHEN_RINGING + "," +
                         DatabaseHandler.KEY_VIBRATE_NOTIFICATIONS + "," +
                         DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID + "," +
-                        DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING + "," +
-                        DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + "," +
+                        DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING + "," +
+                        DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING + "," +
+                        DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING + "," +
+                        DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING + "," +
+                        DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING + "," +
+                        DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING + "," +
+                        DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING + "," +
                         DatabaseHandler.KEY_DEVICE_WIFI_AP_PREFS + "," +
                         DatabaseHandler.KEY_HEADS_UP_NOTIFICATIONS + "," +
                         DatabaseHandler.KEY_ALWAYS_ON_DISPLAY + "," +
@@ -157,8 +184,8 @@ class DatabaseHandlerOthers {
                         DatabaseHandler.KEY_CAMERA_FLASH + "," +
                         DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1 + "," +
                         DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2 + "," +
-                        DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1 + "," +
-                        DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2 + "," +
+                        //DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1 + "," +
+                        //DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2 + "," +
                         DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS + "," +
                         DatabaseHandler.KEY_DEVICE_ONOFF_SIM1 + "," +
                         DatabaseHandler.KEY_DEVICE_ONOFF_SIM2 + "," +
@@ -182,14 +209,22 @@ class DatabaseHandlerOthers {
                         DatabaseHandler.KEY_E_RADIO_SWITCH_ENABLED + "," +
                         DatabaseHandler.KEY_E_SOUND_PROFILE_ENABLED + "," +
                         DatabaseHandler.KEY_E_VOLUMES_ENABLED + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_RINGTONE + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_MEDIA + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_ALARM + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_SYSTEM + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_VOICE + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_FROM + "," +
+                        /*DatabaseHandler.KEY_E_VOLUMES_RINGTONE_TO + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_TO + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_MEDIA_TO + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_ALARM_TO + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_SYSTEM_TO + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_VOICE_TO + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_TO + "," +
+                        DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_TO + "," +*/
                         DatabaseHandler.KEY_E_CALL_EVENT + "," +
                         DatabaseHandler.KEY_E_SMS_ENABLED + "," +
                         DatabaseHandler.KEY_E_ROAMING_ENABLED +
@@ -200,13 +235,10 @@ class DatabaseHandlerOthers {
 
                 ContentValues values = new ContentValues();
 
-                Cursor profilesCursor = db.rawQuery(selectProfilesQuery, null);
-                Cursor eventsCursor = db.rawQuery(selectEventsQuery, null);
-
                 db.beginTransaction();
-                //noinspection TryFinallyCanBeTryWithResources
-                try {
-                    SharedPreferences sharedPreferences = instance.context.getApplicationContext().getSharedPreferences("temp_disableNotAllowedPreferences", Context.MODE_PRIVATE);
+                try (Cursor profilesCursor = db.rawQuery(selectProfilesQuery, null);
+                     Cursor eventsCursor = db.rawQuery(selectEventsQuery, null)) {
+                    SharedPreferences sharedPreferences = instance.context.getApplicationContext().getSharedPreferences(PPApplication.TMP_SHARED_PREFS_DISABLE_NOT_ALLOWED_PREFERENCES, Context.MODE_PRIVATE);
 
                     if (profilesCursor.moveToFirst()) {
                         do {
@@ -278,6 +310,7 @@ class DatabaseHandlerOthers {
                                 }
                             }
 
+                            /*
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1)) != 0) {
                                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
@@ -308,6 +341,7 @@ class DatabaseHandlerOthers {
                                             new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
                                 }
                             }
+                            */
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_PREFS)) != 0) {
                                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, sharedPreferences, true, instance.context);
@@ -340,11 +374,9 @@ class DatabaseHandlerOthers {
                                             int gps = profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_GPS));
                                             if (gps == 1)
                                                 locationMode = 4;
-                                            else
-                                            if (gps == 2)
+                                            else if (gps == 2)
                                                 locationMode = 3;
-                                            else
-                                            if (gps == 3)
+                                            else if (gps == 3)
                                                 locationMode = 6;
                                             if (locationMode != 0) {
                                                 values.clear();
@@ -443,14 +475,11 @@ class DatabaseHandlerOthers {
                                         values.put(DatabaseHandler.KEY_VOLUME_RINGER_MODE, ringerMode);
                                         db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
                                                 new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
-                                    }
-                                    else
-                                    if (ringerMode == 5) {
+                                    } else if (ringerMode == 5) {
                                         int zenMode = profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_ZEN_MODE));
                                         if (zenMode == 4)
                                             zenMode = 1;
-                                        else
-                                        if (zenMode == 5)
+                                        else if (zenMode == 5)
                                             zenMode = 2;
 
                                         values.clear();
@@ -580,13 +609,13 @@ class DatabaseHandlerOthers {
                                     (_preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS) &&
                                     (_preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)) {
                                 values.clear();
-                                values.put(DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
+                                values.put(DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID, StringConstants.CONNECTTOSSID_JUSTANY);
                                 db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
                                         new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
                             }
 
-                            if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING)) != 0) {
-                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, sharedPreferences, false, instance.context);
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING)) != 0) {
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -595,14 +624,14 @@ class DatabaseHandlerOthers {
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_WIFI_SCANNING, 0);
+                                    values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_WIFI_SCANNING, 0);
                                     db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
                                             new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
                                 }
                             }
 
-                            if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING)) != 0) {
-                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, null, sharedPreferences, false, instance.context);
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING)) != 0) {
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -611,7 +640,87 @@ class DatabaseHandlerOthers {
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, 0);
+                                    values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_BLUETOOTH_SCANNING, 0);
+                                    db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
+                                }
+                            }
+
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING)) != 0) {
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_LOCATION_SCANNING, null, sharedPreferences, false, instance.context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_LOCATION_SCANNING, 0);
+                                    db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
+                                }
+                            }
+
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING)) != 0) {
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING, null, sharedPreferences, false, instance.context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_MOBILE_CELL_SCANNING, 0);
+                                    db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
+                                }
+                            }
+
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING)) != 0) {
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING, null, sharedPreferences, false, instance.context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_ORIENTATION_SCANNING, 0);
+                                    db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
+                                }
+                            }
+
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING)) != 0) {
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_NOTIFICATION_SCANNING, null, sharedPreferences, false, instance.context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_NOTIFICATION_SCANNING, 0);
+                                    db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
+                                }
+                            }
+
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING)) != 0) {
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING, null, sharedPreferences, false, instance.context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_APPLICATION_ENABLE_PERIODIC_SCANNING, 0);
                                     db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
                                             new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
                                 }
@@ -1047,10 +1156,10 @@ class DatabaseHandlerOthers {
                                         new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                             }
 
-                            String value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_RINGTONE));
+                            String value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);
@@ -1059,16 +1168,16 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_RINGTONE, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_RINGTONE_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
                             }
 
-                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION));
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);
@@ -1077,16 +1186,16 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
                             }
 
-                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_MEDIA));
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);
@@ -1095,16 +1204,16 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_MEDIA, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_MEDIA_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
                             }
 
-                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_ALARM));
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);
@@ -1113,16 +1222,16 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_ALARM, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_ALARM_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
                             }
 
-                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_SYSTEM));
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);
@@ -1131,16 +1240,16 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_SYSTEM, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_SYSTEM_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
                             }
 
-                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_VOICE));
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);
@@ -1149,16 +1258,16 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_VOICE, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_VOICE_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
                             }
 
-                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO));
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);
@@ -1167,16 +1276,16 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
                             }
 
-                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY));
+                            value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_FROM));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);
@@ -1185,7 +1294,7 @@ class DatabaseHandlerOthers {
                                 }
                                 if (operator > 6) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY, splits[0] + "|0|0");
+                                    values.put(DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_FROM, splits[0] + "|0|0");
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
@@ -1233,8 +1342,6 @@ class DatabaseHandlerOthers {
                     PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
-                    profilesCursor.close();
-                    eventsCursor.close();
                 }
 
                 //db.close();

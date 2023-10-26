@@ -2,7 +2,7 @@
 <resources>
     <style name="DialogTheme_dayNight_samsung" parent="@style/Base.Theme.PhoneProfilesTheme_dialog_dayNight">
         <item name="listViewItemBackground">@drawable/listview_item_background</item>
-        <item name="popupMenuItemBackground">@drawable/popup_menu_item_background_selector</item>
+        <item name="popupMenuItemBackground">@drawable/popup_menu_item_background</item>
 
         <item name="windowFixedWidthMajor">@dimen/dialog_fixed_width_major</item>
         <item name="windowFixedWidthMinor">@dimen/dialog_fixed_width_minor</item>

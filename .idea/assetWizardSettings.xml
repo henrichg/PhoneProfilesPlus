@@ -318,7 +318,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialicons/arrow_drop_down/baseline_arrow_drop_down_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialicons/settings_cell/baseline_settings_cell_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -329,8 +329,8 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="fcb21f" />
-                            <entry key="outputName" value="ic_submenu_triangle" />
-                            <entry key="sourceFile" value="$USER_HOME$/Stiahnuté/triangle-submenu.svg" />
+                            <entry key="outputName" value="baseline_settings_cell_24" />
+                            <entry key="sourceFile" value="$USER_HOME$/Stiahnuté/ic_settings_cell.svg" />
                           </map>
                         </option>
                       </PersistentState>

@@ -39,7 +39,8 @@ class EventPreferencesWifi extends EventPreferences {
     static final String PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS = "eventWiFiLocationSystemSettings";
     static final String PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS = "eventWiFiKeepOnSystemSettings";
 
-    private static final String PREF_EVENT_WIFI_CATEGORY = "eventWifiCategoryRoot";
+    static final String PREF_EVENT_WIFI_CATEGORY_ROOT = "eventWifiCategoryRoot";
+    static final String PREF_EVENT_WIFI_CATEGORY = "eventWifiCategory";
 
     static final String CONFIGURED_SSIDS_VALUE = "^configured_ssids^";
     static final String ALL_SSIDS_VALUE = "%";
@@ -80,42 +81,50 @@ class EventPreferencesWifi extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_wifi_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_wifi_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + "<b>";
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_wifi), addPassStatus, DatabaseHandler.ETYPE_WIFI, context);
-                    descr = descr + "</b> ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_wifi), addPassStatus, DatabaseHandler.ETYPE_WIFI, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
                 if ((this._connectionType == 1) || (this._connectionType == 3)) {
                     if (!ApplicationPreferences.applicationEventWifiEnableScanning) {
                         if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile)
-                            descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
+                            _value.append("* ").append(context.getString(R.string.array_pref_applicationDisableScanning_disabled)).append("! *").append(StringConstants.TAG_BREAK_HTML);
                         else
-                            descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
+                            _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile)).append(StringConstants.TAG_BREAK_HTML);
                     } else if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
-                        descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
+                        _value.append("* ").append(context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary)).append("! *").append(StringConstants.TAG_BREAK_HTML);
+                    } else {
+                        boolean scanningPaused = ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("2") &&
+                                GlobalUtils.isNowTimeBetweenTimes(
+                                        ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
+                                        ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo);
+                        if (scanningPaused) {
+                            _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused)).append(StringConstants.TAG_BREAK_HTML);
+                        }
                     }
                 }
 
                 String[] connectionListTypes = context.getResources().getStringArray(R.array.eventWifiConnectionTypeValues);
                 int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(this._connectionType));
                 if (index != -1) {
-                    descr = descr + context.getString(R.string.event_preferences_wifi_connection_type);
+                    _value.append(context.getString(R.string.event_preferences_wifi_connection_type));
                     String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventWifiConnectionTypeArray);
-                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + "</b> • ";
+                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
                 }
 
-                descr = descr + context.getString(R.string.pref_event_wifi_ssid) + ": ";
+                _value.append(context.getString(R.string.pref_event_wifi_ssid)).append(StringConstants.STR_COLON_WITH_SPACE);
                 String selectedSSIDs;// = "";
                 StringBuilder value = new StringBuilder();
-                String[] splits = this._SSID.split("\\|");
+                String[] splits = this._SSID.split(StringConstants.STR_SPLIT_REGEX);
                 for (String _ssid : splits) {
                     if (_ssid.isEmpty()) {
                         //selectedSSIDs = selectedSSIDs + context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -124,11 +133,11 @@ class EventPreferencesWifi extends EventPreferences {
                         switch (_ssid) {
                             case ALL_SSIDS_VALUE:
                                 //selectedSSIDs = selectedSSIDs + "[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb) + "\u00A0]";
-                                value.append("[\u00A0").append(context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb)).append("\u00A0]");
+                                value.append("[").append(StringConstants.CHAR_HARD_SPACE).append(context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb)).append(StringConstants.CHAR_HARD_SPACE).append("]");
                                 break;
                             case CONFIGURED_SSIDS_VALUE:
                                 //selectedSSIDs = selectedSSIDs + "[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb) + "\u00A0]";
-                                value.append("[\u00A0").append(context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb)).append("\u00A0]");
+                                value.append("[").append(StringConstants.CHAR_HARD_SPACE).append(context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb)).append(StringConstants.CHAR_HARD_SPACE).append("]");
                                 break;
                             default:
                                 //selectedSSIDs = selectedSSIDs + _ssid;
@@ -144,11 +153,11 @@ class EventPreferencesWifi extends EventPreferences {
                     }
                 }
                 selectedSSIDs = value.toString();
-                descr = descr + "<b>" + getColorForChangedPreferenceValue(selectedSSIDs, disabled, context) + "</b>";
+                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedSSIDs, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
@@ -172,19 +181,35 @@ class EventPreferencesWifi extends EventPreferences {
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventWifiEnableScanning) {
                     if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile) {
-                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
-                                context.getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
-                        titleColor = ContextCompat.getColor(context, R.color.altype_error);
+                        int connectionType = Integer.parseInt(preferences.getString(PREF_EVENT_WIFI_CONNECTION_TYPE, "1"));
+                        if ((connectionType == 1) || (connectionType == 3)) {
+                            summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
+                                    context.getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
+                            titleColor = ContextCompat.getColor(context, R.color.error_color);
+                        } else {
+                            summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + StringConstants.STR_DOUBLE_NEWLINE +
+                                    context.getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
+                            titleColor = 0;
+                        }
                     }
                     else {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_DOUBLE_NEWLINE +
                                 context.getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
                         titleColor = 0;
                     }
                 }
                 else {
-                    summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
-                            context.getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
+                    boolean scanningPaused = ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("2") &&
+                            GlobalUtils.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo);
+                    if (scanningPaused) {
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                                context.getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
+                    } else {
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                                context.getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
+                    }
                     titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
@@ -210,11 +235,11 @@ class EventPreferencesWifi extends EventPreferences {
             if (preference != null) {
                 String summary = context.getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary);
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
-                    summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *\n\n"+
+                    summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE+
                             summary;
                 }
                 else {
-                    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + ".\n\n"+
+                    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+
                             summary;
                 }
                 preference.setSummary(summary);
@@ -226,10 +251,10 @@ class EventPreferencesWifi extends EventPreferences {
                 if (preference != null) {
                     String summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary);
                     if (GlobalUtils.isWifiSleepPolicySetToNever(context.getApplicationContext())) {
-                        summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + ".\n\n" +
+                        summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                                 summary;
                     } else {
-                        summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary) + ".\n\n" +
+                        summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                                 summary;
                     }
                     preference.setSummary(summary);
@@ -270,7 +295,7 @@ class EventPreferencesWifi extends EventPreferences {
 
         if (key.equals(PREF_EVENT_WIFI_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
         if (key.equals(PREF_EVENT_WIFI_SSID) ||
             key.equals(PREF_EVENT_WIFI_CONNECTION_TYPE) ||
@@ -311,7 +336,7 @@ class EventPreferencesWifi extends EventPreferences {
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
-            Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_CATEGORY);
+            Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_CATEGORY_ROOT);
             if (preference != null) {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_WIFI_ENABLED, false);
                 boolean permissionGranted = true;
@@ -325,10 +350,10 @@ class EventPreferencesWifi extends EventPreferences {
             }
         }
         else {
-            Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_CATEGORY);
+            Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_CATEGORY_ROOT);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -342,6 +367,7 @@ class EventPreferencesWifi extends EventPreferences {
 
     @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+        super.checkPreferences(prefMng, onlyCategory, context);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_WIFI_ENABLED) != null) {
@@ -407,8 +433,8 @@ class EventPreferencesWifi extends EventPreferences {
                             PPApplicationStatic.recordException(e);
                         }
                         if (connManager != null) {
-                            //if (android.os.Build.VERSION.SDK_INT >= 21) {
                             Network[] networks = connManager.getAllNetworks();
+                            //noinspection ConstantValue,RedundantLengthCheck
                             if ((networks != null) && (networks.length > 0)) {
                                 for (Network network : networks) {
                                     try {
@@ -439,15 +465,11 @@ class EventPreferencesWifi extends EventPreferences {
                                     }
                                 }
                             }
-                            /*} else {
-                                NetworkInfo ntkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-                                wifiConnected = (ntkInfo != null) && ntkInfo.isConnected();
-                            }*/
                         }
 
                         if (wifiConnected) {
 
-                            String[] splits = _SSID.split("\\|");
+                            String[] splits = _SSID.split(StringConstants.STR_SPLIT_REGEX);
                             boolean[] connected = new boolean[splits.length];
 
                             int i = 0;
@@ -534,77 +556,84 @@ class EventPreferencesWifi extends EventPreferences {
                                     }
                                 } else {
 
-                                    List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(eventsHandler.context);
+                                    eventsHandler.wifiPassed = false;
 
-                                    if (scanResults != null) {
+                                    boolean scanningPaused = ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("2") &&
+                                            GlobalUtils.isNowTimeBetweenTimes(
+                                                    ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
+                                                    ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo);
 
-                                        eventsHandler.wifiPassed = false;
+                                    if (!scanningPaused) {
 
-                                        for (WifiSSIDData result : scanResults) {
-                                            String[] splits = _SSID.split("\\|");
-                                            boolean[] nearby = new boolean[splits.length];
-                                            int i = 0;
-                                            for (String _ssid : splits) {
-                                                nearby[i] = false;
-                                                switch (_ssid) {
-                                                    case EventPreferencesWifi.ALL_SSIDS_VALUE:
-                                                        nearby[i] = true;
-                                                        break;
-                                                    case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
-                                                        for (WifiSSIDData data : wifiConfigurationList) {
-                                                            if (WifiScanWorker.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
-                                                                nearby[i] = true;
-                                                                break;
-                                                            }
-                                                        }
-                                                        break;
-                                                    default:
-                                                        if (WifiScanWorker.compareSSID(result, _ssid, wifiConfigurationList)) {
+                                        List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(eventsHandler.context);
+
+                                        if (scanResults != null) {
+
+                                            for (WifiSSIDData result : scanResults) {
+                                                String[] splits = _SSID.split(StringConstants.STR_SPLIT_REGEX);
+                                                boolean[] nearby = new boolean[splits.length];
+                                                int i = 0;
+                                                for (String _ssid : splits) {
+                                                    nearby[i] = false;
+                                                    switch (_ssid) {
+                                                        case EventPreferencesWifi.ALL_SSIDS_VALUE:
                                                             nearby[i] = true;
-                                                        }
-                                                        break;
-                                                }
-                                                i++;
-                                            }
-
-                                            //noinspection ConstantConditions
-                                            done = false;
-                                            if (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY) {
-                                                eventsHandler.wifiPassed = true;
-                                                for (boolean inF : nearby) {
-                                                    if (inF) {
-                                                        done = true;
-                                                        eventsHandler.wifiPassed = false;
-                                                        break;
+                                                            break;
+                                                        case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
+                                                            for (WifiSSIDData data : wifiConfigurationList) {
+                                                                if (WifiScanWorker.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
+                                                                    nearby[i] = true;
+                                                                    break;
+                                                                }
+                                                            }
+                                                            break;
+                                                        default:
+                                                            if (WifiScanWorker.compareSSID(result, _ssid, wifiConfigurationList)) {
+                                                                nearby[i] = true;
+                                                            }
+                                                            break;
                                                     }
+                                                    i++;
                                                 }
-                                            } else {
-                                                eventsHandler.wifiPassed = false;
-                                                for (boolean inF : nearby) {
-                                                    if (inF) {
-                                                        done = true;
-                                                        eventsHandler.wifiPassed = true;
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                            if (done)
-                                                break;
-                                        }
 
-                                        if (!done) {
-                                            if (scanResults.size() == 0) {
-
-                                                if (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)
+                                                //noinspection ConstantConditions
+                                                done = false;
+                                                if (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY) {
                                                     eventsHandler.wifiPassed = true;
-
+                                                    for (boolean inF : nearby) {
+                                                        if (inF) {
+                                                            done = true;
+                                                            eventsHandler.wifiPassed = false;
+                                                            break;
+                                                        }
+                                                    }
+                                                } else {
+                                                    eventsHandler.wifiPassed = false;
+                                                    for (boolean inF : nearby) {
+                                                        if (inF) {
+                                                            done = true;
+                                                            eventsHandler.wifiPassed = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                                if (done)
+                                                    break;
                                             }
-                                        }
 
-                                    }
-                                    else {
-                                        // not allowed, no scan results
-                                        eventsHandler.notAllowedWifi = true;
+                                            if (!done) {
+                                                if (scanResults.size() == 0) {
+
+                                                    if (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)
+                                                        eventsHandler.wifiPassed = true;
+
+                                                }
+                                            }
+
+                                        } else {
+                                            // not allowed, no scan results
+                                            eventsHandler.notAllowedWifi = true;
+                                        }
                                     }
                                 }
                             }

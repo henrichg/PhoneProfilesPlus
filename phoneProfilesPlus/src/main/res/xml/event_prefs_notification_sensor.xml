@@ -9,19 +9,17 @@
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventEnableNotificationScanningAppSettings"
         app:title="@string/phone_profiles_pref_category_notification_scanning"
         app:summary="@string/phone_profiles_pref_eventNotificationAppSettings_summary"
         app:dependency="eventNotificationEnabled"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventNotificationNotificationsAccessSettings"
         app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
-        app:summary="@string/event_preferences_volumeNotificationsAccessSettings_summary"
+        app:summary="@string/event_preferences_volumeNotificationsAccessSettings_summary2"
         app:dependency="eventNotificationEnabled"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="eventNotificationInCall"
@@ -52,13 +50,13 @@
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
         app:key="eventNotificationContactGroups"
-        app:defaultValue="@string/empty_string"
+        app:defaultValue=""
         app:title="@string/event_preferences_notifications_contact_groups"
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
         app:key="eventNotificationContacts"
-        app:defaultValue="@string/empty_string"
+        app:defaultValue=""
         app:title="@string/event_preferences_notifications_contacts"
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget"

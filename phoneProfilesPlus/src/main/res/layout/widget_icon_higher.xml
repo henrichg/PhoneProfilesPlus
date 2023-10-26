@@ -51,14 +51,16 @@
 
         <TextView
             android:id="@+id/icon_widget_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:paddingStart="2dp"
-            android:paddingEnd="2dp"
+            android:paddingStart="3dp"
+            android:paddingEnd="3dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:autoSizeTextType="uniform"
+            android:autoSizeMaxTextSize="@dimen/auto_size_max_text_size"
+            android:fontFamily="sans-serif-condensed"
             android:text="@string/profile_name_default"
             android:maxLines="2"
             android:ellipsize="end"
@@ -66,15 +68,15 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/widget_icon_not_rounded_border"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:scaleType="fitXY"
-        android:src="@drawable/not_rounded_widget_border"
-        android:visibility="gone"
-        tools:ignore="ContentDescription" />
+<!--    <ImageView-->
+<!--        android:id="@+id/widget_icon_not_rounded_border"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:gravity="center"-->
+<!--        android:scaleType="fitXY"-->
+<!--        android:src="@drawable/not_rounded_widget_border"-->
+<!--        android:visibility="gone"-->
+<!--        tools:ignore="ContentDescription" />-->
 
     <ImageView
         android:id="@+id/widget_icon_rounded_border"

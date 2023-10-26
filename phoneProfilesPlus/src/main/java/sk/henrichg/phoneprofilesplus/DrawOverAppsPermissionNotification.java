@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
@@ -36,7 +37,7 @@ class DrawOverAppsPermissionNotification {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DrawOverAppsPermissionNotification_showNotification");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DrawOverAppsPermissionNotification_showNotification);
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -80,25 +81,23 @@ class DrawOverAppsPermissionNotification {
     }
 
     static private void showNotification(Context context, String title, String text) {
-        PPApplicationStatic.createExclamationNotificationChannel(context);
+        PPApplicationStatic.createExclamationNotificationChannel(context.getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                 .setContentTitle(title) // title for notification
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
         final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-        intent.setData(Uri.parse("package:" + PPApplication.PACKAGE_NAME));
+        intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE + PPApplication.PACKAGE_NAME));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-        //{
-            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
-            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        //}
+        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         mBuilder.setOnlyAlertOnce(true);
 
         mBuilder.setWhen(0);
@@ -111,7 +110,7 @@ class DrawOverAppsPermissionNotification {
                     PPApplication.DRAW_OVER_APPS_NOTIFICATION_TAG,
                     PPApplication.DRAW_OVER_APPS_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            Log.e("DrawOverAppsPermissionNotification.showNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("DrawOverAppsPermissionNotification.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("DrawOverAppsPermissionNotification.showNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

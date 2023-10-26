@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,13 +8,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,28 +28,36 @@ import androidx.preference.PreferenceManager;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EventsPrefsActivity extends AppCompatActivity
-                                implements RefreshGUIActivatorEditorListener,
-                                           MobileCellsRegistrationCountDownListener,
-                                           MobileCellsRegistrationStoppedListener
+                                implements RefreshGUIActivatorEditorListener
 {
 
     long event_id = 0;
+    Event event = null;
     private int old_event_status;
-    int newEventMode = EditorEventListFragment.EDIT_MODE_UNDEFINED;
+    int newEventMode = PPApplication.EDIT_MODE_UNDEFINED;
     int predefinedEventIndex = 0;
 
     private int resultCode = RESULT_CANCELED;
 
     boolean showSaveMenu = false;
+    final List<String> displayedSensors = new ArrayList<>();
 
     private Toolbar toolbar;
 
-    private MobileCellsRegistrationCountDownBroadcastReceiver mobileCellsRegistrationCountDownBroadcastReceiver = null;
-    private MobileCellsRegistrationStoppedBroadcastReceiver mobileCellsRegistrationNewCellsBroadcastReceiver = null;
+    LinearLayout settingsLinearLayout;
+    LinearLayout progressLinearLayout;
+
+    private StartPreferencesActivityAsyncTask startPreferencesActivityAsyncTask = null;
+    private FinishPreferencesActivityAsyncTask finishPreferencesActivityAsyncTask = null;
+
+    private static final String BUNDLE_OLD_EVENT_STATUS = "old_event_status";
+    private static final String BUNDLE_NEW_EVENT_MODE = "newEventMode";
+    private static final String BUNDLE_PREDEFINED_EVENT_INDEX = "predefinedEventIndex";
 
     static private class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
 
@@ -62,19 +72,16 @@ public class EventsPrefsActivity extends AppCompatActivity
             listener.refreshGUIFromListener(intent);
         }
     }
-    private final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
-
-    public static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
-    //public static final String PREF_START_TARGET_HELPS_FINISHED = "event_preferences_activity_start_target_helps_finiahed";
+    private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false, true);
+        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true);
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_preferences);
+        setContentView(R.layout.activity_profile_events_preferences);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         toolbar = findViewById(R.id.activity_preferences_toolbar);
@@ -86,40 +93,50 @@ public class EventsPrefsActivity extends AppCompatActivity
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
+        settingsLinearLayout = findViewById(R.id.activity_preferences_settings);
+        progressLinearLayout = findViewById(R.id.activity_preferences_settings_linla_progress);
+
         event_id = getIntent().getLongExtra(PPApplication.EXTRA_EVENT_ID, 0L);
         old_event_status = getIntent().getIntExtra(PPApplication.EXTRA_EVENT_STATUS, -1);
-        newEventMode = getIntent().getIntExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
-        predefinedEventIndex = getIntent().getIntExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+        newEventMode = getIntent().getIntExtra(PPApplication.EXTRA_NEW_EVENT_MODE, PPApplication.EDIT_MODE_UNDEFINED);
+        predefinedEventIndex = getIntent().getIntExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
         if (getIntent().getBooleanExtra(DataWrapperStatic.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-            if (dataWrapper.getEventById(event_id) == null) {
+            boolean eventExists = dataWrapper.eventExists(event_id);
+            dataWrapper.invalidateDataWrapper();
+            if (!eventExists) {
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.event_preferences_event_not_found),
                         Toast.LENGTH_SHORT);
+                PPApplication.blockContactContentObserver = false;
+                ContactsContentObserver.enqueueContactsContentObserverWorker();
                 super.finish();
                 return;
             }
         }
 
-        EventsPrefsFragment preferenceFragment = new EventsPrefsActivity.EventsPrefsRoot();
-
         if (savedInstanceState == null) {
-            loadPreferences(newEventMode, predefinedEventIndex);
+            PPApplication.blockContactContentObserver = true;
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.activity_preferences_settings, preferenceFragment)
-                    .commit();
+            startPreferencesActivityAsyncTask =
+                    new StartPreferencesActivityAsyncTask(this, newEventMode, predefinedEventIndex);
+            startPreferencesActivityAsyncTask.execute();
+
+            //event = loadPreferences(newEventMode, predefinedEventIndex);
+            //getSupportFragmentManager()
+            //        .beginTransaction()
+            //        .replace(R.id.activity_preferences_settings, preferenceFragment)
+            //        .commit();
         }
         else {
-            event_id = savedInstanceState.getLong("event_id", 0);
-            old_event_status = savedInstanceState.getInt("old_event_status", -1);
-            newEventMode = savedInstanceState.getInt("newEventMode", EditorProfileListFragment.EDIT_MODE_UNDEFINED);
-            predefinedEventIndex = savedInstanceState.getInt("predefinedEventIndex", 0);
+            event_id = savedInstanceState.getLong(PPApplication.EXTRA_EVENT_ID, 0);
+            old_event_status = savedInstanceState.getInt(BUNDLE_OLD_EVENT_STATUS, -1);
+            newEventMode = savedInstanceState.getInt(BUNDLE_NEW_EVENT_MODE, PPApplication.EDIT_MODE_UNDEFINED);
+            predefinedEventIndex = savedInstanceState.getInt(BUNDLE_PREDEFINED_EVENT_INDEX, 0);
 
-            showSaveMenu = savedInstanceState.getBoolean("showSaveMenu", false);
+            showSaveMenu = savedInstanceState.getBoolean(PPApplication.BUNDLE_SHOW_SAVE_MENU, false);
         }
     }
 
@@ -131,51 +148,65 @@ public class EventsPrefsActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        if (mobileCellsRegistrationCountDownBroadcastReceiver == null) {
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
-            mobileCellsRegistrationCountDownBroadcastReceiver = new MobileCellsRegistrationCountDownBroadcastReceiver(this);
-            registerReceiver(mobileCellsRegistrationCountDownBroadcastReceiver, intentFilter);
-        }
 
-        if (mobileCellsRegistrationNewCellsBroadcastReceiver == null) {
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
-            mobileCellsRegistrationNewCellsBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver(this);
-            registerReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver, intentFilter);
-        }
-
+        refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
-                new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver"));
+                new IntentFilter(PPApplication.ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        PPApplication.blockContactContentObserver = false;
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        if (mobileCellsRegistrationCountDownBroadcastReceiver != null) {
-            try {
-                unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);
-            } catch (IllegalArgumentException e) {
-                //PPApplicationStatic.recordException(e);
-            }
-            mobileCellsRegistrationCountDownBroadcastReceiver = null;
-        }
-
-        if (mobileCellsRegistrationNewCellsBroadcastReceiver != null) {
-            try {
-                unregisterReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver);
-            } catch (IllegalArgumentException e) {
-                //PPApplicationStatic.recordException(e);
-            }
-            mobileCellsRegistrationNewCellsBroadcastReceiver = null;
-        }
-
         try {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+            refreshGUIBroadcastReceiver = null;
         } catch (IllegalArgumentException e) {
             //PPApplicationStatic.recordException(e);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        PPApplication.blockContactContentObserver = true;
+
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        //if (fragments == null)
+        //    return;
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof ContactsMultiSelectDialogPreferenceFragment) {
+                ContactsMultiSelectDialogPreferenceFragment dialogFragment =
+                        (ContactsMultiSelectDialogPreferenceFragment) fragment;
+                dialogFragment.dismiss();
+            }
+            if (fragment instanceof ContactGroupsMultiSelectDialogPreferenceFragment) {
+                ContactGroupsMultiSelectDialogPreferenceFragment dialogFragment =
+                        (ContactGroupsMultiSelectDialogPreferenceFragment) fragment;
+                dialogFragment.dismiss();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        event = null;
+
+        if ((startPreferencesActivityAsyncTask != null) &&
+                startPreferencesActivityAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            startPreferencesActivityAsyncTask.cancel(true);
+        startPreferencesActivityAsyncTask = null;
+        if ((finishPreferencesActivityAsyncTask != null) &&
+                finishPreferencesActivityAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            finishPreferencesActivityAsyncTask.cancel(true);
+        finishPreferencesActivityAsyncTask = null;
     }
 
     @Override
@@ -249,9 +280,13 @@ public class EventsPrefsActivity extends AppCompatActivity
                     null, null,
                     (dialog1, which) -> {
                         if (checkPreferences(newEventMode, predefinedEventIndex)) {
-                            savePreferences(newEventMode, predefinedEventIndex);
-                            resultCode = RESULT_OK;
-                            finish();
+                            finishPreferencesActivityAsyncTask =
+                                    new EventsPrefsActivity.FinishPreferencesActivityAsyncTask(this, newEventMode, predefinedEventIndex);
+                            finishPreferencesActivityAsyncTask.execute();
+
+                            //savePreferences(newEventMode, predefinedEventIndex);
+                            //resultCode = RESULT_OK;
+                            //finish();
                         }
                     },
                     (dialog2, which) -> finish(),
@@ -284,9 +319,13 @@ public class EventsPrefsActivity extends AppCompatActivity
         else
         if (itemId == R.id.event_preferences_save) {
             if (checkPreferences(newEventMode, predefinedEventIndex)) {
-                savePreferences(newEventMode, predefinedEventIndex);
-                resultCode = RESULT_OK;
-                finish();
+                finishPreferencesActivityAsyncTask =
+                        new EventsPrefsActivity.FinishPreferencesActivityAsyncTask(this, newEventMode, predefinedEventIndex);
+                finishPreferencesActivityAsyncTask.execute();
+
+                //savePreferences(newEventMode, predefinedEventIndex);
+                //resultCode = RESULT_OK;
+                //finish();
             }
             return true;
         }
@@ -317,21 +356,24 @@ public class EventsPrefsActivity extends AppCompatActivity
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
-        savedInstanceState.putLong("event_id", event_id);
-        savedInstanceState.putInt("old_event_status", old_event_status);
-        savedInstanceState.putInt("newEventMode", newEventMode);
-        savedInstanceState.putInt("predefinedEventIndex", predefinedEventIndex);
+        savedInstanceState.putLong(PPApplication.EXTRA_EVENT_ID, event_id);
+        savedInstanceState.putInt(BUNDLE_OLD_EVENT_STATUS, old_event_status);
+        savedInstanceState.putInt(BUNDLE_NEW_EVENT_MODE, newEventMode);
+        savedInstanceState.putInt(BUNDLE_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
 
-        savedInstanceState.putBoolean("showSaveMenu", showSaveMenu);
+        savedInstanceState.putBoolean(PPApplication.BUNDLE_SHOW_SAVE_MENU, showSaveMenu);
     }
 
     @Override
     public void finish() {
+        PPApplication.blockContactContentObserver = false;
+        ContactsContentObserver.enqueueContactsContentObserverWorker();
+
         // for startActivityForResult
         Intent returnIntent = new Intent();
         returnIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
-        returnIntent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, newEventMode);
-        returnIntent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+        returnIntent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, newEventMode);
+        returnIntent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
         setResult(resultCode,returnIntent);
 
         super.finish();
@@ -345,7 +387,7 @@ public class EventsPrefsActivity extends AppCompatActivity
         if (!leaveSaveMenu)
             showSaveMenu = false;
 
-        if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT)
+        if (new_event_mode == PPApplication.EDIT_MODE_INSERT)
         {
             // create new event - default is TIME
             if (predefinedEventIndex == 0)
@@ -355,7 +397,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             showSaveMenu = true;
         }
         else
-        if (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE)
+        if (new_event_mode == PPApplication.EDIT_MODE_DUPLICATE)
         {
             // duplicate event
             Event origEvent = dataWrapper.getEventById(event_id);
@@ -400,16 +442,19 @@ public class EventsPrefsActivity extends AppCompatActivity
         else
             event = dataWrapper.getEventById(event_id);
 
+        dataWrapper.invalidateDataWrapper();
+
         return event;
     }
 
-    private void loadPreferences(int new_event_mode, int predefinedEventIndex) {
+    private Event loadPreferences(int new_event_mode, int predefinedEventIndex) {
         Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
         if (event == null)
-            event = createEvent(getApplicationContext(), event_id, EditorEventListFragment.EDIT_MODE_INSERT, predefinedEventIndex, false);
+            event = createEvent(getApplicationContext(), event_id, PPApplication.EDIT_MODE_INSERT, predefinedEventIndex, false);
 
         if (event != null)
         {
+            /*
             // must be used handler for rewrite toolbar title/subtitle
             final String eventName = event._name;
             Handler handler = new Handler(getMainLooper());
@@ -417,13 +462,16 @@ public class EventsPrefsActivity extends AppCompatActivity
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.loadPreferences");
                 //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
                 //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
-                toolbar.setTitle(getString(R.string.event_string_0) + ": " + eventName);
+                toolbar.setTitle(getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
             }, 200);
+            */
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
             event.loadSharedPreferences(preferences);
         }
+
+        return event;
     }
 
     private boolean checkPreferences(final int new_event_mode, final int predefinedEventIndex)
@@ -433,64 +481,6 @@ public class EventsPrefsActivity extends AppCompatActivity
         if (!enabled) {
             if (!ApplicationPreferences.applicationEventNeverAskForEnableRun) {
                 //if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) {
-
-                /*
-                final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(this);
-
-                FrameLayout container = new FrameLayout(this);
-                container.addView(doNotShowAgain);
-                FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
-                        FrameLayout.LayoutParams.MATCH_PARENT,
-                        FrameLayout.LayoutParams.WRAP_CONTENT);
-                containerParams.leftMargin = GlobalGUIRoutines.dpToPx(20);
-                container.setLayoutParams(containerParams);
-
-                FrameLayout superContainer = new FrameLayout(this);
-                superContainer.addView(container);
-
-                doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
-                doNotShowAgain.setChecked(false);
-                doNotShowAgain.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventsPrefsActivity.this);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, isChecked);
-                    editor.apply();
-                    ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
-                });
-
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                dialogBuilder.setTitle(R.string.phone_preferences_actionMode_save);
-                dialogBuilder.setMessage(R.string.alert_message_enable_event);
-                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                //dialogBuilder.setView(doNotShowAgain);
-                dialogBuilder.setView(superContainer);
-                dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                    SharedPreferences preferences1 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = preferences1.edit();
-                    editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
-                    editor.apply();
-
-                    savePreferences(new_event_mode, predefinedEventIndex);
-                    resultCode = RESULT_OK;
-                    finish();
-                });
-                dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
-                    savePreferences(new_event_mode, predefinedEventIndex);
-                    resultCode = RESULT_OK;
-                    finish();
-                });
-                AlertDialog dialog = dialogBuilder.create();
-
-//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialog) {
-//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                        if (positive != null) positive.setAllCaps(false);
-//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                        if (negative != null) negative.setAllCaps(false);
-//                    }
-//                });
-                */
 
                 PPAlertDialog dialog = new PPAlertDialog(getString(R.string.phone_preferences_actionMode_save),
                         getString(R.string.alert_message_enable_event),
@@ -503,14 +493,22 @@ public class EventsPrefsActivity extends AppCompatActivity
                             editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
                             editor.apply();
 
-                            savePreferences(new_event_mode, predefinedEventIndex);
-                            resultCode = RESULT_OK;
-                            finish();
+                            finishPreferencesActivityAsyncTask =
+                                    new EventsPrefsActivity.FinishPreferencesActivityAsyncTask(this, new_event_mode, predefinedEventIndex);
+                            finishPreferencesActivityAsyncTask.execute();
+
+                            //savePreferences(new_event_mode, predefinedEventIndex);
+                            //resultCode = RESULT_OK;
+                            //finish();
                         },
                         (dialog2, which) -> {
-                            savePreferences(new_event_mode, predefinedEventIndex);
-                            resultCode = RESULT_OK;
-                            finish();
+                            finishPreferencesActivityAsyncTask =
+                                    new EventsPrefsActivity.FinishPreferencesActivityAsyncTask(this, new_event_mode, predefinedEventIndex);
+                            finishPreferencesActivityAsyncTask.execute();
+
+                            //savePreferences(new_event_mode, predefinedEventIndex);
+                            //resultCode = RESULT_OK;
+                            //finish();
                         },
                         null,
                         null,
@@ -545,7 +543,7 @@ public class EventsPrefsActivity extends AppCompatActivity
         return event;
     }
 
-    private void savePreferences(int new_event_mode, int predefinedEventIndex)
+    void savePreferences(int new_event_mode, int predefinedEventIndex)
     {
         final Event event = getEventFromPreferences(event_id, new_event_mode, predefinedEventIndex);
         if (event == null)
@@ -555,8 +553,8 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
-        if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
-                (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
+        if ((new_event_mode == PPApplication.EDIT_MODE_INSERT) ||
+                (new_event_mode == PPApplication.EDIT_MODE_DUPLICATE))
         {
             PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_ADDED, event._name, null, "");
 
@@ -603,7 +601,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventsPrefsActivity_saveUpdateOfPreferences_1");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EventsPrefsActivity_saveUpdateOfPreferences_1);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -658,7 +656,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventsPrefsActivity_saveUpdateOfPreferences_2");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EventsPrefsActivity_saveUpdateOfPreferences_2);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -693,11 +691,6 @@ public class EventsPrefsActivity extends AppCompatActivity
     }
 
     private void showTargetHelps() {
-        /*if (Build.VERSION.SDK_INT <= 19)
-            // TapTarget.forToolbarMenuItem FC :-(
-            // Toolbar.findViewById() returns null
-            return;*/
-
         if (!showSaveMenu)
             return;
 
@@ -705,7 +698,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             //Log.d("EventPrefsActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-            editor.putBoolean(PREF_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EVENTS_PREFS_ACTIVITY_START_TARGET_HELPS, false);
             editor.apply();
             ApplicationPreferences.prefEventPrefsActivityStartTargetHelps = false;
 
@@ -787,273 +780,7 @@ public class EventsPrefsActivity extends AppCompatActivity
         }
     }
 
-    private static class MobileCellsRegistrationCountDownBroadcastReceiver extends BroadcastReceiver {
-
-        private final MobileCellsRegistrationCountDownListener listener;
-
-        public MobileCellsRegistrationCountDownBroadcastReceiver(
-                MobileCellsRegistrationCountDownListener listener){
-            this.listener = listener;
-        }
-
-        @Override
-        public void onReceive( Context context, Intent intent ) {
-            listener.countDownFromListener(intent);
-        }
-
-    }
-
-    @Override
-    public void countDownFromListener(Intent intent) {
-//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsRegistrationCountDownBroadcastReceiver.onReceive", "xxx");
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
-        if (fragment != null) {
-            long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
-            ((EventsPrefsFragment) fragment).doMobileCellsRegistrationCountDownBroadcastReceiver(millisUntilFinished);
-        }
-    }
-
-    private static class MobileCellsRegistrationStoppedBroadcastReceiver extends BroadcastReceiver {
-
-        private final MobileCellsRegistrationStoppedListener listener;
-
-        public MobileCellsRegistrationStoppedBroadcastReceiver(
-                MobileCellsRegistrationStoppedListener listener){
-            this.listener = listener;
-        }
-
-        @Override
-        public void onReceive( Context context, Intent intent ) {
-            listener.registrationStoppedFromListener();
-        }
-
-    }
-
-    @Override
-    public void registrationStoppedFromListener() {
-//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsRegistrationStoppedBroadcastReceiver.onReceive", "xxx");
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
-        if (fragment != null)
-            ((EventsPrefsFragment)fragment).doMobileCellsRegistrationStoppedBroadcastReceiver();
-    }
-
 //--------------------------------------------------------------------------------------------------
-
-    static public class EventsPrefsRoot extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_root, rootKey);
-        }
-    }
-
-    static public class EventsPrefsStartOfEventsOthers extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_start_of_event_others, rootKey);
-        }
-    }
-
-    static public class EventsPrefsEndOfEventsOthers extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_end_of_event_others, rootKey);
-        }
-    }
-
-    static public class EventsPrefsTimeParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_time_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsCalendarParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_calendar_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsBatteryParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_battery_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsCallParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_call_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsSMSParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_sms_mms_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsRadioSwitchParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_radio_switch_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsLocationParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_location_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsWifiParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_wifi_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsBluetoothParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_bluetooth_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsMobileCellsParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_mobile_cells_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsAccessoriesParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_accessories_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsScreenParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_screen_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsNotificationsParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_notification_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsApplicationsParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_application_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsOrientationParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_orientation_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsNFCParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_nfc_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsAlarmClockParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_alarm_clock_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsDeviceBootParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_device_boot_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsSoundProfileParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_sound_profile_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsPeriodicParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_periodic_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsVolumesParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_volumes_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsActivatedProfileParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_activated_profile_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsRoamingParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_roaming_sensor, rootKey);
-        }
-    }
-
-    static public class EventsPrefsVPNParameters extends EventsPrefsFragment {
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.event_prefs_vpn_sensor, rootKey);
-        }
-    }
 
     void changeCurentLightSensorValue() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
@@ -1078,6 +805,116 @@ public class EventsPrefsActivity extends AppCompatActivity
     public void refreshGUIFromListener(Intent intent) {
 //        PPApplicationStatic.logE("[IN_BROADCAST] EventsPrefsActivity.refreshGUIBroadcastReceiver", "xxx");
         changeCurentLightSensorValue();
+    }
+
+    private static class StartPreferencesActivityAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        final int new_event_mode;
+        final int predefinedEventIndex;
+
+        //private final WeakReference<EventsPrefsActivity> activityWeakReference;
+        @SuppressLint("StaticFieldLeak")
+        private EventsPrefsActivity activity;
+        private EventsPrefsFragment fragment;
+
+        public StartPreferencesActivityAsyncTask(final EventsPrefsActivity activity,
+                                                 int new_event_mode, int predefinedEventIndex) {
+            //this.activityWeakReference = new WeakReference<>(activity);
+            this.activity = activity;
+            this.new_event_mode = new_event_mode;
+            this.predefinedEventIndex = predefinedEventIndex;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            fragment = new EventsPrefsRoot();
+
+            //EventsPrefsActivity activity = activityWeakReference.get();
+
+            //if (activity != null) {
+            //    activity.settingsLinearLayout.setVisibility(View.GONE);
+            //    activity.progressLinearLayout.setVisibility(View.VISIBLE);
+            //}
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            //EventsPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+//                Log.e("EventsPrefsActivity.StartPreferencesActivityAsyncTask", ".doInBackground");
+                activity.event = activity.loadPreferences(new_event_mode, predefinedEventIndex);
+                //GlobalUtils.sleep(100);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            //EventsPrefsActivity activity = activityWeakReference.get();
+
+            if ((activity != null) && (!activity.isFinishing())) {
+//                Log.e("EventsPrefsActivity.StartPreferencesActivityAsyncTask", ".onPostExecute");
+
+                activity.toolbar.setTitle(activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + activity.event._name);
+
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.activity_preferences_settings, fragment)
+                        .commit();
+
+                //activity.progressLinearLayout.setVisibility(View.GONE);
+                //activity.settingsLinearLayout.setVisibility(View.VISIBLE);
+            }
+            activity = null;
+        }
+
+    }
+
+    private static class FinishPreferencesActivityAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        final int new_event_mode;
+        final int predefinedEventIndex;
+
+        private final WeakReference<EventsPrefsActivity> activityWeakReference;
+
+        public FinishPreferencesActivityAsyncTask(final EventsPrefsActivity activity,
+                                                  int new_event_mode, int predefinedEventIndex) {
+            this.activityWeakReference = new WeakReference<>(activity);
+            this.new_event_mode = new_event_mode;
+            this.predefinedEventIndex = predefinedEventIndex;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            EventsPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+//                Log.e("EventsPrefsActivity.FinishPreferencesActivityAsyncTask", ".doInBackground");
+                activity.savePreferences(new_event_mode, predefinedEventIndex);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            EventsPrefsActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+//                Log.e("EventsPrefsActivity.FinishPreferencesActivityAsyncTask", ".onPostExecute");
+
+                activity.resultCode = RESULT_OK;
+                activity.finish();
+            }
+        }
+
     }
 
 }

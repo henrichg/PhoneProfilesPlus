@@ -627,7 +627,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 EventStatic.getGlobalEventsRunning(context)) {
             //restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
             restartEvents = DataWrapperStatic.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
-                    "ic_profile_restart_events|1|1|" + ApplicationPreferences.applicationRestartEventsIconColor, 0);
+                    StringConstants.PROFILE_ICON_RESTART_EVENTS+"|1|1|" + ApplicationPreferences.applicationRestartEventsIconColor, 0);
             restartEvents._showInActivator = true;
             newProfileList.add(0, restartEvents);
         }

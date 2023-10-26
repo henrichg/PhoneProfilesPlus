@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,12 +65,12 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
             listAdapter.notifyDataSetChanged();
         });
 
-        helpTextView.setText(getString(R.string.connect_to_ssid_dialog_help) + "\u00A0»»");
+        helpTextView.setText(getString(R.string.connect_to_ssid_dialog_help) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
         helpTextView.setOnClickListener(v -> {
             boolean ok = false;
             Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
             //intent.addCategory(Intent.CATEGORY_DEFAULT);
-            //intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+            //intent.setData(Uri.parse(PPApplication.DATA_PACKAGE+PPApplication.PACKAGE_NAME));
             if (GlobalGUIRoutines.activityIntentExists(intent, prefContext)) {
                 try {
                     startActivity(intent);
@@ -104,8 +105,13 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
 
         wifiEnabled = false;
 
-        if (Permissions.grantConnectToSSIDDialogPermissions(prefContext))
-            refreshListView();
+        if (Permissions.grantConnectToSSIDDialogPermissions(prefContext)) {
+            if (preference.ssidList != null)
+                preference.ssidList.clear();
+            listAdapter.notifyDataSetChanged();
+            final Handler handler = new Handler(prefContext.getMainLooper());
+            handler.postDelayed(this::refreshListView, 200);
+        }
     }
 
     @Override
@@ -118,12 +124,12 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
             preference.resetSummary();
         }
 
-        if ((asyncTask1 != null) && asyncTask1.getStatus().equals(AsyncTask.Status.RUNNING)){
+        if ((asyncTask1 != null) && asyncTask1.getStatus().equals(AsyncTask.Status.RUNNING))
             asyncTask1.cancel(true);
-        }
-        if ((asyncTask2 != null) && asyncTask2.getStatus().equals(AsyncTask.Status.RUNNING)){
+        asyncTask1 = null;
+        if ((asyncTask2 != null) && asyncTask2.getStatus().equals(AsyncTask.Status.RUNNING))
             asyncTask2.cancel(true);
-        }
+        asyncTask2 = null;
 
         preference.fragment = null;
     }
@@ -270,7 +276,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
 
                 //if (preference.disableSharedProfile == 0)
                 //    _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_SHAREDPROFILE, "", false, false, false));
-                _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_JUSTANY, /*"",*/ false, false, false));
+                _SSIDList.add(0, new WifiSSIDData(StringConstants.CONNECTTOSSID_JUSTANY, /*"",*/ false, false, false));
             }
 
             return null;
@@ -284,11 +290,15 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
             ConnectToSSIDDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                preference.ssidList = new ArrayList<>(_SSIDList);
-                fragment.listView.setAdapter(fragment.listAdapter);
-
                 fragment.linlaProgress.setVisibility(View.GONE);
-                fragment.linLaListView.setVisibility(View.VISIBLE);
+
+                final Handler handler = new Handler(prefContext.getMainLooper());
+                handler.post(() -> {
+                    fragment.linLaListView.setVisibility(View.VISIBLE);
+
+                    preference.ssidList = new ArrayList<>(_SSIDList);
+                    fragment.listView.setAdapter(fragment.listAdapter);
+                });
             }
         }
 

@@ -58,7 +58,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":SimStateChangedBroadcastReceiver_onReceive");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_SimStateChangedBroadcastReceiver_onReceive);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -67,8 +67,8 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                     //GlobalUtils.hasSIMCard(appContext, 1);
                     //GlobalUtils.hasSIMCard(appContext, 2);
 
-                    // for Call and Roaming sensor
-                    PPApplicationStatic.registerPhoneCallsListener(false, appContext);
+                    // for Call and Roaming sensor - not needed, reister=true also unregister
+                    //PPApplicationStatic.registerPhoneCallsListener(false, appContext);
                     // for Call and SMS sensor
                     PPApplicationStatic.registerPPPExtenderReceiverForSMSCall(false, appContext);
                     PPApplicationStatic.registerReceiversForCallSensor(false, appContext);
@@ -93,10 +93,9 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
 
 //                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] SimStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_SIM_STATE_CHANGED");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SIM_STATE_CHANGED);
-
-//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] SimStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                            eventsHandler.handleEvents(new int[]{
+                                    EventsHandler.SENSOR_TYPE_SIM_STATE_CHANGED,
+                                    EventsHandler.SENSOR_TYPE_RADIO_SWITCH});
 
                         //}
                     }

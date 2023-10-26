@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
@@ -29,7 +31,9 @@ class MobileCellNamesDialog {
     private final DialogPreference preference;
 
     private final AlertDialog mDialog;
-    private final EditText cellName;
+    final EditText cellName;
+    final ListView cellNamesListView;
+    final RelativeLayout emptyList;
 
     private final LinearLayout linlaProgress;
     private final LinearLayout rellaDialog;
@@ -38,7 +42,10 @@ class MobileCellNamesDialog {
 
     private ShowDialogAsyncTask asyncTask = null;
 
-    MobileCellNamesDialog(final Activity activity, final DialogPreference preference, final boolean showFilterItems) {
+    MobileCellNamesDialog(final Activity activity,
+                          final DialogPreference preference,
+                          final boolean showFilterItems,
+                          final DialogInterface.OnClickListener _positiveClick) {
 
         this.activity = activity;
         this.showFilterItems = showFilterItems;
@@ -52,30 +59,31 @@ class MobileCellNamesDialog {
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         if (!showFilterItems) {
-            dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if (preference == null) {
-                        if (activity instanceof NotUsedMobileCellsDetectedActivity) {
-                            ((NotUsedMobileCellsDetectedActivity)activity).cellNameTextView.setText(cellName.getText());
+            if (_positiveClick != null)
+                dialogBuilder.setPositiveButton(android.R.string.ok, _positiveClick);
+            else {
+                dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //if (preference == null) {
+                            //if (activity instanceof NotUsedMobileCellsDetectedActivity) {
+                            //    ((NotUsedMobileCellsDetectedActivity) activity).cellNameTextView.setText(cellName.getText());
+                            //}
+                        //} else
+                        if (preference instanceof MobileCellsRegistrationDialogPreference) {
+                            ((MobileCellsRegistrationDialogPreference) preference).setCellNameText(cellName.getText().toString());
+                        } else if (preference instanceof MobileCellsEditorPreference) {
+                            ((MobileCellsEditorPreference) preference).setCellNameText(cellName.getText().toString());
                         }
                     }
-                    else
-                    if (preference instanceof MobileCellsRegistrationDialogPreference) {
-                        ((MobileCellsRegistrationDialogPreference) preference).setCellNameText(cellName.getText().toString());
-                    }
-                    else
-                    if (preference instanceof MobileCellsPreference) {
-                        ((MobileCellsPreference) preference).setCellNameText(cellName.getText().toString());
-                    }
-                }
-            });
+                });
+            }
         }
 
         dialogBuilder.setOnDismissListener(dialog -> {
-            if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+            if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
                 asyncTask.cancel(true);
-            }
+            asyncTask = null;
         });
 
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -94,7 +102,8 @@ class MobileCellNamesDialog {
 //            }
 //        });
 
-        ListView cellNamesListView = layout.findViewById(R.id.mobile_cell_names_dlg_listview);
+        cellNamesListView = layout.findViewById(R.id.mobile_cell_names_dlg_listview);
+        emptyList = layout.findViewById(R.id.mobile_cell_names_dlg_empty);
         cellName = layout.findViewById(R.id.mobile_cell_names_dlg_name);
         cellName.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.highlighted_spinner_all));
         if (!showFilterItems) {
@@ -128,7 +137,7 @@ class MobileCellNamesDialog {
 
         cellNamesListView.setOnItemClickListener((parent, v, position, id) -> {
             if (showFilterItems) {
-                ((MobileCellsPreference) preference).setCellFilterText(cellNamesList.get(position));
+                ((MobileCellsEditorPreference) preference).setCellFilterText(cellNamesList.get(position));
                 mDialog.dismiss();
             }
             else
@@ -176,9 +185,9 @@ class MobileCellNamesDialog {
             Activity activity = activityWeakReference.get();
             if ((dialog != null) && (activity != null)) {
                 if (dialog.showFilterItems) {
-                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_selected));
-                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_without_name));
                     _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_new));
+                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_without_name));
+                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_selected));
                     _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_all));
                 }
                 DatabaseHandler.getInstance(activity.getApplicationContext()).addMobileCellNamesToList(_cellNamesList);
@@ -193,40 +202,53 @@ class MobileCellNamesDialog {
             MobileCellNamesDialog dialog = dialogWeakRef.get();
             Activity activity = activityWeakReference.get();
             if ((dialog != null) && (activity != null)) {
-                dialog.rellaDialog.setVisibility(View.VISIBLE);
                 dialog.linlaProgress.setVisibility(View.GONE);
 
-                dialog.cellNamesList = new ArrayList<>(_cellNamesList);
+                final Handler handler = new Handler(activity.getMainLooper());
+                handler.post(() -> {
+                    dialog.rellaDialog.setVisibility(View.VISIBLE);
 
-                if (dialog.preference == null) {
-                    if (activity instanceof NotUsedMobileCellsDetectedActivity) {
-                        dialog.cellName.setText(((NotUsedMobileCellsDetectedActivity) activity).cellNameTextView.getText().toString());
+                    dialog.cellNamesList = new ArrayList<>(_cellNamesList);
+
+                    if (dialog.cellNamesList.size() == 0) {
+                        dialog.cellNamesListView.setVisibility(View.GONE);
+                        dialog.emptyList.setVisibility(View.VISIBLE);
+                    } else {
+                        dialog.emptyList.setVisibility(View.GONE);
+                        dialog.cellNamesListView.setVisibility(View.VISIBLE);
                     }
-                } else if (dialog.preference instanceof MobileCellsRegistrationDialogPreference) {
-                    dialog.cellName.setText(((MobileCellsRegistrationDialogPreference) dialog.preference).getCellNameText());
-                } else if (dialog.preference instanceof MobileCellsPreference) {
-                    /*if (showFilterItems) {
-                        cellName.setText(((MobileCellsPreference) preference).cellFilter.getText().toString());
-                        cellName.setInputType(InputType.TYPE_NULL);
-                        cellName.setTextIsSelectable(false);
-                        cellName.setOnKeyListener(new View.OnKeyListener() {
-                            @Override
-                            public boolean onKey(View v,int keyCode, KeyEvent event) {
-                                return true;  // Blocks input from hardware keyboards.
-                            }
-                        });
+
+                    //if (dialog.preference == null) {
+                    //    if (activity instanceof NotUsedMobileCellsDetectedActivity) {
+                    //        dialog.cellName.setText(((NotUsedMobileCellsDetectedActivity) activity).cellNameTextView.getText().toString());
+                    //    }
+                    //} else
+                    if (dialog.preference instanceof MobileCellsRegistrationDialogPreference) {
+                        dialog.cellName.setText(((MobileCellsRegistrationDialogPreference) dialog.preference).getCellNameText());
+                    } else if (dialog.preference instanceof MobileCellsEditorPreference) {
+                        //if (showFilterItems) {
+                        //    cellName.setText(((MobileCellsEditorPreference) preference).cellFilter.getText().toString());
+                        //    cellName.setInputType(InputType.TYPE_NULL);
+                        //    cellName.setTextIsSelectable(false);
+                        //    cellName.setOnKeyListener(new View.OnKeyListener() {
+                        //        @Override
+                        //        public boolean onKey(View v,int keyCode, KeyEvent event) {
+                        //            return true;  // Blocks input from hardware keyboards.
+                        //        }
+                        //    });
+                        //}
+                        //else
+                        if (!dialog.showFilterItems)
+                            dialog.cellName.setText(((MobileCellsEditorPreference) dialog.preference).getCellNameText());
                     }
-                    else*/
-                    if (!dialog.showFilterItems)
-                        dialog.cellName.setText(((MobileCellsPreference) dialog.preference).getCellNameText());
-                }
 
-                dialog.listAdapter.notifyDataSetChanged();
+                    dialog.listAdapter.notifyDataSetChanged();
 
-                if (!dialog.showFilterItems) {
-                    dialog.cellName.setFocusable(true);
-                    dialog.cellName.requestFocus();
-                }
+                    if (!dialog.showFilterItems) {
+                        dialog.cellName.setFocusable(true);
+                        dialog.cellName.requestFocus();
+                    }
+                });
             }
         }
 

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/title_text_size"
         android:textColor="@color/dialogTitleTextColor"
-        android:text="@string/empty_string" />
+        android:text="" />
 <!--    android:textStyle="bold"-->
 
     <TextView
@@ -24,6 +24,6 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/subtitle_text_size"
         android:textColor="@color/activitySecondaryTextColor"
-        android:text="@string/empty_string" />
+        android:text="" />
 
 </LinearLayout>

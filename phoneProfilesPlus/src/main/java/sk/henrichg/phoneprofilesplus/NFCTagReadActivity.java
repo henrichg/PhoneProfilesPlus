@@ -59,7 +59,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
         */
         nfcManager.setOnTagReadListener(tagData -> {
             if (EventStatic.getGlobalEventsRunning(this)) {
-                PPApplication.showToast(getApplicationContext(), "(" + getString(R.string.ppp_app_name) + ") " + getString(R.string.read_nfc_tag_read) + ": " + tagData, Toast.LENGTH_LONG);
+                PPApplication.showToast(getApplicationContext(), "(" + getString(R.string.ppp_app_name) + ") " + getString(R.string.read_nfc_tag_read) + StringConstants.STR_COLON_WITH_SPACE + tagData, Toast.LENGTH_LONG);
 
                 final String _tagData = tagData;
 
@@ -81,7 +81,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
 //                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] NFCTagReadActivity,onCreate", "sensorType=SENSOR_TYPE_NFC_TAG");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.setEventNFCParameters(_tagData, _time);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_TAG);
+                        eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_NFC_TAG});
                     //}
 
                 }; //);

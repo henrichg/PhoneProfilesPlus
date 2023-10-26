@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -52,7 +52,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
     private final TimeDurationPickerDialog mValueDialog;
     private final TextView afterDurationLabel;
     private final AppCompatSpinner afterDoSpinner;
-    private final RelativeLayout profileView;
+    private final LinearLayout profileView;
     private final TextView profileLabel;
     private final TextView profileName;
     private final ImageView profileIcon;
@@ -88,7 +88,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         @SuppressLint("InflateParams")
         View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtih_subtitle, null);
         TextView titleText = titleView.findViewById(R.id.custom_dialog_title);
-        titleText.setText(activity.getString(R.string.profile_string_0) + ": " + profile._name);
+        titleText.setText(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name);
         TextView subtitleText = titleView.findViewById(R.id.custom_dialog_subtitle);
         subtitleText.setText(activity.getString(R.string.profile_preferences_duration));
         dialogBuilder.setCustomTitle(titleView);
@@ -130,7 +130,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
                         (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
                         if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                            PhoneProfilesServiceStatic.playNotificationSound(
+                            PlayRingingNotification.playNotificationSound(
                                     ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
                                     ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
                                     false, mDataWrapper.context);
@@ -164,7 +164,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
                         (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
                     if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                        PhoneProfilesServiceStatic.playNotificationSound(
+                        PlayRingingNotification.playNotificationSound(
                                 ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
                                 ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
                                 false, mDataWrapper.context);
@@ -286,7 +286,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mTextViewRange.setText(sMin + " - " + sMax);
 
         afterDoSpinner = layout.findViewById(R.id.ask_for_duration_dlg_after_do_spinner);
-        GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        HighlightedSpinnerAdapter spinnerAdapter = new HighlightedSpinnerAdapter(
                 mActivity,
                 R.layout.spinner_highlighted,
                 mActivity.getResources().getStringArray(R.array.afterProfileDurationDoArray));
@@ -316,7 +316,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         afterDoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)afterDoSpinner.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)afterDoSpinner.getAdapter()).setSelection(position);
                 mAfterDo = Integer.parseInt(afterDoValues[position]);
 
                 updateProfileView();
@@ -553,18 +553,18 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             //int disabledColor = GlobalGUIRoutines.getThemeDisabledTextColor(mActivity);
             int disabledColor = ContextCompat.getColor(mActivity, R.color.activityDisabledTextColor);
             profileName.setTextColor(disabledColor);
-            profileIcon.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+            profileIcon.setAlpha(0.35f);
             if (profileIndicators != null)
-                profileIndicators.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+                profileIndicators.setAlpha(0.35f);
         }
         else {
             profileLabel.setEnabled(true);
             profileView.setEnabled(true);
             //profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(mActivity));
             profileName.setTextColor(ContextCompat.getColor(mActivity, R.color.accent_color));
-            profileIcon.setColorFilter(null);
+            profileIcon.setAlpha(1f);
             if (profileIndicators != null)
-                profileIndicators.setColorFilter(null);
+                profileIndicators.setAlpha(1f);
         }
     }
 

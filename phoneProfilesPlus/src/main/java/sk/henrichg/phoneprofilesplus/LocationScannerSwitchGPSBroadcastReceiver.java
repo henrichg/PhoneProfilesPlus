@@ -46,7 +46,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
             PPApplicationStatic.recordException(e);
         }
 
-        PPApplicationStatic.cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK, false);
+        PPApplicationStatic.cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_WORK_TAG, false);
     }
 
     static void setAlarm(Context context)
@@ -58,7 +58,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
             interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / LocationScanner.INTERVAL_DIVIDE_VALUE; // interval is in minutes
         int delay = interval + 10; // interval from settings + 10 seconds;
 
-        if (!LocationScanner.useGPS)
+        if (!PPApplication.locationScannerUseGPS)
             delay = 30 * 60;  // 30 minutes with GPS OFF
 
         if (!PPApplicationStatic.isIgnoreBatteryOptimizationEnabled(context)) {
@@ -86,9 +86,12 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
             /*int keepResultsDelay = delay * 5;
             if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                 keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
+
+//                PPApplicationStatic.logE("[MAIN_WORKER_CALL] LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "xxxxxxxxxxxxxxxxxxxx");
+
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
-                                .addTag(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK)
+                                .addTag(MainWorker.LOCATION_SCANNER_SWITCH_GPS_WORK_TAG)
                                 .setInitialDelay(delay, TimeUnit.SECONDS)
                                 .build();
                 try {
@@ -105,7 +108,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 //                        //}
 
 //                            PPApplicationStatic.logE("[WORKER_CALL] LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "xxx");
-                            workManager.enqueueUniqueWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                            workManager.enqueueUniqueWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                         }
                     }
                 } catch (Exception e) {
@@ -138,12 +141,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 
                     long alarmTime = SystemClock.elapsedRealtime() + delay * 1000L;
 
-                    //if (android.os.Build.VERSION.SDK_INT >= 23)
-                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    //else
-                    //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                 }
             }
         }
@@ -164,14 +162,14 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LocationScannerSwitchGPSBroadcastReceiver_doWork");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_LocationScannerSwitchGPSBroadcastReceiver_doWork);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
                     synchronized (PPApplication.locationScannerMutex) {
                         if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
 
-                            if (LocationScanner.mUpdatesStarted) {
+                            if (PPApplication.locationScannerUpdatesStarted) {
 //                              if (LocationScanner.useGPS) {
 //                                  if (PPApplication.googlePlayServiceAvailable) {
 //                                      locationScanner.flushLocations();
@@ -186,10 +184,10 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                                 if (ApplicationPreferences.applicationEventLocationUseGPS &&
                                         (!CheckOnlineStatusBroadcastReceiver.isOnline(appContext)))
                                     // force useGPS
-                                    LocationScanner.useGPS = true;
+                                    PPApplication.locationScannerUseGPS = true;
                                 else {
-                                    boolean useGPS = LocationScanner.useGPS;
-                                    LocationScanner.useGPS = !useGPS;
+                                    boolean useGPS = PPApplication.locationScannerUseGPS;
+                                    PPApplication.locationScannerUseGPS = !useGPS;
                                 }
 
                                 // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()

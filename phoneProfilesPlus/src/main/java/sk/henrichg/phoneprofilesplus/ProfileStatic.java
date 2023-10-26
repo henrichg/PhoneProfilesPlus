@@ -25,10 +25,10 @@ class ProfileStatic {
     {
         String value;
         try {
-            String[] splits = icon.split("\\|");
+            String[] splits = icon.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[0];
         } catch (Exception e) {
-            value = "ic_profile_default";
+            value = StringConstants.PROFILE_ICON_DEFAULT;
         }
         return value;
     }
@@ -38,7 +38,7 @@ class ProfileStatic {
     {
         boolean value;
         try {
-            String[] splits = icon.split("\\|");
+            String[] splits = icon.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[1].equals("1");
 
         } catch (Exception e) {
@@ -51,7 +51,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = volume.split("\\|");
+            String[] splits = volume.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -63,7 +63,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = volume.split("\\|");
+            String[] splits = volume.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -77,7 +77,7 @@ class ProfileStatic {
         int defaultValue = 50;
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
             if ((value < 0) || (value > maximumValue))
                 value = defaultValue;
@@ -92,7 +92,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -105,7 +105,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 1;
@@ -117,7 +117,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[4]);
         } catch (Exception e) {
             value = 1;
@@ -168,120 +168,6 @@ class ProfileStatic {
         */
 //    }
 
-    ////// from AOSP and changed for PPP
-//    private static final int GAMMA_SPACE_MAX_256 = 1023;
-    //private static final int GAMMA_SPACE_MAX_1024 = 4095;
-
-    // Hybrid Log Gamma constant values
-//    private static final float _R = 0.5f;
-//    private static final float _A = 0.17883277f;
-//    private static final float _B = 0.28466892f;
-//    private static final float _C = 0.55991073f;
-
-    /*
-        private static float convertLinearToGamma(float val, float min, float max) {
-            // For some reason, HLG normalizes to the range [0, 12] rather than [0, 1]
-            final float normalizedVal = MathUtils.norm(min, max, val) * 12;
-            final float ret;
-            if (normalizedVal <= 1f) {
-                ret = MathUtils.sqrt(normalizedVal) * _R;
-            } else {
-                ret = _A * MathUtils.log(normalizedVal - _B) + _C;
-            }
-            //int spaceMax = GAMMA_SPACE_MAX_256;
-            //if (PPApplication.romIsOnePlus)
-            //    spaceMax = GAMMA_SPACE_MAX_1024;
-            //return Math.round(MathUtils.lerp(0, GAMMA_SPACE_MAX_256, ret));
-            return MathUtils.lerp(0, GAMMA_SPACE_MAX_256, ret);
-        }
-
-        private static float convertGammaToLinear(float val, float min, float max) {
-            //int spaceMax = GAMMA_SPACE_MAX_256;
-            //if (PPApplication.romIsOnePlus)
-            //    spaceMax = GAMMA_SPACE_MAX_1024;
-            final float normalizedVal = MathUtils.norm(0, GAMMA_SPACE_MAX_256, val);
-            final float ret;
-            if (normalizedVal <= _R) {
-                ret = MathUtils.sq(normalizedVal / _R);
-            } else {
-                ret = MathUtils.exp((normalizedVal - _C) / _A) + _B;
-            }
-            // HLG is normalized to the range [0, 12], so we need to re-normalize to the range [0, 1]
-            // in order to derive the correct setting value.
-            //return Math.round(MathUtils.lerp(min, max, ret / 12));
-            return MathUtils.lerp(min, max, ret / 12);
-        }
-
-        private static float getPercentage(float value, float min, float max) {
-            if (value > max) {
-                return 1.0f;
-            }
-            if (value < min) {
-                return 0.0f;
-            }
-            //return ((float)value - min) / (max - min);
-            return (value - min) / (max - min);
-        }
-    */
-
-    // used only in convertBrightnessToPercents(), is only for manual brightness
-    private static int getBrightnessPercentageWithLookup(int settingsValue/*, int minValue, int maxValue*/) {
-        /*final float value;
-        float _settingsValue = settingsValue;
-        if (PPApplication.romIsOnePlus)
-            _settingsValue = settingsValue / 4; // convert from 1024 to 256
-
-        value = convertLinearToGamma(_settingsValue, minValue, maxValue);
-        //int spaceMax = GAMMA_SPACE_MAX_256;
-        //if (PPApplication.romIsOnePlus)
-        //    spaceMax = GAMMA_SPACE_MAX_1024;
-        int percentage = Math.round(getPercentage(value, 0, GAMMA_SPACE_MAX_256) * 100);*/
-
-        int _settingsValue = settingsValue;
-        if (PPApplication.deviceIsOnePlus) {
-            if (Build.VERSION.SDK_INT < 31)
-                _settingsValue = Math.round(settingsValue / 4f); // convert from 1024 to 256
-            else
-                _settingsValue = Math.round(settingsValue / 32f); // convert from 8192 to 256
-        }
-        else
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
-            _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
-        return BrightnessLookup.lookup(_settingsValue, true);
-    }
-
-    private static int getBrightnessManualValueWithLookup(int percentage/*, int minValue, int maxValue*/) {
-        //int spaceMax = GAMMA_SPACE_MAX_256;
-        //if (PPApplication.romIsOnePlus)
-        //    spaceMax = GAMMA_SPACE_MAX_1024;
-        //int value = Math.round((GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1));
-        /*float value = (GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1);
-        float systemValue = convertGammaToLinear(value, minValue, maxValue);
-        if (PPApplication.romIsOnePlus)
-            systemValue = systemValue * 4; // convert from 256 to 1024
-
-        int maximumValue = 255;
-        if (PPApplication.romIsOnePlus)
-            maximumValue = 1023;
-        if (systemValue > maximumValue)
-            systemValue = maximumValue;*/
-
-        int systemValue = BrightnessLookup.lookup(percentage, false);
-        if (PPApplication.deviceIsOnePlus) {
-            if (Build.VERSION.SDK_INT < 31)
-                systemValue = systemValue * 4; // convert from 256 to 1024
-
-            // for OnePlus widh Android 12+ is max value 255
-            //else
-            //    systemValue = systemValue;
-        }
-        else
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
-            systemValue = systemValue * 16; // convert from 256 to 4096
-
-        return Math.round(systemValue);
-    }
-
     /*
     private static int getBrightnessAdaptiveValueWithLookup(int percentage) {
         //int spaceMax = GAMMA_SPACE_MAX_256;
@@ -314,7 +200,20 @@ class ProfileStatic {
     }
     */
 
-    ///////////////
+    // used only in convertBrightnessToPercents(), is only for manual brightness
+    private static int getBrightnessPercentageWithLookup(int settingsValue/*, int minValue, int maxValue*/) {
+        int _settingsValue = settingsValue;
+        if (PPApplication.deviceIsOnePlus) {
+            if (Build.VERSION.SDK_INT < 31)
+                _settingsValue = Math.round(settingsValue / 4f); // convert from 1024 to 256
+            else
+                _settingsValue = Math.round(settingsValue / 32f); // convert from 8192 to 256
+        }
+        else
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
+            _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
+        return BrightnessLookup.lookup(_settingsValue, true);
+    }
 
     // tbis is called only from DatabaseHandlerCreateUpdateDB.updateDB for oldVersion < 1165
     // Used is only for manual brightness.
@@ -334,7 +233,7 @@ class ProfileStatic {
                 percentage = getBrightnessPercentageWithLookup(value/*, minValue, maxValue*/);
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
+            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains(PPApplication.MODEL_NEXUS)) {// Nexus may be LG, Samsung, Huawei, ...
                 percentage = getBrightnessPercentageWithLookup(value/*, minValue, maxValue*/);
             }
             else
@@ -366,6 +265,34 @@ class ProfileStatic {
         return percentage;
     }
 
+    ////////////////
+
+    private static int getBrightnessManualValueWithLookup(int percentage/*, int minValue, int maxValue*/) {
+        //int systemValue = BrightnessLookup.convertGammaToLinear(percentage, 0, 255);
+        /*
+        int value = Math.round(percentage / 100f * maxValue);
+        float _systemValue = PPMathUtils.min(
+                BrightnessLookup.convertGammaToLinearFloat(value, minValue, maxValue),
+                maxValue);
+        Log.e("ProfileStatic.getBrightnessManualValueWithLookup", "systemValue 1="+_systemValue);
+        //_systemValue = _systemValue * (maxValue / 2f);
+        //Log.e("ProfileStatic.getBrightnessManualValueWithLookup", "systemValue 2="+_systemValue);
+        */
+
+        // systemValue is in range 0..255
+        int systemValue = BrightnessLookup.lookup(percentage, false);
+
+        if (PPApplication.deviceIsOnePlus) {
+            if (Build.VERSION.SDK_INT < 31)
+                systemValue = systemValue * 4; // convert from 256 to 1024
+        }
+        else
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
+            systemValue = systemValue * 16; // convert from 256 to 4096
+
+        return Math.round(systemValue);
+    }
+
     static int convertPercentsToBrightnessManualValue(int percentage, Context context)
     {
         int maximumValue;// = getMaximumScreenBrightnessSetting();
@@ -379,7 +306,7 @@ class ProfileStatic {
         if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 31))
             maximumValue = 1023;
         else
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI /*&& (Build.VERSION.SDK_INT >= 28)*/)
             maximumValue = 4095;
         //}
 
@@ -392,9 +319,9 @@ class ProfileStatic {
             // for OnePlus widh Android 12+ is max value 255
             if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 31))
                 defaultValue = 512;
-            else
-            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT == 28))
-                defaultValue = 2048;
+            //else
+            //if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT == 28))
+            //    defaultValue = 2048;
             else
             if ((Build.VERSION.SDK_INT > 28) &&
                     (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) &&
@@ -404,7 +331,7 @@ class ProfileStatic {
                 defaultValue = getBrightnessManualValueWithLookup(50/*, minimumValue, maximumValue*/);
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
+            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains(PPApplication.MODEL_NEXUS)) {// Nexus may be LG, Samsung, Huawei, ...
                 defaultValue = getBrightnessManualValueWithLookup(50/*, minimumValue, maximumValue*/);
             }
             else
@@ -425,7 +352,7 @@ class ProfileStatic {
                 value = getBrightnessManualValueWithLookup(percentage/*, minimumValue, maximumValue*/);
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
+            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains(PPApplication.MODEL_NEXUS)) {// Nexus may be LG, Samsung, Huawei, ...
                 value = getBrightnessManualValueWithLookup(percentage/*, minimumValue, maximumValue*/);
             }
             else
@@ -511,7 +438,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -524,7 +451,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -532,11 +459,35 @@ class ProfileStatic {
         return value;
     }
 
+    static boolean getGenerateNotificationShowLargeIcon(String _generateNotification)
+    {
+        int value;
+        try {
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
+            value = Integer.parseInt(splits[4]);
+        } catch (Exception e) {
+            value = 0;
+        }
+        return value == 1;
+    }
+
+    static boolean getGenerateNotificationReplaceWithPPPIcon(String _generateNotification)
+    {
+        int value;
+        try {
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
+            value = Integer.parseInt(splits[5]);
+        } catch (Exception e) {
+            value = 0;
+        }
+        return value == 1;
+    }
+
     static String getGenerateNotificationTitle(String _generateNotification)
     {
         String value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[2];
         } catch (Exception e) {
             value = "";
@@ -548,7 +499,7 @@ class ProfileStatic {
     {
         String value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[3];
         } catch (Exception e) {
             value = "";
@@ -564,7 +515,7 @@ class ProfileStatic {
                 //(preference.prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 //== Configuration.UI_MODE_NIGHT_YES;
                 String applicationTheme = ApplicationPreferences.applicationTheme(preference.prefContext, true);
-                boolean nightModeOn = !applicationTheme.equals("white");
+                boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
 
                 if (nightModeOn) {
                     int iconColor;
@@ -618,7 +569,7 @@ class ProfileStatic {
                 return entry.getKey().toString();
             }
         }
-        return "ic_profile_default";
+        return StringConstants.PROFILE_ICON_DEFAULT;
     }
 
     static int getIconDefaultColor(String imageIdentifier/*, Context context*/) {
@@ -718,14 +669,14 @@ class ProfileStatic {
                     profile._hideStatusBarIcon,
                     profile._lockDevice,
                     profile._deviceConnectToSSID,
-                    profile._applicationDisableWifiScanning,
-                    profile._applicationDisableBluetoothScanning,
+                    profile._applicationEnableWifiScanning,
+                    profile._applicationEnableBluetoothScanning,
                     profile._durationNotificationSound,
                     profile._durationNotificationVibrate,
                     profile._deviceWiFiAPPrefs,
-                    profile._applicationDisableLocationScanning,
-                    profile._applicationDisableMobileCellScanning,
-                    profile._applicationDisableOrientationScanning,
+                    profile._applicationEnableLocationScanning,
+                    profile._applicationEnableMobileCellScanning,
+                    profile._applicationEnableOrientationScanning,
                     profile._headsUpNotifications,
                     profile._deviceForceStopApplicationChange,
                     profile._deviceForceStopApplicationPackageName,
@@ -743,13 +694,13 @@ class ProfileStatic {
                     profile._screenOnPermanent,
                     profile._volumeMuteSound,
                     profile._deviceLocationMode,
-                    profile._applicationDisableNotificationScanning,
+                    profile._applicationEnableNotificationScanning,
                     profile._generateNotification,
                     profile._cameraFlash,
                     profile._deviceNetworkTypeSIM1,
                     profile._deviceNetworkTypeSIM2,
-                    profile._deviceMobileDataSIM1,
-                    profile._deviceMobileDataSIM2,
+                    //profile._deviceMobileDataSIM1,
+                    //profile._deviceMobileDataSIM2,
                     profile._deviceDefaultSIMCards,
                     profile._deviceOnOffSIM1,
                     profile._deviceOnOffSIM2,
@@ -769,11 +720,18 @@ class ProfileStatic {
                     profile._deviceVPNSettingsPrefs,
                     profile._endOfActivationType,
                     profile._endOfActivationTime,
-                    profile._applicationDisablePeriodicScanning,
+                    profile._applicationEnablePeriodicScanning,
                     profile._deviceVPN,
                     profile._vibrationIntensityRinging,
                     profile._vibrationIntensityNotifications,
-                    profile._vibrationIntensityTouchInteraction
+                    profile._vibrationIntensityTouchInteraction,
+                    profile._volumeMediaChangeDuringPlay,
+                    profile._applicationWifiScanInterval,
+                    profile._applicationBluetoothScanInterval,
+                    profile._applicationBluetoothLEScanDuration,
+                    profile._applicationLocationScanInterval,
+                    profile._applicationOrientationScanInterval,
+                    profile._applicationPeriodicScanInterval
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -848,18 +806,18 @@ class ProfileStatic {
                 mappedProfile._lockDevice = 0;
             if ((profile._deviceConnectToSSID != null) && (profile._deviceConnectToSSID.equals(CONNECTTOSSID_SHAREDPROFILE)))
                 mappedProfile._deviceConnectToSSID = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID);
-            if (profile._applicationDisableWifiScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableWifiScanning = 0;
-            if (profile._applicationDisableBluetoothScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableBluetoothScanning = 0;
+            if (profile._applicationEnableWifiScanning == SHARED_PROFILE_VALUE)
+                mappedProfile._applicationEnableWifiScanning = 0;
+            if (profile._applicationEnableBluetoothScanning == SHARED_PROFILE_VALUE)
+                mappedProfile._applicationEnableBluetoothScanning = 0;
             if (profile._deviceWiFiAPPrefs == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceWiFiAPPrefs = 0;
-            if (profile._applicationDisableLocationScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableLocationScanning = 0;
-            if (profile._applicationDisableMobileCellScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableMobileCellScanning = 0;
-            if (profile._applicationDisableOrientationScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableOrientationScanning = 0;
+            if (profile._applicationEnableLocationScanning == SHARED_PROFILE_VALUE)
+                mappedProfile._applicationEnableLocationScanning = 0;
+            if (profile._applicationEnableMobileCellScanning == SHARED_PROFILE_VALUE)
+                mappedProfile._applicationEnableMobileCellScanning = 0;
+            if (profile._applicationEnableOrientationScanning == SHARED_PROFILE_VALUE)
+                mappedProfile._applicationEnableOrientationScanning = 0;
             if (profile._headsUpNotifications == SHARED_PROFILE_VALUE)
                 mappedProfile._headsUpNotifications = 0;
             if (profile._deviceForceStopApplicationChange == SHARED_PROFILE_VALUE)
@@ -886,8 +844,8 @@ class ProfileStatic {
                 mappedProfile._screenOnPermanent = 0;
             if (profile._deviceLocationMode == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceLocationMode = 0;
-            if (profile._applicationDisableNotificationScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableNotificationScanning = 0;
+            if (profile._applicationEnableNotificationScanning == SHARED_PROFILE_VALUE)
+                mappedProfile._applicationEnableNotificationScanning = 0;
             if (profile.getGenerateNotificationSharedProfile())
                 mappedProfile._generateNotification = Profile.defaultValuesString.get(Profile.PREF_PROFILE_GENERATE_NOTIFICATION);
             if (profile._cameraFlash == SHARED_PROFILE_VALUE)
@@ -896,10 +854,10 @@ class ProfileStatic {
                 mappedProfile._deviceNetworkTypeSIM1 = 0;
             if (profile._deviceNetworkTypeSIM2 == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceNetworkTypeSIM2 = 0;
-            if (profile._deviceMobileDataSIM1 == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceMobileDataSIM1 = 0;
-            if (profile._deviceMobileDataSIM2 == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceMobileDataSIM2 = 0;
+            //if (profile._deviceMobileDataSIM1 == SHARED_PROFILE_VALUE)
+            //    mappedProfile._deviceMobileDataSIM1 = 0;
+            //if (profile._deviceMobileDataSIM2 == SHARED_PROFILE_VALUE)
+            //    mappedProfile._deviceMobileDataSIM2 = 0;
             // !!! do not add other profile aprameters. Shared profile is never used !!!
 
             mappedProfile._iconBitmap = profile._iconBitmap;
@@ -915,7 +873,7 @@ class ProfileStatic {
                                                         SharedPreferences sharedPreferences,
                                                         boolean fromUIThread, Context context) {
         if ((profile != null) && (!preferenceKey.equals("-")) && (sharedPreferences == null)) {
-            sharedPreferences = context.getApplicationContext().getSharedPreferences("temp_isProfilePreferenceAllowed", Context.MODE_PRIVATE);
+            sharedPreferences = context.getApplicationContext().getSharedPreferences(PPApplication.TMP_SHARED_PREFS_IS_PROFILE_PREFERENCE_ALLOWED, Context.MODE_PRIVATE);
             profile.saveProfileToSharedPreferences(sharedPreferences);
             profile = null;
         }
@@ -934,18 +892,18 @@ class ProfileStatic {
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_WIFI:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed, null, sharedPreferences, fromUIThread);
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed, null, sharedPreferences/*, fromUIThread*/);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_BLUETOOTH:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_BLUETOOTH(preferenceAllowed);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA(preferenceAllowed, preferenceKey, null, sharedPreferences, /*fromUIThread,*/ context);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1:
-                case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
-                    break;
+                //case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1:
+                //case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2:
+                //    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
+                //    break;
                 case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS(preferenceAllowed);
                     break;
@@ -956,7 +914,7 @@ class ProfileStatic {
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE(preferenceAllowed, null, context);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_NFC:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC(preferenceAllowed, null, sharedPreferences, /*fromUIThread,*/ context);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_WIFI_AP:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
@@ -999,19 +957,19 @@ class ProfileStatic {
                 case Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_CONNECT_TO_SSID(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING:
+                case Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING:
+                case Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING(preferenceAllowed);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP_PREFS(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING:
+                case Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING:
+                case Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING(preferenceAllowed);
                     break;
                 case Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS:
@@ -1033,7 +991,7 @@ class ProfileStatic {
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_SPEAKER_PHONE(preferenceAllowed, context);
                     break;
                 case Profile.PREF_PROFILE_CAMERA_FLASH:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(preferenceAllowed, context);
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(preferenceAllowed/*, context*/);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
@@ -1066,14 +1024,14 @@ class ProfileStatic {
             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed, profile, sharedPreferences, fromUIThread);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed, profile, sharedPreferences/*, fromUIThread*/);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_BLUETOOTH(preferenceAllowed);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA(preferenceAllowed, "-", profile, sharedPreferences, /*fromUIThread,*/ context);
+            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS(preferenceAllowed);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_GPS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE(preferenceAllowed, profile, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC(preferenceAllowed, profile, sharedPreferences, /*fromUIThread,*/ context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
@@ -1136,7 +1094,7 @@ class ProfileStatic {
     {
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.prefActivatedProfileEndDurationTime = ApplicationPreferences.
-                    getSharedPreferences(context).getLong(Profile.PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
+                    getSharedPreferences(context).getLong(ApplicationPreferences.PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
             //return prefActivatedProfileEndDurationTime;
         }
     }
@@ -1145,7 +1103,7 @@ class ProfileStatic {
     {
         synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putLong(Profile.PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
+            editor.putLong(ApplicationPreferences.PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
             editor.apply();
             ApplicationPreferences.prefActivatedProfileEndDurationTime = time;
         }
@@ -1169,7 +1127,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = sValue.split("\\|");
+            String[] splits = sValue.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -1181,7 +1139,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = sValue.split("\\|");
+            String[] splits = sValue.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -1196,10 +1154,65 @@ class ProfileStatic {
         Preference preference = prefMng.findPreference(preferenceKey);
         if ((preference != null) && preference.isEnabled()) {
             int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
-            String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-            return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, preferenceValue);
+            String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
+            return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, preferenceValue);
         } else
             return preferenceValue;
+    }
+
+    static boolean isRedTextNotificationRequired(Profile profile, boolean againCheckAccessibilityInDelay, Context context) {
+        boolean grantedAllPermissions = Permissions.checkProfilePermissions(context, profile).size() == 0;
+        /*if (Build.VERSION.SDK_INT >= 29) {
+            if (!Settings.canDrawOverlays(context))
+                grantedAllPermissions = false;
+        }*/
+        // test only root or G1 parameters, because key is not set but profile is
+        PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed("-", profile, null, true, context);
+        boolean grantedRoot = true;
+        //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+        if (preferenceAllowed.notAllowedRoot) {
+            if (!ApplicationPreferences.applicationNeverAskForGrantRoot)
+                //if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED))
+                grantedRoot = false;
+        }
+        //preferenceAllowed = Profile.isProfilePreferenceAllowed("-", profile, null, false, true, true, context);
+        boolean grantedG1Permission = true;
+        if (preferenceAllowed.notAllowedG1) {
+            //if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
+            grantedG1Permission = false;
+        }
+
+        boolean installedPPPPS = true;
+        if (preferenceAllowed.notAllowedPPPPS) {
+            installedPPPPS = false;
+        }
+
+        boolean enabledNotificationAccess = /*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context);
+
+        boolean accessibilityNotRequired = true;
+        if ((profile != null) && ((profile._lockDevice == 3) || (profile._deviceForceStopApplicationChange != 0)))
+            accessibilityNotRequired = false;
+        boolean accessibilityEnabled = accessibilityNotRequired || (profile.isAccessibilityServiceEnabled(context.getApplicationContext(), againCheckAccessibilityInDelay) == 1);
+
+        boolean defaultAssistantNotRequired = true;
+        if ((profile != null) && (profile._deviceAirplaneMode >= 4))
+            defaultAssistantNotRequired = false;
+        boolean defaultAssistantEnabled = defaultAssistantNotRequired || (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context.getApplicationContext()));
+
+        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            return (!grantedAllPermissions) ||
+                    (!enabledNotificationAccess) ||
+                    (!accessibilityEnabled) ||
+                    (!defaultAssistantEnabled)  ||
+                    (!installedPPPPS);
+        else
+            return (!grantedAllPermissions) ||
+                    (!grantedRoot) ||
+                    (!grantedG1Permission) ||
+                    (!enabledNotificationAccess) ||
+                    (!accessibilityEnabled) ||
+                    (!defaultAssistantEnabled)  ||
+                    (!installedPPPPS);
     }
 
 }
