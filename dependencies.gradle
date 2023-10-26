@@ -30,11 +30,11 @@
 // 6800 = removed widgets parameter "Rounded corners", Force set rounded corners = true, radius = 1.
 // 6920 = enabled PPP notification decorator for Pixel (Android 12+) and OneUI 5 (Samsung Galaxy).
 // 6960 = Increased default value for "Bluetooth LE scan duration".
-// 7050 = Convered old contacts data format in sensors to new format
+// 7065 = Convered old contacts data format in sensors to new format
 
 ext.ppVersions = [
-        publishVersion    : '6.3',
-        publishVersionCode: 7050,
+        publishVersion    : '6.3.0.1',
+        publishVersionCode: 7065,
 
         minSdk            : 26,
         targetSdk         : 28,

@@ -1479,16 +1479,17 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                if (actualVersionCode <= 7050) {
+                /*
+                if (actualVersionCode <= 7060) {
                     List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
 
                     // convert old contacts data to new
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache == null) {
-                        PPApplicationStatic.createContactsCache(appContext, false/*, false*//*, true*/);
+                        PPApplicationStatic.createContactsCache(appContext, false);
                         contactsCache = PPApplicationStatic.getContactsCache();
                     }
-                    List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
+                    List<Contact> contactList = contactsCache.getList();
                     if (contactList != null) {
                         for (Event event : eventList) {
                             boolean dataChanged = false;
@@ -1496,17 +1497,21 @@ public class PhoneProfilesService extends Service
                             if (!event._eventPreferencesCall._contacts.isEmpty()) {
                                 String[] splits = event._eventPreferencesCall._contacts.split(StringConstants.STR_SPLIT_REGEX);
                                 String _split = splits[0];
-                                String[] _splits2 = _split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                String[] _splits2 = _split.split("#");
                                 boolean oldData = false;
                                 try {
+//                                    if (event._name.equals("Белый лист"))
+//                                        Log.e("PhoneProfilesService.doForPackageReplaced", "_splits2[0]="+_splits2[0]);
                                     //noinspection unused
                                     long l = Long.parseLong(_splits2[0]);
                                     oldData = true;
                                 } catch (Exception ignored) {}
+//                                if (event._name.equals("Белый лист"))
+//                                    Log.e("PhoneProfilesService.doForPackageReplaced", "oldData="+oldData);
                                 if (oldData) {
                                     StringBuilder newContacts = new StringBuilder();
                                     for (String split : splits) {
-                                        String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                        String[] splits2 = split.split("#");
                                         long contactId = Long.parseLong(splits2[0]);
                                         long phoneId = Long.parseLong(splits2[1]);
 
@@ -1540,7 +1545,7 @@ public class PhoneProfilesService extends Service
                             if (!event._eventPreferencesSMS._contacts.isEmpty()) {
                                 String[] splits = event._eventPreferencesSMS._contacts.split(StringConstants.STR_SPLIT_REGEX);
                                 String _split = splits[0];
-                                String[] _splits2 = _split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                String[] _splits2 = _split.split("#");
                                 boolean oldData = false;
                                 try {
                                     //noinspection unused
@@ -1551,7 +1556,7 @@ public class PhoneProfilesService extends Service
                                 if (oldData) {
                                     StringBuilder newContacts = new StringBuilder();
                                     for (String split : splits) {
-                                        String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                        String[] splits2 = split.split("#");
                                         if (splits2.length != 3) {
                                             // old data
                                             splits2 = split.split("#");
@@ -1591,7 +1596,7 @@ public class PhoneProfilesService extends Service
                             if (!event._eventPreferencesNotification._contacts.isEmpty()) {
                                 String[] splits = event._eventPreferencesNotification._contacts.split(StringConstants.STR_SPLIT_REGEX);
                                 String _split = splits[0];
-                                String[] _splits2 = _split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                String[] _splits2 = _split.split("#");
                                 boolean oldData = false;
                                 try {
                                     //noinspection unused
@@ -1602,7 +1607,7 @@ public class PhoneProfilesService extends Service
                                 if (oldData) {
                                     StringBuilder newContacts = new StringBuilder();
                                     for (String split : splits) {
-                                        String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                        String[] splits2 = split.split("#");
                                         if (splits2.length != 3) {
                                             // old data
                                             splits2 = split.split("#");
@@ -1646,6 +1651,7 @@ public class PhoneProfilesService extends Service
                     }
 
                 }
+                */
 
             }
 
