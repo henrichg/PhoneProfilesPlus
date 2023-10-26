@@ -2749,7 +2749,7 @@ class PPApplicationStatic {
 
     // contacts and contact groups cache -----------------
 
-    static void createContactsCache(Context context, boolean clear/*, boolean fixEvents*//*, boolean forceCache*/)
+    static void createContactsCache(Context context, boolean clear, boolean fixEvents/*, boolean forceCache*/)
     {
         if (clear) {
             if (PPApplication.contactsCache != null)
@@ -2757,7 +2757,7 @@ class PPApplicationStatic {
         }
         if (PPApplication.contactsCache == null)
             PPApplication.contactsCache = new ContactsCache();
-        PPApplication.contactsCache.getContactList(context/*, fixEvents*//*, forceCache*/);
+        PPApplication.contactsCache.getContactList(context, fixEvents/*, forceCache*/);
     }
 
     static ContactsCache getContactsCache()

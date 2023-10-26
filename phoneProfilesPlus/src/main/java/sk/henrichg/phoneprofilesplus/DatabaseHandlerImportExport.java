@@ -705,12 +705,20 @@ class DatabaseHandlerImportExport {
         }
 
         // convert contacts data to new format
+        boolean contactsConverted = false;
+//        Log.e("DatabaseHandlerImportExport.afterImportDb", "(1) convert contacts data to new format");
         ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+//        Log.e("DatabaseHandlerImportExport.afterImportDb", "(1.1) convert contacts data to new format");
         if (contactsCache == null) {
-            PPApplicationStatic.createContactsCache(instance.context, false/*, false*//*, true*/);
+//            Log.e("DatabaseHandlerImportExport.afterImportDb", "(1.2) convert contacts data to new format");
+            PPApplicationStatic.createContactsCache(instance.context, false, false);
+//            Log.e("DatabaseHandlerImportExport.afterImportDb", "(1.3) convert contacts data to new format");
             contactsCache = PPApplicationStatic.getContactsCache();
+//            Log.e("DatabaseHandlerImportExport.afterImportDb", "(1.4) convert contacts data to new format");
         }
+//        Log.e("DatabaseHandlerImportExport.afterImportDb", "(2) convert contacts data to new format");
         List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
+//        Log.e("DatabaseHandlerImportExport.afterImportDb", "(3) convert contacts data to new format");
         if (contactList != null) {
             try {
                 cursorImportDB = db.rawQuery("SELECT " +
@@ -723,6 +731,7 @@ class DatabaseHandlerImportExport {
                 if (cursorImportDB.moveToFirst()) {
                     do {
                         long eventId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "event="+eventId);
 
                         boolean dataChanged = false;
                         ContentValues values = new ContentValues();
@@ -734,7 +743,7 @@ class DatabaseHandlerImportExport {
                         if (!callContacts.isEmpty()) {
                             String[] splits = callContacts.split(StringConstants.STR_SPLIT_REGEX);
                             String _split = splits[0];
-                            String[] _splits2 = _split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                            String[] _splits2 = _split.split("#");
                             boolean oldData = false;
                             try {
                                 //noinspection unused
@@ -744,7 +753,7 @@ class DatabaseHandlerImportExport {
                             if (oldData) {
                                 StringBuilder newContacts = new StringBuilder();
                                 for (String split : splits) {
-                                    String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                    String[] splits2 = split.split("#");
                                     long contactId = Long.parseLong(splits2[0]);
                                     long phoneId = Long.parseLong(splits2[1]);
 
@@ -779,7 +788,7 @@ class DatabaseHandlerImportExport {
                         if (!smsContacts.isEmpty()) {
                             String[] splits = smsContacts.split(StringConstants.STR_SPLIT_REGEX);
                             String _split = splits[0];
-                            String[] _splits2 = _split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                            String[] _splits2 = _split.split("#");
                             boolean oldData = false;
                             try {
                                 //noinspection unused
@@ -790,7 +799,7 @@ class DatabaseHandlerImportExport {
                             if (oldData) {
                                 StringBuilder newContacts = new StringBuilder();
                                 for (String split : splits) {
-                                    String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                    String[] splits2 = split.split("#");
                                     if (splits2.length != 3) {
                                         // old data
                                         splits2 = split.split("#");
@@ -831,7 +840,7 @@ class DatabaseHandlerImportExport {
                         if (!notificationContacts.isEmpty()) {
                             String[] splits = notificationContacts.split(StringConstants.STR_SPLIT_REGEX);
                             String _split = splits[0];
-                            String[] _splits2 = _split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                            String[] _splits2 = _split.split("#");
                             boolean oldData = false;
                             try {
                                 //noinspection unused
@@ -842,7 +851,7 @@ class DatabaseHandlerImportExport {
                             if (oldData) {
                                 StringBuilder newContacts = new StringBuilder();
                                 for (String split : splits) {
-                                    String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                    String[] splits2 = split.split("#");
                                     if (splits2.length != 3) {
                                         // old data
                                         splits2 = split.split("#");
@@ -880,9 +889,11 @@ class DatabaseHandlerImportExport {
                             }
                         }
 
-                        if (dataChanged)
+                        if (dataChanged) {
                             db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_ID + " = ?",
                                     new String[]{String.valueOf(eventId)});
+                            contactsConverted = true;
+                        }
 
                     } while (cursorImportDB.moveToNext());
                 }
@@ -893,70 +904,73 @@ class DatabaseHandlerImportExport {
             }
         }
 
-        // decript contacts
-        boolean applicationContactsInBackupEncripted =
-                ApplicationPreferences.getSharedPreferences(instance.context)
-                        .getBoolean(ApplicationPreferences.PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED,
-                                false);
+        if (!contactsConverted) {
+            // decript contacts
+            boolean applicationContactsInBackupEncripted =
+                    ApplicationPreferences.getSharedPreferences(instance.context)
+                            .getBoolean(ApplicationPreferences.PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED,
+                                    false);
 //        Log.e("DatabaseHandlerImportExport.afterImportDb", "applicationContactsInBackupEncripted="+applicationContactsInBackupEncripted);
-        if (applicationContactsInBackupEncripted) {
-            try {
-                Encryption encryption = Encryption.getDefault(BuildConfig.encrypt_contacts_key, BuildConfig.encrypt_contacts_salt, new byte[16]);
+            if (applicationContactsInBackupEncripted) {
+                try {
+                    Encryption encryption = Encryption.getDefault(BuildConfig.encrypt_contacts_key, BuildConfig.encrypt_contacts_salt, new byte[16]);
 
-                cursorImportDB = db.rawQuery("SELECT " +
-                        DatabaseHandler.KEY_E_ID + "," +
-                        DatabaseHandler.KEY_E_CALL_CONTACTS + "," +
-                        DatabaseHandler.KEY_E_SMS_CONTACTS + "," +
-                        DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS +
-                        " FROM " + DatabaseHandler.TABLE_EVENTS, null);
+                    cursorImportDB = db.rawQuery("SELECT " +
+                            DatabaseHandler.KEY_E_ID + "," +
+                            DatabaseHandler.KEY_E_CALL_CONTACTS + "," +
+                            DatabaseHandler.KEY_E_SMS_CONTACTS + "," +
+                            DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS +
+                            " FROM " + DatabaseHandler.TABLE_EVENTS, null);
 
-                if (cursorImportDB.moveToFirst()) {
-                    do {
-                        long eventId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+                    if (cursorImportDB.moveToFirst()) {
+                        do {
+                            long eventId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
 
-                        String callContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTACTS));
-                        String smsContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_CONTACTS));
-                        String notificationContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS));
+                            String callContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTACTS));
+                            String smsContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_CONTACTS));
+                            String notificationContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS));
 
-                        String decryptedCallContacts;
-                        try {
-                            decryptedCallContacts = encryption.decryptOrNull(callContacts);
-                        } catch (Exception e) {
-                            decryptedCallContacts = "";
-                        }
-                        String decryptedSMSContacts;
-                        try {
-                            decryptedSMSContacts = encryption.decryptOrNull(smsContacts);
-                        } catch (Exception e) {
-                            decryptedSMSContacts = "";
-                        }
-                        String decryptedNotificationContacts;
-                        try {
-                            decryptedNotificationContacts = encryption.decryptOrNull(notificationContacts);
-                        } catch (Exception e) {
-                            decryptedNotificationContacts = "";
-                        }
+                            String decryptedCallContacts;
+                            try {
+                                decryptedCallContacts = encryption.decryptOrNull(callContacts);
+                            } catch (Exception e) {
+                                decryptedCallContacts = "";
+                            }
+                            String decryptedSMSContacts;
+                            try {
+                                decryptedSMSContacts = encryption.decryptOrNull(smsContacts);
+                            } catch (Exception e) {
+                                decryptedSMSContacts = "";
+                            }
+                            String decryptedNotificationContacts;
+                            try {
+                                decryptedNotificationContacts = encryption.decryptOrNull(notificationContacts);
+                            } catch (Exception e) {
+                                decryptedNotificationContacts = "";
+                            }
 //                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedCallContacts="+decryptedCallContacts);
 //                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedSMSContacts="+decryptedSMSContacts);
 //                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedNotificationContacts="+decryptedNotificationContacts);
-                        if (decryptedCallContacts == null) decryptedCallContacts="";
-                        if (decryptedSMSContacts == null) decryptedSMSContacts="";
-                        if (decryptedNotificationContacts == null) decryptedNotificationContacts="";
+                            if (decryptedCallContacts == null) decryptedCallContacts = "";
+                            if (decryptedSMSContacts == null) decryptedSMSContacts = "";
+                            if (decryptedNotificationContacts == null)
+                                decryptedNotificationContacts = "";
 
-                        ContentValues values = new ContentValues();
-                        values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, decryptedCallContacts);
-                        values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, decryptedSMSContacts);
-                        values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, decryptedNotificationContacts);
+                            ContentValues values = new ContentValues();
+                            values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, decryptedCallContacts);
+                            values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, decryptedSMSContacts);
+                            values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, decryptedNotificationContacts);
 
-                        db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
-                                new String[]{String.valueOf(eventId)});
+                            db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                    new String[]{String.valueOf(eventId)});
 
-                    } while (cursorImportDB.moveToNext());
-                }
-                cursorImportDB.close();
-            } finally {
-                if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                        } while (cursorImportDB.moveToNext());
+                    }
                     cursorImportDB.close();
+                } finally {
+                    if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                        cursorImportDB.close();
+                }
             }
         }
 

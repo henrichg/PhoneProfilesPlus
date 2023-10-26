@@ -719,7 +719,11 @@ class EventPreferencesCall extends EventPreferences {
                 for (String split : splits) {
                     String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
 
-                    if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())  && (!splits2[2].isEmpty())) {
+                    if ((!split.isEmpty()) &&
+                            (splits2.length == 3) &&
+                            (!splits2[0].isEmpty()) &&
+                            (!splits2[1].isEmpty()) &&
+                            (!splits2[2].isEmpty())) {
                         String contactPhoneNumber = splits2[1];
                         if (PhoneNumberUtils.compare(contactPhoneNumber, phoneNumber)) {
                             // phone number is in sensor configured

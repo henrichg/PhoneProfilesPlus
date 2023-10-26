@@ -23,7 +23,7 @@ class ContactsCache {
         caching = false;
     }
 
-    void getContactList(Context context/*, boolean fixEvents*//*, boolean forceCache*/)
+    void getContactList(Context context, boolean fixEvents)
     {
         //if ((cached || caching) && (!forceCache)) return;
 
@@ -39,48 +39,6 @@ class ContactsCache {
 
         try {
             if (Permissions.checkContacts(context)) {
-
-                /*
-                if (fixEvents && (contactList.size() != 0)) {
-//                    Log.e("ContactsCache.getContactList", "contactList.size() != 0");
-
-                    dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
-                    dataWrapper.fillEventList();
-
-                    // fill array with events, which uses contact cache
-                    for (Event _event : dataWrapper.eventList) {
-                        if (_event._eventPreferencesCall._enabled) {
-                            ContactsInEvent contactsInEvent = new ContactsInEvent();
-                            contactsInEvent.event = _event;
-                            contactsInEvent.contacts = _event._eventPreferencesCall._contacts;
-                            //contactsInEvent.sensorType = EventsHandler.SENSOR_TYPE_PHONE_CALL;
-                            _contactInEventsCall.add(contactsInEvent);
-                        }
-                    }
-                    for (Event _event : dataWrapper.eventList) {
-                        if (_event._eventPreferencesSMS._enabled) {
-                            ContactsInEvent contactsInEvent = new ContactsInEvent();
-                            contactsInEvent.event = _event;
-                            contactsInEvent.contacts = _event._eventPreferencesSMS._contacts;
-                            //contactsInEvent.sensorType = EventsHandler.SENSOR_TYPE_SMS;
-                            _contactInEventsSMS.add(contactsInEvent);
-                        }
-                    }
-                    for (Event _event : dataWrapper.eventList) {
-                        if (_event._eventPreferencesNotification._enabled) {
-                            ContactsInEvent contactsInEvent = new ContactsInEvent();
-                            contactsInEvent.event = _event;
-                            contactsInEvent.contacts = _event._eventPreferencesNotification._contacts;
-                            //contactsInEvent.sensorType = EventsHandler.SENSOR_TYPE_NOTIFICATION;
-                            _contactInEventsNotification.add(contactsInEvent);
-                        }
-                    }
-//                    Log.e("ContactsCache.getContactList", "_contactInEventsCall.size()="+_contactInEventsCall.size());
-//                    Log.e("ContactsCache.getContactList", "_contactInEventsSMS.size()="+_contactInEventsSMS.size());
-//                    Log.e("ContactsCache.getContactList", "_contactInEventsNotification.size()="+_contactInEventsNotification.size());
-                } //else
-//                    Log.e("ContactsCache.getContactList", "contactList.size() == 0");
-                */
 
                 long contactId = 0;
                 String name = null;
@@ -210,66 +168,181 @@ class ContactsCache {
                     rawCursor.close();
                 }
 
+//                Log.e("ContactsCache.getContactList", "(1) xxxxxx");
+
                 //_contactList.sort(new ContactsComparator());
                 synchronized (PPApplication.contactsCacheMutex) {
-
-                    /*
-                    if (fixEvents && (contactList.size() != 0)) {
-//                        Log.e("ContactsCache.getContactList", "contactList.size() != 0");
-
-                        // do copy of old contactList
-                        for (Contact _contact : contactList) {
-                            Contact dContact = new Contact();
-                            dContact.contactId = _contact.contactId;
-                            dContact.name = _contact.name;
-                            dContact.phoneId = _contact.phoneId;
-                            dContact.phoneNumber = _contact.phoneNumber;
-                            dContact.photoId = _contact.photoId;
-                            dContact.accountType = _contact.accountType;
-                            dContact.accountName = _contact.accountName;
-                            _oldContactList.add(dContact);
-                        }
-//                        Log.e("ContactsCache.getContactList", "_oldContactList.size()="+_oldContactList.size());
-                    } //else
-//                        Log.e("ContactsCache.getContactList", "contactList.size() == 0");
-                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.getContactList", "contactList.size()="+_contactList.size());
-                    */
+//                    Log.e("ContactsCache.getContactList", "(1.1) xxxxxx");
 
                     updateContacts(_contactList/*, false*/);
                     //updateContacts(_contactListWithoutNumber, true);
 
-                    /*
-                    if (fixEvents && (_oldContactList.size() != 0)) {
-//                        Log.e("ContactsCache.getContactList", "_oldContactList.size() != 0");
+                    if (fixEvents) {
+                        Context appContext = context.getApplicationContext();
 
-                        for (ContactsInEvent contactsInEvent : _contactInEventsCall) {
-                            // for each contactsInEvent for call sensor
-                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.getContactList", "(1) contactsInEvent.event._eventPreferencesCall._contacts="+contactsInEvent.event._eventPreferencesCall._contacts);
-                            contactsInEvent.event._eventPreferencesCall._contacts =
-                                        covertOldContactToNewContact(contactsInEvent, _oldContactList);
-                            DatabaseHandler.getInstance(context.getApplicationContext()).updateEvent(contactsInEvent.event);
-                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsCache.getContactList", "(2) contactsInEvent.event._eventPreferencesCall._contacts="+contactsInEvent.event._eventPreferencesCall._contacts);
+                        List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
+
+                        for (Event event : eventList) {
+                            boolean dataChanged = false;
+
+                            if (!event._eventPreferencesCall._contacts.isEmpty()) {
+                                String[] splits = event._eventPreferencesCall._contacts.split(StringConstants.STR_SPLIT_REGEX);
+                                String _split = splits[0];
+                                String[] _splits2 = _split.split("#");
+                                boolean oldData = false;
+                                try {
+//                                    if (event._name.equals("Белый лист"))
+//                                        Log.e("PhoneProfilesService.doForPackageReplaced", "_splits2[0]="+_splits2[0]);
+                                    //noinspection unused
+                                    long l = Long.parseLong(_splits2[0]);
+                                    oldData = true;
+                                } catch (Exception ignored) {
+                                }
+//                                if (event._name.equals("Белый лист"))
+//                                    Log.e("PhoneProfilesService.doForPackageReplaced", "oldData="+oldData);
+                                if (oldData) {
+                                    StringBuilder newContacts = new StringBuilder();
+                                    for (String split : splits) {
+                                        String[] splits2 = split.split("#");
+                                        contactId = Long.parseLong(splits2[0]);
+                                        long phoneId = Long.parseLong(splits2[1]);
+
+                                        boolean found = false;
+                                        for (Contact contact : contactList) {
+                                            if (phoneId != 0) {
+                                                if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
+                                                    found = true;
+                                            } else {
+                                                if (contact.contactId == contactId)
+                                                    found = true;
+                                            }
+                                            if (found) {
+                                                if (newContacts.length() > 0)
+                                                    newContacts.append("|");
+                                                newContacts
+                                                        .append(contact.name)
+                                                        .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                        .append(contact.phoneNumber)
+                                                        .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                        .append(contact.accountType);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    event._eventPreferencesCall._contacts = newContacts.toString();
+                                    dataChanged = true;
+                                }
+                            }
+
+                            if (!event._eventPreferencesSMS._contacts.isEmpty()) {
+                                String[] splits = event._eventPreferencesSMS._contacts.split(StringConstants.STR_SPLIT_REGEX);
+                                String _split = splits[0];
+                                String[] _splits2 = _split.split("#");
+                                boolean oldData = false;
+                                try {
+                                    //noinspection unused
+                                    long l = Long.parseLong(_splits2[0]);
+                                    oldData = true;
+                                } catch (Exception ignored) {
+                                }
+                                if (oldData) {
+                                    StringBuilder newContacts = new StringBuilder();
+                                    for (String split : splits) {
+                                        String[] splits2 = split.split("#");
+                                        if (splits2.length != 3) {
+                                            // old data
+                                            splits2 = split.split("#");
+                                            if (splits2.length != 2)
+                                                continue;
+                                            contactId = Long.parseLong(splits2[0]);
+                                            long phoneId = Long.parseLong(splits2[1]);
+
+                                            boolean found = false;
+                                            for (Contact contact : contactList) {
+                                                if (phoneId != 0) {
+                                                    if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
+                                                        found = true;
+                                                } else {
+                                                    if (contact.contactId == contactId)
+                                                        found = true;
+                                                }
+                                                if (found) {
+                                                    if (newContacts.length() > 0)
+                                                        newContacts.append("|");
+                                                    newContacts
+                                                            .append(contact.name)
+                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                            .append(contact.phoneNumber)
+                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                            .append(contact.accountType);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    event._eventPreferencesSMS._contacts = newContacts.toString();
+                                    dataChanged = true;
+                                }
+                            }
+
+                            if (!event._eventPreferencesNotification._contacts.isEmpty()) {
+                                String[] splits = event._eventPreferencesNotification._contacts.split(StringConstants.STR_SPLIT_REGEX);
+                                String _split = splits[0];
+                                String[] _splits2 = _split.split("#");
+                                boolean oldData = false;
+                                try {
+                                    //noinspection unused
+                                    long l = Long.parseLong(_splits2[0]);
+                                    oldData = true;
+                                } catch (Exception ignored) {
+                                }
+                                if (oldData) {
+                                    StringBuilder newContacts = new StringBuilder();
+                                    for (String split : splits) {
+                                        String[] splits2 = split.split("#");
+                                        if (splits2.length != 3) {
+                                            // old data
+                                            splits2 = split.split("#");
+                                            if (splits2.length != 2)
+                                                continue;
+                                            contactId = Long.parseLong(splits2[0]);
+                                            long phoneId = Long.parseLong(splits2[1]);
+
+                                            boolean found = false;
+                                            for (Contact contact : contactList) {
+                                                if (phoneId != 0) {
+                                                    if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
+                                                        found = true;
+                                                } else {
+                                                    if (contact.contactId == contactId)
+                                                        found = true;
+                                                }
+                                                if (found) {
+                                                    if (newContacts.length() > 0)
+                                                        newContacts.append("|");
+                                                    newContacts
+                                                            .append(contact.name)
+                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                            .append(contact.phoneNumber)
+                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                            .append(contact.accountType);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    event._eventPreferencesNotification._contacts = newContacts.toString();
+                                    dataChanged = true;
+                                }
+                            }
+
+                            if (dataChanged)
+                                DatabaseHandler.getInstance(appContext).updateEvent(event);
                         }
-                        for (ContactsInEvent contactsInEvent : _contactInEventsSMS) {
-                            // for each contactsInEvent for sms sensor
-//                            Log.e("ContactsCache.getContactList", "(1) contactsInEvent.event._eventPreferencesSMS._contacts="+contactsInEvent.event._eventPreferencesSMS._contacts);
-                            contactsInEvent.event._eventPreferencesSMS._contacts =
-                                    covertOldContactToNewContact(contactsInEvent, _oldContactList);
-                            DatabaseHandler.getInstance(context.getApplicationContext()).updateEvent(contactsInEvent.event);
-//                            Log.e("ContactsCache.getContactList", "(2) contactsInEvent.event._eventPreferencesSMS._contacts="+contactsInEvent.event._eventPreferencesSMS._contacts);
-                        }
-                        for (ContactsInEvent contactsInEvent : _contactInEventsNotification) {
-                            // for each contactsInEvent for notification sensor
-//                            Log.e("ContactsCache.getContactList", "(1) contactsInEvent.event._eventPreferencesNotification._contacts="+contactsInEvent.event._eventPreferencesNotification._contacts);
-                            contactsInEvent.event._eventPreferencesNotification._contacts =
-                                    covertOldContactToNewContact(contactsInEvent, _oldContactList);
-                            DatabaseHandler.getInstance(context.getApplicationContext()).updateEvent(contactsInEvent.event);
-//                            Log.e("ContactsCache.getContactList", "(2) contactsInEvent.event._eventPreferencesNotification._contacts="+contactsInEvent.event._eventPreferencesNotification._contacts);
-                        }
-                    } //else
-//                        Log.e("ContactsCache.getContactList", "_oldContactList.size() == 0");
-                    */
+                    }
                 }
+
+//                Log.e("ContactsCache.getContactList", "(2) xxxxxx");
 
                 cached = true;
             }
