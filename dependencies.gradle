@@ -33,8 +33,8 @@
 // 7050 = Convered old contacts data format in sensors to new format
 
 ext.ppVersions = [
-        publishVersion    : '6.3b',
-        publishVersionCode: 7000,
+        publishVersion    : '6.3',
+        publishVersionCode: 7050,
 
         minSdk            : 26,
         targetSdk         : 28,

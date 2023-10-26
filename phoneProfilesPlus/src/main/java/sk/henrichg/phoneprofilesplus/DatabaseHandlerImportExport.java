@@ -960,8 +960,6 @@ class DatabaseHandlerImportExport {
             }
         }
 
-        //TODO
-        // decript locations
         boolean applicationLocationsInBackupEncripted =
                 ApplicationPreferences.getSharedPreferences(instance.context)
                         .getBoolean(ApplicationPreferences.PREF_APPLICATION_LOCATIONS_IN_BACKUP_ENCRIPTED,
@@ -1773,8 +1771,6 @@ class DatabaseHandlerImportExport {
                                                 cursorExportDB.close();
                                         }
 
-                                        //TODO
-                                        // encript locations
                                         editor = ApplicationPreferences.getEditor(instance.context);
                                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_LOCATIONS_IN_BACKUP_ENCRIPTED, true);
                                         editor.apply();
