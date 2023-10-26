@@ -1,0 +1,9 @@
+6.3, 6.3.0.1
+Change log:
+- GUI and background additions.
+- GUI and background changes.
+- GUI and background fixes.
+- Fixed application crashes.
+- Updated translations.
+
+Full change log is in GitHub releases. (https://henrichg.github.io/PhoneProfilesPlus/FDroid_ChangeLog)
