@@ -8,6 +8,7 @@ PhoneProfilesPlus (aka PPP)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
+[![Project Map](https://sourcespy.com/shield.svg)](https://sourcespy.com/github/henrichgphoneprofilesplus/)
 
 ### Sources of PhoneProfilesPlus:
 
