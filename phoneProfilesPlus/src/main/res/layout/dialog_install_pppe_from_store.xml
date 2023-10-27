@@ -42,7 +42,6 @@
                 android:textSize="16sp"
                 android:scrollbars="vertical" />
 
-<!--
             <Button
                 android:id="@+id/install_pppe_from_store_dialog_installFromGitHub"
                 android:layout_width="wrap_content"
@@ -54,8 +53,8 @@
                 android:textColor="@color/action_button_text_color"
                 android:textStyle="bold"
                 android:background="@drawable/pp_button_background_selector"
-                style="?android:attr/borderlessButtonStyle" />
--->
+                style="?android:attr/borderlessButtonStyle"
+                android:visibility="gone"/>
 <!--
             <TextView
                 android:id="@+id/install_pppe_from_store_dialog_github_releases"

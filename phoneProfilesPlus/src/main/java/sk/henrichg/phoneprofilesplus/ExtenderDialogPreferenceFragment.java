@@ -423,6 +423,21 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             dialogBuilder.setView(layout);
 
             TextView text = layout.findViewById(R.id.install_pppe_from_store_dialog_info_text);
+            if (!(droidifyInstalled || fdroidInstalled)) {
+                Button installFromGitHub = layout.findViewById(R.id.install_pppe_from_store_dialog_installFromGitHub);
+                if (Build.VERSION.SDK_INT >= 33)
+                    installFromGitHub.setText(R.string.install_extender_install_droidify_button);
+                installFromGitHub.setVisibility(View.VISIBLE);
+                installFromGitHub.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (Build.VERSION.SDK_INT < 33)
+                            installExtenderFromGitHub(activity, _preference, finishActivity);
+                        else
+                            installDroidIfy(activity, _preference, finishActivity);
+                    }
+                });
+            }
 
             String dialogText = "";
 
