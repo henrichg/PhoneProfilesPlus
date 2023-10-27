@@ -684,6 +684,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setSummary(R.string.phone_profiles_pref_drawOverlaysPermissions_summary_miui);
                     }*/
                 preference.setOnPreferenceClickListener(preference13 -> {
+                    Intent intent = new Intent(getActivity(), GrantDrawOverAppsActivity.class);
+                    startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
+                    /*
                     boolean ok = false;
                     //if (!PPApplication.romIsMIUI) {
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getActivity().getApplicationContext())) {
@@ -718,6 +721,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (!getActivity().isFinishing())
                             dialog.show();
                     }
+                    */
                         /*}
                         else {
                             try {

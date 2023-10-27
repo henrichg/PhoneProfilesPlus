@@ -1450,16 +1450,22 @@ public class GrantPermissionActivity extends AppCompatActivity {
             boolean drawOverlaysFound = false;
             for (PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
+                    drawOverlaysFound = true;
+                    Intent intent = new Intent(this, GrantDrawOverAppsActivity.class);
+                    intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
+                    //noinspection deprecation
+                    startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);
+
                     //if (!PPApplication.romIsMIUI) {
-                        if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getApplicationContext())) {
+                        /*if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getApplicationContext())) {
                             drawOverlaysFound = true;
                             final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                             intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE + PPApplication.PACKAGE_NAME));
                             intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
-                            //noinspection deprecation
                             startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);
                             break;
                         }
+                        */
                     /*}
                     else {
                         try {
