@@ -2142,7 +2142,7 @@
     <string name="export_settings_delete_contacts_data_notification">Contacts for Notification sensor</string>
 
     <string name="grant_draw_over_apps_dialog_info_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click button \"Grant\" to grant this permission.</string>
-    <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, click this link. Maybe in this web page is solution for you:</string>
+    <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, click this link. Maybe in this web page is solution for your device:</string>
 
     <string name="install_extender_install_droidify_button">Install Droid-ify</string>
 
