@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PowerManager;
 import android.os.SystemClock;
-import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -99,22 +98,34 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
                         if (EventStatic.getGlobalEventsRunning(appContext)) {
 
-                            //if (lastState != currState)
-                            //{
+                            getConnectedDevices(appContext);
 
-                            /*
-                            if (!(ApplicationPreferences.prefEventBluetoothScanRequest ||
-                                    ApplicationPreferences.prefEventBluetoothLEScanRequest ||
-                                    ApplicationPreferences.prefEventBluetoothWaitForResult ||
-                                    ApplicationPreferences.prefEventBluetoothLEWaitForResult ||
-                                    ApplicationPreferences.prefEventBluetoothEnabledForScan)) {
-                             */
+                            try {
+                                switch (action) {
+                                    case BluetoothDevice.ACTION_ACL_CONNECTED:
+                                        addConnectedDevice(device);
+                                        break;
+                                    case BluetoothDevice.ACTION_NAME_CHANGED:
+                                        //noinspection ConstantConditions
+                                        if (newName != null) {
+                                            changeDeviceName(device, newName);
+                                        }
+                                        break;
+                                    default:
+                                        removeConnectedDevice(device);
+                                        break;
+                                }
+                            } catch (Exception e) {
+                                PPApplicationStatic.recordException(e);
+                            }
+
+                            saveConnectedDevices(appContext);
 
 //                                Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "**** START of getConnectedDevices");
                                 // is needed to call event hander
-                                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
+//                                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
 
-                            //}
+                            BluetoothConnectedDevicesDetector.callEventHandler(appContext);
                         }
                         //}
 
@@ -200,14 +211,14 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-/*
+
     @SuppressLint("MissingPermission")
     private static void addConnectedDevice(BluetoothDevice device)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             boolean found = false;
             for (BluetoothDeviceData _device : connectedDevices) {
-                if (_device.address.equals(device.getAddress())) {
+                if (_device.getAddress().equals(device.getAddress())) {
                     found = true;
                     break;
                 }
@@ -238,7 +249,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             BluetoothDeviceData deviceToRemove = null;
             boolean found = false;
             for (BluetoothDeviceData _device : connectedDevices) {
-                if (_device.address.equals(device.getAddress())) {
+                if (_device.getAddress().equals(device.getAddress())) {
                     found = true;
                     deviceToRemove = _device;
                     break;
@@ -261,7 +272,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 connectedDevices.remove(deviceToRemove);
         }
     }
-*/
+
     static void clearConnectedDevices(/*Context context, boolean onlyOld*/)
     {
         //if (onlyOld) {
@@ -288,14 +299,14 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-/*
+
     @SuppressLint("MissingPermission")
     private static void changeDeviceName(BluetoothDevice device, String deviceName)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             boolean found = false;
             for (BluetoothDeviceData _device : connectedDevices) {
-                if (_device.address.equals(device.getAddress()) && !deviceName.isEmpty()) {
+                if (_device.getAddress().equals(device.getAddress()) && !deviceName.isEmpty()) {
                     _device.setName(deviceName);
                     found = true;
                     break;
@@ -311,7 +322,6 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             }
         }
     }
-*/
 
     static void addConnectedDeviceData(List<BluetoothDeviceData> newConnectedDevices)
     {
