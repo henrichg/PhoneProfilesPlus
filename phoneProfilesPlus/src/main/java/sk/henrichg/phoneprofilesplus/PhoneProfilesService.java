@@ -863,7 +863,6 @@ public class PhoneProfilesService extends Service
                 BluetoothConnectionBroadcastReceiver.clearConnectedDevices(/*appContext, true*/);
                 // this also clears shared preferences
                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-
 //                Log.e("PhoneProfilesService.doForFirstStart", "**** START of getConnectedDevices");
                 BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
 

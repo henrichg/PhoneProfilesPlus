@@ -121,6 +121,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
                             saveConnectedDevices(appContext);
 
+                            // !! do not call this, some BT devices are not detected :-(
 //                                Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "**** START of getConnectedDevices");
                                 // is needed to call event hander
 //                                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
