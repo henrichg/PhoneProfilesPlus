@@ -29,12 +29,13 @@ public final class ImprovedBulletSpan implements LeadingMarginSpan {
 
             float yPosition;
             //Log.e("ImprovedBulletSpan.drawLeadingMargin", "layout=" + layout);
-            //if (layout != null) {
-            //    int line = layout.getLineForOffset(start);
-            //    yPosition = (float)layout.getLineBaseline(line) - (float)this.bulletRadius * 2.0F;
-            //} else {
-            yPosition = (float) (top + bottom) / 2.0F + 2.0F;
-            //}
+//            if (layout != null) {
+//                int line = layout.getLineForOffset(start);
+//                yPosition = (float)layout.getLineBaseline(line) - ((float)this.bulletRadius * 2.0F + 2.0F);
+//            } else {
+                //yPosition = (float) (top + bottom) / 2.0F + 2.0F;
+                yPosition = (float) baseline - ((float)this.bulletRadius * 2.0F/* + 2.0F*/);
+//            }
             //Log.e("ImprovedBulletSpan.drawLeadingMargin", "yPosition=" + yPosition);
 
             float xPosition = (float) (x + dir * this.bulletRadius);
