@@ -1464,7 +1464,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_USE_PRIORITY_SETTINGS) {
-
             event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY_APP_SETTINGS, preferences, context, false);
             event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY, preferences, context, false);
         }

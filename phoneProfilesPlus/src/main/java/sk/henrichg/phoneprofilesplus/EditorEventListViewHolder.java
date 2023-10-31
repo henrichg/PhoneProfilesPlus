@@ -211,8 +211,12 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
                 eventStartOrder = "";
             String eventPriority = "";
-            if (ApplicationPreferences.applicationEventUsePriority)
-                eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
+            if (ApplicationPreferences.applicationEventUsePriority) {
+                if (event._priority == Event.EPRIORITY_DO_NOT_USE)
+                    eventPriority = "[P:--]";
+                else
+                    eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
+            }
             boolean addedLF = false;
             if (eventStartOrder.isEmpty() && eventPriority.isEmpty()) {
                 if (event._ignoreManualActivation) {

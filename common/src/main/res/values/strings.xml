@@ -2146,6 +2146,8 @@
 
     <string name="install_extender_install_droidify_button">Install Droid-ify</string>
 
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] Do not use</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

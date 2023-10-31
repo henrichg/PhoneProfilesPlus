@@ -106,6 +106,7 @@ class Event {
     static final int EPRIORITY_HIGHER = 3;
     //static final int EPRIORITY_VERY_HIGH = 4;
     static final int EPRIORITY_HIGHEST = 5;
+    static final int EPRIORITY_DO_NOT_USE = 99;
 
     static final int EATENDDO_NONE = 0;
     static final int EATENDDO_UNDONE_PROFILE = 1;
@@ -1789,13 +1790,15 @@ class Event {
         List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
 
         // search for running event with higher priority
-        boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority;
-        for (EventTimeline eventTimeline : eventTimelineList)
-        {
-            int priority = dataWrapper.getEventPriority(eventTimeline._fkEvent);
-            if (applicationEventUsePriority && (priority > this._priority)) {
-                // is running event with higher priority
-                return;
+        if (ApplicationPreferences.applicationEventUsePriority) {
+            for (EventTimeline eventTimeline : eventTimelineList) {
+                int priority = dataWrapper.getEventPriority(eventTimeline._fkEvent);
+                if ((this._priority != EPRIORITY_DO_NOT_USE) &&
+                        (priority != EPRIORITY_DO_NOT_USE) &&
+                        (priority > this._priority)) {
+                    // is running event with higher priority
+                    return;
+                }
             }
         }
 
