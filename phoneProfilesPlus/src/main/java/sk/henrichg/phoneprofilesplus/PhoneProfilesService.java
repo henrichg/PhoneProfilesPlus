@@ -756,7 +756,7 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.setApplicationInForeground(appContext, "");
+                PPExtenderBroadcastReceiver.setApplicationInForeground(appContext, "");
 
                 EventPreferencesCall.setEventCallEventType(appContext, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
                 EventPreferencesCall.setEventCallEventTime(appContext, 0);
