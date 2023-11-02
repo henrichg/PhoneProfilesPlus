@@ -853,27 +853,27 @@ class GlobalGUIRoutines {
                 intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_EDIT);
                 intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
                 activity.startActivity(intent);
-                try {
+                /*try {
                     // close Activator
                     activity.finish();
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
-                }
+                }*/
             }
-            if ((!forProfile) && (event != null)) {
+            /*if ((!forProfile) && (event != null)) {
                 intent = new Intent(activity.getBaseContext(), EventsPrefsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
                 intent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, PPApplication.EDIT_MODE_EDIT);
                 intent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, 0);
                 activity.startActivity(intent);
-                try {
+                //try {
                     // close Activator
-                    activity.finish();
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                }
-            }
+                //    activity.finish();
+                //} catch (Exception e) {
+                //    PPApplicationStatic.recordException(e);
+                //}
+            }*/
         } else {
             String nTitle = "";
             String nText = "";
