@@ -289,7 +289,7 @@ public class ActivityLogActivity extends AppCompatActivity
             _value.append(getString(R.string.activity_log_help_message_data_otherEventDataTypes)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
             _value.append(getString(R.string.activity_log_help_message_data_eventName_otherDataTypes)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
 
-            infoTextView.setText(StringFormatUtils.fromHtml(_value.toString(), true, true, false, 0, 0, true));
+            infoTextView.setText(StringFormatUtils.fromHtml(_value.toString(), true, false, 0, 0, true));
 
             infoTextView.setClickable(true);
             infoTextView.setMovementMethod(LinkMovementMethod.getInstance());

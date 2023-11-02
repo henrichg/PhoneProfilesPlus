@@ -596,7 +596,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             //GlobalGUIRoutines.setLanguage(this);
 
             PPAlertDialog dialog = new PPAlertDialog(getString(R.string.permissions_alert_title),
-                    StringFormatUtils.fromHtml(_showRequestValue.toString(), true, false, false, 0, 0, true),
+                    StringFormatUtils.fromHtml(_showRequestValue.toString(), true,  false, 0, 0, true),
                     getString(android.R.string.ok), getString(android.R.string.cancel), null, null,
                     (dialog1, which) -> {
                         int iteration = 4;

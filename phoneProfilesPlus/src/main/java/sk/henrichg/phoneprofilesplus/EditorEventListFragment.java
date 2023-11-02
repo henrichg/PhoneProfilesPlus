@@ -522,7 +522,7 @@ public class EditorEventListFragment extends Fragment
                 for (Event event : _dataWrapper.eventList)
                     event._peferencesDecription = StringFormatUtils.fromHtml(
                             event.getPreferencesDescription(fragment.getActivity(), true),
-                            true, true, false, 0, 0, true);
+                            true,  false, 0, 0, true);
             }
 
             _dataWrapper.getEventTimelineList(true);
@@ -2130,7 +2130,7 @@ public class EditorEventListFragment extends Fragment
                             if ((fragment != null) && (fragment.getActivity() != null))
                                 event._peferencesDecription = StringFormatUtils.fromHtml(
                                         event.getPreferencesDescription(fragment.getActivity(), true),
-                                        true, true, false, 0, 0, true);
+                                        true,  false, 0, 0, true);
 
                             DatabaseHandler.getInstance(dataWrapper.context).setEventCalendarTimes(event);
                             DatabaseHandler.getInstance(dataWrapper.context).getSMSStartTime(event);

@@ -1227,7 +1227,7 @@ class Event {
                                 .append(StringConstants.TAG_BOLD_END_HTML);
 
                     }
-                    preference.setSummary(StringFormatUtils.fromHtml(_value.toString(), false, false, false, 0, 0, true));
+                    preference.setSummary(StringFormatUtils.fromHtml(_value.toString(), false,  false, 0, 0, true));
                 }
                 else
                     preference.setSummary("");
@@ -1261,7 +1261,7 @@ class Event {
                         if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_notificationVibrate));
                     }
-                    preference.setSummary(StringFormatUtils.fromHtml(_value.toString(), false, false, false, 0, 0, true));
+                    preference.setSummary(StringFormatUtils.fromHtml(_value.toString(), false,  false, 0, 0, true));
                 }
                 else
                     preference.setSummary("");

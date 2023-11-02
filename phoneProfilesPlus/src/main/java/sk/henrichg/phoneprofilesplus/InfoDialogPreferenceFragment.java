@@ -35,7 +35,7 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         final TextView infoTextView = view.findViewById(R.id.info_pref_dialog_info_text);
 
         if (preference.isHtml) {
-            infoTextView.setText(StringFormatUtils.fromHtml(preference.infoText, true, false, false, 0, 0, true));
+            infoTextView.setText(StringFormatUtils.fromHtml(preference.infoText, true,  false, 0, 0, true));
             infoTextView.setClickable(true);
             infoTextView.setMovementMethod(new PPLinkMovementMethod(this, context));
         } else

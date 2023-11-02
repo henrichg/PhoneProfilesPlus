@@ -4374,7 +4374,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 notRootedOrGrantetRoot ||
                 notInstalledPPPPS, false);
         if (cattegorySummaryData.bold || cattegorySummaryData.forceSet)
-            preferenceScreen.setSummary(StringFormatUtils.fromHtml(cattegorySummaryData.summary, false, false, false, 0, 0, true));
+            preferenceScreen.setSummary(StringFormatUtils.fromHtml(cattegorySummaryData.summary, false,  false, 0, 0, true));
         else
             preferenceScreen.setSummary("");
     }
@@ -7105,7 +7105,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             androidx.preference.Preference preference = preferenceWeakRef.get();
             if ((context != null) && (preference != null)) {
                 String summary = TextUtils.replace(initSummary, new String[]{TAG_RINGTONE_NAME}, new String[]{ringtoneName}).toString();
-                preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
+                preference.setSummary(StringFormatUtils.fromHtml(summary, false,  false, 0, 0, true));
             }
         }
 
@@ -7202,7 +7202,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String summary = TextUtils.replace(initSummary,
                         new String[]{TAG_RINGTONE_NAME, TAG_NOTIFICATION_NAME, TAG_ALARM_NAME},
                         new String[]{ringtoneName, notificationName, alarmName}).toString();
-                preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
+                preference.setSummary(StringFormatUtils.fromHtml(summary, false,  false, 0, 0, true));
             }
         }
 
@@ -7317,7 +7317,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String summary = TextUtils.replace(initSummary,
                         new String[]{TAG_RINGTONE_NAME_SIM1, TAG_RINGTONE_NAME_SIM2, TAG_NOTIFICATION_NAME_SIM1, TAG_NOTIFICATION_NAME_SIM2},
                         new String[]{ringtoneNameSIM1, ringtoneNameSIM2, notificationNameSIM1, notificationNameSIM2}).toString();
-                preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
+                preference.setSummary(StringFormatUtils.fromHtml(summary, false,  false, 0, 0, true));
             }
         }
 

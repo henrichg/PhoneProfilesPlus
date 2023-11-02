@@ -858,7 +858,7 @@ class DataWrapper {
                 if (activity != null)
                     origEvent._peferencesDecription = StringFormatUtils.fromHtml(
                             origEvent.getPreferencesDescription(activity, true),
-                            true, true, false, 0, 0, true);
+                            true,  false, 0, 0, true);
             }
         }
     }

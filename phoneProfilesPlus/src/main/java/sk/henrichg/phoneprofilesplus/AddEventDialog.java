@@ -133,7 +133,7 @@ class AddEventDialog
                         profileNotExists = true;
                     event._peferencesDecription = StringFormatUtils.fromHtml(
                             event.getPreferencesDescription(activity, false),
-                            true, true, false, 0, 0, true);
+                            true, false, 0, 0, true);
                     eventList.add(event);
                 }
             }

@@ -94,7 +94,7 @@ class StringFormatUtils {
         return timeDate.concat(AmPm);
     }
 
-    static Spanned fromHtml(String source, boolean forBullets, boolean boldBullet, boolean forNumbers, int numberFrom, int sp, boolean trimTrailingWhiteSpaces) {
+    static Spanned fromHtml(String source, boolean forBullets, boolean forNumbers, int numberFrom, int sp, boolean trimTrailingWhiteSpaces) {
         Spanned htmlSpanned;
 
         if (forNumbers)
@@ -109,7 +109,7 @@ class StringFormatUtils {
         SpannableStringBuilder result;
 
         if (forBullets)
-            result = addBullets(htmlSpanned, boldBullet);
+            result = addBullets(htmlSpanned);
         else if (forNumbers)
             result = addNumbers(htmlSpanned, numberFrom, sp);
         else
@@ -145,7 +145,7 @@ class StringFormatUtils {
         return spannableBuilder;
     }
 
-    private static SpannableStringBuilder addBullets(Spanned htmlSpanned, boolean boldBullet) {
+    private static SpannableStringBuilder addBullets(Spanned htmlSpanned) {
         SpannableStringBuilder spannableBuilder = new SpannableStringBuilder(htmlSpanned);
         BulletSpan[] spans = spannableBuilder.getSpans(0, spannableBuilder.length(), BulletSpan.class);
         if (spans != null) {
@@ -153,9 +153,7 @@ class StringFormatUtils {
                 int start = spannableBuilder.getSpanStart(span);
                 int end = spannableBuilder.getSpanEnd(span);
                 spannableBuilder.removeSpan(span);
-                int radius = GlobalGUIRoutines.dip(2);
-                if (boldBullet)
-                    radius += 1;
+                int radius = GlobalGUIRoutines.dip(2) + 1;
                 spannableBuilder.setSpan(new ImprovedBulletSpan(radius, GlobalGUIRoutines.dip(8)/*, 0*/), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             }
         }

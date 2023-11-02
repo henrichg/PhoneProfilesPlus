@@ -4497,7 +4497,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + "…";
         }*/
 
-        preferenceCategory.setSummary(StringFormatUtils.fromHtml(_value.toString(), false, false, false, 0, 0, true));
+        preferenceCategory.setSummary(StringFormatUtils.fromHtml(_value.toString(), false,  false, 0, 0, true));
     }
 
     static String getColorForChangedPreferenceValue(String preferenceValue,

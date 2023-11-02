@@ -79,7 +79,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 else
                     prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_BREAK_HTML+StringConstants.CHAR_HARD_SPACE_HTML; //"<br><br>" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
             }
-            ppppsVersionText.setText(StringFormatUtils.fromHtml(prefVolumeDataSummary, false, false, false, 0, 0, true));
+            ppppsVersionText.setText(StringFormatUtils.fromHtml(prefVolumeDataSummary, false,  false, 0, 0, true));
 
             ppppsLaunchText.setText(R.string.pppps_pref_dialog_PPPPutSettings_modify_system_settings);
 
@@ -156,7 +156,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
 
         dialogText = dialogText.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
-        text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));
+        text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
         if (Build.VERSION.SDK_INT < 34) {
             dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
@@ -296,7 +296,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
                         " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
                 dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\".";
-                text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));
+                text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
                 text = layout.findViewById(R.id.install_pppps_from_store_dialog_github_releases);
                 CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
