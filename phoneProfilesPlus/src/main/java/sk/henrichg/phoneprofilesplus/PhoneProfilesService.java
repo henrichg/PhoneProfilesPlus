@@ -864,7 +864,7 @@ public class PhoneProfilesService extends Service
                 // this also clears shared preferences
                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
 //                Log.e("PhoneProfilesService.doForFirstStart", "**** START of getConnectedDevices");
-                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
+                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext/*, false*/);
 
                 WifiScanWorker.setScanRequest(appContext, false);
                 WifiScanWorker.setWaitForResults(appContext, false);

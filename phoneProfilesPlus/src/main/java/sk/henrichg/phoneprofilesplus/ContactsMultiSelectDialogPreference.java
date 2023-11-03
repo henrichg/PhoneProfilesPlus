@@ -31,6 +31,10 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
     private boolean savedInstanceState;
 
     List<Contact> contactList;
+    List<Contact> checkedContactList;
+
+    //String filterNameFromContactsFilterDialog;
+    ContactFilter contactsFilter;
 
     public ContactsMultiSelectDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -43,6 +47,10 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         withoutNumbers = locationGeofenceType.getBoolean(R.styleable.PPContactsMultiSelectDialogPreference_withoutNumbers, false);
 
         locationGeofenceType.recycle();
+
+        contactsFilter = new ContactFilter();
+        contactsFilter.data = StringConstants.CONTACTS_FILTER_DATA_ALL;
+        contactsFilter.displayName = context.getString(R.string.contacts_filter_dialog_item_show_all);
 
         //if (PhoneProfilesService.getContactsCache() == null)
         //    PhoneProfilesService.createContactsCache();
@@ -65,6 +73,28 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
             fragment.refreshListView(notForUnselect);
     }
 
+    void setContactsFilter(ContactFilter filter) {
+        contactsFilter = filter;
+        if (fragment != null)
+            fragment.setContactsFilter(filter);
+    }
+
+    /*
+    void setFilterNameText(String text) {
+        filterNameFromContactsFilterDialog = text;
+    }
+
+    String getFilterNameText() {
+        //if (fragment != null) {
+        //    return fragment.getCellNameText();
+        //}
+        //else {
+        //    return null;
+        //}
+        return filterNameFromContactsFilterDialog;
+    }
+    */
+
     void getValueCMSDP()
     {
         // change checked state by value
@@ -77,15 +107,57 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
             if (localContactList != null) {
 //                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "localContactList.size()="+localContactList.size());
 
+                // save checked contacts
+                if (contactList != null) {
+                    checkedContactList = new ArrayList<>();
+                    for (Contact contact : contactList) {
+                        if (contact.checked)
+                            checkedContactList.add(contact);
+                    }
+                }
+
                 contactList = new ArrayList<>();
+
+                // add all checked
+                if (checkedContactList != null)
+                    contactList.addAll(checkedContactList);
+
+                // add not in checked and only filtered
                 if (!withoutNumbers) {
-                    for (Contact contact : localContactList) {
-                        if (contact.phoneId != 0) {
-                            contactList.add(contact);
+                    for (Contact localContact : localContactList) {
+                        boolean found = false;
+                        for (Contact contact : contactList) {
+                            if ((contact.contactId == localContact.contactId) &&
+                                    (contact.phoneId == localContact.phoneId) &&
+                                    (contact.accountType.equals(localContact.accountType))) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            if ((contactsFilter.data.equals(StringConstants.CONTACTS_FILTER_DATA_ALL)) || (localContact.accountType.equals(contactsFilter.data))
+                                    && (localContact.phoneId != 0)) {
+                                contactList.add(localContact);
+                            }
                         }
                     }
-                } else
-                    contactList.addAll(localContactList);
+                } else {
+                    for (Contact localContact : localContactList) {
+                        boolean found = false;
+                        for (Contact contact : contactList) {
+                            if ((contact.contactId == localContact.contactId)  &&
+                                    (contact.accountType.equals(localContact.accountType))) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            if ((contactsFilter.data.equals(StringConstants.CONTACTS_FILTER_DATA_ALL)) || (localContact.accountType.equals(contactsFilter.data))) {
+                                contactList.add(localContact);
+                            }
+                        }
+                    }
+                }
 
                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
 
@@ -102,7 +174,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                         for (Contact contact : contactList) {
                             if (withoutNumbers) {
                                 if (contact.name.equals(contactName) &&
-                                    contact.accountType.equals(contactAccountType)) {
+                                        contact.accountType.equals(contactAccountType)) {
                                     found = true;
                                     break;
                                 }
@@ -155,15 +227,15 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                                 String contactAccountType = splits2[2];
                                 if (withoutNumbers) {
                                     if (contact.name.equals(contactName) &&
-                                        contact.accountType.equals(contactAccountType)) {
+                                            contact.accountType.equals(contactAccountType)) {
                                         contact.checked = true;
 //                                        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
 //                                                "checked split=" + split);
                                     }
                                 } else {
                                     if (contact.name.equals(contactName) &&
-                                        PhoneNumberUtils.compare(contact.phoneNumber, contactPhoneNumber) &&
-                                        contact.accountType.equals(contactAccountType)) {
+                                            PhoneNumberUtils.compare(contact.phoneNumber, contactPhoneNumber) &&
+                                            contact.accountType.equals(contactAccountType)) {
                                         contact.checked = true;
 //                                        PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP",
 //                                                "checked split=" + split);
@@ -171,6 +243,29 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                                 }
                             } catch (Exception e) {
                                 //PPApplicationStatic.recordException(e);
+                            }
+                        }
+                        if (checkedContactList != null) {
+                            for (Contact checkedContact : checkedContactList) {
+                                try {
+                                    String contactName = checkedContact.name;
+                                    String contactPhoneNumber = checkedContact.phoneNumber;
+                                    String contactAccountType = checkedContact.accountType;
+                                    if (withoutNumbers) {
+                                        if (contact.name.equals(contactName) &&
+                                                contact.accountType.equals(contactAccountType)) {
+                                            contact.checked = true;
+                                        }
+                                    } else {
+                                        if (contact.name.equals(contactName) &&
+                                                PhoneNumberUtils.compare(contact.phoneNumber, contactPhoneNumber) &&
+                                                contact.accountType.equals(contactAccountType)) {
+                                            contact.checked = true;
+                                        }
+                                    }
+                                } catch (Exception e) {
+                                    //PPApplicationStatic.recordException(e);
+                                }
                             }
                         }
                     }
@@ -230,6 +325,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                     }
                     i++;
                 }
+
 //                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "after move chcecked up: contactList.size()="+contactList.size());
             } //else
 //                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "!!! localContactList=null");

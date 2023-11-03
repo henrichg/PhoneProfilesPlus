@@ -87,7 +87,7 @@ class EventPreferencesBrightness extends EventPreferences {
 
                 String[] operators = context.getResources().getStringArray(R.array.brightnessSensorOperatorValues);
 
-                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_brightness_level_from)).append(StringConstants.STR_COLON_WITH_SPACE);
+                _value.append(context.getString(R.string.event_preferences_brightness_level_from)).append(StringConstants.STR_COLON_WITH_SPACE);
                 int index = Arrays.asList(operators).indexOf(Integer.toString(this._operatorFrom));
                 if (index != -1) {
                     //_value.append(context.getString(R.string.event_preferences_brightness_operator_from)).append(StringConstants.STR_COLON_WITH_SPACE);

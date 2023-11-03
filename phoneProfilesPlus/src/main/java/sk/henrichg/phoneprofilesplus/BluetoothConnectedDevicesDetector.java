@@ -36,7 +36,7 @@ class BluetoothConnectedDevicesDetector {
     private static volatile BluetoothProfile.ServiceListener profileListener = null;
 
     @SuppressLint("MissingPermission")
-    static void getConnectedDevices(final Context context, final boolean _callEventHandler) {
+    static void getConnectedDevices(final Context context/*, final boolean _callEventHandler*/) {
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
         if (bluetoothAdapter != null) {
             if (!bluetoothAdapter.isEnabled()) {
@@ -46,8 +46,8 @@ class BluetoothConnectedDevicesDetector {
                 BluetoothConnectionBroadcastReceiver.clearConnectedDevices(/*appContext, false*/);
                 // this also clears shared preferences
                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-                if (_callEventHandler)
-                    callEventHandler(appContext);
+                //if (_callEventHandler)
+                //    callEventHandler(appContext);
 
 //                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "(xxx) END of getConnectedDevices");
 
@@ -77,8 +77,8 @@ class BluetoothConnectedDevicesDetector {
                                     addConnectedDevices(devices, connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-                                    if (_callEventHandler)
-                                        callEventHandler(appContext);
+                                    //if (_callEventHandler)
+                                    //    callEventHandler(appContext);
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
                                     //Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
@@ -103,8 +103,8 @@ class BluetoothConnectedDevicesDetector {
                                     addConnectedDevices(devices, connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-                                    if (_callEventHandler)
-                                        callEventHandler(appContext);
+                                    //if (_callEventHandler)
+                                    //    callEventHandler(appContext);
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
                                     //Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
@@ -128,8 +128,8 @@ class BluetoothConnectedDevicesDetector {
                                     addConnectedDevices(devices, connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-                                    if (_callEventHandler)
-                                        callEventHandler(appContext);
+                                    //if (_callEventHandler)
+                                    //    callEventHandler(appContext);
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
                                     //Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
@@ -154,8 +154,8 @@ class BluetoothConnectedDevicesDetector {
                                         addConnectedDevices(devices, connectedDevices);
                                         BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                                         BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-                                        if (_callEventHandler)
-                                            callEventHandler(appContext);
+                                        //if (_callEventHandler)
+                                        //    callEventHandler(appContext);
                                     } catch (Exception e) {
                                         // not log this, profile may not exists
                                         //Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
@@ -181,8 +181,8 @@ class BluetoothConnectedDevicesDetector {
                                     addConnectedDevices(devices, connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-                                    if (_callEventHandler)
-                                        callEventHandler(appContext);
+                                    //if (_callEventHandler)
+                                    //    callEventHandler(appContext);
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
                                     //Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
@@ -206,8 +206,8 @@ class BluetoothConnectedDevicesDetector {
                                     addConnectedDevices(devices, connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-                                    if (_callEventHandler)
-                                        callEventHandler(appContext);
+                                    //if (_callEventHandler)
+                                    //    callEventHandler(appContext);
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
                                     //Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
@@ -254,8 +254,8 @@ class BluetoothConnectedDevicesDetector {
                 BluetoothConnectionBroadcastReceiver.clearConnectedDevices(/*appContext, false*/);
                 // this also clears shared preferences
                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-                if (_callEventHandler)
-                    callEventHandler(appContext);
+                //if (_callEventHandler)
+                //    callEventHandler(appContext);
 
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
@@ -285,8 +285,8 @@ class BluetoothConnectedDevicesDetector {
 
                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-                    if (_callEventHandler)
-                        callEventHandler(appContext);
+                    //if (_callEventHandler)
+                    //    callEventHandler(appContext);
                 }
 
 //                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "[1] END of getConnectedDevices");

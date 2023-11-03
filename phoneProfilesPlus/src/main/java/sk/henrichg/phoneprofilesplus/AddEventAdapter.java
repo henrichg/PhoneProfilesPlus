@@ -122,7 +122,7 @@ class AddEventAdapter extends BaseAdapter {
             if (position == 0)
                 eventName = context.getString(R.string.new_empty_event);
             if (ApplicationPreferences.applicationEventUsePriority) {
-                String eventPriority = "";
+                String eventPriority;
                 if (event._priority == Event.EPRIORITY_DO_NOT_USE)
                     eventPriority = "[P:--]";
                 else

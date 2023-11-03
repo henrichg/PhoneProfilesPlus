@@ -13,6 +13,7 @@ class StringConstants {
     static final String STR_DOUBLE_ARROW_INDICATOR = "[»»]";
     static final String CHAR_BULLET = "•";
     static final String STR_BULLET = " "+ CHAR_BULLET +" ";
+    //static final String STR_BULLET_HTML = " <b>"+ CHAR_BULLET +"</b> ";
     static final String STR_HARD_SPACE_DOUBLE_ARROW = CHAR_HARD_SPACE + STR_DOUBLE_ARROW;
     static final String STR_HARD_SPACE_DOUBLE_ARROW_HTML = CHAR_HARD_SPACE_HTML + STR_DOUBLE_ARROW;
     static final String STR_HARD_SPACE_DASH = CHAR_HARD_SPACE + "-" + CHAR_HARD_SPACE;
@@ -79,5 +80,7 @@ class StringConstants {
 
     static final String RINGTONE_CONTENT_INTERNAL = "content://media/internal";
     static final String RINGTONE_CONTENT_EXTERNAL = "content://media/external";
+
+    static final String CONTACTS_FILTER_DATA_ALL = "[all]";
 
 }

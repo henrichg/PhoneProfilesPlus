@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -80,12 +79,7 @@ public class GrantDrawOverAppsActivity extends AppCompatActivity {
                         null,
                         null,
                         null,
-                        new DialogInterface.OnCancelListener() {
-                            @Override
-                            public void onCancel(DialogInterface dialog) {
-                                finish();
-                            }
-                        },
+                        dialog1 -> finish(),
                         null,
                         true, true,
                         false, false,

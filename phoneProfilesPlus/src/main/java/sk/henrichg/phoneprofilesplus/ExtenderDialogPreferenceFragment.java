@@ -428,14 +428,11 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 if (Build.VERSION.SDK_INT >= 33)
                     installFromGitHub.setText(R.string.install_extender_install_droidify_button);
                 installFromGitHub.setVisibility(View.VISIBLE);
-                installFromGitHub.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (Build.VERSION.SDK_INT < 33)
-                            installExtenderFromGitHub(activity, _preference, finishActivity);
-                        else
-                            installDroidIfy(activity, _preference, finishActivity);
-                    }
+                installFromGitHub.setOnClickListener(v -> {
+                    if (Build.VERSION.SDK_INT < 33)
+                        installExtenderFromGitHub(activity, _preference, finishActivity);
+                    else
+                        installDroidIfy(activity, _preference, finishActivity);
                 });
             }
 
