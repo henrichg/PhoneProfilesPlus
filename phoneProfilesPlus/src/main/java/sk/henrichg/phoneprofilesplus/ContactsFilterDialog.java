@@ -162,8 +162,6 @@ class ContactsFilterDialog {
                 synchronized (PPApplication.contactsCacheMutex) {
                     List<Contact> localContactList = contactsCache.getList(/*withoutNumbers*/);
                     if (localContactList != null) {
-                        PPApplicationStatic.logE("[CONTACTS_DIALOG] .getValueCMSDP", "localContactList.size()=" + localContactList.size());
-
                         for (Contact contact : localContactList) {
                             if (dialog.withoutNumbers || (contact.phoneId != 0)) {
                                 boolean found = false;
