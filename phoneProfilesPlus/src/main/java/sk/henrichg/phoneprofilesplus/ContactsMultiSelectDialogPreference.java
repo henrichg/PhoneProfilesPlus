@@ -24,7 +24,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 
     private final Context _context;
 
-    private final boolean withoutNumbers;
+    final boolean withoutNumbers;
 
     String value = "";
     private String defaultValue;
@@ -125,19 +125,27 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                 // add not in checked and only filtered
                 if (!withoutNumbers) {
                     for (Contact localContact : localContactList) {
-                        boolean found = false;
-                        for (Contact contact : contactList) {
-                            if ((contact.contactId == localContact.contactId) &&
-                                    (contact.phoneId == localContact.phoneId) &&
-                                    (contact.accountType.equals(localContact.accountType))) {
-                                found = true;
-                                break;
+                        if (localContact.phoneId != 0) {
+//                        if (localContact.accountType.equals("com.viber.voip")) {
+//                            Log.e("ContactsMultiSelectDialogPreference.getValueCMSDP", "localContact.name=" + localContact.name);
+//                            Log.e("ContactsMultiSelectDialogPreference.getValueCMSDP", "localContact.contactId=" + localContact.contactId);
+//                            Log.e("ContactsMultiSelectDialogPreference.getValueCMSDP", "localContact.phoneId=" + localContact.phoneId);
+//                            Log.e("ContactsMultiSelectDialogPreference.getValueCMSDP", "localContact.phoneNumber=" + localContact.phoneNumber);
+//                        }
+                            boolean found = false;
+                            for (Contact contact : contactList) {
+                                if ((contact.contactId == localContact.contactId) &&
+                                        (contact.phoneId == localContact.phoneId) &&
+                                        (contact.accountType.equals(localContact.accountType))) {
+                                    found = true;
+                                    break;
+                                }
                             }
-                        }
-                        if (!found) {
-                            if ((contactsFilter.data.equals(StringConstants.CONTACTS_FILTER_DATA_ALL)) || (localContact.accountType.equals(contactsFilter.data))
-                                    && (localContact.phoneId != 0)) {
-                                contactList.add(localContact);
+                            if (!found) {
+                                if (contactsFilter.data.equals(StringConstants.CONTACTS_FILTER_DATA_ALL)
+                                        || localContact.accountType.equals(contactsFilter.data)) {
+                                    contactList.add(localContact);
+                                }
                             }
                         }
                     }
@@ -152,7 +160,8 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                             }
                         }
                         if (!found) {
-                            if ((contactsFilter.data.equals(StringConstants.CONTACTS_FILTER_DATA_ALL)) || (localContact.accountType.equals(contactsFilter.data))) {
+                            if (contactsFilter.data.equals(StringConstants.CONTACTS_FILTER_DATA_ALL)
+                                    || localContact.accountType.equals(contactsFilter.data)) {
                                 contactList.add(localContact);
                             }
                         }

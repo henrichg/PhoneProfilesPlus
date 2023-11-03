@@ -25,6 +25,7 @@ class ContactsFilterDialog {
 
     private final Activity activity;
     //private final DialogPreference preference;
+    private final boolean withoutNumbers;
 
     private final AlertDialog mDialog;
     final ListView contactsFilterListView;
@@ -38,10 +39,12 @@ class ContactsFilterDialog {
     private ShowDialogAsyncTask asyncTask = null;
 
     ContactsFilterDialog(final Activity activity,
+                         final boolean withoutNumbers,
                          final DialogPreference preference) {
 
         this.activity = activity;
         //this.preference = preference;
+        this.withoutNumbers = withoutNumbers;
 
         contactsFilterList = new ArrayList<>();
 
@@ -162,17 +165,19 @@ class ContactsFilterDialog {
                         PPApplicationStatic.logE("[CONTACTS_DIALOG] .getValueCMSDP", "localContactList.size()=" + localContactList.size());
 
                         for (Contact contact : localContactList) {
-                            boolean found = false;
-                            for (ContactFilter filter : _contactsFilterList) {
-                                if (filter.data.equals(contact.accountType)) {
-                                    found = true;
-                                    break;
+                            if (dialog.withoutNumbers || (contact.phoneId != 0)) {
+                                boolean found = false;
+                                for (ContactFilter filter : _contactsFilterList) {
+                                    if (filter.data.equals(contact.accountType)) {
+                                        found = true;
+                                        break;
+                                    }
                                 }
-                            }
-                            if (!found) {
-                                ContactFilter filter = new ContactFilter();
-                                filter.data = contact.accountType;
-                                _contactsFilterList.add(filter);
+                                if (!found) {
+                                    ContactFilter filter = new ContactFilter();
+                                    filter.data = contact.accountType;
+                                    _contactsFilterList.add(filter);
+                                }
                             }
                         }
                     }

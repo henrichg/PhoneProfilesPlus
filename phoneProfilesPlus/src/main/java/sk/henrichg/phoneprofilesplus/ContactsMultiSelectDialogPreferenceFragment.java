@@ -119,7 +119,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
             }
         });
 
-        mContactsFilterDialog = new ContactsFilterDialog((Activity)prefContext, preference);
+        mContactsFilterDialog = new ContactsFilterDialog((Activity)prefContext, preference.withoutNumbers, preference);
         contactsFilter.setOnClickListener(view1 -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing())
