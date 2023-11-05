@@ -386,7 +386,7 @@ class EventStatic {
 
     static boolean getGlobalEventsRunning(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.getGlobalEventsRunning", "PPApplication.globalEventsRunStopMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.getGlobalEventsRunning", "PPApplication.globalEventsRunStopMutex");
         synchronized (PPApplication.globalEventsRunStopMutex) {
             if (Build.VERSION.SDK_INT >= 33) {
                 try {

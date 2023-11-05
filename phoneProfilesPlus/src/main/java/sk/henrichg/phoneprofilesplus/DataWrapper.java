@@ -749,7 +749,7 @@ class DataWrapper {
 
     void fillEventList()
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.deleteAllProfiles", "DataWrapper.eventList");
+        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.fillEventList", "DataWrapper.eventList");
         synchronized (eventList) {
             if (!eventListFilled) {
                 eventList.addAll(DatabaseHandler.getInstance(context).getAllEvents());

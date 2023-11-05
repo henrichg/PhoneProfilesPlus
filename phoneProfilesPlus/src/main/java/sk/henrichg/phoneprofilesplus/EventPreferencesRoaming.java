@@ -342,7 +342,7 @@ class EventPreferencesRoaming extends EventPreferences {
     */
 
     static void getEventRoamingInSIMSlot(Context context, int simSlot) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesRoaming.getEventRoamingInSIMSlot", "PPApplication.eventRoamingSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesRoaming.getEventRoamingInSIMSlot", "PPApplication.eventRoamingSensorMutex");
         synchronized (PPApplication.eventRoamingSensorMutex) {
             switch (simSlot) {
                 case 0:
@@ -367,7 +367,7 @@ class EventPreferencesRoaming extends EventPreferences {
         }
     }
     static void setEventRoamingInSIMSlot(Context context, int simSlot, boolean networkRoaming, boolean dataRoaming) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesRoaming.setEventRoamingInSIMSlot", "PPApplication.eventRoamingSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesRoaming.setEventRoamingInSIMSlot", "PPApplication.eventRoamingSensorMutex");
         synchronized (PPApplication.eventRoamingSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             switch (simSlot) {

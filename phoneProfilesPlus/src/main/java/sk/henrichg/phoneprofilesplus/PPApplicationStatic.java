@@ -994,7 +994,7 @@ class PPApplicationStatic {
 
     static boolean getApplicationStarted(boolean testService, boolean testExport)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.getApplicationStarted", "PPApplication.applicationStartedMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.getApplicationStarted", "PPApplication.applicationStartedMutex");
         synchronized (PPApplication.applicationStartedMutex) {
             if (testService) {
                 try {

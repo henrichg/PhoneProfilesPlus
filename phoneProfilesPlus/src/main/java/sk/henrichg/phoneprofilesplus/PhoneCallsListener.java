@@ -149,7 +149,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         EventPreferencesRoaming.getEventRoamingInSIMSlot(savedContext, simSlot);
         boolean oldNetworkRoaming = false;
         boolean oldDataRoaming = false;
-        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneCallsListener.onServiceStateChanged", "(1) PPApplication.eventRoamingSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneCallsListener.onServiceStateChanged", "(1) PPApplication.eventRoamingSensorMutex");
         synchronized (PPApplication.eventRoamingSensorMutex) {
             switch (simSlot) {
                 case 0:
@@ -171,7 +171,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         boolean newNetworkRoaming = false;
         boolean newDataRoaming = false;
         EventPreferencesRoaming.getEventRoamingInSIMSlot(savedContext, simSlot);
-        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneCallsListener.onServiceStateChanged", "(2) PPApplication.eventRoamingSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneCallsListener.onServiceStateChanged", "(2) PPApplication.eventRoamingSensorMutex");
         synchronized (PPApplication.eventRoamingSensorMutex) {
             switch (simSlot) {
                 case 0:
