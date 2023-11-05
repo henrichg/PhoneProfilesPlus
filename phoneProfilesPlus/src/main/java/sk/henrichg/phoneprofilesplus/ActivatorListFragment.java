@@ -375,6 +375,7 @@ public class ActivatorListFragment extends Fragment {
                     this.dataWrapper.clearEventTimelineList();
                     this.dataWrapper = null;
 
+                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivatorListFragment.LoadProfileListAsyncTask", "DataWrapper.profileList");
                     synchronized (fragment.activityDataWrapper.profileList) {
                         if (fragment.activityDataWrapper.profileList.size() == 0) {
                             fragment.viewNoData.setVisibility(View.VISIBLE);

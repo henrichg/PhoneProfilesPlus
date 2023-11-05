@@ -305,6 +305,7 @@ public class EditorProfileListFragment extends Fragment
         });
 
         if (fromOnViewCreated) {
+            PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListFragment.doOnViewCreated", "(1) DataWrapper.profileList");
             synchronized (activityDataWrapper.profileList) {
                 if (!activityDataWrapper.profileListFilled) {
                     // start new AsyncTask, because old may be cancelled
@@ -350,6 +351,7 @@ public class EditorProfileListFragment extends Fragment
             }
         }
         else {
+            PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListFragment.doOnViewCreated", "(2) DataWrapper.profileList");
             synchronized (activityDataWrapper.profileList) {
                 if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
                     sortAlphabetically(activityDataWrapper.profileList);
@@ -496,6 +498,7 @@ public class EditorProfileListFragment extends Fragment
                     _dataWrapper.clearProfileList();
                     _dataWrapper = null;
 
+                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListFragment.onPostExecute", "DataWrapper.profileList");
                     synchronized (fragment.activityDataWrapper.profileList) {
                         if (fragment.activityDataWrapper.profileList.size() == 0)
                             fragment.viewNoData.setVisibility(View.VISIBLE);
@@ -568,9 +571,7 @@ public class EditorProfileListFragment extends Fragment
         setVisibleRedTextInHeaderAsyncTask = null;
 
         if (activityDataWrapper != null) {
-            synchronized (activityDataWrapper.eventList) {
-                activityDataWrapper.invalidateDataWrapper();
-            }
+             activityDataWrapper.invalidateDataWrapper();
         }
     }
 
@@ -688,6 +689,7 @@ public class EditorProfileListFragment extends Fragment
         }
 
         // delete deleted profile from FIFO
+        PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListFragment.deleteProfile", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             List<String> activateProfilesFIFO = activityDataWrapper.fifoGetActivatedProfiles();
             List<String> newActivateProfilesFIFO = new ArrayList<>();
@@ -849,6 +851,7 @@ public class EditorProfileListFragment extends Fragment
                         PPApplicationStatic.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_PROFILES_DELETED, null, null, "");
 
                         // remove alarm for profile duration
+                        PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListFragment.deleteAllProfiles", "DataWrapper.profileList");
                         synchronized (activityDataWrapper.profileList) {
                             if (activityDataWrapper.profileListFilled) {
                                 for (Profile profile : activityDataWrapper.profileList)
@@ -856,6 +859,7 @@ public class EditorProfileListFragment extends Fragment
                             }
                         }
                         //Profile.setActivatedProfileForDuration(activityDataWrapper.context, 0);
+                        PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListFragment.deleteAllProfiles", "PPApplication.profileActivationMutex");
                         synchronized (PPApplication.profileActivationMutex) {
                             List<String> activateProfilesFIFO = new ArrayList<>();
                             activityDataWrapper.fifoSaveProfiles(activateProfilesFIFO);
@@ -1060,6 +1064,7 @@ public class EditorProfileListFragment extends Fragment
                 profileListAdapter.addItem(profile);
         }
 
+        PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListFragment.updateListView", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             if (!activityDataWrapper.profileListFilled) {
                 // sort list
@@ -1730,7 +1735,8 @@ public class EditorProfileListFragment extends Fragment
     }
 
     void updateBottomMenu() {
-        synchronized (activityDataWrapper.eventList) {
+        PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListFragment.updateBottomMenu", "DataWrapper.profileList");
+        synchronized (activityDataWrapper.profileList) {
             Menu menu = bottomToolbar.getMenu();
             if (menu != null) {
                 MenuItem item = menu.findItem(R.id.menu_generate_predefined_profiles);

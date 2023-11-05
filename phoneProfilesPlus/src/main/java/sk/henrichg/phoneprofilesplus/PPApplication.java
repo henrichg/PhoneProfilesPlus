@@ -175,7 +175,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
@@ -265,6 +265,7 @@ public class PPApplication extends Application
                                                 //+"|[MAIN_WORKER_CALL]"
                                                 //+"|[CONTACTS_DIALOG]"
                                                 //+"|[CONTACTS_CACHE]"
+                                                +"|[SYNCHRONIZED]"
                                                 //+"|BluetoothConnectedDevicesDetector"
                                                 //+"|BluetoothConnectionBroadcastReceiver"
                                                 ;
@@ -1095,6 +1096,7 @@ public class PPApplication extends Application
             return;
         }
 
+        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplication.onCreate", "PPApplication.applicationStartedMutex");
         synchronized (PPApplication.applicationStartedMutex) {
             PPApplication.exportIsRunning = false;
         }

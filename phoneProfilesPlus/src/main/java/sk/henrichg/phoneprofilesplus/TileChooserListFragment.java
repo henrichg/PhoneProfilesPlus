@@ -174,6 +174,7 @@ public class TileChooserListFragment extends Fragment {
                     // set copy local profile list into activity profilesDataWrapper
                     fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
 
+                    PPApplicationStatic.logE("[SYNCHRONIZED] TileChooserListFragment.LoadProfileListAsyncTask", "DataWrapper.profileList");
                     synchronized (fragment.activityDataWrapper.profileList) {
                         if (fragment.activityDataWrapper.profileList.size() == 0)
                             fragment.viewNoData.setVisibility(View.VISIBLE);
@@ -218,6 +219,7 @@ public class TileChooserListFragment extends Fragment {
 
             if (position != -1) {
                 Profile profile;
+                PPApplicationStatic.logE("[SYNCHRONIZED] TileChooserListFragment.chooseTile", "DataWrapper.profileList");
                 synchronized (activityDataWrapper.profileList) {
                     profile = activityDataWrapper.profileList.get(position);
                 }

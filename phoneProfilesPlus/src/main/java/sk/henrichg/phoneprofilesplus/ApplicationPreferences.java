@@ -640,6 +640,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_THEME_VALUE_NIGHT_MODE = "night_mode";
 
     static String applicationTheme(Context context, boolean useNightMode) {
+        PPApplicationStatic.logE("[SYNCHRONIZED] ApplicationPreferences.applicationTheme", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
             if (applicationTheme == null)
                 applicationTheme(context);

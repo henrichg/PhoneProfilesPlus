@@ -39,6 +39,7 @@ class ApplicationsCache {
     {
         if (cached) return;
 
+        PPApplicationStatic.logE("[SYNCHRONIZED] ApplicationsCache.cacheApplicationsList", "PPApplication.applicationCacheMutex");
         synchronized (PPApplication.applicationCacheMutex) {
             cancelled = false;
 
@@ -277,6 +278,7 @@ class ApplicationsCache {
 
     void clearCache(boolean nullList)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] ApplicationsCache.clearCache", "PPApplication.applicationCacheMutex");
         synchronized (PPApplication.applicationCacheMutex) {
             //int count = 0;
             for (Application application : applicationsList) {

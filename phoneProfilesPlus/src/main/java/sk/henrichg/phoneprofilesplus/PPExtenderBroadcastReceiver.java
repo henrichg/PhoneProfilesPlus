@@ -630,6 +630,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 
     static void getApplicationInForeground(Context context)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] PPExtenderBroadcastReceiver.getApplicationInForeground", "PPApplication.eventsRunMutex");
         synchronized (PPApplication.eventsRunMutex) {
             ApplicationPreferences.prefApplicationInForeground = ApplicationPreferences.
                     getSharedPreferences(context).getString(PREF_APPLICATION_IN_FOREGROUND, "");
@@ -638,6 +639,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
     }
     static void setApplicationInForeground(Context context, String application)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] PPExtenderBroadcastReceiver.setApplicationInForeground", "PPApplication.eventsRunMutex");
         synchronized (PPApplication.eventsRunMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putString(PREF_APPLICATION_IN_FOREGROUND, application);

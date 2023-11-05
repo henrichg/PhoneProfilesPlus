@@ -27,6 +27,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public void onCreate() {
         super.onCreate();
 
+        PPApplicationStatic.logE("[SYNCHRONIZED] PPNotificationListenerService.onCreate", "PPApplication.ppNotificationListenerService");
         synchronized (PPApplication.ppNotificationListenerService) {
             instance = this;
             connected = false;
@@ -51,6 +52,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //    unregisterReceiver(nlservicereceiver);
         //} catch (Exception ignored) {}
 
+        PPApplicationStatic.logE("[SYNCHRONIZED] PPNotificationListenerService.onDestroy", "PPApplication.ppNotificationListenerService");
         synchronized (PPApplication.ppNotificationListenerService) {
             instance = null;
             connected = false;
@@ -192,6 +194,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         super.onListenerConnected();
 //        PPApplicationStatic.logE("[IN_LISTENER] PPNotificationListenerService.onListenerConnected", "xxx");
 
+        PPApplicationStatic.logE("[SYNCHRONIZED] PPNotificationListenerService.onListenerConnected", "PPApplication.ppNotificationListenerService");
         synchronized (PPApplication.ppNotificationListenerService) {
             connected = true;
         }
@@ -202,6 +205,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         super.onListenerDisconnected();
 //        PPApplicationStatic.logE("[IN_LISTENER] PPNotificationListenerService.onListenerDisconnected", "xxx");
 
+        PPApplicationStatic.logE("[SYNCHRONIZED] PPNotificationListenerService.onListenerDisconnected", "PPApplication.ppNotificationListenerService");
         synchronized (PPApplication.ppNotificationListenerService) {
             connected = false;
         }
@@ -329,11 +333,13 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         //if (packageNames != null) {
             if (checkConnected) {
+                PPApplicationStatic.logE("[SYNCHRONIZED] PPNotificationListenerService.isNotificationListenerServiceEnabled", "(1) PPApplication.ppNotificationListenerService");
                 synchronized (PPApplication.ppNotificationListenerService) {
                     return packageNames.contains(packageName) && connected;
                 }
             }
             else {
+                PPApplicationStatic.logE("[SYNCHRONIZED] PPNotificationListenerService.isNotificationListenerServiceEnabled", "(2) PPApplication.ppNotificationListenerService");
                 synchronized (PPApplication.ppNotificationListenerService) {
                     return packageNames.contains(packageName);
                 }

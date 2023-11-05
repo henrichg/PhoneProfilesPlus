@@ -127,6 +127,7 @@ public class ProfilePreferenceFragment extends PreferenceDialogFragmentCompat {
             ProfilePreference preference = preferenceWeakRef.get();
             if (preference != null) {
                 preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
+                PPApplicationStatic.logE("[SYNCHRONIZED] ProfilePreferenceFragment.BindViewAsyncTask", "DataWrapper.profileList");
                 synchronized (preference.dataWrapper.profileList) {
                     preference.dataWrapper.profileList.sort(new AlphabeticallyComparator());
                 }

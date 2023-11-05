@@ -26,6 +26,7 @@ class WifiScanner {
     }
 
     void doScan(boolean fromDialog) {
+        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanner.doScan", "PPApplication.wifiScannerMutex");
         synchronized (PPApplication.wifiScannerMutex) {
             if (!PPApplicationStatic.getApplicationStarted(true, true))
                 // application is not started
@@ -217,6 +218,7 @@ class WifiScanner {
 
     static void getForceOneWifiScan(Context context)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanner.getForceOneWifiScan", "PPApplication.eventWifiSensorMutex");
         synchronized (PPApplication.eventWifiSensorMutex) {
             ApplicationPreferences.prefForceOneWifiScan = ApplicationPreferences.
                     getSharedPreferences(context).getInt(PREF_FORCE_ONE_WIFI_SCAN, FORCE_ONE_SCAN_DISABLED);
@@ -224,6 +226,7 @@ class WifiScanner {
     }
     static void setForceOneWifiScan(Context context, int forceScan)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanner.setForceOneWifiScan", "PPApplication.eventWifiSensorMutex");
         synchronized (PPApplication.eventWifiSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putInt(PREF_FORCE_ONE_WIFI_SCAN, forceScan);

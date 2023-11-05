@@ -346,6 +346,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
     static void getShowCriticalGitHubReleasesNotification(Context context)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] CheckCriticalPPPReleasesBroadcastReceiver.getShowCriticalGitHubReleasesNotification", "PPApplication.applicationGlobalPreferencesMutex");
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
             ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification = ApplicationPreferences.
                     getSharedPreferences(context).getInt(PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION, 0);
@@ -355,6 +356,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
     static void setShowCriticalGitHubReleasesNotification(Context context, int versionCode)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification", "PPApplication.applicationGlobalPreferencesMutex");
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putInt(PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION, versionCode);

@@ -760,6 +760,7 @@ public class EditorActivity extends AppCompatActivity
                     PPApplicationStatic.getApplicationsCache().cancelCaching();
                     //if (PPApplicationStatic.getApplicationsCache().cached)
                     PPApplicationStatic.getApplicationsCache().clearCache(true);
+                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorActivity.onDestroy", "PPApplication.applicationCacheMutex");
                     synchronized (PPApplication.applicationCacheMutex) {
                         PPApplication.applicationsCache = null;
                     }
@@ -4537,6 +4538,7 @@ public class EditorActivity extends AppCompatActivity
             EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 if (this.dataWrapper != null) {
+                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorActivity.ExportAsyncTask", "(1) PPApplication.applicationStartedMutex");
                     synchronized (PPApplication.applicationStartedMutex) {
                         PPApplication.exportIsRunning = true;
                     }
@@ -4601,6 +4603,7 @@ public class EditorActivity extends AppCompatActivity
 
                     PPApplicationStatic.addActivityLog(this.dataWrapper.context, PPApplication.ALTYPE_DATA_EXPORT, null, null, "");
 
+                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorActivity.ExportAsyncTask", "(2) PPApplication.applicationStartedMutex");
                     synchronized (PPApplication.applicationStartedMutex) {
                         PPApplication.exportIsRunning = false;
                     }

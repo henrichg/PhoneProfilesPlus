@@ -102,6 +102,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         if (contactsCache == null)
             return;
 
+        PPApplicationStatic.logE("[SYNCHRONIZED] ContactsMultiSelectDialogPreference.getValueCMSDP", "PPApplication.contactsCacheMutex");
         synchronized (PPApplication.contactsCacheMutex) {
             List<Contact>  localContactList = contactsCache.getList(/*withoutNumbers*/);
             if (localContactList != null) {

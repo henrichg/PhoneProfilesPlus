@@ -159,6 +159,7 @@ class ContactsFilterDialog {
                 if (contactsCache == null)
                     return null;
 
+                PPApplicationStatic.logE("[SYNCHRONIZED] ContactsFilterDialog.ShowDialogAsyncTask", "PPApplication.contactsCacheMutex");
                 synchronized (PPApplication.contactsCacheMutex) {
                     List<Contact> localContactList = contactsCache.getList(/*withoutNumbers*/);
                     if (localContactList != null) {

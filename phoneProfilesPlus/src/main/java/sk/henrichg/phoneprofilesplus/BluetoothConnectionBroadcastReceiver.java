@@ -156,6 +156,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     @SuppressLint("MissingPermission")
     static void getConnectedDevices(Context context)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.getConnectedDevices", "PPApplication.bluetoothConnectionChangeStateMutex");
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             if (connectedDevices == null)
                 connectedDevices = new ArrayList<>();
@@ -188,6 +189,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
     static void saveConnectedDevices(Context context)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.saveConnectedDevices", "PPApplication.bluetoothConnectionChangeStateMutex");
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
 
             if (connectedDevices == null)
@@ -216,6 +218,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     @SuppressLint("MissingPermission")
     private static void addConnectedDevice(BluetoothDevice device)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.addConnectedDevice", "PPApplication.bluetoothConnectionChangeStateMutex");
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             boolean found = false;
             for (BluetoothDeviceData _device : connectedDevices) {
@@ -245,6 +248,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     @SuppressLint("MissingPermission")
     private static void removeConnectedDevice(BluetoothDevice device)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.removeConnectedDevice", "PPApplication.bluetoothConnectionChangeStateMutex");
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             //int index = 0;
             BluetoothDeviceData deviceToRemove = null;
@@ -280,6 +284,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         //    getConnectedDevices(context);
         //}
 
+        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "PPApplication.bluetoothConnectionChangeStateMutex");
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             if (connectedDevices != null) {
                 /*if (onlyOld) {
@@ -304,6 +309,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     @SuppressLint("MissingPermission")
     private static void changeDeviceName(BluetoothDevice device, String deviceName)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.changeDeviceName", "PPApplication.bluetoothConnectionChangeStateMutex");
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             boolean found = false;
             for (BluetoothDeviceData _device : connectedDevices) {
@@ -326,6 +332,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
     static void addConnectedDeviceData(List<BluetoothDeviceData> newConnectedDevices)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.addConnectedDeviceData", "PPApplication.bluetoothConnectionChangeStateMutex");
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             for (BluetoothDeviceData newDevice : newConnectedDevices) {
                 boolean found = false;
@@ -364,6 +371,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
     static boolean isBluetoothConnected(BluetoothDeviceData deviceData, String sensorDeviceName)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "PPApplication.bluetoothConnectionChangeStateMutex");
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             if ((deviceData == null) && sensorDeviceName.isEmpty()) {
                // is device connected to any external bluetooth device ???

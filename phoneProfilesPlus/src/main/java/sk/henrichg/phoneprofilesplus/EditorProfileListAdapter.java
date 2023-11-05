@@ -111,6 +111,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
     @Override
     public int getItemCount() {
+        PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListAdapter.getItemCount", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             fragment.viewNoData.setVisibility(
                     ((activityDataWrapper.profileListFilled &&
@@ -148,6 +149,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             return null;
         else
         {
+            PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListAdapter.getItem", "DataWrapper.profileList");
             synchronized (activityDataWrapper.profileList) {
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
                     return activityDataWrapper.profileList.get(position);
@@ -184,6 +186,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         if (profile == null)
             return -1;
 
+        PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListAdapter.getItemPosition", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             if (!activityDataWrapper.profileListFilled)
                 return -1;
@@ -224,6 +227,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
     void addItem(Profile profile/*, boolean refresh*/)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListAdapter.addItem", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             if (!activityDataWrapper.profileListFilled)
                 return;
@@ -262,6 +266,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
     public Profile getActivatedProfile()
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListAdapter.getActivatedProfile", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             if (!activityDataWrapper.profileListFilled)
                 return null;
@@ -281,6 +286,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
     @SuppressLint("NotifyDataSetChanged")
     public void activateProfile(Profile profile)
     {
+        PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListAdapter.activateProfile", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             if (!activityDataWrapper.profileListFilled)
                 return;
@@ -309,6 +315,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
     @SuppressLint("NotifyDataSetChanged")
     public void notifyDataSetChanged(boolean refreshIcons) {
         if (refreshIcons) {
+            PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListAdapter.notifyDataSetChanged", "DataWrapper.profileList");
             synchronized (activityDataWrapper.profileList) {
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Profile> it = activityDataWrapper.profileList.iterator(); it.hasNext(); ) {
@@ -323,6 +330,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
     @Override
     public void onItemDismiss(int position) {
+        PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListAdapter.onItemDismiss", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             activityDataWrapper.profileList.remove(position);
         }
@@ -331,6 +339,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
+        PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListAdapter.onItemMove", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             if (!activityDataWrapper.profileListFilled)
                 return false;

@@ -100,6 +100,7 @@ public class ProfileListNotification {
         int notificationProfileListNumberOfProfilesPerPage;
         //String notificationProfileListStatusBarStyle;
 
+        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListNotification._showNotification", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
             notificationProfileListDisplayNotification = ApplicationPreferences.notificationProfileListDisplayNotification;
             //notificationProfileListShowInStatusBar = ApplicationPreferences.notificationProfileListShowInStatusBar;
@@ -496,6 +497,7 @@ public class ProfileListNotification {
         clearOldNotification(appContext);
 
         //if (PhoneProfilesService.getInstance() != null) {
+        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListNotification.forceDrawNotification", "PPApplication.showPPPNotificationMutex");
         synchronized (PPApplication.showPPPNotificationMutex) {
             //DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotification.forceDrawNotification", "call of _showNotification");
@@ -509,6 +511,7 @@ public class ProfileListNotification {
 
     static void forceDrawNotificationWhenIsDeleted(final Context appContext) {
         //if (PhoneProfilesService.getInstance() != null) {
+        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListNotification.forceDrawNotificationWhenIsDeleted", "PPApplication.showPPPNotificationMutex");
         synchronized (PPApplication.showPPPNotificationMutex) {
             //DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification.forceDrawNotification", "call of _showNotification");
@@ -627,6 +630,7 @@ public class ProfileListNotification {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 try {
+                    PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListNotification.clearNotification", "PPApplication.showPPPNotificationMutex");
                     synchronized (PPApplication.showPPPNotificationMutex) {
                         notificationManager.cancel(
                                 PPApplication.PROFILE_LIST_NOTIFICATION_TAG,
@@ -937,6 +941,7 @@ public class ProfileListNotification {
             appContext.registerReceiver(arrowsBroadcastReceiver, intentFilter5, receiverFlags);
         }
 
+        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListNotification.enable", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
             ApplicationPreferences.notificationProfileListDisplayNotification = true;
         }
@@ -949,6 +954,7 @@ public class ProfileListNotification {
     }
 
     static void disable(Context appContext) {
+        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListNotification.disable", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
             ApplicationPreferences.notificationProfileListDisplayNotification = false;
         }

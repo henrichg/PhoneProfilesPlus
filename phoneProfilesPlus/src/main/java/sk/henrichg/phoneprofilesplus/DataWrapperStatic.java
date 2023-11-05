@@ -293,6 +293,7 @@ class DataWrapperStatic {
     {
         if (EventStatic.getGlobalEventsRunning(context) && PPApplicationStatic.getApplicationStarted(false, false))
         {
+            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapperStatic.getLastStartedEventName", "DataWrapper.eventTimelines");
             synchronized (dataWrapper.eventTimelines) {
                 if (dataWrapper.eventListFilled && dataWrapper.eventTimelineListFilled) {
                     List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);

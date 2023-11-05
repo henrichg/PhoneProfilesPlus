@@ -381,6 +381,7 @@ class EventPreferencesLocation extends EventPreferences {
 
                             if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
                                 boolean transitionsUpdated;
+                                PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesLocation.doHandleEvent", "PPApplication.locationScannerMutex");
                                 synchronized (PPApplication.locationScannerMutex) {
                                     transitionsUpdated = PPApplication.locationScannerTransitionsUpdated;
                                 }

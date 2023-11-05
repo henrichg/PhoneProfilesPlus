@@ -56,6 +56,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         if (contactGroupsCache == null)
             return;
 
+        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsMultiSelectDialogPreference.getValueCMSDP", "PPApplication.contactsCacheMutex");
         synchronized (PPApplication.contactsCacheMutex) {
             List<ContactGroup> localContactGroupList = contactGroupsCache.getList();
             if (localContactGroupList != null) {

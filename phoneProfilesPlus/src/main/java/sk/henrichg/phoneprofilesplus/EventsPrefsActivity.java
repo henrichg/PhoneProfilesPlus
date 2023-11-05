@@ -606,16 +606,15 @@ public class EventsPrefsActivity extends AppCompatActivity
                         }
 
                         if (old_event_status != Event.ESTATUS_STOP) {
+                            PPApplicationStatic.logE("[SYNCHRONIZED] EventsPrefsActivity.saveUpdateOfPreferences", "PPApplication.eventsHandlerMutex");
                             synchronized (PPApplication.eventsHandlerMutex) {
 
-                                synchronized (PPApplication.eventsHandlerMutex) {
-                                    // pause event - must be called, because status is ESTATUS_STOP
-                                    event.pauseEvent(dataWrapper, true, false,
-                                            false, false, null, false, false, true);
-                                    // stop event
-                                    event.stopEvent(dataWrapper, true, false,
-                                            true, true, true);
-                                }
+                                // pause event - must be called, because status is ESTATUS_STOP
+                                event.pauseEvent(dataWrapper, true, false,
+                                        false, false, null, false, false, true);
+                                // stop event
+                                event.stopEvent(dataWrapper, true, false,
+                                        true, true, true);
 
                                 PPApplicationStatic.setBlockProfileEventActions(true);
                             }

@@ -81,6 +81,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
     }
 
     static void getEventHeadsetParameters(Context context) {
+        PPApplicationStatic.logE("[SYNCHRONIZED] HeadsetConnectionBroadcastReceiver.getEventHeadsetParameters", "PPApplication.eventAccessoriesSensorMutex");
         synchronized (PPApplication.eventAccessoriesSensorMutex) {
             SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(context);
             ApplicationPreferences.prefWiredHeadsetConnected = preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_WIRED_HEADSET_CONNECTED, false);
@@ -91,6 +92,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
     }
     private static void setEventHeadsetParameters(Context context, boolean connectedWiredHeadphones, boolean connectedWiredMicrophone,
                                                 boolean connectedBluetoothHeadphones, boolean connectedBluetoothMicrophone) {
+        PPApplicationStatic.logE("[SYNCHRONIZED] HeadsetConnectionBroadcastReceiver.setEventHeadsetParameters", "PPApplication.eventAccessoriesSensorMutex");
         synchronized (PPApplication.eventAccessoriesSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_EVENT_WIRED_HEADSET_CONNECTED, connectedWiredHeadphones);

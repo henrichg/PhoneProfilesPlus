@@ -166,6 +166,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    PPApplicationStatic.logE("[SYNCHRONIZED] LocationScannerSwitchGPSBroadcastReceiver.doWork", "PPApplication.locationScannerMutex");
                     synchronized (PPApplication.locationScannerMutex) {
                         if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
 

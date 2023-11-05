@@ -75,6 +75,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetIconFillBackgroundHeight;
         boolean applicationWidgetIconFillBackgroundWidth;
 
+        PPApplicationStatic.logE("[SYNCHRONIZED] IconWidgetProvider._onUpdate", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;

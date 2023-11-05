@@ -189,6 +189,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                         }
                         */
 
+                        PPApplicationStatic.logE("[SYNCHRONIZED] NotUsedMobileCellsDetectedActivity.onStart", "PPApplication.mobileCellsScannerMutex");
                         synchronized (PPApplication.mobileCellsScannerMutex) {
                             if ((PhoneProfilesService.getInstance() != null) && (PPApplication.mobileCellsScanner != null)) {
                                 PPApplication.mobileCellsScanner.handleEvents(appContext);
