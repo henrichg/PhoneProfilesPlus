@@ -275,12 +275,14 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
 
             // profile start
+            /*
             if (applicationEditorPrefIndicator) {
                 if (event._fkProfileStart == Profile.PROFILE_NO_ACTIVATE)
                     profileStartIcon.getLayoutParams().height = 1;
                 else
                     profileStartIcon.getLayoutParams().height = GlobalGUIRoutines.dpToPx(30);
             }
+            */
             Profile profile =  editorFragment.activityDataWrapper.getProfileById(event._fkProfileStart, true,
                     applicationEditorPrefIndicator, false);
             if (profile != null)
@@ -367,16 +369,18 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     profileEndIndicator.setVisibility(View.GONE);
             }
             else*/ {
-                profileEndIcon.setVisibility(View.VISIBLE);
+                //profileEndIcon.setVisibility(View.VISIBLE);
+                /*
                 if (applicationEditorPrefIndicator) {
                     if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
                         profileEndIcon.getLayoutParams().height = 1;
                     else
                         profileEndIcon.getLayoutParams().height = GlobalGUIRoutines.dpToPx(30);
                 }
-                profileEndName.setVisibility(View.VISIBLE);
-                if (profileEndIndicator != null)
-                    profileEndIndicator.setVisibility(View.VISIBLE);
+                */
+                //profileEndName.setVisibility(View.VISIBLE);
+                //if (profileEndIndicator != null)
+                //    profileEndIndicator.setVisibility(View.VISIBLE);
 
                 profile = editorFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true,
                         applicationEditorPrefIndicator, false);
@@ -431,6 +435,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                         if (profileEndIndicator != null) {
+                            profileEndIndicator.setVisibility(View.VISIBLE);
                             if (profile._preferencesIndicator != null)
                                 profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
                             else
