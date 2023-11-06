@@ -277,16 +277,18 @@ class AddEventAdapter extends BaseAdapter {
                 if (holder.profileEndIndicator != null)
                     holder.profileEndIndicator.setVisibility(View.GONE);
             } else*/ {
-                holder.profileEndIcon.setVisibility(View.VISIBLE);
+                //holder.profileEndIcon.setVisibility(View.VISIBLE);
+                /*
                 if (applicationEditorPrefIndicator) {
                     if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
                         holder.profileEndIcon.getLayoutParams().height = 1;
                     else
                         holder.profileEndIcon.getLayoutParams().height = GlobalGUIRoutines.dpToPx(30);
                 }
-                holder.profileEndName.setVisibility(View.VISIBLE);
-                if (holder.profileEndIndicator != null)
-                    holder.profileEndIndicator.setVisibility(View.VISIBLE);
+                */
+                //holder.profileEndName.setVisibility(View.VISIBLE);
+                //if (holder.profileEndIndicator != null)
+                //    holder.profileEndIndicator.setVisibility(View.VISIBLE);
 
                 profile = dialog.eventListFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true, true, false);
                 if (profile != null) {
