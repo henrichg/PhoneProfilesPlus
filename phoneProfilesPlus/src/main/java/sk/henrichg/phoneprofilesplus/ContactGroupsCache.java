@@ -58,7 +58,7 @@ class ContactGroupsCache {
 
         ArrayList<Contact> _contactList = new ArrayList<>();
         //ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
-        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroupList", "(1) PPApplication.contactsCacheMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroupList", "(1) PPApplication.contactsCacheMutex");
         synchronized (PPApplication.contactsCacheMutex) {
             List<Contact> contacts = contactsCache.getList(/*false*/);
             if (contacts != null)
@@ -197,7 +197,7 @@ class ContactGroupsCache {
 
                 //_contactGroupList.sort(new ContactGroupsComparator());
 
-                PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroupList", "(2) PPApplication.contactsCacheMutex");
+//                PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroupList", "(2) PPApplication.contactsCacheMutex");
                 synchronized (PPApplication.contactsCacheMutex) {
                     contactsCache.updateContacts(_contactList/*, false*/);
                     //contactsCache.updateContacts(_contactListWithoutNumber, true);
@@ -265,7 +265,7 @@ class ContactGroupsCache {
             clearGroups(_contactList);
             //contactsCache.clearGroups(_contactListWithoutNumber);
 
-            PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroupList", "(3) PPApplication.contactsCacheMutex");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroupList", "(3) PPApplication.contactsCacheMutex");
             synchronized (PPApplication.contactsCacheMutex) {
                 contactsCache.updateContacts(_contactList/*, false*/);
                 //contactsCache.updateContacts(_contactListWithoutNumber, true);
@@ -282,7 +282,7 @@ class ContactGroupsCache {
             clearGroups(_contactList);
             //contactsCache.clearGroups(_contactListWithoutNumber);
 
-            PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroupList", "(4) PPApplication.contactsCacheMutex");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroupList", "(4) PPApplication.contactsCacheMutex");
             synchronized (PPApplication.contactsCacheMutex) {
                 contactsCache.updateContacts(_contactList/*, false*/);
                 //contactsCache.updateContacts(_contactListWithoutNumber, true);
@@ -318,7 +318,7 @@ class ContactGroupsCache {
 
     List<ContactGroup> getList()
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getList", "PPApplication.contactsCacheMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getList", "PPApplication.contactsCacheMutex");
         synchronized (PPApplication.contactsCacheMutex) {
             if (cached) {
                 //return contactGroupList;
@@ -340,7 +340,7 @@ class ContactGroupsCache {
 
     ContactGroup getContactGroup(int position)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroup", "PPApplication.contactsCacheMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroup", "PPApplication.contactsCacheMutex");
         synchronized (PPApplication.contactsCacheMutex) {
             if (cached)
                 return contactGroupList.get(position);
@@ -375,7 +375,7 @@ class ContactGroupsCache {
             if (contact.contactId == contactId) {
                 contactFound = true;
 
-                PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.addGroupToContact", "PPApplication.contactsCacheMutex");
+//                PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.addGroupToContact", "PPApplication.contactsCacheMutex");
                 synchronized (PPApplication.contactsCacheMutex) {
                     if (contact.groups == null)
                         contact.groups = new ArrayList<>();
@@ -402,7 +402,7 @@ class ContactGroupsCache {
 
     void clearCache()
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.clearCache", "PPApplication.contactsCacheMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.clearCache", "PPApplication.contactsCacheMutex");
         synchronized (PPApplication.contactsCacheMutex) {
             contactGroupList.clear();
             cached = false;

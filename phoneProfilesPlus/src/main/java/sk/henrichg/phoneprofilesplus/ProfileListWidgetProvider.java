@@ -58,7 +58,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         String applicationWidgetListBackgroundColorNightModeOff;
         String applicationWidgetListBackgroundColorNightModeOn;
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetProvider.buildLayout", "PPApplication.applicationPreferencesMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetProvider.buildLayout", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;

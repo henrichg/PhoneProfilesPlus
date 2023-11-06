@@ -1053,7 +1053,7 @@ class ActivateProfileHelper {
     */
 
     static void getMergedRingNotificationVolumes(Context context) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getMergedRingNotificationVolumes", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getMergedRingNotificationVolumes", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.prefMergedRingNotificationVolumes =
                     ApplicationPreferences.getSharedPreferences(context).getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true);
@@ -1067,7 +1067,7 @@ class ActivateProfileHelper {
     }
     // test if ring and notification volumes are merged
     static void setMergedRingNotificationVolumes(Context context, /*boolean force,*/ SharedPreferences.Editor editor) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getMergedRingNotificationVolumes", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getMergedRingNotificationVolumes", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
 
             Context appContext = context.getApplicationContext();
@@ -1206,7 +1206,7 @@ class ActivateProfileHelper {
                 if (!ringMuted) {
                     if (profile.getVolumeRingtoneChange()) {
                         if (forProfileActivation) {
-                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setVolumes", "(1) PPApplication.notUnlinkVolumesMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setVolumes", "(1) PPApplication.notUnlinkVolumesMutex");
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
@@ -1217,7 +1217,7 @@ class ActivateProfileHelper {
                 if (!notificationMuted) {
                     if (profile.getVolumeNotificationChange()) {
                         if (forProfileActivation) {
-                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setVolumes", "(2) PPApplication.notUnlinkVolumesMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setVolumes", "(2) PPApplication.notUnlinkVolumesMutex");
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
@@ -1255,7 +1255,7 @@ class ActivateProfileHelper {
 
                         if (!dtmfMuted) {
                             if (profile.getVolumeDTMFChange()) {
-                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setVolumes", "(3) PPApplication.notUnlinkVolumesMutex");
+//                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setVolumes", "(3) PPApplication.notUnlinkVolumesMutex");
                                 synchronized (PPApplication.notUnlinkVolumesMutex) {
                                     PPApplication.ringerModeNotUnlinkVolumes = false;
                                 }
@@ -1270,7 +1270,7 @@ class ActivateProfileHelper {
                         }
                         if (!systemMuted) {
                             if (profile.getVolumeSystemChange()) {
-                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setVolumes", "(4) PPApplication.notUnlinkVolumesMutex");
+//                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setVolumes", "(4) PPApplication.notUnlinkVolumesMutex");
                                 synchronized (PPApplication.notUnlinkVolumesMutex) {
                                     PPApplication.ringerModeNotUnlinkVolumes = false;
                                 }
@@ -1501,7 +1501,7 @@ class ActivateProfileHelper {
             if (!G1OK) {
                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                         (RootUtils.isRooted(/*false*/))) {
-                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setMediaVolume", "PPApplication.rootMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setMediaVolume", "PPApplication.rootMutex");
                     synchronized (PPApplication.rootMutex) {
                         String command1 = COMMAND_SETTINGS_PUT_GLOBAL+AUDIO_SAFE_VOLUME_STATE+" 2";
                         Command command = new Command(0, /*false,*/ command1);
@@ -1681,7 +1681,7 @@ class ActivateProfileHelper {
                             } else {
                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                         (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setVibrateWhenRinging", "PPApplication.rootMutex");
+//                                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setVibrateWhenRinging", "PPApplication.rootMutex");
                                     synchronized (PPApplication.rootMutex) {
                                         String command1;
                                         Command command;
@@ -1775,7 +1775,7 @@ class ActivateProfileHelper {
                 } else {
                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                             (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setVibrateNotification", "PPApplication.rootMutex");
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setVibrateNotification", "PPApplication.rootMutex");
                         synchronized (PPApplication.rootMutex) {
                             String command1;
                             Command command;
@@ -1828,7 +1828,7 @@ class ActivateProfileHelper {
                         if (isPPPPutSettingsInstalled(appContext) > 0)
                             putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
                         else {
-                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper._setVibrationIntensity", "(1) PPApplication.rootMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper._setVibrationIntensity", "(1) PPApplication.rootMutex");
                             synchronized (PPApplication.rootMutex) {
                                 String command1;
                                 Command command;
@@ -1850,7 +1850,7 @@ class ActivateProfileHelper {
                         else {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper._setVibrationIntensity", "(2) PPApplication.rootMutex");
+//                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper._setVibrationIntensity", "(2) PPApplication.rootMutex");
                                 synchronized (PPApplication.rootMutex) {
                                     String command1;
                                     Command command;
@@ -2590,7 +2590,7 @@ class ActivateProfileHelper {
                                         } else {
                                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                     (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(1) PPApplication.rootMutex");
+//                                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(1) PPApplication.rootMutex");
                                                 synchronized (PPApplication.rootMutex) {
                                                     String command1;
                                                     Command command;
@@ -2621,7 +2621,7 @@ class ActivateProfileHelper {
                                         } else {
                                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                     (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(2) PPApplication.rootMutex");
+//                                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(2) PPApplication.rootMutex");
                                                 synchronized (PPApplication.rootMutex) {
                                                     String command1;
                                                     Command command;
@@ -2689,7 +2689,7 @@ class ActivateProfileHelper {
                                     } else {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                 (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(3) PPApplication.rootMutex");
+//                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(3) PPApplication.rootMutex");
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1;
                                                 Command command;
@@ -2718,7 +2718,7 @@ class ActivateProfileHelper {
                                     } else {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                 (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(4) PPApplication.rootMutex");
+//                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(4) PPApplication.rootMutex");
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1;
                                                 Command command;
@@ -2793,7 +2793,7 @@ class ActivateProfileHelper {
                                         } else {
                                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                     (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(5) PPApplication.rootMutex");
+//                                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(5) PPApplication.rootMutex");
                                                 synchronized (PPApplication.rootMutex) {
                                                     String command1;
                                                     Command command;
@@ -2825,7 +2825,7 @@ class ActivateProfileHelper {
                                         {
                                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                     (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(6) PPApplication.rootMutex");
+//                                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(6) PPApplication.rootMutex");
                                                 synchronized (PPApplication.rootMutex) {
                                                     String command1;
                                                     Command command;
@@ -2893,7 +2893,7 @@ class ActivateProfileHelper {
                                     } else {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                 (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(7) PPApplication.rootMutex");
+//                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(7) PPApplication.rootMutex");
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1;
                                                 Command command;
@@ -2921,7 +2921,7 @@ class ActivateProfileHelper {
                                     {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                 (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(8) PPApplication.rootMutex");
+//                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(8) PPApplication.rootMutex");
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1;
                                                 Command command;
@@ -2976,7 +2976,7 @@ class ActivateProfileHelper {
                             } else {
                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                         (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(9) PPApplication.rootMutex");
+//                                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(9) PPApplication.rootMutex");
                                     synchronized (PPApplication.rootMutex) {
                                         String command1 = null;
                                         Command command;
@@ -3196,7 +3196,7 @@ class ActivateProfileHelper {
                         else {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setNotificationLed", "PPApplication.rootMutex");
+//                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setNotificationLed", "PPApplication.rootMutex");
                                 synchronized (PPApplication.rootMutex) {
                                     String command1 = COMMAND_SETTINGS_PUT_SYSTEM + NOTIFICATION_LIGHT_PULSE/*Settings.System.NOTIFICATION_LIGHT_PULSE*/ + " " + value;
                                     //if (PPApplication.isSELinuxEnforcing())
@@ -3269,7 +3269,7 @@ class ActivateProfileHelper {
                         if (!G1OK) {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setHeadsUpNotifications", "PPApplication.rootMutex");
+//                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setHeadsUpNotifications", "PPApplication.rootMutex");
                                 synchronized (PPApplication.rootMutex) {
                                     String command1 = COMMAND_SETTINGS_PUT_GLOBAL+ NEADSUP_NOTIFICATION_ENABLED + " " + value;
                                     //if (PPApplication.isSELinuxEnforcing())
@@ -3352,7 +3352,7 @@ class ActivateProfileHelper {
                         if (!G1OK) {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setAlwaysOnDisplay", "PPApplication.rootMutex");
+//                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setAlwaysOnDisplay", "PPApplication.rootMutex");
                                 synchronized (PPApplication.rootMutex) {
                                     String command1;
                                     //if (PPApplication.deviceIsOnePlus)
@@ -3552,7 +3552,7 @@ class ActivateProfileHelper {
 
             switch (ringerMode) {
                 case Profile.RINGERMODE_RING:
-                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(1) PPApplication.notUnlinkVolumesMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(1) PPApplication.notUnlinkVolumesMutex");
                     synchronized (PPApplication.notUnlinkVolumesMutex) {
                         PPApplication.ringerModeNotUnlinkVolumes = false;
                     }
@@ -3570,7 +3570,7 @@ class ActivateProfileHelper {
                     setVibrateNotification(appContext, profile, -1, executedProfileSharedPreferences);
                     break;
                 case Profile.RINGERMODE_RING_AND_VIBRATE:
-                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(2) PPApplication.notUnlinkVolumesMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(2) PPApplication.notUnlinkVolumesMutex");
                     synchronized (PPApplication.notUnlinkVolumesMutex) {
                         PPApplication.ringerModeNotUnlinkVolumes = false;
                     }
@@ -3588,7 +3588,7 @@ class ActivateProfileHelper {
                     setVibrateNotification(appContext, null, 1, executedProfileSharedPreferences);
                     break;
                 case Profile.RINGERMODE_VIBRATE:
-                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(3) PPApplication.notUnlinkVolumesMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(3) PPApplication.notUnlinkVolumesMutex");
                     synchronized (PPApplication.notUnlinkVolumesMutex) {
                         PPApplication.ringerModeNotUnlinkVolumes = false;
                     }
@@ -3611,7 +3611,7 @@ class ActivateProfileHelper {
 
                     if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
-                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(4) PPApplication.notUnlinkVolumesMutex");
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(4) PPApplication.notUnlinkVolumesMutex");
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
                             PPApplication.ringerModeNotUnlinkVolumes = false;
                         }
@@ -3622,7 +3622,7 @@ class ActivateProfileHelper {
                         setVibrateSettings(true, audioManager);
                     }
                     else {
-                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(5) PPApplication.notUnlinkVolumesMutex");
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(5) PPApplication.notUnlinkVolumesMutex");
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
                             PPApplication.ringerModeNotUnlinkVolumes = false;
                         }
@@ -3640,7 +3640,7 @@ class ActivateProfileHelper {
                 case Profile.RINGERMODE_ZENMODE:
                     switch (zenMode) {
                         case Profile.ZENMODE_ALL:
-                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(6) PPApplication.notUnlinkVolumesMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(6) PPApplication.notUnlinkVolumesMutex");
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
@@ -3657,7 +3657,7 @@ class ActivateProfileHelper {
                             setVibrateNotification(appContext, profile, -1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_PRIORITY:
-                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(7) PPApplication.notUnlinkVolumesMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(7) PPApplication.notUnlinkVolumesMutex");
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
@@ -3675,7 +3675,7 @@ class ActivateProfileHelper {
                             setVibrateNotification(appContext, profile, -1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_NONE:
-                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(8) PPApplication.notUnlinkVolumesMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(8) PPApplication.notUnlinkVolumesMutex");
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
@@ -3690,7 +3690,7 @@ class ActivateProfileHelper {
                         case Profile.ZENMODE_ALL_AND_VIBRATE:
                             // this is as Sound mode = Vibrate
 
-                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(9) PPApplication.notUnlinkVolumesMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(9) PPApplication.notUnlinkVolumesMutex");
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
@@ -3708,7 +3708,7 @@ class ActivateProfileHelper {
                             setVibrateNotification(appContext, null, 1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_PRIORITY_AND_VIBRATE:
-                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(10) PPApplication.notUnlinkVolumesMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(10) PPApplication.notUnlinkVolumesMutex");
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
@@ -3748,7 +3748,7 @@ class ActivateProfileHelper {
                             setVibrateNotification(appContext, null, 1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_ALARMS:
-                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(11) PPApplication.notUnlinkVolumesMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(11) PPApplication.notUnlinkVolumesMutex");
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
@@ -5741,7 +5741,7 @@ class ActivateProfileHelper {
             (!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
             settingsBinaryExists) {
             // device is rooted
-            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setAirplaneMode", "PPApplication.rootMutex");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setAirplaneMode", "PPApplication.rootMutex");
             synchronized (PPApplication.rootMutex) {
                 String command1;
                 String command2;
@@ -5929,7 +5929,7 @@ class ActivateProfileHelper {
             if (Permissions.checkPhone(context.getApplicationContext())) {
 //                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
                 if ((simCard == 0)) {
-                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setMobileData", "PPApplication.rootMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setMobileData", "PPApplication.rootMutex");
                     synchronized (PPApplication.rootMutex) {
                         String command1 = "svc data " + (enable ? "enable" : "disable");
                         Command command = new Command(0, /*false,*/ command1);
@@ -6029,7 +6029,7 @@ class ActivateProfileHelper {
 
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                 RootUtils.isRooted(/*false*/)) {
-            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setWifiInAirplaneMode", "PPApplication.rootMutex");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setWifiInAirplaneMode", "PPApplication.rootMutex");
             synchronized (PPApplication.rootMutex) {
                 String command1 = "svc wifi " + (enable ? "enable" : "disable");
                 Command command = new Command(0, /*false,*/ command1);
@@ -6186,7 +6186,7 @@ class ActivateProfileHelper {
 
                                             int subscriptionId = subscriptionInfo.getSubscriptionId();
 //                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "subscriptionId=" + subscriptionId);
-                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setPreferredNetworkType", "PPApplication.rootMutex");
+//                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setPreferredNetworkType", "PPApplication.rootMutex");
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_PHONE, transactionCode, subscriptionId, networkType);
 //                                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "command1=" + command1);
@@ -6272,7 +6272,7 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setWifiAP", "PPApplication.rootMutex");
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setWifiAP", "PPApplication.rootMutex");
                         synchronized (PPApplication.rootMutex) {
                             String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_WIFI, transactionCode, 0, (enable) ? 1 : 0);
                             if (command1 != null) {
@@ -6334,7 +6334,7 @@ class ActivateProfileHelper {
         if (!G1OK) {
             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                     (RootUtils.isRooted(/*false*/))) {
-                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setNFC", "PPApplication.rootMutex");
+//                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setNFC", "PPApplication.rootMutex");
                 synchronized (PPApplication.rootMutex) {
                     String command1 = RootUtils.getJavaCommandFile(CmdNfc.class, "nfc", appContext, enable);
                     if (command1 != null) {
@@ -6437,7 +6437,7 @@ class ActivateProfileHelper {
 
                     String command1;
 
-                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setGPS", "(1) PPApplication.rootMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setGPS", "(1) PPApplication.rootMutex");
                     synchronized (PPApplication.rootMutex) {
                         command1 = COMMAND_SETTINGS_PUT_SECURE+LOCATION_PROVIDERS_ALLOWED+GPS_ON;
                         Command command = new Command(0, /*false,*/ command1);
@@ -6494,7 +6494,7 @@ class ActivateProfileHelper {
 
                     String command1;
 
-                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setGPS", "(2) PPApplication.rootMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setGPS", "(2) PPApplication.rootMutex");
                     synchronized (PPApplication.rootMutex) {
                         command1 = COMMAND_SETTINGS_PUT_SECURE+LOCATION_PROVIDERS_ALLOWED+GPS_OFF;
                         Command command = new Command(0, /*false,*/ command1);
@@ -6627,7 +6627,7 @@ class ActivateProfileHelper {
                                     if (!G1OK) {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                 (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
-                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setPowerSaveMode", "PPApplication.rootMutex");
+//                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setPowerSaveMode", "PPApplication.rootMutex");
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1 = COMMAND_SETTINGS_PUT_GLOBAL+LOW_POWER + " " + ((_isPowerSaveMode) ? 1 : 0);
                                                 Command command = new Command(0, /*false,*/ command1);
@@ -6711,7 +6711,7 @@ class ActivateProfileHelper {
                     case 2:
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                 (RootUtils.isRooted(/*false*/))) {
-                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.lockDevice", "PPApplication.rootMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.lockDevice", "PPApplication.rootMutex");
                             synchronized (PPApplication.rootMutex) {
                                 /*String command1 = "input keyevent 26";
                                 Command command = new Command(0, false, command1);
@@ -6806,7 +6806,7 @@ class ActivateProfileHelper {
                 if (!G1OK) {
                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                             (RootUtils.isRooted(/*false*/))) {
-                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setScreenDarkMode", "PPApplication.rootMutex");
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setScreenDarkMode", "PPApplication.rootMutex");
                         synchronized (PPApplication.rootMutex) {
                             String command1 = COMMAND_SETTINGS_PUT_SECURE+UI_NIGHT_MODE;
                             if (value == 1)
@@ -6985,7 +6985,7 @@ class ActivateProfileHelper {
                                                         // do not call subscription change, when is aleredy set, this cause FC
 
 //                                                        PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionId=" + subscriptionId);
-                                                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setDefaultSimCard", "PPApplication.rootMutex");
+//                                                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setDefaultSimCard", "PPApplication.rootMutex");
                                                         synchronized (PPApplication.rootMutex) {
                                                             String command1;
                                                             if (simCard == -1)
@@ -7135,7 +7135,7 @@ class ActivateProfileHelper {
                                     if (simCard == (slotIndex+1)) {
                                         int subscriptionId = subscriptionInfo.getSubscriptionId();
 //                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionId=" + subscriptionId);
-                                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setSIMOnOff", "PPApplication.rootMutex");
+//                                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setSIMOnOff", "PPApplication.rootMutex");
                                         synchronized (PPApplication.rootMutex) {
                                             String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId, state);
                                             //String command1 = PPApplication.getServiceCommand("phone", transactionCode, slotIndex, state);
@@ -7598,7 +7598,7 @@ class ActivateProfileHelper {
 
     static void getRingerVolume(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getRingerVolume", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getRingerVolume", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.prefRingerVolume = ApplicationPreferences.
                     getSharedPreferences(context).getInt(PREF_RINGER_VOLUME, -999);
@@ -7607,7 +7607,7 @@ class ActivateProfileHelper {
     }
     static void setRingerVolume(Context context, int volume)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerVolume", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerVolume", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             int systemZenMode = getSystemZenMode(context/*, -1*/);
@@ -7622,7 +7622,7 @@ class ActivateProfileHelper {
 
     static void getNotificationVolume(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getNotificationVolume", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getNotificationVolume", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.prefNotificationVolume = ApplicationPreferences.
                     getSharedPreferences(context).getInt(PREF_NOTIFICATION_VOLUME, -999);
@@ -7631,7 +7631,7 @@ class ActivateProfileHelper {
     }
     static void setNotificationVolume(Context context, int volume)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setNotificationVolume", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setNotificationVolume", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             int systemZenMode = getSystemZenMode(context/*, -1*/);
@@ -7647,7 +7647,7 @@ class ActivateProfileHelper {
     // called only from PPApplication.loadProfileActivationData()
     static void getRingerMode(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getRingerMode", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getRingerMode", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.prefRingerMode = ApplicationPreferences.
                     getSharedPreferences(context).getInt(PREF_RINGER_MODE, 0);
@@ -7658,7 +7658,7 @@ class ActivateProfileHelper {
     {
         getRingerMode(context);
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.saveRingerMode", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.saveRingerMode", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
 
             int savedMode = ApplicationPreferences.prefRingerMode;
@@ -7679,7 +7679,7 @@ class ActivateProfileHelper {
     // called only from PPApplication.loadProfileActivationData()
     static void getZenMode(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getZenMode", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getZenMode", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.prefZenMode = ApplicationPreferences.
                     getSharedPreferences(context).getInt(PREF_ZEN_MODE, 0);
@@ -7690,7 +7690,7 @@ class ActivateProfileHelper {
     {
         getZenMode(context);
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.saveZenMode", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.saveZenMode", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             int savedMode = ApplicationPreferences.prefZenMode;
 
@@ -7709,7 +7709,7 @@ class ActivateProfileHelper {
 
     static void getLockScreenDisabled(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getLockScreenDisabled", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getLockScreenDisabled", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.prefLockScreenDisabled = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PREF_LOCKSCREEN_DISABLED, false);
@@ -7718,7 +7718,7 @@ class ActivateProfileHelper {
     }
     static void setLockScreenDisabled(Context context, boolean disabled)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setLockScreenDisabled", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setLockScreenDisabled", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_LOCKSCREEN_DISABLED, disabled);
@@ -7729,7 +7729,7 @@ class ActivateProfileHelper {
 
     static void getActivatedProfileScreenTimeoutWhenScreenOff(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getActivatedProfileScreenTimeoutWhenScreenOff", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getActivatedProfileScreenTimeoutWhenScreenOff", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.prefActivatedProfileScreenTimeoutWhenScreenOff = ApplicationPreferences.
                     getSharedPreferences(context).getInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT_WHEN_SCREEN_OFF, 0);
@@ -7738,7 +7738,7 @@ class ActivateProfileHelper {
     }
     static void setActivatedProfileScreenTimeoutWhenScreenOff(Context context, int timeout)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setActivatedProfileScreenTimeoutWhenScreenOff", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setActivatedProfileScreenTimeoutWhenScreenOff", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT_WHEN_SCREEN_OFF, timeout);
@@ -7749,7 +7749,7 @@ class ActivateProfileHelper {
 
     static void getKeepScreenOnPermanent(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getKeepScreenOnPermanent", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getKeepScreenOnPermanent", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.keepScreenOnPermanent = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PREF_KEEP_SCREEN_ON_PERMANENT, false);
@@ -7758,7 +7758,7 @@ class ActivateProfileHelper {
     }
     static void setKeepScreenOnPermanent(Context context, boolean keepOnPermanent)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setKeepScreenOnPermanent", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setKeepScreenOnPermanent", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_KEEP_SCREEN_ON_PERMANENT, keepOnPermanent);

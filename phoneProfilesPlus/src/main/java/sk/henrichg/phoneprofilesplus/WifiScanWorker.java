@@ -530,7 +530,7 @@ public class WifiScanWorker extends Worker {
 
     static void getScanRequest(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.getScanRequest", "PPApplication.eventWifiSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.getScanRequest", "PPApplication.eventWifiSensorMutex");
         synchronized (PPApplication.eventWifiSensorMutex) {
             ApplicationPreferences.prefEventWifiScanRequest = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PREF_EVENT_WIFI_SCAN_REQUEST, false);
@@ -538,7 +538,7 @@ public class WifiScanWorker extends Worker {
     }
     static void setScanRequest(Context context, boolean scanRequest)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.setScanRequest", "PPApplication.eventWifiSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.setScanRequest", "PPApplication.eventWifiSensorMutex");
         synchronized (PPApplication.eventWifiSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_EVENT_WIFI_SCAN_REQUEST, scanRequest);
@@ -549,7 +549,7 @@ public class WifiScanWorker extends Worker {
 
     static void getWaitForResults(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.getWaitForResults", "PPApplication.eventWifiSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.getWaitForResults", "PPApplication.eventWifiSensorMutex");
         synchronized (PPApplication.eventWifiSensorMutex) {
             ApplicationPreferences.prefEventWifiWaitForResult = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PREF_EVENT_WIFI_WAIT_FOR_RESULTS, false);
@@ -557,7 +557,7 @@ public class WifiScanWorker extends Worker {
     }
     static void setWaitForResults(Context context, boolean waitForResults)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.setWaitForResults", "PPApplication.eventWifiSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.setWaitForResults", "PPApplication.eventWifiSensorMutex");
         synchronized (PPApplication.eventWifiSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_EVENT_WIFI_WAIT_FOR_RESULTS, waitForResults);
@@ -594,7 +594,7 @@ public class WifiScanWorker extends Worker {
 
     static void getWifiEnabledForScan(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.getWifiEnabledForScan", "PPApplication.eventWifiSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.getWifiEnabledForScan", "PPApplication.eventWifiSensorMutex");
         synchronized (PPApplication.eventWifiSensorMutex) {
             ApplicationPreferences.prefEventWifiEnabledForScan = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PREF_EVENT_WIFI_ENABLED_FOR_SCAN, false);
@@ -603,7 +603,7 @@ public class WifiScanWorker extends Worker {
 
     static void setWifiEnabledForScan(Context context, boolean setEnabled)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.setWifiEnabledForScan", "PPApplication.eventWifiSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.setWifiEnabledForScan", "PPApplication.eventWifiSensorMutex");
         synchronized (PPApplication.eventWifiSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_EVENT_WIFI_ENABLED_FOR_SCAN, setEnabled);
@@ -728,7 +728,7 @@ public class WifiScanWorker extends Worker {
     //public static void getWifiConfigurationList(Context context)
     static List<WifiSSIDData> getWifiConfigurationList(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.getWifiConfigurationList", "PPApplication.wifiScanResultsMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.getWifiConfigurationList", "PPApplication.wifiScanResultsMutex");
         synchronized (PPApplication.wifiScanResultsMutex) {
             //if (wifiConfigurationList == null)
             //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
@@ -759,7 +759,7 @@ public class WifiScanWorker extends Worker {
     //private static void saveWifiConfigurationList(Context context)
     private static void saveWifiConfigurationList(Context context, List<WifiSSIDData> wifiConfigurationList)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.saveWifiConfigurationList", "PPApplication.wifiScanResultsMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.saveWifiConfigurationList", "PPApplication.wifiScanResultsMutex");
         synchronized (PPApplication.wifiScanResultsMutex) {
             //if (wifiConfigurationList == null)
             //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
@@ -786,7 +786,7 @@ public class WifiScanWorker extends Worker {
     //public static void getScanResults(Context context)
     static List<WifiSSIDData> getScanResults(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.getScanResults", "PPApplication.wifiScanResultsMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.getScanResults", "PPApplication.wifiScanResultsMutex");
         synchronized (PPApplication.wifiScanResultsMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
             int count = preferences.getInt(PREF_SCAN_RESULT_COUNT, -1);
@@ -813,7 +813,7 @@ public class WifiScanWorker extends Worker {
     //private static void saveScanResults(Context context)
     private static void saveScanResults(Context context, List<WifiSSIDData> scanResults)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.saveScanResults", "PPApplication.wifiScanResultsMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.saveScanResults", "PPApplication.wifiScanResultsMutex");
         synchronized (PPApplication.wifiScanResultsMutex) {
             //if (scanResults == null)
             //    scanResults = new ArrayList<WifiSSIDData>();
@@ -842,7 +842,7 @@ public class WifiScanWorker extends Worker {
     }
 
     private static void clearScanResults(Context context) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.clearScanResults", "PPApplication.wifiScanResultsMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] WifiScanWorker.clearScanResults", "PPApplication.wifiScanResultsMutex");
         synchronized (PPApplication.wifiScanResultsMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();

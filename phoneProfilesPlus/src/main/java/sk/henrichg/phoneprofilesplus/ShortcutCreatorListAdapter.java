@@ -27,7 +27,7 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ShortcutCreatorListAdapter.getCount", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ShortcutCreatorListAdapter.getCount", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             fragment.viewNoData.setVisibility(
                     ((activityDataWrapper.profileListFilled &&
@@ -39,7 +39,7 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
     }
 
     public Object getItem(int position) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ShortcutCreatorListAdapter.getItem", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ShortcutCreatorListAdapter.getItem", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             return activityDataWrapper.profileList.get(position);
         }
@@ -79,7 +79,7 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
 
 
         Profile profile;
-        PPApplicationStatic.logE("[SYNCHRONIZED] ShortcutCreatorListAdapter.getView", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ShortcutCreatorListAdapter.getView", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             profile = activityDataWrapper.profileList.get(position);
         }

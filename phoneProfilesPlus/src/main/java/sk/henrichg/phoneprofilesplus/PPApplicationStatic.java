@@ -670,12 +670,12 @@ class PPApplicationStatic {
     //--------------------------------------------------------------
 
     static void loadGlobalApplicationData(Context context) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.loadGlobalApplicationData", "PPApplication.applicationStartedMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.loadGlobalApplicationData", "PPApplication.applicationStartedMutex");
         synchronized (PPApplication.applicationStartedMutex) {
             PPApplication.applicationStarted = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PPApplication.PREF_APPLICATION_STARTED, false);
         }
-        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.loadGlobalApplicationData", "PPApplication.globalEventsRunStopMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.loadGlobalApplicationData", "PPApplication.globalEventsRunStopMutex");
         synchronized (PPApplication.globalEventsRunStopMutex) {
             PPApplication.globalEventsRunStop = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(Event.PREF_GLOBAL_EVENTS_RUN_STOP, true);
@@ -717,7 +717,7 @@ class PPApplicationStatic {
     }
 
     static void loadApplicationPreferences(Context context) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.loadApplicationPreferences", "PPApplication.applicationPreferencesMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.loadApplicationPreferences", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
             ApplicationPreferences.editorOrderSelectedItem(context);
             ApplicationPreferences.editorSelectedView(context);
@@ -1013,7 +1013,7 @@ class PPApplicationStatic {
 
     static void setApplicationStarted(Context context, boolean appStarted)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.setApplicationStarted", "PPApplication.applicationStartedMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.setApplicationStarted", "PPApplication.applicationStartedMutex");
         synchronized (PPApplication.applicationStartedMutex) {
             Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PPApplication.PREF_APPLICATION_STARTED, appStarted);
@@ -1029,7 +1029,7 @@ class PPApplicationStatic {
 
     static void setApplicationStopping(Context context, boolean appStopping)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.setApplicationStopping", "PPApplication.applicationStartedMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.setApplicationStopping", "PPApplication.applicationStartedMutex");
         synchronized (PPApplication.applicationStartedMutex) {
             Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PPApplication.PREF_APPLICATION_STOPPING, appStopping);
@@ -1051,7 +1051,7 @@ class PPApplicationStatic {
 
     private static void getActivityLogEnabled(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.getActivityLogEnabled", "PPApplication.applicationGlobalPreferencesMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.getActivityLogEnabled", "PPApplication.applicationGlobalPreferencesMutex");
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
             PPApplication.prefActivityLogEnabled = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(PPApplication.PREF_ACTIVITY_LOG_ENABLED, true);
@@ -1060,7 +1060,7 @@ class PPApplicationStatic {
     }
     static void setActivityLogEnabled(Context context, boolean enabled)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.setActivityLogEnabled", "PPApplication.applicationGlobalPreferencesMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.setActivityLogEnabled", "PPApplication.applicationGlobalPreferencesMutex");
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
             Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PPApplication.PREF_ACTIVITY_LOG_ENABLED, enabled);
@@ -1170,7 +1170,7 @@ class PPApplicationStatic {
 
     private static void getLastActivatedProfile(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.getLastActivatedProfile", "PPApplication.applicationGlobalPreferencesMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.getLastActivatedProfile", "PPApplication.applicationGlobalPreferencesMutex");
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
             PPApplication.prefLastActivatedProfile = ApplicationPreferences.
                     getSharedPreferences(context).getLong(PPApplication.PREF_LAST_ACTIVATED_PROFILE, 0);
@@ -1179,7 +1179,7 @@ class PPApplicationStatic {
     }
     static void setLastActivatedProfile(Context context, long profileId)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.setLastActivatedProfile", "PPApplication.applicationGlobalPreferencesMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.setLastActivatedProfile", "PPApplication.applicationGlobalPreferencesMutex");
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
             Editor editor = ApplicationPreferences.getEditor(context);
             editor.putLong(PPApplication.PREF_LAST_ACTIVATED_PROFILE, profileId);
@@ -1190,7 +1190,7 @@ class PPApplicationStatic {
 
     private static void getWallpaperChangeTime(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.getWallpaperChangeTime", "PPApplication.applicationGlobalPreferencesMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.getWallpaperChangeTime", "PPApplication.applicationGlobalPreferencesMutex");
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
             PPApplication.wallpaperChangeTime = ApplicationPreferences.
                     getSharedPreferences(context).getLong(PPApplication.PREF_WALLPAPER_CHANGE_TIME, 0);
@@ -1199,7 +1199,7 @@ class PPApplicationStatic {
     }
     static void setWallpaperChangeTime(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.setWallpaperChangeTime", "PPApplication.applicationGlobalPreferencesMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.setWallpaperChangeTime", "PPApplication.applicationGlobalPreferencesMutex");
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
             Calendar now = Calendar.getInstance();
             long _time = now.getTimeInMillis();
@@ -2130,7 +2130,7 @@ class PPApplicationStatic {
 
             if (!shutdown) {
                 // clear cahches
-                PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic._exitApp", "PPApplication.applicationCacheMutex");
+//                PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic._exitApp", "PPApplication.applicationCacheMutex");
                 synchronized (PPApplication.applicationCacheMutex) {
                     if (PPApplication.applicationsCache != null) {
                         PPApplication.applicationsCache.cancelCaching();
@@ -2138,7 +2138,7 @@ class PPApplicationStatic {
                     }
                     PPApplication.applicationsCache = null;
                 }
-                PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic._exitApp", "PPApplication.contactsCacheMutex");
+//                PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic._exitApp", "PPApplication.contactsCacheMutex");
                 synchronized (PPApplication.contactsCacheMutex) {
                     if (PPApplication.contactGroupsCache != null) {
                         PPApplication.contactGroupsCache.clearCache();
@@ -2201,7 +2201,7 @@ class PPApplicationStatic {
                 //PPApplication.initRoot();
 
                 if (dataWrapper != null) {
-                    PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic._exitApp", "DataWrapper.profileList");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic._exitApp", "DataWrapper.profileList");
                     synchronized (dataWrapper.profileList) {
                         if (!dataWrapper.profileListFilled)
                             dataWrapper.fillProfileList(false, false);
@@ -2209,7 +2209,7 @@ class PPApplicationStatic {
                             ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, context);
                     }
 
-                    PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic._exitApp", "DataWrapper.eventList");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic._exitApp", "DataWrapper.eventList");
                     synchronized (dataWrapper.eventList) {
                         if (!dataWrapper.eventListFilled)
                             dataWrapper.fillEventList();
@@ -2221,7 +2221,7 @@ class PPApplicationStatic {
 
                 //Profile.setActivatedProfileForDuration(context, 0);
                 if (dataWrapper != null) {
-                    PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic._exitApp", "PPApplication.profileActivationMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic._exitApp", "PPApplication.profileActivationMutex");
                     synchronized (PPApplication.profileActivationMutex) {
                         List<String> activateProfilesFIFO = new ArrayList<>();
                         dataWrapper.fifoSaveProfiles(activateProfilesFIFO);

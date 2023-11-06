@@ -500,7 +500,7 @@ class EventPreferencesMobileCells extends EventPreferences {
 
                         if (!scanningPaused) {
 
-                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesMobileCells.doHandleEvent", "PPApplication.mobileCellsScannerMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesMobileCells.doHandleEvent", "PPApplication.mobileCellsScannerMutex");
                             synchronized (PPApplication.mobileCellsScannerMutex) {
                                 if ((PhoneProfilesService.getInstance() != null) && (PPApplication.mobileCellsScanner != null)) {
 

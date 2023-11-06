@@ -1092,7 +1092,7 @@ class ProfileStatic {
 
     static void getActivatedProfileEndDurationTime(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileStatic.getActivatedProfileEndDurationTime", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileStatic.getActivatedProfileEndDurationTime", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.prefActivatedProfileEndDurationTime = ApplicationPreferences.
                     getSharedPreferences(context).getLong(ApplicationPreferences.PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
@@ -1102,7 +1102,7 @@ class ProfileStatic {
 
     static void setActivatedProfileEndDurationTime(Context context, long time)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileStatic.setActivatedProfileEndDurationTime", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileStatic.setActivatedProfileEndDurationTime", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putLong(ApplicationPreferences.PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);

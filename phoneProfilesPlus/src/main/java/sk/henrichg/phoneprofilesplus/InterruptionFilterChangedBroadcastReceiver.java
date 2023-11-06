@@ -67,7 +67,7 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                                 break;
                         }
                         if (zenMode != 0) {
-                            PPApplicationStatic.logE("[SYNCHRONIZED] InterruptionFilterChangedBroadcastReceiver.onReceive", "PPApplication.notUnlinkVolumesMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] InterruptionFilterChangedBroadcastReceiver.onReceive", "PPApplication.notUnlinkVolumesMutex");
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = true;
                             }

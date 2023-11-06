@@ -1975,7 +1975,7 @@ class Event {
                             eventTimeline._fkProfileEndActivated = 0;
                     } else*/
                         {
-                            PPApplicationStatic.logE("[SYNCHRONIZED] Event.doActivateEndProfile", "(1) PPApplication.profileActivationMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] Event.doActivateEndProfile", "(1) PPApplication.profileActivationMutex");
                             synchronized (PPApplication.profileActivationMutex) {
                                 List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();
@@ -2068,7 +2068,7 @@ class Event {
                             eventTimeline._fkProfileEndActivated = 0;
                     } else*/
                         {
-                            PPApplicationStatic.logE("[SYNCHRONIZED] Event.doActivateEndProfile", "(2) PPApplication.profileActivationMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] Event.doActivateEndProfile", "(2) PPApplication.profileActivationMutex");
                             synchronized (PPApplication.profileActivationMutex) {
                                 List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();

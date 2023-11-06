@@ -157,7 +157,7 @@ class EventsHandler {
     }
 
     void handleEvents(int[] sensorType) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventsHandler.handleEvents", "PPApplication.eventsHandlerMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventsHandler.handleEvents", "PPApplication.eventsHandlerMutex");
         synchronized (PPApplication.eventsHandlerMutex) {
 //            Log.e("EventsHandler.handleEvents", "(1) *****************");
             boolean manualRestart = Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_MANUAL_RESTART_EVENTS);
@@ -456,7 +456,7 @@ class EventsHandler {
                     //notified = true;
                 }
 
-                PPApplicationStatic.logE("[SYNCHRONIZED] EventsHandler.handleEvents", "PPApplication.profileActivationMutex");
+//                PPApplicationStatic.logE("[SYNCHRONIZED] EventsHandler.handleEvents", "PPApplication.profileActivationMutex");
                 synchronized (PPApplication.profileActivationMutex) {
                     List<String> activateProfilesFIFO = new ArrayList<>();
                     dataWrapper.fifoSaveProfiles(activateProfilesFIFO);

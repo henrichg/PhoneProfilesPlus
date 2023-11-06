@@ -45,7 +45,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
     }
 
     public int getCount() {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.getCount", "PPApplication.profileListWidgetDatasetChangedMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.getCount", "PPApplication.profileListWidgetDatasetChangedMutex");
         synchronized (PPApplication.profileListWidgetDatasetChangedMutex) {
             int count = 0;
             if (dataWrapper != null) {
@@ -65,7 +65,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         if (getCount() == 0)
             return null;
         else {
-            PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.getItem", "PPApplication.profileListWidgetDatasetChangedMutex");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.getItem", "PPApplication.profileListWidgetDatasetChangedMutex");
             synchronized (PPApplication.profileListWidgetDatasetChangedMutex) {
                 Profile _profile = null;
                 if (dataWrapper != null) {
@@ -90,7 +90,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
     }
 
     public RemoteViews getViewAt(int position) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.getViewAt", "PPApplication.profileListWidgetDatasetChangedMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.getViewAt", "PPApplication.profileListWidgetDatasetChangedMutex");
         synchronized (PPApplication.profileListWidgetDatasetChangedMutex) {
             //Log.e("ProfileListWidgetFactory.getViewAt", "applicationWidgetListGridLayout="+applicationWidgetListGridLayout);
             //Log.e("ProfileListWidgetFactory.getViewAt", "applicationWidgetListCompactGrid="+applicationWidgetListCompactGrid);
@@ -112,7 +112,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             String applicationWidgetListBackgroundColorNightModeOff;
             String applicationWidgetListBackgroundColorNightModeOn;
 
-            PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.getViewAt", "PPApplication.applicationPreferencesMutex");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.getViewAt", "PPApplication.applicationPreferencesMutex");
             synchronized (PPApplication.applicationPreferencesMutex) {
                 applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT;
                 applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
@@ -538,7 +538,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         String applicationWidgetListBackgroundColorNightModeOff;
         String applicationWidgetListBackgroundColorNightModeOn;
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.onDataSetChanged", "PPApplication.applicationPreferencesMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.onDataSetChanged", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness;
             applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
@@ -638,7 +638,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         }
         _dataWrapper.invalidateDataWrapper();
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.onDataSetChanged", "PPApplication.profileListWidgetDatasetChangedMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.onDataSetChanged", "PPApplication.profileListWidgetDatasetChangedMutex");
         synchronized (PPApplication.profileListWidgetDatasetChangedMutex) {
 
             if (dataWrapper != null)

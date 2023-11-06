@@ -103,7 +103,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     @Override
     public int getItemCount() {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.getItemCount", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.getItemCount", "DataWrapper.eventList");
         synchronized (activityDataWrapper.eventList) {
             fragment.viewNoData.setVisibility(
                     ((activityDataWrapper.eventListFilled) &&
@@ -150,7 +150,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             return null;
         else
         {
-            PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.getItem", "DataWrapper.eventList");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.getItem", "DataWrapper.eventList");
             synchronized (activityDataWrapper.eventList) {
                 if ((filterType == EditorEventListFragment.FILTER_TYPE_ALL) ||
                         (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER))
@@ -193,7 +193,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     int getItemPosition(Event event)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.getItemPosition", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.getItemPosition", "DataWrapper.eventList");
         synchronized (activityDataWrapper.eventList) {
             if (!activityDataWrapper.eventListFilled)
                 return -1;
@@ -246,7 +246,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     void addItem(Event event/*, boolean refresh*/)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.addItem", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.addItem", "DataWrapper.eventList");
         synchronized (activityDataWrapper.eventList) {
             if (!activityDataWrapper.eventListFilled)
                 return;
@@ -261,7 +261,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     void deleteItemNoNotify(Event event)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.deleteItemNoNotify", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.deleteItemNoNotify", "DataWrapper.eventList");
         synchronized (activityDataWrapper.eventList) {
             if (!activityDataWrapper.eventListFilled)
                 return;
@@ -273,7 +273,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     @SuppressLint("NotifyDataSetChanged")
     public void clear()
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.clear", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.clear", "DataWrapper.eventList");
         synchronized (activityDataWrapper.eventList) {
             if (!activityDataWrapper.eventListFilled)
                 return;
@@ -293,7 +293,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     @SuppressLint("NotifyDataSetChanged")
     public void notifyDataSetChanged(boolean refreshIcons) {
         if (refreshIcons) {
-            PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.notifyDataSetChanged", "DataWrapper.eventList");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.notifyDataSetChanged", "DataWrapper.eventList");
             synchronized (activityDataWrapper.eventList) {
                 boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
                 //noinspection ForLoopReplaceableByForEach
@@ -320,7 +320,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     @Override
     public void onItemDismiss(int position) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.onItemDismiss", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.onItemDismiss", "DataWrapper.eventList");
         synchronized (activityDataWrapper.eventList) {
             activityDataWrapper.eventList.remove(position);
         }
@@ -329,7 +329,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.onItemMove", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.onItemMove", "DataWrapper.eventList");
         synchronized (activityDataWrapper.eventList) {
             if (!activityDataWrapper.eventListFilled)
                 return false;

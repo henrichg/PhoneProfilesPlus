@@ -679,7 +679,7 @@ class EventPreferencesCall extends EventPreferences {
             if (contactsCache == null)
                 return false;
             List<Contact> contactList;
-            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.isPhoneNumberConfigured", "(1) PPApplication.contactsCacheMutex");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.isPhoneNumberConfigured", "(1) PPApplication.contactsCacheMutex");
             synchronized (PPApplication.contactsCacheMutex) {
                 contactList = contactsCache.getList(/*false*/);
             }
@@ -688,7 +688,7 @@ class EventPreferencesCall extends EventPreferences {
             String[] splits = this._contactGroups.split(StringConstants.STR_SPLIT_REGEX);
             for (String split : splits) {
                 if (!split.isEmpty()) {
-                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.isPhoneNumberConfigured", "(2) PPApplication.contactsCacheMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.isPhoneNumberConfigured", "(2) PPApplication.contactsCacheMutex");
                     synchronized (PPApplication.contactsCacheMutex) {
                         if (contactList != null) {
                             for (Contact contact : contactList) {
@@ -786,7 +786,7 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     static void getEventCallEventType(Context context) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.getEventCallEventType", "PPApplication.eventCallSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.getEventCallEventType", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
             ApplicationPreferences.prefEventCallEventType = ApplicationPreferences.
                     getSharedPreferences(context).getInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
@@ -794,7 +794,7 @@ class EventPreferencesCall extends EventPreferences {
         }
     }
     static void setEventCallEventType(Context context, int type) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallsgetEventCallEventType", "PPApplication.eventCallSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallsgetEventCallEventType", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, type);
@@ -804,7 +804,7 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     static void getEventCallEventTime(Context context) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.getEventCallEventTime", "PPApplication.eventCallSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.getEventCallEventTime", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
             ApplicationPreferences.prefEventCallEventTime = ApplicationPreferences.
                     getSharedPreferences(context).getLong(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME, 0);
@@ -812,7 +812,7 @@ class EventPreferencesCall extends EventPreferences {
         }
     }
     static void setEventCallEventTime(Context context, long time) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.setEventCallEventTime", "PPApplication.eventCallSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.setEventCallEventTime", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putLong(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME, time);
@@ -822,7 +822,7 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     static void getEventCallPhoneNumber(Context context) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.getEventCallPhoneNumber", "PPApplication.eventCallSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.getEventCallPhoneNumber", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
             ApplicationPreferences.prefEventCallPhoneNumber = ApplicationPreferences.
                     getSharedPreferences(context).getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
@@ -830,7 +830,7 @@ class EventPreferencesCall extends EventPreferences {
         }
     }
     static void setEventCallPhoneNumber(Context context, String phoneNumber) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.setEventCallPhoneNumber", "PPApplication.eventCallSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.setEventCallPhoneNumber", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
@@ -839,7 +839,7 @@ class EventPreferencesCall extends EventPreferences {
         }
     }
     static void getEventCallSIMSlot(Context context) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.getEventCallSIMSlot", "PPApplication.eventCallSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.getEventCallSIMSlot", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
             ApplicationPreferences.prefEventCallFromSIMSlot = ApplicationPreferences.
                     getSharedPreferences(context).getInt(EventPreferencesCall.PREF_EVENT_CALL_FROM_SIM_SLOT, 0);
@@ -847,7 +847,7 @@ class EventPreferencesCall extends EventPreferences {
         }
     }
     static void setEventCallFromSIMSlot(Context context, int simSlot) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.setEventCallSIMSlot", "PPApplication.eventCallSensorMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.setEventCallSIMSlot", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putInt(EventPreferencesCall.PREF_EVENT_CALL_FROM_SIM_SLOT, simSlot);

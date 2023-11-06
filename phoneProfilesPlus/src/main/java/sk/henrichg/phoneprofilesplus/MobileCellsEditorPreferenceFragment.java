@@ -946,7 +946,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
         @Override
         protected Void doInBackground(Void... params) {
-            PPApplicationStatic.logE("[SYNCHRONIZED] MobileCellsEditorPreferenceFragment.RefreshListViewAsyncTask", "PPApplication.mobileCellsScannerMutex");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] MobileCellsEditorPreferenceFragment.RefreshListViewAsyncTask", "PPApplication.mobileCellsScannerMutex");
             synchronized (PPApplication.mobileCellsScannerMutex) {
                 MobileCellsEditorPreferenceFragment fragment = fragmentWeakRef.get();
                 MobileCellsEditorPreference preference = preferenceWeakRef.get();

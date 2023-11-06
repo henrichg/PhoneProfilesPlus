@@ -102,7 +102,7 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
 
     private void getValuePMSDP(boolean notForUnselect)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileMultiSelectPreferenceFragment.getValuePMSDP", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileMultiSelectPreferenceFragment.getValuePMSDP", "DataWrapper.profileList");
         synchronized (preference.dataWrapper.profileList) {
             for (Profile profile : preference.dataWrapper.profileList)
                 profile._checked = false;
@@ -177,7 +177,7 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
-                PPApplicationStatic.logE("[SYNCHRONIZED] ProfileMultiSelectPreferenceFragment.RefreshListViewAsyncTask", "DataWrapper.profileList");
+//                PPApplicationStatic.logE("[SYNCHRONIZED] ProfileMultiSelectPreferenceFragment.RefreshListViewAsyncTask", "DataWrapper.profileList");
                 synchronized (preference.dataWrapper.profileList) {
                     preference.dataWrapper.profileList.sort(new AlphabeticallyComparator());
                 }

@@ -113,7 +113,7 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         if (grantRoot) {
             // force check root
             boolean rooted;
-            PPApplicationStatic.logE("[SYNCHRONIZED] InfoDialogPreferenceFragment.onLinkClicked", "PPApplication.rootMutex");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] InfoDialogPreferenceFragment.onLinkClicked", "PPApplication.rootMutex");
             synchronized (PPApplication.rootMutex) {
                 PPApplication.rootMutex.rootChecked = false;
                 rooted = RootUtils._isRooted();

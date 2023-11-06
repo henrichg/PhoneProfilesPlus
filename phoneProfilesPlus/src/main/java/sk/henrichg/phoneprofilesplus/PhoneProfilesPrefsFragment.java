@@ -1023,7 +1023,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         // force check root
         boolean rooted;
-        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesPrefsFragment.onActivityCreated", "PPApplication.rootMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesPrefsFragment.onActivityCreated", "PPApplication.rootMutex");
         synchronized (PPApplication.rootMutex) {
             PPApplication.rootMutex.rootChecked = false;
             rooted = RootUtils._isRooted();

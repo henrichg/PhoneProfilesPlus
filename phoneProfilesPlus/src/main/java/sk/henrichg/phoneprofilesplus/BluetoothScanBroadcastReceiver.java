@@ -93,7 +93,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                                 BluetoothScanWorker.fillBoundedDevicesList(appContext);
                                             }
 
-                                            PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothScanBroadcastReceiver.onReceive", "PPApplication.bluetoothCLScanMutex");
+//                                            PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothScanBroadcastReceiver.onReceive", "PPApplication.bluetoothCLScanMutex");
                                             synchronized (PPApplication.bluetoothCLScanMutex) {
                                                 @SuppressLint("MissingPermission")
                                                 String btName = device.getName();

@@ -543,7 +543,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static DatabaseHandler getInstance(Context context) {
         //Double check locking pattern
         if (instance == null) { //Check for the first time
-            PPApplicationStatic.logE("[SYNCHRONIZED] DatabaseHandler.getInstance", "DatabaseHandler.class");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] DatabaseHandler.getInstance", "DatabaseHandler.class");
             synchronized (DatabaseHandler.class) {   //Check for the second time.
                 //if there is no instance available... create new one
                 if (instance == null) instance = new DatabaseHandler(context);

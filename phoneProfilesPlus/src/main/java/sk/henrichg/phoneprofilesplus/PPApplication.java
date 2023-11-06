@@ -1096,7 +1096,7 @@ public class PPApplication extends Application
             return;
         }
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplication.onCreate", "PPApplication.applicationStartedMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplication.onCreate", "PPApplication.applicationStartedMutex");
         synchronized (PPApplication.applicationStartedMutex) {
             PPApplication.exportIsRunning = false;
         }

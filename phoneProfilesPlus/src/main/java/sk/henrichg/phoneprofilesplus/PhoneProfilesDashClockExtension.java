@@ -18,7 +18,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
     public static PhoneProfilesDashClockExtension getInstance()
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesDashClockExtension constructor", "PPApplication.dashClockWidgetMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesDashClockExtension constructor", "PPApplication.dashClockWidgetMutex");
         synchronized (PPApplication.dashClockWidgetMutex) {
             return instance;
         }
@@ -35,7 +35,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
 //        PPApplicationStatic.logE("[IN_LISTENER] DashClockExtension.onInitialize", "xxx");
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesDashClockExtension.onInitialize", "PPApplication.dashClockWidgetMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesDashClockExtension.onInitialize", "PPApplication.dashClockWidgetMutex");
         synchronized (PPApplication.dashClockWidgetMutex) {
             instance = this;
 
@@ -56,7 +56,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
 //        PPApplicationStatic.logE("[IN_LISTENER] DashClockExtension.onDestroy", "xxx");
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesDashClockExtension.onDestroy", "PPApplication.dashClockWidgetMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesDashClockExtension.onDestroy", "PPApplication.dashClockWidgetMutex");
         synchronized (PPApplication.dashClockWidgetMutex) {
             instance = null;
             /*if (dataWrapper != null)
@@ -88,7 +88,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             //Context appContext= appContextWeakRef.get();
             //DataWrapper dataWrapper = dataWrapperWeakRef.get();
 
-            PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesDashClockExtension.onUpdateData", "PPApplication.dashClockWidgetMutex");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesDashClockExtension.onUpdateData", "PPApplication.dashClockWidgetMutex");
             synchronized (PPApplication.dashClockWidgetMutex) {
 
                 if ((dataWrapper != null) && (instance != null)) {

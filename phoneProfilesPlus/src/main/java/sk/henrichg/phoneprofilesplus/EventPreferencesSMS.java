@@ -644,7 +644,7 @@ class EventPreferencesSMS extends EventPreferences {
                     if (contactsCache == null)
                         return;
                     List<Contact> contactList;
-                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesSMS.saveStartTime", "(1) PPApplication.contactsCacheMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesSMS.saveStartTime", "(1) PPApplication.contactsCacheMutex");
                     synchronized (PPApplication.contactsCacheMutex) {
                         contactList = contactsCache.getList(/*false*/);
                     }
@@ -653,7 +653,7 @@ class EventPreferencesSMS extends EventPreferences {
                     String[] splits = this._contactGroups.split(StringConstants.STR_SPLIT_REGEX);
                     for (String split : splits) {
                         if (!split.isEmpty()) {
-                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesSMS.saveStartTime", "(2) PPApplication.contactsCacheMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesSMS.saveStartTime", "(2) PPApplication.contactsCacheMutex");
                             synchronized (PPApplication.contactsCacheMutex) {
                                 if (contactList != null) {
                                     for (Contact contact : contactList) {

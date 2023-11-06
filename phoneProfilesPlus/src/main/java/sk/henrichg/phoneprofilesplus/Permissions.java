@@ -2833,7 +2833,7 @@ class Permissions {
                             // startActivityForResult not working, it is external application
                             activity.startActivity(intent);
                             //PPApplication.initRoot();
-                            PPApplicationStatic.logE("[SYNCHRONIZED] Permissions.grantRootX", "(1) PPApplication.rootMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] Permissions.grantRootX", "(1) PPApplication.rootMutex");
                             synchronized (PPApplication.rootMutex) {
                                 PPApplication.rootMutex.rootChecked = false;
                             }
@@ -2852,7 +2852,7 @@ class Permissions {
                                 // startActivityForResult not working, it is external application
                                 activity.startActivity(intent);
                                 //PPApplication.initRoot();
-                                PPApplicationStatic.logE("[SYNCHRONIZED] Permissions.grantRootX", "(2) PPApplication.rootMutex");
+//                                PPApplicationStatic.logE("[SYNCHRONIZED] Permissions.grantRootX", "(2) PPApplication.rootMutex");
                                 synchronized (PPApplication.rootMutex) {
                                     PPApplication.rootMutex.rootChecked = false;
                                 }

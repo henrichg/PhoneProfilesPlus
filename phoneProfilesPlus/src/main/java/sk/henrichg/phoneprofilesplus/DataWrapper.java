@@ -102,15 +102,15 @@ class DataWrapper {
 
     DataWrapper copyDataWrapper() {
         DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon, indicatorsType, indicatorsMonoValue, indicatorsLightnessValue);
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.copyDataWrapper", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.copyDataWrapper", "DataWrapper.profileList");
         synchronized (profileList) {
             dataWrapper.copyProfileList(this);
         }
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.copyDataWrapper", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.copyDataWrapper", "DataWrapper.eventList");
         synchronized (eventList) {
             dataWrapper.copyEventList(this);
         }
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.copyDataWrapper", "DataWrapper.eventTimelines");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.copyDataWrapper", "DataWrapper.eventTimelines");
         synchronized (eventTimelines) {
             dataWrapper.copyEventTimelineList(this);
         }
@@ -119,7 +119,7 @@ class DataWrapper {
 
     void fillProfileList(boolean generateIcons, boolean generateIndicators)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.fillProfileList", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.fillProfileList", "DataWrapper.profileList");
         synchronized (profileList) {
             if (!profileListFilled)
             {
@@ -148,7 +148,7 @@ class DataWrapper {
 
     void setProfileList(List<Profile> sourceProfileList)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.setProfileList", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.setProfileList", "DataWrapper.profileList");
         synchronized (profileList) {
             if (profileListFilled)
                 profileList.clear();
@@ -159,7 +159,7 @@ class DataWrapper {
 
     void copyProfileList(DataWrapper fromDataWrapper)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.copyProfileList", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.copyProfileList", "DataWrapper.profileList");
         synchronized (profileList) {
             if (profileListFilled) {
                 profileList.clear();
@@ -313,7 +313,7 @@ class DataWrapper {
                                    boolean generateIndicators,
                                    Context baseContext)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.fillPredefinedProfileList", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.fillPredefinedProfileList", "DataWrapper.profileList");
         synchronized (profileList) {
             //invalidateProfileList();
             DatabaseHandler.getInstance(context).deleteAllProfiles();
@@ -329,7 +329,7 @@ class DataWrapper {
     }
 
     void clearProfileList() {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.clearProfileList", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.clearProfileList", "DataWrapper.profileList");
         synchronized (profileList) {
             //for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
             //    /*Profile profile =*/ it.next(); // this must be called
@@ -341,7 +341,7 @@ class DataWrapper {
     }
     void invalidateProfileList()
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.invalidateProfileList", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.invalidateProfileList", "DataWrapper.profileList");
         synchronized (profileList) {
             //if (profileListFilled)
             //
@@ -372,7 +372,7 @@ class DataWrapper {
 
     Profile getActivatedProfile(boolean generateIcon, boolean generateIndicators)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getActivatedProfile", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getActivatedProfile", "DataWrapper.profileList");
         synchronized (profileList) {
             if (profileListFilled) {
                 //noinspection ForLoopReplaceableByForEach
@@ -410,7 +410,7 @@ class DataWrapper {
 
     long getActivatedProfileId()
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getActivatedProfileId", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getActivatedProfileId", "DataWrapper.profileList");
         synchronized (profileList) {
             if (profileListFilled) {
                 //noinspection ForLoopReplaceableByForEach
@@ -426,7 +426,7 @@ class DataWrapper {
 
     void setProfileActive(Profile profile)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.setProfileActive", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.setProfileActive", "DataWrapper.profileList");
         synchronized (profileList) {
             if (!profileListFilled)
                 return;
@@ -487,7 +487,7 @@ class DataWrapper {
 
     Profile getProfileById(long id, boolean generateIcon, boolean generateIndicators, boolean merged)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getProfileById", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getProfileById", "DataWrapper.profileList");
         synchronized (profileList) {
             if ((!profileListFilled) || merged) {
                 return getProfileByIdFromDB(id, generateIcon, generateIndicators, merged);
@@ -511,7 +511,7 @@ class DataWrapper {
 
     boolean profileExists(long id)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.profileExists", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.profileExists", "DataWrapper.profileList");
         synchronized (profileList) {
             if (!profileListFilled) {
                 return profileExistsFromDB(id);
@@ -548,7 +548,7 @@ class DataWrapper {
         if (profile == null)
             return;
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.deleteProfile", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.deleteProfile", "DataWrapper.profileList");
         synchronized (profileList) {
             // remove notifications about profile parameters errors
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
@@ -561,7 +561,7 @@ class DataWrapper {
 
             profileList.remove(profile);
         }
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.deleteProfile", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.deleteProfile", "DataWrapper.eventList");
         ActivateProfileHelper.cancelNotificationsForInteractiveParameters(context);
         synchronized (eventList) {
             fillEventList();
@@ -602,7 +602,7 @@ class DataWrapper {
 
     void deleteAllProfiles()
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.deleteAllProfiles", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.deleteAllProfiles", "DataWrapper.profileList");
         synchronized (profileList) {
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             // remove notifications about profile parameters errors
@@ -623,7 +623,7 @@ class DataWrapper {
             profileList.clear();
             ActivateProfileHelper.cancelNotificationsForInteractiveParameters(context);
         }
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.deleteAllProfiles", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.deleteAllProfiles", "DataWrapper.eventList");
         synchronized (eventList) {
             fillEventList();
             // unlink profiles from events
@@ -721,7 +721,7 @@ class DataWrapper {
 
     String getProfileName(long id)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getProfileName", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getProfileName", "DataWrapper.profileList");
         synchronized (profileList) {
             if (!profileListFilled) {
                 return getProfileNameFromDB(id);
@@ -749,7 +749,7 @@ class DataWrapper {
 
     void fillEventList()
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.fillEventList", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.fillEventList", "DataWrapper.eventList");
         synchronized (eventList) {
             if (!eventListFilled) {
                 eventList.addAll(DatabaseHandler.getInstance(context).getAllEvents());
@@ -770,7 +770,7 @@ class DataWrapper {
     */
 
     void copyEventList(DataWrapper fromDataWrapper) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.copyEventList", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.copyEventList", "DataWrapper.eventList");
         synchronized (eventList) {
             if (eventListFilled) {
                 eventList.clear();
@@ -785,7 +785,7 @@ class DataWrapper {
 
     void clearEventList()
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.clearEventList", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.clearEventList", "DataWrapper.eventList");
         synchronized (eventList) {
             //if (eventListFilled)
                 eventList.clear();
@@ -796,7 +796,7 @@ class DataWrapper {
     void invalidateEventList()
     {
         //clearEventList();
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.invalidateEventList", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.invalidateEventList", "DataWrapper.eventList");
         synchronized (eventList) {
             //if (eventListFilled)
                 eventList.clear();
@@ -806,7 +806,7 @@ class DataWrapper {
 
     Event getEventById(long id)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getEventById", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getEventById", "DataWrapper.eventList");
         synchronized (eventList) {
             if (eventListFilled) {
                 //noinspection ForLoopReplaceableByForEach
@@ -831,7 +831,7 @@ class DataWrapper {
         }
         else
         {
-            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getEventIdByName", "DataWrapper.eventList");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getEventIdByName", "DataWrapper.eventList");
             synchronized (eventList) {
                 Event event;
                 //noinspection ForLoopReplaceableByForEach
@@ -852,7 +852,7 @@ class DataWrapper {
 
     boolean eventExists(long id)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.eventExists", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.eventExists", "DataWrapper.eventList");
         synchronized (eventList) {
             if (!eventListFilled) {
                 return eventExistsFromDB(id);
@@ -892,11 +892,11 @@ class DataWrapper {
     // stops all events associated with profile
     private void stopEventsForProfile(Profile profile, boolean alsoUnlink/*, boolean saveEventStatus*/)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.stopEventsForProfile", "PPApplication.eventsHandlerMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.stopEventsForProfile", "PPApplication.eventsHandlerMutex");
         synchronized (PPApplication.eventsHandlerMutex) {
             getEventTimelineList(true);
 
-            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.stopEventsForProfile", "DataWrapper.eventList");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.stopEventsForProfile", "DataWrapper.eventList");
             synchronized (eventList) {
                 fillEventList();
                 //noinspection ForLoopReplaceableByForEach
@@ -971,7 +971,7 @@ class DataWrapper {
 
         getEventTimelineList(true);
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.pauseAllEvents", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.pauseAllEvents", "DataWrapper.eventList");
         synchronized (eventList) {
             fillEventList();
             //noinspection ForLoopReplaceableByForEach
@@ -1028,7 +1028,7 @@ class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.pauseAllEventsForGlobalStopEvents", "PPApplication.eventsHandlerMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.pauseAllEventsForGlobalStopEvents", "PPApplication.eventsHandlerMutex");
                     synchronized (PPApplication.eventsHandlerMutex) {
                         dataWrapper.pauseAllEvents(true, false);
                     }
@@ -1053,10 +1053,10 @@ class DataWrapper {
     // stops all events
     void stopAllEvents(boolean saveEventStatus, boolean alsoDelete, boolean log, boolean updateGUI)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.stopAllEvents", "PPApplication.eventsHandlerMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.stopAllEvents", "PPApplication.eventsHandlerMutex");
         synchronized (PPApplication.eventsHandlerMutex) {
             getEventTimelineList(true);
-            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.stopAllEvents", "DataWrapper.eventList");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.stopAllEvents", "DataWrapper.eventList");
             synchronized (eventList) {
                 fillEventList();
                 //noinspection ForLoopReplaceableByForEach
@@ -1122,7 +1122,7 @@ class DataWrapper {
 
     private void unlinkEventsFromProfile(Profile profile)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.unlinkEventsFromProfile", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.unlinkEventsFromProfile", "DataWrapper.eventList");
         synchronized (eventList) {
             fillEventList();
             //noinspection ForLoopReplaceableByForEach
@@ -1138,7 +1138,7 @@ class DataWrapper {
 
     private void unlinkAllEvents()
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.unlinkAllEvents", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.unlinkAllEvents", "DataWrapper.eventList");
         synchronized (eventList) {
             fillEventList();
             //noinspection ForLoopReplaceableByForEach
@@ -1215,7 +1215,7 @@ class DataWrapper {
 
         if (!startedFromService) {
             EventStatic.setEventsBlocked(context, false);
-            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.firstStartEvents", "DataWrapper.eventList");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.firstStartEvents", "DataWrapper.eventList");
             synchronized (eventList) {
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
@@ -1228,7 +1228,7 @@ class DataWrapper {
             EventStatic.setForceRunEventRunning(context, false);
         }
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.firstStartEvents", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.firstStartEvents", "DataWrapper.eventList");
         synchronized (eventList) {
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
@@ -1264,7 +1264,7 @@ class DataWrapper {
         }
         else
         {
-            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getProfileIdByName", "DataWrapper.profileList");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getProfileIdByName", "DataWrapper.profileList");
             synchronized (profileList) {
                 Profile profile;
                 //noinspection ForLoopReplaceableByForEach
@@ -1417,7 +1417,7 @@ class DataWrapper {
         //invalidateEventList();
         DatabaseHandler.getInstance(context).deleteAllEvents();
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.generatePredefinedEventList", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.generatePredefinedEventList", "DataWrapper.eventList");
         synchronized (eventList) {
             for (int index = 0; index < 6; index++) {
                 Event event = getPredefinedEvent(index, true, baseContext);
@@ -1436,7 +1436,7 @@ class DataWrapper {
 
     void fillEventTimelineList()
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.fillEventTimelineList", "DataWrapper.eventTimelines");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.fillEventTimelineList", "DataWrapper.eventTimelines");
         synchronized (eventTimelines) {
             if (!eventTimelineListFilled) {
                 eventTimelines.addAll(DatabaseHandler.getInstance(context).getAllEventTimelines());
@@ -1446,7 +1446,7 @@ class DataWrapper {
     }
 
     void copyEventTimelineList(DataWrapper fromDataWrapper) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.copyEventTimelineList", "DataWrapper.eventTimelines");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.copyEventTimelineList", "DataWrapper.eventTimelines");
         synchronized (eventTimelines) {
             if (eventTimelineListFilled) {
                 eventTimelines.clear();
@@ -1460,7 +1460,7 @@ class DataWrapper {
     }
 
     void clearEventTimelineList() {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.clearEventTimelineList", "DataWrapper.eventTimelines");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.clearEventTimelineList", "DataWrapper.eventTimelines");
         synchronized (eventTimelines) {
             //if (eventTimelineListFilled)
             eventTimelines.clear();
@@ -1469,7 +1469,7 @@ class DataWrapper {
     }
     private void invalidateEventTimelineList()
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.invalidateEventTimelineList", "DataWrapper.eventTimelines");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.invalidateEventTimelineList", "DataWrapper.eventTimelines");
         synchronized (eventTimelines) {
             //if (eventTimelineListFilled)
                 eventTimelines.clear();
@@ -1479,7 +1479,7 @@ class DataWrapper {
 
     List<EventTimeline> getEventTimelineList(boolean fromDB)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getEventTimelineList", "DataWrapper.eventTimelines");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getEventTimelineList", "DataWrapper.eventTimelines");
         synchronized (eventTimelines) {
             if (!eventTimelineListFilled || fromDB) {
                 if (fromDB)
@@ -1640,7 +1640,7 @@ class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.activateProfileFromMainThread", "PPApplication.eventsHandlerMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.activateProfileFromMainThread", "PPApplication.eventsHandlerMutex");
                     synchronized (PPApplication.eventsHandlerMutex) {
 
                         boolean granted = true;
@@ -1907,7 +1907,7 @@ class DataWrapper {
             //ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             //Profile.setActivatedProfileForDuration(context, 0);
 
-            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.activateProfile", "PPApplication.profileActivationMutex");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.activateProfile", "PPApplication.profileActivationMutex");
             synchronized (PPApplication.profileActivationMutex) {
                 List<String> activateProfilesFIFO = new ArrayList<>();
                 fifoSaveProfiles(activateProfilesFIFO);
@@ -1994,7 +1994,7 @@ class DataWrapper {
 
     void activateProfileAfterDuration(long profile_id, int startupSource)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.activateProfileAfterDuration", "PPApplication.eventsHandlerMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.activateProfileAfterDuration", "PPApplication.eventsHandlerMutex");
         synchronized (PPApplication.eventsHandlerMutex) {
 
             Profile profile = getProfileById(profile_id, false, false, false);
@@ -2041,7 +2041,7 @@ class DataWrapper {
             //Profile activatedProfile = getActivatedProfile();
 
             if (unblockEventsRun) {
-                PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper._restartEvents", "DataWrapper.profileList");
+//                PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper._restartEvents", "DataWrapper.profileList");
                 synchronized (profileList) {
                     // remove alarm for profile duration
                     if (!profileListFilled)
@@ -2052,7 +2052,7 @@ class DataWrapper {
                 //Profile.setActivatedProfileForDuration(context, 0);
 
                 EventStatic.setEventsBlocked(context, false);
-                PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper._restartEvents", "DataWrapper.eventList");
+//                PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper._restartEvents", "DataWrapper.eventList");
                 synchronized (eventList) {
                     fillEventList();
                     //noinspection ForLoopReplaceableByForEach
@@ -2477,7 +2477,7 @@ class DataWrapper {
     private void resetAllEventsInDelayStart(boolean onlyFromDb)
     {
         if (!onlyFromDb) {
-            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.resetAllEventsInDelayEnd", "DataWrapper.eventList");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.resetAllEventsInDelayEnd", "DataWrapper.eventList");
             synchronized (eventList) {
                 fillEventList();
                 //noinspection ForLoopReplaceableByForEach
@@ -2493,7 +2493,7 @@ class DataWrapper {
     private void resetAllEventsInDelayEnd(boolean onlyFromDb)
     {
         if (!onlyFromDb) {
-            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.resetAllEventsInDelayEnd", "DataWrapper.eventList");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.resetAllEventsInDelayEnd", "DataWrapper.eventList");
             synchronized (eventList) {
                 fillEventList();
                 //noinspection ForLoopReplaceableByForEach
@@ -2660,7 +2660,7 @@ class DataWrapper {
     }
 
     void clearSensorsStartTime() {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.clearSensorsStartTime", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.clearSensorsStartTime", "DataWrapper.eventList");
         synchronized (eventList) {
             for (Event _event : eventList) {
                 clearSensorsStartTime(_event, false/*force*/);
@@ -2717,7 +2717,7 @@ class DataWrapper {
     }
 
     boolean eventTypeExists(int eventType/*, boolean onlyRunning*/) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.eventTypeExists", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.eventTypeExists", "DataWrapper.eventList");
         synchronized (eventList) {
             for (Event _event : eventList) {
                 //boolean eventEnabled;
@@ -2908,7 +2908,7 @@ class DataWrapper {
     }
 
     boolean profileTypeExists(int profileType/*, boolean sharedProfile*/) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.profileTypeExists", "DataWrapper.profileList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.profileTypeExists", "DataWrapper.profileList");
         synchronized (profileList) {
             for (Profile _profile : profileList) {
                 boolean profileEnabled;
@@ -2976,7 +2976,7 @@ class DataWrapper {
         if (profileId == Profile.PROFILE_NO_ACTIVATE)
             return;
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.fifoAddProfile", "PPApplication.profileActivationMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.fifoAddProfile", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             List<String> activateProfilesFIFO = fifoGetActivatedProfiles();
             int size = activateProfilesFIFO.size();
@@ -3017,7 +3017,7 @@ class DataWrapper {
 
     int getEventPriority(long id)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getEventPriority", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getEventPriority", "DataWrapper.eventList");
         synchronized (eventList) {
             if (!eventListFilled) {
                 return getEventPriorityFromDB(id);
@@ -3048,7 +3048,7 @@ class DataWrapper {
 
     int getEventIgnoreManualActivation(long id)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getEventIgnoreManualActivation", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.getEventIgnoreManualActivation", "DataWrapper.eventList");
         synchronized (eventList) {
             if (!eventListFilled) {
                 return getEventIgnoreManualActivationFromDB(id);

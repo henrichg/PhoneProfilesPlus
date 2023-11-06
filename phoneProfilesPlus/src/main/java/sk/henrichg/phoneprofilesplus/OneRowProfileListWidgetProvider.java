@@ -118,7 +118,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         int applicationWidgetOneRowProfileListNumberOfProfilesPerPage;
         boolean applicationWidgetOneRowProfileListFillBackground;
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] OneRowProfileListWidgetProvider._onUpdate", "PPApplication.applicationPreferencesMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] OneRowProfileListWidgetProvider._onUpdate", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetOneRowProfileListIconLightness = ApplicationPreferences.applicationWidgetOneRowProfileListIconLightness;

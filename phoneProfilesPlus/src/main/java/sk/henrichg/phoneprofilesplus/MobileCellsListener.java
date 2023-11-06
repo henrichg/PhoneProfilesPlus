@@ -491,7 +491,7 @@ class MobileCellsListener extends PhoneStateListener {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsListener.doAutoRegistration", "******** ### *******");
 //        Log.e("MobileCellsListener.doAutoRegistration", "_registeredCell="+_registeredCell);
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] MobileCellsListener.doAutoRegistration", "PPApplication.mobileCellsScannerMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] MobileCellsListener.doAutoRegistration", "PPApplication.mobileCellsScannerMutex");
         synchronized (PPApplication.mobileCellsScannerMutex) {
             /*PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             PowerManager.WakeLock wakeLock = null;

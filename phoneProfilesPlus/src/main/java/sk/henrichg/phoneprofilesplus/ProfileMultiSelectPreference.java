@@ -215,7 +215,7 @@ public class ProfileMultiSelectPreference extends DialogPreference {
         value = "";
         if (dataWrapper.profileListFilled)
         {
-            PPApplicationStatic.logE("[SYNCHRONIZED] ProfileMultiSelectPreference.setValue", "DataWrapper.profileList");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] ProfileMultiSelectPreference.setValue", "DataWrapper.profileList");
             synchronized (dataWrapper.profileList) {
                 StringBuilder _value = new StringBuilder();
                 for (Profile profile : dataWrapper.profileList) {

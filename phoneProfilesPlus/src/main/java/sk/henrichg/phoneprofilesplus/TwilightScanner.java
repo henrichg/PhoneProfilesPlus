@@ -72,7 +72,7 @@ class TwilightScanner {
     }
 
     private void setTwilightState(TwilightState state) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] TwilightScanner.setTwilightState", "mLock");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] TwilightScanner.setTwilightState", "mLock");
         synchronized (mLock) {
             if ((mTwilightState == null) || (state == null) || !mTwilightState.equals(state)) {
 
@@ -94,7 +94,7 @@ class TwilightScanner {
     }
 
     TwilightState getTwilightState(/*boolean log*/) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] TwilightScanner.getTwilightState", "mLock");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] TwilightScanner.getTwilightState", "mLock");
         synchronized (mLock) {
             mLocationHandler.updateTwilightState(false/*, log*/);
             return mTwilightState;

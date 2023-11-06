@@ -560,7 +560,7 @@ public class EditorEventListFragment extends Fragment
                     // set local event list into activity dataWrapper
                     fragment.activityDataWrapper.copyEventList(_dataWrapper);
 
-                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.LoadEventListAsyncTask", "DataWrapper.eventList");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.LoadEventListAsyncTask", "DataWrapper.eventList");
                     synchronized (fragment.activityDataWrapper.eventList) {
                         if (fragment.activityDataWrapper.eventList.size() == 0)
                             fragment.viewNoData.setVisibility(VISIBLE);
@@ -942,7 +942,7 @@ public class EditorEventListFragment extends Fragment
 
         listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.deleteEvent", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.deleteEvent", "DataWrapper.eventList");
         synchronized (activityDataWrapper.eventList) {
             // remove notifications about event parameters errors
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activityDataWrapper.context);
@@ -1113,7 +1113,7 @@ public class EditorEventListFragment extends Fragment
                         // this delete events from db
                         activityDataWrapper.stopAllEventsFromMainThread(true, true);
 
-                        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.deleteAllEvents", "DataWrapper.eventList");
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.deleteAllEvents", "DataWrapper.eventList");
                         synchronized (activityDataWrapper.eventList) {
                             // remove notifications about event parameters errors
                             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activityDataWrapper.context);
@@ -1254,7 +1254,7 @@ public class EditorEventListFragment extends Fragment
                 eventListAdapter.addItem(event);
         }
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.updateListView", "DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.updateListView", "DataWrapper.eventList");
         synchronized (activityDataWrapper.eventList) {
             //if (activityDataWrapper.eventList != null) {
                 // sort list
@@ -1324,7 +1324,7 @@ public class EditorEventListFragment extends Fragment
         final Activity activity = getActivity();
 
         if (fromOnViewCreated) {
-            PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(1) DataWrapper.eventList");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(1) DataWrapper.eventList");
             synchronized (activityDataWrapper.eventList) {
                 if (!activityDataWrapper.eventListFilled) {
 //                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
@@ -1345,7 +1345,7 @@ public class EditorEventListFragment extends Fragment
                     if (eventListAdapter != null) {
                         sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
                         listView.setAdapter(eventListAdapter);
-                        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(2) DataWrapper.profileList");
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(2) DataWrapper.profileList");
                         synchronized (activityDataWrapper.profileList) {
                             Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
                                     ApplicationPreferences.applicationEditorPrefIndicator);
@@ -1357,7 +1357,7 @@ public class EditorEventListFragment extends Fragment
                             sortList(activityDataWrapper.eventList, ORDER_TYPE_START_ORDER, activityDataWrapper);
                         else
                             sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
-                        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(3) DataWrapper.profileList");
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(3) DataWrapper.profileList");
                         synchronized (activityDataWrapper.profileList) {
                             Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
                                     ApplicationPreferences.applicationEditorPrefIndicator);
@@ -1379,7 +1379,7 @@ public class EditorEventListFragment extends Fragment
             }
         }
         else {
-            PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(4) DataWrapper.eventList");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(4) DataWrapper.eventList");
             synchronized (activityDataWrapper.eventList) {
                 if (!activityDataWrapper.eventListFilled) {
 //                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
@@ -1402,7 +1402,7 @@ public class EditorEventListFragment extends Fragment
                         sortList(activityDataWrapper.eventList, ORDER_TYPE_START_ORDER, activityDataWrapper);
                     else
                         sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
-                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(5) DataWrapper.profileList");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(5) DataWrapper.profileList");
                     synchronized (activityDataWrapper.profileList) {
                         Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
                                 ApplicationPreferences.applicationEditorPrefIndicator);
@@ -2120,7 +2120,7 @@ public class EditorEventListFragment extends Fragment
                     PPApplication.setActivityProfileName(activityDataWrapper.context, 3, pName);
                     */
 
-                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.RefreshGUIAsyncTask", "(1) DataWrapper.eventList");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.RefreshGUIAsyncTask", "(1) DataWrapper.eventList");
                     synchronized (dataWrapper.eventList) {
                         if (!dataWrapper.eventListFilled) {
                             doNotRefresh = true;
@@ -2259,7 +2259,7 @@ public class EditorEventListFragment extends Fragment
 
 
     void updateBottomMenu() {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.updateBottomMenu", "(1) DataWrapper.eventList");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.updateBottomMenu", "(1) DataWrapper.eventList");
         synchronized (activityDataWrapper.eventList) {
             Menu menu = bottomToolbar.getMenu();
             if (menu != null) {

@@ -606,7 +606,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                         }
 
                         if (old_event_status != Event.ESTATUS_STOP) {
-                            PPApplicationStatic.logE("[SYNCHRONIZED] EventsPrefsActivity.saveUpdateOfPreferences", "PPApplication.eventsHandlerMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] EventsPrefsActivity.saveUpdateOfPreferences", "PPApplication.eventsHandlerMutex");
                             synchronized (PPApplication.eventsHandlerMutex) {
 
                                 // pause event - must be called, because status is ESTATUS_STOP

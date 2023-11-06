@@ -160,7 +160,7 @@ public class PhoneProfilesService extends Service
 
         PPApplicationStatic.logE("$$$ PhoneProfilesService.onCreate", "android.os.Build.VERSION.SDK_INT=" + android.os.Build.VERSION.SDK_INT);
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.onCreate", "PPApplication.phoneProfilesServiceMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.onCreate", "PPApplication.phoneProfilesServiceMutex");
         synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = this;
         }
@@ -423,13 +423,13 @@ public class PhoneProfilesService extends Service
             NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 try {
-                    PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.onDestroy", "(1) PPApplication.showPPPNotificationMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.onDestroy", "(1) PPApplication.showPPPNotificationMutex");
                     synchronized (PPApplication.showPPPNotificationMutex) {
                         notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
                     }
                 } catch (Exception ignored) {}
                 try {
-                    PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.onDestroy", "(2) PPApplication.showPPPNotificationMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.onDestroy", "(2) PPApplication.showPPPNotificationMutex");
                     synchronized (PPApplication.showPPPNotificationMutex) {
                         notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
                     }
@@ -440,7 +440,7 @@ public class PhoneProfilesService extends Service
             PPApplicationStatic.recordException(e);
         }
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.onDestroy", "PPApplication.phoneProfilesServiceMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.onDestroy", "PPApplication.phoneProfilesServiceMutex");
         synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = null;
         }
@@ -629,7 +629,7 @@ public class PhoneProfilesService extends Service
                     // grant root
                     RootUtils.isRootGranted();
                 } else {
-                    PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.doForFirstStart", "PPApplication.rootMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.doForFirstStart", "PPApplication.rootMutex");
                     synchronized (PPApplication.rootMutex) {
                         if (PPApplication.rootMutex.rootChecked) {
                             try {
@@ -837,7 +837,7 @@ public class PhoneProfilesService extends Service
                     //DatabaseHandler.getInstance(appContext).unblockAllEvents();
                     //Event.setForceRunEventRunning(appContext, false);
 
-                    PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.doForFirstStart", "PPApplication.profileActivationMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.doForFirstStart", "PPApplication.profileActivationMutex");
                     synchronized (PPApplication.profileActivationMutex) {
                         List<String> activateProfilesFIFO = new ArrayList<>();
                         dataWrapper.fifoSaveProfiles(activateProfilesFIFO);

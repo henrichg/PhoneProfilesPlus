@@ -403,7 +403,7 @@ class EventStatic {
 
     static void setGlobalEventsRunning(Context context, boolean globalEventsRunning)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.setGlobalEventsRunning", "PPApplication.globalEventsRunStopMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.setGlobalEventsRunning", "PPApplication.globalEventsRunStopMutex");
         synchronized (PPApplication.globalEventsRunStopMutex) {
             Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(Event.PREF_GLOBAL_EVENTS_RUN_STOP, globalEventsRunning);
@@ -414,7 +414,7 @@ class EventStatic {
 
     static boolean getEventsBlocked(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.getEventsBlocked", "PPApplication.eventsRunMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.getEventsBlocked", "PPApplication.eventsRunMutex");
         synchronized (PPApplication.eventsRunMutex) {
             //ApplicationPreferences.prefEventsBlocked = ApplicationPreferences.
             //        getSharedPreferences(context).getBoolean(PREF_EVENTS_BLOCKED, false);
@@ -424,7 +424,7 @@ class EventStatic {
     }
     static void setEventsBlocked(Context context, boolean eventsBlocked)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.setEventsBlocked", "PPApplication.eventsRunMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.setEventsBlocked", "PPApplication.eventsRunMutex");
         synchronized (PPApplication.eventsRunMutex) {
             Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(Event.PREF_EVENTS_BLOCKED, eventsBlocked);
@@ -435,7 +435,7 @@ class EventStatic {
 
     static boolean getForceRunEventRunning(Context context)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.getForceRunEventRunning", "PPApplication.eventsRunMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.getForceRunEventRunning", "PPApplication.eventsRunMutex");
         synchronized (PPApplication.eventsRunMutex) {
             //ApplicationPreferences.prefForceRunEventRunning = ApplicationPreferences.
             //        getSharedPreferences(context).getBoolean(PREF_FORCE_RUN_EVENT_RUNNING, false);
@@ -445,7 +445,7 @@ class EventStatic {
     }
     static void setForceRunEventRunning(Context context, boolean forceRunEventRunning)
     {
-        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.setForceRunEventRunning", "PPApplication.eventsRunMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.setForceRunEventRunning", "PPApplication.eventsRunMutex");
         synchronized (PPApplication.eventsRunMutex) {
             Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(Event.PREF_FORCE_RUN_EVENT_RUNNING, forceRunEventRunning);
@@ -486,7 +486,7 @@ class EventStatic {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(1) PPApplication.eventsHandlerMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(1) PPApplication.eventsHandlerMutex");
                             synchronized (PPApplication.eventsHandlerMutex) {
                                 event.pauseEvent(dataWrapper, false, false,
                                         false, true, null, false, false, true);
@@ -539,7 +539,7 @@ class EventStatic {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(2) PPApplication.eventsHandlerMutex");
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(2) PPApplication.eventsHandlerMutex");
                         synchronized (PPApplication.eventsHandlerMutex) {
                             event.stopEvent(dataWrapper, false, false,
                                     true, true, true); // activate return profile

@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 class RootUtils {
 
     static synchronized void initRoot() {
-        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.initRoot", "PPApplication.rootMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.initRoot", "PPApplication.rootMutex");
         synchronized (PPApplication.rootMutex) {
             PPApplication.rootMutex.rootChecked = false;
             PPApplication.rootMutex.rooted = false;
@@ -119,7 +119,7 @@ class RootUtils {
         //if (fromUIThread)
         //    return false;
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.isRooted", "PPApplication.rootMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.isRooted", "PPApplication.rootMutex");
         synchronized (PPApplication.rootMutex) {
             return _isRooted();
         }
@@ -133,7 +133,7 @@ class RootUtils {
             return rootMutex.rootGranted;*/
 
         if (isRooted(/*false*/)) {
-            PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.isRootGranted", "PPApplication.rootMutex");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.isRootGranted", "PPApplication.rootMutex");
             synchronized (PPApplication.rootMutex) {
                 try {
                     //noinspection StatementWithEmptyBody
@@ -167,7 +167,7 @@ class RootUtils {
         if (fromUIThread)
             return false;
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.settingsBinaryExists", "PPApplication.rootMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.settingsBinaryExists", "PPApplication.rootMutex");
         synchronized (PPApplication.rootMutex) {
             if (!PPApplication.rootMutex.settingsBinaryChecked) {
                 PPApplication.rootMutex.settingsBinaryExists = RootToolsSmall.hasSettingBin();
@@ -187,7 +187,7 @@ class RootUtils {
         if (fromUIThread)
             return false;
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.serviceBinaryExists", "PPApplication.rootMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.serviceBinaryExists", "PPApplication.rootMutex");
         synchronized (PPApplication.rootMutex) {
             if (!PPApplication.rootMutex.serviceBinaryChecked) {
                 PPApplication.rootMutex.serviceBinaryExists = RootToolsSmall.hasServiceBin();
@@ -303,7 +303,7 @@ class RootUtils {
     }
 
     static void getServicesList() {
-        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.getServicesList", "(1) PPApplication.serviceListMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.getServicesList", "(1) PPApplication.serviceListMutex");
         synchronized (PPApplication.serviceListMutex) {
             if (PPApplication.serviceListMutex.serviceList == null)
                 PPApplication.serviceListMutex.serviceList = new ArrayList<>();
@@ -312,7 +312,7 @@ class RootUtils {
         }
 
         if (isRooted(/*false*/)) {
-            PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.getServicesList", "(2) PPApplication.rootMutex");
+//            PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.getServicesList", "(2) PPApplication.rootMutex");
             synchronized (PPApplication.rootMutex) {
                 //noinspection RegExpRedundantEscape,RegExpSimplifiable
                 final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
@@ -322,7 +322,7 @@ class RootUtils {
                     public void commandOutput(int id, String line) {
                         Matcher matcher = compile.matcher(line);
                         if (matcher.find()) {
-                            PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.getServicesList", "(3) PPApplication.serviceListMutex");
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.getServicesList", "(3) PPApplication.serviceListMutex");
                             synchronized (PPApplication.serviceListMutex) {
                                 //serviceListMutex.serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
                                 Pair<String, String> pair = Pair.create(matcher.group(1), matcher.group(2));
@@ -342,7 +342,7 @@ class RootUtils {
                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                     commandWait(command, "PPApplication.getServicesList");
 
-                    PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.getServicesList", "(4) PPApplication.rootMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.getServicesList", "(4) PPApplication.rootMutex");
                     synchronized (PPApplication.rootMutex) {
                         PPApplication.rootMutex.serviceManagerPhone = getServiceManager(RootMutex.SERVICE_PHONE);
                         PPApplication.rootMutex.serviceManagerWifi = getServiceManager(RootMutex.SERVICE_WIFI);
@@ -390,7 +390,7 @@ class RootUtils {
     }
 
     private static Object getServiceManager(String serviceType) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.getServiceManager", "PPApplication.serviceListMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.getServiceManager", "PPApplication.serviceListMutex");
         synchronized (PPApplication.serviceListMutex) {
             if (PPApplication.serviceListMutex.serviceList != null) {
                 //noinspection rawtypes
@@ -479,7 +479,7 @@ class RootUtils {
         // ------------------
         //              12850
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.commandWait", "cmd");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.commandWait", "cmd");
         //noinspection SynchronizationOnLocalVariableOrMethodParameter
         synchronized (cmd) {
             while (!cmd.isFinished() && waitTill<=waitTillLimit) {

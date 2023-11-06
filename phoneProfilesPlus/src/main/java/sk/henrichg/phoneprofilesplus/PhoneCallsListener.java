@@ -278,7 +278,7 @@ public class PhoneCallsListener extends PhoneStateListener {
     }
 
     private static void /*boolean*/ setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
-        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneCallsListener.setLinkUnlinkNotificationVolume", "PPApplication.notUnlinkVolumesMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneCallsListener.setLinkUnlinkNotificationVolume", "PPApplication.notUnlinkVolumesMutex");
         synchronized (PPApplication.notUnlinkVolumesMutex) {
             if (!PPApplication.ringerModeNotUnlinkVolumes) {
                 boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;

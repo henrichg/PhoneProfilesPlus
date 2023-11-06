@@ -77,7 +77,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         String applicationWidgetOneRowBackgroundColorNightModeOn;
         boolean applicationWidgetOneRowFillBackground;
 
-        PPApplicationStatic.logE("[SYNCHRONIZED] OneRowWidgetProvider._onUpdate", "PPApplication.applicationPreferencesMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] OneRowWidgetProvider._onUpdate", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
