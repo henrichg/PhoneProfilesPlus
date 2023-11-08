@@ -27,6 +27,8 @@ class AddEventDialog
     final ListView listView;
     final TextView help;
 
+    final List<Event> eventList = new ArrayList<>();
+
     private GetEventsAsyncTask getEventsAsyncTask = null;
 
     AddEventDialog(Activity activity, EditorEventListFragment eventListFragment)
@@ -95,7 +97,7 @@ class AddEventDialog
 
     private static class GetEventsAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-        final List<Event> eventList = new ArrayList<>();
+        final List<Event> _eventList = new ArrayList<>();
         boolean profileNotExists = false;
 
         private final WeakReference<AddEventDialog> dialogWeakRef;
@@ -124,7 +126,7 @@ class AddEventDialog
             if (activity != null) {
                 Event event;
                 event = DataWrapperStatic.getNonInitializedEvent(activity.getString(R.string.event_name_default), 0);
-                eventList.add(event);
+                _eventList.add(event);
                 for (int index = 0; index < 6; index++) {
                     event = dataWrapper.getPredefinedEvent(index, false, activity);
                     if (event._fkProfileStart == 0)
@@ -134,7 +136,7 @@ class AddEventDialog
                     event._peferencesDecription = StringFormatUtils.fromHtml(
                             event.getPreferencesDescription(activity, false),
                             true, false, 0, 0, true);
-                    eventList.add(event);
+                    _eventList.add(event);
                 }
             }
 
@@ -155,7 +157,10 @@ class AddEventDialog
                 if (profileNotExists)
                     dialog.help.setVisibility(View.VISIBLE);
 
-                AddEventAdapter addEventAdapter = new AddEventAdapter(dialog, activity, eventList);
+                dialog.eventList.clear();
+                dialog.eventList.addAll(_eventList);
+
+                AddEventAdapter addEventAdapter = new AddEventAdapter(dialog, activity, dialog.eventList);
                 dialog.listView.setAdapter(addEventAdapter);
             }
         }

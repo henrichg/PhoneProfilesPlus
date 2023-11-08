@@ -24,6 +24,7 @@ class AddProfileDialog
     private final LinearLayout linlaProgress;
     private final ListView listView;
 
+    final List<Profile> profileList = new ArrayList<>();
     private GetProfilesAsyncTask getProfilesAsyncTask = null;
 
     AddProfileDialog(Activity activity, EditorProfileListFragment profileListFragment)
@@ -90,7 +91,7 @@ class AddProfileDialog
 
     private static class GetProfilesAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-        final List<Profile> profileList = new ArrayList<>();
+        final List<Profile> _profileList = new ArrayList<>();
 
         private final WeakReference<AddProfileDialog> dialogWeakRef;
         private final WeakReference<Activity> activityWeakRef;
@@ -124,13 +125,13 @@ class AddProfileDialog
                 profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);
                 if (applicationEditorPrefIndicator)
                     profile.generatePreferencesIndicator(activity.getApplicationContext(), false, 0xFF, DataWrapper.IT_FOR_EDITOR, 0f);
-                profileList.add(profile);
+                _profileList.add(profile);
                 for (int index = 0; index < 7; index++) {
                     profile = dataWrapper.getPredefinedProfile(index, false, activity);
                     profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);
                     if (applicationEditorPrefIndicator)
                         profile.generatePreferencesIndicator(activity.getApplicationContext(), false, 0xFF, DataWrapper.IT_FOR_EDITOR, 0f);
-                    profileList.add(profile);
+                    _profileList.add(profile);
                 }
             }
             return null;
@@ -145,13 +146,16 @@ class AddProfileDialog
             Activity activity = activityWeakRef.get();
             if ((dialog != null) && (activity != null)) {
                 dialog.linlaProgress.setVisibility(View.GONE);
-                final Handler handler = new Handler(activity.getMainLooper());
-                handler.post(() -> {
+                //final Handler handler = new Handler(activity.getMainLooper());
+                //handler.post(() -> {
                     dialog.listView.setVisibility(View.VISIBLE);
 
-                    AddProfileAdapter addProfileAdapter = new AddProfileAdapter(dialog, activity, profileList);
+                    dialog.profileList.clear();
+                    dialog.profileList.addAll(_profileList);
+
+                    AddProfileAdapter addProfileAdapter = new AddProfileAdapter(dialog, activity, dialog.profileList);
                     dialog.listView.setAdapter(addProfileAdapter);
-                });
+                //});
             }
         }
 
