@@ -775,6 +775,66 @@ public class ImportantInfoHelpFragment extends Fragment {
             helpForPPPPSTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
+        TextView helpForShizukuDownloadTextView = view.findViewById(R.id.activity_info_notification_profile_shizuku_howTo_2);
+        if (helpForShizukuDownloadTextView != null) {
+            String str1 = fragment.getString(R.string.important_info_profile_shizuku_howTo_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+            Spannable spannable = new SpannableString(str1);
+            //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = "https://shizuku.rikka.app/download/";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                }
+            };
+            spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            helpForShizukuDownloadTextView.setText(spannable);
+            helpForShizukuDownloadTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
+        TextView helpForShizukuSetupTextView = view.findViewById(R.id.activity_info_notification_profile_shizuku_howTo_3);
+        if (helpForShizukuSetupTextView != null) {
+            String str1 = fragment.getString(R.string.important_info_profile_shizuku_howTo_3) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+            Spannable spannable = new SpannableString(str1);
+            //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = "https://shizuku.rikka.app/guide/setup/";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                }
+            };
+            spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            helpForShizukuSetupTextView.setText(spannable);
+            helpForShizukuSetupTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
     }
 /*
     static private void installExtenderFromGitHub(Activity activity, boolean finishActivity) {

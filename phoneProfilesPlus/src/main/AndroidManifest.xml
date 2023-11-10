@@ -209,6 +209,14 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 
+        <provider
+            android:name="rikka.shizuku.ShizukuProvider"
+            android:authorities="${applicationId}.shizuku"
+            android:multiprocess="false"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.INTERACT_ACROSS_USERS_FULL" />
+
 <!-- https://developer.android.com/about/versions/13/features/app-languages
      requires appcompat 1.6.0+ -->
 <!--        <service-->
@@ -552,6 +560,12 @@
             android:name=".GrantDrawOverAppsActivity"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
+        </activity>
+        <activity
+            android:name=".GrantShizukuPermissionActivity"
+            android:excludeFromRecents="true"
+            android:label=""
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
 

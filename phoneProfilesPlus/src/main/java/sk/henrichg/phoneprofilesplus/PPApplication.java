@@ -1036,6 +1036,7 @@ public class PPApplication extends Application
     static volatile int savedBrightnessMode;
 
     static volatile boolean grantRootChanged = false;
+    static volatile boolean grantShizukuChanged = false;
 
     static volatile boolean ringerModeInternalChange = false;
     static volatile boolean ringerModeNotUnlinkVolumes = false;

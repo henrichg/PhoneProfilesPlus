@@ -252,6 +252,29 @@
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_profile_grant_1_howTo_20" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:text="@string/important_info_profile_shizuku_howTo_1"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_profile_shizuku_howTo_1"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:text="@string/important_info_profile_shizuku_howTo_2"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_profile_shizuku_howTo_2" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:text="@string/important_info_profile_shizuku_howTo_3"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_profile_shizuku_howTo_3" />
+
     <!--
     <TextView
         android:layout_width="wrap_content"

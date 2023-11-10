@@ -76,6 +76,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_GRANT_G1_PREFERENCES = "prf_pref_grantG1Permissions";
     private static final String PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "prf_pref_notEnabledAccessibilityService";
     private static final String PREF_NOT_INSTALLED_PPPPS = "prf_pref_notInstammedPPPPS";
+    private static final String PREF_GRANT_SHIZUKU_PREFERENCES = "prf_pref_grantShizukuPermissions";
 
     private static final String PREF_FORCE_STOP_APPLICATIONS_CATEGORY_ROOT = "prf_pref_forceStopApplicationsCategoryRoot";
     private static final String PREF_FORCE_STOP_APPLICATIONS_EXTENDER = "prf_pref_deviceForceStopApplicationExtender";
@@ -750,6 +751,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 grantRootURL +
                 //</li>
                 StringConstants.TAG_LIST_ITEM_END_HTML +
+
+                //<li>
+                StringConstants.TAG_LIST_ITEM_START_HTML +
+                getString(R.string.phone_profiles_pref_grantShizukuPermission_summary1) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                // <a href>
+                StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
+                R.id.activity_info_notification_profile_shizuku_howTo_1 + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                getString(R.string.profile_preferences_types_shizuku_show_info1) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                //</li>
+                StringConstants.TAG_LIST_ITEM_END_HTML +
+
                 //<li>
                 StringConstants.TAG_LIST_ITEM_START_HTML +
                 getString(R.string.important_info_profile_interactive) +
@@ -7473,6 +7485,42 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
                     //}
+
+                    preference = prefMng.findPreference(PREF_GRANT_SHIZUKU_PREFERENCES);
+                    if (!preferenceAllowed.notAllowedShizuku) {
+                        if (preference != null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null)
+                                preferenceCategory.removePreference(preference);
+                        }
+                    } else {
+                        if (preference == null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null) {
+                                preference = new StartActivityPreference(context);
+                                preference.setKey(PREF_GRANT_SHIZUKU_PREFERENCES);
+                                preference.setIconSpaceReserved(false);
+                                preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                                preference.setOrder(-100);
+                                preferenceCategory.addPreference(preference);
+                            }
+                        }
+                        if (preference != null) {
+                            String _title = order + ". " + context.getString(R.string.preferences_grantShizukuPreferences_title);
+                            ++order;
+                            Spannable title = new SpannableString(_title);
+                            title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
+                            preference.setTitle(title);
+                            Spannable summary = new SpannableString(context.getString(R.string.preferences_grantShizukuPreferences_summary));
+                            summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
+                            preference.setSummary(summary);
+
+                            preference.setOnPreferenceClickListener(preference12 -> {
+                                Permissions.grantShizukuPermission(fragment, activity);
+                                return false;
+                            });
+                        }
+                    }
 
                     // not some permissions
                     if (profilePermissions.size() == 0) {

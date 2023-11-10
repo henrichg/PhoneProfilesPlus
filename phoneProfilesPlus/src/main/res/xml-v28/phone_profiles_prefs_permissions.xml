@@ -10,6 +10,11 @@
         app:summary="@string/phone_profiles_pref_grantRootPermission_summary"
         app:layout="@layout/mp_preference_material_widget"/>
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="permissionsGrantShizukuPermission"
+        app:title="@string/profile_preferences_types_shizuku_permission"
+        app:summary="@string/phone_profiles_pref_grantShizukuPermission_summary2"
+        app:layout="@layout/mp_preference_material_widget"/>
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="permissionsWriteSystemSettingsPermissions"
         app:title="@string/phone_profiles_pref_writeSystemSettingPermissions"
         app:summary="@string/phone_profiles_pref_writeSystemSettingPermissions_summary"

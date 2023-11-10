@@ -2151,6 +2151,19 @@
     <string name="contacts_filter_dialog_filter_title">Contacts filter</string>
     <string name="contacts_filter_dialog_item_show_all">[ All ]</string>
 
+    <string name="profile_preferences_types_shizuku_permission">Grant Shizuku permission</string>
+    <string name="phone_profiles_pref_grantShizukuPermission_summary1">Some profile preferences require Shizuku permission. ROOT is not required. These preferences are marked with \"(Z)\".</string>
+    <string name="phone_profiles_pref_grantShizukuPermission_summary2">Please grant Shizuku permission for PhoneProfilesPlus. Is required for profile and event parameters, marked with (Z). Then ROOT will not be needed.</string>
+    <string name="preferences_grantShizukuPreferences_title">Permission for (Z) preferences not granted</string>
+    <string name="preferences_grantShizukuPreferences_summary">Permission for (Z) preferences not granted. Click here to grant it.</string>
+    <string name="phone_profiles_pref_shizuku_is_running">Shizuku is running</string>
+    <string name="phone_profiles_pref_shizuku_is_not_running">Shizuku is not installed or running. </string>
+    <string name="profile_preferences_types_shizuku_show_info1">Click here to show more information.</string>
+    <string name="profile_preferences_types_shizuku_show_info2">Click here to grant it.</string>
+    <string name="important_info_profile_shizuku_howTo_1">Profile parameters marked with (Z) need Shizuku.</string>
+    <string name="important_info_profile_shizuku_howTo_2">Click here for download Shizuku.</string>
+    <string name="important_info_profile_shizuku_howTo_3">Click here to display how to setup Shizuku.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

@@ -117,6 +117,12 @@ dependencies {
 
     implementation 'com.github.simbiose:Encryption:2.0.1'
 
+    //noinspection GradleDependency
+    implementation "dev.rikka.shizuku:api:$ppVersions.shizuku"
+    //noinspection GradleDependency
+    implementation "dev.rikka.shizuku:provider:$ppVersions.shizuku"
+
+
     implementation project(':common')
     implementation project(':ToastCompat')
     implementation project(':RootShell')

@@ -320,8 +320,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         returnIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile_id);
         returnIntent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, newProfileMode);
         returnIntent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
-        returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, PPApplication.grantRootChanged);
+        returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, PPApplication.grantRootChanged || PPApplication.grantShizukuChanged);
         PPApplication.grantRootChanged = false;
+        PPApplication.grantShizukuChanged = false;
         setResult(resultCode,returnIntent);
 
         super.finish();

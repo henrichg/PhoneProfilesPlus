@@ -19,6 +19,7 @@ class PreferenceAllowed {
     boolean notAllowedRoot;
     boolean notAllowedG1;
     boolean notAllowedPPPPS;
+    boolean notAllowedShizuku;
 
     static final int PREFERENCE_NOT_ALLOWED = 0;
     static final int PREFERENCE_ALLOWED = 1;
@@ -46,6 +47,7 @@ class PreferenceAllowed {
         notAllowedRoot = preferenceAllowed.notAllowedRoot;
         notAllowedG1 = preferenceAllowed.notAllowedG1;
         notAllowedPPPPS = preferenceAllowed.notAllowedPPPPS;
+        notAllowedShizuku = preferenceAllowed.notAllowedShizuku;
     }
 
     String getNotAllowedPreferenceReasonString(Context context) {

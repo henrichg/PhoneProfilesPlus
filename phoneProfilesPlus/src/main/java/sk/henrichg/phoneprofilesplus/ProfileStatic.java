@@ -883,6 +883,7 @@ class ProfileStatic {
         preferenceAllowed.notAllowedRoot = false;
         preferenceAllowed.notAllowedG1 = false;
         preferenceAllowed.notAllowedPPPPS = false;
+        preferenceAllowed.notAllowedShizuku = false;
 
         //noinspection IfStatementWithIdenticalBranches
         if (profile == null) {
@@ -1063,7 +1064,10 @@ class ProfileStatic {
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context, true);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 
-            if (preferenceAllowed.notAllowedG1 || preferenceAllowed.notAllowedRoot || preferenceAllowed.notAllowedPPPPS)
+            if (preferenceAllowed.notAllowedG1 ||
+                    preferenceAllowed.notAllowedRoot ||
+                    preferenceAllowed.notAllowedPPPPS ||
+                    preferenceAllowed.notAllowedShizuku)
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
             return preferenceAllowed;
@@ -1168,7 +1172,7 @@ class ProfileStatic {
             if (!Settings.canDrawOverlays(context))
                 grantedAllPermissions = false;
         }*/
-        // test only root or G1 parameters, because key is not set but profile is
+        // test only root or G1 or Shizuku parameters, because key is not set but profile is
         PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed("-", profile, null, true, context);
         boolean grantedRoot = true;
         //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -1182,6 +1186,10 @@ class ProfileStatic {
         if (preferenceAllowed.notAllowedG1) {
             //if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
             grantedG1Permission = false;
+        }
+        boolean grantedShizukuPermission = true;
+        if (preferenceAllowed.notAllowedShizuku) {
+            grantedShizukuPermission = false;
         }
 
         boolean installedPPPPS = true;
@@ -1205,7 +1213,7 @@ class ProfileStatic {
             return (!grantedAllPermissions) ||
                     (!enabledNotificationAccess) ||
                     (!accessibilityEnabled) ||
-                    (!defaultAssistantEnabled)  ||
+                    (!defaultAssistantEnabled) ||
                     (!installedPPPPS);
         else
             return (!grantedAllPermissions) ||
@@ -1213,8 +1221,9 @@ class ProfileStatic {
                     (!grantedG1Permission) ||
                     (!enabledNotificationAccess) ||
                     (!accessibilityEnabled) ||
-                    (!defaultAssistantEnabled)  ||
-                    (!installedPPPPS);
+                    (!defaultAssistantEnabled) ||
+                    (!installedPPPPS) ||
+                    (!grantedShizukuPermission);
     }
 
 }
