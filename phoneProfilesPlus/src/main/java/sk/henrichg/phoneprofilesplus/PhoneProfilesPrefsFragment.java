@@ -3855,7 +3855,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(PREF_GRANT_SHIZUKU_PERMISSION)) {
             String summary;
-            if (ShizukuUtils.shizukuAvailable) {
+            if (ShizukuUtils.shizukuAvailable()) {
                 if (ShizukuUtils.hasShizukuPermission())
                     summary = getString(R.string.permission_granted);
                 else

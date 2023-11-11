@@ -12,14 +12,18 @@ class ShizukuUtils {
      * is either uninstalled OR isn't running, this will return
      * false.
      */
-    static boolean shizukuAvailable = Shizuku.pingBinder() && ((Shizuku.getVersion() >= 11) && (!Shizuku.isPreV11()));
+    //static boolean shizukuAvailable = Shizuku.pingBinder() && ((Shizuku.getVersion() >= 11) && (!Shizuku.isPreV11()));
     //static boolean shizukuInstalled = (Shizuku.getVersion() >= 11);
+
+    static boolean shizukuAvailable() {
+        return Shizuku.pingBinder() && ((Shizuku.getVersion() >= 11) && (!Shizuku.isPreV11()));
+    }
 
     /**
      * Checks if the current app has permission to use Shizuku.
      */
     static boolean hasShizukuPermission() {
-        if (!shizukuAvailable) {
+        if (!shizukuAvailable()) {
             return false;
         }
 

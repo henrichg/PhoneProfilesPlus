@@ -2163,6 +2163,8 @@
     <string name="important_info_profile_shizuku_howTo_1">Profile parameters marked with (Z) need Shizuku.</string>
     <string name="important_info_profile_shizuku_howTo_2">Click here for download Shizuku.</string>
     <string name="important_info_profile_shizuku_howTo_3">Click here to display how to setup Shizuku.</string>
+    <string name="grant_shizuku_permissions_text1">Shizuku requires permission</string>
+    <string name="grant_shizuku_permissions_text2">Please grant them in next dialog. Shizuku then can be used for some profile parameters.</string>
 
     <!-- **************************************************************************************** -->
 

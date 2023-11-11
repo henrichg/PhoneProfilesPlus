@@ -3032,7 +3032,7 @@ class Permissions {
     static void grantShizukuPermission(final ProfilesPrefsFragment fragment,
                                         final Activity activity) {
 
-        if (ShizukuUtils.shizukuAvailable) {
+        if (ShizukuUtils.shizukuAvailable()) {
             PPAlertDialog dialog = new PPAlertDialog(activity.getString(R.string.profile_preferences_types_shizuku_permission),
                     activity.getString(R.string.phone_profiles_pref_grantShizukuPermission_summary2),
                     activity.getString(R.string.alert_button_grant), activity.getString(R.string.alert_button_not_grant),

@@ -13,6 +13,8 @@ import rikka.shizuku.Shizuku;
 
 public class GrantShizukuPermissionActivity extends AppCompatActivity {
 
+    private boolean rationaleAlreadyShown = false;
+
     private void onRequestPermissionsResult(int requestCode, int grantResult) {
         boolean granted = grantResult == PackageManager.PERMISSION_GRANTED;
         if (granted) {
@@ -24,11 +26,8 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
             //    dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, interactive, null, true);
             //}
         }
-        // TODO - zobraz dialog a na positive zasa zavolaj
-        //  Shizuku.requestPermission(Permissions.SZIZUKU_PERMISSION_REQUEST_CODE);
-        //  vid GrantPermisisonActivity.showRationale()
-        //else
-        //    showRationale(context);
+        else
+            showRationale();
     }
 
     private final Shizuku.OnRequestPermissionResultListener REQUEST_PERMISSION_RESULT_LISTENER = this::onRequestPermissionsResult;
@@ -42,7 +41,6 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
 
 //        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] GrantShizukuPermissionActivity.onCreate", "xxx");
         Log.e("GrantShizukuPermissionActivity.onCreate", "xxx");
-
     }
 
     @Override
@@ -66,6 +64,10 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
         //noinspection StatementWithEmptyBody
         if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
             // Granted
+            setResult(Activity.RESULT_OK);
+            //finishAffinity();
+            finish();
+            Permissions.removeProfileNotification(getApplicationContext());
         //} else
         //noinspection StatementWithEmptyBody
         //if (Shizuku.shouldShowRequestPermissionRationale()) {
@@ -86,12 +88,14 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Shizuku.removeRequestPermissionResultListener(REQUEST_PERMISSION_RESULT_LISTENER);
+        Log.e("GrantShizukuPermissionActivity.onDestroy", "xxx");
     }
     @Override
     public void finish()
     {
         super.finish();
         overridePendingTransition(0, 0);
+        Log.e("GrantShizukuPermissionActivity.finish", "xxx");
     }
 
     /*
@@ -99,5 +103,43 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
         new ShowActivityAsyncTask(this).execute();
     }
     */
+
+    private void showRationale() {
+        if (rationaleAlreadyShown) {
+            setResult(Activity.RESULT_OK);
+            //finishAffinity();
+            finish();
+            Permissions.removeProfileNotification(getApplicationContext());
+            //if (activateProfile) {
+            //    dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, interactive, null, true);
+            //}
+            return;
+        }
+        rationaleAlreadyShown = true;
+
+        String _showRequestValue =
+                getString(R.string.grant_shizuku_permissions_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                getString(R.string.grant_shizuku_permissions_text2);
+
+        GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
+        //GlobalGUIRoutines.setLanguage(this);
+
+        PPAlertDialog dialog = new PPAlertDialog(getString(R.string.permissions_alert_title),
+                StringFormatUtils.fromHtml(_showRequestValue, true,  false, 0, 0, true),
+                getString(android.R.string.ok), getString(android.R.string.cancel), null, null,
+                (dialog1, which) -> Shizuku.requestPermission(Permissions.SZIZUKU_PERMISSION_REQUEST_CODE),
+                (dialog2, which) -> finish(),
+                null,
+                dialog3 -> finish(),
+                null,
+                true, true,
+                false, false,
+                false,
+                this
+        );
+
+        if (!isFinishing())
+            dialog.show();
+    }
 
 }
