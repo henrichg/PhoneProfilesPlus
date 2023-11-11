@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -14,6 +15,20 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
 
     private void onRequestPermissionsResult(int requestCode, int grantResult) {
         boolean granted = grantResult == PackageManager.PERMISSION_GRANTED;
+        if (granted) {
+            setResult(Activity.RESULT_OK);
+            //finishAffinity();
+            finish();
+            Permissions.removeProfileNotification(getApplicationContext());
+            //if (activateProfile) {
+            //    dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, interactive, null, true);
+            //}
+        }
+        // TODO - zobraz dialog a na positive zasa zavolaj
+        //  Shizuku.requestPermission(Permissions.SZIZUKU_PERMISSION_REQUEST_CODE);
+        //  vid GrantPermisisonActivity.showRationale()
+        //else
+        //    showRationale(context);
     }
 
     private final Shizuku.OnRequestPermissionResultListener REQUEST_PERMISSION_RESULT_LISTENER = this::onRequestPermissionsResult;
@@ -51,9 +66,9 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
         //noinspection StatementWithEmptyBody
         if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
             // Granted
-        } else
+        //} else
         //noinspection StatementWithEmptyBody
-        if (Shizuku.shouldShowRequestPermissionRationale()) {
+        //if (Shizuku.shouldShowRequestPermissionRationale()) {
             // Users choose "Deny and don't ask again"
         } else {
             // Request the permission
