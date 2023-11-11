@@ -1964,7 +1964,6 @@
     <string name="about_application_pppps_source_code">Source code - PPPPutSettings:</string>
     <string name="profile_preferences_notificationLed_23">(S)(R) Notification LED</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Always-On display</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
@@ -2165,6 +2164,9 @@
     <string name="important_info_profile_shizuku_howTo_3">Click here to display how to setup Shizuku.</string>
     <string name="grant_shizuku_permissions_text1">Shizuku requires permission</string>
     <string name="grant_shizuku_permissions_text2">Please grant them in next dialog. Shizuku then can be used for some profile parameters.</string>
+
+    <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
+    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (S), (G1), (R), (Z), (I).</string>
 
     <!-- **************************************************************************************** -->
 
