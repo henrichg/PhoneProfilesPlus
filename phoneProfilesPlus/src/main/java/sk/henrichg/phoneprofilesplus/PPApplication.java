@@ -161,6 +161,7 @@ public class PPApplication extends Application
     static final String DROIDIFY_PACKAGE_NAME = "com.looker.droidify";
     static final String DROIDIFY_PPP_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplus_";
     static final String DROIDIFY_PPPE_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplusextender_";
+    static final String DROIDIFY_PPPPS_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.pppputsettings_";
 
     static final String GITHUB_PPPPS_RELEASES_URL = "https://github.com/henrichg/PPPPutSettings/releases";
     static final String GITHUB_PPPPS_DOWNLOAD_URL = "https://github.com/henrichg/PPPPutSettings/releases/latest/download/PPPPutSettings.apk";

@@ -8,11 +8,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.Calendar;
 
@@ -155,51 +161,83 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
     static void doWork(final Context appContext) {
         int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(appContext);
         if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)) {
-            removeNotification(appContext);
+            if (Build.VERSION.SDK_INT == 33) {
+                // check IzzyOnDroid repo
+                // because fo Android 13 is required to install apk from app stores
+                // but for Android 14 is required to istall with adb command
 
-            // show notification for check new release
-            PPApplicationStatic.createNewReleaseNotificationChannel(appContext, false);
+                RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
+                String izzyRepoURL = PPApplication.DROIDIFY_PPPPS_LATEST_APK_RELEASE_URL_BEGIN;
+                izzyRepoURL = izzyRepoURL + PPApplication.VERSION_CODE_PPPPS_LATEST + ".apk";
+//                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
+                StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,
+                        izzyRepoURL,
+                        response1 -> {
+//                            Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "latest installed - xxxxxxxxxxxxxxxx");
+                        },
+                        error -> {
+                            if ((error.networkResponse != null) && (error.networkResponse.statusCode == 404)) {
+//                                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "error.networkResponse.statusCode=" + error.networkResponse.statusCode);
+//                                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
+                                try {
+                                    showNotification(appContext);
+                                } catch (Exception e) {
+//                                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+                                }
+                            }
+                        });
+                queueIzzyRepo.add(stringRequestIzzyRepo);
 
-            NotificationCompat.Builder mBuilder;
-            Intent _intent;
-            _intent = new Intent(appContext, CheckLatestPPPPSReleasesActivity.class);
-            _intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            } else
+                showNotification(appContext);
+        }
+    }
 
-            String nTitle;
-            String nText;
-            nTitle = appContext.getString(R.string.latest_pppps_release);
-            nText = appContext.getString(R.string.latest_pppps_release_notification);
+    private static void showNotification(Context appContext) {
+        removeNotification(appContext);
 
-            mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL)
-                    .setColor(ContextCompat.getColor(appContext, R.color.information_color))
-                    .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
-                    .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification))
-                    .setContentTitle(nTitle) // title for notification
-                    .setContentText(nText)
-                    .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
-                    .setAutoCancel(true); // clear notification after click
+        // show notification for check new release
+        PPApplicationStatic.createNewReleaseNotificationChannel(appContext, false);
 
-            PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            mBuilder.setContentIntent(pi);
-            mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-            mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
-            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        NotificationCompat.Builder mBuilder;
+        Intent _intent;
+        _intent = new Intent(appContext, CheckLatestPPPPSReleasesActivity.class);
+        _intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-            mBuilder.setGroup(PPApplication.CHECK_RELEASES_GROUP);
+        String nTitle;
+        String nText;
+        nTitle = appContext.getString(R.string.latest_pppps_release);
+        nText = appContext.getString(R.string.latest_pppps_release_notification);
 
-            Notification notification = mBuilder.build();
+        mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(appContext, R.color.information_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification))
+                .setContentTitle(nTitle) // title for notification
+                .setContentText(nText)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
+                .setAutoCancel(true); // clear notification after click
 
-            NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
-            try {
-                mNotificationManager.notify(
-                        PPApplication.CHECK_LATEST_PPPPS_RELEASES_NOTIFICATION_TAG,
-                        PPApplication.CHECK_LATEST_PPPPS_RELEASES_NOTIFICATION_ID, notification);
-            } catch (SecurityException en) {
-                PPApplicationStatic.logException("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", Log.getStackTraceString(en));
-            } catch (Exception e) {
-                //Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
-                PPApplicationStatic.recordException(e);
-            }
+        PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pi);
+        mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+
+        mBuilder.setGroup(PPApplication.CHECK_RELEASES_GROUP);
+
+        Notification notification = mBuilder.build();
+
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+        try {
+            mNotificationManager.notify(
+                    PPApplication.CHECK_LATEST_PPPPS_RELEASES_NOTIFICATION_TAG,
+                    PPApplication.CHECK_LATEST_PPPPS_RELEASES_NOTIFICATION_ID, notification);
+        } catch (SecurityException en) {
+            PPApplicationStatic.logException("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", Log.getStackTraceString(en));
+        } catch (Exception e) {
+            //Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+            PPApplicationStatic.recordException(e);
         }
     }
 

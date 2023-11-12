@@ -2168,6 +2168,8 @@
     <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
     <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (S), (G1), (R), (Z), (I).</string>
 
+    <string name="install_pppps_install_droidify_text">Please install Droid-ify. Is required for installation of PPPPutSettings. After that, do again installation of PPPPutSettings.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

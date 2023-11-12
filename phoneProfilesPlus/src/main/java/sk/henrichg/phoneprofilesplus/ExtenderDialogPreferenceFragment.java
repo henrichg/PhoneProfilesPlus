@@ -505,9 +505,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                         if (finishActivity)
                             activity.finish();
                     }
-                }
-                else
-                if (fdroidInstalled) {
+                } else if (fdroidInstalled) {
                     Intent intent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse("market://details?id=sk.henrichg.phoneprofilesplusextender"));
                     intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);

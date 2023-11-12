@@ -188,6 +188,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                         if (pppReleaseData != null) {
                             if (Build.VERSION.SDK_INT >= 33) {
                                 // check IzzyOnDroid repo
+                                // because from Android 13 is required to install apk from app stores
 
                                 RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
                                 String izzyRepoURL = PPApplication.DROIDIFY_PPP_LATEST_APK_RELEASE_URL_BEGIN;
