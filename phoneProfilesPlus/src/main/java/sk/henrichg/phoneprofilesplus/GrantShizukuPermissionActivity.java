@@ -15,6 +15,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
 
     private boolean rationaleAlreadyShown = false;
 
+    /** @noinspection unused*/
     private void onRequestPermissionsResult(int requestCode, int grantResult) {
         boolean granted = grantResult == PackageManager.PERMISSION_GRANTED;
         if (granted) {

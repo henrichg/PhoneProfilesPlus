@@ -7749,6 +7749,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (preferenceCategory != null)
                             preferenceCategory.removePreference(preference);
                     }
+                    preference = prefMng.findPreference(PREF_GRANT_SHIZUKU_PREFERENCES);
+                    if (preference != null) {
+                        PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                        if (preferenceCategory != null)
+                            preferenceCategory.removePreference(preference);
+                    }
                 }
 
             }
