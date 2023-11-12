@@ -144,6 +144,14 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
 
 //        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(3)");
 
+        if (!isRecordedException(_exception, _thread))
+            return false;
+
+        return true;
+    }
+
+    static boolean isRecordedException(Throwable _exception,
+                                       Thread _thread) {
         try {
 
             if (_exception instanceof TimeoutException) {
@@ -151,10 +159,10 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                     return false;
             }
 
-//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(4)");
+//            Log.e("CustomACRAReportingAdministrator.isNotRecorderException", "(4)");
 
             if (_exception instanceof DeadSystemException) {
-//                Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "DeadSystemException");
+//                Log.e("CustomACRAReportingAdministrator.isNotRecorderException", "DeadSystemException");
                 return false;
             }
 
@@ -165,15 +173,15 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                 // ignore but not exist exception
                 // android.app.RemoteServiceException$CannotDeliverBroadcastException: can't deliver broadcast
                 // https://stackoverflow.com/questions/72902856/cannotdeliverbroadcastexception-only-on-pixel-devices-running-android-12
-//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "CannotDeliverBroadcastException");
+//            Log.e("CustomACRAReportingAdministrator.isNotRecorderException", "CannotDeliverBroadcastException");
                 return false;
             }
 
-//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(6)");
+//            Log.e("CustomACRAReportingAdministrator.isNotRecorderException", "(6)");
 
             if (Build.VERSION.SDK_INT >= 33) {
                 if (_exception instanceof DeadSystemRuntimeException) {
-//                Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "DeadSystemException");
+//                Log.e("CustomACRAReportingAdministrator.isNotRecorderException", "DeadSystemException");
                     return false;
                 }
             }
@@ -183,18 +191,18 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
             if (_exception instanceof java.lang.RuntimeException) {
                 if (_exception.getMessage() != null) {
                     if (_exception.getMessage().equals("Test Crash")) {
-    //                    Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "RuntimeException: Test Crash");
+    //                    Log.e("CustomACRAReportingAdministrator.isNotRecorderException", "RuntimeException: Test Crash");
                         return false;
                     }
                     if (_exception.getMessage().equals("Test non-fatal exception")) {
-    //                    Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "RuntimeException: Test non-fatal exception");
+    //                    Log.e("CustomACRAReportingAdministrator.isNotRecorderException", "RuntimeException: Test non-fatal exception");
                         return false;
                     }
                 }
             }
 */
         } catch (Exception ee) {
-            //Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(ee));
+            //Log.e("CustomACRAReportingAdministrator.isNotRecorderException", Log.getStackTraceString(ee));
         }
 
         return true;

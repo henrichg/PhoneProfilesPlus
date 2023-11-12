@@ -2954,9 +2954,11 @@ class PPApplicationStatic {
 
     static void recordException(Throwable ex) {
         try {
-            //FirebaseCrashlytics.getInstance().recordException(ex);
-            ACRA.getErrorReporter().handleException(ex);
-            //ACRA.getErrorReporter().putCustomData("NON-FATAL_EXCEPTION", Log.getStackTraceString(ex));
+            if (CustomACRAReportingAdministrator.isRecordedException(ex, null)) {
+                //FirebaseCrashlytics.getInstance().recordException(ex);
+                ACRA.getErrorReporter().handleException(ex);
+                //ACRA.getErrorReporter().putCustomData("NON-FATAL_EXCEPTION", Log.getStackTraceString(ex));
+            }
         } catch (Exception ignored) {}
     }
 
