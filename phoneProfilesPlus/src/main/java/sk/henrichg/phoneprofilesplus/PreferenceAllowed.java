@@ -39,6 +39,7 @@ class PreferenceAllowed {
     static final int PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT = 14;
     static final int PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS = 15;
     static final int PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS = 16;
+    static final int PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED = 17;
 
     void copyFrom(PreferenceAllowed preferenceAllowed) {
         allowed = preferenceAllowed.allowed;
@@ -71,6 +72,7 @@ class PreferenceAllowed {
             case PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION: return context.getString(R.string.preference_not_allowed_reason_not_granted_phone_permission);
             case PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT: return context.getString(R.string.preference_not_allowed_reason_not_set_as_assistant);
             case PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS: return context.getString(R.string.preference_not_allowed_reason_not_installed_ppps);
+            case PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED: return context.getString(R.string.preference_not_allowed_reason_not_granted_shizuku);
             default: return "";
         }
     }
@@ -289,13 +291,21 @@ class PreferenceAllowed {
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.MODIFY_PHONE_STATE
             // not working :-/
             if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE)) {
-                if (ActivateProfileHelper.canSetMobileData(appContext))
+                if (ActivateProfileHelper.canSetMobileData(appContext)) {
                     if (profile != null) {
                         if (profile._deviceMobileData != 0)
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                    }
-                    else
+                    } else
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                }
+            }
+            else
+            if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                if (profile != null) {
+                    if (profile._deviceMobileData != 0)
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             }
             else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -361,10 +371,11 @@ class PreferenceAllowed {
                 }
             }
             else {
+                //TODO
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                 if ((profile != null) && (profile._deviceMobileData != 0)) {
-                    preferenceAllowed.notAllowedRoot = true;
+                    preferenceAllowed.notAllowedShizuku = true;
                 }
             }
         }
