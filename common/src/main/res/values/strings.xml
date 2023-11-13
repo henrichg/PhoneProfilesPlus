@@ -1892,9 +1892,6 @@
     <string name="profile_icon_preference_iconColor_help_info_2">An icon with this increased brightness will be used throughout the GUI of the application. Also in notification and widgets, when their background is dark.</string>
     <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with a double arrow sign.</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info4">Current configuration:</string>
-    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) On in Airplane mode</string>
-    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
-    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
     <string name="event_preference_sensor_roaming_summary">This sensor will start an event when network or data are in roaming. Parameters: Check network, Check data.</string>
     <string name="event_type_roaming">Roaming</string>
     <string name="event_preferences_category_eventRoamingParameters">Roaming sensor</string>
@@ -1902,9 +1899,6 @@
     <string name="pref_event_roaming_check_data">Check data</string>
     <string name="event_preferences_roaming_forSimCard">For SIM card</string>
     <string name="permission_why_event_roaming_preferences">for check, if network or data are in roaming</string>
-    <string name="array_pref_airplaneModeArray_root_on">(R) On</string>
-    <string name="array_pref_airplaneModeArray_root_off">(R) Off</string>
-    <string name="array_pref_airplaneModeArray_root_toggle">(R) Toggle</string>
     <string name="array_pref_airplaneModeArray_assistant_on">On with Assistant</string>
     <string name="array_pref_airplaneModeArray_assistant_off">Off with Assistant</string>
     <string name="array_pref_airplaneModeArray_assistant_toggle">Toggle with Assistant</string>
@@ -2168,6 +2162,12 @@
     <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
     <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (S), (G1), (R), (Z), (I).</string>
     <string name="profile_preferences_deviceMobileData_21">(Z)(R) Mobile data</string>
+    <string name="array_pref_airplaneModeArray_root_on">(Z)(R) On</string>
+    <string name="array_pref_airplaneModeArray_root_off">(Z)(R) Off</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(Z)(R) Toggle</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(Z)(R) On in Airplane mode</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(Z)(R) Off in Airplane mode</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(Z)(R) Toggle in Airplane mode</string>
 
     <string name="install_pppps_install_droidify_text">Please install Droid-ify. Is required for installation of PPPPutSettings. After that, do again installation of PPPPutSettings.</string>
 

@@ -311,6 +311,8 @@ class RootUtils {
                 PPApplication.serviceListMutex.serviceList.clear();
         }
 
+        //TODO potrebuje commandOutput
+
         if (isRooted(/*false*/)) {
 //            PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.getServicesList", "(2) PPApplication.rootMutex");
             synchronized (PPApplication.rootMutex) {

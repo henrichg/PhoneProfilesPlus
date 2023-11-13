@@ -1173,8 +1173,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, preferences, true, context);
 
                             if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
-                                listPreference.setTitle(StringConstants.STR_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
-                                listPreference.setDialogTitle(StringConstants.STR_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+                                listPreference.setTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+                                listPreference.setDialogTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
                             } else {
                                 listPreference.setTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
                                 listPreference.setDialogTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
@@ -1195,8 +1195,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, null, preferences, true, context);
 
                             if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
-                                ringtonePreference.setTitle(StringConstants.STR_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
-                                ringtonePreference.setDialogTitle(StringConstants.STR_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
+                                ringtonePreference.setTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
+                                ringtonePreference.setDialogTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
                             } else {
                                 ringtonePreference.setTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
                                 ringtonePreference.setDialogTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
@@ -2948,7 +2948,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_RADIOS_CATTEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
         }
-        //TODO
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, R.string.profile_preferences_deviceMobileData_21, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;

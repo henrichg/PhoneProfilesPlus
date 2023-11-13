@@ -18,6 +18,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
     /** @noinspection unused*/
     private void onRequestPermissionsResult(int requestCode, int grantResult) {
         boolean granted = grantResult == PackageManager.PERMISSION_GRANTED;
+        Log.e("GrantShizukuPermissionActivity.onRequestPermissionsResult", "granted="+granted);
         if (granted) {
             setResult(Activity.RESULT_OK);
             //finishAffinity();
@@ -65,6 +66,8 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
         //noinspection StatementWithEmptyBody
         if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
             // Granted
+            Log.e("GrantShizukuPermissionActivity.onStart", "granted");
+
             setResult(Activity.RESULT_OK);
             //finishAffinity();
             finish();
@@ -75,6 +78,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
             // Users choose "Deny and don't ask again"
         } else {
             // Request the permission
+            Log.e("GrantShizukuPermissionActivity.onStart", "Shizuku.requestPermission");
             Shizuku.requestPermission(Permissions.SZIZUKU_PERMISSION_REQUEST_CODE);
         }
     }

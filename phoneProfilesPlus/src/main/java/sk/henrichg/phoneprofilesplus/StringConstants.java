@@ -21,6 +21,7 @@ class StringConstants {
     static final String STR_ROOT = "(R) ";
     //static final String STR_PPPPS = "(S) ";
     static final String STR_PPPPS_ROOT = "(S)(R) ";
+    static final String STR_SHIZUKU_ROOT = "(Z)(R) ";
     //static final String STR_INTERFACE = "(I) ";
     //static final String STR_G1 = "(G1) ";
     static final String CHAR_NEW_LINE = "\n";

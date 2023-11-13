@@ -53,6 +53,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -2047,7 +2048,9 @@ class ActivateProfileHelper {
         return null;
     }
 
-    private static boolean setTones(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences) {
+    /** @noinspection UnusedReturnValue*/
+    private static boolean setTones(Context context, Profile profile,
+                                    SharedPreferences executedProfileSharedPreferences) {
         boolean noError = true;
         Context appContext = context.getApplicationContext();
         if (Permissions.checkProfileRingtones(appContext, profile, null)) {
@@ -2411,7 +2414,14 @@ class ActivateProfileHelper {
                                 noError = false;
                             }
                         }
-                    }
+                    }/* else {
+                        if (!profile._soundRingtoneSIM1.isEmpty()) {
+                            PPApplication.showToast(context.getApplicationContext(),
+                                    context.getString(R.string.toast_profile_activated_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name + " " +
+                                            context.getString(R.string.toast_profile_activation_not_inserted_sim1),
+                                    Toast.LENGTH_LONG);
+                        }
+                    }*/
                 }
             }
             if (profile._soundRingtoneChangeSIM2 == 1) {
@@ -2543,7 +2553,14 @@ class ActivateProfileHelper {
                                 noError = false;
                             }
                         }
-                    }
+                    } /*else {
+                        if (!profile._soundRingtoneSIM2.isEmpty()) {
+                            PPApplication.showToast(context.getApplicationContext(),
+                                    context.getString(R.string.toast_profile_activated_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name + " " +
+                                            context.getString(R.string.toast_profile_activation_not_inserted_sim2),
+                                    Toast.LENGTH_LONG);
+                        }
+                    }*/
                 }
             }
             if (profile._soundNotificationChangeSIM1 == 1) {
@@ -2745,7 +2762,14 @@ class ActivateProfileHelper {
                                 noError = false;
                             }
                         }
-                    }
+                    } /*else {
+                        if (!profile._soundNotificationSIM1.isEmpty()) {
+                            PPApplication.showToast(context.getApplicationContext(),
+                                    context.getString(R.string.toast_profile_activated_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name + " " +
+                                            context.getString(R.string.toast_profile_activation_not_inserted_sim1),
+                                    Toast.LENGTH_LONG);
+                        }
+                    }*/
                 }
             }
             if (profile._soundNotificationChangeSIM2 == 1) {
@@ -2753,6 +2777,7 @@ class ActivateProfileHelper {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                     boolean sim2Exists = hasSIMCardData.hasSIM2;
+                    Log.e("ActivateProfileHelper.setTones", "sim2Exists="+sim2Exists);
 
                     if (sim2Exists) {
 
@@ -2817,12 +2842,16 @@ class ActivateProfileHelper {
                                         } catch (Exception ignored) {
                                         }
 
-                                        // not working without root
-                                        //if (isPPPPutSSettingsInstalled(appContext)) {
                                         //    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2 Huawei uri="+uri.toString());
-                                        //    putSettingsParameter(context, "system", PREF_NOTIFICATION_SIM2_HUAWEI, uri.toString());
-                                        //} else
-                                        {
+                                        if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                                            //TODO add Shizuku - hotovo
+                                            String command1 = COMMAND_SETTINGS_PUT_SYSTEM+PREF_NOTIFICATION_SIM2_HUAWEI + " " + uri.toString();
+                                            try {
+                                                ShizukuUtils.executeCommand(command1);
+                                            } catch (Exception e) {
+                                                //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                            }
+                                        } else {
                                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                     (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
 //                                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(6) PPApplication.rootMutex");
@@ -2914,11 +2943,15 @@ class ActivateProfileHelper {
                                 } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2 Huawei uri=null");
 
-                                    // not working without root
-                                    //if (isPPPPutSSettingsInstalled(appContext)) {
-                                    //    putSettingsParameter(context, "system", PREF_NOTIFICATION_SIM2_HUAWEI, "");
-                                    //} else
-                                    {
+                                    if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                                        //TODO add Shizuku - hotovo
+                                        String command1 = COMMAND_SETTINGS_PUT_SYSTEM+PREF_NOTIFICATION_SIM2_HUAWEI + " \"\"";
+                                        try {
+                                            ShizukuUtils.executeCommand(command1);
+                                        } catch (Exception e) {
+                                            //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                        }
+                                    } else {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                 (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
 //                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setTones", "(8) PPApplication.rootMutex");
@@ -2948,7 +2981,14 @@ class ActivateProfileHelper {
                                 noError = false;
                             }
                         }
-                    }
+                    } /*else {
+                        if (!profile._soundNotificationSIM2.isEmpty()) {
+                            PPApplication.showToast(context.getApplicationContext(),
+                                    context.getString(R.string.toast_profile_activated_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name + " " +
+                                            context.getString(R.string.toast_profile_activation_not_inserted_sim2),
+                                    Toast.LENGTH_LONG);
+                        }
+                    }*/
                 }
             }
 
@@ -3007,7 +3047,12 @@ class ActivateProfileHelper {
                             PPApplicationStatic.recordException(e);
                             noError = false;
                         }
-                    }
+                    } /*else {
+                        PPApplication.showToast(context.getApplicationContext(),
+                                context.getString(R.string.toast_profile_activated_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name + " " +
+                                        context.getString(R.string.toast_profile_activation_not_inserted_both_sim),
+                                Toast.LENGTH_LONG);
+                    }*/
                 }
             }
         }
@@ -3079,7 +3124,7 @@ class ActivateProfileHelper {
                 }
 
                 if (profile != null) {
-                    boolean noErrorSetTone = setTones(appContext, profile, executedProfileSharedPreferences);
+                    //boolean noErrorSetTone = setTones(appContext, profile, executedProfileSharedPreferences, false);
 
                     final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
 
@@ -3144,9 +3189,9 @@ class ActivateProfileHelper {
                     PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
                     //DisableVolumesInternalChangeWorker.enqueueWork();
 
-                    if (noErrorSetTone) {
+                    //if (noErrorSetTone) {
                         setTones(appContext, profile, executedProfileSharedPreferences);
-                    }
+                    //}
 
                 }
             } catch (Exception e) {
@@ -5735,42 +5780,63 @@ class ActivateProfileHelper {
 
     private static void setAirplaneMode(Context context, boolean mode, boolean useAssistant)
     {
-        boolean isRooted = RootUtils.isRooted(/*false*/);
-        boolean settingsBinaryExists = RootUtils.settingsBinaryExists(false);
-        if (isRooted && (!useAssistant) &&
-            (!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-            settingsBinaryExists) {
-            // device is rooted
-//            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setAirplaneMode", "PPApplication.rootMutex");
-            synchronized (PPApplication.rootMutex) {
+        if (!useAssistant) {
+            boolean isRooted = RootUtils.isRooted(/*false*/);
+            boolean settingsBinaryExists = RootUtils.settingsBinaryExists(false);
+            if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                //TODO add Shizuku - hotovo
                 String command1;
                 String command2;
                 final String AIRPLANE_MODE_ON = "airplane_mode_on ";
                 if (mode) {
-                    command1 = COMMAND_SETTINGS_PUT_GLOBAL+AIRPLANE_MODE_ON+"1";
-                    command2 = COMMAND_AM_AIRPLANE_MODE+StringConstants.TRUE_STRING;
+                    command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "1";
+                    command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.TRUE_STRING;
                 } else {
-                    command1 = COMMAND_SETTINGS_PUT_GLOBAL+AIRPLANE_MODE_ON+"0";
-                    command2 = COMMAND_AM_AIRPLANE_MODE+StringConstants.FALSE_STRING;
+                    command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "0";
+                    command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.FALSE_STRING;
                 }
-                //if (PPApplication.isSELinuxEnforcing())
-                //{
-                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                //	command2 = PPApplication.getSELinuxEnforceCommand(command2, Shell.ShellContext.SYSTEM_APP);
-                //}
-                Command command = new Command(0, /*false,*/ command1, command2);
                 try {
-                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_AIPLANE_MODE);
+                    ShizukuUtils.executeCommand(command1);
+                    ShizukuUtils.executeCommand(command2);
                 } catch (Exception e) {
-                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                    //Log.e("ActivateProfileHelper.setAirplaneMode", Log.getStackTraceString(e));
-                    //PPApplicationStatic.recordException(e);
+                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                }
+            } else
+            if (isRooted &&
+                    (!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                    settingsBinaryExists) {
+                // device is rooted
+//            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setAirplaneMode", "PPApplication.rootMutex");
+                synchronized (PPApplication.rootMutex) {
+                    String command1;
+                    String command2;
+                    final String AIRPLANE_MODE_ON = "airplane_mode_on ";
+                    if (mode) {
+                        command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "1";
+                        command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.TRUE_STRING;
+                    } else {
+                        command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "0";
+                        command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.FALSE_STRING;
+                    }
+                    //if (PPApplication.isSELinuxEnforcing())
+                    //{
+                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                    //	command2 = PPApplication.getSELinuxEnforceCommand(command2, Shell.ShellContext.SYSTEM_APP);
+                    //}
+                    Command command = new Command(0, /*false,*/ command1, command2);
+                    try {
+                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                        RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_AIPLANE_MODE);
+                    } catch (Exception e) {
+                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                        //Log.e("ActivateProfileHelper.setAirplaneMode", Log.getStackTraceString(e));
+                        //PPApplicationStatic.recordException(e);
+                    }
                 }
             }
         }
         else
-        if (useAssistant && isPPPSetAsDefaultAssistant(context)) {
+        if (isPPPSetAsDefaultAssistant(context)) {
                 Intent intent = new Intent(PPVoiceService.ACTION_ASSISTANT);
                 intent.putExtra("ACTION", Settings.ACTION_VOICE_CONTROL_AIRPLANE_MODE);
                 intent.putExtra(Settings.EXTRA_AIRPLANE_MODE_ENABLED, mode);
@@ -6036,6 +6102,15 @@ class ActivateProfileHelper {
     {
         //Context appContext = context.getApplicationContext();
 
+        if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+            //TODO add Shizuku - hotovo
+            String command1 = "svc wifi " + (enable ? "enable" : "disable");
+            try {
+                ShizukuUtils.executeCommand(command1);
+            } catch (Exception e) {
+                //Log.e("ActivateProfileHelper.setWifiInAirplaneMode", Log.getStackTraceString(e));
+            }
+        } else
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                 RootUtils.isRooted(/*false*/)) {
 //            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setWifiInAirplaneMode", "PPApplication.rootMutex");
@@ -6142,6 +6217,8 @@ class ActivateProfileHelper {
     {
 //        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "simCard="+simCard);
 //        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "networkType="+networkType);
+
+        //TODO pouziva command service
 
         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
         boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
@@ -6281,6 +6358,8 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
+                        //TODO pouziva command service
+
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setWifiAP", "PPApplication.rootMutex");
                         synchronized (PPApplication.rootMutex) {
                             String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_WIFI, transactionCode, 0, (enable) ? 1 : 0);
@@ -6718,6 +6797,7 @@ class ActivateProfileHelper {
                         }
                         break;
                     case 2:
+                        //TODO pouziva java command
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                 (RootUtils.isRooted(/*false*/))) {
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.lockDevice", "PPApplication.rootMutex");
@@ -6993,6 +7073,8 @@ class ActivateProfileHelper {
                                                     if ((simCard == -1) || (subscriptionId != defaultSubscriptionId)) {
                                                         // do not call subscription change, when is aleredy set, this cause FC
 
+                                                        //TODO pouziva command service
+
 //                                                        PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionId=" + subscriptionId);
 //                                                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setDefaultSimCard", "PPApplication.rootMutex");
                                                         synchronized (PPApplication.rootMutex) {
@@ -7145,6 +7227,9 @@ class ActivateProfileHelper {
                                         int subscriptionId = subscriptionInfo.getSubscriptionId();
 //                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionId=" + subscriptionId);
 //                                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setSIMOnOff", "PPApplication.rootMutex");
+
+                                        //TODO pouziva command service
+
                                         synchronized (PPApplication.rootMutex) {
                                             String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId, state);
                                             //String command1 = PPApplication.getServiceCommand("phone", transactionCode, slotIndex, state);
