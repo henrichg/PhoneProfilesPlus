@@ -5922,25 +5922,34 @@ class ActivateProfileHelper {
             boolean sim2Exists = hasSIMCardData.hasSIM2;
             simExists = simExists && sim2Exists;
         }
-        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                RootUtils.isRooted(/*false*/) &&
-            simExists)
+        if (simExists)
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
 //                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
-                if ((simCard == 0)) {
-//                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setMobileData", "PPApplication.rootMutex");
-                    synchronized (PPApplication.rootMutex) {
+                //if ((simCard == 0)) {
+                    if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
                         String command1 = "svc data " + (enable ? "enable" : "disable");
-                        Command command = new Command(0, /*false,*/ command1);
                         try {
-                            RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                            RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_MOBILE_DATA);
+                            ShizukuUtils.executeCommand(command1);
                         } catch (Exception e) {
                             //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
                         }
+                    } else {
+                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setMobileData", "PPApplication.rootMutex");
+                            synchronized (PPApplication.rootMutex) {
+                                String command1 = "svc data " + (enable ? "enable" : "disable");
+                                Command command = new Command(0, /*false,*/ command1);
+                                try {
+                                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
+                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_MOBILE_DATA);
+                                } catch (Exception e) {
+                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                }
+                            }
+                        }
                     }
-                }/* else {
+                /*} else {
                     // dual sim temporary removed, Samsung, Xiaomi, Huawei do not have option for this in Settings
 
                     // dual sim is supported by TelephonyManager from API 26
