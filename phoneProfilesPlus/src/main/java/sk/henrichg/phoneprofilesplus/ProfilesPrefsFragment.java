@@ -1054,8 +1054,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (listPreference != null) {
                         PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, preferences, true, context);
 
-                        listPreference.setTitle(StringConstants.STR_ROOT+ getString(R.string.profile_preferences_deviceOnOff_SIM1));
-                        listPreference.setDialogTitle(StringConstants.STR_ROOT+getString(R.string.profile_preferences_deviceOnOff_SIM1));
+                        listPreference.setTitle(StringConstants.STR_SHIZUKU_ROOT+ getString(R.string.profile_preferences_deviceOnOff_SIM1));
+                        listPreference.setDialogTitle(StringConstants.STR_SHIZUKU_ROOT+getString(R.string.profile_preferences_deviceOnOff_SIM1));
                         String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "");
                         setSummary(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, value);
 
@@ -1070,8 +1070,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (listPreference != null) {
                         PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, preferences, true, context);
 
-                        listPreference.setTitle(StringConstants.STR_ROOT+ getString(R.string.profile_preferences_deviceOnOff_SIM2));
-                        listPreference.setDialogTitle(StringConstants.STR_ROOT+getString(R.string.profile_preferences_deviceOnOff_SIM2));
+                        listPreference.setTitle(StringConstants.STR_SHIZUKU_ROOT+ getString(R.string.profile_preferences_deviceOnOff_SIM2));
+                        listPreference.setDialogTitle(StringConstants.STR_SHIZUKU_ROOT+getString(R.string.profile_preferences_deviceOnOff_SIM2));
                         String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, "");
                         setSummary(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, value);
 

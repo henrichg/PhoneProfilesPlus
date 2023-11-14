@@ -474,7 +474,6 @@
     <string name="info_notification_event_states_running_delay">Running with delay: event is running, but parameters are not satisfied. Event is waiting for the delay to expire.</string>
     <string name="profile_preferences_askForDuration">Ask for Duration</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Battery optimization</string>
-    <string name="profile_preferences_deviceNetworkType">(R) Mobile network type</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Battery Saver</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">System settings configuration</string>
     <string name="phone_profiles_pref_notificationTextColor">Text color</string>
@@ -1459,8 +1458,6 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Setting screen not found, but this setting is not needed, if PhoneProfilesPlus starts at phone boot.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Corner radius</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
     <string name="profile_preferences_category_led_accessories">LED accessories</string>
     <string name="array_pref_radioSwitch_connected">Connected</string>
     <string name="array_pref_radioSwitch_disconnected">Disconnected</string>
@@ -1475,7 +1472,6 @@
     <string name="default_sim_subscription_sms">SMS</string>
     <string name="default_sim_subscription_data">Data</string>
     <string name="profile_preferences_deviceDualSIMSupport">Dual SIM support</string>
-    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
     <string name="profile_preferences_deviceOnOff_SIM1">Switch SIM 1 on/off</string>
     <string name="profile_preferences_deviceOnOff_SIM2">Switch SIM 2 on/off</string>
     <string name="ringtone_pref_dlg_system_tone">system tone</string>
@@ -2168,6 +2164,10 @@
     <string name="array_pref_wifiModeArray_on_inAirplaneMode">(Z)(R) On in Airplane mode</string>
     <string name="array_pref_wifiModeArray_off_inAirplaneMode">(Z)(R) Off in Airplane mode</string>
     <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(Z)(R) Toggle in Airplane mode</string>
+    <string name="profile_preferences_deviceNetworkType">(Z)(R) Mobile network type</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Mobile network type for SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Mobile network type for SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Default SIM card</string>
 
     <string name="install_pppps_install_droidify_text">Please install Droid-ify. Is required for installation of PPPPutSettings. After that, do again installation of PPPPutSettings.</string>
 

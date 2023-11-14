@@ -34,7 +34,7 @@ class ShizukuUtils {
     }
 
     /** @noinspection deprecation*/
-    static Process executeCommand(String command) throws InterruptedException {
+    static void executeCommand(String command) throws InterruptedException {
         // I tried working with a Shizuku user bound process and using hidden APIs, but did not
         //  fully get it to work, so I just use the same commands as I did when using SU.
         Process process = Shizuku.newProcess(
@@ -43,7 +43,17 @@ class ShizukuUtils {
             null
         );
         process.waitFor();
-        return process;
     }
-    
+
+    /** @noinspection deprecation*/
+    static Process executeCommandNoWait(String command) {
+        // I tried working with a Shizuku user bound process and using hidden APIs, but did not
+        //  fully get it to work, so I just use the same commands as I did when using SU.
+        return Shizuku.newProcess(
+                command.split(" "),
+                null,
+                null
+        );
+    }
+
 }

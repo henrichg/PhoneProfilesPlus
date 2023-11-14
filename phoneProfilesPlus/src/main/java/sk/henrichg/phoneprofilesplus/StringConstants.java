@@ -18,7 +18,7 @@ class StringConstants {
     static final String STR_HARD_SPACE_DOUBLE_ARROW_HTML = CHAR_HARD_SPACE_HTML + STR_DOUBLE_ARROW;
     static final String STR_HARD_SPACE_DASH = CHAR_HARD_SPACE + "-" + CHAR_HARD_SPACE;
     static final String STR_COLON_WITH_SPACE = ": ";
-    static final String STR_ROOT = "(R) ";
+    //static final String STR_ROOT = "(R) ";
     //static final String STR_PPPPS = "(S) ";
     static final String STR_PPPPS_ROOT = "(S)(R) ";
     static final String STR_SHIZUKU_ROOT = "(Z)(R) ";
