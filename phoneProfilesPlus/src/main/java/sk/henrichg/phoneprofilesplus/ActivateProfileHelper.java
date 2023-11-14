@@ -53,7 +53,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -2777,7 +2776,7 @@ class ActivateProfileHelper {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                     boolean sim2Exists = hasSIMCardData.hasSIM2;
-                    Log.e("ActivateProfileHelper.setTones", "sim2Exists="+sim2Exists);
+                    //Log.e("ActivateProfileHelper.setTones", "sim2Exists="+sim2Exists);
 
                     if (sim2Exists) {
 

@@ -1492,10 +1492,12 @@ class PreferenceAllowed {
                         if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
                             if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
                                 if (profile == null)
+                                    //noinspection UnusedAssignment
                                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                                 else {
                                     if ((profile._deviceNetworkTypeSIM1 != 0) ||
                                             (profile._deviceNetworkTypeSIM2 != 0))
+                                        //noinspection UnusedAssignment
                                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                                 }
                             } else {

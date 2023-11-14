@@ -12,7 +12,6 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -31,7 +30,7 @@ public class GrantDrawOverAppsActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
 
 //        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] GrantDrawOverAppsActivity.onCreate", "xxx");
-        Log.e("GrantDrawOverAppsActivity.onCreate", "xxx");
+        //Log.e("GrantDrawOverAppsActivity.onCreate", "xxx");
 
     }
 

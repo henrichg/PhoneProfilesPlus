@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,7 +17,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
     /** @noinspection unused*/
     private void onRequestPermissionsResult(int requestCode, int grantResult) {
         boolean granted = grantResult == PackageManager.PERMISSION_GRANTED;
-        Log.e("GrantShizukuPermissionActivity.onRequestPermissionsResult", "granted="+granted);
+        //Log.e("GrantShizukuPermissionActivity.onRequestPermissionsResult", "granted="+granted);
         if (granted) {
             setResult(Activity.RESULT_OK);
             //finishAffinity();
@@ -42,7 +41,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
         Shizuku.addRequestPermissionResultListener(REQUEST_PERMISSION_RESULT_LISTENER);
 
 //        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] GrantShizukuPermissionActivity.onCreate", "xxx");
-        Log.e("GrantShizukuPermissionActivity.onCreate", "xxx");
+        //Log.e("GrantShizukuPermissionActivity.onCreate", "xxx");
     }
 
     @Override
@@ -66,7 +65,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
         //noinspection StatementWithEmptyBody
         if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
             // Granted
-            Log.e("GrantShizukuPermissionActivity.onStart", "granted");
+            //Log.e("GrantShizukuPermissionActivity.onStart", "granted");
 
             setResult(Activity.RESULT_OK);
             //finishAffinity();
@@ -78,7 +77,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
             // Users choose "Deny and don't ask again"
         } else {
             // Request the permission
-            Log.e("GrantShizukuPermissionActivity.onStart", "Shizuku.requestPermission");
+            //Log.e("GrantShizukuPermissionActivity.onStart", "Shizuku.requestPermission");
             Shizuku.requestPermission(Permissions.SZIZUKU_PERMISSION_REQUEST_CODE);
         }
     }
@@ -93,14 +92,14 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Shizuku.removeRequestPermissionResultListener(REQUEST_PERMISSION_RESULT_LISTENER);
-        Log.e("GrantShizukuPermissionActivity.onDestroy", "xxx");
+        //Log.e("GrantShizukuPermissionActivity.onDestroy", "xxx");
     }
     @Override
     public void finish()
     {
         super.finish();
         overridePendingTransition(0, 0);
-        Log.e("GrantShizukuPermissionActivity.finish", "xxx");
+        //Log.e("GrantShizukuPermissionActivity.finish", "xxx");
     }
 
     /*

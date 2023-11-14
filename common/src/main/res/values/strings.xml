@@ -1608,7 +1608,6 @@
     <string name="check_ppp_releases_notification">Click this notification for check of PhoneProfilesPlus releases. Maybe was released newer version.</string>
     <string name="check_github_releases_install_info_app_stores_release">"In application stores will be new version soon."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Show profile preferences</string>
-    <string name="show_dialog_about_red_text_show_editor">Show Editor</string>
     <string name="array_pref_change_image_wallpaper">Change to image</string>
     <string name="array_pref_change_live_wallpaper">(I) Change to live wallpaper</string>
     <string name="profile_preferences_deviceImageWallpaper">Image wallpaper</string>
@@ -2144,7 +2143,6 @@
     <string name="phone_profiles_pref_grantShizukuPermission_summary2">Please install, run and grant Shizuku permission for PhoneProfilesPlus. Is required for profile and event parameters, marked with (Z). Then ROOT will not be needed.</string>
     <string name="preferences_grantShizukuPreferences_title">Permission for (Z) preferences not granted</string>
     <string name="preferences_grantShizukuPreferences_summary">Click here to grant it.</string>
-    <string name="phone_profiles_pref_shizuku_is_running">Shizuku is running</string>
     <string name="phone_profiles_pref_shizuku_is_not_running">Shizuku is not installed or running. </string>
     <string name="profile_preferences_types_shizuku_show_info1">Click here to show more information.</string>
     <string name="profile_preferences_types_shizuku_show_info2">Click here to grant it.</string>
@@ -2168,8 +2166,6 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Mobile network type for SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Mobile network type for SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Default SIM card</string>
-
-    <string name="install_pppps_install_droidify_text">Please install Droid-ify. Is required for installation of PPPPutSettings. After that, do again installation of PPPPutSettings.</string>
 
     <!-- **************************************************************************************** -->
 
