@@ -1484,6 +1484,19 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
+                if (actualVersionCode <= 7080) {
+                    if (Build.VERSION.SDK_INT >= 28) {
+                        // for Android 9+ use Extender for lock device
+                        List<Profile> profileList = DatabaseHandler.getInstance(appContext).getAllProfiles();
+                        for (Profile profile : profileList) {
+                            if (profile._lockDevice == 2) {
+                                profile._lockDevice = 3;
+                                DatabaseHandler.getInstance(appContext).updateProfile(profile);
+                            }
+                        }
+                    }
+                }
+
                 /*
                 if (actualVersionCode <= 7060) {
                     List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();

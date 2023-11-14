@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
 
@@ -1140,6 +1141,39 @@ class DatabaseHandlerImportExport {
 
                         db.update(DatabaseHandler.TABLE_MOBILE_CELLS, values, DatabaseHandler.KEY_MC_ID + " = ?",
                                 new String[]{String.valueOf(rCellId)});
+
+                    } while (cursorImportDB.moveToNext());
+                }
+                cursorImportDB.close();
+            } finally {
+                if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                    cursorImportDB.close();
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= 28) {
+            // for Android 9+ use Extender for lock device
+            try {
+                cursorImportDB = db.rawQuery("SELECT " +
+                        DatabaseHandler.KEY_ID + "," +
+                        DatabaseHandler.KEY_LOCK_DEVICE +
+                        " FROM " + DatabaseHandler.TABLE_PROFILES, null);
+
+                if (cursorImportDB.moveToFirst()) {
+                    do {
+                        long profileId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
+                        int lockDevice = cursorImportDB.getInt(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_LOCK_DEVICE));
+
+                        if (lockDevice == 2) {
+                            ContentValues values = new ContentValues();
+
+                            lockDevice = 3;
+
+                            values.clear();
+                            values.put(DatabaseHandler.KEY_LOCK_DEVICE, lockDevice);
+                            db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                    new String[]{String.valueOf(profileId)});
+                        }
 
                     } while (cursorImportDB.moveToNext());
                 }

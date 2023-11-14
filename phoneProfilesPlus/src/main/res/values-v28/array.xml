@@ -3,13 +3,13 @@
     <string-array name="lockDeviceArray" tools:ignore="InconsistentArrays">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_lockDevice_screenOff</item>
-        <item>@string/array_pref_lockDevice_root</item>
+<!--        <item>@string/array_pref_lockDevice_root</item>-->
         <item>@string/array_pref_lockDevice_extender</item>
     </string-array>
     <string-array name="lockDeviceValues" tools:ignore="InconsistentArrays">
         <item>0</item>
         <item>1</item>
-        <item>2</item>
+<!--        <item>2</item>-->
         <item>3</item>
     </string-array>
 </resources>

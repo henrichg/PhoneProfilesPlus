@@ -31,10 +31,11 @@
 // 6920 = enabled PPP notification decorator for Pixel (Android 12+) and OneUI 5 (Samsung Galaxy).
 // 6960 = Increased default value for "Bluetooth LE scan duration".
 // 7065 = Convered old contacts data format in sensors to new format
+// 7080 = Lock device: use Extender for Android 9+
 
 ext.ppVersions = [
         publishVersion    : '6.4b',
-        publishVersionCode: 7071,
+        publishVersionCode: 7072,
 
         minSdk            : 26,
         targetSdk         : 28,
