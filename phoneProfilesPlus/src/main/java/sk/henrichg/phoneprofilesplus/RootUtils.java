@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.util.Log;
 import android.util.Pair;
 
 import com.stericson.rootshell.RootShell;
@@ -313,7 +314,6 @@ class RootUtils {
                 PPApplication.serviceListMutex.serviceList.clear();
         }
 
-        //TODO potrebuje commandOutput
         if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
             try {
                 //noinspection RegExpRedundantEscape,RegExpSimplifiable
@@ -326,7 +326,7 @@ class RootUtils {
                 String readline;
                 int i = 0;
                 while ((readline = reader.readLine()) != null) {
-                    //Log.e("RootUtils.getServicesList", "line="+(++i + " " + readline));
+                    //Log.e("RootUtils.getServicesList", "line="+readline);
 
                     Matcher matcher = compile.matcher(readline);
                     if (matcher.find()) {
@@ -337,7 +337,9 @@ class RootUtils {
                             if (pair.first.equals(RootMutex.SERVICE_PHONE) ||
                                     pair.first.equals(RootMutex.SERVICE_WIFI) ||
                                     pair.first.equals(RootMutex.SERVICE_ISUB)) {
-                                //Log.e("RootUtils.getServicesList", "line="+(++i + " " + readline));
+                                Log.e("RootUtils.getServicesList", "line="+readline);
+                                Log.e("RootUtils.getServicesList", "pair.first="+pair.first);
+                                Log.e("RootUtils.getServicesList", "pair.second="+pair.second);
                                 PPApplication.serviceListMutex.serviceList.add(pair);
                             }
                         }
@@ -404,11 +406,14 @@ class RootUtils {
                 PPApplication.rootMutex.transactionCode_setUserDataEnabled = getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerPhone), "setUserDataEnabled");
             else
                 PPApplication.rootMutex.transactionCode_setDataEnabled = getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerPhone), "setDataEnabled");
+            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setUserDataEnabled="+PPApplication.rootMutex.transactionCode_setUserDataEnabled);
+            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setDataEnabled="+PPApplication.rootMutex.transactionCode_setDataEnabled);
         }
 
         PPApplication.rootMutex.transactionCode_setPreferredNetworkType = -1;
         if (PPApplication.rootMutex.serviceManagerPhone != null) {
             PPApplication.rootMutex.transactionCode_setPreferredNetworkType = getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerPhone), "setPreferredNetworkType");
+            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setPreferredNetworkType="+PPApplication.rootMutex.transactionCode_setPreferredNetworkType);
         }
 
         PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId = -1;
@@ -418,16 +423,21 @@ class RootUtils {
             PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId = getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setDefaultVoiceSubId");
             PPApplication.rootMutex.transactionCode_setDefaultSmsSubId = getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setDefaultSmsSubId");
             PPApplication.rootMutex.transactionCode_setDefaultDataSubId = getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setDefaultDataSubId");
+            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId="+PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId);
+            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setDefaultSmsSubId="+PPApplication.rootMutex.transactionCode_setDefaultSmsSubId);
+            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setDefaultDataSubId="+PPApplication.rootMutex.transactionCode_setDefaultDataSubId);
         }
 
         PPApplication.rootMutex.transactionCode_setSubscriptionEnabled = -1;
         if (PPApplication.rootMutex.serviceManagerIsub != null) {
             PPApplication.rootMutex.transactionCode_setSubscriptionEnabled = getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setSubscriptionEnabled");
+            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setSubscriptionEnabled="+PPApplication.rootMutex.transactionCode_setSubscriptionEnabled);
         }
 
         PPApplication.rootMutex.transactionCode_setWifiApEnabled = -1;
         if (PPApplication.rootMutex.serviceManagerWifi != null) {
             PPApplication.rootMutex.transactionCode_setWifiApEnabled = getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerWifi), "setWifiApEnabled");
+            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setWifiApEnabled="+PPApplication.rootMutex.transactionCode_setWifiApEnabled);
         }
     }
 
