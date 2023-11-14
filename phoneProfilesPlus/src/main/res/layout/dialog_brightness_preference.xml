@@ -114,7 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="@string/brightness_pref_dialog_adaptive_level_root_required" />
+                android:text="@string/brightness_pref_dialog_adaptive_level_may_not_working" />
 
         </LinearLayout>
 

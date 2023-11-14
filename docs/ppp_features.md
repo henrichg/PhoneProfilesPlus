@@ -27,7 +27,7 @@ __Events features:__
 - Event start delay
 - ...
 
-__Event sensor types:__
+__Some event sensor types:__
 - Time
 - Calendar
 - Battery

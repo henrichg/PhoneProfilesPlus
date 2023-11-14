@@ -411,7 +411,6 @@
     <string name="event_type_applications">Applications</string>
     <string name="event_preferences_category_eventApplicationsParameters">Application sensor</string>
     <string name="event_preferences_applications_applications">Applications</string>
-    <string name="brightness_pref_dialog_adaptive_level_root_required">ROOT required to change adaptive level.</string>
     <string name="important_info_profile_activation_text1">Profiles can be activated in one of two modes:</string>
     <string name="important_info_profile_activation_text2">Manual activation - activated in Activator, Editor, notification, widget, shortcut. Manually activated profiles are indicated with \"[M]\" in front of the profile name.</string>
     <string name="important_info_profile_activation_text3">Event activation - activated by an event.</string>

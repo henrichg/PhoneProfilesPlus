@@ -27,10 +27,11 @@ Profiles features
 - ...
 
 __Notes:__
+- Shizuku is supported for non-rooted devices in parameters that normally require root
 - Lockscreen paarameter working only for non-secure lockscreen
-- Airplane mode: requires root
-- Mobile data: requires root
-- Power save mode: requires root
+- Airplane mode: requires root or Shizuku
+- Mobile data: requires root or Shizuku 
+- Power save mode: requires root or Shizuku
 - GPS: for not-rooted devices requires grant of WRITE_SECURE_SETTINGS
 - NFC: for not-rooted devices requires grant of WRITE_SECURE_SETTINGS
 - Location mode: requires grant of WRITE_SECURE_SETTINGS
@@ -38,3 +39,7 @@ __Notes:__
 __PhoneProfilesPlusExtender__
 
 Some parameters requires [PhoneProfilesPlusExtender](https://github.com/henrichg/PhoneProfilesPlusExtender)
+
+__PPPPutSettings__
+
+Some parameters requires [PPPPutSettings](https://github.com/henrichg/PPPPutSettings)

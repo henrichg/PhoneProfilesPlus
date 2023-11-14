@@ -70,6 +70,9 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 ##### (HELP) How to grant (G1) permission - for profile parameters that require this permission
 - [Show it](docs/grant_g1_permission.md)
 
+##### (HELP) How to using Shizuku - for profile parameters that require (Z) permission
+- [Show it](docs/shizuku.md)
+
 ##### (HELP) How to disable Wi-Fi scan throttling - useful for Wi-Fi scanning
 - [Show it](docs/wifi_scan_throttling.md)
 
@@ -119,6 +122,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - SmoothBottomBar - https://github.com/ibrahimsn98/SmoothBottomBar
 - AndroidHiddenApiBypass - https://github.com/LSPosed/AndroidHiddenApiBypass
 - Encryption - https://github.com/simbiose/Encryption
+- Shizuku - https://github.com/RikkaApps/Shizuku
 - RootTools (as module, code modified) - https://github.com/Stericson/RootTools
 - RootShell (as module, code modified) - https://github.com/Stericson/RootShell
 - time-duration-picker (as module, code modified) - https://github.com/svenwiegand/time-duration-picker
