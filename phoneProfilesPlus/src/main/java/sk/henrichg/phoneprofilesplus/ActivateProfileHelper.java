@@ -6263,7 +6263,6 @@ class ActivateProfileHelper {
                                             int subscriptionId = subscriptionInfo.getSubscriptionId();
 //                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "subscriptionId=" + subscriptionId);
 
-                                            //TODO pouziva command service - hotovo
                                             if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
                                                 String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_PHONE, transactionCode, subscriptionId, networkType);
                                                 if (command1 != null) {
@@ -6362,7 +6361,6 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                        //TODO pouziva command service - netestnute - treba na Android 8
                         if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
                             String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_WIFI, transactionCode, 0, (enable) ? 1 : 0);
                             if (command1 != null) {
@@ -6813,7 +6811,6 @@ class ActivateProfileHelper {
                         }
                         break;
                     case 2:
-                        //TODO pouziva java command
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                 (RootUtils.isRooted(/*false*/))) {
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.lockDevice", "PPApplication.rootMutex");
