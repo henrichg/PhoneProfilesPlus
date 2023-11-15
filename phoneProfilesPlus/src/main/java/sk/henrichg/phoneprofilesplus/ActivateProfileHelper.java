@@ -2842,7 +2842,7 @@ class ActivateProfileHelper {
                                         }
 
                                         //    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2 Huawei uri="+uri.toString());
-                                        if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                                        if (ShizukuUtils.hasShizukuPermission()) {
                                             String command1 = COMMAND_SETTINGS_PUT_SYSTEM+PREF_NOTIFICATION_SIM2_HUAWEI + " " + uri.toString();
                                             try {
                                                 ShizukuUtils.executeCommand(command1);
@@ -2941,7 +2941,7 @@ class ActivateProfileHelper {
                                 } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2 Huawei uri=null");
 
-                                    if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                                    if (ShizukuUtils.hasShizukuPermission()) {
                                         String command1 = COMMAND_SETTINGS_PUT_SYSTEM+PREF_NOTIFICATION_SIM2_HUAWEI + " \"\"";
                                         try {
                                             ShizukuUtils.executeCommand(command1);
@@ -5780,7 +5780,7 @@ class ActivateProfileHelper {
         if (!useAssistant) {
             boolean isRooted = RootUtils.isRooted(/*false*/);
             boolean settingsBinaryExists = RootUtils.settingsBinaryExists(false);
-            if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+            if (ShizukuUtils.hasShizukuPermission()) {
                 String command1;
                 String command2;
                 final String AIRPLANE_MODE_ON = "airplane_mode_on ";
@@ -5989,7 +5989,7 @@ class ActivateProfileHelper {
             if (Permissions.checkPhone(context.getApplicationContext())) {
 //                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
                 //if ((simCard == 0)) {
-                    if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                    if (ShizukuUtils.hasShizukuPermission()) {
                         String command1 = "svc data " + (enable ? "enable" : "disable");
                         try {
                             ShizukuUtils.executeCommand(command1);
@@ -6098,7 +6098,7 @@ class ActivateProfileHelper {
     {
         //Context appContext = context.getApplicationContext();
 
-        if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+        if (ShizukuUtils.hasShizukuPermission()) {
             String command1 = "svc wifi " + (enable ? "enable" : "disable");
             try {
                 ShizukuUtils.executeCommand(command1);
@@ -6265,7 +6265,7 @@ class ActivateProfileHelper {
                                             int subscriptionId = subscriptionInfo.getSubscriptionId();
 //                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "subscriptionId=" + subscriptionId);
 
-                                            if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                                            if (ShizukuUtils.hasShizukuPermission()) {
                                                 String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_PHONE, transactionCode, subscriptionId, networkType);
                                                 if (command1 != null) {
                                                     try {
@@ -6363,7 +6363,7 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                        if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                        if (ShizukuUtils.hasShizukuPermission()) {
                             String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_WIFI, transactionCode, 0, (enable) ? 1 : 0);
                             if (command1 != null) {
                                 try {
@@ -7101,7 +7101,7 @@ class ActivateProfileHelper {
                                             // Xiaomi - Shizuku not working, roott not tested - Android 12
 //                                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ShizukuUtils.shizukuAvailable()=" + ShizukuUtils.shizukuAvailable());
 //                                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ShizukuUtils.hasShizukuPermission()=" + ShizukuUtils.hasShizukuPermission());
-                                            if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                                            if (ShizukuUtils.hasShizukuPermission()) {
                                                 PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "****** Shizuku ******");
                                                 String command1;
                                                 if (simCard == -1)
@@ -7255,7 +7255,7 @@ class ActivateProfileHelper {
                                         PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionId=" + subscriptionId);
 
                                         // not working root and Shizuku also in Galaxy S10 - Android 11
-                                        if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                                        if (ShizukuUtils.hasShizukuPermission()) {
                                             PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "***** Shizuku *******");
                                             String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId, state);
                                             if ((command1 != null)/* && (!command2.isEmpty())*/) {

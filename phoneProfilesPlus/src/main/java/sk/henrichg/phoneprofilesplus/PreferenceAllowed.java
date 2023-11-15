@@ -91,7 +91,7 @@ class PreferenceAllowed {
             assistantParameter = Integer.parseInt(sharedPreferences.getString(preferenceKey, "0")) >= 4;
         }
 
-        if ((!assistantParameter) && (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission())) {
+        if ((!assistantParameter) && ShizukuUtils.hasShizukuPermission()) {
             if (profile != null) {
                 if (profile._deviceAirplaneMode != 0)
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -188,7 +188,7 @@ class PreferenceAllowed {
             }
 
             if (requiresRoot) {
-                if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                if (ShizukuUtils.hasShizukuPermission()) {
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                 }
                 else
@@ -313,7 +313,7 @@ class PreferenceAllowed {
                 }
             }
             else
-            if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+            if (ShizukuUtils.hasShizukuPermission()) {
                 if (profile != null) {
                     if (profile._deviceMobileData != 0)
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -782,7 +782,7 @@ class PreferenceAllowed {
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                     } else
                     if (PPApplication.rootMutex.transactionCode_setWifiApEnabled != -1) {
-                        if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                        if (ShizukuUtils.hasShizukuPermission()) {
                             if (ActivateProfileHelper.wifiServiceExists(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
                                 if (profile == null)
                                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -1378,7 +1378,7 @@ class PreferenceAllowed {
 
                 final int phoneType = telephonyManager.getPhoneType();
                 if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
-                    if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                    if (ShizukuUtils.hasShizukuPermission()) {
                         if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
                             if (profile == null)
                                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -1492,7 +1492,7 @@ class PreferenceAllowed {
 
                     final int phoneType = telephonyManager.getPhoneType();
                     if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
-                        if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                        if (ShizukuUtils.hasShizukuPermission()) {
                             if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
                                 if (profile == null)
                                     //noinspection UnusedAssignment
@@ -2032,7 +2032,7 @@ class PreferenceAllowed {
                 int phoneCount = telephonyManager.getPhoneCount();
 //                        PPApplicationStatic.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "phoneCount="+phoneCount);
 
-                if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+                if (ShizukuUtils.hasShizukuPermission()) {
                     if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS)) {
                         if (phoneCount > 1) {
                             if (profile != null) {
@@ -2118,7 +2118,7 @@ class PreferenceAllowed {
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
         if (Build.VERSION.SDK_INT >= 29) {
-            if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+            if (ShizukuUtils.hasShizukuPermission()) {
                 if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1)) {
                     if (profile != null) {
                         if ((profile._deviceOnOffSIM1 != 0) ||
@@ -2288,7 +2288,7 @@ class PreferenceAllowed {
                             } else
                                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         } else
-                        if (rootRequired && (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission())) {
+                        if (rootRequired && ShizukuUtils.hasShizukuPermission()) {
                             if (profile != null) {
                                 if (profile._soundNotificationChangeSIM2 != 0)
                                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -2335,14 +2335,14 @@ class PreferenceAllowed {
                                     preferenceAllowed.notAllowedPPPPS = true;
                                 else
                                 if (profile._soundNotificationChangeSIM2 != 0) {
-                                    if (rootRequired && (!(ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission())))
+                                    if (rootRequired && (!ShizukuUtils.hasShizukuPermission()))
                                         preferenceAllowed.notAllowedShizuku = true;
                                     else
                                         preferenceAllowed.notAllowedPPPPS = true;
                                 }
                             }
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                            if (rootRequired && (!(ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission())))
+                            if (rootRequired && (!ShizukuUtils.hasShizukuPermission()))
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                             else
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS;
@@ -2466,7 +2466,7 @@ class PreferenceAllowed {
         }
 
         if (requiresRoot) {
-            if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+            if (ShizukuUtils.hasShizukuPermission()) {
                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             }
             else

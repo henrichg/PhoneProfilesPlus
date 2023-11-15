@@ -19,6 +19,15 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
         boolean granted = grantResult == PackageManager.PERMISSION_GRANTED;
         //Log.e("GrantShizukuPermissionActivity.onRequestPermissionsResult", "granted="+granted);
         if (granted) {
+            Runnable runnable = () -> {
+                RootUtils.settingsBinaryExists(false);
+                RootUtils.serviceBinaryExists(false);
+                //noinspection Convert2MethodRef
+                RootUtils.getServicesList();
+            }; //);
+            PPApplicationStatic.createBasicExecutorPool();
+            PPApplication.basicExecutorPool.submit(runnable);
+
             setResult(Activity.RESULT_OK);
             //finishAffinity();
             finish();

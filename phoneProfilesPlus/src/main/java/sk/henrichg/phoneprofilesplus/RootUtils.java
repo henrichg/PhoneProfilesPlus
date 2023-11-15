@@ -172,11 +172,14 @@ class RootUtils {
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.settingsBinaryExists", "PPApplication.rootMutex");
         synchronized (PPApplication.rootMutex) {
-            if (!PPApplication.rootMutex.settingsBinaryChecked) {
-                PPApplication.rootMutex.settingsBinaryExists = RootToolsSmall.hasSettingBin();
-                PPApplication.rootMutex.settingsBinaryChecked = true;
-            }
-            return PPApplication.rootMutex.settingsBinaryExists;
+            if (RootUtils.isRooted()) {
+                if (!PPApplication.rootMutex.settingsBinaryChecked) {
+                    PPApplication.rootMutex.settingsBinaryExists = RootToolsSmall.hasSettingBin();
+                    PPApplication.rootMutex.settingsBinaryChecked = true;
+                }
+                return PPApplication.rootMutex.settingsBinaryExists;
+            } else
+                return false;
         }
     }
 
@@ -192,11 +195,14 @@ class RootUtils {
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.serviceBinaryExists", "PPApplication.rootMutex");
         synchronized (PPApplication.rootMutex) {
-            if (!PPApplication.rootMutex.serviceBinaryChecked) {
-                PPApplication.rootMutex.serviceBinaryExists = RootToolsSmall.hasServiceBin();
-                PPApplication.rootMutex.serviceBinaryChecked = true;
-            }
-            return PPApplication.rootMutex.serviceBinaryExists;
+            if (RootUtils.isRooted()) {
+                if (!PPApplication.rootMutex.serviceBinaryChecked) {
+                    PPApplication.rootMutex.serviceBinaryExists = RootToolsSmall.hasServiceBin();
+                    PPApplication.rootMutex.serviceBinaryChecked = true;
+                }
+                return PPApplication.rootMutex.serviceBinaryExists;
+            } else
+                return false;
         }
     }
 
@@ -314,7 +320,7 @@ class RootUtils {
                 PPApplication.serviceListMutex.serviceList.clear();
         }
 
-        if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
+        if (ShizukuUtils.hasShizukuPermission()) {
             try {
                 //noinspection RegExpRedundantEscape,RegExpSimplifiable
                 final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
