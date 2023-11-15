@@ -24,6 +24,7 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -5989,6 +5990,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2)) {
                     PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                     if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        Log.e("ProfilesPrefsFragment.setSummaryRadios", "*** not allowed");
                         Preference preference = prefMng.findPreference(key);
                         if (preference != null) {
                             boolean errorColor = false;
@@ -6006,6 +6008,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
                         }
                     } else {
+                        Log.e("ProfilesPrefsFragment.setSummaryRadios", "*** allowed");
                         String sValue = value.toString();
                         PPListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {

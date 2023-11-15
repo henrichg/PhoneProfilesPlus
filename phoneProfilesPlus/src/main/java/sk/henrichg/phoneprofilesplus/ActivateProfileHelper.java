@@ -6176,6 +6176,7 @@ class ActivateProfileHelper {
         try {
             int transactionCode = -1;
             switch (preference) {
+                /*
                 case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA:
                 //case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1:
                 //case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2:
@@ -6184,6 +6185,7 @@ class ActivateProfileHelper {
                     else
                         transactionCode = PPApplication.rootMutex.transactionCode_setDataEnabled;
                     break;
+                */
                 case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE:
                 case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1:
                 case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2:
@@ -6991,8 +6993,18 @@ class ActivateProfileHelper {
 
     private static void setDefaultSimCard(Context context, int subscriptionType, int simCard)
     {
-        PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionType="+subscriptionType);
-        PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "simCard="+simCard);
+        switch (subscriptionType) {
+            case SUBSCRIPTRION_VOICE:
+                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionType=VOICE");
+                break;
+            case SUBSCRIPTRION_SMS:
+                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionType=SMS");
+                break;
+            case SUBSCRIPTRION_DATA:
+                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionType=DATA");
+                break;
+        }
+        PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "parameter simCard="+simCard);
 
         Context appContext = context.getApplicationContext();
 
@@ -7009,7 +7021,7 @@ class ActivateProfileHelper {
                         simCard = 2;
                         break;
                 }
-                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "new simCard="+simCard);
+                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "VOICE simCard="+simCard);
                 break;
             case SUBSCRIPTRION_SMS:
             case SUBSCRIPTRION_DATA:
@@ -7084,9 +7096,9 @@ class ActivateProfileHelper {
 
                                             PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "(2) subscriptionId=" + subscriptionId);
 
-                                            //TODO pouziva command service - ze by nefungovalo so Shizuku?
-                                            //  systemovo to vraj prepnute je, ale v GUI sa nic nezmenilo
-                                            //  pouziva to service ISUB, mozno toto je problem
+                                            // Galaxy S10 - root and Shizuku working. - Android 11
+                                            // Huawei - P40 Shizuku not working, root not tested - Android 10
+                                            // Xiaomi - Shizuku not working, roott not tested - Android 12
 //                                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ShizukuUtils.shizukuAvailable()=" + ShizukuUtils.shizukuAvailable());
 //                                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ShizukuUtils.hasShizukuPermission()=" + ShizukuUtils.hasShizukuPermission());
                                             if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
@@ -7242,9 +7254,7 @@ class ActivateProfileHelper {
                                         int subscriptionId = subscriptionInfo.getSubscriptionId();
                                         PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionId=" + subscriptionId);
 
-                                        //TODO pouziva command service - ze by nefungovalo so Shizuku?
-                                        //  pouziva to service ISUB, mozno toto je problem
-
+                                        // not working root and Shizuku also in Galaxy S10 - Android 11
                                         if (ShizukuUtils.shizukuAvailable() && ShizukuUtils.hasShizukuPermission()) {
                                             PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "***** Shizuku *******");
                                             String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId, state);
