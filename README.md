@@ -121,7 +121,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - SmoothBottomBar - https://github.com/ibrahimsn98/SmoothBottomBar
 - AndroidHiddenApiBypass - https://github.com/LSPosed/AndroidHiddenApiBypass
 - Encryption - https://github.com/simbiose/Encryption
-- Shizuku - https://github.com/RikkaApps/Shizuku
+- Shizuku - https://github.com/RikkaApps/Shizuku, https://github.com/RikkaApps/Shizuku-API
 - RootTools (as module, code modified) - https://github.com/Stericson/RootTools
 - RootShell (as module, code modified) - https://github.com/Stericson/RootShell
 - time-duration-picker (as module, code modified) - https://github.com/svenwiegand/time-duration-picker
