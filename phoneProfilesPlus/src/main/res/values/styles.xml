@@ -211,4 +211,8 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="MaterialSwitchPreferenceCompat" parent="@style/Preference.SwitchPreferenceCompat.Material">
+        <item name="widgetLayout">@layout/preference_switch</item>
+    </style>
+
 </resources>
