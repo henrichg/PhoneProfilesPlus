@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import rikka.shizuku.Shizuku;
+
 public class PhoneProfilesService extends Service
 {
     private static volatile PhoneProfilesService instance = null;
@@ -149,6 +151,15 @@ public class PhoneProfilesService extends Service
         }
     };
 
+    private final Shizuku.OnBinderReceivedListener BINDER_RECEIVED_LISTENER = () -> {
+        if (!Shizuku.isPreV11()) {
+            RootUtils.settingsBinaryExists(false);
+            RootUtils.serviceBinaryExists(false);
+            //noinspection Convert2MethodRef
+            RootUtils.getServicesList();
+        }
+    };
+
     //--------------------------
 
     //public static SipManager mSipManager = null;
@@ -221,6 +232,7 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
+        Shizuku.addBinderReceivedListenerSticky(BINDER_RECEIVED_LISTENER);
         LocalBroadcastManager.getInstance(appContext).registerReceiver(commandReceiver, new IntentFilter(ACTION_COMMAND));
 
         if (Build.VERSION.SDK_INT < 31) {

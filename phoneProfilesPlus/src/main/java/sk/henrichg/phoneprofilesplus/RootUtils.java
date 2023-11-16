@@ -343,8 +343,8 @@ class RootUtils {
                                     pair.first.equals(RootMutex.SERVICE_WIFI) ||
                                     pair.first.equals(RootMutex.SERVICE_ISUB)) {
 //                                Log.e("RootUtils.getServicesList", "line="+readline);
-                                Log.e("RootUtils.getServicesList", "pair.first="+pair.first);
-                                Log.e("RootUtils.getServicesList", "pair.second="+pair.second);
+//                                Log.e("RootUtils.getServicesList", "pair.first="+pair.first);
+//                                Log.e("RootUtils.getServicesList", "pair.second="+pair.second);
                                 PPApplication.serviceListMutex.serviceList.add(pair);
                             }
                         }
@@ -420,7 +420,7 @@ class RootUtils {
         PPApplication.rootMutex.transactionCode_setPreferredNetworkType = -1;
         if (PPApplication.rootMutex.serviceManagerPhone != null) {
             PPApplication.rootMutex.transactionCode_setPreferredNetworkType = getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerPhone), "setPreferredNetworkType");
-            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setPreferredNetworkType="+PPApplication.rootMutex.transactionCode_setPreferredNetworkType);
+//            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setPreferredNetworkType="+PPApplication.rootMutex.transactionCode_setPreferredNetworkType);
         }
 
         PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId = -1;
@@ -430,22 +430,22 @@ class RootUtils {
             PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId = getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setDefaultVoiceSubId");
             PPApplication.rootMutex.transactionCode_setDefaultSmsSubId = getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setDefaultSmsSubId");
             PPApplication.rootMutex.transactionCode_setDefaultDataSubId = getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setDefaultDataSubId");
-            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId="+PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId);
-            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setDefaultSmsSubId="+PPApplication.rootMutex.transactionCode_setDefaultSmsSubId);
-            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setDefaultDataSubId="+PPApplication.rootMutex.transactionCode_setDefaultDataSubId);
+//            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId="+PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId);
+//            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setDefaultSmsSubId="+PPApplication.rootMutex.transactionCode_setDefaultSmsSubId);
+//            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setDefaultDataSubId="+PPApplication.rootMutex.transactionCode_setDefaultDataSubId);
         }
 
         PPApplication.rootMutex.transactionCode_setSubscriptionEnabled = -1;
         if (PPApplication.rootMutex.serviceManagerIsub != null) {
             PPApplication.rootMutex.transactionCode_setSubscriptionEnabled = getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setSubscriptionEnabled");
-            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setSubscriptionEnabled="+PPApplication.rootMutex.transactionCode_setSubscriptionEnabled);
+//            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setSubscriptionEnabled="+PPApplication.rootMutex.transactionCode_setSubscriptionEnabled);
         }
 
         // used only in API < 28
         PPApplication.rootMutex.transactionCode_setWifiApEnabled = -1;
         if (PPApplication.rootMutex.serviceManagerWifi != null) {
             PPApplication.rootMutex.transactionCode_setWifiApEnabled = getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerWifi), "setWifiApEnabled");
-            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setWifiApEnabled="+PPApplication.rootMutex.transactionCode_setWifiApEnabled);
+//            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setWifiApEnabled="+PPApplication.rootMutex.transactionCode_setWifiApEnabled);
         }
     }
 
