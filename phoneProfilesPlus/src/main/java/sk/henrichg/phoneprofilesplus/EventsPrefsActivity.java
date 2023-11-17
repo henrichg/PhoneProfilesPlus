@@ -343,6 +343,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             ((EventsPrefsFragment)fragment).doOnActivityResult(requestCode, resultCode, data);
     }
 
+    /** @noinspection deprecation*/
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 0)

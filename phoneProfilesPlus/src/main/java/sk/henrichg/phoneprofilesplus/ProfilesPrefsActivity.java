@@ -276,6 +276,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             ((ProfilesPrefsFragment)fragment).doOnActivityResult(requestCode, resultCode, data);
     }
 
+    /** @noinspection deprecation*/
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 0)

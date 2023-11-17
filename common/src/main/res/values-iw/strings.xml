@@ -2140,5 +2140,4 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Mobile network type for SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Mobile network type for SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Default SIM card</string>
-    <string name="pppputsettings_email_chooser">Send e-mail using</string>
 </resources>
