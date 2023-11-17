@@ -153,8 +153,10 @@ public class PhoneProfilesService extends Service
 
     private final Shizuku.OnBinderReceivedListener BINDER_RECEIVED_LISTENER = () -> {
         if (!Shizuku.isPreV11()) {
-            RootUtils.settingsBinaryExists(false);
-            RootUtils.serviceBinaryExists(false);
+            boolean exists = RootUtils.settingsBinaryExists(false);
+            Log.e("PhoneProfilesService.BINDER_RECEIVED_LISTENER", "settings exists="+exists);
+            exists = RootUtils.serviceBinaryExists(false);
+            Log.e("PhoneProfilesService.BINDER_RECEIVED_LISTENER", "service exists="+exists);
             //noinspection Convert2MethodRef
             RootUtils.getServicesList();
         }

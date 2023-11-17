@@ -1,6 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.pm.PackageManager;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import rikka.shizuku.Shizuku;
 
 /**
@@ -31,6 +35,31 @@ class ShizukuUtils {
         return (Shizuku.getVersion() >= 11) &&
                 (!Shizuku.isPreV11()) &&
                 (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED);
+    }
+
+    private static boolean hasBinary(String binaryName) {
+        try {
+            Process process = ShizukuUtils.executeCommandNoWait(binaryName);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            String readline;
+            while ((readline = reader.readLine()) != null) {
+                if (readline.contains("command not found"))
+                    return false;
+            }
+            return true;
+        } catch (Exception e) {
+            //Log.e("ShizukuUtils.hasBinary", Log.getStackTraceString(e));
+        }
+        return false;
+    }
+
+    static boolean hasSettingBin() {
+        return hasBinary("settings");
+        //return hasBinary("lalalala");
+    }
+
+    static boolean hasServiceBin() {
+        return hasBinary("service");
     }
 
     /** @noinspection deprecation*/

@@ -92,11 +92,16 @@ class PreferenceAllowed {
         }
 
         if ((!assistantParameter) && ShizukuUtils.hasShizukuPermission()) {
-            if (profile != null) {
-                if (profile._deviceAirplaneMode != 0)
+            if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                if (profile != null) {
+                    if (profile._deviceAirplaneMode != 0)
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-            } else
-                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            } else {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+            }
         }
         else
         if ((!assistantParameter) && RootUtils.isRooted(/*fromUIThread*/)) {
@@ -314,11 +319,42 @@ class PreferenceAllowed {
             }
             else
             if (ShizukuUtils.hasShizukuPermission()) {
-                if (profile != null) {
-                    if (profile._deviceMobileData != 0)
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                // not needed, used is "svc data enable/disable"
+                /*if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)) {
+                    if (PPApplication.serviceBinaryExists(fromUIThread)) {
+                        if (profile != null) {
+                            if (profile._deviceMobileData != 0)
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        }
+                        else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    }
+                    else {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                    }
+                } else {
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                }*/
+
+                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+
+                final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                    boolean sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+
+                    if (!sim0Exists) {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                    }
+                } else {
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                }
             }
             else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -784,11 +820,15 @@ class PreferenceAllowed {
                     if (PPApplication.rootMutex.transactionCode_setWifiApEnabled != -1) {
                         if (ShizukuUtils.hasShizukuPermission()) {
                             if (ActivateProfileHelper.wifiServiceExists(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
-                                if (profile == null)
-                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                                else {
-                                    if (profile._deviceWiFiAP != 0)
+                                if (RootUtils.serviceBinaryExists(fromUIThread)) {
+                                    if (profile != null) {
+                                        if (profile._deviceWiFiAP != 0)
+                                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                    } else
                                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                } else {
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
                                 }
                             } else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -1380,11 +1420,17 @@ class PreferenceAllowed {
                 if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
                     if (ShizukuUtils.hasShizukuPermission()) {
                         if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
-                            if (profile == null)
-                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                            else {
-                                if (profile._deviceNetworkType != 0)
+                            if (RootUtils.serviceBinaryExists(fromUIThread)) {
+                                if (profile == null)
                                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                else {
+                                    if (profile._deviceNetworkType != 0)
+                                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                }
+                            }
+                            else {
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
                             }
                         } else {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -1494,21 +1540,27 @@ class PreferenceAllowed {
                     if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
                         if (ShizukuUtils.hasShizukuPermission()) {
                             if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
-                                if (profile == null)
-                                    //noinspection UnusedAssignment
-                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                                else {
-                                    if ((profile._deviceNetworkTypeSIM1 != 0) ||
-                                            (profile._deviceNetworkTypeSIM2 != 0))
+                                if (RootUtils.serviceBinaryExists(fromUIThread)) {
+                                    if (profile == null)
                                         //noinspection UnusedAssignment
                                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                                }
+                                    else {
+                                        if ((profile._deviceNetworkTypeSIM1 != 0) ||
+                                                (profile._deviceNetworkTypeSIM2 != 0))
+                                            //noinspection UnusedAssignment
+                                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                    }
 
-                                if (phoneCount > 1) {
-                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                    if (phoneCount > 1) {
+                                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                    } else {
+                                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                                    }
                                 } else {
+                                    //noinspection UnusedAssignment
                                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
                                 }
                             } else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -2035,11 +2087,16 @@ class PreferenceAllowed {
                 if (ShizukuUtils.hasShizukuPermission()) {
                     if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS)) {
                         if (phoneCount > 1) {
-                            if (profile != null) {
-                                if (!profile._deviceDefaultSIMCards.equals("0|0|0"))
+                            if (RootUtils.serviceBinaryExists(fromUIThread)) {
+                                if (profile != null) {
+                                    if (!profile._deviceDefaultSIMCards.equals("0|0|0"))
+                                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                } else
                                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                            } else
-                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            } else {
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                            }
                         } else {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -2120,13 +2177,19 @@ class PreferenceAllowed {
         if (Build.VERSION.SDK_INT >= 29) {
             if (ShizukuUtils.hasShizukuPermission()) {
                 if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1)) {
-                    if (profile != null) {
-                        if ((profile._deviceOnOffSIM1 != 0) ||
-                                (profile._deviceOnOffSIM2 != 0))
+                    if (RootUtils.serviceBinaryExists(fromUIThread)) {
+                        if (profile != null) {
+                            if ((profile._deviceOnOffSIM1 != 0) ||
+                                    (profile._deviceOnOffSIM2 != 0))
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        }
+                        else
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                     }
-                    else
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    else {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                    }
 
                     final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
@@ -2289,11 +2352,17 @@ class PreferenceAllowed {
                                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         } else
                         if (rootRequired && ShizukuUtils.hasShizukuPermission()) {
-                            if (profile != null) {
-                                if (profile._soundNotificationChangeSIM2 != 0)
+                            if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                                if (profile != null) {
+                                    if ((profile._soundNotificationChangeSIM1 != 0) ||
+                                            (profile._soundNotificationChangeSIM2 != 0))
+                                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                } else
                                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                            } else
-                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            } else {
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                            }
                         } else
                         if (RootUtils.isRooted(/*fromUIThread*/)) {
                             // device is rooted
@@ -2466,10 +2535,6 @@ class PreferenceAllowed {
         }
 
         if (requiresRoot) {
-            if (ShizukuUtils.hasShizukuPermission()) {
-                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-            }
-            else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // shizuku is not granted but device is rooted
 
@@ -2499,9 +2564,9 @@ class PreferenceAllowed {
                     }
             } else {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 if ((profile != null) && (profile._deviceWiFi != 0)) {
-                    preferenceAllowed.notAllowedShizuku = true;
+                    preferenceAllowed.notAllowedRoot = true;
                 }
             }
         }
