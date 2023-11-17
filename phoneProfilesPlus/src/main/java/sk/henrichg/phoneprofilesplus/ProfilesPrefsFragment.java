@@ -4752,7 +4752,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
@@ -4762,10 +4761,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR) ||
                 //key.equals(Profile.PREF_PROFILE_LOCK_DEVICE) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS) ||
                 key.equals(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING) ||
-                key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS))
+                key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH))
         {
             PreferenceAllowed preferenceAllowed;
             if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING)) {
@@ -5759,12 +5756,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS))
         {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-//            if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA))
-//                Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data");
+//            if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
+//                Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs");
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             {
+//                if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
+//                    Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  not allowed");
                 Preference preference = prefMng.findPreference(key);
+//                if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
+//                    Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  preference="+preference);
                 if (preference != null) {
+//                    if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
+//                        Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  preference != null");
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -5774,11 +5777,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setEnabled(false);
                     else
                         errorColor = !value.toString().equals("0");
-//                    if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA))
-//                        Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data  errorColor="+errorColor);
+//                    if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
+//                        Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  errorColor="+errorColor);
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
-//                        if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA))
-//                            Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data  errorColor="+errorColor);
+//                        if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
+//                            Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  not allowed description");
                         preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     }
@@ -5806,7 +5809,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         profile._deviceBluetooth = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, "0"));
                         profile._deviceMobileData = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, "0"));
                         profile._deviceNetworkType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
-                        profile._deviceMobileData = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, "0"));
+                        profile._deviceMobileDataPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, "0"));
                         profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, "0"));
                         Permissions.checkProfileRadioPreferences(context, profile, permissions);
                         //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
