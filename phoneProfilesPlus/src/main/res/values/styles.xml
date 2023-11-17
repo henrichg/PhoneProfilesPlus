@@ -207,12 +207,13 @@
         <item name="android:textColorHint">@color/activityDisabledTextColor</item>
     </style>
 
+<!--    this is for circle shape of contacts photos  -->
     <style name="ShapeAppearanceOverlay.App.CornerSize" parent="">
         <item name="cornerSize">50%</item>
     </style>
 
-    <style name="MaterialSwitchPreferenceCompat" parent="@style/Preference.SwitchPreferenceCompat.Material">
-        <item name="widgetLayout">@layout/preference_switch</item>
-    </style>
+<!--    <style name="MaterialSwitchPreferenceCompat" parent="@style/Preference.SwitchPreferenceCompat.Material">-->
+<!--        <item name="widgetLayout">@layout/preference_switch</item>-->
+<!--    </style>-->
 
 </resources>
