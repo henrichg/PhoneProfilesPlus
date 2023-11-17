@@ -264,7 +264,6 @@
     <string name="toast_events_restarted">Події перезавантажено</string>
     <string name="event_name_background_profile">Профіль за замовчуванням</string>
     <string name="array_pref_zenModeArray_priority">Важливі</string>
-    <string name="profile_preferences_deviceMobileData_21">(R) Передача даних</string>
     <string name="preference_profile_adaptiveBrightness">Адаптивна</string>
     <string name="profile_preferences_deviceKeyguard">Заблокувати екран</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Приховати назву профілю</string>
@@ -407,7 +406,6 @@
     <string name="event_type_applications">Застосунки</string>
     <string name="event_preferences_category_eventApplicationsParameters">Датчик застосунку</string>
     <string name="event_preferences_applications_applications">Застосунки</string>
-    <string name="brightness_pref_dialog_adaptive_level_root_required">Для зміни адаптивного рівня потрібні права ROOT.</string>
     <string name="important_info_profile_activation_text1">Профіль може бути активовано у двох режимах:</string>
     <string name="important_info_profile_activation_text2">Ручна активація - активований через Активатор, Редактор, сповіщення, віджет, ярлик. Активований вручну профіль буде з «[M]» перед назвою профіля.</string>
     <string name="important_info_profile_activation_text3">Подія активації - виконується за подією.</string>
@@ -470,7 +468,6 @@
     <string name="info_notification_event_states_running_delay">Запущено із затримкою: подію запущено, але параметри не відповідають умовам. Подія у стані очікування.</string>
     <string name="profile_preferences_askForDuration">Запит Тривалості</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Економія заряду батареї</string>
-    <string name="profile_preferences_deviceNetworkType">(R) Тип мобільної мережі</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Режим Енергоощадження</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">Системні налаштування</string>
     <string name="phone_profiles_pref_notificationTextColor">Колір тексту</string>
@@ -1451,8 +1448,6 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Налаштування екрану не знайдено, але цей параметр не потрібен, якщо PhoneProfilesPlus запускається при завантаженні телефону.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Закруглення кута</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Закруглення кута</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Тип мобільної мережі для SIM 1</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Тип мобільної мережі для SIM 2</string>
     <string name="profile_preferences_category_led_accessories">LED аксесуари</string>
     <string name="array_pref_radioSwitch_connected">З\'єднано</string>
     <string name="array_pref_radioSwitch_disconnected">Від’єднано</string>
@@ -1467,7 +1462,6 @@
     <string name="default_sim_subscription_sms">SMS</string>
     <string name="default_sim_subscription_data">Інтернет</string>
     <string name="profile_preferences_deviceDualSIMSupport">Підтримка двох SIM</string>
-    <string name="profile_preferences_deviceDefaultSIM">(R) SIM за замовчуванням</string>
     <string name="profile_preferences_deviceOnOff_SIM1">Увімк/Вимк SIM1</string>
     <string name="profile_preferences_deviceOnOff_SIM2">Увімк/Вимк SIM2</string>
     <string name="ringtone_pref_dlg_system_tone">системний звук</string>
@@ -1604,7 +1598,6 @@
     <string name="check_ppp_releases_notification">Натисніть на це повідомлення, щоб перевірити версії PhoneProfilesPlus. Можливо є нова версія.</string>
     <string name="check_github_releases_install_info_app_stores_release">"У магазинах застосунків найближчим часом буде нова версія."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Показати параметри профілю</string>
-    <string name="show_dialog_about_red_text_show_editor">Показати редактор</string>
     <string name="array_pref_change_image_wallpaper">Змінити на зображення</string>
     <string name="array_pref_change_live_wallpaper">(I) Змінити на живі шпалери</string>
     <string name="profile_preferences_deviceImageWallpaper">Звичайні шпалери</string>
@@ -1880,9 +1873,6 @@
     <string name="profile_icon_preference_iconColor_help_info_2">Іконка з цією підвищеною яскравістю буде використовуватися у всьому інтерфейсі застосунку. Також у сповіщеннях і віджетах, коли їх фон темний.</string>
     <string name="important_info_android_look_application_settings">Відкрийте налаштування PhoneProfilesPlus та налаштуйте його. Особливо параметри, позначені подвійною стрілкою.</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info4">Поточна конфігурація:</string>
-    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) Увімк. в режимі \"У літаку\"</string>
-    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Вимк. в режимі \"У літаку\"</string>
-    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Перемкнути в режимі \"У літаку\"</string>
     <string name="event_preference_sensor_roaming_summary">Цей датчик призначено для запуску події у роумінгу. Параметри: Перевірте мережу, перевірте дані.</string>
     <string name="event_type_roaming">Роумінг</string>
     <string name="event_preferences_category_eventRoamingParameters">Датчик роумінгу</string>
@@ -1890,9 +1880,6 @@
     <string name="pref_event_roaming_check_data">Перевірте дані</string>
     <string name="event_preferences_roaming_forSimCard">Для SIM-карти</string>
     <string name="permission_why_event_roaming_preferences">для перевірки мережі або даних у роумінгу</string>
-    <string name="array_pref_airplaneModeArray_root_on">(R) Увімк</string>
-    <string name="array_pref_airplaneModeArray_root_off">(R) Вимк</string>
-    <string name="array_pref_airplaneModeArray_root_toggle">(R) Перемикач</string>
     <string name="array_pref_airplaneModeArray_assistant_on">Увімкнути з помічником</string>
     <string name="array_pref_airplaneModeArray_assistant_off">Вимкнути з помічником</string>
     <string name="array_pref_airplaneModeArray_assistant_toggle">Перемкнути з помічником</string>
@@ -1951,7 +1938,6 @@
     <string name="about_application_pppps_source_code">Початковий код - PPPPutSettings:</string>
     <string name="profile_preferences_notificationLed_23">(S)(R) LED Сповіщення</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Завжди на екрані</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Натисніть тут щоб показати інформацію про типи налаштувань: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Налаштування панелі Samsung edge</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Компактна сітка</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">При такій сітці імена профілів не показуватимуться, але більше профілів може вміститися в одному рядку.</string>
@@ -2121,4 +2107,37 @@
     <string name="export_settings_delete_contacts_data_calls">Контакти до Датчика викликів</string>
     <string name="export_settings_delete0_contacts_data_sms">Контакти до Датчика SMS/MMS</string>
     <string name="export_settings_delete_contacts_data_notification">Контакти до Датчика сповіщення</string>
+    <string name="grant_draw_over_apps_dialog_info_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click button \"Grant\" to grant this permission.</string>
+    <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, click this link. Maybe in this web page is solution for your device:</string>
+    <string name="install_extender_install_droidify_button">Install Droid-ify</string>
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] Do not use</string>
+    <string name="contacts_filter_dialog_filter_title">Contacts filter</string>
+    <string name="contacts_filter_dialog_item_show_all">[ All ]</string>
+    <string name="profile_preferences_types_shizuku_permission">Grant Shizuku permission</string>
+    <string name="phone_profiles_pref_grantShizukuPermission_summary1">Some profile preferences require Shizuku. ROOT is not required. These preferences are marked with \"(Z)\".</string>
+    <string name="phone_profiles_pref_grantShizukuPermission_summary2">Please install, run and grant Shizuku permission for PhoneProfilesPlus. Is required for profile and event parameters, marked with (Z). Then ROOT will not be needed.</string>
+    <string name="preferences_grantShizukuPreferences_title">Permission for (Z) preferences not granted</string>
+    <string name="preferences_grantShizukuPreferences_summary">Click here to grant it.</string>
+    <string name="phone_profiles_pref_shizuku_is_not_running">Shizuku is not installed or running.</string>
+    <string name="profile_preferences_types_shizuku_show_info1">Click here to show more information.</string>
+    <string name="profile_preferences_types_shizuku_show_info2">Click here to grant it.</string>
+    <string name="important_info_profile_shizuku_howTo_1">Profile parameters marked with (Z) need Shizuku.</string>
+    <string name="important_info_profile_shizuku_howTo_2">Click here for download Shizuku.</string>
+    <string name="important_info_profile_shizuku_howTo_3">Click here to display how to setup Shizuku.</string>
+    <string name="grant_shizuku_permissions_text1">Shizuku requires permission</string>
+    <string name="grant_shizuku_permissions_text2">Please grant them in next dialog. Shizuku then can be used for some profile parameters.</string>
+    <string name="preference_not_allowed_reason_not_granted_shizuku">not installed, running or granted Shizuku</string>
+    <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
+    <string name="profile_preferences_preferenceTypesInfo_summary">Натисніть тут щоб показати інформацію про типи налаштувань: (S), (G1), (R), (Z), (I).</string>
+    <string name="profile_preferences_deviceMobileData_21">(Z)(R) Передача даних</string>
+    <string name="array_pref_airplaneModeArray_root_on">(Z)(R) Увімк</string>
+    <string name="array_pref_airplaneModeArray_root_off">(Z)(R) Вимк</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(Z)(R) Перемикач</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(Z)(R) Увімк. в режимі \"У літаку\"</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(Z)(R) Вимк. в режимі \"У літаку\"</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(Z)(R) Перемкнути в режимі \"У літаку\"</string>
+    <string name="profile_preferences_deviceNetworkType">(Z)(R) Тип мобільної мережі</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Тип мобільної мережі для SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Тип мобільної мережі для SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(Z)(R) SIM за замовчуванням</string>
 </resources>

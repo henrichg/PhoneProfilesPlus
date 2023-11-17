@@ -264,7 +264,6 @@
     <string name="toast_events_restarted">Události restartovány</string>
     <string name="event_name_background_profile">Předvolený profil</string>
     <string name="array_pref_zenModeArray_priority">Prioritní</string>
-    <string name="profile_preferences_deviceMobileData_21">(R) Mobilní data</string>
     <string name="preference_profile_adaptiveBrightness">Adaptivní</string>
     <string name="profile_preferences_deviceKeyguard">Zámek obrazovky</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Skrýt název profilu</string>
@@ -407,7 +406,6 @@
     <string name="event_type_applications">Aplikace</string>
     <string name="event_preferences_category_eventApplicationsParameters">Senzor aplikací</string>
     <string name="event_preferences_applications_applications">Aplikace</string>
-    <string name="brightness_pref_dialog_adaptive_level_root_required">Pro změnu adaptívní úrovně je vyžadován ROOT.</string>
     <string name="important_info_profile_activation_text1">Profil může být aktivován ve dvou režimech:</string>
     <string name="important_info_profile_activation_text2">Ruční aktivace - aktivuje se v Aktivátoru, Editoru, notifikaci, widgetu, zástupci. Ručně aktivovaný profil je označen \"[M]\" před názvem profilu.</string>
     <string name="important_info_profile_activation_text3">Aktivace událostí - aktivováno událostí.</string>
@@ -470,7 +468,6 @@
     <string name="info_notification_event_states_running_delay">Běží s pozdržením: událost je spuštěna, ale parametry již nejsou splněny. Událost čeká v pozdržení.</string>
     <string name="profile_preferences_askForDuration">Dotaz na Trvání</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Optimalizace baterie</string>
-    <string name="profile_preferences_deviceNetworkType">(R) Typ mobilní sítě</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Spořič baterie</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">Konfigurace v systémových nastaveních</string>
     <string name="phone_profiles_pref_notificationTextColor">Barva textu</string>
@@ -1451,8 +1448,6 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Obrazovka nastavení se nenašla, ale toto nastavení není nutné, pokud se PhoneProfilesPlus spustí při startu telefonu.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Poloměr rohu</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Poloměr rohu</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Typ mobilní sítě pro SIM 1</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Typ mobilní sítě pro SIM 2</string>
     <string name="profile_preferences_category_led_accessories">LED příslušenství</string>
     <string name="array_pref_radioSwitch_connected">Připojeno</string>
     <string name="array_pref_radioSwitch_disconnected">Odpojeno</string>
@@ -1467,7 +1462,6 @@
     <string name="default_sim_subscription_sms">SMS</string>
     <string name="default_sim_subscription_data">Data</string>
     <string name="profile_preferences_deviceDualSIMSupport">Podpora dual SIM</string>
-    <string name="profile_preferences_deviceDefaultSIM">(R) Výchozí SIM karta</string>
     <string name="profile_preferences_deviceOnOff_SIM1">Zapnout/vypnout SIM 1</string>
     <string name="profile_preferences_deviceOnOff_SIM2">Zapnout/vypnout SIM 2</string>
     <string name="ringtone_pref_dlg_system_tone">systémový tón</string>
@@ -1604,7 +1598,6 @@
     <string name="check_ppp_releases_notification">Klikněte na tuto notifikaci na zkontrolování vydání PhoneProfilesPlus. Možná byla vydána novější verze.</string>
     <string name="check_github_releases_install_info_app_stores_release">"V obchodech s aplikacemi bude brzy nová verze."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Zobrazit parametry profilu</string>
-    <string name="show_dialog_about_red_text_show_editor">Zobrazit Editor</string>
     <string name="array_pref_change_image_wallpaper">Změnit na obrázek</string>
     <string name="array_pref_change_live_wallpaper">(I) Změnit na živou tapetu</string>
     <string name="profile_preferences_deviceImageWallpaper">Obrázek tapety</string>
@@ -1880,9 +1873,6 @@
     <string name="profile_icon_preference_iconColor_help_info_2">Ikona s tímto zvýšeným jasem se bude používat v celém GUI aplikace. Také v oznámení a widgetech, pokud je jejich pozadí tmavé.</string>
     <string name="important_info_android_look_application_settings">Prosím otevřete Nastavení PhoneProfilesPlus a nakonfigurujte je. Zejména parametry označené znakem dvojité šipky.</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info4">Aktuální konfigurace:</string>
-    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) Zapnout v režimu Letadlo</string>
-    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Vypnout v režimu Letadlo</string>
-    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Přepnout stav v režimu Letadlo</string>
     <string name="event_preference_sensor_roaming_summary">Tento senzor spustí událost, když jsou síť nebo data v roamingu. Parametry: Kontrola sítě, Kontrola dat.</string>
     <string name="event_type_roaming">Roaming</string>
     <string name="event_preferences_category_eventRoamingParameters">Senzor roamingu</string>
@@ -1890,9 +1880,6 @@
     <string name="pref_event_roaming_check_data">Kontrola dat</string>
     <string name="event_preferences_roaming_forSimCard">Pro SIM kartu</string>
     <string name="permission_why_event_roaming_preferences">pro kontrolu, zda je síť nebo data v roamingu</string>
-    <string name="array_pref_airplaneModeArray_root_on">(R) Zapnout</string>
-    <string name="array_pref_airplaneModeArray_root_off">(R) Vypnout</string>
-    <string name="array_pref_airplaneModeArray_root_toggle">(R) Přepnout stav</string>
     <string name="array_pref_airplaneModeArray_assistant_on">Zapnout s Asistentem</string>
     <string name="array_pref_airplaneModeArray_assistant_off">Vypnout s Asistentem</string>
     <string name="array_pref_airplaneModeArray_assistant_toggle">Přepnout stav s Asistentem</string>
@@ -1951,7 +1938,6 @@
     <string name="about_application_pppps_source_code">Zdrojový kód - PPPPutSettings:</string>
     <string name="profile_preferences_notificationLed_23">(S)(R) Notifikační LED dioda</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Always-On displej</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Klikněte sem pro zobrazení informací o typech parametrů: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Nastavení pro Samsung boční panel</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Kompaktní mřížka</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">S tímto typem mřížky nebudou zobrazeny názvy profilů, ale více profilů se vejde do jednoho řádku.</string>
@@ -2121,4 +2107,37 @@
     <string name="export_settings_delete_contacts_data_calls">Kontakty pro Senzor volání</string>
     <string name="export_settings_delete0_contacts_data_sms">Kontakty pro SMS/MMS senzor</string>
     <string name="export_settings_delete_contacts_data_notification">Kontakty pro Senzor notifikací</string>
+    <string name="grant_draw_over_apps_dialog_info_text">Musíte udělit povolení \"Vykreslit přes další aplikace\". Je vyžadováno pro start aktivit když je PhoneProfilesPlus na pozadí. Klepněte na tlačítko \"Udělit\" pro udělení tohoto povolení.</string>
+    <string name="grant_draw_over_apps_dialog_when_not_possible_text">Pokud toto povolení nelze udělit, klikněte na tento odkaz. Možná na této webové stránce je řešení pro vaše zařízení:</string>
+    <string name="install_extender_install_droidify_button">Nainstaluj Droid-ify</string>
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] Nepoužívat</string>
+    <string name="contacts_filter_dialog_filter_title">Filtr kontaktů</string>
+    <string name="contacts_filter_dialog_item_show_all">[ Všechny ]</string>
+    <string name="profile_preferences_types_shizuku_permission">Udělit Shizuku povolení</string>
+    <string name="phone_profiles_pref_grantShizukuPermission_summary1">Některé parametry profilu vyžadují Shizuku. ROOT není potřebný. Tyto parametry jsou označeny jako \"(Z)\".</string>
+    <string name="phone_profiles_pref_grantShizukuPermission_summary2">Prosím spusťte a udělte Shizuku povolení pro PhoneProfilesPlus. Je vyžadováno pro parametry profilu a události, označené jako (Z). Potom ROOT nebude potřebný.</string>
+    <string name="preferences_grantShizukuPreferences_title">Povolení pro (Z) parametry není uděleno</string>
+    <string name="preferences_grantShizukuPreferences_summary">Klikněte sem pro udělení práva.</string>
+    <string name="phone_profiles_pref_shizuku_is_not_running">Shizuku není nainstalováno nebo spuštěno.</string>
+    <string name="profile_preferences_types_shizuku_show_info1">Klikněte sem pro zobrazení více informací.</string>
+    <string name="profile_preferences_types_shizuku_show_info2">Klikněte sem pro udělení práva.</string>
+    <string name="important_info_profile_shizuku_howTo_1">Parametry profilu označené (Z) vyžadují Shizuku.</string>
+    <string name="important_info_profile_shizuku_howTo_2">Klikněte sem pro stažení Shizuku.</string>
+    <string name="important_info_profile_shizuku_howTo_3">Klikněte sem pro zobrazení jak nastavit Shizuku.</string>
+    <string name="grant_shizuku_permissions_text1">Shizuku vyžaduje povolení</string>
+    <string name="grant_shizuku_permissions_text2">Udělte jej v následujícím dialogu. Shizuku pak lze použít pro některé parametry profilu.</string>
+    <string name="preference_not_allowed_reason_not_granted_shizuku">není nainstalován, spuštěn nebo povolen Shizuku</string>
+    <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
+    <string name="profile_preferences_preferenceTypesInfo_summary">Klikněte sem pro zobrazení informací o typech parametrů: (S), (G1), (R), (Z), (I).</string>
+    <string name="profile_preferences_deviceMobileData_21">(Z)(R) Mobilní data</string>
+    <string name="array_pref_airplaneModeArray_root_on">(Z)(R) Zapnout</string>
+    <string name="array_pref_airplaneModeArray_root_off">(Z)(R) Vypnout</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(Z)(R) Přepnout stav</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(Z)(R) Zapnout v režimu Letadlo</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(Z)(R) Vypnout v režimu Letadlo</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(Z)(R) Přepnout stav v režimu Letadlo</string>
+    <string name="profile_preferences_deviceNetworkType">(Z)(R) Typ mobilní sítě</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Typ mobilní sítě pro SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Typ mobilní sítě pro SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Výchozí SIM karta</string>
 </resources>

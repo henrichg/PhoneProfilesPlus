@@ -264,7 +264,6 @@
     <string name="toast_events_restarted">事件已启动</string>
     <string name="event_name_background_profile">默认情景</string>
     <string name="array_pref_zenModeArray_priority">优先级</string>
-    <string name="profile_preferences_deviceMobileData_21">(R) 移动数据</string>
     <string name="preference_profile_adaptiveBrightness">自适应</string>
     <string name="profile_preferences_deviceKeyguard">锁定屏幕</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">隐藏情景名称</string>
@@ -407,7 +406,6 @@
     <string name="event_type_applications">应用程序</string>
     <string name="event_preferences_category_eventApplicationsParameters">应用程序传感器</string>
     <string name="event_preferences_applications_applications">应用程序</string>
-    <string name="brightness_pref_dialog_adaptive_level_root_required">必须 root 才能更改自适应级别。</string>
     <string name="important_info_profile_activation_text1">情景可以通过两种模式激活：</string>
     <string name="important_info_profile_activation_text2">手动激活 - 在激活清单、编辑器、通知、小部件和快捷方式中激活。手动激活的情景在情景名称前以“[M]”表示。</string>
     <string name="important_info_profile_activation_text3">事件激活 - 以事件激活。</string>
@@ -470,7 +468,6 @@
     <string name="info_notification_event_states_running_delay">延后运行：事件正在运行，但是参数不满足要求，事件将等待参数变化。</string>
     <string name="profile_preferences_askForDuration">询问时间段</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">电池优化</string>
-    <string name="profile_preferences_deviceNetworkType">(R) 移动网络类型</string>
     <string name="phone_profiles_pref_applicationBatterySaver">省电模式</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">系统设置配置</string>
     <string name="phone_profiles_pref_notificationTextColor">文本颜色</string>
@@ -1451,8 +1448,6 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">找不到设定画面，但如果 PhoneProfilesPlus 开机启动，则不需要此设置。</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">圆角半径</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">圆角半径</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) SIM 卡 1 移动网络类型</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) SIM 卡 2 移动网络类型</string>
     <string name="profile_preferences_category_led_accessories">LED 配件</string>
     <string name="array_pref_radioSwitch_connected">已连接</string>
     <string name="array_pref_radioSwitch_disconnected">已断开</string>
@@ -1467,7 +1462,6 @@
     <string name="default_sim_subscription_sms">SMS 短信</string>
     <string name="default_sim_subscription_data">数据</string>
     <string name="profile_preferences_deviceDualSIMSupport">双 SIM 卡支持</string>
-    <string name="profile_preferences_deviceDefaultSIM">(R) 默认 SIM 卡</string>
     <string name="profile_preferences_deviceOnOff_SIM1">切换 SIM 卡 1 开/关</string>
     <string name="profile_preferences_deviceOnOff_SIM2">切换 SIM 卡 2 开/关</string>
     <string name="ringtone_pref_dlg_system_tone">系统铃声</string>
@@ -1604,7 +1598,6 @@
     <string name="check_ppp_releases_notification">点击此通知以检查 PhoneProfilesPlus 版本。也许会发布更新版本。</string>
     <string name="check_github_releases_install_info_app_stores_release">"应用程序商店将很快有新版本。"</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">显示情景设置</string>
-    <string name="show_dialog_about_red_text_show_editor">显示编辑器</string>
     <string name="array_pref_change_image_wallpaper">更改为图片</string>
     <string name="array_pref_change_live_wallpaper">(I) 更改为动态壁纸</string>
     <string name="profile_preferences_deviceImageWallpaper">图片壁纸</string>
@@ -1880,9 +1873,6 @@
     <string name="profile_icon_preference_iconColor_help_info_2">这种增强亮度的图标将应用在整个图形界面中。包括通知和小部件，当它们的背景是暗色时。</string>
     <string name="important_info_android_look_application_settings">请打开 PhoneProfilesPlus 设置并配置它。特别是用双箭头标志标记的参数。</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info4">当前配置：</string>
-    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) 飞行模式下开启</string>
-    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) 飞行模式下关闭</string>
-    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) 飞行模式下切换</string>
     <string name="event_preference_sensor_roaming_summary">此传感器将在数据网络漫游时启动事件。参数：检查网络，检查数据。</string>
     <string name="event_type_roaming">漫游中</string>
     <string name="event_preferences_category_eventRoamingParameters">漫游传感器</string>
@@ -1890,13 +1880,10 @@
     <string name="pref_event_roaming_check_data">检查数据</string>
     <string name="event_preferences_roaming_forSimCard">用于 SIM 卡</string>
     <string name="permission_why_event_roaming_preferences">用于检查，若网络或数据正在漫游中</string>
-    <string name="array_pref_airplaneModeArray_root_on">(R) 开启</string>
-    <string name="array_pref_airplaneModeArray_root_off">(R) 关闭</string>
-    <string name="array_pref_airplaneModeArray_root_toggle">(R) 切换</string>
     <string name="array_pref_airplaneModeArray_assistant_on">用语音助手打开</string>
     <string name="array_pref_airplaneModeArray_assistant_off">用语音助手关闭</string>
     <string name="array_pref_airplaneModeArray_assistant_toggle">用语音助手切换</string>
-    <string name="preference_not_allowed_reason_not_two_sim_cards">没有插入两张SIM 卡</string>
+    <string name="preference_not_allowed_reason_not_two_sim_cards">没有插入两张 SIM 卡</string>
     <string name="phone_profiles_pref_applicationWidgetColorBNightModeOff">背景颜色 - 关闭暗色模式</string>
     <string name="phone_profiles_pref_applicationWidgetColorBNightModeOn">背景颜色 - 开启暗色模式</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">按暗色模式</string>
@@ -1951,7 +1938,6 @@
     <string name="about_application_pppps_source_code">源代码 - PPPPutSettings：</string>
     <string name="profile_preferences_notificationLed_23">(S)(R) LED 通知</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) 始终显示</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">点击这里显示有关设置类型的信息：(S)、(G1)、(R)、(I)。</string>
     <string name="samsung_edge_panel_settings_description">三星侧边栏设置</string>
     <string name="phone_profiles_pref_applicationCompactGrid">紧凑网格</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">使用这种网格，将不显示情景名称，但更多情景可以放在一行中。</string>
@@ -2121,4 +2107,37 @@
     <string name="export_settings_delete_contacts_data_calls">联系人用于通话传感器</string>
     <string name="export_settings_delete0_contacts_data_sms">联系人用于 短信/彩信 传感器</string>
     <string name="export_settings_delete_contacts_data_notification">联系人用于通知传感器</string>
+    <string name="grant_draw_over_apps_dialog_info_text">您必须授予“在其他应用上显示”权限。它需要在 PhoneProfilesPlus 处于后台时激活。点击按钮授权。</string>
+    <string name="grant_draw_over_apps_dialog_when_not_possible_text">若无法授权，请点击此链接获取您设备的解决方案：</string>
+    <string name="install_extender_install_droidify_button">安装 Droid-ify</string>
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] 不使用</string>
+    <string name="contacts_filter_dialog_filter_title">联系人筛选</string>
+    <string name="contacts_filter_dialog_item_show_all">[ 全部 ]</string>
+    <string name="profile_preferences_types_shizuku_permission">授予 Shizuku 权限</string>
+    <string name="phone_profiles_pref_grantShizukuPermission_summary1">一些情景参数需要 Shizuku。无需ROOT。这些首选项用\"(Z)\"标记。</string>
+    <string name="phone_profiles_pref_grantShizukuPermission_summary2">请安装、运行并授予 Shizuku 权限给 PhoneProfilesPlus。情景和事件参数的需求以 (Z) 标记。无需 ROOT。</string>
+    <string name="preferences_grantShizukuPreferences_title">未授予(Z) 设置权限</string>
+    <string name="preferences_grantShizukuPreferences_summary">点此授权。</string>
+    <string name="phone_profiles_pref_shizuku_is_not_running">Shizuku 未安装或未运行。 </string>
+    <string name="profile_preferences_types_shizuku_show_info1">点此显示更多信息。</string>
+    <string name="profile_preferences_types_shizuku_show_info2">点此授权。</string>
+    <string name="important_info_profile_shizuku_howTo_1">使用(Z) 标记的情景参数需要 Shizuku。</string>
+    <string name="important_info_profile_shizuku_howTo_2">点此下载 Shizuku。</string>
+    <string name="important_info_profile_shizuku_howTo_3">点此显示如何设置 Shizuku。</string>
+    <string name="grant_shizuku_permissions_text1">Shizuku 需要权限</string>
+    <string name="grant_shizuku_permissions_text2">请在下个对话框中授权。Shizuku 可用于一些情景参数。</string>
+    <string name="preference_not_allowed_reason_not_granted_shizuku">没有 安装、运行或授权 Shizuku</string>
+    <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
+    <string name="profile_preferences_preferenceTypesInfo_summary">点击这里显示有关设置类型的信息：(S)、(G1)、(R)、(Z)、(I)。</string>
+    <string name="profile_preferences_deviceMobileData_21">(Z)(R) 移动数据</string>
+    <string name="array_pref_airplaneModeArray_root_on">(Z)(R) 开启</string>
+    <string name="array_pref_airplaneModeArray_root_off">(Z)(R) 关闭</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(Z)(R) 切换</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(Z)(R) 飞行模式下开启</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(Z)(R) 飞行模式下关闭</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(Z)(R) 飞行模式下切换</string>
+    <string name="profile_preferences_deviceNetworkType">(Z)(R) 移动网络类型</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) SIM 卡 1 移动网络类型</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) SIM 卡 2 移动网络类型</string>
+    <string name="profile_preferences_deviceDefaultSIM">(Z)(R) 默认 SIM 卡</string>
 </resources>

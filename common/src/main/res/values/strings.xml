@@ -2142,7 +2142,7 @@
     <string name="phone_profiles_pref_grantShizukuPermission_summary2">Please install, run and grant Shizuku permission for PhoneProfilesPlus. Is required for profile and event parameters, marked with (Z). Then ROOT will not be needed.</string>
     <string name="preferences_grantShizukuPreferences_title">Permission for (Z) preferences not granted</string>
     <string name="preferences_grantShizukuPreferences_summary">Click here to grant it.</string>
-    <string name="phone_profiles_pref_shizuku_is_not_running">Shizuku is not installed or running. </string>
+    <string name="phone_profiles_pref_shizuku_is_not_running">Shizuku is not installed or running.</string>
     <string name="profile_preferences_types_shizuku_show_info1">Click here to show more information.</string>
     <string name="profile_preferences_types_shizuku_show_info2">Click here to grant it.</string>
     <string name="important_info_profile_shizuku_howTo_1">Profile parameters marked with (Z) need Shizuku.</string>
@@ -2152,7 +2152,6 @@
     <string name="grant_shizuku_permissions_text2">Please grant them in next dialog. Shizuku then can be used for some profile parameters.</string>
     <string name="preference_not_allowed_reason_not_granted_shizuku">not installed, running or granted Shizuku</string>
 
-    <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
     <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (S), (G1), (R), (Z), (I).</string>
     <string name="profile_preferences_deviceMobileData_21">(Z)(R) Mobile data</string>
     <string name="array_pref_airplaneModeArray_root_on">(Z)(R) On</string>

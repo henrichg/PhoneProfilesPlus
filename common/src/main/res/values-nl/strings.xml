@@ -264,7 +264,6 @@
     <string name="toast_events_restarted">Event opnieuw gestart</string>
     <string name="event_name_background_profile">Standaardprofiel</string>
     <string name="array_pref_zenModeArray_priority">Prioriteit</string>
-    <string name="profile_preferences_deviceMobileData_21">(R) Mobiele data</string>
     <string name="preference_profile_adaptiveBrightness">Adaptieve</string>
     <string name="profile_preferences_deviceKeyguard">Vergrendel scherm</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Profielnaam verbergen</string>
@@ -407,7 +406,6 @@
     <string name="event_type_applications">Programma\'s</string>
     <string name="event_preferences_category_eventApplicationsParameters">Programma sensor</string>
     <string name="event_preferences_applications_applications">Programma\'s</string>
-    <string name="brightness_pref_dialog_adaptive_level_root_required">Voor wijzigen van Adaptieve helderheid is ROOT nodig.</string>
     <string name="important_info_profile_activation_text1">Een profiel kun je op twee manieren activeren:</string>
     <string name="important_info_profile_activation_text2">Handmatige activering - geactiveerd in Activator, Editor, melding, widget, snelkoppeling. Een handmatig geactiveerd profiel heeft de aanduiding \"[M]\" voor de profielnaam.</string>
     <string name="important_info_profile_activation_text3">Gebeurtenis activeren - door een event activeren.</string>
@@ -470,7 +468,6 @@
     <string name="info_notification_event_states_running_delay">Uitvoeren met vertraging: Event draait, maar parameters voldoen niet meer. Event wacht gedurende de vertraging.</string>
     <string name="profile_preferences_askForDuration">Vraag naar tijdsduur</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Batterij optimalisatie</string>
-    <string name="profile_preferences_deviceNetworkType">(R) Mobiel netwerk type</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Accubesparing</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">Configuratie systeem instellingen</string>
     <string name="phone_profiles_pref_notificationTextColor">Tekstkleur</string>
@@ -1451,8 +1448,6 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Instellingenscherm niet gevonden, maar deze instelling is niet nodig als PhoneProfilesPlus start bij opstarten van de telefoon.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Hoekradius</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Radius van hoek</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobiel netwerk type voor SIM 1</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobiel netwerk type voor SIM 2</string>
     <string name="profile_preferences_category_led_accessories">LED accessoires</string>
     <string name="array_pref_radioSwitch_connected">Verbonden</string>
     <string name="array_pref_radioSwitch_disconnected">Losgekoppeld</string>
@@ -1467,7 +1462,6 @@
     <string name="default_sim_subscription_sms">SMS</string>
     <string name="default_sim_subscription_data">Data</string>
     <string name="profile_preferences_deviceDualSIMSupport">Dual SIM ondersteuning</string>
-    <string name="profile_preferences_deviceDefaultSIM">(R) Standaard SIM kaart</string>
     <string name="profile_preferences_deviceOnOff_SIM1">Simkaart 1 aan/uit schakelen</string>
     <string name="profile_preferences_deviceOnOff_SIM2">Simkaart 2 aan/uit schakelen</string>
     <string name="ringtone_pref_dlg_system_tone">systeem toon</string>
@@ -1604,7 +1598,6 @@
     <string name="check_ppp_releases_notification">Klik op deze notificatie voor het controleren van PhoneProfilesPlus release op GitHub. Misschien is er een nieuwere versie beschikbaar.</string>
     <string name="check_github_releases_install_info_app_stores_release">"In de applicatiewinkels zal binnenkort een nieuwe versie zijn."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Profielvoorkeuren tonen</string>
-    <string name="show_dialog_about_red_text_show_editor">Editor tonen</string>
     <string name="array_pref_change_image_wallpaper">Afbeelding wijzigen</string>
     <string name="array_pref_change_live_wallpaper">(I) Verander naar live achtergrond</string>
     <string name="profile_preferences_deviceImageWallpaper">Achtergrond afbeelding</string>
@@ -1880,9 +1873,6 @@
     <string name="profile_icon_preference_iconColor_help_info_2">Een icoon met deze verhoogde helderheid wordt gebruikt in de GUI van de applicatie. Ook in notificaties en widgets als hun achtergrond donker is.</string>
     <string name="important_info_android_look_application_settings">Open PhoneProfilesPlus Instellingen en configureer. Vooral de instellingen gemarkeerd met dubbele pijl teken.</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info4">Huidige configuratie:</string>
-    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) Aan in vliegtuigmodus</string>
-    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Uit in Vliegtuigmodus</string>
-    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Omschakelen in Vliegtuigmodus</string>
     <string name="event_preference_sensor_roaming_summary">Deze sensor start een event wanneer het netwerk of data roaming zijn. Parameters: Controleer netwerk, controleer data.</string>
     <string name="event_type_roaming">Roaming</string>
     <string name="event_preferences_category_eventRoamingParameters">Roaming sensor</string>
@@ -1890,9 +1880,6 @@
     <string name="pref_event_roaming_check_data">Controleer data</string>
     <string name="event_preferences_roaming_forSimCard">Voor simkaart</string>
     <string name="permission_why_event_roaming_preferences">als controle wanneer netwerk of data in roaming zijn</string>
-    <string name="array_pref_airplaneModeArray_root_on">(R) Aan</string>
-    <string name="array_pref_airplaneModeArray_root_off">(R) Uit</string>
-    <string name="array_pref_airplaneModeArray_root_toggle">(R) Omschakeling</string>
     <string name="array_pref_airplaneModeArray_assistant_on">Aan met assistent</string>
     <string name="array_pref_airplaneModeArray_assistant_off">Uit met assistent</string>
     <string name="array_pref_airplaneModeArray_assistant_toggle">Omschakelen met assistent</string>
@@ -1951,7 +1938,6 @@
     <string name="about_application_pppps_source_code">Broncode - PPPPutSettings:</string>
     <string name="profile_preferences_notificationLed_23">(S)(R) Meldingen LED</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Altijd aan schermweergave</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Klik hier om informatie te tonen over voorkeur types: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Instellingen Samsung Edge-vensters</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compacte raster</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Met dit type raster worden profielnamen niet weergegeven, maar meer profielen passen in één rij.</string>
@@ -2121,4 +2107,37 @@
     <string name="export_settings_delete_contacts_data_calls">Contacten voor Oproep sensor</string>
     <string name="export_settings_delete0_contacts_data_sms">Contacten voor SMS/MMS sensor</string>
     <string name="export_settings_delete_contacts_data_notification">Contacten voor meldingssensor</string>
+    <string name="grant_draw_over_apps_dialog_info_text">Je moet \"Weergeven over apps\" toestaan. Dit is vereist om activiteiten te starten wanneer PhoneProfilesPlus op de achtergrond is. Klik op de knop \"Machtigen\" om deze toestemming te verlenen.</string>
+    <string name="grant_draw_over_apps_dialog_when_not_possible_text">Als het niet mogelijk is deze toestemming te verlenen, klik je op deze link. Misschien vind je op deze webpagina de oplossing voor je toestel:</string>
+    <string name="install_extender_install_droidify_button">Installeer Droid-ify</string>
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] Niet gebruiken</string>
+    <string name="contacts_filter_dialog_filter_title">Contacten filter</string>
+    <string name="contacts_filter_dialog_item_show_all">[ Alle ]</string>
+    <string name="profile_preferences_types_shizuku_permission">Toegang verlenen aan Shizuku</string>
+    <string name="phone_profiles_pref_grantShizukuPermission_summary1">Sommige profielvoorkeuren vereisen Shizuku. ROOT is niet vereist. Deze voorkeuren zijn gemarkeerd met \"(Z)\".</string>
+    <string name="phone_profiles_pref_grantShizukuPermission_summary2">Installeer Shizuku en verleen toestemming voor PhoneProfilesPlus. Dit is vereist voor profiel- en eventparameters, gemarkeerd met (Z). ROOT is dan niet nodig.</string>
+    <string name="preferences_grantShizukuPreferences_title">Toestemming voor (Z) voorkeuren niet verleend</string>
+    <string name="preferences_grantShizukuPreferences_summary">Klik hier om toe te staan.</string>
+    <string name="phone_profiles_pref_shizuku_is_not_running">Shizuku is niet geïnstalleerd of actief. </string>
+    <string name="profile_preferences_types_shizuku_show_info1">Klik hier voor meer informatie.</string>
+    <string name="profile_preferences_types_shizuku_show_info2">Klik hier om toe te staan.</string>
+    <string name="important_info_profile_shizuku_howTo_1">Profielparameters gemarkeerd met (Z) vereisen Shizuku.</string>
+    <string name="important_info_profile_shizuku_howTo_2">Klik hier om Shizuku te downloaden.</string>
+    <string name="important_info_profile_shizuku_howTo_3">Klik hier om te zien hoe Shizuku in te stellen.</string>
+    <string name="grant_shizuku_permissions_text1">Shizuku heeft toestemming nodig</string>
+    <string name="grant_shizuku_permissions_text2">Sta het toe in de volgende schermen. Shizuku kan dan gebruikt worden voor enkele profielinstellingen.</string>
+    <string name="preference_not_allowed_reason_not_granted_shizuku">niet geïnstalleerde, uitgevoerde of verleende Shizuku</string>
+    <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
+    <string name="profile_preferences_preferenceTypesInfo_summary">Klik hier om informatie te tonen over voorkeur types: (S), (G1), (R), (Z), (I).</string>
+    <string name="profile_preferences_deviceMobileData_21">(Z)(R) Mobiele data</string>
+    <string name="array_pref_airplaneModeArray_root_on">(Z)(R) Aan</string>
+    <string name="array_pref_airplaneModeArray_root_off">(Z)(R) Uit</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(Z)(R) Omschakeling</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(Z)(R) Aan in vliegtuigmodus</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(Z)(R) Uit in Vliegtuigmodus</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(Z)(R) Omschakelen in Vliegtuigmodus</string>
+    <string name="profile_preferences_deviceNetworkType">(Z)(R) Mobiel netwerk type</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Mobiel netwerk type voor SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Mobiel netwerk type voor SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Standaard SIM kaart</string>
 </resources>

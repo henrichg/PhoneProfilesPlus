@@ -264,7 +264,6 @@
     <string name="toast_events_restarted">Zdarzenia zrestartowane</string>
     <string name="event_name_background_profile">Profil domyślny</string>
     <string name="array_pref_zenModeArray_priority">Priorytet</string>
-    <string name="profile_preferences_deviceMobileData_21">(R) Dane mobilne</string>
     <string name="preference_profile_adaptiveBrightness">Adaptacyjna</string>
     <string name="profile_preferences_deviceKeyguard">Ekran blokady</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Ukryj nazwę profilu</string>
@@ -407,7 +406,6 @@
     <string name="event_type_applications">Aplikacje</string>
     <string name="event_preferences_category_eventApplicationsParameters">Czujnik aplikacji</string>
     <string name="event_preferences_applications_applications">Aplikacje</string>
-    <string name="brightness_pref_dialog_adaptive_level_root_required">Root wymagany do zmiany automatycznego poziomu jasności.</string>
     <string name="important_info_profile_activation_text1">Profile mogą zostać aktywowane w jednym z dwóch trybów:</string>
     <string name="important_info_profile_activation_text2">Ręczna aktywacja - aktywowany w Aktywatorze, Edytorze, powiadomieniu, widgecie, skrócie. Ręcznie aktywowane profile są zaznaczane symbolem \"[M]\" przed nazwą profilu.</string>
     <string name="important_info_profile_activation_text3">Aktywacja zdarzenia - aktywowano przez zdarzenie.</string>
@@ -470,7 +468,6 @@
     <string name="info_notification_event_states_running_delay">Uruchamianie z opóźnieniem: zdarzenie jest uruchomione, ale parametry nie są spełnione. Zdarzenie czeka na wygaśnięcie opóźnienia.</string>
     <string name="profile_preferences_askForDuration">Pytaj o czas trwania</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Optymalizacja baterii</string>
-    <string name="profile_preferences_deviceNetworkType">(R) Typ sieci mobilnej</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Oszczędzanie baterii</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">Ustawienia oszczędzania baterii systemu Android</string>
     <string name="phone_profiles_pref_notificationTextColor">Kolor tekstu</string>
@@ -1451,8 +1448,6 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Ekran ustawień nie został znaleziony, ale to ustawienie nie jest potrzebne, jeśli PhoneProfilesPlus uruchomi się przy starcie telefonu.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Promień narożnika</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Promień narożnika</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Typ sieci komórkowej dla karty SIM 1</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Typ sieci komórkowej dla karty SIM 2</string>
     <string name="profile_preferences_category_led_accessories">Akcesoria LED</string>
     <string name="array_pref_radioSwitch_connected">Połączono</string>
     <string name="array_pref_radioSwitch_disconnected">Rozłączono</string>
@@ -1467,7 +1462,6 @@
     <string name="default_sim_subscription_sms">SMS</string>
     <string name="default_sim_subscription_data">Dane</string>
     <string name="profile_preferences_deviceDualSIMSupport">Wsparcie Dual SIM</string>
-    <string name="profile_preferences_deviceDefaultSIM">(R) Domyślna karta SIM</string>
     <string name="profile_preferences_deviceOnOff_SIM1">Włącz/wyłącz SIM 1</string>
     <string name="profile_preferences_deviceOnOff_SIM2">Włącz/wyłącz SIM 2</string>
     <string name="ringtone_pref_dlg_system_tone">dźwięk systemu</string>
@@ -1604,7 +1598,6 @@
     <string name="check_ppp_releases_notification">Kliknij to powiadomienie, aby sprawdzić wersję PhoneProfilesPlus. Być może pojawiła się nowa wersja.</string>
     <string name="check_github_releases_install_info_app_stores_release">"W sklepach wkrótce pojawi się nowa wersja."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Pokaż ustawienia profilu</string>
-    <string name="show_dialog_about_red_text_show_editor">Pokaż edytor</string>
     <string name="array_pref_change_image_wallpaper">Zmień na obraz</string>
     <string name="array_pref_change_live_wallpaper">(I) Zmiana na \"żywą\" tapetę</string>
     <string name="profile_preferences_deviceImageWallpaper">Obraz tapety</string>
@@ -1880,9 +1873,6 @@
     <string name="profile_icon_preference_iconColor_help_info_2">Ikona z tą zwiększoną jasnością będzie używana w interfejsie użytkownika aplikacji. Również w powiadomieniach i widżetach, gdy tło jest ciemne.</string>
     <string name="important_info_android_look_application_settings">Otwórz ustawienia PhoneProfilesPlus i je skonfiguruj. Szczególnie parametry oznaczone znakiem podwójnej strzałki.</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info4">Bieżąca konfiguracja:</string>
-    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) Włączone w trybie samolotowym</string>
-    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Wyłączone w trybie samolotowym</string>
-    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Przełącz w trybie samolotowym</string>
     <string name="event_preference_sensor_roaming_summary">Ten czujnik uruchomi zdarzenie, gdy sieć lub dane są w roamingu. Parametry: Sprawdź sieć, sprawdź dane.</string>
     <string name="event_type_roaming">Roaming</string>
     <string name="event_preferences_category_eventRoamingParameters">Czujnik Roamingu</string>
@@ -1890,9 +1880,6 @@
     <string name="pref_event_roaming_check_data">Sprawdź dane</string>
     <string name="event_preferences_roaming_forSimCard">Dla karty SIM</string>
     <string name="permission_why_event_roaming_preferences">do sprawdzenia, czy sieć lub dane są w roamingu</string>
-    <string name="array_pref_airplaneModeArray_root_on">(R) Włączone</string>
-    <string name="array_pref_airplaneModeArray_root_off">(R) Wyłączone</string>
-    <string name="array_pref_airplaneModeArray_root_toggle">(R) Przełącz</string>
     <string name="array_pref_airplaneModeArray_assistant_on">Włączyć z Asystentem</string>
     <string name="array_pref_airplaneModeArray_assistant_off">Wyłączyć z Asystentem</string>
     <string name="array_pref_airplaneModeArray_assistant_toggle">Przełączyć z Asystentem</string>
@@ -1951,7 +1938,6 @@
     <string name="about_application_pppps_source_code">Kod źródłowy - PPPPutSettings:</string>
     <string name="profile_preferences_notificationLed_23">(S)(R) Dioda powiadomień</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) wyświetlacz Always-On</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Kliknij tu, aby wyświetlić informację o ustawieniach oznaczonych: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Ustawienia panelu bocznego Samsung</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Siatka kompaktowa</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">W tym typie siatki nazwy profili nie będą wyświetlane, ale więcej profili może zmieścić się w jednym rzędzie.</string>
@@ -2121,4 +2107,37 @@
     <string name="export_settings_delete_contacts_data_calls">Kontaktu dla czujnika rozmowy</string>
     <string name="export_settings_delete0_contacts_data_sms">Kontakty dla czujnika SMS/MMS</string>
     <string name="export_settings_delete_contacts_data_notification">Kontakty dla czujnika powiadomień</string>
+    <string name="grant_draw_over_apps_dialog_info_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click button \"Grant\" to grant this permission.</string>
+    <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, click this link. Maybe in this web page is solution for your device:</string>
+    <string name="install_extender_install_droidify_button">Install Droid-ify</string>
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] Do not use</string>
+    <string name="contacts_filter_dialog_filter_title">Contacts filter</string>
+    <string name="contacts_filter_dialog_item_show_all">[ All ]</string>
+    <string name="profile_preferences_types_shizuku_permission">Grant Shizuku permission</string>
+    <string name="phone_profiles_pref_grantShizukuPermission_summary1">Some profile preferences require Shizuku. ROOT is not required. These preferences are marked with \"(Z)\".</string>
+    <string name="phone_profiles_pref_grantShizukuPermission_summary2">Please install, run and grant Shizuku permission for PhoneProfilesPlus. Is required for profile and event parameters, marked with (Z). Then ROOT will not be needed.</string>
+    <string name="preferences_grantShizukuPreferences_title">Permission for (Z) preferences not granted</string>
+    <string name="preferences_grantShizukuPreferences_summary">Click here to grant it.</string>
+    <string name="phone_profiles_pref_shizuku_is_not_running">Shizuku is not installed or running.</string>
+    <string name="profile_preferences_types_shizuku_show_info1">Click here to show more information.</string>
+    <string name="profile_preferences_types_shizuku_show_info2">Click here to grant it.</string>
+    <string name="important_info_profile_shizuku_howTo_1">Profile parameters marked with (Z) need Shizuku.</string>
+    <string name="important_info_profile_shizuku_howTo_2">Click here for download Shizuku.</string>
+    <string name="important_info_profile_shizuku_howTo_3">Click here to display how to setup Shizuku.</string>
+    <string name="grant_shizuku_permissions_text1">Shizuku requires permission</string>
+    <string name="grant_shizuku_permissions_text2">Please grant them in next dialog. Shizuku then can be used for some profile parameters.</string>
+    <string name="preference_not_allowed_reason_not_granted_shizuku">not installed, running or granted Shizuku</string>
+    <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
+    <string name="profile_preferences_preferenceTypesInfo_summary">Kliknij tu, aby wyświetlić informację o ustawieniach oznaczonych: (S), (G1), (R), (Z), (I).</string>
+    <string name="profile_preferences_deviceMobileData_21">(Z)(R) Dane mobilne</string>
+    <string name="array_pref_airplaneModeArray_root_on">(Z)(R) Włączone</string>
+    <string name="array_pref_airplaneModeArray_root_off">(Z)(R) Wyłączone</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(Z)(R) Przełącz</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(Z)(R) Włączone w trybie samolotowym</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(Z)(R) Wyłączone w trybie samolotowym</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(Z)(R) Przełącz w trybie samolotowym</string>
+    <string name="profile_preferences_deviceNetworkType">(Z)(R) Typ sieci mobilnej</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Typ sieci komórkowej dla karty SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Typ sieci komórkowej dla karty SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Domyślna karta SIM</string>
 </resources>
