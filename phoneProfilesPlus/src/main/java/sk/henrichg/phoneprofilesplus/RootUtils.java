@@ -319,44 +319,43 @@ class RootUtils {
         }
 
         if (ShizukuUtils.hasShizukuPermission()) {
-            try {
-                //noinspection RegExpRedundantEscape,RegExpSimplifiable
-                final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
+            synchronized (PPApplication.rootMutex) {
+                try {
+                    //noinspection RegExpRedundantEscape,RegExpSimplifiable
+                    final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
 
-                String command1 = "service list";
-                Process process = ShizukuUtils.executeCommandNoWait(command1);
+                    String command1 = "service list";
+                    Process process = ShizukuUtils.executeCommandNoWait(command1);
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                String readline;
-                while ((readline = reader.readLine()) != null) {
-                    //Log.e("RootUtils.getServicesList", "line="+readline);
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    String readline;
+                    while ((readline = reader.readLine()) != null) {
+                        //Log.e("RootUtils.getServicesList", "line="+readline);
 
-                    Matcher matcher = compile.matcher(readline);
-                    if (matcher.find()) {
+                        Matcher matcher = compile.matcher(readline);
+                        if (matcher.find()) {
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.getServicesList", "(3) PPApplication.serviceListMutex");
-                        synchronized (PPApplication.serviceListMutex) {
-                            //serviceListMutex.serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
-                            Pair<String, String> pair = Pair.create(matcher.group(1), matcher.group(2));
-                            if (pair.first.equals(RootMutex.SERVICE_PHONE) ||
-                                    pair.first.equals(RootMutex.SERVICE_WIFI) ||
-                                    pair.first.equals(RootMutex.SERVICE_ISUB)) {
+                            synchronized (PPApplication.serviceListMutex) {
+                                //serviceListMutex.serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
+                                Pair<String, String> pair = Pair.create(matcher.group(1), matcher.group(2));
+                                if (pair.first.equals(RootMutex.SERVICE_PHONE) ||
+                                        pair.first.equals(RootMutex.SERVICE_WIFI) ||
+                                        pair.first.equals(RootMutex.SERVICE_ISUB)) {
 //                                Log.e("RootUtils.getServicesList", "line="+readline);
 //                                Log.e("RootUtils.getServicesList", "pair.first="+pair.first);
 //                                Log.e("RootUtils.getServicesList", "pair.second="+pair.second);
-                                PPApplication.serviceListMutex.serviceList.add(pair);
+                                    PPApplication.serviceListMutex.serviceList.add(pair);
+                                }
                             }
                         }
                     }
-                }
 
-                synchronized (PPApplication.rootMutex) {
                     fillTransactionCodes();
+                } catch (Exception e) {
+                    //Log.e("RootUtils.getServicesList", Log.getStackTraceString(e));
                 }
-
-            } catch (Exception e) {
-                //Log.e("RootUtils.getServicesList", Log.getStackTraceString(e));
+                //Log.e("RootUtils.getServicesList", "**** end of service list");
             }
-            //Log.e("RootUtils.getServicesList", "**** end of service list");
         } else
         if (isRooted(/*false*/)) {
 //            PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.getServicesList", "(2) PPApplication.rootMutex");

@@ -2843,11 +2843,13 @@ class ActivateProfileHelper {
 
                                         //    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2 Huawei uri="+uri.toString());
                                         if (ShizukuUtils.hasShizukuPermission()) {
-                                            String command1 = COMMAND_SETTINGS_PUT_SYSTEM+PREF_NOTIFICATION_SIM2_HUAWEI + " " + uri.toString();
-                                            try {
-                                                ShizukuUtils.executeCommand(command1);
-                                            } catch (Exception e) {
-                                                //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                            synchronized (PPApplication.rootMutex) {
+                                                String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM2_HUAWEI + " " + uri.toString();
+                                                try {
+                                                    ShizukuUtils.executeCommand(command1);
+                                                } catch (Exception e) {
+                                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                                }
                                             }
                                         } else {
                                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -2942,11 +2944,13 @@ class ActivateProfileHelper {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2 Huawei uri=null");
 
                                     if (ShizukuUtils.hasShizukuPermission()) {
-                                        String command1 = COMMAND_SETTINGS_PUT_SYSTEM+PREF_NOTIFICATION_SIM2_HUAWEI + " \"\"";
-                                        try {
-                                            ShizukuUtils.executeCommand(command1);
-                                        } catch (Exception e) {
-                                            //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                        synchronized (PPApplication.rootMutex) {
+                                            String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM2_HUAWEI + " \"\"";
+                                            try {
+                                                ShizukuUtils.executeCommand(command1);
+                                            } catch (Exception e) {
+                                                //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                            }
                                         }
                                     } else {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -5781,21 +5785,23 @@ class ActivateProfileHelper {
             boolean isRooted = RootUtils.isRooted(/*false*/);
             boolean settingsBinaryExists = RootUtils.settingsBinaryExists(false);
             if (ShizukuUtils.hasShizukuPermission()) {
-                String command1;
-                String command2;
-                final String AIRPLANE_MODE_ON = "airplane_mode_on ";
-                if (mode) {
-                    command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "1";
-                    command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.TRUE_STRING;
-                } else {
-                    command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "0";
-                    command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.FALSE_STRING;
-                }
-                try {
-                    ShizukuUtils.executeCommand(command1);
-                    ShizukuUtils.executeCommand(command2);
-                } catch (Exception e) {
-                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                synchronized (PPApplication.rootMutex) {
+                    String command1;
+                    String command2;
+                    final String AIRPLANE_MODE_ON = "airplane_mode_on ";
+                    if (mode) {
+                        command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "1";
+                        command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.TRUE_STRING;
+                    } else {
+                        command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "0";
+                        command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.FALSE_STRING;
+                    }
+                    try {
+                        ShizukuUtils.executeCommand(command1);
+                        ShizukuUtils.executeCommand(command2);
+                    } catch (Exception e) {
+                        //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                    }
                 }
             } else
             if (isRooted &&
@@ -5990,11 +5996,13 @@ class ActivateProfileHelper {
 //                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
                 //if ((simCard == 0)) {
                     if (ShizukuUtils.hasShizukuPermission()) {
-                        String command1 = "svc data " + (enable ? "enable" : "disable");
-                        try {
-                            ShizukuUtils.executeCommand(command1);
-                        } catch (Exception e) {
-                            //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                        synchronized (PPApplication.rootMutex) {
+                            String command1 = "svc data " + (enable ? "enable" : "disable");
+                            try {
+                                ShizukuUtils.executeCommand(command1);
+                            } catch (Exception e) {
+                                //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                            }
                         }
                     } else {
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
@@ -6099,11 +6107,13 @@ class ActivateProfileHelper {
         //Context appContext = context.getApplicationContext();
 
         if (ShizukuUtils.hasShizukuPermission()) {
-            String command1 = "svc wifi " + (enable ? "enable" : "disable");
-            try {
-                ShizukuUtils.executeCommand(command1);
-            } catch (Exception e) {
-                //Log.e("ActivateProfileHelper.setWifiInAirplaneMode", Log.getStackTraceString(e));
+            synchronized (PPApplication.rootMutex) {
+                String command1 = "svc wifi " + (enable ? "enable" : "disable");
+                try {
+                    ShizukuUtils.executeCommand(command1);
+                } catch (Exception e) {
+                    //Log.e("ActivateProfileHelper.setWifiInAirplaneMode", Log.getStackTraceString(e));
+                }
             }
         } else
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -6266,12 +6276,14 @@ class ActivateProfileHelper {
 //                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "subscriptionId=" + subscriptionId);
 
                                             if (ShizukuUtils.hasShizukuPermission()) {
-                                                String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_PHONE, transactionCode, subscriptionId, networkType);
-                                                if (command1 != null) {
-                                                    try {
-                                                        ShizukuUtils.executeCommand(command1);
-                                                    } catch (Exception e) {
-                                                        //Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
+                                                synchronized (PPApplication.rootMutex) {
+                                                    String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_PHONE, transactionCode, subscriptionId, networkType);
+                                                    if (command1 != null) {
+                                                        try {
+                                                            ShizukuUtils.executeCommand(command1);
+                                                        } catch (Exception e) {
+                                                            //Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
+                                                        }
                                                     }
                                                 }
                                             } else
@@ -6364,12 +6376,14 @@ class ActivateProfileHelper {
                             }
                         }
                         if (ShizukuUtils.hasShizukuPermission()) {
-                            String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_WIFI, transactionCode, 0, (enable) ? 1 : 0);
-                            if (command1 != null) {
-                                try {
-                                    ShizukuUtils.executeCommand(command1);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
+                            synchronized (PPApplication.rootMutex) {
+                                String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_WIFI, transactionCode, 0, (enable) ? 1 : 0);
+                                if (command1 != null) {
+                                    try {
+                                        ShizukuUtils.executeCommand(command1);
+                                    } catch (Exception e) {
+                                        //Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
+                                    }
                                 }
                             }
                         } else
@@ -7102,38 +7116,40 @@ class ActivateProfileHelper {
 //                                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ShizukuUtils.shizukuAvailable()=" + ShizukuUtils.shizukuAvailable());
 //                                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ShizukuUtils.hasShizukuPermission()=" + ShizukuUtils.hasShizukuPermission());
                                             if (ShizukuUtils.hasShizukuPermission()) {
+                                                synchronized (PPApplication.rootMutex) {
 //                                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "****** Shizuku ******");
-                                                String command1;
-                                                if (simCard == -1)
-                                                    command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, 0);
-                                                else
-                                                    command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId);
+                                                    String command1;
+                                                    if (simCard == -1)
+                                                        command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, 0);
+                                                    else
+                                                        command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId);
 
-                                                String command2 = "";
-                                                switch (subscriptionType) {
-                                                    case SUBSCRIPTRION_VOICE:
-                                                        if (simCard == -1)
-                                                            command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " 0";
-                                                        else
-                                                            command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " " + subscriptionId;
-                                                        break;
-                                                    case SUBSCRIPTRION_SMS:
-                                                        command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_SMS_SUBSCRIPTION + " " + subscriptionId;
-                                                        break;
-                                                    case SUBSCRIPTRION_DATA:
-                                                        command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
-                                                        break;
-                                                }
+                                                    String command2 = "";
+                                                    switch (subscriptionType) {
+                                                        case SUBSCRIPTRION_VOICE:
+                                                            if (simCard == -1)
+                                                                command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " 0";
+                                                            else
+                                                                command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " " + subscriptionId;
+                                                            break;
+                                                        case SUBSCRIPTRION_SMS:
+                                                            command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_SMS_SUBSCRIPTION + " " + subscriptionId;
+                                                            break;
+                                                        case SUBSCRIPTRION_DATA:
+                                                            command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
+                                                            break;
+                                                    }
 
 //                                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "command1="+command1);
 //                                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "command2="+command2);
 
-                                                if ((command1 != null)/* && (!command2.isEmpty())*/) {
-                                                    try {
-                                                        ShizukuUtils.executeCommand(command2);
-                                                        ShizukuUtils.executeCommand(command1);
-                                                    } catch (Exception e) {
+                                                    if ((command1 != null)/* && (!command2.isEmpty())*/) {
+                                                        try {
+                                                            ShizukuUtils.executeCommand(command2);
+                                                            ShizukuUtils.executeCommand(command1);
+                                                        } catch (Exception e) {
 //                                                        Log.e("ActivateProfileHelper.setDefaultSimCard", Log.getStackTraceString(e));
+                                                        }
                                                     }
                                                 }
                                             } else
@@ -7256,13 +7272,15 @@ class ActivateProfileHelper {
 
                                         // not working root and Shizuku also in Galaxy S10 - Android 11
                                         if (ShizukuUtils.hasShizukuPermission()) {
+                                            synchronized (PPApplication.rootMutex) {
 //                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "***** Shizuku *******");
-                                            String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId, state);
-                                            if ((command1 != null)/* && (!command2.isEmpty())*/) {
-                                                try {
-                                                    ShizukuUtils.executeCommand(command1);
-                                                } catch (Exception e) {
-                                                    //Log.e("ActivateProfileHelper.setSIMOnOff", Log.getStackTraceString(e));
+                                                String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId, state);
+                                                if ((command1 != null)/* && (!command2.isEmpty())*/) {
+                                                    try {
+                                                        ShizukuUtils.executeCommand(command1);
+                                                    } catch (Exception e) {
+                                                        //Log.e("ActivateProfileHelper.setSIMOnOff", Log.getStackTraceString(e));
+                                                    }
                                                 }
                                             }
                                         } else
