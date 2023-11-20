@@ -525,7 +525,7 @@ public class EditorProfileListFragment extends Fragment
 
                     if (defaultProfilesGenerated) {
 //                        PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorProfileListFragment.LoadProfileListAsyncTask", "call of updateGUI");
-                        PPApplication.updateGUI(true, false, _dataWrapper.context);
+                        PPApplication.updateGUI(true, false, fragment.activityDataWrapper.context);
                         if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
                             PPApplication.showToast(fragment.activityDataWrapper.context.getApplicationContext(),
                                     fragment.getString(R.string.toast_predefined_profiles_generated),
