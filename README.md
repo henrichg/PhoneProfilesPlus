@@ -78,8 +78,8 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 ##### (HELP) How to configure airplane mode radios - useful for profile parameter "Airplane mode"
 - [Show it](docs/airplane_mode_radios_config.md)
 
-##### Features
-- [Show it](docs/ppp_features.md)
+#### Features
+- __[Show it](docs/ppp_features.md)__
 
 ##### Screenshots
 - [[1]](art/phoneScreenshots/01.png),
