@@ -50,4 +50,4 @@ __Some event sensor types:__
 
 __PhoneProfilesPlusExtender__
 
-Some parameters requires [PhoneProfilesPlusExtender](https://github.com/henrichg/PhoneProfilesPlusExtender)
+- Some parameters require [PhoneProfilesPlusExtender](https://github.com/henrichg/PhoneProfilesPlusExtender)

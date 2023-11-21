@@ -34,8 +34,8 @@ __Some profile parameters:__
 
 __PhoneProfilesPlusExtender__
 
-Some parameters requires [PhoneProfilesPlusExtender](https://github.com/henrichg/PhoneProfilesPlusExtender)
+- Some parameters require [PhoneProfilesPlusExtender](https://github.com/henrichg/PhoneProfilesPlusExtender)
 
 __PPPPutSettings__
 
-Some parameters requires [PPPPutSettings](https://github.com/henrichg/PPPPutSettings)
+- Some parameters require [PPPPutSettings](https://github.com/henrichg/PPPPutSettings)
