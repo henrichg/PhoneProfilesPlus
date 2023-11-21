@@ -1,10 +1,10 @@
 Profiles features
 ======================
 
-- Shizuku (Z) is supported for non-rooted devices in parameters that normally require root
-- WRITE_SECUE_SETTNGS (G1) permission for non-rooted devices in parameters that normally require root
+- Shizuku (Z): for non-rooted devices in parameters that normally require root
+- WRITE_SECUE_SETTNGS permission (G1): for non-rooted devices in parameters that normally require root
+- PPPPutSettings (S): for non-rooted devices in parameters that normally require root.
 - Some parameters require PhoneProfilesPlusExtender.
-- Some parameters require PPPPutSettings (S).
 
 __Some profile parameters:__
 - sound profile
