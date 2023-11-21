@@ -100,12 +100,12 @@
     <orderEntry type="library" scope="TEST" name="Gradle: dev.rikka.shizuku:aidl:12.1.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: dev.rikka.shizuku:shared:12.1.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: dev.rikka.shizuku:provider:12.1.0@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.google.guava:guava:32.1.2-android" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.guava:guava:32.1.3-android" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.guava:failureaccess:1.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.checkerframework:checker-qual:3.33.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.google.errorprone:error_prone_annotations:2.18.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.checkerframework:checker-qual:3.37.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.errorprone:error_prone_annotations:2.21.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.j2objc:j2objc-annotations:2.8" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.annotation:annotation-jvm:1.7.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.9.10" level="project" />
