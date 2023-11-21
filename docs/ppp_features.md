@@ -47,6 +47,7 @@ __Some event sensor types:__
 - NFC tags
 - Alarm clock
 - Device boot
+- ...
 
 __PhoneProfilesPlusExtender__
 
