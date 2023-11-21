@@ -1,6 +1,12 @@
 Profiles features
 ======================
 
+- Shizuku (Z) is supported for non-rooted devices in parameters that normally require root
+- WRITE_SECUE_SETTNGS (G1) permission for non-rooted devices in parameters that normally require root
+- Some parameters require PhoneProfilesPlusExtender.
+- Some parameters require PPPPutSettings (S).
+
+__Some profile parameters:__
 - sound profile
 - sound volume
 - speakerphone
@@ -25,16 +31,6 @@ Profiles features
 - location mode
 - force stop application
 - ...
-
-__Notes:__
-- Shizuku is supported for non-rooted devices in parameters that normally require root
-- Lockscreen paarameter working only for non-secure lockscreen
-- Airplane mode: requires root or Shizuku
-- Mobile data: requires root or Shizuku 
-- Power save mode: requires root or Shizuku
-- GPS: for not-rooted devices requires grant of WRITE_SECURE_SETTINGS
-- NFC: for not-rooted devices requires grant of WRITE_SECURE_SETTINGS
-- Location mode: requires grant of WRITE_SECURE_SETTINGS
 
 __PhoneProfilesPlusExtender__
 

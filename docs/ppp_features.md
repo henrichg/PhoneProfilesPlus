@@ -24,7 +24,7 @@ __Events features:__
 - ignore manual Profile activation
 - sound notification
 - undo Profile activated before start of Event
-- Event start delay
+- Event start/end delay
 - ...
 
 __Some event sensor types:__
