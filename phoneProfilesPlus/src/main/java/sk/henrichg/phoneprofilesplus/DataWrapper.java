@@ -883,7 +883,7 @@ class DataWrapper {
                 origEvent.copyEvent(event);
                 if (activity != null)
                     origEvent._peferencesDecription = StringFormatUtils.fromHtml(
-                            origEvent.getPreferencesDescription(activity, true),
+                            origEvent.getPreferencesDescription(activity, null, true),
                             true,  false, 0, 0, true);
             }
         }

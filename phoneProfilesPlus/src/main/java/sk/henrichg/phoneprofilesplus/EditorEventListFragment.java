@@ -504,6 +504,7 @@ public class EditorEventListFragment extends Fragment
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
             _dataWrapper.fillEventList();
+            _dataWrapper.fillEventTimelineList();
 
             final EditorEventListFragment fragment = this.fragmentWeakRef.get();
 
@@ -518,14 +519,15 @@ public class EditorEventListFragment extends Fragment
                 }
             }
 
+            _dataWrapper.getEventTimelineList(true);
+
             if ((fragment != null) && fragment.getActivity() != null) {
                 for (Event event : _dataWrapper.eventList)
                     event._peferencesDecription = StringFormatUtils.fromHtml(
-                            event.getPreferencesDescription(fragment.getActivity(), true),
+                            event.getPreferencesDescription(fragment.getActivity(), _dataWrapper, true),
                             true,  false, 0, 0, true);
             }
 
-            _dataWrapper.getEventTimelineList(true);
             if ((fragment != null) && (fragment.getActivity() != null)) {
                 if (_filterType == FILTER_TYPE_START_ORDER)
                     fragment.sortList(_dataWrapper.eventList, ORDER_TYPE_START_ORDER, _dataWrapper);
@@ -2137,7 +2139,7 @@ public class EditorEventListFragment extends Fragment
 
                             if ((fragment != null) && (fragment.getActivity() != null))
                                 event._peferencesDecription = StringFormatUtils.fromHtml(
-                                        event.getPreferencesDescription(fragment.getActivity(), true),
+                                        event.getPreferencesDescription(fragment.getActivity(), dataWrapper, true),
                                         true,  false, 0, 0, true);
 
                             DatabaseHandler.getInstance(dataWrapper.context).setEventCalendarTimes(event);

@@ -121,6 +121,7 @@ class AddEventAdapter extends BaseAdapter {
             String eventName = event._name;
             if (position == 0)
                 eventName = context.getString(R.string.new_empty_event);
+            /*
             if (ApplicationPreferences.applicationEventUsePriority) {
                 String eventPriority;
                 if (event._priority == Event.EPRIORITY_DO_NOT_USE)
@@ -137,14 +138,14 @@ class AddEventAdapter extends BaseAdapter {
                 else
                     eventName = eventName + StringConstants.CHAR_NEW_LINE + eventPriority;
             }
-            else {
-                if (event._ignoreManualActivation) {
-                    if (event._noPauseByManualActivation)
-                        eventName = eventName + StringConstants.CHAR_NEW_LINE + StringConstants.STR_DOUBLE_ARROW_INDICATOR;
-                    else
-                        eventName = eventName + StringConstants.CHAR_NEW_LINE + StringConstants.STR_ARROW_INDICATOR;
-                }
+            else {*/
+            if (event._ignoreManualActivation) {
+                if (event._noPauseByManualActivation)
+                    eventName = eventName + StringConstants.CHAR_NEW_LINE + StringConstants.STR_DOUBLE_ARROW_INDICATOR;
+                else
+                    eventName = eventName + StringConstants.CHAR_NEW_LINE + StringConstants.STR_ARROW_INDICATOR;
             }
+            //}
 
             if (!event._startWhenActivatedProfile.isEmpty()) {
                 String[] splits = event._startWhenActivatedProfile.split(StringConstants.STR_SPLIT_REGEX);

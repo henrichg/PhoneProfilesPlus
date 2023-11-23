@@ -1486,9 +1486,50 @@ class Event {
         _eventPreferencesVPN.setCategorySummary(prefMng, preferences, context);
     }
 
-    String getPreferencesDescription(Context context, boolean addPassStatus)
+    String getPreferencesDescription(Context context, DataWrapper _dataWrapper, boolean addPassStatus)
     {
         StringBuilder _value = new StringBuilder();
+
+        if (ApplicationPreferences.applicationEventUsePriority) {
+            String passStatusString;
+            if (EventStatic.getGlobalEventsRunning(context) && addPassStatus && (getStatusFromDB(context) != Event.ESTATUS_STOP)) {
+                int sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                DataWrapper dataWrapper;
+                if (_dataWrapper == null) {
+                    dataWrapper = new DataWrapper(context, false, 0, false, 0, 0, 0f);
+                    /*List<EventTimeline> eventTimelineList = */dataWrapper.getEventTimelineList(true);
+                } else
+                    dataWrapper = _dataWrapper;
+                // search for running event with higher priority
+                if (ApplicationPreferences.applicationEventUsePriority) {
+                    for (EventTimeline eventTimeline : dataWrapper.eventTimelines) {
+                        int priority = dataWrapper.getEventPriority(eventTimeline._fkEvent);
+                        if ((this._priority != EPRIORITY_DO_NOT_USE) &&
+                                (priority != EPRIORITY_DO_NOT_USE) &&
+                                (priority > this._priority)) {
+                            // is running event with higher priority
+                            sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        }
+                    }
+                }
+                passStatusString = EventPreferences._getPassStatusString(sensorPassed, context.getString(R.string.event_preferences_priority), context);
+            } else {
+                passStatusString = "["+StringConstants.CHAR_HARD_SPACE_HTML + context.getString(R.string.event_preferences_priority) + StringConstants.CHAR_HARD_SPACE_HTML+"]";//+":";
+            }
+
+            String eventPriority;
+            String[] stringArray = context.getResources().getStringArray(R.array.eventPriorityArray);
+            if (_priority == Event.EPRIORITY_DO_NOT_USE)
+                eventPriority = stringArray[11];
+            else
+                eventPriority = stringArray[Event.EPRIORITY_HIGHEST - _priority];
+
+            String desc = StringConstants.TAG_BOLD_START_HTML +
+                    passStatusString +
+                    StringConstants.TAG_BOLD_END_WITH_SPACE_HTML +
+                    " " + eventPriority;
+            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
+        }
 
         if (_eventPreferencesTime._enabled) {
             String desc = _eventPreferencesTime.getPreferencesDescription(true, addPassStatus, false, context);

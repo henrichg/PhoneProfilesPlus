@@ -134,7 +134,7 @@ class AddEventDialog
                     if (event._fkProfileEnd == 0)
                         profileNotExists = true;
                     event._peferencesDecription = StringFormatUtils.fromHtml(
-                            event.getPreferencesDescription(activity, false),
+                            event.getPreferencesDescription(activity, null, false),
                             true, false, 0, 0, true);
                     _eventList.add(event);
                 }

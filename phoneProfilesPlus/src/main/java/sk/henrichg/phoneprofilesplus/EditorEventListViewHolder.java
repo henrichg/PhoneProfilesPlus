@@ -210,15 +210,15 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             String eventStartOrder = "[O:" + event._startOrder + "] ";
             if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
                 eventStartOrder = "";
-            String eventPriority = "";
+            /*String eventPriority = "";
             if (ApplicationPreferences.applicationEventUsePriority) {
                 if (event._priority == Event.EPRIORITY_DO_NOT_USE)
                     eventPriority = "[P:--]";
                 else
                     eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
-            }
+            }*/
             boolean addedLF = false;
-            if (eventStartOrder.isEmpty() && eventPriority.isEmpty()) {
+            if (eventStartOrder.isEmpty()/* && eventPriority.isEmpty()*/) {
                 if (event._ignoreManualActivation) {
                     addedLF = true;
                     if (event._noPauseByManualActivation)
@@ -232,11 +232,11 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 addedLF = true;
                 if (event._ignoreManualActivation) {
                     if (event._noPauseByManualActivation)
-                        _eventName = event._name + StringConstants.CHAR_NEW_LINE + eventStartOrder + eventPriority + "["+StringConstants.STR_DOUBLE_ARROW+"]";
+                        _eventName = event._name + StringConstants.CHAR_NEW_LINE + eventStartOrder /*+ eventPriority*/ + "["+StringConstants.STR_DOUBLE_ARROW+"]";
                     else
-                        _eventName = event._name + StringConstants.CHAR_NEW_LINE + eventStartOrder + eventPriority + "["+StringConstants.CHAR_ARROW +"]";
+                        _eventName = event._name + StringConstants.CHAR_NEW_LINE + eventStartOrder /*+ eventPriority*/ + "["+StringConstants.CHAR_ARROW +"]";
                 } else
-                    _eventName = event._name + StringConstants.CHAR_NEW_LINE + eventStartOrder + eventPriority;
+                    _eventName = event._name + StringConstants.CHAR_NEW_LINE + eventStartOrder /*+ eventPriority*/;
             }
 
             if (!event._startWhenActivatedProfile.isEmpty()) {

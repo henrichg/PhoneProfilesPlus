@@ -74,23 +74,27 @@ abstract class EventPreferences {
     String getPassStatusString(String sensorTitle, boolean addPassStatus, int eventType, Context context) {
         if (EventStatic.getGlobalEventsRunning(context) && addPassStatus && (this._event != null) && (this._event.getStatusFromDB(context) != Event.ESTATUS_STOP)) {
             int sensorPassed = getSensorPassedFromDB(eventType, context);
-            if (/*(!Event.getGlobalEventsRunning()) ||*/ (sensorPassed & SENSOR_PASSED_WAITING) == SENSOR_PASSED_WAITING) {
-                int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_WAITING, context);
-                String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
-                return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, "["+StringConstants.CHAR_HARD_SPACE_HTML+sensorTitle+StringConstants.CHAR_HARD_SPACE_HTML+"]");
-            }
-            if ((sensorPassed & SENSOR_PASSED_PASSED) == SENSOR_PASSED_PASSED) {
-                int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_PASSED, context);
-                String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
-                return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, "["+StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_ARROW +StringConstants.CHAR_HARD_SPACE_HTML+sensorTitle+StringConstants.CHAR_HARD_SPACE_HTML+"]");
-            }
-            else {
-                int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_NOT_PASSED, context);
-                String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
-                return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, "["+StringConstants.CHAR_HARD_SPACE_HTML+sensorTitle+StringConstants.CHAR_HARD_SPACE_HTML+"]");
-            }
+            return _getPassStatusString(sensorPassed, sensorTitle, context);
         } else {
             return "["+StringConstants.CHAR_HARD_SPACE_HTML + sensorTitle + StringConstants.CHAR_HARD_SPACE_HTML+"]";//+":";
+        }
+    }
+
+    static String _getPassStatusString(int sensorPassed, String sensorTitle, Context context) {
+        if ((sensorPassed & SENSOR_PASSED_WAITING) == SENSOR_PASSED_WAITING) {
+            int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_WAITING, context);
+            String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
+            return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, "["+StringConstants.CHAR_HARD_SPACE_HTML+sensorTitle+StringConstants.CHAR_HARD_SPACE_HTML+"]");
+        }
+        if ((sensorPassed & SENSOR_PASSED_PASSED) == SENSOR_PASSED_PASSED) {
+            int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_PASSED, context);
+            String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
+            return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, "["+StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_ARROW +StringConstants.CHAR_HARD_SPACE_HTML+sensorTitle+StringConstants.CHAR_HARD_SPACE_HTML+"]");
+        }
+        else {
+            int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_NOT_PASSED, context);
+            String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
+            return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, "["+StringConstants.CHAR_HARD_SPACE_HTML+sensorTitle+StringConstants.CHAR_HARD_SPACE_HTML+"]");
         }
     }
 
