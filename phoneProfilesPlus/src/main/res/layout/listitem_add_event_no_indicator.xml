@@ -32,6 +32,7 @@
             android:text="@string/event_name_default"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:textColor="@color/activityNormalTextColor"
             android:scrollHorizontally="true"
             android:ellipsize="end" />
 
@@ -62,6 +63,7 @@
                 android:text="@string/profile_preference_profile_not_set"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                android:textColor="@color/activityNormalTextColor"
                 android:ellipsize="end"
                 android:maxLines="1"/>
 
@@ -94,6 +96,7 @@
                 android:text="@string/profile_preference_profile_not_set"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                android:textColor="@color/activityNormalTextColor"
                 android:ellipsize="end"
                 android:maxLines="1"/>
 
