@@ -1524,10 +1524,16 @@ class Event {
             else
                 eventPriority = stringArray[Event.EPRIORITY_HIGHEST - _priority];
 
+            int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
+            String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
+
             String desc = StringConstants.TAG_BOLD_START_HTML +
                     passStatusString +
                     StringConstants.TAG_BOLD_END_WITH_SPACE_HTML +
-                    " " + eventPriority;
+                    " " +
+                    StringConstants.TAG_BOLD_START_HTML +
+                    String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, eventPriority) +
+                    StringConstants.TAG_BOLD_END_HTML;
             _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
