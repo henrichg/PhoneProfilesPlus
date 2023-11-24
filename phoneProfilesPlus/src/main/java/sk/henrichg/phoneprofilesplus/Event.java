@@ -1514,9 +1514,9 @@ class Event {
                 }
                 passStatusString = EventPreferences._getPassStatusString(sensorPassed, context.getString(R.string.event_preferences_priority), context);
             } else {
-                int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
-                String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
-                passStatusString = String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, "["+StringConstants.CHAR_HARD_SPACE_HTML + context.getString(R.string.event_preferences_priority) + StringConstants.CHAR_HARD_SPACE_HTML+"]");
+                passStatusString = "["+StringConstants.CHAR_HARD_SPACE_HTML + context.getString(R.string.event_preferences_priority) + StringConstants.CHAR_HARD_SPACE_HTML+"]";//+":";                //int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
+                //String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
+                //passStatusString = String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, "["+StringConstants.CHAR_HARD_SPACE_HTML + context.getString(R.string.event_preferences_priority) + StringConstants.CHAR_HARD_SPACE_HTML+"]");
             }
 
             String eventPriority;
