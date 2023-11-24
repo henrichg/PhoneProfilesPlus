@@ -164,6 +164,7 @@ class AddEventAdapter extends BaseAdapter {
                 sbt.setSpan(new RelativeSizeSpan(0.8f), context.getString(R.string.new_empty_event).length(), eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             else
                 sbt.setSpan(new RelativeSizeSpan(0.8f), event._name.length(), eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            holder.eventName.setTextColor(ContextCompat.getColor(context, R.color.activityNormalTextColor));
             holder.eventName.setText(sbt);
 
             if (applicationEditorPrefIndicator)

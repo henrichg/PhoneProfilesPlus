@@ -76,7 +76,9 @@ abstract class EventPreferences {
             int sensorPassed = getSensorPassedFromDB(eventType, context);
             return _getPassStatusString(sensorPassed, sensorTitle, context);
         } else {
-            return "["+StringConstants.CHAR_HARD_SPACE_HTML + sensorTitle + StringConstants.CHAR_HARD_SPACE_HTML+"]";//+":";
+            int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
+            String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
+            return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, "["+StringConstants.CHAR_HARD_SPACE_HTML + sensorTitle + StringConstants.CHAR_HARD_SPACE_HTML+"]");
         }
     }
 
