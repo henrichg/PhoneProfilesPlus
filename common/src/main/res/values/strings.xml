@@ -193,11 +193,11 @@
     <string name="event_preferences_category_endOfEvent">End of event</string>
     <string name="event_preference_profile_undone">Undo</string>
     <string name="event_preferences_priority">Priority</string>
-    <string name="array_event_pref_priorityVeryHigh">[P:9] Very high</string>
-    <string name="array_event_pref_priorityHigh">[P:7] High</string>
-    <string name="array_event_pref_priorityMedium">[P:5] Medium</string>
-    <string name="array_event_pref_priorityLow">[P:3] Low</string>
-    <string name="array_event_pref_priorityVeryLow">[P:1] Very low</string>
+    <string name="array_event_pref_priorityVeryHigh">9 - Very high</string>
+    <string name="array_event_pref_priorityHigh">7 - High</string>
+    <string name="array_event_pref_priorityMedium">5 - Medium</string>
+    <string name="array_event_pref_priorityLow">3 - Low</string>
+    <string name="array_event_pref_priorityVeryLow">1 - Very low</string>
     <string name="editor_drawer_order_priority">Priority</string>
     <string name="event_type_peripheral">Accessories</string>
     <string name="array_event_pref_peripheralType_deskDock">Desk dock</string>
@@ -222,12 +222,12 @@
     <string name="array_event_pref_calendarSearchField_description">Description</string>
     <string name="event_preferences_calendar_search_string">Search string</string>
     <string name="event_preferences_calendar_no_event">No event</string>
-    <string name="array_event_pref_priorityLowest">[P:0] Lowest</string>
-    <string name="array_event_pref_priorityLower">[P:2] Lower</string>
-    <string name="array_event_pref_priorityLowerMedium">[P:4] Lower medium</string>
-    <string name="array_event_pref_priorityUpperMedium">[P:6] Upper medium</string>
-    <string name="array_event_pref_priorityHigher">[P:8] Higher</string>
-    <string name="array_event_pref_priorityHighest">[P:10] Highest</string>
+    <string name="array_event_pref_priorityLowest">0 - Lowest</string>
+    <string name="array_event_pref_priorityLower">2 - Lower</string>
+    <string name="array_event_pref_priorityLowerMedium">4 - Lower medium</string>
+    <string name="array_event_pref_priorityUpperMedium">6 - Upper medium</string>
+    <string name="array_event_pref_priorityHigher">8 - Higher</string>
+    <string name="array_event_pref_priorityHighest">10 - Highest</string>
     <string name="event_type_wifi">Wi-Fi</string>
     <string name="event_preferences_category_eventWifiParameters">Wi-Fi sensor</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
@@ -2132,7 +2132,7 @@
 
     <string name="install_extender_install_droidify_button">Install Droid-ify</string>
 
-    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] Do not use</string>
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Do not use</string>
 
     <string name="contacts_filter_dialog_filter_title">Contacts filter</string>
     <string name="contacts_filter_dialog_item_show_all">[ All ]</string>
