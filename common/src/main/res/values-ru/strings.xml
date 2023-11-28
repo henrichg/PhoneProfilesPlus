@@ -188,11 +188,11 @@
     <string name="event_preferences_category_endOfEvent">Завершение события</string>
     <string name="event_preference_profile_undone">Аннулировать</string>
     <string name="event_preferences_priority">Приоритет</string>
-    <string name="array_event_pref_priorityVeryHigh">[P:9] Очень высокий</string>
-    <string name="array_event_pref_priorityHigh">[P:7] Высокий</string>
-    <string name="array_event_pref_priorityMedium">[P:5] Средний</string>
-    <string name="array_event_pref_priorityLow">[P:3] Низкий</string>
-    <string name="array_event_pref_priorityVeryLow">[P:1] Очень низкий</string>
+    <string name="array_event_pref_priorityVeryHigh">9 - Очень высокий</string>
+    <string name="array_event_pref_priorityHigh">7 - Высокий</string>
+    <string name="array_event_pref_priorityMedium">5 - Средний</string>
+    <string name="array_event_pref_priorityLow">3 - Низкий</string>
+    <string name="array_event_pref_priorityVeryLow">1 - Очень низкий</string>
     <string name="editor_drawer_order_priority">Приоритету</string>
     <string name="event_type_peripheral">Аксессуары</string>
     <string name="array_event_pref_peripheralType_deskDock">Док-станция</string>
@@ -217,12 +217,12 @@
     <string name="array_event_pref_calendarSearchField_description">Описании</string>
     <string name="event_preferences_calendar_search_string">Искомая строка</string>
     <string name="event_preferences_calendar_no_event">Нет мероприятия</string>
-    <string name="array_event_pref_priorityLowest">[0] Наименьший</string>
-    <string name="array_event_pref_priorityLower">[P:2] Ниже</string>
-    <string name="array_event_pref_priorityLowerMedium">[P:4] Ниже среднего</string>
-    <string name="array_event_pref_priorityUpperMedium">[P:6] Выше среднего</string>
-    <string name="array_event_pref_priorityHigher">[P:8] Выше</string>
-    <string name="array_event_pref_priorityHighest">[P:10] Наивысший</string>
+    <string name="array_event_pref_priorityLowest">0 - Наименьший</string>
+    <string name="array_event_pref_priorityLower">2 - Ниже</string>
+    <string name="array_event_pref_priorityLowerMedium">4 - Ниже среднего</string>
+    <string name="array_event_pref_priorityUpperMedium">6 - Выше среднего</string>
+    <string name="array_event_pref_priorityHigher">8 - Выше</string>
+    <string name="array_event_pref_priorityHighest">10 - Наивысший</string>
     <string name="event_type_wifi">Wi-Fi</string>
     <string name="event_preferences_category_eventWifiParameters">Датчик Wi-Fi</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
@@ -2110,7 +2110,7 @@
     <string name="grant_draw_over_apps_dialog_info_text">Необходимо предоставить разрешение \"Поверх других приложений\". Оно нужно для запуска activities, когда PhoneProfilesPlus находится в фоновом режиме. Чтобы предоставить это разрешение, нажмите на кнопку \"Предоставить\".</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Если предоставить разрешение не удалось, нажмите на эту ссылку. Возможно, по ней вы найдёте решение этой проблемы для вашего устройства:</string>
     <string name="install_extender_install_droidify_button">Установить Droid-ify</string>
-    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] Не использовать</string>
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Не использовать</string>
     <string name="contacts_filter_dialog_filter_title">Фильтр контактов</string>
     <string name="contacts_filter_dialog_item_show_all">[ Все ]</string>
     <string name="profile_preferences_types_shizuku_permission">Предоставить разрешение Shizuku</string>
@@ -2127,7 +2127,6 @@
     <string name="grant_shizuku_permissions_text1">Shizuku требуется разрешение</string>
     <string name="grant_shizuku_permissions_text2">Предоставьте его, пожалуйста, в следующем диалоговом окне. После этого Shizuku можно будет использовать для некоторых параметров профиля.</string>
     <string name="preference_not_allowed_reason_not_granted_shizuku">не установлено, не запущено приложение или не предоставлено разрешение Shizuku</string>
-    <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
     <string name="profile_preferences_preferenceTypesInfo_summary">Нажмите сюда, чтобы посмотреть информацию о типах параметров: (S), (G1), (R), (Z), (I).</string>
     <string name="profile_preferences_deviceMobileData_21">(Z)(R) Мобильный интернет</string>
     <string name="array_pref_airplaneModeArray_root_on">(Z)(R) Включить</string>

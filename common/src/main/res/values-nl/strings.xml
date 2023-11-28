@@ -188,11 +188,11 @@
     <string name="event_preferences_category_endOfEvent">Einde van event</string>
     <string name="event_preference_profile_undone">Ongedaan maken</string>
     <string name="event_preferences_priority">Prioriteit</string>
-    <string name="array_event_pref_priorityVeryHigh">[P:9] Heel hoog</string>
-    <string name="array_event_pref_priorityHigh">[P:7] Hoog</string>
-    <string name="array_event_pref_priorityMedium">[P:5] Gemiddeld</string>
-    <string name="array_event_pref_priorityLow">[P:3] Laag</string>
-    <string name="array_event_pref_priorityVeryLow">[P:1] Heel laag</string>
+    <string name="array_event_pref_priorityVeryHigh">9 - Heel hoog</string>
+    <string name="array_event_pref_priorityHigh">7 - Hoog</string>
+    <string name="array_event_pref_priorityMedium">5 - Gemiddeld</string>
+    <string name="array_event_pref_priorityLow">3 - Laag</string>
+    <string name="array_event_pref_priorityVeryLow">1 - Heel laag</string>
     <string name="editor_drawer_order_priority">Prioriteit</string>
     <string name="event_type_peripheral">Accessoires</string>
     <string name="array_event_pref_peripheralType_deskDock">Bureau dock</string>
@@ -217,12 +217,12 @@
     <string name="array_event_pref_calendarSearchField_description">Beschrijving</string>
     <string name="event_preferences_calendar_search_string">Zoektekst</string>
     <string name="event_preferences_calendar_no_event">Geen event</string>
-    <string name="array_event_pref_priorityLowest">[P:0] Laagste</string>
-    <string name="array_event_pref_priorityLower">[P:2] Lager</string>
-    <string name="array_event_pref_priorityLowerMedium">[P:4] Lager medium</string>
-    <string name="array_event_pref_priorityUpperMedium">[P:6] Hoger medium</string>
-    <string name="array_event_pref_priorityHigher">[P:8] Hoger</string>
-    <string name="array_event_pref_priorityHighest">[P:10] Hoogste</string>
+    <string name="array_event_pref_priorityLowest">0 - Laagste</string>
+    <string name="array_event_pref_priorityLower">2 - Lager</string>
+    <string name="array_event_pref_priorityLowerMedium">4 - Lager medium</string>
+    <string name="array_event_pref_priorityUpperMedium">6 - Hoger medium</string>
+    <string name="array_event_pref_priorityHigher">8 - Hoger</string>
+    <string name="array_event_pref_priorityHighest">10 - Hoogste</string>
     <string name="event_type_wifi">Wi-Fi</string>
     <string name="event_preferences_category_eventWifiParameters">Wi-Fi-sensor</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
@@ -2110,7 +2110,7 @@
     <string name="grant_draw_over_apps_dialog_info_text">Je moet \"Weergeven over apps\" toestaan. Dit is vereist om activiteiten te starten wanneer PhoneProfilesPlus op de achtergrond is. Klik op de knop \"Machtigen\" om deze toestemming te verlenen.</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Als het niet mogelijk is deze toestemming te verlenen, klik je op deze link. Misschien vind je op deze webpagina de oplossing voor je toestel:</string>
     <string name="install_extender_install_droidify_button">Installeer Droid-ify</string>
-    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] Niet gebruiken</string>
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Niet gebruiken</string>
     <string name="contacts_filter_dialog_filter_title">Contacten filter</string>
     <string name="contacts_filter_dialog_item_show_all">[ Alle ]</string>
     <string name="profile_preferences_types_shizuku_permission">Toegang verlenen aan Shizuku</string>
@@ -2127,7 +2127,6 @@
     <string name="grant_shizuku_permissions_text1">Shizuku heeft toestemming nodig</string>
     <string name="grant_shizuku_permissions_text2">Sta het toe in de volgende schermen. Shizuku kan dan gebruikt worden voor enkele profielinstellingen.</string>
     <string name="preference_not_allowed_reason_not_granted_shizuku">niet geïnstalleerde, uitgevoerde of verleende Shizuku</string>
-    <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
     <string name="profile_preferences_preferenceTypesInfo_summary">Klik hier om informatie te tonen over voorkeur types: (S), (G1), (R), (Z), (I).</string>
     <string name="profile_preferences_deviceMobileData_21">(Z)(R) Mobiele data</string>
     <string name="array_pref_airplaneModeArray_root_on">(Z)(R) Aan</string>

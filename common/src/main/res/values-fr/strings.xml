@@ -188,11 +188,11 @@
     <string name="event_preferences_category_endOfEvent">Fin de l\'événement</string>
     <string name="event_preference_profile_undone">Annuler</string>
     <string name="event_preferences_priority">Priorité</string>
-    <string name="array_event_pref_priorityVeryHigh">[P:9] Très haute</string>
-    <string name="array_event_pref_priorityHigh">[P:7] Haute</string>
-    <string name="array_event_pref_priorityMedium">[P:5] Moyenne</string>
-    <string name="array_event_pref_priorityLow">[P:3] Basse</string>
-    <string name="array_event_pref_priorityVeryLow">[P:1] Très basse</string>
+    <string name="array_event_pref_priorityVeryHigh">9 - Très haute</string>
+    <string name="array_event_pref_priorityHigh">7 - Haute</string>
+    <string name="array_event_pref_priorityMedium">5 - Moyenne</string>
+    <string name="array_event_pref_priorityLow">3 - Basse</string>
+    <string name="array_event_pref_priorityVeryLow">1 - Très basse</string>
     <string name="editor_drawer_order_priority">Priorité</string>
     <string name="event_type_peripheral">Accessoires</string>
     <string name="array_event_pref_peripheralType_deskDock">Dock Bureau</string>
@@ -217,12 +217,12 @@
     <string name="array_event_pref_calendarSearchField_description">Description</string>
     <string name="event_preferences_calendar_search_string">Chaîne de recherche</string>
     <string name="event_preferences_calendar_no_event">Aucun événement</string>
-    <string name="array_event_pref_priorityLowest">[P:0] Le plus bas</string>
-    <string name="array_event_pref_priorityLower">[P:2] Bas</string>
-    <string name="array_event_pref_priorityLowerMedium">[P:4] Moyennement bas</string>
-    <string name="array_event_pref_priorityUpperMedium">[P:6] Moyennement haut</string>
-    <string name="array_event_pref_priorityHigher">[P:8] Haut</string>
-    <string name="array_event_pref_priorityHighest">[P:10] Le plus haut</string>
+    <string name="array_event_pref_priorityLowest">0 - Le plus bas</string>
+    <string name="array_event_pref_priorityLower">2 - Bas</string>
+    <string name="array_event_pref_priorityLowerMedium">4 - Moyennement bas</string>
+    <string name="array_event_pref_priorityUpperMedium">6 - Moyennement haut</string>
+    <string name="array_event_pref_priorityHigher">8 - Haut</string>
+    <string name="array_event_pref_priorityHighest">10 - Le plus haut</string>
     <string name="event_type_wifi">Wi-Fi</string>
     <string name="event_preferences_category_eventWifiParameters">Capteur WiFi</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
@@ -2107,19 +2107,19 @@
     <string name="export_settings_delete_contacts_data_calls">Contacts pour le capteur d\'appel</string>
     <string name="export_settings_delete0_contacts_data_sms">Contacts pour le capteur SMS/MMS</string>
     <string name="export_settings_delete_contacts_data_notification">Contacts pour le capteur de notification</string>
-    <string name="grant_draw_over_apps_dialog_info_text">Vous devez accorder l\'autorisation \"Superposition sur d\'autres applications\". Elle est nécessaire pour démarrer des activités lorsque PhoneProfilesPlus est en arrière-plan. Cliquez sur le bouton « Accorder » pour accorder cette autorisation.</string>
-    <string name="grant_draw_over_apps_dialog_when_not_possible_text">S\'il n\'est pas possible d\'accorder cette autorisation, cliquez sur ce lien. Peut-être que cette page Web contient une solution pour votre appareil :</string>
+    <string name="grant_draw_over_apps_dialog_info_text">Vous devez accorder l\'autorisation \"Superposition des applications\". Elle est nécessaire au bon fonctionnement de PhoneProfilesPlus en arrière-plan. Cliquez sur le bouton « Accorder » pour accorder cette autorisation.</string>
+    <string name="grant_draw_over_apps_dialog_when_not_possible_text">S\'il n\'est pas possible d\'accorder cette autorisation, cliquez sur ce lien. Cette page Web contient peut-être une solution pour votre appareil :</string>
     <string name="install_extender_install_droidify_button">Installer Droid-ify</string>
-    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] Ne pas utiliser</string>
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Ne pas utiliser</string>
     <string name="contacts_filter_dialog_filter_title">Filtre de contacts</string>
     <string name="contacts_filter_dialog_item_show_all">[ Tous ]</string>
     <string name="profile_preferences_types_shizuku_permission">Accorder la permission à Shizuku</string>
     <string name="phone_profiles_pref_grantShizukuPermission_summary1">Certaines préférences de profil nécessitent Shizuku. L\'accès ROOT n\'est pas obligatoire. Ces préférences sont marquées d\'un \"(Z)\".</string>
-    <string name="phone_profiles_pref_grantShizukuPermission_summary2">Veuillez installer, exécuter et accorder à Shizuku l\'autorisation pour PhoneProfilesPlus. Cela est nécessaire pour les paramètres de profil et d’événement marqués d’un (Z). L\'accès ROOT ne sera pas nécessaire.</string>
+    <string name="phone_profiles_pref_grantShizukuPermission_summary2">Veuillez installer, exécuter et accorder à Shizuku l\'autorisation pour PhoneProfilesPlus. C\'est nécessaire pour les paramètres de profil et d’événement marqués d’un (Z). L\'accès ROOT ne sera pas nécessaire.</string>
     <string name="preferences_grantShizukuPreferences_title">Autorisation pour les préférences (Z) non accordée</string>
     <string name="preferences_grantShizukuPreferences_summary">Cliquez ici pour l\'accorder.</string>
     <string name="phone_profiles_pref_shizuku_is_not_running">Shizuku n\'est ni installé ni en cours d\'exécution. </string>
-    <string name="profile_preferences_types_shizuku_show_info1">Cliquez ici pour afficher plus d\'informations.</string>
+    <string name="profile_preferences_types_shizuku_show_info1">Cliquez ici pour plus d\'informations.</string>
     <string name="profile_preferences_types_shizuku_show_info2">Cliquez ici pour l\'accorder.</string>
     <string name="important_info_profile_shizuku_howTo_1">Les paramètres de profil marqués d\'un (Z) nécessitent Shizuku.</string>
     <string name="important_info_profile_shizuku_howTo_2">Cliquez ici pour télécharger Shizuku.</string>
@@ -2127,7 +2127,6 @@
     <string name="grant_shizuku_permissions_text1">Shizuku nécessite une autorisation</string>
     <string name="grant_shizuku_permissions_text2">Veuillez les accorder dans la prochaine boîte de dialogue. Shizuku peut alors être utilisé pour certains paramètres de profil.</string>
     <string name="preference_not_allowed_reason_not_granted_shizuku">Shizuku n\'est pas en cours d\'exécution, n\'a pas d\'autorisation, ou n\'est pas installé</string>
-    <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
     <string name="profile_preferences_preferenceTypesInfo_summary">Cliquez ici pour afficher des informations sur les types de préférences: (S), (G1), (R), (Z), (I).</string>
     <string name="profile_preferences_deviceMobileData_21">(Z)(R) Données mobiles</string>
     <string name="array_pref_airplaneModeArray_root_on">(Z)(R) Activé</string>

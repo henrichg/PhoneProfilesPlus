@@ -188,11 +188,11 @@
     <string name="event_preferences_category_endOfEvent">时间结束时</string>
     <string name="event_preference_profile_undone">撤销</string>
     <string name="event_preferences_priority">优先级</string>
-    <string name="array_event_pref_priorityVeryHigh">[P:9]非常高</string>
-    <string name="array_event_pref_priorityHigh">[P:7]高</string>
-    <string name="array_event_pref_priorityMedium">[P:5]中等</string>
-    <string name="array_event_pref_priorityLow">[P:3]低</string>
-    <string name="array_event_pref_priorityVeryLow">[P:1] 非常低</string>
+    <string name="array_event_pref_priorityVeryHigh">9 - 非常高</string>
+    <string name="array_event_pref_priorityHigh">7 - 高</string>
+    <string name="array_event_pref_priorityMedium">5 - 中等</string>
+    <string name="array_event_pref_priorityLow">3 - 低</string>
+    <string name="array_event_pref_priorityVeryLow">1 - 非常低</string>
     <string name="editor_drawer_order_priority">优先级</string>
     <string name="event_type_peripheral">配件</string>
     <string name="array_event_pref_peripheralType_deskDock">台式基座</string>
@@ -217,12 +217,12 @@
     <string name="array_event_pref_calendarSearchField_description">描述</string>
     <string name="event_preferences_calendar_search_string">搜索字符串</string>
     <string name="event_preferences_calendar_no_event">暂无事件</string>
-    <string name="array_event_pref_priorityLowest">[P:0] 最低</string>
-    <string name="array_event_pref_priorityLower">[P:2] 较低</string>
-    <string name="array_event_pref_priorityLowerMedium">[P:4] 中下</string>
-    <string name="array_event_pref_priorityUpperMedium">[P:6] 中上</string>
-    <string name="array_event_pref_priorityHigher">[P:8] 较高</string>
-    <string name="array_event_pref_priorityHighest">[P:10] 最高</string>
+    <string name="array_event_pref_priorityLowest">0 - 最低</string>
+    <string name="array_event_pref_priorityLower">2 - 较低</string>
+    <string name="array_event_pref_priorityLowerMedium">4 - 中下</string>
+    <string name="array_event_pref_priorityUpperMedium">6 - 中上</string>
+    <string name="array_event_pref_priorityHigher">8 - 较高</string>
+    <string name="array_event_pref_priorityHighest">10 - 最高</string>
     <string name="event_type_wifi">Wi-Fi</string>
     <string name="event_preferences_category_eventWifiParameters">Wi-Fi 传感器</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
@@ -2110,7 +2110,7 @@
     <string name="grant_draw_over_apps_dialog_info_text">您必须授予“在其他应用上显示”权限。它需要在 PhoneProfilesPlus 处于后台时激活。点击按钮授权。</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">若无法授权，请点击此链接获取您设备的解决方案：</string>
     <string name="install_extender_install_droidify_button">安装 Droid-ify</string>
-    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] 不使用</string>
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - 不使用</string>
     <string name="contacts_filter_dialog_filter_title">联系人筛选</string>
     <string name="contacts_filter_dialog_item_show_all">[ 全部 ]</string>
     <string name="profile_preferences_types_shizuku_permission">授予 Shizuku 权限</string>
@@ -2127,7 +2127,6 @@
     <string name="grant_shizuku_permissions_text1">Shizuku 需要权限</string>
     <string name="grant_shizuku_permissions_text2">请在下个对话框中授权。Shizuku 可用于一些情景参数。</string>
     <string name="preference_not_allowed_reason_not_granted_shizuku">没有 安装、运行或授权 Shizuku</string>
-    <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
     <string name="profile_preferences_preferenceTypesInfo_summary">点击这里显示有关设置类型的信息：(S)、(G1)、(R)、(Z)、(I)。</string>
     <string name="profile_preferences_deviceMobileData_21">(Z)(R) 移动数据</string>
     <string name="array_pref_airplaneModeArray_root_on">(Z)(R) 开启</string>

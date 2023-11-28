@@ -188,11 +188,11 @@
     <string name="event_preferences_category_endOfEvent">Koniec udalosti</string>
     <string name="event_preference_profile_undone">Vráť späť</string>
     <string name="event_preferences_priority">Priorita</string>
-    <string name="array_event_pref_priorityVeryHigh">[P:9] Veľmi vysoká</string>
-    <string name="array_event_pref_priorityHigh">[P:7] Vysoká</string>
-    <string name="array_event_pref_priorityMedium">[P:5] Stredná</string>
-    <string name="array_event_pref_priorityLow">[P:3] Nízka</string>
-    <string name="array_event_pref_priorityVeryLow">[P:1] Veľmi nízka</string>
+    <string name="array_event_pref_priorityVeryHigh">9 - Veľmi vysoká</string>
+    <string name="array_event_pref_priorityHigh">7 - Vysoká</string>
+    <string name="array_event_pref_priorityMedium">5 - Stredná</string>
+    <string name="array_event_pref_priorityLow">3 - Nízka</string>
+    <string name="array_event_pref_priorityVeryLow">1 - Veľmi nízka</string>
     <string name="editor_drawer_order_priority">Priorita</string>
     <string name="event_type_peripheral">Príslušenstvo</string>
     <string name="array_event_pref_peripheralType_deskDock">Dokovacia stanica</string>
@@ -217,12 +217,12 @@
     <string name="array_event_pref_calendarSearchField_description">Popis</string>
     <string name="event_preferences_calendar_search_string">Hľadaný reťazec</string>
     <string name="event_preferences_calendar_no_event">Žiadna udalosť</string>
-    <string name="array_event_pref_priorityLowest">[P:0] Najnižšia</string>
-    <string name="array_event_pref_priorityLower">[P:2] Ešte nižšia</string>
-    <string name="array_event_pref_priorityLowerMedium">[P:4] Stredne nízka</string>
-    <string name="array_event_pref_priorityUpperMedium">[P:6] Stredne vysoká</string>
-    <string name="array_event_pref_priorityHigher">[P:8] Ešte vyššia</string>
-    <string name="array_event_pref_priorityHighest">[P:10] Najvyššia</string>
+    <string name="array_event_pref_priorityLowest">0 - Najnižšia</string>
+    <string name="array_event_pref_priorityLower">2 - Ešte nižšia</string>
+    <string name="array_event_pref_priorityLowerMedium">4 - Stredne nízka</string>
+    <string name="array_event_pref_priorityUpperMedium">6 - Stredne vysoká</string>
+    <string name="array_event_pref_priorityHigher">8 - Ešte vyššia</string>
+    <string name="array_event_pref_priorityHighest">10 - Najvyššia</string>
     <string name="event_type_wifi">Wi-Fi</string>
     <string name="event_preferences_category_eventWifiParameters">Senzor Wi-Fi</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
@@ -2110,7 +2110,7 @@
     <string name="grant_draw_over_apps_dialog_info_text">Musíte udeliť povolenie \"Vykresliť cez ďalšie aplikácie\". Je vyžadované pre štart aktivít keď je PhoneProfilesPlus na pozadí. Kliknite na tlačítko \"Udeliť\" pre udelenie tohoto povolenia.</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Ak toto povolenie nie je možné udeliť, kliknite na tento odkaz. Možno na tejto webovej stránke je riešenie pre vaše zariadenie:</string>
     <string name="install_extender_install_droidify_button">Nainštaluj Droid-ify</string>
-    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] Nepoužívať</string>
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Nepoužívať</string>
     <string name="contacts_filter_dialog_filter_title">Filter kontaktov</string>
     <string name="contacts_filter_dialog_item_show_all">[ Všetko ]</string>
     <string name="profile_preferences_types_shizuku_permission">Udeliť Shizuku povolenie</string>
@@ -2127,7 +2127,6 @@
     <string name="grant_shizuku_permissions_text1">Shizuku vyžaduje povolenie</string>
     <string name="grant_shizuku_permissions_text2">Udeľte ho v nasledujúcom dialógu. Shizuku potom možno použiť pre niektoré parametre profilu.</string>
     <string name="preference_not_allowed_reason_not_granted_shizuku">nie je nainštalovaný, spustený alebo povolený Shizuku</string>
-    <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
     <string name="profile_preferences_preferenceTypesInfo_summary">Kliknite sem pre zobrazenie informácií o typoch parametrov: (S), (G1), (R), (Z), (I).</string>
     <string name="profile_preferences_deviceMobileData_21">(Z)(R) Mobilné dáta</string>
     <string name="array_pref_airplaneModeArray_root_on">(Z)(R) Zapnúť</string>

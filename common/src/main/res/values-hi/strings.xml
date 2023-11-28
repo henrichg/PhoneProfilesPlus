@@ -188,11 +188,11 @@
     <string name="event_preferences_category_endOfEvent">मेनू का अंत</string>
     <string name="event_preference_profile_undone">Undo</string>
     <string name="event_preferences_priority">प्राथमिकता</string>
-    <string name="array_event_pref_priorityVeryHigh">[P:9] बहुत अधिक</string>
-    <string name="array_event_pref_priorityHigh">[P:7] उच्च</string>
-    <string name="array_event_pref_priorityMedium">[P:5] मध्यम</string>
-    <string name="array_event_pref_priorityLow">[P:3] कम</string>
-    <string name="array_event_pref_priorityVeryLow">[P:1] बहुत कम</string>
+    <string name="array_event_pref_priorityVeryHigh">9 - Very high</string>
+    <string name="array_event_pref_priorityHigh">7 - High</string>
+    <string name="array_event_pref_priorityMedium">5 - Medium</string>
+    <string name="array_event_pref_priorityLow">3 - Low</string>
+    <string name="array_event_pref_priorityVeryLow">1 - Very low</string>
     <string name="editor_drawer_order_priority">प्राथमिकता</string>
     <string name="event_type_peripheral">सहायक उपकरण</string>
     <string name="array_event_pref_peripheralType_deskDock">मेज घड़ी</string>
@@ -217,12 +217,12 @@
     <string name="array_event_pref_calendarSearchField_description">विवरण</string>
     <string name="event_preferences_calendar_search_string">खोज स्ट्रिंग</string>
     <string name="event_preferences_calendar_no_event">कोई ईवेंट</string>
-    <string name="array_event_pref_priorityLowest">[P:0] न्यूनतम</string>
-    <string name="array_event_pref_priorityLower">[P:0] न्यूनतम</string>
-    <string name="array_event_pref_priorityLowerMedium">[P:4] लोअर मीडियम</string>
-    <string name="array_event_pref_priorityUpperMedium">[P:4] लोअर मीडियम</string>
-    <string name="array_event_pref_priorityHigher">[P:7] उच्च</string>
-    <string name="array_event_pref_priorityHighest">[P:7] उच्च</string>
+    <string name="array_event_pref_priorityLowest">0 - Lowest</string>
+    <string name="array_event_pref_priorityLower">2 - Lower</string>
+    <string name="array_event_pref_priorityLowerMedium">4 - Lower medium</string>
+    <string name="array_event_pref_priorityUpperMedium">6 - Upper medium</string>
+    <string name="array_event_pref_priorityHigher">8 - Higher</string>
+    <string name="array_event_pref_priorityHighest">10 - Highest</string>
     <string name="event_type_wifi">Wi-Fi</string>
     <string name="event_preferences_category_eventWifiParameters">Wi-Fi संवेदक</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
@@ -2110,7 +2110,7 @@
     <string name="grant_draw_over_apps_dialog_info_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click button \"Grant\" to grant this permission.</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, click this link. Maybe in this web page is solution for your device:</string>
     <string name="install_extender_install_droidify_button">Install Droid-ify</string>
-    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] Do not use</string>
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Do not use</string>
     <string name="contacts_filter_dialog_filter_title">Contacts filter</string>
     <string name="contacts_filter_dialog_item_show_all">[ All ]</string>
     <string name="profile_preferences_types_shizuku_permission">Grant Shizuku permission</string>
@@ -2127,7 +2127,6 @@
     <string name="grant_shizuku_permissions_text1">Shizuku requires permission</string>
     <string name="grant_shizuku_permissions_text2">Please grant them in next dialog. Shizuku then can be used for some profile parameters.</string>
     <string name="preference_not_allowed_reason_not_granted_shizuku">not installed, running or granted Shizuku</string>
-    <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
     <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (S), (G1), (R), (Z), (I).</string>
     <string name="profile_preferences_deviceMobileData_21">(Z)(R) Mobile data</string>
     <string name="array_pref_airplaneModeArray_root_on">(Z)(R) On</string>

@@ -188,11 +188,11 @@
     <string name="event_preferences_category_endOfEvent">Završetak događaja</string>
     <string name="event_preference_profile_undone">Vrati</string>
     <string name="event_preferences_priority">Prioritet</string>
-    <string name="array_event_pref_priorityVeryHigh">[P:9] Vrlo visok</string>
-    <string name="array_event_pref_priorityHigh">[P:7] Visok</string>
-    <string name="array_event_pref_priorityMedium">[P:5] Srednji</string>
-    <string name="array_event_pref_priorityLow">[P:3] Nizak</string>
-    <string name="array_event_pref_priorityVeryLow">[P:1] Vrlo nizak</string>
+    <string name="array_event_pref_priorityVeryHigh">9 - Vrlo visok</string>
+    <string name="array_event_pref_priorityHigh">7 - Visok</string>
+    <string name="array_event_pref_priorityMedium">5 - Srednji</string>
+    <string name="array_event_pref_priorityLow">3 - Nizak</string>
+    <string name="array_event_pref_priorityVeryLow">1 - Vrlo nizak</string>
     <string name="editor_drawer_order_priority">Prioritet</string>
     <string name="event_type_peripheral">Dodatna oprema</string>
     <string name="array_event_pref_peripheralType_deskDock">Stolni dok</string>
@@ -217,12 +217,12 @@
     <string name="array_event_pref_calendarSearchField_description">Opis</string>
     <string name="event_preferences_calendar_search_string">Niz za pretragu</string>
     <string name="event_preferences_calendar_no_event">Nema događaja</string>
-    <string name="array_event_pref_priorityLowest">[P:0] Najniži</string>
-    <string name="array_event_pref_priorityLower">[P:2] Niži</string>
-    <string name="array_event_pref_priorityLowerMedium">[P:4] Niža sredina</string>
-    <string name="array_event_pref_priorityUpperMedium">[P:6] Viša sredina</string>
-    <string name="array_event_pref_priorityHigher">[P:8] Viši</string>
-    <string name="array_event_pref_priorityHighest">[P:10] Najviši</string>
+    <string name="array_event_pref_priorityLowest">0 - Najniži</string>
+    <string name="array_event_pref_priorityLower">2 - Niži</string>
+    <string name="array_event_pref_priorityLowerMedium">4 - Niža sredina</string>
+    <string name="array_event_pref_priorityUpperMedium">6 - Viša sredina</string>
+    <string name="array_event_pref_priorityHigher">8 - Viši</string>
+    <string name="array_event_pref_priorityHighest">10 - Najviši</string>
     <string name="event_type_wifi">Wi-Fi</string>
     <string name="event_preferences_category_eventWifiParameters">Wi-Fi senzor</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
@@ -2110,7 +2110,7 @@
     <string name="grant_draw_over_apps_dialog_info_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click button \"Grant\" to grant this permission.</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, click this link. Maybe in this web page is solution for your device:</string>
     <string name="install_extender_install_droidify_button">Install Droid-ify</string>
-    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] Do not use</string>
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Do not use</string>
     <string name="contacts_filter_dialog_filter_title">Contacts filter</string>
     <string name="contacts_filter_dialog_item_show_all">[ All ]</string>
     <string name="profile_preferences_types_shizuku_permission">Grant Shizuku permission</string>
@@ -2127,7 +2127,6 @@
     <string name="grant_shizuku_permissions_text1">Shizuku requires permission</string>
     <string name="grant_shizuku_permissions_text2">Please grant them in next dialog. Shizuku then can be used for some profile parameters.</string>
     <string name="preference_not_allowed_reason_not_granted_shizuku">not installed, running or granted Shizuku</string>
-    <!-- updatni v crowdin, je tam len pridane (Z), takze netreba dat prekladatelom, viem to spravit sam. -->
     <string name="profile_preferences_preferenceTypesInfo_summary">Klikni ovdje za prikaz informacija o vrsti postavki: (S), (G1), (R), (Z), (I).</string>
     <string name="profile_preferences_deviceMobileData_21">(Z)(R) Mobilni podaci</string>
     <string name="array_pref_airplaneModeArray_root_on">(Z)(R) On</string>
