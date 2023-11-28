@@ -1692,6 +1692,7 @@ class Event {
         if (_value.length() == 0)
             _value.append(context.getString(R.string.event_preferences_no_sensor_is_enabled));
 
+        //Log.e("Event.getPreferencesDescription", "desc="+_value);
         return _value.toString();
     }
 
