@@ -34,8 +34,8 @@
 // 7080 = Lock device: use Extender for Android 9+
 
 ext.ppVersions = [
-        publishVersion    : '6.4b',
-        publishVersionCode: 7074,
+        publishVersion    : '6.4',
+        publishVersionCode: 7080,
 
         minSdk            : 26,
         targetSdk         : 28,
