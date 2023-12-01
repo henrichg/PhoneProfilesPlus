@@ -382,6 +382,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                             doActivateProfile = true;
 
                             //activateProfileId = ApplicationPreferences.prefActivatedProfileForDuration;
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ProfileDurationAlarmBroadcastReceiver._doWork", "PPApplication.profileActivationMutex");
                             synchronized (PPApplication.profileActivationMutex) {
                                 List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 int size = activateProfilesFIFO.size();

@@ -107,6 +107,7 @@ class Permissions {
     static final int REQUEST_CODE = 5000;
     //static final int REQUEST_CODE_FORCE_GRANT = 6000;
     static final int NOTIFICATIONS_PERMISSION_REQUEST_CODE = 9900;
+    static final int SZIZUKU_PERMISSION_REQUEST_CODE = 9901;
 
     static final String EXTRA_GRANT_TYPE = "grant_type";
     static final String EXTRA_MERGED_PROFILE = "merged_profile";
@@ -2833,6 +2834,7 @@ class Permissions {
                             // startActivityForResult not working, it is external application
                             activity.startActivity(intent);
                             //PPApplication.initRoot();
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] Permissions.grantRootX", "(1) PPApplication.rootMutex");
                             synchronized (PPApplication.rootMutex) {
                                 PPApplication.rootMutex.rootChecked = false;
                             }
@@ -2851,6 +2853,7 @@ class Permissions {
                                 // startActivityForResult not working, it is external application
                                 activity.startActivity(intent);
                                 //PPApplication.initRoot();
+//                                PPApplicationStatic.logE("[SYNCHRONIZED] Permissions.grantRootX", "(2) PPApplication.rootMutex");
                                 synchronized (PPApplication.rootMutex) {
                                     PPApplication.rootMutex.rootChecked = false;
                                 }
@@ -2922,7 +2925,6 @@ class Permissions {
                         editor.apply();
                         ApplicationPreferences.applicationNeverAskForGrantG1Permission(activity.getApplicationContext());
 
-                        //grantRootChanged = true;
                         fragment.setRedTextToPreferences();
                     }
 
@@ -2934,7 +2936,6 @@ class Permissions {
                 },
                 (dialog2, which) -> {
                     if (fragment != null) {
-                        //grantRootChanged = true;
                         fragment.setRedTextToPreferences();
                     }
                 },
@@ -3026,6 +3027,52 @@ class Permissions {
             }
         }
         return false;
+    }
+
+    static void grantShizukuPermission(final ProfilesPrefsFragment fragment,
+                                        final Activity activity) {
+
+        if (ShizukuUtils.shizukuAvailable()) {
+            PPAlertDialog dialog = new PPAlertDialog(activity.getString(R.string.profile_preferences_types_shizuku_permission),
+                    activity.getString(R.string.phone_profiles_pref_grantShizukuPermission_summary2),
+                    activity.getString(R.string.alert_button_grant), activity.getString(R.string.alert_button_not_grant),
+                    null,
+                    null,
+                    (dialog1, which) -> {
+                        PPApplication.grantShizukuChanged = true;
+
+                        if (fragment != null) {
+                            fragment.setRedTextToPreferences();
+                        }
+
+                        Intent intent = new Intent(activity, GrantShizukuPermissionActivity.class);
+                        activity.startActivity(intent);
+                    },
+                    (dialog2, which) -> {
+                        if (fragment != null) {
+                            PPApplication.grantShizukuChanged = true;
+                            fragment.setRedTextToPreferences();
+                        }
+                    },
+                    null,
+                    null,
+                    null,
+                    true, true,
+                    false, false,
+                    false,
+                    activity
+            );
+
+            if (!activity.isFinishing())
+                dialog.show();
+
+        } else {
+            Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);
+            intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
+            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 1);
+            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_shizuku_howTo_1);
+            activity.startActivity(intentLaunch);
+        }
     }
 
 }

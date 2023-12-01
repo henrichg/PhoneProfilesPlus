@@ -180,6 +180,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                     // set copy local profile list into activity profilesDataWrapper
                     fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
 
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] ShortcutCreatorListFragment.LoadProfileListAsyncTask", "DataWrapper.profileList");
                     synchronized (fragment.activityDataWrapper.profileList) {
                         if (fragment.activityDataWrapper.profileList.size() == 0)
                             fragment.viewNoData.setVisibility(View.VISIBLE);
@@ -279,6 +280,7 @@ public class ShortcutCreatorListFragment extends Fragment {
             ShortcutCreatorListFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
 
+//                PPApplicationStatic.logE("[SYNCHRONIZED] ShortcutCreatorListFragment.CreateShortcutAsyncTask", "DataWrapper.profileList");
                 synchronized (fragment.activityDataWrapper.profileList) {
                     profile = fragment.activityDataWrapper.profileList.get(position);
                 }

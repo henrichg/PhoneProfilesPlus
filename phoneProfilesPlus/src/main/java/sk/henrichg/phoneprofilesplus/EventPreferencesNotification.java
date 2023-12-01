@@ -489,7 +489,7 @@ class EventPreferencesNotification extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_NOTIFICATION).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
                 else
                     preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
@@ -939,6 +939,7 @@ class EventPreferencesNotification extends EventPreferences {
                         if (contactsCache == null)
                             return false;
                         List<Contact> contactList;
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesNotification.isNotificationVisible", "PPApplication.contactsCacheMutex");
                         synchronized (PPApplication.contactsCacheMutex) {
                             contactList = contactsCache.getList(/*false*/);
                         }
@@ -1136,6 +1137,7 @@ class EventPreferencesNotification extends EventPreferences {
                 if (contactsCache == null)
                     return null;
                 List<Contact> contactList;
+//                PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesNotification.getNewestVisibleNotification", "PPApplication.contactsCacheMutex");
                 synchronized (PPApplication.contactsCacheMutex) {
                     contactList = contactsCache.getList(/*false*/);
                 }
@@ -1230,6 +1232,7 @@ class EventPreferencesNotification extends EventPreferences {
         String[] splits = this._contactGroups.split(StringConstants.STR_SPLIT_REGEX);
         for (String split : splits) {
             if (!split.isEmpty()) {
+//                PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesNotification.isContactConfigured", "PPApplication.contactsCacheMutex");
                 synchronized (PPApplication.contactsCacheMutex) {
                     if (contactList != null) {
                         for (Contact contact : contactList) {

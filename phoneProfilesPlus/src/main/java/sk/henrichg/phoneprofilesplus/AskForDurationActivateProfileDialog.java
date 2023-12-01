@@ -82,6 +82,7 @@ class AskForDurationActivateProfileDialog
     {
         long profileId = Profile.PROFILE_NO_ACTIVATE;
         if (position > 0) {
+//            PPApplicationStatic.logE("[SYNCHRONIZED] AskForDurationActivateProfileDialog.doOnItemSelected", "DataWrapper.profileList");
             synchronized (dataWrapper.profileList) {
                 profileId = dataWrapper.profileList.get(position - 1)._id;
             }
@@ -132,6 +133,7 @@ class AskForDurationActivateProfileDialog
             AskForDurationActivateProfileDialog dialog = dialogWeakRef.get();
             if (dialog != null) {
                 dialog.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
+//                PPApplicationStatic.logE("[SYNCHRONIZED] AskForDurationActivateProfileDialog.ShowDialogAsyncTask", "DataWrapper.profileList");
                 synchronized (dialog.dataWrapper.profileList) {
                     dialog.dataWrapper.profileList.sort(new AlphabeticallyComparator());
                 }

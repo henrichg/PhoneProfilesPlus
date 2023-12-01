@@ -40,6 +40,7 @@ class ActivatorListAdapter extends BaseAdapter
 
     public int getCount()
     {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivatorListAdapter.getCount", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             boolean someData = activityDataWrapper.profileListFilled &&
                     (activityDataWrapper.profileList.size() > 0);
@@ -65,6 +66,7 @@ class ActivatorListAdapter extends BaseAdapter
             return null;
         else
         {
+//            PPApplicationStatic.logE("[SYNCHRONIZED] ActivatorListAdapter.getItem", "DataWrapper.profileList");
             synchronized (activityDataWrapper.profileList) {
                 Profile _profile = null;
 
@@ -122,6 +124,7 @@ class ActivatorListAdapter extends BaseAdapter
     */
     public Profile getActivatedProfile()
     {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ActivatorListAdapter.getActivatedProfile", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             for (Profile p : activityDataWrapper.profileList) {
                 if (p._checked) {
@@ -135,6 +138,7 @@ class ActivatorListAdapter extends BaseAdapter
 
     public void notifyDataSetChanged(boolean refreshIcons) {
         if (refreshIcons) {
+//            PPApplicationStatic.logE("[SYNCHRONIZED] ActivatorListAdapter.notifyDataSetChanged", "DataWrapper.profileList");
             synchronized (activityDataWrapper.profileList) {
                 for (Profile profile : activityDataWrapper.profileList) {
                     activityDataWrapper.refreshProfileIcon(profile, true,

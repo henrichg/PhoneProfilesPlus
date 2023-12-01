@@ -164,6 +164,7 @@ public class LogCrashActivity extends AppCompatActivity {
             }
         }
 
+        /** @noinspection BlockingMethodInNonBlockingContext*/
         @Override
         protected Void doInBackground(Void... params) {
             LogCrashActivity activity = activityWeakRef.get();

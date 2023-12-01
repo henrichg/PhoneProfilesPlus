@@ -14,6 +14,8 @@
         <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>
         <item name="android:navigationBarColor">@color/primaryDark</item>
         <item name="android:windowLightNavigationBar">@bool/windowLightStatusBar</item>
+
+<!--        <item name="switchPreferenceCompatStyle">@style/MaterialSwitchPreferenceCompat</item>-->
     </style>
 
 </resources>

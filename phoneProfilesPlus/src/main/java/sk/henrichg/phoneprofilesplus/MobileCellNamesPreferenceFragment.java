@@ -340,6 +340,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
 
         @Override
         protected Void doInBackground(Void... params) {
+//            PPApplicationStatic.logE("[SYNCHRONIZED] MobileCellNamesPreferenceFragment.RefreshListViewAsyncTask", "PPApplication.mobileCellsScannerMutex");
             synchronized (PPApplication.mobileCellsScannerMutex) {
                 MobileCellNamesPreferenceFragment fragment = fragmentWeakRef.get();
                 MobileCellNamesPreference preference = preferenceWeakRef.get();

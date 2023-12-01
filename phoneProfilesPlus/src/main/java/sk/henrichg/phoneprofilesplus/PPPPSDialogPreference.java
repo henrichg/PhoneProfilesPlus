@@ -69,7 +69,7 @@ public class PPPPSDialogPreference extends DialogPreference {
                 StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_modify_system_settings) + StringConstants.TAG_BOLD_END_HTML;
 
 //        Log.e("PPPPSDialogPreference.setSummaryPPPPSDP", "xxxxx");
-        setSummary(StringFormatUtils.fromHtml(prefVolumeDataSummary, false, false, false, 0, 0, true));
+        setSummary(StringFormatUtils.fromHtml(prefVolumeDataSummary, false,  false, 0, 0, true));
     }
 
     /*

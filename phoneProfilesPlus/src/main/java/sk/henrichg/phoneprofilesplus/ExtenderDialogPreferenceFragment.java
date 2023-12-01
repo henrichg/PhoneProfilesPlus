@@ -97,7 +97,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 else
                   prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_BREAK_HTML+StringConstants.CHAR_HARD_SPACE_HTML; // "<br><br>" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
             }
-            extenderVersionText.setText(StringFormatUtils.fromHtml(prefVolumeDataSummary, false, false, false, 0, 0, true));
+            extenderVersionText.setText(StringFormatUtils.fromHtml(prefVolumeDataSummary, false,  false, 0, 0, true));
 
             if ((preference.lauchSummary != null) && (!preference.lauchSummary.isEmpty())) {
                 prefVolumeDataSummary = preference.lauchSummary;
@@ -241,7 +241,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         dialogText = dialogText + activity.getString(R.string.install_extender_text3);
 
         dialogText = dialogText.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
-        text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));
+        text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
         text = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
         CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
@@ -355,7 +355,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
                 " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
         dialogText = dialogText + activity.getString(R.string.install_extender_install_droidify_text);
-        text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));
+        text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
@@ -423,6 +423,18 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             dialogBuilder.setView(layout);
 
             TextView text = layout.findViewById(R.id.install_pppe_from_store_dialog_info_text);
+            if (!(droidifyInstalled || fdroidInstalled)) {
+                Button installFromGitHub = layout.findViewById(R.id.install_pppe_from_store_dialog_installFromGitHub);
+                if (Build.VERSION.SDK_INT >= 33)
+                    installFromGitHub.setText(R.string.install_extender_install_droidify_button);
+                installFromGitHub.setVisibility(View.VISIBLE);
+                installFromGitHub.setOnClickListener(v -> {
+                    if (Build.VERSION.SDK_INT < 33)
+                        installExtenderFromGitHub(activity, _preference, finishActivity);
+                    else
+                        installDroidIfy(activity, _preference, finishActivity);
+                });
+            }
 
             String dialogText = "";
 
@@ -434,7 +446,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
                     " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
             dialogText = dialogText + activity.getString(R.string.install_extender_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\".";
-            text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));
+            text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
             /*
             text = layout.findViewById(R.id.install_pppe_from_store_dialog_github_releases);
@@ -493,9 +505,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                         if (finishActivity)
                             activity.finish();
                     }
-                }
-                else
-                if (fdroidInstalled) {
+                } else if (fdroidInstalled) {
                     Intent intent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse("market://details?id=sk.henrichg.phoneprofilesplusextender"));
                     intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);

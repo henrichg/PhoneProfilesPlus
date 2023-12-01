@@ -14,6 +14,7 @@ import java.util.zip.ZipOutputStream;
 class ZipManager {
 	private static final int BUFFER = 80000;
 
+	/** @noinspection BlockingMethodInNonBlockingContext*/
 	public boolean zip(String[] _files, String zipFileName) {
 		try {
 			BufferedInputStream origin;
@@ -47,6 +48,7 @@ class ZipManager {
 		}
 	}
 
+	/** @noinspection BlockingMethodInNonBlockingContext*/
 	public boolean unzip(String _zipFile, String _targetLocation) {
 		//create target location folder if not exist
 		dirChecker(_targetLocation);

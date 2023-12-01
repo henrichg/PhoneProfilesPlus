@@ -38,6 +38,7 @@ class LocationScanner
 
     void connect(boolean resetUseGPS) {
         try {
+//            PPApplicationStatic.logE("[SYNCHRONIZED] LocationScanner.connect", "(1) PPApplication.locationScannerMutex");
             synchronized (PPApplication.locationScannerMutex) {
                 //if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
 
@@ -66,6 +67,7 @@ class LocationScanner
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
+//                                PPApplicationStatic.logE("[SYNCHRONIZED] LocationScanner.connect", "(2) PPApplication.locationScannerMutex");
                                 synchronized (PPApplication.locationScannerMutex) {
                                     if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
                                         PPApplication.locationScanner.clearAllEventGeofences();
@@ -113,6 +115,7 @@ class LocationScanner
     }
 
     void updateGeofencesInDB() {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] LocationScanner.updateGeofencesInDB", "PPApplication.locationScannerMutex");
         synchronized (PPApplication.locationScannerMutex) {
             if (PPApplication.lastLocation == null)
                 return;
@@ -129,6 +132,7 @@ class LocationScanner
 
                 float distance;
                 float radius;
+//                PPApplicationStatic.logE("[SYNCHRONIZED] LocationScanner.updateGeofencesInDB", "PPApplication.locationScannerLastLocationMutex");
                 synchronized (PPApplication.locationScannerLastLocationMutex) {
                     Location _lastLocation = new Location("GL");
                     _lastLocation.setLatitude(PPApplication.lastLocation.getLatitude());
@@ -159,6 +163,7 @@ class LocationScanner
     }
 
     void clearAllEventGeofences() {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] LocationScanner.clearAllEventGeofences", "PPApplication.locationScannerMutex");
         synchronized (PPApplication.locationScannerMutex) {
             // clear all geofence transitions
             DatabaseHandler.getInstance(context).clearAllGeofenceTransitions();
@@ -262,6 +267,7 @@ class LocationScanner
         String provider = "";
 
         if ((!PPApplication.locationScannerUpdatesStarted) /*|| mUpdateTransitionsByLastKnownLocationIsRunning*/) {
+//            PPApplicationStatic.logE("[SYNCHRONIZED] LocationScanner.startLocationUpdates", "PPApplication.locationScannerMutex");
             synchronized (PPApplication.locationScannerMutex) {
                 try {
                     if (Permissions.checkLocation(context)) {
@@ -351,6 +357,7 @@ class LocationScanner
         // recommended in applications that request frequent location updates.
 
         if (PPApplication.locationScannerUpdatesStarted) {
+//            PPApplicationStatic.logE("[SYNCHRONIZED] LocationScanner.stopLocationUpdates", "PPApplication.locationScannerMutex");
             synchronized (PPApplication.locationScannerMutex) {
                 if (mListenerEnabled) {
                     try {
@@ -410,6 +417,7 @@ class LocationScanner
         if (scanningPaused)
             return;
 
+//        PPApplicationStatic.logE("[SYNCHRONIZED] LocationScanner.doLocationChanged", "PPApplication.locationScannerLastLocationMutex");
         synchronized (PPApplication.locationScannerLastLocationMutex) {
             if (PPApplication.lastLocation == null) {
                 PPApplication.lastLocation = new Location("GL");
@@ -418,6 +426,7 @@ class LocationScanner
             //PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.doLocationChanged", "lastLocation=" + lastLocation);
         }
 
+//        PPApplicationStatic.logE("[SYNCHRONIZED] LocationScanner.doLocationChanged", "PPApplication.locationScannerMutex");
         synchronized (PPApplication.locationScannerMutex) {
             if (EventStatic.getGlobalEventsRunning(PPApplication.locationScanner.context)) {
                 if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
@@ -436,6 +445,7 @@ class LocationScanner
 
     static void onlineStatusChanged(Context context) {
         if (PhoneProfilesService.getInstance() != null) {
+//            PPApplicationStatic.logE("[SYNCHRONIZED] LocationScanner.onlineStatusChanged", "PPApplication.locationScannerMutex");
             synchronized (PPApplication.locationScannerMutex) {
                 if (PPApplication.locationScanner != null) {
                     if (ApplicationPreferences.applicationEventLocationUseGPS &&

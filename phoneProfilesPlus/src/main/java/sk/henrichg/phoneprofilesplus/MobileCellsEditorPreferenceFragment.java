@@ -257,10 +257,11 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                 R.array.mobileCellsRenameArray,
                                 SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
                                 (dialog, which) -> {
+                                    MobileCellNamesDialog mobileCellNamesDialog;
                                     switch (which) {
                                         case 0:
                                         case 1:
-                                            MobileCellNamesDialog mobileCellNamesDialog = new MobileCellNamesDialog(
+                                            mobileCellNamesDialog = new MobileCellNamesDialog(
                                                     (Activity) prefContext, preference, false,
                                                     (dialog1, which1) -> {
                                                         EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
@@ -946,6 +947,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
         @Override
         protected Void doInBackground(Void... params) {
+//            PPApplicationStatic.logE("[SYNCHRONIZED] MobileCellsEditorPreferenceFragment.RefreshListViewAsyncTask", "PPApplication.mobileCellsScannerMutex");
             synchronized (PPApplication.mobileCellsScannerMutex) {
                 MobileCellsEditorPreferenceFragment fragment = fragmentWeakRef.get();
                 MobileCellsEditorPreference preference = preferenceWeakRef.get();

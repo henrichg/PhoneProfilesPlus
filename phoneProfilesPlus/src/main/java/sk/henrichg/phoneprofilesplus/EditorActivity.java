@@ -760,6 +760,7 @@ public class EditorActivity extends AppCompatActivity
                     PPApplicationStatic.getApplicationsCache().cancelCaching();
                     //if (PPApplicationStatic.getApplicationsCache().cached)
                     PPApplicationStatic.getApplicationsCache().clearCache(true);
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorActivity.onDestroy", "PPApplication.applicationCacheMutex");
                     synchronized (PPApplication.applicationCacheMutex) {
                         PPApplication.applicationsCache = null;
                     }
@@ -2372,6 +2373,7 @@ public class EditorActivity extends AppCompatActivity
             dialog.show();
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
     private boolean importApplicationPreferences(File src/*, int what*/) {
         boolean res = true;
@@ -2670,6 +2672,7 @@ public class EditorActivity extends AppCompatActivity
             dialog.show();
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     @SuppressLint({"SetWorldReadable", "SetWorldWritable", "ApplySharedPref"})
     private boolean exportApplicationPreferences(File dst, boolean runStopEvents/*, int what*/) {
         boolean res = true;
@@ -3922,6 +3925,7 @@ public class EditorActivity extends AppCompatActivity
             }
         }
 
+        /** @noinspection BlockingMethodInNonBlockingContext*/
         private int copyToBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName, Context context) {
             DocumentFile oldFile = pickedDir.findFile(fileName);
             if (oldFile != null) {
@@ -4154,6 +4158,7 @@ public class EditorActivity extends AppCompatActivity
             }
         }
 
+        /** @noinspection BlockingMethodInNonBlockingContext*/
         private int copyFromBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName, Context context) {
 //            Log.e("EditorActivity.copyFromBackupDirectory", "applicationDir="+applicationDir);
 //            Log.e("EditorActivity.copyFromBackupDirectory", "fileName="+fileName);
@@ -4204,6 +4209,7 @@ public class EditorActivity extends AppCompatActivity
             return 1;
         }
 
+        /** @noinspection BlockingMethodInNonBlockingContext*/
         private int copySharedFile(DocumentFile pickedFile, File applicationDir, Context context) {
             // delete all zip files in local storage
             File sd = context.getApplicationContext().getExternalFilesDir(null);
@@ -4537,6 +4543,7 @@ public class EditorActivity extends AppCompatActivity
             EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 if (this.dataWrapper != null) {
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorActivity.ExportAsyncTask", "(1) PPApplication.applicationStartedMutex");
                     synchronized (PPApplication.applicationStartedMutex) {
                         PPApplication.exportIsRunning = true;
                     }
@@ -4601,6 +4608,7 @@ public class EditorActivity extends AppCompatActivity
 
                     PPApplicationStatic.addActivityLog(this.dataWrapper.context, PPApplication.ALTYPE_DATA_EXPORT, null, null, "");
 
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorActivity.ExportAsyncTask", "(2) PPApplication.applicationStartedMutex");
                     synchronized (PPApplication.applicationStartedMutex) {
                         PPApplication.exportIsRunning = false;
                     }

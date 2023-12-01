@@ -651,7 +651,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted), false);
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
                 else
                     preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
@@ -976,6 +976,7 @@ class EventPreferencesOrientation extends EventPreferences {
 
                     if (!scanningPaused) {
 
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesOrientation.doHandleEvent", "PPApplication.orientationScannerMutex");
                         synchronized (PPApplication.orientationScannerMutex) {
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesServiceStatic.isOrientationScannerStarted()) {
                                 PPApplicationStatic.startHandlerThreadOrientationScanner();

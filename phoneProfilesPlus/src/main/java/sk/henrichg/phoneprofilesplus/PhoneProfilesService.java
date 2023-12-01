@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import rikka.shizuku.Shizuku;
+
 public class PhoneProfilesService extends Service
 {
     private static volatile PhoneProfilesService instance = null;
@@ -149,6 +151,19 @@ public class PhoneProfilesService extends Service
         }
     };
 
+    private final Shizuku.OnBinderReceivedListener BINDER_RECEIVED_LISTENER = () -> {
+        if (!Shizuku.isPreV11()) {
+            RootUtils.initRoot();
+
+            /*boolean exists = */RootUtils.settingsBinaryExists(false);
+            //Log.e("PhoneProfilesService.BINDER_RECEIVED_LISTENER", "settings exists="+exists);
+            /*exists = */RootUtils.serviceBinaryExists(false);
+            //Log.e("PhoneProfilesService.BINDER_RECEIVED_LISTENER", "service exists="+exists);
+            //noinspection Convert2MethodRef
+            RootUtils.getServicesList();
+        }
+    };
+
     //--------------------------
 
     //public static SipManager mSipManager = null;
@@ -160,6 +175,7 @@ public class PhoneProfilesService extends Service
 
         PPApplicationStatic.logE("$$$ PhoneProfilesService.onCreate", "android.os.Build.VERSION.SDK_INT=" + android.os.Build.VERSION.SDK_INT);
 
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.onCreate", "PPApplication.phoneProfilesServiceMutex");
         synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = this;
         }
@@ -220,6 +236,7 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
+        Shizuku.addBinderReceivedListenerSticky(BINDER_RECEIVED_LISTENER);
         LocalBroadcastManager.getInstance(appContext).registerReceiver(commandReceiver, new IntentFilter(ACTION_COMMAND));
 
         if (Build.VERSION.SDK_INT < 31) {
@@ -422,11 +439,13 @@ public class PhoneProfilesService extends Service
             NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 try {
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.onDestroy", "(1) PPApplication.showPPPNotificationMutex");
                     synchronized (PPApplication.showPPPNotificationMutex) {
                         notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
                     }
                 } catch (Exception ignored) {}
                 try {
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.onDestroy", "(2) PPApplication.showPPPNotificationMutex");
                     synchronized (PPApplication.showPPPNotificationMutex) {
                         notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
                     }
@@ -437,6 +456,7 @@ public class PhoneProfilesService extends Service
             PPApplicationStatic.recordException(e);
         }
 
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.onDestroy", "PPApplication.phoneProfilesServiceMutex");
         synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = null;
         }
@@ -625,6 +645,7 @@ public class PhoneProfilesService extends Service
                     // grant root
                     RootUtils.isRootGranted();
                 } else {
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.doForFirstStart", "PPApplication.rootMutex");
                     synchronized (PPApplication.rootMutex) {
                         if (PPApplication.rootMutex.rootChecked) {
                             try {
@@ -756,7 +777,7 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.setApplicationInForeground(appContext, "");
+                PPExtenderBroadcastReceiver.setApplicationInForeground(appContext, "");
 
                 EventPreferencesCall.setEventCallEventType(appContext, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
                 EventPreferencesCall.setEventCallEventTime(appContext, 0);
@@ -832,6 +853,7 @@ public class PhoneProfilesService extends Service
                     //DatabaseHandler.getInstance(appContext).unblockAllEvents();
                     //Event.setForceRunEventRunning(appContext, false);
 
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesService.doForFirstStart", "PPApplication.profileActivationMutex");
                     synchronized (PPApplication.profileActivationMutex) {
                         List<String> activateProfilesFIFO = new ArrayList<>();
                         dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
@@ -863,9 +885,8 @@ public class PhoneProfilesService extends Service
                 BluetoothConnectionBroadcastReceiver.clearConnectedDevices(/*appContext, true*/);
                 // this also clears shared preferences
                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-
 //                Log.e("PhoneProfilesService.doForFirstStart", "**** START of getConnectedDevices");
-                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
+                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext/*, false*/);
 
                 WifiScanWorker.setScanRequest(appContext, false);
                 WifiScanWorker.setWaitForResults(appContext, false);
@@ -1476,6 +1497,19 @@ public class PhoneProfilesService extends Service
                         editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION,
                                 ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION_DEFAULT_VALUE);
                         editor.apply();
+                    }
+                }
+
+                if (actualVersionCode <= 7080) {
+                    if (Build.VERSION.SDK_INT >= 28) {
+                        // for Android 9+ use Extender for lock device
+                        List<Profile> profileList = DatabaseHandler.getInstance(appContext).getAllProfiles();
+                        for (Profile profile : profileList) {
+                            if (profile._lockDevice == 2) {
+                                profile._lockDevice = 3;
+                                DatabaseHandler.getInstance(appContext).updateProfile(profile);
+                            }
+                        }
                     }
                 }
 

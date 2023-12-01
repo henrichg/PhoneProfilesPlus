@@ -24,10 +24,10 @@ __Events features:__
 - ignore manual Profile activation
 - sound notification
 - undo Profile activated before start of Event
-- Event start delay
+- Event start/end delay
 - ...
 
-__Event sensor types:__
+__Some event sensor types:__
 - Time
 - Calendar
 - Battery
@@ -47,7 +47,8 @@ __Event sensor types:__
 - NFC tags
 - Alarm clock
 - Device boot
+- ...
 
 __PhoneProfilesPlusExtender__
 
-Some parameters requires [PhoneProfilesPlusExtender](https://github.com/henrichg/PhoneProfilesPlusExtender)
+- Some parameters require [PhoneProfilesPlusExtender](https://github.com/henrichg/PhoneProfilesPlusExtender)

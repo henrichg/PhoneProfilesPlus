@@ -28,6 +28,7 @@ class ContactsContentObserver extends ContentObserver {
     }
     */
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     static void enqueueContactsContentObserverWorker() {
         if (PPApplicationStatic.getApplicationStarted(true, true)) {
             WorkManager workManager = PPApplication.getWorkManagerInstance();

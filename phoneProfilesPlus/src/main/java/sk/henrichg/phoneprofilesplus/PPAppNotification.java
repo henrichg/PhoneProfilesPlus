@@ -86,6 +86,7 @@ public class PPAppNotification {
 
         // !!! Use configured notification style, It is required for restart of PPP by system !!!
         if (forFirstStart) {
+//            PPApplicationStatic.logE("[SYNCHRONIZED] PPAppNotification._showNotification", "(1) PPApplication.applicationPreferencesMutex");
             synchronized (PPApplication.applicationPreferencesMutex) {
                 // load style directly from shared preferences
                 ApplicationPreferences.notificationNotificationStyle(appContext);
@@ -118,6 +119,7 @@ public class PPAppNotification {
         else {
             profile = dataWrapper.getActivatedProfileFromDB(false, false);
 
+//            PPApplicationStatic.logE("[SYNCHRONIZED] PPAppNotification._showNotification", "(2) PPApplication.applicationPreferencesMutex");
             synchronized (PPApplication.applicationPreferencesMutex) {
 
                 // load style directly from shared preferences
@@ -612,10 +614,11 @@ public class PPAppNotification {
 
         if (notificationNotificationStyle.equals("0")) {
 
+            int color;
             switch (notificationBackgroundColor) {
                 case "3":
                     //if (!notificationNightMode || (useNightColor == 1)) {
-                    int color = ContextCompat.getColor(appContext, R.color.notificationBlackBackgroundColor);
+                    color = ContextCompat.getColor(appContext, R.color.notificationBlackBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
@@ -1337,6 +1340,7 @@ public class PPAppNotification {
             clearOldNotification(appContext);
 
             //if (PhoneProfilesService.getInstance() != null) {
+//            PPApplicationStatic.logE("[SYNCHRONIZED] PPAppNotification.forceDrawNotification", "PPApplication.showPPPNotificationMutex");
             synchronized (PPApplication.showPPPNotificationMutex) {
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification.forceDrawNotification", "call of _showNotification");
@@ -1353,6 +1357,7 @@ public class PPAppNotification {
         GlobalUtils.sleep(100);
 
         //if (PhoneProfilesService.getInstance() != null) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPAppNotification.forceDrawNotificationFromSettings", "PPApplication.showPPPNotificationMutex");
         synchronized (PPApplication.showPPPNotificationMutex) {
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification.forceDrawNotification", "call of _showNotification");
@@ -1363,6 +1368,7 @@ public class PPAppNotification {
 
     static void forceDrawNotificationWhenIsDeleted(final Context appContext) {
         //if (PhoneProfilesService.getInstance() != null) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPAppNotification.forceDrawNotificationWhenIsDeleted", "PPApplication.showPPPNotificationMutex");
         synchronized (PPApplication.showPPPNotificationMutex) {
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification.forceDrawNotification", "call of _showNotification");
@@ -1484,11 +1490,13 @@ public class PPAppNotification {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 try {
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] PPAppNotification.clearNotification", "(1) PPApplication.showPPPNotificationMutex");
                     synchronized (PPApplication.showPPPNotificationMutex) {
                         notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
                     }
                 } catch (Exception ignored) {}
                 try {
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] PPAppNotification.clearNotification", "(2) PPApplication.showPPPNotificationMutex");
                     synchronized (PPApplication.showPPPNotificationMutex) {
                         notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
                     }

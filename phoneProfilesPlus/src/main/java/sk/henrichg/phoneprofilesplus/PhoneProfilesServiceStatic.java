@@ -2440,6 +2440,7 @@ class PhoneProfilesServiceStatic
     static void startLocationScanner(boolean start,
                                      @SuppressWarnings("SameParameterValue") boolean stop,
                                      DataWrapper dataWrapper, boolean forScreenOn, Context context) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesServiceStatic.startLocationScanner", "PPApplication.locationScannerMutex");
         synchronized (PPApplication.locationScannerMutex) {
             Context appContext = context.getApplicationContext();
             if (stop) {
@@ -2485,6 +2486,7 @@ class PhoneProfilesServiceStatic
         PPApplicationStatic.startHandlerThreadBroadcast();
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         __handler.post(() -> {
+//            PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesServiceStatic.startMobileCellsScanner", "PPApplication.mobileCellsScannerMutex");
             synchronized (PPApplication.mobileCellsScannerMutex) {
                 if (!forceStart && (PPApplication.mobileCellsForceStart || PPApplication.mobileCellsRegistraitonForceStart))
                     return;
@@ -2542,6 +2544,7 @@ class PhoneProfilesServiceStatic
 
     static void startOrientationScanner(boolean start, boolean stop,
                                          DataWrapper dataWrapper/*, boolean forceStart*/, Context context) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesServiceStatic.startOrientationScanner", "PPApplication.orientationScannerMutex");
         synchronized (PPApplication.orientationScannerMutex) {
             Context appContext = context.getApplicationContext();
             //if (!forceStart && EventsPrefsFragment.forceStart)
@@ -2591,6 +2594,7 @@ class PhoneProfilesServiceStatic
     }
 
     static void startTwilightScanner(boolean start, boolean stop, DataWrapper dataWrapper) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesServiceStatic.startTwilightScanner", "PPApplication.twilightScannerMutex");
         synchronized (PPApplication.twilightScannerMutex) {
             //Context appContext = getApplicationContext();
             if (stop) {
@@ -3099,6 +3103,7 @@ class PhoneProfilesServiceStatic
                             } else if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_RESCAN_SCANNERS, false)) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
                                 if (ApplicationPreferences.applicationEventLocationEnableScanning) {
+//                                    PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesServiceStatic.doCommand", "PPApplication.locationScannerMutex");
                                     synchronized (PPApplication.locationScannerMutex) {
                                         if (PPApplication.locationScanner != null) {
                                             String provider = PPApplication.locationScanner.getProvider(true);
@@ -3123,6 +3128,7 @@ class PhoneProfilesServiceStatic
 
                                 if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
 //                                    PPApplicationStatic.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (1)");
+//                                    PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesServiceStatic.doCommand", "PPApplication.mobileCellsScannerMutex");
                                     synchronized (PPApplication.mobileCellsScannerMutex) {
                                         if (PPApplication.mobileCellsScanner != null)
                                             PPApplication.mobileCellsScanner.rescanMobileCells();
@@ -3414,6 +3420,7 @@ class PhoneProfilesServiceStatic
     }
 
     static void disableNotUsedScanners(final DataWrapper dataWrapper) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesServiceStatic.disableNotUsedScanners", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
             boolean eventsExists;
 

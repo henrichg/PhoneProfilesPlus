@@ -121,25 +121,11 @@ class AddEventAdapter extends BaseAdapter {
             String eventName = event._name;
             if (position == 0)
                 eventName = context.getString(R.string.new_empty_event);
-            if (ApplicationPreferences.applicationEventUsePriority) {
-                String eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
-
-                if (event._ignoreManualActivation) {
-                    if (event._noPauseByManualActivation)
-                        eventName = eventName + StringConstants.CHAR_NEW_LINE + eventPriority + StringConstants.STR_DOUBLE_ARROW_INDICATOR;
-                    else
-                        eventName = eventName + StringConstants.CHAR_NEW_LINE + eventPriority + StringConstants.STR_ARROW_INDICATOR;
-                }
+            if (event._ignoreManualActivation) {
+                if (event._noPauseByManualActivation)
+                    eventName = eventName + StringConstants.CHAR_NEW_LINE + StringConstants.STR_DOUBLE_ARROW_INDICATOR;
                 else
-                    eventName = eventName + StringConstants.CHAR_NEW_LINE + eventPriority;
-            }
-            else {
-                if (event._ignoreManualActivation) {
-                    if (event._noPauseByManualActivation)
-                        eventName = eventName + StringConstants.CHAR_NEW_LINE + StringConstants.STR_DOUBLE_ARROW_INDICATOR;
-                    else
-                        eventName = eventName + StringConstants.CHAR_NEW_LINE + StringConstants.STR_ARROW_INDICATOR;
-                }
+                    eventName = eventName + StringConstants.CHAR_NEW_LINE + StringConstants.STR_ARROW_INDICATOR;
             }
 
             if (!event._startWhenActivatedProfile.isEmpty()) {
@@ -159,6 +145,7 @@ class AddEventAdapter extends BaseAdapter {
                 sbt.setSpan(new RelativeSizeSpan(0.8f), context.getString(R.string.new_empty_event).length(), eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             else
                 sbt.setSpan(new RelativeSizeSpan(0.8f), event._name.length(), eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            holder.eventName.setTextColor(ContextCompat.getColor(context, R.color.activityNormalTextColor));
             holder.eventName.setText(sbt);
 
             if (applicationEditorPrefIndicator)
@@ -273,16 +260,18 @@ class AddEventAdapter extends BaseAdapter {
                 if (holder.profileEndIndicator != null)
                     holder.profileEndIndicator.setVisibility(View.GONE);
             } else*/ {
-                holder.profileEndIcon.setVisibility(View.VISIBLE);
+                //holder.profileEndIcon.setVisibility(View.VISIBLE);
+                /*
                 if (applicationEditorPrefIndicator) {
                     if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
                         holder.profileEndIcon.getLayoutParams().height = 1;
                     else
                         holder.profileEndIcon.getLayoutParams().height = GlobalGUIRoutines.dpToPx(30);
                 }
-                holder.profileEndName.setVisibility(View.VISIBLE);
-                if (holder.profileEndIndicator != null)
-                    holder.profileEndIndicator.setVisibility(View.VISIBLE);
+                */
+                //holder.profileEndName.setVisibility(View.VISIBLE);
+                //if (holder.profileEndIndicator != null)
+                //    holder.profileEndIndicator.setVisibility(View.VISIBLE);
 
                 profile = dialog.eventListFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true, true, false);
                 if (profile != null) {

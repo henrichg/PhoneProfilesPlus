@@ -149,6 +149,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         EventPreferencesRoaming.getEventRoamingInSIMSlot(savedContext, simSlot);
         boolean oldNetworkRoaming = false;
         boolean oldDataRoaming = false;
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneCallsListener.onServiceStateChanged", "(1) PPApplication.eventRoamingSensorMutex");
         synchronized (PPApplication.eventRoamingSensorMutex) {
             switch (simSlot) {
                 case 0:
@@ -170,6 +171,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         boolean newNetworkRoaming = false;
         boolean newDataRoaming = false;
         EventPreferencesRoaming.getEventRoamingInSIMSlot(savedContext, simSlot);
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneCallsListener.onServiceStateChanged", "(2) PPApplication.eventRoamingSensorMutex");
         synchronized (PPApplication.eventRoamingSensorMutex) {
             switch (simSlot) {
                 case 0:
@@ -276,6 +278,7 @@ public class PhoneCallsListener extends PhoneStateListener {
     }
 
     private static void /*boolean*/ setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneCallsListener.setLinkUnlinkNotificationVolume", "PPApplication.notUnlinkVolumesMutex");
         synchronized (PPApplication.notUnlinkVolumesMutex) {
             if (!PPApplication.ringerModeNotUnlinkVolumes) {
                 boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;

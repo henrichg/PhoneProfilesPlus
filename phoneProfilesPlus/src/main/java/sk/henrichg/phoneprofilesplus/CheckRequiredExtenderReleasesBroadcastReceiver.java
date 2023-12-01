@@ -163,6 +163,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
         if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
             if (Build.VERSION.SDK_INT >= 33) {
                 // check IzzyOnDroid repo
+                // because from Android 13 is required to install apk from app stores
 
                 RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
                 String izzyRepoURL = PPApplication.DROIDIFY_PPPE_LATEST_APK_RELEASE_URL_BEGIN;

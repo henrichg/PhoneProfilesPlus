@@ -40,6 +40,7 @@ class BluetoothScanner {
     }
 
     void doScan(/*boolean fromDialog*/) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothScanner.doScan", "PPApplication.bluetoothScannerMutex");
         synchronized (PPApplication.bluetoothScannerMutex) {
             if (!PPApplicationStatic.getApplicationStarted(true, true))
                 // application is not started
@@ -274,6 +275,7 @@ class BluetoothScanner {
 
     static void getForceOneBluetoothScan(Context context)
     {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothScanner.getForceOneBluetoothScan", "PPApplication.eventBluetoothSensorMutex");
         synchronized (PPApplication.eventBluetoothSensorMutex) {
             ApplicationPreferences.prefForceOneBluetoothScan = ApplicationPreferences.
                     getSharedPreferences(context).getInt(PREF_FORCE_ONE_BLUETOOTH_SCAN, FORCE_ONE_SCAN_DISABLED);
@@ -281,6 +283,7 @@ class BluetoothScanner {
     }
     static void setForceOneBluetoothScan(Context context, int forceScan)
     {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothScanner.setForceOneBluetoothScan", "PPApplication.eventBluetoothSensorMutex");
         synchronized (PPApplication.eventBluetoothSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putInt(PREF_FORCE_ONE_BLUETOOTH_SCAN, forceScan);
@@ -291,6 +294,7 @@ class BluetoothScanner {
 
     static void getForceOneLEBluetoothScan(Context context)
     {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothScanner.getForceOneLEBluetoothScan", "PPApplication.eventBluetoothSensorMutex");
         synchronized (PPApplication.eventBluetoothSensorMutex) {
             ApplicationPreferences.prefForceOneBluetoothLEScan = ApplicationPreferences.
                     getSharedPreferences(context).getInt(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, FORCE_ONE_SCAN_DISABLED);
@@ -298,6 +302,7 @@ class BluetoothScanner {
     }
     static void setForceOneLEBluetoothScan(Context context, int forceScan)
     {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothScanner.getForceOneLEBluetoothScan", "PPApplication.eventBluetoothSensorMutex");
         synchronized (PPApplication.eventBluetoothSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putInt(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, forceScan);
@@ -354,6 +359,7 @@ class BluetoothScanner {
     }
 
     static void finishCLScan(final Context context) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothScanner.finishCLScan", "PPApplication.bluetoothCLScanMutex");
         synchronized (PPApplication.bluetoothCLScanMutex) {
 
             if (BluetoothScanner.bluetoothDiscoveryStarted) {
@@ -393,6 +399,7 @@ class BluetoothScanner {
     {
         if (BluetoothScanner.bluetoothLESupported(/*context*/)) {
 
+//            PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothScanner.startLEScan", "PPApplication.bluetoothLEScanMutex");
             synchronized (PPApplication.bluetoothLEScanMutex) {
 
                 /*Context context = PhoneProfilesService.getInstance();
@@ -482,6 +489,7 @@ class BluetoothScanner {
     }
 
     private void finishLEScan(Context context) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothScanner.finishLEScan", "PPApplication.bluetoothLEScanMutex");
         synchronized (PPApplication.bluetoothLEScanMutex) {
 
             List<BluetoothDeviceData> scanResults = new ArrayList<>();

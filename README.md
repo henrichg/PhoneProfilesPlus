@@ -1,15 +1,15 @@
-<img src="art/ic_launcher-web.png" width="100" height="100">  
+<!--suppress CheckImageSize -->
+<img src="art/ic_launcher-web.png" alt="PPP application icon" width="100" height="100">  
 
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 
 PhoneProfilesPlus (aka PPP)
 ===========================
 
-[![version](https://img.shields.io/badge/version-6.3.0.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.3.0.1)
+[![version](https://img.shields.io/badge/version-6.4-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.4)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
-[![Project Map](https://sourcespy.com/shield.svg)](https://sourcespy.com/github/henrichgphoneprofilesplus/)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 [![Project Map](https://sourcespy.com/shield.svg)](https://sourcespy.com/github/henrichgphoneprofilesplus/)
 
@@ -71,14 +71,17 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 ##### (HELP) How to grant (G1) permission - for profile parameters that require this permission
 - [Show it](docs/grant_g1_permission.md)
 
+##### (HELP) How to using Shizuku - for profile parameters that require (Z) permission
+- [Show it](docs/shizuku.md)
+
 ##### (HELP) How to disable Wi-Fi scan throttling - useful for Wi-Fi scanning
 - [Show it](docs/wifi_scan_throttling.md)
 
 ##### (HELP) How to configure airplane mode radios - useful for profile parameter "Airplane mode"
 - [Show it](docs/airplane_mode_radios_config.md)
 
-##### Features
-- [Show it](docs/ppp_features.md)
+### Features
+- __[Show it](docs/ppp_features.md)__
 
 ##### Screenshots
 - [[1]](art/phoneScreenshots/01.png),
@@ -100,7 +103,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - From Android 8.0
 - minSdkVersion = 26
 - targetSdkVersion = 28
-- compiledSdkVersion = 33
+- compiledSdkVersion = 34
 
 ##### Required external libs - open-source
 
@@ -120,6 +123,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - SmoothBottomBar - https://github.com/ibrahimsn98/SmoothBottomBar
 - AndroidHiddenApiBypass - https://github.com/LSPosed/AndroidHiddenApiBypass
 - Encryption - https://github.com/simbiose/Encryption
+- Shizuku - https://github.com/RikkaApps/Shizuku, https://github.com/RikkaApps/Shizuku-API
 - RootTools (as module, code modified) - https://github.com/Stericson/RootTools
 - RootShell (as module, code modified) - https://github.com/Stericson/RootShell
 - time-duration-picker (as module, code modified) - https://github.com/svenwiegand/time-duration-picker
@@ -128,7 +132,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - RecyclerView-FastScroll (as module, code modified) - https://github.com/jahirfiquitiva/RecyclerView-FastScroll (original repository: https://github.com/timusus/RecyclerView-FastScroll)
 - RelativePopupWindow (only modified class RelativePopupWindow.java) - https://github.com/kakajika/RelativePopupWindow
 - SunriseSunset (only modified class SunriseSunset.java) - https://github.com/caarmen/SunriseSunset
-- android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/Reginer/aosp-android-jar (original repository: https://github.com/anggrayudi/android-hidden-api)
+- android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/Reginer/aosp-android-jar
 - NoobCameraFlash (as module, code modified) - https://github.com/Abhi347/NoobCameraFlash
 - AutoStarter (only modified class AutoStartPermissionHelper.kt) - https://github.com/judemanutd/AutoStarter
 - ToastCompat (as module, code modified) - https://github.com/PureWriter/ToastCompat

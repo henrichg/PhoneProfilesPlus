@@ -280,7 +280,7 @@ class ProfileStatic {
         */
 
         // systemValue is in range 0..255
-        int systemValue = BrightnessLookup.lookup(percentage, false);
+        float systemValue = BrightnessLookup.lookup(percentage, false);
 
         if (PPApplication.deviceIsOnePlus) {
             if (Build.VERSION.SDK_INT < 31)
@@ -883,6 +883,7 @@ class ProfileStatic {
         preferenceAllowed.notAllowedRoot = false;
         preferenceAllowed.notAllowedG1 = false;
         preferenceAllowed.notAllowedPPPPS = false;
+        preferenceAllowed.notAllowedShizuku = false;
 
         //noinspection IfStatementWithIdenticalBranches
         if (profile == null) {
@@ -1013,6 +1014,9 @@ class ProfileStatic {
                 case Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
+                case Profile.PREF_PROFILE_LOCK_DEVICE:
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_LOCK_DEVICE(preferenceAllowed, null, sharedPreferences);
+                    break;
                 default:
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
@@ -1062,8 +1066,12 @@ class ProfileStatic {
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context, false);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context, true);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_LOCK_DEVICE(preferenceAllowed, profile, sharedPreferences);
 
-            if (preferenceAllowed.notAllowedG1 || preferenceAllowed.notAllowedRoot || preferenceAllowed.notAllowedPPPPS)
+            if (preferenceAllowed.notAllowedG1 ||
+                    preferenceAllowed.notAllowedRoot ||
+                    preferenceAllowed.notAllowedPPPPS ||
+                    preferenceAllowed.notAllowedShizuku)
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
             return preferenceAllowed;
@@ -1092,6 +1100,7 @@ class ProfileStatic {
 
     static void getActivatedProfileEndDurationTime(Context context)
     {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileStatic.getActivatedProfileEndDurationTime", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             ApplicationPreferences.prefActivatedProfileEndDurationTime = ApplicationPreferences.
                     getSharedPreferences(context).getLong(ApplicationPreferences.PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
@@ -1101,6 +1110,7 @@ class ProfileStatic {
 
     static void setActivatedProfileEndDurationTime(Context context, long time)
     {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileStatic.setActivatedProfileEndDurationTime", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putLong(ApplicationPreferences.PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
@@ -1166,7 +1176,7 @@ class ProfileStatic {
             if (!Settings.canDrawOverlays(context))
                 grantedAllPermissions = false;
         }*/
-        // test only root or G1 parameters, because key is not set but profile is
+        // test only root or G1 or Shizuku parameters, because key is not set but profile is
         PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed("-", profile, null, true, context);
         boolean grantedRoot = true;
         //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -1180,6 +1190,10 @@ class ProfileStatic {
         if (preferenceAllowed.notAllowedG1) {
             //if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
             grantedG1Permission = false;
+        }
+        boolean grantedShizukuPermission = true;
+        if (preferenceAllowed.notAllowedShizuku) {
+            grantedShizukuPermission = false;
         }
 
         boolean installedPPPPS = true;
@@ -1203,7 +1217,7 @@ class ProfileStatic {
             return (!grantedAllPermissions) ||
                     (!enabledNotificationAccess) ||
                     (!accessibilityEnabled) ||
-                    (!defaultAssistantEnabled)  ||
+                    (!defaultAssistantEnabled) ||
                     (!installedPPPPS);
         else
             return (!grantedAllPermissions) ||
@@ -1211,8 +1225,9 @@ class ProfileStatic {
                     (!grantedG1Permission) ||
                     (!enabledNotificationAccess) ||
                     (!accessibilityEnabled) ||
-                    (!defaultAssistantEnabled)  ||
-                    (!installedPPPPS);
+                    (!defaultAssistantEnabled) ||
+                    (!installedPPPPS) ||
+                    (!grantedShizukuPermission);
     }
 
 }

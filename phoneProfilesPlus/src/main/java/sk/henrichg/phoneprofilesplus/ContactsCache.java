@@ -171,6 +171,7 @@ class ContactsCache {
 //                Log.e("ContactsCache.getContactList", "(1) xxxxxx");
 
                 //_contactList.sort(new ContactsComparator());
+//                PPApplicationStatic.logE("[SYNCHRONIZED] ContactsCache.getContactList", "(1) PPApplication.contactsCacheMutex");
                 synchronized (PPApplication.contactsCacheMutex) {
 //                    Log.e("ContactsCache.getContactList", "(1.1) xxxxxx");
 
@@ -352,6 +353,7 @@ class ContactsCache {
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();
+//            PPApplicationStatic.logE("[SYNCHRONIZED] ContactsCache.getContactList", "(2) PPApplication.contactsCacheMutex");
             synchronized (PPApplication.contactsCacheMutex) {
                 updateContacts(_contactList/*, false*/);
                 //updateContacts(_contactListWithoutNumber, true);
@@ -364,6 +366,7 @@ class ContactsCache {
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();
+//            PPApplicationStatic.logE("[SYNCHRONIZED] ContactsCache.getContactList", "(3) PPApplication.contactsCacheMutex");
             synchronized (PPApplication.contactsCacheMutex) {
                 updateContacts(_contactList/*, false*/);
                 //updateContacts(_contactListWithoutNumber, true);
@@ -413,6 +416,7 @@ class ContactsCache {
 
     List<Contact> getList(/*boolean withoutNumber*/)
     {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ContactsCache.getList", "PPApplication.contactsCacheMutex");
         synchronized (PPApplication.contactsCacheMutex) {
             if (cached) {
             /*if (withoutNumber)
@@ -451,6 +455,7 @@ class ContactsCache {
 
     void clearCache()
     {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] ContactsCache.clearCache", "PPApplication.contactsCacheMutex");
         synchronized (PPApplication.contactsCacheMutex) {
             contactList.clear();
             //contactListWithoutNumber.clear();

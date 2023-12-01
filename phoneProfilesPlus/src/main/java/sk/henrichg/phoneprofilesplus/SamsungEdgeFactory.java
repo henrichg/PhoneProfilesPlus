@@ -42,6 +42,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         //String applicationSamsungEdgeBackgroundColorNightModeOff;
         //String applicationSamsungEdgeBackgroundColorNightModeOn;
 
+//        PPApplicationStatic.logE("[SYNCHRONIZED] SamsungEdgeFactory.createProfilesDataWrapper", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor;
             applicationSamsungEdgeIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness;
@@ -116,6 +117,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
     }
 
     public int getCount() {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] SamsungEdgeFactory.getCount", "PPApplication.samsungEdgeDatasetChangedMutex");
         synchronized (PPApplication.samsungEdgeDatasetChangedMutex) {
             int count = 0;
             if (dataWrapper != null) {
@@ -136,6 +138,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             return null;
         else
         {
+//            PPApplicationStatic.logE("[SYNCHRONIZED] SamsungEdgeFactory.getItem", "PPApplication.samsungEdgeDatasetChangedMutex");
             synchronized (PPApplication.samsungEdgeDatasetChangedMutex) {
                 Profile _profile = null;
                 if (dataWrapper != null) {
@@ -156,6 +159,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
     }
 
     public RemoteViews getViewAt(int position) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] SamsungEdgeFactory.getViewAt", "PPApplication.samsungEdgeDatasetChangedMutex");
         synchronized (PPApplication.samsungEdgeDatasetChangedMutex) {
             Context appContext = context;
             LocaleHelper.setApplicationLocale(appContext);
@@ -179,6 +183,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                 String applicationSamsungEdgeBackgroundColorNightModeOff;
                 String applicationSamsungEdgeBackgroundColorNightModeOn;
 
+//                PPApplicationStatic.logE("[SYNCHRONIZED] SamsungEdgeFactory.getViewAt", "PPApplication.applicationPreferencesMutex");
                 synchronized (PPApplication.applicationPreferencesMutex) {
                     applicationSamsungEdgeLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT;
                     applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
@@ -355,6 +360,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         _dataWrapper.getEventTimelineList(true);
 
         boolean applicationSamsungEdgeHeader;
+//        PPApplicationStatic.logE("[SYNCHRONIZED] SamsungEdgeFactory.onDataSetChanged", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
         }
@@ -388,6 +394,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         }
         _dataWrapper.invalidateDataWrapper();
 
+//        PPApplicationStatic.logE("[SYNCHRONIZED] SamsungEdgeFactory.onDataSetChanged", "PPApplication.samsungEdgeDatasetChangedMutex");
         synchronized (PPApplication.samsungEdgeDatasetChangedMutex) {
 
             if (dataWrapper != null)

@@ -70,6 +70,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS = 1998;
     static final String PREF_GRANT_ROOT_PERMISSION = "permissionsGrantRootPermission";
     private static final String PREF_GRANT_G1_PERMISSION = "permissionsGrantG1Permission";
+    private static final String PREF_GRANT_SHIZUKU_PERMISSION = "permissionsGrantShizukuPermission";
 
     private static final String PREF_WIFI_LOCATION_SYSTEM_SETTINGS = "applicationEventWiFiLocationSystemSettings";
     private static final String PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = "applicationEventBluetoothLocationSystemSettings";
@@ -684,6 +685,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setSummary(R.string.phone_profiles_pref_drawOverlaysPermissions_summary_miui);
                     }*/
                 preference.setOnPreferenceClickListener(preference13 -> {
+                    Intent intent = new Intent(getActivity(), GrantDrawOverAppsActivity.class);
+                    startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
+                    /*
                     boolean ok = false;
                     //if (!PPApplication.romIsMIUI) {
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getActivity().getApplicationContext())) {
@@ -718,6 +722,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (!getActivity().isFinishing())
                             dialog.show();
                     }
+                    */
                         /*}
                         else {
                             try {
@@ -1019,6 +1024,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         // force check root
         boolean rooted;
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesPrefsFragment.onActivityCreated", "PPApplication.rootMutex");
         synchronized (PPApplication.rootMutex) {
             PPApplication.rootMutex.rootChecked = false;
             rooted = RootUtils._isRooted();
@@ -1043,6 +1049,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (preference != null) {
             preference.setOnPreferenceClickListener(preference110 -> {
                 Permissions.grantG1Permission(null, getActivity());
+                return false;
+            });
+        }
+
+        preference = findPreference(PREF_GRANT_SHIZUKU_PERMISSION);
+        if (preference != null) {
+            preference.setOnPreferenceClickListener(preference110 -> {
+                Permissions.grantShizukuPermission(null, getActivity());
+                setSummary(PREF_GRANT_SHIZUKU_PERMISSION);
                 return false;
             });
         }
@@ -2511,6 +2526,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_ORIENTATION_POWER_SAVE_MODE_SETTINGS);
         setSummary(PREF_GRANT_ROOT_PERMISSION);
         setSummary(PREF_GRANT_G1_PERMISSION);
+        setSummary(PREF_GRANT_SHIZUKU_PERMISSION);
         setSummary(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
         //setSummary(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
         setSummary(PREF_DRAW_OVERLAYS_PERMISSIONS);
@@ -3837,6 +3853,23 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = getString(R.string.phone_profiles_pref_device_is_not_rooted);
             preference.setSummary(summary);
         }
+        if (key.equals(PREF_GRANT_SHIZUKU_PERMISSION)) {
+            String summary;
+            if (ShizukuUtils.shizukuAvailable()) {
+                if (ShizukuUtils.hasShizukuPermission())
+                    summary = getString(R.string.permission_granted);
+                else
+                    summary = getString(R.string.permission_not_granted);
+                summary = summary + StringConstants.STR_DOUBLE_NEWLINE + getString(R.string.phone_profiles_pref_grantShizukuPermission_summary2) + " " +
+                        getString(R.string.profile_preferences_types_shizuku_show_info2);
+            }
+            else {
+                summary = getString(R.string.phone_profiles_pref_shizuku_is_not_running);
+                summary = summary + StringConstants.STR_DOUBLE_NEWLINE + getString(R.string.phone_profiles_pref_grantShizukuPermission_summary1) + " " +
+                        getString(R.string.profile_preferences_types_shizuku_show_info1);
+            }
+            preference.setSummary(summary);
+        }
 
         if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR) ||
                 //key.equals(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1) ||
@@ -4493,7 +4526,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + "…";
         }*/
 
-        preferenceCategory.setSummary(StringFormatUtils.fromHtml(_value.toString(), false, false, false, 0, 0, true));
+        preferenceCategory.setSummary(StringFormatUtils.fromHtml(_value.toString(), false,  false, 0, 0, true));
     }
 
     static String getColorForChangedPreferenceValue(String preferenceValue,

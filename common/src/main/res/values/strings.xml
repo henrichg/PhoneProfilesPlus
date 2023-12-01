@@ -193,11 +193,11 @@
     <string name="event_preferences_category_endOfEvent">End of event</string>
     <string name="event_preference_profile_undone">Undo</string>
     <string name="event_preferences_priority">Priority</string>
-    <string name="array_event_pref_priorityVeryHigh">[P:9] Very high</string>
-    <string name="array_event_pref_priorityHigh">[P:7] High</string>
-    <string name="array_event_pref_priorityMedium">[P:5] Medium</string>
-    <string name="array_event_pref_priorityLow">[P:3] Low</string>
-    <string name="array_event_pref_priorityVeryLow">[P:1] Very low</string>
+    <string name="array_event_pref_priorityVeryHigh">9 - Very high</string>
+    <string name="array_event_pref_priorityHigh">7 - High</string>
+    <string name="array_event_pref_priorityMedium">5 - Medium</string>
+    <string name="array_event_pref_priorityLow">3 - Low</string>
+    <string name="array_event_pref_priorityVeryLow">1 - Very low</string>
     <string name="editor_drawer_order_priority">Priority</string>
     <string name="event_type_peripheral">Accessories</string>
     <string name="array_event_pref_peripheralType_deskDock">Desk dock</string>
@@ -222,12 +222,12 @@
     <string name="array_event_pref_calendarSearchField_description">Description</string>
     <string name="event_preferences_calendar_search_string">Search string</string>
     <string name="event_preferences_calendar_no_event">No event</string>
-    <string name="array_event_pref_priorityLowest">[P:0] Lowest</string>
-    <string name="array_event_pref_priorityLower">[P:2] Lower</string>
-    <string name="array_event_pref_priorityLowerMedium">[P:4] Lower medium</string>
-    <string name="array_event_pref_priorityUpperMedium">[P:6] Upper medium</string>
-    <string name="array_event_pref_priorityHigher">[P:8] Higher</string>
-    <string name="array_event_pref_priorityHighest">[P:10] Highest</string>
+    <string name="array_event_pref_priorityLowest">0 - Lowest</string>
+    <string name="array_event_pref_priorityLower">2 - Lower</string>
+    <string name="array_event_pref_priorityLowerMedium">4 - Lower medium</string>
+    <string name="array_event_pref_priorityUpperMedium">6 - Upper medium</string>
+    <string name="array_event_pref_priorityHigher">8 - Higher</string>
+    <string name="array_event_pref_priorityHighest">10 - Highest</string>
     <string name="event_type_wifi">Wi-Fi</string>
     <string name="event_preferences_category_eventWifiParameters">Wi-Fi sensor</string>
     <string name="event_preferences_wifi_ssid">SSID</string>
@@ -269,7 +269,6 @@
     <string name="toast_events_restarted">Events restarted</string>
     <string name="event_name_background_profile">Default profile</string>
     <string name="array_pref_zenModeArray_priority">Priority</string>
-    <string name="profile_preferences_deviceMobileData_21">(R) Mobile data</string>
     <string name="preference_profile_adaptiveBrightness">Adaptive</string>
     <string name="profile_preferences_deviceKeyguard">Lock screen</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Hide profile name</string>
@@ -412,7 +411,6 @@
     <string name="event_type_applications">Applications</string>
     <string name="event_preferences_category_eventApplicationsParameters">Application sensor</string>
     <string name="event_preferences_applications_applications">Applications</string>
-    <string name="brightness_pref_dialog_adaptive_level_root_required">ROOT required to change adaptive level.</string>
     <string name="important_info_profile_activation_text1">Profiles can be activated in one of two modes:</string>
     <string name="important_info_profile_activation_text2">Manual activation - activated in Activator, Editor, notification, widget, shortcut. Manually activated profiles are indicated with \"[M]\" in front of the profile name.</string>
     <string name="important_info_profile_activation_text3">Event activation - activated by an event.</string>
@@ -475,7 +473,6 @@
     <string name="info_notification_event_states_running_delay">Running with delay: event is running, but parameters are not satisfied. Event is waiting for the delay to expire.</string>
     <string name="profile_preferences_askForDuration">Ask for Duration</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Battery optimization</string>
-    <string name="profile_preferences_deviceNetworkType">(R) Mobile network type</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Battery Saver</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">System settings configuration</string>
     <string name="phone_profiles_pref_notificationTextColor">Text color</string>
@@ -1460,8 +1457,6 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Setting screen not found, but this setting is not needed, if PhoneProfilesPlus starts at phone boot.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Corner radius</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
     <string name="profile_preferences_category_led_accessories">LED accessories</string>
     <string name="array_pref_radioSwitch_connected">Connected</string>
     <string name="array_pref_radioSwitch_disconnected">Disconnected</string>
@@ -1476,7 +1471,6 @@
     <string name="default_sim_subscription_sms">SMS</string>
     <string name="default_sim_subscription_data">Data</string>
     <string name="profile_preferences_deviceDualSIMSupport">Dual SIM support</string>
-    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
     <string name="profile_preferences_deviceOnOff_SIM1">Switch SIM 1 on/off</string>
     <string name="profile_preferences_deviceOnOff_SIM2">Switch SIM 2 on/off</string>
     <string name="ringtone_pref_dlg_system_tone">system tone</string>
@@ -1613,7 +1607,6 @@
     <string name="check_ppp_releases_notification">Click this notification for check of PhoneProfilesPlus releases. Maybe was released newer version.</string>
     <string name="check_github_releases_install_info_app_stores_release">"In application stores will be new version soon."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Show profile preferences</string>
-    <string name="show_dialog_about_red_text_show_editor">Show Editor</string>
     <string name="array_pref_change_image_wallpaper">Change to image</string>
     <string name="array_pref_change_live_wallpaper">(I) Change to live wallpaper</string>
     <string name="profile_preferences_deviceImageWallpaper">Image wallpaper</string>
@@ -1893,9 +1886,6 @@
     <string name="profile_icon_preference_iconColor_help_info_2">An icon with this increased brightness will be used throughout the GUI of the application. Also in notification and widgets, when their background is dark.</string>
     <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with a double arrow sign.</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info4">Current configuration:</string>
-    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) On in Airplane mode</string>
-    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
-    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
     <string name="event_preference_sensor_roaming_summary">This sensor will start an event when network or data are in roaming. Parameters: Check network, Check data.</string>
     <string name="event_type_roaming">Roaming</string>
     <string name="event_preferences_category_eventRoamingParameters">Roaming sensor</string>
@@ -1903,9 +1893,6 @@
     <string name="pref_event_roaming_check_data">Check data</string>
     <string name="event_preferences_roaming_forSimCard">For SIM card</string>
     <string name="permission_why_event_roaming_preferences">for check, if network or data are in roaming</string>
-    <string name="array_pref_airplaneModeArray_root_on">(R) On</string>
-    <string name="array_pref_airplaneModeArray_root_off">(R) Off</string>
-    <string name="array_pref_airplaneModeArray_root_toggle">(R) Toggle</string>
     <string name="array_pref_airplaneModeArray_assistant_on">On with Assistant</string>
     <string name="array_pref_airplaneModeArray_assistant_off">Off with Assistant</string>
     <string name="array_pref_airplaneModeArray_assistant_toggle">Toggle with Assistant</string>
@@ -1964,7 +1951,6 @@
     <string name="about_application_pppps_source_code">Source code - PPPPutSettings:</string>
     <string name="profile_preferences_notificationLed_23">(S)(R) Notification LED</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Always-On display</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
@@ -2050,36 +2036,27 @@
     <string name="altype_profileError_wifi">profile - error on set Wi-Fi</string>
     <string name="altype_profileError_wifiAP">profile - error on set Wi-Fi hotspot</string>
     <string name="altype_profileError_closeAllApplications">profile - error on close all applications</string>
-
     <string name="phone_profiles_pref_createEditorShortcut">Shortcut to Editor</string>
     <string name="phone_profiles_pref_createEditorShortcut_summary">Click here, to create shortcut to Editor in home launcher</string>
     <string name="editor_launcher_label">Editor</string>
-
     <string name="generate_notification_pref_dialog_large_icon_chb">Show large icon</string>
     <string name="preference_profile_generate_notification_show_large_icon">show large icon</string>
     <string name="generate_notification_pref_dialog_replace_with_ppp_icon_chb">Replace with PhoneProfilesPlus icon</string>
     <string name="preference_profile_generate_notification_replace_with_ppp_icon">replace with PhoneProfilesPlus icon</string>
-
     <string name="notification_channel_donation_description">Shows notification asking for a monetary donation to the author.</string>
-
     <string name="shortcut_to_editor_created_toast">Shortcut to Editor created</string>
-
     <string name="install_pppps_text6">For Android 14+, it is not possible to install PPPPutSettings directly on the device.</string>
     <string name="install_pppps_text7">Click button</string>
     <string name="install_pppps_text7a">for a website view on how to install PPPPutSettings from a computer.</string>
     <string name="install_pppps_text8">Is better to open \"How to install\" in computer in his Internet browser. It is in PPPPutSettings GitHub README.md, marked as</string>
     <string name="install_pppps_text9" translatable="false">\"How to install\"</string>
     <string name="install_pppps_alert_button_how_to_install">How to install</string>
-
     <string name="privacy_policy_web_browser_chooser">View PhoneProfilesPlus Privacy policy using</string>
-
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">More compact</string>
-
     <string name="altype_timezone_changed">time zone changed</string>
     <string name="altype_extender_accessibility_service_enabled">Extender accessibility service enbaled</string>
     <string name="altype_extender_accessibility_service_not_enabled">Extender accessibility service not enbaled</string>
     <string name="altype_extender_accessibility_service_unbind">Extender accessibility service unbinded</string>
-
     <string name="check_releases_install_from_apk_note1">NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead</string>
     <string name="check_releases_install_from_apk_note2_ppp">, if in your device is not supported application store, and install PhoneProfilesPlus from it.</string>
     <string name="check_releases_install_from_apk_note2_pppe">, if in your device is not supported application store, and install PhoneProfilesPlusExtender from it.</string>
@@ -2088,9 +2065,7 @@
     <string name="install_ppp_store_droidify" translatable="false">Droid-ify</string>
     <string name="install_ppp_store_fdroid" translatable="false">F-Droid</string>
     <string name="install_ppp_store_apkpure" translatable="false">APKPure</string>
-
     <string name="event_preferences_volumeNotificationsAccessSettings_summary2">Please enable \"Notification access\" in \"Notification scanning\" settings. Without this, Notification scanning will not work.</string>
-
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_1">If is not possible to enable Notification access, maybe are not allowed restricted settings for PhoneProfilesPlus. Click here to allow it.</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2">Click here to open \"App info\" screen for PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3">In \"App info\" screen, click menu at top and in it \"Allow restricted settings\".</string>
@@ -2100,21 +2075,16 @@
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7">Before uninstallation of PhoneProfilesPlus, do backup of PhoneProfilesPlus settings. It is in Editor menu in</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8">Aftet istallation of PhoneProfilesPlus from supported store, do restore of PhoneProfilesPlus settings. It is in Editor menu in</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10">Click here to open Droid-ify installation site.</string>
-
     <string name="install_extender_install_droidify_text">Please install Droid-ify. Is required for installation of PhoneProfilesPlusExtender. After that, do again installation of PhoneProfilesPlusExteder.</string>
     <string name="alert_button_install_store">Install store</string>;
     <string name="check_releases_droidify_ppp_release">PhoneProfilesPlus release in Droid-ify:</string>
     <string name="check_releases_fdroid_ppp_release">PhoneProfilesPlus release in F-Droid:</string>
     <string name="check_releases_appgallery_ppp_release">PhoneProfilesPlus release in Huawei AppGallery:</string>
     <string name="check_releases_ppp_release_clik_to_show">Click here to show it.</string>
-
     <string name="profile_preferences_volumeMediaChangeDuringPlay">Change media volume while playing music</string>
-
     <string name="phone_profiles_pref_applicationEventScanningPaused">Scanning paused</string>
-
     <string name="error_code">error code</string>
     <string name="check_releases_github_download_not_supported">"GitHub download is not supported. Please install PhoneProfilesPlus with Droid-ify."</string>
-
     <string name="event_preferences_category_eventBrightnessParameters">Brightness sensor</string>
     <string name="event_preference_brightness_summary">This sensor will start an event by brightness level change. Parameters: Operator from\/to, Brightness level from\/to.</string>
     <string name="event_preferences_brightness_level_from">Brightness level from</string>
@@ -2122,13 +2092,10 @@
     <string name="event_preferences_brightness_level_to">Brightness level to</string>
     <string name="event_preferences_brightness_operator_to">Operator to</string>
     <string name="event_type_brightness">Brightness</string>
-
     <string name="event_preferences_volumes_volume_from">Volume from</string>
     <string name="event_preferences_volumes_volume_to">Volume to</string>
-
     <string name="brightness_pref_dialog_actual_level">Current brightness</string>
     <string name="volume_pref_dialog_actual_volume">Current volume</string>
-
     <string name="event_preferences_mobile_cells_cellNames">Cell names</string>
     <string name="phone_profiles_pref_applicationEventMobileCellConfigureCells">Mobile cells editor</string>
     <string name="mobile_cell_names_pref_dlg_connected_cell">Connected cell:</string>
@@ -2136,37 +2103,67 @@
     <string name="mobile_cell_names_pref_dlg_connected_cell_sim2">Connected cell (SIM 2):</string>
     <string name="event_preferences_mobile_cells_configure_cells">Each mobile cell must have a name. Multiple cells can have the same name. A name represents a group of cells and these groups are configured in \"Cell Names\".\n\nClick here to configure cell names. That opens \"Mobile cells scanning\" screen and in it is \"Mobile cells editor\".</string>
     <string name="phone_profiles_pref_applicationEventMobileCellConfigureCells_summary">Each mobile cell must have a name. Multiple cells can have the same name. A name represents a group of cells and these groups are configured in \"Mobile cell sensor\"\/\"Cell Names\".</string>
-
     <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Show notification for detection of new mobile cells</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Cell registration is for registering new mobile cells. Registration will be running in background. During running registration, is recommended to not change location of device.</string>
     <string name="event_preferences_mobile_cells_cells_registration_summary">Cell registration is for registering new mobile cells. \n\nClick here if you want to start cell registration. That opens \"Mobile cells scanning\" screen and in it is \"Cell registration\".</string>
-
     <string name="array_pref_applicationDisableScanning_enabled_with_interval">Scanning enabled, interval set</string>
     <string name="phone_profiles_pref_applicationMobileCellScanInterval">Mobile cell scan interval</string>
     <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">Mobile cell scanning do not have scan interval.</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval">Notification scan interval</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">Notification scanning do not have scan interval.</string>
-
     <string name="generate_notification_after_click_dialog_title">What to do</string>
     <string name="generate_notification_after_click_dialog_start_activator">Start Activator</string>
     <string name="generate_notification_after_click_dialog_start_editor">Start Editor</string>
     <string name="generate_notification_after_click_dialog_restart_events">Restart events</string>
     <string name="generate_notification_after_click_dialog_enable_disable_events_run">Enable\/Disable events run</string>
-
     <string name="phone_profiles_pref_createMobileCellShortcut">Shortcut to \"Mobile cell scanning\"</string>
     <string name="phone_profiles_pref_createMobileCellShortcut_summary">Click here, to create shortcut to \"Mobile cell scanning\" in home launcher.</string>
     <string name="shortcut_to_mobile_cell_scanning_created_toast">Shortcut to \"Mobile cell scanning\" created</string>
-
     <string name="profile_preferences_types_R_grant_info">Click here to grant root.</string>
-
     <string name="event_preferences_hideNotUsedSensors">Hide not used sensors</string>
-
     <string name="activity_log_added_new_logs">Added new logs. Use \"Reload\" to display it.</string>
-
     <string name="export_settings_delete_contacts_data_text1">Note: Contacts will also be included in the exported settings. If you share the backup with other people, select the parameters that should not be exported.</string>
     <string name="export_settings_delete_contacts_data_calls">Contacts for Call sensor</string>
     <string name="export_settings_delete0_contacts_data_sms">Contacts for SMS/MMS sensor</string>
     <string name="export_settings_delete_contacts_data_notification">Contacts for Notification sensor</string>
+
+    <string name="grant_draw_over_apps_dialog_info_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click button \"Grant\" to grant this permission.</string>
+    <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, click this link. Maybe in this web page is solution for your device:</string>
+
+    <string name="install_extender_install_droidify_button">Install Droid-ify</string>
+
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Do not use</string>
+
+    <string name="contacts_filter_dialog_filter_title">Contacts filter</string>
+    <string name="contacts_filter_dialog_item_show_all">[ All ]</string>
+
+    <string name="profile_preferences_types_shizuku_permission">Grant Shizuku permission</string>
+    <string name="phone_profiles_pref_grantShizukuPermission_summary1">Some profile preferences require Shizuku. ROOT is not required. These preferences are marked with \"(Z)\".</string>
+    <string name="phone_profiles_pref_grantShizukuPermission_summary2">Please install, run and grant Shizuku permission for PhoneProfilesPlus. Is required for profile and event parameters, marked with (Z). Then ROOT will not be needed.</string>
+    <string name="preferences_grantShizukuPreferences_title">Permission for (Z) preferences not granted</string>
+    <string name="preferences_grantShizukuPreferences_summary">Click here to grant it.</string>
+    <string name="phone_profiles_pref_shizuku_is_not_running">Shizuku is not installed or running.</string>
+    <string name="profile_preferences_types_shizuku_show_info1">Click here to show more information.</string>
+    <string name="profile_preferences_types_shizuku_show_info2">Click here to grant it.</string>
+    <string name="important_info_profile_shizuku_howTo_1">Profile parameters marked with (Z) need Shizuku.</string>
+    <string name="important_info_profile_shizuku_howTo_2">Click here for download Shizuku.</string>
+    <string name="important_info_profile_shizuku_howTo_3">Click here to display how to setup Shizuku.</string>
+    <string name="grant_shizuku_permissions_text1">Shizuku requires permission</string>
+    <string name="grant_shizuku_permissions_text2">Please grant them in next dialog. Shizuku then can be used for some profile parameters.</string>
+    <string name="preference_not_allowed_reason_not_granted_shizuku">not installed, running or granted Shizuku</string>
+
+    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (S), (G1), (R), (Z), (I).</string>
+    <string name="profile_preferences_deviceMobileData_21">(Z)(R) Mobile data</string>
+    <string name="array_pref_airplaneModeArray_root_on">(Z)(R) On</string>
+    <string name="array_pref_airplaneModeArray_root_off">(Z)(R) Off</string>
+    <string name="array_pref_airplaneModeArray_root_toggle">(Z)(R) Toggle</string>
+    <string name="array_pref_wifiModeArray_on_inAirplaneMode">(Z)(R) On in Airplane mode</string>
+    <string name="array_pref_wifiModeArray_off_inAirplaneMode">(Z)(R) Off in Airplane mode</string>
+    <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(Z)(R) Toggle in Airplane mode</string>
+    <string name="profile_preferences_deviceNetworkType">(Z)(R) Mobile network type</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Mobile network type for SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Mobile network type for SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Default SIM card</string>
 
     <!-- **************************************************************************************** -->
 

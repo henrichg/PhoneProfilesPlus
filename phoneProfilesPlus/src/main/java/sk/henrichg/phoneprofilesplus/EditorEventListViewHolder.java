@@ -168,7 +168,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //eventName.setTextSize(15);
                 //eventName.setTextColor(GlobalGUIRoutines.getThemeEventStopColor(context));
                 //noinspection ConstantConditions
-                eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.eventStopTextColor));
+                eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.activityNormalTextColor/*eventStopTextColor*/));
                 //eventName.setTextColor(ContextCompat.getColor(context, R.color.eventStopTextColor));
             }
             else
@@ -210,11 +210,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             String eventStartOrder = "[O:" + event._startOrder + "] ";
             if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
                 eventStartOrder = "";
-            String eventPriority = "";
-            if (ApplicationPreferences.applicationEventUsePriority)
-                eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
             boolean addedLF = false;
-            if (eventStartOrder.isEmpty() && eventPriority.isEmpty()) {
+            if (eventStartOrder.isEmpty()/* && eventPriority.isEmpty()*/) {
                 if (event._ignoreManualActivation) {
                     addedLF = true;
                     if (event._noPauseByManualActivation)
@@ -228,11 +225,11 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 addedLF = true;
                 if (event._ignoreManualActivation) {
                     if (event._noPauseByManualActivation)
-                        _eventName = event._name + StringConstants.CHAR_NEW_LINE + eventStartOrder + eventPriority + "["+StringConstants.STR_DOUBLE_ARROW+"]";
+                        _eventName = event._name + StringConstants.CHAR_NEW_LINE + eventStartOrder /*+ eventPriority*/ + "["+StringConstants.STR_DOUBLE_ARROW+"]";
                     else
-                        _eventName = event._name + StringConstants.CHAR_NEW_LINE + eventStartOrder + eventPriority + "["+StringConstants.CHAR_ARROW +"]";
+                        _eventName = event._name + StringConstants.CHAR_NEW_LINE + eventStartOrder /*+ eventPriority*/ + "["+StringConstants.CHAR_ARROW +"]";
                 } else
-                    _eventName = event._name + StringConstants.CHAR_NEW_LINE + eventStartOrder + eventPriority;
+                    _eventName = event._name + StringConstants.CHAR_NEW_LINE + eventStartOrder /*+ eventPriority*/;
             }
 
             if (!event._startWhenActivatedProfile.isEmpty()) {
@@ -271,12 +268,14 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
 
             // profile start
+            /*
             if (applicationEditorPrefIndicator) {
                 if (event._fkProfileStart == Profile.PROFILE_NO_ACTIVATE)
                     profileStartIcon.getLayoutParams().height = 1;
                 else
                     profileStartIcon.getLayoutParams().height = GlobalGUIRoutines.dpToPx(30);
             }
+            */
             Profile profile =  editorFragment.activityDataWrapper.getProfileById(event._fkProfileStart, true,
                     applicationEditorPrefIndicator, false);
             if (profile != null)
@@ -363,16 +362,18 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     profileEndIndicator.setVisibility(View.GONE);
             }
             else*/ {
-                profileEndIcon.setVisibility(View.VISIBLE);
+                //profileEndIcon.setVisibility(View.VISIBLE);
+                /*
                 if (applicationEditorPrefIndicator) {
                     if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
                         profileEndIcon.getLayoutParams().height = 1;
                     else
                         profileEndIcon.getLayoutParams().height = GlobalGUIRoutines.dpToPx(30);
                 }
-                profileEndName.setVisibility(View.VISIBLE);
-                if (profileEndIndicator != null)
-                    profileEndIndicator.setVisibility(View.VISIBLE);
+                */
+                //profileEndName.setVisibility(View.VISIBLE);
+                //if (profileEndIndicator != null)
+                //    profileEndIndicator.setVisibility(View.VISIBLE);
 
                 profile = editorFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true,
                         applicationEditorPrefIndicator, false);
@@ -427,6 +428,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                         if (profileEndIndicator != null) {
+                            profileEndIndicator.setVisibility(View.VISIBLE);
                             if (profile._preferencesIndicator != null)
                                 profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
                             else

@@ -461,6 +461,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
             // for startActivityForResult
             returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, invalidateEditor);
             PPApplication.grantRootChanged = false;
+            PPApplication.grantShizukuChanged = false;
 
             //if (appWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
             //    Intent resultValue = new Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
@@ -470,6 +471,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
         }
         else {
             PPApplication.grantRootChanged = false;
+            PPApplication.grantShizukuChanged = false;
             setResult(RESULT_CANCELED);//, returnIntent);
         }
 
@@ -560,6 +562,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
         PPApplication.updateGUI(true, false, getApplicationContext());
 
         if (PPApplication.grantRootChanged) {
+            invalidateEditor = true;
+        }
+
+        if (PPApplication.grantShizukuChanged) {
             invalidateEditor = true;
         }
 

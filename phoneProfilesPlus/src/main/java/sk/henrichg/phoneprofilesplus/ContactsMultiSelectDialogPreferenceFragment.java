@@ -1,13 +1,17 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -27,6 +31,8 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
     // Layout widgets.
     private LinearLayout linlaProgress;
     private LinearLayout linlaData;
+    private TextView contactsFilter;
+    private ContactsFilterDialog mContactsFilterDialog;
 
     private ContactsMultiSelectPreferenceAdapter listAdapter;
 
@@ -64,16 +70,62 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
         unselectAllButton.setOnClickListener(v -> {
 //            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceFragment.onClick", "unselectAllButton click");
             preference.value="";
+            if (preference.contactList != null) {
+                for (Contact contact : preference.contactList)
+                    contact.checked = false;
+            }
             refreshListView(false);
         });
 
         if (Permissions.grantContactsDialogPermissions(prefContext)) {
-            if (preference.contactList != null)
+            /*
+            // save checked contacts
+            preference.checkedContactList = new ArrayList<>();
+            if (preference.contactList != null) {
+                for (Contact contact : preference.contactList) {
+                    if (contact.checked)
+                        preference.checkedContactList.add(contact);
+                }
                 preference.contactList.clear();
+            }
             listAdapter.notifyDataSetChanged();
+            */
             final Handler handler = new Handler(prefContext.getMainLooper());
             handler.postDelayed(() -> refreshListView(true), 200);
         }
+
+        contactsFilter = view.findViewById(R.id.contacts_multiselect_pref_dlg_contacts_filter);
+        if ((preference.contactsFilter == null) || preference.contactsFilter.displayName.isEmpty()) {
+            //if (preference.value.isEmpty())
+            //    cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_all);
+            //else
+            contactsFilter.setText(R.string.contacts_filter_dialog_item_show_all);
+        }
+        else
+            contactsFilter.setText(preference.contactsFilter.displayName);
+        contactsFilter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                refreshListView(false);
+            }
+        });
+
+        mContactsFilterDialog = new ContactsFilterDialog((Activity)prefContext, preference.withoutNumbers, preference);
+        contactsFilter.setOnClickListener(view1 -> {
+            if (getActivity() != null)
+                if (!getActivity().isFinishing())
+                    mContactsFilterDialog.show();
+        });
+
     }
 
     @Override
@@ -94,6 +146,10 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
         //    PhoneProfilesService.getContactsCache().clearCache(false);
 
         preference.fragment = null;
+    }
+
+    void setContactsFilter(ContactFilter filter) {
+        contactsFilter.setText(filter.displayName);
     }
 
     void refreshListView(final boolean notForUnselect) {

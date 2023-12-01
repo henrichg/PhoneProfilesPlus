@@ -106,6 +106,7 @@ class Event {
     static final int EPRIORITY_HIGHER = 3;
     //static final int EPRIORITY_VERY_HIGH = 4;
     static final int EPRIORITY_HIGHEST = 5;
+    static final int EPRIORITY_DO_NOT_USE = 99;
 
     static final int EATENDDO_NONE = 0;
     static final int EATENDDO_UNDONE_PROFILE = 1;
@@ -1226,7 +1227,7 @@ class Event {
                                 .append(StringConstants.TAG_BOLD_END_HTML);
 
                     }
-                    preference.setSummary(StringFormatUtils.fromHtml(_value.toString(), false, false, false, 0, 0, true));
+                    preference.setSummary(StringFormatUtils.fromHtml(_value.toString(), false,  false, 0, 0, true));
                 }
                 else
                     preference.setSummary("");
@@ -1260,7 +1261,7 @@ class Event {
                         if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_notificationVibrate));
                     }
-                    preference.setSummary(StringFormatUtils.fromHtml(_value.toString(), false, false, false, 0, 0, true));
+                    preference.setSummary(StringFormatUtils.fromHtml(_value.toString(), false,  false, 0, 0, true));
                 }
                 else
                     preference.setSummary("");
@@ -1485,9 +1486,58 @@ class Event {
         _eventPreferencesVPN.setCategorySummary(prefMng, preferences, context);
     }
 
-    String getPreferencesDescription(Context context, boolean addPassStatus)
+    String getPreferencesDescription(Context context, DataWrapper _dataWrapper, boolean addPassStatus)
     {
         StringBuilder _value = new StringBuilder();
+
+        if (ApplicationPreferences.applicationEventUsePriority) {
+            String passStatusString;
+            if (EventStatic.getGlobalEventsRunning(context) && addPassStatus && (getStatusFromDB(context) != Event.ESTATUS_STOP)) {
+                int sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                DataWrapper dataWrapper;
+                if (_dataWrapper == null) {
+                    dataWrapper = new DataWrapper(context, false, 0, false, 0, 0, 0f);
+                    /*List<EventTimeline> eventTimelineList = */dataWrapper.getEventTimelineList(true);
+                } else
+                    dataWrapper = _dataWrapper;
+                // search for running event with higher priority
+                if (ApplicationPreferences.applicationEventUsePriority) {
+                    for (EventTimeline eventTimeline : dataWrapper.eventTimelines) {
+                        int priority = dataWrapper.getEventPriority(eventTimeline._fkEvent);
+                        if ((this._priority != EPRIORITY_DO_NOT_USE) &&
+                                (priority != EPRIORITY_DO_NOT_USE) &&
+                                (priority > this._priority)) {
+                            // is running event with higher priority
+                            sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        }
+                    }
+                }
+                passStatusString = EventPreferences._getPassStatusString(sensorPassed, context.getString(R.string.event_preferences_priority), context);
+            } else {
+                passStatusString = "["+StringConstants.CHAR_HARD_SPACE_HTML + context.getString(R.string.event_preferences_priority) + StringConstants.CHAR_HARD_SPACE_HTML+"]";//+":";                //int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
+                //String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
+                //passStatusString = String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, "["+StringConstants.CHAR_HARD_SPACE_HTML + context.getString(R.string.event_preferences_priority) + StringConstants.CHAR_HARD_SPACE_HTML+"]");
+            }
+
+            String eventPriority;
+            String[] stringArray = context.getResources().getStringArray(R.array.eventPriorityArray);
+            if (_priority == Event.EPRIORITY_DO_NOT_USE)
+                eventPriority = stringArray[11];
+            else
+                eventPriority = stringArray[Event.EPRIORITY_HIGHEST - _priority];
+
+            int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
+            String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
+
+            String desc = StringConstants.TAG_BOLD_START_HTML +
+                    passStatusString +
+                    StringConstants.TAG_BOLD_END_WITH_SPACE_HTML +
+                    " " +
+                    StringConstants.TAG_BOLD_START_HTML +
+                    String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, eventPriority) +
+                    StringConstants.TAG_BOLD_END_HTML;
+            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
+        }
 
         if (_eventPreferencesTime._enabled) {
             String desc = _eventPreferencesTime.getPreferencesDescription(true, addPassStatus, false, context);
@@ -1642,6 +1692,7 @@ class Event {
         if (_value.length() == 0)
             _value.append(context.getString(R.string.event_preferences_no_sensor_is_enabled));
 
+        //Log.e("Event.getPreferencesDescription", "desc="+_value);
         return _value.toString();
     }
 
@@ -1789,13 +1840,15 @@ class Event {
         List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
 
         // search for running event with higher priority
-        boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority;
-        for (EventTimeline eventTimeline : eventTimelineList)
-        {
-            int priority = dataWrapper.getEventPriority(eventTimeline._fkEvent);
-            if (applicationEventUsePriority && (priority > this._priority)) {
-                // is running event with higher priority
-                return;
+        if (ApplicationPreferences.applicationEventUsePriority) {
+            for (EventTimeline eventTimeline : eventTimelineList) {
+                int priority = dataWrapper.getEventPriority(eventTimeline._fkEvent);
+                if ((this._priority != EPRIORITY_DO_NOT_USE) &&
+                        (priority != EPRIORITY_DO_NOT_USE) &&
+                        (priority > this._priority)) {
+                    // is running event with higher priority
+                    return;
+                }
             }
         }
 
@@ -1972,6 +2025,7 @@ class Event {
                             eventTimeline._fkProfileEndActivated = 0;
                     } else*/
                         {
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] Event.doActivateEndProfile", "(1) PPApplication.profileActivationMutex");
                             synchronized (PPApplication.profileActivationMutex) {
                                 List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();
@@ -2064,6 +2118,7 @@ class Event {
                             eventTimeline._fkProfileEndActivated = 0;
                     } else*/
                         {
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] Event.doActivateEndProfile", "(2) PPApplication.profileActivationMutex");
                             synchronized (PPApplication.profileActivationMutex) {
                                 List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();

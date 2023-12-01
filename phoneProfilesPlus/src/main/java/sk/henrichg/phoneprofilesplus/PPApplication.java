@@ -161,6 +161,7 @@ public class PPApplication extends Application
     static final String DROIDIFY_PACKAGE_NAME = "com.looker.droidify";
     static final String DROIDIFY_PPP_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplus_";
     static final String DROIDIFY_PPPE_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplusextender_";
+    static final String DROIDIFY_PPPPS_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.pppputsettings_";
 
     static final String GITHUB_PPPPS_RELEASES_URL = "https://github.com/henrichg/PPPPutSettings/releases";
     static final String GITHUB_PPPPS_DOWNLOAD_URL = "https://github.com/henrichg/PPPPutSettings/releases/latest/download/PPPPutSettings.apk";
@@ -265,6 +266,10 @@ public class PPApplication extends Application
                                                 //+"|[MAIN_WORKER_CALL]"
                                                 //+"|[CONTACTS_DIALOG]"
                                                 //+"|[CONTACTS_CACHE]"
+                                                //+"|[SYNCHRONIZED]"
+                                                //+"|[DEFAULT_SIM]"
+                                                //+"|BluetoothConnectedDevicesDetector"
+                                                //+"|BluetoothConnectionBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -1033,6 +1038,7 @@ public class PPApplication extends Application
     static volatile int savedBrightnessMode;
 
     static volatile boolean grantRootChanged = false;
+    static volatile boolean grantShizukuChanged = false;
 
     static volatile boolean ringerModeInternalChange = false;
     static volatile boolean ringerModeNotUnlinkVolumes = false;
@@ -1093,6 +1099,7 @@ public class PPApplication extends Application
             return;
         }
 
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplication.onCreate", "PPApplication.applicationStartedMutex");
         synchronized (PPApplication.applicationStartedMutex) {
             PPApplication.exportIsRunning = false;
         }
@@ -1865,6 +1872,7 @@ public class PPApplication extends Application
                Build.FINGERPRINT.toLowerCase().contains(XIOMI);
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     private static boolean isMIUIROM() {
         boolean miuiRom1 = false;
         boolean miuiRom2 = false;
@@ -1903,6 +1911,7 @@ public class PPApplication extends Application
         return miuiRom1 || miuiRom2 || miuiRom3;
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     private static String getEmuiRomName() {
         String line;
         BufferedReader input;
@@ -2040,6 +2049,7 @@ public class PPApplication extends Application
         return (modVer == null || modVer.length() == 0 ? "Unknown" : modVer);
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     private static String getSystemProperty(@SuppressWarnings("SameParameterValue") String propName)
     {
         String line;

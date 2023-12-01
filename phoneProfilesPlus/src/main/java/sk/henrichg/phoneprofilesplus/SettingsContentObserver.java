@@ -75,6 +75,7 @@ class SettingsContentObserver  extends ContentObserver {
             if (delta > 0) {
                 if (!PPApplication.ringerModeInternalChange) {
                     if (volumeStream == AudioManager.STREAM_RING) {
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] SettingsContentObserver.volumeChangeDetect", "(1) PPApplication.notUnlinkVolumesMutex");
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
                             PPApplication.ringerModeNotUnlinkVolumes = true;
                         }
@@ -82,6 +83,7 @@ class SettingsContentObserver  extends ContentObserver {
                         PlayRingingNotification.simulatingRingingCallActualRingingVolume = currentVolume;
                     }
                     if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] SettingsContentObserver.volumeChangeDetect", "(2) PPApplication.notUnlinkVolumesMutex");
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
                             PPApplication.ringerModeNotUnlinkVolumes = true;
                         }
@@ -92,6 +94,7 @@ class SettingsContentObserver  extends ContentObserver {
             } else if (delta < 0) {
                 if (!PPApplication.ringerModeInternalChange) {
                     if (volumeStream == AudioManager.STREAM_RING) {
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] SettingsContentObserver.volumeChangeDetect", "(3) PPApplication.notUnlinkVolumesMutex");
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
                             PPApplication.ringerModeNotUnlinkVolumes = true;
                         }
@@ -99,6 +102,7 @@ class SettingsContentObserver  extends ContentObserver {
                         PlayRingingNotification.simulatingRingingCallActualRingingVolume = currentVolume;
                     }
                     if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] SettingsContentObserver.volumeChangeDetect", "(4) PPApplication.notUnlinkVolumesMutex");
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
                             PPApplication.ringerModeNotUnlinkVolumes = true;
                         }

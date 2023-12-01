@@ -17,8 +17,8 @@ class RootMutex {
     Object serviceManagerWifi;
     Object serviceManagerIsub;
 
-    int transactionCode_setUserDataEnabled;
-    int transactionCode_setDataEnabled;
+    //int transactionCode_setUserDataEnabled;
+    //int transactionCode_setDataEnabled;
     int transactionCode_setPreferredNetworkType;
     int transactionCode_setDefaultVoiceSubId;
     int transactionCode_setDefaultSmsSubId;

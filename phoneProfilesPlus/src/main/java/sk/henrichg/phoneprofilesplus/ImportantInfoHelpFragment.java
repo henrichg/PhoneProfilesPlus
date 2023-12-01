@@ -357,7 +357,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                              fragment.getString(R.string.important_info_profile_activation_text2) + StringConstants.TAG_LIST_ITEM_END_HTML +
                     StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text3) +
                     StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false,  true, 1, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_profile_activation3);
         if (infoText100 != null) {
@@ -376,7 +376,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text10) + StringConstants.TAG_LIST_ITEM_END_HTML +
                     StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text11) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true,  false, 0, 0, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_event_activation9);
         if (infoText100 != null) {
@@ -385,7 +385,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text10) + StringConstants.TAG_LIST_ITEM_END_HTML +
                     StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text11) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true,  false, 0, 0, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_preference_types);
@@ -398,7 +398,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_interactive) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML
                     ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, false, 0, 0, false));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true,  false, 0, 0, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_3);
@@ -407,7 +407,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                         fragment.getString(R.string.important_info_profile_grant_1_howTo_3) +
                     StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false,  true, 1, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_4);
         if (infoText100 != null) {
@@ -415,7 +415,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                         fragment.getString(R.string.important_info_profile_grant_1_howTo_4) +
                     StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 2, 17, false));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false,  true, 2, 17, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_6);
@@ -426,7 +426,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_grant_1_howTo_8) +
                     StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false,  true, 1, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_10);
         if (infoText100 != null) {
@@ -434,7 +434,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                         fragment.getString(R.string.important_info_profile_grant_1_howTo_10) +
                     StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 4, 17, false));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false,  true, 4, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_20);
         if (infoText100 != null) {
@@ -446,7 +446,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_5) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML +
                     fragment.getString(R.string.important_info_profile_grant_1_howTo_20_6);
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, false, 0, 0, false));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true,  false, 0, 0, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_event_not_started_1);
@@ -458,7 +458,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.info_notification_event_priority_new) +
                     StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false,  true, 1, 17, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_event_event_sensors_2);
@@ -469,7 +469,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_event_event_sensors_not_pased) +
                     StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML
                     ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false,  true, 1, 17, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_1);
@@ -478,7 +478,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                         fragment.getString(R.string.info_notification_manage_events_from_tasker_restart_events) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true,  false, 0, 0, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_2);
         if (infoText100 != null) {
@@ -486,7 +486,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                         fragment.getString(R.string.info_notification_manage_events_from_tasker_enable_run_for_event) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true,  false, 0, 0, false));
         }
         /*
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_3);
@@ -504,7 +504,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                         fragment.getString(R.string.info_notification_manage_events_from_tasker_stop_event) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true,  false, 0, 0, false));
         }
 
         TextView infoText41 = view.findViewById(R.id.activity_info_activate_profile_from_tasker_params);
@@ -773,6 +773,66 @@ public class ImportantInfoHelpFragment extends Fragment {
             //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
             helpForPPPPSTextView.setText(spannable);
             helpForPPPPSTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
+        TextView helpForShizukuDownloadTextView = view.findViewById(R.id.activity_info_notification_profile_shizuku_howTo_2);
+        if (helpForShizukuDownloadTextView != null) {
+            String str1 = fragment.getString(R.string.important_info_profile_shizuku_howTo_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+            Spannable spannable = new SpannableString(str1);
+            //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = "https://shizuku.rikka.app/download/";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                }
+            };
+            spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            helpForShizukuDownloadTextView.setText(spannable);
+            helpForShizukuDownloadTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
+        TextView helpForShizukuSetupTextView = view.findViewById(R.id.activity_info_notification_profile_shizuku_howTo_3);
+        if (helpForShizukuSetupTextView != null) {
+            String str1 = fragment.getString(R.string.important_info_profile_shizuku_howTo_3) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+            Spannable spannable = new SpannableString(str1);
+            //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = "https://shizuku.rikka.app/guide/setup/";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                }
+            };
+            spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            helpForShizukuSetupTextView.setText(spannable);
+            helpForShizukuSetupTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
     }

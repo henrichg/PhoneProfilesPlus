@@ -188,6 +188,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                         if (pppReleaseData != null) {
                             if (Build.VERSION.SDK_INT >= 33) {
                                 // check IzzyOnDroid repo
+                                // because from Android 13 is required to install apk from app stores
 
                                 RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
                                 String izzyRepoURL = PPApplication.DROIDIFY_PPP_LATEST_APK_RELEASE_URL_BEGIN;
@@ -346,6 +347,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
     static void getShowCriticalGitHubReleasesNotification(Context context)
     {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] CheckCriticalPPPReleasesBroadcastReceiver.getShowCriticalGitHubReleasesNotification", "PPApplication.applicationGlobalPreferencesMutex");
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
             ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification = ApplicationPreferences.
                     getSharedPreferences(context).getInt(PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION, 0);
@@ -355,6 +357,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
     static void setShowCriticalGitHubReleasesNotification(Context context, int versionCode)
     {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification", "PPApplication.applicationGlobalPreferencesMutex");
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putInt(PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION, versionCode);

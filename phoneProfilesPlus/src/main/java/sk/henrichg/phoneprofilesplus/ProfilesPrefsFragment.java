@@ -76,6 +76,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_GRANT_G1_PREFERENCES = "prf_pref_grantG1Permissions";
     private static final String PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "prf_pref_notEnabledAccessibilityService";
     private static final String PREF_NOT_INSTALLED_PPPPS = "prf_pref_notInstammedPPPPS";
+    private static final String PREF_GRANT_SHIZUKU_PREFERENCES = "prf_pref_grantShizukuPermissions";
 
     private static final String PREF_FORCE_STOP_APPLICATIONS_CATEGORY_ROOT = "prf_pref_forceStopApplicationsCategoryRoot";
     private static final String PREF_FORCE_STOP_APPLICATIONS_EXTENDER = "prf_pref_deviceForceStopApplicationExtender";
@@ -619,6 +620,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)||
+                     (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))) {
                 if (vibrateNotificationsPreference != null) {
                     vibrateNotificationsPreference.setTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_vibrateNotifications));
@@ -750,6 +752,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 grantRootURL +
                 //</li>
                 StringConstants.TAG_LIST_ITEM_END_HTML +
+
+                //<li>
+                StringConstants.TAG_LIST_ITEM_START_HTML +
+                getString(R.string.phone_profiles_pref_grantShizukuPermission_summary1) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                // <a href>
+                StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
+                R.id.activity_info_notification_profile_shizuku_howTo_1 + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                getString(R.string.profile_preferences_types_shizuku_show_info1) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                //</li>
+                StringConstants.TAG_LIST_ITEM_END_HTML +
+
                 //<li>
                 StringConstants.TAG_LIST_ITEM_START_HTML +
                 getString(R.string.important_info_profile_interactive) +
@@ -956,6 +969,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                     (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
         }
         preference = findPreference(PREF_ALWAYS_ON_DISPLAY_INFO);
@@ -965,6 +979,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                     (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
         }
         preference = findPreference(PREF_SCREEN_DARK_MODE_INFO);
@@ -974,6 +989,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                     (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
         }
 
@@ -988,6 +1004,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                              (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                              (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                             (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                              (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
                     }
                     preference = findPreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2);
@@ -997,6 +1014,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                                 (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
                     }
                     /*
@@ -1027,6 +1045,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                  (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                                 (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                                  (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
                     }
 
@@ -1034,8 +1053,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (listPreference != null) {
                         PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, preferences, true, context);
 
-                        listPreference.setTitle(StringConstants.STR_ROOT+ getString(R.string.profile_preferences_deviceOnOff_SIM1));
-                        listPreference.setDialogTitle(StringConstants.STR_ROOT+getString(R.string.profile_preferences_deviceOnOff_SIM1));
+                        listPreference.setTitle(StringConstants.STR_SHIZUKU_ROOT+ getString(R.string.profile_preferences_deviceOnOff_SIM1));
+                        listPreference.setDialogTitle(StringConstants.STR_SHIZUKU_ROOT+getString(R.string.profile_preferences_deviceOnOff_SIM1));
                         String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "");
                         setSummary(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, value);
 
@@ -1043,14 +1062,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                  (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                                 (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                                  (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
                     }
                     listPreference = findPreference(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2);
                     if (listPreference != null) {
                         PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, preferences, true, context);
 
-                        listPreference.setTitle(StringConstants.STR_ROOT+ getString(R.string.profile_preferences_deviceOnOff_SIM2));
-                        listPreference.setDialogTitle(StringConstants.STR_ROOT+getString(R.string.profile_preferences_deviceOnOff_SIM2));
+                        listPreference.setTitle(StringConstants.STR_SHIZUKU_ROOT+ getString(R.string.profile_preferences_deviceOnOff_SIM2));
+                        listPreference.setDialogTitle(StringConstants.STR_SHIZUKU_ROOT+getString(R.string.profile_preferences_deviceOnOff_SIM2));
                         String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, "");
                         setSummary(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, value);
 
@@ -1058,6 +1078,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                                 (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
                     }
 
@@ -1072,6 +1093,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                                     (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
                         }
 
@@ -1082,6 +1104,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                                     (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
                             disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1);
                         }
@@ -1093,6 +1116,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                                     (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
                         }
 
@@ -1103,6 +1127,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                                     (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
                             disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
                         }
@@ -1120,6 +1145,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                                     (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
                         }
 
@@ -1136,6 +1162,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                                     (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                                      (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
                             disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
                         }
@@ -1145,8 +1172,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, preferences, true, context);
 
                             if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
-                                listPreference.setTitle(StringConstants.STR_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
-                                listPreference.setDialogTitle(StringConstants.STR_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+                                listPreference.setTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+                                listPreference.setDialogTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
                             } else {
                                 listPreference.setTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
                                 listPreference.setDialogTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
@@ -1158,6 +1185,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                                     (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
                         }
 
@@ -1166,8 +1194,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, null, preferences, true, context);
 
                             if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
-                                ringtonePreference.setTitle(StringConstants.STR_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
-                                ringtonePreference.setDialogTitle(StringConstants.STR_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
+                                ringtonePreference.setTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
+                                ringtonePreference.setDialogTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
                             } else {
                                 ringtonePreference.setTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
                                 ringtonePreference.setDialogTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
@@ -1179,6 +1207,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                                     (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                                      (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
                             disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
                         }
@@ -1929,6 +1958,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private boolean notGrantedG1Permission;
     private boolean notRootedOrGrantetRoot;
     private boolean notInstalledPPPPS;
+    private boolean notGrantedShizuku;
 
     private String getCategoryTitleWhenPreferenceChanged(String key, int preferenceTitleId,
                                                          Context context) {
@@ -1948,11 +1978,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         boolean _notInstalledPPPS =
                 (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                         (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS);
+        boolean _notGrantedShizuku =
+                (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                        (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED);
         if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                 _notGrantedG1Permission ||
                 _notRootedOrGrantedRoot ||
+                _notGrantedShizuku ||
                 _notDefaultAssistant ||
                 _notInstalledPPPS) {
+            String defaultValueS;
             switch (key) {
                 case Profile.PREF_PROFILE_ASK_FOR_DURATION:
                 case Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE:
@@ -1975,18 +2010,20 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
                         notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
                         notInstalledPPPPS = notInstalledPPPPS || _notInstalledPPPS;
+                        notGrantedShizuku = notGrantedShizuku || _notGrantedShizuku;
                     }
                     break;
                 case Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME:
                     title = context.getString(R.string.profile_preferences_exactTime);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE:
-                    String defaultValueS = Profile.defaultValuesString.get(key);
+                    defaultValueS = Profile.defaultValuesString.get(key);
                     if (!preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, defaultValueS).equals(defaultValueS)) {
                         title = getString(preferenceTitleId);
                         notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
                         notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
                         notInstalledPPPPS = notInstalledPPPPS || _notInstalledPPPS;
+                        notGrantedShizuku = notGrantedShizuku || _notGrantedShizuku;
                     }
                     break;
                 default:
@@ -2011,6 +2048,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
                                     notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
                                     notInstalledPPPPS = notInstalledPPPPS || _notInstalledPPPS;
+                                    notGrantedShizuku = notGrantedShizuku || _notGrantedShizuku;
                                 }
                                 break;
                             case Profile.PREF_PROFILE_DEVICE_BRIGHTNESS:
@@ -2019,6 +2057,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
                                     notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
                                     notInstalledPPPPS = notInstalledPPPPS || _notInstalledPPPS;
+                                    notGrantedShizuku = notGrantedShizuku || _notGrantedShizuku;
                                 }
                                 break;
                             case Profile.PREF_PROFILE_VOLUME_ZEN_MODE:
@@ -2026,6 +2065,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
                                 notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
                                 notInstalledPPPPS = notInstalledPPPPS || _notInstalledPPPS;
+                                notGrantedShizuku = notGrantedShizuku || _notGrantedShizuku;
                                 break;
                             case Profile.PREF_PROFILE_GENERATE_NOTIFICATION:
                                 if (GenerateNotificationDialogPreference.changeEnabled(value)) {
@@ -2033,6 +2073,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
                                     notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
                                     notInstalledPPPPS = notInstalledPPPPS || _notInstalledPPPS;
+                                    notGrantedShizuku = notGrantedShizuku || _notGrantedShizuku;
                                 }
                                 break;
                             case Profile.PREF_PROFILE_DEVICE_VPN:
@@ -2041,6 +2082,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
                                     notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
                                     notInstalledPPPPS = notInstalledPPPPS || _notInstalledPPPS;
+                                    notGrantedShizuku = notGrantedShizuku || _notGrantedShizuku;
                                 }
                                 break;
                             case Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING:
@@ -2051,6 +2093,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
                                     notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
                                     notInstalledPPPPS = notInstalledPPPPS || _notInstalledPPPS;
+                                    notGrantedShizuku = notGrantedShizuku || _notGrantedShizuku;
                                     if (!((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                                             PPApplication.deviceIsOnePlus)) {
                                         if (key.equals(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING))
@@ -2078,6 +2121,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
                                     notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
                                     notInstalledPPPPS = notInstalledPPPPS || _notInstalledPPPS;
+                                    notGrantedShizuku = notGrantedShizuku || _notGrantedShizuku;
                                 }
                                 break;
                         }
@@ -2682,7 +2726,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         (!cattegorySummaryData.permissionGranted) ||
                         notGrantedG1Permission ||
                         notRootedOrGrantetRoot ||
-                        notInstalledPPPPS, false);
+                        notInstalledPPPPS ||
+                        notGrantedShizuku, false);
             }
         }
 
@@ -4178,7 +4223,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     (!cattegorySummaryData.permissionGranted) ||
                                     notGrantedG1Permission ||
                                     notRootedOrGrantetRoot ||
-                                    notInstalledPPPPS, false);
+                                    notInstalledPPPPS ||
+                                    notGrantedShizuku, false);
                             return true;
                         }
 
@@ -4195,7 +4241,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 (!cattegorySummaryData.permissionGranted) ||
                                         notGrantedG1Permission ||
                                         notRootedOrGrantetRoot ||
-                                        notInstalledPPPPS, false);
+                                        notInstalledPPPPS ||
+                                        notGrantedShizuku, false);
                 }
             } else
                 preferenceScreen.setVisible(false);
@@ -4280,6 +4327,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         notGrantedG1Permission = false;
         notRootedOrGrantetRoot = false;
         notInstalledPPPPS = false;
+        notGrantedShizuku = false;
 
         if (key.equals(PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT)) {
             if (setCategorySummaryActivationDuration(context,
@@ -4372,9 +4420,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 (!cattegorySummaryData.defaultAssistantSet) ||
                 notGrantedG1Permission ||
                 notRootedOrGrantetRoot ||
-                notInstalledPPPPS, false);
+                notInstalledPPPPS ||
+                notGrantedShizuku, false);
         if (cattegorySummaryData.bold || cattegorySummaryData.forceSet)
-            preferenceScreen.setSummary(StringFormatUtils.fromHtml(cattegorySummaryData.summary, false, false, false, 0, 0, true));
+            preferenceScreen.setSummary(StringFormatUtils.fromHtml(cattegorySummaryData.summary, false,  false, 0, 0, true));
         else
             preferenceScreen.setSummary("");
     }
@@ -4648,6 +4697,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                         listPreference.setEnabled(false);
                     else
@@ -4703,7 +4753,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
@@ -4713,10 +4762,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR) ||
                 //key.equals(Profile.PREF_PROFILE_LOCK_DEVICE) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS) ||
                 key.equals(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING) ||
-                key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS))
+                key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH))
         {
             PreferenceAllowed preferenceAllowed;
             if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING)) {
@@ -4744,6 +4791,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                         preference.setEnabled(false);
                     else
@@ -4820,6 +4868,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                             preference.setEnabled(false);
                         else
@@ -4867,6 +4916,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                         listPreference.setEnabled(false);
                     else
@@ -4904,6 +4954,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                         listPreference.setEnabled(false);
                     else
@@ -5005,6 +5056,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)) {
                         enabled = false;
                         listPreference.setEnabled(false);
@@ -5391,6 +5443,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                         preference.setEnabled(false);
                     else
@@ -5506,6 +5559,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                                 preference.setEnabled(false);
                             else
@@ -5521,6 +5575,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                                         preference.setEnabled(false);
                                     else
@@ -5537,6 +5592,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                                         preference.setEnabled(false);
                                     else
@@ -5579,6 +5635,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                                 preference.setEnabled(false);
                             else
@@ -5611,6 +5668,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                                 preference.setEnabled(false);
                             else
@@ -5626,6 +5684,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                                         preference.setEnabled(false);
                                     else
@@ -5642,6 +5701,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                                         preference.setEnabled(false);
                                     else
@@ -5697,21 +5757,35 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS))
         {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
+//            if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
+//                Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs");
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             {
+//                if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
+//                    Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  not allowed");
                 Preference preference = prefMng.findPreference(key);
+//                if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
+//                    Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  preference="+preference);
                 if (preference != null) {
+//                    if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
+//                        Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  preference != null");
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                         preference.setEnabled(false);
                     else
                         errorColor = !value.toString().equals("0");
-                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+//                    if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
+//                        Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  errorColor="+errorColor);
+                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+//                        if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
+//                            Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  not allowed description");
+                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    }
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
                 }
             }
@@ -5736,7 +5810,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         profile._deviceBluetooth = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, "0"));
                         profile._deviceMobileData = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, "0"));
                         profile._deviceNetworkType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
-                        profile._deviceMobileData = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, "0"));
+                        profile._deviceMobileDataPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, "0"));
                         profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, "0"));
                         Permissions.checkProfileRadioPreferences(context, profile, permissions);
                         //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
@@ -5810,6 +5884,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                         preference.setEnabled(false);
                     else
@@ -5843,6 +5918,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                             (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                             (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                            (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                             (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                         preference.setEnabled(false);
                     else
@@ -5923,6 +5999,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                                 preference.setEnabled(false);
                             else
@@ -5963,6 +6040,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                                 preference.setEnabled(false);
                             else
@@ -6003,6 +6081,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
                                 (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
                                 preference.setEnabled(false);
                             else
@@ -6389,6 +6468,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                     (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                     (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                    (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                     (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))) {
                 if (ringerMode.equals("1") || ringerMode.equals("4"))
                     enabled = true;
@@ -6411,6 +6491,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                          (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                          (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)||
+                         (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) ||
                          (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))) {
                     if (ringerMode.equals("1") || ringerMode.equals("4"))
                         enabled = true;
@@ -7105,7 +7186,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             androidx.preference.Preference preference = preferenceWeakRef.get();
             if ((context != null) && (preference != null)) {
                 String summary = TextUtils.replace(initSummary, new String[]{TAG_RINGTONE_NAME}, new String[]{ringtoneName}).toString();
-                preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
+                preference.setSummary(StringFormatUtils.fromHtml(summary, false,  false, 0, 0, true));
             }
         }
 
@@ -7202,7 +7283,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String summary = TextUtils.replace(initSummary,
                         new String[]{TAG_RINGTONE_NAME, TAG_NOTIFICATION_NAME, TAG_ALARM_NAME},
                         new String[]{ringtoneName, notificationName, alarmName}).toString();
-                preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
+                preference.setSummary(StringFormatUtils.fromHtml(summary, false,  false, 0, 0, true));
             }
         }
 
@@ -7317,7 +7398,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String summary = TextUtils.replace(initSummary,
                         new String[]{TAG_RINGTONE_NAME_SIM1, TAG_RINGTONE_NAME_SIM2, TAG_NOTIFICATION_NAME_SIM1, TAG_NOTIFICATION_NAME_SIM2},
                         new String[]{ringtoneNameSIM1, ringtoneNameSIM2, notificationNameSIM1, notificationNameSIM2}).toString();
-                preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
+                preference.setSummary(StringFormatUtils.fromHtml(summary, false,  false, 0, 0, true));
             }
         }
 
@@ -7473,6 +7554,50 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
                     //}
+
+                    preference = prefMng.findPreference(PREF_GRANT_SHIZUKU_PREFERENCES);
+                    if (!preferenceAllowed.notAllowedShizuku) {
+                        if (preference != null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null)
+                                preferenceCategory.removePreference(preference);
+                        }
+                    } else {
+                        if (preference == null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null) {
+                                preference = new StartActivityPreference(context);
+                                preference.setKey(PREF_GRANT_SHIZUKU_PREFERENCES);
+                                preference.setIconSpaceReserved(false);
+                                preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                                preference.setOrder(-100);
+                                preferenceCategory.addPreference(preference);
+                            }
+                        }
+                        if (preference != null) {
+                            String _title;
+                            if (ShizukuUtils.shizukuAvailable())
+                                _title = order + ". " + context.getString(R.string.preferences_grantShizukuPreferences_title);
+                            else
+                                _title = order + ". " + context.getString(R.string.phone_profiles_pref_shizuku_is_not_running);
+                            ++order;
+                            Spannable title = new SpannableString(_title);
+                            title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
+                            preference.setTitle(title);
+                            Spannable summary;
+                            if (ShizukuUtils.shizukuAvailable())
+                                summary = new SpannableString(context.getString(R.string.preferences_grantShizukuPreferences_summary));
+                            else
+                                summary = new SpannableString(context.getString(R.string.profile_preferences_types_shizuku_show_info1));
+                            summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
+                            preference.setSummary(summary);
+
+                            preference.setOnPreferenceClickListener(preference12 -> {
+                                Permissions.grantShizukuPermission(fragment, activity);
+                                return false;
+                            });
+                        }
+                    }
 
                     // not some permissions
                     if (profilePermissions.size() == 0) {
@@ -7696,6 +7821,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preferenceCategory.removePreference(preference);
                     }
                     preference = prefMng.findPreference(PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                    if (preference != null) {
+                        PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                        if (preferenceCategory != null)
+                            preferenceCategory.removePreference(preference);
+                    }
+                    preference = prefMng.findPreference(PREF_GRANT_SHIZUKU_PREFERENCES);
                     if (preference != null) {
                         PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
                         if (preferenceCategory != null)

@@ -48,6 +48,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         String applicationSamsungEdgeBackgroundColorNightModeOff;
         String applicationSamsungEdgeBackgroundColorNightModeOn;
 
+//        PPApplicationStatic.logE("[SYNCHRONIZED] SamsungEdgeProvider.buildLayout", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
             applicationSamsungEdgeBackgroundType = ApplicationPreferences.applicationSamsungEdgeBackgroundType;

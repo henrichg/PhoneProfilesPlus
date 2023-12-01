@@ -27,6 +27,7 @@ class TileChooserListAdapter extends BaseAdapter {
     }
 
     public int getCount() {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] TileChooserListAdapter.getCount", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             fragment.viewNoData.setVisibility(
                     ((activityDataWrapper.profileListFilled &&
@@ -38,6 +39,7 @@ class TileChooserListAdapter extends BaseAdapter {
     }
 
     public Object getItem(int position) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] TileChooserListAdapter.getItem", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             return activityDataWrapper.profileList.get(position);
         }
@@ -77,6 +79,7 @@ class TileChooserListAdapter extends BaseAdapter {
 
 
         Profile profile;
+//        PPApplicationStatic.logE("[SYNCHRONIZED] TileChooserListAdapter.getView", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             profile = activityDataWrapper.profileList.get(position);
         }

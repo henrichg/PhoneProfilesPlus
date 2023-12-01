@@ -261,7 +261,7 @@ class EventPreferencesRoaming extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_ROAMING).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted), false);
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
                 else
                     preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
@@ -342,6 +342,7 @@ class EventPreferencesRoaming extends EventPreferences {
     */
 
     static void getEventRoamingInSIMSlot(Context context, int simSlot) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesRoaming.getEventRoamingInSIMSlot", "PPApplication.eventRoamingSensorMutex");
         synchronized (PPApplication.eventRoamingSensorMutex) {
             switch (simSlot) {
                 case 0:
@@ -366,6 +367,7 @@ class EventPreferencesRoaming extends EventPreferences {
         }
     }
     static void setEventRoamingInSIMSlot(Context context, int simSlot, boolean networkRoaming, boolean dataRoaming) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesRoaming.setEventRoamingInSIMSlot", "PPApplication.eventRoamingSensorMutex");
         synchronized (PPApplication.eventRoamingSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             switch (simSlot) {

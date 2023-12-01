@@ -844,129 +844,164 @@ class GlobalGUIRoutines {
         if (activity == null)
             return;
 
-        String nTitle = "";
-        String nText = "";
+        if (forActivator) {
+            Intent intent;
+            if (forProfile && (profile != null)) {
+                intent = new Intent(activity.getBaseContext(), ProfilesPrefsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_EDIT);
+                intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+                activity.startActivity(intent);
+                /*try {
+                    // close Activator
+                    activity.finish();
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                }*/
+            }
+            /*if ((!forProfile) && (event != null)) {
+                intent = new Intent(activity.getBaseContext(), EventsPrefsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+                intent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, PPApplication.EDIT_MODE_EDIT);
+                intent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+                activity.startActivity(intent);
+                //try {
+                    // close Activator
+                //    activity.finish();
+                //} catch (Exception e) {
+                //    PPApplicationStatic.recordException(e);
+                //}
+            }*/
+        } else {
+            String nTitle = "";
+            String nText = "";
 
-        if (profile != null) {
-            nTitle = activity.getString(R.string.profile_preferences_red_texts_title);
-            nText = activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
-                    "\"" + profile._name + "\" " +
-                    activity.getString(R.string.preferences_red_texts_text_2);
-            if (forShowInActivator)
-                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_3_new);
-            else
-                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
+            if (profile != null) {
+                nTitle = activity.getString(R.string.profile_preferences_red_texts_title);
+                nText = activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
+                        "\"" + profile._name + "\" " +
+                        activity.getString(R.string.preferences_red_texts_text_2);
+                if (forShowInActivator)
+                    nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_3_new);
+                else
+                    nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
 
-            nText = nText + StringConstants.STR_DOUBLE_NEWLINE + activity.getString(R.string.profile_preferences_red_texts_text_4);
-        }
+                nText = nText + StringConstants.STR_DOUBLE_NEWLINE + activity.getString(R.string.profile_preferences_red_texts_text_4);
+            }
 
-        if (event != null) {
-            nTitle = activity.getString(R.string.event_preferences_red_texts_title);
-            nText = activity.getString(R.string.event_preferences_red_texts_text_1) + " " +
-                    "\"" + event._name + "\" " +
-                    activity.getString(R.string.preferences_red_texts_text_2);
-            if (forRunStopEvent)
-                nText = nText + " " + activity.getString(R.string.event_preferences_red_texts_text_2);
-            else
-                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
+            if (event != null) {
+                nTitle = activity.getString(R.string.event_preferences_red_texts_title);
+                nText = activity.getString(R.string.event_preferences_red_texts_text_1) + " " +
+                        "\"" + event._name + "\" " +
+                        activity.getString(R.string.preferences_red_texts_text_2);
+                if (forRunStopEvent)
+                    nText = nText + " " + activity.getString(R.string.event_preferences_red_texts_text_2);
+                else
+                    nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
 
-            nText = nText + StringConstants.STR_DOUBLE_NEWLINE + activity.getString(R.string.event_preferences_red_texts_text_4);
-        }
+                nText = nText + StringConstants.STR_DOUBLE_NEWLINE + activity.getString(R.string.event_preferences_red_texts_text_4);
+            }
 
-        String positiveText;
-        DialogInterface.OnClickListener positiveClick;
-        String negativeText = null;
-        DialogInterface.OnClickListener negativeClick = null;
+            String positiveText;
+            DialogInterface.OnClickListener positiveClick;
+            //String negativeText = null;
+            //DialogInterface.OnClickListener negativeClick = null;
 
-        if ((profile != null) || (event != null)) {
-            if (forProfile) {
-                positiveText = activity.getString(R.string.show_dialog_about_red_text_show_profile_preferences);
-                positiveClick = (dialog, which) -> {
-                    Intent intent;
-                    if (profile != null) {
-                        intent = new Intent(activity.getBaseContext(), ProfilesPrefsActivity.class);
-                        if (forActivator)
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                        intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_EDIT);
-                        intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
-                    } else {
-                                intent = new Intent(activity.getBaseContext(), EditorActivity.class);
-                                if (forActivator)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
-                    }
-                    activity.startActivity(intent);
-
-                    try {
-                        // close Activator
-                        if (forActivator)
-                            activity.finish();
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
-                };
-                if (forActivator) {
-                    negativeText = activity.getString(R.string.show_dialog_about_red_text_show_editor);
-                    negativeClick = (dialog, which) -> {
-                        Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
+            if ((profile != null) || (event != null)) {
+                if (forProfile) {
+                    positiveText = activity.getString(R.string.show_dialog_about_red_text_show_profile_preferences);
+                    positiveClick = (dialog, which) -> {
+                        Intent intent;
+                        if (profile != null) {
+                            intent = new Intent(activity.getBaseContext(), ProfilesPrefsActivity.class);
+                            //if (forActivator)
+                            //    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                            intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_EDIT);
+                            intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+                        } else {
+                            intent = new Intent(activity.getBaseContext(), EditorActivity.class);
+                            //if (forActivator)
+                            //    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
+                        }
                         activity.startActivity(intent);
 
+                        /*
                         try {
                             // close Activator
-                            activity.finish();
+                            if (forActivator)
+                                activity.finish();
                         } catch (Exception e) {
                             PPApplicationStatic.recordException(e);
                         }
+                        */
+                    };
+                    /*if (forActivator) {
+                        negativeText = activity.getString(R.string.show_dialog_about_red_text_show_editor);
+                        negativeClick = (dialog, which) -> {
+                            Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
+                            activity.startActivity(intent);
+
+                            try {
+                                // close Activator
+                                activity.finish();
+                            } catch (Exception e) {
+                                PPApplicationStatic.recordException(e);
+                            }
+                        };
+                    }*/
+                } else {
+                    positiveText = activity.getString(R.string.show_dialog_about_red_text_show_event_preferences);
+                    positiveClick = (dialog, which) -> {
+                        Intent intent;
+                        if (event != null) {
+                            intent = new Intent(activity.getBaseContext(), EventsPrefsActivity.class);
+                            //if (forActivator)
+                            //    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+                            intent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, PPApplication.EDIT_MODE_EDIT);
+                            intent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+                        } else {
+                            intent = new Intent(activity.getBaseContext(), EditorActivity.class);
+                            //if (forActivator)
+                            //    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
+                        }
+                        activity.startActivity(intent);
+
+                        /*
+                        try {
+                            // close Activator
+                            if (forActivator)
+                                activity.finish();
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                        */
                     };
                 }
+
+                PPAlertDialog dialog = new PPAlertDialog(nTitle, nText,
+                        positiveText, null/*negativeText*/, null, null,
+                        positiveClick,
+                        null/*negativeClick*/,
+                        null,
+                        null,
+                        null,
+                        true/*!forActivator*/, true/*!forActivator*/,
+                        false, false,
+                        false,
+                        activity
+                );
+
+                if (!activity.isFinishing())
+                    dialog.show();
             }
-            else {
-                positiveText = activity.getString(R.string.show_dialog_about_red_text_show_event_preferences);
-                positiveClick = (dialog, which) -> {
-                    Intent intent;
-                    if (event != null) {
-                        intent = new Intent(activity.getBaseContext(), EventsPrefsActivity.class);
-                        if (forActivator)
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-                        intent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, PPApplication.EDIT_MODE_EDIT);
-                        intent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, 0);
-                    } else {
-                                intent = new Intent(activity.getBaseContext(), EditorActivity.class);
-                                if (forActivator)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
-                    }
-                    activity.startActivity(intent);
-
-                    try {
-                        // close Activator
-                        if (forActivator)
-                            activity.finish();
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
-                };
-            }
-
-            PPAlertDialog dialog = new PPAlertDialog(nTitle, nText,
-                    positiveText, negativeText, null, null,
-                    positiveClick,
-                    negativeClick,
-                    null,
-                    null,
-                    null,
-                    !forActivator, !forActivator,
-                    false, false,
-                    false,
-                    activity
-            );
-
-            if (!activity.isFinishing())
-                dialog.show();
         }
     }
 

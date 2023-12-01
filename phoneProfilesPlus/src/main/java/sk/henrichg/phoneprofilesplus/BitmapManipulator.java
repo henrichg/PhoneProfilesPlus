@@ -27,6 +27,7 @@ class BitmapManipulator {
 
     static final int ICON_BITMAP_SIZE_MULTIPLIER = 4;
 
+    /** @noinspection ControlFlowStatementWithoutBraces, BlockingMethodInNonBlockingContext */
     static Bitmap resampleBitmapUri(String bitmapUri, int width, int height, boolean checkSize, boolean checkOrientation, Context context) {
         if (bitmapUri == null)
             return null;
@@ -142,6 +143,7 @@ class BitmapManipulator {
             return null;
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     private static int getBitmapUriOrientation(Context context, Uri photoUri) {
         try {
             InputStream inputStream;
@@ -169,6 +171,7 @@ class BitmapManipulator {
         }
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     static boolean checkBitmapSize(String bitmapUri, int width, int height, Context context) {
         Uri uri = Uri.parse(bitmapUri);
         if (uri != null) {

@@ -79,7 +79,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 else
                     prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_BREAK_HTML+StringConstants.CHAR_HARD_SPACE_HTML; //"<br><br>" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
             }
-            ppppsVersionText.setText(StringFormatUtils.fromHtml(prefVolumeDataSummary, false, false, false, 0, 0, true));
+            ppppsVersionText.setText(StringFormatUtils.fromHtml(prefVolumeDataSummary, false,  false, 0, 0, true));
 
             ppppsLaunchText.setText(R.string.pppps_pref_dialog_PPPPutSettings_modify_system_settings);
 
@@ -156,7 +156,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
 
         dialogText = dialogText.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
-        text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));
+        text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
         if (Build.VERSION.SDK_INT < 34) {
             dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
@@ -262,6 +262,80 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
     }
 
+    /*
+    @SuppressLint("InflateParams")
+    private static void installDroidIfy(final Activity activity,
+                                        final PPPPSDialogPreference _preference,
+                                        boolean finishActivity) {
+        PackageManager pm = activity.getPackageManager();
+        try {
+            pm.getPackageInfo(PPApplication.DROIDIFY_PACKAGE_NAME, PackageManager.GET_ACTIVITIES);
+            return;
+        } catch (Exception ignored) {}
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        dialogBuilder.setTitle(R.string.install_pppps_dialog_title);
+
+        View layout;
+        LayoutInflater inflater = activity.getLayoutInflater();
+        layout = inflater.inflate(R.layout.dialog_install_pppps_install_droidify, null);
+        dialogBuilder.setView(layout);
+
+        TextView text = layout.findViewById(R.id.install_pppps_install_droidify_info_text);
+
+        String dialogText = "";
+
+        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
+        if (extenderVersion != 0) {
+            String extenderVersionName = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
+            dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
+        }
+        dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
+                " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
+        dialogText = dialogText + activity.getString(R.string.install_pppps_install_droidify_text);
+        text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
+
+        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+        dialogBuilder.setCancelable(true);
+
+        //View buttonsDivider = layout.findViewById(R.id.install_pppe_install_droidify_buttonsDivider);
+        //buttonsDivider.setVisibility(View.VISIBLE);
+
+        int buttonRes = R.string.alert_button_install_store;
+        dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
+            String url = PPApplication.DROIDIFY_APPLICATION_URL;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            if ((_preference != null) && (_preference.fragment != null))
+                _preference.fragment.dismiss();
+            if (finishActivity)
+                activity.finish();
+        });
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+        dialogBuilder.setOnCancelListener(dialog -> activity.finish());
+        dialogBuilder.setOnDismissListener(dialog -> activity.finish());
+        AlertDialog alertDialog = dialogBuilder.create();
+
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
+
+        if (!activity.isFinishing())
+            alertDialog.show();
+    }
+    */
+
     static void installPPPPutSettings(final Activity activity,
                                       final PPPPSDialogPreference _preference,
                                    boolean finishActivity) {
@@ -276,6 +350,9 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         boolean droidifyInstalled = (_intent != null);
 
         if (Build.VERSION.SDK_INT < 34) {
+            // for Android 14+ is required to use adb command for PPPPutSettings installation,
+            // because target sdk is 22.
+
             if (droidifyInstalled || fdroidInstalled) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                 dialogBuilder.setTitle(R.string.install_pppps_dialog_title);
@@ -291,13 +368,14 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
                 if (extenderVersion != 0) {
                     String extenderVersionName = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
-                    dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
+                    dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) + " " + StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")" + StringConstants.TAG_BOLD_END_HTML + StringConstants.TAG_BREAK_HTML;
                 }
                 dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
-                        " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
+                        " " + StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")" + StringConstants.TAG_BOLD_END_HTML + StringConstants.TAG_DOUBLE_BREAK_HTML;
                 dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\".";
-                text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));
+                text.setText(StringFormatUtils.fromHtml(dialogText, false, false, 0, 0, true));
 
+                /*
                 text = layout.findViewById(R.id.install_pppps_from_store_dialog_github_releases);
                 CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
                 CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPPS_RELEASES_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
@@ -334,6 +412,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
                 text.setText(sbt);
                 text.setMovementMethod(LinkMovementMethod.getInstance());
+                */
 
                 dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
                     //noinspection IfStatementWithIdenticalBranches
@@ -354,8 +433,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                             if (finishActivity)
                                 activity.finish();
                         }
-                    }
-                    else {
+                    } else {
                         Intent intent = new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("market://details?id=sk.henrichg.pppputsettings"));
                         intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);
@@ -379,15 +457,17 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         activity.finish();
                 });
 
-                Button button = layout.findViewById(R.id.install_pppps_from_store_dialog_installFromGitHub);
+                //Button button = layout.findViewById(R.id.install_pppps_from_store_dialog_installFromGitHub);
 
                 final AlertDialog dialog = dialogBuilder.create();
 
+                /*
                 button.setText(activity.getString(R.string.alert_button_install_extender_from_github));
                 button.setOnClickListener(v -> {
                     dialog.cancel();
                     installPPPPutSettingsFromGitHub(activity, _preference, finishActivity);
                 });
+                */
 
     //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
     //            @Override
@@ -401,8 +481,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
                 if (!activity.isFinishing())
                     dialog.show();
-            }
-            else
+            } else
                 installPPPPutSettingsFromGitHub(activity, _preference, finishActivity);
         } else
             installPPPPutSettingsFromGitHub(activity, _preference, finishActivity);
