@@ -12,6 +12,7 @@ class InputStreamUtil {
     public InputStreamUtil() {
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     static String read(InputStream is) {
         try {
             char[] buffer = new char[1024];
@@ -32,6 +33,7 @@ class InputStreamUtil {
         }
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     static void copy(InputStream is, OutputStream out) {
         try {
             byte[] buffer = new byte[1024];

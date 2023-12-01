@@ -315,6 +315,7 @@ public class WifiScanWorker extends Worker {
         }
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     private static void waitForFinish(boolean shortWork) {
         if (!isWorkRunning(shortWork)) {
             return;
@@ -382,6 +383,7 @@ public class WifiScanWorker extends Worker {
         }*/
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     private static boolean isWorkRunning(boolean shortWork) {
         try {
             if (PPApplicationStatic.getApplicationStarted(true, true)) {
@@ -418,6 +420,7 @@ public class WifiScanWorker extends Worker {
         }
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     static boolean isWorkScheduled(boolean shortWork) {
         try {
             if (PPApplicationStatic.getApplicationStarted(true, true)) {

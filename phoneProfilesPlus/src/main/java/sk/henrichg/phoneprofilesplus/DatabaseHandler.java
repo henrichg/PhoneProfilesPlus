@@ -696,6 +696,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //        }
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     void startRunningCommand() throws Exception {
 //        if (PPApplicationStatic.logEnabled()) {
 //            PPApplicationStatic.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "lock");
@@ -724,6 +725,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         importExportLock.unlock();
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     void startRunningImportExport() throws Exception {
 //        if (PPApplicationStatic.logEnabled()) {
 //            PPApplicationStatic.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "lock");

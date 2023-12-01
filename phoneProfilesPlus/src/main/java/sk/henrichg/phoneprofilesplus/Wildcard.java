@@ -110,8 +110,8 @@ class Wildcard {
 
             // check if pattern char and string char are equals
             if (caseInsensitive) {
-                String sP = "" + p;
-                String sCh = "" + string.charAt(sNdx);
+                String sP = String.valueOf(p);
+                String sCh = String.valueOf(string.charAt(sNdx));
                 if (sP.compareToIgnoreCase(sCh) != 0)
                     return false;
             } else if (p != string.charAt(sNdx)) {

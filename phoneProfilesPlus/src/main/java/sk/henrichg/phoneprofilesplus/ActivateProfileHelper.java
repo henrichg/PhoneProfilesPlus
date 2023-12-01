@@ -749,6 +749,8 @@ class ActivateProfileHelper {
                     firstSleepCalled = true;
                 }
 
+                int locationMode;
+
                 switch (profile._deviceLocationMode) {
                     case 1:
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_OFF);
@@ -770,7 +772,7 @@ class ActivateProfileHelper {
                         break;
                     case 5:
                         //Log.e("ActivateProfileHelper.doExecuteForRadios", "mode=LOCATION_MODE_TOGGLE_OFF_HIGH_ACCURACY");
-                        int locationMode = getLocationMode(appContext);
+                        locationMode = getLocationMode(appContext);
                         //Log.e("ActivateProfileHelper.doExecuteForRadios", "actual locationMode="+locationMode);
                         if (locationMode != Settings.Secure.LOCATION_MODE_OFF)
                             locationMode = Settings.Secure.LOCATION_MODE_OFF;

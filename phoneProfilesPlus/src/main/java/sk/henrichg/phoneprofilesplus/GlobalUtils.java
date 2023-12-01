@@ -307,6 +307,7 @@ class GlobalUtils {
             return false;
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     static void sleep(long ms) {
         /*long start = SystemClock.uptimeMillis();
         do {

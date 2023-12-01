@@ -54,6 +54,7 @@ import dev.doubledot.doki.views.DokiContentView;
 
 class PPApplicationStatic {
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     static void _cancelWork(final String name, final boolean forceCancel) {
         WorkManager workManager = PPApplication.getWorkManagerInstance();
         if (workManager != null) {
@@ -414,7 +415,7 @@ class PPApplicationStatic {
         logFile.delete();
     }
 
-    /** @noinspection SameParameterValue*/
+    /** @noinspection SameParameterValue, BlockingMethodInNonBlockingContext */
     static private void logIntoFile(String type, String tag, String text, boolean crash) {
         if (!(crash || PPApplication.logIntoFile))
             return;

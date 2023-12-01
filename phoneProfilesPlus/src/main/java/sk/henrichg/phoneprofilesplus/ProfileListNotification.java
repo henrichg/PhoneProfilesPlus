@@ -297,11 +297,12 @@ public class ProfileListNotification {
         // this disable timestamp in decorator
         notificationBuilder.setShowWhen(false);
 
-//        Log.e("ProfileListNotification._showNotification", "notificationProfileListBackgroundColor="+notificationProfileListBackgroundColor);
+        int color;
+        //        Log.e("ProfileListNotification._showNotification", "notificationProfileListBackgroundColor="+notificationProfileListBackgroundColor);
         switch (notificationProfileListBackgroundColor) {
             case "3":
                 //if (!notificationNightMode || (useNightColor == 1)) {
-                int color = ContextCompat.getColor(appContext, R.color.notificationBlackBackgroundColor);
+                color = ContextCompat.getColor(appContext, R.color.notificationBlackBackgroundColor);
                 contentView.setInt(R.id.notification_profile_list_root, "setBackgroundColor", color);
                 break;
             case "1":

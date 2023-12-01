@@ -208,6 +208,7 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
         return true;
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     private void logIntoFile(Context context,
                              @SuppressWarnings("SameParameterValue") String type,
                              @SuppressWarnings("SameParameterValue") String tag,

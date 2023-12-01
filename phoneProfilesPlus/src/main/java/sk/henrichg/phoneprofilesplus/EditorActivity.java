@@ -2373,6 +2373,7 @@ public class EditorActivity extends AppCompatActivity
             dialog.show();
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
     private boolean importApplicationPreferences(File src/*, int what*/) {
         boolean res = true;
@@ -2671,6 +2672,7 @@ public class EditorActivity extends AppCompatActivity
             dialog.show();
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     @SuppressLint({"SetWorldReadable", "SetWorldWritable", "ApplySharedPref"})
     private boolean exportApplicationPreferences(File dst, boolean runStopEvents/*, int what*/) {
         boolean res = true;
@@ -3923,6 +3925,7 @@ public class EditorActivity extends AppCompatActivity
             }
         }
 
+        /** @noinspection BlockingMethodInNonBlockingContext*/
         private int copyToBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName, Context context) {
             DocumentFile oldFile = pickedDir.findFile(fileName);
             if (oldFile != null) {
@@ -4155,6 +4158,7 @@ public class EditorActivity extends AppCompatActivity
             }
         }
 
+        /** @noinspection BlockingMethodInNonBlockingContext*/
         private int copyFromBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName, Context context) {
 //            Log.e("EditorActivity.copyFromBackupDirectory", "applicationDir="+applicationDir);
 //            Log.e("EditorActivity.copyFromBackupDirectory", "fileName="+fileName);
@@ -4205,6 +4209,7 @@ public class EditorActivity extends AppCompatActivity
             return 1;
         }
 
+        /** @noinspection BlockingMethodInNonBlockingContext*/
         private int copySharedFile(DocumentFile pickedFile, File applicationDir, Context context) {
             // delete all zip files in local storage
             File sd = context.getApplicationContext().getExternalFilesDir(null);

@@ -280,7 +280,7 @@ class ProfileStatic {
         */
 
         // systemValue is in range 0..255
-        int systemValue = BrightnessLookup.lookup(percentage, false);
+        float systemValue = BrightnessLookup.lookup(percentage, false);
 
         if (PPApplication.deviceIsOnePlus) {
             if (Build.VERSION.SDK_INT < 31)

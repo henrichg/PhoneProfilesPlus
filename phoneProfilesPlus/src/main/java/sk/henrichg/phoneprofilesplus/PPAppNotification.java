@@ -614,10 +614,11 @@ public class PPAppNotification {
 
         if (notificationNotificationStyle.equals("0")) {
 
+            int color;
             switch (notificationBackgroundColor) {
                 case "3":
                     //if (!notificationNightMode || (useNightColor == 1)) {
-                    int color = ContextCompat.getColor(appContext, R.color.notificationBlackBackgroundColor);
+                    color = ContextCompat.getColor(appContext, R.color.notificationBlackBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);

@@ -37,6 +37,7 @@ class ShizukuUtils {
                 (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED);
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     private static boolean hasBinary(String binaryName) {
         try {
             Process process = ShizukuUtils.executeCommandNoWait(binaryName);
@@ -62,7 +63,7 @@ class ShizukuUtils {
         return hasBinary("service");
     }
 
-    /** @noinspection deprecation*/
+    /** @noinspection deprecation, BlockingMethodInNonBlockingContext */
     static void executeCommand(String command) throws InterruptedException {
         // I tried working with a Shizuku user bound process and using hidden APIs, but did not
         //  fully get it to work, so I just use the same commands as I did when using SU.

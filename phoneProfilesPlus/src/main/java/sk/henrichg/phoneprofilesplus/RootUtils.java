@@ -241,7 +241,7 @@ class RootUtils {
      *
      * @return true if SELinux set to enforcing, or false in the case of
      *         permissive or not present
-     * @noinspection MismatchedJavadocCode
+     * @noinspection MismatchedJavadocCode, BlockingMethodInNonBlockingContext
      */
     /*public static boolean isSELinuxEnforcing()
     {
@@ -341,6 +341,7 @@ class RootUtils {
         }
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     static void getServicesList() {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.getServicesList", "(1) PPApplication.serviceListMutex");
         synchronized (PPApplication.serviceListMutex) {
@@ -556,6 +557,7 @@ class RootUtils {
             return null;
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     static void commandWait(Command cmd, String calledFrom) /*throws Exception*/ {
         int waitTill = 50;
         int waitTillMultiplier = 2;

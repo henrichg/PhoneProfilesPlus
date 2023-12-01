@@ -1720,6 +1720,7 @@ class DatabaseHandlerImportExport {
         }
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
     static int exportDB(DatabaseHandler instance,
                         boolean deleteGeofences, boolean deleteWifiSSIDs,

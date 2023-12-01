@@ -1987,6 +1987,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 _notGrantedShizuku ||
                 _notDefaultAssistant ||
                 _notInstalledPPPS) {
+            String defaultValueS;
             switch (key) {
                 case Profile.PREF_PROFILE_ASK_FOR_DURATION:
                 case Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE:
@@ -2016,7 +2017,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     title = context.getString(R.string.profile_preferences_exactTime);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE:
-                    String defaultValueS = Profile.defaultValuesString.get(key);
+                    defaultValueS = Profile.defaultValuesString.get(key);
                     if (!preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, defaultValueS).equals(defaultValueS)) {
                         title = getString(preferenceTitleId);
                         notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;

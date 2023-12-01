@@ -261,13 +261,13 @@ public class PPApplication extends Application
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
                                                 //+"|[PPP_NOTIFICATION]"
-                                                +"|[DUAL_SIM]"
+                                                //+"|[DUAL_SIM]"
                                                 //+"|[APPLICATION_FULLY_STARTED]"
                                                 //+"|[MAIN_WORKER_CALL]"
                                                 //+"|[CONTACTS_DIALOG]"
                                                 //+"|[CONTACTS_CACHE]"
                                                 //+"|[SYNCHRONIZED]"
-                                                +"|[DEFAULT_SIM]"
+                                                //+"|[DEFAULT_SIM]"
                                                 //+"|BluetoothConnectedDevicesDetector"
                                                 //+"|BluetoothConnectionBroadcastReceiver"
                                                 ;
@@ -1872,6 +1872,7 @@ public class PPApplication extends Application
                Build.FINGERPRINT.toLowerCase().contains(XIOMI);
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     private static boolean isMIUIROM() {
         boolean miuiRom1 = false;
         boolean miuiRom2 = false;
@@ -1910,6 +1911,7 @@ public class PPApplication extends Application
         return miuiRom1 || miuiRom2 || miuiRom3;
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     private static String getEmuiRomName() {
         String line;
         BufferedReader input;
@@ -2047,6 +2049,7 @@ public class PPApplication extends Application
         return (modVer == null || modVer.length() == 0 ? "Unknown" : modVer);
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     private static String getSystemProperty(@SuppressWarnings("SameParameterValue") String propName)
     {
         String line;
