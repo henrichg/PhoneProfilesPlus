@@ -375,7 +375,7 @@ public class ProfileListNotification {
         } else {
             // good, color of this is as in notification ;-)
             // but must be removed android:tint in layout
-            int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, appContext);
+            color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, appContext);
             if (color != 0) {
                 // left arrow
                 Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, appContext);

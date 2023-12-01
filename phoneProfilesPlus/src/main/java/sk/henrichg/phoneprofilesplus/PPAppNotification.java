@@ -671,7 +671,7 @@ public class PPAppNotification {
                     }
                 } else {
                     if (notificationProfileIconColor.equals("0")) {
-                        int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, appContext);
+                        color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, appContext);
                         if (color != 0) {
                             // In One UI is not used Material You in motifications
                             //if (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) {
