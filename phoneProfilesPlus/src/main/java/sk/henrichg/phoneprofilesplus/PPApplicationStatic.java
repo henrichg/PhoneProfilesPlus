@@ -2926,6 +2926,7 @@ class PPApplicationStatic {
                                 doData = true;
                             else {
                                 if (ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification < pppReleaseData.versionCodeInReleases) {
+                                    // not disabled notification about new version by user (not click to notification "Disable" button)
                                     if ((versionCode > 0) && (versionCode < pppReleaseData.versionCodeInReleases))
                                         doData = true;
                                 }
