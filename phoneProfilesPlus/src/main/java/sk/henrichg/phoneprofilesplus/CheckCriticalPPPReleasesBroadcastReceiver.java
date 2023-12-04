@@ -57,11 +57,11 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
         long alarmTime;
 
         //TODO remove for release
-        if (DebugVersion.enabled) {
+        /*if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 
             alarmTime = alarm.getTimeInMillis();
-        } else
+        } else*/
         {
             if ((lastAlarm == 0) || (lastAlarm <= alarm.getTimeInMillis())) {
                 // saved alarm is less then actual time
@@ -169,7 +169,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                 url = PPApplication.PPP_RELEASES_MD_DEBUG_URL;
             else
                 url = PPApplication.PPP_RELEASES_MD_URL;
-            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "url="+url);
+//            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "url="+url);
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET,
                     url,
@@ -185,7 +185,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
                         final PPPReleaseData pppReleaseData =
                                 PPApplicationStatic.getReleaseData(response, forceDoData, appContext);
-                        Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "pppReleaseData="+pppReleaseData);
+//                        Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "pppReleaseData="+pppReleaseData);
 
                         if (pppReleaseData != null) {
                             if (Build.VERSION.SDK_INT >= 33) {
@@ -195,15 +195,15 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                 RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
                                 String izzyRepoURL = PPApplication.DROIDIFY_PPP_LATEST_APK_RELEASE_URL_BEGIN;
                                 izzyRepoURL = izzyRepoURL + pppReleaseData.versionCodeInReleases + ".apk";
-                                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
+//                                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
                                 StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,
                                         izzyRepoURL,
                                         response1 -> {
-                                            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "latest installed - xxxxxxxxxxxxxxxx");
+//                                            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "latest installed - xxxxxxxxxxxxxxxx");
                                         },
                                         error -> {
                                             if ((error.networkResponse != null) && (error.networkResponse.statusCode == 404)) {
-                                                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
+//                                                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
                                                 try {
                                                     boolean critical = pppReleaseData.critical;
                                                     String versionNameInReleases = pppReleaseData.versionNameInReleases;
@@ -215,7 +215,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                                             critical);
 
                                                 } catch (Exception e) {
-                                                    Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+//                                                    Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                                                 }
                                             }
                                         });
