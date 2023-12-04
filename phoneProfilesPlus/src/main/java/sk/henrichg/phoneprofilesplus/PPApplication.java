@@ -123,7 +123,7 @@ public class PPApplication extends Application
 
     // This is file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/releases_debug.md
     // Used is GitHub Pages, not neded to use html type, this file is directly downloaded
-    static final String PPP_RELEASES_MD_DEBUG_URL = "https://henrichg.github.io/PhoneProfilesPlus/releases-debug.md";
+    static final String PPP_RELEASES_MD_DEBUG_URL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/releases-debug.md";
     // This is file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/releases.md
     // Used is GitHub Pages, not neded to use html type, this file is directly downloaded
     static final String PPP_RELEASES_MD_URL = "https://henrichg.github.io/PhoneProfilesPlus/releases.md";
