@@ -2101,13 +2101,17 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         super.onDestroy();
 
         if (shortcutToEditorAddedReceiver != null) {
-            if (getActivity() != null)
-                getActivity().unregisterReceiver(shortcutToEditorAddedReceiver);
+            try {
+                if (getActivity() != null)
+                    getActivity().unregisterReceiver(shortcutToEditorAddedReceiver);
+            } catch (Exception ignored) {}
             shortcutToEditorAddedReceiver = null;
         }
         if (shortcutToMobileCellScanningAddedReceiver != null) {
-            if (getActivity() != null)
-                getActivity().unregisterReceiver(shortcutToMobileCellScanningAddedReceiver);
+            try {
+                if (getActivity() != null)
+                    getActivity().unregisterReceiver(shortcutToMobileCellScanningAddedReceiver);
+            } catch (Exception ignored) {}
             shortcutToMobileCellScanningAddedReceiver = null;
         }
 
