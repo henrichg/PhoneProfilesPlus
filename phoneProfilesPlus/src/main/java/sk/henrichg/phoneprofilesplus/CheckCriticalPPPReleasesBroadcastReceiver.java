@@ -21,6 +21,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver {
@@ -53,6 +54,9 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
         long lastAlarm = ApplicationPreferences.
                 getSharedPreferences(context).getLong(PREF_CRITICAL_PPP_RELEASE_ALARM, 0);
+        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
+        String time = sdf.format(lastAlarm);
+        PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.lastAlarm", "lastAlarm="+time);
 
         long alarmTime;
 
@@ -84,6 +88,9 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                 }*/
 
                 alarmTime = alarm.getTimeInMillis();
+                sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
+                time = sdf.format(alarmTime);
+                PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.alarmTime", "lastAlarm="+time);
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
                 editor.putLong(PREF_CRITICAL_PPP_RELEASE_ALARM, alarmTime);
@@ -169,7 +176,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                 url = PPApplication.PPP_RELEASES_MD_DEBUG_URL;
             else
                 url = PPApplication.PPP_RELEASES_MD_URL;
-//            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "url="+url);
+            PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "url="+url);
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET,
                     url,
