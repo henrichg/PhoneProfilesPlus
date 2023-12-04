@@ -287,14 +287,17 @@ class ProfileStatic {
                 systemValue = systemValue * 4; // convert from 256 to 1024
         }
         else
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
-            systemValue = systemValue * 16; // convert from 256 to 4096
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+            if (Build.VERSION.SDK_INT < 33)
+                systemValue = systemValue * 16; // convert from 256 to 4096
+            else
+                systemValue = systemValue / 2; // convert from 256 to 128
+        }
 
         return Math.round(systemValue);
     }
 
-    static int convertPercentsToBrightnessManualValue(int percentage, Context context)
-    {
+    static int convertPercentsToBrightnessManualValue(int percentage, Context context) {
         int maximumValue;// = getMaximumScreenBrightnessSetting();
         int minimumValue;// = getMinimumScreenBrightnessSetting();
 
@@ -305,10 +308,12 @@ class ProfileStatic {
         // for OnePlus widh Android 12+ is max value 255
         if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 31))
             maximumValue = 1023;
-        else
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI /*&& (Build.VERSION.SDK_INT >= 28)*/)
-            maximumValue = 4095;
-        //}
+        else if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+            if (Build.VERSION.SDK_INT < 33)
+                maximumValue = 4095;
+            else
+                maximumValue = 128;
+        }
 
         int value;
 

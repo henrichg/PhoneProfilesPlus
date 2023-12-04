@@ -291,8 +291,8 @@ class SettingsContentObserver  extends ContentObserver {
                 //TODO this is for log brightness values to log file
                 //  use only for check brightness values 0%, 50%, 100% by user,
                 //  when in his device brightness not working good
-                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessModeForDialog=" + PPApplication.savedBrightnessModeForDialog);
-                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessForDialog=" + PPApplication.savedBrightnessForDialog);
+                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessMode=" + PPApplication.savedBrightnessMode);
+                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightness=" + PPApplication.savedBrightness);
                 //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);
 
                 //PowerManager pm = context.getSystemService(PowerManager.class);
