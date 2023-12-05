@@ -16,9 +16,6 @@ PhoneProfilesPlus (aka PPP)
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores:
 
-__Galaxy Store:__
-- [PPP release (for Samsung devices only)](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)
-
 __Huawei AppGallery:__
 - [PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000)  
 - [Store application (download)](https://consumer.huawei.com/en/mobileservices/appgallery/)
@@ -36,6 +33,10 @@ __F-Droid:__
 __APKPure:__
 - [PPP release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)
 - [Store application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)
+
+__Galaxy Store:__
+- Sorry, is not more supported, because of in this store is required target SDK API 33 (Android 13) and PPP target SDK is 28 (Android 9).
+- [PPP release (for Samsung devices only)](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)
 
 __GitHub (better is using Droid-ify instead):__
 
