@@ -90,7 +90,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                 alarmTime = alarm.getTimeInMillis();
                 sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
                 time = sdf.format(alarmTime);
-                PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.alarmTime", "lastAlarm="+time);
+                PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "alarmTime="+time);
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
                 editor.putLong(PREF_CRITICAL_PPP_RELEASE_ALARM, alarmTime);
@@ -202,15 +202,15 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                 RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
                                 String izzyRepoURL = PPApplication.DROIDIFY_PPP_LATEST_APK_RELEASE_URL_BEGIN;
                                 izzyRepoURL = izzyRepoURL + pppReleaseData.versionCodeInReleases + ".apk";
-//                                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
+                                PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
                                 StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,
                                         izzyRepoURL,
                                         response1 -> {
-//                                            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "latest installed - xxxxxxxxxxxxxxxx");
+                                            PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "latest installed - xxxxxxxxxxxxxxxx");
                                         },
                                         error -> {
                                             if ((error.networkResponse != null) && (error.networkResponse.statusCode == 404)) {
-//                                                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
+                                                PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
                                                 try {
                                                     boolean critical = pppReleaseData.critical;
                                                     String versionNameInReleases = pppReleaseData.versionNameInReleases;
@@ -244,10 +244,12 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 //                                    Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                                 }
                             }
+                        } else {
+                            PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "pppReleaseData=null");
                         }
                     },
                     error -> {
-//                        Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(error));
+                        PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(error));
                     });
             queue.add(stringRequest);
 
@@ -333,6 +335,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
             mNotificationManager.notify(
                     PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG,
                     PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID, notification);
+            PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.showNotification", "notification displayed - xxxxxxxxxxxxxxxx");
         } catch (SecurityException en) {
             PPApplicationStatic.logException("CheckCriticalPPPReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
