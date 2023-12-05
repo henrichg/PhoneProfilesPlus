@@ -408,13 +408,13 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         boolean fdroidInstalled = (_intent != null);
         _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
         boolean droidifyInstalled = (_intent != null);
-        _intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
-        boolean galaxyStoreInstalled = (_intent != null);
+        //_intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
+        //boolean galaxyStoreInstalled = (_intent != null);
 //        Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "fdroidInstalled="+fdroidInstalled);
 //        Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "droidifyInstalled="+droidifyInstalled);
 //        Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "galaxyStoreInstalled="+galaxyStoreInstalled);
 
-        if (droidifyInstalled || fdroidInstalled || galaxyStoreInstalled) {
+        if (droidifyInstalled || fdroidInstalled /*|| galaxyStoreInstalled*/) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
@@ -423,7 +423,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             dialogBuilder.setView(layout);
 
             TextView text = layout.findViewById(R.id.install_pppe_from_store_dialog_info_text);
-            if (!(droidifyInstalled || fdroidInstalled)) {
+            /*if (!(droidifyInstalled || fdroidInstalled)) {
                 Button installFromGitHub = layout.findViewById(R.id.install_pppe_from_store_dialog_installFromGitHub);
                 if (Build.VERSION.SDK_INT >= 33)
                     installFromGitHub.setText(R.string.install_extender_install_droidify_button);
@@ -434,7 +434,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     else
                         installDroidIfy(activity, _preference, finishActivity);
                 });
-            }
+            }*/
 
             String dialogText = "";
 
@@ -488,9 +488,9 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             */
 
             dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=sk.henrichg.phoneprofilesplusextender"));
                 if (droidifyInstalled) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=sk.henrichg.phoneprofilesplusextender"));
                     intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                     try {
                         activity.startActivity(intent);
@@ -505,9 +505,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                         if (finishActivity)
                             activity.finish();
                     }
-                } else if (fdroidInstalled) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=sk.henrichg.phoneprofilesplusextender"));
+                } else /*if (fdroidInstalled)*/ {
                     intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);
                     try {
                         activity.startActivity(intent);
@@ -522,7 +520,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                         if (finishActivity)
                             activity.finish();
                     }
-                } else {
+                } /*else {
                     Intent intent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplusextender"));
                     try {
@@ -538,7 +536,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                         if (finishActivity)
                             activity.finish();
                     }
-                }
+                }*/
             });
             dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
                 if (finishActivity)

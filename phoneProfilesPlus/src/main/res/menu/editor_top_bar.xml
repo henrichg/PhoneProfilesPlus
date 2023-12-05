@@ -124,10 +124,10 @@
         app:showAsAction="never" >
 
         <menu>
-            <item android:id="@+id/menu_check_in_galaxy_store"
-                android:title="@string/menu_check_releases_galaxy_store"
-                android:orderInCategory="100"
-                app:showAsAction="never" />
+<!--            <item android:id="@+id/menu_check_in_galaxy_store"-->
+<!--                android:title="@string/menu_check_releases_galaxy_store"-->
+<!--                android:orderInCategory="100"-->
+<!--                app:showAsAction="never" />-->
             <item android:id="@+id/menu_check_in_appgallery"
                 android:title="@string/menu_check_releases_appgallery"
                 android:orderInCategory="101"
