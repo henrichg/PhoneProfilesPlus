@@ -11,17 +11,13 @@ PhoneProfilesPlus (aka PPP)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
-[![Project Map](https://sourcespy.com/shield.svg)](https://sourcespy.com/github/henrichgphoneprofilesplus/)
 
 ### Sources of PhoneProfilesPlus:
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores:
 
-__Galaxy Store:__
-- [PPP release (for Samsung devices only)](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)
-
 __Huawei AppGallery:__
-- [PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000)  
+- [PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000)
 - [Store application (download)](https://consumer.huawei.com/en/mobileservices/appgallery/)
 
 __Droid-ify (F-Droid alternative, preferred over GitHub):__
@@ -31,12 +27,16 @@ __Droid-ify (F-Droid alternative, preferred over GitHub):__
 
 __F-Droid:__
 - [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
-&nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
+  &nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_
 - [Store application (download)](https://www.f-droid.org/)
 
 __APKPure:__
 - [PPP release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)
 - [Store application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)
+
+__Galaxy Store:__
+- Sorry, is not more supported, because of in this store is required target SDK API 33 (Android 13) and PPP target SDK is 28 (Android 9).
+- [PPP release (for Samsung devices only)](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)
 
 __GitHub (better is using Droid-ify instead):__
 
@@ -59,7 +59,7 @@ __What is PhoneProfilesPlus:__
 
 Android application - manually and by event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...  
 This application is for configuration of device for life situations (at home, at work, in car, sleep, outside, ...) using Profiles.  
-In it is also possibility to automatically activate Profiles by Events.  
+In it is also possibility to automatically activate Profiles by Events.
 
 - [Privacy Policy](https://henrichg.github.io/PhoneProfilesPlus/privacy_policy.html)
 
@@ -85,18 +85,18 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 
 ##### Screenshots
 - [[1]](art/phoneScreenshots/01.png),
-[[2]](art/phoneScreenshots/02.png),
-[[3]](art/phoneScreenshots/03.png),
-[[4]](art/phoneScreenshots/04.png),
-[[5]](art/phoneScreenshots/05.png),
-[[6]](art/phoneScreenshots/06.png),
-[[7]](art/phoneScreenshots/07.png),
-[[8]](art/phoneScreenshots/08.png),
-[[9]](art/phoneScreenshots/09.png),
-[[10]](art/phoneScreenshots/10.png),
-[[11]](art/phoneScreenshots/11.png),
-[[12]](art/phoneScreenshots/12.png),
-[[13]](art/phoneScreenshots/13.png)
+  [[2]](art/phoneScreenshots/02.png),
+  [[3]](art/phoneScreenshots/03.png),
+  [[4]](art/phoneScreenshots/04.png),
+  [[5]](art/phoneScreenshots/05.png),
+  [[6]](art/phoneScreenshots/06.png),
+  [[7]](art/phoneScreenshots/07.png),
+  [[8]](art/phoneScreenshots/08.png),
+  [[9]](art/phoneScreenshots/09.png),
+  [[10]](art/phoneScreenshots/10.png),
+  [[11]](art/phoneScreenshots/11.png),
+  [[12]](art/phoneScreenshots/12.png),
+  [[13]](art/phoneScreenshots/13.png)
 
 ##### Supported Android versions
 
