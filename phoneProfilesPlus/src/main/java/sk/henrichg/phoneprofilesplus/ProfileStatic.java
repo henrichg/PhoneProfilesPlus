@@ -210,8 +210,12 @@ class ProfileStatic {
                 _settingsValue = Math.round(settingsValue / 32f); // convert from 8192 to 256
         }
         else
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
-            _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+            if (Build.VERSION.SDK_INT < 33)
+                _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
+            else
+                _settingsValue = Math.round(settingsValue * 2f); // convert from 128 to 256
+        }
         return BrightnessLookup.lookup(_settingsValue, true);
     }
 
@@ -246,17 +250,20 @@ class ProfileStatic {
                 //if (maximumValue-minimumValue > 255) {
                 //int minimumValue = 0;
                 int maximumValue = 255;
+
                 if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 31))
                     maximumValue = 1023;
-
                 // for OnePlus widh Android 12+ is max value 255
                 //else
                 //if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 31))
                 //    maximumValue = 255;
                 else
-                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
-                    maximumValue = 4095;
-                //}
+                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && ((Build.VERSION.SDK_INT >= 28))) {
+                    if (Build.VERSION.SDK_INT < 33)
+                        maximumValue = 4095;
+                    else
+                        maximumValue = 128;
+                }
 
                 percentage = Math.round((float) (value/* - minValue*/) / (maximumValue/* - minValue*/) * 100.0);
             }
