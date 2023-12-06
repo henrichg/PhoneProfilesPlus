@@ -101,19 +101,21 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                             getConnectedDevices(appContext);
 
                             try {
-                                switch (action) {
-                                    case BluetoothDevice.ACTION_ACL_CONNECTED:
-                                        addConnectedDevice(device);
-                                        break;
-                                    case BluetoothDevice.ACTION_NAME_CHANGED:
-                                        //noinspection ConstantConditions
-                                        if (newName != null) {
-                                            changeDeviceName(device, newName);
-                                        }
-                                        break;
-                                    default:
-                                        removeConnectedDevice(device);
-                                        break;
+                                if (device != null) {
+                                    switch (action) {
+                                        case BluetoothDevice.ACTION_ACL_CONNECTED:
+                                            addConnectedDevice(device);
+                                            break;
+                                        case BluetoothDevice.ACTION_NAME_CHANGED:
+                                            //noinspection ConstantConditions
+                                            if (newName != null) {
+                                                changeDeviceName(device, newName);
+                                            }
+                                            break;
+                                        default:
+                                            removeConnectedDevice(device);
+                                            break;
+                                    }
                                 }
                             } catch (Exception e) {
                                 PPApplicationStatic.recordException(e);
@@ -221,17 +223,23 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.addConnectedDevice", "PPApplication.bluetoothConnectionChangeStateMutex");
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             boolean found = false;
-            for (BluetoothDeviceData _device : connectedDevices) {
-                if (_device.getAddress().equals(device.getAddress())) {
-                    found = true;
-                    break;
+            if (device.getAddress() != null) {
+                for (BluetoothDeviceData _device : connectedDevices) {
+                    if ((_device.getAddress() != null) &&
+                            _device.getAddress().equals(device.getAddress())) {
+                        found = true;
+                        break;
+                    }
                 }
             }
             if (!found) {
-                for (BluetoothDeviceData _device : connectedDevices) {
-                    if (_device.getName().equalsIgnoreCase(device.getName())) {
-                        found = true;
-                        break;
+                if (device.getName() != null) {
+                    for (BluetoothDeviceData _device : connectedDevices) {
+                        if ((_device.getName() != null) &&
+                                _device.getName().equalsIgnoreCase(device.getName())) {
+                            found = true;
+                            break;
+                        }
                     }
                 }
             }
@@ -253,23 +261,29 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             //int index = 0;
             BluetoothDeviceData deviceToRemove = null;
             boolean found = false;
-            for (BluetoothDeviceData _device : connectedDevices) {
-                if (_device.getAddress().equals(device.getAddress())) {
-                    found = true;
-                    deviceToRemove = _device;
-                    break;
-                }
-                //++index;
-            }
-            if (!found) {
-                //index = 0;
+            if (device.getAddress() != null) {
                 for (BluetoothDeviceData _device : connectedDevices) {
-                    if (_device.getName().equalsIgnoreCase(device.getName())) {
+                    if ((_device.getAddress() != null) &&
+                            _device.getAddress().equals(device.getAddress())) {
                         found = true;
                         deviceToRemove = _device;
                         break;
                     }
                     //++index;
+                }
+            }
+            if (!found) {
+                //index = 0;
+                if (device.getName() != null) {
+                    for (BluetoothDeviceData _device : connectedDevices) {
+                        if ((_device.getName() != null) &&
+                                _device.getName().equalsIgnoreCase(device.getName())) {
+                            found = true;
+                            deviceToRemove = _device;
+                            break;
+                        }
+                        //++index;
+                    }
                 }
             }
             if (found)
@@ -312,18 +326,26 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.changeDeviceName", "PPApplication.bluetoothConnectionChangeStateMutex");
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             boolean found = false;
-            for (BluetoothDeviceData _device : connectedDevices) {
-                if (_device.getAddress().equals(device.getAddress()) && !deviceName.isEmpty()) {
-                    _device.setName(deviceName);
-                    found = true;
-                    break;
+            if (device.getAddress() != null) {
+                for (BluetoothDeviceData _device : connectedDevices) {
+                    if ((_device.getAddress() != null) &&
+                            _device.getAddress().equals(device.getAddress()) &&
+                            !deviceName.isEmpty()) {
+                        _device.setName(deviceName);
+                        found = true;
+                        break;
+                    }
                 }
             }
             if (!found) {
-                for (BluetoothDeviceData _device : connectedDevices) {
-                    if (_device.getName().equalsIgnoreCase(device.getName()) && !deviceName.isEmpty()) {
-                        _device.setName(deviceName);
-                        break;
+                if (device.getName() != null) {
+                    for (BluetoothDeviceData _device : connectedDevices) {
+                        if ((_device.getName() != null) &&
+                                _device.getName().equalsIgnoreCase(device.getName()) &&
+                                !deviceName.isEmpty()) {
+                            _device.setName(deviceName);
+                            break;
+                        }
                     }
                 }
             }
