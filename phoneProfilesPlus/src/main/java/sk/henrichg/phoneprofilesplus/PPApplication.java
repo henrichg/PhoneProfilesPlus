@@ -268,7 +268,7 @@ public class PPApplication extends Application
                                                 //+"|[DEFAULT_SIM]"
                                                 //+"|BluetoothConnectedDevicesDetector"
                                                 //+"|BluetoothConnectionBroadcastReceiver"
-                                                +"|CheckCriticalPPPReleasesBroadcastReceiver"
+                                                //+"|CheckCriticalPPPReleasesBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
