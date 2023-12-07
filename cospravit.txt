@@ -809,6 +809,7 @@ Proste to vypada, ze cez (G1) moblne data menit nejde.
 
 -----------------
 
+6.4:
 - Add: Added support for Shizuku for some profile parameters which requires ROOT.
 - Change: Event priority displayed in Editor as sensor, also with pass status.
 - Change: Added "Do Not Use" event priority. This event will be started, even when is running event with higher priority.

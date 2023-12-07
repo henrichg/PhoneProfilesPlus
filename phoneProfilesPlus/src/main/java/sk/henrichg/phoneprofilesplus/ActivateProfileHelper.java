@@ -3658,7 +3658,8 @@ class ActivateProfileHelper {
                     //setZenMode(appContext, ZENMODE_SILENT, audioManager, systemZenMode, AudioManager.RINGER_MODE_SILENT);
 
                     if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
-                            (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
+                            (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                            (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerMode", "(4) PPApplication.notUnlinkVolumesMutex");
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
                             PPApplication.ringerModeNotUnlinkVolumes = false;

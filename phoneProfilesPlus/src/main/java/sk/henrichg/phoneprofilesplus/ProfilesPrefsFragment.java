@@ -522,7 +522,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!entries[2].toString().contains(getString(R.string.array_pref_soundModeArray_ZenModeM_Off)))
                     entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
-                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
+                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
                     if (!entries[3].toString().contains(getString(R.string.array_pref_soundModeArray_ZenModeM_Off)))
                         entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 }
@@ -538,7 +539,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!entries[1].toString().contains(getString(R.string.array_pref_soundModeArray_ZenModeM_Off)))
                     entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
-                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
+                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
                     if (!entries[2].toString().contains(getString(R.string.array_pref_soundModeArray_ZenModeM_Off)))
                         entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 }
