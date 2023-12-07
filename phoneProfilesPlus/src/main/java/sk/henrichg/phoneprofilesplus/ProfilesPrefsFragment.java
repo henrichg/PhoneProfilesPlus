@@ -2301,7 +2301,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                     else if (ringerMode.equals("4")) {
                         if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
-                                (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))
+                                (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                                (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
                             value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                         else
                             value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
