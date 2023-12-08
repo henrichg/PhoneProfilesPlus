@@ -1623,7 +1623,7 @@ public class PPApplication extends Application
         if (getResources() == null) {
             try {
                 android.os.Process.killProcess(pid);
-                PPApplicationStatic.logToACRA("E/PPApplication.checkAppReplacingState: app is replacing...kill");
+                //PPApplicationStatic.logToACRA("E/PPApplication.checkAppReplacingState: app is replacing...kill");
             } catch (Exception e) {
                 //Log.e("PPApplication.checkAppReplacingState", Log.getStackTraceString(e));
             }

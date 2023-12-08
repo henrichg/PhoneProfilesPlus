@@ -6,6 +6,7 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.os.PowerManager;
+import android.util.Log;
 
 import java.util.List;
 
@@ -164,7 +165,8 @@ class BluetoothLEScanCallback extends ScanCallback {
     public void onScanFailed(int errorCode) {
 //        PPApplicationStatic.logE("[IN_LISTENER] BluetoothLEScanCallback.onScanFailed", "xxx");
 
-        PPApplicationStatic.logToACRA("E/BluetoothLEScanCallback.onScanFailed: errorCode=" + errorCode);
+        Log.e("BluetoothLEScanCallback.onScanFailed", "errorCode=" + errorCode);
+//        PPApplicationStatic.logToACRA("E/BluetoothLEScanCallback.onScanFailed: errorCode=" + errorCode);
     }
 
 /*    private static abstract class PPHandlerThreadRunnable implements Runnable {

@@ -2971,12 +2971,14 @@ class PPApplicationStatic {
         } catch (Exception ignored) {}
     }
 
+    /*
     static void logToACRA(String s) {
         try {
             //FirebaseCrashlytics.getInstance().log(s);
             ACRA.getErrorReporter().putCustomData("Log", s);
         } catch (Exception ignored) {}
     }
+    */
 
     static void setCustomKey(String key, int value) {
         try {

@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.util.Log;
 import android.util.Pair;
 
 import com.stericson.rootshell.RootShell;
@@ -589,8 +590,8 @@ class RootUtils {
             }
         }
         if (!cmd.isFinished()){
-            //Log.e("RootUtils.commandWait", "Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
-            PPApplicationStatic.logToACRA("E/GlobalUtils.commandWait: Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
+            Log.e("RootUtils.commandWait", "Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
+            //PPApplicationStatic.logToACRA("E/GlobalUtils.commandWait: Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
     }
 
