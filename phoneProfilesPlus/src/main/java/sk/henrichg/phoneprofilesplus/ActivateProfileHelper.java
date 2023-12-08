@@ -7239,9 +7239,9 @@ class ActivateProfileHelper {
         if (simExists)
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
-                // Get the value of the "TRANSACTION_setDataEnabled" field.
+                // Get the value of the "TRANSACTION_ssetSubscriptionEnabled" field.
                 int transactionCode = PPApplication.rootMutex.transactionCode_setSubscriptionEnabled;
-                    //transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setSimPowerStateForSlot");
+                    //transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setSubscriptionEnabled");
 
                 int state = enable ? 1 : 0;
 
@@ -7277,9 +7277,16 @@ class ActivateProfileHelper {
                                         if (ShizukuUtils.hasShizukuPermission()) {
                                             synchronized (PPApplication.rootMutex) {
                                                 PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "***** Shizuku *******");
+                                                /*try {
+                                                    //requires MODIFY_PHONE_STATE but is not possible to grant it with adb pm grant
+                                                    mSubscriptionManager.setSubscriptionEnabled(subscriptionId, enable);
+                                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "comand executed");
+                                                } catch (Exception e) {
+                                                    //Log.e("ActivateProfileHelper.setSIMOnOff", Log.getStackTraceString(e));
+                                                }*/
                                                 String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId, state);
                                                 PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command1=" + command1);
-                                                if ((command1 != null)/* && (!command2.isEmpty())*/) {
+                                                if ((command1 != null)) {
                                                     try {
                                                         ShizukuUtils.executeCommand(command1);
                                                         PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "comand executed");
