@@ -37,6 +37,9 @@ class ImportantInfoNotification {
                 return;
             }
 
+//            Log.e("ImportantInfoNotification.canShowInfoNotification", "packageVersionCode="+packageVersionCode);
+//            Log.e("ImportantInfoNotification.canShowInfoNotification", "savedVersionCode="+savedVersionCode);
+
             boolean showInfo = false;
             if (packageVersionCode > savedVersionCode)
                 showInfo = canShowInfoNotification(packageVersionCode, savedVersionCode);
@@ -94,6 +97,7 @@ class ImportantInfoNotification {
 
         boolean afterInstall = savedVersionCode == 0;
 
+//        Log.e("ImportantInfoNotification.canShowInfoNotification", "newsLatest="+newsLatest);
         if (newsLatest) {
             // change to false for not show notification
             news = PPApplication.SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS;
