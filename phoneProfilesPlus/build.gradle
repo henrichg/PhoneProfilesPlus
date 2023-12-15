@@ -93,7 +93,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 
-    implementation 'com.google.android.material:material:1.11.0'  //1.6.1' // 1.7.0 requires tragetSDK = 32. :-(
+    //noinspection GradleDependency
+    implementation 'com.google.android.material:material:1.10.0' //1.11.0' is not good, not working dynamic colors
 
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
 
