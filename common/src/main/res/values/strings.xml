@@ -2165,6 +2165,9 @@
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Mobile network type for SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Default SIM card</string>
 
+    <string name="important_info_end_of_galaxy_store_support_text1">End of Galaxy Store support</string>
+    <string name="important_info_end_of_galaxy_store_support_text2">Sorry, Galaxy Store is not more supported, because of in this store is required target SDK API 33 (Android 13) and PPP target SDK is 28 (Android 9).</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
