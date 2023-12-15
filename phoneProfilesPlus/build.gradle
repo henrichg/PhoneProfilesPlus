@@ -93,8 +93,10 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 
+    //1.11.0' is not good, not working dynamic colors
+    //https://github.com/material-components/material-components-android/issues/3924
     //noinspection GradleDependency
-    implementation 'com.google.android.material:material:1.10.0' //1.11.0' is not good, not working dynamic colors
+    implementation 'com.google.android.material:material:1.10.0'
 
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
 
