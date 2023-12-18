@@ -211,7 +211,7 @@ public class PhoneProfilesService extends Service
         // show notification to avoid ANR in api level 26+
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesService.onCreate", "call of PPAppNotification.showNotification");
         PPAppNotification.showNotification(getApplicationContext(),
-                !isServiceRunning, isServiceRunning, true);
+                !isServiceRunning, isServiceRunning, true, true);
 
         PPApplicationStatic.logE("$$$ PhoneProfilesService.onCreate", "after show profile notification");
 
@@ -1744,7 +1744,7 @@ public class PhoneProfilesService extends Service
 
         boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, true);
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesService.onStartCommand", "call of PPAppNotification.showNotification");
-        PPAppNotification.showNotification(appContext, !isServiceRunning, true, true);
+        PPAppNotification.showNotification(appContext, !isServiceRunning, true, true, true);
 
         PPApplication.normalServiceStart = (intent != null);
         PPApplication.showToastForProfileActivation = (intent != null);

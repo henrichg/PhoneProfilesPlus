@@ -1322,7 +1322,7 @@ public class PPAppNotification {
         if (clear) {
             // next show will be with startForeground()
             //if (PhoneProfilesService.getInstance() != null) {
-            clearNotification(context/*, true*/);
+            clearNotification(context, false);
             GlobalUtils.sleep(100);
             //}
         }
@@ -1353,7 +1353,7 @@ public class PPAppNotification {
     }
 
     static void forceDrawNotificationFromSettings(final Context appContext) {
-        clearNotification(appContext);
+        clearNotification(appContext, false);
         GlobalUtils.sleep(100);
 
         //if (PhoneProfilesService.getInstance() != null) {
@@ -1436,9 +1436,13 @@ public class PPAppNotification {
         }
     }
 
-    static void showNotification(Context context, boolean drawEmpty, boolean drawActivatedProfle, boolean drawImmediatelly) {
+    static void showNotification(Context context, boolean drawEmpty, boolean drawActivatedProfle,
+                                 boolean drawImmediatelly, boolean alsoClear) {
         //if (DebugVersion.enabled)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
+
+        if (alsoClear)
+            clearNotification(context, true);
 
         //if (!runningInForeground) {
         if (drawEmpty) {
@@ -1472,7 +1476,7 @@ public class PPAppNotification {
         //PPApplication.lastRefreshOfPPPAppNotification = SystemClock.elapsedRealtime();
     }
 
-    static void clearNotification(Context context/*, boolean onlyEmpty*/)
+    static void clearNotification(Context context, boolean onlyClear)
     {
         /*if (onlyEmpty) {
             final Context appContext = getApplicationContext();
@@ -1484,8 +1488,10 @@ public class PPAppNotification {
         try {
             //startForegroundNotification = true;
             //isInForeground = false;
-            if (PhoneProfilesService.getInstance() != null)
-                PhoneProfilesService.getInstance().stopForeground(true);
+            if (!onlyClear) {
+                if (PhoneProfilesService.getInstance() != null)
+                    PhoneProfilesService.getInstance().stopForeground(true);
+            }
             //PPApplicationStatic.cancelWork(ShowProfileNotificationWorker.WORK_TAG, true);
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
