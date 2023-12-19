@@ -35,7 +35,7 @@ __APKPure:__
 - [Store application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)
 
 __Galaxy Store:__
-- Sorry, is not more supported, because of in this store is required target SDK API 33 (Android 13) and PPP target SDK is 28 (Android 9).
+- Sorry, is not more supported, because this store requires target SDK API 33 (Android 13) and PPP target SDK is 28 (Android 9).
 - [PPP release (for Samsung devices only)](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)
 
 __GitHub (better is using Droid-ify instead):__
