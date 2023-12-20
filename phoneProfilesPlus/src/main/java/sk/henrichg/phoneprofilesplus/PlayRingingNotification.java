@@ -715,6 +715,11 @@ class PlayRingingNotification
             boolean isAudible =
                     ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode/*, getApplicationContext()*/);
 
+            //TODO Tuto cast o vibrovani musis, ked spravis podporu na vybrovanie pri simulacii zvonania,
+            // presunut dole do podmienky a akrtivnej simulacii. Vibrovat musim tu len ak
+            // nie je aktivna simulacia, rovnako ako pri prehravani tonu.
+            // Pre toto ale musi pridat aj test na to, ci ma v systeme nastavene "Vibrate when ringing",
+            // lebo len vtedy budem vibrovat v simulacii.
             if (notificationVibrate || ((!isAudible) && (!notificationSound.isEmpty()))) {
                 // vibrate when is configured or when is not audible and sound is configured
 
