@@ -1544,8 +1544,6 @@
     <string name="menu_check_releases_fdroid">Check in F-Droid</string>
     <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">If media volume change not working, maybe it is due to enabled \"safe volume flag\". If you want to disable this flag, grant (G1) permission, because this permission is required to disable this flag.</string>
-    <string name="menu_check_releases_galaxy_store">Check in Galaxy Store</string>
-    <string name="check_releases_open_galaxy_store">Open Galaxy Store</string>
     <string name="applicationApplicationInterfaceActivationNotification">Notification of profile activation</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Add \"Restart events\" into profile list</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth scan in time</string>
@@ -1954,8 +1952,6 @@
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
-    <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
-    <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Toggle Location (Off &lt;-&gt; High accuracy)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Toggle Location (Battery saving &lt;-&gt; High accuracy)</string>
     <string name="widget_label_one_row_profile_list">Single row profile list</string>
@@ -2060,7 +2056,6 @@
     <string name="check_releases_install_from_apk_note1">NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead</string>
     <string name="check_releases_install_from_apk_note2_ppp">, if in your device is not supported application store, and install PhoneProfilesPlus from it.</string>
     <string name="check_releases_install_from_apk_note2_pppe">, if in your device is not supported application store, and install PhoneProfilesPlusExtender from it.</string>
-    <string name="install_ppp_store_galaxystore" translatable="false">Galaxy Store</string>
     <string name="install_ppp_store_appgallery" translatable="false">Huawei AppGallery</string>
     <string name="install_ppp_store_droidify" translatable="false">Droid-ify</string>
     <string name="install_ppp_store_fdroid" translatable="false">F-Droid</string>
@@ -2128,7 +2123,6 @@
     <string name="export_settings_delete_contacts_data_notification">Contacts for Notification sensor</string>
     <string name="grant_draw_over_apps_dialog_info_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click button \"Grant\" to grant this permission.</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, click this link. Maybe in this web page is solution for your device:</string>
-    <string name="install_extender_install_droidify_button">Install Droid-ify</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Do not use</string>
     <string name="contacts_filter_dialog_filter_title">Contacts filter</string>
     <string name="contacts_filter_dialog_item_show_all">[ All ]</string>

@@ -2139,4 +2139,6 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Typ mobilní sítě pro SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Typ mobilní sítě pro SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Výchozí SIM karta</string>
+    <string name="important_info_end_of_galaxy_store_support_text1">Konec podpory Galaxy Store</string>
+    <string name="important_info_end_of_galaxy_store_support_text2">Lituji, obchod Galaxy Store již není podporován, protože tento obchod vyžaduje cílové SDK API 33 (Android 13) a cílové SDK PPP je 28 (Android 9).</string>
 </resources>
