@@ -502,7 +502,7 @@
     <string name="permissions_for_play_ringtone_notification_text2">S\'il vous plaît validez les boîtes de dialogues suivantes pour que les sons soient joués.</string>
     <string name="permissions_for_play_ringtone_notification_big_text_notification">Jouer la sonnerie sélectionnée requiert certaines autorisations à accorder.</string>
     <string name="important_info_profile_interactive">Certaines préférences de profil sont interactives. Ces préférences affichent l\'écran préférence système. Ces préférences sont marqués avec \"(I)\".</string>
-    <string name="important_info_orange_text">Note : le texte orange dans cette info est cliquable. Cliquez sur ce texte ouvre l’écran \"paramètre système\".</string>
+    <string name="important_info_orange_text">Note : le texte orange dans cette info est cliquable. Cliquez sur ce texte pour ouvrir l’écran de paramétrage correspondant.</string>
     <string name="default_event_name_night_call">Appel de nuit</string>
     <string name="alert_message_enable_event">L\'événement n\'est pas activé. L\'activer ?</string>
     <string name="menu_about_application">À propos</string>
@@ -599,7 +599,7 @@
     <string name="editor_event_list_item_profile_start_icon">Icône de début d’événements</string>
     <string name="editor_event_list_item_profile_end_icon">Icône de fin d’événements</string>
     <string name="run_stop_events_indicator">Activer/arrêter l\'indicateur d’événement en cours</string>
-    <string name="important_info_how_to_show">Cette information importante peut être vu dans l’éditeur en cliquant sur l’icône point d’interrogation dans la barre d’outils.</string>
+    <string name="important_info_how_to_show">Cette information importante peut être vue dans l’éditeur en cliquant sur l’icône point d’interrogation dans la barre d’outils.</string>
     <string name="preference_not_allowed_reason_not_supported_by_application">non pris en charge par l’application</string>
     <string name="preference_not_allowed_reason_detail_old_android">ancienne version Android</string>
     <string name="preference_not_allowed_reason_detail_network_type">type de réseau non pris en charge ou ne pouvant pas être changé</string>
@@ -1102,7 +1102,7 @@
     <string name="phone_profiles_pref_applicationDoNotKillMyApp_summary2">. Dans cette page, comment configurer l\'appareil pour qu\'il ne tue pas PhoneProfilesPlus quand il est en arrière-plan.</string>
     <string name="phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle">Comment faire fonctionner PhoneProfilesPlus</string>
     <string name="important_info_do_not_kill_my_app1">Concernant les problèmes du système qui tue PhoneProfilesPlus quand il est en arrière-plan, cliquez ici pour afficher la page web</string>
-    <string name="important_info_do_not_kill_my_app2">. Dans cette page est expliqué comment configurer l\'appareil pour ne pas tuer PhoneProfilesPlus, quand il est en arrière-plan.</string>
+    <string name="important_info_do_not_kill_my_app2">. Cette page explique comment configurer l\'appareil pour qu\'il ne tue pas PhoneProfilesPlus quand il est en arrière-plan.</string>
     <string name="new_event_profiles_not_exists_alert_message1">Profil</string>
     <string name="new_event_profiles_not_exists_alert_message2">n\'existe pas pour un nouvel événement. Créer ?</string>
     <string name="notification_channel_not_used_mobile_cell">Détection des antennes-relais non utilisées</string>
