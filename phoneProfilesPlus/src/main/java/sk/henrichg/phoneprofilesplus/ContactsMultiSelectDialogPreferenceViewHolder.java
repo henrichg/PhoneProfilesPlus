@@ -11,7 +11,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 
 class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    boolean withountNumbers;
+    private final boolean withountNumbers;
 
     private final ShapeableImageView imageViewPhoto;
     private final TextView textViewDisplayName;
