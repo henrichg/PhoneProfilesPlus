@@ -715,7 +715,9 @@ class PlayRingingNotification
             boolean isAudible =
                     ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode/*, getApplicationContext()*/);
 
-            if (notificationVibrate || (!isAudible) && (!notificationSound.isEmpty())) {
+            if (notificationVibrate || ((!isAudible) && (!notificationSound.isEmpty()))) {
+                // vibrate when is configured or when is not audible and sound is configured
+
                 // why vibrate?
                 // 1. vibration is configured by user
                 // 2. notification sound is configured by user, but sound mode is not audible
