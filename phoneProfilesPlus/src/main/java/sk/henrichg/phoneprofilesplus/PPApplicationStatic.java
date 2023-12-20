@@ -1453,7 +1453,7 @@ class PPApplicationStatic {
                 channel.setDescription(description);
                 channel.enableLights(false);
                 channel.enableVibration(true);
-                //channel.setSound(null, null);
+                channel.setSound(null, null);
                 channel.setShowBadge(true);
                 channel.setBypassDnd(true);
 

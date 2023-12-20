@@ -1759,7 +1759,8 @@ class DataWrapper {
                                         (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
                                         (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
                                         (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
-                                    if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
+                                    if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() ||
+                                            ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
                                         PlayRingingNotification.playNotificationSound(
                                                 ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
                                                 ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
@@ -2305,7 +2306,8 @@ class DataWrapper {
 //                    PPApplicationStatic.logE("[START_PP_SERVICE] DataWrapper.restartEventsWithAlert", "xxx");
                             PPApplicationStatic.startPPService(context, serviceIntent, true);
                         } else {
-                            if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
+                            if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() ||
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
                                 PlayRingingNotification.playNotificationSound(
                                         ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
                                         ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
@@ -2362,7 +2364,8 @@ class DataWrapper {
                 });
             }
 
-            if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
+            if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() ||
+                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
                 PlayRingingNotification.playNotificationSound(
                         ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
                         ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,

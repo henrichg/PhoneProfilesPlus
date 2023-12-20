@@ -3032,7 +3032,8 @@ class Event {
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
-                        .setAutoCancel(false); // clear notification after click
+                        .setAutoCancel(false) // clear notification after click
+                        .setOnlyAlertOnce(true);
 
                 PendingIntent pi = PendingIntent.getActivity(context, (int) _id, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
