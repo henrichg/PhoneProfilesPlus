@@ -2,9 +2,11 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -184,8 +186,47 @@ class EventsHandler {
 
             // save ringer mode, zen mode, ringtone before handle events
             // used by ringing call simulation (in doEndHandler())
-            oldRingerMode = ApplicationPreferences.prefRingerMode;
-            oldZenMode = ApplicationPreferences.prefZenMode;
+            // TODO tieto dve veci mam v shared preferences.
+            //  Kedy ich nastavujem? A su zo systemu alebo z profilu? Musia byt zo systemu.
+            //  Pouzit systemove, zistene cez ActivateProfileHelper.isAudibleSystemRingerMode().
+            //oldRingerMode = ApplicationPreferences.prefRingerMode;
+            //oldZenMode = ApplicationPreferences.prefZenMode;
+            AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+            switch (audioManager.getRingerMode()) {
+                case AudioManager.RINGER_MODE_SILENT:
+                    oldRingerMode = Profile.RINGERMODE_SILENT;
+                    Log.e("EventsHandler.handleEvents", "oldRingerMode=SILENT");
+                    break;
+                case AudioManager.RINGER_MODE_VIBRATE:
+                    Log.e("EventsHandler.handleEvents", "oldRingerMode=VIBRATE");
+                    oldRingerMode = Profile.RINGERMODE_VIBRATE;
+                    break;
+                //case AudioManager.RINGER_MODE_NORMAL:
+                default:
+                    oldRingerMode = Profile.RINGERMODE_RING;
+                    Log.e("EventsHandler.handleEvents", "oldRingerMode=RING");
+                    break;
+            }
+            switch (ActivateProfileHelper.getSystemZenMode(context)) {
+                case ActivateProfileHelper.ZENMODE_ALARMS:
+                    oldZenMode = Profile.ZENMODE_ALARMS;
+                    Log.e("EventsHandler.handleEvents", "oldZenMode=ALARMS");
+                    break;
+                case ActivateProfileHelper.ZENMODE_NONE:
+                    oldZenMode = Profile.ZENMODE_NONE;
+                    Log.e("EventsHandler.handleEvents", "oldZenMode=NONE");
+                    break;
+                case ActivateProfileHelper.ZENMODE_PRIORITY:
+                    oldZenMode = Profile.ZENMODE_PRIORITY;
+                    Log.e("EventsHandler.handleEvents", "oldZenMode=PRIORITY");
+                    break;
+                //case ActivateProfileHelper.ZENMODE_ALL:
+                default:
+                    oldZenMode = Profile.ZENMODE_ALL;
+                    Log.e("EventsHandler.handleEvents", "oldZenMode=ALL");
+                    break;
+            }
+
             try {
                 oldRingtone = "";
                 oldRingtoneSIM1 = "";
@@ -898,6 +939,7 @@ class EventsHandler {
                         }
                     }
                     int simSlot = ApplicationPreferences.prefEventCallFromSIMSlot;
+                    Log.e("EventsHandler.doEndHandler", "simulateRingingCall="+simulateRingingCall);
                     if (simulateRingingCall) {
                         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);

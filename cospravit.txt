@@ -821,3 +821,33 @@ Proste to vypada, ze cez (G1) moblne data menit nejde.
 - Change: Updated Features in README.md.
 - Fixed bugs
 - Updated translations
+
+---------------------
+
+Simulacia zvonenia:
+
+Vypada to, ze na S21 zacne zvonit nie preto, ze zacne simulacia, ale samotny Android zacne zvonit, lebo sa zmeni ringer mod profilom na RING.
+Ale u DND alarms only to nefunguje.
+U priority, ak v device Settings v Nerusit nastavim, ze nechcem zvonit, tak nezvoni. Vtedy zvoni len na nastavene kontakty. Toto je vynimka.
+
+To iste na Pixeli 6.
+
+Testni potom este raz, menil som isAudibleRingingForSimulation().
+
+---
+
+Android 11, 10, 9:
+- ringer mode Vibrate, Silent zenMode All -> nezvoni.
+- ringer mode Vibrate, zenMode Priority -> nezvoni aj ked povolim vsetky kontakty
+
+---
+
+Android 12:
+- Priority s vibraciami nejde nastavit :-(
+- ringer mode Vibrate, Silent zenMode All -> nezvoni.
+- ringer mode Vibrate, zenMode Priority -> nezvoni aj ked povolim vsetky kontakty
+
+Xiaomi 13 lite - Android 13:
+- ringer mode Vibrate, Silent - zvoni
+- Znoni aj na DND
+

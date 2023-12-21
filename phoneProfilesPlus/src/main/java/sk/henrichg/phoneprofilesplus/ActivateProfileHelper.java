@@ -1007,6 +1007,53 @@ class ActivateProfileHelper {
                      ));
     }
 
+    static boolean mustSimulateRinging(int oldRingerMode, int oldZenMode) {
+        if (Build.VERSION.SDK_INT >= 34) {
+            if ((oldZenMode == Profile.ZENMODE_NONE) || (oldZenMode == Profile.ZENMODE_ALARMS))
+                return true;
+            else
+                return false;
+        }
+        else if (Build.VERSION.SDK_INT == 33) {
+            if ((PPApplication.deviceIsXiaomi) && (PPApplication.romIsMIUI))
+                return false;
+            else {
+                if ((oldZenMode == Profile.ZENMODE_NONE) || (oldZenMode == Profile.ZENMODE_ALARMS))
+                    return true;
+                else if ((oldZenMode == Profile.ZENMODE_PRIORITY) && (oldRingerMode != Profile.RINGERMODE_VIBRATE))
+                    return false;
+                else if ((oldRingerMode == Profile.RINGERMODE_VIBRATE) || (oldRingerMode == Profile.RINGERMODE_SILENT))
+                    return true;
+                else
+                    return false;
+            }
+        }
+        else if (Build.VERSION.SDK_INT >= 31) {
+            if ((oldZenMode == Profile.ZENMODE_NONE) || (oldZenMode == Profile.ZENMODE_ALARMS))
+                return true;
+            else
+            if ((oldZenMode == Profile.ZENMODE_PRIORITY) && (oldRingerMode != Profile.RINGERMODE_VIBRATE))
+                return false;
+            else
+            if ((oldRingerMode == Profile.RINGERMODE_VIBRATE) || (oldRingerMode == Profile.RINGERMODE_SILENT))
+                return true;
+            else
+                return false;
+        }
+        else {
+            if ((oldZenMode == Profile.ZENMODE_NONE) || (oldZenMode == Profile.ZENMODE_ALARMS))
+                return true;
+            else
+            if ((oldZenMode == Profile.ZENMODE_PRIORITY) && (oldRingerMode != Profile.RINGERMODE_VIBRATE))
+                return false;
+            else
+            if ((oldRingerMode == Profile.RINGERMODE_VIBRATE) || (oldRingerMode == Profile.RINGERMODE_SILENT))
+                return true;
+            else
+                return false;
+        }
+    }
+
     private static boolean isVibrateRingerMode(int ringerMode/*, int zenMode*/) {
         return (ringerMode == Profile.RINGERMODE_VIBRATE);
     }
@@ -3710,7 +3757,7 @@ class ActivateProfileHelper {
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
-                            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                             setVibrateSettings(false, audioManager);
                             GlobalUtils.sleep(500);
                             //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
@@ -3728,7 +3775,7 @@ class ActivateProfileHelper {
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
-                            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                             setVibrateSettings(false, audioManager);
                             GlobalUtils.sleep(500);
                             //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_NONE);
@@ -3743,11 +3790,18 @@ class ActivateProfileHelper {
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
+                            /*
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                             setVibrateSettings(true, audioManager);
                             GlobalUtils.sleep(500);
                             //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                             InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
+                             */
+
+                            InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
+                            GlobalUtils.sleep(500);
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                            setVibrateSettings(true, audioManager);
 
                             //audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                             //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
@@ -3776,17 +3830,71 @@ class ActivateProfileHelper {
                                 InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
                             }
                             else {
-                                // must be set 2x to keep vibraton
-                                audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                                GlobalUtils.sleep(500);
-                                //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
-                                InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+                                if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
+                                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
+                                    InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+                                    GlobalUtils.sleep(500);
+                                    audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                                    setVibrateSettings(true, audioManager);
+                                }
+                                else
+                                if (PPApplication.deviceIsPixel || PPApplication.deviceIsOnePlus) {
+                                    // vibration is not possibe to set for Pixel, OnePlus devices :-(
+                                    audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                                    setVibrateSettings(false, audioManager);
+                                    GlobalUtils.sleep(500);
+                                    //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+                                    InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
 
-                                audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                                setVibrateSettings(true, audioManager);
-                                //PPApplication.sleep(500);
-                                //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
-                                InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+                                    //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                                    //setZenMode(appContext, ZENMODE_PRIORITY, audioManager, systemZenMode, profile._ringerModeForZenMode);
+
+                                    // set it by profile
+                                    setVibrateWhenRinging(appContext, profile, -1, executedProfileSharedPreferences);
+                                    setVibrateNotification(appContext, profile, -1, executedProfileSharedPreferences);
+                                }
+                                else {
+                                    /*} else if (Build.VERSION.SDK_INT >= 33) {
+                                        // must be set 2x to keep vibraton
+                                        audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                                        GlobalUtils.sleep(500);
+                                        //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+                                        InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+
+                                        audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                                        setVibrateSettings(true, audioManager);
+                                        //PPApplication.sleep(500);
+                                        //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+                                        InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+                                    } else if (Build.VERSION.SDK_INT >= 31) {
+                                        // vibration is not possibe to set for Android 12+ :-(
+                                        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                                        setVibrateSettings(false, audioManager);
+                                        GlobalUtils.sleep(500);
+                                        //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+                                        InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+
+                                        //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                                        //setZenMode(appContext, ZENMODE_PRIORITY, audioManager, systemZenMode, profile._ringerModeForZenMode);
+
+                                        // set it by profile
+                                        setVibrateWhenRinging(appContext, profile, -1, executedProfileSharedPreferences);
+                                        setVibrateNotification(appContext, profile, -1, executedProfileSharedPreferences);*/
+                                    //}  else {
+                                        // must be set 2x to keep vibraton
+                                        audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                                        GlobalUtils.sleep(500);
+                                        //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+                                        InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+
+                                        audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                                        setVibrateSettings(true, audioManager);
+                                        //PPApplication.sleep(500);
+                                        //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+                                        InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+                                    //}
+                                }
                             }
 
                             //setZenMode(appContext, ZENMODE_PRIORITY, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
@@ -3801,7 +3909,7 @@ class ActivateProfileHelper {
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
-                            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                             setVibrateSettings(false, audioManager);
                             GlobalUtils.sleep(500);
                             //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALARMS);

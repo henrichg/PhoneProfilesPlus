@@ -260,7 +260,7 @@ public class PPApplication extends Application
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
                                                 //+"|[PPP_NOTIFICATION]"
-                                                +"|[DUAL_SIM]"
+                                                //+"|[DUAL_SIM]"
                                                 //+"|[APPLICATION_FULLY_STARTED]"
                                                 //+"|[MAIN_WORKER_CALL]"
                                                 //+"|[CONTACTS_DIALOG]"
