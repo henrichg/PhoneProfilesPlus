@@ -195,35 +195,35 @@ class EventsHandler {
             switch (audioManager.getRingerMode()) {
                 case AudioManager.RINGER_MODE_SILENT:
                     oldRingerMode = Profile.RINGERMODE_SILENT;
-                    Log.e("EventsHandler.handleEvents", "oldRingerMode=SILENT");
+                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldRingerMode=SILENT");
                     break;
                 case AudioManager.RINGER_MODE_VIBRATE:
-                    Log.e("EventsHandler.handleEvents", "oldRingerMode=VIBRATE");
+                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldRingerMode=VIBRATE");
                     oldRingerMode = Profile.RINGERMODE_VIBRATE;
                     break;
                 //case AudioManager.RINGER_MODE_NORMAL:
                 default:
                     oldRingerMode = Profile.RINGERMODE_RING;
-                    Log.e("EventsHandler.handleEvents", "oldRingerMode=RING");
+                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldRingerMode=RING");
                     break;
             }
             switch (ActivateProfileHelper.getSystemZenMode(context)) {
                 case ActivateProfileHelper.ZENMODE_ALARMS:
                     oldZenMode = Profile.ZENMODE_ALARMS;
-                    Log.e("EventsHandler.handleEvents", "oldZenMode=ALARMS");
+                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldZenMode=ALARMS");
                     break;
                 case ActivateProfileHelper.ZENMODE_NONE:
                     oldZenMode = Profile.ZENMODE_NONE;
-                    Log.e("EventsHandler.handleEvents", "oldZenMode=NONE");
+                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldZenMode=NONE");
                     break;
                 case ActivateProfileHelper.ZENMODE_PRIORITY:
                     oldZenMode = Profile.ZENMODE_PRIORITY;
-                    Log.e("EventsHandler.handleEvents", "oldZenMode=PRIORITY");
+                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldZenMode=PRIORITY");
                     break;
                 //case ActivateProfileHelper.ZENMODE_ALL:
                 default:
                     oldZenMode = Profile.ZENMODE_ALL;
-                    Log.e("EventsHandler.handleEvents", "oldZenMode=ALL");
+                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldZenMode=ALL");
                     break;
             }
 
@@ -939,7 +939,7 @@ class EventsHandler {
                         }
                     }
                     int simSlot = ApplicationPreferences.prefEventCallFromSIMSlot;
-                    Log.e("EventsHandler.doEndHandler", "simulateRingingCall="+simulateRingingCall);
+                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.doEndHandler", "simulateRingingCall="+simulateRingingCall);
                     if (simulateRingingCall) {
                         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);

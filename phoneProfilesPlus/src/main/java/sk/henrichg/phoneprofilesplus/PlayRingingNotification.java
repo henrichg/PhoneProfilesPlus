@@ -92,35 +92,35 @@ class PlayRingingNotification
                 switch (audioManager.getRingerMode()) {
                     case AudioManager.RINGER_MODE_SILENT:
                         newRingerMode = Profile.RINGERMODE_SILENT;
-                        Log.e("PlayRingingNotification.doSimulatingRingingCall", "newRingerMode=SILENT");
+                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newRingerMode=SILENT");
                         break;
                     case AudioManager.RINGER_MODE_VIBRATE:
                         newRingerMode = Profile.RINGERMODE_VIBRATE;
-                        Log.e("PlayRingingNotification.doSimulatingRingingCall", "newRingerMode=VIBRATE");
+                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newRingerMode=VIBRATE");
                         break;
                     //case AudioManager.RINGER_MODE_NORMAL:
                     default:
                         newRingerMode = Profile.RINGERMODE_RING;
-                        Log.e("PlayRingingNotification.doSimulatingRingingCall", "newRingerMode=RING");
+                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newRingerMode=RING");
                         break;
                 }
                 switch (ActivateProfileHelper.getSystemZenMode(context)) {
                     case ActivateProfileHelper.ZENMODE_ALARMS:
                         newZenMode = Profile.ZENMODE_ALARMS;
-                        Log.e("PlayRingingNotification.doSimulatingRingingCall", "newZenMode=ALARMS");
+                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newZenMode=ALARMS");
                         break;
                     case ActivateProfileHelper.ZENMODE_NONE:
                         newZenMode = Profile.ZENMODE_NONE;
-                        Log.e("PlayRingingNotification.doSimulatingRingingCall", "newZenMode=NONE");
+                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newZenMode=NONE");
                         break;
                     case ActivateProfileHelper.ZENMODE_PRIORITY:
                         newZenMode = Profile.ZENMODE_PRIORITY;
-                        Log.e("PlayRingingNotification.doSimulatingRingingCall", "newZenMode=PRIORITY");
+                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newZenMode=PRIORITY");
                         break;
                     //case ActivateProfileHelper.ZENMODE_ALL:
                     default:
                         newZenMode = Profile.ZENMODE_ALL;
-                        Log.e("PlayRingingNotification.doSimulatingRingingCall", "newZenMode=ALL");
+                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newZenMode=ALL");
                         break;
                 }
             }
@@ -242,14 +242,15 @@ class PlayRingingNotification
                 newRingtone = _ringtoneFromSystem;
 
             if (ActivateProfileHelper.isAudibleRinging(newRingerMode, newZenMode)) {
-                Log.e("PlayRingingNotification.doSimulatingRingingCall", "mewRingerMode, newZenMode audible");
+                PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "mewRingerMode, newZenMode audible");
 
                 boolean simulateRinging = false;
 
                 if (ActivateProfileHelper.mustSimulateRinging(oldRingerMode, oldZenMode)) {
-                    Log.e("PlayRingingNotification.doSimulatingRingingCall", "must simulate ringing");
+                    PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "must simulate ringing");
                     simulateRinging = true;
-                }
+                } else
+                    PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall","not needed to simulate ringing");
 
                 // simulate rnging when in profile is change of tone
                 if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
@@ -304,11 +305,13 @@ class PlayRingingNotification
 
             // do not simulate ringing when ring or stream is muted
             if (audioManager != null) {
-                if (audioManager.isStreamMute(AudioManager.STREAM_RING))
+                if (audioManager.isStreamMute(AudioManager.STREAM_RING)) {
+                    PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.startSimulatingRingingCall", "stream_rin mutted");
                     return;
+                }
             }
 
-            Log.e("EventsHandler.startSimulatingRingingCall", "stream_ring muted");
+            PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.startSimulatingRingingCall", "stream_ring NOT muted");
 
             if ((ringtone != null) && !ringtone.isEmpty()) {
                 PPApplication.volumesInternalChange = true;
@@ -353,7 +356,7 @@ class PlayRingingNotification
                         PPApplication.volumesInternalChange = true;
                         audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
-                        Log.e("EventsHandler.startSimulatingRingingCall", "start simulating");
+                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.startSimulatingRingingCall", "start simulating");
                         PlayRingingNotification.ringingMediaPlayer.start();
 
                         PlayRingingNotification.ringingCallIsSimulating = true;
@@ -391,7 +394,7 @@ class PlayRingingNotification
 
             try {
                 if (PlayRingingNotification.ringingCallIsSimulating) {
-                    Log.e("EventsHandler.stopSimulatingRingingCall", "stop simulating");
+                    PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.stopSimulatingRingingCall", "stop simulating");
 
                     PPApplication.volumesInternalChange = true;
                     audioManager.setStreamVolume(AudioManager.STREAM_ALARM, PlayRingingNotification.oldVolumeForRingingSimulation, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);

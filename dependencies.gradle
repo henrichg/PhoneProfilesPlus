@@ -35,11 +35,11 @@
 // 8000 = Removed support for Galaxy Store
 
 ext.ppVersions = [
-        publishVersion    : '6.4.0.1b',
+        publishVersion    : '6.4.1b',
 
         // bacha 8000 je important info news,
         // vid PPApplication.PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS
-        publishVersionCode: 7089,
+        publishVersionCode: 7090,
 
         minSdk            : 26,
         targetSdk         : 28,
