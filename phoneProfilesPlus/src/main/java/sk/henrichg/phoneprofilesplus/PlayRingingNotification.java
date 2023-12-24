@@ -253,8 +253,10 @@ class PlayRingingNotification
                     PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall","not needed to simulate ringing");
 
                 // simulate rnging when in profile is change of tone
-                if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
-                    simulateRinging = true;
+                //   removed, because system plays changed ringtone, when simulating is not enabled
+                //   by ringerMode, zenMode
+                //if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
+                //    simulateRinging = true;
 
                 if (simulateRinging) {
                     int _ringingVolume;

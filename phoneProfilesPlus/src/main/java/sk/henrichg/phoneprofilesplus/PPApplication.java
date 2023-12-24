@@ -179,7 +179,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
-    static final String logFilterTags =         "|##### PPApplication.onCreate"
+    static final String logFilterTags =         "##### PPApplication.onCreate"
                                                 //+"|PPApplication.isXiaomi"
                                                 //+"|PPApplication.isHuawei"
                                                 //+"|PPApplication.isSamsung"
