@@ -134,10 +134,6 @@ public class RingtonePreference extends DialogPreference {
         final AudioManager audioManager = (AudioManager) prefContext.getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
             final Context appContext = prefContext.getApplicationContext();
-            //PPApplication.startHandlerThreadPlayTone();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-            //__handler.post(new StopPlayRingtoneRunnable(prefContext.getApplicationContext(), audioManager) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceFragment.stopPlayRingtone");
 
@@ -174,7 +170,7 @@ public class RingtonePreference extends DialogPreference {
                         }
                     }
                 }
-            }; //);
+            };
             PPApplicationStatic.createPlayToneExecutor();
             PPApplication.playToneExecutor.submit(runnable);
         }
@@ -194,11 +190,6 @@ public class RingtonePreference extends DialogPreference {
             final Context appContext = prefContext.getApplicationContext();
             final RingtonePreference preference = this;
 
-            //PPApplication.startHandlerThreadPlayTone();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-            //__handler.post(new PlayRingtoneRunnable(prefContext.getApplicationContext(),
-            //                        audioManager, _ringtoneUri) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
                 //Context appContext = appContextWeakRef.get();
                 //AudioManager audioManager = audioManagerWeakRef.get();
@@ -319,17 +310,6 @@ public class RingtonePreference extends DialogPreference {
                                     PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
                                     PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
-                                    /*PPApplication.startHandlerThreadInternalChangeToFalse();
-                                    final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-                                    handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            RingerModeChangeReceiver.internalChange = false;
-                                        }
-                                    }, 3000);*/
-                                    //PostDelayedBroadcastReceiver.setAlarm(
-                                    //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
-
                                     playTimer = null;
                                 //}
                             }
@@ -344,20 +324,9 @@ public class RingtonePreference extends DialogPreference {
 
                         PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
                         PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
-
-                        /*PPApplication.startHandlerThreadInternalChangeToFalse();
-                        final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                RingerModeChangeReceiver.internalChange = false;
-                            }
-                        }, 3000);*/
-                        //PostDelayedBroadcastReceiver.setAlarm(
-                        //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
                     }
                 }
-            }; //);
+            };
             PPApplicationStatic.createPlayToneExecutor();
             PPApplication.playToneExecutor.submit(runnable);
 

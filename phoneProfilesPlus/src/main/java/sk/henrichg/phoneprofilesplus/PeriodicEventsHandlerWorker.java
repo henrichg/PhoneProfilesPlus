@@ -134,16 +134,6 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     PPApplicationStatic.recordException(e);
                 }
                 */
-                /*
-                PPApplication.startHandlerThreadPPScanners();
-                final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        PeriodicEventsHandlerWorker.enqueueWork(context);
-                    }
-                }, 1500);
-                */
             }
 
 //            long finish = System.currentTimeMillis();
@@ -153,13 +143,6 @@ public class PeriodicEventsHandlerWorker extends Worker {
         } catch (Exception e) {
             //Log.e("PeriodicEventsHandlerWorker.doWork", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
-            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
-            Runnable r = new Runnable() {
-                public void run() {
-                    android.os.Process.killProcess(PPApplication.pid);
-                }
-            };
-            _handler.postDelayed(r, 1000);*/
             return Result.failure();
         }
     }

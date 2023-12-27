@@ -19,11 +19,6 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
         if (EventStatic.getGlobalEventsRunning(context))
         {
             final Context appContext = context.getApplicationContext();
-            //PPApplication.startHandlerThreadBroadcast(/*"WifiAPStateChangeBroadcastReceiver.onReceive"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-            //        context.getApplicationContext()) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=WifiAPStateChangeBroadcastReceiver.onReceive");
 
@@ -69,7 +64,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }

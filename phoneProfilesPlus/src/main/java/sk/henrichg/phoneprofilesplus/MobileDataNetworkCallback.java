@@ -126,11 +126,6 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
 
             /*
             final Context appContext = this.context;
-            //PPApplication.startHandlerThreadBroadcast();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-            //        appContext) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=MobileDataNetworkCallback.doConnection");
 
@@ -158,7 +153,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
                         }
                     }
                 //}
-            }; //);
+            };
             //PPApplication.createEventsHandlerExecutor();
             //PPApplication.eventsHandlerExecutor.submit(runnable);
             PPApplication.createDelayedEventsHandlerExecutor();

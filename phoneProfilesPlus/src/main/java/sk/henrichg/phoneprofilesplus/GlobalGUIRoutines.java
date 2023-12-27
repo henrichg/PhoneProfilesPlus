@@ -1035,19 +1035,4 @@ class GlobalGUIRoutines {
         return intentLaunch;
     }
 
-    /*
-    static void setProgressBarVisible(final LinearLayout viewGroup, final ProgressBar progressBar) {
-        progressBar.setVisibility(View.GONE);
-        PPApplicationStatic.startHandlerThreadProgressBar();
-        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        __handler.postDelayed(() -> {
-            try {
-                if (viewGroup.isVisibleToUser()) {
-                    progressBar.setVisibility(View.VISIBLE);
-                }
-            } catch (Exception ignored) {}
-        }, 100);
-    }
-    */
-
 }

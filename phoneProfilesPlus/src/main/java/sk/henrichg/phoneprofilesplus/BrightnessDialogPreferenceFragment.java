@@ -230,13 +230,10 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
                     //if (_automatic == 1)
                     //    allowed = preference.adaptiveAllowed;
                     //if (allowed) {
-                    //    Handler handler = new Handler(context.getMainLooper());
-                    //    handler.postDelayed(() -> {
-                            int __value = ProfileStatic.convertPercentsToBrightnessManualValue(_value, context);
-                            //Log.e("BrightnessDialogPreferenceFragment.onCheckedChanged", "__value="+__value);
-                            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, __value);
-                            //setAdaptiveBrightness(ProfileStatic.convertPercentsToBrightnessAdaptiveValue(_value, context));
-                    //    }, 200);
+                        int __value = ProfileStatic.convertPercentsToBrightnessManualValue(_value, context);
+                        //Log.e("BrightnessDialogPreferenceFragment.onCheckedChanged", "__value="+__value);
+                        Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, __value);
+                        //setAdaptiveBrightness(ProfileStatic.convertPercentsToBrightnessAdaptiveValue(_value, context));
                     //}
                 }
                 savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
@@ -381,9 +378,6 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
                     Settings.System.putFloat(context.getContentResolver(),
                             Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, value);
                 } catch (Exception ee) {
-                    //PPApplication.startHandlerThread();
-                    //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                    //__handler.post(() -> {
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragment.setAdaptiveBrightness");
 
@@ -405,7 +399,7 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
                             }
                         }
 
-                    }; //);
+                    };
                     PPApplication.createBasicExecutorPool();
                     PPApplication.basicExecutorPool.submit(runnable);
                 }

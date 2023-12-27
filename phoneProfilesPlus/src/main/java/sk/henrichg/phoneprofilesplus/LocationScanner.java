@@ -49,11 +49,6 @@ class LocationScanner
                         PPApplication.locationScannerUseGPS = true;
 
                     final Context appContext = context.getApplicationContext();
-                    //PPApplication.startHandlerThreadPPScanners(/*"LocationScanner.onConnected"*/);
-                    //final Handler __handler6 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-                    //__handler6.post(new PPApplication.PPHandlerThreadRunnable(
-                    //        context.getApplicationContext()) {
-                    //__handler6.post(() -> {
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=LocationScanner.connect");
 
@@ -90,7 +85,7 @@ class LocationScanner
                                 }
                             }
                         //}
-                    }; //);
+                    };
                     PPApplicationStatic.createScannersExecutor();
                     PPApplication.scannersExecutor.submit(runnable);
                 } catch (Exception ee) {

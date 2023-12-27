@@ -74,10 +74,6 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         if (appWidgetIds.length > 0) {
             final Context appContext = context;
             LocaleHelper.setApplicationLocale(appContext);
-            //PPApplication.startHandlerThreadWidget();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-            //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
 
@@ -87,7 +83,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 //if ((appContext != null) && (appWidgetManager != null)) {
                     _onUpdate(appContext, appWidgetManager, appWidgetIds);
                 //}
-            }; //);
+            };
             PPApplicationStatic.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
         }
@@ -749,10 +745,6 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                     final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, OneRowProfileListWidgetProvider.class));
                     if ((ids != null) && (ids.length > 0)) {
                         final AppWidgetManager appWidgetManager = manager;
-                        //PPApplication.startHandlerThreadWidget();
-                        //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                        //__handler.post(new PPHandlerThreadRunnable(context, manager) {
-                        //__handler.post(() -> {
                         Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
 
@@ -762,7 +754,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                             //if ((appContext != null) && (appWidgetManager != null)) {
                             _onUpdate(appContext, appWidgetManager, ids);
                             //}
-                        }; //);
+                        };
                         PPApplicationStatic.createDelayedGuiExecutor();
                         PPApplication.delayedGuiExecutor.submit(runnable);
                     }

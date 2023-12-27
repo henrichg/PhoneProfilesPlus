@@ -101,10 +101,6 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             final String _cellName = cellName.getText().toString();
 
             final Context appContext = getApplicationContext();
-            //PPApplication.startHandlerThread(/*"NotUsedMobileCellsDetectedActivity.onClick"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(getApplicationContext()) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
                 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onStart (1)");
 
@@ -212,7 +208,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                     }
                 }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
 

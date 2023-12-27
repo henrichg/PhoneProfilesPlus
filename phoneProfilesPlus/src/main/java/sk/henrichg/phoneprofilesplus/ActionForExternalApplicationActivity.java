@@ -171,11 +171,6 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                         if (event != null) {
                             if (event.getStatus() == Event.ESTATUS_STOP) {
                                 final Context appContext = getApplicationContext();
-                                //PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.1"*/);
-                                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                                //__handler.post(new PPHandlerThreadRunnable(
-                                //        getApplicationContext(), dataWrapper, event) {
-                                //__handler.post(() -> {
                                 Runnable runnable = () -> {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.1");
 
@@ -206,7 +201,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             }
                                         }
                                     //}
-                                }; //);
+                                };
                                 PPApplicationStatic.createBasicExecutorPool();
                                 PPApplication.basicExecutorPool.submit(runnable);
                             }
@@ -230,11 +225,6 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                         if (event != null) {
                             if (event.getStatus() == Event.ESTATUS_RUNNING) {
                                 final Context appContext = getApplicationContext();
-                                //PPApplication.startHandlerThread();
-                                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                                //__handler.post(new PPHandlerThreadRunnable(
-                                //        getApplicationContext(), dataWrapper, event) {
-                                //__handler.post(() -> {
                                 Runnable runnable = () -> {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.11");
 
@@ -268,7 +258,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             }
                                         }
                                     //}
-                                }; //);
+                                };
                                 PPApplicationStatic.createBasicExecutorPool();
                                 PPApplication.basicExecutorPool.submit(runnable);
                             }
@@ -292,11 +282,6 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                         if (event != null) {
                             if (event.getStatus() != Event.ESTATUS_STOP) {
                                 final Context appContext = getApplicationContext();
-                                //PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.2"*/);
-                                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                                //__handler.post(new PPHandlerThreadRunnable(
-                                //        getApplicationContext(), dataWrapper, event) {
-                                //__handler.post(() -> {
                                 Runnable runnable = () -> {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.2");
 
@@ -327,7 +312,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             }
                                         }
                                     //}
-                                }; //);
+                                };
                                 PPApplicationStatic.createBasicExecutorPool();
                                 PPApplication.basicExecutorPool.submit(runnable);
                             }

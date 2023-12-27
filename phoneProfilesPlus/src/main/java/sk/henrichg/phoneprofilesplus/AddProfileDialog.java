@@ -146,16 +146,13 @@ class AddProfileDialog
             Activity activity = activityWeakRef.get();
             if ((dialog != null) && (activity != null)) {
                 dialog.linlaProgress.setVisibility(View.GONE);
-                //final Handler handler = new Handler(activity.getMainLooper());
-                //handler.post(() -> {
-                    dialog.listView.setVisibility(View.VISIBLE);
+                dialog.listView.setVisibility(View.VISIBLE);
 
-                    dialog.profileList.clear();
-                    dialog.profileList.addAll(_profileList);
+                dialog.profileList.clear();
+                dialog.profileList.addAll(_profileList);
 
-                    AddProfileAdapter addProfileAdapter = new AddProfileAdapter(dialog, activity, dialog.profileList);
-                    dialog.listView.setAdapter(addProfileAdapter);
-                //});
+                AddProfileAdapter addProfileAdapter = new AddProfileAdapter(dialog, activity, dialog.profileList);
+                dialog.listView.setAdapter(addProfileAdapter);
             }
         }
 

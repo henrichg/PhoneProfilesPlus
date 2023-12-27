@@ -101,17 +101,6 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
                 getString(R.string.about_application_translations_subject),
                 AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
                 true, activity);*/
-
-        /*if ((scrollTo != 0) && (savedInstanceState == null)) {
-            final ScrollView scrollView = view.findViewById(R.id.fragment_important_info_scroll_view);
-            final View viewToScroll = view.findViewById(scrollTo);
-            if ((scrollView != null) && (viewToScroll != null)) {
-                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoQuickGuideHelpFragment.onViewCreated");
-                    scrollView.scrollTo(0, viewToScroll.getTop());
-                }, 200);
-            }
-        }*/
     }
 
 }

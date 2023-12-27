@@ -196,14 +196,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         onNextLayout(toolbar, this::showTargetHelps);
 
-        /*final Handler handler = new Handler(getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                showTargetHelps();
-            }
-        }, 1000);*/
-
         return ret;
     }
 
@@ -491,18 +483,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         if (profile != null)
         {
-            /*
-            // must be used handler for rewrite toolbar title/subtitle
-            final String profileName = profile._name;
-            Handler handler = new Handler(getMainLooper());
-            handler.postDelayed(() -> {
-//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePrefsActivity.loadPreferences");
-                //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
-                //toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
-                toolbar.setTitle(getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profileName);
-            }, 200);
-            */
-
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             profile.saveProfileToSharedPreferences(preferences);
         }

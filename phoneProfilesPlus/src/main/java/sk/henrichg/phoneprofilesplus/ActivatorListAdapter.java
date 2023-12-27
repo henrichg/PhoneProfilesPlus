@@ -297,24 +297,6 @@ class ActivatorListAdapter extends BaseAdapter
         boolean startTargetHelpsFinished = ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished &&
                                             ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished;
         if (!startTargetHelpsFinished) {
-            /*
-            final Handler handler = new Handler(activity.getMainLooper());
-            handler.postDelayed(() -> {
-//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (3)");
-
-                if (ActivatorTargetHelpsActivity.activity != null) {
-                    //Log.d("ActivatorListAdapter.showTargetHelps", "finish activity");
-                    try {
-                        ActivatorTargetHelpsActivity.activity.finish();
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
-                    ActivatorTargetHelpsActivity.activity = null;
-                    //ActivatorTargetHelpsActivity.activatorActivity = null;
-                }
-            }, 500);
-            */
-
             return;
         }
 

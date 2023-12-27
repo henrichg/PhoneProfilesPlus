@@ -78,10 +78,6 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         //final PhoneProfilesDashClockExtension _instance = instance;
         //final DataWrapper _dataWrapper = dataWrapper;
 
-        //PPApplication.startHandlerThreadWidget();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(appContext, dataWrapper) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=PhoneProfilesDashClockExtension.onUpdateData");
 
@@ -160,7 +156,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     }
                 }
             }
-        }; //);
+        };
         PPApplicationStatic.createDelayedGuiExecutor();
         PPApplication.delayedGuiExecutor.submit(runnable);
     }

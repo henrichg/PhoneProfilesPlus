@@ -477,10 +477,6 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         if (cocktailIds.length > 0) {
             //final int[] _cocktailIds = cocktailIds;
 
-            //PPApplication.startHandlerThreadWidget();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-            //__handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
 
@@ -498,7 +494,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                     //    dataWrapper.invalidateDataWrapper();
                     //dataWrapper = null;
                 //}
-            }; //);
+            };
             PPApplicationStatic.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
         }
@@ -520,10 +516,6 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             final int[] cocktailIds = cocktailManager.getCocktailIds(new ComponentName(appContext, SamsungEdgeProvider.class));
 
             if ((cocktailIds != null) && (cocktailIds.length > 0)) {
-                //PPApplication.startHandlerThreadWidget();
-                //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                //__handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {
-                //__handler.post(() -> {
                 Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
 
@@ -544,7 +536,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                         //    dataWrapper.invalidateDataWrapper();
                         //dataWrapper = null;
                     //}
-                }; //);
+                };
                 PPApplicationStatic.createDelayedGuiExecutor();
                 PPApplication.delayedGuiExecutor.submit(runnable);
             }

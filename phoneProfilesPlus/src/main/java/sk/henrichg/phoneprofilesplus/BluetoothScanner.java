@@ -110,7 +110,6 @@ class BluetoothScanner {
                             if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
                                 // service restarted during scanning (prefEventBluetoothEnabledForScan is set to false at end of scan),
                                 // dislabe Bluetooth
-                                //bluetoothChangeHandler.post(() -> {
                                 @SuppressLint("MissingPermission")
                                 Runnable runnable = () -> {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.1");
@@ -128,7 +127,7 @@ class BluetoothScanner {
                                             PPApplicationStatic.recordException(e);
                                         }
                                     }
-                                }; //);
+                                };
                                 PPApplicationStatic.createScannersExecutor();
                                 PPApplication.scannersExecutor.submit(runnable);
                                 //PPApplication.sleep(1000);
@@ -224,7 +223,6 @@ class BluetoothScanner {
                             }
 
                             if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
-                                //bluetoothChangeHandler.post(() -> {
                                 @SuppressLint("MissingPermission")
                                 Runnable runnable = () -> {
     //                                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.2");
@@ -244,7 +242,7 @@ class BluetoothScanner {
                                             }
                                         }
 
-                                }; //);
+                                };
                                 PPApplicationStatic.createScannersExecutor();
                                 PPApplication.scannersExecutor.submit(runnable);
                             } //else
@@ -535,7 +533,6 @@ class BluetoothScanner {
                     else
                         BluetoothScanWorker.setLEScanRequest(context, true);
                     final BluetoothAdapter _bluetooth = bluetooth;
-                    //bluetoothChangeHandler.post(() -> {
                     @SuppressLint("MissingPermission")
                     Runnable runnable = () -> {
 
@@ -561,7 +558,7 @@ class BluetoothScanner {
                             } while (SystemClock.uptimeMillis() - start < 30 * 1000);
                         }
 
-                    }; //);
+                    };
                     PPApplicationStatic.createScannersExecutor();
                     PPApplication.scannersExecutor.submit(runnable);
                     return BluetoothAdapter.STATE_TURNING_ON;

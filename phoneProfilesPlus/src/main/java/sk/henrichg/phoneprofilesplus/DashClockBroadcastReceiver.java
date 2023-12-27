@@ -18,24 +18,6 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
         if (dashClockExtension != null) {
             dashClockExtension.updateExtension();
         }
-
-        //final boolean refresh = (intent == null) || intent.getBooleanExtra(EXTRA_REFRESH, true);
-
-        /*PPApplication.startHandlerThreadBroadcast();
-        final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DashClockBroadcastReceiver.onReceive");
-
-                PhoneProfilesDashClockExtension dashClockExtension = PhoneProfilesDashClockExtension.getInstance();
-                if (dashClockExtension != null)
-                {
-                    dashClockExtension.updateExtension();
-                }
-            }
-        });*/
-
     }
 
 }

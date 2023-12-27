@@ -906,11 +906,6 @@ class ActivateProfileHelper {
             return;
 
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadRadios();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadRadios.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(
-        //        context.getApplicationContext(), profile, executedProfileSharedPreferences) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadRadios", "START run - from=ActivateProfileHelper.executeForRadios");
 
@@ -988,7 +983,7 @@ class ActivateProfileHelper {
                     }
                 }
             //}
-        }; //);
+        };
         PPApplicationStatic.createProfileActiationExecutorPool();
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
@@ -3157,11 +3152,6 @@ class ActivateProfileHelper {
 
     static void executeForVolumes(Profile profile, final int linkUnlinkVolumes, final boolean forProfileActivation, Context context, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadVolumes();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadVolumes.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(
-        //        context.getApplicationContext(), profile, executedProfileSharedPreferences) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadVolumes", "START run - from=ActivateProfileHelper.executeForVolumes");
 
@@ -3215,17 +3205,6 @@ class ActivateProfileHelper {
                             int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
                             setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, true);
-
-                            /*PPApplication.startHandlerThreadInternalChangeToFalse();
-                            final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    RingerModeChangeReceiver.internalChange = false;
-                                }
-                            }, 3000);*/
-                            //PostDelayedBroadcastReceiver.setAlarm(
-                           //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, context);
                         }
                     } else {
 
@@ -3255,18 +3234,13 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        }; //);
+        };
         PPApplicationStatic.createProfileActiationExecutorPool();
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     private static void setNotificationLed(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadProfileActivation();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(
-        //        context.getApplicationContext(), null, executedProfileSharedPreferences) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setNotificationLed");
 
@@ -3321,18 +3295,13 @@ class ActivateProfileHelper {
                     }
                 }
             //}
-        }; //);
+        };
         PPApplicationStatic.createProfileActiationExecutorPool();
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     private static void setHeadsUpNotifications(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadProfileActivation();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(
-        //        context.getApplicationContext(), null, executedProfileSharedPreferences) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setHeadsUpNotifications");
 
@@ -3394,18 +3363,13 @@ class ActivateProfileHelper {
                     }
                 }
             //}
-        }; //);
+        };
         PPApplicationStatic.createProfileActiationExecutorPool();
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     private static void setAlwaysOnDisplay(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadProfileActivation();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(
-        //        context.getApplicationContext(), null, executedProfileSharedPreferences) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setAlwaysOnDisplay");
 
@@ -3482,7 +3446,7 @@ class ActivateProfileHelper {
                     }
                 }
             //}
-        }; //);
+        };
         PPApplicationStatic.createProfileActiationExecutorPool();
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
@@ -3983,12 +3947,6 @@ class ActivateProfileHelper {
 
     private static void changeImageWallpaper(Profile profile, Context context) {
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadWallpaper();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadWallpaper.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(
-        //        context.getApplicationContext(), profile, null) {
-        //__handler.post(() -> {
-
         if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
@@ -4019,7 +3977,7 @@ class ActivateProfileHelper {
                     }
                 }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createProfileActiationExecutorPool();
             PPApplication.profileActiationExecutorPool.submit(runnable);
         }
@@ -4038,11 +3996,6 @@ class ActivateProfileHelper {
 
 //            PPApplicationStatic.logE("ActivateProfileHelper.changeWallpaperFromFolder", "(1)");
             final Context appContext = context.getApplicationContext();
-            //PPApplication.startHandlerThreadWallpaper();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadWallpaper.getLooper());
-            //__handler.post(new PPHandlerThreadRunnable(
-            //        context.getApplicationContext(), profile, null) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
 
@@ -4134,7 +4087,7 @@ class ActivateProfileHelper {
                     }
                 }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createProfileActiationExecutorPool();
             PPApplication.profileActiationExecutorPool.submit(runnable);
         }
@@ -4145,11 +4098,6 @@ class ActivateProfileHelper {
         {
             if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
                 final Context appContext = context.getApplicationContext();
-                //PPApplication.startHandlerThreadRunApplication();
-                //final Handler __handler = new Handler(PPApplication.handlerThreadRunApplication.getLooper());
-                //__handler.post(new PPHandlerThreadRunnable(
-                //        context.getApplicationContext(), profile, null) {
-                //__handler.post(() -> {
                 Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadRunApplication", "START run - from=ActivateProfileHelper.executeForRunApplications");
 
@@ -4199,7 +4147,7 @@ class ActivateProfileHelper {
                         }
                     }
                     //}
-                }; //);
+                };
                 PPApplicationStatic.createProfileActiationExecutorPool();
                 PPApplication.profileActiationExecutorPool.submit(runnable);
             }
@@ -4378,11 +4326,6 @@ class ActivateProfileHelper {
     /*
     static void executeRootForAdaptiveBrightness(float adaptiveValue, Context context) {
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadProfileActivation();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(
-        //        context.getApplicationContext(), profile, null) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.executeRootForAdaptiveBrightness");
 
@@ -4429,7 +4372,7 @@ class ActivateProfileHelper {
                     }
                 }
             //}
-        }; //);
+        };
         PPApplication.createProfileActiationExecutorPool();
         PPApplication.profileActiationExecutorPool.submit(runnable);
         //}
@@ -4986,16 +4929,6 @@ class ActivateProfileHelper {
                     intent.putExtra(BackgroundBrightnessActivity.EXTRA_BRIGHTNESS_VALUE, brightnessValue);
 
                     appContext.startActivity(intent);
-                    */
-                    /*
-                    if (PPApplication.brightnessHandler != null) {
-                        PPApplication.brightnessHandler.post(new Runnable() {
-                            public void run() {
-                                createBrightnessView(profile, context);
-                            }
-                        });
-                    } else
-                        createBrightnessView(profile, context);
                     */
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
@@ -5597,133 +5530,6 @@ class ActivateProfileHelper {
         //PostDelayedBroadcastReceiver.setAlarm(
         //        PostDelayedBroadcastReceiver.ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE, 3, context);
     }
-
-    /*private static void createScreenTimeoutAlwaysOnView(Context context)
-    {
-        removeScreenTimeoutAlwaysOnView(context);
-
-        if (PhoneProfilesService.getInstance() != null) {
-            final Context appContext = context.getApplicationContext();
-
-            // Put 30 minutes screen timeout. Required for SettingsContentObserver.OnChange to call removeScreenTimeoutAlwaysOnView
-            // when user change system setting.
-            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 86400000);
-
-            WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
-            if (windowManager != null) {
-                int type;
-                type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
-                WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                        1, 1,
-                        type,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, // | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |
-                        PixelFormat.TRANSLUCENT
-                );
-//                params.gravity = Gravity.END | Gravity.TOP;
-                PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView = new BrightnessView(appContext);
-
-                final Handler handler = new Handler(context.getMainLooper());
-                handler.post(() -> {
-                    try {
-                        windowManager.addView(PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView, params);
-                    } catch (Exception e) {
-                        PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView = null;
-                    }
-                });
-            }
-        }
-    }
-
-    static void removeScreenTimeoutAlwaysOnView(Context context)
-    {
-        if (PhoneProfilesService.getInstance() != null) {
-            if (PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView != null) {
-                WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-                if (windowManager != null) {
-                    try {
-                        windowManager.removeView(PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView);
-                    } catch (Exception ignored) {
-                    }
-                    PhoneProfilesService.getInstance().screenTimeoutAlwaysOnView = null;
-                }
-            }
-        }
-    }
-    */
-
-    /*
-    static void createBrightnessView(Profile profile, Context context)
-    {
-        //if (PhoneProfilesService.getInstance() != null) {
-            final Context appContext = context.getApplicationContext();
-
-            WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
-            if (windowManager != null) {
-                if (PPApplication.brightnessView != null) {
-                    try {
-                        windowManager.removeView(PPApplication.brightnessView);
-                    } catch (Exception ignored) {
-                    }
-                    PPApplication.brightnessView = null;
-                }
-                int type;
-                type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
-                WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                        1, 1,
-                        type,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, //| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        PixelFormat.TRANSLUCENT
-                );
-                if (profile.getDeviceBrightnessAutomatic() || (!profile.getDeviceBrightnessChangeLevel()))
-                    params.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
-                else
-                    params.screenBrightness = profile.getDeviceBrightnessManualValue(appContext) / (float) 255;
-                PPApplication.brightnessView = new BrightnessView(appContext);
-
-                final Handler handler = new Handler(context.getMainLooper());
-                handler.post(() -> {
-                    try {
-                        windowManager.addView(PPApplication.brightnessView, params);
-                    } catch (Exception e) {
-                        PPApplication.brightnessView = null;
-                    }
-                });
-                final Handler handler = new Handler(appContext.getMainLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
-                        if (windowManager != null) {
-                            if (PPApplication.brightnessView != null) {
-                                try {
-                                    windowManager.removeView(PPApplication.brightnessView);
-                                } catch (Exception ignored) {
-                                }
-                                PPApplication.brightnessView = null;
-                            }
-                        }
-                    }
-                }, 5000);
-//                PostDelayedBroadcastReceiver.setAlarm(PostDelayedBroadcastReceiver.ACTION_REMOVE_BRIGHTNESS_VIEW,5, context);
-            }
-        //}
-    }
-
-    static void removeBrightnessView(Context context) {
-        //if (PhoneProfilesService.getInstance() != null) {
-            if (PPApplication.brightnessView != null) {
-                WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-                if (windowManager != null) {
-                    try {
-                        windowManager.removeView(PPApplication.brightnessView);
-                    } catch (Exception ignored) {
-                    }
-                    PPApplication.brightnessView = null;
-                }
-            }
-        //}
-    }
-    */
 
     static void showKeepScreenOnNotificaiton(Context context) {
         String nTitle = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
@@ -6795,11 +6601,6 @@ class ActivateProfileHelper {
     private static void setPowerSaveMode(Profile profile, Context context, SharedPreferences executedProfileSharedPreferences) {
         if (profile._devicePowerSaveMode != 0) {
             final Context appContext = context.getApplicationContext();
-            //PPApplication.startHandlerThreadProfileActivation();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-            //__handler.post(new PPHandlerThreadRunnable(
-            //        context.getApplicationContext(), profile, executedProfileSharedPreferences) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setPowerSaveMode");
 
@@ -6886,7 +6687,7 @@ class ActivateProfileHelper {
                         }
                     }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createProfileActiationExecutorPool();
             PPApplication.profileActiationExecutorPool.submit(runnable);
         }
@@ -6894,11 +6695,6 @@ class ActivateProfileHelper {
 
     private static void lockDevice(Profile profile, Context context) {
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadProfileActivation();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(
-        //        context.getApplicationContext(), profile, null) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.lockDevice");
 
@@ -7007,7 +6803,7 @@ class ActivateProfileHelper {
                 }
             }
             //}
-        }; //);
+        };
         PPApplicationStatic.createProfileActiationExecutorPool();
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }

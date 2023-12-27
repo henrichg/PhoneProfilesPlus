@@ -615,11 +615,6 @@ class PlayRingingNotification
         Context appContext = context.getApplicationContext();
 
         //final Context appContext = getApplicationContext();
-        //PPApplication.startHandlerThreadBroadcast();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-        //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-        //        context.getApplicationContext()) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 
             AudioManager audioManager = (AudioManager)appContext.getSystemService(Context.AUDIO_SERVICE);
@@ -762,7 +757,7 @@ class PlayRingingNotification
                 }
             }
 
-        }; //);
+        };
         PPApplicationStatic.createPlayToneExecutor();
         PPApplication.playToneExecutor.submit(runnable);
     }

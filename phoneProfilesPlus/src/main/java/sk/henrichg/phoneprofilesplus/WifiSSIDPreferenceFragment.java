@@ -224,13 +224,6 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                 preference.SSIDList.clear();
             preference.customSSIDList.clear();
             listAdapter.notifyDataSetChanged();
-            final Handler handler = new Handler(prefContext.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    refreshListView(false, "");
-                }
-            }, 200);
             */
             refreshListView(false, "");
         });

@@ -68,10 +68,6 @@ public class NFCTagReadActivity extends AppCompatActivity {
                 final long _time = now.getTimeInMillis() + gmtOffset;
 
                 final Context appContext = getApplicationContext();
-                //PPApplication.startHandlerThread(/*"NFCTagReadActivity.OnTagReadListener.onTagRead"*/);
-                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                //__handler.post(new PPApplication.PPHandlerThreadRunnable(getApplicationContext()) {
-                //__handler.post(() -> {
                 Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
 
@@ -84,7 +80,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
                         eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_NFC_TAG});
                     //}
 
-                }; //);
+                };
                 PPApplicationStatic.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable);
 

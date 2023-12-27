@@ -33,10 +33,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
             return;
 
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadBroadcast(/*"ScreenOnOffBroadcastReceiver.onReceive"*/);
-        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
 
@@ -173,25 +169,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
 
-                            /*
-                            final Handler handler1 = new Handler(appContext.getMainLooper());
-                            handler1.post(() -> {
-//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "run - from=ScreenOnOffBroadcastReceiver.onReceive - screen off - finish ock actovity - start");
-                                //if (PPApplication.lockDeviceActivity != null) {
-                                //    try {
-                                //        PPApplication.lockDeviceActivity.finish();
-                                //    } catch (Exception e) {
-                                //        PPApplicationStatic.recordException(e);
-                                //    }
-                                //}
-//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "run - from=ScreenOnOffBroadcastReceiver.onReceive - screen off - finish ock actovity - end");
-                                if (PPApplication.lockDeviceActivityDisplayed) {
-                                    Log.e("ScreenOnOffBroadcastReceiver.onReceive", "finish LockDeviceActivity");
-                                    Intent finishIntent = new Intent(PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver");
-                                    LocalBroadcastManager.getInstance(context).sendBroadcast(finishIntent);
-                                }
-                            });
-                            */
                             if (PPApplication.lockDeviceActivityDisplayed) {
 //                                PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
                                 Intent finishIntent = new Intent(LockDeviceActivity.ACTION_FINISH_LOCK_DEVICE_ACTIVITY_BROADCAST_RECEIVER);
@@ -237,7 +214,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
 
-        }; //);
+        };
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
     }

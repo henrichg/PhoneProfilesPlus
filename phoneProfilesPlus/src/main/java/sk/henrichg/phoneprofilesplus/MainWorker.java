@@ -386,82 +386,36 @@ public class MainWorker extends Worker {
 
             dataWrapper.firstStartEvents(true, false);
 
-            // must be used hanlder for this, because of FC:
-            // ava.lang.RuntimeException: Can't create handler inside thread Thread[pool-1-thread-2,5,main] that has not called Looper.prepare()
-            //	at android.os.Handler.<init>(Handler.java:207)
-            //	at android.os.Handler.<init>(Handler.java:119)
-            //	at sk.henrichg.phoneprofilesplus.TwilightScanner$LocationHandler.<init>(TwilightScanner.java:198)
-            //	at sk.henrichg.phoneprofilesplus.TwilightScanner$LocationHandler.<init>(TwilightScanner.java:198)
-            //	at sk.henrichg.phoneprofilesplus.TwilightScanner.<init>(TwilightScanner.java:50)
-            //	at sk.henrichg.phoneprofilesplus.PhoneProfilesService.startTwilightScanner(PhoneProfilesService.java:6743)
-            //	at sk.henrichg.phoneprofilesplus.PhoneProfilesService.startTwilightScanner(PhoneProfilesService.java:3430)
-            //	at sk.henrichg.phoneprofilesplus.PhoneProfilesService.registerEventsReceiversAndWorkers(PhoneProfilesService.java:3611)
-            //	at sk.henrichg.phoneprofilesplus.MainWorker.doAfterFirstStart(MainWorker.java:707)
-            //
-            // !!! Worker do not have Looper !!!
-            //PPApplication.startHandlerThreadBroadcast();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler.post(new PPHandlerThreadRunnable(
-            //        appContext, dataWrapper) {
-            //__handler.post(() -> {
-            //Runnable runnable = () -> {
-//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MainWorker.doAfterFirstStart (1)");
+            PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
+            PhoneProfilesServiceStatic.disableNotUsedScanners(dataWrapper);
+            PhoneProfilesServiceStatic.registerAllTheTimeRequiredSystemReceivers(true, appContext);
+            PhoneProfilesServiceStatic.registerAllTheTimeContentObservers(true, appContext);
+            PhoneProfilesServiceStatic.registerAllTheTimeCallbacks(true, appContext);
+            PhoneProfilesServiceStatic.registerPPPExtenderReceiver(true, dataWrapper, appContext);
+            PhoneProfilesServiceStatic.registerEventsReceiversAndWorkers(false, appContext);
 
-                //Context appContext= appContextWeakRef.get();
-                //DataWrapper dataWrapper = dataWrapperWeakRef.get();
+            if (PPApplication.deviceBoot) {
+                PPApplication.deviceBoot = false;
+                PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "device boot");
+                boolean deviceBootEvents = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_DEVICE_BOOT);
+                if (deviceBootEvents) {
+                    PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "device boot event exists");
 
-                //if ((appContext != null) && (dataWrapper != null)) {
-//                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-//                    PowerManager.WakeLock wakeLock = null;
-//                    try {
-//                        if (powerManager != null) {
-//                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_doAfterFirstStart_1");
-//                            wakeLock.acquire(10 * 60 * 1000);
-//                        }
-
-                        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
-                        PhoneProfilesServiceStatic.disableNotUsedScanners(dataWrapper);
-                        PhoneProfilesServiceStatic.registerAllTheTimeRequiredSystemReceivers(true, appContext);
-                        PhoneProfilesServiceStatic.registerAllTheTimeContentObservers(true, appContext);
-                        PhoneProfilesServiceStatic.registerAllTheTimeCallbacks(true, appContext);
-                        PhoneProfilesServiceStatic.registerPPPExtenderReceiver(true, dataWrapper, appContext);
-                        PhoneProfilesServiceStatic.registerEventsReceiversAndWorkers(false, appContext);
-
-                        if (PPApplication.deviceBoot) {
-                            PPApplication.deviceBoot = false;
-                            PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "device boot");
-                            boolean deviceBootEvents = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_DEVICE_BOOT);
-                            if (deviceBootEvents) {
-                                PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "device boot event exists");
-
-                                // start events handler
+                    // start events handler
 
 //                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MainWorker.doAfterFirstStart", "sensorType=SENSOR_TYPE_DEVICE_BOOT");
-                                EventsHandler eventsHandler = new EventsHandler(appContext);
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
 
-                                Calendar now = Calendar.getInstance();
-                                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                                final long _time = now.getTimeInMillis() + gmtOffset;
-                                eventsHandler.setEventDeviceBootParameters(_time);
+                    Calendar now = Calendar.getInstance();
+                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                    final long _time = now.getTimeInMillis() + gmtOffset;
+                    eventsHandler.setEventDeviceBootParameters(_time);
 
-                                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_DEVICE_BOOT});
+                    eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_DEVICE_BOOT});
 
-                            }
-                        }
+                }
+            }
 
-//                    } catch (Exception eee) {
-//                        Log.e("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
-//                        //PPApplicationStatic.recordException(eee);
-//                    } finally {
-//                        if ((wakeLock != null) && wakeLock.isHeld()) {
-//                            try {
-//                                wakeLock.release();
-//                            } catch (Exception ignored) {
-//                            }
-//                        }
-//                    }
-                //}
-            //}; //);
             //PPApplication.createEventsHandlerExecutor();
             //PPApplication.eventsHandlerExecutor.submit(runnable);
 
@@ -482,61 +436,17 @@ public class MainWorker extends Worker {
                 }
             }
 
-            // must be used hanlder for this, because of FC:
-            // ava.lang.RuntimeException: Can't create handler inside thread Thread[pool-1-thread-2,5,main] that has not called Looper.prepare()
-            //	at android.os.Handler.<init>(Handler.java:207)
-            //	at android.os.Handler.<init>(Handler.java:119)
-            //	at sk.henrichg.phoneprofilesplus.TwilightScanner$LocationHandler.<init>(TwilightScanner.java:198)
-            //	at sk.henrichg.phoneprofilesplus.TwilightScanner$LocationHandler.<init>(TwilightScanner.java:198)
-            //	at sk.henrichg.phoneprofilesplus.TwilightScanner.<init>(TwilightScanner.java:50)
-            //	at sk.henrichg.phoneprofilesplus.PhoneProfilesService.startTwilightScanner(PhoneProfilesService.java:6743)
-            //	at sk.henrichg.phoneprofilesplus.PhoneProfilesService.startTwilightScanner(PhoneProfilesService.java:3430)
-            //	at sk.henrichg.phoneprofilesplus.PhoneProfilesService.registerEventsReceiversAndWorkers(PhoneProfilesService.java:3611)
-            //	at sk.henrichg.phoneprofilesplus.MainWorker.doAfterFirstStart(MainWorker.java:707)
-            //
-            // !!! Worker do not have Looper !!!
-            //PPApplication.startHandlerThreadBroadcast();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler.post(new PPHandlerThreadRunnable(
-            //        appContext, dataWrapper) {
-            //__handler.post(() -> {
-//            Runnable runnable = () -> {
 ////                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MainWorker.doAfterFirstStart (2)");
-                PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "START");
+            PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "START");
 
-                //Context appContext= appContextWeakRef.get();
-                //DataWrapper dataWrapper = dataWrapperWeakRef.get();
+            // This is fix for 2, 3 restarts of events after first start.
+            // Bradcasts, observers, callbacks registration starts events and this is not good
+            PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
+            PhoneProfilesServiceStatic.registerAllTheTimeRequiredSystemReceivers(true, appContext);
+            PhoneProfilesServiceStatic.registerAllTheTimeContentObservers(true, appContext);
+            PhoneProfilesServiceStatic.registerAllTheTimeCallbacks(true, appContext);
+            PhoneProfilesServiceStatic.registerPPPExtenderReceiver(true, dataWrapper, appContext);
 
-                //if ((appContext != null) && (dataWrapper != null)) {
-//                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-//                    PowerManager.WakeLock wakeLock = null;
-//                    try {
-//                        if (powerManager != null) {
-//                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_doAfterFirstStart_2");
-//                            wakeLock.acquire(10 * 60 * 1000);
-//                        }
-
-                        // This is fix for 2, 3 restarts of events after first start.
-                        // Bradcasts, observers, callbacks registration starts events and this is not good
-                        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
-                        PhoneProfilesServiceStatic.registerAllTheTimeRequiredSystemReceivers(true, appContext);
-                        PhoneProfilesServiceStatic.registerAllTheTimeContentObservers(true, appContext);
-                        PhoneProfilesServiceStatic.registerAllTheTimeCallbacks(true, appContext);
-                        PhoneProfilesServiceStatic.registerPPPExtenderReceiver(true, dataWrapper, appContext);
-
-//                    } catch (Exception eee) {
-//                        Log.e("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
-//                        //PPApplicationStatic.recordException(eee);
-//                    } finally {
-//                        if ((wakeLock != null) && wakeLock.isHeld()) {
-//                            try {
-//                                wakeLock.release();
-//                            } catch (Exception ignored) {
-//                            }
-//                        }
-//                    }
-                //}
-//            }; //);
 //            PPApplication.createBasicExecutorPool();
 //            PPApplication.basicExecutorPool.submit(runnable);
 

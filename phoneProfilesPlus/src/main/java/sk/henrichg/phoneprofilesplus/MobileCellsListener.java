@@ -174,10 +174,6 @@ class MobileCellsListener extends PhoneStateListener {
             return;
 
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellInfoChanged"*/);
-        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), telephonyManager) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.onCellInfoChanged");
 
@@ -216,7 +212,7 @@ class MobileCellsListener extends PhoneStateListener {
                     }
                 }
             //}
-        }; //);
+        };
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
@@ -240,10 +236,6 @@ class MobileCellsListener extends PhoneStateListener {
             return;
 
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onServiceStateChanged"*/);
-        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), telephonyManager) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.onServiceStateChanged");
 
@@ -275,7 +267,7 @@ class MobileCellsListener extends PhoneStateListener {
                     }
                 }
             //}
-        }; //);
+        };
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
@@ -360,10 +352,6 @@ class MobileCellsListener extends PhoneStateListener {
             return;
 
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellLocationChanged"*/);
-        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), telephonyManager) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.onCellLocationChanged");
 
@@ -401,7 +389,7 @@ class MobileCellsListener extends PhoneStateListener {
                     }
                 }
             //}
-        }; //);
+        };
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
@@ -424,10 +412,6 @@ class MobileCellsListener extends PhoneStateListener {
 //            PPApplicationStatic.logE("[TEST BATTERY] MobileCellsListener.rescanMobileCells", "******** ### *******");
 
             final Context appContext = context.getApplicationContext();
-            //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.rescanMobileCells"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), telephonyManager) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.rescanMobileCells");
 
@@ -459,7 +443,7 @@ class MobileCellsListener extends PhoneStateListener {
                         }
                     }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }

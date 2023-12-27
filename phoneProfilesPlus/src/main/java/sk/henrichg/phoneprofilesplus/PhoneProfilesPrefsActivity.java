@@ -543,19 +543,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
                 PPApplication.doNotShowProfileNotification = true;
             }
             PhoneProfilesService.getInstance().clearProfileNotification();
-        }
-
-        Handler handler = new Handler(getMainLooper());
-        handler.postDelayed(() -> {
-//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
-            if (PhoneProfilesService.getInstance() != null) {
-                synchronized (PPApplication.applicationPreferencesMutex) {
-                    PPApplication.doNotShowProfileNotification = false;
-                }
-                // forServiceStart must be true because of call of clearProfileNotification()
-                PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
-            }
-        }, 1000);*/
+        };*/
         //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
 
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsActivity.doPreferenceChanges", "call of updateGUI");
@@ -651,11 +639,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
         }
 
         if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock) {
-            //PPApplication.startHandlerThreadBroadcast();
-            //final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler2.post(new PPApplication.PPHandlerThreadRunnable(
-            //        appContext) {
-            //__handler2.post(() -> {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges");
 
@@ -691,7 +674,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
                         }
                     }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }

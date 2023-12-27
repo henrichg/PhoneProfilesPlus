@@ -45,57 +45,6 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         preference = (VolumeDialogPreference) getPreference();
         preference.fragment = this;
 
-        /*
-        final Context _context = context;
-        PPApplication.startHandlerThreadPlayTone();
-        final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (preference.volumeType.equalsIgnoreCase("RINGTONE")) {
-                        String ringtoneUri = Settings.System.DEFAULT_RINGTONE_URI.toString();
-                        Uri _ringtoneUri = Uri.parse(ringtoneUri);
-                        preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
-                    }
-                    else if (preference.volumeType.equalsIgnoreCase("NOTIFICATION")) {
-                        String ringtoneUri = Settings.System.DEFAULT_NOTIFICATION_URI.toString();
-                        Uri _ringtoneUri = Uri.parse(ringtoneUri);
-                        preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
-                    }
-                    else if (preference.volumeType.equalsIgnoreCase("MEDIA"))
-                        preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-                    else if (preference.volumeType.equalsIgnoreCase("ALARM")) {
-                        String ringtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI.toString();
-                        Uri _ringtoneUri = Uri.parse(ringtoneUri);
-                        preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
-                    }
-                    else if (preference.volumeType.equalsIgnoreCase("SYSTEM"))
-                        preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-                    else if (preference.volumeType.equalsIgnoreCase("VOICE"))
-                        preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-                    else if (preference.volumeType.equalsIgnoreCase("DTMF"))
-                        preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-                    else if (preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
-                        preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-                    else if (preference.volumeType.equalsIgnoreCase("BLUETOOTHSCO"))
-                        preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-                    else
-                        preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-
-                    if (preference.mediaPlayer != null) {
-                        AudioAttributes attrs = new AudioAttributes.Builder()
-                                .setUsage(AudioAttributes.USAGE_MEDIA)
-                                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                                .build();
-                        preference.mediaPlayer.setAudioAttributes(attrs);
-                        //preference.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    }
-                } catch (Exception ignored) {}
-            }
-        });
-        */
-
         LayoutInflater inflater = LayoutInflater.from(context);
         return inflater.inflate(R.layout.dialog_volume_preference, null, false);
     }
@@ -209,11 +158,6 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
 
         final Context appContext = context.getApplicationContext();
         final AudioManager audioManager = preference.audioManager;
-        //PPApplication.startHandlerThreadPlayTone();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-        //__handler.post(new StopPlayRingtoneRunnable(
-        //        context.getApplicationContext(), preference.audioManager) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragment.onDialogClosed");
 
@@ -243,7 +187,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                     }
                 }
             //}
-        }; //);
+        };
         PPApplicationStatic.createPlayToneExecutor();
         PPApplication.playToneExecutor.submit(runnable);
 
@@ -325,11 +269,6 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
 
             final Context appContext = context.getApplicationContext();
             //final AudioManager audioManager = preference.audioManager;
-            //PPApplication.startHandlerThreadPlayTone();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-            //__handler.post(new PlayRingtoneRunnable(
-            //        context.getApplicationContext(), preference.audioManager) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragment.onStopTrackingTouch");
 
@@ -413,7 +352,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                         PPApplicationStatic.recordException(e);
                     }
                 //}
-            }; //);
+            };
         PPApplicationStatic.createPlayToneExecutor();
             PPApplication.playToneExecutor.submit(runnable);
             /*

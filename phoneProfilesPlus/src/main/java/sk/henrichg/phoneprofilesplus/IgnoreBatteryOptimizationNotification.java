@@ -21,11 +21,6 @@ class IgnoreBatteryOptimizationNotification {
     static void showNotification(Context context, boolean useHandler) {
         final Context appContext = context.getApplicationContext();
         if (useHandler) {
-            //PPApplication.startHandlerThread(/*"IgnoreBatteryOptimizationNotification.showNotification"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-            //        context.getApplicationContext()) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
 
@@ -69,7 +64,7 @@ class IgnoreBatteryOptimizationNotification {
                         }
                     }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
 

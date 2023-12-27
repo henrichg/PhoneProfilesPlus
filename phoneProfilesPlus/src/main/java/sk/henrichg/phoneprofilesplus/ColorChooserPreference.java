@@ -89,14 +89,6 @@ public class ColorChooserPreference extends DialogPreference {
         }
 
         colorPreview.invalidate();
-
-//        Handler handler = new Handler(context.getMainLooper());
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                setSummary(R.string.empty_string);
-//            }
-//        }, 200);
     }
 
     @Override

@@ -224,11 +224,6 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         }
                         //categoryTextView.setText(categoryValue);
                         categoryTextView.setText(value.toString());
-                        //intentScrollView.post(new Runnable() {
-                        //    public void run() {
-                        //        intentScrollView.scrollTo(0, categoryTextView.getBottom());
-                        //    }
-                        //});
                     }, this);
             dialog.show();
         });
@@ -267,11 +262,6 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         }
                         //flagsTextView.setText(flagsValue);
                         flagsTextView.setText(value.toString());
-                        //intentScrollView.post(new Runnable() {
-                        //    public void run() {
-                        //        intentScrollView.scrollTo(0, flagsTextView.getBottom());
-                        //    }
-                        //});
                     }, this);
             dialog.show();
         });

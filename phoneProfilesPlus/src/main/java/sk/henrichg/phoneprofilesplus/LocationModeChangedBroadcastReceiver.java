@@ -20,10 +20,6 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
         {
             final String action = intent.getAction();
             final Context appContext = context.getApplicationContext();
-            //PPApplication.startHandlerThreadBroadcast(/*"LocationModeChangedBroadcastReceiver.onReceive"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=LocationModeChangedBroadcastReceiver.onReceive");
 
@@ -76,7 +72,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }

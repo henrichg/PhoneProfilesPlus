@@ -40,10 +40,6 @@ class BluetoothLEScanCallback extends ScanCallback {
         }
 
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadPPScanners();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothLEScanCallback.onScanResult");
 
@@ -81,7 +77,7 @@ class BluetoothLEScanCallback extends ScanCallback {
                     }
                 }
             //}
-        }; //);
+        };
         PPApplicationStatic.createScannersExecutor();
         PPApplication.scannersExecutor.submit(runnable);
     }
@@ -110,10 +106,6 @@ class BluetoothLEScanCallback extends ScanCallback {
             final BluetoothDevice device = result.getDevice();
 
             final Context appContext = context.getApplicationContext();
-            //PPApplication.startHandlerThreadPPScanners();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-            //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadBluetoothLECallback", "START run - from=BluetoothLEScanCallback.onBatchScanResults");
 
@@ -154,7 +146,7 @@ class BluetoothLEScanCallback extends ScanCallback {
                         }
                     }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createScannersExecutor();
             PPApplication.scannersExecutor.submit(runnable);
 

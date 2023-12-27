@@ -872,10 +872,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             final Context appContext = context;
             LocaleHelper.setApplicationLocale(appContext);
 
-            //PPApplication.startHandlerThreadWidget();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-            //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onUpdate");
                 //createProfilesDataWrapper(_context);
@@ -893,7 +889,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     //    dataWrapper.invalidateDataWrapper();
                     //dataWrapper = null;
                 //}
-            }; //);
+            };
             PPApplicationStatic.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
             //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
@@ -918,10 +914,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(appContext, ProfileListWidgetProvider.class));
 
                 if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
-                    //PPApplication.startHandlerThreadWidget();
-                    //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                    //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
-                    //__handler.post(() -> {
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (1)");
 
@@ -942,7 +934,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             }
                             dataWrapper.invalidateDataWrapper();
                         //}
-                    }; //);
+                    };
                     PPApplicationStatic.createDelayedGuiExecutor();
                     PPApplication.delayedGuiExecutor.submit(runnable);
                     //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
@@ -954,10 +946,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(appContext, ProfileListWidgetProvider.class));
 
                 if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
-                    //PPApplication.startHandlerThreadWidget();
-                    //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                    //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
-                    //__handler.post(() -> {
                     Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (2)");
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] ProfileListWidgetProvider,onReceive", "appWidgetIds.length="+appWidgetIds.length);
@@ -970,7 +958,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             doOnUpdate(appContext, appWidgetManager, appWidgetId, false/*, true*/);
                         }
                         //}
-                    }; //);
+                    };
                     PPApplicationStatic.createDelayedGuiExecutor();
                     PPApplication.delayedGuiExecutor.submit(runnable);
                     //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
@@ -1056,10 +1044,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 //        PPApplicationStatic.logE("[IN_LISTENER] ProfileListWidgetProvider.onAppWidgetOptionsChanged", "xxx");
 
         final Context appContext = context;
-        //PPApplication.startHandlerThreadWidget();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onAppWidgetOptionsChanged");
 
@@ -1083,35 +1067,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 //    dataWrapper.invalidateDataWrapper();
                 //dataWrapper = null;
             //}
-        }; //);
+        };
         PPApplicationStatic.createDelayedGuiExecutor();
         PPApplication.delayedGuiExecutor.submit(runnable);
         //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
-
-        /*
-        if (PPApplication.widgetHandler != null) {
-            PPApplication.widgetHandler.post(new Runnable() {
-                public void run() {
-                    createProfilesDataWrapper(context);
-
-                    String preferenceKey = "isLargeLayout_"+appWidgetId;
-                    ApplicationPreferences.getSharedPreferences(context);
-
-                    // remove preference, will by reset in setLayoutParams
-                    Editor editor = ApplicationPreferences.preferences.edit();
-                    editor.remove(preferenceKey);
-                    editor.apply();
-
-
-                    updateWidget(context, appWidgetId);
-
-                    if (dataWrapper != null)
-                        dataWrapper.invalidateDataWrapper();
-                    dataWrapper = null;
-                }
-            });
-        }
-        */
     }
 
     private static void updateAfterWidgetOptionsChanged(Context appContext, int appWidgetId) {

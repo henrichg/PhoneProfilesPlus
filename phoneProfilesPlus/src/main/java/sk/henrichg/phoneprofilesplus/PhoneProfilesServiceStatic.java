@@ -2924,11 +2924,6 @@ class PhoneProfilesServiceStatic
             final Context appContext = context.getApplicationContext();
             final Intent intent = _intent;
 
-            //PPApplication.startHandlerThreadBroadcast();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-//            __handler.post(new DoCommandRunnable(
-//                    getApplicationContext(), _intent) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doCommand (1)");
 
@@ -3413,7 +3408,7 @@ class PhoneProfilesServiceStatic
                         }
                     }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
@@ -3837,37 +3832,4 @@ class PhoneProfilesServiceStatic
 
     //--------------------------
 
-/*
-    private static abstract class DoCommandRunnable implements Runnable {
-
-        final WeakReference<Context> appContextWeakRef;
-        final WeakReference<Intent> intentWeakRef;
-
-        DoCommandRunnable(Context appContext, Intent intent) {
-            this.appContextWeakRef = new WeakReference<>(appContext);
-            this.intentWeakRef = new WeakReference<>(intent);
-        }
-
-    }
-*/
-
-    //---------------------------
-
-    //DO NOT CALL THIS !!! THIS IS CALLED ALSO WHEN, FOR EXAMPLE, ACTIVATOR GETS DISPLAYED !!!
-    /*
-    @Override
-    public void onTaskRemoved(Intent rootIntent)
-    {
-        //if (PPApplication.screenTimeoutHandler != null) {
-        //    PPApplication.screenTimeoutHandler.post(new Runnable() {
-        //        public void run() {
-        //            //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
-        //            ActivateProfileHelper.removeKeepScreenOnView();
-        //        }
-        //    });
-        //}
-
-        super.onTaskRemoved(rootIntent);
-    }
-    */
 }

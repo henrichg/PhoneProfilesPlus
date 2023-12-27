@@ -30,10 +30,6 @@ public class IconWidgetProvider extends AppWidgetProvider {
         if (appWidgetIds.length > 0) {
             final Context appContext = context;
             LocaleHelper.setApplicationLocale(appContext);
-            //PPApplication.startHandlerThreadWidget();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-            //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onUpdate");
 
@@ -43,7 +39,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 //if ((appContext != null) && (appWidgetManager != null)) {
                     _onUpdate(appContext, appWidgetManager, appWidgetIds);
                 //}
-            }; //);
+            };
             PPApplicationStatic.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
         }
@@ -1198,10 +1194,6 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, IconWidgetProvider.class));
                 if ((ids != null) && (ids.length > 0)) {
                     final AppWidgetManager appWidgetManager = manager;
-                    //PPApplication.startHandlerThreadWidget();
-                    //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                    //__handler.post(new PPHandlerThreadRunnable(context, manager) {
-                    //__handler.post(() -> {
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
 
@@ -1216,7 +1208,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 //                        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
 //                        context.sendBroadcast(updateIntent);
                         //}
-                    }; //);
+                    };
                     PPApplicationStatic.createDelayedGuiExecutor();
                     PPApplication.delayedGuiExecutor.submit(runnable);
                 }

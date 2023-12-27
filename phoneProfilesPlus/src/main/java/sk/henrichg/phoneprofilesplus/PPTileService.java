@@ -163,10 +163,6 @@ public class PPTileService extends TileService {
         int tileId = getTileId();
 
         if ((PPApplication.quickTileProfileId[tileId] != 0) && (PPApplication.quickTileProfileId[tileId] != -1)) {
-            //PPApplication.startHandlerThreadWidget();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-            //__handler.post(new PPHandlerThreadRunnable(getApplicationContext(), tile) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
 
@@ -224,7 +220,7 @@ public class PPTileService extends TileService {
 
                     // save tile profileId into SharedPreferences
                 //}
-            }; //);
+            };
             PPApplicationStatic.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
         } else {

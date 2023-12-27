@@ -467,10 +467,6 @@ class EventStatic {
                     //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context);
 
                     //final DataWrapper dataWrapper = activityDataWrapper;
-                    //PPApplication.startHandlerThread();
-                    //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                    //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
-                    //__handler.post(() -> {
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
 
@@ -504,7 +500,7 @@ class EventStatic {
                             }
                         }
                         //}
-                    }; //);
+                    };
                     PPApplicationStatic.createBasicExecutorPool();
                     PPApplication.basicExecutorPool.submit(runnable);
 
@@ -520,10 +516,6 @@ class EventStatic {
                 // stop event
 
                 //final DataWrapper dataWrapper = activityDataWrapper;
-                //PPApplication.startHandlerThread();
-                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
-                //__handler.post(() -> {
                 Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
 
@@ -557,7 +549,7 @@ class EventStatic {
                         }
                     }
                     //}
-                }; //);
+                };
                 PPApplicationStatic.createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
 

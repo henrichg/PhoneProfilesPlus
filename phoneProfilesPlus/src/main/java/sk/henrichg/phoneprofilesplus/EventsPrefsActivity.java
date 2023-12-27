@@ -259,14 +259,6 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         onNextLayout(toolbar, this::showTargetHelps);
 
-        /*final Handler handler = new Handler(getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                showTargetHelps();
-            }
-        }, 1000);*/
-
         return ret;
     }
 
@@ -455,18 +447,6 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         if (event != null)
         {
-            /*
-            // must be used handler for rewrite toolbar title/subtitle
-            final String eventName = event._name;
-            Handler handler = new Handler(getMainLooper());
-            handler.postDelayed(() -> {
-//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.loadPreferences");
-                //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
-                //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
-                toolbar.setTitle(getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
-            }, 200);
-            */
-
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
             event.loadSharedPreferences(preferences);
@@ -587,10 +567,6 @@ public class EventsPrefsActivity extends AppCompatActivity
         //noinspection IfStatementWithIdenticalBranches
         if (event.getStatus() == Event.ESTATUS_STOP)
         {
-            //PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.1"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            //__handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
 
@@ -636,15 +612,11 @@ public class EventsPrefsActivity extends AppCompatActivity
                         }
                     }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
         else {
-            //PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.2"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            //__handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
 
@@ -684,7 +656,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                         }
                     }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }

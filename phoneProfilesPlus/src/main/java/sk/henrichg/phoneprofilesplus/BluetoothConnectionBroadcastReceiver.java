@@ -76,10 +76,6 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 //            }
 
             final Context appContext = context.getApplicationContext();
-            //PPApplication.startHandlerThreadBroadcast(/*"BluetoothConnectionBroadcastReceiver.onReceive"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothConnectionBroadcastReceiver.onReceive");
 //                Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "[2] start of executor");
@@ -144,7 +140,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createEventsHandlerExecutor();
             //PPApplication.eventsHandlerExecutor.submit(runnable);
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 15, TimeUnit.SECONDS);

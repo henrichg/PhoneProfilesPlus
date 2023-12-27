@@ -216,66 +216,6 @@ public class EditorEventListFragment extends Fragment
 
         //noinspection ConstantConditions
         if (GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
-            /*if (activatedProfileHeader != null) {
-                Handler handler = new Handler(getActivity().getMainLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (getActivity() == null)
-                            return;
-
-                        headerHeight = activatedProfileHeader.getMeasuredHeight();
-                        hideAnimatorHeader = ValueAnimator.ofInt(headerHeight / 4, 0);
-                        hideAnimatorHeader.setDuration(500);
-                        hideAnimatorHeader.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                int val = (Integer) valueAnimator.getAnimatedValue();
-                                ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
-                                layoutParams.height = val * 4;
-                                activatedProfileHeader.setLayoutParams(layoutParams);
-                            }
-                        });
-                        showAnimatorHeader = ValueAnimator.ofInt(0, headerHeight / 4);
-                        showAnimatorHeader.setDuration(500);
-                        showAnimatorHeader.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                int val = (Integer) valueAnimator.getAnimatedValue();
-                                ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
-                                layoutParams.height = val * 4;
-                                activatedProfileHeader.setLayoutParams(layoutParams);
-                            }
-                        });
-
-                        bottomBarHeight = bottomToolbar.getMeasuredHeight();
-                        hideAnimatorBottomBar = ValueAnimator.ofInt(bottomBarHeight / 4, 0);
-                        hideAnimatorBottomBar.setDuration(500);
-                        hideAnimatorBottomBar.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                int val = (Integer) valueAnimator.getAnimatedValue();
-                                ViewGroup.LayoutParams layoutParams = bottomToolbar.getLayoutParams();
-                                layoutParams.height = val * 4;
-                                bottomToolbar.setLayoutParams(layoutParams);
-                            }
-                        });
-                        showAnimatorBottomBar = ValueAnimator.ofInt(0, bottomBarHeight / 4);
-                        showAnimatorBottomBar.setDuration(500);
-                        showAnimatorBottomBar.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                int val = (Integer) valueAnimator.getAnimatedValue();
-                                ViewGroup.LayoutParams layoutParams = bottomToolbar.getLayoutParams();
-                                layoutParams.height = val * 4;
-                                bottomToolbar.setLayoutParams(layoutParams);
-                            }
-                        });
-
-                    }
-                }, 200);
-            }*/
-
             if (ApplicationPreferences.applicationEditorHideHeaderOrBottomBar ||
                     getResources().getBoolean(R.bool.forceHideHeaderOrBottomBar)) {
                 final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_events_list_fragment))
@@ -490,13 +430,7 @@ public class EditorEventListFragment extends Fragment
             final EditorEventListFragment fragment = this.fragmentWeakRef.get();
 
             if ((fragment != null) /*&& (fragment.isAdded())*/) {
-                //progressBarHandler = new Handler(_dataWrapper.context.getMainLooper());
-                //progressBarRunnable = () -> {
-//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.LoadEventListAsyncTask (1)");
-                    //fragment.textViewNoData.setVisibility(GONE);
-                    fragment.progressBar.setVisibility(VISIBLE);
-                //};
-                //progressBarHandler.post(progressBarRunnable);
+                 fragment.progressBar.setVisibility(VISIBLE);
             }
         }
 
@@ -708,10 +642,6 @@ public class EditorEventListFragment extends Fragment
                     //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context);
 
                     final DataWrapper dataWrapper = activityDataWrapper;
-                    //PPApplication.startHandlerThread();
-                    //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                    //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
-                    //__handler.post(() -> {
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
 
@@ -744,7 +674,7 @@ public class EditorEventListFragment extends Fragment
                                 }
                             }
                         //}
-                    }; //);
+                    };
                     PPApplicationStatic.createBasicExecutorPool();
                     PPApplication.basicExecutorPool.submit(runnable);
 
@@ -757,10 +687,6 @@ public class EditorEventListFragment extends Fragment
                 // stop event
 
                 final DataWrapper dataWrapper = activityDataWrapper;
-                //PPApplication.startHandlerThread();
-                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
-                //__handler.post(() -> {
                 Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
 
@@ -793,7 +719,7 @@ public class EditorEventListFragment extends Fragment
                             }
                         }
                     //}
-                }; //);
+                };
                 PPApplicationStatic.createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
 

@@ -691,11 +691,6 @@ class DataWrapperStatic {
     {
         //final DataWrapper dataWrapper = copyDataWrapper();
 
-        //PPApplication.startHandlerThread(/*"DataWrapper.setDynamicLauncherShortcutsFromMainThread"*/);
-        //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(
-        //        context, dataWrapper, null, null) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
 
@@ -727,7 +722,7 @@ class DataWrapperStatic {
                 }
             }
             //}
-        }; //);
+        };
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
     }

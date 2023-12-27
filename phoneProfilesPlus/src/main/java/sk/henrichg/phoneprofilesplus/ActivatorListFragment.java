@@ -159,40 +159,6 @@ public class ActivatorListFragment extends Fragment {
 
         activatedProfileHeader = view.findViewById(R.id.act_prof_header);
         if (activatedProfileHeader != null) {
-            /* Handler handler = new Handler(getActivity().getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (getActivity() == null)
-                        return;
-
-                    headerHeight = activatedProfileHeader.getMeasuredHeight();
-                    hideAnimator = ValueAnimator.ofInt(headerHeight / 4, 0);
-                    hideAnimator.setDuration(500);
-                    hideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                            int val = (Integer) valueAnimator.getAnimatedValue();
-                            ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
-                            layoutParams.height = val * 4;
-                            activatedProfileHeader.setLayoutParams(layoutParams);
-                        }
-                    });
-                    showAnimator = ValueAnimator.ofInt(0, headerHeight / 4);
-                    showAnimator.setDuration(500);
-                    showAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                            int val = (Integer) valueAnimator.getAnimatedValue();
-                            ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
-                            layoutParams.height = val * 4;
-                            activatedProfileHeader.setLayoutParams(layoutParams);
-                        }
-                    });
-
-                }
-            }, 200);*/
-
             final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_activator_list_fragment))
                     .getLayoutTransition();
             layoutTransition.enableTransitionType(LayoutTransition.CHANGING);

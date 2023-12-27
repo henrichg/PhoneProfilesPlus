@@ -95,13 +95,10 @@ class PPApplicationStatic {
     static void cancelWork(final String name,
                            @SuppressWarnings("SameParameterValue") final boolean forceCancel) {
         // cancel only enqueued works
-        //PPApplication.startHandlerThreadCancelWork();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadCancelWork.getLooper());
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
             _cancelWork(name, forceCancel);
-        }; //);
+        };
         createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
     }
@@ -373,10 +370,6 @@ class PPApplicationStatic {
                 }
             }
 
-            //PPApplication.startHandlerThread(/*"AlarmClockBroadcastReceiver.onReceive"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPApplication.addActivityLog");
 
@@ -391,7 +384,7 @@ class PPApplicationStatic {
                     Intent intent = new Intent(PPApplication.ACTION_ADDED_ACIVITY_LOG);
                     appContext.sendBroadcast(intent);
                 }
-            }; //);
+            };
             createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
@@ -2182,22 +2175,7 @@ class PPApplicationStatic {
 
                 addActivityLog(context, PPApplication.ALTYPE_APPLICATION_EXIT, null, null, "");
 
-                //if (PPApplication.brightnessHandler != null) {
-                //    PPApplication.brightnessHandler.post(new Runnable() {
-                //        public void run() {
-                //            ActivateProfileHelper.removeBrightnessView(context);
-                //        }
-                //    });
-                //}
-                //if (PPApplication.screenTimeoutHandler != null) {
-                //    PPApplication.screenTimeoutHandler.post(new Runnable() {
-                //        public void run() {
-                            //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
-                            //ActivateProfileHelper.removeBrightnessView(context);
-                            ActivateProfileHelper.removeKeepScreenOnView(context);
-                //        }
-                //    });
-                //}
+                ActivateProfileHelper.removeKeepScreenOnView(context);
 
                 //PPApplication.initRoot();
 
@@ -2309,10 +2287,6 @@ class PPApplicationStatic {
                                  final boolean fromShutdown, final boolean removeNotifications, final boolean exitByUser) {
         try {
             if (useHandler) {
-                //PPApplication.startHandlerThread(/*"PPApplication.exitApp"*/);
-                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                //__handler.post(new ExitAppRunnable(context.getApplicationContext(), dataWrapper, activity) {
-                //__handler.post(() -> {
                 Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
@@ -2349,7 +2323,7 @@ class PPApplicationStatic {
                             }
                         }
                     //}
-                }; //);
+                };
                 createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
             }

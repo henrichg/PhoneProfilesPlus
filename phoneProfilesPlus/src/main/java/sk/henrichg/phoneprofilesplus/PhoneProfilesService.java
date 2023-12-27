@@ -324,16 +324,6 @@ public class PhoneProfilesService extends Service
 
         PPApplicationStatic.logE("$$$ PhoneProfilesService.onCreate", "OK created");
 
-        /*PPApplication.startHandlerThread("PhoneProfilesService.doForFirstStart");
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                DatabaseHandler.getInstance(appContext).deactivateProfile();
-                ActivateProfileHelper.updateGUI(appContext, false, true);
-            }
-        });*/
-
         //PPApplication.startTimeOfApplicationStart = Calendar.getInstance().getTimeInMillis();
 
 //        PPApplicationStatic.logE("[MAIN_WORKER_CALL] PhoneProfilesService.onCreate", "xxxxxxxxxxxxxxxxxxxx");
@@ -579,10 +569,6 @@ public class PhoneProfilesService extends Service
         final int _startForExternalAppDataType = startForExternalAppDataType;
         final String _startForExternalAppDataValue = startForExternalAppDataValue;
 
-        //PPApplication.startHandlerThread(/*"PhoneProfilesService.doForFirstStart"*/);
-        //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-        //__handler.post(new PPApplication.PPHandlerThreadRunnable(appContext) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
             PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart START");
 
@@ -1081,7 +1067,7 @@ public class PhoneProfilesService extends Service
                     }
                 }
             }
-        }; //);
+        };
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
 
@@ -1807,15 +1793,6 @@ public class PhoneProfilesService extends Service
     @Override
     public void onTaskRemoved(Intent rootIntent)
     {
-        //if (PPApplication.screenTimeoutHandler != null) {
-        //    PPApplication.screenTimeoutHandler.post(new Runnable() {
-        //        public void run() {
-        //            //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
-        //            ActivateProfileHelper.removeKeepScreenOnView();
-        //        }
-        //    });
-        //}
-
         super.onTaskRemoved(rootIntent);
     }
     */

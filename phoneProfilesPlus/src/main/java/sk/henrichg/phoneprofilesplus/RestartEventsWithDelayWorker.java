@@ -58,13 +58,6 @@ public class RestartEventsWithDelayWorker extends Worker {
         } catch (Exception e) {
             //Log.e("RestartEventsWithDelayWorker.doWork", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
-            //Handler _handler = new Handler(getApplicationContext().getMainLooper());
-            //Runnable r = new Runnable() {
-            //    public void run() {
-            //        android.os.Process.killProcess(PPApplication.pid);
-            //    }
-            //};
-            //_handler.postDelayed(r, 1000);
             return Result.failure();
         }
         //return Result.success();

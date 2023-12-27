@@ -731,17 +731,6 @@ public class ImportantInfoHelpFragment extends Fragment {
 //                    PhoneProfilesService.getInstance().clearProfileNotification();
 //                }
 //
-//                Handler handler = new Handler(activity.getMainLooper());
-//                handler.postDelayed(() -> {
-////                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
-//                    if (PhoneProfilesService.getInstance() != null) {
-//                        synchronized (PPApplication.applicationPreferencesMutex) {
-//                            PPApplication.doNotShowProfileNotification = false;
-//                        }
-//                        // forServiceStart must be true because of call of clearProfileNotification()
-//                        PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
-//                    }
-//                }, 1000);
                 //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] ImportantInfoHelpFragment.doOnViewCreated", "call of PPAppNotification.forceDrawNotification");
                 PPAppNotification.forceDraweNotification(context.getApplicationContext());
