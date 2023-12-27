@@ -45,6 +45,7 @@ public class TimeDurationPicker extends FrameLayout {
     private final ImageButton backspaceButton;
     private final ImageButton clearButton;
     private final View separatorView;
+    private final View buttonDividerView;
     private final View numPad;
     private final Button[] numPadButtons;
     private final Button numPadMeasureButton;
@@ -96,6 +97,7 @@ public class TimeDurationPicker extends FrameLayout {
         TooltipCompat.setTooltipText(clearButton, context.getString(R.string.clear_button_tooltip));
 
         separatorView = findViewById(R.id.separator);
+        buttonDividerView = findViewById(R.id.duration_dlg_buttonsDivider);
 
         numPad = findViewById(R.id.numPad);
         numPadMeasureButton = findViewById(R.id.numPadMeasure);
@@ -123,6 +125,7 @@ public class TimeDurationPicker extends FrameLayout {
             applyIcon(attributes, R.styleable.TimeDurationPicker_clearIcon, clearButton);
 
             applyBackgroundColor(attributes, R.styleable.TimeDurationPicker_separatorColor, separatorView);
+            applyBackgroundColor(attributes, R.styleable.TimeDurationPicker_separatorColor, buttonDividerView);
             applyBackgroundColor(attributes, R.styleable.TimeDurationPicker_durationDisplayBackground, displayRow);
 
             applyUnits(attributes, R.styleable.TimeDurationPicker_timeUnits);
@@ -251,6 +254,7 @@ public class TimeDurationPicker extends FrameLayout {
      */
     public void setSeparatorColor(int color) {
         separatorView.setBackgroundColor(color);
+        buttonDividerView.setBackgroundColor(color);
     }
 
     /**
