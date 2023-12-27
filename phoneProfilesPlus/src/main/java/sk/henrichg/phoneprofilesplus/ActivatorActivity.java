@@ -707,7 +707,7 @@ public class ActivatorActivity extends AppCompatActivity
             }
             else {
                 //Log.d("ActivateProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=false");
-                //final Context context = getApplicationContext();
+                final Context appContext = getApplicationContext();
                 final Handler handler = new Handler(getMainLooper());
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorActivity.showTargetHelps (2)");
@@ -715,7 +715,7 @@ public class ActivatorActivity extends AppCompatActivity
 //                    PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] ActivatorActivity.showTargetHelps", "xxx");
                     Intent intent = new Intent(ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER);
                     intent.putExtra(ActivatorActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
-                    LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+                    LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
                     /*if (ActivatorActivity.getInstance() != null) {
                         Fragment fragment = ActivatorActivity.getInstance().getFragmentManager().findFragmentById(R.id.activate_profile_list);
                         if (fragment != null) {
