@@ -39,7 +39,7 @@ ext.ppVersions = [
 
         // bacha 8000 je important info news,
         // vid PPApplication.PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS
-        publishVersionCode: 7091,
+        publishVersionCode: 7092,
 
         minSdk            : 26,
         targetSdk         : 28,
