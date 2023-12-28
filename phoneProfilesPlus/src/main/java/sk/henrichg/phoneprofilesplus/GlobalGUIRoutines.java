@@ -236,7 +236,8 @@ class GlobalGUIRoutines {
 
     static void switchNightMode(final Context appContext, boolean useMainLooperHandler) {
         if (useMainLooperHandler) {
-            new Handler(getMainLooper()).post(() -> {
+            final Handler handler = new Handler(getMainLooper());
+            handler.post(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.switchNightMode");
                 try {
                     switchNightMode(appContext);
@@ -256,7 +257,8 @@ class GlobalGUIRoutines {
 
         if (newIntent)
         {
-            new Handler(activity.getMainLooper()).post(() -> {
+            final Handler handler = new Handler(activity.getMainLooper());
+            handler.post(() -> {
                 try {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.reloadActivity");
                     Context context = activity.getApplicationContext();

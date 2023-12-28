@@ -621,6 +621,7 @@ class PhoneProfilesServiceStatic
     }
 
     static void registerPhoneCallsListener(final boolean register, final Context context) {
+        final Context appContext = context.getApplicationContext();
 
         // keep this: it is required to use handlerThreadBroadcast for cal listener
         PPApplicationStatic.startHandlerThreadBroadcast();
@@ -659,11 +660,11 @@ class PhoneProfilesServiceStatic
             if (register) {
                 GlobalUtils.sleep(1000);
 
-                PPApplication.telephonyManagerDefault = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                PPApplication.telephonyManagerDefault = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (PPApplication.telephonyManagerDefault != null) {
                     int simCount = PPApplication.telephonyManagerDefault.getPhoneCount();
                     if (simCount > 1) {
-                        SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                        SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                         //SubscriptionManager.from(appContext);
                         if (mSubscriptionManager != null) {
                             List<SubscriptionInfo> subscriptionList = null;
@@ -684,7 +685,7 @@ class PhoneProfilesServiceStatic
                                             if (PPApplication.telephonyManagerSIM1 == null) {
                                                 try {
                                                     PPApplication.telephonyManagerSIM1 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
-                                                    PPApplication.phoneCallsListenerSIM1 = new PhoneCallsListener(context, 1);
+                                                    PPApplication.phoneCallsListenerSIM1 = new PhoneCallsListener(appContext, 1);
                                                     //noinspection deprecation
                                                     PPApplication.telephonyManagerSIM1.listen(PPApplication.phoneCallsListenerSIM1,
                                                             PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
@@ -699,7 +700,7 @@ class PhoneProfilesServiceStatic
                                             if (PPApplication.telephonyManagerSIM2 == null) {
                                                 try {
                                                     PPApplication.telephonyManagerSIM2 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
-                                                    PPApplication.phoneCallsListenerSIM2 = new PhoneCallsListener(context, 2);
+                                                    PPApplication.phoneCallsListenerSIM2 = new PhoneCallsListener(appContext, 2);
                                                     //noinspection deprecation
                                                     PPApplication.telephonyManagerSIM2.listen(PPApplication.phoneCallsListenerSIM2,
                                                             PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
@@ -716,7 +717,7 @@ class PhoneProfilesServiceStatic
                         }
                     } else {
                         try {
-                            PPApplication.phoneCallsListenerDefaul = new PhoneCallsListener(context, 0);
+                            PPApplication.phoneCallsListenerDefaul = new PhoneCallsListener(appContext, 0);
                             //noinspection deprecation
                             PPApplication.telephonyManagerDefault.listen(PPApplication.phoneCallsListenerDefaul,
                                     PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
@@ -730,7 +731,7 @@ class PhoneProfilesServiceStatic
         });
     }
 
-    static void registerAllTheTimeContentObservers(boolean register, Context context) {
+    static void registerAllTheTimeContentObservers(final boolean register, final Context context) {
         final Context appContext = context.getApplicationContext();
 
         // keep this: it is required to use handlerThreadBroadcast observers
@@ -762,7 +763,7 @@ class PhoneProfilesServiceStatic
         });
     }
 
-    static  void registerContactsContentObservers(boolean register, Context context) {
+    static  void registerContactsContentObservers(final boolean register, final Context context) {
         final Context appContext = context.getApplicationContext();
 
         // keep this: it is required to use handlerThreadBroadcast for observers
@@ -795,7 +796,7 @@ class PhoneProfilesServiceStatic
         });
     }
 
-    static void registerAllTheTimeCallbacks(boolean register, Context context) {
+    static void registerAllTheTimeCallbacks(final boolean register, final Context context) {
         final Context appContext = context.getApplicationContext();
 
         // keep this: it is required to use handlerThreadBroadcast for callbacks
@@ -1221,7 +1222,7 @@ class PhoneProfilesServiceStatic
         }
     }
 
-    static void registerObserverForRadioSwitchMobileDataSensor(boolean register, DataWrapper dataWrapper, Context context) {
+    static void registerObserverForRadioSwitchMobileDataSensor(final boolean register, final DataWrapper dataWrapper, final Context context) {
         Context appContext = context.getApplicationContext();
 
         // keep this: it is required to use handlerThreadBroadcast for observers
@@ -2158,7 +2159,7 @@ class PhoneProfilesServiceStatic
         }
     }
 
-    static void registerVPNCallback(boolean register, DataWrapper dataWrapper, Context context) {
+    static void registerVPNCallback(final boolean register, final DataWrapper dataWrapper, final Context context) {
         final Context appContext = context.getApplicationContext();
 
         // keep this: it is required to use handlerThreadBroadcast for callbacks
@@ -3791,7 +3792,7 @@ class PhoneProfilesServiceStatic
 
     // Twilight scanner ----------------------------------------------------------------
 
-    static void startTwilightScanner(Context context) {
+    static void startTwilightScanner(final Context context) {
         /*if (PPApplication.twilightScanner != null) {
             PPApplication.twilightScanner.stop();
             PPApplication.twilightScanner = null;
@@ -3799,10 +3800,11 @@ class PhoneProfilesServiceStatic
 
         if (PPApplication.twilightScanner == null) {
             // keep this: it is required to use handlerThreadBroadcast for cal listener
+            final Context appContext = context.getApplicationContext();
             PPApplicationStatic.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             __handler.post(() -> {
-                PPApplication.twilightScanner = new TwilightScanner(context.getApplicationContext());
+                PPApplication.twilightScanner = new TwilightScanner(appContext);
                 PPApplication.twilightScanner.start();
             });
         }

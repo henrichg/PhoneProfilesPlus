@@ -2217,20 +2217,20 @@ class PPApplicationStatic {
             //if (PhoneProfilesService.getInstance() != null)
             //    PhoneProfilesService.getInstance().setApplicationFullyStarted(false, false);
 
-            Permissions.setAllShowRequestPermissions(context.getApplicationContext(), true);
+            Permissions.setAllShowRequestPermissions(context, true);
 
-            //WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
-            //WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
-            //MobileCellsScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
+            //WifiBluetoothScanner.setShowEnableLocationNotification(context, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
+            //WifiBluetoothScanner.setShowEnableLocationNotification(context, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
+            //MobileCellsScanner.setShowEnableLocationNotification(context, true);
             //ActivateProfileHelper.setScreenUnlocked(context, true);
 
             if (!shutdown) {
                 //ActivateProfileHelper.updateGUI(context, false, true);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication._exitApp", "call of forceUpdateGUI");
-                PPApplication.forceUpdateGUI(context.getApplicationContext(), false, false, false);
+                PPApplication.forceUpdateGUI(context, false, false, false);
 
-                Handler _handler = new Handler(context.getMainLooper());
-                Runnable r = () -> {
+                final Handler _handler = new Handler(context.getMainLooper());
+                final Runnable r = () -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication._exitApp");
                     try {
                         if (activity != null)

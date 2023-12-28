@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +89,8 @@ public class ImportantInfoActivityForceScrollFragment extends Fragment {
             }
             final View viewToScroll = view.findViewById(scrollTo);
             if ((scrollView != null) && (viewToScroll != null)) {
-                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                final Handler handler = new Handler(activity.getMainLooper());
+                handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated (2)");
                     scrollView.scrollTo(0, viewToScroll.getTop());
                 }, 200);

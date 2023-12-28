@@ -109,7 +109,7 @@ public class ProfilePreference extends DialogPreference {
                 profileIcon.setAlpha(1f);
             }
 
-            Handler handler = new Handler(prefContext.getMainLooper());
+            final Handler handler = new Handler(prefContext.getMainLooper());
             handler.postDelayed(() -> {
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePreference.onBindViewHolder");
                 setSummary(Long.parseLong(profileId));

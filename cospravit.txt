@@ -851,3 +851,10 @@ Xiaomi 13 lite - Android 13:
 - ringer mode Vibrate, Silent - zvoni
 - Znoni aj na DND
 
+------------
+
+Takto sprav annonimous handlery:
+
+                final Context appContext = getApplicationContext();
+                final Handler handler = new Handler(getMainLooper());
+                handler.postDelayed(() -> {

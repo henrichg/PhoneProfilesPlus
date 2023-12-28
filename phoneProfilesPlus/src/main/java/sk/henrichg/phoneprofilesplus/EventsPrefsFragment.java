@@ -355,7 +355,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         final EventsPrefsFragment fragment = this;
         final TextView preferenceSubTitle = getActivity().findViewById(R.id.activity_preferences_subtitle);
 
-        Handler handler = new Handler(getActivity().getMainLooper());
+        final Handler handler = new Handler(getActivity().getMainLooper());
         handler.postDelayed(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onActivityCreated");
             if (getActivity() == null)
@@ -1278,7 +1278,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             if (getActivity() != null) {
                 // must be used handler for rewrite toolbar title/subtitle
                 final String _value = value;
-                Handler handler = new Handler(getActivity().getMainLooper());
+                final Handler handler = new Handler(getActivity().getMainLooper());
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onSharedPreferenceChanged");
                     if (getActivity() == null)

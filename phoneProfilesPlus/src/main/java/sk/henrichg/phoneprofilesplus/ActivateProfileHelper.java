@@ -5199,6 +5199,7 @@ class ActivateProfileHelper {
 
                             if (!PPApplication.blockProfileEventActions) {
                                 try {
+                                    @SuppressLint("UnsafeImplicitIntentLaunch")
                                     Intent startMain = new Intent(Intent.ACTION_MAIN);
                                     startMain.addCategory(Intent.CATEGORY_HOME);
                                     startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -5645,12 +5646,12 @@ class ActivateProfileHelper {
             handler.post(() -> {
                 try {
                     windowManager.addView(PPApplication.keepScreenOnView, params);
-                    setKeepScreenOnPermanent(context, true);
+                    setKeepScreenOnPermanent(appContext, true);
                     showKeepScreenOnNotificaiton(appContext);
                 } catch (Exception e) {
 //                        Log.e("ActivateProfileHelper.createKeepScreenOnView", Log.getStackTraceString(e));
                     PPApplication.keepScreenOnView = null;
-                    setKeepScreenOnPermanent(context, false);
+                    setKeepScreenOnPermanent(appContext, false);
                     removeKeepScreenOnNotification(appContext);
                 }
             });
@@ -7246,7 +7247,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void setCameraFlash(Context appContext, Profile profile, SharedPreferences executedProfileSharedPreferences) {
+    private static void setCameraFlash(final Context appContext, final Profile profile, final SharedPreferences executedProfileSharedPreferences) {
         if (profile._cameraFlash != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CAMERA_FLASH, null, executedProfileSharedPreferences, true, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {

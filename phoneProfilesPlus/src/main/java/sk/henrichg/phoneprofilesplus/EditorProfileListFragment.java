@@ -255,8 +255,8 @@ public class EditorProfileListFragment extends Fragment
             }
             else
             if (itemId == R.id.menu_generate_predefined_profiles) {
-                Handler progressBarHandler = new Handler(activity.getMainLooper());
-                Runnable progressBarRunnable = () -> {
+                final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                final Runnable progressBarRunnable = () -> {
                     loadAsyncTask = new LoadProfileListAsyncTask(this, filterType, true);
                     loadAsyncTask.execute();
                 };
@@ -272,8 +272,8 @@ public class EditorProfileListFragment extends Fragment
             synchronized (activityDataWrapper.profileList) {
                 if (!activityDataWrapper.profileListFilled) {
                     // start new AsyncTask, because old may be cancelled
-                    Handler progressBarHandler = new Handler(activity.getMainLooper());
-                    Runnable progressBarRunnable = () -> {
+                    final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                    final Runnable progressBarRunnable = () -> {
                         loadAsyncTask = new LoadProfileListAsyncTask(this, filterType, false);
                         loadAsyncTask.execute();
                     };

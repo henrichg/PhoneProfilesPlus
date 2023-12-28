@@ -389,7 +389,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
 
         // must be used handler for rewrite toolbar title/subtitle
-        Handler handler = new Handler(getActivity().getMainLooper());
+        final Handler handler = new Handler(getActivity().getMainLooper());
         handler.postDelayed(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsFragment.onActivityCreated");
             if (getActivity() == null)

@@ -135,7 +135,7 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
             holder.radioButton.setOnClickListener(v -> {
                 RadioButton rb = (RadioButton) v;
                 rb.setChecked(true);
-                Handler handler = new Handler(activityDataWrapper.context.getMainLooper());
+                final Handler handler = new Handler(activityDataWrapper.context.getMainLooper());
                 handler.postDelayed(() -> fragment.createShortcut((Integer)rb.getTag()), 200);
             });
 

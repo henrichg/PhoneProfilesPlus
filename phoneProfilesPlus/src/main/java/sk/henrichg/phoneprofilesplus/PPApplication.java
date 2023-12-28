@@ -1853,7 +1853,7 @@ public class PPApplication extends Application
 
     static void showToast(final Context context, final String text, final int length) {
         final Context appContext = context.getApplicationContext();
-        Handler handler = new Handler(context.getApplicationContext().getMainLooper());
+        final Handler handler = new Handler(appContext.getMainLooper());
         handler.post(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.showToast");
             try {

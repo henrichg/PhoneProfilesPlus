@@ -2951,7 +2951,7 @@ public class EditorActivity extends AppCompatActivity
 
                 if (filterProfilesSelectedItem != 0) {
                     final EditorActivity editorActivity = this;
-                    Handler handler = new Handler(getMainLooper());
+                    final Handler handler = new Handler(getMainLooper());
                     handler.postDelayed(() -> {
 //                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.redrawProfileListFragment");
                         if (!editorActivity.isFinishing()) {
@@ -3120,7 +3120,7 @@ public class EditorActivity extends AppCompatActivity
 
                 if (filterEventsSelectedItem != 0) {
                     final EditorActivity editorActivity = this;
-                    Handler handler = new Handler(getMainLooper());
+                    final Handler handler = new Handler(getMainLooper());
                     handler.postDelayed(() -> {
 //                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.redrawEventListFragment");
                         if (!editorActivity.isFinishing()) {

@@ -307,8 +307,8 @@ public class EditorEventListFragment extends Fragment
             }
             else
             if (itemId == R.id.menu_generate_predefined_events) {
-                Handler progressBarHandler = new Handler(activity.getMainLooper());
-                Runnable progressBarRunnable = () -> {
+                final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                final Runnable progressBarRunnable = () -> {
                     loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, true);
                     loadAsyncTask.execute();
                 };
@@ -1258,8 +1258,8 @@ public class EditorEventListFragment extends Fragment
 //                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
                     // start new AsyncTask, because old may be cancelled
                     if (activity != null) {
-                        Handler progressBarHandler = new Handler(activity.getMainLooper());
-                        Runnable progressBarRunnable = () -> {
+                        final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                        final Runnable progressBarRunnable = () -> {
                             loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
                             loadAsyncTask.execute();
                         };
@@ -1313,8 +1313,8 @@ public class EditorEventListFragment extends Fragment
 //                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
                     // start new AsyncTask, because old may be cancelled
                     if (activity != null) {
-                        Handler progressBarHandler = new Handler(activity.getMainLooper());
-                        Runnable progressBarRunnable = () -> {
+                        final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                        final Runnable progressBarRunnable = () -> {
                             loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
                             loadAsyncTask.execute();
                         };

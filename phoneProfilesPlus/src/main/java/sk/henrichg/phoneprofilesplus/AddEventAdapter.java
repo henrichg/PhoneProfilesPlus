@@ -390,10 +390,13 @@ class AddEventAdapter extends BaseAdapter {
 
         holder.radioButton.setTag(position);
         holder.radioButton.setOnClickListener(v -> {
-            RadioButton rb = (RadioButton) v;
+            final RadioButton rb = (RadioButton) v;
             rb.setChecked(true);
-            Handler handler = new Handler(context.getMainLooper());
-            handler.postDelayed(() -> dialog.doOnItemSelected((Integer)rb.getTag()), 200);
+            final Handler handler = new Handler(context.getMainLooper());
+            handler.postDelayed(() -> {
+                if (dialog != null)
+                    dialog.doOnItemSelected((Integer) rb.getTag());
+            }, 200);
         });
 
         return vi;
