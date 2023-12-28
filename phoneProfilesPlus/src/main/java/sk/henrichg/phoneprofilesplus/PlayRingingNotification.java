@@ -51,6 +51,7 @@ class PlayRingingNotification
 
             final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
 
+            /*
             // get ringtone configured in system at start call of EventsHanlder.handleEvents()
             String oldRingtone = intent.getStringExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE);
             if (telephonyManager != null) {
@@ -71,6 +72,7 @@ class PlayRingingNotification
             }
             if (oldRingtone == null)
                 oldRingtone = "";
+            */
 
             // all EXTRA_NEW_% are from mergedProfile in EventsHandler.doEndHandler
             // and are activated by event (look at GlobalUtils.sleep(1500); at start of this method)

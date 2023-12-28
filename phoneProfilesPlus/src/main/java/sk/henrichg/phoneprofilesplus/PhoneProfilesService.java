@@ -83,9 +83,9 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_OLD_RINGER_MODE = "old_ringer_mode";
     //static final String EXTRA_OLD_SYSTEM_RINGER_MODE = "old_system_ringer_mode";
     static final String EXTRA_OLD_ZEN_MODE = "old_zen_mode";
-    static final String EXTRA_OLD_RINGTONE = "old_ringtone";
-    static final String EXTRA_OLD_RINGTONE_SIM1 = "old_ringtone_sim1";
-    static final String EXTRA_OLD_RINGTONE_SIM2 = "old_ringtone_sim2";
+    //static final String EXTRA_OLD_RINGTONE = "old_ringtone";
+    //static final String EXTRA_OLD_RINGTONE_SIM1 = "old_ringtone_sim1";
+    //static final String EXTRA_OLD_RINGTONE_SIM2 = "old_ringtone_sim2";
 
     static final String EXTRA_NEW_RINGER_MODE = "new_ringer_mode";
     static final String EXTRA_NEW_ZEN_MODE = "new_zen_mode";

@@ -3,10 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -26,9 +23,9 @@ class EventsHandler {
     //private int oldSystemRingerMode;
     private int oldZenMode;
 
-    private String oldRingtone;
-    private String oldRingtoneSIM1;
-    private String oldRingtoneSIM2;
+    //private String oldRingtone;
+    //private String oldRingtoneSIM1;
+    //private String oldRingtoneSIM2;
 
     //private String oldNotificationTone;
     //private int oldSystemRingerVolume;
@@ -224,6 +221,7 @@ class EventsHandler {
                     break;
             }
 
+            /*
             try {
                 oldRingtone = "";
                 oldRingtoneSIM1 = "";
@@ -260,6 +258,7 @@ class EventsHandler {
                 oldRingtoneSIM1 = "";
                 oldRingtoneSIM2 = "";
             }
+            */
 
             if (!EventStatic.getGlobalEventsRunning(context)) {
                 // events are globally stopped
@@ -946,9 +945,9 @@ class EventsHandler {
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
                         //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
-                        commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
-                        commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM1, oldRingtoneSIM1);
-                        commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM2, oldRingtoneSIM2);
+                        //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
+                        //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM1, oldRingtoneSIM1);
+                        //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM2, oldRingtoneSIM2);
                         //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
 
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINGER_MODE, mergedProfile._volumeRingerMode);
