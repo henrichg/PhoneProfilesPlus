@@ -101,6 +101,7 @@ public class PPTileService extends TileService {
         // get profileId from SharedPreferences and update it
         int tileId = getTileId();
         PPApplication.quickTileProfileId[tileId] = ApplicationPreferences.getQuickTileProfileId(getApplicationContext(), tileId);
+        ApplicationPreferences.setQuickTileProfileId(getApplicationContext(), tileId, PPApplication.quickTileProfileId[tileId]);
         updateTile();
     }
 

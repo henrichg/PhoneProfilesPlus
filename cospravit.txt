@@ -853,8 +853,3 @@ Xiaomi 13 lite - Android 13:
 
 ------------
 
-Takto sprav annonimous handlery:
-
-                final Context appContext = getApplicationContext();
-                final Handler handler = new Handler(getMainLooper());
-                handler.postDelayed(() -> {

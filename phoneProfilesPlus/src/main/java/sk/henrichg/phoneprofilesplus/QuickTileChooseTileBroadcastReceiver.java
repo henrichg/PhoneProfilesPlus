@@ -36,19 +36,24 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
         //         android:value="true" />
         switch (tileId) {
             case 1:
-                TileService.requestListeningState(context, new ComponentName(context, PPTileService1.class));
+                if ((PPApplication.quickTileProfileId[1] != 0) && (PPApplication.quickTileProfileId[1] != -1))
+                    TileService.requestListeningState(context, new ComponentName(context, PPTileService1.class));
                 break;
             case 2:
-                TileService.requestListeningState(context, new ComponentName(context, PPTileService2.class));
+                if ((PPApplication.quickTileProfileId[2] != 0) && (PPApplication.quickTileProfileId[2] != -1))
+                    TileService.requestListeningState(context, new ComponentName(context, PPTileService2.class));
                 break;
             case 3:
-                TileService.requestListeningState(context, new ComponentName(context, PPTileService3.class));
+                if ((PPApplication.quickTileProfileId[3] != 0) && (PPApplication.quickTileProfileId[3] != -1))
+                    TileService.requestListeningState(context, new ComponentName(context, PPTileService3.class));
                 break;
             case 4:
-                TileService.requestListeningState(context, new ComponentName(context, PPTileService4.class));
+                if ((PPApplication.quickTileProfileId[4] != 0) && (PPApplication.quickTileProfileId[4] != -1))
+                    TileService.requestListeningState(context, new ComponentName(context, PPTileService4.class));
                 break;
             case 5:
-                TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
+                if ((PPApplication.quickTileProfileId[5] != 0) && (PPApplication.quickTileProfileId[5] != -1))
+                    TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
                 break;
         }
 

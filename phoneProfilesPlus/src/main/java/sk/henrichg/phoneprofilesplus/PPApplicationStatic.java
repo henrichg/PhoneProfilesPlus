@@ -675,6 +675,9 @@ class PPApplicationStatic {
                     getSharedPreferences(context).getBoolean(Event.PREF_GLOBAL_EVENTS_RUN_STOP, true);
         }
 
+        for (int i = 0; i < PPApplication.quickTileProfileId.length; i++)
+            PPApplication.quickTileProfileId[i] = ApplicationPreferences.getQuickTileProfileId(context, i);
+
         //IgnoreBatteryOptimizationNotification.getShowIgnoreBatteryOptimizationNotificationOnStart(context);
         CheckCriticalPPPReleasesBroadcastReceiver.getShowCriticalGitHubReleasesNotification(context);
         getActivityLogEnabled(context);

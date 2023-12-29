@@ -1695,11 +1695,16 @@ public class PPApplication extends Application
         // require in manifest file for TileService this meta data:
         //     <meta-data android:name="android.service.quicksettings.ACTIVE_TILE"
         //         android:value="true" />
-        TileService.requestListeningState(context, new ComponentName(context, PPTileService1.class));
-        TileService.requestListeningState(context, new ComponentName(context, PPTileService2.class));
-        TileService.requestListeningState(context, new ComponentName(context, PPTileService3.class));
-        TileService.requestListeningState(context, new ComponentName(context, PPTileService4.class));
-        TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
+        if ((PPApplication.quickTileProfileId[1] != 0) && (PPApplication.quickTileProfileId[1] != -1))
+            TileService.requestListeningState(context, new ComponentName(context, PPTileService1.class));
+        if ((PPApplication.quickTileProfileId[2] != 0) && (PPApplication.quickTileProfileId[2] != -1))
+            TileService.requestListeningState(context, new ComponentName(context, PPTileService2.class));
+        if ((PPApplication.quickTileProfileId[3] != 0) && (PPApplication.quickTileProfileId[3] != -1))
+            TileService.requestListeningState(context, new ComponentName(context, PPTileService3.class));
+        if ((PPApplication.quickTileProfileId[4] != 0) && (PPApplication.quickTileProfileId[4] != -1))
+            TileService.requestListeningState(context, new ComponentName(context, PPTileService4.class));
+        if ((PPApplication.quickTileProfileId[5] != 0) && (PPApplication.quickTileProfileId[5] != -1))
+            TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
 
         ProfileListNotification.drawNotification(true, context);
 
