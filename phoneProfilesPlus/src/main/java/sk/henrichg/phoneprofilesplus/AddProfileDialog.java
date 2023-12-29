@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 class AddProfileDialog
@@ -81,6 +82,16 @@ class AddProfileDialog
     void doOnItemSelected(int position)
     {
         profileListFragment.startProfilePreferencesActivity(null, position);
+
+        //noinspection ForLoopReplaceableByForEach
+        for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+            Profile profile = it.next();
+            profile.releaseIconBitmap();
+            profile.releasePreferencesIndicator();
+        }
+        //}
+        profileList.clear();
+
         mDialog.dismiss();
     }
 
