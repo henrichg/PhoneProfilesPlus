@@ -71,6 +71,9 @@ public class ProfilePreferenceFragment extends PreferenceDialogFragmentCompat {
             bindViewAsyncTask.cancel(true);
         bindViewAsyncTask = null;
 
+        if (preference.dataWrapper != null)
+            preference.dataWrapper.invalidateProfileList();
+
         preference.fragment = null;
     }
 

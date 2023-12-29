@@ -87,6 +87,9 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
             asyncTask.cancel(true);
         }
 
+        if (preference.dataWrapper != null)
+            preference.dataWrapper.invalidateProfileList();
+
         preference.fragment = null;
     }
 

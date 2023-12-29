@@ -262,7 +262,6 @@ public class ProfileMultiSelectPreference extends DialogPreference {
             return superState;
         }*/
 
-        setValue();
         final ProfileMultiSelectPreference.SavedState myState = new ProfileMultiSelectPreference.SavedState(superState);
         myState.value = value;
         myState.defaultValue = defaultValue;
