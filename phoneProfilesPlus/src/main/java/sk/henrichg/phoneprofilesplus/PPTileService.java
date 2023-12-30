@@ -171,6 +171,8 @@ public class PPTileService extends TileService {
 
                 //if ((appContext != null) && (tile != null)) {
 
+                    DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
+                    Profile profile = null;
                     if (PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID) {
                         tile.setLabel(getString(R.string.menu_restart_events));
                         if (Build.VERSION.SDK_INT >= 29) {
@@ -187,9 +189,7 @@ public class PPTileService extends TileService {
                         tile.setState(Tile.STATE_INACTIVE);
                     }
                     else {
-                        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
-                        Profile profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], true, false, false);
-                        dataWrapper.invalidateDataWrapper();
+                        profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], true, false, false);
                         if (profile != null) {
                             tile.setLabel(profile._name);
                             if (Build.VERSION.SDK_INT >= 29) {
@@ -218,7 +218,9 @@ public class PPTileService extends TileService {
                     }
                     tile.updateTile();
 
-                    // save tile profileId into SharedPreferences
+                    if (profile != null)
+                        profile.releaseIconBitmap();
+                    dataWrapper.invalidateDataWrapper();
                 //}
             };
             PPApplicationStatic.createDelayedGuiExecutor();
