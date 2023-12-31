@@ -131,10 +131,10 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                     else
                     {
                         //Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
-                        Bitmap bitmap = profile._iconBitmap;
-                        if (bitmap != null)
-                            profileIcon.setImageBitmap(bitmap);
-                        else
+                        //Bitmap bitmap = profile._iconBitmap;
+                        //if (bitmap != null)
+                        //    profileIcon.setImageBitmap(bitmap);
+                        //else
                             profileIcon.setImageBitmap(profile._iconBitmap);
                     }
                     if (!isEnabled())
@@ -182,10 +182,10 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                             else
                             {
                                 //Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
-                                Bitmap bitmap = profile._iconBitmap;
-                                if (bitmap != null)
-                                    profIcon.setImageBitmap(bitmap);
-                                else
+                                //Bitmap bitmap = profile._iconBitmap;
+                                //if (bitmap != null)
+                                //    profIcon.setImageBitmap(bitmap);
+                                //else
                                     profIcon.setImageBitmap(profile._iconBitmap);
                             }
                             if (!isEnabled())

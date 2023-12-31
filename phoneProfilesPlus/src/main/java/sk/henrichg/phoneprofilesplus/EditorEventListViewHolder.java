@@ -306,10 +306,10 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 else
                 {
                     //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
-                    Bitmap bitmap = profile._iconBitmap;
-                    if (bitmap != null)
-                        profileStartIcon.setImageBitmap(bitmap);
-                    else
+                    //Bitmap bitmap = profile._iconBitmap;
+                    //if (bitmap != null)
+                    //    profileStartIcon.setImageBitmap(bitmap);
+                    //else
                         profileStartIcon.setImageBitmap(profile._iconBitmap);
                 }
 
@@ -418,10 +418,10 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         }
                     } else {
                         //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
-                        Bitmap bitmap = profile._iconBitmap;
-                        if (bitmap != null)
-                            profileEndIcon.setImageBitmap(bitmap);
-                        else
+                        //Bitmap bitmap = profile._iconBitmap;
+                        //if (bitmap != null)
+                        //    profileEndIcon.setImageBitmap(bitmap);
+                        //else
                             profileEndIcon.setImageBitmap(profile._iconBitmap);
                     }
 

@@ -207,10 +207,10 @@ class AddEventAdapter extends BaseAdapter {
                 else
                 {
                     //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
-                    Bitmap bitmap = profile._iconBitmap;
-                    if (bitmap != null)
-                        holder.profileStartIcon.setImageBitmap(bitmap);
-                    else
+                    //Bitmap bitmap = profile._iconBitmap;
+                    //if (bitmap != null)
+                    //    holder.profileStartIcon.setImageBitmap(bitmap);
+                    //else
                         holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
                 }
 
@@ -312,10 +312,10 @@ class AddEventAdapter extends BaseAdapter {
                         }
                     } else {
                         //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
-                        Bitmap bitmap = profile._iconBitmap;
-                        if (bitmap != null)
-                            holder.profileEndIcon.setImageBitmap(bitmap);
-                        else
+                        //Bitmap bitmap = profile._iconBitmap;
+                        //if (bitmap != null)
+                        //    holder.profileEndIcon.setImageBitmap(bitmap);
+                        //else
                             holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
                     }
 
