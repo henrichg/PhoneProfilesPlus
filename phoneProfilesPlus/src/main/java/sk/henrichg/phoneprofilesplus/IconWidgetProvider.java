@@ -1111,12 +1111,15 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                 Bitmap bitmap = null;
                 if (applicationWidgetIconColor.equals("0")) {
-                    if (applicationWidgetIconChangeColorsByNightMode ||
-                        ((!applicationWidgetIconBackgroundType) &&
-                             (Integer.parseInt(applicationWidgetIconLightnessB) <= 25)) ||
-                         (applicationWidgetIconBackgroundType &&
-                             (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetIconBackgroundColor)) < 0.23)))
-                        bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                    if (isIconResourceID) {
+                        if (applicationWidgetIconChangeColorsByNightMode ||
+                                ((!applicationWidgetIconBackgroundType) &&
+                                        (Integer.parseInt(applicationWidgetIconLightnessB) <= 25)) ||
+                                (applicationWidgetIconBackgroundType &&
+                                        (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetIconBackgroundColor)) < 0.23)))
+                            bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                    } else
+                        bitmap = profile._iconBitmap;
                 }
                 if (isIconResourceID) {
                     if (bitmap != null)

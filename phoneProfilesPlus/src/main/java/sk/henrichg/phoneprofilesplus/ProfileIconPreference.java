@@ -418,14 +418,13 @@ public class ProfileIconPreference extends DialogPreference {
                     if (preference.useCustomColor)
                         bitmap = BitmapManipulator.recolorBitmap(bitmap, preference.customColor/*, prefContext*/);
 
+                    Bitmap _bitmap = ProfileStatic.increaseProfileIconBrightnessForPreference(bitmap, preference);
+                    if (_bitmap != null)
+                        bitmap = _bitmap;
                 } else {
                     // je to file
                     bitmap = preference.getBitmap();
                 }
-
-                Bitmap _bitmap = ProfileStatic.increaseProfileIconBrightnessForPreference(bitmap, preference);
-                if (_bitmap != null)
-                    bitmap = _bitmap;
             }
             return null;
         }

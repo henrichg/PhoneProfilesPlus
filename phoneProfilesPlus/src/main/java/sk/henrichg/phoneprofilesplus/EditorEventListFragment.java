@@ -1137,7 +1137,8 @@ public class EditorEventListFragment extends Fragment
             }
             else
             {
-                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
+                //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
+                Bitmap bitmap = profile._iconBitmap;
                 if (bitmap != null)
                     activeProfileIcon.setImageBitmap(bitmap);
                 else

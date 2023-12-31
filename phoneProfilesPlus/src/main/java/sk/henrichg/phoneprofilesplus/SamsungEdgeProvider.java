@@ -274,12 +274,15 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
             Bitmap bitmap = null;
             if (applicationSamsungEdgeIconColor.equals("0")) {
-                if (applicationSamsungEdgeChangeColorsByNightMode ||
-                    ((!applicationSamsungEdgeBackgroundType) &&
-                        (Integer.parseInt(applicationSamsungEdgeLightnessB) <= 25)) ||
-                    (applicationSamsungEdgeBackgroundType &&
-                        (ColorUtils.calculateLuminance(Integer.parseInt(applicationSamsungEdgeBackgroundColor)) < 0.23)))
-                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                if (isIconResourceID) {
+                    if (applicationSamsungEdgeChangeColorsByNightMode ||
+                            ((!applicationSamsungEdgeBackgroundType) &&
+                                    (Integer.parseInt(applicationSamsungEdgeLightnessB) <= 25)) ||
+                            (applicationSamsungEdgeBackgroundType &&
+                                    (ColorUtils.calculateLuminance(Integer.parseInt(applicationSamsungEdgeBackgroundColor)) < 0.23)))
+                        bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                } else
+                    bitmap = profile._iconBitmap;
             }
             if (isIconResourceID)
             {

@@ -89,7 +89,8 @@ public class ProfilePreference extends DialogPreference {
                 }
                 else
                 {
-                    Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
+                    //Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
+                    Bitmap bitmap = profile._iconBitmap;
                     if (bitmap != null)
                         profileIcon.setImageBitmap(bitmap);
                     else

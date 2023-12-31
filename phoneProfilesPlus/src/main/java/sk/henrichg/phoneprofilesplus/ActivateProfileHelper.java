@@ -7519,6 +7519,8 @@ class ActivateProfileHelper {
                     int decoratorColor = ContextCompat.getColor(appContext, R.color.notification_color);
 
                     if (isIconResourceID) {
+                        // icon from resource
+
                         int iconSmallResource;
                         //noinspection IfStatementWithIdenticalBranches
                         if (iconBitmap != null) {
@@ -7581,6 +7583,8 @@ class ActivateProfileHelper {
                             }
                         }
                     } else {
+                        // custom icon
+
                         if (replaceWithPPPIcon)
                             mBuilder.setSmallIcon(R.drawable.ic_ppp_notification);
                         else {
@@ -7594,15 +7598,15 @@ class ActivateProfileHelper {
                         }
 
                         if (showLargeIcon) {
-                            Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
-                            if (bitmap != null)
-                                iconBitmap = bitmap;
+                            //Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
+                            //if (bitmap != null)
+                            //    iconBitmap = bitmap;
                             if (iconBitmap == null) {
                                 iconBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_profile_default, true, appContext);
                             }
                         }
 
-                        if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                        //if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
                             if (iconBitmap != null) {
                                 // do not use increaseNotificationDecorationBrightness(),
                                 // because icon will not be visible in AOD
@@ -7615,7 +7619,7 @@ class ActivateProfileHelper {
                                     decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notification_color));
                                 } catch (Exception ignored) {}
                             }
-                        }
+                        //}
                     }
 
                     if (showLargeIcon) {

@@ -108,7 +108,8 @@ class ProfileMultiSelectPreferenceAdapter extends BaseAdapter {
                 }
             }
             else {
-                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(preferenceFragment.getActivity(), profile._iconBitmap);
+                //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(preferenceFragment.getActivity(), profile._iconBitmap);
+                Bitmap bitmap = profile._iconBitmap;
                 if (bitmap != null)
                     holder.profileIcon.setImageBitmap(bitmap);
                 else

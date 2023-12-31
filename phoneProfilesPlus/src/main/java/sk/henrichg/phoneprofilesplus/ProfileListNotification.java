@@ -854,9 +854,9 @@ public class ProfileListNotification {
             }
         } else {
             //if (profile != null) {
-                Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
-                if (bitmap != null)
-                    iconBitmap = bitmap;
+            //    Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
+            //    if (bitmap != null)
+            //        iconBitmap = bitmap;
             //}
             if (iconBitmap == null) {
                 iconBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_profile_default, true, appContext);

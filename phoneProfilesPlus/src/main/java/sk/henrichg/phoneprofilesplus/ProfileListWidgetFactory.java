@@ -187,12 +187,15 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             if (profile != null) {
                 Bitmap bitmap = null;
                 if (applicationWidgetListIconColor.equals("0")) {
-                    if (applicationWidgetListChangeColorsByNightMode ||
-                            ((!applicationWidgetListBackgroundType) &&
-                                    (Integer.parseInt(applicationWidgetListLightnessB) <= 25)) ||
-                            (applicationWidgetListBackgroundType &&
-                                    (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetListBackgroundColor)) < 0.23)))
-                        bitmap = profile.increaseProfileIconBrightnessForContext(appContext, profile._iconBitmap);
+                    if (profile.getIsIconResourceID()) {
+                        if (applicationWidgetListChangeColorsByNightMode ||
+                                ((!applicationWidgetListBackgroundType) &&
+                                        (Integer.parseInt(applicationWidgetListLightnessB) <= 25)) ||
+                                (applicationWidgetListBackgroundType &&
+                                        (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetListBackgroundColor)) < 0.23)))
+                            bitmap = profile.increaseProfileIconBrightnessForContext(appContext, profile._iconBitmap);
+                    } else
+                        bitmap = profile._iconBitmap;
                 }
                 if (profile.getIsIconResourceID()) {
                     if (bitmap != null)

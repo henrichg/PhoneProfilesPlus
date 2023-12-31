@@ -689,12 +689,15 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                 Bitmap bitmap = null;
                 if (applicationWidgetOneRowIconColor.equals("0")) {
-                    if (applicationWidgetOneRowChangeColorsByNightMode ||
-                       ((!applicationWidgetOneRowBackgroundType) &&
-                           (Integer.parseInt(applicationWidgetOneRowLightnessB) <= 25)) ||
-                       (applicationWidgetOneRowBackgroundType &&
-                           (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowBackgroundColor)) < 0.23)))
-                        bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                    if (isIconResourceID) {
+                        if (applicationWidgetOneRowChangeColorsByNightMode ||
+                                ((!applicationWidgetOneRowBackgroundType) &&
+                                        (Integer.parseInt(applicationWidgetOneRowLightnessB) <= 25)) ||
+                                (applicationWidgetOneRowBackgroundType &&
+                                        (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowBackgroundColor)) < 0.23)))
+                            bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                    } else
+                        bitmap = profile._iconBitmap;
                 }
                 if (isIconResourceID) {
                     if (bitmap != null)

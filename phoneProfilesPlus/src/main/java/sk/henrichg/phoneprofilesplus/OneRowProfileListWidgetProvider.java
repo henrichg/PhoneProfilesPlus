@@ -844,12 +844,15 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
         Bitmap bitmap = null;
         if (applicationWidgetOneRowProfileListIconColor.equals("0")) {
-            if (applicationWidgetOneRowProfileListChangeColorsByNightMode ||
-                    ((!applicationWidgetOneRowProfileListBackgroundType) &&
-                            (Integer.parseInt(applicationWidgetOneRowProfileListLightnessB) <= 25)) ||
-                    (applicationWidgetOneRowProfileListBackgroundType &&
-                            (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowProfileListBackgroundColor)) < 0.23)))
-                bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+            if (isIconResourceID) {
+                if (applicationWidgetOneRowProfileListChangeColorsByNightMode ||
+                        ((!applicationWidgetOneRowProfileListBackgroundType) &&
+                                (Integer.parseInt(applicationWidgetOneRowProfileListLightnessB) <= 25)) ||
+                        (applicationWidgetOneRowProfileListBackgroundType &&
+                                (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowProfileListBackgroundColor)) < 0.23)))
+                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+            } else
+                bitmap = profile._iconBitmap;
         }
         if (isIconResourceID) {
             if (bitmap != null)
