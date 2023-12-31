@@ -200,12 +200,13 @@ public class PPTileService extends TileService {
                             }
 
                             if (profile.getIsIconResourceID()) {
-                                if (profile._iconBitmap != null)
-                                    tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
-                                else {
+                                // do not use bitmap, because quick tiles are not colored
+                                //if (profile._iconBitmap != null)
+                                //    tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
+                                //else {
                                     int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
                                     tile.setIcon(Icon.createWithResource(getApplicationContext(), res));
-                                }
+                                //}
                             } else {
                                 tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
                             }

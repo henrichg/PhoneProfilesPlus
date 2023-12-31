@@ -1029,14 +1029,19 @@ public class PPAppNotification {
 
         if (!forFirstStart) {
             if (isIconResourceID) {
+                // icon from resource
+
                 int iconSmallResource;
                 if (iconBitmap != null) {
+                    // icon bitmap exists = changed color
+
                     if (notificationStatusBarStyle.equals("0")) {
                         // colorful icon
 
                         notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
                     } else {
                         // native icon
+                        //  used is monohcrome resource
 
                         iconSmallResource = R.drawable.ic_profile_default_notify;
                         try {
@@ -1087,8 +1092,12 @@ public class PPAppNotification {
                             notificationBuilder.setLargeIcon(iconBitmap);
                     }
                 } else {
+                    // icon bitmap not exists = color not changed
 
                     if (notificationStatusBarStyle.equals("0")) {
+                        // colorful icon
+                        //  used is colorful resource
+
                         iconSmallResource = R.drawable.ic_profile_default_notify_color;
                         try {
                             if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
@@ -1101,6 +1110,9 @@ public class PPAppNotification {
 //                            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                         }
                     } else {
+                        // native icon
+                        //  used is monochrome resource
+
                         iconSmallResource = R.drawable.ic_profile_default_notify;
                         try {
                             if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
@@ -1175,17 +1187,23 @@ public class PPAppNotification {
                 }
 
             } else {
+                // custom icon
 
                 if (iconBitmap != null) {
                     if (notificationStatusBarStyle.equals("2") /*||
                             PPApplication.deviceIsSamsung*/) {
+                        // force native for custom
+                        //   convert to monochrome
                         Bitmap _iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, 0xFF);
                         notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(_iconBitmap));
                         //notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
                     }
                     else
+                        // colorful icon
                         notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
                 } else {
+                    // custom not set
+                    //  use profile default icon
                     int iconSmallResource;
                     if (notificationStatusBarStyle.equals("0"))
                         iconSmallResource = R.drawable.ic_profile_default;
