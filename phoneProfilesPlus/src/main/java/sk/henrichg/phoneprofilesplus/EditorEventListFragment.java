@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -516,9 +517,12 @@ public class EditorEventListFragment extends Fragment
                     fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 
                     // added touch helper for drag and drop items
-                    ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.eventListAdapter, false, false);
-                    fragment.itemTouchHelper = new ItemTouchHelper(callback);
-                    fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+                    //if (fragment.itemTouchHelper == null) {
+                        Log.e("EditorEventListFragment.changeListOrder", "qqqqqqqqqqqqq");
+                        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.eventListAdapter, false, false);
+                        fragment.itemTouchHelper = new ItemTouchHelper(callback);
+                        fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+                    //}
 
                     fragment.listView.setAdapter(fragment.eventListAdapter);
 
@@ -580,6 +584,8 @@ public class EditorEventListFragment extends Fragment
             stopRunningAsyncTask();
         }
 
+        itemTouchHelper.attachToRecyclerView(null);
+        itemTouchHelper = null;
         if (listView != null)
             listView.setAdapter(null);
         if (eventListAdapter != null)
@@ -592,6 +598,7 @@ public class EditorEventListFragment extends Fragment
 
     @Override
     public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        Log.e("EditorEventListFragment.onStartDrag", "xxxxxxxxxxxxx");
         itemTouchHelper.startDrag(viewHolder);
     }
 
@@ -1242,7 +1249,7 @@ public class EditorEventListFragment extends Fragment
     @SuppressLint("NotifyDataSetChanged")
     private void changeListOrder(int orderType, boolean fromOnViewCreated)
     {
-//        Log.e("EditorEventListFragment.changeListOrder", "fromOnViewCreated="+fromOnViewCreated);
+        Log.e("EditorEventListFragment.changeListOrder", "fromOnViewCreated="+fromOnViewCreated);
         if (isAsyncTaskRunning()) {
             //Log.e("EditorEventListFragment.changeListOrder", "AsyncTask running");
             stopRunningAsyncTask();
@@ -1273,6 +1280,15 @@ public class EditorEventListFragment extends Fragment
                     listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     if (eventListAdapter != null) {
                         sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
+
+                        // added touch helper for drag and drop items
+                        //if (itemTouchHelper == null) {
+                            Log.e("EditorEventListFragment.changeListOrder", "yyyyyyyyyyyyyy");
+                            ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
+                            itemTouchHelper = new ItemTouchHelper(callback);
+                            itemTouchHelper.attachToRecyclerView(listView);
+                        //}
+
                         listView.setAdapter(eventListAdapter);
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(2) DataWrapper.profileList");
                         synchronized (activityDataWrapper.profileList) {
@@ -1296,9 +1312,12 @@ public class EditorEventListFragment extends Fragment
                         eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
 
                         // added touch helper for drag and drop items
-                        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
-                        itemTouchHelper = new ItemTouchHelper(callback);
-                        itemTouchHelper.attachToRecyclerView(listView);
+                        //if (itemTouchHelper == null) {
+                            Log.e("EditorEventListFragment.changeListOrder", "yyyyyyyyyyyyyy");
+                            ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
+                            itemTouchHelper = new ItemTouchHelper(callback);
+                            itemTouchHelper.attachToRecyclerView(listView);
+                        //}
 
                         listView.setAdapter(eventListAdapter);
                     }
@@ -1340,9 +1359,12 @@ public class EditorEventListFragment extends Fragment
                     eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
 
                     // added touch helper for drag and drop items
-                    ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
-                    itemTouchHelper = new ItemTouchHelper(callback);
-                    itemTouchHelper.attachToRecyclerView(listView);
+                    //if (itemTouchHelper == null) {
+                        Log.e("EditorEventListFragment.changeListOrder", "zzzzzzzzzzzzzzzz");
+                        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
+                        itemTouchHelper = new ItemTouchHelper(callback);
+                        itemTouchHelper.attachToRecyclerView(listView);
+                    //}
 
                     listView.setAdapter(eventListAdapter);
 
@@ -1474,6 +1496,8 @@ public class EditorEventListFragment extends Fragment
     }
 
     void removeAdapter() {
+        if (itemTouchHelper != null)
+            itemTouchHelper.attachToRecyclerView(null);
         if (listView != null)
             listView.setAdapter(null);
     }

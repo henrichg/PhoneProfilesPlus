@@ -280,6 +280,13 @@ public class EditorProfileListFragment extends Fragment
                     progressBarHandler.post(progressBarRunnable);
                 } else {
                     if (profileListAdapter != null) {
+                        // added touch helper for drag and drop items
+                            //if (itemTouchHelper == null) {
+                            ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(profileListAdapter, false, false);
+                            itemTouchHelper = new ItemTouchHelper(callback);
+                            itemTouchHelper.attachToRecyclerView(listView);
+                        //}
+
                         listView.setAdapter(profileListAdapter);
                         // update activity for activated profile
                         Profile profile = activityDataWrapper.getActivatedProfile(true,
@@ -302,9 +309,11 @@ public class EditorProfileListFragment extends Fragment
                         profileListAdapter = new EditorProfileListAdapter(fragment, activityDataWrapper, filterType, fragment);
 
                         // added touch helper for drag and drop items
-                        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(profileListAdapter, false, false);
-                        itemTouchHelper = new ItemTouchHelper(callback);
-                        itemTouchHelper.attachToRecyclerView(listView);
+                        //if (itemTouchHelper == null) {
+                            ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(profileListAdapter, false, false);
+                            itemTouchHelper = new ItemTouchHelper(callback);
+                            itemTouchHelper.attachToRecyclerView(listView);
+                        //}
 
                         listView.setAdapter(profileListAdapter);
                     }
@@ -330,9 +339,11 @@ public class EditorProfileListFragment extends Fragment
                 fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.activityDataWrapper, filterType, fragment);
 
                 // added touch helper for drag and drop items
-                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.profileListAdapter, false, false);
-                fragment.itemTouchHelper = new ItemTouchHelper(callback);
-                fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+                //if (fragment.itemTouchHelper == null) {
+                    ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.profileListAdapter, false, false);
+                    fragment.itemTouchHelper = new ItemTouchHelper(callback);
+                    fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+                //}
 
                 fragment.listView.setAdapter(fragment.profileListAdapter);
 
@@ -471,9 +482,11 @@ public class EditorProfileListFragment extends Fragment
                     fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 
                     // added touch helper for drag and drop items
-                    ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.profileListAdapter, false, false);
-                    fragment.itemTouchHelper = new ItemTouchHelper(callback);
-                    fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+                    //if (fragment.itemTouchHelper == null) {
+                        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.profileListAdapter, false, false);
+                        fragment.itemTouchHelper = new ItemTouchHelper(callback);
+                        fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+                    //}
 
                     fragment.listView.setAdapter(fragment.profileListAdapter);
 
@@ -568,6 +581,8 @@ public class EditorProfileListFragment extends Fragment
             stopRunningAsyncTask();
         }
 
+        itemTouchHelper.attachToRecyclerView(null);
+        itemTouchHelper = null;
         if (listView != null)
             listView.setAdapter(null);
         if (profileListAdapter != null)
@@ -1128,6 +1143,8 @@ public class EditorProfileListFragment extends Fragment
     }
 
     void removeAdapter() {
+        if (itemTouchHelper != null)
+            itemTouchHelper.attachToRecyclerView(null);
         if (listView != null)
             listView.setAdapter(null);
     }
