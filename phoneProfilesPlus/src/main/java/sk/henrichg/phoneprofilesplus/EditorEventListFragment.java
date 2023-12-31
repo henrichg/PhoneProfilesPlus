@@ -584,7 +584,8 @@ public class EditorEventListFragment extends Fragment
             stopRunningAsyncTask();
         }
 
-        itemTouchHelper.attachToRecyclerView(null);
+        if (itemTouchHelper != null)
+            itemTouchHelper.attachToRecyclerView(null);
         itemTouchHelper = null;
         if (listView != null)
             listView.setAdapter(null);
