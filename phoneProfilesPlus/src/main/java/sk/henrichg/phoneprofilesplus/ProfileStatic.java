@@ -3,13 +3,10 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.provider.Settings;
 
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.ColorUtils;
-import androidx.palette.graphics.Palette;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 
@@ -517,44 +514,6 @@ class ProfileStatic {
             value = "";
         }
         return value;
-    }
-
-    static Bitmap increaseProfileIconBrightnessForPreference(Bitmap iconBitmap, ProfileIconPreference preference) {
-        //if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
-        try {
-            if (preference != null) {
-                //boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(preference.prefContext.getApplicationContext());
-                //(preference.prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                //== Configuration.UI_MODE_NIGHT_YES;
-                String applicationTheme = ApplicationPreferences.applicationTheme(preference.prefContext, true);
-                boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
-
-                if (nightModeOn) {
-                    int iconColor;
-                    if (preference.isImageResourceID) {
-                        if (preference.useCustomColor)
-                            iconColor = preference.customColor;
-                        else
-                            iconColor = getIconDefaultColor(preference.imageIdentifier);
-                    } else {
-                        //iconColor = BitmapManipulator.getDominantColor(_iconBitmap);
-                        Palette palette = Palette.from(iconBitmap).generate();
-                        iconColor = palette.getDominantColor(0xff1c9cd7);
-                    }
-                    if (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE) {
-                        if (iconBitmap != null) {
-                            return BitmapManipulator.setBitmapBrightness(iconBitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
-                        } else {
-                            int iconResource = getIconResource(preference.imageIdentifier);
-                            Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, preference.prefContext);
-                            return BitmapManipulator.setBitmapBrightness(bitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
-                        }
-                    }
-                }
-            }
-        } catch (Exception ignored) {}
-        //}
-        return null;
     }
 
     static int getImageResourcePosition(String imageIdentifier/*, Context context*/) {

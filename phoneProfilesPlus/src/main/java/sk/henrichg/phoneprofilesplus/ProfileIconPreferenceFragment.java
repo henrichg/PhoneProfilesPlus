@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
     private ProfileIconPreference preference;
 
     private Button colorChooserButton;
+    ImageView dialogIcon;
 
     private ProfileIconPreferenceAdapter adapter;
 
@@ -52,11 +54,11 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
         gridView.setOnItemClickListener((parent, v, position, id) -> {
             preference.setImageIdentifierAndType(ProfileStatic.getImageResourceName(position),true);
             adapter.imageIdentifierAndTypeChanged(/*preference.imageIdentifier, preference.isImageResourceID*/);
-            preference.updateIcon(true);
+            preference.updateIcon(true, this);
             colorChooserButton.setEnabled(preference.isImageResourceID);
         });
 
-        preference.dialogIcon = view.findViewById(R.id.profileicon_pref_dlg_icon);
+        dialogIcon = view.findViewById(R.id.profileicon_pref_dlg_icon);
 
         colorChooserButton = view.findViewById(R.id.profileicon_pref_dlg_change_color);
         colorChooserButton.setOnClickListener(v -> showCustomColorChooser());
@@ -118,7 +120,7 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
         });
 
         preference.getValuePIDP();
-        preference.updateIcon(true);
+        preference.updateIcon(true, this);
     }
 
     @Override

@@ -15,6 +15,8 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.core.graphics.ColorUtils;
+import androidx.palette.graphics.Palette;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -36,7 +38,6 @@ public class ProfileIconPreference extends DialogPreference {
     //private Bitmap bitmap;
 
     private ImageView imageView;
-    ImageView dialogIcon;
     final Context prefContext;
 
     private UpdateIconAsyncTask updateIconAsyncTask = null;
@@ -77,7 +78,7 @@ public class ProfileIconPreference extends DialogPreference {
         super.onBindViewHolder(holder);
 
         imageView = (ImageView) holder.findViewById(R.id.profileicon_pref_imageview);
-        updateIcon(false);
+        updateIcon(false, null);
     }
 
     @Override
@@ -143,7 +144,7 @@ public class ProfileIconPreference extends DialogPreference {
         if (!savedInstanceState) {
             value = getPersistedString(defaultValue);
             getValuePIDP();
-            updateIcon(false);
+            updateIcon(false, null);
         }
         savedInstanceState = false;
     }
@@ -195,9 +196,10 @@ public class ProfileIconPreference extends DialogPreference {
     void setCustomColor(boolean newUseCustomColor, int newCustomColor) {
         useCustomColor = newUseCustomColor;
         customColor = newCustomColor;
-        if (fragment != null)
+        if (fragment != null) {
             fragment.setCustomColor(/*useCustomColor, customColor*/);
-        updateIcon(true);
+            updateIcon(true, fragment);
+        }
         setValue(false);
     }
 
@@ -212,7 +214,7 @@ public class ProfileIconPreference extends DialogPreference {
         }*/
         value = imageIdentifier+"|"+((isImageResourceID) ? "1" : "0")+"|"+((useCustomColor) ? "1" : "0")+"|"+customColor;
         if (saveToPreference) {
-            updateIcon(false);
+            updateIcon(false, null);
             if (callChangeListener(value)) {
                 persistString(value);
                 notifyChanged();
@@ -278,8 +280,8 @@ public class ProfileIconPreference extends DialogPreference {
         }*/
     }
 
-    void updateIcon(final boolean inDialog) {
-        updateIconAsyncTask = new UpdateIconAsyncTask(inDialog, this, prefContext);
+    void updateIcon(final boolean inDialog, final ProfileIconPreferenceFragment fragment) {
+        updateIconAsyncTask = new UpdateIconAsyncTask(inDialog, this, fragment, prefContext);
         updateIconAsyncTask.execute();
     }
 
@@ -377,14 +379,20 @@ public class ProfileIconPreference extends DialogPreference {
         Bitmap bitmap;
 
         private final WeakReference<ProfileIconPreference> preferenceWeakRef;
+        private final WeakReference<ProfileIconPreferenceFragment> fragmentWeakRef;
         private final WeakReference<Context> prefContextWeakRef;
         final boolean inDialog;
 
         public UpdateIconAsyncTask(final boolean inDialog,
                 ProfileIconPreference preference,
+                ProfileIconPreferenceFragment fragment,
                 Context prefContext) {
             this.inDialog = inDialog;
             this.preferenceWeakRef = new WeakReference<>(preference);
+            if (fragment != null)
+                this.fragmentWeakRef = new WeakReference<>(fragment);
+            else
+                this.fragmentWeakRef = null;
             this.prefContextWeakRef = new WeakReference<>(prefContext);
         }
 
@@ -418,7 +426,7 @@ public class ProfileIconPreference extends DialogPreference {
                     if (preference.useCustomColor)
                         bitmap = BitmapManipulator.recolorBitmap(bitmap, preference.customColor/*, prefContext*/);
 
-                    Bitmap _bitmap = ProfileStatic.increaseProfileIconBrightnessForPreference(bitmap, preference);
+                    Bitmap _bitmap = increaseProfileIconBrightness(bitmap, preference);
                     if (_bitmap != null)
                         bitmap = _bitmap;
                 } else {
@@ -435,11 +443,14 @@ public class ProfileIconPreference extends DialogPreference {
             super.onPostExecute(result);
 
             ProfileIconPreference preference = preferenceWeakRef.get();
+            ProfileIconPreferenceFragment fragment = null;
+            if (fragmentWeakRef != null)
+                fragment = fragmentWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((preference != null) && (prefContext != null)) {
                 ImageView _imageView;
-                if (inDialog)
-                    _imageView = preference.dialogIcon;
+                if (inDialog && (fragment != null))
+                    _imageView = fragment.dialogIcon;
                 else
                     _imageView = preference.imageView;
 
@@ -451,6 +462,44 @@ public class ProfileIconPreference extends DialogPreference {
                     }
                 }
             }
+        }
+
+        Bitmap increaseProfileIconBrightness(Bitmap iconBitmap, ProfileIconPreference preference) {
+            //if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
+            try {
+                if (preference != null) {
+                    //boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(preference.prefContext.getApplicationContext());
+                    //(preference.prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                    //== Configuration.UI_MODE_NIGHT_YES;
+                    String applicationTheme = ApplicationPreferences.applicationTheme(preference.prefContext, true);
+                    boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
+
+                    if (nightModeOn) {
+                        int iconColor;
+                        if (preference.isImageResourceID) {
+                            if (preference.useCustomColor)
+                                iconColor = preference.customColor;
+                            else
+                                iconColor = ProfileStatic.getIconDefaultColor(preference.imageIdentifier);
+                        } else {
+                            //iconColor = BitmapManipulator.getDominantColor(_iconBitmap);
+                            Palette palette = Palette.from(iconBitmap).generate();
+                            iconColor = palette.getDominantColor(0xff1c9cd7);
+                        }
+                        if (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE) {
+                            if (iconBitmap != null) {
+                                return BitmapManipulator.setBitmapBrightness(iconBitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                            } else {
+                                int iconResource = ProfileStatic.getIconResource(preference.imageIdentifier);
+                                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, preference.prefContext);
+                                return BitmapManipulator.setBitmapBrightness(bitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                            }
+                        }
+                    }
+                }
+            } catch (Exception ignored) {}
+            //}
+            return null;
         }
 
     }
