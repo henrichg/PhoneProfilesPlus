@@ -17,7 +17,7 @@ import java.util.List;
 
 class AddProfileDialog
 {
-    private final EditorProfileListFragment profileListFragment;
+    private EditorProfileListFragment profileListFragment;
 
     final AlertDialog mDialog;
     final Activity activity;
@@ -58,6 +58,7 @@ class AddProfileDialog
                 getProfilesAsyncTask.cancel(true);
             }
             getProfilesAsyncTask = null;
+            this.profileListFragment = null;
         });
 
         linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);

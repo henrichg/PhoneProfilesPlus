@@ -17,7 +17,7 @@ import java.util.List;
 
 class AddEventDialog
 {
-    final EditorEventListFragment eventListFragment;
+    EditorEventListFragment eventListFragment;
 
     final AlertDialog mDialog;
     final Activity activity;
@@ -61,6 +61,7 @@ class AddEventDialog
                 getEventsAsyncTask.cancel(true);
             }
             getEventsAsyncTask = null;
+            this.eventListFragment = null;
         });
 
         linlaProgress = layout.findViewById(R.id.event_pref_dlg_linla_progress);
