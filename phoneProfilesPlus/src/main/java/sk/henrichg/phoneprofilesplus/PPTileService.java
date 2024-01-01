@@ -108,6 +108,7 @@ public class PPTileService extends TileService {
     public void onStartListening () {
         super.onStartListening();
         // Called when the Tile becomes visible
+        //  also when is called TileService.requestListeningState()
 
         int tileId = getTileId();
         try {
