@@ -1508,12 +1508,18 @@ public class EditorProfileListFragment extends Fragment
                 sequence.start();
             }
             else {
+                final EditorProfileListFragment fragment = this;
+
                 //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 final Handler handler = new Handler(getActivity().getMainLooper());
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.showTargetHelps");
+                    Activity activity = fragment.getActivity();
+                    if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+                        return;
+
                     //noinspection Convert2MethodRef
-                    showAdapterTargetHelps();
+                    fragment.showAdapterTargetHelps();
                 }, 500);
             }
         }

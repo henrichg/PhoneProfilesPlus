@@ -134,10 +134,11 @@ class TileChooserListAdapter extends BaseAdapter {
 
             holder.radioButton.setTag(position);
             holder.radioButton.setOnClickListener(v -> {
-                RadioButton rb = (RadioButton) v;
+                final RadioButton rb = (RadioButton) v;
                 rb.setChecked(true);
+                final TileChooserListFragment _fragment = fragment;
                 final Handler handler = new Handler(activityDataWrapper.context.getMainLooper());
-                handler.postDelayed(() -> fragment.chooseTile((Integer)rb.getTag()), 200);
+                handler.postDelayed(() -> _fragment.chooseTile((Integer)rb.getTag()), 200);
             });
 
         }

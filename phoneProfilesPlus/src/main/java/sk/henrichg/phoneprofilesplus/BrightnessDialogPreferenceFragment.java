@@ -35,7 +35,7 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
     private Button actualLevelBtn = null;
 
     private final Handler savedBrightnessHandler = new Handler(Looper.getMainLooper());
-    private final Runnable savedBrightnessRunnable = this::setSavedBrightness;
+    private Runnable savedBrightnessRunnable = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -128,7 +128,8 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
             preference.resetSummary();
         }
 
-        savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
+        if (savedBrightnessRunnable != null)
+            savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
         setSavedBrightness();
 
         PPApplication.brightnessInternalChange = false;
@@ -236,7 +237,14 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
                         //setAdaptiveBrightness(ProfileStatic.convertPercentsToBrightnessAdaptiveValue(_value, context));
                     //}
                 }
-                savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
+                if (savedBrightnessRunnable != null)
+                    savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
+                final BrightnessDialogPreferenceFragment fragment = this;
+                savedBrightnessRunnable = () -> {
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragment.onCheckedChanged (1)");
+                    //noinspection Convert2MethodRef
+                    fragment.setSavedBrightness();
+                };
                 savedBrightnessHandler.postDelayed(savedBrightnessRunnable, 5000);
             }
 
@@ -424,7 +432,14 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
                     //setAdaptiveBrightness(ProfileStatic.convertPercentsToBrightnessAdaptiveValue(value, context));
                 //}
             }
-            savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
+            if (savedBrightnessRunnable != null)
+                savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
+            final BrightnessDialogPreferenceFragment fragment = this;
+            savedBrightnessRunnable = () -> {
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragment.onCheckedChanged (1)");
+                //noinspection Convert2MethodRef
+                fragment.setSavedBrightness();
+            };
             savedBrightnessHandler.postDelayed(savedBrightnessRunnable, 5000);
         }
 

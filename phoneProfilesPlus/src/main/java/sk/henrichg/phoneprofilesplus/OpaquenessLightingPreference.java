@@ -139,17 +139,20 @@ public class OpaquenessLightingPreference extends DialogPreference {
             else
                 opaquenessLightingIcon.setAlpha(1f);
 
+            final OpaquenessLightingPreference preference = this;
             final Handler handler = new Handler(prefContext.getMainLooper());
+            // TODO weak reference na prefContext
+            // TODO weak reference na preference
             handler.postDelayed(() -> {
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePreference.onBindViewHolder");
-                int _position = getPosition(value);
+                int _position = getPosition(preference.value);
                 if (_position != -1) {
                     String summary;
-                    if (showLighting)
-                        summary = prefContext.getString(lightingNames[_position]);
+                    if (preference.showLighting)
+                        summary = prefContext.getString(preference.lightingNames[_position]);
                     else
-                        summary = prefContext.getString(opaquenessNames[_position]);
-                    setSummary(summary);
+                        summary = prefContext.getString(preference.opaquenessNames[_position]);
+                    preference.setSummary(summary);
                 }
             }, 200);
 

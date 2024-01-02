@@ -75,8 +75,10 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
         if (preference.applicationList != null)
             preference.applicationList.clear();
         listAdapter.notifyDataSetChanged();
+        final ApplicationsMultiSelectDialogPreferenceFragment fragment = this;
         final Handler handler = new Handler(prefContext.getMainLooper());
-        handler.postDelayed(() -> refreshListView(true), 200);
+        // TODO weak reference na fragment
+        handler.postDelayed(() -> fragment.refreshListView(true), 200);
     }
 
     @Override

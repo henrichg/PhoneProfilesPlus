@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import static android.view.View.GONE;
 
 import android.animation.LayoutTransition;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -400,11 +401,11 @@ public class ActivatorListFragment extends Fragment {
                     final Handler handler = new Handler(fragment.getActivity().getMainLooper());
                     handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.LoadProfileListAsyncTask (2)");
+                        ActivatorActivity activity = (ActivatorActivity) fragment.getActivity();
+                        if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+                            return;
 
-                        if (fragment.getActivity() != null) {
-                            if (!fragment.getActivity().isFinishing())
-                                ((ActivatorActivity) fragment.getActivity()).startTargetHelpsActivity();
-                        }
+                        ((ActivatorActivity) fragment.getActivity()).startTargetHelpsActivity();
                     }, 500);
 
                 }
@@ -607,12 +608,18 @@ public class ActivatorListFragment extends Fragment {
                 showAdapterTargetHelps();
             }
             else {
+                final ActivatorListFragment fragment = this;
+
                 final Handler handler = new Handler(getActivity().getMainLooper());
+                // TODO weak reference na fragment
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showTargetHelps (1)");
+                    Activity activity = fragment.getActivity();
+                    if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+                        return;
+
                     //Log.e("ActivatorListFragment.showTargetHelps", "start showAdapterTargetHelps (2)");
-                    //noinspection Convert2MethodRef
-                    showAdapterTargetHelps();
+                    fragment.showAdapterTargetHelps();
                 }, 500);
             }
         }
@@ -620,7 +627,6 @@ public class ActivatorListFragment extends Fragment {
             final Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(() -> {
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showTargetHelps (2)");
-
                 //Log.e("ActivatorListFragment.showTargetHelps", "(3)");
 
                 if (ActivatorTargetHelpsActivity.activity != null) {
@@ -660,7 +666,6 @@ public class ActivatorListFragment extends Fragment {
             final Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(() -> {
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showAdapterTargetHelps");
-
                 if (ActivatorTargetHelpsActivity.activity != null) {
                     //Log.d("ActivatorListFragment.showAdapterTargetHelps", "finish activity");
                     try {

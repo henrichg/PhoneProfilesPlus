@@ -1584,7 +1584,8 @@ class DataWrapper {
                 // toast notification
                 if (PPApplication.toastHandler != null) {
                     final Profile __profile = _profile;
-                    PPApplication.toastHandler.post(() -> showToastAfterActivation(__profile));
+                    final DataWrapper dataWrapper = this;
+                    PPApplication.toastHandler.post(() -> dataWrapper.showToastAfterActivation(__profile));
                 }// else
                 //    showToastAfterActivation(profile);
             }

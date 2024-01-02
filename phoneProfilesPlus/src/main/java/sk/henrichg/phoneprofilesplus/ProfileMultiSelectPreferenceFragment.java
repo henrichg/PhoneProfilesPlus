@@ -69,8 +69,10 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
             preference.dataWrapper.invalidateProfileList();
         if (profilePreferenceAdapter != null)
             profilePreferenceAdapter.notifyDataSetChanged();
+        final ProfileMultiSelectPreferenceFragment fragment = this;
         final Handler handler = new Handler(prefContext.getMainLooper());
-        handler.postDelayed(() -> refreshListView(true), 200);
+        // TODO weak reference na fragment
+        handler.postDelayed(() -> fragment.refreshListView(true), 200);
 
     }
 

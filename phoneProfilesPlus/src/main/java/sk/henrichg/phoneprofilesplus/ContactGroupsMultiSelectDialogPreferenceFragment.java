@@ -76,7 +76,9 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                 preference.contactGroupList.clear();
             listAdapter.notifyDataSetChanged();
             final Handler handler = new Handler(prefContext.getMainLooper());
-            handler.postDelayed(() -> refreshListView(true), 200);
+            final ContactGroupsMultiSelectDialogPreferenceFragment fragment = this;
+            // TODO weak reference na fragment
+            handler.postDelayed(() -> fragment.refreshListView(true), 200);
         }
     }
 

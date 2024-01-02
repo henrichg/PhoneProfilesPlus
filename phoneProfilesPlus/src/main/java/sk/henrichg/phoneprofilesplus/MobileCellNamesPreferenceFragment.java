@@ -182,9 +182,11 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
         if (preference.cellNamesList != null)
             preference.cellNamesList.clear();
         listAdapter.notifyDataSetChanged();
+        final MobileCellNamesPreferenceFragment fragment = this;
         final Handler handler = new Handler(prefContext.getMainLooper());
         /*false*/
-        handler.postDelayed(this::refreshListView, 200);
+        // TODO weak reference na fragment
+        handler.postDelayed(fragment::refreshListView, 200);
     }
 
     @Override

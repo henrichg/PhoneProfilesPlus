@@ -5628,7 +5628,7 @@ class ActivateProfileHelper {
 //            Log.e("ActivateProfileHelper.createKeepScreenOnView", "xxx");
             int type;
             type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
-            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+            final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                     1, 1,
                     type,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |

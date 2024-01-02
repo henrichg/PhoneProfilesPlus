@@ -74,8 +74,9 @@ class AddEventDialog
             AddEventViewHolder viewHolder = (AddEventViewHolder) item.getTag();
             if (viewHolder != null)
                 viewHolder.radioButton.setChecked(true);
+            final AddEventDialog dialog = this;
             final Handler handler = new Handler(activity.getMainLooper());
-            handler.postDelayed(() -> doOnItemSelected(position), 200);
+            handler.postDelayed(() -> dialog.doOnItemSelected(position), 200);
         });
 
     }

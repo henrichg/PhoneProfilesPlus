@@ -57,7 +57,7 @@ android {
 }
 
 dependencies {
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
+    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
 
     //implementation 'androidx.multidex:multidex:2.0.1'
 

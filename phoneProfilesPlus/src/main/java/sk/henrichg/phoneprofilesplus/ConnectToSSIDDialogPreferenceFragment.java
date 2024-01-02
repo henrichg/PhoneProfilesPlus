@@ -110,7 +110,9 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
                 preference.ssidList.clear();
             listAdapter.notifyDataSetChanged();
             final Handler handler = new Handler(prefContext.getMainLooper());
-            handler.postDelayed(this::refreshListView, 200);
+            // TODO weak reference na fragment
+            final ConnectToSSIDDialogPreferenceFragment fragment = this;
+            handler.postDelayed(fragment::refreshListView, 200);
         }
     }
 

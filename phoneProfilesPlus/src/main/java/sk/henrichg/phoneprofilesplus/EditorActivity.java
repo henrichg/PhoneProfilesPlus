@@ -1425,24 +1425,26 @@ public class EditorActivity extends AppCompatActivity
             //editorToolbar.setSubtitle(R.string.title_activity_editor);
             final Handler handler = new Handler(getMainLooper());
             handler.postDelayed(() -> {
-                if (!activity.isFinishing()) {
+                //noinspection ConstantValue
+                if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+                    return;
+
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.selectViewItem (0)");
-                    String[] filterItems = new String[]{
-                            /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_all),
-                            /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
-                            /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
-                    };
-                    HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
-                            activity,
-                            R.layout.spinner_highlighted_filter,
-                            filterItems);
-                    filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
-                    filterSpinner.setAdapter(filterSpinnerAdapter);
-                    activity.selectFilterItem(0, filterProfilesSelectedItem, false/*, startTargetHelps*/);
-                    Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                    if (fragment instanceof EditorProfileListFragment)
-                        ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
-                }
+                String[] filterItems = new String[]{
+                        /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_all),
+                        /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
+                        /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
+                };
+                HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
+                        activity,
+                        R.layout.spinner_highlighted_filter,
+                        filterItems);
+                filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+                activity.filterSpinner.setAdapter(filterSpinnerAdapter);
+                activity.selectFilterItem(0, activity.filterProfilesSelectedItem, false/*, startTargetHelps*/);
+                Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                if (fragment instanceof EditorProfileListFragment)
+                    ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
             }, 200);
             return true;
             //} else if (itemId == R.id.menu_events_view) {
@@ -1452,27 +1454,29 @@ public class EditorActivity extends AppCompatActivity
             //editorToolbar.setSubtitle(R.string.title_activity_editor);
             final Handler handler = new Handler(getMainLooper());
             handler.postDelayed(() -> {
-                if (!activity.isFinishing()) {
+                //noinspection ConstantValue
+                if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+                    return;
+
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.selectViewItem (1)");
-                    String[] filterItems = new String[]{
-                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_start_order),
-                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_all),
-                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_not_stopped),
-                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_running),
-                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_paused),
-                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_stopped)
-                    };
-                    HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
-                            activity,
-                            R.layout.spinner_highlighted_filter,
-                            filterItems);
-                    filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
-                    filterSpinner.setAdapter(filterSpinnerAdapter);
-                    activity.selectFilterItem(1, filterEventsSelectedItem, false/*, startTargetHelps*/);
-                    Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                    if (fragment instanceof EditorEventListFragment) {
-                        ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
-                    }
+                String[] filterItems = new String[]{
+                        /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_start_order),
+                        /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_all),
+                        /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_not_stopped),
+                        /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_running),
+                        /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_paused),
+                        /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_stopped)
+                };
+                HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
+                        activity,
+                        R.layout.spinner_highlighted_filter,
+                        filterItems);
+                filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+                activity.filterSpinner.setAdapter(filterSpinnerAdapter);
+                activity.selectFilterItem(1, activity.filterEventsSelectedItem, false/*, startTargetHelps*/);
+                Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                if (fragment instanceof EditorEventListFragment) {
+                    ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
                 }
             }, 200);
             return true;
@@ -2927,7 +2931,7 @@ public class EditorActivity extends AppCompatActivity
             startProfilePreferenceActivity(profile, editMode, predefinedProfileIndex);
     }
 
-    void redrawProfileListFragment(final Profile profile, int newProfileMode /*int predefinedProfileIndex, boolean startTargetHelps*/) {
+    void redrawProfileListFragment(Profile profile, int newProfileMode /*int predefinedProfileIndex, boolean startTargetHelps*/) {
         // redraw list fragment, notification a widgets
 
         Fragment _fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -2951,28 +2955,31 @@ public class EditorActivity extends AppCompatActivity
 
                 if (filterProfilesSelectedItem != 0) {
                     final EditorActivity editorActivity = this;
+                    final Profile _profile = profile;
                     final Handler handler = new Handler(getMainLooper());
                     handler.postDelayed(() -> {
 //                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.redrawProfileListFragment");
-                        if (!editorActivity.isFinishing()) {
-                            boolean changeFilter = false;
-                            switch (filterProfilesSelectedItem) {
-                                case EditorActivity.DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
-                                    changeFilter = profile._showInActivator;
-                                    break;
-                                case EditorActivity.DSI_PROFILES_SHOW_IN_ACTIVATOR:
-                                    changeFilter = !profile._showInActivator;
-                                    break;
-                            }
-                            if (changeFilter) {
-                                fragment.scrollToProfile = profile;
-                                ((HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
-                                        .setSelection(ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
-                                editorActivity.selectFilterItem(0, ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
-                            }
-                            else
-                                fragment.scrollToProfile = null;
+                        //noinspection ConstantValue
+                        if ((editorActivity == null) || editorActivity.isFinishing() || editorActivity.isDestroyed())
+                            return;
+
+                        boolean changeFilter = false;
+                        switch (editorActivity.filterProfilesSelectedItem) {
+                            case EditorActivity.DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
+                                changeFilter = _profile._showInActivator;
+                                break;
+                            case EditorActivity.DSI_PROFILES_SHOW_IN_ACTIVATOR:
+                                changeFilter = !_profile._showInActivator;
+                                break;
                         }
+                        if (changeFilter) {
+                            fragment.scrollToProfile = _profile;
+                            ((HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
+                                    .setSelection(ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
+                            editorActivity.selectFilterItem(0, ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
+                        }
+                        else
+                            fragment.scrollToProfile = null;
                     }, 200);
                 }
             }
@@ -3101,7 +3108,7 @@ public class EditorActivity extends AppCompatActivity
             startEventPreferenceActivity(event, editMode, predefinedEventIndex);
     }
 
-    void redrawEventListFragment(final Event event, int newEventMode /*int predefinedEventIndex, boolean startTargetHelps*/) {
+    void redrawEventListFragment(Event event, int newEventMode /*int predefinedEventIndex, boolean startTargetHelps*/) {
         // redraw list fragment, notification and widgets
         Fragment _fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
         if (_fragment instanceof EditorEventListFragment) {
@@ -3120,34 +3127,37 @@ public class EditorActivity extends AppCompatActivity
 
                 if (filterEventsSelectedItem != 0) {
                     final EditorActivity editorActivity = this;
+                    final Event _event = event;
                     final Handler handler = new Handler(getMainLooper());
                     handler.postDelayed(() -> {
 //                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.redrawEventListFragment");
-                        if (!editorActivity.isFinishing()) {
-                            boolean changeFilter = false;
-                            switch (filterEventsSelectedItem) {
-                                case EditorActivity.DSI_EVENTS_NOT_STOPPED:
-                                    changeFilter = event.getStatus() == Event.ESTATUS_STOP;
-                                    break;
-                                case EditorActivity.DSI_EVENTS_RUNNING:
-                                    changeFilter = event.getStatus() != Event.ESTATUS_RUNNING;
-                                    break;
-                                case EditorActivity.DSI_EVENTS_PAUSED:
-                                    changeFilter = event.getStatus() != Event.ESTATUS_PAUSE;
-                                    break;
-                                case EditorActivity.DSI_EVENTS_STOPPED:
-                                    changeFilter = event.getStatus() != Event.ESTATUS_STOP;
-                                    break;
-                            }
-                            if (changeFilter) {
-                                fragment.scrollToEvent = event;
-                                ((HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
-                                        .setSelection(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
-                                editorActivity.selectFilterItem(1, ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
-                            }
-                            else
-                                fragment.scrollToEvent = null;
+                        //noinspection ConstantValue
+                        if ((editorActivity == null) || editorActivity.isFinishing() || editorActivity.isDestroyed())
+                            return;
+
+                        boolean changeFilter = false;
+                        switch (editorActivity.filterEventsSelectedItem) {
+                            case EditorActivity.DSI_EVENTS_NOT_STOPPED:
+                                changeFilter = _event.getStatus() == Event.ESTATUS_STOP;
+                                break;
+                            case EditorActivity.DSI_EVENTS_RUNNING:
+                                changeFilter = _event.getStatus() != Event.ESTATUS_RUNNING;
+                                break;
+                            case EditorActivity.DSI_EVENTS_PAUSED:
+                                changeFilter = _event.getStatus() != Event.ESTATUS_PAUSE;
+                                break;
+                            case EditorActivity.DSI_EVENTS_STOPPED:
+                                changeFilter = _event.getStatus() != Event.ESTATUS_STOP;
+                                break;
                         }
+                        if (changeFilter) {
+                            fragment.scrollToEvent = _event;
+                            ((HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
+                                    .setSelection(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
+                            editorActivity.selectFilterItem(1, ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
+                        }
+                        else
+                            fragment.scrollToEvent = null;
                     }, 200);
                 }
             }
@@ -3767,14 +3777,17 @@ public class EditorActivity extends AppCompatActivity
             }
             else {
                 //Log.d("EditorActivity.showTargetHelps", "PREF_START_TARGET_HELPS=false");
-                //final Context context = getApplicationContext();
+                final EditorActivity activity = this;
                 final Handler handler = new Handler(getMainLooper());
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.showTargetHelps");
+                    //noinspection ConstantValue
+                    if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+                        return;
 
 //                    PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] EditorActivity.showTargetHelps", "xxx");
                     Intent intent = new Intent(ACTION_SHOW_EDITOR_TARGET_HELPS_BROADCAST_RECEIVER);
-                    LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+                    LocalBroadcastManager.getInstance(activity.getApplicationContext()).sendBroadcast(intent);
                     /*if (EditorActivity.getInstance() != null) {
                         Fragment fragment = EditorActivity.getInstance().getFragmentManager().findFragmentById(R.id.editor_list_container);
                         if (fragment != null) {

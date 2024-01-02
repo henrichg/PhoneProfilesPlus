@@ -89,7 +89,9 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
             if (listAdapter != null)
                 listAdapter.notifyDataSetChanged();
             final Handler handler = new Handler(prefContext.getMainLooper());
-            handler.postDelayed(() -> refreshListView(true), 200);
+            final CalendarsMultiSelectDialogPreferenceFragment fragment = this;
+            // TODO weak reference na fragment
+            handler.postDelayed(() -> fragment.refreshListView(true), 200);
         }
 
     }

@@ -91,7 +91,9 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
             listAdapter.notifyDataSetChanged();
             */
             final Handler handler = new Handler(prefContext.getMainLooper());
-            handler.postDelayed(() -> refreshListView(true), 200);
+            final ContactsMultiSelectDialogPreferenceFragment fragment = this;
+            // TODO weak reference na fragment
+            handler.postDelayed(() -> fragment.refreshListView(true), 200);
         }
 
         contactsFilter = view.findViewById(R.id.contacts_multiselect_pref_dlg_contacts_filter);

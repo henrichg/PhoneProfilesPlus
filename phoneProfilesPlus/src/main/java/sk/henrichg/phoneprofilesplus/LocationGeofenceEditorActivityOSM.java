@@ -733,9 +733,10 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             errorLocationHandler = new Handler(getMainLooper());
             errorLocationRunnable = () -> {
 //            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationGeofenceEditorActivityOSM.startLocationUpdates");
-                if (!activity.isFinishing() && !activity.isDestroyed()) {
+                //noinspection ConstantValue
+                if ((activity != null) && !activity.isFinishing() && !activity.isDestroyed()) {
                     if (activity.mLastLocation == null) {
-                        showErrorLocationDialog();
+                        activity.showErrorLocationDialog();
                     }
                 }
             };

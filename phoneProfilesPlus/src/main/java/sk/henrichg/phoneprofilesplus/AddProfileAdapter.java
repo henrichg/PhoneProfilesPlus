@@ -144,6 +144,7 @@ class AddProfileAdapter extends BaseAdapter {
             rb.setChecked(true);
             final Handler handler = new Handler(context.getMainLooper());
             handler.postDelayed(() -> {
+                // TODO weak reference na dialog
                 if (dialog != null)
                     dialog.doOnItemSelected((Integer) rb.getTag());
             }, 200);

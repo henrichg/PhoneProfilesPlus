@@ -538,8 +538,10 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
         preference.filteredCellsList.clear();
         listAdapter.notifyDataSetChanged();
+        final MobileCellsEditorPreferenceFragment fragment = this;
         final Handler handler = new Handler(prefContext.getMainLooper());
-        handler.postDelayed(() -> refreshListView(false, true/*, Integer.MAX_VALUE*/), 200);
+        // TODO weak reference na fragment
+        handler.postDelayed(() -> fragment.refreshListView(false, true/*, Integer.MAX_VALUE*/), 200);
     }
 
     void setLocationEnableStatus() {

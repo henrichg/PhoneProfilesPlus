@@ -57,10 +57,15 @@ public class ProfilePreferenceFragment extends PreferenceDialogFragmentCompat {
             preference.dataWrapper.invalidateProfileList();
         if (profilePreferenceAdapter != null)
             profilePreferenceAdapter.notifyDataSetChanged();
+
+        final ProfilePreference _preference = preference;
+        final Context _context = prefContext;
         final Handler handler = new Handler(prefContext.getMainLooper());
+        // TODO weak reference na preference
+        // TODO weak reference na prefContext
         handler.postDelayed(() -> {
-            bindViewAsyncTask = new BindViewAsyncTask(preference, preference.fragment, prefContext);
-            bindViewAsyncTask.execute();
+            _preference.fragment.bindViewAsyncTask = new BindViewAsyncTask(_preference, _preference.fragment, _context);
+            _preference.fragment.bindViewAsyncTask.execute();
         }, 200);
     }
 

@@ -219,7 +219,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
         PPApplication.basicExecutorPool.submit(runnable);
     }
 
-    private void setProfileScreenTimeoutSavedWhenScreenOff(Context appContext) {
+    private void setProfileScreenTimeoutSavedWhenScreenOff(final Context appContext) {
         final int screenTimeout = ApplicationPreferences.prefActivatedProfileScreenTimeoutWhenScreenOff;
         if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
             if (PPApplication.screenTimeoutHandler != null) {

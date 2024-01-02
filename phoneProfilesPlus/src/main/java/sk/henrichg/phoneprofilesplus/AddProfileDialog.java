@@ -69,8 +69,9 @@ class AddProfileDialog
             AddProfileViewHolder viewHolder = (AddProfileViewHolder) item.getTag();
             if (viewHolder != null)
                 viewHolder.radioButton.setChecked(true);
+            final AddProfileDialog dialog = this;
             final Handler handler = new Handler(activity.getMainLooper());
-            handler.postDelayed(() -> doOnItemSelected(position), 200);
+            handler.postDelayed(() -> dialog.doOnItemSelected(position), 200);
         });
 
     }

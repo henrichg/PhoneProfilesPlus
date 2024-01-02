@@ -92,6 +92,11 @@ public class ImportantInfoActivityForceScrollFragment extends Fragment {
                 final Handler handler = new Handler(activity.getMainLooper());
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated (2)");
+
+                    //noinspection ConstantValue
+                    if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+                        return;
+
                     scrollView.scrollTo(0, viewToScroll.getTop());
                 }, 200);
             }

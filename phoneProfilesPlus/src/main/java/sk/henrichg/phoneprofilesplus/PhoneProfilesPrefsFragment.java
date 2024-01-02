@@ -381,7 +381,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        if (!((PhoneProfilesPrefsActivity)getActivity()).activityStarted)
+        final PhoneProfilesPrefsActivity activity = (PhoneProfilesPrefsActivity) getActivity();
+        if (!(activity.activityStarted))
             return;
 
         final PhoneProfilesPrefsFragment fragment = this;
@@ -392,11 +393,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         final Handler handler = new Handler(getActivity().getMainLooper());
         handler.postDelayed(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsFragment.onActivityCreated");
-            if (getActivity() == null)
+
+            //noinspection ConstantValue
+            if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                 return;
 
-            Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar_no_subtitle);
-            toolbar.setTitle(getString(R.string.title_activity_phone_profiles_preferences));
+            Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar_no_subtitle);
+            toolbar.setTitle(activity.getString(R.string.title_activity_phone_profiles_preferences));
         }, 200);
 
         // subtitle
@@ -1407,11 +1410,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(preference114 -> {
                 boolean ok = false;
-                String activity;
-                activity = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
-                if (GlobalGUIRoutines.activityActionExists(activity, getActivity().getApplicationContext())) {
+                String action;
+                action = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
+                if (GlobalGUIRoutines.activityActionExists(action, getActivity().getApplicationContext())) {
                     try {
-                        Intent intent = new Intent(activity);
+                        Intent intent = new Intent(action);
                         startActivityForResult(intent, RESULT_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {

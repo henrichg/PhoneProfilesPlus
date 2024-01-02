@@ -344,29 +344,29 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
-
-        final Context context = activity.getBaseContext();
+        final EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
 
 //        PPApplication.forceStartOrientationScanner(context);
 //        forceStart = true;
 
         // must be used handler for rewrite toolbar title/subtitle
-        final EventsPrefsFragment fragment = this;
-        final TextView preferenceSubTitle = getActivity().findViewById(R.id.activity_preferences_subtitle);
-
         final Handler handler = new Handler(getActivity().getMainLooper());
         handler.postDelayed(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onActivityCreated");
-            if (getActivity() == null)
+
+            if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                 return;
 
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
             final String eventName = preferences.getString(Event.PREF_EVENT_NAME, "");
-            Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
-            toolbar.setSubtitle(getString(R.string.title_activity_event_preferences));
-            toolbar.setTitle(getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
+            Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar);
+            toolbar.setSubtitle(activity.getString(R.string.title_activity_event_preferences));
+            toolbar.setTitle(activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
         }, 200);
+
+        final Context context = activity.getBaseContext();
+        final EventsPrefsFragment fragment = this;
+        final TextView preferenceSubTitle = getActivity().findViewById(R.id.activity_preferences_subtitle);
 
         // subtitle
         if (nestedFragment) {
@@ -1276,17 +1276,21 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Event.PREF_EVENT_NAME)) {
             String value = sharedPreferences.getString(key, "");
             if (getActivity() != null) {
+
+                final EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
+
                 // must be used handler for rewrite toolbar title/subtitle
                 final String _value = value;
                 final Handler handler = new Handler(getActivity().getMainLooper());
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onSharedPreferenceChanged");
-                    if (getActivity() == null)
+
+                    if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                         return;
 
-                    Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
+                    Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar);
                     //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + _value);
-                    toolbar.setTitle(getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + _value);
+                    toolbar.setTitle(activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + _value);
                 }, 200);
             }
         }

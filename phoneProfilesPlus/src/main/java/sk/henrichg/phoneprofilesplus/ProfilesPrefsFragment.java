@@ -419,26 +419,26 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        ProfilesPrefsActivity activity = (ProfilesPrefsActivity) getActivity();
-
-        final Context context = getActivity().getBaseContext();
+        final ProfilesPrefsActivity activity = (ProfilesPrefsActivity) getActivity();
 
         // must be used handler for rewrite toolbar title/subtitle
-        final ProfilesPrefsFragment fragment = this;
-        final TextView preferenceSubTitle = getActivity().findViewById(R.id.activity_preferences_subtitle);
-
         final Handler handler = new Handler(getActivity().getMainLooper());
+        // TODO weak reference na activity
         handler.postDelayed(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilesPrefsFragment.onActivityCreated");
-            if (getActivity() == null)
+            if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                 return;
 
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
             final String profileName = preferences.getString(Profile.PREF_PROFILE_NAME, "");
-            Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
-            toolbar.setSubtitle(getString(R.string.title_activity_profile_preferences));
-            toolbar.setTitle(getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profileName);
+            Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar);
+            toolbar.setSubtitle(activity.getString(R.string.title_activity_profile_preferences));
+            toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profileName);
         }, 200);
+
+        final Context context = getActivity().getBaseContext();
+        final ProfilesPrefsFragment fragment = this;
+        final TextView preferenceSubTitle = getActivity().findViewById(R.id.activity_preferences_subtitle);
 
         // subtitle
         if (nestedFragment) {
@@ -1648,17 +1648,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_NAME)) {
             String value = sharedPreferences.getString(key, "");
             if (getActivity() != null) {
+
+                final ProfilesPrefsActivity activity = (ProfilesPrefsActivity) getActivity();
+
                 // must be used handler for rewrite toolbar title/subtitle
                 final String _value = value;
                 final Handler handler = new Handler(getActivity().getMainLooper());
+                // TODO weak reference na activity
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilesPrefsFragment.onSharedPreferenceChanged");
-                    if (getActivity() == null)
+                    if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                         return;
 
-                    Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
+                    Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar);
                     //toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + _value);
-                    toolbar.setTitle(getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + _value);
+                    toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + _value);
                 }, 200);
             }
         }
