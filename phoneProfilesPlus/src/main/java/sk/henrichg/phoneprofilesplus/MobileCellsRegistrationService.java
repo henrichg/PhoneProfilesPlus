@@ -160,16 +160,12 @@ public class MobileCellsRegistrationService extends Service
             PPApplicationStatic.restartMobileCellsScanner(this);
 
             showResultNotification();
-
-            if (mobileCellsRegistrationStopButtonBroadcastReceiver != null) {
-                try {
-                    context.unregisterReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver);
-                } catch (IllegalArgumentException e) {
-                    //PPApplicationStatic.recordException(e);
-                }
-                mobileCellsRegistrationStopButtonBroadcastReceiver = null;
-            }
         }
+
+        try {
+            context.unregisterReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver);
+        } catch (Exception ignored) {}
+        mobileCellsRegistrationStopButtonBroadcastReceiver = null;
 
         serviceStarted = false;
 

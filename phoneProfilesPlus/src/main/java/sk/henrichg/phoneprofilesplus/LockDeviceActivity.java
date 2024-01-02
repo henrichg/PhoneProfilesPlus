@@ -204,10 +204,10 @@ public class LockDeviceActivity extends AppCompatActivity
         //PPApplication.lockDeviceActivity = null;
         PPApplication.lockDeviceActivityDisplayed = false;
 
-        if (finishActivityBroadcastReceiver != null) {
+        try {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(finishActivityBroadcastReceiver);
-            finishActivityBroadcastReceiver = null;
-        }
+        } catch (Exception ignored) {}
+        finishActivityBroadcastReceiver = null;
     }
 
     @Override

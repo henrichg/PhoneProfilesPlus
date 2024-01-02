@@ -689,14 +689,14 @@ public class EditorActivity extends AppCompatActivity
     }
 
     private void unregisterReceiversInStop() {
-        if (refreshGUIBroadcastReceiver != null) {
+        try {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
-            refreshGUIBroadcastReceiver = null;
-        }
-        if (showTargetHelpsBroadcastReceiver != null) {
+        } catch (Exception ignored) {}
+        refreshGUIBroadcastReceiver = null;
+        try {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
-            showTargetHelpsBroadcastReceiver = null;
-        }
+        } catch (Exception ignored) {}
+        showTargetHelpsBroadcastReceiver = null;
     }
 
     @Override
@@ -770,14 +770,12 @@ public class EditorActivity extends AppCompatActivity
             PPApplication.basicExecutorPool.submit(runnable);
         }
 
-        if (finishBroadcastReceiver != null) {
-            try {
-                getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
-            } catch (Exception e) {
-                //PPApplicationStatic.recordException(e);
-            }
-            finishBroadcastReceiver = null;
+        try {
+            getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
+        } catch (Exception e) {
+            //PPApplicationStatic.recordException(e);
         }
+        finishBroadcastReceiver = null;
     }
 
     @Override

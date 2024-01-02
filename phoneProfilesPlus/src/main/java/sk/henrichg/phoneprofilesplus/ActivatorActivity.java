@@ -365,9 +365,13 @@ public class ActivatorActivity extends AppCompatActivity
         PPApplication.brightnessInternalChange = false;
         PPExecutors.scheduleDisableBrightnessInternalChangeExecutor();
 
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+        } catch (Exception ignored) {}
         refreshGUIBroadcastReceiver = null;
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
+        } catch (Exception ignored) {}
         showTargetHelpsBroadcastReceiver = null;
 
         //if (targetHelpsSequenceStarted) {
@@ -381,6 +385,16 @@ public class ActivatorActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+        } catch (Exception ignored) {}
+        refreshGUIBroadcastReceiver = null;
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
+        } catch (Exception ignored) {}
+        showTargetHelpsBroadcastReceiver = null;
+
         try {
             getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
         } catch (Exception e) {

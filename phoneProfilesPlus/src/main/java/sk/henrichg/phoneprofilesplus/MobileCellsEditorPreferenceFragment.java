@@ -122,10 +122,10 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             renameCellNamesFromEventsAsyncTask.cancel(true);
         renameCellNamesFromEventsAsyncTask = null;
 
-        if (refreshListViewBroadcastReceiver != null) {
+        try {
             LocalBroadcastManager.getInstance(prefContext).unregisterReceiver(refreshListViewBroadcastReceiver);
-            refreshListViewBroadcastReceiver = null;
-        }
+        } catch (Exception ignored) {}
+        refreshListViewBroadcastReceiver = null;
 
         PPApplication.mobileCellsForceStart = false;
         PPApplicationStatic.restartMobileCellsScanner(prefContext);

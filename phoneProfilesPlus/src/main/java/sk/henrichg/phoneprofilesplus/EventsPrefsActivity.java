@@ -166,10 +166,8 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         try {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
-            refreshGUIBroadcastReceiver = null;
-        } catch (IllegalArgumentException e) {
-            //PPApplicationStatic.recordException(e);
-        }
+        } catch (Exception ignored) {}
+        refreshGUIBroadcastReceiver = null;
     }
 
     @Override
@@ -207,6 +205,11 @@ public class EventsPrefsActivity extends AppCompatActivity
                 finishPreferencesActivityAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             finishPreferencesActivityAsyncTask.cancel(true);
         finishPreferencesActivityAsyncTask = null;
+
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+        } catch (Exception ignored) {}
+        refreshGUIBroadcastReceiver = null;
     }
 
     @Override

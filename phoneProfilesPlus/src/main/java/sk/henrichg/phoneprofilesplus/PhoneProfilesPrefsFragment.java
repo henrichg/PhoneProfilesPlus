@@ -2103,20 +2103,16 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     {
         super.onDestroy();
 
-        if (shortcutToEditorAddedReceiver != null) {
-            try {
-                if (getActivity() != null)
-                    getActivity().unregisterReceiver(shortcutToEditorAddedReceiver);
-            } catch (Exception ignored) {}
-            shortcutToEditorAddedReceiver = null;
-        }
-        if (shortcutToMobileCellScanningAddedReceiver != null) {
-            try {
-                if (getActivity() != null)
-                    getActivity().unregisterReceiver(shortcutToMobileCellScanningAddedReceiver);
-            } catch (Exception ignored) {}
-            shortcutToMobileCellScanningAddedReceiver = null;
-        }
+        try {
+            if (getActivity() != null)
+                getActivity().unregisterReceiver(shortcutToEditorAddedReceiver);
+        } catch (Exception ignored) {}
+        shortcutToEditorAddedReceiver = null;
+        try {
+            if (getActivity() != null)
+                getActivity().unregisterReceiver(shortcutToMobileCellScanningAddedReceiver);
+        } catch (Exception ignored) {}
+        shortcutToMobileCellScanningAddedReceiver = null;
 
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);

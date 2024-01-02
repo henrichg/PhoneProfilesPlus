@@ -427,25 +427,32 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
                 doPreferenceChanges();
         }
 
-        if (mobileCellsRegistrationCountDownBroadcastReceiver != null) {
-            try {
-                unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);
-            } catch (IllegalArgumentException e) {
-                //PPApplicationStatic.recordException(e);
-            }
-            mobileCellsRegistrationCountDownBroadcastReceiver = null;
-        }
+        try {
+            unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);
+        } catch (Exception ignored) {}
+        mobileCellsRegistrationCountDownBroadcastReceiver = null;
 
-        if (mobileCellsRegistrationNewCellsBroadcastReceiver != null) {
-            try {
-                unregisterReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver);
-            } catch (IllegalArgumentException e) {
-                //PPApplicationStatic.recordException(e);
-            }
-            mobileCellsRegistrationNewCellsBroadcastReceiver = null;
-        }
+        try {
+            unregisterReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver);
+        } catch (Exception ignored) {}
+        mobileCellsRegistrationNewCellsBroadcastReceiver = null;
 
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        try {
+            unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);
+        } catch (Exception ignored) {}
+        mobileCellsRegistrationCountDownBroadcastReceiver = null;
+
+        try {
+            unregisterReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver);
+        } catch (Exception ignored) {}
+        mobileCellsRegistrationNewCellsBroadcastReceiver = null;
     }
 
     @Override

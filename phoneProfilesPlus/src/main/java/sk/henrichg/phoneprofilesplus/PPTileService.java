@@ -48,13 +48,12 @@ public class PPTileService extends TileService {
             }
         }
         if (!isOK) {
-            try {
-                if (PPApplication.quickTileChooseTileBroadcastReceiver[tileId] != null) {
+            if (PPApplication.quickTileChooseTileBroadcastReceiver[tileId] != null) {
+                try {
                     getApplicationContext().unregisterReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId]);
-                    //LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId]);
-                    PPApplication.quickTileChooseTileBroadcastReceiver[tileId] = null;
-                }
-            } catch (Exception ignored) {}
+                } catch (Exception ignored) {}
+                PPApplication.quickTileChooseTileBroadcastReceiver[tileId] = null;
+            }
             if (PPApplication.quickTileChooseTileBroadcastReceiver[tileId] == null) {
                 PPApplication.quickTileChooseTileBroadcastReceiver[tileId] = new QuickTileChooseTileBroadcastReceiver();
                 getApplicationContext().registerReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId],
@@ -111,13 +110,12 @@ public class PPTileService extends TileService {
         //  also when is called TileService.requestListeningState()
 
         int tileId = getTileId();
-        try {
-            if (PPApplication.quickTileChooseTileBroadcastReceiver[tileId] != null) {
+        if (PPApplication.quickTileChooseTileBroadcastReceiver[tileId] != null) {
+            try {
                 getApplicationContext().unregisterReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId]);
-                //LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId]);
-                PPApplication.quickTileChooseTileBroadcastReceiver[tileId] = null;
-            }
-        } catch (Exception ignored) {}
+            } catch (Exception ignored) {}
+            PPApplication.quickTileChooseTileBroadcastReceiver[tileId] = null;
+        }
         if (PPApplication.quickTileChooseTileBroadcastReceiver[tileId] == null) {
             PPApplication.quickTileChooseTileBroadcastReceiver[tileId] = new QuickTileChooseTileBroadcastReceiver();
             getApplicationContext().registerReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId],

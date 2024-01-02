@@ -323,10 +323,8 @@ public class ActivityLogActivity extends AppCompatActivity
 
         try {
             unregisterReceiver(addedActivityLogBroadcastReceiver);
-            addedActivityLogBroadcastReceiver = null;
-        } catch (IllegalArgumentException e) {
-            //PPApplicationStatic.recordException(e);
-        }
+        } catch (Exception ignored) {}
+        addedActivityLogBroadcastReceiver = null;
 
         Cursor cursor = activityLogAdapter.getCursor();
         if (cursor != null)

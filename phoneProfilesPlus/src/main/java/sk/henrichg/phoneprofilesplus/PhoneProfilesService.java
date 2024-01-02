@@ -362,9 +362,7 @@ public class PhoneProfilesService extends Service
 
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(commandReceiver);
-        } catch (Exception e) {
-            //PPApplicationStatic.recordException(e);
-        }
+        } catch (Exception ignored) {}
 
         PlayRingingNotification.stopSimulatingRingingCall(/*true*/true, getApplicationContext());
         //PhoneProfilesServiceStatic.stopSimulatingNotificationTone(true);
@@ -382,41 +380,29 @@ public class PhoneProfilesService extends Service
         if (Build.VERSION.SDK_INT < 31) {
             try {
                 appContext.unregisterReceiver(PPApplication.startLauncherFromNotificationReceiver);
-            } catch (Exception e) {
-                //PPApplicationStatic.recordException(e);
-            }
+            } catch (Exception ignored) {}
         }
-        /*try {
-            appContext.unregisterReceiver(PPApplication.showProfileNotificationBroadcastReceiver);
-        } catch (Exception e) {
-            //PPApplicationStatic.recordException(e);
-        }*/
-        /*try {
-            appContext.unregisterReceiver(PPApplication.updateGUIBroadcastReceiver);
-        } catch (Exception e) {
-            //PPApplicationStatic.recordException(e);
-        }*/
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.refreshActivitiesBroadcastReceiver);
-        } catch (Exception e) {
-            //PPApplicationStatic.recordException(e);
-        }
+        } catch (Exception ignored) {}
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.dashClockBroadcastReceiver);
-        } catch (Exception e) {
-            //PPApplicationStatic.recordException(e);
-        }
-
-        /*
-        if (startLauncherFromNotificationReceiver != null) {
-            try {
-                getApplicationContext().unregisterReceiver(startLauncherFromNotificationReceiver);
-                startLauncherFromNotificationReceiver = null;
-            } catch (Exception e) {
-                startLauncherFromNotificationReceiver = null;
-            }
-        }
-        */
+        } catch (Exception ignored) {}
+        try {
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.iconWidgetBroadcastReceiver);
+        } catch (Exception ignored) {}
+        try {
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.oneRowWidgetBroadcastReceiver);
+        } catch (Exception ignored) {}
+        try {
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.listWidgetBroadcastReceiver);
+        } catch (Exception ignored) {}
+        try {
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.edgePanelBroadcastReceiver);
+        } catch (Exception ignored) {}
+        try {
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.oneRowProfileListWidgetBroadcastReceiver);
+        } catch (Exception ignored) {}
 
         RootUtils.initRoot();
 

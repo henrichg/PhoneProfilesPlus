@@ -491,14 +491,10 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     protected void onStop() {
         super.onStop();
 
-        if (checkOnlineStatusBroadcatReceiver != null) {
-            try {
-                LocalBroadcastManager.getInstance(this).unregisterReceiver(checkOnlineStatusBroadcatReceiver);
-                checkOnlineStatusBroadcatReceiver = null;
-            } catch (Exception e) {
-                checkOnlineStatusBroadcatReceiver = null;
-            }
-        }
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(checkOnlineStatusBroadcatReceiver);
+        } catch (Exception ignored) {}
+        checkOnlineStatusBroadcatReceiver = null;
 
         GlobalGUIRoutines.unlockScreenOrientation(this);
     }
@@ -535,6 +531,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
         }
+
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(checkOnlineStatusBroadcatReceiver);
+        } catch (Exception ignored) {}
+        checkOnlineStatusBroadcatReceiver = null;
     }
 
     @Override
