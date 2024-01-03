@@ -872,7 +872,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 //        PPApplicationStatic.logE("[IN_LISTENER] ProfileListWidgetProvider.onUpdate", "xxx");
         if (appWidgetIds.length > 0) {
 
-            final Context appContext = context;
+            final Context appContext = context.getApplicationContext();
             LocaleHelper.setApplicationLocale(appContext);
 
             Runnable runnable = () -> {
@@ -901,7 +901,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, final Intent intent) {
-        final Context appContext = context;
+        final Context appContext = context.getApplicationContext();
         LocaleHelper.setApplicationLocale(appContext);
 
         super.onReceive(appContext, intent); // calls onUpdate, is required for widget
@@ -1046,7 +1046,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] ProfileListWidgetProvider.onAppWidgetOptionsChanged", "xxx");
 
-        final Context appContext = context;
+        final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onAppWidgetOptionsChanged");
 
@@ -1077,7 +1077,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     }
 
     private static void updateAfterWidgetOptionsChanged(Context appContext, int appWidgetId) {
-        //Context appContext = context;
+        //Context appContext = context.getApplicationContext();
         LocaleHelper.setApplicationLocale(appContext);
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(appContext);

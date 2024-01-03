@@ -93,7 +93,7 @@ public class BluetoothScanWorker extends Worker {
             }
 
 //            PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** BluetoothScanWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG");
-            final Context appContext = context;
+            final Context appContext = context.getApplicationContext();
             //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
             Runnable runnable = () -> {
 //                long start1 = System.currentTimeMillis();

@@ -76,7 +76,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
         }
         /*}
         else {
-            final Context appContext = context;
+            final Context appContext = context.getApplicationContext();
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=VPNNetworkCallback.doConnection");
 

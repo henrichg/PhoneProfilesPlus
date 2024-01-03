@@ -72,7 +72,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 //        PPApplicationStatic.logE("[IN_LISTENER] OneRowWidgetProvider.onUpdate", "xxx");
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
-            final Context appContext = context;
+            final Context appContext = context.getApplicationContext();
             LocaleHelper.setApplicationLocale(appContext);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
@@ -730,7 +730,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, final Intent intent) {
-        final Context appContext = context;
+        final Context appContext = context.getApplicationContext();
         LocaleHelper.setApplicationLocale(appContext);
 
         super.onReceive(appContext, intent); // calls onUpdate, is required for widget

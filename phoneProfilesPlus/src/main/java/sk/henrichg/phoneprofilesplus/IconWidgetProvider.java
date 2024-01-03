@@ -28,7 +28,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
 //        PPApplicationStatic.logE("[IN_LISTENER] IconWidgetProvider.onUpdate", "xxx");
         if (appWidgetIds.length > 0) {
-            final Context appContext = context;
+            final Context appContext = context.getApplicationContext();
             LocaleHelper.setApplicationLocale(appContext);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onUpdate");
@@ -1182,7 +1182,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, final Intent intent) {
-        final Context appContext = context;
+        final Context appContext = context.getApplicationContext();
         LocaleHelper.setApplicationLocale(appContext);
 
         super.onReceive(appContext, intent); // calls onUpdate, is required for widget

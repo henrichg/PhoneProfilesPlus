@@ -130,7 +130,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
         }
 
             /*
-            final Context appContext = context;
+            final Context appContext = context.getApplicationContext();
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
 

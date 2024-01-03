@@ -94,7 +94,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                 }
 
 //                PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** PeriodicEventsHandlerWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG");
-                final Context appContext = context;
+                final Context appContext = context.getApplicationContext();
                 //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                 Runnable runnable = () -> {
 //                    long start1 = System.currentTimeMillis();

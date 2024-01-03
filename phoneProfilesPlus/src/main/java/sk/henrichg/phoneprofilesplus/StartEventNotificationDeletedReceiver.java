@@ -14,7 +14,7 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
 //        PPApplicationStatic.logE("[IN_BROADCAST] StartEventNotificationDeletedReceiver.onReceive", "xxx");
 
         final long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
-        final Context appContext = context;
+        final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=StartEventNotificationDeletedReceiver.onReceive");
 

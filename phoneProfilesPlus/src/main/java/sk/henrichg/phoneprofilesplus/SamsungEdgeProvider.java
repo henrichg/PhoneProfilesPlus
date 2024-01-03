@@ -472,7 +472,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     @Override
     public void onUpdate(Context context, final SlookCocktailManager cocktailManager, final int[] cocktailIds) {
-        final Context appContext = context;
+        final Context appContext = context.getApplicationContext();
         LocaleHelper.setApplicationLocale(appContext);
 
         super.onUpdate(appContext, cocktailManager, cocktailIds);
@@ -505,7 +505,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     @Override
     public void onReceive(Context context, final Intent intent) {
-        final Context appContext = context;
+        final Context appContext = context.getApplicationContext();
         LocaleHelper.setApplicationLocale(appContext);
 
         super.onReceive(appContext, intent); // calls onUpdate, is required for widget

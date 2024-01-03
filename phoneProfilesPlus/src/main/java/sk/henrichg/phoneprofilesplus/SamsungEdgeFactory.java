@@ -161,7 +161,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
     public RemoteViews getViewAt(int position) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] SamsungEdgeFactory.getViewAt", "PPApplication.samsungEdgeDatasetChangedMutex");
         synchronized (PPApplication.samsungEdgeDatasetChangedMutex) {
-            Context appContext = context;
+            Context appContext = context.getApplicationContext();
             LocaleHelper.setApplicationLocale(appContext);
 
             RemoteViews row;

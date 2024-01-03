@@ -672,7 +672,7 @@ class DataWrapper {
     {
         //final DataWrapper dataWrapper = copyDataWrapper();
 
-        final Context appContext = context;
+        final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
 
@@ -916,7 +916,7 @@ class DataWrapper {
                                             @SuppressWarnings("SameParameterValue") final boolean alsoUnlink) {
         final DataWrapper dataWrapper = copyDataWrapper();
 
-        final Context appContext = context;
+        final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.stopEventsForProfileFromMainThread");
 
@@ -995,7 +995,7 @@ class DataWrapper {
     private void pauseAllEventsForGlobalStopEvents() {
         final DataWrapper dataWrapper = copyDataWrapper();
 
-        final Context appContext = context;
+        final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.pauseAllEventsForGlobalStopEvents");
 
@@ -1063,7 +1063,7 @@ class DataWrapper {
                                      final boolean alsoDelete) {
         final DataWrapper dataWrapper = copyDataWrapper();
 
-        final Context appContext = context;
+        final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.stopAllEventsFromMainThread");
 
@@ -1598,7 +1598,7 @@ class DataWrapper {
     {
         final DataWrapper dataWrapper = copyDataWrapper();
 
-        final Context appContext = context;
+        final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.activateProfileFromMainThread");
 
@@ -2120,7 +2120,7 @@ class DataWrapper {
         if (useHandler) {
             final DataWrapper dataWrapper = copyDataWrapper();
 
-            final Context appContext = context;
+            final Context appContext = context.getApplicationContext();
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithRescan");
 

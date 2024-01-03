@@ -245,7 +245,7 @@ class PPApplicationStatic {
     static void addActivityLog(Context context, final int logType, final String eventName,
                                final String profileName, final String profilesEventsCount) {
         if (PPApplication.prefActivityLogEnabled) {
-            final Context appContext = context;
+            final Context appContext = context.getApplicationContext();
 
             if ((logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION) ||
                     (logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT) ||

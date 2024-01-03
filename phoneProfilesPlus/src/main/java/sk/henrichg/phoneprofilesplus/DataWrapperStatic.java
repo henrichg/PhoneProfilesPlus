@@ -620,7 +620,7 @@ class DataWrapperStatic {
 
     static void setDynamicLauncherShortcuts(final Context appContext) {
         try {
-            //final Context appContext = context;
+            //final Context appContext = context.getApplicationContext();
             LocaleHelper.setApplicationLocale(appContext);
 
             ShortcutManager shortcutManager = appContext.getSystemService(ShortcutManager.class);
