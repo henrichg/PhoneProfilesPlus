@@ -824,8 +824,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     }
     */
 
-    private static void doOnUpdate(Context context, AppWidgetManager appWidgetManager,
-                                   int appWidgetId, boolean fromOnUpdate/*, boolean addWidgetType*/) {
+    private static void doOnUpdate(final Context context, final AppWidgetManager appWidgetManager,
+                                   final int appWidgetId, final boolean fromOnUpdate/*, boolean addWidgetType*/) {
 //        Log.e("ProfileListWidgetProvider.doOnUpdate", "fromOnUpdate="+fromOnUpdate);
 
         /*if (addWidgetType) {

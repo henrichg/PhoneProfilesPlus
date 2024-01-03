@@ -20,7 +20,7 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        int tileId = intent.getIntExtra(EXTRA_QUICK_TILE_ID, -1);
+        final int tileId = intent.getIntExtra(EXTRA_QUICK_TILE_ID, -1);
         if (tileId == -1)
             return;
 
@@ -72,17 +72,17 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
+                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
 
-                    String toast = context.getString(R.string.tile_chooser_tile_changed_toast);
+                    String toast = appContext.getString(R.string.tile_chooser_tile_changed_toast);
                     if (PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID)
-                        toast = toast + " " + context.getString(R.string.menu_restart_events);
+                        toast = toast + " " + appContext.getString(R.string.menu_restart_events);
                     else {
                         String profileName = dataWrapper.getProfileName(PPApplication.quickTileProfileId[tileId]);
                         if (profileName != null)
                             toast = toast + " " + profileName;
                     }
-                    PPApplication.showToast(context.getApplicationContext(), toast, Toast.LENGTH_LONG);
+                    PPApplication.showToast(appContext, toast, Toast.LENGTH_LONG);
 
                     DataWrapperStatic.setDynamicLauncherShortcuts(appContext);
 

@@ -159,7 +159,7 @@ public class PPTileService extends TileService {
             return;
         LocaleHelper.setApplicationLocale(this);
 
-        int tileId = getTileId();
+        final int tileId = getTileId();
 
         if ((PPApplication.quickTileProfileId[tileId] != 0) && (PPApplication.quickTileProfileId[tileId] != -1)) {
             Runnable runnable = () -> {

@@ -449,7 +449,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     }
     */
 
-    private static void doOnUpdate(Context context, SlookCocktailManager cocktailBarManager, int cocktailId, boolean fromOnUpdate)
+    private static void doOnUpdate(Context context, final SlookCocktailManager cocktailBarManager, final int cocktailId, boolean fromOnUpdate)
     {
         RemoteViews widget = buildLayout(context);
         try {
