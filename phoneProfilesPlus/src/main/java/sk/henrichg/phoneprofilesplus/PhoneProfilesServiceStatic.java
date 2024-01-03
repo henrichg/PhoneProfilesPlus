@@ -1223,7 +1223,7 @@ class PhoneProfilesServiceStatic
     }
 
     static void registerObserverForRadioSwitchMobileDataSensor(final boolean register, final DataWrapper dataWrapper, final Context context) {
-        Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
 
         // keep this: it is required to use handlerThreadBroadcast for observers
         PPApplicationStatic.startHandlerThreadBroadcast();
@@ -1257,8 +1257,8 @@ class PhoneProfilesServiceStatic
         });
     }
 
-    static void registerReceiverForRadioSwitchDefaultSIMSensor(boolean register, DataWrapper dataWrapper, Context context) {
-        Context appContext = context.getApplicationContext();
+    static void registerReceiverForRadioSwitchDefaultSIMSensor(final boolean register, final DataWrapper dataWrapper, final Context context) {
+        final Context appContext = context.getApplicationContext();
         if (!register) {
             if (PPApplication.defaultSIMChangedBroadcastReceiver != null) {
                 try {
@@ -2480,7 +2480,8 @@ class PhoneProfilesServiceStatic
 
     static void startMobileCellsScanner(final boolean start, final boolean stop,
                                          final DataWrapper dataWrapper,
-                                         final boolean forceStart, final boolean rescan, Context context) {
+                                         final boolean forceStart, final boolean rescan,
+                                         final Context context) {
         final Context appContext = context.getApplicationContext();
 
         // keep this: it is required to use handlerThreadBroadcast for cells listener

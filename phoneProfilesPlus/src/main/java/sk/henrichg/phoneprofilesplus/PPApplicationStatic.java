@@ -2544,12 +2544,14 @@ class PPApplicationStatic {
     }
     */
 
-    static void startHandlerThreadProgressBar(/*String from*/) {
+    /*
+    static void startHandlerThreadProgressBar() {
         if (PPApplication.handlerThreadProgressBar == null) {
             PPApplication.handlerThreadProgressBar = new HandlerThread("PPHandlerThreadProgressBar", THREAD_PRIORITY_MORE_FAVORABLE); //);
             PPApplication.handlerThreadProgressBar.start();
         }
     }
+    */
 
     static void setBlockProfileEventActions(boolean enable) {
         // if blockProfileEventActions = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
