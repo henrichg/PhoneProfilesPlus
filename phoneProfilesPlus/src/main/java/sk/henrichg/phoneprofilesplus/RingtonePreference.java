@@ -134,13 +134,14 @@ public class RingtonePreference extends DialogPreference {
         final AudioManager audioManager = (AudioManager) prefContext.getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
             final Context appContext = prefContext.getApplicationContext();
+            final String _ringtoneUri = ringtoneUri;
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceFragment.stopPlayRingtone");
 
                 //Context appContext = appContextWeakRef.get();
                 //AudioManager audioManager = audioManagerWeakRef.get();
 
-                if (/*(appContext != null) && (audioManager != null) &&*/ (ringtoneUri != null)) {
+                if (/*(appContext != null) && (audioManager != null) &&*/ (_ringtoneUri != null)) {
                     if (playTimer != null) {
                         playTimer.cancel();
                         playTimer = null;
@@ -189,6 +190,7 @@ public class RingtonePreference extends DialogPreference {
 
             final Context appContext = prefContext.getApplicationContext();
             final RingtonePreference preference = this;
+            final String _ringtoneType = ringtoneType;
 
             Runnable runnable = () -> {
                 //Context appContext = appContextWeakRef.get();
@@ -237,7 +239,7 @@ public class RingtonePreference extends DialogPreference {
                         int ringtoneVolume = 0;
                         int maximumRingtoneValue = 0;
 
-                        switch (ringtoneType) {
+                        switch (_ringtoneType) {
                             case RINGTONE_TYPE_RINGTONE:
                                 maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
                                 if (!oldMediaMuted)

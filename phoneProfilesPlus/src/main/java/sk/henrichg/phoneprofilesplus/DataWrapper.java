@@ -912,7 +912,7 @@ class DataWrapper {
         restartEventsWithRescan(true, false, true, false, true, false);
     }
 
-    void stopEventsForProfileFromMainThread(Profile profile,
+    void stopEventsForProfileFromMainThread(final Profile profile,
                                             @SuppressWarnings("SameParameterValue") final boolean alsoUnlink) {
         final DataWrapper dataWrapper = copyDataWrapper();
 

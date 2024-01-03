@@ -174,6 +174,7 @@ class MobileCellsListener extends PhoneStateListener {
             return;
 
         final Context appContext = context.getApplicationContext();
+        final MobileCellsListener listener = this;
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.onCellInfoChanged");
 
@@ -194,10 +195,10 @@ class MobileCellsListener extends PhoneStateListener {
                     //    _cellInfo = getAllCellInfo();
                     //else
                     //    getAllCellInfo(_cellInfo);
-                    getAllCellInfo(cellInfo);
+                    listener.getAllCellInfo(cellInfo);
 
                     //if (_cellInfo != null) {
-                    handleEvents(appContext);
+                    listener.handleEvents(appContext);
                     //}
 
                 } catch (Exception e) {
@@ -236,6 +237,7 @@ class MobileCellsListener extends PhoneStateListener {
             return;
 
         final Context appContext = context.getApplicationContext();
+        final MobileCellsListener listener = this;
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.onServiceStateChanged");
 
@@ -251,9 +253,9 @@ class MobileCellsListener extends PhoneStateListener {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    registerCell();
+                    listener.registerCell();
 
-                    handleEvents(appContext);
+                    listener.handleEvents(appContext);
 
                 } catch (Exception e) {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -352,6 +354,7 @@ class MobileCellsListener extends PhoneStateListener {
             return;
 
         final Context appContext = context.getApplicationContext();
+        final MobileCellsListener listener = this;
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.onCellLocationChanged");
 
@@ -372,9 +375,9 @@ class MobileCellsListener extends PhoneStateListener {
                     //    _location = getCellLocation();
                     //else
                     //    getCellLocation(_location);
-                    getCellLocation(location);
+                    listener.getCellLocation(location);
 
-                    handleEvents(appContext);
+                    listener.handleEvents(appContext);
                     //}
 
                 } catch (Exception e) {
@@ -412,6 +415,7 @@ class MobileCellsListener extends PhoneStateListener {
 //            PPApplicationStatic.logE("[TEST BATTERY] MobileCellsListener.rescanMobileCells", "******** ### *******");
 
             final Context appContext = context.getApplicationContext();
+            final MobileCellsListener listener = this;
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=MobileCellsListener.rescanMobileCells");
 
@@ -427,9 +431,9 @@ class MobileCellsListener extends PhoneStateListener {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        registerCell();
+                        listener.registerCell();
 
-                        handleEvents(appContext);
+                        listener.handleEvents(appContext);
 
                     } catch (Exception e) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));

@@ -35,7 +35,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     //private CheckBox sharedProfileChBox = null;
     private Button actualVolumeBtn = null;
 
-    private MediaPlayer mediaPlayer = null;
+    private static volatile MediaPlayer mediaPlayer = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -158,6 +158,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
 
         final Context appContext = context.getApplicationContext();
         final AudioManager audioManager = preference.audioManager;
+        final VolumeDialogPreference _preference = preference;
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragment.onDialogClosed");
 
@@ -165,9 +166,9 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
             //AudioManager audioManager = audioManagerWeakRef.get();
 
             //if ((appContext != null) && (audioManager != null)) {
-                if (preference.usedValueMusic != -1)
-                    ActivateProfileHelper.setMediaVolume(appContext, audioManager, preference.usedValueMusic, true, false);
-                if (preference.oldMediaMuted) {
+                if (_preference.usedValueMusic != -1)
+                    ActivateProfileHelper.setMediaVolume(appContext, audioManager, _preference.usedValueMusic, true, false);
+                if (_preference.oldMediaMuted) {
                     PPApplication.volumesInternalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
@@ -353,7 +354,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                     }
                 //}
             };
-        PPApplicationStatic.createPlayToneExecutor();
+            PPApplicationStatic.createPlayToneExecutor();
             PPApplication.playToneExecutor.submit(runnable);
             /*
             try {

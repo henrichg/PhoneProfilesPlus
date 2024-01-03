@@ -44,7 +44,7 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
+                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                         dataWrapper.fillEventList();
                         //dataWrapper.fillProfileList(false, false);
 
@@ -54,7 +54,7 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             for (Event _event : dataWrapper.eventList) {
                                 if ((_event._eventPreferencesActivatedProfile._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
-                                    if (_event._eventPreferencesActivatedProfile.isRunnable(context)) {
+                                    if (_event._eventPreferencesActivatedProfile.isRunnable(appContext)) {
                                         int oldRunning = _event._eventPreferencesActivatedProfile._running;
 
                                         long startProfile = _event._eventPreferencesActivatedProfile._startProfile;

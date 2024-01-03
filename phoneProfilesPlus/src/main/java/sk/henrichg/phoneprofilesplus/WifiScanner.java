@@ -96,13 +96,14 @@ class WifiScanner {
                         WifiScanWorker.cancelWork(context, fromDialog/*, null*/);
                     } else {
                         if (ApplicationPreferences.prefEventWifiEnabledForScan) {
+                            final Context appContext = context.getApplicationContext();
                             // service restarted during scanning (prefEventWifiEnabledForScan is set to false at end of scan),
                             // disable wifi
                             Runnable runnable = () -> {
                                 try {
 //                                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=WifiScanner.doScan.1");
                                     if (WifiScanWorker.wifi == null)
-                                        WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                                        WifiScanWorker.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                                     //lock();
                                     //if (Build.VERSION.SDK_INT >= 29)
                                     //    CmdWifi.setWifi(false);
@@ -172,12 +173,13 @@ class WifiScanner {
                     }
 
                     if (ApplicationPreferences.prefEventWifiEnabledForScan) {
+                        final Context appContext = context.getApplicationContext();
                         Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=WifiScanner.doScan.2");
 
                             try {
                                 if (WifiScanWorker.wifi == null)
-                                    WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                                    WifiScanWorker.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                                 //lock();
                                 //if (Build.VERSION.SDK_INT >= 29)
                                 //    CmdWifi.setWifi(false);
@@ -327,6 +329,7 @@ class WifiScanner {
                         WifiScanWorker.setScanRequest(context, true);
                         WifiScanWorker.lock(context);
                         final WifiManager _wifi = wifi;
+                        final WifiScanner scanner = this;
                         Runnable runnable = () -> {
                             //if (PPApplicationStatic.logEnabled()) {
 //                                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=WifiScanner.enableWifi");
@@ -343,7 +346,7 @@ class WifiScanner {
                                     break;
                                 if (wifi.getWifiState() == WifiManager.WIFI_STATE_ENABLED) {
                                     GlobalUtils.sleep(5000);
-                                    startScan(context);
+                                    scanner.startScan(context);
                                     break;
                                 }
                                 GlobalUtils.sleep(200);

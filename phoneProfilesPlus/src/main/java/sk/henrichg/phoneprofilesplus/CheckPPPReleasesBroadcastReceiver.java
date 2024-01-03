@@ -188,7 +188,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
             //}
         };
         PPApplicationStatic.createBasicExecutorPool();
-            PPApplication.basicExecutorPool.submit(runnable);
+        PPApplication.basicExecutorPool.submit(runnable);
         /*}
         else {
             _doWork(appContext);

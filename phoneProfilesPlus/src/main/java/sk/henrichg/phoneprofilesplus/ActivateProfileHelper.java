@@ -900,7 +900,7 @@ class ActivateProfileHelper {
         return assistIsSet;
     }
 
-    private static void executeForRadios(Profile profile, Context context, SharedPreferences executedProfileSharedPreferences)
+    private static void executeForRadios(final Profile profile, final Context context, final SharedPreferences executedProfileSharedPreferences)
     {
         if (profile == null)
             return;
@@ -956,7 +956,7 @@ class ActivateProfileHelper {
                     }
                     if (_setAirplaneMode /*&& _isAirplaneMode*/) {
                         // switch ON airplane mode, set it before doExecuteForRadios
-                        setAirplaneMode(context, _isAirplaneMode, _useAssistant);
+                        setAirplaneMode(appContext, _isAirplaneMode, _useAssistant);
                         GlobalUtils.sleep(1500);
                     }
                     doExecuteForRadios(appContext, profile, executedProfileSharedPreferences);
@@ -3150,7 +3150,7 @@ class ActivateProfileHelper {
             return null;
     }
 
-    static void executeForVolumes(Profile profile, final int linkUnlinkVolumes, final boolean forProfileActivation, Context context, SharedPreferences executedProfileSharedPreferences) {
+    static void executeForVolumes(final Profile profile, final int linkUnlinkVolumes, final boolean forProfileActivation, final Context context, final SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadVolumes", "START run - from=ActivateProfileHelper.executeForVolumes");
@@ -3239,7 +3239,7 @@ class ActivateProfileHelper {
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
-    private static void setNotificationLed(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
+    private static void setNotificationLed(final Context context, final int value, final SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setNotificationLed");
@@ -3261,7 +3261,7 @@ class ActivateProfileHelper {
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         final String NOTIFICATION_LIGHT_PULSE = "notification_light_pulse";
                         if (isPPPPutSettingsInstalled(appContext) > 0)
-                            putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, NOTIFICATION_LIGHT_PULSE, String.valueOf(value));
+                            putSettingsParameter(appContext, PPPPS_SETTINGS_TYPE_SYSTEM, NOTIFICATION_LIGHT_PULSE, String.valueOf(value));
                         else {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
@@ -3300,7 +3300,7 @@ class ActivateProfileHelper {
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
-    private static void setHeadsUpNotifications(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
+    private static void setHeadsUpNotifications(final Context context, final int value, final SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setHeadsUpNotifications");
@@ -3368,7 +3368,7 @@ class ActivateProfileHelper {
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
-    private static void setAlwaysOnDisplay(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
+    private static void setAlwaysOnDisplay(final Context context, final int value, final SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setAlwaysOnDisplay");
@@ -3945,7 +3945,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void changeImageWallpaper(Profile profile, Context context) {
+    private static void changeImageWallpaper(final Profile profile, final Context context) {
         final Context appContext = context.getApplicationContext();
         if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
             Runnable runnable = () -> {
@@ -3983,7 +3983,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void changeWallpaperFromFolder(Profile profile, Context context) {
+    private static void changeWallpaperFromFolder(final Profile profile, final Context context) {
         Calendar now = Calendar.getInstance();
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
@@ -4093,7 +4093,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void executeForRunApplications(Profile profile, Context context) {
+    private static void executeForRunApplications(final Profile profile, final Context context) {
         if (profile._deviceRunApplicationChange == 1)
         {
             if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
@@ -6599,7 +6599,7 @@ class ActivateProfileHelper {
         }*/
     }
 
-    private static void setPowerSaveMode(Profile profile, Context context, SharedPreferences executedProfileSharedPreferences) {
+    private static void setPowerSaveMode(final Profile profile, final Context context, final SharedPreferences executedProfileSharedPreferences) {
         if (profile._devicePowerSaveMode != 0) {
             final Context appContext = context.getApplicationContext();
             Runnable runnable = () -> {
@@ -6694,7 +6694,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void lockDevice(Profile profile, Context context) {
+    private static void lockDevice(final Profile profile, final Context context) {
         final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.lockDevice");

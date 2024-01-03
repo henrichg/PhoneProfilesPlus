@@ -110,10 +110,11 @@ class BluetoothScanner {
                             if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
                                 // service restarted during scanning (prefEventBluetoothEnabledForScan is set to false at end of scan),
                                 // dislabe Bluetooth
+                                final Context appContext = context.getApplicationContext();
                                 @SuppressLint("MissingPermission")
                                 Runnable runnable = () -> {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.1");
-                                    if (Permissions.checkBluetoothForEMUI(context)) {
+                                    if (Permissions.checkBluetoothForEMUI(appContext)) {
                                         try {
                                             if (BluetoothScanWorker.bluetooth == null)
                                                 BluetoothScanWorker.bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(appContext);
@@ -223,11 +224,12 @@ class BluetoothScanner {
                             }
 
                             if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
+                                final Context appContext = context.getApplicationContext();
                                 @SuppressLint("MissingPermission")
                                 Runnable runnable = () -> {
     //                                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.2");
 
-                                        if (Permissions.checkBluetoothForEMUI(context)) {
+                                        if (Permissions.checkBluetoothForEMUI(appContext)) {
                                             try {
                                                 if (BluetoothScanWorker.bluetooth == null)
                                                     BluetoothScanWorker.bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(appContext);
@@ -505,7 +507,7 @@ class BluetoothScanner {
 
     private int enableBluetooth(BluetoothAdapter bluetooth,
                                 /*Handler bluetoothChangeHandler,*/
-                                boolean forLE)
+                                final boolean forLE)
     {
         int bluetoothState = bluetooth.getState();
         int forceScan;
@@ -533,10 +535,12 @@ class BluetoothScanner {
                     else
                         BluetoothScanWorker.setLEScanRequest(context, true);
                     final BluetoothAdapter _bluetooth = bluetooth;
+                    final Context appContext = context.getApplicationContext();
+                    final BluetoothScanner scanner = this;
                     @SuppressLint("MissingPermission")
                     Runnable runnable = () -> {
 
-                        if (Permissions.checkBluetoothForEMUI(context)) {
+                        if (Permissions.checkBluetoothForEMUI(appContext)) {
                             //lock(); // lock is required for enabling bluetooth
                             //    CmdBluetooth.setBluetooth(true);
 //                            Log.e("BluetoothScanner.enableBluetooth", "######## enable bluetooth");
@@ -546,12 +550,12 @@ class BluetoothScanner {
                             do {
                                 if (!ApplicationPreferences.prefEventBluetoothScanRequest)
                                     break;
-                                if (bluetooth.getState() == BluetoothAdapter.STATE_ON) {
+                                if (_bluetooth.getState() == BluetoothAdapter.STATE_ON) {
                                     GlobalUtils.sleep(5000);
                                     if (forLE)
-                                        startLEScan(context);
+                                        scanner.startLEScan(context);
                                     else
-                                        startCLScan(context);
+                                        scanner.startCLScan(context);
                                     break;
                                 }
                                 GlobalUtils.sleep(200);

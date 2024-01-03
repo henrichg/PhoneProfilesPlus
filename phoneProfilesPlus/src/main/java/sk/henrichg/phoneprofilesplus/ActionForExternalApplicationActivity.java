@@ -171,6 +171,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                         if (event != null) {
                             if (event.getStatus() == Event.ESTATUS_STOP) {
                                 final Context appContext = getApplicationContext();
+                                final DataWrapper _dataWrapper = dataWrapper;
                                 Runnable runnable = () -> {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.1");
 
@@ -187,7 +188,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                                 wakeLock.acquire(10 * 60 * 1000);
                                             }
 
-                                            EventStatic.runStopEvent(dataWrapper, event, null);
+                                            EventStatic.runStopEvent(_dataWrapper, event, null);
 
                                         } catch (Exception e) {
 //                                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -282,6 +283,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                         if (event != null) {
                             if (event.getStatus() != Event.ESTATUS_STOP) {
                                 final Context appContext = getApplicationContext();
+                                final DataWrapper _dataWrapper = dataWrapper;
                                 Runnable runnable = () -> {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.2");
 
@@ -298,7 +300,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                                 wakeLock.acquire(10 * 60 * 1000);
                                             }
 
-                                            EventStatic.runStopEvent(dataWrapper, event, null);
+                                            EventStatic.runStopEvent(_dataWrapper, event, null);
 
                                         } catch (Exception e) {
 //                                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));

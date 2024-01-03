@@ -611,7 +611,7 @@ public class PhoneProfilesService extends Service
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
                     editor.apply();
-                    ApplicationPreferences.applicationNeverAskForGrantRoot(appContext.getApplicationContext());
+                    ApplicationPreferences.applicationNeverAskForGrantRoot(appContext);
                 }*/
                 if (!ApplicationPreferences.applicationNeverAskForGrantRoot) {
                     // grant root
@@ -919,9 +919,9 @@ public class PhoneProfilesService extends Service
 
                 // !! must be after PPApplication.loadApplicationPreferences()
                 if (ApplicationPreferences.notificationProfileListDisplayNotification)
-                    ProfileListNotification.enable(false, getApplicationContext());
+                    ProfileListNotification.enable(false, appContext);
                 else
-                    ProfileListNotification.disable(getApplicationContext());
+                    ProfileListNotification.disable(appContext);
 
                 //boolean packageReplaced = PPApplication.applicationPackageReplaced; //ApplicationPreferences.applicationPackageReplaced(appContext);
                 //if (!packageReplaced) {

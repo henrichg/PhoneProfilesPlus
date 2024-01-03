@@ -33,7 +33,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(appContext, 0);
 
                         // reset alarm for month check releaaes notification
-                        CheckPPPReleasesBroadcastReceiver.setShowPPPReleasesNotification(context, 0);
+                        CheckPPPReleasesBroadcastReceiver.setShowPPPReleasesNotification(appContext, 0);
                         CheckPPPReleasesBroadcastReceiver.setAlarm(appContext);
 
                         boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
