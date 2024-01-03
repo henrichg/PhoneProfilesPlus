@@ -1144,19 +1144,7 @@ public class PPApplication extends Application
         PPApplicationStatic.startHandlerThreadBroadcast();
 
         PPApplicationStatic.startHandlerThreadOrientationScanner(); // for seconds interval
-        //startHandlerThread(/*"PPApplication.onCreate"*/);
-        //startHandlerThreadCancelWork();
-        //startHandlerThreadPPScanners(); // for minutes interval
-        //startHandlerThreadPPCommand();
         PPApplicationStatic.startHandlerThreadLocation();
-        //startHandlerThreadWidget();
-        //startHandlerThreadPlayTone();
-        //startHandlerThreadVolumes();
-        //startHandlerThreadRadios();
-        //startHandlerThreadWallpaper();
-        //startHandlerThreadRunApplication();
-        //startHandlerThreadProfileActivation();
-        //PPApplicationStatic.startHandlerThreadProgressBar();
 
         toastHandler = new Handler(getMainLooper());
         //brightnessHandler = new Handler(getMainLooper());

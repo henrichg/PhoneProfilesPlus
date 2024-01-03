@@ -2420,39 +2420,12 @@ class PPApplicationStatic {
             PPApplication.updateGuiExecutor = Executors.newSingleThreadScheduledExecutor();
     }
 
-    /*
-    static void startHandlerThread() {
-        if (handlerThread == null) {
-            handlerThread = new HandlerThread("PPHandlerThread", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThread.start();
-        }
-    }
-    */
-
-    /*
-    static void startHandlerThreadCancelWork() {
-        if (handlerThreadCancelWork == null) {
-            handlerThreadCancelWork = new HandlerThread("PPHandlerThreadCancelWork", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadCancelWork.start();
-        }
-    }
-    */
-
     static void startHandlerThreadBroadcast(/*String from*/) {
         if (PPApplication.handlerThreadBroadcast == null) {
             PPApplication.handlerThreadBroadcast = new HandlerThread("PPHandlerThreadBroadcast", THREAD_PRIORITY_MORE_FAVORABLE); //);
             PPApplication.handlerThreadBroadcast.start();
         }
     }
-
-    /*
-    static void startHandlerThreadPPScanners() {
-        if (handlerThreadPPScanners == null) {
-            handlerThreadPPScanners = new HandlerThread("PPHandlerThreadPPScanners", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadPPScanners.start();
-        }
-    }
-    */
 
     static void startHandlerThreadOrientationScanner() {
         if (PPApplication.handlerThreadOrientationScanner == null) {
@@ -2465,93 +2438,12 @@ class PPApplicationStatic {
         }
     }
 
-    /*
-    static void startHandlerThreadPPCommand() {
-        if (handlerThreadPPCommand == null) {
-            handlerThreadPPCommand = new HandlerThread("PPHandlerThreadPPCommand", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadPPCommand.start();
-        }
-    }
-    */
-
     static void startHandlerThreadLocation() {
         if (PPApplication.handlerThreadLocation == null) {
             PPApplication.handlerThreadLocation = new HandlerThread("PPHandlerThreadLocation", THREAD_PRIORITY_MORE_FAVORABLE); //);
             PPApplication.handlerThreadLocation.start();
         }
     }
-
-    /*
-    static void startHandlerThreadWidget() {
-        if (handlerThreadWidget == null) {
-            handlerThreadWidget = new HandlerThread("PPHandlerThreadWidget", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadWidget.start();
-        }
-    }
-    */
-
-    /*
-    static void startHandlerThreadPlayTone() {
-        if (handlerThreadPlayTone == null) {
-            handlerThreadPlayTone = new HandlerThread("PPHandlerThreadPlayTone", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadPlayTone.start();
-        }
-    }
-    */
-
-    /*
-    static void startHandlerThreadVolumes() {
-        if (handlerThreadVolumes == null) {
-            handlerThreadVolumes = new HandlerThread("handlerThreadVolumes", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadVolumes.start();
-        }
-    }
-    */
-
-    /*
-    static void startHandlerThreadRadios() {
-        if (handlerThreadRadios == null) {
-            handlerThreadRadios = new HandlerThread("handlerThreadRadios", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadRadios.start();
-        }
-    }
-    */
-
-    /*
-    static void startHandlerThreadWallpaper() {
-        if (handlerThreadWallpaper == null) {
-            handlerThreadWallpaper = new HandlerThread("handlerThreadWallpaper", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadWallpaper.start();
-        }
-    }
-    */
-
-    /*
-    static void startHandlerThreadRunApplication() {
-        if (handlerThreadRunApplication == null) {
-            handlerThreadRunApplication = new HandlerThread("handlerThreadRunApplication", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadRunApplication.start();
-        }
-    }
-    */
-
-    /*
-    static void startHandlerThreadProfileActivation() {
-        if (handlerThreadProfileActivation == null) {
-            handlerThreadProfileActivation = new HandlerThread("handlerThreadProfileActivation", THREAD_PRIORITY_MORE_FAVORABLE); //);;
-            handlerThreadProfileActivation.start();
-        }
-    }
-    */
-
-    /*
-    static void startHandlerThreadProgressBar() {
-        if (PPApplication.handlerThreadProgressBar == null) {
-            PPApplication.handlerThreadProgressBar = new HandlerThread("PPHandlerThreadProgressBar", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            PPApplication.handlerThreadProgressBar.start();
-        }
-    }
-    */
 
     static void setBlockProfileEventActions(boolean enable) {
         // if blockProfileEventActions = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
@@ -2587,58 +2479,6 @@ class PPApplicationStatic {
         }
 
     }*/
-
-    //--------------------
-
-/*    //-----------------------------
-
-    private static WeakReference<Activity> foregroundEditorActivity;
-
-    @Override
-    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-
-    }
-
-    @Override
-    public void onActivityStarted(Activity activity) {
-        if (activity instanceof EditorActivity)
-            foregroundEditorActivity=new WeakReference<>(activity);
-    }
-
-    @Override
-    public void onActivityResumed(Activity activity) {
-        if (activity instanceof EditorActivity)
-            foregroundEditorActivity=new WeakReference<>(activity);
-    }
-
-    @Override
-    public void onActivityPaused(Activity activity) {
-
-    }
-
-    @Override
-    public void onActivityStopped(Activity activity) {
-        if (activity instanceof EditorActivity)
-            foregroundEditorActivity = null;
-    }
-
-    @Override
-    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
-    }
-
-    @Override
-    public void onActivityDestroyed(Activity activity) {
-
-    }
-
-    static Activity getEditorActivity() {
-        if (foregroundEditorActivity != null && foregroundEditorActivity.get() != null) {
-            return foregroundEditorActivity.get();
-        }
-        return null;
-    }
-*/
 
     // Sensor manager ------------------------------------------------------------------------------
 
