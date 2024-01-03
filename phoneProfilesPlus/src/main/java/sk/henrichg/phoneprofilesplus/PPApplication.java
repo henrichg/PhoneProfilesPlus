@@ -1523,10 +1523,11 @@ public class PPApplication extends Application
 
     }
 
-    private void startPPServiceWhenNotStarted(final Context appContext) {
+    private void startPPServiceWhenNotStarted(final Context context) {
         // this is for list widget header
 
         //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+        final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //            long start = System.currentTimeMillis();
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPApplication.startPPServiceWhenNotStarted", "--------------- START");

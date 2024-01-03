@@ -160,6 +160,7 @@ public class PPTileService extends TileService {
         LocaleHelper.setApplicationLocale(this);
 
         final int tileId = getTileId();
+        final Context appContext = getApplicationContext();
 
         if ((PPApplication.quickTileProfileId[tileId] != 0) && (PPApplication.quickTileProfileId[tileId] != -1)) {
             Runnable runnable = () -> {
@@ -170,10 +171,10 @@ public class PPTileService extends TileService {
 
                 //if ((appContext != null) && (tile != null)) {
 
-                    DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
+                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                     Profile profile = null;
                     if (PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID) {
-                        tile.setLabel(getString(R.string.menu_restart_events));
+                        tile.setLabel(appContext.getString(R.string.menu_restart_events));
                         if (Build.VERSION.SDK_INT >= 29) {
                             tile.setSubtitle(null);
                         }
@@ -184,7 +185,7 @@ public class PPTileService extends TileService {
                         restartEvents.generateIconBitmap(dataWrapper.context, false, 0, false);
                         tile.setIcon(Icon.createWithBitmap(restartEvents._iconBitmap));
                         */
-                        tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_profile_restart_events));
+                        tile.setIcon(Icon.createWithResource(appContext, R.drawable.ic_profile_restart_events));
                         tile.setState(Tile.STATE_INACTIVE);
                     }
                     else {
@@ -193,9 +194,9 @@ public class PPTileService extends TileService {
                             tile.setLabel(profile._name);
                             if (Build.VERSION.SDK_INT >= 29) {
                                 if (profile._checked)
-                                    tile.setSubtitle(getString(R.string.quick_tile_subtile_activated));
+                                    tile.setSubtitle(appContext.getString(R.string.quick_tile_subtile_activated));
                                 else
-                                    tile.setSubtitle(getString(R.string.quick_tile_subtile_not_activated));
+                                    tile.setSubtitle(appContext.getString(R.string.quick_tile_subtile_not_activated));
                             }
 
                             if (profile.getIsIconResourceID()) {
@@ -204,7 +205,7 @@ public class PPTileService extends TileService {
                                 //    tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
                                 //else {
                                     int res = ProfileStatic.getIconResource(profile.getIconIdentifier());
-                                    tile.setIcon(Icon.createWithResource(getApplicationContext(), res));
+                                    tile.setIcon(Icon.createWithResource(appContext, res));
                                 //}
                             } else {
                                 tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));

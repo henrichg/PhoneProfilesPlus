@@ -330,6 +330,7 @@ class WifiScanner {
                         WifiScanWorker.lock(context);
                         final WifiManager _wifi = wifi;
                         final WifiScanner scanner = this;
+                        final Context appContext = context.getApplicationContext();
                         Runnable runnable = () -> {
                             //if (PPApplicationStatic.logEnabled()) {
 //                                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=WifiScanner.enableWifi");
@@ -346,7 +347,7 @@ class WifiScanner {
                                     break;
                                 if (wifi.getWifiState() == WifiManager.WIFI_STATE_ENABLED) {
                                     GlobalUtils.sleep(5000);
-                                    scanner.startScan(context);
+                                    scanner.startScan(appContext);
                                     break;
                                 }
                                 GlobalUtils.sleep(200);

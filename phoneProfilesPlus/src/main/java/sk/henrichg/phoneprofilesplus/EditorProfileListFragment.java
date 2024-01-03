@@ -257,7 +257,7 @@ public class EditorProfileListFragment extends Fragment
             if (itemId == R.id.menu_generate_predefined_profiles) {
                 final Handler progressBarHandler = new Handler(activity.getMainLooper());
                 final Runnable progressBarRunnable = () -> {
-                    loadAsyncTask = new LoadProfileListAsyncTask(this, filterType, true);
+                    loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, true);
                     loadAsyncTask.execute();
                 };
                 progressBarHandler.post(progressBarRunnable);
@@ -274,7 +274,7 @@ public class EditorProfileListFragment extends Fragment
                     // start new AsyncTask, because old may be cancelled
                     final Handler progressBarHandler = new Handler(activity.getMainLooper());
                     final Runnable progressBarRunnable = () -> {
-                        loadAsyncTask = new LoadProfileListAsyncTask(this, filterType, false);
+                        loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, false);
                         loadAsyncTask.execute();
                     };
                     progressBarHandler.post(progressBarRunnable);

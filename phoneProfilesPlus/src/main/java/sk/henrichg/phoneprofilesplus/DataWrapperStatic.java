@@ -687,10 +687,11 @@ class DataWrapperStatic {
         }
     }
 
-    static void setDynamicLauncherShortcutsFromMainThread(final Context appContext)
+    static void setDynamicLauncherShortcutsFromMainThread(final Context context)
     {
         //final DataWrapper dataWrapper = copyDataWrapper();
 
+        final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
 

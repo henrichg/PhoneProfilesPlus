@@ -553,9 +553,9 @@ class BluetoothScanner {
                                 if (_bluetooth.getState() == BluetoothAdapter.STATE_ON) {
                                     GlobalUtils.sleep(5000);
                                     if (forLE)
-                                        scanner.startLEScan(context);
+                                        scanner.startLEScan(appContext);
                                     else
-                                        scanner.startCLScan(context);
+                                        scanner.startCLScan(appContext);
                                     break;
                                 }
                                 GlobalUtils.sleep(200);

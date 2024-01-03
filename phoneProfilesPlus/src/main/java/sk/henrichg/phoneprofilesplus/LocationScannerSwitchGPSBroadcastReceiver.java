@@ -147,7 +147,8 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
         }
     }
 
-    static void doWork(final Context appContext) {
+    static void doWork(final Context context) {
+        final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=LocationScannerSwitchGPSBroadcastReceiver.doWork");
 

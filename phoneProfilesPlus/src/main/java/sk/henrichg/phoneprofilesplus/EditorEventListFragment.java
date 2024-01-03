@@ -310,7 +310,7 @@ public class EditorEventListFragment extends Fragment
             if (itemId == R.id.menu_generate_predefined_events) {
                 final Handler progressBarHandler = new Handler(activity.getMainLooper());
                 final Runnable progressBarRunnable = () -> {
-                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, true);
+                    loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, true);
                     loadAsyncTask.execute();
                 };
                 progressBarHandler.post(progressBarRunnable);
@@ -1267,9 +1267,10 @@ public class EditorEventListFragment extends Fragment
 //                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
                     // start new AsyncTask, because old may be cancelled
                     if (activity != null) {
+                        final EditorEventListFragment fragment = this;
                         final Handler progressBarHandler = new Handler(activity.getMainLooper());
                         final Runnable progressBarRunnable = () -> {
-                            loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
+                            loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, false);
                             loadAsyncTask.execute();
                         };
                         progressBarHandler.post(progressBarRunnable);
@@ -1334,9 +1335,10 @@ public class EditorEventListFragment extends Fragment
 //                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
                     // start new AsyncTask, because old may be cancelled
                     if (activity != null) {
+                        final EditorEventListFragment fragment = this;
                         final Handler progressBarHandler = new Handler(activity.getMainLooper());
                         final Runnable progressBarRunnable = () -> {
-                            loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
+                            loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, false);
                             loadAsyncTask.execute();
                         };
                         progressBarHandler.post(progressBarRunnable);

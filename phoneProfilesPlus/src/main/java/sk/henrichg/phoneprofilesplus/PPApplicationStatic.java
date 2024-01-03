@@ -2290,6 +2290,7 @@ class PPApplicationStatic {
                                  final boolean fromShutdown, final boolean removeNotifications, final boolean exitByUser) {
         try {
             if (useHandler) {
+                final Context appContext = context.getApplicationContext();
                 Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
@@ -2298,7 +2299,7 @@ class PPApplicationStatic {
                     //Activity activity = activityWeakRef.get();
 
                     //if ((appContext != null) && (dataWrapper != null) && (activity != null)) {
-                        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
@@ -2312,7 +2313,7 @@ class PPApplicationStatic {
                                 } catch (Exception ignored) {
                                 }
                             }
-                            _exitApp(context, dataWrapper, activity, fromShutdown, removeNotifications, exitByUser);
+                            _exitApp(appContext, dataWrapper, activity, fromShutdown, removeNotifications, exitByUser);
 
                         } catch (Exception e) {
 //                            Log.e("[IN_EXECUTOR] PPApplication.exitApp", Log.getStackTraceString(e));
