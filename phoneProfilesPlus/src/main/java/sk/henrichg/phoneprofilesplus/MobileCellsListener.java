@@ -803,7 +803,7 @@ class MobileCellsListener extends PhoneStateListener {
 //                            }
 //                            //}
 
-//                        PPApplicationStatic.logE("[WORKER_CALL] EditorActivity.onActivityResult", "xxx");
+//                            PPApplicationStatic.logE("[WORKER_CALL] MobileCellsListener.doAutoRegistration", "xxx");
                             workManager.enqueueUniqueWork(MainWorker.MOBILE_CELLS_EDITOR_REFRESH_LISTVIEW_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                         }
                     } catch (Exception e) {

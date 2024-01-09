@@ -149,7 +149,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 //                            }
 //                            //}
 
-//                        PPApplicationStatic.logE("[WORKER_CALL] EditorActivity.onActivityResult", "xxx");
+//                PPApplicationStatic.logE("[WORKER_CALL] MobileCellsEditorPreferenceFragment.onDialogClosed", "xxx");
                 workManager.enqueueUniqueWork(MainWorker.SET_MOBILE_CELLS_AS_OLD_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
             }
         } catch (Exception e) {

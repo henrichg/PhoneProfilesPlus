@@ -111,7 +111,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 //                            }
 //                            //}
 
-//                            PPApplicationStatic.logE("[WORKER_CALL] StartEventNotificationBroadcastReceiver.setAlarm", "(1)");
+//                            PPApplicationStatic.logE("[WORKER_CALL] StartEventNotificationBroadcastReceiver.setAlarm", "xxx");
                             //workManager.enqueue(worker);
                             workManager.enqueueUniqueWork(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG + "_" + (int) event._id, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                             PPApplication.elapsedAlarmsStartEventNotificationWork.add(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG + "_" + (int) event._id);

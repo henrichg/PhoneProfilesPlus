@@ -853,3 +853,28 @@ Xiaomi 13 lite - Android 13:
 
 ------------
 
+AvoidRescheduleReceiverWorker - 14x, len tento je nastaveny na 1x za 3 mesiace
+BluetoothScanWorker
+ContactsContentObserverWorker
+FetchAddressWorkerOSM
+LocationSensorWorker
+MainWorker - velmi vela krat z vela miest
+PeriodicEventsHandlerWorker
+RestartEventsWithDelayWorker
+SearchCalendarEventsWorker
+WifiScanWorker
+
+DelayedWorksWorker - uz by s anemal pouzivat
+DisableBlockProfileEventActionWorker - uz by s anemal pouzivat
+DisableInternalChangeWorker - uz by sa nemal pouzivat
+DisableScreenTimeoutInternalChangeWorker - uz by sa nemal pouzivat
+DisableVolumesInternalChangeWorker - uz by s anemal pouzivat
+ElapsedAlarmsWorker - uz by sa nemal pouzivat
+GeofenceScanWorker - uz by sa nemal pouzivat
+ShowProfileNotificationWorker - uz by sa nemal pozivat
+UpdateGUIWorker - uz by sa nemal pouizvat
+
+Pouzivam ExistingWorkPolicy.REPLACE.
+Ale je jedna vynimka:
+MainWorker z OrientationScanner.runEventsHandlerForOrientationChange() pouizva ExistingWorkPolicy.KEEP.
+

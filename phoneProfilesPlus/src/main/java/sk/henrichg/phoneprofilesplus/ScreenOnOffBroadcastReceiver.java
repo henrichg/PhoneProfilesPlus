@@ -255,6 +255,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     restart = true;
                 if (restart) {
                     // for screenOn=true -> used only for Location scanner - start scan with GPS On
+//                    PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] ScreenOnOffBroadcastReceiver.onReceive", "ACTION_SCREEN_ON");
                     PPApplicationStatic.restartAllScanners(appContext, false);
                 }
 
@@ -300,6 +301,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 if (restart) {
                     // for screenOn=false -> used only for Location scanner - use last usage of GPS for scan
                     //PPApplication.setBlockProfileEventActions(true);
+//                    PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] ScreenOnOffBroadcastReceiver.onReceive", "ACTION_SCREEN_OFF");
                     PPApplicationStatic.restartAllScanners(appContext, false);
                 }
 

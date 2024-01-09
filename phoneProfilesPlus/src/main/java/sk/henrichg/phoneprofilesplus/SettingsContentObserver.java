@@ -50,7 +50,7 @@ class SettingsContentObserver  extends ContentObserver {
             //previousVolumeDTMFTones = audioManager.getStreamVolume(AudioManager.STREAM_DTMF);
             //previousVolumeAccessibilityPrompt = audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY);
         }
-
+        previousScreenTimeout = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
         PPApplication.savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
         PPApplication.savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
         //savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
@@ -130,16 +130,17 @@ class SettingsContentObserver  extends ContentObserver {
         boolean okSetting = false;
         boolean volumeChange = false;
         boolean brightnessChange = false;
+        boolean screenTimeoutChange = false;
 
         if (uri != null) {
             String sUri = uri.toString();
-            if ((sUri.contains(Settings.System.VOLUME_RING)) ||
-                (sUri.contains(Settings.System.VOLUME_NOTIFICATION)) ||
-                (sUri.contains(Settings.System.VOLUME_MUSIC)) ||
-                (sUri.contains(Settings.System.VOLUME_ALARM)) ||
-                (sUri.contains(Settings.System.VOLUME_SYSTEM)) ||
-                (sUri.contains(Settings.System.VOLUME_VOICE)) ||
-                (sUri.contains(Settings.System.VOLUME_BLUETOOTH_SCO)) //||
+            if (sUri.contains(Settings.System.VOLUME_RING) ||
+                sUri.contains(Settings.System.VOLUME_NOTIFICATION) ||
+                sUri.contains(Settings.System.VOLUME_MUSIC) ||
+                sUri.contains(Settings.System.VOLUME_ALARM) ||
+                sUri.contains(Settings.System.VOLUME_SYSTEM) ||
+                sUri.contains(Settings.System.VOLUME_VOICE) ||
+                sUri.contains(Settings.System.VOLUME_BLUETOOTH_SCO) //||
                 //(sUri.contains(Settings.System.VOLUME_DTMF)) || -- not received
                 //(sUri.contains(Settings.System.VOLUME_ACCESSIBILITY))) -- not received
             ) {
@@ -148,28 +149,23 @@ class SettingsContentObserver  extends ContentObserver {
                 volumeChange = true;
             }
             else
-            if (sUri.endsWith(Settings.System.SCREEN_BRIGHTNESS_MODE)) {
+            if (sUri.endsWith(Settings.System.SCREEN_BRIGHTNESS_MODE) ||
+                sUri.endsWith(Settings.System.SCREEN_BRIGHTNESS) ||
+                sUri.contains(Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ)) {
                 okSetting = true;
                 brightnessChange = true;
             }
             else
-            if (sUri.endsWith(Settings.System.SCREEN_BRIGHTNESS)) {
+            if (sUri.contains(Settings.System.SCREEN_OFF_TIMEOUT)) {
                 okSetting = true;
-                brightnessChange = true;
+                screenTimeoutChange = true;
             }
-            else
-            if (sUri.contains(Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ)) {
-                okSetting = true;
-                brightnessChange = true;
-            }
-            else
-            if (sUri.contains(Settings.System.SCREEN_OFF_TIMEOUT))
-                okSetting = true;
         }
         else {
             okSetting = true;
             volumeChange = true;
             brightnessChange = true;
+            screenTimeoutChange = true;
         }
 
         if (!okSetting)
@@ -178,50 +174,48 @@ class SettingsContentObserver  extends ContentObserver {
 //        PPApplicationStatic.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
 //        PPApplicationStatic.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "------ do onChange ------");
 
-        ////// volume change
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        if (audioManager != null) {
+        if (volumeChange) {
+            AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            if (audioManager != null) {
 
-            int audioMode = audioManager.getMode();
+                int audioMode = audioManager.getMode();
 
-            if ((audioMode == AudioManager.MODE_NORMAL) || (audioMode == AudioManager.MODE_RINGTONE)) {
-                boolean ringMuted = audioManager.isStreamMute(AudioManager.STREAM_RING);
-                boolean notificationMuted = audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION);
+                if ((audioMode == AudioManager.MODE_NORMAL) || (audioMode == AudioManager.MODE_RINGTONE)) {
+                    boolean ringMuted = audioManager.isStreamMute(AudioManager.STREAM_RING);
+                    boolean notificationMuted = audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION);
 
-                int newVolumeRing = volumeChangeDetect(AudioManager.STREAM_RING, previousVolumeRing, ringMuted, audioManager);
-                int newVolumeNotification = volumeChangeDetect(AudioManager.STREAM_NOTIFICATION, previousVolumeNotification, notificationMuted, audioManager);
+                    int newVolumeRing = volumeChangeDetect(AudioManager.STREAM_RING, previousVolumeRing, ringMuted, audioManager);
+                    int newVolumeNotification = volumeChangeDetect(AudioManager.STREAM_NOTIFICATION, previousVolumeNotification, notificationMuted, audioManager);
 
-                if ((newVolumeRing != -1) && (newVolumeNotification != -1)) {
-                    /* commented because this is bad, bad detection of link-unlink.
-                    if (((!ringMuted) && (previousVolumeRing != newVolumeRing)) ||
-                            ((!notificationMuted) && (previousVolumeNotification != newVolumeNotification))) {
-                        // volumes changed
+                    if ((newVolumeRing != -1) && (newVolumeNotification != -1)) {
+                        /* commented because this is bad, bad detection of link-unlink.
+                        if (((!ringMuted) && (previousVolumeRing != newVolumeRing)) ||
+                                ((!notificationMuted) && (previousVolumeNotification != newVolumeNotification))) {
+                            // volumes changed
 
-                        if (!(ringMuted || notificationMuted)) {
-                            boolean merged = (newVolumeRing == newVolumeNotification) && (previousVolumeRing == previousVolumeNotification);
+                            if (!(ringMuted || notificationMuted)) {
+                                boolean merged = (newVolumeRing == newVolumeNotification) && (previousVolumeRing == previousVolumeNotification);
 
-                            if (!ApplicationPreferences.getSharedPreferences(context).contains(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES)) {
-                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                                if (!ApplicationPreferences.getSharedPreferences(context).contains(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES)) {
+                                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
 
-                                editor.putBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
-                                ApplicationPreferences.prefMergedRingNotificationVolumes = merged;
+                                    editor.putBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
+                                    ApplicationPreferences.prefMergedRingNotificationVolumes = merged;
 
-                                editor.apply();
+                                    editor.apply();
+                                }
                             }
                         }
+                        */
+
+                        if (!ringMuted)
+                            previousVolumeRing = newVolumeRing;
+                        if (!notificationMuted)
+                            previousVolumeNotification = newVolumeNotification;
                     }
-                    */
 
-                    if (!ringMuted)
-                        previousVolumeRing = newVolumeRing;
-                    if (!notificationMuted)
-                        previousVolumeNotification = newVolumeNotification;
                 }
-
             }
-            //////////////
-        }
-        if (volumeChange) {
             if (!PPApplication.volumesInternalChange) {
 
                 if (PPApplicationStatic.getApplicationStarted(true, true)) {
@@ -258,7 +252,7 @@ class SettingsContentObserver  extends ContentObserver {
 //                            }
 //                            //}
 //
-//                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+//                                    PPApplicationStatic.logE("[WORKER_CALL] SettingsContentObserver.onChange", "(1)");
                                     //workManager.enqueue(worker);
                                     workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                                 }
@@ -271,15 +265,16 @@ class SettingsContentObserver  extends ContentObserver {
             }
         }
 
-        ////// screen timeout change
-        int screenTimeout = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
-        if (screenTimeout != -1) {
-            if (!PPApplication.disableScreenTimeoutInternalChange) {
-                if (previousScreenTimeout != screenTimeout) {
-                    ActivateProfileHelper.setActivatedProfileScreenTimeoutWhenScreenOff(context, 0);
+        if (screenTimeoutChange) {
+            int screenTimeout = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
+            if (screenTimeout != -1) {
+                if (!PPApplication.disableScreenTimeoutInternalChange) {
+                    if (previousScreenTimeout != screenTimeout) {
+                        ActivateProfileHelper.setActivatedProfileScreenTimeoutWhenScreenOff(context, 0);
+                    }
                 }
+                previousScreenTimeout = screenTimeout;
             }
-            previousScreenTimeout = screenTimeout;
         }
 
         if (brightnessChange) {
@@ -334,7 +329,7 @@ class SettingsContentObserver  extends ContentObserver {
 //                            }
 //                            //}
 //
-//                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+//                                PPApplicationStatic.logE("[WORKER_CALL] SettingsContentObserver.onChange", "(2)");
                                 //workManager.enqueue(worker);
                                 workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BRIGHTNESS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                             }
@@ -344,11 +339,8 @@ class SettingsContentObserver  extends ContentObserver {
                         }
                     }
                 }
-
             }
         }
-
-        /////////////
     }
 
     @Override

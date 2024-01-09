@@ -2293,7 +2293,7 @@ class PhoneProfilesServiceStatic
 //                        }
 //                        //}
 
-//                        PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.schedulePeriodicScanningWorker", "xxx");
+//                        PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesServiceStatic.schedulePeriodicScanningWorker", "xxx");
                         workManager.enqueueUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, ExistingWorkPolicy.REPLACE/*KEEP*/, periodicEventsHandlerWorker);
                     }
                 } catch (Exception e) {
@@ -2346,6 +2346,7 @@ class PhoneProfilesServiceStatic
                 //    WifiScanWorker.scheduleWork(appContext, true);
                 //} else {
                 //    if (rescan) {
+//                        PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] PhoneProfilesServiceStatic.scheduleWifiWorker", "shortInterval=true");
                         WifiScanWorker.scheduleWork(appContext, true);
                 //    }
                 //}
@@ -2794,6 +2795,7 @@ class PhoneProfilesServiceStatic
         startNotificationScanner(true, true, dataWrapper, appContext);
 
         schedulePeriodicScanningWorker();
+//        PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] PhoneProfilesServiceStatic.registerEventsReceiversAndWorkers", "xxx");
         scheduleWifiWorker(/*true,*/  dataWrapper/*, false, false, false, true*/);
         scheduleBluetoothWorker(/*true,*/  dataWrapper /*false, false,*/ /*, true*/);
         scheduleSearchCalendarEventsWorker(/*true, */dataWrapper/*, true*/);
@@ -2902,6 +2904,7 @@ class PhoneProfilesServiceStatic
         registerVPNCallback(true, dataWrapper, appContext);
 
         schedulePeriodicScanningWorker();
+//        PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] PhoneProfilesServiceStatic.reregisterEventsReceiversAndWorkers", "xxx");
         scheduleWifiWorker(/*true,*/  dataWrapper/*, false, false, false, true*/);
         scheduleBluetoothWorker(/*true,*/  dataWrapper /*false, false,*/ /*, true*/);
         scheduleSearchCalendarEventsWorker(/*true,*/ dataWrapper /*, true*/);
@@ -3114,6 +3117,7 @@ class PhoneProfilesServiceStatic
                                 if (ApplicationPreferences.applicationEventWifiEnableScanning) {
                                     //dataWrapper.fillEventList();
                                     //eventsFilled = true;
+//                                    PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] PhoneProfilesServiceStatic.doCommand", "EXTRA_RESCAN_SCANNERS");
                                     scheduleWifiWorker(dataWrapper);
                                 }
                                 if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
@@ -3237,6 +3241,7 @@ class PhoneProfilesServiceStatic
                                         //registerWifiStateChangedBroadcastReceiver(true, true, false);
                                         registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false, appContext);
                                         registerWifiScannerReceiver(true, dataWrapper, false, appContext);
+//                                        PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] PhoneProfilesServiceStatic.doCommand", "SCANNER_RESTART_WIFI_SCANNER");
                                         scheduleWifiWorker(/*true,*/ dataWrapper/*, forScreenOn, false, false, true*/);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
                                         break;
@@ -3320,6 +3325,7 @@ class PhoneProfilesServiceStatic
                                                 //registerWifiStateChangedBroadcastReceiver(true, true, false);
                                                 registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false, appContext);
                                                 registerWifiScannerReceiver(true, dataWrapper, false, appContext);
+//                                                PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] PhoneProfilesServiceStatic.doCommand", "SCANNER_RESTART_ALL_SCANNERS");
                                                 scheduleWifiWorker(/*true,*/ dataWrapper/*, forScreenOn, false, false, true*/);
                                             }
                                         }

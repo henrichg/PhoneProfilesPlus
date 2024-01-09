@@ -128,6 +128,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                             EventsHandler.SENSOR_TYPE_WIFI_STATE,
                                             EventsHandler.SENSOR_TYPE_WIFI_CONNECTION});
 
+//                                    PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] ----------- WifiStateChangedBroadcastReceiver", "xxx");
                                     PPApplicationStatic.restartWifiScanner(appContext);
                                 }
                             }

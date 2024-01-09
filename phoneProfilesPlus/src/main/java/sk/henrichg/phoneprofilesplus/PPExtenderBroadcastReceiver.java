@@ -95,6 +95,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 dataWrapper2.fillEventList();
                                 //dataWrapper2.fillProfileList(false, false);
                                 PhoneProfilesServiceStatic.registerPPPExtenderReceiver(true, dataWrapper2, appContext);
+//                                PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] PPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
                                 PPApplicationStatic.restartAllScanners(appContext, false);
 
                                 PPApplicationStatic.addActivityLog(dataWrapper2.context, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED,
@@ -524,6 +525,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                     if (PPApplicationStatic.getApplicationStarted(true, false)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
+//                            PPApplicationStatic.logE("[WORKER_CALL] PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "xxx");
                             workManager.enqueueUniqueWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                             enqueuedWork = true;
                         }

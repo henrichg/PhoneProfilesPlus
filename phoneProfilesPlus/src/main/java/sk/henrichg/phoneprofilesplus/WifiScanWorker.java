@@ -109,6 +109,7 @@ public class WifiScanWorker extends Worker {
             Runnable runnable = () -> {
 //                long start1 = System.currentTimeMillis();
 //                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** WifiScanWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG");
+//                PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] WifiScanWorker.doWork", "shortInterval=false");
                 WifiScanWorker.scheduleWork(appContext, false);
 //                long finish = System.currentTimeMillis();
 //                long timeElapsed = finish - start1;
@@ -244,6 +245,7 @@ public class WifiScanWorker extends Worker {
     // shortInterval = true is called only from PPService.scheduleWifoWorker
     static void scheduleWork(Context context, final boolean shortInterval) {
 //        PPApplicationStatic.logE("[SHEDULE_WORK] WifiScanWorker.scheduleWork", "shortInterval="+shortInterval);
+//        PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] WifiScanWorker.scheduleWork", "shortInterval="+shortInterval);
 
         if (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {

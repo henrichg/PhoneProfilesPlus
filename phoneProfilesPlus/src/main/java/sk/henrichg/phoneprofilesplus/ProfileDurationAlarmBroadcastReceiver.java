@@ -109,7 +109,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 //                            }
 //                            //}
 
-//                                PPApplicationStatic.logE("[WORKER_CALL] ProfileDurationAlarmBroadcastReceiver.setAlarm", "xxx");
+//                                PPApplicationStatic.logE("[WORKER_CALL] ProfileDurationAlarmBroadcastReceiver.setAlarm", "keepResultsForAtLeast");
                                 //workManager.enqueue(worker);
                                 // REPLACE is OK, because at top is called removeAlarm()
                                 workManager.enqueueUniqueWork(MainWorker.PROFILE_DURATION_WORK_TAG + "_" + (int) profile._id, ExistingWorkPolicy.REPLACE, worker);

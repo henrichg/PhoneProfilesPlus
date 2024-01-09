@@ -219,6 +219,7 @@ public class MainWorker extends Worker {
                         }
                         if (oldAccessibilityServiceForPPPExtenderConnected == 0) {
                             // answer from Extender not returned
+//                            PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] MainWork.doWorkReceive", "ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG");
                             PPApplicationStatic.restartAllScanners(appContext, false);
                             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0/*monochrome, monochromeValue*/, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 

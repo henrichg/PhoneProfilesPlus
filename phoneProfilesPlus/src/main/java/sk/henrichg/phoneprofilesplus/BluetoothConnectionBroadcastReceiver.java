@@ -9,6 +9,10 @@ import android.content.SharedPreferences;
 import android.os.PowerManager;
 import android.os.SystemClock;
 
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -124,7 +128,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                 // is needed to call event hander
 //                                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
 
-                            BluetoothConnectedDevicesDetector.callEventHandler(appContext);
+                            callEventHandler(appContext);
                         }
                         //}
 
@@ -449,6 +453,50 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 }
                 return false;
             }
+        }
+    }
+
+    private void callEventHandler(final Context appContext) {
+//        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.callEventHandler", "xxxxxxxxxxxxxxxxxxxx");
+//        PPApplicationStatic.logE("[MAIN_WORKER_CALL] BluetoothConnectedDevicesDetector.callEventHandler", "xxxxxxxxxxxxxxxxxxxx");
+
+        if (ApplicationPreferences.prefEventBluetoothScanRequest ||
+                ApplicationPreferences.prefEventBluetoothLEScanRequest ||
+                ApplicationPreferences.prefEventBluetoothWaitForResult ||
+                ApplicationPreferences.prefEventBluetoothLEWaitForResult ||
+                ApplicationPreferences.prefEventBluetoothEnabledForScan)
+            PhoneProfilesServiceStatic.cancelBluetoothWorker(appContext, true, false);
+
+//        Log.e("BluetoothConnectedDevicesDetector.callEventHandler", "[1] enqueue MainWorker");
+
+        OneTimeWorkRequest worker =
+                new OneTimeWorkRequest.Builder(MainWorker.class)
+                        .addTag(MainWorker.HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG)
+                        //.setInputData(workData)
+                        .setInitialDelay(10, TimeUnit.SECONDS)
+                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                        .build();
+        try {
+//            if (PPApplicationStatic.getApplicationStarted(true, true)) {
+            WorkManager workManager = PPApplication.getWorkManagerInstance();
+            if (workManager != null) {
+
+                //                            //if (PPApplicationStatic.logEnabled()) {
+                //                            ListenableFuture<List<WorkInfo>> statuses;
+                //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
+                //                            try {
+                //                                List<WorkInfo> workInfoList = statuses.get();
+                //                            } catch (Exception ignored) {
+                //                            }
+                //                            //}
+                //
+//                PPApplicationStatic.logE("[WORKER_CALL] BluetoothConnectionBroadcastReceiver.callEventHandler", "xxx");
+                //workManager.enqueue(worker);
+                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+//                }
+            }
+        } catch (Exception e) {
+            PPApplicationStatic.recordException(e);
         }
     }
 

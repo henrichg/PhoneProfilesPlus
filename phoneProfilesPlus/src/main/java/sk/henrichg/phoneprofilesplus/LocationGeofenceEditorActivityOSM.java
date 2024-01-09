@@ -870,7 +870,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 //                    }
 //                    //}
 
-//                    PPApplicationStatic.logE("[WORKER_CALL] LocationGeofenceEditorActivityOSM.startIntentService", "xxx");
+//                    PPApplicationStatic.logE("[WORKER_CALL] LocationGeofenceEditorActivityOSM.startWorkerForFetchAddress", "xxx");
                     //workManager.enqueue(fetchAddressWorkerOSM);
                     workManager.enqueueUniqueWork(FETCH_ADDRESS_WORK_TAG_OSM, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, fetchAddressWorkerOSM);
 

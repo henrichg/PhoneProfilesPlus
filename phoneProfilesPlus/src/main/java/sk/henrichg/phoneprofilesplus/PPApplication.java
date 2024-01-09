@@ -266,6 +266,7 @@ public class PPApplication extends Application
                                                 //+"|[CONTACTS_CACHE]"
                                                 //+"|[SYNCHRONIZED]"
                                                 //+"|[DEFAULT_SIM]"
+                                                //+"|[RESTART_WIFI_SCANNER]"
                                                 //+"|[RINGING_SIMULATION]"
                                                 //+"|BluetoothConnectedDevicesDetector"
                                                 //+"|BluetoothConnectionBroadcastReceiver"

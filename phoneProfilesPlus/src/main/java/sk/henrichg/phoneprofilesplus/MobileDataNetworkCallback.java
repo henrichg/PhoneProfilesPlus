@@ -115,7 +115,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
 //                            }
 //                            //}
 //
-//                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+//                    PPApplicationStatic.logE("[WORKER_CALL] MobileDataNetworkCallback.doConnection", "xxx");
                     //workManager.enqueue(worker);
                     workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_MOBILE_DATA_NETWORK_CALLBACK_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
 //                }

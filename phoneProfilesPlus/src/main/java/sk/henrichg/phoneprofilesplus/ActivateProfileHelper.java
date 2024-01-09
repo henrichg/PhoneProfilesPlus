@@ -5037,6 +5037,7 @@ class ActivateProfileHelper {
                 ApplicationPreferences.applicationEventWifiScanInterval(appContext);
             ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(appContext);
             if (oldApplicationEventWifiEnableScanning != newApplicationEventWifiEnableScanning) {
+//                PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] ActivateProfileHelper.execute", "profile._applicationEnableWifiScanning");
                 PPApplicationStatic.restartWifiScanner(appContext);
             }
         }

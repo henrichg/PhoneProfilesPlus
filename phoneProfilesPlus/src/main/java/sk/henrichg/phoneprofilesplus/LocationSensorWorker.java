@@ -124,7 +124,7 @@ public class LocationSensorWorker extends Worker {
 //                //}
 
                 if (worker != null) {
-//                    PPApplicationStatic.logE("[WORKER_CALL] LocationSensorWorker.enqueueWork", "enqueue with REPLACE");
+//                    PPApplicationStatic.logE("[WORKER_CALL] LocationSensorWorker.enqueueWork", "xxx");
                     workManager.enqueueUniqueWork(LOCATION_SENSOR_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }

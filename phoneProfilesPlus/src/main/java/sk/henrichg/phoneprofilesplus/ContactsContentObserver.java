@@ -66,7 +66,7 @@ class ContactsContentObserver extends ContentObserver {
                                     //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                     .build();
                 }
-//                PPApplicationStatic.logE("[WORKER_CALL] ContactsContentObserver.onChange", "xxx");
+//                PPApplicationStatic.logE("[WORKER_CALL] ContactsContentObserver.enqueueContactsContentObserverWorker", "xxx");
                 workManager.enqueueUniqueWork(ContactsContentObserverWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
             }
         }

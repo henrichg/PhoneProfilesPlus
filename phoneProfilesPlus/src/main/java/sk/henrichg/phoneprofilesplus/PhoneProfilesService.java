@@ -337,6 +337,7 @@ public class PhoneProfilesService extends Service
             if (PPApplicationStatic.getApplicationStarted(true, false)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
+//                    PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.onCreate", "xxx");
                     workManager.enqueueUniqueWork(MainWorker.APPLICATION_FULLY_STARTED_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
@@ -1025,7 +1026,7 @@ public class PhoneProfilesService extends Service
 //                                        }
 //                                        //}
 
-//                                        PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doFirstStart", "xxx");
+//                                PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doFirstStart", "keepResultsForAtLeast");
                                 //workManager.enqueue(worker);
                                 // !!! MUST BE APPEND_OR_REPLACE FOR EXTRA_START_FOR_EXTERNAL_APPLICATION !!!
                                 workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);

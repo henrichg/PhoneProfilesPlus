@@ -593,7 +593,7 @@ class EventStatic {
 //                            }
 //                            //}
 
-//                    PPApplicationStatic.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
+//                    PPApplicationStatic.logE("[WORKER_CALL] EventStatic.runStopEvent", "(1)");
                     workManager.enqueueUniqueWork(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             } catch (Exception e) {
@@ -650,7 +650,7 @@ class EventStatic {
 //                            }
 //                            //}
 
-//                    PPApplicationStatic.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
+//                    PPApplicationStatic.logE("[WORKER_CALL] EventStatic.runStopEvent", "(2)");
                     workManager.enqueueUniqueWork(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             } catch (Exception e) {

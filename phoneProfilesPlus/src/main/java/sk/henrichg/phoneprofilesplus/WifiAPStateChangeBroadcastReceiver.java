@@ -48,6 +48,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
                             if (PhoneProfilesService.getInstance() != null) {
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 dataWrapper.fillEventList();
+//                                PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] WifiAPStateChangeBroadcastReceiver.onReceive", "xxx");
                                 PhoneProfilesServiceStatic.scheduleWifiWorker(/*true,*/ dataWrapper/*, false, true, false, false*/);
                                 dataWrapper.invalidateDataWrapper();
                             }

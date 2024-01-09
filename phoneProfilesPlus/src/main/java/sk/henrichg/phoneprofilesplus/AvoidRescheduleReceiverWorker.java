@@ -1,17 +1,24 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 // https://issuetracker.google.com/issues/115575872#comment16
+// https://github.com/AndroidDeveloperLB/CommonUtils/blob/main/library/src/main/java/com/lb/common_utils/WorkerManagerUtils.kt
 
 public class AvoidRescheduleReceiverWorker extends Worker {
 
@@ -66,39 +73,34 @@ public class AvoidRescheduleReceiverWorker extends Worker {
     }
 
     static void enqueueWork() {
-//        WorkManager workManager = PPApplication.getWorkManagerInstance();
-//        if (workManager != null) {
-//            //if (PPApplicationStatic.logEnabled()) {
-//            ListenableFuture<List<WorkInfo>> statuses;
-//            statuses = workManager.getWorkInfosForUniqueWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
-//            try {
-//                List<WorkInfo> workInfoList = statuses.get();
-//            } catch (Exception ignored) {
-//            }
-//            //}
-//        }
-
-        //PPApplication.cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
-        OneTimeWorkRequest avoidRescheduleReceiverWorker =
-                new OneTimeWorkRequest.Builder(AvoidRescheduleReceiverWorker.class)
-                        .addTag(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG)
-                        .setInitialDelay(30 * 3, TimeUnit.DAYS)
-                        .build();
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             if (workManager != null) {
 
-//                //if (PPApplicationStatic.logEnabled()) {
-//                ListenableFuture<List<WorkInfo>> statuses;
-//                statuses = workManager.getWorkInfosForUniqueWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
-//                try {
-//                    List<WorkInfo> workInfoList = statuses.get();
-//                } catch (Exception ignored) {
-//                }
-//                //}
+                boolean running = false;
+                ListenableFuture<List<WorkInfo>> statuses;
+                statuses = workManager.getWorkInfosForUniqueWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+                try {
+                    List<WorkInfo> workInfoList = statuses.get();
+                    for (WorkInfo workInfo : workInfoList) {
+                        WorkInfo.State state = workInfo.getState();
+                        running = (state == WorkInfo.State.RUNNING) || (state == WorkInfo.State.ENQUEUED);
+                        break;
+                    }
+                } catch (ExecutionException | InterruptedException e) {
+                    Log.e("AvoidRescheduleReceiverWorker.enqueueUniqueWork", Log.getStackTraceString(e));
+                }
 
-//                PPApplicationStatic.logE("[WORKER_CALL] AvoidRescheduleReceiverWorker.enqueueWork", "xxx");
-                workManager.enqueueUniqueWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG, ExistingWorkPolicy.REPLACE, avoidRescheduleReceiverWorker);
+                if (!running) {
+                    OneTimeWorkRequest avoidRescheduleReceiverWorker =
+                            new OneTimeWorkRequest.Builder(AvoidRescheduleReceiverWorker.class)
+                                    .addTag(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG)
+                                    .setInitialDelay(30 * 3, TimeUnit.DAYS)
+                                    .build();
+
+//                    PPApplicationStatic.logE("[WORKER_CALL] AvoidRescheduleReceiverWorker.enqueueWork", "xxx");
+                    workManager.enqueueUniqueWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG, ExistingWorkPolicy.REPLACE, avoidRescheduleReceiverWorker);
+                }
             }
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
