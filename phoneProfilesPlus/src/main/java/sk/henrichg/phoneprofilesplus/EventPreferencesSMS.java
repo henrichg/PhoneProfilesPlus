@@ -632,7 +632,8 @@ class EventPreferencesSMS extends EventPreferences {
         }
     }
 
-    void saveStartTime(DataWrapper dataWrapper, String phoneNumber, long startTime, int fromSIMSlot) {
+    //TODO
+    void saveStartTime(List<Contact> contactList, DataWrapper dataWrapper, String phoneNumber, long startTime, int fromSIMSlot) {
         if (this._startTime == 0) {
             // alarm for end is not set
 
@@ -640,15 +641,6 @@ class EventPreferencesSMS extends EventPreferences {
                 boolean phoneNumberFound = false;
 
                 if (this._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
-                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                    if (contactsCache == null)
-                        return;
-                    List<Contact> contactList;
-//                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesSMS.saveStartTime", "(1) PPApplication.contactsCacheMutex");
-                    synchronized (PPApplication.contactsCacheMutex) {
-                        contactList = contactsCache.getList(/*false*/);
-                    }
-
                     // find phone number in groups
                     String[] splits = this._contactGroups.split(StringConstants.STR_SPLIT_REGEX);
                     for (String split : splits) {

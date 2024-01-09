@@ -671,18 +671,18 @@ class EventPreferencesCall extends EventPreferences {
         }
     }
 
-    boolean isPhoneNumberConfigured(String phoneNumber/*, DataWrapper dataWrapper*/) {
+    boolean isPhoneNumberConfigured(List<Contact> contactList, String phoneNumber/*, DataWrapper dataWrapper*/) {
         boolean phoneNumberFound = false;
 
         if (this._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
-            ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+            /*ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
             if (contactsCache == null)
                 return false;
             List<Contact> contactList;
 //            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.isPhoneNumberConfigured", "(1) PPApplication.contactsCacheMutex");
             synchronized (PPApplication.contactsCacheMutex) {
-                contactList = contactsCache.getList(/*false*/);
-            }
+                contactList = contactsCache.getList(); //false
+            }*/
 
             // find phone number in groups
             String[] splits = this._contactGroups.split(StringConstants.STR_SPLIT_REGEX);
@@ -744,7 +744,8 @@ class EventPreferencesCall extends EventPreferences {
         return phoneNumberFound;
     }
 
-    void saveStartTime(DataWrapper dataWrapper) {
+    //TODO
+    void saveStartTime(List<Contact> contactList, DataWrapper dataWrapper) {
         if (this._startTime == 0) {
             // alarm for end is not set
             if (Permissions.checkContacts(dataWrapper.context)) {
@@ -757,7 +758,7 @@ class EventPreferencesCall extends EventPreferences {
                     ((_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) && (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ENDED)) ||
                     ((_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED) && (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_OUTGOING_CALL_ENDED))) {
 
-                    boolean phoneNumberFound = isPhoneNumberConfigured(phoneNumber/*, dataWrapper*/);
+                    boolean phoneNumberFound = isPhoneNumberConfigured(contactList, phoneNumber/*, dataWrapper*/);
 
                     if (phoneNumberFound) {
                         this._startTime = callTime; // + (10 * 1000);
@@ -875,8 +876,17 @@ class EventPreferencesCall extends EventPreferences {
                 if (callEventType != EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED) {
                     if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_SERVICE_UNBIND)
                         eventsHandler.callPassed = false;
-                    else
-                        phoneNumberFound = isPhoneNumberConfigured(phoneNumber/*, this*/);
+                    else {
+                        ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                        if (contactsCache != null) {
+                            List<Contact> contactList;
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
+                            synchronized (PPApplication.contactsCacheMutex) {
+                                contactList = contactsCache.getList(/*false*/);
+                            }
+                            phoneNumberFound = isPhoneNumberConfigured(contactList, phoneNumber/*, this*/);
+                        }
+                    }
 
                     if (phoneNumberFound) {
                         _fromSIMSlot = simSlot;

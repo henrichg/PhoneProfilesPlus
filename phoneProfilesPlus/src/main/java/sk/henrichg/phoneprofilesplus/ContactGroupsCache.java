@@ -56,16 +56,12 @@ class ContactGroupsCache {
         //ArrayList<ContactGroupsInEvent> _contactGroupInEventsNotification = new ArrayList<>();
         //ArrayList<ContactGroup> _oldContactGroupList = new ArrayList<>();
 
-        ArrayList<Contact> _contactList = new ArrayList<>();
-        //ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
+        List<Contact> _contactList;
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroupList", "(1) PPApplication.contactsCacheMutex");
         synchronized (PPApplication.contactsCacheMutex) {
-            List<Contact> contacts = contactsCache.getList(/*false*/);
-            if (contacts != null)
-                _contactList.addAll(contacts);
-            /*contacts = contactsCache.getList(true);
-            if (contacts != null)
-                _contactListWithoutNumber.addAll(contacts);*/
+            _contactList = contactsCache.getList(/*false*/);
+            if (_contactList == null)
+                _contactList = new ArrayList<>();
         }
 
 //        long kolegoviaGroupId = 0;
