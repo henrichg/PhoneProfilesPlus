@@ -1070,6 +1070,9 @@ class EventPreferencesNotification extends EventPreferences {
                                 }
                             }
                         }
+
+                        if (contactList != null)
+                            contactList.clear();
                     }
                 } catch (Exception e) {
                     //Log.e("EventPreferencesNotification.isNotificationVisible", Log.getStackTraceString(e));
@@ -1217,6 +1220,9 @@ class EventPreferencesNotification extends EventPreferences {
                         }
                     }
                 }
+
+                if (contactList != null)
+                    contactList.clear();
 
                 return newestNotification;
             }

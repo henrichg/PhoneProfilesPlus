@@ -885,6 +885,7 @@ class EventPreferencesCall extends EventPreferences {
                                 contactList = contactsCache.getList(/*false*/);
                             }
                             phoneNumberFound = isPhoneNumberConfigured(contactList, phoneNumber/*, this*/);
+                            contactList.clear();
                         }
                     }
 

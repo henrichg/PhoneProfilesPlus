@@ -163,7 +163,8 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                             /*contactsCache = PPApplicationStatic.getContactsCache();
                             while (contactsCache.getCaching())
                                 GlobalUtils.sleep(100);*/
-                        }
+                        } else
+                            contactList.clear();
                     } else {
                         // wait for cache end
                         while (contactsCache.getCaching())

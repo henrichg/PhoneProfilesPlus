@@ -783,6 +783,7 @@ class DatabaseHandlerImportExport {
                 if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
                     cursorImportDB.close();
             }
+            contactList.clear();
         }
 
         if (!contactsConverted) {

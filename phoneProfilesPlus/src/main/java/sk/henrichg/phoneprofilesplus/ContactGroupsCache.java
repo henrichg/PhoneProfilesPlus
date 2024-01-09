@@ -251,6 +251,9 @@ class ContactGroupsCache {
 
                 }
 
+                _contactGroupList.clear();
+                _contactList.clear();
+
                 cached = true;
             }
         } catch (SecurityException e) {
@@ -268,6 +271,7 @@ class ContactGroupsCache {
 
                 updateContactGroups(_contactGroupList);
             }
+            _contactList.clear();
 
             cached = false;
         } catch (Exception e) {
@@ -285,6 +289,7 @@ class ContactGroupsCache {
 
                 updateContactGroups(_contactGroupList);
             }
+            _contactList.clear();
 
             cached = false;
         }

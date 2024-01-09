@@ -374,6 +374,8 @@ class EventsHandler {
                                 }
                             }
                         }
+                        if (contactList != null)
+                            contactList.clear();
                     }
                 }
 
@@ -408,6 +410,8 @@ class EventsHandler {
                                 }
                             }
                         }
+                        if (contactList != null)
+                            contactList.clear();
                     }
                 }
                 if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_ALARM_CLOCK)) {
@@ -958,6 +962,8 @@ class EventsHandler {
                                 }
                             }
                         }
+                        if (contactList != null)
+                            contactList.clear();
                     }
                     int simSlot = ApplicationPreferences.prefEventCallFromSIMSlot;
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.doEndHandler", "simulateRingingCall="+simulateRingingCall);

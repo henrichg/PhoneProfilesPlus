@@ -345,6 +345,8 @@ class ContactsCache {
 
 //                Log.e("ContactsCache.getContactList", "(2) xxxxxx");
 
+                _contactList.clear();
+
                 cached = true;
             }
         } catch (SecurityException e) {

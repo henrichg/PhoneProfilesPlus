@@ -336,6 +336,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                     i++;
                 }
 
+                localContactList.clear();
 //                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "after move chcecked up: contactList.size()="+contactList.size());
             } //else
 //                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "!!! localContactList=null");
