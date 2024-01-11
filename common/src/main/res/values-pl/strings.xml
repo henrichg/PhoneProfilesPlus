@@ -1535,8 +1535,6 @@
     <string name="menu_check_releases_fdroid">Sprawdź w F-Droid</string>
     <string name="check_releases_fdroid_repository_with_ppp">Repozytorium do konfiguracji w aplikacji F-Droid:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Ustawienie zmiany głośności mediów może nie działać z powodu ustawienia \"bezpiecznego poziomu głośności\". Aby wyłączyć ograniczenie, wymagane jest udzielenie uprawnienia (G1).</string>
-    <string name="menu_check_releases_galaxy_store">Sprawdź w Galaxy Store</string>
-    <string name="check_releases_open_galaxy_store">Otwórz Galaxy Store</string>
     <string name="applicationApplicationInterfaceActivationNotification">Powiadomienie o aktywacji profilu</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Dodaj \"Restart zdarzeń\" do listy profili</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Skanowanie Bluetooth w czasie</string>
@@ -1941,8 +1939,6 @@
     <string name="samsung_edge_panel_settings_description">Ustawienia panelu bocznego Samsung</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Siatka kompaktowa</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">W tym typie siatki nazwy profili nie będą wyświetlane, ale więcej profili może zmieścić się w jednym rzędzie.</string>
-    <string name="check_releases_go_to_galaxy_store">Przejdź do Galaxy Store</string>
-    <string name="check_releases_web_galaxy_store_install_restriction">Niestety, zainstalowanie PhoneProfilesPlus z tej strony nie jest możliwe. Galaxy Store ogranicza wsparcie tylko do urządzeń Galaxy.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Przełącz lokalizację (Wyłączona &lt;-&gt; Wysoka dokładność)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Przełącz lokalizację (oszczędzanie baterii &lt;-&gt; Wysoka dokładność)</string>
     <string name="widget_label_one_row_profile_list">Jednowierszowa lista profili</string>
@@ -2109,7 +2105,6 @@
     <string name="export_settings_delete_contacts_data_notification">Kontakty dla czujnika powiadomień</string>
     <string name="grant_draw_over_apps_dialog_info_text">Musisz udzielić zezwolenia na \"Wyświetlaj nad innymi aplikacjami\". Jest to konieczne, aby uruchamiać aktywności, gdy PhoneProfilesPlus pracuje w tle. Kliknij przycisk \"Zezwól\" aby przyznać to uprawnienie.</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Jeśli nie jest możliwe udzielenie tego zezwolenia, kliknij ten link. Być może na tej stronie znajdziesz rozwiązanie dla swojego urządzenia:</string>
-    <string name="install_extender_install_droidify_button">Zainstaluj Droid-ify</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Nie używaj</string>
     <string name="contacts_filter_dialog_filter_title">Filtr kontaktów</string>
     <string name="contacts_filter_dialog_item_show_all">[Wszystkie]</string>

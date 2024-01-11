@@ -1535,8 +1535,6 @@
     <string name="menu_check_releases_fdroid">Skontrolovať v F-Droid</string>
     <string name="check_releases_fdroid_repository_with_ppp">Repozitár na jeho konfiguráciu v aplikácii F-Droid:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Ak zmena hlasitosti médií nefunguje, je to pravdepodobne spôsobené povoleným \"príznakom bezpečnej hlasitosti\". Ak chcete tento príznak zakázať, udeľte povolenie (G1), pretože na povolenie tohto príznaku je potrebné toto povolenie.</string>
-    <string name="menu_check_releases_galaxy_store">Skontrolovať v Galaxy Store</string>
-    <string name="check_releases_open_galaxy_store">Otvoriť Galaxy Store</string>
     <string name="applicationApplicationInterfaceActivationNotification">Notifikácia aktivácie profilu</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Pridaj \"Reštart udalostí\" do zoznamu profilov</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth skenovanie v čase</string>
@@ -1941,8 +1939,6 @@
     <string name="samsung_edge_panel_settings_description">Nastavenia pre Samsung bočný panel</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Kompaktná mriežka</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Pri tomto type mriežky sa nebudú zobrazovať názvy profilov, ale do jedného riadku sa zmestí viac profilov.</string>
-    <string name="check_releases_go_to_galaxy_store">Ísť do Galaxy Store</string>
-    <string name="check_releases_web_galaxy_store_install_restriction">Ľutujem, z tejto webstránky nie je možné nainštalovať PhoneProfilesPlus. Galaxy Store obmedzuje podporu iba na zariadenia Galaxy.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Prepnúť polohu (Vypnuté &lt;-&gt; Vysoká presnosť)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Prepnúť polohu (Režim šetrenia batérie &lt;-&gt; Vysoká presnosť)</string>
     <string name="widget_label_one_row_profile_list">Jednoriadkový zoznam profilov</string>
@@ -2109,7 +2105,6 @@
     <string name="export_settings_delete_contacts_data_notification">Kontakty pre Senzor notifikácií</string>
     <string name="grant_draw_over_apps_dialog_info_text">Musíte udeliť povolenie \"Vykresliť cez ďalšie aplikácie\". Je vyžadované pre štart aktivít keď je PhoneProfilesPlus na pozadí. Kliknite na tlačítko \"Udeliť\" pre udelenie tohoto povolenia.</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Ak toto povolenie nie je možné udeliť, kliknite na tento odkaz. Možno na tejto webovej stránke je riešenie pre vaše zariadenie:</string>
-    <string name="install_extender_install_droidify_button">Nainštaluj Droid-ify</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Nepoužívať</string>
     <string name="contacts_filter_dialog_filter_title">Filter kontaktov</string>
     <string name="contacts_filter_dialog_item_show_all">[ Všetko ]</string>

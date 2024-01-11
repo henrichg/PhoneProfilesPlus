@@ -1535,8 +1535,6 @@
     <string name="menu_check_releases_fdroid">Vérifier dans F-Droid</string>
     <string name="check_releases_fdroid_repository_with_ppp">Dépôt pour le configurer dans l\'application F-Droid :</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Si le changement de volume \"médias\" ne fonctionne pas, c\'est peut-être dû à l\'activation de l\'option \"safe volume flag\". Si vous voulez désactiver ce drapeau, accordez la permission (G1).</string>
-    <string name="menu_check_releases_galaxy_store">Vérifier dans la boutique Galaxy</string>
-    <string name="check_releases_open_galaxy_store">Ouvrir la boutique Galaxy</string>
     <string name="applicationApplicationInterfaceActivationNotification">Notification d\'activation du profil</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Ajouter \"Redémarrer les événements\" dans la liste des profils</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Intervalle de recherche Bluetooth</string>
@@ -1941,8 +1939,6 @@
     <string name="samsung_edge_panel_settings_description">Paramètres du panneau de bord Samsung</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Grille compacte</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Avec ce type de grille, les noms de profil ne seront pas affichés, mais plus de profils peuvent tenir sur une seule ligne.</string>
-    <string name="check_releases_go_to_galaxy_store">Aller sur le Galaxy Store</string>
-    <string name="check_releases_web_galaxy_store_install_restriction">Désolé, il n\'est pas possible d\'installer PhoneProfilesPlus à partir de ce site Web. Le Galaxy Store limite la prise en charge aux appareils Galaxy uniquement.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Activer/désactiver la localisation (Arrêt &lt;-&gt; Haute précision)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Activer/désactiver la localisation (utilise moins la batterie &lt;-&gt; Haute précision)</string>
     <string name="widget_label_one_row_profile_list">Liste des profils sur une ligne</string>
@@ -2109,7 +2105,6 @@
     <string name="export_settings_delete_contacts_data_notification">Contacts pour le capteur de notification</string>
     <string name="grant_draw_over_apps_dialog_info_text">Vous devez accorder l\'autorisation \"Superposition des applications\". Elle est nécessaire au bon fonctionnement de PhoneProfilesPlus en arrière-plan. Cliquez sur le bouton « Accorder » pour accorder cette autorisation.</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">S\'il n\'est pas possible d\'accorder cette autorisation, cliquez sur ce lien. Cette page Web contient peut-être une solution pour votre appareil :</string>
-    <string name="install_extender_install_droidify_button">Installer Droid-ify</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Ne pas utiliser</string>
     <string name="contacts_filter_dialog_filter_title">Filtre de contacts</string>
     <string name="contacts_filter_dialog_item_show_all">[ Tous ]</string>
@@ -2139,6 +2134,6 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Type de réseau mobile pour la carte SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Type de réseau mobile pour la carte SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Carte SIM par défaut</string>
-    <string name="important_info_end_of_galaxy_store_support_text1">End of Galaxy Store support</string>
-    <string name="important_info_end_of_galaxy_store_support_text2">Sorry, Galaxy Store is not more supported, because this store requires target SDK API 33 (Android 13) and PPP target SDK is 28 (Android 9).</string>
+    <string name="important_info_end_of_galaxy_store_support_text1">Fin du support du Galaxy Store</string>
+    <string name="important_info_end_of_galaxy_store_support_text2">Désolé, le Galaxy Store n\'est plus pris en charge car ce magasin nécessite l\'API du SDK 33 (Android 13) et le SDK cible de PPP est le 28 (Android 9).</string>
 </resources>

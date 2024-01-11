@@ -1535,8 +1535,6 @@
     <string name="menu_check_releases_fdroid">Controleer in F-Droid</string>
     <string name="check_releases_fdroid_repository_with_ppp">Opslagplek om te configureren in de F-Droid applicatie:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Als de verandering van mediavolume niet werkt, is het misschien te wijten aan het inschakelen van \"volume limiet schakelaar\". Als je deze instelling wilt uitschakelen, verleen dan (G1) toestemming. Deze permissie is vereist om deze instelling uit te schakelen.</string>
-    <string name="menu_check_releases_galaxy_store">Controleer in Galaxy Store</string>
-    <string name="check_releases_open_galaxy_store">Open Galaxy Store</string>
     <string name="applicationApplicationInterfaceActivationNotification">Melding van profiel activeren</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Voeg \"Event herstarten\" toe aan de profiellijst</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth scan op tijd</string>
@@ -1941,8 +1939,6 @@
     <string name="samsung_edge_panel_settings_description">Instellingen Samsung Edge-vensters</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compacte raster</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Met dit type raster worden profielnamen niet weergegeven, maar meer profielen passen in één rij.</string>
-    <string name="check_releases_go_to_galaxy_store">Ga naar Galaxy Store</string>
-    <string name="check_releases_web_galaxy_store_install_restriction">Sorry, het is niet mogelijk om PhoneProfilesPlus te installeren vanaf deze website. De Galaxy Store ondersteunt Galaxy apparaten.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Schakel locatie (Uit &lt;-&gt; Hoge nauwkeurigheid)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Schakel locatie (Spaarstand batterij &lt;-&gt; Hoge nauwkeurigheid)</string>
     <string name="widget_label_one_row_profile_list">Één rij profiellijst</string>
@@ -2109,7 +2105,6 @@
     <string name="export_settings_delete_contacts_data_notification">Contacten voor meldingssensor</string>
     <string name="grant_draw_over_apps_dialog_info_text">Je moet \"Weergeven over apps\" toestaan. Dit is vereist om activiteiten te starten wanneer PhoneProfilesPlus op de achtergrond is. Klik op de knop \"Machtigen\" om deze toestemming te verlenen.</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Als het niet mogelijk is deze toestemming te verlenen, klik je op deze link. Misschien vind je op deze webpagina de oplossing voor je toestel:</string>
-    <string name="install_extender_install_droidify_button">Installeer Droid-ify</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Niet gebruiken</string>
     <string name="contacts_filter_dialog_filter_title">Contacten filter</string>
     <string name="contacts_filter_dialog_item_show_all">[ Alle ]</string>
@@ -2139,6 +2134,6 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Mobiel netwerk type voor SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Mobiel netwerk type voor SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Standaard SIM kaart</string>
-    <string name="important_info_end_of_galaxy_store_support_text1">End of Galaxy Store support</string>
-    <string name="important_info_end_of_galaxy_store_support_text2">Sorry, Galaxy Store is not more supported, because this store requires target SDK API 33 (Android 13) and PPP target SDK is 28 (Android 9).</string>
+    <string name="important_info_end_of_galaxy_store_support_text1">Einde van Galaxy Store ondersteuning</string>
+    <string name="important_info_end_of_galaxy_store_support_text2">Sorry, Ondersteuning Galaxy Store stopt omdat deze winkel SDK API 33 (Android 13) vereist en PPP gebruikt SDK 28 (Android 9).</string>
 </resources>

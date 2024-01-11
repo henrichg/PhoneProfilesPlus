@@ -1535,8 +1535,6 @@
     <string name="menu_check_releases_fdroid">Comprobar en F-Droid</string>
     <string name="check_releases_fdroid_repository_with_ppp">Repositorio para configurar en la aplicación F-Droid:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Si el cambio de volumen multimedia no funciona, tal vez se deba a que esté habilitado el \"limitador de volumen seguro\". Si quieres desactivar este limitador, concede permiso (G1), porque es necesario para desactivarlo.</string>
-    <string name="menu_check_releases_galaxy_store">Comprobar en Galaxy Store</string>
-    <string name="check_releases_open_galaxy_store">Abrir Galaxy Store</string>
     <string name="applicationApplicationInterfaceActivationNotification">Notificación de activación del perfil</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Añadir \"Reiniciar eventos\" a la lista de perfiles</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Intervalo, en tiempo, de escaneo de Bluetooth</string>
@@ -1941,8 +1939,6 @@
     <string name="samsung_edge_panel_settings_description">Ajustes del panel de Samsung edge</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Cuadrícula Compacta</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Con este tipo de cuadrícula, los nombres de perfil no se mostrarán, pero cabrán más perfiles pueden por fila.</string>
-    <string name="check_releases_go_to_galaxy_store">Ir a Galaxy Store</string>
-    <string name="check_releases_web_galaxy_store_install_restriction">Lo sentimos, no es posible instalar PhoneProfilesPlus desde esta página web. La Galaxy Store limita el soporte sólo a dispositivos Galaxy.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Alternar ubicación (apagado &lt;-&gt; Alta precisión)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Alternar ubicación (ahorro de batería &lt;-&gt; Alta precisión)</string>
     <string name="widget_label_one_row_profile_list">Lista de perfiles de una fila</string>
@@ -2109,7 +2105,6 @@
     <string name="export_settings_delete_contacts_data_notification">Contactos para el sensor de notificaciones</string>
     <string name="grant_draw_over_apps_dialog_info_text">Debes conceder el permiso \"mostrar sobre otras aplicaciones\". Es necesario para iniciar las actividades cuando PhoneProfilesPlus está en segundo plano. Haz clic en el botón \"Conceder\" para conceder este permiso.</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Si no es posible conceder este permiso, haz clic en este enlace. Tal vez en esta página web esté la solución para tu dispositivo:</string>
-    <string name="install_extender_install_droidify_button">Instalar Droid-ify</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - No usar</string>
     <string name="contacts_filter_dialog_filter_title">Filtro de contactos</string>
     <string name="contacts_filter_dialog_item_show_all">[ Todos ]</string>
@@ -2139,6 +2134,6 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Tipo de red móvil para SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Tipo de red móvil para SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Tarjeta SIM por defecto</string>
-    <string name="important_info_end_of_galaxy_store_support_text1">End of Galaxy Store support</string>
-    <string name="important_info_end_of_galaxy_store_support_text2">Sorry, Galaxy Store is not more supported, because this store requires target SDK API 33 (Android 13) and PPP target SDK is 28 (Android 9).</string>
+    <string name="important_info_end_of_galaxy_store_support_text1">Fin de soporte a Galaxy Store</string>
+    <string name="important_info_end_of_galaxy_store_support_text2">Lo sentimos, Galaxy Store no es compatible, ya que esta tienda requiere un SDK API 33 (Android 13) y el SDK de PPP es 28 (Android 9).</string>
 </resources>

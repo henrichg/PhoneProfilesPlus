@@ -1535,8 +1535,6 @@
     <string name="menu_check_releases_fdroid">在 F-Droid 中检查</string>
     <string name="check_releases_fdroid_repository_with_ppp">在 F-Droid 应用程序中配置它的仓库：</string>
     <string name="profile_preferences_volumeMediaInfo_summary">如果媒体音量变化不正常，可能是因为启用了“安全音量标志”。 如果您想要禁用此标志，授予(G1) 权限，此权限是禁用此标志所必需的。</string>
-    <string name="menu_check_releases_galaxy_store">在Galaxy商店检查</string>
-    <string name="check_releases_open_galaxy_store">打开Galaxy商店</string>
     <string name="applicationApplicationInterfaceActivationNotification">情景激活通知</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">添加\"重启事件\"到情景列表</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">蓝牙扫描时限</string>
@@ -1941,8 +1939,6 @@
     <string name="samsung_edge_panel_settings_description">三星侧边栏设置</string>
     <string name="phone_profiles_pref_applicationCompactGrid">紧凑网格</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">使用这种网格，将不显示情景名称，但更多情景可以放在一行中。</string>
-    <string name="check_releases_go_to_galaxy_store">转到Galaxy商店</string>
-    <string name="check_releases_web_galaxy_store_install_restriction">抱歉，无法从此网站安装 PhoneProfilesPlus。Galaxy Store 仅支持 Galaxy 设备。</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">切换定位 (关闭 &lt;-&gt; 高精度)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">切换定位 (省电 &lt;-&gt; 高精度)</string>
     <string name="widget_label_one_row_profile_list">单行情景列表</string>
@@ -2109,7 +2105,6 @@
     <string name="export_settings_delete_contacts_data_notification">联系人用于通知传感器</string>
     <string name="grant_draw_over_apps_dialog_info_text">您必须授予“在其他应用上显示”权限。它需要在 PhoneProfilesPlus 处于后台时激活。点击按钮授权。</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">若无法授权，请点击此链接获取您设备的解决方案：</string>
-    <string name="install_extender_install_droidify_button">安装 Droid-ify</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - 不使用</string>
     <string name="contacts_filter_dialog_filter_title">联系人筛选</string>
     <string name="contacts_filter_dialog_item_show_all">[ 全部 ]</string>
@@ -2139,6 +2134,6 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) SIM 卡 1 移动网络类型</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) SIM 卡 2 移动网络类型</string>
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) 默认 SIM 卡</string>
-    <string name="important_info_end_of_galaxy_store_support_text1">End of Galaxy Store support</string>
-    <string name="important_info_end_of_galaxy_store_support_text2">Sorry, Galaxy Store is not more supported, because this store requires target SDK API 33 (Android 13) and PPP target SDK is 28 (Android 9).</string>
+    <string name="important_info_end_of_galaxy_store_support_text1">Galaxy Store 支持结束</string>
+    <string name="important_info_end_of_galaxy_store_support_text2">对不起，Galaxy Store 不能得到更多支持，因为这个商店需要目标 SDK API 33 (Android 13)，PPP 的目标 SDK 是 28 (Android 9)。</string>
 </resources>

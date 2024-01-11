@@ -1535,8 +1535,6 @@
     <string name="menu_check_releases_fdroid">Provjeriti u F-Droid aplikaciji</string>
     <string name="check_releases_fdroid_repository_with_ppp">Podešavanje kolekcije u F-Droid aplikaciji:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Ako promjena glasnoće ne funkcioniše, možda je potrebno uključiti značajku \" zastavica sigurnog zvuka\". Ako želite da isključite ovu značajku omogućite root (G1) dopuštanje jer je ono potrebno za ovu značajku.</string>
-    <string name="menu_check_releases_galaxy_store">Pogledati u Galaxy Prodavnicu</string>
-    <string name="check_releases_open_galaxy_store">Otvori Galaxy Prodavnicu</string>
     <string name="applicationApplicationInterfaceActivationNotification">Obavijest o načinu aktivacije</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Dodaj \"Restart događaja\" u listu profila</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth skeniranje na vreme</string>
@@ -1941,8 +1939,6 @@
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
-    <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
-    <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Toggle Location (Off &lt;-&gt; High accuracy)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Toggle Location (Battery saving &lt;-&gt; High accuracy)</string>
     <string name="widget_label_one_row_profile_list">Single row profile list</string>
@@ -2109,7 +2105,6 @@
     <string name="export_settings_delete_contacts_data_notification">Contacts for Notification sensor</string>
     <string name="grant_draw_over_apps_dialog_info_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click button \"Grant\" to grant this permission.</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, click this link. Maybe in this web page is solution for your device:</string>
-    <string name="install_extender_install_droidify_button">Install Droid-ify</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Do not use</string>
     <string name="contacts_filter_dialog_filter_title">Contacts filter</string>
     <string name="contacts_filter_dialog_item_show_all">[ All ]</string>

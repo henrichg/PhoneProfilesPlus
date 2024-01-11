@@ -1535,8 +1535,6 @@
     <string name="menu_check_releases_fdroid">F-Droid\'te güncellemeleri kontrol et</string>
     <string name="check_releases_fdroid_repository_with_ppp">F-Droid uygulamasında ayarlanacak depo:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Ses yüksekliği değişikliği çalışmıyorsa, bunun sebebi faaliyette olan \"güvenli ses bayrağı\" olabilir. Bu bayrağı devre dışı bırakmak istiyorsanız, (G1) izni verin, çünkü bu bayrağı devre dışı bırakmak için bu izin gereklidir.</string>
-    <string name="menu_check_releases_galaxy_store">Galaxy Store\'da kontrol et</string>
-    <string name="check_releases_open_galaxy_store">Galaxy Store\'u aç</string>
     <string name="applicationApplicationInterfaceActivationNotification">Tercihi faaliyete geçirme bildirimi</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">\"Durumları yeniden başlat\"ı Tercih listesine ilave et</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth taraması aralığı</string>
@@ -1941,8 +1939,6 @@
     <string name="samsung_edge_panel_settings_description">Samsung kenar paneli ayarları</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Küçük ızgara</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Bu tür bir ızgara ile, Tercih isimleri görüntülenmez, ancak bir satıra daha fazla Tercih sığabilir.</string>
-    <string name="check_releases_go_to_galaxy_store">Galaxy Store\'a git</string>
-    <string name="check_releases_web_galaxy_store_install_restriction">Maalesef, PhoneProfilesPlus\'ı bu web sitesinden yüklemek mümkün değil. Galaxy Store, desteği yalnızca Galaxy cihazlarıyla sınırlar.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Konum\'u Aç/Kapa (Kapalı &lt;-&gt; Yüksek doğruluk)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Konum\'u Aç/Kapa (Pil koruma &lt;-&gt; Yüksek doğruluk)</string>
     <string name="widget_label_one_row_profile_list">Tek satır Tercih listesi</string>
@@ -2109,7 +2105,6 @@
     <string name="export_settings_delete_contacts_data_notification">Bildirim şartı için Kişiler</string>
     <string name="grant_draw_over_apps_dialog_info_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click button \"Grant\" to grant this permission.</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, click this link. Maybe in this web page is solution for your device:</string>
-    <string name="install_extender_install_droidify_button">Install Droid-ify</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Do not use</string>
     <string name="contacts_filter_dialog_filter_title">Contacts filter</string>
     <string name="contacts_filter_dialog_item_show_all">[ All ]</string>
