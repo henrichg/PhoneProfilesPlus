@@ -72,6 +72,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
         }
     }
 
+    /** @noinspection BlockingMethodInNonBlockingContext*/
     static void enqueueWork() {
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
