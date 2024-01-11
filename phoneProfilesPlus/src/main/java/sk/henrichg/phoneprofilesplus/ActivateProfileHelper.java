@@ -120,6 +120,7 @@ class ActivateProfileHelper {
     private static final String COMMAND_SERVICE_ROOT_PHONE = "phone";
     private static final String COMMAND_SERVICE_ROOT_WIFI = "wifi";
     private static final String COMMAND_SERVICE_ROOT_ISUB = "isub";
+    private static final String COMMAND_AIRPLANE_MODE = "cmd connectivity airplane-mode";
 
     private static final String SETTINGS_PREF_VIBRATE_IN_NORMAL = "vibrate_in_normal";
     private static final String SETTINGS_PREF_VIBRATE_IN_SILENT = "vibrate_in_silent";
@@ -5725,9 +5726,9 @@ class ActivateProfileHelper {
                     } else {
                         String command1;
                         if (mode) {
-                            command1 = "cmd connectivity airplane-mode enable";
+                            command1 = COMMAND_AIRPLANE_MODE + " enable";
                         } else {
-                            command1 = "cmd connectivity airplane-mode disable";
+                            command1 = COMMAND_AIRPLANE_MODE + " disable";
                         }
                         try {
                             ShizukuUtils.executeCommand(command1);
@@ -5771,9 +5772,9 @@ class ActivateProfileHelper {
                     } else {
                         String command1;
                         if (mode) {
-                            command1 = "cmd connectivity airplane-mode enable";
+                            command1 = COMMAND_AIRPLANE_MODE + " enable";
                         } else {
-                            command1 = "cmd connectivity airplane-mode disable";
+                            command1 = COMMAND_AIRPLANE_MODE + " disable";
                         }
                         Command command = new Command(0, /*false,*/ command1);
                         try {
