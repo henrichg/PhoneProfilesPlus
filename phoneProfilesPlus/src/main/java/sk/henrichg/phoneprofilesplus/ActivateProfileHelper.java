@@ -5705,21 +5705,35 @@ class ActivateProfileHelper {
             boolean settingsBinaryExists = RootUtils.settingsBinaryExists(false);
             if (ShizukuUtils.hasShizukuPermission()) {
                 synchronized (PPApplication.rootMutex) {
-                    String command1;
-                    String command2;
-                    final String AIRPLANE_MODE_ON = "airplane_mode_on ";
-                    if (mode) {
-                        command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "1";
-                        command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.TRUE_STRING;
+                    if (Build.VERSION.SDK_INT <= 27) {
+                        String command1;
+                        String command2;
+                        final String AIRPLANE_MODE_ON = "airplane_mode_on ";
+                        if (mode) {
+                            command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "1";
+                            command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.TRUE_STRING;
+                        } else {
+                            command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "0";
+                            command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.FALSE_STRING;
+                        }
+                        try {
+                            ShizukuUtils.executeCommand(command1);
+                            ShizukuUtils.executeCommand(command2);
+                        } catch (Exception e) {
+                            //Log.e("ActivateProfileHelper.setAirplaneMode", Log.getStackTraceString(e));
+                        }
                     } else {
-                        command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "0";
-                        command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.FALSE_STRING;
-                    }
-                    try {
-                        ShizukuUtils.executeCommand(command1);
-                        ShizukuUtils.executeCommand(command2);
-                    } catch (Exception e) {
-                        //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                        String command1;
+                        if (mode) {
+                            command1 = "cmd connectivity airplane-mode enable";
+                        } else {
+                            command1 = "cmd connectivity airplane-mode disable";
+                        }
+                        try {
+                            ShizukuUtils.executeCommand(command1);
+                        } catch (Exception e) {
+                            //Log.e("ActivateProfileHelper.setAirplaneMode", Log.getStackTraceString(e));
+                        }
                     }
                 }
             } else
@@ -5729,29 +5743,47 @@ class ActivateProfileHelper {
                 // device is rooted
 //            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setAirplaneMode", "PPApplication.rootMutex");
                 synchronized (PPApplication.rootMutex) {
-                    String command1;
-                    String command2;
-                    final String AIRPLANE_MODE_ON = "airplane_mode_on ";
-                    if (mode) {
-                        command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "1";
-                        command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.TRUE_STRING;
+                    if (Build.VERSION.SDK_INT <= 27) {
+                        String command1;
+                        String command2;
+                        final String AIRPLANE_MODE_ON = "airplane_mode_on ";
+                        if (mode) {
+                            command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "1";
+                            command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.TRUE_STRING;
+                        } else {
+                            command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "0";
+                            command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.FALSE_STRING;
+                        }
+                        //if (PPApplication.isSELinuxEnforcing())
+                        //{
+                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                        //	command2 = PPApplication.getSELinuxEnforceCommand(command2, Shell.ShellContext.SYSTEM_APP);
+                        //}
+                        Command command = new Command(0, /*false,*/ command1, command2);
+                        try {
+                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                            RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_AIPLANE_MODE);
+                        } catch (Exception e) {
+                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                            //Log.e("ActivateProfileHelper.setAirplaneMode", Log.getStackTraceString(e));
+                            //PPApplicationStatic.recordException(e);
+                        }
                     } else {
-                        command1 = COMMAND_SETTINGS_PUT_GLOBAL + AIRPLANE_MODE_ON + "0";
-                        command2 = COMMAND_AM_AIRPLANE_MODE + StringConstants.FALSE_STRING;
-                    }
-                    //if (PPApplication.isSELinuxEnforcing())
-                    //{
-                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                    //	command2 = PPApplication.getSELinuxEnforceCommand(command2, Shell.ShellContext.SYSTEM_APP);
-                    //}
-                    Command command = new Command(0, /*false,*/ command1, command2);
-                    try {
-                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                        RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_AIPLANE_MODE);
-                    } catch (Exception e) {
-                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                        //Log.e("ActivateProfileHelper.setAirplaneMode", Log.getStackTraceString(e));
-                        //PPApplicationStatic.recordException(e);
+                        String command1;
+                        if (mode) {
+                            command1 = "cmd connectivity airplane-mode enable";
+                        } else {
+                            command1 = "cmd connectivity airplane-mode disable";
+                        }
+                        Command command = new Command(0, /*false,*/ command1);
+                        try {
+                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                            RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_AIPLANE_MODE);
+                        } catch (Exception e) {
+                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                            //Log.e("ActivateProfileHelper.setAirplaneMode", Log.getStackTraceString(e));
+                            //PPApplicationStatic.recordException(e);
+                        }
                     }
                 }
             }

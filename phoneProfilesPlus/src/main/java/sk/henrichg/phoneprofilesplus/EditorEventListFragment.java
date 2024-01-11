@@ -518,7 +518,6 @@ public class EditorEventListFragment extends Fragment
 
                     // added touch helper for drag and drop items
                     //if (fragment.itemTouchHelper == null) {
-                        Log.e("EditorEventListFragment.changeListOrder", "qqqqqqqqqqqqq");
                         ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.eventListAdapter, false, false);
                         fragment.itemTouchHelper = new ItemTouchHelper(callback);
                         fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
@@ -1250,7 +1249,6 @@ public class EditorEventListFragment extends Fragment
     @SuppressLint("NotifyDataSetChanged")
     private void changeListOrder(int orderType, boolean fromOnViewCreated)
     {
-        Log.e("EditorEventListFragment.changeListOrder", "fromOnViewCreated="+fromOnViewCreated);
         if (isAsyncTaskRunning()) {
             //Log.e("EditorEventListFragment.changeListOrder", "AsyncTask running");
             stopRunningAsyncTask();
@@ -1285,7 +1283,6 @@ public class EditorEventListFragment extends Fragment
 
                         // added touch helper for drag and drop items
                         //if (itemTouchHelper == null) {
-                            Log.e("EditorEventListFragment.changeListOrder", "yyyyyyyyyyyyyy");
                             ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
                             itemTouchHelper = new ItemTouchHelper(callback);
                             itemTouchHelper.attachToRecyclerView(listView);
@@ -1315,7 +1312,6 @@ public class EditorEventListFragment extends Fragment
 
                         // added touch helper for drag and drop items
                         //if (itemTouchHelper == null) {
-                            Log.e("EditorEventListFragment.changeListOrder", "yyyyyyyyyyyyyy");
                             ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
                             itemTouchHelper = new ItemTouchHelper(callback);
                             itemTouchHelper.attachToRecyclerView(listView);
@@ -1363,7 +1359,6 @@ public class EditorEventListFragment extends Fragment
 
                     // added touch helper for drag and drop items
                     //if (itemTouchHelper == null) {
-                        Log.e("EditorEventListFragment.changeListOrder", "zzzzzzzzzzzzzzzz");
                         ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
                         itemTouchHelper = new ItemTouchHelper(callback);
                         itemTouchHelper.attachToRecyclerView(listView);
