@@ -2120,8 +2120,10 @@ class ActivateProfileHelper {
                             RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, uri);
                         }
                     }
-                    catch (IllegalArgumentException e) {
+                    catch (IllegalArgumentException | IllegalStateException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
+                        // java.lang.IllegalStateException - You are adding too many system settings.
+                        //   You should stop using system settings for app specific data pa...
                         //Log.e("ActivateProfileHelper.setTones (2)", Log.getStackTraceString(e));
                         //PPApplicationStatic.recordException(e);
                     }
@@ -2160,8 +2162,10 @@ class ActivateProfileHelper {
                     try {
                         RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, null);
                     }
-                    catch (IllegalArgumentException e) {
+                    catch (IllegalArgumentException | IllegalStateException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
+                        // java.lang.IllegalStateException - You are adding too many system settings.
+                        //   You should stop using system settings for app specific data pa...
                         //PPApplicationStatic.recordException(e);
                     }
                     catch (Exception e){
@@ -2192,8 +2196,10 @@ class ActivateProfileHelper {
                             RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, uri);
                         }
                     }
-                    catch (IllegalArgumentException e) {
+                    catch (IllegalArgumentException | IllegalStateException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
+                        // java.lang.IllegalStateException - You are adding too many system settings.
+                        //   You should stop using system settings for app specific data pa...
                         //PPApplicationStatic.recordException(e);
                     }
                     catch (Exception e){
@@ -2230,8 +2236,10 @@ class ActivateProfileHelper {
                     try {
                         RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, null);
                     }
-                    catch (IllegalArgumentException e) {
+                    catch (IllegalArgumentException | IllegalStateException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
+                        // java.lang.IllegalStateException - You are adding too many system settings.
+                        //   You should stop using system settings for app specific data pa...
                         //PPApplicationStatic.recordException(e);
                     }
                     catch (Exception e){
@@ -2262,8 +2270,10 @@ class ActivateProfileHelper {
                             RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM, uri);
                         }
                     }
-                    catch (IllegalArgumentException e) {
+                    catch (IllegalArgumentException | IllegalStateException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
+                        // java.lang.IllegalStateException - You are adding too many system settings.
+                        //   You should stop using system settings for app specific data pa...
                         //PPApplicationStatic.recordException(e);
                     }
                     catch (Exception e){
@@ -2301,8 +2311,10 @@ class ActivateProfileHelper {
                         //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, null);
                         RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM, null);
                     }
-                    catch (IllegalArgumentException e) {
+                    catch (IllegalArgumentException | IllegalStateException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
+                        // java.lang.IllegalStateException - You are adding too many system settings.
+                        //   You should stop using system settings for app specific data pa...
                         //PPApplicationStatic.recordException(e);
                     }
                     catch (Exception e){
@@ -2387,8 +2399,10 @@ class ActivateProfileHelper {
                                     }
                                 }
                             }
-                            catch (IllegalArgumentException e) {
+                            catch (IllegalArgumentException | IllegalStateException e) {
                                 // java.lang.IllegalArgumentException: Invalid column: _data
+                                // java.lang.IllegalStateException - You are adding too many system settings.
+                                //   You should stop using system settings for app specific data pa...
                                 //Log.e("ActivateProfileHelper.setTones (2)", Log.getStackTraceString(e));
                                 //PPApplicationStatic.recordException(e);
                             }
@@ -2449,8 +2463,10 @@ class ActivateProfileHelper {
                                     Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_ONEPLUS, null);
                                 }
                             }
-                            catch (IllegalArgumentException e) {
+                            catch (IllegalArgumentException | IllegalStateException e) {
                                 // java.lang.IllegalArgumentException: Invalid column: _data
+                                // java.lang.IllegalStateException - You are adding too many system settings.
+                                //   You should stop using system settings for app specific data pa...
                                 //PPApplicationStatic.recordException(e);
                             }
                             catch (Exception e){
@@ -2535,8 +2551,10 @@ class ActivateProfileHelper {
                                         Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS, uri.toString());
                                     }
                                 }
-                            } catch (IllegalArgumentException e) {
+                            } catch (IllegalArgumentException | IllegalStateException e) {
                                 // java.lang.IllegalArgumentException: Invalid column: _data
+                                // java.lang.IllegalStateException - You are adding too many system settings.
+                                //   You should stop using system settings for app specific data pa...
                                 //Log.e("ActivateProfileHelper.setTones (2)", Log.getStackTraceString(e));
                                 //PPApplicationStatic.recordException(e);
                             } catch (Exception e) {
@@ -2589,8 +2607,10 @@ class ActivateProfileHelper {
 
                                     Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS, null);
                                 }
-                            } catch (IllegalArgumentException e) {
+                            } catch (IllegalArgumentException | IllegalStateException e) {
                                 // java.lang.IllegalArgumentException: Invalid column: _data
+                                // java.lang.IllegalStateException - You are adding too many system settings.
+                                //   You should stop using system settings for app specific data pa...
                                 //PPApplicationStatic.recordException(e);
                             } catch (Exception e) {
                                 PPApplicationStatic.recordException(e);
@@ -2702,8 +2722,10 @@ class ActivateProfileHelper {
                                         }
                                     }
                                 }
-                            } catch (IllegalArgumentException e) {
+                            } catch (IllegalArgumentException | IllegalStateException e) {
                                 // java.lang.IllegalArgumentException: Invalid column: _data
+                                // java.lang.IllegalStateException - You are adding too many system settings.
+                                //   You should stop using system settings for app specific data pa...
                                 //PPApplicationStatic.recordException(e);
                             } catch (Exception e) {
                                 PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION,
@@ -2798,8 +2820,10 @@ class ActivateProfileHelper {
                                         }
                                     }
                                 }
-                            } catch (IllegalArgumentException e) {
+                            } catch (IllegalArgumentException | IllegalStateException e) {
                                 // java.lang.IllegalArgumentException: Invalid column: _data
+                                // java.lang.IllegalStateException - You are adding too many system settings.
+                                //   You should stop using system settings for app specific data pa...
                                 //PPApplicationStatic.recordException(e);
                             } catch (Exception e) {
                                 PPApplicationStatic.recordException(e);
@@ -2919,8 +2943,10 @@ class ActivateProfileHelper {
                                         }
                                     }
                                 }
-                            } catch (IllegalArgumentException e) {
+                            } catch (IllegalArgumentException | IllegalStateException e) {
                                 // java.lang.IllegalArgumentException: Invalid column: _data
+                                // java.lang.IllegalStateException - You are adding too many system settings.
+                                //   You should stop using system settings for app specific data pa...
                                 //PPApplicationStatic.recordException(e);
                             } catch (Exception e) {
                                 PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION,
@@ -3019,8 +3045,10 @@ class ActivateProfileHelper {
                                         }
                                     }
                                 }
-                            } catch (IllegalArgumentException e) {
+                            } catch (IllegalArgumentException | IllegalStateException e) {
                                 // java.lang.IllegalArgumentException: Invalid column: _data
+                                // java.lang.IllegalStateException - You are adding too many system settings.
+                                //   You should stop using system settings for app specific data pa...
                                 //PPApplicationStatic.recordException(e);
                             } catch (Exception e) {
                                 PPApplicationStatic.recordException(e);
@@ -3086,8 +3114,10 @@ class ActivateProfileHelper {
                                     }
                                 }
                             }
-                        } catch (IllegalArgumentException e) {
+                        } catch (IllegalArgumentException | IllegalStateException e) {
                             // java.lang.IllegalArgumentException: Invalid column: _data
+                            // java.lang.IllegalStateException - You are adding too many system settings.
+                            //   You should stop using system settings for app specific data pa...
                             //PPApplicationStatic.recordException(e);
                         } catch (Exception e) {
                             PPApplicationStatic.recordException(e);
