@@ -92,7 +92,7 @@ class EventPreferencesApplication extends EventPreferences {
                 if (extenderVersion == 0) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
                             StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
+                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
                             StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
@@ -298,7 +298,7 @@ class EventPreferencesApplication extends EventPreferences {
         int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
             return -2;
-        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
+        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3)
             return -1;
         if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled && isRunnable(context)) {
             if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
@@ -316,7 +316,7 @@ class EventPreferencesApplication extends EventPreferences {
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED) != null) {
                 final boolean accessibilityEnabled =
-                        sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
+                        sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, false
                                 /*, "EventPreferencesApplication.checkPreferences"*/);
                 ApplicationsMultiSelectDialogPreference applicationsPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
                 if (applicationsPreference != null) {
@@ -362,7 +362,7 @@ class EventPreferencesApplication extends EventPreferences {
             if ((EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 eventsHandler.applicationPassed = false;
 
-                if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, true
+                if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, true
                         /*, "EventPreferencesApplication.doHandleEvent"*/)) {
                     String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
 

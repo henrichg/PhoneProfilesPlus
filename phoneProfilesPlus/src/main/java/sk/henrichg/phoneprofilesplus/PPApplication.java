@@ -60,14 +60,9 @@ public class PPApplication extends Application
     static final boolean SHOW_IMPORTANT_INFO_NEWS = true;
     static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = true;
 
-    //static final int VERSION_CODE_EXTENDER_3_0 = 200;
-    //static final int VERSION_CODE_EXTENDER_4_0 = 400;
-    //static final int VERSION_CODE_EXTENDER_5_1_3_1 = 540;
-    //static final int VERSION_CODE_EXTENDER_5_1_4_1 = 600;
-    //static final int VERSION_CODE_EXTENDER_6_0 = 620;
-    //static final int VERSION_CODE_EXTENDER_6_2 = 670;
-    //static final int VERSION_CODE_EXTENDER_7_0 = 700;
-    //static final int VERSION_CODE_EXTENDER_8_0 = 800;
+    // for all current profile, event parameters test this
+    // for all new parameters which requires never version test VERSION_CODE_EXTENDER_LATEST
+    static final int VERSION_CODE_EXTENDER_8_1_3 = 880;
     static final int VERSION_CODE_EXTENDER_LATEST = 880;         // must be <= as in Extender dependencies.gradle
     static final String VERSION_NAME_EXTENDER_LATEST = "8.1.3";  // must be <= as in Extender dependencies.gradle
 

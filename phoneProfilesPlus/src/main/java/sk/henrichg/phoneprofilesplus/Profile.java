@@ -3332,7 +3332,7 @@ class Profile {
                     accessibilityEnabled = -2;
                 else
                 if ((extenderVersion > 0) &&
-                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
+                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3))
                     // old version
                     accessibilityEnabled = -1;
                 else
@@ -3344,7 +3344,7 @@ class Profile {
                     accessibilityEnabled = -2;
                 else
                 if ((extenderVersion > 0) &&
-                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
+                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3))
                     // old version
                     accessibilityEnabled = -1;
                 else

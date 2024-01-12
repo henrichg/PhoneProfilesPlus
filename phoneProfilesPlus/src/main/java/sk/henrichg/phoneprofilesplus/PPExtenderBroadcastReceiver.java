@@ -593,17 +593,18 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static boolean isEnabled(Context context/*, int version*/, boolean displayNotification, boolean againCheckInDelay
+    /** @noinspection SameParameterValue*/
+    static boolean isEnabled(Context context, int version, boolean displayNotification, boolean againCheckInDelay
                              /*, String calledFrom*/) {
 
         int extenderVersion = isExtenderInstalled(context);
         boolean enabled = false;
         //if ((version == -1) || (extenderVersion >= version)) // -1 => do not check version
-        if (extenderVersion >= PPApplication.VERSION_CODE_EXTENDER_LATEST)
+        if (extenderVersion >= version)
             enabled = isAccessibilityServiceEnabled(context, againCheckInDelay, displayNotification
                     /*, "PPExtenderBroadcastReceiver.isEnabled"*/);
         //return  (extenderVersion >= version) && enabled;
-        return  (extenderVersion >= PPApplication.VERSION_CODE_EXTENDER_LATEST) && enabled;
+        return  (extenderVersion >= version) && enabled;
     }
 
     static void getApplicationInForeground(Context context)

@@ -3701,7 +3701,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(getString(R.string.profile_preferences_device_not_allowed))
                     .append(": ").append(getString(R.string.preference_not_allowed_reason_not_extender_installed));
             ok = false;
-        } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
+        } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
             _value.append(getString(R.string.profile_preferences_device_not_allowed))
                     .append(": ").append(getString(R.string.preference_not_allowed_reason_extender_not_upgraded));
             ok = false;
@@ -3777,7 +3777,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 //ok = false;
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
                         .append(": ").append(getString(R.string.preference_not_allowed_reason_not_extender_installed));
-            } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
+            } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
                 //ok = false;
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
                         .append(": ").append(getString(R.string.preference_not_allowed_reason_extender_not_upgraded));
@@ -5257,7 +5257,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
                 }
                 else
-                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
+                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
                     ok = false;
                     changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
@@ -5334,7 +5334,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         changeSummary = changeSummary + StringConstants.STR_DOUBLE_NEWLINE +
                                 getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                    } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
+                    } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
                         //ok = false;
                         changeSummary = changeSummary + StringConstants.STR_DOUBLE_NEWLINE +
                                 getString(R.string.profile_preferences_device_not_allowed) +
@@ -6524,7 +6524,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(PREF_FORCE_STOP_APPLICATIONS_EXTENDER);
             //setSummary(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
             boolean enabled;
-            enabled = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(context/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
+            enabled = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, false
                     /*, "ProfilesPrefsFragment.disableDependedPref (Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)"*/);
             //enabled = PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true);
 

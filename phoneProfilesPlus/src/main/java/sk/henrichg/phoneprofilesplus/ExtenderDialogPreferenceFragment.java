@@ -569,7 +569,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             return;
         }
 
-        if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(prefContext) >= PPApplication.VERSION_CODE_EXTENDER_LATEST) {
+        if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(prefContext) != 0) {
             PackageManager packageManager = prefContext.getPackageManager();
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
             if (intent != null) {
