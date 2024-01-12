@@ -51,7 +51,7 @@ class ImportantInfoNotification {
 
             boolean showPPPPS = false;
             int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
-            if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED))
+            if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST))
                 showPPPPS = true;
 
 //            Log.e("ImportantInfoNotification.showInfoNotification", "showExtender="+showExtender);

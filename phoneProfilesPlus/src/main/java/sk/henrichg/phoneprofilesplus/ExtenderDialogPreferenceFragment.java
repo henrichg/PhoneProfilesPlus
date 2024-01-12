@@ -91,8 +91,8 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 prefVolumeDataSummary =  prefContext.getString(R.string.install_extender_installed_version) +
                         " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
                 prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.install_extender_required_version) +
-                        " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML;
-                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
+                        " "+StringConstants.TAG_BOLD_START_HTML + preference.requiredExtenderVersionName + " (" + preference.requiredExtenderVersionCode + ")"+StringConstants.TAG_BOLD_END_HTML;
+                if (extenderVersion < preference.requiredExtenderVersionCode)
                     prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + prefContext.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                 else
                   prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_BREAK_HTML+StringConstants.CHAR_HARD_SPACE_HTML; // "<br><br>" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
@@ -116,7 +116,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 accessibilityEnabled = -2;
             else
             if ((extenderVersion > 0) &&
-                    (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
+                    (extenderVersion < preference.requiredExtenderVersionCode))
                 // old version
                 accessibilityEnabled = -1;
             else
