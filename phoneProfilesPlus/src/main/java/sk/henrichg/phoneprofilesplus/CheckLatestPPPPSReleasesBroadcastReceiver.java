@@ -160,7 +160,7 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
 
     static void doWork(final Context appContext) {
         int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(appContext);
-        if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)) {
+        if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED)) {
             if (Build.VERSION.SDK_INT == 33) {
                 // check IzzyOnDroid repo
                 // because fo Android 13 is required to install apk from app stores

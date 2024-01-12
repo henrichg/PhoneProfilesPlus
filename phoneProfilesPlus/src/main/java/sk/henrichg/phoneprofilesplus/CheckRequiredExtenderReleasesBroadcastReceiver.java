@@ -160,7 +160,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
 
     static void doWork(final Context appContext) {
         int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(appContext);
-        if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
+        if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED)) {
             if (Build.VERSION.SDK_INT >= 33) {
                 // check IzzyOnDroid repo
                 // because from Android 13 is required to install apk from app stores

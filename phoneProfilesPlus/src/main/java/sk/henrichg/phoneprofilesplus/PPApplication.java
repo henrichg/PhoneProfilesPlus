@@ -58,14 +58,16 @@ public class PPApplication extends Application
     // this version code must by <= version code in dependencies.gradle
     static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 7082;
     static final boolean SHOW_IMPORTANT_INFO_NEWS = true;
-    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = true;
+    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = false;
 
     // for all current profile, event parameters test this
-    // for all new parameters which requires never version test VERSION_CODE_EXTENDER_LATEST
+    // for all new parameters which requires never version test VERSION_CODE_EXTENDER_REQUIRED
     static final int VERSION_CODE_EXTENDER_8_1_3 = 880;
+    static final int VERSION_CODE_EXTENDER_REQUIRED = 880;       // for this version will be displayed upgrade notification
     static final int VERSION_CODE_EXTENDER_LATEST = 880;         // must be <= as in Extender dependencies.gradle
     static final String VERSION_NAME_EXTENDER_LATEST = "8.1.3";  // must be <= as in Extender dependencies.gradle
 
+    static final int VERSION_CODE_PPPPS_REQUIRED = 55;           // for this version will be displayed upgrade notification
     static final int VERSION_CODE_PPPPS_LATEST = 55;             // must be <= as in PPPPS dependencies.gradle
     static final String VERSION_NAME_PPPPS_LATEST = "1.0.6";     // must be <= as in PPPPS dependencies.gradle
 

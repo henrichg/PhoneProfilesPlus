@@ -46,12 +46,12 @@ class ImportantInfoNotification {
 
             boolean showExtender = false;
             int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
-            if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
+            if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED))
                 showExtender = true;
 
             boolean showPPPPS = false;
             int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
-            if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST))
+            if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED))
                 showPPPPS = true;
 
 //            Log.e("ImportantInfoNotification.showInfoNotification", "showExtender="+showExtender);
