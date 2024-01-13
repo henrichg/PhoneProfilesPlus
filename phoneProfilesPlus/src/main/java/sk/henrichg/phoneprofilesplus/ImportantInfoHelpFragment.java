@@ -93,7 +93,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         boolean news = false;
         boolean newsLatest = (!firstInstallation) && (versionCode >= PPApplication.PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS);
 
-        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
         int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
 
         if (newsLatest) {

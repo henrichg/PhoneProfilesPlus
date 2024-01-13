@@ -79,7 +79,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
         mDialog.setOnShowListener(dialog -> {
             String prefVolumeDataSummary;
-            int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(prefContext);
+            int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(prefContext);
             if (extenderVersion == 0) {
                 prefVolumeDataSummary = StringConstants.TAG_BOLD_START_HTML + prefContext.getString(R.string.profile_preferences_PPPExtender_not_installed_summary) + StringConstants.TAG_BOLD_END_HTML;
 
@@ -87,7 +87,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + preference.installSummary;
             }
             else {
-                String extenderVersionName = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getExtenderVersionName(prefContext);
+                String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(prefContext);
                 prefVolumeDataSummary =  prefContext.getString(R.string.install_extender_installed_version) +
                         " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
                 prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.install_extender_required_version) +
@@ -123,7 +123,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 accessibilityEnabled = -98;
             if (accessibilityEnabled == -98) {
                 // Extender is in right version
-                if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(prefContext, false, true))
+                if (PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(prefContext, false, true))
                     // accessibility enabled
                     accessibilityEnabled = 1;
                 else
@@ -229,9 +229,9 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
         String dialogText = "";
 
-        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
+        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
         if (extenderVersion != 0) {
-            String extenderVersionName = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
+            String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
             dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
         }
         dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
@@ -347,9 +347,9 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
         String dialogText = "";
 
-        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
+        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
         if (extenderVersion != 0) {
-            String extenderVersionName = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
+            String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
             dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
         }
         dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
@@ -426,9 +426,9 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
             String dialogText = "";
 
-            int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
+            int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
             if (extenderVersion != 0) {
-                String extenderVersionName = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
+                String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
                 dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
             }
             dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
@@ -569,7 +569,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             return;
         }
 
-        if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(prefContext) != 0) {
+        if (PPExtenderBroadcastReceiver.isExtenderInstalled(prefContext) != 0) {
             PackageManager packageManager = prefContext.getPackageManager();
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
             if (intent != null) {
