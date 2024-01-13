@@ -66,6 +66,7 @@ public class PPApplication extends Application
     static final String VERSION_NAME_EXTENDER_8_1_3 = "8.1.3";
 
     // for this version will be displayed upgrade notification
+    //  reruired must by <= latest
     static final int VERSION_CODE_EXTENDER_REQUIRED = 890;
 
     // latest version in GitHub, IzzyOnDroid. will be installed
