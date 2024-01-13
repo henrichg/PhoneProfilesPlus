@@ -687,7 +687,7 @@ class PPApplicationStatic {
         getWallpaperChangeTime(context);
         EventStatic.getEventsBlocked(context);
         EventStatic.getForceRunEventRunning(context);
-        sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getApplicationInForeground(context);
+        PPExtenderBroadcastReceiver.getApplicationInForeground(context);
         EventPreferencesCall.getEventCallEventType(context);
         EventPreferencesCall.getEventCallEventTime(context);
         EventPreferencesCall.getEventCallPhoneNumber(context);
