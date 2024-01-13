@@ -1094,42 +1094,42 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 }
 
                 if ((_simOnOff != 0) && PPApplication.HAS_FEATURE_TELEPHONY) {
-                        tested = true;
-                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(eventsHandler.context);
-                        //boolean sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
-                        boolean sim1Exists = hasSIMCardData.hasSIM1;
-                        boolean sim2Exists = hasSIMCardData.hasSIM2;
+                    tested = true;
+                    HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(eventsHandler.context);
+                    //boolean sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                    boolean sim1Exists = hasSIMCardData.hasSIM1;
+                    boolean sim2Exists = hasSIMCardData.hasSIM2;
 
-                        switch (_simOnOff) {
-                            case 1:
-                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
-                                        (/*sim0Exists ||*/
-                                         sim1Exists ||
-                                         sim2Exists);
-                                break;
-                            case 2:
-                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
-                                        (/*(!sim0Exists) ||*/
-                                         (!sim1Exists) ||
-                                         (!sim2Exists));
-                                break;
-                            case 3:
-                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
-                                                (sim1Exists);
-                                break;
-                            case 4:
-                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
-                                        (!sim1Exists);
-                                break;
-                            case 5:
-                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
-                                        (sim2Exists);
-                                break;
-                            case 6:
-                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
-                                        (!sim2Exists);
-                                break;
-                        }
+                    switch (_simOnOff) {
+                        case 1:
+                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
+                                    (/*sim0Exists ||*/
+                                     sim1Exists ||
+                                     sim2Exists);
+                            break;
+                        case 2:
+                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
+                                    (/*(!sim0Exists) ||*/
+                                     (!sim1Exists) ||
+                                     (!sim2Exists));
+                            break;
+                        case 3:
+                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
+                                            (sim1Exists);
+                            break;
+                        case 4:
+                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
+                                    (!sim1Exists);
+                            break;
+                        case 5:
+                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
+                                    (sim2Exists);
+                            break;
+                        case 6:
+                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
+                                    (!sim2Exists);
+                            break;
+                    }
                 }
 
                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && tested;

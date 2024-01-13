@@ -56,9 +56,9 @@ public class PPApplication extends Application
                                         //implements Application.ActivityLifecycleCallbacks
 {
     // this version code must by <= version code in dependencies.gradle
-    static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 7082;
+    static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 7090;
     static final boolean SHOW_IMPORTANT_INFO_NEWS = true;
-    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = false;
+    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = true;
 
     //// Extender versions
     // versions required for profile, event parameters
@@ -178,7 +178,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
@@ -262,7 +262,7 @@ public class PPApplication extends Application
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
                                                 //+"|[PPP_NOTIFICATION]"
-                                                //+"|[DUAL_SIM]"
+                                                +"|[DUAL_SIM]"
                                                 //+"|[APPLICATION_FULLY_STARTED]"
                                                 //+"|[MAIN_WORKER_CALL]"
                                                 //+"|[CONTACTS_DIALOG]"
