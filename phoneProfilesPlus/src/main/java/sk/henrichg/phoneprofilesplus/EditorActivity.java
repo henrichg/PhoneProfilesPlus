@@ -517,6 +517,7 @@ public class EditorActivity extends AppCompatActivity
         //if ((savedInstanceState != null) || (ApplicationPreferences.applicationEditorSaveEditorState(getApplicationContext())))
         //{
             //filterSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
+            //Context appContext = getApplicationContext();
 
             if (startupSource == PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER) {
                 editorSelectedView = 0;
@@ -527,12 +528,12 @@ public class EditorActivity extends AppCompatActivity
                 filterProfilesSelectedItem = DSI_EVENTS_ALL;
             }
             else {
-//                ApplicationPreferences.editorSelectedView(getApplicationContext());
-//                ApplicationPreferences.editorProfilesViewSelectedItem(getApplicationContext());
+//                ApplicationPreferences.editorSelectedView(appContext);
+//                ApplicationPreferences.editorProfilesViewSelectedItem(appContext);
                 editorSelectedView = ApplicationPreferences.editorSelectedView;
                 filterProfilesSelectedItem = ApplicationPreferences.editorProfilesViewSelectedItem;
             }
-//            ApplicationPreferences.editorEventsViewSelectedItem(getApplicationContext());
+//            ApplicationPreferences.editorEventsViewSelectedItem(appContext);
             filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
         //}
 
@@ -647,20 +648,21 @@ public class EditorActivity extends AppCompatActivity
 
     @SuppressWarnings("SameReturnValue")
     private boolean startPPServiceWhenNotStarted() {
-        if (PPApplicationStatic.getApplicationStopping(getApplicationContext())) {
+        Context appContext = getApplicationContext();
+        if (PPApplicationStatic.getApplicationStopping(appContext)) {
             String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_stopping_toast);
-            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            PPApplication.showToast(appContext, text, Toast.LENGTH_SHORT);
             return true;
         }
 
-        boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
         if (!serviceStarted) {
-            //AutostartPermissionNotification.showNotification(getApplicationContext(), true);
+            //AutostartPermissionNotification.showNotification(appContext, true);
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
-            PPApplicationStatic.setApplicationStarted(getApplicationContext(), true);
-            Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+            PPApplicationStatic.setApplicationStarted(appContext, true);
+            Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
@@ -1083,6 +1085,7 @@ public class EditorActivity extends AppCompatActivity
         Intent intent;
 
         DataWrapper dataWrapper = getDataWrapper();
+        Context appContext = getApplicationContext();
 
         int itemId = item.getItemId();
 /*        if (itemId == android.R.id.home) {
@@ -1131,13 +1134,13 @@ public class EditorActivity extends AppCompatActivity
         else
         /*
         if (itemId == R.id.menu_dark_theme) {
-            String theme = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
+            String theme = ApplicationPreferences.applicationTheme(appContext, false);
             if (!theme.equals("night_mode")) {
-                SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+                SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
                 Editor editor = preferences.edit();
                 if (theme.equals("dark")) {
                     //theme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, "white");
-                    //theme = ApplicationPreferences.applicationNightModeOffTheme(getApplicationContext());
+                    //theme = ApplicationPreferences.applicationNightModeOffTheme(appContext);
                     editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
                     editor.apply();
                     ApplicationPreferences.applicationTheme = "white";
@@ -1147,7 +1150,7 @@ public class EditorActivity extends AppCompatActivity
                     editor.apply();
                     ApplicationPreferences.applicationTheme = "dark";
                 }
-                GlobalGUIRoutines.switchNightMode(getApplicationContext(), false);
+                GlobalGUIRoutines.switchNightMode(appContext, false);
                 GlobalGUIRoutines.reloadActivity(this, true);
             }
             return true;
@@ -1220,7 +1223,7 @@ public class EditorActivity extends AppCompatActivity
         if (itemId == R.id.menu_email_debug_logs_to_author) {
             ArrayList<Uri> uris = new ArrayList<>();
 
-            File sd = getApplicationContext().getExternalFilesDir(null);
+            File sd = appContext.getExternalFilesDir(null);
 
             File logFile = new File(sd, PPApplication.LOG_FILENAME);
             if (logFile.exists()) {
@@ -1275,7 +1278,7 @@ public class EditorActivity extends AppCompatActivity
                 }
             } else {
                 // toast notification
-                PPApplication.showToast(getApplicationContext(), getString(R.string.toast_debug_log_files_not_exists),
+                PPApplication.showToast(appContext, getString(R.string.toast_debug_log_files_not_exists),
                         Toast.LENGTH_SHORT);
             }
 
@@ -1295,7 +1298,7 @@ public class EditorActivity extends AppCompatActivity
                     getString(R.string.alert_button_yes),
                     getString(R.string.alert_button_no),
                     null, null,
-                    (dialog1, which) -> PPApplicationStatic.exitApp(true, getApplicationContext(), getDataWrapper(), EditorActivity.this, false, true, true),
+                    (dialog1, which) -> PPApplicationStatic.exitApp(true, appContext, getDataWrapper(), EditorActivity.this, false, true, true),
                     null,
                     null,
                     null,
@@ -1317,7 +1320,7 @@ public class EditorActivity extends AppCompatActivity
                     getString(R.string.gui_items_help_alert_message),
                     getString(R.string.alert_button_yes), getString(R.string.alert_button_no), null, null,
                     (dialog1, which) -> {
-                        ApplicationPreferences.startStopTargetHelps(getApplicationContext(), true);
+                        ApplicationPreferences.startStopTargetHelps(appContext, true);
                         GlobalGUIRoutines.reloadActivity(this, true);
                     },
                     null,
@@ -1550,14 +1553,15 @@ public class EditorActivity extends AppCompatActivity
             }
 
             // save into shared preferences
-            Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+            Context appContext = getApplicationContext();
+            Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.putInt(ApplicationPreferences.PREF_EDITOR_SELECTED_VIEW, editorSelectedView);
             editor.putInt(ApplicationPreferences.PREF_EDITOR_PROFILES_VIEW_SELECTED_ITEM, filterProfilesSelectedItem);
             editor.putInt(ApplicationPreferences.PREF_EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
             editor.apply();
-            ApplicationPreferences.editorSelectedView(getApplicationContext());
-            ApplicationPreferences.editorProfilesViewSelectedItem(getApplicationContext());
-            ApplicationPreferences.editorEventsViewSelectedItem(getApplicationContext());
+            ApplicationPreferences.editorSelectedView(appContext);
+            ApplicationPreferences.editorProfilesViewSelectedItem(appContext);
+            ApplicationPreferences.editorEventsViewSelectedItem(appContext);
 
             Bundle arguments;
 
@@ -1763,6 +1767,8 @@ public class EditorActivity extends AppCompatActivity
     {
         super.onActivityResult(requestCode, resultCode, data);
 
+        Context appContext = getApplicationContext();
+
         if (requestCode == REQUEST_CODE_ACTIVATE_PROFILE)
         {
             Fragment _fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1783,21 +1789,21 @@ public class EditorActivity extends AppCompatActivity
 
                 if (profile_id > 0)
                 {
-                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(appContext);
                     notificationManager.cancel(
                             PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile_id,
                             PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile_id);
-                    ActivateProfileHelper.cancelNotificationsForInteractiveParameters(getApplicationContext());
+                    ActivateProfileHelper.cancelNotificationsForInteractiveParameters(appContext);
 
-                    Profile profile = DatabaseHandler.getInstance(getApplicationContext()).getProfile(profile_id, false);
+                    Profile profile = DatabaseHandler.getInstance(appContext).getProfile(profile_id, false);
                     if (profile != null) {
                         // generate bitmaps
-                        profile.generateIconBitmap(getApplicationContext(), false, 0, false);
-                        profile.generatePreferencesIndicator(getApplicationContext(), false, 0, DataWrapper.IT_FOR_EDITOR, 0f);
+                        profile.generateIconBitmap(appContext, false, 0, false);
+                        profile.generatePreferencesIndicator(appContext, false, 0, DataWrapper.IT_FOR_EDITOR, 0f);
 
 
                         boolean isShown = false;
-                        NotificationManager mNotificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                        NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
                         if (mNotificationManager != null) {
                             StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
                             for (StatusBarNotification notification : notifications) {
@@ -1812,20 +1818,20 @@ public class EditorActivity extends AppCompatActivity
                         }
                         if (isShown) {
                             // redraw generated notification
-                            ActivateProfileHelper.generateNotifiction(getApplicationContext(), profile);
+                            ActivateProfileHelper.generateNotifiction(appContext, profile);
                         }
 
                         // redraw list fragment , notifications, widgets after finish ProfilesPrefsActivity
                         redrawProfileListFragment(profile, newProfileMode);
 
-                        //Profile mappedProfile = profile; //Profile.getMappedProfile(profile, getApplicationContext());
-                        //Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
+                        //Profile mappedProfile = profile; //Profile.getMappedProfile(profile, appContext);
+                        //Permissions.grantProfilePermissions(appContext, profile, false, true,
                         //        /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
                         DataWrapperStatic.displayPreferencesErrorNotification(profile, null, false, getApplicationContext());
                     }
                 }
 
-                /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                /*Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
                 PPApplication.startPPService(this, serviceIntent);*/
@@ -1855,16 +1861,16 @@ public class EditorActivity extends AppCompatActivity
 
                 if (event_id > 0)
                 {
-                    Event event = DatabaseHandler.getInstance(getApplicationContext()).getEvent(event_id);
+                    Event event = DatabaseHandler.getInstance(appContext).getEvent(event_id);
 
                     // redraw list fragment , notifications, widgets after finish EventPreferencesActivity
                     redrawEventListFragment(event, newEventMode);
 
-                    //Permissions.grantEventPermissions(getApplicationContext(), event, true, false);
+                    //Permissions.grantEventPermissions(appContext, event, true, false);
                     DataWrapperStatic.displayPreferencesErrorNotification(null, event, false, getApplicationContext());
                 }
 
-                /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                /*Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
                 PPApplication.startPPService(this, serviceIntent);*/
@@ -1873,7 +1879,7 @@ public class EditorActivity extends AppCompatActivity
                 commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
                 PPApplicationStatic.runCommand(this, commandIntent);
 
-                //IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext());
+                //IgnoreBatteryOptimizationNotification.showNotification(appContext);
 
 //                PPApplicationStatic.logE("[MAIN_WORKER_CALL] EditorActivity.onActivityResult", "xxxxxxxxxxxxxxxxxxxx");
 
@@ -1917,7 +1923,7 @@ public class EditorActivity extends AppCompatActivity
         {
             if (resultCode == RESULT_OK)
             {
-//                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+//                Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
 //                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
 //                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
 //                PPApplication.startPPService(this, serviceIntent);
@@ -2081,12 +2087,12 @@ public class EditorActivity extends AppCompatActivity
                 // uri of folder
                 Uri treeUri = data.getData();
                 if (treeUri != null) {
-                    getApplicationContext().grantUriPermission(PPApplication.PACKAGE_NAME, treeUri,
+                    appContext.grantUriPermission(PPApplication.PACKAGE_NAME, treeUri,
                             Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION/* | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION*/);
                     // persistent permissions
                     final int takeFlags = //data.getFlags() &
                             (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    getApplicationContext().getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
+                    appContext.getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
 
 /*                    class BackupAsyncTask extends AsyncTask<Void, Integer, Integer> {
                         DocumentFile pickedDir;
@@ -2116,7 +2122,7 @@ public class EditorActivity extends AppCompatActivity
                         protected void onPreExecute() {
                             super.onPreExecute();
 
-                            pickedDir = DocumentFile.fromTreeUri(getApplicationContext(), treeUri);
+                            pickedDir = DocumentFile.fromTreeUri(appContext, treeUri);
 
                             GlobalGUIRoutines.lockScreenOrientation(activity, false);
                             backupProgressDialog.setCancelable(false);
@@ -2146,7 +2152,7 @@ public class EditorActivity extends AppCompatActivity
 
                                 if (ok == 1) {
                                     if (pickedDir.canWrite()) {
-                                        File applicationDir = getApplicationContext().getExternalFilesDir(null);
+                                        File applicationDir = appContext.getExternalFilesDir(null);
 
                                         ok = copyToBackupDirectory(pickedDir, applicationDir, PPApplication.EXPORT_APP_PREF_FILENAME, getApplicationContext());
                                         if (ok == 1)
@@ -2203,7 +2209,7 @@ public class EditorActivity extends AppCompatActivity
                                 }
                             }
                             else {
-                                PPApplication.showToast(getApplicationContext(), getString(R.string.backup_settings_ok_backed_up), Toast.LENGTH_SHORT);
+                                PPApplication.showToast(appContext, getString(R.string.backup_settings_ok_backed_up), Toast.LENGTH_SHORT);
                             }
                         }
                     }
@@ -2220,12 +2226,12 @@ public class EditorActivity extends AppCompatActivity
                 // uri of folder
                 Uri treeUri = data.getData();
                 if (treeUri != null) {
-                    getApplicationContext().grantUriPermission(PPApplication.PACKAGE_NAME, treeUri,
+                    appContext.grantUriPermission(PPApplication.PACKAGE_NAME, treeUri,
                             Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION/* | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION*/);
                     // persistent permissions
                     final int takeFlags = //data.getFlags() &
                             (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    getApplicationContext().getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
+                    appContext.getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
                     restoreAsyncTask = new RestoreAsyncTask(treeUri, false, this);
                     restoreAsyncTask.execute();
                 }
@@ -2234,7 +2240,7 @@ public class EditorActivity extends AppCompatActivity
         else
         if (requestCode == REQUEST_CODE_SHARE_SETTINGS) {
             if (resultCode == RESULT_OK) {
-                PPApplication.showToast(getApplicationContext(), getString(R.string.share_settings_ok_shared), Toast.LENGTH_SHORT);
+                PPApplication.showToast(appContext, getString(R.string.share_settings_ok_shared), Toast.LENGTH_SHORT);
             } else {
                 if (!isFinishing()) {
                     PPAlertDialog dialog = new PPAlertDialog(
@@ -2264,12 +2270,12 @@ public class EditorActivity extends AppCompatActivity
                 // uri of folder
                 Uri fileUri = data.getData();
                 if (fileUri != null) {
-                    getApplicationContext().grantUriPermission(PPApplication.PACKAGE_NAME, fileUri,
+                    appContext.grantUriPermission(PPApplication.PACKAGE_NAME, fileUri,
                             Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION/* | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION*/);
                     // persistent permissions
                     final int takeFlags = //data.getFlags() &
                             (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    getApplicationContext().getContentResolver().takePersistableUriPermission(fileUri, takeFlags);
+                    appContext.getContentResolver().takePersistableUriPermission(fileUri, takeFlags);
 
                     restoreAsyncTask = new RestoreAsyncTask(fileUri, true, this);
                     restoreAsyncTask.execute();
@@ -2280,15 +2286,16 @@ public class EditorActivity extends AppCompatActivity
         else
         if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
         {
-            ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(getApplicationContext(), PhoneProfilesService.class);
+            ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(appContext, PhoneProfilesService.class);
             if (serviceInfo == null)
                 startPPServiceWhenNotStarted();
             else {
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorActivity.onActivityResult", "call of PPAppNotification.drawNotification");
-                ProfileListNotification.drawNotification(true, getApplicationContext());
-                DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
-                IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
-                PPAppNotification.drawNotification(true, getApplicationContext());
+                ImportantInfoNotification.showInfoNotification(appContext);
+                ProfileListNotification.drawNotification(true, appContext);
+                DrawOverAppsPermissionNotification.showNotification(appContext, true);
+                IgnoreBatteryOptimizationNotification.showNotification(appContext, true);
+                PPAppNotification.drawNotification(true, appContext);
             }
 
             //!!!! THIS IS IMPORTANT BECAUSE WITHOUT THIS IS GENERATED CRASH
@@ -2378,6 +2385,7 @@ public class EditorActivity extends AppCompatActivity
     /** @noinspection BlockingMethodInNonBlockingContext*/
     @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
     private boolean importApplicationPreferences(File src/*, int what*/) {
+        Context appContext = getApplicationContext();
         boolean res = true;
         ObjectInputStream input = null;
         try {
@@ -2437,7 +2445,7 @@ public class EditorActivity extends AppCompatActivity
                                 }
                             }
                             if (key.equals(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES))
-                                ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), /*true,*/ prefEdit);
+                                ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, /*true,*/ prefEdit);
                             if (key.equals(ApplicationPreferences.PREF_APPLICATION_FIRST_START))
                                 prefEdit.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
                         //}
@@ -2453,7 +2461,6 @@ public class EditorActivity extends AppCompatActivity
                     //if (what == 1) {
                         // save version code
                         try {
-                            Context appContext = getApplicationContext();
                             PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
                             int actualVersionCode = PPApplicationStatic.getVersionCode(pInfo);
                             PPApplicationStatic.setSavedVersionCode(appContext, actualVersionCode);
@@ -2463,12 +2470,12 @@ public class EditorActivity extends AppCompatActivity
                     //}
 
                     for (int i = 0; i < PPApplication.quickTileProfileId.length; i++)
-                        ApplicationPreferences.setQuickTileProfileId(getApplicationContext(), i, 0);
+                        ApplicationPreferences.setQuickTileProfileId(appContext, i, 0);
 
 
                     // set application parameters to "Not used" for non-granted Uri premissions
-                    ContentResolver contentResolver = getApplicationContext().getContentResolver();
-                    String tone = ApplicationPreferences.getSharedPreferences(getApplicationContext()).getString(
+                    ContentResolver contentResolver = appContext.getContentResolver();
+                    String tone = ApplicationPreferences.getSharedPreferences(appContext).getString(
                             ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND,
                             ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND_DEFAULT_VALUE);
                     if (!tone.isEmpty()) {
@@ -2477,7 +2484,7 @@ public class EditorActivity extends AppCompatActivity
                             Uri uri = Uri.parse(tone);
                             if (uri != null) {
                                 try {
-                                    getApplicationContext().grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    appContext.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                     isGranted = true;
                                 } catch (Exception e) {
@@ -2485,14 +2492,14 @@ public class EditorActivity extends AppCompatActivity
                                 }
                             }
                             if (!isGranted) {
-                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
                                 editor.putString(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND,
                                         ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND_DEFAULT_VALUE);
                                 editor.apply();
                             }
                         }
                     }
-                    tone = ApplicationPreferences.getSharedPreferences(getApplicationContext()).getString(
+                    tone = ApplicationPreferences.getSharedPreferences(appContext).getString(
                             ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND,
                             ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND_DEFAULT_VALUE);
                     if (!tone.isEmpty()) {
@@ -2501,7 +2508,7 @@ public class EditorActivity extends AppCompatActivity
                             Uri uri = Uri.parse(tone);
                             if (uri != null) {
                                 try {
-                                    getApplicationContext().grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    appContext.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                     isGranted = true;
                                 } catch (Exception e) {
@@ -2509,7 +2516,7 @@ public class EditorActivity extends AppCompatActivity
                                 }
                             }
                             if (!isGranted) {
-                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
                                 editor.putString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND,
                                         ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND_DEFAULT_VALUE);
                                 editor.apply();
@@ -2517,9 +2524,9 @@ public class EditorActivity extends AppCompatActivity
                         }
                     }
 
-                    PPApplicationStatic.loadGlobalApplicationData(getApplicationContext());
-                    PPApplicationStatic.loadApplicationPreferences(getApplicationContext());
-                    PPApplicationStatic.loadProfileActivationData(getApplicationContext());
+                    PPApplicationStatic.loadGlobalApplicationData(appContext);
+                    PPApplicationStatic.loadApplicationPreferences(appContext);
+                    PPApplicationStatic.loadProfileActivationData(appContext);
                 }
                 else
                     res = false;
@@ -2539,16 +2546,16 @@ public class EditorActivity extends AppCompatActivity
                 PPApplicationStatic.recordException(e);
             }
 
-            WifiScanWorker.setScanRequest(getApplicationContext(), false);
-            WifiScanWorker.setWaitForResults(getApplicationContext(), false);
-            WifiScanWorker.setWifiEnabledForScan(getApplicationContext(), false);
+            WifiScanWorker.setScanRequest(appContext, false);
+            WifiScanWorker.setWaitForResults(appContext, false);
+            WifiScanWorker.setWifiEnabledForScan(appContext, false);
 
-            BluetoothScanWorker.setScanRequest(getApplicationContext(), false);
-            BluetoothScanWorker.setLEScanRequest(getApplicationContext(), false);
-            BluetoothScanWorker.setWaitForResults(getApplicationContext(), false);
-            BluetoothScanWorker.setWaitForLEResults(getApplicationContext(), false);
-            BluetoothScanWorker.setBluetoothEnabledForScan(getApplicationContext(), false);
-            BluetoothScanWorker.setScanKilled(getApplicationContext(), false);
+            BluetoothScanWorker.setScanRequest(appContext, false);
+            BluetoothScanWorker.setLEScanRequest(appContext, false);
+            BluetoothScanWorker.setWaitForResults(appContext, false);
+            BluetoothScanWorker.setWaitForLEResults(appContext, false);
+            BluetoothScanWorker.setBluetoothEnabledForScan(appContext, false);
+            BluetoothScanWorker.setScanKilled(appContext, false);
 
         }
         return res;
@@ -3219,6 +3226,8 @@ public class EditorActivity extends AppCompatActivity
     private void showTargetHelps() {
         //startTargetHelps = true;
 
+        final Context appContext = getApplicationContext();
+
         boolean startTargetHelps = ApplicationPreferences.prefEditorActivityStartTargetHelps;
         //boolean startTargetHelpsProfilesFilterSpinner = ApplicationPreferences.prefEditorActivityStartTargetHelpsProfilesFilterSpinner;
         //boolean startTargetHelpsEventsFilterSpinner = ApplicationPreferences.prefEditorActivityStartTargetHelpsEventsFilterSpinner;
@@ -3242,7 +3251,7 @@ public class EditorActivity extends AppCompatActivity
                     startTargetHelpsRunStopIndicator || startTargetHelpsBottomNavigation) {
                 //Log.d("EditorActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-                Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                Editor editor = ApplicationPreferences.getEditor(appContext);
                 editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS, false);
 
                 //if (editorSelectedView == 0)
@@ -3268,7 +3277,7 @@ public class EditorActivity extends AppCompatActivity
 
                 //final Display display = getWindowManager().getDefaultDisplay();
 
-                //String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
+                //String appTheme = ApplicationPreferences.applicationTheme(appContext, true);
                 int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
 //                if (appTheme.equals("dark"))
 //                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
@@ -3695,7 +3704,7 @@ public class EditorActivity extends AppCompatActivity
                     public void onSequenceFinish() {
                         //targetHelpsSequenceStarted = false;
 
-                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
                         editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_FINISHED, true);
                         editor.apply();
                         ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished = true;
@@ -3717,7 +3726,7 @@ public class EditorActivity extends AppCompatActivity
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
                         //targetHelpsSequenceStarted = false;
-                        Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                        Editor editor = ApplicationPreferences.getEditor(appContext);
                         if (editorSelectedView == 0) {
                             editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
                             editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
@@ -3766,7 +3775,7 @@ public class EditorActivity extends AppCompatActivity
                         .considerOuterCircleCanceled(true);
                 //targetHelpsSequenceStarted = true;
 
-                editor = ApplicationPreferences.getEditor(getApplicationContext());
+                editor = ApplicationPreferences.getEditor(appContext);
                 editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_FINISHED, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished = false;

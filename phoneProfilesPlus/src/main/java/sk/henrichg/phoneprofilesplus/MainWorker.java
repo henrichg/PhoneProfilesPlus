@@ -166,16 +166,16 @@ public class MainWorker extends Worker {
                             return Result.success();
 
                         int oldAccessibilityServiceForPPPExtenderConnected = PPApplication.accessibilityServiceForPPPExtenderConnected;
-                        if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, false, false
+                        if (PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, false, false
                                 /*, "MainWorker.doWork (ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG)"*/)) {
                             PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
                         }
                         else {
                             PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
 
-                            boolean displayNotification = getInputData().getBoolean(sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.EXTRA_DISPLAY_NOTIFICATION, true);
+                            boolean displayNotification = getInputData().getBoolean(PPExtenderBroadcastReceiver.EXTRA_DISPLAY_NOTIFICATION, true);
                             if (displayNotification) {
-                                if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(appContext) != 0) {
+                                if (PPExtenderBroadcastReceiver.isExtenderInstalled(appContext) != 0) {
                                     Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 

@@ -137,14 +137,14 @@ class EventPreferencesSMS extends EventPreferences {
 
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
+                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
                 if (extenderVersion == 0) {
                     _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
                             .append(StringConstants.STR_COLON_WITH_SPACE).append(context.getString(R.string.preference_not_allowed_reason_not_extender_installed));
                 } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
                     _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
                             .append(StringConstants.STR_COLON_WITH_SPACE).append(context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded));
-                } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
+                } else if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
                         /*, "EventPreferencesSMS.getPreferencesDescription"*/)) {
                     _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
                             .append(StringConstants.STR_COLON_WITH_SPACE).append(context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender));
@@ -456,13 +456,13 @@ class EventPreferencesSMS extends EventPreferences {
     @Override
     int isAccessibilityServiceEnabled(Context context, boolean againCheckInDelay)
     {
-        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
             return -2;
         if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3)
             return -1;
         if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled && isRunnable(context)) {
-            if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
+            if (PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
                         /*, "EventPreferencesSMS.isAccessibilityServiceEnabled"*/))
                 return 1;
         } else
@@ -478,7 +478,7 @@ class EventPreferencesSMS extends EventPreferences {
             if (prefMng.findPreference(PREF_EVENT_SMS_ENABLED) != null)
             {
                 final boolean accessibilityEnabled =
-                        sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, false
+                        PPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, false
                                 /*, "EventPreferencesSMS.checkPreferences"*/);
 
                 boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_SMS_ENABLED, false);

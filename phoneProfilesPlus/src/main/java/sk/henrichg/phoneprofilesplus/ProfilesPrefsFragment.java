@@ -3696,7 +3696,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         );
 
         boolean ok = true;
-        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0) {
             _value.append(getString(R.string.profile_preferences_device_not_allowed))
                     .append(": ").append(getString(R.string.preference_not_allowed_reason_not_extender_installed));
@@ -3707,7 +3707,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ok = false;
         }
         else
-        if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+        if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
                 /*, "ProfilesPrefsFragment.setCategorySummaryForceStopApplications"*/)) {
             _value.append(getString(R.string.profile_preferences_device_not_allowed))
                     .append(": ").append(getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender));
@@ -3772,7 +3772,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     .append(StringConstants.TAG_BOLD_END_HTML);
 
         if ((sValue != null) && sValue.equals("3")) {
-            int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+            int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
             if (extenderVersion == 0) {
                 //ok = false;
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
@@ -3781,7 +3781,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 //ok = false;
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
                         .append(": ").append(getString(R.string.preference_not_allowed_reason_extender_not_upgraded));
-            } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+            } else if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
                     /*, "ProfilesPrefsFragment.setCategorySummaryLockDevice"*/)) {
                 //ok = false;
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
@@ -5250,7 +5250,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (listPreference != null) {
                 boolean ok = true;
                 CharSequence changeSummary = "";
-                int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
                 if (extenderVersion == 0) {
                     ok = false;
                     changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
@@ -5263,7 +5263,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 }
                 else
-                if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+                if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
                         /*, "ProfilesPrefsFragment.setSummary (PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)"*/)) {
                     ok = false;
                     changeSummary = getString(R.string.profile_preferences_device_not_allowed)+
@@ -5328,7 +5328,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 changeSummary = (index >= 0) ? listPreference.getEntries()[index] : null;
 
                 if (sValue.equals("3")) {
-                    int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                    int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
                     if (extenderVersion == 0) {
                         //ok = false;
                         changeSummary = changeSummary + StringConstants.STR_DOUBLE_NEWLINE +
@@ -5339,7 +5339,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         changeSummary = changeSummary + StringConstants.STR_DOUBLE_NEWLINE +
                                 getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                    } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+                    } else if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
                             /*, "ProfilesPrefsFragment.setSummary (PREF_PROFILE_LOCK_DEVICE)"*/)) {
                         //ok = false;
                         changeSummary = changeSummary + StringConstants.STR_DOUBLE_NEWLINE +
@@ -6524,7 +6524,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(PREF_FORCE_STOP_APPLICATIONS_EXTENDER);
             //setSummary(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
             boolean enabled;
-            enabled = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, false
+            enabled = PPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, false
                     /*, "ProfilesPrefsFragment.disableDependedPref (Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)"*/);
             //enabled = PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true);
 

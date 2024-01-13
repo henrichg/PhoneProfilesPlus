@@ -341,20 +341,21 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
 
     @SuppressWarnings("SameReturnValue")
     private boolean startPPServiceWhenNotStarted() {
-        if (PPApplicationStatic.getApplicationStopping(getApplicationContext())) {
+        Context appContext = getApplicationContext();
+        if (PPApplicationStatic.getApplicationStopping(appContext)) {
             String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_stopping_toast);
-            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            PPApplication.showToast(appContext, text, Toast.LENGTH_SHORT);
             return true;
         }
 
-        boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
         if (!serviceStarted) {
-            //AutostartPermissionNotification.showNotification(getApplicationContext(), true);
+            //AutostartPermissionNotification.showNotification(appContext, true);
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
-            PPApplicationStatic.setApplicationStarted(getApplicationContext(), true);
-            Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+            PPApplicationStatic.setApplicationStarted(appContext, true);
+            Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
@@ -396,15 +397,17 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
 
         if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
         {
-            ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(getApplicationContext(), PhoneProfilesService.class);
+            Context appContext = getApplicationContext();
+            ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(appContext, PhoneProfilesService.class);
             if (serviceInfo == null)
                 startPPServiceWhenNotStarted();
             else {
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPAppNotification.drawNotification");
-                ProfileListNotification.drawNotification(true, getApplicationContext());
-                DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
-                IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
-                PPAppNotification.drawNotification(true, getApplicationContext());
+                ImportantInfoNotification.showInfoNotification(appContext);
+                ProfileListNotification.drawNotification(true, appContext);
+                DrawOverAppsPermissionNotification.showNotification(appContext, true);
+                IgnoreBatteryOptimizationNotification.showNotification(appContext, true);
+                PPAppNotification.drawNotification(true, appContext);
             }
 
             //!!!! THIS IS IMPORTANT BECAUSE WITHOUT THIS IS GENERATED CRASH
@@ -493,7 +496,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
             fragment.updateSharedPreferences();
         }
 
-        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
         if (wifiScannerEnabled != ApplicationPreferences.applicationEventWifiEnableScanning)
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
         if (bluetoothScannerEnabled != ApplicationPreferences.applicationEventBluetoothEnableScanning)
@@ -514,15 +517,15 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE, false);
         editor.apply();
 
-        PPApplicationStatic.loadApplicationPreferences(getApplicationContext());
+        PPApplicationStatic.loadApplicationPreferences(appContext);
 
         PPAppNotification.forceDrawNotificationFromSettings(appContext);
 
         // !! must be after PPApplication.loadApplicationPreferences()
         if (ApplicationPreferences.notificationProfileListDisplayNotification)
-            ProfileListNotification.enable(true, getApplicationContext());
+            ProfileListNotification.enable(true, appContext);
         else
-            ProfileListNotification.disable(getApplicationContext());
+            ProfileListNotification.disable(appContext);
 
        //try {
         PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, ApplicationPreferences.applicationEventPeriodicScanningEnableScanning);
@@ -554,7 +557,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
         //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
 
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsActivity.doPreferenceChanges", "call of updateGUI");
-        PPApplication.updateGUI(true, false, getApplicationContext());
+        PPApplication.updateGUI(true, false, appContext);
 
         if (PPApplication.grantRootChanged) {
             invalidateEditor = true;
@@ -692,10 +695,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
             long lApplicationDefaultProfile = Long.valueOf(PPApplication.applicationDefaultProfile);
             if (lApplicationDefaultProfile != PPApplication.PROFILE_NO_ACTIVATE)
             {
-                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
+                DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
                 if (dataWrapper.getActivatedProfile() == null)
                 {
-                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, getApplicationContext());
+                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, appContext);
                     dataWrapper.activateProfile(lApplicationDefaultProfile, PPApplication.STARTUP_SOURCE_EVENT, null, "");
                 }
                 //invalidateEditor = true;
@@ -705,7 +708,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
 
         //GlobalGUIRoutines.unlockScreenOrientation(this);
 
-        /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+        /*Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
         PPApplication.startPPService(this, serviceIntent);*/
