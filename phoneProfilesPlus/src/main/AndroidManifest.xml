@@ -393,6 +393,25 @@
                        android:resource="@xml/filter_nfc" />-->
         </activity>
         <activity
+            android:name=".NFCTagReadForegroundActivity"
+            android:label="@string/title_activity_nfc_tag_read"
+            android:excludeFromRecents="true"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.activator"
+            android:theme="@style/ActivatorTheme_dayNight"
+            tools:ignore="IntentFilterExportedReceiver">
+            <intent-filter>
+                <!--<action android:name="android.nfc.action.TECH_DISCOVERED"/>
+                <action android:name="android.nfc.action.TAG_DISCOVERED"/>-->
+
+                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+                <data android:mimeType="application/vnd.phoneprofilesplus.events"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+            <!--<meta-data android:name="android.nfc.action.TECH_DISCOVERED"
+                       android:resource="@xml/filter_nfc" />-->
+        </activity>
+        <activity
             android:name=".ActivatorTargetHelpsActivity"
             android:label=""
             android:excludeFromRecents="true"

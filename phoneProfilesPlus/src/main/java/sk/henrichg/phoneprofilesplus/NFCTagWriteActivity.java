@@ -31,7 +31,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_write_nfc_tag);
+        setContentView(R.layout.activity_nfc_write_tag);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         if (getSupportActionBar() != null) {
