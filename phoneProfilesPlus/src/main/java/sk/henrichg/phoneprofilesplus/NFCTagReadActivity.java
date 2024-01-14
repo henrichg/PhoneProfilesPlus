@@ -15,6 +15,9 @@ import java.util.Calendar;
 public class NFCTagReadActivity extends AppCompatActivity {
 
     private NFCTagReadWriteManager nfcManager;
+    private boolean showDialog = false;
+
+    static final String EXTRA_SHOW_DIALOG = "etra_show_dialog";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,9 @@ public class NFCTagReadActivity extends AppCompatActivity {
 
 //        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] NFCTagReadActivity.onCreate", "xxx");
         Log.e("NFCTagReadActivity.onCreate", "xxx");
+
+        Intent intent = getIntent();
+        showDialog = intent.getBooleanExtra(EXTRA_SHOW_DIALOG, false);
 
         nfcManager = new NFCTagReadWriteManager(this);
         nfcManager.onActivityCreate();
@@ -135,6 +141,41 @@ public class NFCTagReadActivity extends AppCompatActivity {
         nfcManager.onActivityPause();
         super.onPause();
         //Log.d("NFCTagReadActivity.onPause", "xxx");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GlobalGUIRoutines.lockScreenOrientation(this, true);
+
+        if (showDialog) {
+            PPAlertDialog dialog = new PPAlertDialog("Read NFC tag", "Please read NFC tag writen in PhonePorfilesPlus",
+                    getString(android.R.string.cancel), null, null, null,
+                    (dialog1, which) -> {
+                        try {
+                            nfcManager.activity.finish();
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    true, true,
+                    false, false,
+                    false,
+                    this
+            );
+            if (!isFinishing())
+                dialog.show();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
     @Override
