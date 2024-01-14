@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,8 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
+
+        Log.e("NFCTagWriteActivity.onCreate", "xxx");
 
         setContentView(R.layout.activity_nfc_write_tag);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));

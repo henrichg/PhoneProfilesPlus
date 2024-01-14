@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
 
 //        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] NFCTagReadActivity.onCreate", "xxx");
+        Log.e("NFCTagReadActivity.onCreate", "xxx");
 
         nfcManager = new NFCTagReadWriteManager(this);
         nfcManager.onActivityCreate();
