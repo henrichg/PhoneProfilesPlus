@@ -374,11 +374,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NFCTagReadActivity"
+            android:name=".NFCTagReadForegroundActivity"
+            android:label="@string/title_activity_nfc_tag_read"
             android:excludeFromRecents="true"
-            android:label=""
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyAppCompatActivity"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.activator"
+            android:theme="@style/ActivatorTheme_dayNight"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <!--<action android:name="android.nfc.action.TECH_DISCOVERED"/>
@@ -393,11 +393,11 @@
                        android:resource="@xml/filter_nfc" />-->
         </activity>
         <activity
-            android:name=".NFCTagReadForegroundActivity"
-            android:label="@string/title_activity_nfc_tag_read"
+            android:name=".NFCTagReadActivity"
             android:excludeFromRecents="true"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.activator"
-            android:theme="@style/ActivatorTheme_dayNight"
+            android:label=""
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <!--<action android:name="android.nfc.action.TECH_DISCOVERED"/>
