@@ -24,5 +24,11 @@
         app:min="0"
         app:max="30"
         app:layout="@layout/mp_preference_material_widget" />
-    
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="applicationCreateEditorShortcut"
+        app:title="@string/phone_profiles_pref_createEditorShortcut"
+        app:summary="@string/phone_profiles_pref_createEditorShortcut_summary"
+        app:layout="@layout/mp_preference_material_widget" />
+
 </androidx.preference.PreferenceScreen>
