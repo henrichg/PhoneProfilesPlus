@@ -21,6 +21,7 @@ import android.nfc.tech.NfcBarcode;
 import android.nfc.tech.NfcF;
 import android.nfc.tech.NfcV;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -165,6 +166,8 @@ class NFCTagReadWriteManager {
         if (intent != null){
             String action = intent.getAction();
 
+            Log.e("NFCTagReadWriteManager.readTagFromIntent", "action="+action);
+
             /*if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
                 uidRead = true;
 
@@ -176,6 +179,7 @@ class NFCTagReadWriteManager {
 
                 // get NDEF tag details
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+                Log.e("NFCTagReadWriteManager.readTagFromIntent", "tag="+tag);
                 if (tag != null) {
                     Ndef ndefTag = Ndef.get(tag);
                     //int tagSize = ndefTag.getMaxSize();         // tag size
@@ -186,6 +190,7 @@ class NFCTagReadWriteManager {
                     if (rawMessages != null) {
                         NdefRecord[] records = ((NdefMessage) rawMessages[0]).getRecords();
                         String text = ndefRecordToString(records[0]);
+                        Log.e("NFCTagReadWriteManager.readTagFromIntent", "text="+text);
                         onTagReadListener.onTagRead(text);
                     }
                 }

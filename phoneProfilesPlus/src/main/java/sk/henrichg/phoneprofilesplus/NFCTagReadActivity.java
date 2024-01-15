@@ -66,6 +66,8 @@ public class NFCTagReadActivity extends AppCompatActivity {
         }
         */
         nfcManager.setOnTagReadListener(tagData -> {
+            Log.e("NFCTagReadActivity.OnTagRead", "xxxxx");
+
             if (EventStatic.getGlobalEventsRunning(this)) {
                 PPApplication.showToast(getApplicationContext(), "(" + getString(R.string.ppp_app_name) + ") " + getString(R.string.read_nfc_tag_read) + StringConstants.STR_COLON_WITH_SPACE + tagData, Toast.LENGTH_LONG);
 
@@ -133,14 +135,14 @@ public class NFCTagReadActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         nfcManager.onActivityResume();
-        //Log.d("NFCTagReadActivity.onResume", "xxx");
+        Log.e("NFCTagReadActivity.onResume", "xxx");
     }
 
     @Override
     protected void onPause() {
         nfcManager.onActivityPause();
         super.onPause();
-        //Log.d("NFCTagReadActivity.onPause", "xxx");
+        Log.e("NFCTagReadActivity.onPause", "xxx");
     }
 
     @Override
@@ -149,7 +151,11 @@ public class NFCTagReadActivity extends AppCompatActivity {
         GlobalGUIRoutines.lockScreenOrientation(this, true);
 
         if (showDialog) {
-            PPAlertDialog dialog = new PPAlertDialog("Read NFC tag", "Please read NFC tag writen in PhonePorfilesPlus",
+            // set theme and language for dialog alert ;-)
+            GlobalGUIRoutines.setTheme(this, true, false, false, false, false, false);
+            //GlobalGUIRoutines.setLanguage(this);
+
+            PPAlertDialog dialog = new PPAlertDialog(getString(R.string.nfc_tag_pref_dlg_readNfcTag_title), getString(R.string.nfc_tag_pref_dlg_readNfcTag_text),
                     getString(android.R.string.cancel), null, null, null,
                     (dialog1, which) -> {
                         try {
@@ -160,7 +166,13 @@ public class NFCTagReadActivity extends AppCompatActivity {
                     },
                     null,
                     null,
-                    null,
+                    dialog12 -> {
+                        try {
+                            nfcManager.activity.finish();
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                    },
                     null,
                     true, true,
                     false, false,
@@ -182,7 +194,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
         nfcManager.onActivityNewIntent(intent);
-        //Log.d("NFCTagReadActivity.onNewIntent", "xxx");
+        Log.e("NFCTagReadActivity.onNewIntent", "xxx");
     }
 
     @Override
@@ -190,6 +202,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
     {
         super.finish();
         overridePendingTransition(0, 0);
+        Log.e("NFCTagReadActivity.finish", "xxx");
     }
 
 }

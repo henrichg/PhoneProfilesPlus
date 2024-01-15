@@ -25,8 +25,12 @@ class EventPreferencesNFC extends EventPreferences {
     static final String PREF_EVENT_NFC_NFC_TAGS = "eventNFCTags";
     private static final String PREF_EVENT_NFC_PERMANENT_RUN = "eventNFCPermanentRun";
     private static final String PREF_EVENT_NFC_DURATION = "eventNFCDuration";
+    static final String PREF_EVENT_NFC_READ_NFC_TAG_SHORTCUT = "eventNFCCreateReadNFCTagShortcut";
 
     static final String PREF_EVENT_NFC_CATEGORY = "eventNFCCategoryRoot";
+
+    static final String SHORTCUT_ID_READ_NFC_TAG = "event_nfc_read_nfc_tag";
+    static final String ACTION_SHORTCUT_TO_READ_NFC_TAG_ADDED = PPApplication.PACKAGE_NAME + ".ACTION_SHORTCUT_TO_READ_NFC_TAG_ADDED";
 
     EventPreferencesNFC(Event event,
                                boolean enabled,

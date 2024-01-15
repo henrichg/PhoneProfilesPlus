@@ -1,9 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.content.Context.RECEIVER_NOT_EXPORTED;
+
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
@@ -25,6 +29,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.pm.ShortcutInfoCompat;
+import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -36,6 +43,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EventsPrefsFragment extends PreferenceFragmentCompat
                                     implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -50,6 +58,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     //static boolean forceStart;
 
     private SetRedTextToPreferencesAsyncTask setRedTextToPreferencesAsyncTask = null;
+
+    private ShortcutToReadNFCTagAddedBroadcastReceiver shortcutToReadNFCTagAddedReceiver;
 
     private static final String PREF_GRANT_PERMISSIONS = "eventGrantPermissions";
     private static final String PREF_NOT_IS_RUNNABLE = "eventNotIsRunnable";
@@ -1206,6 +1216,70 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             infoDialogPreference.setIsHtml(true);
         }
 
+        preference = prefMng.findPreference(EventPreferencesNFC.PREF_EVENT_NFC_READ_NFC_TAG_SHORTCUT);
+        if (preference != null) {
+            Context appContext = context.getApplicationContext();
+            if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
+                List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
+                boolean exists = false;
+                for (ShortcutInfoCompat shortcut : shortcuts) {
+                    if (shortcut.getId().equals(EventPreferencesNFC.SHORTCUT_ID_READ_NFC_TAG)) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {
+                    if (shortcutToReadNFCTagAddedReceiver == null) {
+                        shortcutToReadNFCTagAddedReceiver = new ShortcutToReadNFCTagAddedBroadcastReceiver();
+                        IntentFilter shortcutAddedFilter = new IntentFilter(EventPreferencesNFC.ACTION_SHORTCUT_TO_READ_NFC_TAG_ADDED);
+                        int receiverFlags = 0;
+                        if (Build.VERSION.SDK_INT >= 34)
+                            receiverFlags = RECEIVER_NOT_EXPORTED;
+                        getActivity().registerReceiver(shortcutToReadNFCTagAddedReceiver, shortcutAddedFilter, receiverFlags);
+                    }
+
+                    preference.setVisible(true);
+                    preference.setOnPreferenceClickListener(preference120 -> {
+                        Intent shortcutIntent = new Intent(appContext, NFCTagReadActivity.class);
+                        //shortcutIntent.setAction(Intent.ACTION_MAIN);
+                        shortcutIntent.setAction("android.nfc.action.NDEF_DISCOVERED");
+                        //<data android:mimeType="application/vnd.phoneprofilesplus.events"/>
+                        //shortcutIntent.setData(Uri.parse("android:mimeType=\"application/vnd.phoneprofilesplus.events\""));
+                        shortcutIntent.setType("application/vnd.phoneprofilesplus.events");
+                        shortcutIntent.addCategory(Intent.CATEGORY_DEFAULT);
+
+                        //TODO - EXTRA
+                        shortcutIntent.putExtra(NFCTagReadActivity.EXTRA_SHOW_DIALOG, true);
+                        shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                        ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, EventPreferencesNFC.SHORTCUT_ID_READ_NFC_TAG);
+                        shortcutBuilderCompat.setIntent(shortcutIntent);
+                        shortcutBuilderCompat.setShortLabel(getString(R.string.nfc_tag_pref_dlg_readNfcTag_title));
+                        shortcutBuilderCompat.setLongLabel(getString(R.string.nfc_tag_pref_dlg_readNfcTag_title));
+                        //TODO - ikona
+                        shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_editor));
+
+                        try {
+                            Intent pinnedShortcutCallbackIntent = new Intent(EventPreferencesNFC.ACTION_SHORTCUT_TO_READ_NFC_TAG_ADDED);
+                            PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent,  0);
+
+                            ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
+                            ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
+                            //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
+                        } catch (Exception e) {
+                            // show dialog about this crash
+                            // for Microsft laucher it is:
+                            // java.lang.IllegalArgumentException ... already exists but disabled
+                        }
+
+                        return false;
+                    });
+                }
+                else
+                    preference.setVisible(false);
+            } else
+                preference.setVisible(false);
+        }
     }
 
     @Override
@@ -1243,6 +1317,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        try {
+            if (getActivity() != null)
+                getActivity().unregisterReceiver(shortcutToReadNFCTagAddedReceiver);
+        } catch (Exception ignored) {}
+        shortcutToReadNFCTagAddedReceiver = null;
 
         if ((setRedTextToPreferencesAsyncTask != null) &&
                 setRedTextToPreferencesAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))

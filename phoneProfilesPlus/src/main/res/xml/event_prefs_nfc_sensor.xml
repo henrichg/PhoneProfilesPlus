@@ -15,6 +15,13 @@
         app:title="@string/event_preferences_nfc_nfcTags"
         app:dependency="eventNFCEnabled"
         app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="eventNFCCreateReadNFCTagShortcut"
+        app:title="@string/event_preferences_nfc_createReadNFCTagShortcut"
+        app:summary="@string/event_preferences_nfc__createReadNFCTagShortcut_summary"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <SwitchPreferenceCompat
         app:key="eventNFCPermanentRun"
         app:title="@string/pref_event_permanentRun"
