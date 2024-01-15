@@ -5764,18 +5764,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS))
         {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-//            if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
-//                Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs");
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             {
-//                if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
-//                    Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  not allowed");
+//                if (key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE))
+//                    Log.e("ProfilesPrefsFragment.setSummaryRadios", "network type  not allowed");
                 Preference preference = prefMng.findPreference(key);
-//                if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
-//                    Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  preference="+preference);
                 if (preference != null) {
-//                    if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
-//                        Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  preference != null");
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -5785,11 +5779,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setEnabled(false);
                     else
                         errorColor = !value.toString().equals("0");
-//                    if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
-//                        Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  errorColor="+errorColor);
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
-//                        if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
-//                            Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  not allowed description");
                         preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     }
