@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -1240,24 +1241,20 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
                     preference.setVisible(true);
                     preference.setOnPreferenceClickListener(preference120 -> {
-                        Intent shortcutIntent = new Intent(appContext, NFCTagReadActivity.class);
+                        Intent shortcutIntent = new Intent(appContext, NFCTagReadForegroundActivity.class);
                         //shortcutIntent.setAction(Intent.ACTION_MAIN);
-                        shortcutIntent.setAction("android.nfc.action.NDEF_DISCOVERED");
+                        shortcutIntent.setAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
                         //<data android:mimeType="application/vnd.phoneprofilesplus.events"/>
                         //shortcutIntent.setData(Uri.parse("android:mimeType=\"application/vnd.phoneprofilesplus.events\""));
                         shortcutIntent.setType("application/vnd.phoneprofilesplus.events");
                         shortcutIntent.addCategory(Intent.CATEGORY_DEFAULT);
-
-                        //TODO - EXTRA
-                        shortcutIntent.putExtra(NFCTagReadActivity.EXTRA_SHOW_DIALOG, true);
                         shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                         ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, EventPreferencesNFC.SHORTCUT_ID_READ_NFC_TAG);
                         shortcutBuilderCompat.setIntent(shortcutIntent);
                         shortcutBuilderCompat.setShortLabel(getString(R.string.nfc_tag_pref_dlg_readNfcTag_title));
                         shortcutBuilderCompat.setLongLabel(getString(R.string.nfc_tag_pref_dlg_readNfcTag_title));
-                        //TODO - ikona
-                        shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_editor));
+                        shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_read_nfc_tag));
 
                         try {
                             Intent pinnedShortcutCallbackIntent = new Intent(EventPreferencesNFC.ACTION_SHORTCUT_TO_READ_NFC_TAG_ADDED);

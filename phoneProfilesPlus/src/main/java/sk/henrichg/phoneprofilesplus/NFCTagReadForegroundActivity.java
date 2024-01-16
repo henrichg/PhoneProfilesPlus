@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,17 +14,30 @@ import java.util.Calendar;
 
 //import me.drakeet.support.toast.ToastCompat;
 
-public class NFCTagReadActivity extends AppCompatActivity {
+public class NFCTagReadForegroundActivity extends AppCompatActivity {
 
     private NFCTagReadWriteManager nfcManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, false); // must by called before super.onCreate()
+        //GlobalGUIRoutines.setLanguage(this);
+
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
 //        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] NFCTagReadActivity.onCreate", "xxx");
-//        Log.e("NFCTagReadActivity.onCreate", "xxx");
+//        Log.e("NFCTagReadForegroundActivity.onCreate", "xxx");
+
+        setContentView(R.layout.activity_nfc_read_tag);
+        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeButtonEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setTitle(R.string.nfc_tag_pref_dlg_readNfcTag_title);
+            getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
+        }
 
         nfcManager = new NFCTagReadWriteManager(this);
         nfcManager.onActivityCreate();
@@ -61,8 +75,8 @@ public class NFCTagReadActivity extends AppCompatActivity {
         }
         */
         nfcManager.setOnTagReadListener(tagData -> {
-//            PPApplicationStatic.logE("[IN_LISTENER] NFCTagReadActivity.onTagRead", "xxx");
-//            Log.e("NFCTagReadActivity.OnTagRead", "xxxxx");
+//                    PPApplicationStatic.logE("[IN_LISTENER] NFCTagReadActivity.onTagRead", "xxx");
+//            Log.e("NFCTagReadForegroundActivity.OnTagRead", "xxxxx");
 
             if (EventStatic.getGlobalEventsRunning(this)) {
                 PPApplication.showToast(getApplicationContext(), "(" + getString(R.string.ppp_app_name) + ") " + getString(R.string.read_nfc_tag_read) + StringConstants.STR_COLON_WITH_SPACE + tagData, Toast.LENGTH_LONG);
@@ -120,6 +134,9 @@ public class NFCTagReadActivity extends AppCompatActivity {
         });
         */
 
+        Button button = findViewById(R.id.read_nfc_tag_button);
+        button.setOnClickListener(view -> finish());
+
     }
 
     @Override
@@ -132,22 +149,21 @@ public class NFCTagReadActivity extends AppCompatActivity {
         super.onResume();
         if (nfcManager != null)
             nfcManager.onActivityResume();
-//        Log.e("NFCTagReadActivity.onResume", "xxx");
+//        Log.e("NFCTagReadForegroundActivity.onResume", "xxx");
     }
 
     @Override
     protected void onPause() {
-        if (nfcManager != null)
-            nfcManager.onActivityPause();
+        //if (nfcManager != null)
+        //    nfcManager.onActivityPause();
         super.onPause();
-//        Log.e("NFCTagReadActivity.onPause", "xxx");
+//        Log.e("NFCTagReadForegroundActivity.onPause", "xxx");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         GlobalGUIRoutines.lockScreenOrientation(this, true);
-
     }
 
     @Override
@@ -161,15 +177,29 @@ public class NFCTagReadActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         if (nfcManager != null)
             nfcManager.onActivityNewIntent(intent);
-//        Log.e("NFCTagReadActivity.onNewIntent", "xxx");
+//        Log.e("NFCTagReadForegroundActivity.onNewIntent", "xxx");
     }
+
+    /*
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            finish();
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+    */
 
     @Override
     public void finish()
     {
         super.finish();
         overridePendingTransition(0, 0);
-//        Log.e("NFCTagReadActivity.finish", "xxx");
+//        Log.e("NFCTagReadForegroundActivity.finish", "xxx");
     }
 
 }

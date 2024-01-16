@@ -853,28 +853,16 @@ Xiaomi 13 lite - Android 13:
 
 ------------
 
-AvoidRescheduleReceiverWorker - 14x, len tento je nastaveny na 1x za 3 mesiace
-BluetoothScanWorker
-ContactsContentObserverWorker
-FetchAddressWorkerOSM
-LocationSensorWorker
-MainWorker - velmi vela krat z vela miest
-PeriodicEventsHandlerWorker
-RestartEventsWithDelayWorker
-SearchCalendarEventsWorker
-WifiScanWorker
+Citanie tagu. Na Xiaomi neptchadza NDEF_DISCOVERED, prichadza TAG_DISCOVERED.
+Na TAG_DISCOVERED sa vola
+Skusil som S23. A ak je zobrazena aktivita tak aj tam ziskam TAG_DISCOVERED.
+Take musim dorobit podporu pre TAG_DISCOVERED.
 
-DelayedWorksWorker - uz by s anemal pouzivat
-DisableBlockProfileEventActionWorker - uz by s anemal pouzivat
-DisableInternalChangeWorker - uz by sa nemal pouzivat
-DisableScreenTimeoutInternalChangeWorker - uz by sa nemal pouzivat
-DisableVolumesInternalChangeWorker - uz by s anemal pouzivat
-ElapsedAlarmsWorker - uz by sa nemal pouzivat
-GeofenceScanWorker - uz by sa nemal pouzivat
-ShowProfileNotificationWorker - uz by sa nemal pozivat
-UpdateGUIWorker - uz by sa nemal pouizvat
+Takze na S23 uz mi to ide. Spravil som foreground verziu aktivity, tej som nedal intent filter
+do manifestu.
+Nahadzuje NfcAdapter.ACTION_NDEF_DISCOVERED a mimeType az do shortcutu pri jeho vytvarani.
+Ked spustim foreground aktivitu, na onNewIntent to vrati tag, ALE na TAG_DISCOVERED.
+Takze som upravil NFCTagReadWriteManagerreadTagFromIntent() aby na ACTION_TAG_DISCOVERED robil
+to iste co na ACTION_NDEF_DISCOVERED.
 
-Pouzivam ExistingWorkPolicy.REPLACE.
-Ale je jedna vynimka:
-MainWorker z OrientationScanner.runEventsHandlerForOrientationChange() pouizva ExistingWorkPolicy.KEEP.
-
+A funguje to aj u Xiaomu 13 Lite.

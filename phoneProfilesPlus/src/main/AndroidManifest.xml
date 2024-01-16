@@ -393,6 +393,14 @@
                        android:resource="@xml/filter_nfc" />-->
         </activity>
         <activity
+            android:name=".NFCTagReadForegroundActivity"
+            android:label="@string/nfc_tag_pref_dlg_readNfcTag_title"
+            tools:ignore="IntentFilterExportedReceiver">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.nfc.action.TAG_DISCOVERED"/>-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity
             android:name=".ActivatorTargetHelpsActivity"
             android:label=""
             android:excludeFromRecents="true"

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,6 +67,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
 
             nfcManager.setOnTagReadListener(tagData -> {
 //                    PPApplicationStatic.logE("[IN_LISTENER] NFCTagWriteActivity.onTagRead", "xxx");
+//                Log.e("NFCTagWriteActivity.OnTagRead", "xxxxx");
 
                 //ToastCompat.makeText(getApplicationContext(), "tag read:"+tagData, Toast.LENGTH_LONG).show();
 
@@ -144,7 +146,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             if ((tagName != null) && (!tagName.isEmpty()))
                 nfcManager.writeText(tagName);
         }
-        //Log.d("NFCTagWriteActivity.onResume", "xxx");
+//        Log.e("NFCTagWriteActivity.onResume", "xxx");
     }
 
     @Override
@@ -152,7 +154,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         if (nfcManager != null)
             nfcManager.onActivityPause();
         super.onPause();
-        //Log.d("NFCTagWriteActivity.onPause", "xxx");
+//        Log.e("NFCTagWriteActivity.onPause", "xxx");
     }
 
     @Override
@@ -171,10 +173,21 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
 
-//        PPApplicationStatic.logE("[IN_LISTENER] NFCTagWriteActivity.onNewIntent", "xxx");
         if (nfcManager != null)
             nfcManager.onActivityNewIntent(intent);
-        //Log.d("NFCTagWriteActivity.onNewIntent", "xxx");
+//        Log.e("NFCTagWriteActivity.onNewIntent", "xxx");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            finish();
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
 }

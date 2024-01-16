@@ -2161,6 +2161,7 @@
     <string name="event_preferences_nfc_createReadNFCTagShortcut">Shortcut to \"Read NFC tag\"</string>
     <string name="event_preferences_nfc__createReadNFCTagShortcut_summary">Click here, to create shortcut to \"Read NFC tag\" in home launcher</string>
     <string name="shortcut_to_read_nfc_tag_created_toast">Shortcut to \"Read NFC tag\" created</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_touch">Attach your device to an NFC tag. Read will be started.</string>
 
     <!-- **************************************************************************************** -->
 

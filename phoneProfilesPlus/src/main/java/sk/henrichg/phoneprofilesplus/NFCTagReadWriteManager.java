@@ -106,7 +106,8 @@ class NFCTagReadWriteManager {
     void onActivityCreate() {
         nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
         pendingIntent = PendingIntent.getActivity(activity, 0,
-                new Intent(activity, activity.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+                new Intent(activity, activity.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
+                        PendingIntent.FLAG_MUTABLE);
     }
 
     /*
@@ -168,13 +169,14 @@ class NFCTagReadWriteManager {
 
             Log.e("NFCTagReadWriteManager.readTagFromIntent", "action="+action);
 
-            /*if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
-                uidRead = true;
+            //if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
+                /*uidRead = true;
 
                 String uid = ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
-                onTagReadListener.onUidRead(uid);
-            }*/
-            if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
+                onTagReadListener.onUidRead(uid);*/
+            //}
+            if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action) ||
+                    NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
                 tagRead = true;
 
                 // get NDEF tag details
