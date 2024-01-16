@@ -4,7 +4,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -152,6 +151,7 @@ public class NFCTagReadForegroundActivity extends AppCompatActivity {
 //        Log.e("NFCTagReadForegroundActivity.onResume", "xxx");
     }
 
+/*
     @Override
     protected void onPause() {
         //if (nfcManager != null)
@@ -159,7 +159,7 @@ public class NFCTagReadForegroundActivity extends AppCompatActivity {
         super.onPause();
 //        Log.e("NFCTagReadForegroundActivity.onPause", "xxx");
     }
-
+*/
     @Override
     protected void onStart() {
         super.onStart();
