@@ -21,7 +21,6 @@ import android.nfc.tech.NfcBarcode;
 import android.nfc.tech.NfcF;
 import android.nfc.tech.NfcV;
 import android.os.Parcelable;
-import android.util.Log;
 
 import java.io.IOException;
 
@@ -37,6 +36,7 @@ class NFCTagReadWriteManager {
     boolean tagRead = false;
 
     boolean tagIsWritable;  // is tag writable?
+    Intent intentForWrite = null;
 
     private TagReadListener onTagReadListener;
     private TagWriteListener onTagWriteListener;
@@ -144,18 +144,19 @@ class NFCTagReadWriteManager {
 
             //if (writeText == null)
             readTagFromIntent(intent);
+            intentForWrite = intent;
             //else {
-            if (writeText != null)/* && NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()))*/ {
+            /*if (writeText != null) {
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 try {
-                    writeTag(/*activity, */tag, writeText);
+                    writeTag(tag, writeText);
                     onTagWriteListener.onTagWritten();
                 } catch (NFCTagWriteException exception) {
                     onTagWriteErrorListener.onTagWriteError(exception);
                 } finally {
                     writeText = null;
                 }
-            }
+            } */
         }
     }
 
@@ -230,7 +231,7 @@ class NFCTagReadWriteManager {
      * @param data x
      * @throws NFCTagWriteException
      */
-    private  void writeTag(/*Context context, */Tag tag, String data) throws NFCTagWriteException {
+    private  void _writeTag(/*Context context, */Tag tag, String data) throws NFCTagWriteException {
         // Record with actual data we care about
         //NdefRecord relayRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_TEXT, null, data.getBytes());
 
@@ -287,6 +288,21 @@ class NFCTagReadWriteManager {
             }
         }
 
+    }
+
+    void writeTag() {
+        if ((writeText != null) && (intentForWrite != null)) {
+            Tag tag = intentForWrite.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+            try {
+//                Log.e("NFCTagReadWriteManager.writeTag", "writeText="+writeText);
+                _writeTag(tag, writeText);
+                onTagWriteListener.onTagWritten();
+            } catch (NFCTagWriteException exception) {
+                onTagWriteErrorListener.onTagWriteError(exception);
+            } finally {
+                writeText = null;
+            }
+        }
     }
 
     interface TagReadListener {

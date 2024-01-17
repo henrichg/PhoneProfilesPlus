@@ -5355,25 +5355,40 @@ class DatabaseHandlerEvents {
             try {
                 instance.startRunningCommand();
 
-                //SQLiteDatabase db = this.getWritableDatabase();
+                //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                ContentValues values = new ContentValues();
-                values.put(DatabaseHandler.KEY_NT_UID, tag._uid);
-                values.put(DatabaseHandler.KEY_NT_NAME, tag._name);
+                final String selectQuery = "SELECT COUNT(*) " +
+                        " FROM " + DatabaseHandler.TABLE_NFC_TAGS +
+                        " WHERE " + DatabaseHandler.KEY_NT_NAME + "='" + tag._name + "'";
 
-                db.beginTransaction();
+                Cursor cursor = db.rawQuery(selectQuery, null);
 
-                try {
-                    // Inserting Row
-                    db.insert(DatabaseHandler.TABLE_NFC_TAGS, null, values);
+                int r = 0;
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    r = cursor.getInt(0);
+                    cursor.close();
+                }
 
-                    db.setTransactionSuccessful();
+                if (r == 0) {
+                    ContentValues values = new ContentValues();
+                    values.put(DatabaseHandler.KEY_NT_UID, tag._uid);
+                    values.put(DatabaseHandler.KEY_NT_NAME, tag._name);
 
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                } finally {
-                    db.endTransaction();
+                    db.beginTransaction();
+
+                    try {
+                        // Inserting Row
+                        db.insert(DatabaseHandler.TABLE_NFC_TAGS, null, values);
+
+                        db.setTransactionSuccessful();
+
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    } finally {
+                        db.endTransaction();
+                    }
                 }
 
                 //db.close(); // Closing database connection

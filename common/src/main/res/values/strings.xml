@@ -577,7 +577,6 @@
     <string name="nfc_tag_pref_dlg_hint">Tag name</string>
     <string name="nfc_tag_pref_dlg_help">You must write a tag name into the NFC tag. \"Write to NFC Tag\" is in the menu for each tag name.</string>
     <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">Write to NFC Tag</string>
-    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Attach your device to an NFC tag. Write will be started.</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC must be enabled. Please enable it and try again.</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">Write to NFC Tag</string>
     <string name="write_nfc_tag_written">Tag written</string>
@@ -2163,6 +2162,15 @@
     <string name="event_preferences_nfc_createReadNFCTagShortcut_summary_info">If your device shows a notification when reading NFC tag that there is no application in the foreground to support reading NFC tags (for example, some Xiaomi devices), create this shortcut and use it every time you want to read NFC tag to trigger event in PPP.</string>
     <string name="shortcut_to_read_nfc_tag_created_toast">Shortcut to \"Read NFC tag\" created</string>
     <string name="nfc_tag_pref_dlg_readNfcTag_touch">Attach your device to an NFC tag. Read will be started.</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagName">Tag name:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData">Tag data:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData_noData">No data</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addNameButtons">Add name to tag list:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_changeNameButtons">Change name in tag list:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addReadedNameButton">Use tag data as name</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton">Write tag name to tag</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch1">Attach your device to an NFC tag. Then click button</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch2">Write will be started.</string>
 
     <!-- **************************************************************************************** -->
 
