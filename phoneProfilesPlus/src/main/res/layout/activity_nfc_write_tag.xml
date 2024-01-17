@@ -21,98 +21,118 @@
     <RelativeLayout
         android:id="@+id/write_nfc_tag_root2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginStart="@dimen/activity_margin_start"
         android:layout_marginEnd="@dimen/activity_margin_end"
         android:fitsSystemWindows="false">
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/about_application_application_scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:scrollbarStyle="outsideOverlay"
+            android:fadeScrollbars="false"
+            android:layout_alignParentTop="true">
 
-            <TextView
-                android:id="@+id/write_nfc_tag_touch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/nfc_tag_pref_dlg_readNfcTag_touch"
-                android:textSize="17sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/write_nfc_tag_writable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
-                android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_writable"
-                android:textSize="17sp"/>
-
-            <TextView
-                android:id="@+id/write_nfc_tag_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text=""
-                android:textSize="17sp"/>
-
-            <TextView
-                android:id="@+id/write_nfc_tag_data"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_tagData"
-                android:textSize="17sp"/>
-
-            <View
-                android:id="@+id/write_nfc_tag_buttonsDivider0"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/divider_height"
-                android:background="@color/dialog_divider" />
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/write_nfc_tag_addUpdateName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_addNameButtons"
-                android:textSize="17sp"/>
+                <LinearLayout
+                    android:id="@+id/write_nfc_tag_root3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_margin_start"
+                    android:orientation="vertical">
 
-            <Button
-                android:id="@+id/write_nfc_tag_addReadedTagName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_addReadedNameButton"
-                android:minHeight="40dp"
-                android:textColor="@color/action_button_text_color"
-                android:textStyle="bold"
-                android:background="@drawable/pp_button_background_selector"
-                style="?android:attr/borderlessButtonStyle"
-                android:clickable="true"
-                android:focusable="true" />
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/write_nfc_tag_touch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/nfc_tag_pref_dlg_readNfcTag_touch"
+                        android:textSize="17sp"
+                        android:textStyle="bold"/>
 
-        <Button
-            android:id="@+id/write_nfc_tag_writeNameToTagAndAddName"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_above="@+id/write_nfc_tag_liLa2"
-            android:layout_centerInParent="true"
-            android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton"
-            android:minHeight="40dp"
-            android:textColor="@color/action_button_text_color"
-            android:textStyle="bold"
-            android:background="@drawable/pp_button_background_selector"
-            style="?android:attr/borderlessButtonStyle"
-            android:clickable="true"
-            android:focusable="true" />
+                    <TextView
+                        android:id="@+id/write_nfc_tag_writable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_writable"
+                        android:textSize="17sp"/>
+
+                    <TextView
+                        android:id="@+id/write_nfc_tag_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text=""
+                        android:textSize="17sp"/>
+
+                    <TextView
+                        android:id="@+id/write_nfc_tag_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_tagData"
+                        android:textSize="17sp"/>
+
+                    <View
+                        android:id="@+id/write_nfc_tag_buttonsDivider0"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/divider_height"
+                        android:background="@color/dialog_divider" />
+
+                    <TextView
+                        android:id="@+id/write_nfc_tag_addUpdateName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_addNameButtons"
+                        android:textSize="17sp"/>
+
+                    <Button
+                        android:id="@+id/write_nfc_tag_addReadedTagName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_addReadedNameButton"
+                        android:minHeight="40dp"
+                        android:textColor="@color/action_button_text_color"
+                        android:textStyle="bold"
+                        android:background="@drawable/pp_button_background_selector"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/write_nfc_tag_writeNameToTagAndAddName"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_below="@+id/write_nfc_tag_root3"
+                    android:layout_centerInParent="true"
+                    android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton"
+                    android:minHeight="40dp"
+                    android:textColor="@color/action_button_text_color"
+                    android:textStyle="bold"
+                    android:background="@drawable/pp_button_background_selector"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+            </RelativeLayout>
+
+        </ScrollView>
 
         <LinearLayout
             android:id="@+id/write_nfc_tag_liLa2"
