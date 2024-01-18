@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
+import java.lang.ref.WeakReference;
+
 public class ProfilePreference extends DialogPreference {
 
     ProfilePreferenceFragment fragment;
@@ -110,13 +112,14 @@ public class ProfilePreference extends DialogPreference {
                 profileIcon.setAlpha(1f);
             }
 
-            final ProfilePreference preference = this;
-
             final Handler handler = new Handler(prefContext.getMainLooper());
-            // TODO weak reference na preference
+            final WeakReference<ProfilePreference> preferenceWeakRef
+                    = new WeakReference<>(this);
             handler.postDelayed(() -> {
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePreference.onBindViewHolder");
-                preference.setSummary(Long.parseLong(preference.profileId));
+                ProfilePreference preference = preferenceWeakRef.get();
+                if (preference != null)
+                    preference.setSummary(Long.parseLong(preference.profileId));
             }, 200);
         }
     }

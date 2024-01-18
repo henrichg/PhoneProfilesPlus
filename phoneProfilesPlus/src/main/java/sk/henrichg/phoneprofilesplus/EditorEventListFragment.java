@@ -1726,19 +1726,21 @@ public class EditorEventListFragment extends Fragment
                 sequence.start();
             }
             else {
-                final EditorEventListFragment fragment = this;
-
                 //Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 final Handler handler = new Handler(getActivity().getMainLooper());
-                // TODO weak reference na fragment
+                final WeakReference<EditorEventListFragment> fragmentWeakRef
+                        = new WeakReference<>(this);
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.showTargetHelps");
-                    Activity activity = fragment.getActivity();
-                    if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
-                        return;
+                    EditorEventListFragment fragment = fragmentWeakRef.get();
+                    if (fragment != null) {
+                        Activity activity = fragment.getActivity();
+                        if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+                            return;
 
-                    //noinspection Convert2MethodRef
-                    fragment.showAdapterTargetHelps();
+                        //noinspection Convert2MethodRef
+                        fragment.showAdapterTargetHelps();
+                    }
                 }, 500);
             }
         }

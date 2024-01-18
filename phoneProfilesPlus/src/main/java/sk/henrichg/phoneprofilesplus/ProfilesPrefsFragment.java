@@ -419,13 +419,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        final ProfilesPrefsActivity activity = (ProfilesPrefsActivity) getActivity();
-
         // must be used handler for rewrite toolbar title/subtitle
         final Handler handler = new Handler(getActivity().getMainLooper());
-        // TODO weak reference na activity
+        final WeakReference<ProfilesPrefsActivity> activityWeakRef
+                = new WeakReference<>((ProfilesPrefsActivity) getActivity());
         handler.postDelayed(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilesPrefsFragment.onActivityCreated");
+            ProfilesPrefsActivity activity = activityWeakRef.get();
             if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                 return;
 
@@ -461,6 +461,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             preferenceSubTitle.setVisibility(View.GONE);
         }
 
+        ProfilesPrefsActivity activity = (ProfilesPrefsActivity) getActivity();
         activity.progressLinearLayout.setVisibility(View.GONE);
         activity.settingsLinearLayout.setVisibility(View.VISIBLE);
 
@@ -1649,14 +1650,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String value = sharedPreferences.getString(key, "");
             if (getActivity() != null) {
 
-                final ProfilesPrefsActivity activity = (ProfilesPrefsActivity) getActivity();
-
                 // must be used handler for rewrite toolbar title/subtitle
                 final String _value = value;
                 final Handler handler = new Handler(getActivity().getMainLooper());
-                // TODO weak reference na activity
+                final WeakReference<ProfilesPrefsActivity> activityWeakRef
+                        = new WeakReference<>((ProfilesPrefsActivity) getActivity());
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilesPrefsFragment.onSharedPreferenceChanged");
+                    ProfilesPrefsActivity activity = activityWeakRef.get();
                     if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                         return;
 

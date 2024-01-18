@@ -164,6 +164,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     }
                     boolean twoSimCards = false;
                     if (phoneCount == 2) {
+//                        Log.e("EventPreferencesRadioSwitch.getPreferencesDescription", "called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                         boolean sim1Exists = hasSIMCardData.hasSIM1;
                         boolean sim2Exists = hasSIMCardData.hasSIM2;
@@ -648,6 +649,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (phoneCount > 1) {
                     boolean twoSimCards = false;
                     if (phoneCount == 2) {
+//                        Log.e("EventPreferencesRadioSwitch.isRunnable", "called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                         boolean sim1Exists = hasSIMCardData.hasSIM1;
                         boolean sim2Exists = hasSIMCardData.hasSIM2;
@@ -699,6 +701,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     phoneCount = telephonyManager.getPhoneCount();
+//                    Log.e("EventPreferencesRadioSwitch.checkPreferences", "called hasSIMCard");
                     HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                     hasSIM1 = hasSIMCardData.hasSIM1;
                     hasSIM2 = hasSIMCardData.hasSIM2;
@@ -979,6 +982,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             }
                             boolean twoSimCards = false;
                             if (phoneCount == 2) {
+//                                Log.e("EventPreferencesRadioSwitch.doHandleEvent", "(1) called hasSIMCard");
                                 HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(eventsHandler.context);
                                 boolean sim1Exists = hasSIMCardData.hasSIM1;
                                 boolean sim2Exists = hasSIMCardData.hasSIM2;
@@ -1058,6 +1062,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         }
                         boolean twoSimCards = false;
                         if (phoneCount == 2) {
+//                            Log.e("EventPreferencesRadioSwitch.doHandleEvent", "(2) called hasSIMCard");
                             HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(eventsHandler.context);
                             boolean sim1Exists = hasSIMCardData.hasSIM1;
                             boolean sim2Exists = hasSIMCardData.hasSIM2;
@@ -1095,6 +1100,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
 
                 if ((_simOnOff != 0) && PPApplication.HAS_FEATURE_TELEPHONY) {
                     tested = true;
+//                    Log.e("EventPreferencesRadioSwitch.doHandleEvent", "(3) called hasSIMCard");
                     HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(eventsHandler.context);
                     //boolean sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                     boolean sim1Exists = hasSIMCardData.hasSIM1;

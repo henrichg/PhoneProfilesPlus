@@ -108,6 +108,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
         boolean sim2Exists;
         if (getActivity() != null) {
             Context appContext = getActivity().getApplicationContext();
+//            Log.e("MobileCellNamesPreferenceFragment.onBindDialogView", "called hasSIMCard");
             HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(appContext);
             sim1Exists = hasSIMCardData.hasSIM1;
             sim2Exists = hasSIMCardData.hasSIM2;
@@ -182,11 +183,15 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
         if (preference.cellNamesList != null)
             preference.cellNamesList.clear();
         listAdapter.notifyDataSetChanged();
-        final MobileCellNamesPreferenceFragment fragment = this;
         final Handler handler = new Handler(prefContext.getMainLooper());
         /*false*/
-        // TODO weak reference na fragment
-        handler.postDelayed(fragment::refreshListView, 200);
+        final WeakReference<MobileCellNamesPreferenceFragment> fragmentWeakRef
+                = new WeakReference<>(this);
+        handler.postDelayed(() -> {
+            MobileCellNamesPreferenceFragment fragment = fragmentWeakRef.get();
+            if (fragment != null)
+                fragment.refreshListView();
+        }, 200);
     }
 
     @Override
@@ -327,6 +332,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
 
                 if (fragment.getActivity() != null) {
                     Context appContext = fragment.getActivity().getApplicationContext();
+//                    Log.e("MobileCellNamesPreferenceFragment.RefreshListViewAsyncTask", "called hasSIMCard");
                     HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(appContext);
                     sim1Exists = hasSIMCardData.hasSIM1;
                     sim2Exists = hasSIMCardData.hasSIM2;

@@ -172,6 +172,7 @@ class EventPreferencesSMS extends EventPreferences {
                                 int phoneCount = telephonyManager.getPhoneCount();
                                 if (phoneCount > 1) {
                                     boolean simExists;
+//                                    Log.e("EventPreferencesSMS.getPreferencesDescription", "called hasSIMCard");
                                     HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                                     boolean sim1Exists = hasSIMCardData.hasSIM1;
                                     boolean sim2Exists = hasSIMCardData.hasSIM2;
@@ -253,6 +254,7 @@ class EventPreferencesSMS extends EventPreferences {
                     if (phoneCount > 1) {
                         hasFeature = true;
                         boolean simExists;
+//                        Log.e("EventPreferencesSMS.setSummary", "called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                         boolean sim1Exists = hasSIMCardData.hasSIM1;
                         boolean sim2Exists = hasSIMCardData.hasSIM2;
@@ -497,6 +499,7 @@ class EventPreferencesSMS extends EventPreferences {
                     if (phoneCount > 1) {
                         boolean sim1Exists;
                         boolean sim2Exists;
+//                        Log.e("EventPreferencesSMS.checkPreferences", "called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                         sim1Exists = hasSIMCardData.hasSIM1;
                         sim2Exists = hasSIMCardData.hasSIM2;
@@ -632,7 +635,6 @@ class EventPreferencesSMS extends EventPreferences {
         }
     }
 
-    //TODO
     void saveStartTime(List<Contact> contactList, DataWrapper dataWrapper, String phoneNumber, long startTime, int fromSIMSlot) {
         if (this._startTime == 0) {
             // alarm for end is not set

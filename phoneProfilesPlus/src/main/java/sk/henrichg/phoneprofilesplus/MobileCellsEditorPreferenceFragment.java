@@ -497,6 +497,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         boolean sim2Exists;
         if (getActivity() != null) {
             Context appContext = getActivity().getApplicationContext();
+//            Log.e("MobileCellsEditorPreferenceFragment,onBindDialogView", "called hasSIMCard");
             HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(appContext);
             sim1Exists = hasSIMCardData.hasSIM1;
             sim2Exists = hasSIMCardData.hasSIM2;
@@ -538,10 +539,14 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
         preference.filteredCellsList.clear();
         listAdapter.notifyDataSetChanged();
-        final MobileCellsEditorPreferenceFragment fragment = this;
         final Handler handler = new Handler(prefContext.getMainLooper());
-        // TODO weak reference na fragment
-        handler.postDelayed(() -> fragment.refreshListView(false, true/*, Integer.MAX_VALUE*/), 200);
+        final WeakReference<MobileCellsEditorPreferenceFragment> fragmentWeakRef
+                = new WeakReference<>(this);
+        handler.postDelayed(() -> {
+            MobileCellsEditorPreferenceFragment fragment = fragmentWeakRef.get();
+            if (fragment != null)
+                fragment.refreshListView(false, true/*, Integer.MAX_VALUE*/);
+        }, 200);
     }
 
     void setLocationEnableStatus() {
@@ -956,6 +961,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                 Context prefContext = prefContextWeakRef.get();
                 if ((fragment != null) && (preference != null) && (prefContext != null)) {
                     Context appContext = prefContext.getApplicationContext();
+//                    Log.e("MobileCellsEditorPreferenceFragment,RefreshListViewAsyncTask", "called hasSIMCard");
                     HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(appContext);
                     sim1Exists = hasSIMCardData.hasSIM1;
                     sim2Exists = hasSIMCardData.hasSIM2;

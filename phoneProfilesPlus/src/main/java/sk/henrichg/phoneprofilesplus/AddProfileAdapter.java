@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RadioButton;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 class AddProfileAdapter extends BaseAdapter {
@@ -140,13 +141,16 @@ class AddProfileAdapter extends BaseAdapter {
 
         holder.radioButton.setTag(position);
         holder.radioButton.setOnClickListener(v -> {
-            final RadioButton rb = (RadioButton) v;
+            RadioButton rb = (RadioButton) v;
             rb.setChecked(true);
             final Handler handler = new Handler(context.getMainLooper());
+            final WeakReference<AddProfileDialog> dialogWeakRef = new WeakReference<>(dialog);
+            final WeakReference<RadioButton> rbWeakRef = new WeakReference<>(rb);
             handler.postDelayed(() -> {
-                // TODO weak reference na dialog
-                if (dialog != null)
-                    dialog.doOnItemSelected((Integer) rb.getTag());
+                AddProfileDialog dialog1 = dialogWeakRef.get();
+                RadioButton rb1 = rbWeakRef.get();
+                if ((dialog1 != null) && (rb1 != null))
+                    dialog1.doOnItemSelected((Integer) rb1.getTag());
             }, 200);
         });
 

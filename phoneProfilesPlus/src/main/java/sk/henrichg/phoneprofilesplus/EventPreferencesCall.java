@@ -185,6 +185,7 @@ class EventPreferencesCall extends EventPreferences {
                             int phoneCount = telephonyManager.getPhoneCount();
                             if (phoneCount > 1) {
                                 boolean simExists;
+//                                Log.e("EventPreferencesCall.getPreferencesDescription", "called hasSIMCard");
                                 HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                                 boolean sim1Exists = hasSIMCardData.hasSIM1;
                                 boolean sim2Exists = hasSIMCardData.hasSIM2;
@@ -290,49 +291,50 @@ class EventPreferencesCall extends EventPreferences {
 
         boolean hasFeature = false;
         boolean hasSIMCard = false;
-            if (key.equals(PREF_EVENT_CALL_FOR_SIM_CARD)) {
-                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                if (telephonyManager != null) {
-                    int phoneCount = telephonyManager.getPhoneCount();
-                    if (phoneCount > 1) {
-                        hasFeature = true;
-                        boolean simExists;
-                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean sim1Exists = hasSIMCardData.hasSIM1;
-                        boolean sim2Exists = hasSIMCardData.hasSIM2;
+        if (key.equals(PREF_EVENT_CALL_FOR_SIM_CARD)) {
+            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                int phoneCount = telephonyManager.getPhoneCount();
+                if (phoneCount > 1) {
+                    hasFeature = true;
+                    boolean simExists;
+//                    Log.e("EventPreferencesCall.setSummary", "called hasSIMCard");
+                    HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                    boolean sim1Exists = hasSIMCardData.hasSIM1;
+                    boolean sim2Exists = hasSIMCardData.hasSIM2;
 
-                        simExists = sim1Exists;
-                        simExists = simExists && sim2Exists;
-                        hasSIMCard = simExists;
-                        PPListPreference listPreference = prefMng.findPreference(key);
-                        if (listPreference != null) {
-                            int index = listPreference.findIndexOfValue(value);
-                            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                            listPreference.setSummary(summary);
-                        }
-                    }
-                }
-                if (!hasFeature) {
-                    Preference preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
-                    if (preference != null) {
-                        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
-                    }
-                }
-                else if (!hasSIMCard) {
-                    Preference preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
-                    if (preference != null) {
-                        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS;
-                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    simExists = sim1Exists;
+                    simExists = simExists && sim2Exists;
+                    hasSIMCard = simExists;
+                    PPListPreference listPreference = prefMng.findPreference(key);
+                    if (listPreference != null) {
+                        int index = listPreference.findIndexOfValue(value);
+                        CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                        listPreference.setSummary(summary);
                     }
                 }
             }
+            if (!hasFeature) {
+                Preference preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
+                if (preference != null) {
+                    PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                    preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                            StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                }
+            }
+            else if (!hasSIMCard) {
+                Preference preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
+                if (preference != null) {
+                    PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS;
+                    preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                            StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                }
+            }
+        }
 
         /*
         if (key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER)) {
@@ -538,6 +540,7 @@ class EventPreferencesCall extends EventPreferences {
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
+//                        Log.e("EventPreferencesCall.checkPreferences", "called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                         boolean sim1Exists = hasSIMCardData.hasSIM1;
                         boolean sim2Exists = hasSIMCardData.hasSIM2;
@@ -744,7 +747,6 @@ class EventPreferencesCall extends EventPreferences {
         return phoneNumberFound;
     }
 
-    //TODO
     void saveStartTime(List<Contact> contactList, DataWrapper dataWrapper) {
         if (this._startTime == 0) {
             // alarm for end is not set

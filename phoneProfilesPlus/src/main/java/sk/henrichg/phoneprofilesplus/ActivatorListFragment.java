@@ -608,18 +608,20 @@ public class ActivatorListFragment extends Fragment {
                 showAdapterTargetHelps();
             }
             else {
-                final ActivatorListFragment fragment = this;
-
                 final Handler handler = new Handler(getActivity().getMainLooper());
-                // TODO weak reference na fragment
+                final WeakReference<ActivatorListFragment> fragmentWeakRef
+                        = new WeakReference<>(this);
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showTargetHelps (1)");
-                    Activity activity = fragment.getActivity();
-                    if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
-                        return;
+                    ActivatorListFragment fragment = fragmentWeakRef.get();
+                    if (fragment != null) {
+                        Activity activity = fragment.getActivity();
+                        if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+                            return;
 
-                    //Log.e("ActivatorListFragment.showTargetHelps", "start showAdapterTargetHelps (2)");
-                    fragment.showAdapterTargetHelps();
+                        //Log.e("ActivatorListFragment.showTargetHelps", "start showAdapterTargetHelps (2)");
+                        fragment.showAdapterTargetHelps();
+                    }
                 }, 500);
             }
         }
