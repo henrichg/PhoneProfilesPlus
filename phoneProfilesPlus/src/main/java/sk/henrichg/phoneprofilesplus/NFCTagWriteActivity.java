@@ -117,7 +117,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                     if (nfcManager.tagIsWritable) {
                         writableTextView.setText(R.string.nfc_tag_pref_dlg_writeToNfcTag_writable);
                         touchTextView.setText(getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_touch1) + " \"" +
-                                getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton) + "\" " +
+                                getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton) + "\". " +
                                 getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_touch2));
                         writeNameToTagAndAddNameButton.setEnabled(nfcManager.intentForWrite != null);
                     }
