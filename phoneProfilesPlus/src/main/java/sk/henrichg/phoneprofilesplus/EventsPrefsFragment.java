@@ -1253,7 +1253,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, EventPreferencesNFC.SHORTCUT_ID_READ_NFC_TAG);
                         shortcutBuilderCompat.setIntent(shortcutIntent);
                         shortcutBuilderCompat.setShortLabel(getString(R.string.nfc_tag_pref_dlg_readNfcTag_title));
-                        shortcutBuilderCompat.setLongLabel(getString(R.string.nfc_tag_pref_dlg_readNfcTag_title));
+                        shortcutBuilderCompat.setLongLabel(getString(R.string.nfc_tag_pref_dlg_readNfcTag_text));
                         shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_read_nfc_tag));
 
                         try {
