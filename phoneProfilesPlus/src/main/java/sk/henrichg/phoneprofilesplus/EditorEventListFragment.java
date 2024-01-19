@@ -598,7 +598,6 @@ public class EditorEventListFragment extends Fragment
 
     @Override
     public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
-        Log.e("EditorEventListFragment.onStartDrag", "xxxxxxxxxxxxx");
         itemTouchHelper.startDrag(viewHolder);
     }
 

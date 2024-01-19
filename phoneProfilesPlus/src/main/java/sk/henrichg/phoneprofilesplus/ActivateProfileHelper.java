@@ -5962,8 +5962,7 @@ class ActivateProfileHelper {
 
         //Context appContext = context.getApplicationContext();
 
-        // TODO tu pozri, ze je testovane, pri volani setMobileData(), ze to ma v profile zapnute
-        Log.e("ActivateProfileHelper.setMobileData", "called hasSIMCard");
+//        Log.e("ActivateProfileHelper.setMobileData", "called hasSIMCard");
         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
         boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
         if (simCard == 1) {
@@ -6210,8 +6209,7 @@ class ActivateProfileHelper {
 //        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "simCard="+simCard);
 //        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "networkType="+networkType);
 
-        // TODO tu pozri, ze je testovane, pri volani setPreferredNetworkType(), ze to ma v profile zapnute
-        Log.e("ActivateProfileHelper.setPreferredNetworkType", "called hasSIMCard");
+//        Log.e("ActivateProfileHelper.setPreferredNetworkType", "called hasSIMCard");
         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
         boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
         if (simCard == 1) {
@@ -7020,8 +7018,7 @@ class ActivateProfileHelper {
         }
 
         if (Permissions.checkPhone(context.getApplicationContext())) {
-            // TODO tu pozri, ze je testovane, pri volani setDefaultSimCard(), ze to ma v profile zapnute
-            Log.e("ActivateProfileHelper.setDefaultSimCard", "called hasSIMCard");
+//            Log.e("ActivateProfileHelper.setDefaultSimCard", "called hasSIMCard");
             HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
             boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
             if (simCard == 1) {
@@ -7200,8 +7197,7 @@ class ActivateProfileHelper {
 
         Context appContext = context.getApplicationContext();
 
-        // TODO tu pozri, ze je testovane, pri volani setSIMOnOff(), ze to ma v profile zapnute
-        Log.e("ActivateProfileHelper.setSIMOnOff", "called hasSIMCard");
+//        Log.e("ActivateProfileHelper.setSIMOnOff", "called hasSIMCard");
         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
         boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
         if (simCard == 1) {

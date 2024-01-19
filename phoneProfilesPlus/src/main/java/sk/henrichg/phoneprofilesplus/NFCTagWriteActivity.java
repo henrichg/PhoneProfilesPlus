@@ -55,8 +55,6 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         tagName = intent.getStringExtra(EXTRA_TAG_NAME);
         tagDbId = intent.getLongExtra(EXTRA_TAG_DB_ID, 0);
 
-        Log.e("NFCTagWriteActivity.onCreate", "tagDbId="+tagDbId);
-
         touchTextView = findViewById(R.id.write_nfc_tag_touch);
         touchTextView.setText(R.string.nfc_tag_pref_dlg_readNfcTag_touch);
 
