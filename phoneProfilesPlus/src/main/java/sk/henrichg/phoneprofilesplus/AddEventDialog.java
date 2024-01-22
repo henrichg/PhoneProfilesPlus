@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -75,9 +74,8 @@ class AddEventDialog
             AddEventViewHolder viewHolder = (AddEventViewHolder) item.getTag();
             if (viewHolder != null)
                 viewHolder.radioButton.setChecked(true);
-            final AddEventDialog dialog = this;
             final Handler handler = new Handler(activity.getMainLooper());
-            final WeakReference<AddEventDialog> dialogWeakRef = new WeakReference<>(dialog);
+            final WeakReference<AddEventDialog> dialogWeakRef = new WeakReference<>(this);
             handler.postDelayed(() -> {
                 AddEventDialog dialog1 = dialogWeakRef.get();
                 if (dialog1 != null)

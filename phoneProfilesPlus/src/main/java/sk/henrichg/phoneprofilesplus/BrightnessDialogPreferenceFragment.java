@@ -16,6 +16,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+import java.lang.ref.WeakReference;
+
 public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragmentCompat
                 implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener
 {
@@ -239,11 +241,12 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
                 }
                 if (savedBrightnessRunnable != null)
                     savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
-                final BrightnessDialogPreferenceFragment fragment = this;
+                final WeakReference<BrightnessDialogPreferenceFragment> fragmentWeakRef = new WeakReference<>(this);
                 savedBrightnessRunnable = () -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragment.onCheckedChanged (1)");
-                    //noinspection Convert2MethodRef
-                    fragment.setSavedBrightness();
+                    BrightnessDialogPreferenceFragment fragment = fragmentWeakRef.get();
+                    if (fragment != null)
+                        fragment.setSavedBrightness();
                 };
                 savedBrightnessHandler.postDelayed(savedBrightnessRunnable, 5000);
             }
@@ -434,11 +437,11 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
             }
             if (savedBrightnessRunnable != null)
                 savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
-            final BrightnessDialogPreferenceFragment fragment = this;
+            final WeakReference<BrightnessDialogPreferenceFragment> fragmentWeakRef = new WeakReference<>(this);
             savedBrightnessRunnable = () -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragment.onCheckedChanged (1)");
-                //noinspection Convert2MethodRef
-                fragment.setSavedBrightness();
+                BrightnessDialogPreferenceFragment fragment = fragmentWeakRef.get();
+                    fragment.setSavedBrightness();
             };
             savedBrightnessHandler.postDelayed(savedBrightnessRunnable, 5000);
         }
