@@ -42,6 +42,7 @@ import org.acra.ACRA;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -260,9 +261,9 @@ class PPApplicationStatic {
                     (logType == PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS)) {
 
                 boolean manualProfileActivation = false;
-                if (EventStatic.getGlobalEventsRunning(context)) {
-                    if (EventStatic.getEventsBlocked(context)) {
-                        if (!EventStatic.getForceRunEventRunning(context))
+                if (EventStatic.getGlobalEventsRunning(appContext)) {
+                    if (EventStatic.getEventsBlocked(appContext)) {
+                        if (!EventStatic.getForceRunEventRunning(appContext))
                             manualProfileActivation = true;
                     }
                 } else
@@ -2232,11 +2233,13 @@ class PPApplicationStatic {
                 PPApplication.forceUpdateGUI(context, false, false, false);
 
                 final Handler _handler = new Handler(context.getMainLooper());
+                final WeakReference<Activity> activityWeakRef = new WeakReference<>(activity);
                 final Runnable r = () -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication._exitApp");
                     try {
-                        if (activity != null)
-                            activity.finish();
+                        Activity _activity = activityWeakRef.get();
+                        if (_activity != null)
+                            _activity.finish();
                     } catch (Exception e) {
                         recordException(e);
                     }
@@ -2285,17 +2288,18 @@ class PPApplicationStatic {
         }
     }
 
-    static void exitApp(final boolean useHandler, final Context context, final DataWrapper dataWrapper, final Activity activity,
+    static void exitApp(final boolean useHandler, final Context context, final DataWrapper _dataWrapper, final Activity _activity,
                                  final boolean fromShutdown, final boolean removeNotifications, final boolean exitByUser) {
         try {
             if (useHandler) {
                 final Context appContext = context.getApplicationContext();
+                final WeakReference<Activity> activityWeakRef = new WeakReference<>(_activity);
+                final WeakReference<DataWrapper> dataWrapperWeakRef = new WeakReference<>(_dataWrapper);
                 Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
-                    //Context appContext= appContextWeakRef.get();
-                    //DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                    //Activity activity = activityWeakRef.get();
+                    DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                    Activity activity = activityWeakRef.get();
 
                     //if ((appContext != null) && (dataWrapper != null) && (activity != null)) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -2312,7 +2316,8 @@ class PPApplicationStatic {
                                 } catch (Exception ignored) {
                                 }
                             }
-                            _exitApp(appContext, dataWrapper, activity, fromShutdown, removeNotifications, exitByUser);
+                            if ((activity != null) && (dataWrapper != null))
+                                _exitApp(appContext, dataWrapper, activity, fromShutdown, removeNotifications, exitByUser);
 
                         } catch (Exception e) {
 //                            Log.e("[IN_EXECUTOR] PPApplication.exitApp", Log.getStackTraceString(e));
@@ -2331,7 +2336,7 @@ class PPApplicationStatic {
                 PPApplication.basicExecutorPool.submit(runnable);
             }
             else
-                _exitApp(context, dataWrapper, activity, fromShutdown, removeNotifications, exitByUser);
+                _exitApp(context, _dataWrapper, _activity, fromShutdown, removeNotifications, exitByUser);
         } catch (Exception e) {
             recordException(e);
         }

@@ -614,7 +614,7 @@ class PlayRingingNotification
                                       final boolean playAlsoInSilentMode,
                                       Context context) {
 
-        Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
 
         //final Context appContext = getApplicationContext();
         Runnable runnable = () -> {

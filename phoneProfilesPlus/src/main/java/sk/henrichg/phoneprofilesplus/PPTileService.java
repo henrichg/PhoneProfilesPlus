@@ -9,6 +9,8 @@ import android.os.Build;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
+import java.lang.ref.WeakReference;
+
 public class PPTileService extends TileService {
 
     @Override
@@ -154,8 +156,8 @@ public class PPTileService extends TileService {
     }
 
     void updateTile() {
-        final Tile tile = getQsTile();
-        if (tile == null)
+        final Tile _tile = getQsTile();
+        if (_tile == null)
             return;
         LocaleHelper.setApplicationLocale(this);
 
@@ -163,13 +165,13 @@ public class PPTileService extends TileService {
         final Context appContext = getApplicationContext();
 
         if ((PPApplication.quickTileProfileId[tileId] != 0) && (PPApplication.quickTileProfileId[tileId] != -1)) {
+            final WeakReference<Tile> tileWeakRef = new WeakReference<>(_tile);
             Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
-                //Tile tile = tileWeakRef.get();
-
-                //if ((appContext != null) && (tile != null)) {
+                Tile tile = tileWeakRef.get();
+                if (tile != null) {
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                     Profile profile = null;
@@ -222,15 +224,15 @@ public class PPTileService extends TileService {
                     if (profile != null)
                         profile.releaseIconBitmap();
                     dataWrapper.invalidateDataWrapper();
-                //}
+                }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
         } else {
-            tile.setLabel(getString(R.string.quick_tile_icon_label));
-            tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_profile_default));
-            tile.setState(Tile.STATE_INACTIVE);
-            tile.updateTile();
+            _tile.setLabel(getString(R.string.quick_tile_icon_label));
+            _tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_profile_default));
+            _tile.setState(Tile.STATE_INACTIVE);
+            _tile.updateTile();
         }
     }
 
