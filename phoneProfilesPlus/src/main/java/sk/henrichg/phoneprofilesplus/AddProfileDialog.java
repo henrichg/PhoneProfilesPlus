@@ -71,7 +71,12 @@ class AddProfileDialog
                 viewHolder.radioButton.setChecked(true);
             final AddProfileDialog dialog = this;
             final Handler handler = new Handler(activity.getMainLooper());
-            handler.postDelayed(() -> dialog.doOnItemSelected(position), 200);
+            final WeakReference<AddProfileDialog> dialogWeakRef = new WeakReference<>(dialog);
+            handler.postDelayed(() -> {
+                AddProfileDialog dialog1 = dialogWeakRef.get();
+                if (dialog1 != null)
+                    dialog1.doOnItemSelected(position);
+            }, 200);
         });
 
     }
