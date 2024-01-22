@@ -355,16 +355,16 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        final EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
 
 //        PPApplication.forceStartOrientationScanner(context);
 //        forceStart = true;
 
         // must be used handler for rewrite toolbar title/subtitle
         final Handler handler = new Handler(getActivity().getMainLooper());
+        final WeakReference<EventsPrefsActivity> activityWeakRef = new WeakReference<>((EventsPrefsActivity) getActivity());
         handler.postDelayed(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onActivityCreated");
-
+            EventsPrefsActivity activity = activityWeakRef.get();
             if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                 return;
 
@@ -375,6 +375,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             toolbar.setTitle(activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
         }, 200);
 
+        final EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
         final Context context = activity.getBaseContext();
         final EventsPrefsFragment fragment = this;
         final TextView preferenceSubTitle = getActivity().findViewById(R.id.activity_preferences_subtitle);
@@ -1354,14 +1355,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             String value = sharedPreferences.getString(key, "");
             if (getActivity() != null) {
 
-                final EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
-
                 // must be used handler for rewrite toolbar title/subtitle
                 final String _value = value;
                 final Handler handler = new Handler(getActivity().getMainLooper());
+                final WeakReference<EventsPrefsActivity> activityWeakRef = new WeakReference<>((EventsPrefsActivity) getActivity());
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onSharedPreferenceChanged");
-
+                    EventsPrefsActivity activity = activityWeakRef.get();
                     if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                         return;
 
