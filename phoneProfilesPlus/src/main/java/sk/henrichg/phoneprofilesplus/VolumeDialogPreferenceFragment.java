@@ -355,7 +355,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                         //Log.e("VolumeDialogPreferenceFragment.onStopTrackingTouch", Log.getStackTraceString(e));
                         PPApplicationStatic.recordException(e);
                     }
-                //}
+                }
             };
             PPApplicationStatic.createPlayToneExecutor();
             PPApplication.playToneExecutor.submit(runnable);
