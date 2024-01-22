@@ -44,6 +44,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -381,24 +382,24 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        final PhoneProfilesPrefsActivity activity = (PhoneProfilesPrefsActivity) getActivity();
+        PhoneProfilesPrefsActivity activity = (PhoneProfilesPrefsActivity) getActivity();
         if (!(activity.activityStarted))
             return;
 
-        final PhoneProfilesPrefsFragment fragment = this;
+        PhoneProfilesPrefsFragment fragment = this;
         final TextView preferenceSubTitle = getActivity().findViewById(R.id.activity_preferences_subtitle);
 
 
         // must be used handler for rewrite toolbar title/subtitle
         final Handler handler = new Handler(getActivity().getMainLooper());
+        final WeakReference<PhoneProfilesPrefsActivity> activityWeakRef = new WeakReference<>(activity);
         handler.postDelayed(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsFragment.onActivityCreated");
-
-            //noinspection ConstantValue
-            if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+            PhoneProfilesPrefsActivity _activity = activityWeakRef.get();
+            if ((_activity == null) || _activity.isFinishing() || _activity.isDestroyed())
                 return;
 
-            Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar_no_subtitle);
+            Toolbar toolbar = _activity.findViewById(R.id.activity_preferences_toolbar_no_subtitle);
             toolbar.setTitle(activity.getString(R.string.title_activity_phone_profiles_preferences));
         }, 200);
 
