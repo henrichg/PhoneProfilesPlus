@@ -81,10 +81,14 @@ public class ShortcutCreatorListFragment extends Fragment {
                 ShortcutCreatorListViewHolder viewHolder = (ShortcutCreatorListViewHolder) item.getTag();
                 if (viewHolder != null)
                     viewHolder.radioButton.setChecked(true);
-                final ShortcutCreatorListFragment fragment = this;
                 final int _position = position;
                 final Handler handler = new Handler(getActivity().getMainLooper());
-                handler.postDelayed(() -> fragment.createShortcut(_position), 200);
+                final WeakReference<ShortcutCreatorListFragment> dialogWeakRef = new WeakReference<>(this);
+                handler.postDelayed(() -> {
+                    ShortcutCreatorListFragment fragment = dialogWeakRef.get();
+                    if (fragment != null)
+                        fragment.createShortcut(_position);
+                }, 200);
             }
         });
 

@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RadioButton;
 
+import java.lang.ref.WeakReference;
+
 class ShortcutCreatorListAdapter extends BaseAdapter {
 
     private ShortcutCreatorListFragment fragment;
@@ -136,9 +138,13 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
             holder.radioButton.setOnClickListener(v -> {
                 final RadioButton rb = (RadioButton) v;
                 rb.setChecked(true);
-                final ShortcutCreatorListFragment _fragment = fragment;
                 final Handler handler = new Handler(activityDataWrapper.context.getMainLooper());
-                handler.postDelayed(() -> _fragment.createShortcut((int)rb.getTag()), 200);
+                final WeakReference<ShortcutCreatorListFragment> dialogWeakRef = new WeakReference<>(fragment);
+                handler.postDelayed(() -> {
+                    ShortcutCreatorListFragment _fragment = dialogWeakRef.get();
+                    if (_fragment != null)
+                        _fragment.createShortcut((int) rb.getTag());
+                }, 200);
             });
 
         }

@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RadioButton;
 
+import java.lang.ref.WeakReference;
+
 class TileChooserListAdapter extends BaseAdapter {
 
     private TileChooserListFragment fragment;
@@ -136,9 +138,13 @@ class TileChooserListAdapter extends BaseAdapter {
             holder.radioButton.setOnClickListener(v -> {
                 final RadioButton rb = (RadioButton) v;
                 rb.setChecked(true);
-                final TileChooserListFragment _fragment = fragment;
                 final Handler handler = new Handler(activityDataWrapper.context.getMainLooper());
-                handler.postDelayed(() -> _fragment.chooseTile((Integer)rb.getTag()), 200);
+                final WeakReference<TileChooserListFragment> fragmentWeakRef = new WeakReference<>(fragment);
+                handler.postDelayed(() -> {
+                    TileChooserListFragment _fragment = fragmentWeakRef.get();
+                    if (_fragment != null)
+                        _fragment.chooseTile((Integer) rb.getTag());
+                }, 200);
             });
 
         }
