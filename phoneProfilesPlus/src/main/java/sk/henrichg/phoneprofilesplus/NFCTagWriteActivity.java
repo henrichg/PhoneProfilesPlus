@@ -6,9 +6,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -152,18 +150,15 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             });
         }
 
-        addReadedNameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra(EXTRA_TAG_NAME, tagData);
-                returnIntent.putExtra(EXTRA_TAG_DB_ID, tagDbId);
-                nfcManager.activity.setResult(Activity.RESULT_OK, returnIntent);
-                try {
-                    nfcManager.activity.finish();
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                }
+        addReadedNameButton.setOnClickListener(v -> {
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra(EXTRA_TAG_NAME, tagData);
+            returnIntent.putExtra(EXTRA_TAG_DB_ID, tagDbId);
+            nfcManager.activity.setResult(Activity.RESULT_OK, returnIntent);
+            try {
+                nfcManager.activity.finish();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
             }
         });
         writeNameToTagAndAddNameButton.setOnClickListener(v -> {
