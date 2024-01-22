@@ -49,6 +49,7 @@ import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.TilesOverlay;
 
+import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 
 public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
@@ -730,11 +731,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     private void startLocationUpdates(boolean showErrorDialog) {
 
         if (showErrorDialog) {
-            final LocationGeofenceEditorActivityOSM activity = this;
             errorLocationHandler = new Handler(getMainLooper());
+            final WeakReference<LocationGeofenceEditorActivityOSM> activityWeakRef = new WeakReference<>(this);
             errorLocationRunnable = () -> {
 //            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationGeofenceEditorActivityOSM.startLocationUpdates");
-                //noinspection ConstantValue
+                LocationGeofenceEditorActivityOSM activity = activityWeakRef.get();
                 if ((activity != null) && !activity.isFinishing() && !activity.isDestroyed()) {
                     if (activity.mLastLocation == null) {
                         activity.showErrorLocationDialog();
