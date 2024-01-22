@@ -1421,12 +1421,13 @@ public class EditorActivity extends AppCompatActivity
         //int itemId = item.getItemId();
         //if (itemId == R.id.menu_profiles_view) {
         if (item == 0) {
-            final EditorActivity activity = this;
             editorToolbar.setTitle(getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.title_activity_editor));
             //editorToolbar.setSubtitle(R.string.title_activity_editor);
             final Handler handler = new Handler(getMainLooper());
+            final WeakReference<EditorActivity> activityWeakRef = new WeakReference<>(this);
             handler.postDelayed(() -> {
                 //noinspection ConstantValue
+                EditorActivity activity = activityWeakRef.get();
                 if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                     return;
 
@@ -1450,12 +1451,13 @@ public class EditorActivity extends AppCompatActivity
             return true;
             //} else if (itemId == R.id.menu_events_view) {
         } else if (item == 1) {
-            final EditorActivity activity = this;
             editorToolbar.setTitle(getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.title_activity_editor));
             //editorToolbar.setSubtitle(R.string.title_activity_editor);
             final Handler handler = new Handler(getMainLooper());
+            final WeakReference<EditorActivity> activityWeakRef = new WeakReference<>(this);
             handler.postDelayed(() -> {
                 //noinspection ConstantValue
+                EditorActivity activity = activityWeakRef.get();
                 if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                     return;
 
@@ -2959,13 +2961,17 @@ public class EditorActivity extends AppCompatActivity
                 DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(getApplicationContext());
 
                 if (filterProfilesSelectedItem != 0) {
-                    final EditorActivity editorActivity = this;
-                    final Profile _profile = profile;
                     final Handler handler = new Handler(getMainLooper());
+                    final WeakReference<EditorActivity> activityWeakRef = new WeakReference<>(this);
+                    final WeakReference<Profile> profileWeakRef = new WeakReference<>(profile);
                     handler.postDelayed(() -> {
 //                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.redrawProfileListFragment");
-                        //noinspection ConstantValue
+                        EditorActivity editorActivity = activityWeakRef.get();
                         if ((editorActivity == null) || editorActivity.isFinishing() || editorActivity.isDestroyed())
+                            return;
+
+                        Profile _profile = profileWeakRef.get();
+                        if (_profile == null)
                             return;
 
                         boolean changeFilter = false;
@@ -3131,13 +3137,17 @@ public class EditorActivity extends AppCompatActivity
                 fragment.updateHeader(activeProfile);
 
                 if (filterEventsSelectedItem != 0) {
-                    final EditorActivity editorActivity = this;
-                    final Event _event = event;
                     final Handler handler = new Handler(getMainLooper());
+                    final WeakReference<EditorActivity> activityWeakRef = new WeakReference<>(this);
+                    final WeakReference<Event> eventWeakRef = new WeakReference<>(event);
                     handler.postDelayed(() -> {
 //                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.redrawEventListFragment");
-                        //noinspection ConstantValue
+                        EditorActivity editorActivity = activityWeakRef.get();
                         if ((editorActivity == null) || editorActivity.isFinishing() || editorActivity.isDestroyed())
+                            return;
+
+                        Event _event = eventWeakRef.get();
+                        if (_event == null)
                             return;
 
                         boolean changeFilter = false;
@@ -3784,11 +3794,11 @@ public class EditorActivity extends AppCompatActivity
             }
             else {
                 //Log.d("EditorActivity.showTargetHelps", "PREF_START_TARGET_HELPS=false");
-                final EditorActivity activity = this;
                 final Handler handler = new Handler(getMainLooper());
+                final WeakReference<EditorActivity> activityWeakRef = new WeakReference<>(this);
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.showTargetHelps");
-                    //noinspection ConstantValue
+                    EditorActivity activity = activityWeakRef.get();
                     if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                         return;
 
