@@ -31,6 +31,7 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.color.DynamicColors;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import mobi.upod.timedurationpicker.TimeDurationPicker;
@@ -250,7 +251,7 @@ class GlobalGUIRoutines {
             switchNightMode(appContext);
     }
 
-    static void reloadActivity(final Activity activity, boolean newIntent)
+    static void reloadActivity(Activity activity, boolean newIntent)
     {
         if (activity == null)
             return;
@@ -258,16 +259,21 @@ class GlobalGUIRoutines {
         if (newIntent)
         {
             final Handler handler = new Handler(activity.getMainLooper());
+            final WeakReference<Activity> activityWeakRef = new WeakReference<>(activity);
             handler.post(() -> {
                 try {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.reloadActivity");
-                    Context context = activity.getApplicationContext();
+                    Activity _activity = activityWeakRef.get();
+                    if (_activity == null)
+                        return;
 
-                    Intent intent = activity.getIntent();
+                    Context context = _activity.getApplicationContext();
+
+                    Intent intent = _activity.getIntent();
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
-                    activity.finish();
-                    activity.overridePendingTransition(0, 0);
+                    _activity.finish();
+                    _activity.overridePendingTransition(0, 0);
 
                     context.startActivity(intent);
                     //activity.overridePendingTransition(0, 0);
