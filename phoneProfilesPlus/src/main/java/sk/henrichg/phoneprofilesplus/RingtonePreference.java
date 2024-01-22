@@ -131,17 +131,18 @@ public class RingtonePreference extends DialogPreference {
     }
 
     void stopPlayRingtone() {
-        final AudioManager audioManager = (AudioManager) prefContext.getSystemService(Context.AUDIO_SERVICE);
-        if (audioManager != null) {
+        AudioManager _audioManager = (AudioManager) prefContext.getSystemService(Context.AUDIO_SERVICE);
+        if (_audioManager != null) {
             final Context appContext = prefContext.getApplicationContext();
             final String _ringtoneUri = ringtoneUri;
+            final WeakReference<AudioManager> audioManagerWeakRef = new WeakReference<>(_audioManager);
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceFragment.stopPlayRingtone");
 
                 //Context appContext = appContextWeakRef.get();
-                //AudioManager audioManager = audioManagerWeakRef.get();
+                AudioManager audioManager = audioManagerWeakRef.get();
 
-                if (/*(appContext != null) && (audioManager != null) &&*/ (_ringtoneUri != null)) {
+                if ((audioManager != null) && (_ringtoneUri != null)) {
                     if (playTimer != null) {
                         playTimer.cancel();
                         playTimer = null;
@@ -183,21 +184,24 @@ public class RingtonePreference extends DialogPreference {
 
         stopPlayRingtone();
 
-        final AudioManager audioManager = (AudioManager)prefContext.getSystemService(Context.AUDIO_SERVICE);
-        if (audioManager != null) {
+        final AudioManager _audioManager = (AudioManager)prefContext.getSystemService(Context.AUDIO_SERVICE);
+        if (_audioManager != null) {
 
-            final Uri _ringtoneUri = Uri.parse(ringtoneUri);
+            final Uri __ringtoneUri = Uri.parse(ringtoneUri);
 
             final Context appContext = prefContext.getApplicationContext();
-            final RingtonePreference preference = this;
             final String _ringtoneType = ringtoneType;
 
+            final WeakReference<AudioManager> audioManagerWeakRef = new WeakReference<>(_audioManager);
+            final WeakReference<Uri> uriWeakRef = new WeakReference<>(__ringtoneUri);
+            final WeakReference<RingtonePreference> preferenceWeakRef = new WeakReference<>(this);
             Runnable runnable = () -> {
                 //Context appContext = appContextWeakRef.get();
-                //AudioManager audioManager = audioManagerWeakRef.get();
-                //Uri ringtoneUri = ringtoneUriWeakRef.get();
+                AudioManager audioManager = audioManagerWeakRef.get();
+                Uri _ringtoneUri = uriWeakRef.get();
+                RingtonePreference preference = preferenceWeakRef.get();
 
-                if (/*(appContext != null) && (audioManager != null) &&*/ (_ringtoneUri != null)) {
+                if ((preference != null) && (audioManager != null) && (_ringtoneUri != null)) {
 
                     try {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreference.playRingtone");

@@ -12,6 +12,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,13 +63,14 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
                     hideProgress();
             //}
 
-            final RingtonePreference _preference = preference;
             final Handler handler = new Handler(prefContext.getMainLooper());
+            final WeakReference<RingtonePreference> preferenceWeakRef = new WeakReference<>(preference);
             handler.postDelayed(() -> {
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=RingtonePreferenceFragment.onBindDialogView");
                 //_preference.oldRingtoneUri = preference.ringtoneUri;
-                //noinspection Convert2MethodRef
-                _preference.refreshListView();
+                RingtonePreference preference = preferenceWeakRef.get();
+                if (preference != null)
+                    preference.refreshListView();
             }, 200);
         }
 
