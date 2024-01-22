@@ -214,6 +214,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
             ContactGroupsMultiSelectDialogPreferenceFragment fragment = fragmentWeakRef.get();
             ContactGroupsMultiSelectDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
+            final boolean _notForUnselect = notForUnselect;
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 //if (!EditorActivity.getContactGroupsCache().cached)
                 //    EditorActivity.getContactGroupsCache().clearCache(false);
@@ -226,7 +227,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
 
                     fragment.listAdapter.notifyDataSetChanged();
 
-                    if (notForUnselect) {
+                    if (_notForUnselect) {
                         ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                         if (contactGroupsCache != null) {
                             List<ContactGroup> contactGroupList = contactGroupsCache.getList();
