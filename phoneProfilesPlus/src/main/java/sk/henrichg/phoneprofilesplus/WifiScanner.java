@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.SystemClock;
-import android.view.View;
-import android.widget.ScrollView;
 
 import java.lang.ref.WeakReference;
 

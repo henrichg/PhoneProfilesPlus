@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;

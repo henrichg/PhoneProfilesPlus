@@ -12,8 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.samsung.android.sdk.look.cocktailbar.SlookCocktailManager;
-
 import java.lang.ref.WeakReference;
 
 public class ImportantInfoActivityForceScrollFragment extends Fragment {

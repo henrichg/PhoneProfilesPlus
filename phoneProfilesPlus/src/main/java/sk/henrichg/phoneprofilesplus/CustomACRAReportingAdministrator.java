@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.RemoteServiceException;
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.os.Build;
