@@ -421,48 +421,52 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                 fragment.linlaProgress.setVisibility(View.GONE);
 
                 final Handler handler = new Handler(prefContext.getMainLooper());
+                final WeakReference<List<String>> cellsListWeakRef = new WeakReference<>(_cellsList);
                 handler.post(() -> {
                     fragment.listViewRoot.setVisibility(View.VISIBLE);
 
-                    preference.cellNamesList = new ArrayList<>(_cellsList);
+                    List<String> __cellsList = cellsListWeakRef.get();
+                    if (__cellsList != null) {
+                        preference.cellNamesList = new ArrayList<>(__cellsList);
 
-                    if (preference.cellNamesList.size() == 0) {
-                        fragment.cellsListView.setVisibility(View.GONE);
-                        fragment.emptyList.setVisibility(View.VISIBLE);
-                    } else {
-                        fragment.emptyList.setVisibility(View.GONE);
-                        fragment.cellsListView.setVisibility(View.VISIBLE);
-                    }
+                        if (preference.cellNamesList.size() == 0) {
+                            fragment.cellsListView.setVisibility(View.GONE);
+                            fragment.emptyList.setVisibility(View.VISIBLE);
+                        } else {
+                            fragment.emptyList.setVisibility(View.GONE);
+                            fragment.cellsListView.setVisibility(View.VISIBLE);
+                        }
 
-                    fragment.listAdapter.notifyDataSetChanged();
+                        fragment.listAdapter.notifyDataSetChanged();
 
-                    if ((fragment.phoneCount > 1)) {
-                        if (sim1Exists) {
-                            String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim1) + " ";
-                            if (MobileCellsScanner.isValidCellId(registeredCellSIM1)) {
-                                if ((registeredCellNameSIM1 != null) && (!registeredCellNameSIM1.isEmpty()))
-                                    connectedCellName = connectedCellName + registeredCellNameSIM1 + ", ";
-                                connectedCellName = connectedCellName + registeredCellSIM1;
+                        if ((fragment.phoneCount > 1)) {
+                            if (sim1Exists) {
+                                String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim1) + " ";
+                                if (MobileCellsScanner.isValidCellId(registeredCellSIM1)) {
+                                    if ((registeredCellNameSIM1 != null) && (!registeredCellNameSIM1.isEmpty()))
+                                        connectedCellName = connectedCellName + registeredCellNameSIM1 + ", ";
+                                    connectedCellName = connectedCellName + registeredCellSIM1;
+                                }
+                                fragment.connectedCellSIM1.setText(connectedCellName);
                             }
-                            fragment.connectedCellSIM1.setText(connectedCellName);
-                        }
-                        if (sim2Exists) {
-                            String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim2) + " ";
-                            if (MobileCellsScanner.isValidCellId(registeredCellSIM1)) {
-                                if ((registeredCellNameSIM2 != null) && (!registeredCellNameSIM2.isEmpty()))
-                                    connectedCellName = connectedCellName + registeredCellNameSIM2 + ", ";
-                                connectedCellName = connectedCellName + registeredCellSIM2;
+                            if (sim2Exists) {
+                                String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim2) + " ";
+                                if (MobileCellsScanner.isValidCellId(registeredCellSIM2)) {
+                                    if ((registeredCellNameSIM2 != null) && (!registeredCellNameSIM2.isEmpty()))
+                                        connectedCellName = connectedCellName + registeredCellNameSIM2 + ", ";
+                                    connectedCellName = connectedCellName + registeredCellSIM2;
+                                }
+                                fragment.connectedCellSIM2.setText(connectedCellName);
                             }
-                            fragment.connectedCellSIM2.setText(connectedCellName);
+                        } else {
+                            String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell) + " ";
+                            if (MobileCellsScanner.isValidCellId(registeredCellDefault)) {
+                                if ((registeredCellNameDefault != null) && (!registeredCellNameDefault.isEmpty()))
+                                    connectedCellName = connectedCellName + registeredCellNameDefault + ", ";
+                                connectedCellName = connectedCellName + registeredCellDefault;
+                            }
+                            fragment.connectedCellDefault.setText(connectedCellName);
                         }
-                    } else {
-                        String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell) + " ";
-                        if (MobileCellsScanner.isValidCellId(registeredCellSIM1)) {
-                            if ((registeredCellNameDefault != null) && (!registeredCellNameDefault.isEmpty()))
-                                connectedCellName = connectedCellName + registeredCellNameDefault + ", ";
-                            connectedCellName = connectedCellName + registeredCellDefault;
-                        }
-                        fragment.connectedCellDefault.setText(connectedCellName);
                     }
                 });
 

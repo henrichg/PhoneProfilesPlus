@@ -24,6 +24,7 @@ import android.widget.RemoteViews;
 import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 public class ProfileListWidgetProvider extends AppWidgetProvider {
@@ -824,7 +825,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     }
     */
 
-    private static void doOnUpdate(final Context context, final AppWidgetManager appWidgetManager,
+    private static void doOnUpdate(Context context, AppWidgetManager _appWidgetManager,
                                    final int appWidgetId, final boolean fromOnUpdate/*, boolean addWidgetType*/) {
 //        Log.e("ProfileListWidgetProvider.doOnUpdate", "fromOnUpdate="+fromOnUpdate);
 
@@ -841,24 +842,28 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         RemoteViews widget = buildLayout(context, appWidgetId, /*isLargeLayout,*/ dataWrapper);
         dataWrapper.invalidateDataWrapper();
         try {
-            appWidgetManager.updateAppWidget(appWidgetId, widget);
+            _appWidgetManager.updateAppWidget(appWidgetId, widget);
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
         }
 
         if (!fromOnUpdate) {
+            final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(_appWidgetManager);
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.doOnUpdate");
-                //if (isLargeLayout) {
-                if (!ApplicationPreferences.applicationWidgetListGridLayout)
-                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_list);
-                else {
-                    if (ApplicationPreferences.applicationWidgetListCompactGrid)
-                        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid_compat);
-                    else
-                        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid);
+                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                if (appWidgetManager != null) {
+                    //if (isLargeLayout) {
+                    if (!ApplicationPreferences.applicationWidgetListGridLayout)
+                        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_list);
+                    else {
+                        if (ApplicationPreferences.applicationWidgetListCompactGrid)
+                            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid_compat);
+                        else
+                            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid);
+                    }
+                    //}
                 }
-                //}
             };
             PPApplicationStatic.createDelayedGuiExecutor();
             //PPApplication.delayedGuiExecutor.submit(runnable);
@@ -866,7 +871,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         }
     }
 
-    public void onUpdate(Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
+    public void onUpdate(Context context, AppWidgetManager _appWidgetManager, final int[] appWidgetIds)
     {
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
 //        PPApplicationStatic.logE("[IN_LISTENER] ProfileListWidgetProvider.onUpdate", "xxx");
@@ -875,14 +880,15 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             final Context appContext = context.getApplicationContext();
             LocaleHelper.setApplicationLocale(appContext);
 
+            final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(_appWidgetManager);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onUpdate");
                 //createProfilesDataWrapper(_context);
 
                 //Context appContext= appContextWeakRef.get();
-                //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                //if ((appContext != null) && (appWidgetManager != null)) {
+                if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
 
                     for (int appWidgetId : appWidgetIds) {
                         doOnUpdate(appContext, appWidgetManager, appWidgetId, true/*, true*/);
@@ -891,7 +897,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     //if (dataWrapper != null)
                     //    dataWrapper.invalidateDataWrapper();
                     //dataWrapper = null;
-                //}
+                }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
@@ -913,17 +919,18 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             if (action.equalsIgnoreCase("com.motorola.blur.home.ACTION_SET_WIDGET_SIZE")) {
                 //final int spanX = intent.getIntExtra("spanX", 1);
                 //final int spanY = intent.getIntExtra("spanY", 1);
-                final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(appContext);
-                final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(appContext, ProfileListWidgetProvider.class));
+                AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
+                final int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(appContext, ProfileListWidgetProvider.class));
 
                 if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
+                    final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(manager);
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (1)");
 
                         //Context appContext= appContextWeakRef.get();
-                        //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                        AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                        //if ((appContext != null) && (appWidgetManager != null)) {
+                        if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
                             DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
                             for (int appWidgetId : appWidgetIds) {
                                 //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
@@ -936,7 +943,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                                 }
                             }
                             dataWrapper.invalidateDataWrapper();
-                        //}
+                        }
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
                     PPApplication.delayedGuiExecutor.submit(runnable);
@@ -945,22 +952,23 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             }
             else
             if (action.equalsIgnoreCase(ACTION_REFRESH_LISTWIDGET)) {
-                final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(appContext);
-                final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(appContext, ProfileListWidgetProvider.class));
+                AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
+                final int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(appContext, ProfileListWidgetProvider.class));
 
                 if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
+                    final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(manager);
                     Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (2)");
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] ProfileListWidgetProvider,onReceive", "appWidgetIds.length="+appWidgetIds.length);
 
                         //Context appContext= appContextWeakRef.get();
-                        //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                        AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                        //if ((appContext != null) && (appWidgetManager != null)) {
-                        for (int appWidgetId : appWidgetIds) {
-                            doOnUpdate(appContext, appWidgetManager, appWidgetId, false/*, true*/);
+                        if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                            for (int appWidgetId : appWidgetIds) {
+                                doOnUpdate(appContext, appWidgetManager, appWidgetId, false/*, true*/);
+                            }
                         }
-                        //}
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
                     PPApplication.delayedGuiExecutor.submit(runnable);

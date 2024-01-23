@@ -147,7 +147,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(alarmTime);
 
-        final Calendar alarmCalendar = Calendar.getInstance();
+        Calendar alarmCalendar = Calendar.getInstance();
         alarmCalendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY));
         alarmCalendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE));
         alarmCalendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH));
@@ -180,6 +180,8 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
             removeAlarm(alarmPackageName, alarmManager, context);
 
             setEventAlarmClockTime(alarmPackageName, alarmTime, context);
+
+            final long alamCalendarTime = alarmCalendar.getTimeInMillis();
 
             Runnable runnable = () -> {
 
@@ -214,7 +216,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                 AlarmManager _alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
                 if (_alarmManager != null) {
-                    _alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), pendingIntent);
+                    _alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alamCalendarTime, pendingIntent);
                 }
 
             };

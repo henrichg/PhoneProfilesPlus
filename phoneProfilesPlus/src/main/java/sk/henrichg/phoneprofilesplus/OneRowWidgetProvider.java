@@ -22,26 +22,29 @@ import android.widget.RemoteViews;
 import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import java.lang.ref.WeakReference;
+
 public class OneRowWidgetProvider extends AppWidgetProvider {
 
     static final String ACTION_REFRESH_ONEROWWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ONEROWWIDGET";
 
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, final int[] appWidgetIds)
+    public void onUpdate(Context context, AppWidgetManager _appWidgetManager, final int[] appWidgetIds)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] OneRowWidgetProvider.onUpdate", "xxx");
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
             final Context appContext = context.getApplicationContext();
+            final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(_appWidgetManager);
             LocaleHelper.setApplicationLocale(appContext);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
 
                 //Context appContext= appContextWeakRef.get();
-                //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                //if ((appContext != null) && (appWidgetManager != null)) {
+                if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
                     _onUpdate(appContext, appWidgetManager, appWidgetIds);
-                //}
+                }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
@@ -813,16 +816,16 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             if (manager != null) {
                 final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, OneRowWidgetProvider.class));
                 if ((ids != null) && (ids.length > 0)) {
-                    final AppWidgetManager appWidgetManager = manager;
+                    final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(manager);
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
 
                         //Context appContext= appContextWeakRef.get();
-                        //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                        AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                        //if ((appContext != null) && (appWidgetManager != null)) {
+                        if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
                             _onUpdate(appContext, appWidgetManager, ids);
-                        //}
+                        }
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
                     PPApplication.delayedGuiExecutor.submit(runnable);

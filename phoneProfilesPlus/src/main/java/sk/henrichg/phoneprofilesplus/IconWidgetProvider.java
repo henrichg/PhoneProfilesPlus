@@ -19,26 +19,29 @@ import android.widget.RemoteViews;
 import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import java.lang.ref.WeakReference;
+
 public class IconWidgetProvider extends AppWidgetProvider {
 
     static final String ACTION_REFRESH_ICONWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ICONWIDGET";
 
-    public void onUpdate(Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
+    public void onUpdate(Context context, AppWidgetManager _appWidgetManager, final int[] appWidgetIds)
     {
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
 //        PPApplicationStatic.logE("[IN_LISTENER] IconWidgetProvider.onUpdate", "xxx");
         if (appWidgetIds.length > 0) {
             final Context appContext = context.getApplicationContext();
+            final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(_appWidgetManager);
             LocaleHelper.setApplicationLocale(appContext);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onUpdate");
 
                 //Context appContext= appContextWeakRef.get();
-                //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                //if ((appContext != null) && (appWidgetManager != null)) {
+                if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
                     _onUpdate(appContext, appWidgetManager, appWidgetIds);
-                //}
+                }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
@@ -1181,7 +1184,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
     }
 
     @Override
-    public void onReceive(Context context, final Intent intent) {
+    public void onReceive(Context context, Intent intent) {
         final Context appContext = context.getApplicationContext();
         LocaleHelper.setApplicationLocale(appContext);
 
@@ -1196,21 +1199,21 @@ public class IconWidgetProvider extends AppWidgetProvider {
             if (manager != null) {
                 final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, IconWidgetProvider.class));
                 if ((ids != null) && (ids.length > 0)) {
-                    final AppWidgetManager appWidgetManager = manager;
+                    final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(manager);
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
 
                         //Context appContext= appContextWeakRef.get();
-                        //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                        AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                        //if ((appContext != null) && (appWidgetManager != null)) {
+                        if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
                             _onUpdate(appContext, appWidgetManager, ids);
 //                        This not working. This uses one row profie list provider. Why???
 //                        Intent updateIntent = new Intent();
 //                        updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
 //                        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
 //                        context.sendBroadcast(updateIntent);
-                        //}
+                        }
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
                     PPApplication.delayedGuiExecutor.submit(runnable);

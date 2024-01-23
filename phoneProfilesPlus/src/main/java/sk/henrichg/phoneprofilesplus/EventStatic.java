@@ -13,6 +13,7 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 class EventStatic {
@@ -462,42 +463,95 @@ class EventStatic {
         }
     }
 
-    static boolean runStopEvent(final DataWrapper dataWrapper,
-                                final Event event,
-                                final EditorActivity editor) {
-        if (EventStatic.getGlobalEventsRunning(dataWrapper.context)) {
+    static boolean runStopEvent(DataWrapper _dataWrapper,
+                                Event _event,
+                                EditorActivity editor) {
+        if (EventStatic.getGlobalEventsRunning(_dataWrapper.context)) {
             // events are not globally stopped
 
-            dataWrapper.getEventTimelineList(true);
-            if (event.getStatusFromDB(dataWrapper.context) == Event.ESTATUS_STOP) {
-                if (!EventStatic.isRedTextNotificationRequired(event, false, dataWrapper.context)) {
+            _dataWrapper.getEventTimelineList(true);
+            if (_event.getStatusFromDB(_dataWrapper.context) == Event.ESTATUS_STOP) {
+                if (!EventStatic.isRedTextNotificationRequired(_event, false, _dataWrapper.context)) {
                     // pause event
                     //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context);
 
                     //final DataWrapper dataWrapper = activityDataWrapper;
+                    final WeakReference<DataWrapper> dataWrapperWeakRef = new WeakReference<>(_dataWrapper);
+                    final WeakReference<Event> eventWeakRef = new WeakReference<>(_event);
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
 
-                        //DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                        //Event event = eventWeakRef.get();
+                        DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                        Event event = eventWeakRef.get();
 
-                        //if ((dataWrapper != null) && (event != null)) {
+                        if ((dataWrapper != null) && (event != null)) {
+                            PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EditorEventListFragment_runStopEvent_1);
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+    //                            PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(1) PPApplication.eventsHandlerMutex");
+                                synchronized (PPApplication.eventsHandlerMutex) {
+                                    event.pauseEvent(dataWrapper, false, false,
+                                            false, true, null, false, false, true);
+                                }
+
+                            } catch (Exception e) {
+    //                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                            }
+                        }
+                    };
+                    PPApplicationStatic.createBasicExecutorPool();
+                    PPApplication.basicExecutorPool.submit(runnable);
+
+                }
+                else {
+                    if (editor != null)
+                        GlobalGUIRoutines.showDialogAboutRedText(null, _event, false, false, false, true, editor);
+                    else
+                        DataWrapperStatic.displayPreferencesErrorNotification(null, _event, false, _dataWrapper.context);
+                    return false;
+                }
+            } else {
+                // stop event
+
+                //final DataWrapper dataWrapper = activityDataWrapper;
+                final WeakReference<DataWrapper> dataWrapperWeakRef = new WeakReference<>(_dataWrapper);
+                final WeakReference<Event> eventWeakRef = new WeakReference<>(_event);
+                Runnable runnable = () -> {
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
+
+                    DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                    Event event = eventWeakRef.get();
+
+                    if ((dataWrapper != null) && (event != null)) {
                         PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EditorEventListFragment_runStopEvent_1);
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EditorEventListFragment_runStopEvent_2);
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                            PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(1) PPApplication.eventsHandlerMutex");
+    //                        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(2) PPApplication.eventsHandlerMutex");
                             synchronized (PPApplication.eventsHandlerMutex) {
-                                event.pauseEvent(dataWrapper, false, false,
-                                        false, true, null, false, false, true);
+                                event.stopEvent(dataWrapper, false, false,
+                                        true, true, true); // activate return profile
                             }
 
                         } catch (Exception e) {
-//                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+    //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -507,56 +561,7 @@ class EventStatic {
                                 }
                             }
                         }
-                        //}
-                    };
-                    PPApplicationStatic.createBasicExecutorPool();
-                    PPApplication.basicExecutorPool.submit(runnable);
-
-                }
-                else {
-                    if (editor != null)
-                        GlobalGUIRoutines.showDialogAboutRedText(null, event, false, false, false, true, editor);
-                    else
-                        DataWrapperStatic.displayPreferencesErrorNotification(null, event, false, dataWrapper.context);
-                    return false;
-                }
-            } else {
-                // stop event
-
-                //final DataWrapper dataWrapper = activityDataWrapper;
-                Runnable runnable = () -> {
-//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
-
-                    //DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                    //Event event = eventWeakRef.get();
-
-                    //if ((dataWrapper != null) && (event != null)) {
-                    PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EditorEventListFragment_runStopEvent_2);
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
-
-//                        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(2) PPApplication.eventsHandlerMutex");
-                        synchronized (PPApplication.eventsHandlerMutex) {
-                            event.stopEvent(dataWrapper, false, false,
-                                    true, true, true); // activate return profile
-                        }
-
-                    } catch (Exception e) {
-//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplicationStatic.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
-                        }
                     }
-                    //}
                 };
                 PPApplicationStatic.createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
@@ -566,11 +571,11 @@ class EventStatic {
             // redraw event list
             //updateListView(event, false, false, true, 0);
             if (editor != null)
-                editor.redrawEventListFragment(event, PPApplication.EDIT_MODE_EDIT);
+                editor.redrawEventListFragment(_event, PPApplication.EDIT_MODE_EDIT);
 
             // restart events
             //activityDataWrapper.restartEvents(false, true, true, true, true);
-            dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
+            _dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
             /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -579,7 +584,7 @@ class EventStatic {
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-            PPApplicationStatic.runCommand(dataWrapper.context, commandIntent);
+            PPApplicationStatic.runCommand(_dataWrapper.context, commandIntent);
 
 //            PPApplicationStatic.logE("[MAIN_WORKER_CALL] EventStatic.runStopEvent", "(1) xxxxxxxxxxxxxxxxxxxx");
 
@@ -609,25 +614,25 @@ class EventStatic {
             }
 
         } else {
-            if (event.getStatusFromDB(dataWrapper.context) == Event.ESTATUS_STOP) {
+            if (_event.getStatusFromDB(_dataWrapper.context) == Event.ESTATUS_STOP) {
                 // pause event
-                event.setStatus(Event.ESTATUS_PAUSE);
+                _event.setStatus(Event.ESTATUS_PAUSE);
             } else {
                 // stop event
-                event.setStatus(Event.ESTATUS_STOP);
+                _event.setStatus(Event.ESTATUS_STOP);
             }
 
             // update event in DB
-            DatabaseHandler.getInstance(dataWrapper.context).updateEvent(event);
+            DatabaseHandler.getInstance(_dataWrapper.context).updateEvent(_event);
 
             // redraw event list
             //updateListView(event, false, false, true, 0);
             if (editor != null)
-                editor.redrawEventListFragment(event, PPApplication.EDIT_MODE_EDIT);
+                editor.redrawEventListFragment(_event, PPApplication.EDIT_MODE_EDIT);
 
             // restart events
             //activityDataWrapper.restartEvents(false, true, true, true, true);
-            dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
+            _dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
             /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -636,7 +641,7 @@ class EventStatic {
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-            PPApplicationStatic.runCommand(dataWrapper.context, commandIntent);
+            PPApplicationStatic.runCommand(_dataWrapper.context, commandIntent);
 
 //            PPApplicationStatic.logE("[MAIN_WORKER_CALL] EventStatic.runStopEvent", "(2) xxxxxxxxxxxxxxxxxxxx");
 

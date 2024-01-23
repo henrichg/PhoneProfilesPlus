@@ -12,6 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.samsung.android.sdk.look.cocktailbar.SlookCocktailManager;
+
+import java.lang.ref.WeakReference;
+
 public class ImportantInfoActivityForceScrollFragment extends Fragment {
 
     boolean showQuickGuide = false;
@@ -57,7 +61,7 @@ public class ImportantInfoActivityForceScrollFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final Activity activity = getActivity();
+        Activity activity = getActivity();
         if (activity == null)
             return;
 
@@ -75,29 +79,36 @@ public class ImportantInfoActivityForceScrollFragment extends Fragment {
 
 
         if ((scrollTo != 0) && (savedInstanceState == null)) {
-            final ScrollView scrollView;
+            ScrollView _scrollView;
             switch (showFragment) {
                 case 1:
-                    scrollView = view.findViewById(R.id.fragment_important_info_force_scroll_profiles_scroll_view);
+                    _scrollView = view.findViewById(R.id.fragment_important_info_force_scroll_profiles_scroll_view);
                     break;
                 case 2:
-                    scrollView = view.findViewById(R.id.fragment_important_info_force_scroll_events_scroll_view);
+                    _scrollView = view.findViewById(R.id.fragment_important_info_force_scroll_events_scroll_view);
                     break;
                 default:
-                    scrollView = view.findViewById(R.id.fragment_important_info_force_scroll_system_scroll_view);
+                    _scrollView = view.findViewById(R.id.fragment_important_info_force_scroll_system_scroll_view);
                     break;
             }
-            final View viewToScroll = view.findViewById(scrollTo);
-            if ((scrollView != null) && (viewToScroll != null)) {
+            View _viewToScroll = view.findViewById(scrollTo);
+            if ((_scrollView != null) && (_viewToScroll != null)) {
                 final Handler handler = new Handler(activity.getMainLooper());
+                final WeakReference<ScrollView> scrollViewWeakRef = new WeakReference<>(_scrollView);
+                final WeakReference<View> viewToScrollWeakRef = new WeakReference<>(_viewToScroll);
+                final WeakReference<Activity> activityWeakRef = new WeakReference<>(activity);
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated (2)");
+                    ScrollView scrollView = scrollViewWeakRef.get();
+                    View viewToScroll = viewToScrollWeakRef.get();
+                    Activity _activity = activityWeakRef.get();
 
                     //noinspection ConstantValue
-                    if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+                    if ((_activity == null) || _activity.isFinishing() || _activity.isDestroyed())
                         return;
 
-                    scrollView.scrollTo(0, viewToScroll.getTop());
+                    if ((scrollView != null) && (viewToScroll != null))
+                        scrollView.scrollTo(0, viewToScroll.getTop());
                 }, 200);
             }
         }

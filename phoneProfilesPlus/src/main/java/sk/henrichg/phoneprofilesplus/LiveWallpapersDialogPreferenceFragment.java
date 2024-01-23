@@ -199,18 +199,22 @@ public class LiveWallpapersDialogPreferenceFragment extends PreferenceDialogFrag
                 fragment.linlaProgress.setVisibility(View.GONE);
 
                 final Handler handler = new Handler(prefContext.getMainLooper());
+                final WeakReference<List<LiveWallpapersData>> wallpaperListWeakRef = new WeakReference<>(_wallpapersList);
                 handler.post(() -> {
                     fragment.listView.setVisibility(View.VISIBLE);
 
-                    preference.liveWallpapersList = new ArrayList<>(_wallpapersList);
-                    fragment.listView.setAdapter(fragment.listAdapter);
+                    List<LiveWallpapersData> __wallpapersList = wallpaperListWeakRef.get();
+                    if (__wallpapersList != null) {
+                        preference.liveWallpapersList = new ArrayList<>(__wallpapersList);
+                        fragment.listView.setAdapter(fragment.listAdapter);
 
-                    if (preference.liveWallpapersList.size() == 0) {
-                        fragment.listView.setVisibility(View.GONE);
-                        fragment.emptyList.setVisibility(View.VISIBLE);
-                    } else {
-                        fragment.emptyList.setVisibility(View.GONE);
-                        fragment.listView.setVisibility(View.VISIBLE);
+                        if (preference.liveWallpapersList.size() == 0) {
+                            fragment.listView.setVisibility(View.GONE);
+                            fragment.emptyList.setVisibility(View.VISIBLE);
+                        } else {
+                            fragment.emptyList.setVisibility(View.GONE);
+                            fragment.listView.setVisibility(View.VISIBLE);
+                        }
                     }
                 });
             }

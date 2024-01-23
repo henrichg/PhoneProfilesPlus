@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
@@ -42,17 +43,18 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                 action.equals(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)) {
             // BluetoothScanBroadcastReceiver
 
-            final BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+            BluetoothDevice _device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
             final String deviceName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
 
             final Context appContext = context.getApplicationContext();
+            final WeakReference<BluetoothDevice> deviceWeakRef = new WeakReference<>(_device);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanBroadcastReceiver.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
-                //BluetoothDevice device = deviceWeakRef.get();
+                BluetoothDevice device = deviceWeakRef.get();
 
-                //if ((appContext != null) && (device != null)) {
+                if (/*(appContext != null) &&*/ (device != null)) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -159,7 +161,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     }
-                //}
+                }
             };
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);

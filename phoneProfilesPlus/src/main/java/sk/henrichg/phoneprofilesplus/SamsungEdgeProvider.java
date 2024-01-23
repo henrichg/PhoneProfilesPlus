@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailManager;
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailProvider;
 
+import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 public class SamsungEdgeProvider extends SlookCocktailProvider {
@@ -449,20 +451,24 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     }
     */
 
-    private static void doOnUpdate(Context context, final SlookCocktailManager cocktailBarManager, final int cocktailId, boolean fromOnUpdate)
+    private static void doOnUpdate(Context context, SlookCocktailManager _cocktailBarManager, final int cocktailId, boolean fromOnUpdate)
     {
         RemoteViews widget = buildLayout(context);
         try {
-            cocktailBarManager.updateCocktail(cocktailId, widget);
+            _cocktailBarManager.updateCocktail(cocktailId, widget);
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
         }
         if (!fromOnUpdate) {
+            final WeakReference<SlookCocktailManager> cocktailManagerWeakRef = new WeakReference<>(_cocktailBarManager);
             Runnable runnable = () -> {
+                SlookCocktailManager cocktailBarManager = cocktailManagerWeakRef.get();
+                if (cocktailBarManager != null) {
                 /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
                     cocktailManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_samsung_edge);
                 else*/
-                cocktailBarManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_samsung_edge_grid);
+                    cocktailBarManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_samsung_edge_grid);
+                }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
             //PPApplication.delayedGuiExecutor.submit(runnable);
@@ -471,22 +477,23 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     }
 
     @Override
-    public void onUpdate(Context context, final SlookCocktailManager cocktailManager, final int[] cocktailIds) {
+    public void onUpdate(Context context, SlookCocktailManager _cocktailManager, final int[] cocktailIds) {
         final Context appContext = context.getApplicationContext();
         LocaleHelper.setApplicationLocale(appContext);
 
-        super.onUpdate(appContext, cocktailManager, cocktailIds);
+        super.onUpdate(appContext, _cocktailManager, cocktailIds);
 //        PPApplicationStatic.logE("[IN_LISTENER] SamsungEdgeProvider.onUpdate", "xxx");
         if (cocktailIds.length > 0) {
             //final int[] _cocktailIds = cocktailIds;
 
+            final WeakReference<SlookCocktailManager> cocktailManagerWeakRef = new WeakReference<>(_cocktailManager);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
 
                 //Context appContext= appContextWeakRef.get();
-                //SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
+                SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
 
-                //if ((appContext != null) && (cocktailManager != null)) {
+                if (/*(appContext != null) &&*/ (cocktailManager != null)) {
                     //createProfilesDataWrapper(_context);
 
                     for (int cocktailId : cocktailIds) {
@@ -496,7 +503,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                     //if (dataWrapper != null)
                     //    dataWrapper.invalidateDataWrapper();
                     //dataWrapper = null;
-                //}
+                }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
@@ -515,17 +522,18 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
         if ((action != null) &&
                 (action.equalsIgnoreCase(ACTION_REFRESH_EDGEPANEL))) {
-            final SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(appContext);
-            final int[] cocktailIds = cocktailManager.getCocktailIds(new ComponentName(appContext, SamsungEdgeProvider.class));
+            SlookCocktailManager manager = SlookCocktailManager.getInstance(appContext);
+            final int[] cocktailIds = manager.getCocktailIds(new ComponentName(appContext, SamsungEdgeProvider.class));
 
             if ((cocktailIds != null) && (cocktailIds.length > 0)) {
+                final WeakReference<SlookCocktailManager> cocktailManagerWeakRef = new WeakReference<>(manager);
                 Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
 
                     //Context appContext= appContextWeakRef.get();
-                    //SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
+                    SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
 
-                    //if ((appContext != null) && (cocktailManager != null)) {
+                    if (/*(appContext != null) &&*/ (cocktailManager != null)) {
                         //if (EditorActivity.doImport)
                         //    return;
 
@@ -538,7 +546,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                         //if (dataWrapper != null)
                         //    dataWrapper.invalidateDataWrapper();
                         //dataWrapper = null;
-                    //}
+                    }
                 };
                 PPApplicationStatic.createDelayedGuiExecutor();
                 PPApplication.delayedGuiExecutor.submit(runnable);

@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -563,20 +564,22 @@ public class EventsPrefsActivity extends AppCompatActivity
         }
     }
 
-    static void saveUpdateOfPreferences(final Event event, final DataWrapper dataWrapper, final int old_event_status) {
+    static void saveUpdateOfPreferences(Event _event, DataWrapper _dataWrapper, final int old_event_status) {
         // save preferences into profile
-        dataWrapper.getEventTimelineList(true);
+        _dataWrapper.getEventTimelineList(true);
 
         //noinspection IfStatementWithIdenticalBranches
-        if (event.getStatus() == Event.ESTATUS_STOP)
+        if (_event.getStatus() == Event.ESTATUS_STOP)
         {
+            final WeakReference<DataWrapper> dataWrapperWeakRef = new WeakReference<>(_dataWrapper);
+            final WeakReference<Event> eventWeakRef = new WeakReference<>(_event);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
 
-                //DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                //Event event = eventWeakRef.get();
+                DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                Event event = eventWeakRef.get();
 
-                //if ((dataWrapper != null) && (event != null)) {
+                if ((dataWrapper != null) && (event != null)) {
                     PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -614,19 +617,21 @@ public class EventsPrefsActivity extends AppCompatActivity
                             }
                         }
                     }
-                //}
+                }
             };
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
         else {
+            final WeakReference<DataWrapper> dataWrapperWeakRef = new WeakReference<>(_dataWrapper);
+            final WeakReference<Event> eventWeakRef = new WeakReference<>(_event);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
 
-                //DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                //Event event = eventWeakRef.get();
+                DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                Event event = eventWeakRef.get();
 
-                //if ((dataWrapper != null) && (event != null)) {
+                if ((dataWrapper != null) && (event != null)) {
                     PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -658,7 +663,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                             }
                         }
                     }
-                //}
+                }
             };
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);

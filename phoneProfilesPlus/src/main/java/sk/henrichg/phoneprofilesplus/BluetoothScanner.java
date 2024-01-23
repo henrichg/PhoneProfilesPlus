@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanSettings;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.os.SystemClock;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -534,34 +536,38 @@ class BluetoothScanner {
                         BluetoothScanWorker.setScanRequest(context, true);
                     else
                         BluetoothScanWorker.setLEScanRequest(context, true);
-                    final BluetoothAdapter _bluetooth = bluetooth;
+
                     final Context appContext = context.getApplicationContext();
-                    final BluetoothScanner scanner = this;
+                    final WeakReference<BluetoothAdapter> bluetoothWeakRef = new WeakReference<>(bluetooth);
+                    final WeakReference<BluetoothScanner> scannerWeakRef = new WeakReference<>(this);
                     @SuppressLint("MissingPermission")
                     Runnable runnable = () -> {
+                        BluetoothAdapter _bluetooth = bluetoothWeakRef.get();
+                        BluetoothScanner scanner = scannerWeakRef.get();
 
-                        if (Permissions.checkBluetoothForEMUI(appContext)) {
-                            //lock(); // lock is required for enabling bluetooth
-                            //    CmdBluetooth.setBluetooth(true);
+                        if ((_bluetooth != null) && (scanner != null)) {
+                            if (Permissions.checkBluetoothForEMUI(appContext)) {
+                                //lock(); // lock is required for enabling bluetooth
+                                //    CmdBluetooth.setBluetooth(true);
 //                            Log.e("BluetoothScanner.enableBluetooth", "######## enable bluetooth");
                                 _bluetooth.enable();
 
-                            long start = SystemClock.uptimeMillis();
-                            do {
-                                if (!ApplicationPreferences.prefEventBluetoothScanRequest)
-                                    break;
-                                if (_bluetooth.getState() == BluetoothAdapter.STATE_ON) {
-                                    GlobalUtils.sleep(5000);
-                                    if (forLE)
-                                        scanner.startLEScan(appContext);
-                                    else
-                                        scanner.startCLScan(appContext);
-                                    break;
-                                }
-                                GlobalUtils.sleep(200);
-                            } while (SystemClock.uptimeMillis() - start < 30 * 1000);
+                                long start = SystemClock.uptimeMillis();
+                                do {
+                                    if (!ApplicationPreferences.prefEventBluetoothScanRequest)
+                                        break;
+                                    if (_bluetooth.getState() == BluetoothAdapter.STATE_ON) {
+                                        GlobalUtils.sleep(5000);
+                                        if (forLE)
+                                            scanner.startLEScan(appContext);
+                                        else
+                                            scanner.startCLScan(appContext);
+                                        break;
+                                    }
+                                    GlobalUtils.sleep(200);
+                                } while (SystemClock.uptimeMillis() - start < 30 * 1000);
+                            }
                         }
-
                     };
                     PPApplicationStatic.createScannersExecutor();
                     PPApplication.scannersExecutor.submit(runnable);

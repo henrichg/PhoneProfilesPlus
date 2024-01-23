@@ -19,6 +19,7 @@ import android.widget.RemoteViews;
 import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import java.lang.ref.WeakReference;
 import java.util.Comparator;
 import java.util.List;
 
@@ -67,22 +68,23 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
     private static final String ACTION_RIGHT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_RIGHT_ARROW_CLICK";
     private static final int PROFILE_ID_ACTIVATE_PROFILE_ID = 1000;
 
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, final int[] appWidgetIds)
+    public void onUpdate(Context context, AppWidgetManager _appWidgetManager, final int[] appWidgetIds)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] OneRowWidgetProvider.onUpdate", "xxx");
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
             final Context appContext = context.getApplicationContext();
+            final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(_appWidgetManager);
             LocaleHelper.setApplicationLocale(appContext);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
 
                 //Context appContext= appContextWeakRef.get();
-                //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                //if ((appContext != null) && (appWidgetManager != null)) {
+                if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
                     _onUpdate(appContext, appWidgetManager, appWidgetIds);
-                //}
+                }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
@@ -729,7 +731,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
     }
 
     @Override
-    public void onReceive(Context context, final Intent intent) {
+    public void onReceive(Context context, Intent intent) {
         final Context appContext = context.getApplicationContext();
         LocaleHelper.setApplicationLocale(appContext);
 
@@ -744,16 +746,16 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 if (manager != null) {
                     final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, OneRowProfileListWidgetProvider.class));
                     if ((ids != null) && (ids.length > 0)) {
-                        final AppWidgetManager appWidgetManager = manager;
+                        final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(manager);
                         Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
 
                             //Context appContext= appContextWeakRef.get();
-                            //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                            //if ((appContext != null) && (appWidgetManager != null)) {
-                            _onUpdate(appContext, appWidgetManager, ids);
-                            //}
+                            if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                                _onUpdate(appContext, appWidgetManager, ids);
+                            }
                         };
                         PPApplicationStatic.createDelayedGuiExecutor();
                         PPApplication.delayedGuiExecutor.submit(runnable);

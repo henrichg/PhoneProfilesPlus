@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.PowerManager;
 import android.util.Log;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 class BluetoothLEScanCallback extends ScanCallback {
@@ -21,9 +22,9 @@ class BluetoothLEScanCallback extends ScanCallback {
     public void onScanResult(int callbackType, ScanResult result) {
 //        PPApplicationStatic.logE("[IN_LISTENER] BluetoothLEScanCallback.onScanResult", "xxx");
 
-        final BluetoothDevice device = result.getDevice();
+        BluetoothDevice _device = result.getDevice();
 
-        if (device == null)
+        if (_device == null)
             return;
 
         if (!PPApplicationStatic.getApplicationStarted(true, true))
@@ -40,13 +41,14 @@ class BluetoothLEScanCallback extends ScanCallback {
         }
 
         final Context appContext = context.getApplicationContext();
+        final WeakReference<BluetoothDevice> deviceWeakRef = new WeakReference<>(_device);
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothLEScanCallback.onScanResult");
 
             //Context appContext= appContextWeakRef.get();
-            //BluetoothDevice device = deviceWeakRef.get();
+            BluetoothDevice device = deviceWeakRef.get();
 
-            //if ((appContext != null) && (device != null)) {
+            if (/*(appContext != null) &&*/ (device != null)) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
@@ -76,7 +78,7 @@ class BluetoothLEScanCallback extends ScanCallback {
                         }
                     }
                 }
-            //}
+            }
         };
         PPApplicationStatic.createScannersExecutor();
         PPApplication.scannersExecutor.submit(runnable);
