@@ -2584,4 +2584,48 @@ class PreferenceAllowed {
         }
     }
 
+    static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT(
+            PreferenceAllowed preferenceAllowed,
+            String preferenceKey, Profile profile, SharedPreferences sharedPreferences/*, boolean fromUIThread, Context context*/) {
+//        PPApplicationStatic.logE("[DUAL_SIM] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT", "*******************");
+
+//        Context appContext = context.getApplicationContext();
+
+        if (PPApplication.deviceIsOppo /*|| PPApplication.deviceIsRealme*/) {
+            if (ShizukuUtils.hasShizukuPermission()) {
+                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            } else if (RootUtils.isRooted(/*fromUIThread*/)) {
+                // device is rooted
+
+                boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+
+                if (profile != null) {
+                    // test if grant root is disabled
+                    if ((profile._deviceScreenTimeout != 0)) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                        }
+                    }
+                } else if (sharedPreferences != null) {
+                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                        }
+                    }
+                } else
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            } else {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                if ((profile != null) && (profile._deviceScreenTimeout != 0)) {
+                    preferenceAllowed.notAllowedShizuku = true;
+                }
+            }
+        } else {
+            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+        }
+    }
+
 }

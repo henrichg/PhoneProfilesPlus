@@ -988,6 +988,9 @@ class ProfileStatic {
                 case Profile.PREF_PROFILE_LOCK_DEVICE:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_LOCK_DEVICE(preferenceAllowed, null, sharedPreferences);
                     break;
+                case Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT:
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT(preferenceAllowed, preferenceKey, null, sharedPreferences/*, fromUIThread, context*/);
+                    break;
                 default:
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
@@ -1038,6 +1041,7 @@ class ProfileStatic {
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context, true);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_LOCK_DEVICE(preferenceAllowed, profile, sharedPreferences);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT(preferenceAllowed, "-", profile, sharedPreferences/*, fromUIThread, context*/);
 
             if (preferenceAllowed.notAllowedG1 ||
                     preferenceAllowed.notAllowedRoot ||
