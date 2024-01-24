@@ -28,7 +28,6 @@ import android.telephony.PhoneStateListener;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.ExistingWorkPolicy;
@@ -2949,8 +2948,6 @@ class PhoneProfilesServiceStatic
                 Intent intent = intentWeakRef.get();
                 if (intent == null)
                     return;
-
-                Log.e("PhoneProfilesServiceStatic.doCommand", "xxxxxxxxxxxxxxx");
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
