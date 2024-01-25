@@ -26,6 +26,8 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
 
+    RingtonePreferenceRefreshListViewAsyncTask asyncTask = null;
+
     @SuppressLint("InflateParams")
     @Override
     protected View onCreateDialogView(@NonNull Context context)
@@ -85,9 +87,10 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
             preference.resetSummary();
         }
 
-        if ((preference.asyncTask != null) && preference.asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
-            preference.asyncTask.cancel(true);
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+            asyncTask.cancel(true);
         }
+        asyncTask = null;
 
         preference.stopPlayRingtone();
 
@@ -124,6 +127,13 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
     int getRingtonePosition() {
         List<String> uris = new ArrayList<>(listAdapter.toneList.keySet());
         return uris.indexOf(preference.ringtoneUri);
+    }
+
+    void refreshListView() {
+        if (Permissions.checkRingtonePreference(prefContext)) {
+            asyncTask = new RingtonePreferenceRefreshListViewAsyncTask(preference, prefContext);
+            asyncTask.execute();
+        }
     }
 
 }

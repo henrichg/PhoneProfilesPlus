@@ -92,6 +92,7 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
         if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             asyncTask.cancel(true);
         }
+        asyncTask = null;
 
         if (preference.dataWrapper != null)
             preference.dataWrapper.invalidateProfileList();

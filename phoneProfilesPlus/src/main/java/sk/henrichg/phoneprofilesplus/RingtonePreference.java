@@ -48,7 +48,6 @@ public class RingtonePreference extends DialogPreference {
     private static volatile Timer playTimer = null;
     private static volatile boolean ringtoneIsPlayed = false;
 
-    RingtonePreferenceRefreshListViewAsyncTask asyncTask = null;
     private SetRingtoneAsyncTask setRingtoneAsyncTask = null;
 
     static final String RINGTONE_TYPE_RINGTONE = "ringtone";
@@ -104,10 +103,7 @@ public class RingtonePreference extends DialogPreference {
 
     void refreshListView() {
         if ((fragment != null) && (fragment.getDialog() != null) && fragment.getDialog().isShowing()) {
-            if (Permissions.checkRingtonePreference(prefContext)) {
-                asyncTask = new RingtonePreferenceRefreshListViewAsyncTask(this, prefContext);
-                asyncTask.execute();
-            }
+            fragment.refreshListView();
         }
     }
 
@@ -405,10 +401,6 @@ public class RingtonePreference extends DialogPreference {
     @Override
     public void onDetached() {
         super.onDetached();
-        if ((asyncTask != null) &&
-                asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
-            asyncTask.cancel(true);
-        asyncTask = null;
         if ((setRingtoneAsyncTask != null) &&
                 setRingtoneAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             setRingtoneAsyncTask.cancel(true);

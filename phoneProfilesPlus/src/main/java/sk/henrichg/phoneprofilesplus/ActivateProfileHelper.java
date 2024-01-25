@@ -1199,7 +1199,7 @@ class ActivateProfileHelper {
         if (forProfileActivation) {
             if (profile._volumeMuteSound) {
                 if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
-                    // WARNING mute.unmute must be called only for audible ringer mode
+                    // WARNING mute/unmute must be called only for audible ringer mode
                     //         change of mute state bad affects silent mode (is not working)
 
                     if (!audioManager.isStreamMute(AudioManager.STREAM_RING)) {
@@ -1220,7 +1220,7 @@ class ActivateProfileHelper {
                 }
             } else {
                 if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
-                    // WARNING mute.unmute must be called only for audible ringer mode
+                    // WARNING mute/unmute must be called only for audible ringer mode
                     //         change of mute state bad affects silent mode (is not working)
 
                     if (audioManager.isStreamMute(AudioManager.STREAM_RING)) {

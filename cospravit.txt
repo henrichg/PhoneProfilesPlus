@@ -36,74 +36,20 @@ Widget Preview Builder:
 https://play.google.com/store/apps/details?id=lav.widgetpreviewbuilder.free&hl=en_US&gl=US
 
 ------------------------
-funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
-
-nastavení-aplikace- aplikace-PPP-podrobnosti o spotřebě energie-spouštění aplikací:
-Spravovat automaticky - ne
-Spravovat ručně 3x ano
--automatické souštění
--sekundární souštění
--Spustit na ozadí
-------------------------
 
 Ulohy, ktore su spravene [x] a ktore nie [ ]:
 [ ] Priority Notification Event
-[ ] Normal media volume, headphone media volume, Bluetooth media volume
+[x] Normal media volume, headphone media volume, Bluetooth media volume
 [ ] Sony's "Stamina" mode as profile preference - skor Power save change senzor
 [ ] USB connection to PC as storage device, USB connection to PC as camera, connection to USB stick in accessories parameter for events
 [ ] option to hide PPP from Launcher
 [ ] Set min and max CPU frequency
 [ ] Open a website with profile
 [ ] profile/event search
-[ ] Persistent profile/event: sets its options every x minutes - asi periodic sensor
+[x] Persistent profile/event: sets its options every x minutes - asi periodic sensor
 [ ] Android Wear support?
 [ ] (AND, OR, XOR, NOT. Or at least NOT.)<-NOT is already available in most preferences. If that stays, that does the same.
 [ ] a plugin system? (very small core app, ability to install additional event preferences, maybe only time event preinstalled)
-
-------------------------
-
-UNDO:
-=====
-
-Na "Undo profile" sa pouziva FIFO, je to vlastne zoznam profilov a udalosti v poradi, v akom sa aktivovali, spustili.
-
-1. DataWrapper.fifoAddProfile()
-
-PhoneProfilesService.doFirstStart() - PPApplication.prefLastActivatedProfle, 0
-DataWrapper._activateProfile() - profileId (ktory sa aktivuje), 0
-DataWrapper.activateProfileFromEvent() - profieId, event_id
-Event.startEvent() - profileId, _id - ked nejde o merge profilov a nie je to manualna aktivacia z udalosti
-Event.doActivateEndProfile() - profileId, _id - ked nejde o merge profilov a nie je to manualna aktivacia z udalosti
-
-koniec udalosti, nie je manualne aktivovany profil:
-EventsHandler.handleEvents() - defaultProfile, 0 - ak ide o aktivaciu default profilu, je nakonfigurovany
-EventsHandler.handleEvents() - PPApplication.prefLastActivatedProfile, 0 - ak nie je nakonfigurovany default profile
-
-koniec udalosti, je manualne aktivovany profil:
-EventsHandler.handleEvents() - semiOldActivatedProfileId, 0 - ak je aktivovany daky profil
-EventsHandler.handleEvents() - defaultProfile, 0 - ak nie je aktivovany daky profil a ide o aktivaciu default profilu, je nakonfigurovany
-EventsHandler.handleEvents() - PPApplication.prefLastActivatedProfile, 0 - ak nie je aktivovany daky profil a nie je nakonfigurovany default profile
-
-2. DataWrapper.fifoSaveProfiles()
-
-DataWrapper.activateProfile() - pre STARTUP_SOURCE_FOR_FIRST_START - vyprazdni FIFO
-EditorProfileListFragment.deleteProfile() - vymaze vymazavany profil z FIFO
-EditorProfileListFragment.deleteAllProfiles() - vyprazdnenie FIFO
-EventHlandler.handleEvents() - vyprazdnenie FIFO pri starte udalosti pred spustanim udalosti
-PhoneProfilesService.doForFirstStart() - vyprazdnenie FIFO na prvy start, potom hned nasleduje pridanie PPApplication.prefLastActivatedProfile
-PPApplication._exitApp() - vyprazdnenie FIFO na ukoncenie PPP
-
-
-Ako sa robi UNDO:
-
-Event.doActivateEndProfile() - ak je EATENDDO_UNDONE_PROFILE - pre merge an non-merge profiles
-- Spravi sa zonznam FIFO udalosti, ktore nie su rovne ukoncovanej udalosti.
-  Profily z ukoncovanej udalosti nas uz nezaujimaju, vsetky sa z FIFO vymazu.
-- Z novovzniknuteho FIFO sa vezme posledny profil a ten sa aktivuje
-
-ProfileDurationAlarmBroadcastReceiver._doWork() - ak je AFTER_DURATION_DO_UNDO_PROFILE
-- Vymaze sa posledny profil z FIFO, j jedno, ci ma priradenu udalost
-- Potom za z FIFO vezme posledny profil a ten sa aktivuje
 
 ------------------------
 
@@ -155,32 +101,6 @@ DevicePolicyManager.PASSWORD_QUALITY_COMPLEX - heslo?
 
 --------------------------------
 
-NFC tag senzor - NEFUNGUJE PRI CITANI TAGU NA POZADI!
-
-ZE BY UZ OPRAVENE? DLHO SA NIKTO NESTAZOVAL.
-
-Tu mas ako sa to id cita: https://gist.github.com/luixal/5768921.
-
-- Sprav aby to len citalo UID a to pouzivaj na identifikaciu tagu.
-  Takto precitas UID: https://gist.github.com/luixal/5768921
-- Na nacitanie tagu v NFCTagPreference sa vytvori nova aktivita NFCTagReadEditorActivity.
-  Ta bude normalna ako je teraz NFCTagWritreActivity, ktoru zahodim.
-  Zobrazovat bude precitane UID tagu a aj jeho obsah.
-  Aj citanie by malo zacat automaticky, ked prilozim tag ku mobilu.
-- Pridanie tagu nech hned vyvola citanie UID
-- Write to tag polozku menu tagu zrus a zamen za citanir UID tagu
-- Premenovanie tagu teraz je nahovno, nespravi aj zapis dso tagu, ale po novom to bude OK ako to je.
-- V tabulke TABLE_NFC_TAGS pribudne polozka KEY_NT_UID = "uid". Tam sa zapise precitane uid.
-- Aby bola spatna kompatibilita so starymi tagmi, bude NFCTagReadActivity citat uid aj obsah tagu.
-  Ak bude uid v tabulke KEY_NT_UID prazdne, pouzije sa ako teraz obsah tagu. Inac sa pouzije uid tagu.
-- Pre NFCTagReadActivity zmenit v manifeste intent filter na tento:
-    <intent-filter>
-        <action android:name="android.nfc.action.TAG_DISCOVERED"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-      </intent-filter>
-
-----------------------
-
 Direct boot:
 - Asi nemozem spravit, nepodporuje to WorkManager. :-(
 - toto je super na to, aby sa PPP startol aj pri uzamknutej obrazovke.
@@ -202,41 +122,7 @@ Direct boot:
   Alebo, ze by pomohlo toto?
     https://stackoverflow.com/questions/51377089/android-crashlytics-fails-on-direct-boot-due-to-disk-encryption
 
-
---------------
-
-Start udalosti:
-1. Start s delay nastavi alarm pre SENSOR_TYPE_EVENT_DELAY_START a NENASTAVI event._status na ESTATUS_RUNNING, necha ho ESTATUS_PAUSE
-2. Po delay znova testuje, ci sa zmeni stav udalosti a tiez ci event._isInDelayStart je uz false. Az tu vola startEvemt(), cize nastavi ESTATUS_RUNNING.
-Vysledok je, ze pocas delay je stale PAUSE az po delay je RUNNING.
-
-Koniec udalosti:
-1. Koniec s delay nastavi alarm pre SENSOR_TYPE_EVENT_DELAY_END a NENASTAVI event._status na ESTATUS_PAUSE, necha ho ESTATUS_RUNNING
-2. Po delay znova testuje, ci sa zmeni stav udalosti a tiez ci event._isInDelayEnd je uz false. Az tu vola pauseEvemt(), cize nastavi ESTATUS_PAUSE.
-Vysledok je, ze pocas delay je stale RUNNING az po delay je PAUSE.
-
------------------
-
-Battery historian:
-1. sudo apt install docker.io
-2. Ako pouzivat: https://developer.android.com/topic/performance/power/setup-battery-historian
-3. Spustaj ale takto:
-      sudo docker run -p 20000:9999 gcr.io/android-battery-historian/stable:3.0 --port 9999
-4. V Chrome potom: http://localhost:20000
-
 ------------------
-
-mám funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
-
-nastavení-aplikace- aplikace-PPP-podrobnosti o spotřebě energie-spouštění aplikací:
-Spravovat automaticky - ne
-Spravovat ručně 3x ano
--automatické souštění
--sekundární souštění
--Spustit na ozadí
-třeba se to bude hodit.
-
--------------------------
 
 ActivateProfileHelper.setScreenTimeout()
 - disableScreenTimeoutInternalChange = true;
@@ -491,13 +377,6 @@ EventsHandler.handleEvents()
 
 ------------------------
 
-sprav notifikaciu ako dasboard, kde budu ikony profilov, klikom na ikonu sa profil aktivuje.
-   poradie bude take iste ako pro aktivatore. Ak sa nezmestia na jednu notifikaciu, spravit dalsiu.
-   Notifikacia bude mat prioritu nastavitelnu, default bude Minimal. Uzivatel si bude moct zmenit, aby sa
-   takat notifikacia zobrazila aj v lockscreene. ;-)
-
---------
-
 Orientation sensor:
 Light senzor sa generuje hrozne casto. Na Samsungu donekonecna a par krat za sekundu.
 Spravil som sice:
@@ -507,132 +386,6 @@ Ale aj tak to musi zrat vela. Kazdych 5 sekund volat eventsHandler je proste vel
 Zatial mam nenapadlo, co s tym. Do nastaveni senzora daj aspon info preference o tom ze check light zerie bateriu.
 
 -----------------------
-
-Vraj synchronizacia kontaktov. Testuje sa tam ContactsContract.Contacts.CONTACT_LAST_UPDATED_TIMESTAMP
-A len novsie ako posledna synchronizacia (zapisat si treba cas poslednej do sharend preferences),
-sa synchronizuju.
-Ono to urychli synchronizaciu, to je pravda. Mozno by bolo super to takto spravit, len je to
-vela prerabky celej sychronizacie kontaktov aj grup.
-
-https://stackoverflow.com/questions/24968901/android-observer-updated-contacts
-
---------------------
-
-Detekcia VPNky:
-
-PhoneProfilesService.registerAllTheTimeCallbacks(), ale sprav speci len pre tento senzor, pozri ine
-ako sa robi.
-
-Cize callback na to by malo ist pridat. Staci pouzit:
-.addTransportType(NetworkCapabilities.TRANSPORT_VPN)
-
-A na detekciu v doHandleEvent:
-
-Network activeNetwork = connectivityManager.getActiveNetwork();
-NetworkCapabilities caps = connectivityManager.getNetworkCapabilities(activeNetwork);
-boolean vpnInUse = caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
-- toto vyuzijem aj pre Profile._deviceVPN, kde pridam, ci chce
-  nastavovat aj ked uz ma nastavene (cize vlastne restartnut). Dobre pre vyriesenie problemu
-  uzivatela, co sa stazoval, ze mu to restartuje (vypne/zapne VPN), co nechce aby robilo.
-
-Vid: https://stackoverflow.com/questions/28386553/check-if-a-vpn-connection-is-active-in-android
-
--------------------
-
-Pamat:
-
-- Toto je volane z EditorActivity.onCreate() ->
-    PPApplication.createApplicationsCache(true);
-    -> spravi prazdnu cache, az prislusny preference dialog to naplni, cize toto nic nezerie
-       pri tych mojich testoch
-- Je volane aj toto na onDestroy ->
-    PPApplication.getApplicationsCache().clearCache(false);
-- Toto je volane casto. Co to robi? ->
-    PPApplication.updateGUI()
-    -> updatuje kompletne cele GUI, uplne vsetko, notifikacia, widgety, Aktivator, Editor, ...
-- Toto je volane casto. Co to robi? ->
-    EditorActivity.refreshGUI()
-    -> nastavi semafor
-       invaliduje options menu -> to je metoda Activity, asi sluzi na prekreslenie overflow menu aktivity
-       vola refreshGUI() fragmentu -> ten updatuje header a listview
-Cize zasa nic. :-(
-
-Editor:
-
-S21:
-Restart mobilu:
-137 MB, kleslo na 81 MB
-Spustenie Editora
-116 MB, kleslo na 98 MB, pootm zasa stuplo na 104 MB. Mozno lebo sa spustil wi-fi scanner. Pockam, ci zasa klesne.
-
-S10:
-81 MB po restarte a dlhom cakani.
-Nikolko krat som zrotoval Editor: 119 MB, cakame na kolko klesne. Kleslo na 98 MB.
-Hm, cize vidiet, ze zostalo 17 MB v pamamti. Skusim dhsie nechat.
-
-Vypol som indikatory v Editore. Uvdime, ci to bude zrat menej a o kolko.
-85 MB po restarte.
-128 po rotacii, teraz necham klesnut. 96 MB, este pockam, ale vypada to, ze v indikatoroch to nie je.
-Tych 15+ MB stale zostava.
-
-V kazdom pripade Editor zanechava nieco v pamati. Ale co kua? :-(
-
-
-
-Aktivator:
-
-S21:
-Zaujimave, teraz po restarte dokonca len 61 MB zostalo. Ktohovie ako sa toto deje. Ten GC je fakt cudny.
-Len som spustil z notifikacie Aktivator, neaktivoval som, stuplo na 78. A neklesa.
-
-S10:
-Po restarte 86 MB, po spusteni Aktivatora 92 MB, nekleslo.
-Skusil som rotaciu. Nekolko krat. Narastlo na 100MB a vypada, ze neklesa. Takze ze by predsa len bolo nieco,
-co zostava v pamati? Este pockam, vypada, z eklesa, len dako pomaly.
-Pri rotacii sa tusim fragment nedestrouje.
-Hm po dlhom case to kleslo na 85 MB. Ze by predsa len ten Aktivator nemal ziadne leaky?
-Len to dlho trva, kym to uvolni pamat.
-
-V Aktivatore pouzivam ApplicationPreferences. Ze by toto zostalo v pamamti? By som sa necudoval, cele je to
-staticke. Aj Permissions.
-
-Jeho fargment ma activityDataWrapper. Ze by toto zostalo v pamamti?
-Ale ako pozeram v onDestroy, tak sa invaliduje cez invalidateDataWrapper(). Ze by tam bola chyba?
-ActivatorListFragment.RefreshGUIAsyncTask()
-
-Volam toto z fragmentu? Nemal by som:
-activateProfile()
-
-TESTNUTE- nespusta sa dalej ani pre aktivitu, ani pre fragment, ani pre adapter
-Fragment aj vola showTargetHelps(); Naco, preco?
-Pozri ci toto nie je problem. Je mozne, ze sa nieco vola aj ked nezobrazuje. Az od aktivity,
-cez fragment, po adapter.
-
-A samozrejme loadAsyncTask. Tu som ale uz robil vcera zmeny. Pozriem znova.
-
-Je mozne, ze by zostali ikony v pamamti? Npriklad ten z headera a k nemu indikatory?
-
-Adapter obsahuje tiez dataWrapper, ale ako odkaz na activityDataWrapper z fragmentu.
-
--------------------
-
-Intenzita vibrovania:
-
-Nie Samsung zariadenia:
-Pre API 28 az 32 asi treba len zapnutie, vypnutie. Tak ako mam notifikaciu teraz, staci pridat len
-zvonenia a feedback
-
-1. Pre Samsung zariadenia (pre ostatne skryjem) spravim nove category "Vibration intensity". Bude od API 29.
-   Do nej dam nastavenie intenzity pomocou dialogu, co sa podoba na Volume dialog. Len musis nastavit
-   max. hodnotu ako vstup zo styleable a vyhodit prehravanie tonu.
-
-!!!! - nefunguje, stale zobrazuje Vibrate notifications. Oprav.
-2. Od API 33 schovam "Vibration feedback" a zobrazim "Vibration intensity". Pre Samsung bude max value=5
-   pre nie-Samsung max value=3
-   Pri starte PPP skopiruj parameter PREF_PROFILE_VIBRATE_NOTIFICATIONS do noveho pre notifikacnu intenzitu.
-   Ale len pre nie-Samsung zariadenia.
-
-------------
 
 Treba pravo SYSTEM_ALERT_WINDOW pre (od API 29) - HOTOVO:
 - doExecuteForRunApplications()
@@ -650,164 +403,7 @@ Treba pravo SYSTEM_ALERT_WINDOW pre (od API 29) - HOTOVO:
 Toto neviem, mozno treba, mozno nie: netreba
 - CustomACRAEmailSender.send()
 
-----------
-
-Zapnutie wifi - ale podla mna to vyzaduje root.
-- svc wifi enable
-
-----------
-
-Farba notifikacie:
-
-PPP - mam, a u vsetkych:
-- setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
-
-Zostava len ACRA notifikacia. Nema to implemntovane, ale do issue uz autor dal, ze asi implementuje.
-
 -----------------------
-
-Tasker:
-
-ACTION_ENABLE_RUN_FOR_EVENT
-- Toto funguje len pre nebeziacu udalost.
-- Spravi pause udalosti. Preco? Toto povoli beh udalosti ak nie je povoleny? Pozri, ale nezda sa mi to.
-  Ano povoli, nastavi Event._status = ESTATUS_PAUSE. To iste robi EditorEventListFragment.runStopEvent().
-- Potom spravi restart udalsoti.
-
-ACTION_PAUSE_EVENT:
-- Toto funguje len na beziacu udalost.
-- Spravi pause udalosti. Ale sa znova spusti ak ma vsetky senzory passed. Cize nefunkcne.
-- Toto by som teda vyhodil. Musis aj z Important info.
-HOTOVO - nahradim toto tym senzorom na klik, co budem robit. Len to nezastavi konkretnu udalost,
-  ale vsetky, co budu mat ten senzor.
-
-ACTION_STOP_EVENT:
-- Toto funguje len na nestopnute udalosti.
-- Spravi stop udalosti. Preco? Toto zakaze beh udalosti ak nie je zakazany? Pozri, ale nezda sa mi to.
-  Ano zakaze, nastavi Event._status = ESTATUS_STOP. To iste robi EditorEventListFragment.runStopEvent().
-- Potom spravi restart udalsoti.
-
-Co treba spravit je, ze EditorEventListFragment.runStopEvent() by mal byt staicky, aby sa dal volat aj z
-ActionForExternalApplicationActivity, lebo treba aj receivery a workery reregistrovat.
-HOTOVO
-
----------------------
-
-Mobile cells editor.
-
-Uzivatelia sa stazuju, ze je to neprehladne:
-1. Nova connected bunka - teraz: automaticky sa prida do zoznamu aj s nazvom z Cell name.
-   Tuto to sprav inac: Pridaj ju len na "plus" ikonu, zobrazuj tam "(N)" ak je nova a ak nema nazov,
-   tak "[ Without name ]", tak ako to mas u filtroch.
-   HOTOVO
-2. "plus" ikona nech pyta nazov bunky cez dialog "Mobile cell name". Musi byt povoleny aj edit line v dialogu.
-   Nech je enabled len ak je to nova bunka, selectovat ju nemusis, cize netestuj, ci je selected.
-   HOTOVO
-3. "Cell name" button: ten vyhod. Hlavne kvoli nemu maju problemy sa v tom vyznat.
-   HOTOVO
-4. "pen" ikona: nech pyta nazov cez "Mobile cell name". Musi byt povoleny aj edit line v dialogu.
-   Zmen na "Rename cells" button.
-   HOTOVO
-5. "select" ikona: "Select by cell name" nech pyta nazov cez "Mobile cell name". Musi byt povoleny aj
-   edit line v dialogu.
-   Mozno budem menit aj samotnu ikonu, uvidime, co uzivatelia.
-   HOTOVO
-
-----------------
-
-Macrodroid vie zapnúť/vypnúť mobilné dáta bez root? Pozri to.
-Vraj ide,ale len na niektorých mobiloch. Cez G1 právo. Vyskúšaj na svojích, čo máš v šuplíku.
-
-Pozri zdrojáky Macrodroid kvôli tomu.
-
-Takže Macrodroid zapisuje cez Settings.Global.putInt() pre
-"mobile_data", "mobile_data1", ''mobile_data2" "1" alebo "0".
-
-Zdroj:
-MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid/action/SetDataAction.java
-
----
-
-Vyskusaj nahodit mobilne data s WRITE_SECURE_SETTINGS:
-NEFUNGUJE :-(
-boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data", r4) // r4 = 1 - zapnut, 0 - vypnut
-boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data1", r5)  // r5 = 1 - zapnut, 0 - vypnut
-boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data2", r5)  // r5 = 1 - zapnut, 0 - vypnut
-Toto som ale netestoval:
-boolean r1 = android.provider.Settings.Global.putInt(getContentResolver(), "mobile_data0", r5)  // r5 = 1 - zapnut, 0 - vypnut
-
-A neviem na akom mobile som to testoval.
-
----
-
-GUI, co ponuka nastavenie mobilnych dat v Settings:
-Honor 7a: ponuka, ze ktore su predvolene mobilne data SIM 1 alebo SIM 2, zapnutie/vypnutie je zvlast
-Galaxy S10: SIM1, SIM 2, OFF; kedj e len jedna, tak SIM 1(2), OFF
-Galaxy S21: SIM1, SIM 2, OFF; ked je len jedna, tak SIM 1(2), OFF
-Xiaomi 13Lite: ponuka, ze ktore su predvolene mobilne data SIM 1 alebo SIM 2, zapnutie/vypnutie je zvlast
-OnePlus: ponuka, ze ktore su predvolene mobilne data SIM 1 alebo SIM 2, zapnutie/vypnutie je zvlast
-
-Ja mam podporu len zapnut/vypnut. Ktoru sim, to si musi nastavit uzivatel v Settings.
-Hm, hm.
-
-Este pozri Macrodroid, ci pre "svc data" nepouziva aj parameter, ze ktora sim.
-Nie nepouziva.
-
-Na S21, S10, Pixel 6 mam "mobile_data".
-
-Na tychto nemam sim, tak testi s dvoma sim:
-- Xiaomi ma "mobile_data", "mobile_data0", ''mobile_data1"
-- Huawei novy ma "mobile_data", "mobile_data0", ''mobile_data1"
-- Huawei stary ma "mobile_data", "mobile_data0", ''mobile_data1", ''mobile_data2"
-- Nexus 5x ma "mobile_data"
-- Pixel 3a ma "mobile_data", "mobile_data1", ''mobile_data2"
-- OnePlus ma "mobile_data", "mobile_data1"
-
----
-
-Najprv sa testuje G1:
-if (Permissions.hasPermission(appContext,  Manifest.permission.WRITE_SECURE_SETTINGS)) {
-}
-a ak nie je grantnuté, potom sa použije root.
-Aj v title preference je (G1)(R).
-Pri Mobile data ale treba dat aj info preference, ze nemusí fungovat G1 na všetkých zariadeniach.
-string.profile_preferences_deviceMobileData_21 -> zmen (R) na (G1)(R). Vo vsetkych prekladoch.
-
----
-
-Skús aspoň jeden test mobile data, na s10. Že čo sa nastavuje keď zapneš, vypneš, prepneš sim. SetEdit je tvoj kamarát.
-
-S10:
-
-Zapnuta SIM 1 -> mobile_data=1
-Zapnuta SIM 2 -> mobile_data=1
-Vypnute mobilne data -> mobile_data=0
-
-Vypada to, ze tu je aka sim je nastavena pre moblne data:
-multi_sim_data_call=1 - zmenilo sa pri zmene sim (na 2) na 2
-multi_sim_data_call_slot=0 -  - zmenilo sa pri zmene sim (na 2) na 1
-
-device_provisioning_mobile_data=1 - nezmenilo sa pri zmene sim
-
--
-
-Xiaomi 13lite:
-
-Zapnuta SIM 1:
-mobile_data=1, mobile_data0=1, mobile_data1=1
-device_provisioning_mobile_data=1
-
-Zapnuta SIM 2:
-mobile_data=1, mobile_data0=1, mobile_data1=1
-device_provisioning_mobile_data=1
-
-Cize tu s anemeni vobec nic.
-
-----
-
-Proste to vypada, ze cez (G1) moblne data menit nejde.
-
------------------
 
 6.4:
 - Add: Added support for Shizuku for some profile parameters which requires ROOT.
@@ -824,45 +420,8 @@ Proste to vypada, ze cez (G1) moblne data menit nejde.
 
 ---------------------
 
-Simulacia zvonenia:
+AsyncTasky:
 
-Vypada to, ze na S21 zacne zvonit nie preto, ze zacne simulacia, ale samotny Android zacne zvonit, lebo sa zmeni ringer mod profilom na RING.
-Ale u DND alarms only to nefunguje.
-U priority, ak v device Settings v Nerusit nastavim, ze nechcem zvonit, tak nezvoni. Vtedy zvoni len na nastavene kontakty. Toto je vynimka.
+Mam volane refreshListView() a podobne, kde vytvaram instanciu AsyncTask. Nemoze toto sposobit boptnanie pamate?
+AsincTask sa neda znova spustit. Proste to vyzaduje vzdy novu instanciu.
 
-To iste na Pixeli 6.
-
-Testni potom este raz, menil som isAudibleRingingForSimulation().
-
----
-
-Android 11, 10, 9:
-- ringer mode Vibrate, Silent zenMode All -> nezvoni.
-- ringer mode Vibrate, zenMode Priority -> nezvoni aj ked povolim vsetky kontakty
-
----
-
-Android 12:
-- Priority s vibraciami nejde nastavit :-(
-- ringer mode Vibrate, Silent zenMode All -> nezvoni.
-- ringer mode Vibrate, zenMode Priority -> nezvoni aj ked povolim vsetky kontakty
-
-Xiaomi 13 lite - Android 13:
-- ringer mode Vibrate, Silent - zvoni
-- Znoni aj na DND
-
-------------
-
-Citanie tagu. Na Xiaomi neptchadza NDEF_DISCOVERED, prichadza TAG_DISCOVERED.
-Na TAG_DISCOVERED sa vola
-Skusil som S23. A ak je zobrazena aktivita tak aj tam ziskam TAG_DISCOVERED.
-Take musim dorobit podporu pre TAG_DISCOVERED.
-
-Takze na S23 uz mi to ide. Spravil som foreground verziu aktivity, tej som nedal intent filter
-do manifestu.
-Nahadzuje NfcAdapter.ACTION_NDEF_DISCOVERED a mimeType az do shortcutu pri jeho vytvarani.
-Ked spustim foreground aktivitu, na onNewIntent to vrati tag, ALE na TAG_DISCOVERED.
-Takze som upravil NFCTagReadWriteManagerreadTagFromIntent() aby na ACTION_TAG_DISCOVERED robil
-to iste co na ACTION_NDEF_DISCOVERED.
-
-A funguje to aj u Xiaomu 13 Lite.

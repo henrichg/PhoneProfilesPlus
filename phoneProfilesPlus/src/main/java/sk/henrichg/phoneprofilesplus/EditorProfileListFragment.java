@@ -542,6 +542,7 @@ public class EditorProfileListFragment extends Fragment
     void stopRunningAsyncTask() {
         if (loadAsyncTask != null)
             loadAsyncTask.cancel(true);
+        loadAsyncTask = null;
         if ((refreshGUIAsyncTask != null) &&
                 refreshGUIAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
             refreshGUIAsyncTask.cancel(true);
