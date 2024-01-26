@@ -2384,6 +2384,10 @@ class PPApplicationStatic {
         if (PPApplication.profileActiationExecutorPool == null)
             PPApplication.profileActiationExecutorPool = Executors.newCachedThreadPool();
     }
+    static void createSoundModeExecutorPool() {
+        if (PPApplication.soundModeExecutorPool == null)
+            PPApplication.soundModeExecutorPool = Executors.newCachedThreadPool();
+    }
     static void createEventsHandlerExecutor() {
         if (PPApplication.eventsHandlerExecutor == null)
             PPApplication.eventsHandlerExecutor = Executors.newCachedThreadPool();
