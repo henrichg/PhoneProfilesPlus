@@ -5,6 +5,7 @@ import android.app.assist.AssistStructure;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.service.voice.VoiceInteractionSession;
 //import com.arlosoft.macrodroid.macro.C6023h;
 //import com.arlosoft.macrodroid.macro.Macro;
@@ -55,20 +56,36 @@ public final class PPVoiceInteractionSession extends VoiceInteractionSession {
         if (string == null) {
             string = "";
         }
-        if (string.equals("android.settings.VOICE_CONTROL_AIRPLANE_MODE")) {
+        /*if (string.equals("android.settings.VOICE_CONTROL_AIRPLANE_MODE")) {
             Intent intent = new Intent("android.settings.VOICE_CONTROL_AIRPLANE_MODE");
             intent.putExtra("airplane_mode_enabled", bundle.getBoolean("airplane_mode_enabled"));
             startVoiceActivity(intent);
+        }*/
+        if (string.equals(Settings.ACTION_VOICE_CONTROL_AIRPLANE_MODE)) {
+            Intent intent = new Intent(Settings.ACTION_VOICE_CONTROL_AIRPLANE_MODE);
+            intent.putExtra(Settings.EXTRA_AIRPLANE_MODE_ENABLED, bundle.getBoolean(Settings.EXTRA_AIRPLANE_MODE_ENABLED));
+            startVoiceActivity(intent);
         }
-        if (string.equals("android.settings.VOICE_CONTROL_DO_NOT_DISTURB_MODE")) {
+        /*if (string.equals("android.settings.VOICE_CONTROL_DO_NOT_DISTURB_MODE")) {
             Intent intent2 = new Intent("android.settings.VOICE_CONTROL_DO_NOT_DISTURB_MODE");
             intent2.putExtra("android.settings.extra.do_not_disturb_mode_enabled", bundle.getBoolean("android.settings.extra.do_not_disturb_mode_enabled"));
             intent2.putExtra("android.settings.extra.do_not_disturb_mode_minutes", bundle.getInt("android.settings.extra.do_not_disturb_mode_minutes"));
             startVoiceActivity(intent2);
+        }*/
+        if (string.equals(Settings.ACTION_VOICE_CONTROL_DO_NOT_DISTURB_MODE)) {
+            Intent intent2 = new Intent(Settings.ACTION_VOICE_CONTROL_DO_NOT_DISTURB_MODE);
+            intent2.putExtra(Settings.EXTRA_DO_NOT_DISTURB_MODE_ENABLED, bundle.getBoolean(Settings.EXTRA_DO_NOT_DISTURB_MODE_ENABLED));
+            intent2.putExtra(Settings.EXTRA_DO_NOT_DISTURB_MODE_MINUTES, bundle.getInt(Settings.EXTRA_DO_NOT_DISTURB_MODE_MINUTES));
+            startVoiceActivity(intent2);
         }
-        if (string.equals("android.settings.VOICE_CONTROL_BATTERY_SAVER_MODE")) {
+        /*if (string.equals("android.settings.VOICE_CONTROL_BATTERY_SAVER_MODE")) {
             Intent intent3 = new Intent("android.settings.VOICE_CONTROL_BATTERY_SAVER_MODE");
             intent3.putExtra("android.settings.extra.battery_saver_mode_enabled", bundle.getBoolean("android.settings.extra.battery_saver_mode_enabled"));
+            startVoiceActivity(intent3);
+        }*/
+        if (string.equals(Settings.ACTION_VOICE_CONTROL_BATTERY_SAVER_MODE)) {
+            Intent intent3 = new Intent(Settings.ACTION_VOICE_CONTROL_BATTERY_SAVER_MODE);
+            intent3.putExtra(Settings.EXTRA_BATTERY_SAVER_MODE_ENABLED, bundle.getBoolean(Settings.EXTRA_BATTERY_SAVER_MODE_ENABLED));
             startVoiceActivity(intent3);
         }
         setUiEnabled(false);
