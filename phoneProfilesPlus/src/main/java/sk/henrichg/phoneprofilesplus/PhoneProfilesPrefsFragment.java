@@ -3137,9 +3137,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
                 if (changeWidgetListColorsByNightMode) {
-                    if (useDynamicColorsWidgetList)
-                        _preference.setEnabled(false);
-                    else
+                    //if (useDynamicColorsWidgetList)
+                    //    _preference.setEnabled(false);
+                    //else
                         _preference.setEnabled(preferenceIndicatorsListEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsListEnabled);
@@ -3155,9 +3155,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
                 if (changeWidgetOneRowColorsByNightMode) {
-                    if (useDynamicColorsWidgetOneRow)
-                        _preference.setEnabled(false);
-                    else
+                    //if (useDynamicColorsWidgetOneRow)
+                    //    _preference.setEnabled(false);
+                    //else
                         _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
@@ -3264,9 +3264,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
                 if (changeWidgetOneRowColorsByNightMode) {
-                    if (useDynamicColorsWidgetOneRow)
-                        _preference.setEnabled(false);
-                    else
+                    //if (useDynamicColorsWidgetOneRow)
+                    //    _preference.setEnabled(false);
+                    //else
                         _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
@@ -3287,9 +3287,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
                 if (changeWidgetListColorsByNightMode) {
-                    if (useDynamicColorsWidgetList)
-                        _preference.setEnabled(false);
-                    else
+                    //if (useDynamicColorsWidgetList)
+                    //    _preference.setEnabled(false);
+                    //else
                         _preference.setEnabled(preferenceIndicatorsListEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsListEnabled);
