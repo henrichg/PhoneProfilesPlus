@@ -418,10 +418,25 @@ Toto neviem, mozno treba, mozno nie: netreba
 - Fixed bugs
 - Updated translations
 
----------------------
+-------------------
 
-AsyncTasky:
+java.lang.IllegalStateException: You are adding too many system settings.
+You should stop using system settings for app specific data package: sk.henrichg.phoneprofilesplus
 
-Mam volane refreshListView() a podobne, kde vytvaram instanciu AsyncTask. Nemoze toto sposobit boptnanie pamate?
-AsincTask sa neda znova spustit. Proste to vyzaduje vzdy novu instanciu.
+Tato exception nie je sposobena tym, ze uz je prilis vela veci nakonfigurovanych v profile?
+Neviem kedy sa nastavuje pocitadlo. Ze by to bola vec threadu? Lebo vsetko v ActivateProfileHelper
+volam v jednom threade.
 
+Raz uz mi toto vzniklo aj pri inom parametri, ktory by nemal byt null, takz enull to nie je:
+PHONE_MODEL=SM-A145P
+BRAND=samsung
+at sk.henrichg.phoneprofilesplus.ActivateProfileHelper.execute(ActivateProfileHelper.java:4838)
+ Settings.System.putInt(appContext.getContentResolver(),
+                                        Settings.System.SCREEN_BRIGHTNESS,
+                                        profile.getDeviceBrightnessManualValue(appContext));
+Tu sa nahadzuje integer takze profile.getDeviceBrightnessManualValue(appContext) nevrati null.
+
+Co je zvlastne, ze to pada vzdy pri Samsungoch, A-ckovy typ.
+
+Mozno sa to uvolnuje postupne, ako to nahadzuje do db. Tak mozno to ani nie je vec threadu, ale package.
+Proste prilis vela veci naraz menim. Sa to cachuje Ako ale toto vyriesit? Hm, hm.

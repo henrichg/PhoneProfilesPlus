@@ -1533,7 +1533,9 @@ class ActivateProfileHelper {
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 try {
                     //EventPreferencesVolumes.internalChange = true;
-                    Settings.Global.putInt(appContext.getContentResolver(), AUDIO_SAFE_VOLUME_STATE, 2);
+                    if (Settings.Global.getInt(appContext.getContentResolver(),
+                            AUDIO_SAFE_VOLUME_STATE, -1) != 2)
+                        Settings.Global.putInt(appContext.getContentResolver(), AUDIO_SAFE_VOLUME_STATE, 2);
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     G1OK = true;
 
@@ -1684,19 +1686,29 @@ class ActivateProfileHelper {
                 if (Permissions.checkVibrateWhenRinging(appContext)) {
                      {
                         try {
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    Settings.System.VIBRATE_WHEN_RINGING, -1) != lValue)
+                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
                             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-                                Settings.System.putInt(appContext.getContentResolver(), SETTINGS_PREF_VIBRATE_IN_NORMAL, lValue);
-                                Settings.System.putInt(appContext.getContentResolver(), SETTINGS_PREF_VIBRATE_IN_SILENT, lValue);
+                                if (Settings.System.getInt(appContext.getContentResolver(),
+                                        SETTINGS_PREF_VIBRATE_IN_NORMAL, -1) != lValue)
+                                    Settings.System.putInt(appContext.getContentResolver(), SETTINGS_PREF_VIBRATE_IN_NORMAL, lValue);
+                                if (Settings.System.getInt(appContext.getContentResolver(),
+                                        SETTINGS_PREF_VIBRATE_IN_SILENT, -1) != lValue)
+                                    Settings.System.putInt(appContext.getContentResolver(), SETTINGS_PREF_VIBRATE_IN_SILENT, lValue);
                             }
                             else
                             if (PPApplication.deviceIsOnePlus) {
                                 switch (lValue) {
                                     case 1:
-                                        Settings.System.putInt(appContext.getContentResolver(), SETTINGS_PREF_RING_VIBRATION_INTENSITY, 2);
+                                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                                SETTINGS_PREF_RING_VIBRATION_INTENSITY, -1) != 2)
+                                            Settings.System.putInt(appContext.getContentResolver(), SETTINGS_PREF_RING_VIBRATION_INTENSITY, 2);
                                         break;
                                     case 0:
-                                        Settings.System.putInt(appContext.getContentResolver(), SETTINGS_PREF_RING_VIBRATION_INTENSITY, 0);
+                                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                                SETTINGS_PREF_RING_VIBRATION_INTENSITY, -1) != 0)
+                                            Settings.System.putInt(appContext.getContentResolver(), SETTINGS_PREF_RING_VIBRATION_INTENSITY, 0);
                                         break;
                                 }
                             }
@@ -2118,8 +2130,8 @@ class ActivateProfileHelper {
                                 //Log.e("ActivateProfileHelper.setTones (1)", Log.getStackTraceString(e));
                                 //PPApplicationStatic.recordException(e);
                             }
-
-                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, uri);
+                            if (!RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE).equals(uri))
+                                RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, uri);
                         }
                     }
                     catch (IllegalArgumentException | IllegalStateException e) {
@@ -2162,7 +2174,8 @@ class ActivateProfileHelper {
                 } else {
                     // selected is None tone
                     try {
-                        RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, null);
+                        if (RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE) != null)
+                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, null);
                     }
                     catch (IllegalArgumentException | IllegalStateException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
@@ -2195,7 +2208,8 @@ class ActivateProfileHelper {
                                 //PPApplicationStatic.recordException(e);
                             }
 
-                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, uri);
+                            if (!RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION).equals(uri))
+                                RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, uri);
                         }
                     }
                     catch (IllegalArgumentException | IllegalStateException e) {
@@ -2236,7 +2250,8 @@ class ActivateProfileHelper {
                 } else {
                     // selected is None tone
                     try {
-                        RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, null);
+                        if (RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION) != null)
+                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, null);
                     }
                     catch (IllegalArgumentException | IllegalStateException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
@@ -2268,8 +2283,8 @@ class ActivateProfileHelper {
                                 //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                                 //PPApplicationStatic.recordException(e);
                             }
-                            //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, splits[0]);
-                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM, uri);
+                            if (!RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM).equals(uri))
+                                RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM, uri);
                         }
                     }
                     catch (IllegalArgumentException | IllegalStateException e) {
@@ -2310,8 +2325,8 @@ class ActivateProfileHelper {
                 } else {
                     // selected is None tone
                     try {
-                        //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, null);
-                        RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM, null);
+                        if (RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM) != null)
+                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM, null);
                     }
                     catch (IllegalArgumentException | IllegalStateException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
@@ -2371,34 +2386,41 @@ class ActivateProfileHelper {
 
                                         try {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
-                                        } catch (Exception ignored) {}
-
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_SAMSUNG, uri.toString());
-
+                                        } catch (Exception ignored) {
+                                        }
+                                        if (!Settings.System.getString(appContext.getContentResolver(),
+                                                PREF_RINGTONE_SIM1_SAMSUNG).equals(uri.toString()))
+                                            Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_SAMSUNG, uri.toString());
                                     } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
     //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Huawei uri=" + uri.toString());
 
                                         try {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
-                                        } catch (Exception ignored) {}
-
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_HUAWEI, uri.toString());
+                                        } catch (Exception ignored) {
+                                        }
+                                        if (!Settings.System.getString(appContext.getContentResolver(),
+                                                PREF_RINGTONE_SIM1_HUAWEI).equals(uri.toString()))
+                                            Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_HUAWEI, uri.toString());
                                     } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI) && (uri != null)) {
     //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Xiaomi uri=" + uri.toString());
 
                                         try {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
-                                        } catch (Exception ignored) {}
-
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_XIAOMI, uri.toString());
+                                        } catch (Exception ignored) {
+                                        }
+                                        if (!Settings.System.getString(appContext.getContentResolver(),
+                                                PREF_RINGTONE_SIM1_XIAOMI).equals(uri.toString()))
+                                            Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_XIAOMI, uri.toString());
                                     } else if (PPApplication.deviceIsOnePlus && (uri != null)) {
 //                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 OnePlus uri=" + uri.toString());
 
                                         try {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
-                                        } catch (Exception ignored) {}
-
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_ONEPLUS, uri.toString());
+                                        } catch (Exception ignored) {
+                                        }
+                                        if (!Settings.System.getString(appContext.getContentResolver(),
+                                                PREF_RINGTONE_SIM1_ONEPLUS).equals(uri.toString()))
+                                            Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_ONEPLUS, uri.toString());
                                     }
                                 }
                             }
@@ -2445,25 +2467,33 @@ class ActivateProfileHelper {
                                 if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
     //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Samsung uri=null");
 
-                                    Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_SAMSUNG, null);
+                                    if (Settings.System.getString(appContext.getContentResolver(),
+                                            PREF_RINGTONE_SIM1_SAMSUNG) != null)
+                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_SAMSUNG, null);
                                 }
                                 else
                                 if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
     //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Huawei uri=null");
 
-                                    Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_HUAWEI, null);
+                                    if (Settings.System.getString(appContext.getContentResolver(),
+                                            PREF_RINGTONE_SIM1_HUAWEI) != null)
+                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_HUAWEI, null);
                                 }
                                 else
                                 if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
     //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Xiaomi uri=null");
 
-                                    Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_XIAOMI, null);
+                                    if (Settings.System.getString(appContext.getContentResolver(),
+                                            PREF_RINGTONE_SIM1_XIAOMI) != null)
+                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_XIAOMI, null);
                                 }
                                 else
                                 if (PPApplication.deviceIsOnePlus) {
 //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 OnePlus uri=null");
 
-                                    Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_ONEPLUS, null);
+                                    if (Settings.System.getString(appContext.getContentResolver(),
+                                            PREF_RINGTONE_SIM1_ONEPLUS) != null)
+                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_ONEPLUS, null);
                                 }
                             }
                             catch (IllegalArgumentException | IllegalStateException e) {
@@ -2523,8 +2553,9 @@ class ActivateProfileHelper {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {
                                         }
-
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_SAMSUNG, uri.toString());
+                                        if (!Settings.System.getString(appContext.getContentResolver(),
+                                                PREF_RINGTONE_SIM2_SAMSUNG).equals(uri.toString()))
+                                            Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_SAMSUNG, uri.toString());
                                     } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
 //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Huawei uri=" + uri.toString());
 
@@ -2532,8 +2563,9 @@ class ActivateProfileHelper {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {
                                         }
-
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_HUAWEI, uri.toString());
+                                        if (!Settings.System.getString(appContext.getContentResolver(),
+                                                PREF_RINGTONE_SIM2_HUAWEI).equals(uri.toString()))
+                                            Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_HUAWEI, uri.toString());
                                     } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI) && (uri != null)) {
 //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Xiaomi uri=" + uri.toString());
 
@@ -2541,8 +2573,9 @@ class ActivateProfileHelper {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {
                                         }
-
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_XIAOMI, uri.toString());
+                                        if (!Settings.System.getString(appContext.getContentResolver(),
+                                                PREF_RINGTONE_SIM2_XIAOMI).equals(uri.toString()))
+                                            Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_XIAOMI, uri.toString());
                                     } else if (PPApplication.deviceIsOnePlus && (uri != null)) {
 //                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 OnePlus uri=" + uri.toString());
 
@@ -2550,8 +2583,9 @@ class ActivateProfileHelper {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {
                                         }
-
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS, uri.toString());
+                                        if (!Settings.System.getString(appContext.getContentResolver(),
+                                                PREF_RINGTONE_SIM2_ONEPLUS).equals(uri.toString()))
+                                            Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS, uri.toString());
                                     }
                                 }
                             } catch (IllegalArgumentException | IllegalStateException e) {
@@ -2565,30 +2599,30 @@ class ActivateProfileHelper {
                                 PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE,
                                         null, profile._name, "");
                                 noError = false;
-                            /*String[] splits = profile._soundRingtone.split(StringConstants.STR_SPLIT_REGEX);
-                            if (!splits[0].isEmpty()) {
-                                try {
-                                    boolean found = false;
-                                    RingtoneManager manager = new RingtoneManager(context);
-                                    Cursor cursor = manager.getCursor();
-                                    while (cursor.moveToNext()) {
-                                        String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
-                                        if (_uri.equals(splits[0])) {
-                                            // uri exists in RingtoneManager
-                                            found = true;
-                                            break;
+                                /*String[] splits = profile._soundRingtone.split(StringConstants.STR_SPLIT_REGEX);
+                                if (!splits[0].isEmpty()) {
+                                    try {
+                                        boolean found = false;
+                                        RingtoneManager manager = new RingtoneManager(context);
+                                        Cursor cursor = manager.getCursor();
+                                        while (cursor.moveToNext()) {
+                                            String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                                            if (_uri.equals(splits[0])) {
+                                                // uri exists in RingtoneManager
+                                                found = true;
+                                                break;
+                                            }
                                         }
-                                    }
-                                    if (found) {
+                                        if (found) {
+                                            PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
+                                            PPApplicationStatic.recordException(e);
+                                        }
+                                    } catch (Exception ee) {
                                         PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
                                         PPApplicationStatic.recordException(e);
                                     }
-                                } catch (Exception ee) {
-                                    PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
-                                    PPApplicationStatic.recordException(e);
-                                }
-                            } else
-                                PPApplicationStatic.recordException(e);*/
+                                } else
+                                    PPApplicationStatic.recordException(e);*/
                             }
                         } else {
                             // selected is None tone
@@ -2596,19 +2630,27 @@ class ActivateProfileHelper {
                                 if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Samsung uri=null");
 
-                                    Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_SAMSUNG, null);
+                                    if (Settings.System.getString(appContext.getContentResolver(),
+                                            PREF_RINGTONE_SIM2_SAMSUNG) != null)
+                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_SAMSUNG, null);
                                 } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Huawei uri=null");
 
-                                    Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_HUAWEI, null);
+                                    if (Settings.System.getString(appContext.getContentResolver(),
+                                            PREF_RINGTONE_SIM2_HUAWEI) != null)
+                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_HUAWEI, null);
                                 } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Xiaomi uri=null");
 
-                                    Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_XIAOMI, null);
+                                    if (Settings.System.getString(appContext.getContentResolver(),
+                                            PREF_RINGTONE_SIM2_XIAOMI) != null)
+                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_XIAOMI, null);
                                 } else if (PPApplication.deviceIsOnePlus) {
 //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 OnePlus uri=null");
 
-                                    Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS, null);
+                                    if (Settings.System.getString(appContext.getContentResolver(),
+                                            PREF_RINGTONE_SIM2_ONEPLUS) != null)
+                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS, null);
                                 }
                             } catch (IllegalArgumentException | IllegalStateException e) {
                                 // java.lang.IllegalArgumentException: Invalid column: _data
@@ -3363,10 +3405,12 @@ class ActivateProfileHelper {
                     if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         boolean G1OK = false;
-                        final String NEADSUP_NOTIFICATION_ENABLED = "heads_up_notifications_enabled";
+                        final String HEADSUP_NOTIFICATION_ENABLED = "heads_up_notifications_enabled";
                         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                             try {
-                                Settings.Global.putInt(appContext.getContentResolver(), NEADSUP_NOTIFICATION_ENABLED, value);
+                                if (Settings.Global.getInt(appContext.getContentResolver(),
+                                        HEADSUP_NOTIFICATION_ENABLED, -1) != value)
+                                    Settings.Global.putInt(appContext.getContentResolver(), HEADSUP_NOTIFICATION_ENABLED, value);
                                 G1OK = true;
                             } catch (Exception ee) {
                                 PPApplicationStatic.logException("ActivateProfileHelper.setHeadsUpNotifications", Log.getStackTraceString(ee));
@@ -3377,7 +3421,7 @@ class ActivateProfileHelper {
                                     (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
 //                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setHeadsUpNotifications", "PPApplication.rootMutex");
                                 synchronized (PPApplication.rootMutex) {
-                                    String command1 = COMMAND_SETTINGS_PUT_GLOBAL+ NEADSUP_NOTIFICATION_ENABLED + " " + value;
+                                    String command1 = COMMAND_SETTINGS_PUT_GLOBAL+ HEADSUP_NOTIFICATION_ENABLED + " " + value;
                                     //if (PPApplication.isSELinuxEnforcing())
                                     //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                                     Command command = new Command(0, /*false,*/ command1); //, command2);
@@ -3445,6 +3489,8 @@ class ActivateProfileHelper {
                                     //if (PPApplication.deviceIsOnePlus)
                                     //    Settings.Secure.putInt(appContext.getContentResolver(), "doze_enabled", value);
                                     //else
+                                    if (Settings.Secure.getInt(appContext.getContentResolver(),
+                                            DOZE_ALWAYS_ON, -1) != value)
                                         Settings.Secure.putInt(appContext.getContentResolver(), DOZE_ALWAYS_ON, value);
                                     G1OK = true;
                                 } catch (Exception ee) {
@@ -4774,7 +4820,9 @@ class ActivateProfileHelper {
             if (Permissions.checkProfileVibrationOnTouch(appContext, profile, null)) {
                 switch (profile._vibrationOnTouch) {
                     case 1:
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.HAPTIC_FEEDBACK_ENABLED, -1) != 1)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1);
                         //Settings.System.putInt(context.getContentResolver(), Settings.Global.CHARGING_SOUNDS_ENABLED, 1);
                         // Settings.System.DTMF_TONE_WHEN_DIALING - working
                         // Settings.System.SOUND_EFFECTS_ENABLED - working
@@ -4783,7 +4831,9 @@ class ActivateProfileHelper {
                         //                                           (G1) not working :-/
                         break;
                     case 2:
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 0);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.HAPTIC_FEEDBACK_ENABLED, -1) != 0)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 0);
                         //Settings.System.putInt(context.getContentResolver(), Settings.Global.CHARGING_SOUNDS_ENABLED, 0);
                         break;
                 }
@@ -4794,10 +4844,14 @@ class ActivateProfileHelper {
             if (Permissions.checkProfileDtmfToneWhenDialing(appContext, profile, null)) {
                 switch (profile._dtmfToneWhenDialing) {
                     case 1:
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING, 1);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.DTMF_TONE_WHEN_DIALING, -1) != 1)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING, 1);
                         break;
                     case 2:
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING, 0);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.DTMF_TONE_WHEN_DIALING, -1) != 0)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING, 0);
                         break;
                 }
             }
@@ -4807,10 +4861,14 @@ class ActivateProfileHelper {
             if (Permissions.checkProfileSoundOnTouch(appContext, profile, null)) {
                 switch (profile._soundOnTouch) {
                     case 1:
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 1);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.SOUND_EFFECTS_ENABLED, -1) != 1)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 1);
                         break;
                     case 2:
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 0);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.SOUND_EFFECTS_ENABLED, -1) != 0)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 0);
                         break;
                 }
             }
@@ -4917,37 +4975,32 @@ class ActivateProfileHelper {
                 try {
                     //noinspection IfStatementWithIdenticalBranches
                     if (profile.getDeviceBrightnessAutomatic()) {
-                        Settings.System.putInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_BRIGHTNESS_MODE,
-                                Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                         if (profile.getDeviceBrightnessChangeLevel()) {
-//                            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, executedProfileSharedPreferences, true, appContext).allowed
-//                                    == PreferenceAllowed.PREFERENCE_ALLOWED) {
-
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    Settings.System.SCREEN_BRIGHTNESS_MODE, -1) !=
+                                    Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC)
                                 Settings.System.putInt(appContext.getContentResolver(),
-                                        Settings.System.SCREEN_BRIGHTNESS,
-                                        profile.getDeviceBrightnessManualValue(appContext));
-
-//                                try {
-//                                    Settings.System.putFloat(appContext.getContentResolver(),
-//                                            Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ,
-//                                            profile.getDeviceBrightnessAdaptiveValue(appContext));
-//                                } catch (Exception ee) {
-//                                    // run service for execute radios
-//                                    ActivateProfileHelper.executeRootForAdaptiveBrightness(
-//                                            profile.getDeviceBrightnessAdaptiveValue(appContext),
-//                                            appContext);
-//                                }
-//                            }
+                                        Settings.System.SCREEN_BRIGHTNESS_MODE,
+                                        Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+                            int newBrightness = profile.getDeviceBrightnessManualValue(appContext);
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    Settings.System.SCREEN_BRIGHTNESS, -1) != newBrightness)
+                                Settings.System.putInt(appContext.getContentResolver(),
+                                        Settings.System.SCREEN_BRIGHTNESS, newBrightness);
                         }
                     } else {
-                        Settings.System.putInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_BRIGHTNESS_MODE,
-                                Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
-                        if (profile.getDeviceBrightnessChangeLevel()) {
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.SCREEN_BRIGHTNESS_MODE, -1) !=
+                                Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL)
                             Settings.System.putInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_BRIGHTNESS,
-                                    profile.getDeviceBrightnessManualValue(appContext));
+                                    Settings.System.SCREEN_BRIGHTNESS_MODE,
+                                    Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+                        if (profile.getDeviceBrightnessChangeLevel()) {
+                            int newBrightness = profile.getDeviceBrightnessManualValue(appContext);
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    Settings.System.SCREEN_BRIGHTNESS, -1) != newBrightness)
+                                Settings.System.putInt(appContext.getContentResolver(),
+                                        Settings.System.SCREEN_BRIGHTNESS, newBrightness);
                         }
                     }
 //                    PPApplication.brightnessModeBeforeScreenOff = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
@@ -4979,37 +5032,57 @@ class ActivateProfileHelper {
                 switch (profile._deviceAutoRotate) {
                     case 1:
                         // set autorotate on
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 1);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.ACCELEROMETER_ROTATION, -1) != 1)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 1);
                         //Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
                         break;
                     case 6:
                         // set autorotate off
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.ACCELEROMETER_ROTATION, -1) != 0)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
                         //Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
                         break;
                     case 2:
                         // set autorotate off
                         // degree 0
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.ACCELEROMETER_ROTATION, -1) != 0)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.USER_ROTATION, -1) != Surface.ROTATION_0)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
                         break;
                     case 3:
                         // set autorotate off
                         // degree 90
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_90);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.ACCELEROMETER_ROTATION, -1) != 0)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.USER_ROTATION, -1) != Surface.ROTATION_90)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_90);
                         break;
                     case 4:
                         // set autorotate off
                         // degree 180
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_180);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.ACCELEROMETER_ROTATION, -1) != 0)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.USER_ROTATION, -1) != Surface.ROTATION_180)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_180);
                         break;
                     case 5:
                         // set autorotate off
                         // degree 270
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_270);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.ACCELEROMETER_ROTATION, -1) != 0)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.USER_ROTATION, -1) != Surface.ROTATION_270)
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_270);
                         break;
                 }
             }
@@ -5384,10 +5457,16 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                        else
+                        else {
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 15000)
+                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+                        }
+                    } else {
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 15000)
                             Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
-                    } else
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+                    }
                 }
                 break;
             case 2: // 30 seconds
@@ -5420,11 +5499,17 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                        else
+                        else {
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 30000)
+                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
+                        }
+                    }
+                    else {
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 30000)
                             Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
                     }
-                    else
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
                 }
                 break;
             case 3: // 1 minute
@@ -5457,11 +5542,17 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                        else
+                        else {
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 60000)
+                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
+                        }
+                    }
+                    else {
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 60000)
                             Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
                     }
-                    else
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
                 }
                 break;
             case 4: // 2 minutes
@@ -5494,11 +5585,17 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                        else
+                        else {
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 120000)
+                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
+                        }
+                    }
+                    else {
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 120000)
                             Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
                     }
-                    else
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
                 }
                 break;
             case 5: // 10 minutes
@@ -5531,11 +5628,17 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                        else
+                        else {
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 600000)
+                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
+                        }
+                    }
+                    else {
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 600000)
                             Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
                     }
-                    else
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
                 }
                 break;
             /*case 6:
@@ -5580,11 +5683,17 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                        else
+                        else {
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 300000)
+                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
+                        }
+                    }
+                    else {
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 300000)
                             Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
                     }
-                    else
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
                 }
                 break;
             /*case 8:
@@ -5625,11 +5734,17 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                        else
+                        else {
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 1800000)
+                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1800000);
+                        }
+                    }
+                    else {
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 1800000)
                             Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1800000);
                     }
-                    else
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1800000);
                 }
                 break;
         }
@@ -6614,7 +6729,10 @@ class ActivateProfileHelper {
                         String newSet;
                         newSet = GPS_ON;
                         //noinspection deprecation
-                        Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
+                        if (!Settings.Secure.getString(appContext.getContentResolver(),
+                                Settings.Secure.LOCATION_PROVIDERS_ALLOWED).equals(newSet))
+                            //noinspection deprecation
+                            Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
                     }
                     G1OK = true;
                 } catch (Exception ee) {
@@ -6671,7 +6789,10 @@ class ActivateProfileHelper {
                         String newSet;// = "";
                         newSet = GPS_OFF;
                         //noinspection deprecation
-                        Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
+                        if (!Settings.Secure.getString(appContext.getContentResolver(),
+                                Settings.Secure.LOCATION_PROVIDERS_ALLOWED).equals(newSet))
+                            //noinspection deprecation
+                            Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
                     }
                     G1OK = true;
                 } catch (Exception ee) {
@@ -6724,7 +6845,9 @@ class ActivateProfileHelper {
         // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
             try {
-                Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
+                if (Settings.Secure.getInt(appContext.getContentResolver(),
+                        Settings.Secure.LOCATION_MODE, -1) != mode)
+                    Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
                 //G1OK = true;
             } catch (Exception ee) {
                 PPApplicationStatic.logException("ActivateProfileHelper.setLocationMode", Log.getStackTraceString(ee));
@@ -6806,7 +6929,9 @@ class ActivateProfileHelper {
                                     boolean G1OK = false;
                                     if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                                         try {
-                                            Settings.Global.putInt(appContext.getContentResolver(), LOW_POWER, ((_isPowerSaveMode) ? 1 : 0));
+                                            if (Settings.Global.getInt(appContext.getContentResolver(),
+                                                    LOW_POWER, -1) != ((_isPowerSaveMode) ? 1 : 0))
+                                                Settings.Global.putInt(appContext.getContentResolver(), LOW_POWER, ((_isPowerSaveMode) ? 1 : 0));
                                             G1OK = true;
                                         } catch (Exception ee) {
                                             PPApplicationStatic.logException("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(ee));
@@ -6977,10 +7102,16 @@ class ActivateProfileHelper {
                 if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                     try {
                         // Android Q (Tasker: https://www.reddit.com/r/tasker/comments/d2ngcl/trigger_android_10_dark_theme_with_brightness/)
-                        if (value == 1)
-                            Settings.Secure.putInt(appContext.getContentResolver(), UI_NIGHT_MODE, 2);
-                        else
-                            Settings.Secure.putInt(appContext.getContentResolver(), UI_NIGHT_MODE, 1);
+                        if (value == 1) {
+                            if (Settings.Secure.getInt(appContext.getContentResolver(),
+                                    UI_NIGHT_MODE, -1) != 2)
+                                Settings.Secure.putInt(appContext.getContentResolver(), UI_NIGHT_MODE, 2);
+                        }
+                        else {
+                            if (Settings.Secure.getInt(appContext.getContentResolver(),
+                                    UI_NIGHT_MODE, -1) != 1)
+                                Settings.Secure.putInt(appContext.getContentResolver(), UI_NIGHT_MODE, 1);
+                        }
                         G1OK = true;
                     }
                     catch (Exception e2) {
