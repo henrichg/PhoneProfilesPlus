@@ -572,7 +572,6 @@
     <string name="nfc_tag_pref_dlg_hint">标签名称</string>
     <string name="nfc_tag_pref_dlg_help">必须将标签名称写入 NFC 标签。“写入 NFC 标签”功能可以在每一个标签名称的菜单中找到。</string>
     <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">写入 NFC 标签</string>
-    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">将您的电话连接到 NFC 标签，将开始写入。</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">必须启用 NFC。请启用后重试。</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">写入 NFC 标签</string>
     <string name="write_nfc_tag_written">标记写入</string>
@@ -2136,4 +2135,20 @@
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) 默认 SIM 卡</string>
     <string name="important_info_end_of_galaxy_store_support_text1">Galaxy Store 支持结束</string>
     <string name="important_info_end_of_galaxy_store_support_text2">对不起，Galaxy Store 不能得到更多支持，因为这个商店需要目标 SDK API 33 (Android 13)，PPP 的目标 SDK 是 28 (Android 9)。</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_title">读取 NFC 标签</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_text">读取 PhonePorfilesPlus 中写入的 NFC 标签。</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut">\"读取 NFC 标签”的快捷方式</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary">单击此处，在桌面创建“读取 NFC 标签”的快捷方式。</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary_info">如果您的设备在读取 NFC 标签时显示通知，在前台没有支持读取 NFC 标签的应用程序 (例如 一些Xiaomi设备)，创建此快捷方式，并在每次您想要读取 NFC 标签以触发 PPP 中的事件时使用它。</string>
+    <string name="shortcut_to_read_nfc_tag_created_toast">创建\"读取NFC标签\"的快捷方式</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_touch">将您的设备连接到 NFC 标签。将开始读取。</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagName">标签名称：</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData">标签数据：</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData_noData">无数据</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addNameButtons">添加名称到标签列表：</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_changeNameButtons">更改标签列表中的名称：</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addReadedNameButton">使用标签数据作为名称</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton">将名称写入标签</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch1">将您的设备连接到 NFC 标签。然后点击按钮</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch2">写入即将开始。</string>
 </resources>

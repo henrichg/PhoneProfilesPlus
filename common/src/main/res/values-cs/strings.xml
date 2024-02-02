@@ -572,7 +572,6 @@
     <string name="nfc_tag_pref_dlg_hint">Název tagu</string>
     <string name="nfc_tag_pref_dlg_help">Musíte zapsat název tagu do NFC tagu. \"Zápis do NFC tagu\" je v menu pro každý název tagu.</string>
     <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">Zápis do NFC Tagu</string>
-    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Přiložte váš mobil k NFC tagu. Začne zápis.</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC musí být povoleno. Prosím povolte jej a zkuste to znovu.</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">Zápis do NFC Tagu</string>
     <string name="write_nfc_tag_written">Tag zapsán</string>
@@ -2136,4 +2135,20 @@
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Výchozí SIM karta</string>
     <string name="important_info_end_of_galaxy_store_support_text1">Konec podpory Galaxy Store</string>
     <string name="important_info_end_of_galaxy_store_support_text2">Lituji, obchod Galaxy Store již není podporován, protože tento obchod vyžaduje cílové SDK API 33 (Android 13) a cílové SDK PPP je 28 (Android 9).</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_title">Číst NFC tag</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_text">Číst NFC tag napsaný v PhonePorfilesPlus.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut">Odkaz na \"Číst NFC tag\"</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary">Klikněte zde pro vytvoření odkazu pro \"Číst NFC tag\" v domovském launcheru.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary_info">Pokud vaše zařízení zobrazuje při čtení NFC tagu oznámení, že v popředí není žádná aplikace na podporu čtení NFC tagů (například některá zařízení Xiaomi), vytvořte tento odkaz a použijte jej vždy, když chcete číst NFC tag ke spuštění události v PPP.</string>
+    <string name="shortcut_to_read_nfc_tag_created_toast">Odkaz na \"Číst NFC tag\" byl vytvořen</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_touch">Přiložte vaše zařízení k NFC tagu. Čtení začne.</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagName">Název tagu:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData">Údaje v tagu:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData_noData">Žádné údaje</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addNameButtons">Přidání názvu do seznamu tagů:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_changeNameButtons">Změnit název v seznamu tagů:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addReadedNameButton">Použít data tagu jako název</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton">Zapsat název tagu do tagu</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch1">Připojte vaše zařízení k NFC tagu. Poté klikněte na tlačítko</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch2">Zápis bude spuštěn.</string>
 </resources>

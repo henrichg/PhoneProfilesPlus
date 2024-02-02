@@ -572,7 +572,6 @@
     <string name="nfc_tag_pref_dlg_hint">Nombre de la etiqueta</string>
     <string name="nfc_tag_pref_dlg_help">Debes escribir un nombre de etiqueta dentro de la etiqueta NFC. \"Escribir en la Etiqueta NFC\" aparece en el menú para cada nombre de etiqueta.</string>
     <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">Escribir en la Etiqueta NFC</string>
-    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Conecta tu dispositivo a una etiqueta NFC. La escritura se iniciará.</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC debe estar habilitado. Por favor, habilítalo y vuelve a intentarlo.</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">Escribir en la etiqueta NFC</string>
     <string name="write_nfc_tag_written">Etiqueta escrita</string>
@@ -2136,4 +2135,20 @@
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Tarjeta SIM por defecto</string>
     <string name="important_info_end_of_galaxy_store_support_text1">Fin de soporte a Galaxy Store</string>
     <string name="important_info_end_of_galaxy_store_support_text2">Lo sentimos, Galaxy Store no es compatible, ya que esta tienda requiere un SDK API 33 (Android 13) y el SDK de PPP es 28 (Android 9).</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_title">Leer etiqueta NFC</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_text">Leer etiqueta NFC escrita en PhonePorfilesPlus.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut">Acceso directo a \"Leer etiqueta NFC\"</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary">Haga clic aquí, para crear un acceso directo a \"Leer etiqueta NFC\" en el launcher.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary_info">Si tu dispositivo muestra una notificación al leer la etiqueta NFC de que no hay ninguna aplicación en primer plano para permitir la lectura de etiquetas NFC (por ejemplo, algunos dispositivos Xiaomi), crea este acceso directo y úsalo cada vez que quieras leer la etiqueta NFC para activar el evento en PPP.</string>
+    <string name="shortcut_to_read_nfc_tag_created_toast">Acceso directo a \"Leer etiqueta NFC\" creado</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_touch">Acerca tu dispositivo a una etiqueta NFC. Se iniciará la lectura.</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagName">Nombre de etiqueta:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData">Datos de etiqueta:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData_noData">Sin datos</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addNameButtons">Añadir nombre a la lista de etiquetas:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_changeNameButtons">Cambiar nombre en la lista de etiquetas:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addReadedNameButton">Usar datos de etiqueta como nombre</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton">Escribir nombre de etiqueta en la etiqueta</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch1">Acerca tu dispositivo a una etiqueta NFC. Luego haz clic en el botón</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch2">Se iniciará la escritura.</string>
 </resources>

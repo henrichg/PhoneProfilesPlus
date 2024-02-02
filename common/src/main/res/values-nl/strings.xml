@@ -572,7 +572,6 @@
     <string name="nfc_tag_pref_dlg_hint">Tagnaam</string>
     <string name="nfc_tag_pref_dlg_help">Je moet een tag naam bewaren op de NFC tag. \"Bewaar op NFC tag\" is in het menu voor elke tag naam.</string>
     <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">Bewaar op NFC tag</string>
-    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Houdt je telefoon bij de NFC tag. Schrijven zal starten.</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC moet je aanzetten. Set het aan en probeer opnieuw.</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">Bewaar op NFC tag</string>
     <string name="write_nfc_tag_written">Tag bewaard</string>
@@ -2136,4 +2135,20 @@
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Standaard SIM kaart</string>
     <string name="important_info_end_of_galaxy_store_support_text1">Einde van Galaxy Store ondersteuning</string>
     <string name="important_info_end_of_galaxy_store_support_text2">Sorry, Ondersteuning Galaxy Store stopt omdat deze winkel SDK API 33 (Android 13) vereist en PPP gebruikt SDK 28 (Android 9).</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_title">NFC tag lezen</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_text">Lees NFC-tag geschreven in PhoneProfilesPlus.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut">Snelkoppeling naar \"NFC-tag lezen\"</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary">Klik hier om een snelkoppeling te maken voor \"Lees NFC tag\" in de home launcher.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary_info">Als je apparaat een melding geeft bij het lezen van de NFC-tag dat er geen applicatie op de voorgrond is ter ondersteuning van het lezen van NFC-tags (bijvoorbeeld sommige Xiaomi apparaten), maak deze snelkoppeling aan en gebruik het elke keer dat je de NFC-tag wilt lezen om een gebeurtenis in PPP te activeren.</string>
+    <string name="shortcut_to_read_nfc_tag_created_toast">Snelkoppeling naar \"Lees NFC-tag\" gemaakt</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_touch">Koppel je apparaat aan een NFC tag. Lezen wordt gestart.</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagName">Tagnaam:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData">Tag gegevens:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData_noData">Geen gegevens</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addNameButtons">Naam toevoegen aan taglijst:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_changeNameButtons">Naam in taglijst wijzigen:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addReadedNameButton">Gebruik tag gegevens als naam</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton">Schrijf tag naam naar tag</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch1">Koppel je apparaat aan een NFC-tag. Klik vervolgens op de knop</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch2">Schrijven start.</string>
 </resources>

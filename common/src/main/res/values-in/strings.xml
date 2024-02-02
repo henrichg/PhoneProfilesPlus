@@ -572,7 +572,6 @@
     <string name="nfc_tag_pref_dlg_hint">Nama tag</string>
     <string name="nfc_tag_pref_dlg_help">Anda harus menuliskan nama tag ke tag NFC. \"Write to NFC Tag\" ada di menu untuk setiap nama tag.</string>
     <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">Menulis ke NFC Tag</string>
-    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Lampirkan perangkat Anda ke tag NFC. Menulis akan dimulai.</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC harus diaktifkan Harap aktifkan dan coba lagi.</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">Menulis ke NFC Tag</string>
     <string name="write_nfc_tag_written">Tag ditulis</string>
@@ -2136,4 +2135,20 @@
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Default SIM card</string>
     <string name="important_info_end_of_galaxy_store_support_text1">End of Galaxy Store support</string>
     <string name="important_info_end_of_galaxy_store_support_text2">Sorry, Galaxy Store is not more supported, because this store requires target SDK API 33 (Android 13) and PPP target SDK is 28 (Android 9).</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_title">Read NFC tag</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_text">Read NFC tag written in PhonePorfilesPlus.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut">Shortcut to \"Read NFC tag\"</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary">Click here, to create shortcut to \"Read NFC tag\" in home launcher.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary_info">If your device shows a notification when reading NFC tag that there is no application in the foreground to support reading NFC tags (for example, some Xiaomi devices), create this shortcut and use it every time you want to read NFC tag to trigger event in PPP.</string>
+    <string name="shortcut_to_read_nfc_tag_created_toast">Shortcut to \"Read NFC tag\" created</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_touch">Attach your device to an NFC tag. Read will be started.</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagName">Tag name:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData">Tag data:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData_noData">No data</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addNameButtons">Add name to tag list:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_changeNameButtons">Change name in tag list:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addReadedNameButton">Use tag data as name</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton">Write tag name to tag</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch1">Attach your device to an NFC tag. Then click button</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch2">Write will be started.</string>
 </resources>
