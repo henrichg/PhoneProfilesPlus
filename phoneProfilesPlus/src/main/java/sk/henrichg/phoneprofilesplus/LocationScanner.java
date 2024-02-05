@@ -423,8 +423,8 @@ class LocationScanner
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] LocationScanner.doLocationChanged", "PPApplication.locationScannerMutex");
         synchronized (PPApplication.locationScannerMutex) {
-            if (EventStatic.getGlobalEventsRunning(PPApplication.locationScanner.context)) {
-                if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
+            if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
+                if (EventStatic.getGlobalEventsRunning(PPApplication.locationScanner.context)) {
                     PPApplication.locationScanner.updateGeofencesInDB();
 
                     if (callEventsHandler) {
