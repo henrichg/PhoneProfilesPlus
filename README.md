@@ -71,7 +71,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 ##### (HELP) How to grant (G1) permission - for profile parameters that require this permission
 - [Show it](docs/grant_g1_permission.md)
 
-##### (HELP) How to using Shizuku - for profile parameters that require (Z) permission
+##### (HELP) How to using Shizuku (good alternative for non-rooted devices) - for profile parameters that require (Z) permission
 - [Show it](docs/shizuku.md)
 
 ##### (HELP) How to disable Wi-Fi scan throttling - useful for Wi-Fi scanning

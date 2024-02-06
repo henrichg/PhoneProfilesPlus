@@ -1,7 +1,7 @@
 Shizuku
 =======
 
-##### Profile parameters marked with (Z) need Shizuku.
+##### Profile parameters marked with (Z) need Shizuku. Shizuku is good alternative for non-rooted devices.
 
 - For more informations about Shizuku read: https://shizuku.rikka.app/
 - For download Shizuku click: https://shizuku.rikka.app/download/
