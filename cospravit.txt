@@ -440,3 +440,37 @@ Co je zvlastne, ze to pada vzdy pri Samsungoch, A-ckovy typ.
 
 Mozno sa to uvolnuje postupne, ako to nahadzuje do db. Tak mozno to ani nie je vec threadu, ale package.
 Proste prilis vela veci naraz menim. Sa to cachuje Ako ale toto vyriesit? Hm, hm.
+
+HOTOVO tak, ze zapisujem len ak uz taha hodnota nie je zapisana. To by mohlo dost zmensit pocet zapisov.
+
+--------------------------
+
+NFC senzor:
+
+Aplikacia NFC Tags:
+- zapisuje tag takto:
+  - DATA: com.miui.calculator
+  - FORMAT: External (04) = NfcRecord.TNF_EXTERNAL_TYPE
+  - TYPE: android.com:pkg
+  - PAYLOAD: com.miui.calculator
+Aplikacia NFC Tasks okamzite spisti Kakulacku, ziaden sys dialog, ci tag precitat sa nezobrazi.
+
+PPP:
+- zapisuje tag takto:
+  - DATA: hhh
+  - FORMAT: Media (02) = NdefRecord.TNF_MIME_MEDIA
+  - TYPE: application/vnd.phoneprofilesplus.events
+  - PAYLOAD: hhh
+Dialog sa zobrazuje.
+
+No a teraz otazka: preco sa zobrazuje ten hnusny dialog?
+
+Skus teda pouzit tiez External.
+Ako spravit Intent + ako spravit NdfeRecord:
+https://developer.android.com/develop/connectivity/nfc/nfc#ext-type
+
+
+
+
+
+

@@ -236,8 +236,7 @@ class NFCTagReadWriteManager {
         //NdefRecord relayRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_TEXT, null, data.getBytes());
 
         byte[] textBytes = data.getBytes();
-        NdefRecord relayRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA,
-                "application/vnd.phoneprofilesplus.events".getBytes(), new byte[] {}, textBytes);
+        NdefRecord relayRecord = NdefRecord.createMime("application/vnd.phoneprofilesplus.events", textBytes);
 
         //NdefRecord.createApplicationRecord(PPApplication.PACKAGE_NAME);
 
