@@ -1248,10 +1248,10 @@ class PPApplicationStatic {
         return ApplicationPreferences.
                 getSharedPreferences(context).getBoolean(PPApplication.PREF_DONATION_DONATED, false);
     }
-    static void setDonationDonated(Context context)
+    static void setDonationDonated(Context context, boolean donated)
     {
         Editor editor = ApplicationPreferences.getEditor(context);
-        editor.putBoolean(PPApplication.PREF_DONATION_DONATED, true);
+        editor.putBoolean(PPApplication.PREF_DONATION_DONATED, donated);
         editor.apply();
     }
 
