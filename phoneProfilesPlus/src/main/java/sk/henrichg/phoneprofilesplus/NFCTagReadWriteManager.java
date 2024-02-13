@@ -36,6 +36,7 @@ class NFCTagReadWriteManager {
     boolean tagRead = false;
 
     boolean tagIsWritable;  // is tag writable?
+    Intent intentForWrite = null;
 
     private TagReadListener onTagReadListener;
     private TagWriteListener onTagWriteListener;
@@ -105,7 +106,8 @@ class NFCTagReadWriteManager {
     void onActivityCreate() {
         nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
         pendingIntent = PendingIntent.getActivity(activity, 0,
-                new Intent(activity, activity.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+                new Intent(activity, activity.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
+                        PendingIntent.FLAG_MUTABLE);
     }
 
     /*
@@ -142,18 +144,19 @@ class NFCTagReadWriteManager {
 
             //if (writeText == null)
             readTagFromIntent(intent);
+            intentForWrite = intent;
             //else {
-            if (writeText != null)/* && NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()))*/ {
+            /*if (writeText != null) {
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 try {
-                    writeTag(/*activity, */tag, writeText);
+                    writeTag(tag, writeText);
                     onTagWriteListener.onTagWritten();
                 } catch (NFCTagWriteException exception) {
                     onTagWriteErrorListener.onTagWriteError(exception);
                 } finally {
                     writeText = null;
                 }
-            }
+            } */
         }
     }
 
@@ -165,17 +168,21 @@ class NFCTagReadWriteManager {
         if (intent != null){
             String action = intent.getAction();
 
-            /*if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
-                uidRead = true;
+//            Log.e("NFCTagReadWriteManager.readTagFromIntent", "action="+action);
+
+            //if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
+                /*uidRead = true;
 
                 String uid = ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
-                onTagReadListener.onUidRead(uid);
-            }*/
-            if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
+                onTagReadListener.onUidRead(uid);*/
+            //}
+            if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action) ||
+                    NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
                 tagRead = true;
 
                 // get NDEF tag details
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+//                Log.e("NFCTagReadWriteManager.readTagFromIntent", "tag="+tag);
                 if (tag != null) {
                     Ndef ndefTag = Ndef.get(tag);
                     //int tagSize = ndefTag.getMaxSize();         // tag size
@@ -186,6 +193,7 @@ class NFCTagReadWriteManager {
                     if (rawMessages != null) {
                         NdefRecord[] records = ((NdefMessage) rawMessages[0]).getRecords();
                         String text = ndefRecordToString(records[0]);
+//                        Log.e("NFCTagReadWriteManager.readTagFromIntent", "text="+text);
                         onTagReadListener.onTagRead(text);
                     }
                 }
@@ -223,13 +231,14 @@ class NFCTagReadWriteManager {
      * @param data x
      * @throws NFCTagWriteException
      */
-    private  void writeTag(/*Context context, */Tag tag, String data) throws NFCTagWriteException {
+    private  void _writeTag(/*Context context, */Tag tag, String data) throws NFCTagWriteException {
         // Record with actual data we care about
         //NdefRecord relayRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_TEXT, null, data.getBytes());
 
         byte[] textBytes = data.getBytes();
-        NdefRecord relayRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA,
-                "application/vnd.phoneprofilesplus.events".getBytes(), new byte[] {}, textBytes);
+        NdefRecord relayRecord = NdefRecord.createMime("application/vnd.phoneprofilesplus.events", textBytes);
+
+        //NdefRecord.createApplicationRecord(PPApplication.PACKAGE_NAME);
 
         // Complete NDEF message with both records
         NdefMessage message = new NdefMessage(new NdefRecord[] { relayRecord });
@@ -278,6 +287,21 @@ class NFCTagReadWriteManager {
             }
         }
 
+    }
+
+    void writeTag() {
+        if ((writeText != null) && (intentForWrite != null)) {
+            Tag tag = intentForWrite.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+            try {
+//                Log.e("NFCTagReadWriteManager.writeTag", "writeText="+writeText);
+                _writeTag(tag, writeText);
+                onTagWriteListener.onTagWritten();
+            } catch (NFCTagWriteException exception) {
+                onTagWriteErrorListener.onTagWriteError(exception);
+            } finally {
+                writeText = null;
+            }
+        }
     }
 
     interface TagReadListener {

@@ -572,7 +572,6 @@
     <string name="nfc_tag_pref_dlg_hint">Název tagu</string>
     <string name="nfc_tag_pref_dlg_help">Musíte zapsat název tagu do NFC tagu. \"Zápis do NFC tagu\" je v menu pro každý název tagu.</string>
     <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">Zápis do NFC Tagu</string>
-    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Přiložte váš mobil k NFC tagu. Začne zápis.</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC musí být povoleno. Prosím povolte jej a zkuste to znovu.</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">Zápis do NFC Tagu</string>
     <string name="write_nfc_tag_written">Tag zapsán</string>
@@ -1535,8 +1534,6 @@
     <string name="menu_check_releases_fdroid">Zkontrolovat v F-Droid</string>
     <string name="check_releases_fdroid_repository_with_ppp">Repozitář na konfiguraci v aplikaci F-Droid:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Pokud změna hlasitosti médií nefunguje, je to pravděpodobně způsobeno povoleným \"příznakem bezpečné hlasitosti\". Chcete-li tento příznak zakázat, udělte oprávnění (G1), protože na povolení tohoto příznaku je třeba toto povolení.</string>
-    <string name="menu_check_releases_galaxy_store">Zkontrolovat v Galaxy Store</string>
-    <string name="check_releases_open_galaxy_store">Otevřít Galaxy Store</string>
     <string name="applicationApplicationInterfaceActivationNotification">Notifikace aktivace profilu</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Přidej \"Restart událostí\" do seznamu profilů</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth skenování v čase</string>
@@ -1941,8 +1938,6 @@
     <string name="samsung_edge_panel_settings_description">Nastavení pro Samsung boční panel</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Kompaktní mřížka</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">S tímto typem mřížky nebudou zobrazeny názvy profilů, ale více profilů se vejde do jednoho řádku.</string>
-    <string name="check_releases_go_to_galaxy_store">Jít do Galaxy Store</string>
-    <string name="check_releases_web_galaxy_store_install_restriction">Lituji, z této webové stránky nelze nainstalovat PhoneProfilesPlus. Galaxy Store omezuje podporu pouze na zařízení Galaxy.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Přepnout polohu (Vypnuto &lt;-&gt; Vysoká přesnost)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Přepnout polohu (Režim šetření baterie &lt;-&gt; Vysoká přesnost)</string>
     <string name="widget_label_one_row_profile_list">Jednořádkový seznam profilů</string>
@@ -2109,7 +2104,6 @@
     <string name="export_settings_delete_contacts_data_notification">Kontakty pro Senzor notifikací</string>
     <string name="grant_draw_over_apps_dialog_info_text">Musíte udělit povolení \"Vykreslit přes další aplikace\". Je vyžadováno pro start aktivit když je PhoneProfilesPlus na pozadí. Klepněte na tlačítko \"Udělit\" pro udělení tohoto povolení.</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Pokud toto povolení nelze udělit, klikněte na tento odkaz. Možná na této webové stránce je řešení pro vaše zařízení:</string>
-    <string name="install_extender_install_droidify_button">Nainstaluj Droid-ify</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Nepoužívat</string>
     <string name="contacts_filter_dialog_filter_title">Filtr kontaktů</string>
     <string name="contacts_filter_dialog_item_show_all">[ Všechny ]</string>
@@ -2139,4 +2133,22 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Typ mobilní sítě pro SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Typ mobilní sítě pro SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Výchozí SIM karta</string>
+    <string name="important_info_end_of_galaxy_store_support_text1">Konec podpory Galaxy Store</string>
+    <string name="important_info_end_of_galaxy_store_support_text2">Lituji, obchod Galaxy Store již není podporován, protože tento obchod vyžaduje cílové SDK API 33 (Android 13) a cílové SDK PPP je 28 (Android 9).</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_title">Číst NFC tag</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_text">Číst NFC tag napsaný v PhonePorfilesPlus.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut">Odkaz na \"Číst NFC tag\"</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary">Klikněte zde pro vytvoření odkazu pro \"Číst NFC tag\" v domovském launcheru.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary_info">Pokud vaše zařízení zobrazuje při čtení NFC tagu oznámení, že v popředí není žádná aplikace na podporu čtení NFC tagů (například některá zařízení Xiaomi), vytvořte tento odkaz a použijte jej vždy, když chcete číst NFC tag ke spuštění události v PPP.</string>
+    <string name="shortcut_to_read_nfc_tag_created_toast">Odkaz na \"Číst NFC tag\" byl vytvořen</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_touch">Přiložte vaše zařízení k NFC tagu. Čtení začne.</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagName">Název tagu:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData">Údaje v tagu:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData_noData">Žádné údaje</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addNameButtons">Přidání názvu do seznamu tagů:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_changeNameButtons">Změnit název v seznamu tagů:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addReadedNameButton">Použít data tagu jako název</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton">Zapsat název tagu do tagu</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch1">Připojte vaše zařízení k NFC tagu. Poté klikněte na tlačítko</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch2">Zápis bude spuštěn.</string>
 </resources>

@@ -255,10 +255,11 @@ class ActivatorListAdapter extends BaseAdapter
                     }
                 }
             } else {
-                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(fragment.getActivity(), profile._iconBitmap);
-                if (bitmap != null)
-                    holder.profileIcon.setImageBitmap(bitmap);
-                else
+                //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(fragment.getActivity(), profile._iconBitmap);
+                //Bitmap bitmap = profile._iconBitmap;
+                //if (bitmap != null)
+                //    holder.profileIcon.setImageBitmap(bitmap);
+                //else
                     holder.profileIcon.setImageBitmap(profile._iconBitmap);
             }
 
@@ -297,24 +298,6 @@ class ActivatorListAdapter extends BaseAdapter
         boolean startTargetHelpsFinished = ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished &&
                                             ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished;
         if (!startTargetHelpsFinished) {
-            /*
-            final Handler handler = new Handler(activity.getMainLooper());
-            handler.postDelayed(() -> {
-//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (3)");
-
-                if (ActivatorTargetHelpsActivity.activity != null) {
-                    //Log.d("ActivatorListAdapter.showTargetHelps", "finish activity");
-                    try {
-                        ActivatorTargetHelpsActivity.activity.finish();
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
-                    ActivatorTargetHelpsActivity.activity = null;
-                    //ActivatorTargetHelpsActivity.activatorActivity = null;
-                }
-            }, 500);
-            */
-
             return;
         }
 

@@ -109,7 +109,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 //                            }
 //                            //}
 
-//                                PPApplicationStatic.logE("[WORKER_CALL] ProfileDurationAlarmBroadcastReceiver.setAlarm", "xxx");
+//                                PPApplicationStatic.logE("[WORKER_CALL] ProfileDurationAlarmBroadcastReceiver.setAlarm", "keepResultsForAtLeast");
                                 //workManager.enqueue(worker);
                                 // REPLACE is OK, because at top is called removeAlarm()
                                 workManager.enqueueUniqueWork(MainWorker.PROFILE_DURATION_WORK_TAG + "_" + (int) profile._id, ExistingWorkPolicy.REPLACE, worker);
@@ -288,10 +288,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
         if (useHandler) {
-            //PPApplication.startHandlerThreadBroadcast(/*"ProfileDurationAlarmBroadcastReceiver.onReceive"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ProfileDurationAlarmBroadcastReceiver.doWork");
 
@@ -320,7 +316,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createProfileActiationExecutorPool();
             PPApplication.profileActiationExecutorPool.submit(runnable);
         }

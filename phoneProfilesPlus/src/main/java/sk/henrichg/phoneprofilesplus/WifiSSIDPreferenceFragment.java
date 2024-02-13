@@ -224,13 +224,6 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                 preference.SSIDList.clear();
             preference.customSSIDList.clear();
             listAdapter.notifyDataSetChanged();
-            final Handler handler = new Handler(prefContext.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    refreshListView(false, "");
-                }
-            }, 200);
             */
             refreshListView(false, "");
         });
@@ -767,37 +760,41 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                 fragment.progressLinearLayout.setVisibility(View.GONE);
 
                 final Handler handler = new Handler(prefContext.getMainLooper());
+                final WeakReference<List<WifiSSIDData>> ssidListWeakRef = new WeakReference<>(_SSIDList);
                 handler.post(() -> {
                     fragment.dataLinearLayout.setVisibility(View.VISIBLE);
 
-                    preference.SSIDList = new ArrayList<>(_SSIDList);
-                    fragment.listAdapter.notifyDataSetChanged();
+                    List<WifiSSIDData> __SSIDList = ssidListWeakRef.get();
+                    if (__SSIDList != null) {
+                        preference.SSIDList = new ArrayList<>(__SSIDList);
+                        fragment.listAdapter.notifyDataSetChanged();
 
-                    if (forRescan) {
-                        WifiScanWorker.setScanRequest(prefContext, false);
-                        WifiScanWorker.setWaitForResults(prefContext, false);
-                        WifiScanner.setForceOneWifiScan(prefContext, WifiScanner.FORCE_ONE_SCAN_DISABLED);
+                        if (forRescan) {
+                            WifiScanWorker.setScanRequest(prefContext, false);
+                            WifiScanWorker.setWaitForResults(prefContext, false);
+                            WifiScanner.setForceOneWifiScan(prefContext, WifiScanner.FORCE_ONE_SCAN_DISABLED);
 
-                        if (preference.SSIDList.size() == 0) {
-                            fragment.SSIDListView.setVisibility(View.GONE);
-                            fragment.emptyList.setVisibility(View.VISIBLE);
-                        } else {
-                            fragment.emptyList.setVisibility(View.GONE);
-                            fragment.SSIDListView.setVisibility(View.VISIBLE);
+                            if (preference.SSIDList.size() == 0) {
+                                fragment.SSIDListView.setVisibility(View.GONE);
+                                fragment.emptyList.setVisibility(View.VISIBLE);
+                            } else {
+                                fragment.emptyList.setVisibility(View.GONE);
+                                fragment.SSIDListView.setVisibility(View.VISIBLE);
+                            }
+
+                            if (fragment.mDialog != null) {
+                                Button positive = (fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                if (positive != null) positive.setEnabled(true);
+                            }
                         }
 
-                        if (fragment.mDialog != null) {
-                            Button positive = (fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                            if (positive != null) positive.setEnabled(true);
-                        }
-                    }
-
-                    if (!scrollToSSID.isEmpty()) {
-                        int size = preference.SSIDList.size() - 1;
-                        for (int position = 0; position < size; position++) {
-                            if (preference.SSIDList.get(position).ssid.equals(scrollToSSID)) {
-                                fragment.SSIDListView.setSelection(position);
-                                break;
+                        if (!scrollToSSID.isEmpty()) {
+                            int size = preference.SSIDList.size() - 1;
+                            for (int position = 0; position < size; position++) {
+                                if (preference.SSIDList.get(position).ssid.equals(scrollToSSID)) {
+                                    fragment.SSIDListView.setSelection(position);
+                                    break;
+                                }
                             }
                         }
                     }

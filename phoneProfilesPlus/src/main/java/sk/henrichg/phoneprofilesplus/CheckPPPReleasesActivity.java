@@ -157,8 +157,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         boolean fdroidInstalled = (intent != null);
         intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
         boolean droidifyInstalled = (intent != null);
-        intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
-        boolean galaxyStoreInstalled = (intent != null);
+        //intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
+        //boolean galaxyStoreInstalled = (intent != null);
         intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
         boolean appGalleryInstalled = (intent != null);
 
@@ -168,13 +168,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             checkInFDroid(activity);
             displayed = true;
         }
-        else
-        if (store == R.id.menu_check_in_galaxy_store) {
-            //if (galaxyStoreInstalled) {
-            checkInGalaxyStore(activity, galaxyStoreInstalled);
-            displayed = true;
-            //}
-        }
+//        else
+//        if (store == R.id.menu_check_in_galaxy_store) {
+//            //if (galaxyStoreInstalled) {
+//            checkInGalaxyStore(activity, galaxyStoreInstalled);
+//            displayed = true;
+//            //}
+//        }
 //        else
 //        if (store == R.id.menu_check_in_amazon_appstore) {
 //            checkInAmazonAppstore(activity);
@@ -212,11 +212,11 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 // this is for
                 // - CheckPPPReleasesBroadcastReceiver
 
-                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && galaxyStoreInstalled)
-                    checkInGalaxyStore(activity, true);
+                //if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && galaxyStoreInstalled)
+                //    checkInGalaxyStore(activity, true);
                 //else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled)
                 //    checkInHuaweiAppGallery(activity);
-                else {
+                //else {
                     if (appGalleryInstalled)
                         checkInHuaweiAppGallery(activity);
 //                    else if (amazonAppStoreInstalled)
@@ -232,7 +232,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                             checkInDroidIfy(activity, true);
                         }
                     }
-                }
+                //}
             } else {
                 // this is for
                 // - CheckCriticalPPPReleasesBroadcastReceiver
@@ -614,6 +614,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
     }
 
+/*
     @SuppressLint("InflateParams")
     private void checkInGalaxyStore(final Activity activity, boolean galaxyStoreInstalled) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -699,7 +700,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             alertDialog.show();
 
     }
-
+*/
 /*
     private void checkInAmazonAppstore(final Activity activity) {
         // com.amazon.venezia

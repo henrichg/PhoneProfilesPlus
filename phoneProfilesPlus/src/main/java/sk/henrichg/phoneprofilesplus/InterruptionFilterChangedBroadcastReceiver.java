@@ -128,32 +128,4 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
             //}
     }
 
-    static void requestInterruptionFilter(Context context, final int zenMode) {
-        try {
-            //if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
-                int interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
-                switch (zenMode) {
-                    case ActivateProfileHelper.ZENMODE_ALL:
-                        //noinspection ConstantConditions
-                        interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
-                        break;
-                    case ActivateProfileHelper.ZENMODE_PRIORITY:
-                        interruptionFilter = NotificationManager.INTERRUPTION_FILTER_PRIORITY;
-                        break;
-                    case ActivateProfileHelper.ZENMODE_NONE:
-                        interruptionFilter = NotificationManager.INTERRUPTION_FILTER_NONE;
-                        break;
-                    case ActivateProfileHelper.ZENMODE_ALARMS:
-                        interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALARMS;
-                        break;
-                }
-                NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                if (mNotificationManager != null)
-                    mNotificationManager.setInterruptionFilter(interruptionFilter);
-            //}
-        } catch (Exception e) {
-            PPApplicationStatic.recordException(e);
-        }
-    }
-
 }

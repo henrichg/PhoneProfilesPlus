@@ -201,7 +201,6 @@ public class EditorEventListFragment extends Fragment
         if (!ApplicationPreferences.applicationEditorPrefIndicator)
             profilePrefIndicatorImageView.setVisibility(GONE);
 
-
         activeProfileName = view.findViewById(R.id.editor_events_activated_profile_name);
         activeProfileIcon = view.findViewById(R.id.editor_events_activated_profile_icon);
 
@@ -216,66 +215,6 @@ public class EditorEventListFragment extends Fragment
 
         //noinspection ConstantConditions
         if (GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
-            /*if (activatedProfileHeader != null) {
-                Handler handler = new Handler(getActivity().getMainLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (getActivity() == null)
-                            return;
-
-                        headerHeight = activatedProfileHeader.getMeasuredHeight();
-                        hideAnimatorHeader = ValueAnimator.ofInt(headerHeight / 4, 0);
-                        hideAnimatorHeader.setDuration(500);
-                        hideAnimatorHeader.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                int val = (Integer) valueAnimator.getAnimatedValue();
-                                ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
-                                layoutParams.height = val * 4;
-                                activatedProfileHeader.setLayoutParams(layoutParams);
-                            }
-                        });
-                        showAnimatorHeader = ValueAnimator.ofInt(0, headerHeight / 4);
-                        showAnimatorHeader.setDuration(500);
-                        showAnimatorHeader.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                int val = (Integer) valueAnimator.getAnimatedValue();
-                                ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
-                                layoutParams.height = val * 4;
-                                activatedProfileHeader.setLayoutParams(layoutParams);
-                            }
-                        });
-
-                        bottomBarHeight = bottomToolbar.getMeasuredHeight();
-                        hideAnimatorBottomBar = ValueAnimator.ofInt(bottomBarHeight / 4, 0);
-                        hideAnimatorBottomBar.setDuration(500);
-                        hideAnimatorBottomBar.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                int val = (Integer) valueAnimator.getAnimatedValue();
-                                ViewGroup.LayoutParams layoutParams = bottomToolbar.getLayoutParams();
-                                layoutParams.height = val * 4;
-                                bottomToolbar.setLayoutParams(layoutParams);
-                            }
-                        });
-                        showAnimatorBottomBar = ValueAnimator.ofInt(0, bottomBarHeight / 4);
-                        showAnimatorBottomBar.setDuration(500);
-                        showAnimatorBottomBar.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                int val = (Integer) valueAnimator.getAnimatedValue();
-                                ViewGroup.LayoutParams layoutParams = bottomToolbar.getLayoutParams();
-                                layoutParams.height = val * 4;
-                                bottomToolbar.setLayoutParams(layoutParams);
-                            }
-                        });
-
-                    }
-                }, 200);
-            }*/
-
             if (ApplicationPreferences.applicationEditorHideHeaderOrBottomBar ||
                     getResources().getBoolean(R.bool.forceHideHeaderOrBottomBar)) {
                 final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_events_list_fragment))
@@ -336,8 +275,7 @@ public class EditorEventListFragment extends Fragment
         listView.addFooterView(footerView, null, false);
         */
 
-        final Activity activity = getActivity();
-        final EditorEventListFragment fragment = this;
+        Activity activity = getActivity();
 
         Menu menu = bottomToolbar.getMenu();
         if (menu != null) menu.clear();
@@ -346,9 +284,9 @@ public class EditorEventListFragment extends Fragment
             int itemId = item.getItemId();
             if (itemId == R.id.menu_add_event) {
                 if (eventListAdapter != null) {
-                    if (!getActivity().isFinishing()) {
-                        ((EditorActivity) getActivity()).addEventDialog = new AddEventDialog(getActivity(), fragment);
-                        ((EditorActivity) getActivity()).addEventDialog.show();
+                    if (!activity.isFinishing()) {
+                        ((EditorActivity) activity).addEventDialog = new AddEventDialog(activity, this);
+                        ((EditorActivity) activity).addEventDialog.show();
                     }
                 }
                 return true;
@@ -360,17 +298,23 @@ public class EditorEventListFragment extends Fragment
             }
             else
             if (itemId == R.id.menu_default_profile) {
-                Intent intent = new Intent(getActivity(), PhoneProfilesPrefsActivity.class);
+                Intent intent = new Intent(activity, PhoneProfilesPrefsActivity.class);
                 intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_PROFILE_ACTIVATION_CATEGORY_ROOT);
                 startActivity(intent);
                 return true;
             }
             else
             if (itemId == R.id.menu_generate_predefined_events) {
-                Handler progressBarHandler = new Handler(activity.getMainLooper());
-                Runnable progressBarRunnable = () -> {
-                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, true);
-                    loadAsyncTask.execute();
+                //final Activity activity = getActivity();
+                //final EditorEventListFragment fragment = this;
+                final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                final WeakReference<EditorEventListFragment> fragmentWeakRef = new WeakReference<>(this);
+                final Runnable progressBarRunnable = () -> {
+                    EditorEventListFragment fragment = fragmentWeakRef.get();
+                    if (fragment != null) {
+                        fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, true);
+                        fragment.loadAsyncTask.execute();
+                    }
                 };
                 progressBarHandler.post(progressBarRunnable);
                 return true;
@@ -414,12 +358,12 @@ public class EditorEventListFragment extends Fragment
         };
 
         HighlightedSpinnerAdapter orderSpinnerAdapter = new HighlightedSpinnerAdapter(
-                getActivity(),
+                activity,
                 R.layout.spinner_highlighted_order,
                 orderItems);
         orderSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        orderSpinner.setBackgroundTintList(ContextCompat.getColorStateList(getActivity()/*.getBaseContext()*/, R.color.highlighted_spinner_all_editor));
+        orderSpinner.setBackgroundTintList(ContextCompat.getColorStateList(activity/*.getBaseContext()*/, R.color.highlighted_spinner_all_editor));
         orderSpinner.setAdapter(orderSpinnerAdapter);
         orderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -490,13 +434,7 @@ public class EditorEventListFragment extends Fragment
             final EditorEventListFragment fragment = this.fragmentWeakRef.get();
 
             if ((fragment != null) /*&& (fragment.isAdded())*/) {
-                //progressBarHandler = new Handler(_dataWrapper.context.getMainLooper());
-                //progressBarRunnable = () -> {
-//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.LoadEventListAsyncTask (1)");
-                    //fragment.textViewNoData.setVisibility(GONE);
-                    fragment.progressBar.setVisibility(VISIBLE);
-                //};
-                //progressBarHandler.post(progressBarRunnable);
+                 fragment.progressBar.setVisibility(VISIBLE);
             }
         }
 
@@ -582,9 +520,11 @@ public class EditorEventListFragment extends Fragment
                     fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 
                     // added touch helper for drag and drop items
-                    ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.eventListAdapter, false, false);
-                    fragment.itemTouchHelper = new ItemTouchHelper(callback);
-                    fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+                    //if (fragment.itemTouchHelper == null) {
+                        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.eventListAdapter, false, false);
+                        fragment.itemTouchHelper = new ItemTouchHelper(callback);
+                        fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+                    //}
 
                     fragment.listView.setAdapter(fragment.eventListAdapter);
 
@@ -646,6 +586,9 @@ public class EditorEventListFragment extends Fragment
             stopRunningAsyncTask();
         }
 
+        if (itemTouchHelper != null)
+            itemTouchHelper.attachToRecyclerView(null);
+        itemTouchHelper = null;
         if (listView != null)
             listView.setAdapter(null);
         if (eventListAdapter != null)
@@ -708,10 +651,6 @@ public class EditorEventListFragment extends Fragment
                     //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context);
 
                     final DataWrapper dataWrapper = activityDataWrapper;
-                    //PPApplication.startHandlerThread();
-                    //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                    //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
-                    //__handler.post(() -> {
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
 
@@ -744,7 +683,7 @@ public class EditorEventListFragment extends Fragment
                                 }
                             }
                         //}
-                    }; //);
+                    };
                     PPApplicationStatic.createBasicExecutorPool();
                     PPApplication.basicExecutorPool.submit(runnable);
 
@@ -757,10 +696,6 @@ public class EditorEventListFragment extends Fragment
                 // stop event
 
                 final DataWrapper dataWrapper = activityDataWrapper;
-                //PPApplication.startHandlerThread();
-                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
-                //__handler.post(() -> {
                 Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
 
@@ -793,7 +728,7 @@ public class EditorEventListFragment extends Fragment
                             }
                         }
                     //}
-                }; //);
+                };
                 PPApplicationStatic.createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
 
@@ -1211,10 +1146,11 @@ public class EditorEventListFragment extends Fragment
             }
             else
             {
-                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
-                if (bitmap != null)
-                    activeProfileIcon.setImageBitmap(bitmap);
-                else
+                //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
+                //Bitmap bitmap = profile._iconBitmap;
+                //if (bitmap != null)
+                //    activeProfileIcon.setImageBitmap(bitmap);
+                //else
                     activeProfileIcon.setImageBitmap(profile._iconBitmap);
             }
         }
@@ -1315,7 +1251,6 @@ public class EditorEventListFragment extends Fragment
     @SuppressLint("NotifyDataSetChanged")
     private void changeListOrder(int orderType, boolean fromOnViewCreated)
     {
-//        Log.e("EditorEventListFragment.changeListOrder", "fromOnViewCreated="+fromOnViewCreated);
         if (isAsyncTaskRunning()) {
             //Log.e("EditorEventListFragment.changeListOrder", "AsyncTask running");
             stopRunningAsyncTask();
@@ -1332,10 +1267,14 @@ public class EditorEventListFragment extends Fragment
 //                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
                     // start new AsyncTask, because old may be cancelled
                     if (activity != null) {
-                        Handler progressBarHandler = new Handler(activity.getMainLooper());
-                        Runnable progressBarRunnable = () -> {
-                            loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
-                            loadAsyncTask.execute();
+                        final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                        final WeakReference<EditorEventListFragment> fragmentWeakRef = new WeakReference<>(this);
+                        final Runnable progressBarRunnable = () -> {
+                            EditorEventListFragment fragment = fragmentWeakRef.get();
+                            if (fragment != null) {
+                                fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, false);
+                                fragment.loadAsyncTask.execute();
+                            }
                         };
                         progressBarHandler.post(progressBarRunnable);
                     } else {
@@ -1346,6 +1285,14 @@ public class EditorEventListFragment extends Fragment
                     listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     if (eventListAdapter != null) {
                         sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
+
+                        // added touch helper for drag and drop items
+                        //if (itemTouchHelper == null) {
+                            ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
+                            itemTouchHelper = new ItemTouchHelper(callback);
+                            itemTouchHelper.attachToRecyclerView(listView);
+                        //}
+
                         listView.setAdapter(eventListAdapter);
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(2) DataWrapper.profileList");
                         synchronized (activityDataWrapper.profileList) {
@@ -1369,9 +1316,11 @@ public class EditorEventListFragment extends Fragment
                         eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
 
                         // added touch helper for drag and drop items
-                        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
-                        itemTouchHelper = new ItemTouchHelper(callback);
-                        itemTouchHelper.attachToRecyclerView(listView);
+                        //if (itemTouchHelper == null) {
+                            ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
+                            itemTouchHelper = new ItemTouchHelper(callback);
+                            itemTouchHelper.attachToRecyclerView(listView);
+                        //}
 
                         listView.setAdapter(eventListAdapter);
                     }
@@ -1387,10 +1336,14 @@ public class EditorEventListFragment extends Fragment
 //                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
                     // start new AsyncTask, because old may be cancelled
                     if (activity != null) {
-                        Handler progressBarHandler = new Handler(activity.getMainLooper());
-                        Runnable progressBarRunnable = () -> {
-                            loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
-                            loadAsyncTask.execute();
+                        final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                        final WeakReference<EditorEventListFragment> fragmentWeakRef = new WeakReference<>(this);
+                        final Runnable progressBarRunnable = () -> {
+                            EditorEventListFragment fragment = fragmentWeakRef.get();
+                            if (fragment != null) {
+                                fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, false);
+                                fragment.loadAsyncTask.execute();
+                            }
                         };
                         progressBarHandler.post(progressBarRunnable);
                     } else {
@@ -1413,9 +1366,11 @@ public class EditorEventListFragment extends Fragment
                     eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
 
                     // added touch helper for drag and drop items
-                    ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
-                    itemTouchHelper = new ItemTouchHelper(callback);
-                    itemTouchHelper.attachToRecyclerView(listView);
+                    //if (itemTouchHelper == null) {
+                        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
+                        itemTouchHelper = new ItemTouchHelper(callback);
+                        itemTouchHelper.attachToRecyclerView(listView);
+                    //}
 
                     listView.setAdapter(eventListAdapter);
 
@@ -1547,6 +1502,8 @@ public class EditorEventListFragment extends Fragment
     }
 
     void removeAdapter() {
+        if (itemTouchHelper != null)
+            itemTouchHelper.attachToRecyclerView(null);
         if (listView != null)
             listView.setAdapter(null);
     }
@@ -1779,10 +1736,18 @@ public class EditorEventListFragment extends Fragment
             else {
                 //Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 final Handler handler = new Handler(getActivity().getMainLooper());
+                final WeakReference<EditorEventListFragment> fragmentWeakRef = new WeakReference<>(this);
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.showTargetHelps");
-                    //noinspection Convert2MethodRef
-                    showAdapterTargetHelps();
+                    EditorEventListFragment fragment = fragmentWeakRef.get();
+                    if (fragment != null) {
+                        Activity activity = fragment.getActivity();
+                        if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+                            return;
+
+                        //noinspection Convert2MethodRef
+                        fragment.showAdapterTargetHelps();
+                    }
                 }, 500);
             }
         }

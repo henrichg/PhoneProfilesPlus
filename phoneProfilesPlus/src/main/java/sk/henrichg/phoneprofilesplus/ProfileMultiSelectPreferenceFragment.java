@@ -70,7 +70,13 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
         if (profilePreferenceAdapter != null)
             profilePreferenceAdapter.notifyDataSetChanged();
         final Handler handler = new Handler(prefContext.getMainLooper());
-        handler.postDelayed(() -> refreshListView(true), 200);
+        final WeakReference<ProfileMultiSelectPreferenceFragment> fragmentWeakRef
+                = new WeakReference<>(this);
+        handler.postDelayed(() -> {
+            ProfileMultiSelectPreferenceFragment fragment = fragmentWeakRef.get();
+            if (fragment != null)
+                fragment.refreshListView(true);
+        }, 200);
 
     }
 
@@ -86,6 +92,10 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
         if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             asyncTask.cancel(true);
         }
+        asyncTask = null;
+
+        if (preference.dataWrapper != null)
+            preference.dataWrapper.invalidateProfileList();
 
         preference.fragment = null;
     }

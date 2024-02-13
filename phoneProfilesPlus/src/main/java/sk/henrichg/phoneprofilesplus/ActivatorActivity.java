@@ -264,15 +264,17 @@ public class ActivatorActivity extends AppCompatActivity
 
         if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
         {
-            ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(getApplicationContext(), PhoneProfilesService.class);
+            Context appContext = getApplicationContext();
+            ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(appContext, PhoneProfilesService.class);
             if (serviceInfo == null)
                 startPPServiceWhenNotStarted();
             else {
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPAppNotification.drawNotification");
-                ProfileListNotification.drawNotification(true, getApplicationContext());
-                DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
-                IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
-                PPAppNotification.drawNotification(true, getApplicationContext());
+                ImportantInfoNotification.showInfoNotification(appContext);
+                ProfileListNotification.drawNotification(true, appContext);
+                DrawOverAppsPermissionNotification.showNotification(appContext, true);
+                IgnoreBatteryOptimizationNotification.showNotification(appContext, true);
+                PPAppNotification.drawNotification(true, appContext);
             }
 
             //!!!! THIS IS IMPORTANT BECAUSE WITHOUT THIS IS GENERATED CRASH
@@ -314,20 +316,21 @@ public class ActivatorActivity extends AppCompatActivity
 
     @SuppressWarnings("SameReturnValue")
     private boolean startPPServiceWhenNotStarted() {
-        if (PPApplicationStatic.getApplicationStopping(getApplicationContext())) {
+        Context appContext = getApplicationContext();
+        if (PPApplicationStatic.getApplicationStopping(appContext)) {
             String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_stopping_toast);
-            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            PPApplication.showToast(appContext, text, Toast.LENGTH_SHORT);
             return true;
         }
 
-        boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
         if (!serviceStarted) {
             //AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
-            PPApplicationStatic.setApplicationStarted(getApplicationContext(), true);
-            Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+            PPApplicationStatic.setApplicationStarted(appContext, true);
+            Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
@@ -365,9 +368,13 @@ public class ActivatorActivity extends AppCompatActivity
         PPApplication.brightnessInternalChange = false;
         PPExecutors.scheduleDisableBrightnessInternalChangeExecutor();
 
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+        } catch (Exception ignored) {}
         refreshGUIBroadcastReceiver = null;
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
+        } catch (Exception ignored) {}
         showTargetHelpsBroadcastReceiver = null;
 
         //if (targetHelpsSequenceStarted) {
@@ -381,6 +388,16 @@ public class ActivatorActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+        } catch (Exception ignored) {}
+        refreshGUIBroadcastReceiver = null;
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
+        } catch (Exception ignored) {}
+        showTargetHelpsBroadcastReceiver = null;
+
         try {
             getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
         } catch (Exception e) {
@@ -707,7 +724,7 @@ public class ActivatorActivity extends AppCompatActivity
             }
             else {
                 //Log.d("ActivateProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=false");
-                //final Context context = getApplicationContext();
+                final Context appContext = getApplicationContext();
                 final Handler handler = new Handler(getMainLooper());
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorActivity.showTargetHelps (2)");
@@ -715,7 +732,7 @@ public class ActivatorActivity extends AppCompatActivity
 //                    PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] ActivatorActivity.showTargetHelps", "xxx");
                     Intent intent = new Intent(ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER);
                     intent.putExtra(ActivatorActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
-                    LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+                    LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
                     /*if (ActivatorActivity.getInstance() != null) {
                         Fragment fragment = ActivatorActivity.getInstance().getFragmentManager().findFragmentById(R.id.activate_profile_list);
                         if (fragment != null) {

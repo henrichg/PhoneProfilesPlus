@@ -25,28 +25,9 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
                 //if (PhoneProfilesService.getInstance() != null)
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] LocaleChangedReceiver.onReceive", "call of PPAppNotification.showNotification");
 
-                PPAppNotification.showNotification(context.getApplicationContext(),false, true, false);
+                PPAppNotification.showNotification(context.getApplicationContext(),false, true, false, false);
                 ProfileListNotification.showNotification(context.getApplicationContext(), false);
                 //}
-
-/*
-                PPApplication.startHandlerThreadBroadcast();
-                final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocaleChangedReceiver.onReceive");
-
-                        PPApplication.collator = PPApplication.getCollator();
-                        //if (ApplicationPreferences.applicationLanguage(appContext).equals("system")) {
-                            //PPApplication.showProfileNotification();
-                        if (PhoneProfilesService.getInstance() != null)
-                            PhoneProfilesService.getInstance().showProfileNotification(false);
-                        //}
-
-                    }
-                });
-*/
             }
         }
     }

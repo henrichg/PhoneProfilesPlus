@@ -34,10 +34,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             final String runApplicationData = intent.getStringExtra(EXTRA_RUN_APPLICATION_DATA);
 
             final Context appContext = context.getApplicationContext();
-            //PPApplication.startHandlerThreadBroadcast(/*"RunApplicationWithDelayBroadcastReceiver.onReceive"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
 
@@ -67,7 +63,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                         }
                     }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createProfileActiationExecutorPool();
             PPApplication.profileActiationExecutorPool.submit(runnable);
         }
@@ -147,7 +143,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 //                            }
 //                            //}
 
-//                                PPApplicationStatic.logE("[WORKER_CALL] RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "xxx");
+//                                PPApplicationStatic.logE("[WORKER_CALL] RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "keepResultsForAtLeast");
                                 //workManager.enqueue(worker);
                                 // REPLACE is OK, because at top is called removeDelayAlarm()
                                 workManager.enqueueUniqueWork(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG + "_" + requestCode, ExistingWorkPolicy.REPLACE, worker);

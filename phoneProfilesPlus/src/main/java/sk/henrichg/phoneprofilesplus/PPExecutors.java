@@ -273,7 +273,7 @@ class PPExecutors {
 //                            }
 //                            //}
 //
-//                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+//                PPApplicationStatic.logE("[WORKER_CALL] PPExecutors.handleEventsMianWorker", _sensorWorkTag);
                 //workManager.enqueue(worker);
                 workManager.enqueueUniqueWork(_sensorWorkTag, ExistingWorkPolicy.REPLACE, worker);
             }

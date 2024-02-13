@@ -572,7 +572,6 @@
     <string name="nfc_tag_pref_dlg_hint">Имя метки</string>
     <string name="nfc_tag_pref_dlg_help">Вы должны присвоить метке имя. Пункт \"Запись NFC-метки\" находится в меню для каждой метки.</string>
     <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">Запись NFC-метки</string>
-    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Приложите телефон к NFC-метке. Запись будет запущена.</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC выключено. Пожалуйста, включите NFC и попробуйте еще раз.</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">Запись NFC-метки</string>
     <string name="write_nfc_tag_written">Метка записана</string>
@@ -1535,8 +1534,6 @@
     <string name="menu_check_releases_fdroid">Проверить в F-Droid</string>
     <string name="check_releases_fdroid_repository_with_ppp">Репозиторий для настройки в приложении F-Droid:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Если изменение уровня громкости медиа не работает, это может происходить из-за включённого \"признака безопасного уровня громкости\". Если вы хотите отключить его, предоставьте необходимое для этого разрешение (G1).</string>
-    <string name="menu_check_releases_galaxy_store">Проверить в Galaxy Store</string>
-    <string name="check_releases_open_galaxy_store">Открыть Galaxy Store</string>
     <string name="applicationApplicationInterfaceActivationNotification">Уведомление об активации профиля</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Добавить \"Перезапустить события\" в список профилей</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Сканирование Bluetooth по времени</string>
@@ -1941,8 +1938,6 @@
     <string name="samsung_edge_panel_settings_description">Настройки панели Samsung Edge</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Компактная сетка</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">При этом типе сетки названия профилей не отображаются, но в одну строку помещается больше профилей.</string>
-    <string name="check_releases_go_to_galaxy_store">Перейти в Galaxy Store</string>
-    <string name="check_releases_web_galaxy_store_install_restriction">К сожалению, невозможно установить PhoneProfilesPlus с этого сайта. Galaxy Store поддерживает только устройства Galaxy.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Переключить местоположение (Выключено &lt;-&gt; По всем источникам)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Переключить местоположение (По координатам сети &lt;-&gt; По всем источникам)</string>
     <string name="widget_label_one_row_profile_list">Однострочный список профилей</string>
@@ -2109,7 +2104,6 @@
     <string name="export_settings_delete_contacts_data_notification">Контакты для Датчика уведомлений</string>
     <string name="grant_draw_over_apps_dialog_info_text">Необходимо предоставить разрешение \"Поверх других приложений\". Оно нужно для запуска activities, когда PhoneProfilesPlus находится в фоновом режиме. Чтобы предоставить это разрешение, нажмите на кнопку \"Предоставить\".</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Если предоставить разрешение не удалось, нажмите на эту ссылку. Возможно, по ней вы найдёте решение этой проблемы для вашего устройства:</string>
-    <string name="install_extender_install_droidify_button">Установить Droid-ify</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Не использовать</string>
     <string name="contacts_filter_dialog_filter_title">Фильтр контактов</string>
     <string name="contacts_filter_dialog_item_show_all">[ Все ]</string>
@@ -2139,4 +2133,22 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Тип мобильной сети для SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Тип мобильной сети для SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) SIM-карта по умолчанию</string>
+    <string name="important_info_end_of_galaxy_store_support_text1">Прекращение поддержки Galaxy Store</string>
+    <string name="important_info_end_of_galaxy_store_support_text2">К сожалению, Galaxy Store больше не поддерживается, так как он требует целевого уровня API приложений 33 (Android 13), а целевой уровень API PPP - 28 (Android 9).</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_title">Считать NFC-метку</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_text">Считывание NFC-метки, записанной в PhonePorfilesPlus.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut">Ярлык для \"Считывания NFC-метки\"</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary">Нажмите сюда, чтобы создать на домашнем экране ярлык для \"Считывания NFC-метки\".</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary_info">Если при попытке считать NFC-метку ваше устройство показывает уведомление об отсутствии на переднем плане приложения для считывания NFC-меток (как, например, некоторые устройства Xiaomi), создайте этот ярлык и пользуйтесь им каждый раз, когда вы хотите считать NFC-метку, чтобы инициировать событие в PPP.</string>
+    <string name="shortcut_to_read_nfc_tag_created_toast">Ярлык для \"Считывания NFC-метки\" создан</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_touch">Приложите телефон к NFC-метке. После этого начнётся считывание.</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagName">Имя метки:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData">Данные метки:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData_noData">Нет данных</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addNameButtons">Добавить имя в список меток:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_changeNameButtons">Изменить имя в списке меток:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addReadedNameButton">Использовать данные метки в качестве имени</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton">Записать имя метки в метку</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch1">Приложите телефон к NFC-метке. Затем нажмите на кнопку</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch2">После этого начнётся запись.</string>
 </resources>

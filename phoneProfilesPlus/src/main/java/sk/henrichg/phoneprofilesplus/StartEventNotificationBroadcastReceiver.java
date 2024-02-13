@@ -111,7 +111,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 //                            }
 //                            //}
 
-//                            PPApplicationStatic.logE("[WORKER_CALL] StartEventNotificationBroadcastReceiver.setAlarm", "(1)");
+//                            PPApplicationStatic.logE("[WORKER_CALL] StartEventNotificationBroadcastReceiver.setAlarm", "xxx");
                             //workManager.enqueue(worker);
                             workManager.enqueueUniqueWork(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG + "_" + (int) event._id, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                             PPApplication.elapsedAlarmsStartEventNotificationWork.add(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG + "_" + (int) event._id);
@@ -162,10 +162,6 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
         if (useHandler) {
-            //PPApplication.startHandlerThreadBroadcast(/*"StartEventNotificationBroadcastReceiver.doWork"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
                 if (event_id != 0) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=StartEventNotificationBroadcastReceiver.doWork");
@@ -199,7 +195,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                         }
                     //}
                 }
-            }; //);
+            };
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }

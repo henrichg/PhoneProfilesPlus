@@ -419,26 +419,26 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        ProfilesPrefsActivity activity = (ProfilesPrefsActivity) getActivity();
-
-        final Context context = getActivity().getBaseContext();
-
         // must be used handler for rewrite toolbar title/subtitle
-        final ProfilesPrefsFragment fragment = this;
-        final TextView preferenceSubTitle = getActivity().findViewById(R.id.activity_preferences_subtitle);
-
-        Handler handler = new Handler(getActivity().getMainLooper());
+        final Handler handler = new Handler(getActivity().getMainLooper());
+        final WeakReference<ProfilesPrefsActivity> activityWeakRef
+                = new WeakReference<>((ProfilesPrefsActivity) getActivity());
         handler.postDelayed(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilesPrefsFragment.onActivityCreated");
-            if (getActivity() == null)
+            ProfilesPrefsActivity activity = activityWeakRef.get();
+            if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                 return;
 
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
             final String profileName = preferences.getString(Profile.PREF_PROFILE_NAME, "");
-            Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
-            toolbar.setSubtitle(getString(R.string.title_activity_profile_preferences));
-            toolbar.setTitle(getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profileName);
+            Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar);
+            toolbar.setSubtitle(activity.getString(R.string.title_activity_profile_preferences));
+            toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profileName);
         }, 200);
+
+        final Context context = getActivity().getBaseContext();
+        final ProfilesPrefsFragment fragment = this;
+        final TextView preferenceSubTitle = getActivity().findViewById(R.id.activity_preferences_subtitle);
 
         // subtitle
         if (nestedFragment) {
@@ -461,6 +461,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             preferenceSubTitle.setVisibility(View.GONE);
         }
 
+        ProfilesPrefsActivity activity = (ProfilesPrefsActivity) getActivity();
         activity.progressLinearLayout.setVisibility(View.GONE);
         activity.settingsLinearLayout.setVisibility(View.VISIBLE);
 
@@ -522,7 +523,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!entries[2].toString().contains(getString(R.string.array_pref_soundModeArray_ZenModeM_Off)))
                     entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
-                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
+                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                        PPApplication.deviceIsRealme) {
                     if (!entries[3].toString().contains(getString(R.string.array_pref_soundModeArray_ZenModeM_Off)))
                         entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 }
@@ -538,7 +541,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!entries[1].toString().contains(getString(R.string.array_pref_soundModeArray_ZenModeM_Off)))
                     entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
-                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
+                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                        PPApplication.deviceIsRealme) {
                     if (!entries[2].toString().contains(getString(R.string.array_pref_soundModeArray_ZenModeM_Off)))
                         entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 }
@@ -1578,6 +1583,27 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary3);
             preference.setSummary(summary);
         }
+
+        if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+            PPListPreference listPreference = findPreference(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT);
+            if (listPreference != null) {
+                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, null, preferences, true, context);
+
+                listPreference.setTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_deviceScreenTimeout));
+                listPreference.setDialogTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_deviceScreenTimeout));
+                String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "");
+                setSummary(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, value);
+
+                listPreference.setEnabled((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
+                                (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
+                                (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                                (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
+                                (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
+                disableDependedPref(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT);
+            }
+        }
+
     }
 
     @Override
@@ -1646,17 +1672,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_NAME)) {
             String value = sharedPreferences.getString(key, "");
             if (getActivity() != null) {
+
                 // must be used handler for rewrite toolbar title/subtitle
                 final String _value = value;
-                Handler handler = new Handler(getActivity().getMainLooper());
+                final Handler handler = new Handler(getActivity().getMainLooper());
+                final WeakReference<ProfilesPrefsActivity> activityWeakRef
+                        = new WeakReference<>((ProfilesPrefsActivity) getActivity());
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilesPrefsFragment.onSharedPreferenceChanged");
-                    if (getActivity() == null)
+                    ProfilesPrefsActivity activity = activityWeakRef.get();
+                    if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                         return;
 
-                    Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
+                    Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar);
                     //toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + _value);
-                    toolbar.setTitle(getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + _value);
+                    toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + _value);
                 }, 200);
             }
         }
@@ -2299,7 +2329,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                     else if (ringerMode.equals("4")) {
                         if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
-                                (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))
+                                (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                                (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                                PPApplication.deviceIsRealme)
                             value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                         else
                             value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
@@ -3689,18 +3721,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         );
 
         boolean ok = true;
-        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0) {
             _value.append(getString(R.string.profile_preferences_device_not_allowed))
                     .append(": ").append(getString(R.string.preference_not_allowed_reason_not_extender_installed));
             ok = false;
-        } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
+        } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
             _value.append(getString(R.string.profile_preferences_device_not_allowed))
                     .append(": ").append(getString(R.string.preference_not_allowed_reason_extender_not_upgraded));
             ok = false;
         }
         else
-        if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+        if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
                 /*, "ProfilesPrefsFragment.setCategorySummaryForceStopApplications"*/)) {
             _value.append(getString(R.string.profile_preferences_device_not_allowed))
                     .append(": ").append(getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender));
@@ -3765,16 +3797,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     .append(StringConstants.TAG_BOLD_END_HTML);
 
         if ((sValue != null) && sValue.equals("3")) {
-            int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+            int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
             if (extenderVersion == 0) {
                 //ok = false;
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
                         .append(": ").append(getString(R.string.preference_not_allowed_reason_not_extender_installed));
-            } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
+            } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
                 //ok = false;
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
                         .append(": ").append(getString(R.string.preference_not_allowed_reason_extender_not_upgraded));
-            } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+            } else if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
                     /*, "ProfilesPrefsFragment.setCategorySummaryLockDevice"*/)) {
                 //ok = false;
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
@@ -4718,20 +4750,43 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT))
         {
-            String sValue = value.toString();
-            PPListPreference listPreference = prefMng.findPreference(key);
-            if (listPreference != null) {
-                int index = listPreference.findIndexOfValue(sValue);
-                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                listPreference.setSummary(summary);
+            PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            {
+                Preference preference = prefMng.findPreference(key);
+                if (preference != null) {
+                    boolean errorColor = false;
+                    if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
+                            (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
+                            (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                            (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
+                            (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))
+                        preference.setEnabled(false);
+                    else
+                        errorColor = !value.toString().equals("0");
+                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    }
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
+                }
 
-                Profile profile = new Profile();
-                ArrayList<PermissionType> permissions = new ArrayList<>();
-                profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "0"));
-                Permissions.checkProfileScreenTimeout(context, profile, permissions);
-                boolean _permissionGranted = permissions.size() == 0;
+            } else {
+                String sValue = value.toString();
+                PPListPreference listPreference = prefMng.findPreference(key);
+                if (listPreference != null) {
+                    int index = listPreference.findIndexOfValue(sValue);
+                    CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                    listPreference.setSummary(summary);
 
-                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, !_permissionGranted, false);
+                    Profile profile = new Profile();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
+                    profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "0"));
+                    Permissions.checkProfileScreenTimeout(context, profile, permissions);
+                    boolean _permissionGranted = permissions.size() == 0;
+
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, !_permissionGranted, false);
+                }
             }
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_AUTOROTATE))
@@ -5243,20 +5298,20 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (listPreference != null) {
                 boolean ok = true;
                 CharSequence changeSummary = "";
-                int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
                 if (extenderVersion == 0) {
                     ok = false;
                     changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
                 }
                 else
-                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
+                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
                     ok = false;
                     changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 }
                 else
-                if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+                if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
                         /*, "ProfilesPrefsFragment.setSummary (PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)"*/)) {
                     ok = false;
                     changeSummary = getString(R.string.profile_preferences_device_not_allowed)+
@@ -5321,18 +5376,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 changeSummary = (index >= 0) ? listPreference.getEntries()[index] : null;
 
                 if (sValue.equals("3")) {
-                    int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                    int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
                     if (extenderVersion == 0) {
                         //ok = false;
                         changeSummary = changeSummary + StringConstants.STR_DOUBLE_NEWLINE +
                                 getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                    } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
+                    } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
                         //ok = false;
                         changeSummary = changeSummary + StringConstants.STR_DOUBLE_NEWLINE +
                                 getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                    } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+                    } else if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
                             /*, "ProfilesPrefsFragment.setSummary (PREF_PROFILE_LOCK_DEVICE)"*/)) {
                         //ok = false;
                         changeSummary = changeSummary + StringConstants.STR_DOUBLE_NEWLINE +
@@ -5757,18 +5812,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS))
         {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-//            if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
-//                Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs");
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             {
-//                if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
-//                    Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  not allowed");
+//                if (key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE))
+//                    Log.e("ProfilesPrefsFragment.setSummaryRadios", "network type  not allowed");
                 Preference preference = prefMng.findPreference(key);
-//                if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
-//                    Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  preference="+preference);
                 if (preference != null) {
-//                    if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
-//                        Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  preference != null");
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -5778,11 +5827,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setEnabled(false);
                     else
                         errorColor = !value.toString().equals("0");
-//                    if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
-//                        Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  errorColor="+errorColor);
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
-//                        if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
-//                            Log.e("ProfilesPrefsFragment.setSummaryRadios", "mobile data prefs  not allowed description");
                         preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     }
@@ -6517,7 +6562,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(PREF_FORCE_STOP_APPLICATIONS_EXTENDER);
             //setSummary(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
             boolean enabled;
-            enabled = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(context/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
+            enabled = PPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, false
                     /*, "ProfilesPrefsFragment.disableDependedPref (Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)"*/);
             //enabled = PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true);
 

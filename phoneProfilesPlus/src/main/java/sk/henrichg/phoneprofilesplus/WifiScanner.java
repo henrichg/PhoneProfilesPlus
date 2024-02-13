@@ -6,6 +6,8 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.SystemClock;
 
+import java.lang.ref.WeakReference;
+
 class WifiScanner {
 
     private final Context context;
@@ -96,14 +98,14 @@ class WifiScanner {
                         WifiScanWorker.cancelWork(context, fromDialog/*, null*/);
                     } else {
                         if (ApplicationPreferences.prefEventWifiEnabledForScan) {
+                            final Context appContext = context.getApplicationContext();
                             // service restarted during scanning (prefEventWifiEnabledForScan is set to false at end of scan),
                             // disable wifi
-                            //wifiChangeHandler.post(() -> {
                             Runnable runnable = () -> {
                                 try {
 //                                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=WifiScanner.doScan.1");
                                     if (WifiScanWorker.wifi == null)
-                                        WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                                        WifiScanWorker.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                                     //lock();
                                     //if (Build.VERSION.SDK_INT >= 29)
                                     //    CmdWifi.setWifi(false);
@@ -115,7 +117,7 @@ class WifiScanner {
                                 } catch (Exception e) {
                                     PPApplicationStatic.recordException(e);
                                 }
-                            }; //);
+                            };
                             PPApplicationStatic.createScannersExecutor();
                             PPApplication.scannersExecutor.submit(runnable);
                             if (WifiScanWorker.wifi == null)
@@ -173,13 +175,13 @@ class WifiScanner {
                     }
 
                     if (ApplicationPreferences.prefEventWifiEnabledForScan) {
-                        //wifiChangeHandler.post(() -> {
+                        final Context appContext = context.getApplicationContext();
                         Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=WifiScanner.doScan.2");
 
                             try {
                                 if (WifiScanWorker.wifi == null)
-                                    WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                                    WifiScanWorker.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                                 //lock();
                                 //if (Build.VERSION.SDK_INT >= 29)
                                 //    CmdWifi.setWifi(false);
@@ -192,7 +194,7 @@ class WifiScanner {
                             }
 
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
-                        }; //);
+                        };
                         PPApplicationStatic.createScannersExecutor();
                         PPApplication.scannersExecutor.submit(runnable);
                         //PPApplication.sleep(1000);
@@ -328,31 +330,36 @@ class WifiScanner {
                         WifiScanWorker.setWifiEnabledForScan(context, true);
                         WifiScanWorker.setScanRequest(context, true);
                         WifiScanWorker.lock(context);
-                        final WifiManager _wifi = wifi;
-                        //wifiChangeHandler.post(() -> {
+                        final Context appContext = context.getApplicationContext();
+                        final WeakReference<WifiManager> wifiWeakRef = new WeakReference<>(wifi);
+                        final WeakReference<WifiScanner> scannerWeakRef = new WeakReference<>(this);
                         Runnable runnable = () -> {
                             //if (PPApplicationStatic.logEnabled()) {
 //                                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=WifiScanner.enableWifi");
                             //}
 
-                            //if (Build.VERSION.SDK_INT >= 29)
-                            //    CmdWifi.setWifi(true);
-                            //else
+                            WifiManager _wifi = wifiWeakRef.get();
+                            WifiScanner scanner = scannerWeakRef.get();
+
+                            if ((_wifi != null) && (scanner != null)) {
+                                //if (Build.VERSION.SDK_INT >= 29)
+                                //    CmdWifi.setWifi(true);
+                                //else
                                 _wifi.setWifiEnabled(true);
 
-                            long start = SystemClock.uptimeMillis();
-                            do {
-                                if (!ApplicationPreferences.prefEventWifiScanRequest)
-                                    break;
-                                if (wifi.getWifiState() == WifiManager.WIFI_STATE_ENABLED) {
-                                    GlobalUtils.sleep(5000);
-                                    startScan(context);
-                                    break;
-                                }
-                                GlobalUtils.sleep(200);
-                            } while (SystemClock.uptimeMillis() - start < 30 * 1000);
-
-                        }; //);
+                                long start = SystemClock.uptimeMillis();
+                                do {
+                                    if (!ApplicationPreferences.prefEventWifiScanRequest)
+                                        break;
+                                    if (wifi.getWifiState() == WifiManager.WIFI_STATE_ENABLED) {
+                                        GlobalUtils.sleep(5000);
+                                        scanner.startScan(appContext);
+                                        break;
+                                    }
+                                    GlobalUtils.sleep(200);
+                                } while (SystemClock.uptimeMillis() - start < 30 * 1000);
+                            }
+                        };
                         PPApplicationStatic.createScannersExecutor();
                         PPApplication.scannersExecutor.submit(runnable);
                         return WifiManager.WIFI_STATE_ENABLING;

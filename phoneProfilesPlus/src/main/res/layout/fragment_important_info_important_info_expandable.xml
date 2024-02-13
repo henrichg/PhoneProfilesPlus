@@ -125,21 +125,21 @@
             android:textStyle="bold"
             android:textColor="@color/accent_color" />
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingBottom="10dp"-->
-<!--            android:text="@string/important_info_shortcut_to_editor_text1"-->
-<!--            android:textSize="@dimen/important_info_text_size"-->
-<!--            android:id="@+id/important_info_shortcut_to_editor_text1"-->
-<!--            android:textStyle="bold" />-->
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingBottom="10dp"-->
-<!--             android:text="@string/important_info_shortcut_to_editor_text2"-->
-<!--            android:textSize="@dimen/important_info_text_size"-->
-<!--            android:id="@+id/important_info_shortcut_to_editor_text2" />-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/important_info_end_of_galaxy_store_support_text1"
+            android:textSize="@dimen/important_info_text_size"
+            android:id="@+id/important_info_end_of_galaxy_store_support_text1"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+             android:text="@string/important_info_end_of_galaxy_store_support_text2"
+            android:textSize="@dimen/important_info_text_size"
+            android:id="@+id/important_info_end_of_galaxy_store_support_text2" />
 
         <!-- SYSTEM -->
 

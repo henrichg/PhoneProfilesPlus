@@ -56,45 +56,6 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
         doConnection(true);
     }
 
-/*
-    private void doConnection() {
-
-        //final Context appContext = getApplicationContext();
-
-        if (!PPApplicationStatic.getApplicationStarted(true))
-            // application is not started
-            return;
-
-        PPApplication.startHandlerThreadBroadcast();
-        final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        handler.postDelayed(() -> {
-//            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
-
-            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-            PowerManager.WakeLock wakeLock = null;
-            try {
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiNetworkCallback_doConnection");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
-
-                _doConnection();
-
-            } catch (Exception e) {
-//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                PPApplicationStatic.recordException(e);
-            } finally {
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {
-                    }
-                }
-            }
-        }, 5000);
-    }
-*/
-
     private void doConnection(boolean forCapabilities) {
         //final Context appContext = getApplicationContext();
 
@@ -159,7 +120,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                     //                            }
                     //                            //}
                     //
-                    //                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+//                    PPApplicationStatic.logE("[WORKER_CALL] WifiNetworkCallback.doConnection", "xxx");
                     //workManager.enqueue(worker);
                     workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
 //                }
@@ -169,12 +130,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
         }
 
             /*
-            final Context appContext = context;
-            //PPApplication.startHandlerThreadBroadcast();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-            //        appContext) {
-            //__handler.post(() -> {
+            final Context appContext = context.getApplicationContext();
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
 
@@ -202,7 +158,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                         }
                     }
                 //}
-            }; //);
+            };
             //PPApplication.createEventsHandlerExecutor();
             //PPApplication.eventsHandlerExecutor.submit(runnable);
             PPApplication.createDelayedEventsHandlerExecutor();
@@ -226,7 +182,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
         }
 
         if (EventStatic.getGlobalEventsRunning(appContext)) {
-//            PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback._doConnection", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback._doConnection", "forCapabilities="+forCapabilities);
             //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
             //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
 
@@ -251,6 +207,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                             EventsHandler.SENSOR_TYPE_RADIO_SWITCH,
                             EventsHandler.SENSOR_TYPE_WIFI_CONNECTION});
 
+//                    PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] ----------- WifiNetworkCallback._doConnection", "xxx");
                     PPApplicationStatic.restartWifiScanner(appContext);
                 }
             }

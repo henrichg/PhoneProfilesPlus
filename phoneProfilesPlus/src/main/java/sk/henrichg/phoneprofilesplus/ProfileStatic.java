@@ -3,13 +3,10 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.provider.Settings;
 
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.ColorUtils;
-import androidx.palette.graphics.Palette;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 
@@ -210,8 +207,12 @@ class ProfileStatic {
                 _settingsValue = Math.round(settingsValue / 32f); // convert from 8192 to 256
         }
         else
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
-            _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+            if (Build.VERSION.SDK_INT < 33)
+                _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
+            else
+                _settingsValue = Math.round(settingsValue * 2f); // convert from 128 to 256
+        }
         return BrightnessLookup.lookup(_settingsValue, true);
     }
 
@@ -246,17 +247,20 @@ class ProfileStatic {
                 //if (maximumValue-minimumValue > 255) {
                 //int minimumValue = 0;
                 int maximumValue = 255;
+
                 if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 31))
                     maximumValue = 1023;
-
                 // for OnePlus widh Android 12+ is max value 255
                 //else
                 //if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 31))
                 //    maximumValue = 255;
                 else
-                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
-                    maximumValue = 4095;
-                //}
+                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && ((Build.VERSION.SDK_INT >= 28))) {
+                    if (Build.VERSION.SDK_INT < 33)
+                        maximumValue = 4095;
+                    else
+                        maximumValue = 128;
+                }
 
                 percentage = Math.round((float) (value/* - minValue*/) / (maximumValue/* - minValue*/) * 100.0);
             }
@@ -287,14 +291,17 @@ class ProfileStatic {
                 systemValue = systemValue * 4; // convert from 256 to 1024
         }
         else
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
-            systemValue = systemValue * 16; // convert from 256 to 4096
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+            if (Build.VERSION.SDK_INT < 33)
+                systemValue = systemValue * 16; // convert from 256 to 4096
+            else
+                systemValue = systemValue / 2; // convert from 256 to 128
+        }
 
         return Math.round(systemValue);
     }
 
-    static int convertPercentsToBrightnessManualValue(int percentage, Context context)
-    {
+    static int convertPercentsToBrightnessManualValue(int percentage, Context context) {
         int maximumValue;// = getMaximumScreenBrightnessSetting();
         int minimumValue;// = getMinimumScreenBrightnessSetting();
 
@@ -305,10 +312,12 @@ class ProfileStatic {
         // for OnePlus widh Android 12+ is max value 255
         if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 31))
             maximumValue = 1023;
-        else
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI /*&& (Build.VERSION.SDK_INT >= 28)*/)
-            maximumValue = 4095;
-        //}
+        else if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+            if (Build.VERSION.SDK_INT < 33)
+                maximumValue = 4095;
+            else
+                maximumValue = 128;
+        }
 
         int value;
 
@@ -505,44 +514,6 @@ class ProfileStatic {
             value = "";
         }
         return value;
-    }
-
-    static Bitmap increaseProfileIconBrightnessForPreference(Bitmap iconBitmap, ProfileIconPreference preference) {
-        //if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
-        try {
-            if (preference != null) {
-                //boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(preference.prefContext.getApplicationContext());
-                //(preference.prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                //== Configuration.UI_MODE_NIGHT_YES;
-                String applicationTheme = ApplicationPreferences.applicationTheme(preference.prefContext, true);
-                boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
-
-                if (nightModeOn) {
-                    int iconColor;
-                    if (preference.isImageResourceID) {
-                        if (preference.useCustomColor)
-                            iconColor = preference.customColor;
-                        else
-                            iconColor = getIconDefaultColor(preference.imageIdentifier);
-                    } else {
-                        //iconColor = BitmapManipulator.getDominantColor(_iconBitmap);
-                        Palette palette = Palette.from(iconBitmap).generate();
-                        iconColor = palette.getDominantColor(0xff1c9cd7);
-                    }
-                    if (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE) {
-                        if (iconBitmap != null) {
-                            return BitmapManipulator.setBitmapBrightness(iconBitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
-                        } else {
-                            int iconResource = getIconResource(preference.imageIdentifier);
-                            Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, preference.prefContext);
-                            return BitmapManipulator.setBitmapBrightness(bitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
-                        }
-                    }
-                }
-            }
-        } catch (Exception ignored) {}
-        //}
-        return null;
     }
 
     static int getImageResourcePosition(String imageIdentifier/*, Context context*/) {
@@ -1017,6 +988,9 @@ class ProfileStatic {
                 case Profile.PREF_PROFILE_LOCK_DEVICE:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_LOCK_DEVICE(preferenceAllowed, null, sharedPreferences);
                     break;
+                case Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT:
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT(preferenceAllowed, preferenceKey, null, sharedPreferences/*, fromUIThread, context*/);
+                    break;
                 default:
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
@@ -1067,6 +1041,7 @@ class ProfileStatic {
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context, true);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_LOCK_DEVICE(preferenceAllowed, profile, sharedPreferences);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT(preferenceAllowed, "-", profile, sharedPreferences/*, fromUIThread, context*/);
 
             if (preferenceAllowed.notAllowedG1 ||
                     preferenceAllowed.notAllowedRoot ||

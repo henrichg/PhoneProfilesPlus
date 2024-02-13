@@ -20,7 +20,7 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        int tileId = intent.getIntExtra(EXTRA_QUICK_TILE_ID, -1);
+        final int tileId = intent.getIntExtra(EXTRA_QUICK_TILE_ID, -1);
         if (tileId == -1)
             return;
 
@@ -36,27 +36,28 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
         //         android:value="true" />
         switch (tileId) {
             case 1:
-                TileService.requestListeningState(context, new ComponentName(context, PPTileService1.class));
+                if ((PPApplication.quickTileProfileId[1] != 0) && (PPApplication.quickTileProfileId[1] != -1))
+                    TileService.requestListeningState(context, new ComponentName(context, PPTileService1.class));
                 break;
             case 2:
-                TileService.requestListeningState(context, new ComponentName(context, PPTileService2.class));
+                if ((PPApplication.quickTileProfileId[2] != 0) && (PPApplication.quickTileProfileId[2] != -1))
+                    TileService.requestListeningState(context, new ComponentName(context, PPTileService2.class));
                 break;
             case 3:
-                TileService.requestListeningState(context, new ComponentName(context, PPTileService3.class));
+                if ((PPApplication.quickTileProfileId[3] != 0) && (PPApplication.quickTileProfileId[3] != -1))
+                    TileService.requestListeningState(context, new ComponentName(context, PPTileService3.class));
                 break;
             case 4:
-                TileService.requestListeningState(context, new ComponentName(context, PPTileService4.class));
+                if ((PPApplication.quickTileProfileId[4] != 0) && (PPApplication.quickTileProfileId[4] != -1))
+                    TileService.requestListeningState(context, new ComponentName(context, PPTileService4.class));
                 break;
             case 5:
-                TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
+                if ((PPApplication.quickTileProfileId[5] != 0) && (PPApplication.quickTileProfileId[5] != -1))
+                    TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
                 break;
         }
 
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadBroadcast(/*"AlarmClockBroadcastReceiver.onReceive"*/);
-        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPTileService.chooseTileBroadcastReceiver.onReceive");
 
@@ -71,17 +72,17 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
+                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
 
-                    String toast = context.getString(R.string.tile_chooser_tile_changed_toast);
+                    String toast = appContext.getString(R.string.tile_chooser_tile_changed_toast);
                     if (PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID)
-                        toast = toast + " " + context.getString(R.string.menu_restart_events);
+                        toast = toast + " " + appContext.getString(R.string.menu_restart_events);
                     else {
                         String profileName = dataWrapper.getProfileName(PPApplication.quickTileProfileId[tileId]);
                         if (profileName != null)
                             toast = toast + " " + profileName;
                     }
-                    PPApplication.showToast(context.getApplicationContext(), toast, Toast.LENGTH_LONG);
+                    PPApplication.showToast(appContext, toast, Toast.LENGTH_LONG);
 
                     DataWrapperStatic.setDynamicLauncherShortcuts(appContext);
 
@@ -98,7 +99,7 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             //}
-        }; //);
+        };
         PPApplicationStatic.createDelayedGuiExecutor();
         PPApplication.delayedGuiExecutor.submit(runnable);
 

@@ -145,7 +145,7 @@ public class DonationPayPalFragment extends Fragment {
         try {
             startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
             if ((getActivity() != null) && (!getActivity().isFinishing()))
-                PPApplicationStatic.setDonationDonated(getActivity().getApplicationContext());
+                PPApplicationStatic.setDonationDonated(getActivity().getApplicationContext(), true);
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
         }

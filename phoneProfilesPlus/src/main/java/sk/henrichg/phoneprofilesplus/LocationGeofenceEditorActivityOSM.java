@@ -49,6 +49,7 @@ import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.TilesOverlay;
 
+import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 
 public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
@@ -491,14 +492,10 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     protected void onStop() {
         super.onStop();
 
-        if (checkOnlineStatusBroadcatReceiver != null) {
-            try {
-                LocalBroadcastManager.getInstance(this).unregisterReceiver(checkOnlineStatusBroadcatReceiver);
-                checkOnlineStatusBroadcatReceiver = null;
-            } catch (Exception e) {
-                checkOnlineStatusBroadcatReceiver = null;
-            }
-        }
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(checkOnlineStatusBroadcatReceiver);
+        } catch (Exception ignored) {}
+        checkOnlineStatusBroadcatReceiver = null;
 
         GlobalGUIRoutines.unlockScreenOrientation(this);
     }
@@ -535,6 +532,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
         }
+
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(checkOnlineStatusBroadcatReceiver);
+        } catch (Exception ignored) {}
+        checkOnlineStatusBroadcatReceiver = null;
     }
 
     @Override
@@ -729,13 +731,14 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     private void startLocationUpdates(boolean showErrorDialog) {
 
         if (showErrorDialog) {
-            final LocationGeofenceEditorActivityOSM activity = this;
             errorLocationHandler = new Handler(getMainLooper());
+            final WeakReference<LocationGeofenceEditorActivityOSM> activityWeakRef = new WeakReference<>(this);
             errorLocationRunnable = () -> {
 //            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationGeofenceEditorActivityOSM.startLocationUpdates");
-                if (!activity.isFinishing() && !activity.isDestroyed()) {
+                LocationGeofenceEditorActivityOSM activity = activityWeakRef.get();
+                if ((activity != null) && !activity.isFinishing() && !activity.isDestroyed()) {
                     if (activity.mLastLocation == null) {
-                        showErrorLocationDialog();
+                        activity.showErrorLocationDialog();
                     }
                 }
             };
@@ -868,7 +871,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 //                    }
 //                    //}
 
-//                    PPApplicationStatic.logE("[WORKER_CALL] LocationGeofenceEditorActivityOSM.startIntentService", "xxx");
+//                    PPApplicationStatic.logE("[WORKER_CALL] LocationGeofenceEditorActivityOSM.startWorkerForFetchAddress", "xxx");
                     //workManager.enqueue(fetchAddressWorkerOSM);
                     workManager.enqueueUniqueWork(FETCH_ADDRESS_WORK_TAG_OSM, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, fetchAddressWorkerOSM);
 

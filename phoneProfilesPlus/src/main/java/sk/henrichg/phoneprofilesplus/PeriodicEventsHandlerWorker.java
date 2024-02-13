@@ -94,7 +94,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                 }
 
 //                PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** PeriodicEventsHandlerWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG");
-                final Context appContext = context;
+                final Context appContext = context.getApplicationContext();
                 //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                 Runnable runnable = () -> {
 //                    long start1 = System.currentTimeMillis();
@@ -134,16 +134,6 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     PPApplicationStatic.recordException(e);
                 }
                 */
-                /*
-                PPApplication.startHandlerThreadPPScanners();
-                final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        PeriodicEventsHandlerWorker.enqueueWork(context);
-                    }
-                }, 1500);
-                */
             }
 
 //            long finish = System.currentTimeMillis();
@@ -153,13 +143,6 @@ public class PeriodicEventsHandlerWorker extends Worker {
         } catch (Exception e) {
             //Log.e("PeriodicEventsHandlerWorker.doWork", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
-            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
-            Runnable r = new Runnable() {
-                public void run() {
-                    android.os.Process.killProcess(PPApplication.pid);
-                }
-            };
-            _handler.postDelayed(r, 1000);*/
             return Result.failure();
         }
     }

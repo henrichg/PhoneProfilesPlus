@@ -245,10 +245,6 @@ public class PhoneCallsListener extends PhoneStateListener {
                         final boolean incoming/*, final boolean missed,
                             final String number, final Date eventTime*/) {
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadBroadcast(/*"PhoneCallsListener.doCall"*/);
-        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PhoneCallsListener.doCall");
 
@@ -272,7 +268,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                 }
 
             //}
-        }; //);
+        };
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
@@ -505,18 +501,6 @@ public class PhoneCallsListener extends PhoneStateListener {
 
         PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
         PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
-
-        /*PPApplication.startHandlerThreadInternalChangeToFalse();
-        final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                RingerModeChangeReceiver.internalChange = false;
-            }
-        }, 3000);*/
-        //PostDelayedBroadcastReceiver.setAlarm(
-        //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
-
     }
 
 }

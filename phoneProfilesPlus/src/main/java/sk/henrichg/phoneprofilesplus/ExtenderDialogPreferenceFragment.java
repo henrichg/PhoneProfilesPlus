@@ -79,7 +79,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
         mDialog.setOnShowListener(dialog -> {
             String prefVolumeDataSummary;
-            int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(prefContext);
+            int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(prefContext);
             if (extenderVersion == 0) {
                 prefVolumeDataSummary = StringConstants.TAG_BOLD_START_HTML + prefContext.getString(R.string.profile_preferences_PPPExtender_not_installed_summary) + StringConstants.TAG_BOLD_END_HTML;
 
@@ -87,12 +87,12 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + preference.installSummary;
             }
             else {
-                String extenderVersionName = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getExtenderVersionName(prefContext);
+                String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(prefContext);
                 prefVolumeDataSummary =  prefContext.getString(R.string.install_extender_installed_version) +
                         " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
                 prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.install_extender_required_version) +
-                        " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML;
-                if (extenderVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
+                        " "+StringConstants.TAG_BOLD_START_HTML + preference.requiredExtenderVersionName + " (" + preference.requiredExtenderVersionCode + ")"+StringConstants.TAG_BOLD_END_HTML;
+                if (extenderVersion < preference.requiredExtenderVersionCode)
                     prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + prefContext.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                 else
                   prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_BREAK_HTML+StringConstants.CHAR_HARD_SPACE_HTML; // "<br><br>" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
@@ -116,14 +116,14 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 accessibilityEnabled = -2;
             else
             if ((extenderVersion > 0) &&
-                    (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
+                    (extenderVersion < preference.requiredExtenderVersionCode))
                 // old version
                 accessibilityEnabled = -1;
             else
                 accessibilityEnabled = -98;
             if (accessibilityEnabled == -98) {
                 // Extender is in right version
-                if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(prefContext, false, true))
+                if (PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(prefContext, false, true))
                     // accessibility enabled
                     accessibilityEnabled = 1;
                 else
@@ -229,9 +229,9 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
         String dialogText = "";
 
-        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
+        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
         if (extenderVersion != 0) {
-            String extenderVersionName = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
+            String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
             dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
         }
         dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
@@ -347,9 +347,9 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
         String dialogText = "";
 
-        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
+        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
         if (extenderVersion != 0) {
-            String extenderVersionName = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
+            String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
             dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
         }
         dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
@@ -408,13 +408,13 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         boolean fdroidInstalled = (_intent != null);
         _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
         boolean droidifyInstalled = (_intent != null);
-        _intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
-        boolean galaxyStoreInstalled = (_intent != null);
+        //_intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
+        //boolean galaxyStoreInstalled = (_intent != null);
 //        Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "fdroidInstalled="+fdroidInstalled);
 //        Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "droidifyInstalled="+droidifyInstalled);
 //        Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "galaxyStoreInstalled="+galaxyStoreInstalled);
 
-        if (droidifyInstalled || fdroidInstalled || galaxyStoreInstalled) {
+        if (droidifyInstalled || fdroidInstalled /*|| galaxyStoreInstalled*/) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
@@ -423,24 +423,12 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             dialogBuilder.setView(layout);
 
             TextView text = layout.findViewById(R.id.install_pppe_from_store_dialog_info_text);
-            if (!(droidifyInstalled || fdroidInstalled)) {
-                Button installFromGitHub = layout.findViewById(R.id.install_pppe_from_store_dialog_installFromGitHub);
-                if (Build.VERSION.SDK_INT >= 33)
-                    installFromGitHub.setText(R.string.install_extender_install_droidify_button);
-                installFromGitHub.setVisibility(View.VISIBLE);
-                installFromGitHub.setOnClickListener(v -> {
-                    if (Build.VERSION.SDK_INT < 33)
-                        installExtenderFromGitHub(activity, _preference, finishActivity);
-                    else
-                        installDroidIfy(activity, _preference, finishActivity);
-                });
-            }
 
             String dialogText = "";
 
-            int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
+            int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
             if (extenderVersion != 0) {
-                String extenderVersionName = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
+                String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
                 dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
             }
             dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
@@ -488,9 +476,9 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             */
 
             dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=sk.henrichg.phoneprofilesplusextender"));
                 if (droidifyInstalled) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=sk.henrichg.phoneprofilesplusextender"));
                     intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                     try {
                         activity.startActivity(intent);
@@ -505,9 +493,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                         if (finishActivity)
                             activity.finish();
                     }
-                } else if (fdroidInstalled) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=sk.henrichg.phoneprofilesplusextender"));
+                } else /*if (fdroidInstalled)*/ {
                     intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);
                     try {
                         activity.startActivity(intent);
@@ -522,7 +508,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                         if (finishActivity)
                             activity.finish();
                     }
-                } else {
+                } /*else {
                     Intent intent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplusextender"));
                     try {
@@ -538,7 +524,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                         if (finishActivity)
                             activity.finish();
                     }
-                }
+                }*/
             });
             dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
                 if (finishActivity)
@@ -583,7 +569,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             return;
         }
 
-        if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(prefContext) >= PPApplication.VERSION_CODE_EXTENDER_LATEST) {
+        if (PPExtenderBroadcastReceiver.isExtenderInstalled(prefContext) != 0) {
             PackageManager packageManager = prefContext.getPackageManager();
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
             if (intent != null) {

@@ -3324,7 +3324,7 @@ class Profile {
         if ((this._deviceForceStopApplicationChange != 0) ||
             (this._lockDevice != 0)) {
 
-            int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+            int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
 
             if (this._deviceForceStopApplicationChange != 0) {
                 if (extenderVersion == 0)
@@ -3332,7 +3332,7 @@ class Profile {
                     accessibilityEnabled = -2;
                 else
                 if ((extenderVersion > 0) &&
-                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
+                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3))
                     // old version
                     accessibilityEnabled = -1;
                 else
@@ -3344,7 +3344,7 @@ class Profile {
                     accessibilityEnabled = -2;
                 else
                 if ((extenderVersion > 0) &&
-                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
+                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3))
                     // old version
                     accessibilityEnabled = -1;
                 else
@@ -3352,7 +3352,7 @@ class Profile {
             }
             if (accessibilityEnabled == -98) {
                 // Extender is in right version
-                if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
+                if (PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
                         /*, "Profile.isAccessibilityServiceEnabled (profile=" + _name + ")"*/))
                     // accessibility enabled
                     accessibilityEnabled = 1;

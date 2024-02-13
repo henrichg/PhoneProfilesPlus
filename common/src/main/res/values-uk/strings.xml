@@ -231,7 +231,7 @@
     <string name="array_event_pref_wifiConnectionType_inFront">Поруч (в діапазоні сканування)</string>
     <string name="event_preferences_wifi_connection_type">Тип з\'єднання</string>
     <string name="phone_profiles_pref_applicationEventWifiScanInterval">Інтервал сканування Wi-Fi (хв)</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundProfile">Профіль за замовчуванням</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundProfile">Стандартно налаштований профіль</string>
     <string name="profile_preference_profile_end_no_activate">Не активувати</string>
     <string name="profile_preference_profile_not_set">Профіль не вибрано</string>
     <string name="event_type_screen">Екран</string>
@@ -241,7 +241,7 @@
     <string name="profile_preferences_duration">Тривалість</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Нічого</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Скасувати профіль</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Активувати профіль за замовч</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Активувати стандартно налаштований профіль</string>
     <string name="phone_profiles_pref_applicationGridLayout">Сітка</string>
     <string name="menu_help">Допомога</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Увімкнення</string>
@@ -262,7 +262,7 @@
     <string name="event_preferences_category_eventSMSParameters">Датчик SMS/MMS</string>
     <string name="event_preferences_sms_contacts">Контакти</string>
     <string name="toast_events_restarted">Події перезавантажено</string>
-    <string name="event_name_background_profile">Профіль за замовчуванням</string>
+    <string name="event_name_background_profile">Стандартно налаштований профіль</string>
     <string name="array_pref_zenModeArray_priority">Важливі</string>
     <string name="preference_profile_adaptiveBrightness">Адаптивна</string>
     <string name="profile_preferences_deviceKeyguard">Заблокувати екран</string>
@@ -424,7 +424,7 @@
     <string name="info_notification_event_states_paused">Призупинено: подія не виконується. Параметри події не відповідають вимогам. Подія очікує на задоволення всіх параметрів.</string>
     <string name="info_notification_event_states_stopped">Зупинено: подія зупинена і не може бути запущена. Параметр події \"Дозволити виконання\" не зазначено.</string>
     <string name="info_notification_event_states_paused_delay">Призупинено із затримкою: запуск події відкладено. Параметри події відповідають вимогам.</string>
-    <string name="important_info_default_profile">Коли жодна подія не виконується, активується «Профіль за промовчуванням», якщо його налаштовано. Профіль за промовчуванням можна налаштувати в параметрах застосунку, пункт «Активація профілю». Натисніть тут, щоб налаштувати його.</string>
+    <string name="important_info_default_profile">Коли жодна подія не виконується, активується «Стандартно налаштований профіль», якщо його налаштовано. Стандартний профіль можна налаштувати в параметрах застосунку, пункт «Активація профілю». Натисніть тут, щоб налаштувати його.</string>
     <string name="important_info_how_does_volume_separation_work_title">Як працює \"Окремі гучності для дзвінка та сповіщень\":</string>
     <string name="important_info_how_does_volume_separation_work">Активація профілю встановлює гучність пристрою на рівні гучності сповіщень. При виявленні виклику рівень гучності встановлюється в залежності від налаштувань профілю. Після закінчення виклику рівень гучності повертається до рівня гучності сповіщень профілю.</string>
     <string name="event_type_locations">Місцеперебування</string>
@@ -572,7 +572,6 @@
     <string name="nfc_tag_pref_dlg_hint">Назва мітки</string>
     <string name="nfc_tag_pref_dlg_help">Ви мусите присвоїти ім\'я мітці. \" Запис NFC мітки\" знаходиться в меню для кожної мітки.</string>
     <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">Записати NFC мітку</string>
-    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Прикладіть ваш телефон до NFC мітки. Запис буде почато.</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC вимкнено. Будь ласка, увімкніть NFC і спробуйте ще раз.</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">Запис NFC мітки</string>
     <string name="write_nfc_tag_written">Мітку записано</string>
@@ -730,9 +729,9 @@
     <string name="action_for_external_application_notification_bad_action">Дія не підтримується.</string>
     <string name="action_for_external_application_notification_no_action">Дію не визначено.</string>
     <string name="ringtone_preference_not_set">Не встановлено</string>
-    <string name="ringtone_preference_default_ringtone">Сигнал дзвінка за замовчуванням</string>
-    <string name="ringtone_preference_default_notification">Сигнал сповіщення за замовчуванням</string>
-    <string name="ringtone_preference_default_alarm">Сигнал будильника за замовчуванням</string>
+    <string name="ringtone_preference_default_ringtone">Стандартно налаштований сигнал виклику</string>
+    <string name="ringtone_preference_default_notification">Стандартно налаштований сигнал сповіщення</string>
+    <string name="ringtone_preference_default_alarm">Стандартно налаштований сигнал будильника</string>
     <string name="ringtone_preference_none">Відсутній</string>
     <string name="event_preferences_notificationVibrate">Сповіщати вібрацією</string>
     <string name="important_info_profile_grant">Деякі параметри профілів потребують дозволу WRITE_SECURE_SETTINGS. ROOT не вимагається. Ці параметри позначені \"(G1)\".</string>
@@ -787,7 +786,7 @@
     <string name="event_preferences_orientation_PPPExtender_install_summary">Щоб увімкнути параметр \"Ігнорувати для застосунків\", натисніть тут для встановлення PhoneProfilesPlusExtender.</string>
     <string name="about_application_extender_source_code">Початковий код - Extender:</string>
     <string name="pref_dlg_info_about_wildcards_4">Можна налаштувати кілька рядків. Роздільник «|».</string>
-    <string name="editor_activity_targetHelps_backgroundProfileButton_title">Профіль за замовчуванням</string>
+    <string name="editor_activity_targetHelps_backgroundProfileButton_title">Стандартно налаштований профіль</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">Цей профіль буде активовано, коли ніяка подія не виконується. Натисніть тут, щоб налаштувати його.</string>
     <string name="mobile_cell_names_dialog_title">Назва вежі</string>
     <string name="mobile_cell_names_dialog_filter_title">Фільтр веж за назвою</string>
@@ -822,7 +821,7 @@
     <string name="preference_not_allowed_reason_not_supported_android_version">версія Android не підтримується</string>
     <string name="event_preferences_notifications_inCall">Під час розмови</string>
     <string name="event_preferences_notifications_missedCall">Пропущ. виклик</string>
-    <string name="colorChooser_pref_dialog_defaultIconColor">Типовий колір іконки</string>
+    <string name="colorChooser_pref_dialog_defaultIconColor">Стандартний колір іконки</string>
     <string name="phone_profiles_pref_applicationWidgetBackgroundType">Кольорове тло</string>
     <string name="phone_profiles_pref_applicationWidgetColorB">Колір тла</string>
     <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Кольорове тло</string>
@@ -1505,7 +1504,7 @@
     <string name="editor_activity_targetHelps_profilesBottomMenu_title">Інші дії з профілями</string>
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">Натисніть щоб відкрити меню з іншими діями над профілями: \"Видалити всі профілі\"</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">Інші дії з подіями</string>
-    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Натисніть щоб відкрити меню з іншими діями над подіями: \"Профіль за замовчуванням\", \"Видалити всі події\"</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Натисніть, щоб відкрити меню з іншими діями над подіями: \"Стандартно налаштований профіль\", \"Видалити всі події\"</string>
     <string name="profile_preferences_showInActivator_summary">Увімкніть, якщо Ви хочете бачити цей профіль в Активаторі, Списку, панелі - Samsung Edge.</string>
     <string name="show_profile_in_activator_not_show_toast">Профіль не буде відображатися в Активаторі, Списку, панелі Samsung Edge</string>
     <string name="show_profile_in_activator_show_toast">Профіль буде відображатися в Активаторі, Списку, панелі Samsung Edge</string>
@@ -1535,8 +1534,6 @@
     <string name="menu_check_releases_fdroid">Перевірити на F-Droid</string>
     <string name="check_releases_fdroid_repository_with_ppp">Репозиторій для налаштування його у застосунку F-Droid:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Якщо не працює зміна гучності медіа, можливо це завдяки увімкнутому \"безпечний рівень гучності\". Щоб вимкнути, потрібно надати дозвіл (G1).</string>
-    <string name="menu_check_releases_galaxy_store">Перевірити в Galaxy Store</string>
-    <string name="check_releases_open_galaxy_store">Відкрити Galaxy Store</string>
     <string name="applicationApplicationInterfaceActivationNotification">Повідомлення про активацію профілю</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Додати до списку профілів \"Перезапустити події\"</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Інтервал сканування Bluetooth</string>
@@ -1660,8 +1657,8 @@
     <string name="array_pref_radioSwitch_connected_sim1">SIM1 підключено</string>
     <string name="array_pref_radioSwitch_connected_sim2">SIM2 підключено</string>
     <string name="permission_why_event_radio_switch_preferences">для перевірки підключення мобільних даних для телефона з двома SIM, перевірте SIM за замовчуванням</string>
-    <string name="event_preferences_radioSwitch_defaultSIMForCalls">SIM для викликів за замовчуванням</string>
-    <string name="event_preferences_radioSwitch_defaultSIMForSMS">SIM за умовчанням для SMS</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForCalls">Типова SIM для викликів</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForSMS">Типова SIM для SMS</string>
     <string name="array_pref_radioSwitch_defaultSIM1">SIM 1</string>
     <string name="array_pref_radioSwitch_defaultSIM2">SIM 2</string>
     <string name="event_preferences_radioSwitch_simOnOff">SIM увімк/вимк</string>
@@ -1696,7 +1693,7 @@
     <string name="event_delay_start_acronym">зс</string>
     <string name="event_delay_end_acronym">зз</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">після досягнення певного часу - скасувати профіль</string>
-    <string name="altype_afterEndOfActivationTime_defaultProfile">після досягнення певного часу - профіль за замовчуванням</string>
+    <string name="altype_afterEndOfActivationTime_defaultProfile">після досягнення певного часу - стандартно налаштований профіль</string>
     <string name="altype_afterEndOfActivationTime_restartEvents">після досягнення певного часу - перезапуск подій</string>
     <string name="altype_afterEndOfActivationTime_specificProfile">після досягнення певного часу - обумовлений профіль</string>
     <string name="check_releases_open_apkpure">Відкрити APKPure</string>
@@ -1751,11 +1748,11 @@
     <string name="required_extender_release">Нова версія PhoneProfilesPlusExtender</string>
     <string name="required_extender_release_notification">Натисніть на це сповіщення, щоб встановити нову версію PhoneProfilesPlusExtender.</string>
     <string name="profile_preferences_deviceAirplaneMode">Режим \"У літаку\"</string>
-    <string name="preference_not_allowed_reason_not_set_as_assistant">PhoneProfilesPlus не налаштований як помічник за замовчуванням</string>
+    <string name="preference_not_allowed_reason_not_set_as_assistant">PhoneProfilesPlus не налаштований як типовий помічник</string>
     <string name="profile_preferences_deviceAirplaneMode_assistantSettings">Налаштування помічника</string>
-    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary">Натисніть тут, щоб налаштувати PhoneProfilesPlus як помічника за замовчуванням. Це необхідно для параметра \"Режим польоту\", коли пристрій не має прав суперкористувача.</string>
-    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1">PhoneProfilesPlus є помічником за замовчуванням</string>
-    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus Не є помічником за замовчуванням</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary">Натисніть тут, щоб налаштувати PhoneProfilesPlus як типового помічника. Це необхідно для параметра \"Режим польоту\", коли пристрій не має прав суперкористувача.</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1">PhoneProfilesPlus є типовим помічником</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus Не є типовим помічником</string>
     <string name="phone_profiles_pref_category_widget_icon">Віджет: Іконка</string>
     <string name="phone_profiles_pref_category_shortcut">Ярлик</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo">\"Керування Wi-Fi\" спеціальний дозвіл</string>
@@ -1835,7 +1832,7 @@
     <string name="restore_shared_settings_alert_title">Відновити налаштування які було поширено</string>
     <string name="restore_shared_settings_error_on_backup">Помилка копіювання файлу для відновлення</string>
     <string name="restore_shared_settings_ok_backed_up">Поширений файл для відновлення скопійовано</string>
-    <string name="permission_why_profile_default_assistant">для встановлення PhoneProfilesPlus як помічника за замовчуванням</string>
+    <string name="permission_why_profile_default_assistant">для встановлення PhoneProfilesPlus як типового помічника</string>
     <string name="permission_group_name_microphone">Записувати звук</string>
     <string name="phone_profiles_pref_notificationUseDecorationInfo_summary">Оформлення сповіщень можливо тільки коли \"Колір тла\" встановлений \"Оригінальний\". Оформлення буде завжди увімкнуто якщо \"Стиль сповіщень\" встановлений \"Оригінальний\".</string>
     <string name="profile_preferences_deviceAirplaneModeRadiosInfo">Модулі в режимі \"У літаку\"</string>
@@ -1941,8 +1938,6 @@
     <string name="samsung_edge_panel_settings_description">Налаштування панелі Samsung edge</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Компактна сітка</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">При такій сітці імена профілів не показуватимуться, але більше профілів може вміститися в одному рядку.</string>
-    <string name="check_releases_go_to_galaxy_store">Перейти до Galaxy Store</string>
-    <string name="check_releases_web_galaxy_store_install_restriction">На жаль, неможливо встановити PhoneProfilesPlus з цього сайту. Galaxy Store тільки для пристроїв лінійки Galaxy.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Перемкнути місцеположення (Вимк &lt;-&gt; Висока точність)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Перемкнути місцеположення ( Економія батареї &lt;-&gt; Висока точність)</string>
     <string name="widget_label_one_row_profile_list">Список профілів в 1 ряд</string>
@@ -2109,7 +2104,6 @@
     <string name="export_settings_delete_contacts_data_notification">Контакти до Датчика сповіщення</string>
     <string name="grant_draw_over_apps_dialog_info_text">Ви повинні надати дозвіл \"Показувати поверх застосунків\". Це потрібно для запуску activities коли PhoneProfilesPlus працює у фоні. Для цього натисніть кнопку \"Надати\".</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Якщо неможливо надати дозвіл, натисніть на посилання. Можливо на цій вебсторінці є рішення для Вашого приладу:</string>
-    <string name="install_extender_install_droidify_button">Встановіть Droid-ify</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] Не використовуйте</string>
     <string name="contacts_filter_dialog_filter_title">Фільтр контактів</string>
     <string name="contacts_filter_dialog_item_show_all">[ Всі ]</string>
@@ -2138,5 +2132,23 @@
     <string name="profile_preferences_deviceNetworkType">(Z)(R) Тип мобільної мережі</string>
     <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Тип мобільної мережі для SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Тип мобільної мережі для SIM 2</string>
-    <string name="profile_preferences_deviceDefaultSIM">(Z)(R) SIM за замовчуванням</string>
+    <string name="profile_preferences_deviceDefaultSIM">(Z)(R) типова SIM</string>
+    <string name="important_info_end_of_galaxy_store_support_text1">Завершення підтримки Galaxy Store</string>
+    <string name="important_info_end_of_galaxy_store_support_text2">Вибачте, але Galaxy Store більше не підтримується. Цей магазин потребує SDK API 33 (Android 13), а PPP SDK є 28 (Android 9).</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_title">Зчитати NFC мітку</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_text">Зчитати тег NFC записаний у PhonePorfilesPlus.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut">Ярлик \"Зчитати NFC мітку\"</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary">Натисніть тут, щоб створити ярлик для \"Зчитати NFC мітку\" в лаунчері.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary_info">If your device shows a notification when reading NFC tag that there is no application in the foreground to support reading NFC tags (for example, some Xiaomi devices), create this shortcut and use it every time you want to read NFC tag to trigger event in PPP.</string>
+    <string name="shortcut_to_read_nfc_tag_created_toast">Ярлик \"Зчитати NFC мітку\" створено</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_touch">Прикладіть ваш телефон до NFC мітки. Зчитування розпочнеться.</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagName">Назва мітки:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData">Дані мітки:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData_noData">Немає даних</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addNameButtons">Додати назву до списку міток:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_changeNameButtons">Змінити назву у списку міток:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addReadedNameButton">Використовувати дані мітки як її назву</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton">Записати назву мітки до мітки</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch1">Прикладіть ваш телефон до NFC мітки. Потім натисніть кнопку</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch2">Запис розпочнеться.</string>
 </resources>

@@ -21,6 +21,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeoutException;
@@ -82,58 +83,63 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
             //Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(ee));
         }
 
-        final Throwable _exception = reportBuilder.getException();
-        final Thread _thread = reportBuilder.getUncaughtExceptionThread();
+        Throwable __exception = reportBuilder.getException();
 
-        if (_exception == null)
+        if (__exception == null)
             return true;
 
 //        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(2)");
 
         try {
             if (PPApplication.crashIntoFile) {
+                final Context appContext = context.getApplicationContext();
+                final WeakReference<Throwable> exceptionWeakRef = new WeakReference<>(__exception);
                 Runnable runnable = () -> {
-                    int actualVersionCode = 0;
-                    try {
-                        PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                        actualVersionCode = PPApplicationStatic.getVersionCode(pInfo);
-                    } catch (Exception ignored) {}
+                    Throwable _exception = exceptionWeakRef.get();
+                    if (_exception != null) {
+                        int actualVersionCode = 0;
+                        try {
+                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                            actualVersionCode = PPApplicationStatic.getVersionCode(pInfo);
+                        } catch (Exception ignored) {
+                        }
 
-                    StackTraceElement[] arr = _exception.getStackTrace();
-                    StringBuilder report = new StringBuilder(_exception.toString());
+                        StackTraceElement[] arr = _exception.getStackTrace();
+                        StringBuilder report = new StringBuilder(_exception.toString());
 
-                    report.append(StringConstants.STR_DOUBLE_NEWLINE);
+                        report.append(StringConstants.STR_DOUBLE_NEWLINE);
 
-                    report.append("----- App version code: ").append(actualVersionCode).append(StringConstants.STR_DOUBLE_NEWLINE);
+                        report.append("----- App version code: ").append(actualVersionCode).append(StringConstants.STR_DOUBLE_NEWLINE);
 
-                    /*
-                    for (StackTraceElement anArr : arr) {
-                        report.append("    ").append(anArr.toString()).append("\n");
-                    }
-                    report.append("-------------------------------").append(StringConstants.STR_DOUBLE_NEWLINE);
-                    */
-
-                    report.append("--------- Stack trace ---------").append(StringConstants.STR_DOUBLE_NEWLINE);
-                    for (StackTraceElement anArr : arr) {
-                        report.append("    ").append(anArr.toString()).append(StringConstants.CHAR_NEW_LINE);
-                    }
-                    report.append(StringConstants.CHAR_NEW_LINE);
-
-                    // If the exception was thrown in a background thread inside
-                    // AsyncTask, then the actual exception can be found with getCause
-                    Throwable cause = _exception.getCause();
-                    if (cause != null) {
+                        /*
+                        for (StackTraceElement anArr : arr) {
+                            report.append("    ").append(anArr.toString()).append("\n");
+                        }
                         report.append("-------------------------------").append(StringConstants.STR_DOUBLE_NEWLINE);
-                        report.append("--------- Cause ---------------").append(StringConstants.STR_DOUBLE_NEWLINE);
-                        report.append(cause).append(StringConstants.STR_DOUBLE_NEWLINE);
-                        arr = cause.getStackTrace();
+                        */
+
+                        report.append("--------- Stack trace ---------").append(StringConstants.STR_DOUBLE_NEWLINE);
                         for (StackTraceElement anArr : arr) {
                             report.append("    ").append(anArr.toString()).append(StringConstants.CHAR_NEW_LINE);
                         }
-                    }
-                    report.append("-------------------------------").append(StringConstants.STR_DOUBLE_NEWLINE);
+                        report.append(StringConstants.CHAR_NEW_LINE);
 
-                    logIntoFile(context, "E", "CustomACRAReportingAdministrator", report.toString());
+                        // If the exception was thrown in a background thread inside
+                        // AsyncTask, then the actual exception can be found with getCause
+                        Throwable cause = _exception.getCause();
+                        if (cause != null) {
+                            report.append("-------------------------------").append(StringConstants.STR_DOUBLE_NEWLINE);
+                            report.append("--------- Cause ---------------").append(StringConstants.STR_DOUBLE_NEWLINE);
+                            report.append(cause).append(StringConstants.STR_DOUBLE_NEWLINE);
+                            arr = cause.getStackTrace();
+                            for (StackTraceElement anArr : arr) {
+                                report.append("    ").append(anArr.toString()).append(StringConstants.CHAR_NEW_LINE);
+                            }
+                        }
+                        report.append("-------------------------------").append(StringConstants.STR_DOUBLE_NEWLINE);
+
+                        logIntoFile(appContext, "E", "CustomACRAReportingAdministrator", report.toString());
+                    }
                 };
                 PPApplicationStatic.createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
@@ -144,7 +150,8 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
 
 //        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(3)");
 
-        if (!isRecordedException(_exception, _thread))
+        Thread thread = reportBuilder.getUncaughtExceptionThread();
+        if (!isRecordedException(__exception, thread))
             return false;
 
         return true;
@@ -209,7 +216,7 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
     }
 
     /** @noinspection BlockingMethodInNonBlockingContext*/
-    private void logIntoFile(Context context,
+    static private void logIntoFile(Context context,
                              @SuppressWarnings("SameParameterValue") String type,
                              @SuppressWarnings("SameParameterValue") String tag,
                              String text)
@@ -248,7 +255,7 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
         }
     }
 
-    private void resetLog(Context context)
+    static private void resetLog(Context context)
     {
         /*File sd = Environment.getExternalStorageDirectory();
         File exportDir = new File(sd, PPApplication.EXPORT_PATH);

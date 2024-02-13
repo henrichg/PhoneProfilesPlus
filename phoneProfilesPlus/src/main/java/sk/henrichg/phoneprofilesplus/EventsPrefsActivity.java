@@ -166,10 +166,8 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         try {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
-            refreshGUIBroadcastReceiver = null;
-        } catch (IllegalArgumentException e) {
-            //PPApplicationStatic.recordException(e);
-        }
+        } catch (Exception ignored) {}
+        refreshGUIBroadcastReceiver = null;
     }
 
     @Override
@@ -207,6 +205,11 @@ public class EventsPrefsActivity extends AppCompatActivity
                 finishPreferencesActivityAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             finishPreferencesActivityAsyncTask.cancel(true);
         finishPreferencesActivityAsyncTask = null;
+
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+        } catch (Exception ignored) {}
+        refreshGUIBroadcastReceiver = null;
     }
 
     @Override
@@ -258,14 +261,6 @@ public class EventsPrefsActivity extends AppCompatActivity
         // no menu for shared profile
 
         onNextLayout(toolbar, this::showTargetHelps);
-
-        /*final Handler handler = new Handler(getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                showTargetHelps();
-            }
-        }, 1000);*/
 
         return ret;
     }
@@ -455,18 +450,6 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         if (event != null)
         {
-            /*
-            // must be used handler for rewrite toolbar title/subtitle
-            final String eventName = event._name;
-            Handler handler = new Handler(getMainLooper());
-            handler.postDelayed(() -> {
-//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.loadPreferences");
-                //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
-                //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
-                toolbar.setTitle(getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
-            }, 200);
-            */
-
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
             event.loadSharedPreferences(preferences);
@@ -580,24 +563,22 @@ public class EventsPrefsActivity extends AppCompatActivity
         }
     }
 
-    static void saveUpdateOfPreferences(final Event event, final DataWrapper dataWrapper, final int old_event_status) {
+    static void saveUpdateOfPreferences(Event _event, DataWrapper _dataWrapper, final int old_event_status) {
         // save preferences into profile
-        dataWrapper.getEventTimelineList(true);
+        _dataWrapper.getEventTimelineList(true);
 
         //noinspection IfStatementWithIdenticalBranches
-        if (event.getStatus() == Event.ESTATUS_STOP)
+        if (_event.getStatus() == Event.ESTATUS_STOP)
         {
-            //PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.1"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            //__handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
-            //__handler.post(() -> {
+            final WeakReference<DataWrapper> dataWrapperWeakRef = new WeakReference<>(_dataWrapper);
+            final WeakReference<Event> eventWeakRef = new WeakReference<>(_event);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
 
-                //DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                //Event event = eventWeakRef.get();
+                DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                Event event = eventWeakRef.get();
 
-                //if ((dataWrapper != null) && (event != null)) {
+                if ((dataWrapper != null) && (event != null)) {
                     PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -635,23 +616,21 @@ public class EventsPrefsActivity extends AppCompatActivity
                             }
                         }
                     }
-                //}
-            }; //);
+                }
+            };
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
         else {
-            //PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.2"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            //__handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
-            //__handler.post(() -> {
+            final WeakReference<DataWrapper> dataWrapperWeakRef = new WeakReference<>(_dataWrapper);
+            final WeakReference<Event> eventWeakRef = new WeakReference<>(_event);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
 
-                //DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                //Event event = eventWeakRef.get();
+                DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                Event event = eventWeakRef.get();
 
-                //if ((dataWrapper != null) && (event != null)) {
+                if ((dataWrapper != null) && (event != null)) {
                     PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -683,8 +662,8 @@ public class EventsPrefsActivity extends AppCompatActivity
                             }
                         }
                     }
-                //}
-            }; //);
+                }
+            };
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RadioButton;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 class AddProfileAdapter extends BaseAdapter {
@@ -103,10 +104,11 @@ class AddProfileAdapter extends BaseAdapter {
                 }
             }
             else {
-                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
-                if (bitmap != null)
-                    holder.profileIcon.setImageBitmap(bitmap);
-                else
+                //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
+                //Bitmap bitmap = profile._iconBitmap;
+                //if (bitmap != null)
+                //    holder.profileIcon.setImageBitmap(bitmap);
+                //else
                     holder.profileIcon.setImageBitmap(profile._iconBitmap);
             }
             if (applicationEditorPrefIndicator) {
@@ -141,8 +143,15 @@ class AddProfileAdapter extends BaseAdapter {
         holder.radioButton.setOnClickListener(v -> {
             RadioButton rb = (RadioButton) v;
             rb.setChecked(true);
-            Handler handler = new Handler(context.getMainLooper());
-            handler.postDelayed(() -> dialog.doOnItemSelected((Integer)rb.getTag()), 200);
+            final Handler handler = new Handler(context.getMainLooper());
+            final WeakReference<AddProfileDialog> dialogWeakRef = new WeakReference<>(dialog);
+            final WeakReference<RadioButton> rbWeakRef = new WeakReference<>(rb);
+            handler.postDelayed(() -> {
+                AddProfileDialog dialog1 = dialogWeakRef.get();
+                RadioButton rb1 = rbWeakRef.get();
+                if ((dialog1 != null) && (rb1 != null))
+                    dialog1.doOnItemSelected((Integer) rb1.getTag());
+            }, 200);
         });
 
         return vi;

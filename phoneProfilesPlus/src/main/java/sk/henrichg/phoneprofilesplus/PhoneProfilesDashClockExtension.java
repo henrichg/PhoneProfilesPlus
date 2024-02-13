@@ -78,10 +78,6 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         //final PhoneProfilesDashClockExtension _instance = instance;
         //final DataWrapper _dataWrapper = dataWrapper;
 
-        //PPApplication.startHandlerThreadWidget();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(appContext, dataWrapper) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=PhoneProfilesDashClockExtension.onUpdateData");
 
@@ -91,17 +87,17 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 //            PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesDashClockExtension.onUpdateData", "PPApplication.dashClockWidgetMutex");
             synchronized (PPApplication.dashClockWidgetMutex) {
 
-                if ((dataWrapper != null) && (instance != null)) {
+                if ((instance != null) && (instance.dataWrapper != null)) {
 
                     try {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesDashClockExtension.onUpdateData", "do it");
 
-                        Context appContext = dataWrapper.context;
+                        Context appContext = instance.dataWrapper.context;
                         LocaleHelper.setApplicationLocale(appContext);
 
                         //profile = Profile.getMappedProfile(
                         //                            _dataWrapper.getActivatedProfile(true, false), this);
-                        Profile profile = dataWrapper.getActivatedProfile(true, false);
+                        Profile profile = instance.dataWrapper.getActivatedProfile(true, false);
 
                         boolean isIconResourceID;
                         String iconIdentifier;
@@ -109,7 +105,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         if (profile != null) {
                             isIconResourceID = profile.getIsIconResourceID();
                             iconIdentifier = profile.getIconIdentifier();
-                            profileName = DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, dataWrapper);
+                            profileName = DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, instance.dataWrapper);
                         } else {
                             isIconResourceID = true;
                             iconIdentifier = StringConstants.PROFILE_ICON_DEFAULT;
@@ -147,7 +143,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         ProfilePreferencesIndicator indicators = new ProfilePreferencesIndicator();
 
                         // Publish the extension data update.
-                        publishUpdate(new ExtensionData()
+                        instance.publishUpdate(new ExtensionData()
                                 .visible(true)
                                 .icon(iconResource)
                                 .status(status)
@@ -160,7 +156,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     }
                 }
             }
-        }; //);
+        };
         PPApplicationStatic.createDelayedGuiExecutor();
         PPApplication.delayedGuiExecutor.submit(runnable);
     }

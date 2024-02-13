@@ -196,6 +196,7 @@ class ActivityLogAdapter extends CursorAdapter {
     private void setRowData(MyRowViewHolder rowData, Cursor cursor, Context context) {
         if (cursor.getInt(KEY_AL_ID) == -1) {
             rowData.logTypeColor.setBackgroundResource(R.color.activityBackgroundColor);
+            rowData.logTypeColor.setAlpha(0);
             rowData.logDateTime.setText("");
         }
         else {

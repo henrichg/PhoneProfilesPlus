@@ -49,11 +49,6 @@ class LocationScanner
                         PPApplication.locationScannerUseGPS = true;
 
                     final Context appContext = context.getApplicationContext();
-                    //PPApplication.startHandlerThreadPPScanners(/*"LocationScanner.onConnected"*/);
-                    //final Handler __handler6 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-                    //__handler6.post(new PPApplication.PPHandlerThreadRunnable(
-                    //        context.getApplicationContext()) {
-                    //__handler6.post(() -> {
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=LocationScanner.connect");
 
@@ -90,7 +85,7 @@ class LocationScanner
                                 }
                             }
                         //}
-                    }; //);
+                    };
                     PPApplicationStatic.createScannersExecutor();
                     PPApplication.scannersExecutor.submit(runnable);
                 } catch (Exception ee) {
@@ -428,8 +423,8 @@ class LocationScanner
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] LocationScanner.doLocationChanged", "PPApplication.locationScannerMutex");
         synchronized (PPApplication.locationScannerMutex) {
-            if (EventStatic.getGlobalEventsRunning(PPApplication.locationScanner.context)) {
-                if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
+            if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
+                if (EventStatic.getGlobalEventsRunning(PPApplication.locationScanner.context)) {
                     PPApplication.locationScanner.updateGeofencesInDB();
 
                     if (callEventsHandler) {

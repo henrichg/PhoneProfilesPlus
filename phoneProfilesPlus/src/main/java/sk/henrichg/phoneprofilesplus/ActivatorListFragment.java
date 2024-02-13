@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import static android.view.View.GONE;
 
 import android.animation.LayoutTransition;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -159,40 +160,6 @@ public class ActivatorListFragment extends Fragment {
 
         activatedProfileHeader = view.findViewById(R.id.act_prof_header);
         if (activatedProfileHeader != null) {
-            /* Handler handler = new Handler(getActivity().getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (getActivity() == null)
-                        return;
-
-                    headerHeight = activatedProfileHeader.getMeasuredHeight();
-                    hideAnimator = ValueAnimator.ofInt(headerHeight / 4, 0);
-                    hideAnimator.setDuration(500);
-                    hideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                            int val = (Integer) valueAnimator.getAnimatedValue();
-                            ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
-                            layoutParams.height = val * 4;
-                            activatedProfileHeader.setLayoutParams(layoutParams);
-                        }
-                    });
-                    showAnimator = ValueAnimator.ofInt(0, headerHeight / 4);
-                    showAnimator.setDuration(500);
-                    showAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                            int val = (Integer) valueAnimator.getAnimatedValue();
-                            ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
-                            layoutParams.height = val * 4;
-                            activatedProfileHeader.setLayoutParams(layoutParams);
-                        }
-                    });
-
-                }
-            }, 200);*/
-
             final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_activator_list_fragment))
                     .getLayoutTransition();
             layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
@@ -434,11 +401,11 @@ public class ActivatorListFragment extends Fragment {
                     final Handler handler = new Handler(fragment.getActivity().getMainLooper());
                     handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.LoadProfileListAsyncTask (2)");
+                        ActivatorActivity activity = (ActivatorActivity) fragment.getActivity();
+                        if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+                            return;
 
-                        if (fragment.getActivity() != null) {
-                            if (!fragment.getActivity().isFinishing())
-                                ((ActivatorActivity) fragment.getActivity()).startTargetHelpsActivity();
-                        }
+                        ((ActivatorActivity) fragment.getActivity()).startTargetHelpsActivity();
                     }, 500);
 
                 }
@@ -546,10 +513,11 @@ public class ActivatorListFragment extends Fragment {
             }
             else
             {
-                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
-                if (bitmap != null)
-                    activeProfileIcon.setImageBitmap(bitmap);
-                else
+                //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
+                //Bitmap bitmap = profile._iconBitmap;
+                //if (bitmap != null)
+                //    activeProfileIcon.setImageBitmap(bitmap);
+                //else
                     activeProfileIcon.setImageBitmap(profile._iconBitmap);
             }
         }
@@ -641,11 +609,19 @@ public class ActivatorListFragment extends Fragment {
             }
             else {
                 final Handler handler = new Handler(getActivity().getMainLooper());
+                final WeakReference<ActivatorListFragment> fragmentWeakRef
+                        = new WeakReference<>(this);
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showTargetHelps (1)");
-                    //Log.e("ActivatorListFragment.showTargetHelps", "start showAdapterTargetHelps (2)");
-                    //noinspection Convert2MethodRef
-                    showAdapterTargetHelps();
+                    ActivatorListFragment fragment = fragmentWeakRef.get();
+                    if (fragment != null) {
+                        Activity activity = fragment.getActivity();
+                        if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+                            return;
+
+                        //Log.e("ActivatorListFragment.showTargetHelps", "start showAdapterTargetHelps (2)");
+                        fragment.showAdapterTargetHelps();
+                    }
                 }, 500);
             }
         }
@@ -653,7 +629,6 @@ public class ActivatorListFragment extends Fragment {
             final Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(() -> {
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showTargetHelps (2)");
-
                 //Log.e("ActivatorListFragment.showTargetHelps", "(3)");
 
                 if (ActivatorTargetHelpsActivity.activity != null) {
@@ -693,7 +668,6 @@ public class ActivatorListFragment extends Fragment {
             final Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(() -> {
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showAdapterTargetHelps");
-
                 if (ActivatorTargetHelpsActivity.activity != null) {
                     //Log.d("ActivatorListFragment.showAdapterTargetHelps", "finish activity");
                     try {

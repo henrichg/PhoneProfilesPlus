@@ -127,11 +127,6 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
         //if (useHandler) {
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadBroadcast(/*"DonationBroadcastReceiver.onReceive"*/);
-        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-        //        context.getApplicationContext()) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=CheckGitHubReleasesBroadcastReceiver.doWork");
 
@@ -147,9 +142,9 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
                     try {
                         boolean getVersion;
-                        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
-                            getVersion = false;
-                        else
+                        //if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
+                        //    getVersion = false;
+                        //else
                         if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
                             getVersion = false;
                         else {
@@ -191,9 +186,9 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             //}
-        }; //);
+        };
         PPApplicationStatic.createBasicExecutorPool();
-            PPApplication.basicExecutorPool.submit(runnable);
+        PPApplication.basicExecutorPool.submit(runnable);
         /*}
         else {
             _doWork(appContext);

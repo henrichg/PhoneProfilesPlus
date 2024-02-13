@@ -31,11 +31,6 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
             final long profileId = _profileId;
 
             final Context appContext = context.getApplicationContext();
-            //PPApplication.startHandlerThreadBroadcast();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-            //        context.getApplicationContext()) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ActivatedProfileEventBroadcastReceiver.doWork");
 
@@ -49,7 +44,7 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
+                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                         dataWrapper.fillEventList();
                         //dataWrapper.fillProfileList(false, false);
 
@@ -59,7 +54,7 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             for (Event _event : dataWrapper.eventList) {
                                 if ((_event._eventPreferencesActivatedProfile._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
-                                    if (_event._eventPreferencesActivatedProfile.isRunnable(context)) {
+                                    if (_event._eventPreferencesActivatedProfile.isRunnable(appContext)) {
                                         int oldRunning = _event._eventPreferencesActivatedProfile._running;
 
                                         long startProfile = _event._eventPreferencesActivatedProfile._startProfile;
@@ -102,7 +97,7 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }

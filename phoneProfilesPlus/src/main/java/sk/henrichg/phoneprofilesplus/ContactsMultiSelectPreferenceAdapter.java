@@ -23,7 +23,7 @@ class ContactsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Contacts
     @Override
     public ContactsMultiSelectDialogPreferenceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_contacts_multiselect_preference, parent, false);
-        return new ContactsMultiSelectDialogPreferenceViewHolder(view);
+        return new ContactsMultiSelectDialogPreferenceViewHolder(view, preference.withoutNumbers);
     }
 
     @Override

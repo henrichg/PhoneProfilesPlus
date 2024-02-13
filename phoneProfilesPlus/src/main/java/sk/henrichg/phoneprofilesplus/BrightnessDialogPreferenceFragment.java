@@ -16,6 +16,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+import java.lang.ref.WeakReference;
+
 public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragmentCompat
                 implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener
 {
@@ -35,7 +37,7 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
     private Button actualLevelBtn = null;
 
     private final Handler savedBrightnessHandler = new Handler(Looper.getMainLooper());
-    private final Runnable savedBrightnessRunnable = this::setSavedBrightness;
+    private Runnable savedBrightnessRunnable = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -128,7 +130,8 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
             preference.resetSummary();
         }
 
-        savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
+        if (savedBrightnessRunnable != null)
+            savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
         setSavedBrightness();
 
         PPApplication.brightnessInternalChange = false;
@@ -230,16 +233,21 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
                     //if (_automatic == 1)
                     //    allowed = preference.adaptiveAllowed;
                     //if (allowed) {
-                    //    Handler handler = new Handler(context.getMainLooper());
-                    //    handler.postDelayed(() -> {
-                            int __value = ProfileStatic.convertPercentsToBrightnessManualValue(_value, context);
-                            //Log.e("BrightnessDialogPreferenceFragment.onCheckedChanged", "__value="+__value);
-                            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, __value);
-                            //setAdaptiveBrightness(ProfileStatic.convertPercentsToBrightnessAdaptiveValue(_value, context));
-                    //    }, 200);
+                        int __value = ProfileStatic.convertPercentsToBrightnessManualValue(_value, context);
+                        //Log.e("BrightnessDialogPreferenceFragment.onCheckedChanged", "__value="+__value);
+                        Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, __value);
+                        //setAdaptiveBrightness(ProfileStatic.convertPercentsToBrightnessAdaptiveValue(_value, context));
                     //}
                 }
-                savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
+                if (savedBrightnessRunnable != null)
+                    savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
+                final WeakReference<BrightnessDialogPreferenceFragment> fragmentWeakRef = new WeakReference<>(this);
+                savedBrightnessRunnable = () -> {
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragment.onCheckedChanged (1)");
+                    BrightnessDialogPreferenceFragment fragment = fragmentWeakRef.get();
+                    if (fragment != null)
+                        fragment.setSavedBrightness();
+                };
                 savedBrightnessHandler.postDelayed(savedBrightnessRunnable, 5000);
             }
 
@@ -381,9 +389,6 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
                     Settings.System.putFloat(context.getContentResolver(),
                             Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, value);
                 } catch (Exception ee) {
-                    //PPApplication.startHandlerThread();
-                    //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                    //__handler.post(() -> {
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragment.setAdaptiveBrightness");
 
@@ -405,7 +410,7 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
                             }
                         }
 
-                    }; //);
+                    };
                     PPApplication.createBasicExecutorPool();
                     PPApplication.basicExecutorPool.submit(runnable);
                 }
@@ -430,7 +435,14 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
                     //setAdaptiveBrightness(ProfileStatic.convertPercentsToBrightnessAdaptiveValue(value, context));
                 //}
             }
-            savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
+            if (savedBrightnessRunnable != null)
+                savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
+            final WeakReference<BrightnessDialogPreferenceFragment> fragmentWeakRef = new WeakReference<>(this);
+            savedBrightnessRunnable = () -> {
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragment.onCheckedChanged (1)");
+                BrightnessDialogPreferenceFragment fragment = fragmentWeakRef.get();
+                    fragment.setSavedBrightness();
+            };
             savedBrightnessHandler.postDelayed(savedBrightnessRunnable, 5000);
         }
 

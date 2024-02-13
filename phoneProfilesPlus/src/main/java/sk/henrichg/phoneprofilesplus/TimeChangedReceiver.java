@@ -53,11 +53,6 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                 //if (timeChanged) {
 
                 final Context appContext = context.getApplicationContext();
-                //PPApplication.startHandlerThreadBroadcast(/*"TimeChangedReceiver.onReceive"*/);
-                //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-                //        context.getApplicationContext()) {
-                //__handler.post(() -> {
                 Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
 
@@ -85,7 +80,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                             }
                         }
                     //}
-                }; //);
+                };
                 PPApplicationStatic.createEventsHandlerExecutor();
                     PPApplication.eventsHandlerExecutor.submit(runnable);
                 //}

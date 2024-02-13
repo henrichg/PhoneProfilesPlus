@@ -6,7 +6,7 @@
 PhoneProfilesPlus (aka PPP)
 ===========================
 
-[![version](https://img.shields.io/badge/version-6.4-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.4)
+[![version](https://img.shields.io/badge/version-6.4.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.4.1)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
@@ -71,7 +71,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 ##### (HELP) How to grant (G1) permission - for profile parameters that require this permission
 - [Show it](docs/grant_g1_permission.md)
 
-##### (HELP) How to using Shizuku - for profile parameters that require (Z) permission
+##### (HELP) How to using Shizuku (good alternative for non-rooted devices) - for profile parameters that require (Z) permission
 - [Show it](docs/shizuku.md)
 
 ##### (HELP) How to disable Wi-Fi scan throttling - useful for Wi-Fi scanning

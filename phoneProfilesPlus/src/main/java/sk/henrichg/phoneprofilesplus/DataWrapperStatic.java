@@ -620,7 +620,7 @@ class DataWrapperStatic {
 
     static void setDynamicLauncherShortcuts(final Context appContext) {
         try {
-            //final Context appContext = context;
+            //final Context appContext = context.getApplicationContext();
             LocaleHelper.setApplicationLocale(appContext);
 
             ShortcutManager shortcutManager = appContext.getSystemService(ShortcutManager.class);
@@ -687,15 +687,11 @@ class DataWrapperStatic {
         }
     }
 
-    static void setDynamicLauncherShortcutsFromMainThread(final Context appContext)
+    static void setDynamicLauncherShortcutsFromMainThread(final Context context)
     {
         //final DataWrapper dataWrapper = copyDataWrapper();
 
-        //PPApplication.startHandlerThread(/*"DataWrapper.setDynamicLauncherShortcutsFromMainThread"*/);
-        //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(
-        //        context, dataWrapper, null, null) {
-        //__handler.post(() -> {
+        final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
 
@@ -727,7 +723,7 @@ class DataWrapperStatic {
                 }
             }
             //}
-        }; //);
+        };
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
     }

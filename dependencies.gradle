@@ -32,10 +32,12 @@
 // 6960 = Increased default value for "Bluetooth LE scan duration".
 // 7065 = Convered old contacts data format in sensors to new format
 // 7080 = Lock device: use Extender for Android 9+
+// 7090 = Removed support for Galaxy Store
 
 ext.ppVersions = [
-        publishVersion    : '6.4',
-        publishVersionCode: 7080,
+        publishVersion    : '6.4.1',
+
+        publishVersionCode: 7110,
 
         minSdk            : 26,
         targetSdk         : 28,

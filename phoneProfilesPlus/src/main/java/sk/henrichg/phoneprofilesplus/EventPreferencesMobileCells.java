@@ -127,6 +127,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
                         boolean simExists;
+//                        Log.e("EventPreferencesMobileCells.getPreferencesDescription", "called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                         boolean sim1Exists = hasSIMCardData.hasSIM1;
                         boolean sim2Exists = hasSIMCardData.hasSIM2;
@@ -256,6 +257,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     if (phoneCount > 1) {
                         hasFeature = true;
                         boolean simExists;
+//                        Log.e("EventPreferencesMobileCells.setSummary", "called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                         boolean sim1Exists = hasSIMCardData.hasSIM1;
                         boolean sim2Exists = hasSIMCardData.hasSIM2;
@@ -398,6 +400,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                         boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, false);
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
+//                            Log.e("EventPreferencesMobileCells.checkPreferences", "called hasSIMCard");
                             HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                             boolean sim1Exists = hasSIMCardData.hasSIM1;
                             boolean sim2Exists = hasSIMCardData.hasSIM2;

@@ -205,48 +205,52 @@ class MobileCellNamesDialog {
                 dialog.linlaProgress.setVisibility(View.GONE);
 
                 final Handler handler = new Handler(activity.getMainLooper());
+                final WeakReference<List<String>> cellNamesListWeakRef = new WeakReference<>(_cellNamesList);
                 handler.post(() -> {
                     dialog.rellaDialog.setVisibility(View.VISIBLE);
 
-                    dialog.cellNamesList = new ArrayList<>(_cellNamesList);
+                    List<String> __cellNamesList = cellNamesListWeakRef.get();
+                    if (__cellNamesList != null) {
+                        dialog.cellNamesList = new ArrayList<>(__cellNamesList);
 
-                    if (dialog.cellNamesList.size() == 0) {
-                        dialog.cellNamesListView.setVisibility(View.GONE);
-                        dialog.emptyList.setVisibility(View.VISIBLE);
-                    } else {
-                        dialog.emptyList.setVisibility(View.GONE);
-                        dialog.cellNamesListView.setVisibility(View.VISIBLE);
-                    }
+                        if (dialog.cellNamesList.size() == 0) {
+                            dialog.cellNamesListView.setVisibility(View.GONE);
+                            dialog.emptyList.setVisibility(View.VISIBLE);
+                        } else {
+                            dialog.emptyList.setVisibility(View.GONE);
+                            dialog.cellNamesListView.setVisibility(View.VISIBLE);
+                        }
 
-                    //if (dialog.preference == null) {
-                    //    if (activity instanceof NotUsedMobileCellsDetectedActivity) {
-                    //        dialog.cellName.setText(((NotUsedMobileCellsDetectedActivity) activity).cellNameTextView.getText().toString());
-                    //    }
-                    //} else
-                    if (dialog.preference instanceof MobileCellsRegistrationDialogPreference) {
-                        dialog.cellName.setText(((MobileCellsRegistrationDialogPreference) dialog.preference).getCellNameText());
-                    } else if (dialog.preference instanceof MobileCellsEditorPreference) {
-                        //if (showFilterItems) {
-                        //    cellName.setText(((MobileCellsEditorPreference) preference).cellFilter.getText().toString());
-                        //    cellName.setInputType(InputType.TYPE_NULL);
-                        //    cellName.setTextIsSelectable(false);
-                        //    cellName.setOnKeyListener(new View.OnKeyListener() {
-                        //        @Override
-                        //        public boolean onKey(View v,int keyCode, KeyEvent event) {
-                        //            return true;  // Blocks input from hardware keyboards.
-                        //        }
-                        //    });
-                        //}
-                        //else
-                        if (!dialog.showFilterItems)
-                            dialog.cellName.setText(((MobileCellsEditorPreference) dialog.preference).getCellNameText());
-                    }
+                        //if (dialog.preference == null) {
+                        //    if (activity instanceof NotUsedMobileCellsDetectedActivity) {
+                        //        dialog.cellName.setText(((NotUsedMobileCellsDetectedActivity) activity).cellNameTextView.getText().toString());
+                        //    }
+                        //} else
+                        if (dialog.preference instanceof MobileCellsRegistrationDialogPreference) {
+                            dialog.cellName.setText(((MobileCellsRegistrationDialogPreference) dialog.preference).getCellNameText());
+                        } else if (dialog.preference instanceof MobileCellsEditorPreference) {
+                            //if (showFilterItems) {
+                            //    cellName.setText(((MobileCellsEditorPreference) preference).cellFilter.getText().toString());
+                            //    cellName.setInputType(InputType.TYPE_NULL);
+                            //    cellName.setTextIsSelectable(false);
+                            //    cellName.setOnKeyListener(new View.OnKeyListener() {
+                            //        @Override
+                            //        public boolean onKey(View v,int keyCode, KeyEvent event) {
+                            //            return true;  // Blocks input from hardware keyboards.
+                            //        }
+                            //    });
+                            //}
+                            //else
+                            if (!dialog.showFilterItems)
+                                dialog.cellName.setText(((MobileCellsEditorPreference) dialog.preference).getCellNameText());
+                        }
 
-                    dialog.listAdapter.notifyDataSetChanged();
+                        dialog.listAdapter.notifyDataSetChanged();
 
-                    if (!dialog.showFilterItems) {
-                        dialog.cellName.setFocusable(true);
-                        dialog.cellName.requestFocus();
+                        if (!dialog.showFilterItems) {
+                            dialog.cellName.setFocusable(true);
+                            dialog.cellName.requestFocus();
+                        }
                     }
                 });
             }

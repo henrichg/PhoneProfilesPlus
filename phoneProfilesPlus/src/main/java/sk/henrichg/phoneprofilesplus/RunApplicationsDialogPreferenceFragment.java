@@ -102,6 +102,10 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
             asyncTask.cancel(true);
         asyncTask = null;
 
+        if (itemTouchHelper != null)
+            itemTouchHelper.attachToRecyclerView(null);
+        itemTouchHelper = null;
+
         if (PPApplicationStatic.getApplicationsCache() != null) {
             PPApplicationStatic.getApplicationsCache().cancelCaching();
             if (!PPApplicationStatic.getApplicationsCache().cached)

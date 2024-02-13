@@ -128,10 +128,11 @@ class AskForDurationActivateProfileAdapter extends BaseAdapter {
                 }
             }
             else {
-                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
-                if (bitmap != null)
-                    holder.profileIcon.setImageBitmap(bitmap);
-                else
+                //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
+                //Bitmap bitmap = profile._iconBitmap;
+                //if (bitmap != null)
+                //    holder.profileIcon.setImageBitmap(bitmap);
+                //else
                     holder.profileIcon.setImageBitmap(profile._iconBitmap);
             }
             if (applicationEditorPrefIndicator) {

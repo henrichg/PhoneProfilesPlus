@@ -365,13 +365,13 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
                 String dialogText = "";
 
-                int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
+                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
                 if (extenderVersion != 0) {
-                    String extenderVersionName = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
+                    String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
                     dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) + " " + StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")" + StringConstants.TAG_BOLD_END_HTML + StringConstants.TAG_BREAK_HTML;
                 }
                 dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
-                        " " + StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")" + StringConstants.TAG_BOLD_END_HTML + StringConstants.TAG_DOUBLE_BREAK_HTML;
+                        " " + StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")" + StringConstants.TAG_BOLD_END_HTML + StringConstants.TAG_DOUBLE_BREAK_HTML;
                 dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\".";
                 text.setText(StringFormatUtils.fromHtml(dialogText, false, false, 0, 0, true));
 

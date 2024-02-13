@@ -502,7 +502,7 @@
     <string name="permissions_for_play_ringtone_notification_text2">S\'il vous plaît validez les boîtes de dialogues suivantes pour que les sons soient joués.</string>
     <string name="permissions_for_play_ringtone_notification_big_text_notification">Jouer la sonnerie sélectionnée requiert certaines autorisations à accorder.</string>
     <string name="important_info_profile_interactive">Certaines préférences de profil sont interactives. Ces préférences affichent l\'écran préférence système. Ces préférences sont marqués avec \"(I)\".</string>
-    <string name="important_info_orange_text">Note : le texte orange dans cette info est cliquable. Cliquez sur ce texte ouvre l’écran \"paramètre système\".</string>
+    <string name="important_info_orange_text">Note : le texte orange dans cette info est cliquable. Cliquez sur ce texte pour ouvrir l’écran de paramétrage correspondant.</string>
     <string name="default_event_name_night_call">Appel de nuit</string>
     <string name="alert_message_enable_event">L\'événement n\'est pas activé. L\'activer ?</string>
     <string name="menu_about_application">À propos</string>
@@ -572,7 +572,6 @@
     <string name="nfc_tag_pref_dlg_hint">Nom de l\'étiquette</string>
     <string name="nfc_tag_pref_dlg_help">Vous devez écrire le nom de l\'étiquette dans la balise NFC. \"Écrire l\'étiquette NFC\" est dans le menu de chaque nom de balise.</string>
     <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">Écrire sur une étiquette NFC</string>
-    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Appaire votre téléphone à une balise NFC. L\'écriture démarre.</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC doit être activé. Activez-le et essayez à nouveau.</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">Écrire sur une étiquette NFC</string>
     <string name="write_nfc_tag_written">Balise écrite</string>
@@ -599,7 +598,7 @@
     <string name="editor_event_list_item_profile_start_icon">Icône de début d’événements</string>
     <string name="editor_event_list_item_profile_end_icon">Icône de fin d’événements</string>
     <string name="run_stop_events_indicator">Activer/arrêter l\'indicateur d’événement en cours</string>
-    <string name="important_info_how_to_show">Cette information importante peut être vu dans l’éditeur en cliquant sur l’icône point d’interrogation dans la barre d’outils.</string>
+    <string name="important_info_how_to_show">Cette information importante peut être vue dans l’éditeur en cliquant sur l’icône point d’interrogation dans la barre d’outils.</string>
     <string name="preference_not_allowed_reason_not_supported_by_application">non pris en charge par l’application</string>
     <string name="preference_not_allowed_reason_detail_old_android">ancienne version Android</string>
     <string name="preference_not_allowed_reason_detail_network_type">type de réseau non pris en charge ou ne pouvant pas être changé</string>
@@ -1102,7 +1101,7 @@
     <string name="phone_profiles_pref_applicationDoNotKillMyApp_summary2">. Dans cette page, comment configurer l\'appareil pour qu\'il ne tue pas PhoneProfilesPlus quand il est en arrière-plan.</string>
     <string name="phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle">Comment faire fonctionner PhoneProfilesPlus</string>
     <string name="important_info_do_not_kill_my_app1">Concernant les problèmes du système qui tue PhoneProfilesPlus quand il est en arrière-plan, cliquez ici pour afficher la page web</string>
-    <string name="important_info_do_not_kill_my_app2">. Dans cette page est expliqué comment configurer l\'appareil pour ne pas tuer PhoneProfilesPlus, quand il est en arrière-plan.</string>
+    <string name="important_info_do_not_kill_my_app2">. Cette page explique comment configurer l\'appareil pour qu\'il ne tue pas PhoneProfilesPlus quand il est en arrière-plan.</string>
     <string name="new_event_profiles_not_exists_alert_message1">Profil</string>
     <string name="new_event_profiles_not_exists_alert_message2">n\'existe pas pour un nouvel événement. Créer ?</string>
     <string name="notification_channel_not_used_mobile_cell">Détection des antennes-relais non utilisées</string>
@@ -1535,8 +1534,6 @@
     <string name="menu_check_releases_fdroid">Vérifier dans F-Droid</string>
     <string name="check_releases_fdroid_repository_with_ppp">Dépôt pour le configurer dans l\'application F-Droid :</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Si le changement de volume \"médias\" ne fonctionne pas, c\'est peut-être dû à l\'activation de l\'option \"safe volume flag\". Si vous voulez désactiver ce drapeau, accordez la permission (G1).</string>
-    <string name="menu_check_releases_galaxy_store">Vérifier dans la boutique Galaxy</string>
-    <string name="check_releases_open_galaxy_store">Ouvrir la boutique Galaxy</string>
     <string name="applicationApplicationInterfaceActivationNotification">Notification d\'activation du profil</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Ajouter \"Redémarrer les événements\" dans la liste des profils</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Intervalle de recherche Bluetooth</string>
@@ -1941,8 +1938,6 @@
     <string name="samsung_edge_panel_settings_description">Paramètres du panneau de bord Samsung</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Grille compacte</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Avec ce type de grille, les noms de profil ne seront pas affichés, mais plus de profils peuvent tenir sur une seule ligne.</string>
-    <string name="check_releases_go_to_galaxy_store">Aller sur le Galaxy Store</string>
-    <string name="check_releases_web_galaxy_store_install_restriction">Désolé, il n\'est pas possible d\'installer PhoneProfilesPlus à partir de ce site Web. Le Galaxy Store limite la prise en charge aux appareils Galaxy uniquement.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Activer/désactiver la localisation (Arrêt &lt;-&gt; Haute précision)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Activer/désactiver la localisation (utilise moins la batterie &lt;-&gt; Haute précision)</string>
     <string name="widget_label_one_row_profile_list">Liste des profils sur une ligne</string>
@@ -2109,7 +2104,6 @@
     <string name="export_settings_delete_contacts_data_notification">Contacts pour le capteur de notification</string>
     <string name="grant_draw_over_apps_dialog_info_text">Vous devez accorder l\'autorisation \"Superposition des applications\". Elle est nécessaire au bon fonctionnement de PhoneProfilesPlus en arrière-plan. Cliquez sur le bouton « Accorder » pour accorder cette autorisation.</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">S\'il n\'est pas possible d\'accorder cette autorisation, cliquez sur ce lien. Cette page Web contient peut-être une solution pour votre appareil :</string>
-    <string name="install_extender_install_droidify_button">Installer Droid-ify</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Ne pas utiliser</string>
     <string name="contacts_filter_dialog_filter_title">Filtre de contacts</string>
     <string name="contacts_filter_dialog_item_show_all">[ Tous ]</string>
@@ -2139,4 +2133,22 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Type de réseau mobile pour la carte SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Type de réseau mobile pour la carte SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Carte SIM par défaut</string>
+    <string name="important_info_end_of_galaxy_store_support_text1">Fin du support du Galaxy Store</string>
+    <string name="important_info_end_of_galaxy_store_support_text2">Désolé, le Galaxy Store n\'est plus pris en charge car ce magasin nécessite l\'API du SDK 33 (Android 13) et le SDK cible de PPP est le 28 (Android 9).</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_title">Lire le tag NFC</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_text">Lire le tag NFC enregistré dans PhonePorfilesPlus.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut">Raccourci vers « Lire le tag NFC »</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary">Cliquez ici pour créer un raccourci vers « Lire le tage NFC » sur le lanceur.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary_info">Si votre appareil affiche une notification lors de la lecture du tag NFC c\'est qu\'il n\'y a pas d\'application au premier plan pour prendre en charge la lecture des balises NFC (par exemple, certains appareils Xiaomi), créez ce raccourci et utilisez-le chaque fois que vous voulez lire les balises NFC pour déclencher un événement en PPP.</string>
+    <string name="shortcut_to_read_nfc_tag_created_toast">Raccourci vers « Lire le tag NFC » créé</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_touch">Attachez votre appareil à un tag NFC. La lecture sera démarrée.</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagName">Nom de la balise :</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData">Données de la balise :</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData_noData">Pas de données</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addNameButtons">Ajouter un nom à la liste des balises :</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_changeNameButtons">Changer le nom dans la liste des balises :</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addReadedNameButton">Utiliser les données du tag comme nom</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton">Écrire le nom de la balise sur la balise</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch1">Attachez votre appareil à un tag NFC. Puis cliquez sur le bouton</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch2">L\'écriture va commencer.</string>
 </resources>

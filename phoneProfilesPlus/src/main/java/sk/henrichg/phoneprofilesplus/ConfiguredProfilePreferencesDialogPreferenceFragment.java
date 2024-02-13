@@ -59,6 +59,7 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragment extends Prefer
         if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             asyncTask.cancel(true);
         }
+        asyncTask = null;
 
         preference.fragment = null;
     }

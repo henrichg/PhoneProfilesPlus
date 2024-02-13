@@ -163,8 +163,8 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         StringConstants.STR_COLON_WITH_SPACE + _context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
             } else if (systemSettings.equals("accessibility_2.0")) {
                 // PPPExtender
-                int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(_context);
-                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_LATEST;
+                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(_context);
+                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_8_1_3;
                 if (extenderVersion == 0) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
@@ -173,7 +173,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
                             StringConstants.STR_COLON_WITH_SPACE + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true
+                } else if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true
                         /*, "ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory (accessibility_2.0)"*/)) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
@@ -185,8 +185,8 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 }
             } else if (systemSettings.equals("accessibility_5.0")) {
                 // PPPExtender
-                int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(_context);
-                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_LATEST;
+                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(_context);
+                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_8_1_3;
                 if (extenderVersion == 0) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
@@ -195,7 +195,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
                             StringConstants.STR_COLON_WITH_SPACE + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true
+                } else if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true
                         /*, "ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory (accessibility_5.0)"*/)) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +

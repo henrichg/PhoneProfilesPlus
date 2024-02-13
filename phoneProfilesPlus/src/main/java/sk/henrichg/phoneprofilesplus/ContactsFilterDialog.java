@@ -149,6 +149,8 @@ class ContactsFilterDialog {
                             while (contactsCache.getCaching())
                                 GlobalUtils.sleep(100);*/
                         }
+                        else
+                            contactList.clear();
                     } else {
                         // wait for cache end
                         while (contactsCache.getCaching())
@@ -179,6 +181,7 @@ class ContactsFilterDialog {
                                 }
                             }
                         }
+                        localContactList.clear();
                     }
                 }
 

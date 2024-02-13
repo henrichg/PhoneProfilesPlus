@@ -307,7 +307,7 @@ final class WifiApManager {
 
     // Tnank to author of MacroDroid application.
     // It is used as source of this implenetation.
-    static void startTethering30(Context context, boolean doNotChangeWifi) {
+    static void startTethering30(final Context context, boolean doNotChangeWifi) {
         if (!doNotChangeWifi) {
             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             if (wifiManager != null) {

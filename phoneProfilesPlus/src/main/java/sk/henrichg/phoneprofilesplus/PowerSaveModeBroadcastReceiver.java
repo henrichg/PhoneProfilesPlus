@@ -44,6 +44,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
         }
         if (restart) {
             // for screenOn=true -> used only for Location scanner - start scan with GPS On
+//            PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] PowerSaveModeBroadcastReceiver.onReceive", "xxx");
             PPApplicationStatic.restartAllScanners(appContext, true);
         }
 

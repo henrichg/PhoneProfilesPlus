@@ -2,8 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
+import android.media.AudioManager;
 import android.telephony.TelephonyManager;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -24,9 +23,9 @@ class EventsHandler {
     //private int oldSystemRingerMode;
     private int oldZenMode;
 
-    private String oldRingtone;
-    private String oldRingtoneSIM1;
-    private String oldRingtoneSIM2;
+    //private String oldRingtone;
+    //private String oldRingtoneSIM1;
+    //private String oldRingtoneSIM2;
 
     //private String oldNotificationTone;
     //private int oldSystemRingerVolume;
@@ -182,10 +181,47 @@ class EventsHandler {
 //            if ((sensorType == SENSOR_TYPE_LOCATION_SCANNER))
 //                PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
 
-            // save ringer mode, zen mode, ringtone before handle events
+            // save ringer mode, zen mode, ringtone before handle events, (must be from system!)
             // used by ringing call simulation (in doEndHandler())
-            oldRingerMode = ApplicationPreferences.prefRingerMode;
-            oldZenMode = ApplicationPreferences.prefZenMode;
+            //oldRingerMode = ApplicationPreferences.prefRingerMode;
+            //oldZenMode = ApplicationPreferences.prefZenMode;
+            AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+            switch (audioManager.getRingerMode()) {
+                case AudioManager.RINGER_MODE_SILENT:
+                    oldRingerMode = Profile.RINGERMODE_SILENT;
+//                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldRingerMode=SILENT");
+                    break;
+                case AudioManager.RINGER_MODE_VIBRATE:
+//                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldRingerMode=VIBRATE");
+                    oldRingerMode = Profile.RINGERMODE_VIBRATE;
+                    break;
+                //case AudioManager.RINGER_MODE_NORMAL:
+                default:
+                    oldRingerMode = Profile.RINGERMODE_RING;
+//                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldRingerMode=RING");
+                    break;
+            }
+            switch (ActivateProfileHelper.getSystemZenMode(context)) {
+                case ActivateProfileHelper.ZENMODE_ALARMS:
+                    oldZenMode = Profile.ZENMODE_ALARMS;
+//                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldZenMode=ALARMS");
+                    break;
+                case ActivateProfileHelper.ZENMODE_NONE:
+                    oldZenMode = Profile.ZENMODE_NONE;
+//                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldZenMode=NONE");
+                    break;
+                case ActivateProfileHelper.ZENMODE_PRIORITY:
+                    oldZenMode = Profile.ZENMODE_PRIORITY;
+//                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldZenMode=PRIORITY");
+                    break;
+                //case ActivateProfileHelper.ZENMODE_ALL:
+                default:
+                    oldZenMode = Profile.ZENMODE_ALL;
+//                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldZenMode=ALL");
+                    break;
+            }
+
+            /*
             try {
                 oldRingtone = "";
                 oldRingtoneSIM1 = "";
@@ -222,6 +258,7 @@ class EventsHandler {
                 oldRingtoneSIM1 = "";
                 oldRingtoneSIM2 = "";
             }
+            */
 
             if (!EventStatic.getGlobalEventsRunning(context)) {
                 // events are globally stopped
@@ -323,12 +360,22 @@ class EventsHandler {
                         (i == SENSOR_TYPE_SMS) ||
                         (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
                     // search for sms events, save start time
-                    for (Event _event : dataWrapper.eventList) {
-                        if (_event.getStatus() != Event.ESTATUS_STOP) {
-                            if (_event._eventPreferencesSMS._enabled) {
-                                _event._eventPreferencesSMS.saveStartTime(dataWrapper, eventSMSPhoneNumber, eventSMSDate, eventSMSFromSIMSlot);
+                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                    if (contactsCache != null) {
+                        List<Contact> contactList;
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
+                        synchronized (PPApplication.contactsCacheMutex) {
+                            contactList = contactsCache.getList(/*false*/);
+                        }
+                        for (Event _event : dataWrapper.eventList) {
+                            if (_event.getStatus() != Event.ESTATUS_STOP) {
+                                if (_event._eventPreferencesSMS._enabled) {
+                                    _event._eventPreferencesSMS.saveStartTime(contactList, dataWrapper, eventSMSPhoneNumber, eventSMSDate, eventSMSFromSIMSlot);
+                                }
                             }
                         }
+                        if (contactList != null)
+                            contactList.clear();
                     }
                 }
 
@@ -346,15 +393,25 @@ class EventsHandler {
                         (i == SENSOR_TYPE_PHONE_CALL) ||
                         (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
                     // search for call events, save start time
-                    for (Event _event : dataWrapper.eventList) {
-                        if (_event.getStatus() != Event.ESTATUS_STOP) {
-                            if (_event._eventPreferencesCall._enabled &&
-                                    ((_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
-                                            (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                                            (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED))) {
-                                _event._eventPreferencesCall.saveStartTime(dataWrapper);
+                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                    if (contactsCache != null) {
+                        List<Contact> contactList;
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
+                        synchronized (PPApplication.contactsCacheMutex) {
+                            contactList = contactsCache.getList(/*false*/);
+                        }
+                        for (Event _event : dataWrapper.eventList) {
+                            if (_event.getStatus() != Event.ESTATUS_STOP) {
+                                if (_event._eventPreferencesCall._enabled &&
+                                        ((_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
+                                                (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                                                (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED))) {
+                                    _event._eventPreferencesCall.saveStartTime(contactList, dataWrapper);
+                                }
                             }
                         }
+                        if (contactList != null)
+                            contactList.clear();
                     }
                 }
                 if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_ALARM_CLOCK)) {
@@ -889,15 +946,27 @@ class EventsHandler {
                 try {
                     boolean simulateRingingCall = false;
                     String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
-                    for (Event _event : dataWrapper.eventList) {
-                        if (_event._eventPreferencesCall._enabled && _event.getStatus() == Event.ESTATUS_RUNNING) {
-                            if (_event._eventPreferencesCall.isPhoneNumberConfigured(phoneNumber/*, dataWrapper*/)) {
-                                simulateRingingCall = true;
-                                break;
+
+                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                    if (contactsCache != null) {
+                        List<Contact> contactList;
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] EventsHandler.doEndHandler", "PPApplication.contactsCacheMutex");
+                        synchronized (PPApplication.contactsCacheMutex) {
+                            contactList = contactsCache.getList(/*false*/);
+                        }
+                        for (Event _event : dataWrapper.eventList) {
+                            if (_event._eventPreferencesCall._enabled && _event.getStatus() == Event.ESTATUS_RUNNING) {
+                                if (_event._eventPreferencesCall.isPhoneNumberConfigured(contactList, phoneNumber/*, dataWrapper*/)) {
+                                    simulateRingingCall = true;
+                                    break;
+                                }
                             }
                         }
+                        if (contactList != null)
+                            contactList.clear();
                     }
                     int simSlot = ApplicationPreferences.prefEventCallFromSIMSlot;
+//                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.doEndHandler", "simulateRingingCall="+simulateRingingCall);
                     if (simulateRingingCall) {
                         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
@@ -907,9 +976,9 @@ class EventsHandler {
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
                         //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
-                        commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
-                        commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM1, oldRingtoneSIM1);
-                        commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM2, oldRingtoneSIM2);
+                        //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
+                        //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM1, oldRingtoneSIM1);
+                        //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM2, oldRingtoneSIM2);
                         //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
 
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINGER_MODE, mergedProfile._volumeRingerMode);

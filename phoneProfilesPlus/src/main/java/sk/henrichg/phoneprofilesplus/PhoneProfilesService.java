@@ -83,9 +83,9 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_OLD_RINGER_MODE = "old_ringer_mode";
     //static final String EXTRA_OLD_SYSTEM_RINGER_MODE = "old_system_ringer_mode";
     static final String EXTRA_OLD_ZEN_MODE = "old_zen_mode";
-    static final String EXTRA_OLD_RINGTONE = "old_ringtone";
-    static final String EXTRA_OLD_RINGTONE_SIM1 = "old_ringtone_sim1";
-    static final String EXTRA_OLD_RINGTONE_SIM2 = "old_ringtone_sim2";
+    //static final String EXTRA_OLD_RINGTONE = "old_ringtone";
+    //static final String EXTRA_OLD_RINGTONE_SIM1 = "old_ringtone_sim1";
+    //static final String EXTRA_OLD_RINGTONE_SIM2 = "old_ringtone_sim2";
 
     static final String EXTRA_NEW_RINGER_MODE = "new_ringer_mode";
     static final String EXTRA_NEW_ZEN_MODE = "new_zen_mode";
@@ -211,7 +211,7 @@ public class PhoneProfilesService extends Service
         // show notification to avoid ANR in api level 26+
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesService.onCreate", "call of PPAppNotification.showNotification");
         PPAppNotification.showNotification(getApplicationContext(),
-                !isServiceRunning, isServiceRunning, true);
+                !isServiceRunning, isServiceRunning, true, true);
 
         PPApplicationStatic.logE("$$$ PhoneProfilesService.onCreate", "after show profile notification");
 
@@ -324,16 +324,6 @@ public class PhoneProfilesService extends Service
 
         PPApplicationStatic.logE("$$$ PhoneProfilesService.onCreate", "OK created");
 
-        /*PPApplication.startHandlerThread("PhoneProfilesService.doForFirstStart");
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                DatabaseHandler.getInstance(appContext).deactivateProfile();
-                ActivateProfileHelper.updateGUI(appContext, false, true);
-            }
-        });*/
-
         //PPApplication.startTimeOfApplicationStart = Calendar.getInstance().getTimeInMillis();
 
 //        PPApplicationStatic.logE("[MAIN_WORKER_CALL] PhoneProfilesService.onCreate", "xxxxxxxxxxxxxxxxxxxx");
@@ -347,6 +337,7 @@ public class PhoneProfilesService extends Service
             if (PPApplicationStatic.getApplicationStarted(true, false)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
+//                    PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.onCreate", "xxx");
                     workManager.enqueueUniqueWork(MainWorker.APPLICATION_FULLY_STARTED_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
@@ -372,9 +363,7 @@ public class PhoneProfilesService extends Service
 
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(commandReceiver);
-        } catch (Exception e) {
-            //PPApplicationStatic.recordException(e);
-        }
+        } catch (Exception ignored) {}
 
         PlayRingingNotification.stopSimulatingRingingCall(/*true*/true, getApplicationContext());
         //PhoneProfilesServiceStatic.stopSimulatingNotificationTone(true);
@@ -392,41 +381,29 @@ public class PhoneProfilesService extends Service
         if (Build.VERSION.SDK_INT < 31) {
             try {
                 appContext.unregisterReceiver(PPApplication.startLauncherFromNotificationReceiver);
-            } catch (Exception e) {
-                //PPApplicationStatic.recordException(e);
-            }
+            } catch (Exception ignored) {}
         }
-        /*try {
-            appContext.unregisterReceiver(PPApplication.showProfileNotificationBroadcastReceiver);
-        } catch (Exception e) {
-            //PPApplicationStatic.recordException(e);
-        }*/
-        /*try {
-            appContext.unregisterReceiver(PPApplication.updateGUIBroadcastReceiver);
-        } catch (Exception e) {
-            //PPApplicationStatic.recordException(e);
-        }*/
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.refreshActivitiesBroadcastReceiver);
-        } catch (Exception e) {
-            //PPApplicationStatic.recordException(e);
-        }
+        } catch (Exception ignored) {}
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.dashClockBroadcastReceiver);
-        } catch (Exception e) {
-            //PPApplicationStatic.recordException(e);
-        }
-
-        /*
-        if (startLauncherFromNotificationReceiver != null) {
-            try {
-                getApplicationContext().unregisterReceiver(startLauncherFromNotificationReceiver);
-                startLauncherFromNotificationReceiver = null;
-            } catch (Exception e) {
-                startLauncherFromNotificationReceiver = null;
-            }
-        }
-        */
+        } catch (Exception ignored) {}
+        try {
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.iconWidgetBroadcastReceiver);
+        } catch (Exception ignored) {}
+        try {
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.oneRowWidgetBroadcastReceiver);
+        } catch (Exception ignored) {}
+        try {
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.listWidgetBroadcastReceiver);
+        } catch (Exception ignored) {}
+        try {
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.edgePanelBroadcastReceiver);
+        } catch (Exception ignored) {}
+        try {
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.oneRowProfileListWidgetBroadcastReceiver);
+        } catch (Exception ignored) {}
 
         RootUtils.initRoot();
 
@@ -579,10 +556,6 @@ public class PhoneProfilesService extends Service
         final int _startForExternalAppDataType = startForExternalAppDataType;
         final String _startForExternalAppDataValue = startForExternalAppDataValue;
 
-        //PPApplication.startHandlerThread(/*"PhoneProfilesService.doForFirstStart"*/);
-        //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-        //__handler.post(new PPApplication.PPHandlerThreadRunnable(appContext) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
             PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart START");
 
@@ -639,7 +612,7 @@ public class PhoneProfilesService extends Service
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
                     editor.apply();
-                    ApplicationPreferences.applicationNeverAskForGrantRoot(appContext.getApplicationContext());
+                    ApplicationPreferences.applicationNeverAskForGrantRoot(appContext);
                 }*/
                 if (!ApplicationPreferences.applicationNeverAskForGrantRoot) {
                     // grant root
@@ -947,9 +920,9 @@ public class PhoneProfilesService extends Service
 
                 // !! must be after PPApplication.loadApplicationPreferences()
                 if (ApplicationPreferences.notificationProfileListDisplayNotification)
-                    ProfileListNotification.enable(false, getApplicationContext());
+                    ProfileListNotification.enable(false, appContext);
                 else
-                    ProfileListNotification.disable(getApplicationContext());
+                    ProfileListNotification.disable(appContext);
 
                 //boolean packageReplaced = PPApplication.applicationPackageReplaced; //ApplicationPreferences.applicationPackageReplaced(appContext);
                 //if (!packageReplaced) {
@@ -1053,7 +1026,7 @@ public class PhoneProfilesService extends Service
 //                                        }
 //                                        //}
 
-//                                        PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doFirstStart", "xxx");
+//                                PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doFirstStart", "keepResultsForAtLeast");
                                 //workManager.enqueue(worker);
                                 // !!! MUST BE APPEND_OR_REPLACE FOR EXTRA_START_FOR_EXTERNAL_APPLICATION !!!
                                 workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
@@ -1081,7 +1054,7 @@ public class PhoneProfilesService extends Service
                     }
                 }
             }
-        }; //);
+        };
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
 
@@ -1744,7 +1717,7 @@ public class PhoneProfilesService extends Service
 
         boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, true);
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesService.onStartCommand", "call of PPAppNotification.showNotification");
-        PPAppNotification.showNotification(appContext, !isServiceRunning, true, true);
+        PPAppNotification.showNotification(appContext, !isServiceRunning, true, true, true);
 
         PPApplication.normalServiceStart = (intent != null);
         PPApplication.showToastForProfileActivation = (intent != null);
@@ -1807,15 +1780,6 @@ public class PhoneProfilesService extends Service
     @Override
     public void onTaskRemoved(Intent rootIntent)
     {
-        //if (PPApplication.screenTimeoutHandler != null) {
-        //    PPApplication.screenTimeoutHandler.post(new Runnable() {
-        //        public void run() {
-        //            //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
-        //            ActivateProfileHelper.removeKeepScreenOnView();
-        //        }
-        //    });
-        //}
-
         super.onTaskRemoved(rootIntent);
     }
     */

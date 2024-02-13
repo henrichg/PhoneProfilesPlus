@@ -572,7 +572,6 @@
     <string name="nfc_tag_pref_dlg_hint">Etiket ismi</string>
     <string name="nfc_tag_pref_dlg_help">NFC etiketi içine etiket ismi yazmalısınız. \"NFC İsmine Yaz\" her etiket ismindeki menüdedir.</string>
     <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">NFC etiketine yaz</string>
-    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Telefonunuzu bir NFC etiketine ilave edin. Yazma başlayacak.</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC açılmalı. Lutfen açın sonra tekrar deneyin.</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">NFC etiketine yaz</string>
     <string name="write_nfc_tag_written">Etiket yazıldı</string>
@@ -1535,8 +1534,6 @@
     <string name="menu_check_releases_fdroid">F-Droid\'te güncellemeleri kontrol et</string>
     <string name="check_releases_fdroid_repository_with_ppp">F-Droid uygulamasında ayarlanacak depo:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Ses yüksekliği değişikliği çalışmıyorsa, bunun sebebi faaliyette olan \"güvenli ses bayrağı\" olabilir. Bu bayrağı devre dışı bırakmak istiyorsanız, (G1) izni verin, çünkü bu bayrağı devre dışı bırakmak için bu izin gereklidir.</string>
-    <string name="menu_check_releases_galaxy_store">Galaxy Store\'da kontrol et</string>
-    <string name="check_releases_open_galaxy_store">Galaxy Store\'u aç</string>
     <string name="applicationApplicationInterfaceActivationNotification">Tercihi faaliyete geçirme bildirimi</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">\"Durumları yeniden başlat\"ı Tercih listesine ilave et</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth taraması aralığı</string>
@@ -1941,8 +1938,6 @@
     <string name="samsung_edge_panel_settings_description">Samsung kenar paneli ayarları</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Küçük ızgara</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Bu tür bir ızgara ile, Tercih isimleri görüntülenmez, ancak bir satıra daha fazla Tercih sığabilir.</string>
-    <string name="check_releases_go_to_galaxy_store">Galaxy Store\'a git</string>
-    <string name="check_releases_web_galaxy_store_install_restriction">Maalesef, PhoneProfilesPlus\'ı bu web sitesinden yüklemek mümkün değil. Galaxy Store, desteği yalnızca Galaxy cihazlarıyla sınırlar.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Konum\'u Aç/Kapa (Kapalı &lt;-&gt; Yüksek doğruluk)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Konum\'u Aç/Kapa (Pil koruma &lt;-&gt; Yüksek doğruluk)</string>
     <string name="widget_label_one_row_profile_list">Tek satır Tercih listesi</string>
@@ -2109,7 +2104,6 @@
     <string name="export_settings_delete_contacts_data_notification">Bildirim şartı için Kişiler</string>
     <string name="grant_draw_over_apps_dialog_info_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click button \"Grant\" to grant this permission.</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, click this link. Maybe in this web page is solution for your device:</string>
-    <string name="install_extender_install_droidify_button">Install Droid-ify</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Do not use</string>
     <string name="contacts_filter_dialog_filter_title">Contacts filter</string>
     <string name="contacts_filter_dialog_item_show_all">[ All ]</string>
@@ -2139,4 +2133,22 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) SIM 1 için şebeke ağ türü</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) SIM 2 için şebeke ağ türü</string>
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Varsayılan SIM kart</string>
+    <string name="important_info_end_of_galaxy_store_support_text1">End of Galaxy Store support</string>
+    <string name="important_info_end_of_galaxy_store_support_text2">Sorry, Galaxy Store is not more supported, because this store requires target SDK API 33 (Android 13) and PPP target SDK is 28 (Android 9).</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_title">Read NFC tag</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_text">Read NFC tag written in PhonePorfilesPlus.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut">Shortcut to \"Read NFC tag\"</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary">Click here, to create shortcut to \"Read NFC tag\" in home launcher.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary_info">If your device shows a notification when reading NFC tag that there is no application in the foreground to support reading NFC tags (for example, some Xiaomi devices), create this shortcut and use it every time you want to read NFC tag to trigger event in PPP.</string>
+    <string name="shortcut_to_read_nfc_tag_created_toast">Shortcut to \"Read NFC tag\" created</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_touch">Attach your device to an NFC tag. Read will be started.</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagName">Tag name:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData">Tag data:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData_noData">No data</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addNameButtons">Add name to tag list:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_changeNameButtons">Change name in tag list:</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addReadedNameButton">Use tag data as name</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton">Write tag name to tag</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch1">Attach your device to an NFC tag. Then click button</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch2">Write will be started.</string>
 </resources>

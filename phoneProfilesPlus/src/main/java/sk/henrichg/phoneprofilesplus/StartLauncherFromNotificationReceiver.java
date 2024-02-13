@@ -28,7 +28,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
 //                        long start = System.currentTimeMillis();
 //                        PPApplicationStatic.logE("[IN_EXECUTOR]  ***** StartLauncherFromNotificationReceiver", "--------------- START");
 
-                            Intent launcherIntent = GlobalGUIRoutines.getIntentForStartupSource(context, PPApplication.STARTUP_SOURCE_NOTIFICATION);
+                            Intent launcherIntent = GlobalGUIRoutines.getIntentForStartupSource(appContext, PPApplication.STARTUP_SOURCE_NOTIFICATION);
                             // clear all opened activities
                             launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
                             // setup startupSource

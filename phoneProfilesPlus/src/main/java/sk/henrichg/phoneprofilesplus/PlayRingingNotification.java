@@ -24,7 +24,7 @@ class PlayRingingNotification
     static volatile boolean ringingCallIsSimulating = false;
     static volatile int oldVolumeForRingingSimulation = -1;
     static volatile int simulatingRingingCallActualRingingVolume = 0;
-    static volatile int simulatingRingingCallRingingMuted = 0;
+    //static volatile int simulatingRingingCallRingingMuted = 0;
 
     static volatile  boolean notificationIsPlayed = false;
     static volatile  int oldVolumeForPlayNotificationSound = -1;
@@ -40,8 +40,8 @@ class PlayRingingNotification
 
             PlayRingingNotification.ringingCallIsSimulating = false;
 
-            // wait for change ringer mode + volume
-            GlobalUtils.sleep(1500);
+            // wait for change of ringer mode+volume by profile activation
+            GlobalUtils.sleep(3000);
 
             int oldRingerMode = intent.getIntExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, 0);
             //int oldSystemRingerMode = intent.getIntExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
@@ -49,9 +49,9 @@ class PlayRingingNotification
 
             int fromSIMSlot = intent.getIntExtra(PhoneProfilesService.EXTRA_CALL_FROM_SIM_SLOT, 0);
 
-            //Context appContext = appContext.getApplicationContext();
             final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
 
+            /*
             // get ringtone configured in system at start call of EventsHanlder.handleEvents()
             String oldRingtone = intent.getStringExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE);
             if (telephonyManager != null) {
@@ -72,10 +72,13 @@ class PlayRingingNotification
             }
             if (oldRingtone == null)
                 oldRingtone = "";
+            */
 
+            // all EXTRA_NEW_% are from mergedProfile in EventsHandler.doEndHandler
+            // and are activated by event (look at GlobalUtils.sleep(1500); at start of this method)
             int newRingerMode;
             int newZenMode;
-            int ringerModeFromProfile = intent.getIntExtra(PhoneProfilesService.EXTRA_NEW_RINGER_MODE, 0);
+            /*int ringerModeFromProfile = intent.getIntExtra(PhoneProfilesService.EXTRA_NEW_RINGER_MODE, 0);
             if (ringerModeFromProfile != 0) {
                 newRingerMode = ringerModeFromProfile;
                 newZenMode = Profile.ZENMODE_ALL;
@@ -83,18 +86,52 @@ class PlayRingingNotification
                     newZenMode = intent.getIntExtra(PhoneProfilesService.EXTRA_NEW_RINGER_MODE, Profile.ZENMODE_ALL);
                 }
             }
-            else {
-                newRingerMode = ApplicationPreferences.prefRingerMode;
-                newZenMode = ApplicationPreferences.prefZenMode;
+            else*/ {
+                //newRingerMode = ApplicationPreferences.prefRingerMode;
+                //newZenMode = ApplicationPreferences.prefZenMode;
+                AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+                switch (audioManager.getRingerMode()) {
+                    case AudioManager.RINGER_MODE_SILENT:
+                        newRingerMode = Profile.RINGERMODE_SILENT;
+//                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newRingerMode=SILENT");
+                        break;
+                    case AudioManager.RINGER_MODE_VIBRATE:
+                        newRingerMode = Profile.RINGERMODE_VIBRATE;
+//                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newRingerMode=VIBRATE");
+                        break;
+                    //case AudioManager.RINGER_MODE_NORMAL:
+                    default:
+                        newRingerMode = Profile.RINGERMODE_RING;
+//                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newRingerMode=RING");
+                        break;
+                }
+                switch (ActivateProfileHelper.getSystemZenMode(context)) {
+                    case ActivateProfileHelper.ZENMODE_ALARMS:
+                        newZenMode = Profile.ZENMODE_ALARMS;
+//                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newZenMode=ALARMS");
+                        break;
+                    case ActivateProfileHelper.ZENMODE_NONE:
+                        newZenMode = Profile.ZENMODE_NONE;
+//                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newZenMode=NONE");
+                        break;
+                    case ActivateProfileHelper.ZENMODE_PRIORITY:
+                        newZenMode = Profile.ZENMODE_PRIORITY;
+//                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newZenMode=PRIORITY");
+                        break;
+                    //case ActivateProfileHelper.ZENMODE_ALL:
+                    default:
+                        newZenMode = Profile.ZENMODE_ALL;
+//                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newZenMode=ALL");
+                        break;
+                }
             }
 
             String phoneNumber = "";
-            if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(appContext/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, true
+            if (PPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, true
                     /*, "PhoneProfilesService.doSimulatingRingingCall"*/))
                 phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 
             // get ringtone from contact
-            //boolean phoneNumberFound = false;
             String _ringtoneFromContact = "";
             if (!phoneNumber.isEmpty()) {
                 try {
@@ -105,7 +142,6 @@ class PlayRingingNotification
                             _ringtoneFromContact = contactLookupCursor.getString(contactLookupCursor.getColumnIndexOrThrow(ContactsContract.PhoneLookup.CUSTOM_RINGTONE));
                             if (_ringtoneFromContact == null)
                                 _ringtoneFromContact = "";
-                            //phoneNumberFound = true;
                         }
                         contactLookupCursor.close();
                     }
@@ -207,52 +243,21 @@ class PlayRingingNotification
                 newRingtone = _ringtoneFromSystem;
 
             if (ActivateProfileHelper.isAudibleRinging(newRingerMode, newZenMode)) {
+//                PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "mewRingerMode, newZenMode audible");
 
                 boolean simulateRinging = false;
-                //int stream = AudioManager.STREAM_RING;
 
-                //if (!(((newRingerMode == Profile.RINGERMODE_SILENT)) ||
-                //        ((newRingerMode == Profile.RINGERMODE_ZENMODE) &&
-                //                ((newZenMode == Profile.ZENMODE_NONE) || (newZenMode == Profile.ZENMODE_ALARMS))))) {
-                //    // new ringer/zen mode is changed to another then NONE and ONLY_ALARMS
-                //    // Android 6 - ringerMode=Profile.RINGERMODE_SILENT = ONLY_ALARMS
-                //
-                //    // test old ringer and zen mode
-                //    if (((oldRingerMode == Profile.RINGERMODE_SILENT)) ||
-                //            ((oldRingerMode == Profile.RINGERMODE_ZENMODE) &&
-                //                    ((oldZenMode == Profile.ZENMODE_NONE) || (oldZenMode == Profile.ZENMODE_ALARMS)))) {
-                //        // old ringer/zen mode is NONE and ONLY_ALARMS
-                //        simulateRinging = true;
-                //        stream = AudioManager.STREAM_ALARM;
-                //    }
-                //}
-                if (!ActivateProfileHelper.isAudibleRinging(oldRingerMode, oldZenMode)) {
+                if (ActivateProfileHelper.mustSimulateRinging(oldRingerMode, oldZenMode)) {
+//                    PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "must simulate ringing");
                     simulateRinging = true;
-                    //stream = AudioManager.STREAM_ALARM;
-                }
-
-                //if (!simulateRinging) {
-                //    if (!(((newRingerMode == Profile.RINGERMODE_ZENMODE) && (newZenMode == Profile.ZENMODE_PRIORITY)))) {
-                //        // new ringer/zen mode is changed to another then PRIORITY
-                //        if (((oldRingerMode == Profile.RINGERMODE_ZENMODE) && (oldZenMode == Profile.ZENMODE_PRIORITY))) {
-                //            // old ringer/zen mode is PRIORITY
-                //            simulateRinging = true;
-                //            if (oldSystemRingerMode == AudioManager.RINGER_MODE_SILENT) {
-                //                stream = AudioManager.STREAM_ALARM;
-                //            }
-                //            else {
-                //                //stream = AudioManager.STREAM_RING;
-                //                stream = AudioManager.STREAM_ALARM;
-                //            }
-                //        }
-                //    }
-                //}
-                //}
+                } //else
+//                    PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall","not needed to simulate ringing");
 
                 // simulate rnging when in profile is change of tone
-                // STREAM_RING will be mutted, for this, will not be played both by system and PPP
-                if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
-                    simulateRinging = true;
+                //   removed, because system plays changed ringtone, when simulating is not enabled
+                //   by ringerMode, zenMode
+                //if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
+                //    simulateRinging = true;
 
                 if (simulateRinging) {
                     int _ringingVolume;
@@ -301,11 +306,15 @@ class PlayRingingNotification
             }
             // ----------
 
-            /*// do not simulate ringing when ring or stream is muted
+            // do not simulate ringing when ring or stream is muted
             if (audioManager != null) {
-                if (audioManager.isStreamMute(AudioManager.STREAM_RING))
+                if (audioManager.isStreamMute(AudioManager.STREAM_RING)) {
+//                    PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.startSimulatingRingingCall", "stream_rin mutted");
                     return;
-            }*/
+                }
+            }
+
+//            PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.startSimulatingRingingCall", "stream_ring NOT muted");
 
             if ((ringtone != null) && !ringtone.isEmpty()) {
                 PPApplication.volumesInternalChange = true;
@@ -313,82 +322,55 @@ class PlayRingingNotification
 
                 // play repeating: default ringtone with ringing volume level
                 try {
-                    //AudioManager am=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
+                    if (audioManager != null) {
+                        audioManager.setMode(AudioManager.MODE_NORMAL);
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 
-                    audioManager.setMode(AudioManager.MODE_NORMAL);
-                    audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                        PlayRingingNotification.ringingMediaPlayer = new MediaPlayer();
 
-                    //int requestType = AudioManager.AUDIOFOCUS_GAIN;
-                    //int requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT;
-                    //requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE;
-                    //int result = audioManager.requestAudioFocus(getApplicationContext(), usedRingingStream, requestType);
-                    //if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-                    PlayRingingNotification.ringingMediaPlayer = new MediaPlayer();
-
-                        /*if (stream == AudioManager.STREAM_RING) {
-                            AudioAttributes attrs = new AudioAttributes.Builder()
-                                    .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
-                                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                                    .build();
-                            ringingMediaPlayer.setAudioAttributes(attrs);
-                            ringingMuted = 0;
-                        }
-                        else*/ {
-
+                        /*
                         // mute STREAM_RING, ringtone will be played via STREAM_ALARM
                         PlayRingingNotification.simulatingRingingCallRingingMuted = (audioManager.isStreamMute(AudioManager.STREAM_RING)) ? 1 : -1;
                         if (PlayRingingNotification.simulatingRingingCallRingingMuted == -1) {
+                            Log.e("EventsHandler.startSimulatingRingingCall", "mute stream_ring");
                             PPApplication.volumesInternalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                         }
+                        */
 
                         AudioAttributes attrs = new AudioAttributes.Builder()
                                 .setUsage(AudioAttributes.USAGE_ALARM)
                                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                                 .build();
                         PlayRingingNotification.ringingMediaPlayer.setAudioAttributes(attrs);
+
+                        PlayRingingNotification.ringingMediaPlayer.setDataSource(appContext, Uri.parse(ringtone));
+                        PlayRingingNotification.ringingMediaPlayer.prepare();
+                        PlayRingingNotification.ringingMediaPlayer.setLooping(true);
+
+                        PlayRingingNotification.oldVolumeForRingingSimulation = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+
+                        int maximumRingValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+                        int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+
+                        float percentage = (float) ringingVolume / maximumRingValue * 100.0f;
+                        int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * percentage);
+
+                        PPApplication.volumesInternalChange = true;
+                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+
+//                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.startSimulatingRingingCall", "start simulating");
+                        PlayRingingNotification.ringingMediaPlayer.start();
+
+                        PlayRingingNotification.ringingCallIsSimulating = true;
                     }
-                    //ringingMediaPlayer.setAudioStreamType(stream);
-
-                    PlayRingingNotification.ringingMediaPlayer.setDataSource(appContext, Uri.parse(ringtone));
-                    PlayRingingNotification.ringingMediaPlayer.prepare();
-                    PlayRingingNotification.ringingMediaPlayer.setLooping(true);
-
-                    PlayRingingNotification.oldVolumeForRingingSimulation = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-
-                    int maximumRingValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-                    int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-
-                    float percentage = (float) ringingVolume / maximumRingValue * 100.0f;
-                    int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * percentage);
-
-                    PPApplication.volumesInternalChange = true;
-                        /*
-                            audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                        */
-                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-
-                    PlayRingingNotification.ringingMediaPlayer.start();
-
-                    PlayRingingNotification.ringingCallIsSimulating = true;
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
 //                    Log.e("PhoneProfilesService.startSimulatingRingingCall", Log.getStackTraceString(e));
                     PlayRingingNotification.ringingMediaPlayer = null;
 
                     PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
                     PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
-                    /*PPApplication.startHandlerThreadInternalChangeToFalse();
-                    final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            RingerModeChangeReceiver.internalChange = false;
-                        }
-                    }, 3000);*/
-                    //PostDelayedBroadcastReceiver.setAlarm(
-                    //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, getApplicationContext());
                     Permissions.grantPlayRingtoneNotificationPermissions(appContext, false);
                 }
             }
@@ -397,7 +379,6 @@ class PlayRingingNotification
 
     // must be static because must be called immediatelly from PhoneCallListener
     static void stopSimulatingRingingCall(/*boolean abandonFocus*/boolean disableInternalChange, Context context) {
-        //if (ringingCallIsSimulating) {
         AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
         if (PlayRingingNotification.ringingMediaPlayer != null) {
@@ -416,45 +397,33 @@ class PlayRingingNotification
 
             try {
                 if (PlayRingingNotification.ringingCallIsSimulating) {
+//                    PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.stopSimulatingRingingCall", "stop simulating");
+
                     PPApplication.volumesInternalChange = true;
                     audioManager.setStreamVolume(AudioManager.STREAM_ALARM, PlayRingingNotification.oldVolumeForRingingSimulation, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                    if (PlayRingingNotification.simulatingRingingCallRingingMuted == -1) {
+                    /*if (PlayRingingNotification.simulatingRingingCallRingingMuted == -1) {
                         // ringing was not mutted at start of simulation and was mutted by simuation
                         // result: must be unmutted
                         if (audioManager.isStreamMute(AudioManager.STREAM_RING)) {
+                            Log.e("EventsHandler.stopSimulatingRingingCall", "unmute stream_ring");
                             PPApplication.volumesInternalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                        }
+                        } else
+                            Log.e("EventsHandler.stopSimulatingRingingCall", "NOT muted stream_ring");
                         // 0 = not detected by simulation
                         PlayRingingNotification.simulatingRingingCallRingingMuted = 0;
-                    }
+                    }*/
                 }
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }
 
         }
-            /*if (abandonFocus) {
-                if (audioManager != null)
-                    audioManager.abandonAudioFocus(getApplicationContext());
-            }*/
-        //}
         PlayRingingNotification.ringingCallIsSimulating = false;
 
         if (disableInternalChange) {
             PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
             PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
-
-            /*PPApplication.startHandlerThreadInternalChangeToFalse();
-            final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    RingerModeChangeReceiver.internalChange = false;
-                }
-            }, 3000);*/
-            //PostDelayedBroadcastReceiver.setAlarm(
-            //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, getApplicationContext());
         }
     }
 
@@ -640,70 +609,14 @@ class PlayRingingNotification
         RingerModeChangeReceiver.setAlarmForDisableInternalChange(getApplicationContext());
     }*/
 
-    /*
-    @Override
-    public void onAudioFocusChange(int focusChange) {
-        if (audioManager == null )
-            audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-
-        if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
-            // Pause playback
-            //if ((ringingMediaPlayer != null) && ringingCallIsSimulating)
-            //    if (ringingMediaPlayer.isPlaying())
-            //        ringingMediaPlayer.pause();
-            //if ((notificationMediaPlayer != null) && notificationToneIsSimulating)
-            //    if (notificationMediaPlayer.isPlaying())
-            //        notificationMediaPlayer.pause();
-            stopSimulatingRingingCall(false);
-            //stopSimulatingNotificationTone(false);
-            audioManager.abandonAudioFocus(getApplicationContext());
-        }
-        if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
-            // Lower the volume
-            if ((ringingMediaPlayer != null) && ringingCallIsSimulating) {
-                if (usedRingingStream == AudioManager.STREAM_ALARM)
-                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-            }
-            //if ((notificationMediaPlayer != null) && notificationToneIsSimulating) {
-            //    if (usedNotificationStream == AudioManager.STREAM_ALARM)
-            //        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-            //}
-        } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
-            // Resume playback
-            if ((ringingMediaPlayer != null) && ringingCallIsSimulating) {
-                if (usedRingingStream == AudioManager.STREAM_ALARM)
-                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                if (!ringingMediaPlayer.isPlaying())
-                    ringingMediaPlayer.start();
-            }
-            //if ((notificationMediaPlayer != null) && notificationToneIsSimulating) {
-            //    if (usedNotificationStream == AudioManager.STREAM_ALARM)
-            //        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-            //    if (!notificationMediaPlayer.isPlaying())
-            //        notificationMediaPlayer.start();
-            //}
-        } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
-            // Stop playback
-            stopSimulatingRingingCall(false);
-            //stopSimulatingNotificationTone(false);
-            audioManager.abandonAudioFocus(getApplicationContext());
-        }
-    }
-    */
-
     static void playNotificationSound(final String notificationSound,
                                       final boolean notificationVibrate,
                                       final boolean playAlsoInSilentMode,
                                       Context context) {
 
-        Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
 
         //final Context appContext = getApplicationContext();
-        //PPApplication.startHandlerThreadBroadcast();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-        //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-        //        context.getApplicationContext()) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 
             AudioManager audioManager = (AudioManager)appContext.getSystemService(Context.AUDIO_SERVICE);
@@ -715,7 +628,9 @@ class PlayRingingNotification
             boolean isAudible =
                     ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode/*, getApplicationContext()*/);
 
-            if (notificationVibrate || (!isAudible) && (!notificationSound.isEmpty())) {
+            if (notificationVibrate || ((!isAudible) && (!notificationSound.isEmpty()))) {
+                // vibrate when is configured or when is not audible and sound is configured
+
                 // why vibrate?
                 // 1. vibration is configured by user
                 // 2. notification sound is configured by user, but sound mode is not audible
@@ -844,7 +759,7 @@ class PlayRingingNotification
                 }
             }
 
-        }; //);
+        };
         PPApplicationStatic.createPlayToneExecutor();
         PPApplication.playToneExecutor.submit(runnable);
     }

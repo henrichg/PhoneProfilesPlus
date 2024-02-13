@@ -48,7 +48,6 @@ public class RingtonePreference extends DialogPreference {
     private static volatile Timer playTimer = null;
     private static volatile boolean ringtoneIsPlayed = false;
 
-    RingtonePreferenceRefreshListViewAsyncTask asyncTask = null;
     private SetRingtoneAsyncTask setRingtoneAsyncTask = null;
 
     static final String RINGTONE_TYPE_RINGTONE = "ringtone";
@@ -104,10 +103,7 @@ public class RingtonePreference extends DialogPreference {
 
     void refreshListView() {
         if ((fragment != null) && (fragment.getDialog() != null) && fragment.getDialog().isShowing()) {
-            if (Permissions.checkRingtonePreference(prefContext)) {
-                asyncTask = new RingtonePreferenceRefreshListViewAsyncTask(this, prefContext);
-                asyncTask.execute();
-            }
+            fragment.refreshListView();
         }
     }
 
@@ -131,20 +127,18 @@ public class RingtonePreference extends DialogPreference {
     }
 
     void stopPlayRingtone() {
-        final AudioManager audioManager = (AudioManager) prefContext.getSystemService(Context.AUDIO_SERVICE);
-        if (audioManager != null) {
+        AudioManager _audioManager = (AudioManager) prefContext.getSystemService(Context.AUDIO_SERVICE);
+        if (_audioManager != null) {
             final Context appContext = prefContext.getApplicationContext();
-            //PPApplication.startHandlerThreadPlayTone();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-            //__handler.post(new StopPlayRingtoneRunnable(prefContext.getApplicationContext(), audioManager) {
-            //__handler.post(() -> {
+            final String _ringtoneUri = ringtoneUri;
+            final WeakReference<AudioManager> audioManagerWeakRef = new WeakReference<>(_audioManager);
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceFragment.stopPlayRingtone");
 
                 //Context appContext = appContextWeakRef.get();
-                //AudioManager audioManager = audioManagerWeakRef.get();
+                AudioManager audioManager = audioManagerWeakRef.get();
 
-                if (/*(appContext != null) && (audioManager != null) &&*/ (ringtoneUri != null)) {
+                if ((audioManager != null) && (_ringtoneUri != null)) {
                     if (playTimer != null) {
                         playTimer.cancel();
                         playTimer = null;
@@ -174,7 +168,7 @@ public class RingtonePreference extends DialogPreference {
                         }
                     }
                 }
-            }; //);
+            };
             PPApplicationStatic.createPlayToneExecutor();
             PPApplication.playToneExecutor.submit(runnable);
         }
@@ -186,25 +180,24 @@ public class RingtonePreference extends DialogPreference {
 
         stopPlayRingtone();
 
-        final AudioManager audioManager = (AudioManager)prefContext.getSystemService(Context.AUDIO_SERVICE);
-        if (audioManager != null) {
+        final AudioManager _audioManager = (AudioManager)prefContext.getSystemService(Context.AUDIO_SERVICE);
+        if (_audioManager != null) {
 
-            final Uri _ringtoneUri = Uri.parse(ringtoneUri);
+            final Uri __ringtoneUri = Uri.parse(ringtoneUri);
 
             final Context appContext = prefContext.getApplicationContext();
-            final RingtonePreference preference = this;
+            final String _ringtoneType = ringtoneType;
 
-            //PPApplication.startHandlerThreadPlayTone();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-            //__handler.post(new PlayRingtoneRunnable(prefContext.getApplicationContext(),
-            //                        audioManager, _ringtoneUri) {
-            //__handler.post(() -> {
+            final WeakReference<AudioManager> audioManagerWeakRef = new WeakReference<>(_audioManager);
+            final WeakReference<Uri> uriWeakRef = new WeakReference<>(__ringtoneUri);
+            final WeakReference<RingtonePreference> preferenceWeakRef = new WeakReference<>(this);
             Runnable runnable = () -> {
                 //Context appContext = appContextWeakRef.get();
-                //AudioManager audioManager = audioManagerWeakRef.get();
-                //Uri ringtoneUri = ringtoneUriWeakRef.get();
+                AudioManager audioManager = audioManagerWeakRef.get();
+                Uri _ringtoneUri = uriWeakRef.get();
+                RingtonePreference preference = preferenceWeakRef.get();
 
-                if (/*(appContext != null) && (audioManager != null) &&*/ (_ringtoneUri != null)) {
+                if ((preference != null) && (audioManager != null) && (_ringtoneUri != null)) {
 
                     try {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreference.playRingtone");
@@ -246,7 +239,7 @@ public class RingtonePreference extends DialogPreference {
                         int ringtoneVolume = 0;
                         int maximumRingtoneValue = 0;
 
-                        switch (ringtoneType) {
+                        switch (_ringtoneType) {
                             case RINGTONE_TYPE_RINGTONE:
                                 maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
                                 if (!oldMediaMuted)
@@ -319,17 +312,6 @@ public class RingtonePreference extends DialogPreference {
                                     PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
                                     PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
-                                    /*PPApplication.startHandlerThreadInternalChangeToFalse();
-                                    final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-                                    handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            RingerModeChangeReceiver.internalChange = false;
-                                        }
-                                    }, 3000);*/
-                                    //PostDelayedBroadcastReceiver.setAlarm(
-                                    //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
-
                                     playTimer = null;
                                 //}
                             }
@@ -344,20 +326,9 @@ public class RingtonePreference extends DialogPreference {
 
                         PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
                         PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
-
-                        /*PPApplication.startHandlerThreadInternalChangeToFalse();
-                        final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                RingerModeChangeReceiver.internalChange = false;
-                            }
-                        }, 3000);*/
-                        //PostDelayedBroadcastReceiver.setAlarm(
-                        //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
                     }
                 }
-            }; //);
+            };
             PPApplicationStatic.createPlayToneExecutor();
             PPApplication.playToneExecutor.submit(runnable);
 
@@ -430,10 +401,6 @@ public class RingtonePreference extends DialogPreference {
     @Override
     public void onDetached() {
         super.onDetached();
-        if ((asyncTask != null) &&
-                asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
-            asyncTask.cancel(true);
-        asyncTask = null;
         if ((setRingtoneAsyncTask != null) &&
                 setRingtoneAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             setRingtoneAsyncTask.cancel(true);

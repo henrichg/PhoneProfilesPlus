@@ -14,11 +14,7 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
 //        PPApplicationStatic.logE("[IN_BROADCAST] StartEventNotificationDeletedReceiver.onReceive", "xxx");
 
         final long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
-        final Context appContext = context;
-        //PPApplication.startHandlerThreadBroadcast(/*"StartEventNotificationDeletedReceiver.onReceive"*/);
-        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-        //__handler.post(() -> {
+        final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=StartEventNotificationDeletedReceiver.onReceive");
 
@@ -52,7 +48,7 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
                     }
                 }
             //}
-        }; //);
+        };
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }

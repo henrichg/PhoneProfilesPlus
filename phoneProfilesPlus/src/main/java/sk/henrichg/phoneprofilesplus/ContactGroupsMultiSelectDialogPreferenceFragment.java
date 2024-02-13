@@ -76,7 +76,13 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                 preference.contactGroupList.clear();
             listAdapter.notifyDataSetChanged();
             final Handler handler = new Handler(prefContext.getMainLooper());
-            handler.postDelayed(() -> refreshListView(true), 200);
+            final WeakReference<ContactGroupsMultiSelectDialogPreferenceFragment> fragmentWeakRef
+                    = new WeakReference<>(this);
+            handler.postDelayed(() -> {
+                ContactGroupsMultiSelectDialogPreferenceFragment fragment = fragmentWeakRef.get();
+                if (fragment != null)
+                    fragment.refreshListView(true);
+            }, 200);
         }
     }
 
@@ -161,7 +167,8 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                             /*contactsCache = PPApplicationStatic.getContactsCache();
                             while (contactsCache.getCaching())
                                 GlobalUtils.sleep(100);*/
-                        }
+                        } else
+                            contactList.clear();
                     } else {
                         // wait for cache end
                         while (contactsCache.getCaching())
@@ -207,6 +214,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
             ContactGroupsMultiSelectDialogPreferenceFragment fragment = fragmentWeakRef.get();
             ContactGroupsMultiSelectDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
+            final boolean _notForUnselect = notForUnselect;
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 //if (!EditorActivity.getContactGroupsCache().cached)
                 //    EditorActivity.getContactGroupsCache().clearCache(false);
@@ -219,7 +227,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
 
                     fragment.listAdapter.notifyDataSetChanged();
 
-                    if (notForUnselect) {
+                    if (_notForUnselect) {
                         ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                         if (contactGroupsCache != null) {
                             List<ContactGroup> contactGroupList = contactGroupsCache.getList();

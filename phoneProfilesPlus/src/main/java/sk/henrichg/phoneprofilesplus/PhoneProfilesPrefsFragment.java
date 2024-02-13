@@ -44,6 +44,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -381,22 +382,25 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        if (!((PhoneProfilesPrefsActivity)getActivity()).activityStarted)
+        PhoneProfilesPrefsActivity activity = (PhoneProfilesPrefsActivity) getActivity();
+        if (!(activity.activityStarted))
             return;
 
-        final PhoneProfilesPrefsFragment fragment = this;
+        PhoneProfilesPrefsFragment fragment = this;
         final TextView preferenceSubTitle = getActivity().findViewById(R.id.activity_preferences_subtitle);
 
 
         // must be used handler for rewrite toolbar title/subtitle
-        Handler handler = new Handler(getActivity().getMainLooper());
+        final Handler handler = new Handler(getActivity().getMainLooper());
+        final WeakReference<PhoneProfilesPrefsActivity> activityWeakRef = new WeakReference<>(activity);
         handler.postDelayed(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsFragment.onActivityCreated");
-            if (getActivity() == null)
+            PhoneProfilesPrefsActivity _activity = activityWeakRef.get();
+            if ((_activity == null) || _activity.isFinishing() || _activity.isDestroyed())
                 return;
 
-            Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar_no_subtitle);
-            toolbar.setTitle(getString(R.string.title_activity_phone_profiles_preferences));
+            Toolbar toolbar = _activity.findViewById(R.id.activity_preferences_toolbar_no_subtitle);
+            toolbar.setTitle(activity.getString(R.string.title_activity_phone_profiles_preferences));
         }, 200);
 
         // subtitle
@@ -1407,11 +1411,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(preference114 -> {
                 boolean ok = false;
-                String activity;
-                activity = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
-                if (GlobalGUIRoutines.activityActionExists(activity, getActivity().getApplicationContext())) {
+                String action;
+                action = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
+                if (GlobalGUIRoutines.activityActionExists(action, getActivity().getApplicationContext())) {
                     try {
-                        Intent intent = new Intent(activity);
+                        Intent intent = new Intent(action);
                         startActivityForResult(intent, RESULT_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
@@ -2100,16 +2104,16 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     {
         super.onDestroy();
 
-        if (shortcutToEditorAddedReceiver != null) {
+        try {
             if (getActivity() != null)
                 getActivity().unregisterReceiver(shortcutToEditorAddedReceiver);
-            shortcutToEditorAddedReceiver = null;
-        }
-        if (shortcutToMobileCellScanningAddedReceiver != null) {
+        } catch (Exception ignored) {}
+        shortcutToEditorAddedReceiver = null;
+        try {
             if (getActivity() != null)
                 getActivity().unregisterReceiver(shortcutToMobileCellScanningAddedReceiver);
-            shortcutToMobileCellScanningAddedReceiver = null;
-        }
+        } catch (Exception ignored) {}
+        shortcutToMobileCellScanningAddedReceiver = null;
 
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
@@ -3133,9 +3137,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
                 if (changeWidgetListColorsByNightMode) {
-                    if (useDynamicColorsWidgetList)
-                        _preference.setEnabled(false);
-                    else
+                    //if (useDynamicColorsWidgetList)
+                    //    _preference.setEnabled(false);
+                    //else
                         _preference.setEnabled(preferenceIndicatorsListEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsListEnabled);
@@ -3151,9 +3155,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
                 if (changeWidgetOneRowColorsByNightMode) {
-                    if (useDynamicColorsWidgetOneRow)
-                        _preference.setEnabled(false);
-                    else
+                    //if (useDynamicColorsWidgetOneRow)
+                    //    _preference.setEnabled(false);
+                    //else
                         _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
@@ -3260,9 +3264,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
                 if (changeWidgetOneRowColorsByNightMode) {
-                    if (useDynamicColorsWidgetOneRow)
-                        _preference.setEnabled(false);
-                    else
+                    //if (useDynamicColorsWidgetOneRow)
+                    //    _preference.setEnabled(false);
+                    //else
                         _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
@@ -3283,9 +3287,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
                 if (changeWidgetListColorsByNightMode) {
-                    if (useDynamicColorsWidgetList)
-                        _preference.setEnabled(false);
-                    else
+                    //if (useDynamicColorsWidgetList)
+                    //    _preference.setEnabled(false);
+                    //else
                         _preference.setEnabled(preferenceIndicatorsListEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsListEnabled);

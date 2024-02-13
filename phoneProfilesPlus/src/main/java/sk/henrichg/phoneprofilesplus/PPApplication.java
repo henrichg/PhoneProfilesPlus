@@ -31,6 +31,7 @@ import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 
 import org.acra.ACRA;
+import org.acra.ReportField;
 import org.acra.config.CoreConfigurationBuilder;
 import org.acra.config.MailSenderConfigurationBuilder;
 import org.acra.config.NotificationConfigurationBuilder;
@@ -55,23 +56,26 @@ public class PPApplication extends Application
                                         //implements Application.ActivityLifecycleCallbacks
 {
     // this version code must by <= version code in dependencies.gradle
-    static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 6941;
-    static final boolean SHOW_IMPORTANT_INFO_NEWS = false;
-    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = false;
+    static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 7090;
+    static final boolean SHOW_IMPORTANT_INFO_NEWS = true;
+    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = true;
 
-    //static final int VERSION_CODE_EXTENDER_3_0 = 200;
-    //static final int VERSION_CODE_EXTENDER_4_0 = 400;
-    //static final int VERSION_CODE_EXTENDER_5_1_3_1 = 540;
-    //static final int VERSION_CODE_EXTENDER_5_1_4_1 = 600;
-    //static final int VERSION_CODE_EXTENDER_6_0 = 620;
-    //static final int VERSION_CODE_EXTENDER_6_2 = 670;
-    //static final int VERSION_CODE_EXTENDER_7_0 = 700;
-    //static final int VERSION_CODE_EXTENDER_8_0 = 800;
-    static final int VERSION_CODE_EXTENDER_LATEST = 880;         // must be <= as in Extender dependencies.gradle
-    static final String VERSION_NAME_EXTENDER_LATEST = "8.1.3";  // must be <= as in Extender dependencies.gradle
+    //// Extender versions
+    // versions required for profile, event parameters
+    static final int VERSION_CODE_EXTENDER_8_1_3 = 880;
+    static final String VERSION_NAME_EXTENDER_8_1_3 = "8.1.3";
 
-    static final int VERSION_CODE_PPPPS_LATEST = 55;             // must be <= as in PPPPS dependencies.gradle
-    static final String VERSION_NAME_PPPPS_LATEST = "1.0.6";     // must be <= as in PPPPS dependencies.gradle
+    // for this version will be displayed upgrade notification
+    //  reruired must by <= latest
+    static final int VERSION_CODE_EXTENDER_REQUIRED = 890;
+
+    // latest version in GitHub, IzzyOnDroid. will be installed
+    static final int VERSION_CODE_EXTENDER_LATEST = 890;         // must be <= as in Extender dependencies.gradle
+    static final String VERSION_NAME_EXTENDER_LATEST = "8.1.4";  // must be <= as in Extender dependencies.gradle
+    ///////
+
+    static final int VERSION_CODE_PPPPS_LATEST = 60;             // must be <= as in PPPPS dependencies.gradle
+    static final String VERSION_NAME_PPPPS_LATEST = "1.0.7";     // must be <= as in PPPPS dependencies.gradle
 
     static final int pid = Process.myPid();
     static final int uid = Process.myUid();
@@ -121,9 +125,7 @@ public class PPApplication extends Application
 
     static final String PAYPAL_DONATION_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U";
 
-    // This is file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/releases_debug.md
-    // Used is GitHub Pages, not neded to use html type, this file is directly downloaded
-    static final String PPP_RELEASES_MD_DEBUG_URL = "https://henrichg.github.io/PhoneProfilesPlus/releases-debug.md";
+    static final String PPP_RELEASES_MD_DEBUG_URL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/releases-debug.md";
     // This is file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/releases.md
     // Used is GitHub Pages, not neded to use html type, this file is directly downloaded
     static final String PPP_RELEASES_MD_URL = "https://henrichg.github.io/PhoneProfilesPlus/releases.md";
@@ -167,8 +169,8 @@ public class PPApplication extends Application
     static final String GITHUB_PPPPS_DOWNLOAD_URL = "https://github.com/henrichg/PPPPutSettings/releases/latest/download/PPPPutSettings.apk";
     static final String GITHUB_PPPPS_HOW_TO_INSTALL_URL = "https://github.com/henrichg/PPPPutSettings/blob/devel/docs/install_apk_from_pc.md";
 
-    static final String GALAXY_STORE_PPP_RELEASES_URL = "https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus";
-    static final String GALAXY_STORE_PACKAGE_NAME = "com.sec.android.app.samsungapps";
+    //static final String GALAXY_STORE_PPP_RELEASES_URL = "https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus";
+    //static final String GALAXY_STORE_PACKAGE_NAME = "com.sec.android.app.samsungapps";
 
     //static final boolean gitHubRelease = true;
     //static boolean googlePlayInstaller = false;
@@ -180,8 +182,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
-    static final String logFilterTags = "[EXCEPTION]"
-                                                 +"|##### PPApplication.onCreate"
+    static final String logFilterTags =         "##### PPApplication.onCreate"
                                                 //+"|PPApplication.isXiaomi"
                                                 //+"|PPApplication.isHuawei"
                                                 //+"|PPApplication.isSamsung"
@@ -268,8 +269,11 @@ public class PPApplication extends Application
                                                 //+"|[CONTACTS_CACHE]"
                                                 //+"|[SYNCHRONIZED]"
                                                 //+"|[DEFAULT_SIM]"
+                                                //+"|[RESTART_WIFI_SCANNER]"
+                                                //+"|[RINGING_SIMULATION]"
                                                 //+"|BluetoothConnectedDevicesDetector"
                                                 //+"|BluetoothConnectionBroadcastReceiver"
+                                                //+"|CheckCriticalPPPReleasesBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -965,6 +969,7 @@ public class PPApplication extends Application
 
     volatile static ExecutorService basicExecutorPool = null;
     volatile static ExecutorService profileActiationExecutorPool = null;
+    volatile static ExecutorService soundModeExecutorPool = null;
     volatile static ExecutorService eventsHandlerExecutor = null;
     volatile static ExecutorService scannersExecutor = null;
     volatile static ExecutorService playToneExecutor = null;
@@ -986,7 +991,7 @@ public class PPApplication extends Application
     // rewuired for location manager
     volatile static HandlerThread handlerThreadLocation = null;
     // special for ProgressBar
-    volatile static HandlerThread handlerThreadProgressBar = null;
+    //volatile static HandlerThread handlerThreadProgressBar = null;
 
     //static HandlerThread handlerThread = null;
     //static HandlerThread handlerThreadCancelWork = null;
@@ -1129,6 +1134,7 @@ public class PPApplication extends Application
 
         PPApplicationStatic.createBasicExecutorPool();
         PPApplicationStatic.createProfileActiationExecutorPool();
+        PPApplicationStatic.createSoundModeExecutorPool();
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplicationStatic.createScannersExecutor();
         PPApplicationStatic.createPlayToneExecutor();
@@ -1144,19 +1150,7 @@ public class PPApplication extends Application
         PPApplicationStatic.startHandlerThreadBroadcast();
 
         PPApplicationStatic.startHandlerThreadOrientationScanner(); // for seconds interval
-        //startHandlerThread(/*"PPApplication.onCreate"*/);
-        //startHandlerThreadCancelWork();
-        //startHandlerThreadPPScanners(); // for minutes interval
-        //startHandlerThreadPPCommand();
         PPApplicationStatic.startHandlerThreadLocation();
-        //startHandlerThreadWidget();
-        //startHandlerThreadPlayTone();
-        //startHandlerThreadVolumes();
-        //startHandlerThreadRadios();
-        //startHandlerThreadWallpaper();
-        //startHandlerThreadRunApplication();
-        //startHandlerThreadProfileActivation();
-        PPApplicationStatic.startHandlerThreadProgressBar();
 
         toastHandler = new Handler(getMainLooper());
         //brightnessHandler = new Handler(getMainLooper());
@@ -1440,37 +1434,58 @@ public class PPApplication extends Application
         body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
         body = body + getString(R.string.acra_email_body_text);
 
-/*
-        CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
-                .withBuildConfigClass(BuildConfig.class)
-                .withReportFormat(StringFormat.KEY_VALUE_LIST);
-        //builder.getPluginConfigurationBuilder(ToastConfigurationBuilder.class)
-        //        .setResText(R.string.acra_toast_text)
-        //        .setEnabled(true);
-        builder.getPluginConfigurationBuilder(NotificationConfigurationBuilder.class)
-                .withResChannelName(R.string.notification_channel_crash_report)
-                .withResChannelImportance(NotificationManager.IMPORTANCE_HIGH)
-                .withResIcon(R.drawable.ic_exclamation_notify)
-                .withResTitle(R.string.acra_notification_title)
-                .withResText(R.string.acra_notification_text)
-                .withResSendButtonIcon(0)
-                .withResDiscardButtonIcon(0)
-                .withSendOnClick(true)
-                .withEnabled(true);
-        builder.getPluginConfigurationBuilder(MailSenderConfigurationBuilder.class)
-                .withMailTo("henrich.gron@gmail.com")
-                .withSubject("PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.acra_email_subject_text))
-                .withBody(body)
-                .withReportAsFile(true)
-                .withReportFileName("crash_report.txt")
-                .withEnabled(true);
-*/
+        ReportField[] reportContent = new ReportField[] {
+                ReportField.REPORT_ID,
+                ReportField.ANDROID_VERSION,
+                ReportField.APP_VERSION_CODE,
+                ReportField.APP_VERSION_NAME,
+                ReportField.PHONE_MODEL,
+                ReportField.PRODUCT,
+                //ReportField.APPLICATION_LOG,
+                ReportField.AVAILABLE_MEM_SIZE,
+                ReportField.BRAND,
+                ReportField.BUILD,
+                //BUILD_CONFIG !!! must be removed because in it is also encrypt_contacts_key, encrypt_contacts_salt
+                ReportField.CRASH_CONFIGURATION,
+                ReportField.TOTAL_MEM_SIZE,
+                ReportField.USER_APP_START_DATE,
+                ReportField.USER_CRASH_DATE,
 
+                ReportField.CUSTOM_DATA,
+                ReportField.STACK_TRACE,
+                ReportField.LOGCAT,
+
+                ReportField.SHARED_PREFERENCES,
+
+                ReportField.DEVICE_FEATURES,
+                //ReportField.DEVICE_ID
+                ReportField.DISPLAY,
+                //DROPBOX
+                //ReportField.DUMPSYS_MEMINFO,
+                ReportField.ENVIRONMENT,
+                //ReportField.FILE_PATH,
+                ReportField.INITIAL_CONFIGURATION,
+                //ReportField.INSTALLATION_ID,
+                //ReportField.IS_SILENT,
+                //ReportField.MEDIA_CODEC_LIST,
+                //ReportField.PACKAGE_NAME,
+                //ReportField.RADIOLOG,
+                ReportField.SETTINGS_GLOBAL,
+                ReportField.SETTINGS_SECURE,
+                ReportField.SETTINGS_SYSTEM,
+                //STACK_TRACE_HASH
+                //ReportField.THREAD_DETAILS,
+                //ReportField.USER_COMMENT,
+                //ReportField.USER_EMAIL,
+                //ReportField.USER_IP,
+                ReportField.EVENTSLOG
+        };
         //noinspection ArraysAsListWithZeroOrOneArgument
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder()
                 .withBuildConfigClass(BuildConfig.class)
                 .withReportFormat(StringFormat.KEY_VALUE_LIST)
                 //.withSharedPreferencesName(ACRA_PREFS_NAME)
+                .withReportContent(reportContent)
                 .withAdditionalSharedPreferences(Arrays.asList(APPLICATION_PREFS_NAME));
 
         builder.withPluginConfigurations(
@@ -1514,10 +1529,11 @@ public class PPApplication extends Application
 
     }
 
-    private void startPPServiceWhenNotStarted(final Context appContext) {
+    private void startPPServiceWhenNotStarted(final Context context) {
         // this is for list widget header
 
         //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+        final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 //            long start = System.currentTimeMillis();
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPApplication.startPPServiceWhenNotStarted", "--------------- START");
@@ -1602,7 +1618,7 @@ public class PPApplication extends Application
         if (getResources() == null) {
             try {
                 android.os.Process.killProcess(pid);
-                PPApplicationStatic.logToACRA("E/PPApplication.checkAppReplacingState: app is replacing...kill");
+                //PPApplicationStatic.logToACRA("E/PPApplication.checkAppReplacingState: app is replacing...kill");
             } catch (Exception e) {
                 //Log.e("PPApplication.checkAppReplacingState", Log.getStackTraceString(e));
             }
@@ -1674,11 +1690,16 @@ public class PPApplication extends Application
         // require in manifest file for TileService this meta data:
         //     <meta-data android:name="android.service.quicksettings.ACTIVE_TILE"
         //         android:value="true" />
-        TileService.requestListeningState(context, new ComponentName(context, PPTileService1.class));
-        TileService.requestListeningState(context, new ComponentName(context, PPTileService2.class));
-        TileService.requestListeningState(context, new ComponentName(context, PPTileService3.class));
-        TileService.requestListeningState(context, new ComponentName(context, PPTileService4.class));
-        TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
+        if ((PPApplication.quickTileProfileId[1] != 0) && (PPApplication.quickTileProfileId[1] != -1))
+            TileService.requestListeningState(context, new ComponentName(context, PPTileService1.class));
+        if ((PPApplication.quickTileProfileId[2] != 0) && (PPApplication.quickTileProfileId[2] != -1))
+            TileService.requestListeningState(context, new ComponentName(context, PPTileService2.class));
+        if ((PPApplication.quickTileProfileId[3] != 0) && (PPApplication.quickTileProfileId[3] != -1))
+            TileService.requestListeningState(context, new ComponentName(context, PPTileService3.class));
+        if ((PPApplication.quickTileProfileId[4] != 0) && (PPApplication.quickTileProfileId[4] != -1))
+            TileService.requestListeningState(context, new ComponentName(context, PPTileService4.class));
+        if ((PPApplication.quickTileProfileId[5] != 0) && (PPApplication.quickTileProfileId[5] != -1))
+            TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
 
         ProfileListNotification.drawNotification(true, context);
 
@@ -1832,7 +1853,7 @@ public class PPApplication extends Application
 
     static void showToast(final Context context, final String text, final int length) {
         final Context appContext = context.getApplicationContext();
-        Handler handler = new Handler(context.getApplicationContext().getMainLooper());
+        final Handler handler = new Handler(appContext.getMainLooper());
         handler.post(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.showToast");
             try {

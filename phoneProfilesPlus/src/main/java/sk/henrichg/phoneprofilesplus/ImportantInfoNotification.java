@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +22,14 @@ class ImportantInfoNotification {
 
     static void showInfoNotification(Context context) {
         try {
+            // test if notifications are enabled
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                if (!notificationManager.areNotificationsEnabled())
+                    // not enabled, do notthing in this
+                    return;
+            }
+
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
             int packageVersionCode = PPApplicationStatic.getVersionCode(pInfo);
             int savedVersionCode = getShowInfoNotificationOnStartVersion(context);
@@ -30,47 +39,51 @@ class ImportantInfoNotification {
             if (savedVersionCode == 0) {
                 setShowInfoNotificationOnStart(context, false, packageVersionCode);
 
-                showNotification(context, false, true,
+                showNotification(context, /*false,*/ true,
                         context.getString(R.string.info_notification_title),
                         context.getString(R.string.info_notification_text),
                         PPApplication.IMPORTANT_INFO_NOTIFICATION_TAG);
                 return;
             }
 
+//            Log.e("ImportantInfoNotification.canShowInfoNotification", "packageVersionCode="+packageVersionCode);
+//            Log.e("ImportantInfoNotification.canShowInfoNotification", "savedVersionCode="+savedVersionCode);
+
             boolean showInfo = false;
-            if (packageVersionCode > savedVersionCode)
+            boolean showExtender = false;
+            boolean showPPPPS = false;
+            if (packageVersionCode > savedVersionCode) {
                 showInfo = canShowInfoNotification(packageVersionCode, savedVersionCode);
 
-            boolean showExtender = false;
-            int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
-            if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
-                showExtender = true;
+                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED))
+                    showExtender = true;
 
-            boolean showPPPPS = false;
-            int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
-            if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST))
-                showPPPPS = true;
+                int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
+                if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST))
+                    showPPPPS = true;
+            }
 
-//            Log.e("ImportantInfoNotification.showInfoNotification", "showExtender="+showExtender);
-//            Log.e("ImportantInfoNotification.showInfoNotification", "ppppsVersion="+ppppsVersion);
-//            Log.e("ImportantInfoNotification.showInfoNotification", "showPPPPS="+showPPPPS);
+            //Log.e("ImportantInfoNotification.showInfoNotification", "showInfo="+showInfo);
+            //Log.e("ImportantInfoNotification.showInfoNotification", "showExtender="+showExtender);
+            //Log.e("ImportantInfoNotification.showInfoNotification", "showPPPPS="+showPPPPS);
 
             setShowInfoNotificationOnStart(context, showInfo || showExtender || showPPPPS, packageVersionCode);
 
             if (/*(savedVersionCode == 0) ||*/ getShowInfoNotificationOnStart(context, packageVersionCode)) {
 
                 if (showInfo)
-                    showNotification(context, false, false,
+                    showNotification(context, /*false,*/ false,
                             context.getString(R.string.info_notification_title),
                             context.getString(R.string.info_notification_text),
                             PPApplication.IMPORTANT_INFO_NOTIFICATION_TAG);
                 if (showExtender)
-                    showNotification(context, false, false,
+                    showNotification(context, /*false,*/ false,
                             context.getString(R.string.info_notification_title),
                             context.getString(R.string.important_info_accessibility_service_new_version_notification),
                             PPApplication.IMPORTANT_INFO_NOTIFICATION_EXTENDER_TAG);
                 if (showPPPPS)
-                    showNotification(context, false, false,
+                    showNotification(context, /*false,*/ false,
                             context.getString(R.string.info_notification_title),
                             context.getString(R.string.important_info_pppps_new_version_notification),
                             PPApplication.IMPORTANT_INFO_NOTIFICATION_PPPPS_TAG);
@@ -94,6 +107,7 @@ class ImportantInfoNotification {
 
         boolean afterInstall = savedVersionCode == 0;
 
+//        Log.e("ImportantInfoNotification.canShowInfoNotification", "newsLatest="+newsLatest);
         if (newsLatest) {
             // change to false for not show notification
             news = PPApplication.SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS;
@@ -146,10 +160,10 @@ class ImportantInfoNotification {
     }
 
     static private void showNotification(Context context,
-                                         @SuppressWarnings("SameParameterValue") boolean firstInstallation,
+                                         //boolean firstInstallation,
                                          boolean showQuickGuide,
                                          String title, String text,
-                                         @SuppressWarnings("SameParameterValue") String notificationTag) {
+                                         String notificationTag) {
         PPApplicationStatic.createExclamationNotificationChannel(context.getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
@@ -161,7 +175,7 @@ class ImportantInfoNotification {
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
         Intent intent = new Intent(context, ImportantInfoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(EXTRA_FIRST_INSTALLATION, firstInstallation);
+        intent.putExtra(EXTRA_FIRST_INSTALLATION, /*firstInstallation*/false);
         intent.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, showQuickGuide);
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);

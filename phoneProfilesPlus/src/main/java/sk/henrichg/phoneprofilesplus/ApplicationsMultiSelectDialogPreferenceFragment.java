@@ -76,7 +76,13 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
             preference.applicationList.clear();
         listAdapter.notifyDataSetChanged();
         final Handler handler = new Handler(prefContext.getMainLooper());
-        handler.postDelayed(() -> refreshListView(true), 200);
+        final WeakReference<ApplicationsMultiSelectDialogPreferenceFragment> fragmentWeakRef
+                = new WeakReference<>(this);
+        handler.postDelayed(() -> {
+            ApplicationsMultiSelectDialogPreferenceFragment fragment = fragmentWeakRef.get();
+            if (fragment != null)
+                fragment.refreshListView(true);
+        }, 200);
     }
 
     @Override
@@ -91,6 +97,7 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
         if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             asyncTask.cancel(true);
         }
+        asyncTask = null;
 
         if (PPApplicationStatic.getApplicationsCache() != null) {
             PPApplicationStatic.getApplicationsCache().cancelCaching();

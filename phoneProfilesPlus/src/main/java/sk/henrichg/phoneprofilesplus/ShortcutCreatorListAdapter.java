@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RadioButton;
 
+import java.lang.ref.WeakReference;
+
 class ShortcutCreatorListAdapter extends BaseAdapter {
 
     private ShortcutCreatorListFragment fragment;
@@ -103,10 +105,11 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
                     }
                 }
             } else {
-                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(fragment.getActivity(), profile._iconBitmap);
-                if (bitmap != null)
-                    holder.profileIcon.setImageBitmap(bitmap);
-                else
+                //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(fragment.getActivity(), profile._iconBitmap);
+                //Bitmap bitmap = profile._iconBitmap;
+                //if (bitmap != null)
+                //    holder.profileIcon.setImageBitmap(bitmap);
+                //else
                     holder.profileIcon.setImageBitmap(profile._iconBitmap);
             }
 
@@ -133,10 +136,15 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
 
             holder.radioButton.setTag(position);
             holder.radioButton.setOnClickListener(v -> {
-                RadioButton rb = (RadioButton) v;
+                final RadioButton rb = (RadioButton) v;
                 rb.setChecked(true);
-                Handler handler = new Handler(activityDataWrapper.context.getMainLooper());
-                handler.postDelayed(() -> fragment.createShortcut((Integer)rb.getTag()), 200);
+                final Handler handler = new Handler(activityDataWrapper.context.getMainLooper());
+                final WeakReference<ShortcutCreatorListFragment> dialogWeakRef = new WeakReference<>(fragment);
+                handler.postDelayed(() -> {
+                    ShortcutCreatorListFragment _fragment = dialogWeakRef.get();
+                    if (_fragment != null)
+                        _fragment.createShortcut((int) rb.getTag());
+                }, 200);
             });
 
         }

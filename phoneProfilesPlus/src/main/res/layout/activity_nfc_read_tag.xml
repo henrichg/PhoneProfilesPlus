@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/write_nfc_tag_root"
+    android:id="@+id/read_nfc_tag_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -12,14 +12,14 @@
     android:fitsSystemWindows="false">
 
     <View
-        android:id="@+id/write_nfc_tag_title_divider"
+        android:id="@+id/read_nfc_tag_title_divider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_marginBottom="@dimen/alert_dialog_top_padding"
         android:background="@color/dialog_divider" />
 
     <RelativeLayout
-        android:id="@+id/write_nfc_tag_root2"
+        android:id="@+id/read_nfc_tag_root2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_margin_start"
@@ -33,29 +33,20 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/write_nfc_tag_touch"
+                android:id="@+id/read_nfc_tag_touch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="10dp"
-                android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_touch"
+                android:text="@string/nfc_tag_pref_dlg_readNfcTag_touch"
                 android:textSize="17sp"
                 android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/write_nfc_tag_writable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_writable"
-                android:textSize="17sp"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/write_nfc_tag_liLa2"
+            android:id="@+id/read_nfc_tag_liLa2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -63,13 +54,13 @@
             android:layout_alignParentBottom="true">
 
             <View
-                android:id="@+id/write_nfc_tag_buttonsDivider"
+                android:id="@+id/read_nfc_tag_buttonsDivider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/divider_height"
                 android:background="@color/dialog_divider" />
 
             <Button
-                android:id="@+id/write_nfc_tag_button"
+                android:id="@+id/read_nfc_tag_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"

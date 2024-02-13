@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 
 import androidx.core.content.ContextCompat;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 class AddEventAdapter extends BaseAdapter {
@@ -206,10 +207,11 @@ class AddEventAdapter extends BaseAdapter {
                 }
                 else
                 {
-                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
-                    if (bitmap != null)
-                        holder.profileStartIcon.setImageBitmap(bitmap);
-                    else
+                    //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
+                    //Bitmap bitmap = profile._iconBitmap;
+                    //if (bitmap != null)
+                    //    holder.profileStartIcon.setImageBitmap(bitmap);
+                    //else
                         holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
                 }
 
@@ -310,10 +312,11 @@ class AddEventAdapter extends BaseAdapter {
                             }
                         }
                     } else {
-                        Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
-                        if (bitmap != null)
-                            holder.profileEndIcon.setImageBitmap(bitmap);
-                        else
+                        //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
+                        //Bitmap bitmap = profile._iconBitmap;
+                        //if (bitmap != null)
+                        //    holder.profileEndIcon.setImageBitmap(bitmap);
+                        //else
                             holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
                     }
 
@@ -392,8 +395,15 @@ class AddEventAdapter extends BaseAdapter {
         holder.radioButton.setOnClickListener(v -> {
             RadioButton rb = (RadioButton) v;
             rb.setChecked(true);
-            Handler handler = new Handler(context.getMainLooper());
-            handler.postDelayed(() -> dialog.doOnItemSelected((Integer)rb.getTag()), 200);
+            final Handler handler = new Handler(context.getMainLooper());
+            final WeakReference<AddEventDialog> dialogWeakRef = new WeakReference<>(dialog);
+            final WeakReference<RadioButton> rbWeakRef = new WeakReference<>(rb);
+            handler.postDelayed(() -> {
+                AddEventDialog dialog1 = dialogWeakRef.get();
+                RadioButton rb1 = rbWeakRef.get();
+                if ((dialog1 != null) && (rb1 != null))
+                    dialog1.doOnItemSelected((Integer) rb1.getTag());
+            }, 200);
         });
 
         return vi;

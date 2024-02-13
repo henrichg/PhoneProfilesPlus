@@ -161,7 +161,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
     public RemoteViews getViewAt(int position) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] SamsungEdgeFactory.getViewAt", "PPApplication.samsungEdgeDatasetChangedMutex");
         synchronized (PPApplication.samsungEdgeDatasetChangedMutex) {
-            Context appContext = context;
+            Context appContext = context.getApplicationContext();
             LocaleHelper.setApplicationLocale(appContext);
 
             RemoteViews row;
@@ -230,12 +230,15 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
                 Bitmap bitmap = null;
                 if (applicationSamsungEdgeIconColor.equals("0")) {
-                    if (applicationSamsungEdgeChangeColorsByNightMode ||
-                            ((!applicationSamsungEdgeBackgroundType) &&
-                                    (Integer.parseInt(applicationSamsungEdgeLightnessB) <= 25)) ||
-                            (applicationSamsungEdgeBackgroundType &&
-                                    (ColorUtils.calculateLuminance(Integer.parseInt(applicationSamsungEdgeBackgroundColor)) < 0.23)))
-                        bitmap = profile.increaseProfileIconBrightnessForContext(appContext, profile._iconBitmap);
+                    if (profile.getIsIconResourceID()) {
+                        if (applicationSamsungEdgeChangeColorsByNightMode ||
+                                ((!applicationSamsungEdgeBackgroundType) &&
+                                        (Integer.parseInt(applicationSamsungEdgeLightnessB) <= 25)) ||
+                                (applicationSamsungEdgeBackgroundType &&
+                                        (ColorUtils.calculateLuminance(Integer.parseInt(applicationSamsungEdgeBackgroundColor)) < 0.23)))
+                            bitmap = profile.increaseProfileIconBrightnessForContext(appContext, profile._iconBitmap);
+                    } else
+                        bitmap = profile._iconBitmap;
                 }
                 if (profile.getIsIconResourceID()) {
                     if (bitmap != null)

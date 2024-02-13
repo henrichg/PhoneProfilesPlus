@@ -35,10 +35,6 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                 final int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
 
-                //PPApplication.startHandlerThreadBroadcast(/*"WifiStateChangedBroadcastReceiver.onReceive.1"*/);
-                //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-                //__handler.post(() -> {
                 @SuppressLint("MissingPermission")
                 Runnable __runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
@@ -132,6 +128,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                             EventsHandler.SENSOR_TYPE_WIFI_STATE,
                                             EventsHandler.SENSOR_TYPE_WIFI_CONNECTION});
 
+//                                    PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] ----------- WifiStateChangedBroadcastReceiver", "xxx");
                                     PPApplicationStatic.restartWifiScanner(appContext);
                                 }
                             }
@@ -148,7 +145,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     //}
-                }; //);
+                };
                 PPApplicationStatic.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(__runnable);
             }

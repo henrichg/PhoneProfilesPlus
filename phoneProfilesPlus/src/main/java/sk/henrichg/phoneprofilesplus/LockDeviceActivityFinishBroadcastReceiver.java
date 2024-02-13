@@ -73,6 +73,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
             } else {
 //                PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "schedule");
 
+                final Context appContext = context.getApplicationContext();
                 //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                 Runnable runnable = () -> {
 //                    long start = System.currentTimeMillis();
@@ -86,7 +87,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 //                                wakeLock.acquire(10 * 60 * 1000);
 //                            }
 
-                        LockDeviceActivityFinishBroadcastReceiver.doWork(context);
+                        LockDeviceActivityFinishBroadcastReceiver.doWork(appContext);
 
 //                        long finish = System.currentTimeMillis();
 //                        long timeElapsed = finish - start;
@@ -160,12 +161,13 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                 } else {
 //                    PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "schedule");
 
+                    final Context appContext = context.getApplicationContext();
                     //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                     Runnable runnable = () -> {
 //                        long start = System.currentTimeMillis();
 //                        PPApplicationStatic.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- START");
 
-                        LockDeviceActivityFinishBroadcastReceiver.doWork(context);
+                        LockDeviceActivityFinishBroadcastReceiver.doWork(appContext);
 
 //                        long finish = System.currentTimeMillis();
 //                        long timeElapsed = finish - start;

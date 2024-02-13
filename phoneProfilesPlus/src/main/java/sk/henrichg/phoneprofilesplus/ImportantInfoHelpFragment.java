@@ -93,7 +93,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         boolean news = false;
         boolean newsLatest = (!firstInstallation) && (versionCode >= PPApplication.PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS);
 
-        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
         int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
 
         if (newsLatest) {
@@ -102,7 +102,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         doOnViewCreated(view, this);
 
-        if ((!firstInstallation) && (extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
+        if ((!firstInstallation) && (extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED)) {
             news = true;
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
             infoText1.setVisibility(View.VISIBLE);
@@ -731,17 +731,6 @@ public class ImportantInfoHelpFragment extends Fragment {
 //                    PhoneProfilesService.getInstance().clearProfileNotification();
 //                }
 //
-//                Handler handler = new Handler(activity.getMainLooper());
-//                handler.postDelayed(() -> {
-////                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
-//                    if (PhoneProfilesService.getInstance() != null) {
-//                        synchronized (PPApplication.applicationPreferencesMutex) {
-//                            PPApplication.doNotShowProfileNotification = false;
-//                        }
-//                        // forServiceStart must be true because of call of clearProfileNotification()
-//                        PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
-//                    }
-//                }, 1000);
                 //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] ImportantInfoHelpFragment.doOnViewCreated", "call of PPAppNotification.forceDrawNotification");
                 PPAppNotification.forceDraweNotification(context.getApplicationContext());

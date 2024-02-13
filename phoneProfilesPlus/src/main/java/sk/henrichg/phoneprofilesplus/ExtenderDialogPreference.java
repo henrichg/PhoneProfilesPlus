@@ -20,6 +20,8 @@ public class ExtenderDialogPreference extends DialogPreference {
     final String enableExtenderSummaryDisabled;
     final String enbaleExtenderPreferenceNameToTest;
     final String enbaleExtenderPreferenceValueToTest;
+    final int requiredExtenderVersionCode;
+    String requiredExtenderVersionName;
 
     public ExtenderDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -40,6 +42,12 @@ public class ExtenderDialogPreference extends DialogPreference {
                 R.styleable.PPExtenderDialogPreference_enbaleExtenderPreferenceNameToTest);
         enbaleExtenderPreferenceValueToTest = typedArray.getString(
                 R.styleable.PPExtenderDialogPreference_enbaleExtenderPreferenceValueToTest);
+        requiredExtenderVersionCode = typedArray.getInt(
+                R.styleable.PPExtenderDialogPreference_requiredExtenderVersionCode, PPApplication.VERSION_CODE_EXTENDER_8_1_3);
+        requiredExtenderVersionName = typedArray.getString(
+                R.styleable.PPExtenderDialogPreference_requiredExtenderVersionName);
+        if ((requiredExtenderVersionName == null) || (requiredExtenderVersionName.isEmpty()))
+            requiredExtenderVersionName = PPApplication.VERSION_NAME_EXTENDER_8_1_3;
 
         typedArray.recycle();
     }
@@ -60,7 +68,7 @@ public class ExtenderDialogPreference extends DialogPreference {
     {
         String prefVolumeDataSummary;
 
-        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(_context);
+        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(_context);
         if (extenderVersion == 0) {
             prefVolumeDataSummary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.profile_preferences_PPPExtender_not_installed_summary) + StringConstants.TAG_BOLD_END_HTML;
 
@@ -68,12 +76,13 @@ public class ExtenderDialogPreference extends DialogPreference {
                 prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + installSummary;
         }
         else {
-            String extenderVersionName = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getExtenderVersionName(_context);
+            String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(_context);
             prefVolumeDataSummary =  _context.getString(R.string.install_extender_installed_version) +
                     " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
+
             prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.install_extender_required_version) +
-                    " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML;
-            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
+                    " "+StringConstants.TAG_BOLD_START_HTML + requiredExtenderVersionName + " (" + requiredExtenderVersionCode + ")"+StringConstants.TAG_BOLD_END_HTML;
+            if (extenderVersion < requiredExtenderVersionCode)
                 prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary) + StringConstants.TAG_BOLD_END_HTML;
             else
                 prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
@@ -85,14 +94,14 @@ public class ExtenderDialogPreference extends DialogPreference {
             accessibilityEnabled = -2;
         else
         if ((extenderVersion > 0) &&
-                (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
+                (extenderVersion < requiredExtenderVersionCode))
             // old version
             accessibilityEnabled = -1;
         else
             accessibilityEnabled = -98;
         if (accessibilityEnabled == -98) {
             // Extender is in right version
-            if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true))
+            if (PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true))
                 // accessibility enabled
                 accessibilityEnabled = 1;
             else

@@ -11,6 +11,8 @@ import com.google.android.material.imageview.ShapeableImageView;
 
 class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+    private final boolean withountNumbers;
+
     private final ShapeableImageView imageViewPhoto;
     private final TextView textViewDisplayName;
     private final TextView textViewPhoneNumber;
@@ -19,10 +21,11 @@ class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHol
 
     private Contact contact;
 
-    ContactsMultiSelectDialogPreferenceViewHolder(View itemView)
+    ContactsMultiSelectDialogPreferenceViewHolder(View itemView, boolean withoutNumbers)
     {
         super(itemView);
 
+        this.withountNumbers = withoutNumbers;
         imageViewPhoto = itemView.findViewById(R.id.contacts_multiselect_pref_dlg_item_icon);
         textViewDisplayName = itemView.findViewById(R.id.contacts_multiselect_pref_dlg_item_display_name);
         textViewPhoneNumber = itemView.findViewById(R.id.contacts_multiselect_pref_dlg_item_phone_number);
@@ -52,7 +55,7 @@ class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHol
             imageViewPhoto.setImageResource(R.drawable.ic_contacts_multiselect_dialog_preference_no_photo);
         textViewDisplayName.setText(contact.name);
 
-        if (contact.phoneId != 0) {
+        if ((contact.phoneId != 0) && (!withountNumbers)) {
             textViewPhoneNumber.setVisibility(View.VISIBLE);
             textViewPhoneNumber.setText(contact.phoneNumber);
         }

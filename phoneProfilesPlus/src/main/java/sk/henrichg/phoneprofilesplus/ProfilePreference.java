@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
+import java.lang.ref.WeakReference;
+
 public class ProfilePreference extends DialogPreference {
 
     ProfilePreferenceFragment fragment;
@@ -89,10 +91,11 @@ public class ProfilePreference extends DialogPreference {
                 }
                 else
                 {
-                    Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
-                    if (bitmap != null)
-                        profileIcon.setImageBitmap(bitmap);
-                    else
+                    //Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(prefContext, profile._iconBitmap);
+                    //Bitmap bitmap = profile._iconBitmap;
+                    //if (bitmap != null)
+                    //    profileIcon.setImageBitmap(bitmap);
+                    //else
                         profileIcon.setImageBitmap(profile._iconBitmap);
                 }
                 if (!isEnabled())
@@ -109,10 +112,14 @@ public class ProfilePreference extends DialogPreference {
                 profileIcon.setAlpha(1f);
             }
 
-            Handler handler = new Handler(prefContext.getMainLooper());
+            final Handler handler = new Handler(prefContext.getMainLooper());
+            final WeakReference<ProfilePreference> preferenceWeakRef
+                    = new WeakReference<>(this);
             handler.postDelayed(() -> {
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePreference.onBindViewHolder");
-                setSummary(Long.parseLong(profileId));
+                ProfilePreference preference = preferenceWeakRef.get();
+                if (preference != null)
+                    preference.setSummary(Long.parseLong(preference.profileId));
             }, 200);
         }
     }

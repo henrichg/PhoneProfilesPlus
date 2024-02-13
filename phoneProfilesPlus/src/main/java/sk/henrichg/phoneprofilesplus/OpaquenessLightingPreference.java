@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
+import java.lang.ref.WeakReference;
+
 public class OpaquenessLightingPreference extends DialogPreference {
 
     OpaquenessLightingPreferenceFragment fragment;
@@ -139,17 +141,23 @@ public class OpaquenessLightingPreference extends DialogPreference {
             else
                 opaquenessLightingIcon.setAlpha(1f);
 
-            Handler handler = new Handler(prefContext.getMainLooper());
+            final Context appContext = prefContext.getApplicationContext();
+            final Handler handler = new Handler(prefContext.getMainLooper());
+            final WeakReference<OpaquenessLightingPreference> preferenceWeakRef
+                    = new WeakReference<>(this);
             handler.postDelayed(() -> {
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePreference.onBindViewHolder");
-                int _position = getPosition(value);
-                if (_position != -1) {
-                    String summary;
-                    if (showLighting)
-                        summary = prefContext.getString(lightingNames[_position]);
-                    else
-                        summary = prefContext.getString(opaquenessNames[_position]);
-                    setSummary(summary);
+                OpaquenessLightingPreference preference = preferenceWeakRef.get();
+                if (preference != null) {
+                    int _position = preference.getPosition(preference.value);
+                    if (_position != -1) {
+                        String summary;
+                        if (preference.showLighting)
+                            summary = appContext.getString(preference.lightingNames[_position]);
+                        else
+                            summary = appContext.getString(preference.opaquenessNames[_position]);
+                        preference.setSummary(summary);
+                    }
                 }
             }, 200);
 

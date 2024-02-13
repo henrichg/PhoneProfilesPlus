@@ -42,6 +42,7 @@ import org.acra.ACRA;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -74,34 +75,30 @@ class PPApplicationStatic {
                         workManager.cancelWorkById(workInfo.getId());
                     }
                 }
-
-                if (name.startsWith(MainWorker.EVENT_DELAY_START_WORK_TAG))
-                    PPApplication.elapsedAlarmsEventDelayStartWork.remove(name);
-                if (name.startsWith(MainWorker.EVENT_DELAY_END_WORK_TAG))
-                    PPApplication.elapsedAlarmsEventDelayEndWork.remove(name);
-                if (name.startsWith(MainWorker.PROFILE_DURATION_WORK_TAG))
-                    PPApplication.elapsedAlarmsProfileDurationWork.remove(name);
-                if (name.startsWith(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG))
-                    PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove(name);
-                if (name.startsWith(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG))
-                    PPApplication.elapsedAlarmsStartEventNotificationWork.remove(name);
-
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
+
+            if (name.startsWith(MainWorker.EVENT_DELAY_START_WORK_TAG))
+                PPApplication.elapsedAlarmsEventDelayStartWork.remove(name);
+            if (name.startsWith(MainWorker.EVENT_DELAY_END_WORK_TAG))
+                PPApplication.elapsedAlarmsEventDelayEndWork.remove(name);
+            if (name.startsWith(MainWorker.PROFILE_DURATION_WORK_TAG))
+                PPApplication.elapsedAlarmsProfileDurationWork.remove(name);
+            if (name.startsWith(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG))
+                PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove(name);
+            if (name.startsWith(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG))
+                PPApplication.elapsedAlarmsStartEventNotificationWork.remove(name);
         }
     }
 
     static void cancelWork(final String name,
                            @SuppressWarnings("SameParameterValue") final boolean forceCancel) {
         // cancel only enqueued works
-        //PPApplication.startHandlerThreadCancelWork();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadCancelWork.getLooper());
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
             _cancelWork(name, forceCancel);
-        }; //);
+        };
         createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
     }
@@ -248,7 +245,7 @@ class PPApplicationStatic {
     static void addActivityLog(Context context, final int logType, final String eventName,
                                final String profileName, final String profilesEventsCount) {
         if (PPApplication.prefActivityLogEnabled) {
-            final Context appContext = context;
+            final Context appContext = context.getApplicationContext();
 
             if ((logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION) ||
                     (logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT) ||
@@ -264,9 +261,9 @@ class PPApplicationStatic {
                     (logType == PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS)) {
 
                 boolean manualProfileActivation = false;
-                if (EventStatic.getGlobalEventsRunning(context)) {
-                    if (EventStatic.getEventsBlocked(context)) {
-                        if (!EventStatic.getForceRunEventRunning(context))
+                if (EventStatic.getGlobalEventsRunning(appContext)) {
+                    if (EventStatic.getEventsBlocked(appContext)) {
+                        if (!EventStatic.getForceRunEventRunning(appContext))
                             manualProfileActivation = true;
                     }
                 } else
@@ -373,10 +370,6 @@ class PPApplicationStatic {
                 }
             }
 
-            //PPApplication.startHandlerThread(/*"AlarmClockBroadcastReceiver.onReceive"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPApplication.addActivityLog");
 
@@ -391,7 +384,7 @@ class PPApplicationStatic {
                     Intent intent = new Intent(PPApplication.ACTION_ADDED_ACIVITY_LOG);
                     appContext.sendBroadcast(intent);
                 }
-            }; //);
+            };
             createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
@@ -682,6 +675,9 @@ class PPApplicationStatic {
                     getSharedPreferences(context).getBoolean(Event.PREF_GLOBAL_EVENTS_RUN_STOP, true);
         }
 
+        for (int i = 0; i < PPApplication.quickTileProfileId.length; i++)
+            PPApplication.quickTileProfileId[i] = ApplicationPreferences.getQuickTileProfileId(context, i);
+
         //IgnoreBatteryOptimizationNotification.getShowIgnoreBatteryOptimizationNotificationOnStart(context);
         CheckCriticalPPPReleasesBroadcastReceiver.getShowCriticalGitHubReleasesNotification(context);
         getActivityLogEnabled(context);
@@ -692,7 +688,7 @@ class PPApplicationStatic {
         getWallpaperChangeTime(context);
         EventStatic.getEventsBlocked(context);
         EventStatic.getForceRunEventRunning(context);
-        sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getApplicationInForeground(context);
+        PPExtenderBroadcastReceiver.getApplicationInForeground(context);
         EventPreferencesCall.getEventCallEventType(context);
         EventPreferencesCall.getEventCallEventTime(context);
         EventPreferencesCall.getEventCallPhoneNumber(context);
@@ -1252,10 +1248,10 @@ class PPApplicationStatic {
         return ApplicationPreferences.
                 getSharedPreferences(context).getBoolean(PPApplication.PREF_DONATION_DONATED, false);
     }
-    static void setDonationDonated(Context context)
+    static void setDonationDonated(Context context, boolean donated)
     {
         Editor editor = ApplicationPreferences.getEditor(context);
-        editor.putBoolean(PPApplication.PREF_DONATION_DONATED, true);
+        editor.putBoolean(PPApplication.PREF_DONATION_DONATED, donated);
         editor.apply();
     }
 
@@ -1453,7 +1449,7 @@ class PPApplicationStatic {
                 channel.setDescription(description);
                 channel.enableLights(false);
                 channel.enableVibration(true);
-                //channel.setSound(null, null);
+                channel.setSound(null, null);
                 channel.setShowBadge(true);
                 channel.setBypassDnd(true);
 
@@ -2182,22 +2178,7 @@ class PPApplicationStatic {
 
                 addActivityLog(context, PPApplication.ALTYPE_APPLICATION_EXIT, null, null, "");
 
-                //if (PPApplication.brightnessHandler != null) {
-                //    PPApplication.brightnessHandler.post(new Runnable() {
-                //        public void run() {
-                //            ActivateProfileHelper.removeBrightnessView(context);
-                //        }
-                //    });
-                //}
-                //if (PPApplication.screenTimeoutHandler != null) {
-                //    PPApplication.screenTimeoutHandler.post(new Runnable() {
-                //        public void run() {
-                            //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
-                            //ActivateProfileHelper.removeBrightnessView(context);
-                            ActivateProfileHelper.removeKeepScreenOnView(context);
-                //        }
-                //    });
-                //}
+                ActivateProfileHelper.removeKeepScreenOnView(context);
 
                 //PPApplication.initRoot();
 
@@ -2239,24 +2220,26 @@ class PPApplicationStatic {
             //if (PhoneProfilesService.getInstance() != null)
             //    PhoneProfilesService.getInstance().setApplicationFullyStarted(false, false);
 
-            Permissions.setAllShowRequestPermissions(context.getApplicationContext(), true);
+            Permissions.setAllShowRequestPermissions(context, true);
 
-            //WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
-            //WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
-            //MobileCellsScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
+            //WifiBluetoothScanner.setShowEnableLocationNotification(context, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
+            //WifiBluetoothScanner.setShowEnableLocationNotification(context, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
+            //MobileCellsScanner.setShowEnableLocationNotification(context, true);
             //ActivateProfileHelper.setScreenUnlocked(context, true);
 
             if (!shutdown) {
                 //ActivateProfileHelper.updateGUI(context, false, true);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication._exitApp", "call of forceUpdateGUI");
-                PPApplication.forceUpdateGUI(context.getApplicationContext(), false, false, false);
+                PPApplication.forceUpdateGUI(context, false, false, false);
 
-                Handler _handler = new Handler(context.getMainLooper());
-                Runnable r = () -> {
+                final Handler _handler = new Handler(context.getMainLooper());
+                final WeakReference<Activity> activityWeakRef = new WeakReference<>(activity);
+                final Runnable r = () -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication._exitApp");
                     try {
-                        if (activity != null)
-                            activity.finish();
+                        Activity _activity = activityWeakRef.get();
+                        if (_activity != null)
+                            _activity.finish();
                     } catch (Exception e) {
                         recordException(e);
                     }
@@ -2305,23 +2288,21 @@ class PPApplicationStatic {
         }
     }
 
-    static void exitApp(final boolean useHandler, final Context context, final DataWrapper dataWrapper, final Activity activity,
+    static void exitApp(final boolean useHandler, final Context context, final DataWrapper _dataWrapper, final Activity _activity,
                                  final boolean fromShutdown, final boolean removeNotifications, final boolean exitByUser) {
         try {
             if (useHandler) {
-                //PPApplication.startHandlerThread(/*"PPApplication.exitApp"*/);
-                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                //__handler.post(new ExitAppRunnable(context.getApplicationContext(), dataWrapper, activity) {
-                //__handler.post(() -> {
+                final Context appContext = context.getApplicationContext();
+                final WeakReference<Activity> activityWeakRef = new WeakReference<>(_activity);
+                final WeakReference<DataWrapper> dataWrapperWeakRef = new WeakReference<>(_dataWrapper);
                 Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
-                    //Context appContext= appContextWeakRef.get();
-                    //DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                    //Activity activity = activityWeakRef.get();
+                    DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                    Activity activity = activityWeakRef.get();
 
                     //if ((appContext != null) && (dataWrapper != null) && (activity != null)) {
-                        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
@@ -2335,7 +2316,8 @@ class PPApplicationStatic {
                                 } catch (Exception ignored) {
                                 }
                             }
-                            _exitApp(context, dataWrapper, activity, fromShutdown, removeNotifications, exitByUser);
+                            if ((activity != null) && (dataWrapper != null))
+                                _exitApp(appContext, dataWrapper, activity, fromShutdown, removeNotifications, exitByUser);
 
                         } catch (Exception e) {
 //                            Log.e("[IN_EXECUTOR] PPApplication.exitApp", Log.getStackTraceString(e));
@@ -2349,12 +2331,12 @@ class PPApplicationStatic {
                             }
                         }
                     //}
-                }; //);
+                };
                 createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
             }
             else
-                _exitApp(context, dataWrapper, activity, fromShutdown, removeNotifications, exitByUser);
+                _exitApp(context, _dataWrapper, _activity, fromShutdown, removeNotifications, exitByUser);
         } catch (Exception e) {
             recordException(e);
         }
@@ -2402,6 +2384,10 @@ class PPApplicationStatic {
         if (PPApplication.profileActiationExecutorPool == null)
             PPApplication.profileActiationExecutorPool = Executors.newCachedThreadPool();
     }
+    static void createSoundModeExecutorPool() {
+        if (PPApplication.soundModeExecutorPool == null)
+            PPApplication.soundModeExecutorPool = Executors.newCachedThreadPool();
+    }
     static void createEventsHandlerExecutor() {
         if (PPApplication.eventsHandlerExecutor == null)
             PPApplication.eventsHandlerExecutor = Executors.newCachedThreadPool();
@@ -2443,39 +2429,12 @@ class PPApplicationStatic {
             PPApplication.updateGuiExecutor = Executors.newSingleThreadScheduledExecutor();
     }
 
-    /*
-    static void startHandlerThread() {
-        if (handlerThread == null) {
-            handlerThread = new HandlerThread("PPHandlerThread", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThread.start();
-        }
-    }
-    */
-
-    /*
-    static void startHandlerThreadCancelWork() {
-        if (handlerThreadCancelWork == null) {
-            handlerThreadCancelWork = new HandlerThread("PPHandlerThreadCancelWork", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadCancelWork.start();
-        }
-    }
-    */
-
     static void startHandlerThreadBroadcast(/*String from*/) {
         if (PPApplication.handlerThreadBroadcast == null) {
             PPApplication.handlerThreadBroadcast = new HandlerThread("PPHandlerThreadBroadcast", THREAD_PRIORITY_MORE_FAVORABLE); //);
             PPApplication.handlerThreadBroadcast.start();
         }
     }
-
-    /*
-    static void startHandlerThreadPPScanners() {
-        if (handlerThreadPPScanners == null) {
-            handlerThreadPPScanners = new HandlerThread("PPHandlerThreadPPScanners", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadPPScanners.start();
-        }
-    }
-    */
 
     static void startHandlerThreadOrientationScanner() {
         if (PPApplication.handlerThreadOrientationScanner == null) {
@@ -2488,89 +2447,10 @@ class PPApplicationStatic {
         }
     }
 
-    /*
-    static void startHandlerThreadPPCommand() {
-        if (handlerThreadPPCommand == null) {
-            handlerThreadPPCommand = new HandlerThread("PPHandlerThreadPPCommand", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadPPCommand.start();
-        }
-    }
-    */
-
     static void startHandlerThreadLocation() {
         if (PPApplication.handlerThreadLocation == null) {
             PPApplication.handlerThreadLocation = new HandlerThread("PPHandlerThreadLocation", THREAD_PRIORITY_MORE_FAVORABLE); //);
             PPApplication.handlerThreadLocation.start();
-        }
-    }
-
-    /*
-    static void startHandlerThreadWidget() {
-        if (handlerThreadWidget == null) {
-            handlerThreadWidget = new HandlerThread("PPHandlerThreadWidget", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadWidget.start();
-        }
-    }
-    */
-
-    /*
-    static void startHandlerThreadPlayTone() {
-        if (handlerThreadPlayTone == null) {
-            handlerThreadPlayTone = new HandlerThread("PPHandlerThreadPlayTone", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadPlayTone.start();
-        }
-    }
-    */
-
-    /*
-    static void startHandlerThreadVolumes() {
-        if (handlerThreadVolumes == null) {
-            handlerThreadVolumes = new HandlerThread("handlerThreadVolumes", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadVolumes.start();
-        }
-    }
-    */
-
-    /*
-    static void startHandlerThreadRadios() {
-        if (handlerThreadRadios == null) {
-            handlerThreadRadios = new HandlerThread("handlerThreadRadios", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadRadios.start();
-        }
-    }
-    */
-
-    /*
-    static void startHandlerThreadWallpaper() {
-        if (handlerThreadWallpaper == null) {
-            handlerThreadWallpaper = new HandlerThread("handlerThreadWallpaper", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadWallpaper.start();
-        }
-    }
-    */
-
-    /*
-    static void startHandlerThreadRunApplication() {
-        if (handlerThreadRunApplication == null) {
-            handlerThreadRunApplication = new HandlerThread("handlerThreadRunApplication", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadRunApplication.start();
-        }
-    }
-    */
-
-    /*
-    static void startHandlerThreadProfileActivation() {
-        if (handlerThreadProfileActivation == null) {
-            handlerThreadProfileActivation = new HandlerThread("handlerThreadProfileActivation", THREAD_PRIORITY_MORE_FAVORABLE); //);;
-            handlerThreadProfileActivation.start();
-        }
-    }
-    */
-
-    static void startHandlerThreadProgressBar(/*String from*/) {
-        if (PPApplication.handlerThreadProgressBar == null) {
-            PPApplication.handlerThreadProgressBar = new HandlerThread("PPHandlerThreadProgressBar", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            PPApplication.handlerThreadProgressBar.start();
         }
     }
 
@@ -2608,58 +2488,6 @@ class PPApplicationStatic {
         }
 
     }*/
-
-    //--------------------
-
-/*    //-----------------------------
-
-    private static WeakReference<Activity> foregroundEditorActivity;
-
-    @Override
-    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-
-    }
-
-    @Override
-    public void onActivityStarted(Activity activity) {
-        if (activity instanceof EditorActivity)
-            foregroundEditorActivity=new WeakReference<>(activity);
-    }
-
-    @Override
-    public void onActivityResumed(Activity activity) {
-        if (activity instanceof EditorActivity)
-            foregroundEditorActivity=new WeakReference<>(activity);
-    }
-
-    @Override
-    public void onActivityPaused(Activity activity) {
-
-    }
-
-    @Override
-    public void onActivityStopped(Activity activity) {
-        if (activity instanceof EditorActivity)
-            foregroundEditorActivity = null;
-    }
-
-    @Override
-    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
-    }
-
-    @Override
-    public void onActivityDestroyed(Activity activity) {
-
-    }
-
-    static Activity getEditorActivity() {
-        if (foregroundEditorActivity != null && foregroundEditorActivity.get() != null) {
-            return foregroundEditorActivity.get();
-        }
-        return null;
-    }
-*/
 
     // Sensor manager ------------------------------------------------------------------------------
 
@@ -2899,6 +2727,8 @@ class PPApplicationStatic {
         try {
             PPPReleaseData pppReleaseData = new PPPReleaseData();
 
+//            Log.e("PPApplicationStatic.getReleaseData", "contents="+contents);
+
             if (!contents.isEmpty()) {
                 int startIndex = contents.indexOf("@@@ppp-release:");
                 int endIndex = contents.indexOf("***@@@");
@@ -2917,10 +2747,14 @@ class PPApplicationStatic {
                             }
                             pppReleaseData.versionNameInReleases = splits[0];
                             pppReleaseData.versionCodeInReleases = Integer.parseInt(splits[1]);
+//                            Log.e("PPApplicationStatic.getReleaseData", "pppReleaseData.versionNameInReleases="+pppReleaseData.versionNameInReleases);
+//                            Log.e("PPApplicationStatic.getReleaseData", "pppReleaseData.versionCodeInReleases="+pppReleaseData.versionCodeInReleases);
+//                            Log.e("PPApplicationStatic.getReleaseData", "ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification="+ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification);
                             if (forceDoData)
                                 doData = true;
                             else {
                                 if (ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification < pppReleaseData.versionCodeInReleases) {
+                                    // not disabled notification about new version by user (not click to notification "Disable" button)
                                     if ((versionCode > 0) && (versionCode < pppReleaseData.versionCodeInReleases))
                                         doData = true;
                                 }
@@ -2937,6 +2771,8 @@ class PPApplicationStatic {
                             //  "critical" - critical update
                             pppReleaseData.critical = splits[2].equals("critical");
                         }
+//                        Log.e("PPApplicationStatic.getReleaseData", "pppReleaseData.critical="+pppReleaseData.critical);
+//                        Log.e("PPApplicationStatic.getReleaseData", "doData="+doData);
                     }
                 }
             }
@@ -2963,12 +2799,14 @@ class PPApplicationStatic {
         } catch (Exception ignored) {}
     }
 
+    /*
     static void logToACRA(String s) {
         try {
             //FirebaseCrashlytics.getInstance().log(s);
             ACRA.getErrorReporter().putCustomData("Log", s);
         } catch (Exception ignored) {}
     }
+    */
 
     static void setCustomKey(String key, int value) {
         try {

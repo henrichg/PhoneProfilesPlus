@@ -150,14 +150,14 @@ class EventPreferencesCall extends EventPreferences {
 
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
+                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
                 if (extenderVersion == 0) {
                     _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
                             .append(StringConstants.STR_COLON_WITH_SPACE).append(context.getString(R.string.preference_not_allowed_reason_not_extender_installed));
-                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
+                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
                     _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
                             .append(StringConstants.STR_COLON_WITH_SPACE).append(context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded));
-                } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
+                } else if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
                         /*, "EventPreferencesCall.getPreferencesDescription"*/)) {
                     _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
                             .append(StringConstants.STR_COLON_WITH_SPACE).append(context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender));
@@ -185,6 +185,7 @@ class EventPreferencesCall extends EventPreferences {
                             int phoneCount = telephonyManager.getPhoneCount();
                             if (phoneCount > 1) {
                                 boolean simExists;
+//                                Log.e("EventPreferencesCall.getPreferencesDescription", "called hasSIMCard");
                                 HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                                 boolean sim1Exists = hasSIMCardData.hasSIM1;
                                 boolean sim2Exists = hasSIMCardData.hasSIM2;
@@ -290,49 +291,50 @@ class EventPreferencesCall extends EventPreferences {
 
         boolean hasFeature = false;
         boolean hasSIMCard = false;
-            if (key.equals(PREF_EVENT_CALL_FOR_SIM_CARD)) {
-                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                if (telephonyManager != null) {
-                    int phoneCount = telephonyManager.getPhoneCount();
-                    if (phoneCount > 1) {
-                        hasFeature = true;
-                        boolean simExists;
-                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean sim1Exists = hasSIMCardData.hasSIM1;
-                        boolean sim2Exists = hasSIMCardData.hasSIM2;
+        if (key.equals(PREF_EVENT_CALL_FOR_SIM_CARD)) {
+            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                int phoneCount = telephonyManager.getPhoneCount();
+                if (phoneCount > 1) {
+                    hasFeature = true;
+                    boolean simExists;
+//                    Log.e("EventPreferencesCall.setSummary", "called hasSIMCard");
+                    HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                    boolean sim1Exists = hasSIMCardData.hasSIM1;
+                    boolean sim2Exists = hasSIMCardData.hasSIM2;
 
-                        simExists = sim1Exists;
-                        simExists = simExists && sim2Exists;
-                        hasSIMCard = simExists;
-                        PPListPreference listPreference = prefMng.findPreference(key);
-                        if (listPreference != null) {
-                            int index = listPreference.findIndexOfValue(value);
-                            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                            listPreference.setSummary(summary);
-                        }
-                    }
-                }
-                if (!hasFeature) {
-                    Preference preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
-                    if (preference != null) {
-                        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
-                    }
-                }
-                else if (!hasSIMCard) {
-                    Preference preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
-                    if (preference != null) {
-                        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS;
-                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    simExists = sim1Exists;
+                    simExists = simExists && sim2Exists;
+                    hasSIMCard = simExists;
+                    PPListPreference listPreference = prefMng.findPreference(key);
+                    if (listPreference != null) {
+                        int index = listPreference.findIndexOfValue(value);
+                        CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                        listPreference.setSummary(summary);
                     }
                 }
             }
+            if (!hasFeature) {
+                Preference preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
+                if (preference != null) {
+                    PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                    preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                            StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                }
+            }
+            else if (!hasSIMCard) {
+                Preference preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
+                if (preference != null) {
+                    PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS;
+                    preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                            StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                }
+            }
+        }
 
         /*
         if (key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER)) {
@@ -499,13 +501,13 @@ class EventPreferencesCall extends EventPreferences {
     @Override
     int isAccessibilityServiceEnabled(Context context, boolean againCheckInDelay)
     {
-        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
             return -2;
-        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
+        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3)
             return -1;
         if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled && isRunnable(context)) {
-            if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
+            if (PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
                             /*, "EventPreferencesCall.isAccessibilityServiceEnabled"*/))
                 return 1;
         } else
@@ -521,7 +523,7 @@ class EventPreferencesCall extends EventPreferences {
             if (prefMng.findPreference(PREF_EVENT_CALL_ENABLED) != null)
             {
                 final boolean accessibilityEnabled =
-                        sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
+                        PPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, false
                                 /*, "EventPreferencesCall.checkPreferences"*/);
 
                 boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);
@@ -538,6 +540,7 @@ class EventPreferencesCall extends EventPreferences {
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
+//                        Log.e("EventPreferencesCall.checkPreferences", "called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                         boolean sim1Exists = hasSIMCardData.hasSIM1;
                         boolean sim2Exists = hasSIMCardData.hasSIM2;
@@ -671,18 +674,18 @@ class EventPreferencesCall extends EventPreferences {
         }
     }
 
-    boolean isPhoneNumberConfigured(String phoneNumber/*, DataWrapper dataWrapper*/) {
+    boolean isPhoneNumberConfigured(List<Contact> contactList, String phoneNumber/*, DataWrapper dataWrapper*/) {
         boolean phoneNumberFound = false;
 
         if (this._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
-            ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+            /*ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
             if (contactsCache == null)
                 return false;
             List<Contact> contactList;
 //            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.isPhoneNumberConfigured", "(1) PPApplication.contactsCacheMutex");
             synchronized (PPApplication.contactsCacheMutex) {
-                contactList = contactsCache.getList(/*false*/);
-            }
+                contactList = contactsCache.getList(); //false
+            }*/
 
             // find phone number in groups
             String[] splits = this._contactGroups.split(StringConstants.STR_SPLIT_REGEX);
@@ -744,7 +747,7 @@ class EventPreferencesCall extends EventPreferences {
         return phoneNumberFound;
     }
 
-    void saveStartTime(DataWrapper dataWrapper) {
+    void saveStartTime(List<Contact> contactList, DataWrapper dataWrapper) {
         if (this._startTime == 0) {
             // alarm for end is not set
             if (Permissions.checkContacts(dataWrapper.context)) {
@@ -757,7 +760,7 @@ class EventPreferencesCall extends EventPreferences {
                     ((_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) && (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ENDED)) ||
                     ((_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED) && (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_OUTGOING_CALL_ENDED))) {
 
-                    boolean phoneNumberFound = isPhoneNumberConfigured(phoneNumber/*, dataWrapper*/);
+                    boolean phoneNumberFound = isPhoneNumberConfigured(contactList, phoneNumber/*, dataWrapper*/);
 
                     if (phoneNumberFound) {
                         this._startTime = callTime; // + (10 * 1000);
@@ -875,8 +878,18 @@ class EventPreferencesCall extends EventPreferences {
                 if (callEventType != EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED) {
                     if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_SERVICE_UNBIND)
                         eventsHandler.callPassed = false;
-                    else
-                        phoneNumberFound = isPhoneNumberConfigured(phoneNumber/*, this*/);
+                    else {
+                        ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                        if (contactsCache != null) {
+                            List<Contact> contactList;
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
+                            synchronized (PPApplication.contactsCacheMutex) {
+                                contactList = contactsCache.getList(/*false*/);
+                            }
+                            phoneNumberFound = isPhoneNumberConfigured(contactList, phoneNumber/*, this*/);
+                            contactList.clear();
+                        }
+                    }
 
                     if (phoneNumberFound) {
                         _fromSIMSlot = simSlot;

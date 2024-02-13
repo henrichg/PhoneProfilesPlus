@@ -1029,14 +1029,19 @@ public class PPAppNotification {
 
         if (!forFirstStart) {
             if (isIconResourceID) {
+                // icon from resource
+
                 int iconSmallResource;
                 if (iconBitmap != null) {
+                    // icon bitmap exists = changed color
+
                     if (notificationStatusBarStyle.equals("0")) {
                         // colorful icon
 
                         notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
                     } else {
                         // native icon
+                        //  used is monohcrome resource
 
                         iconSmallResource = R.drawable.ic_profile_default_notify;
                         try {
@@ -1087,8 +1092,12 @@ public class PPAppNotification {
                             notificationBuilder.setLargeIcon(iconBitmap);
                     }
                 } else {
+                    // icon bitmap not exists = color not changed
 
                     if (notificationStatusBarStyle.equals("0")) {
+                        // colorful icon
+                        //  used is colorful resource
+
                         iconSmallResource = R.drawable.ic_profile_default_notify_color;
                         try {
                             if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
@@ -1101,6 +1110,9 @@ public class PPAppNotification {
 //                            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                         }
                     } else {
+                        // native icon
+                        //  used is monochrome resource
+
                         iconSmallResource = R.drawable.ic_profile_default_notify;
                         try {
                             if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
@@ -1175,17 +1187,23 @@ public class PPAppNotification {
                 }
 
             } else {
+                // custom icon
 
                 if (iconBitmap != null) {
                     if (notificationStatusBarStyle.equals("2") /*||
                             PPApplication.deviceIsSamsung*/) {
+                        // force native for custom
+                        //   convert to monochrome
                         Bitmap _iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, 0xFF);
                         notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(_iconBitmap));
                         //notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
                     }
                     else
+                        // colorful icon
                         notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
                 } else {
+                    // custom not set
+                    //  use profile default icon
                     int iconSmallResource;
                     if (notificationStatusBarStyle.equals("0"))
                         iconSmallResource = R.drawable.ic_profile_default;
@@ -1194,11 +1212,11 @@ public class PPAppNotification {
                     notificationBuilder.setSmallIcon(iconSmallResource);
                 }
 
-                if (profile != null) {
-                    Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
-                    if (bitmap != null)
-                        iconBitmap = bitmap;
-                }
+                //if (profile != null) {
+                //    Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
+                //    if (bitmap != null)
+                //        iconBitmap = bitmap;
+                //}
                 if (iconBitmap == null) {
                     iconBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_profile_default, true, appContext);
                 }
@@ -1253,7 +1271,7 @@ public class PPAppNotification {
                     }
                 }
 
-                if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                //if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
                     if (iconBitmap != null) {
                         // do not use increaseNotificationDecorationBrightness(),
                         // because icon will not be visible in AOD
@@ -1267,7 +1285,7 @@ public class PPAppNotification {
                             } catch (Exception ignored) {}
                         }
                     }
-                }
+                //}
 
             }
         }
@@ -1322,7 +1340,7 @@ public class PPAppNotification {
         if (clear) {
             // next show will be with startForeground()
             //if (PhoneProfilesService.getInstance() != null) {
-            clearNotification(context/*, true*/);
+            clearNotification(context, false);
             GlobalUtils.sleep(100);
             //}
         }
@@ -1353,7 +1371,7 @@ public class PPAppNotification {
     }
 
     static void forceDrawNotificationFromSettings(final Context appContext) {
-        clearNotification(appContext);
+        clearNotification(appContext, false);
         GlobalUtils.sleep(100);
 
         //if (PhoneProfilesService.getInstance() != null) {
@@ -1436,9 +1454,13 @@ public class PPAppNotification {
         }
     }
 
-    static void showNotification(Context context, boolean drawEmpty, boolean drawActivatedProfle, boolean drawImmediatelly) {
+    static void showNotification(Context context, boolean drawEmpty, boolean drawActivatedProfle,
+                                 boolean drawImmediatelly, boolean alsoClear) {
         //if (DebugVersion.enabled)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
+
+        if (alsoClear)
+            clearNotification(context, true);
 
         //if (!runningInForeground) {
         if (drawEmpty) {
@@ -1472,7 +1494,7 @@ public class PPAppNotification {
         //PPApplication.lastRefreshOfPPPAppNotification = SystemClock.elapsedRealtime();
     }
 
-    static void clearNotification(Context context/*, boolean onlyEmpty*/)
+    static void clearNotification(Context context, boolean onlyClear)
     {
         /*if (onlyEmpty) {
             final Context appContext = getApplicationContext();
@@ -1484,8 +1506,10 @@ public class PPAppNotification {
         try {
             //startForegroundNotification = true;
             //isInForeground = false;
-            if (PhoneProfilesService.getInstance() != null)
-                PhoneProfilesService.getInstance().stopForeground(true);
+            if (!onlyClear) {
+                if (PhoneProfilesService.getInstance() != null)
+                    PhoneProfilesService.getInstance().stopForeground(true);
+            }
             //PPApplicationStatic.cancelWork(ShowProfileNotificationWorker.WORK_TAG, true);
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {

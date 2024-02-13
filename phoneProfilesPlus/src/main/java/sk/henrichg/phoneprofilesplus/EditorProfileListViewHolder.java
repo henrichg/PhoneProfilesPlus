@@ -123,10 +123,11 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         }
         else
         {
-            Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
-            if (bitmap != null)
-                profileIcon.setImageBitmap(bitmap);
-            else
+            //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(editorFragment.getActivity(), profile._iconBitmap);
+            //Bitmap bitmap = profile._iconBitmap;
+            //if (bitmap != null)
+            //    profileIcon.setImageBitmap(bitmap);
+            //else
                 profileIcon.setImageBitmap(profile._iconBitmap);
         }
 

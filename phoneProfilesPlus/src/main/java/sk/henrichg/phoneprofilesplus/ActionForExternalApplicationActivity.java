@@ -12,6 +12,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
+import java.lang.ref.WeakReference;
+
 public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
     private DataWrapper dataWrapper;
@@ -167,23 +169,20 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                             eventName, null, "");
 
                     if (event_id != 0) {
-                        final Event event = dataWrapper.getEventById(event_id);
-                        if (event != null) {
-                            if (event.getStatus() == Event.ESTATUS_STOP) {
+                        Event _event = dataWrapper.getEventById(event_id);
+                        if (_event != null) {
+                            if (_event.getStatus() == Event.ESTATUS_STOP) {
                                 final Context appContext = getApplicationContext();
-                                //PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.1"*/);
-                                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                                //__handler.post(new PPHandlerThreadRunnable(
-                                //        getApplicationContext(), dataWrapper, event) {
-                                //__handler.post(() -> {
+                                final WeakReference<DataWrapper> dataWrapperWeakRef = new WeakReference<>(dataWrapper);
+                                final WeakReference<Event> eventWeakRef = new WeakReference<>(_event);
                                 Runnable runnable = () -> {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.1");
 
                                     //Context appContext= appContextWeakRef.get();
-                                    //DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                                    //Event event = eventWeakRef.get();
+                                    DataWrapper _dataWrapper = dataWrapperWeakRef.get();
+                                    Event event = eventWeakRef.get();
 
-                                    //if ((appContext != null) && (dataWrapper != null) && (event != null)) {
+                                    if (/*(appContext != null) &&*/ (_dataWrapper != null) && (event != null)) {
                                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                         PowerManager.WakeLock wakeLock = null;
                                         try {
@@ -192,7 +191,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                                 wakeLock.acquire(10 * 60 * 1000);
                                             }
 
-                                            EventStatic.runStopEvent(dataWrapper, event, null);
+                                            EventStatic.runStopEvent(_dataWrapper, event, null);
 
                                         } catch (Exception e) {
 //                                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -205,8 +204,8 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                                 }
                                             }
                                         }
-                                    //}
-                                }; //);
+                                    }
+                                };
                                 PPApplicationStatic.createBasicExecutorPool();
                                 PPApplication.basicExecutorPool.submit(runnable);
                             }
@@ -230,11 +229,6 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                         if (event != null) {
                             if (event.getStatus() == Event.ESTATUS_RUNNING) {
                                 final Context appContext = getApplicationContext();
-                                //PPApplication.startHandlerThread();
-                                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                                //__handler.post(new PPHandlerThreadRunnable(
-                                //        getApplicationContext(), dataWrapper, event) {
-                                //__handler.post(() -> {
                                 Runnable runnable = () -> {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.11");
 
@@ -268,7 +262,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             }
                                         }
                                     //}
-                                }; //);
+                                };
                                 PPApplicationStatic.createBasicExecutorPool();
                                 PPApplication.basicExecutorPool.submit(runnable);
                             }
@@ -288,23 +282,20 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                             eventName, null, "");
 
                     if (event_id != 0) {
-                        final Event event = dataWrapper.getEventById(event_id);
-                        if (event != null) {
-                            if (event.getStatus() != Event.ESTATUS_STOP) {
+                        Event _event = dataWrapper.getEventById(event_id);
+                        if (_event != null) {
+                            if (_event.getStatus() != Event.ESTATUS_STOP) {
                                 final Context appContext = getApplicationContext();
-                                //PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.2"*/);
-                                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                                //__handler.post(new PPHandlerThreadRunnable(
-                                //        getApplicationContext(), dataWrapper, event) {
-                                //__handler.post(() -> {
+                                final WeakReference<DataWrapper> dataWrapperWeakRef = new WeakReference<>(dataWrapper);
+                                final WeakReference<Event> eventWeakRef = new WeakReference<>(_event);
                                 Runnable runnable = () -> {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.2");
 
                                     //Context appContext= appContextWeakRef.get();
-                                    //DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                                    //Event event = eventWeakRef.get();
+                                    DataWrapper _dataWrapper = dataWrapperWeakRef.get();
+                                    Event event = eventWeakRef.get();
 
-                                    //if ((appContext != null) && (dataWrapper != null) && (event != null)) {
+                                    if (/*(appContext != null) &&*/ (_dataWrapper != null) && (event != null)) {
                                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                         PowerManager.WakeLock wakeLock = null;
                                         try {
@@ -313,7 +304,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                                 wakeLock.acquire(10 * 60 * 1000);
                                             }
 
-                                            EventStatic.runStopEvent(dataWrapper, event, null);
+                                            EventStatic.runStopEvent(_dataWrapper, event, null);
 
                                         } catch (Exception e) {
 //                                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -326,8 +317,8 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                                 }
                                             }
                                         }
-                                    //}
-                                }; //);
+                                    }
+                                };
                                 PPApplicationStatic.createBasicExecutorPool();
                                 PPApplication.basicExecutorPool.submit(runnable);
                             }

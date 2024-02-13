@@ -91,7 +91,13 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
             listAdapter.notifyDataSetChanged();
             */
             final Handler handler = new Handler(prefContext.getMainLooper());
-            handler.postDelayed(() -> refreshListView(true), 200);
+            final WeakReference<ContactsMultiSelectDialogPreferenceFragment> fragmentWeakRef
+                    = new WeakReference<>(this);
+            handler.postDelayed(() -> {
+                ContactsMultiSelectDialogPreferenceFragment fragment = fragmentWeakRef.get();
+                if (fragment != null)
+                    fragment.refreshListView(true);
+            }, 200);
         }
 
         contactsFilter = view.findViewById(R.id.contacts_multiselect_pref_dlg_contacts_filter);
@@ -213,7 +219,8 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                             /*contactsCache = PPApplicationStatic.getContactsCache();
                             while (contactsCache.getCaching())
                                 GlobalUtils.sleep(100);*/
-                        }
+                        } else
+                            contactList.clear();
                     } else {
                         // wait for cache end
                         while (contactsCache.getCaching())

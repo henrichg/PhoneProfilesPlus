@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RadioButton;
 
+import java.lang.ref.WeakReference;
+
 class TileChooserListAdapter extends BaseAdapter {
 
     private TileChooserListFragment fragment;
@@ -103,10 +105,11 @@ class TileChooserListAdapter extends BaseAdapter {
                     }
                 }
             } else {
-                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(fragment.getActivity(), profile._iconBitmap);
-                if (bitmap != null)
-                    holder.profileIcon.setImageBitmap(bitmap);
-                else
+                //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(fragment.getActivity(), profile._iconBitmap);
+                //Bitmap bitmap = profile._iconBitmap;
+                //if (bitmap != null)
+                //    holder.profileIcon.setImageBitmap(bitmap);
+                //else
                     holder.profileIcon.setImageBitmap(profile._iconBitmap);
             }
 
@@ -133,10 +136,15 @@ class TileChooserListAdapter extends BaseAdapter {
 
             holder.radioButton.setTag(position);
             holder.radioButton.setOnClickListener(v -> {
-                RadioButton rb = (RadioButton) v;
+                final RadioButton rb = (RadioButton) v;
                 rb.setChecked(true);
-                Handler handler = new Handler(activityDataWrapper.context.getMainLooper());
-                handler.postDelayed(() -> fragment.chooseTile((Integer)rb.getTag()), 200);
+                final Handler handler = new Handler(activityDataWrapper.context.getMainLooper());
+                final WeakReference<TileChooserListFragment> fragmentWeakRef = new WeakReference<>(fragment);
+                handler.postDelayed(() -> {
+                    TileChooserListFragment _fragment = fragmentWeakRef.get();
+                    if (_fragment != null)
+                        _fragment.chooseTile((Integer) rb.getTag());
+                }, 200);
             });
 
         }

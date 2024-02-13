@@ -101,10 +101,6 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             final String _cellName = cellName.getText().toString();
 
             final Context appContext = getApplicationContext();
-            //PPApplication.startHandlerThread(/*"NotUsedMobileCellsDetectedActivity.onClick"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(getApplicationContext()) {
-            //__handler.post(() -> {
             Runnable runnable = () -> {
                 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onStart (1)");
 
@@ -212,7 +208,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                     }
                 }
                 //}
-            }; //);
+            };
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
 
@@ -353,22 +349,26 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                 activity.linlaProgress.setVisibility(View.GONE);
 
                 final Handler handler = new Handler(activity.getMainLooper());
+                final WeakReference<List<String>> cellNamesListWeakRef = new WeakReference<>(_cellNamesList);
                 handler.post(() -> {
                     activity.rellaDialog.setVisibility(View.VISIBLE);
 
-                    activity.cellNamesList = new ArrayList<>(_cellNamesList);
+                    List<String> __cellNamesList = cellNamesListWeakRef.get();
+                    if (__cellNamesList != null) {
+                        activity.cellNamesList = new ArrayList<>(__cellNamesList);
 
-                    activity.listAdapter.notifyDataSetChanged();
+                        activity.listAdapter.notifyDataSetChanged();
 
-                    activity.cellName.setText("");
-                    activity.cellName.setFocusable(true);
-                    activity.cellName.requestFocus();
+                        activity.cellName.setText("");
+                        activity.cellName.setFocusable(true);
+                        activity.cellName.requestFocus();
 
-                    activity.cellIdTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_cell_id) + " " + activity.mobileCellId);
-                    activity.lastConnectTimeTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_connection_time) + " " +
-                            StringFormatUtils.timeDateStringFromTimestamp(activity, activity.lastConnectedTime));
+                        activity.cellIdTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_cell_id) + " " + activity.mobileCellId);
+                        activity.lastConnectTimeTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_connection_time) + " " +
+                                StringFormatUtils.timeDateStringFromTimestamp(activity, activity.lastConnectedTime));
 
-                    activity.mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
+                        activity.mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
+                    }
                 });
             }
         }

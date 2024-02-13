@@ -48,13 +48,6 @@ public class LocationSensorWorker extends Worker {
         } catch (Exception e) {
             //Log.e("LocationSensorWorker.doWork", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
-            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
-            Runnable r = new Runnable() {
-                public void run() {
-                    android.os.Process.killProcess(PPApplication.pid);
-                }
-            };
-            _handler.postDelayed(r, 1000);*/
             return Result.failure();
         }
     }
@@ -131,7 +124,7 @@ public class LocationSensorWorker extends Worker {
 //                //}
 
                 if (worker != null) {
-//                    PPApplicationStatic.logE("[WORKER_CALL] LocationSensorWorker.enqueueWork", "enqueue with REPLACE");
+//                    PPApplicationStatic.logE("[WORKER_CALL] LocationSensorWorker.enqueueWork", "xxx");
                     workManager.enqueueUniqueWork(LOCATION_SENSOR_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }

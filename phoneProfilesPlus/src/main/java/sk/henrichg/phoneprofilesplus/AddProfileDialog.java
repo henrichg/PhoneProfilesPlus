@@ -12,11 +12,12 @@ import androidx.appcompat.app.AlertDialog;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 class AddProfileDialog
 {
-    private final EditorProfileListFragment profileListFragment;
+    private EditorProfileListFragment profileListFragment;
 
     final AlertDialog mDialog;
     final Activity activity;
@@ -57,6 +58,7 @@ class AddProfileDialog
                 getProfilesAsyncTask.cancel(true);
             }
             getProfilesAsyncTask = null;
+            this.profileListFragment = null;
         });
 
         linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
@@ -67,8 +69,13 @@ class AddProfileDialog
             AddProfileViewHolder viewHolder = (AddProfileViewHolder) item.getTag();
             if (viewHolder != null)
                 viewHolder.radioButton.setChecked(true);
-            Handler handler = new Handler(activity.getMainLooper());
-            handler.postDelayed(() -> doOnItemSelected(position), 200);
+            final Handler handler = new Handler(activity.getMainLooper());
+            final WeakReference<AddProfileDialog> dialogWeakRef = new WeakReference<>(this);
+            handler.postDelayed(() -> {
+                AddProfileDialog dialog1 = dialogWeakRef.get();
+                if (dialog1 != null)
+                    dialog1.doOnItemSelected(position);
+            }, 200);
         });
 
     }
@@ -81,6 +88,16 @@ class AddProfileDialog
     void doOnItemSelected(int position)
     {
         profileListFragment.startProfilePreferencesActivity(null, position);
+
+        //noinspection ForLoopReplaceableByForEach
+        for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+            Profile profile = it.next();
+            profile.releaseIconBitmap();
+            profile.releasePreferencesIndicator();
+        }
+        //}
+        profileList.clear();
+
         mDialog.dismiss();
     }
 
@@ -146,16 +163,13 @@ class AddProfileDialog
             Activity activity = activityWeakRef.get();
             if ((dialog != null) && (activity != null)) {
                 dialog.linlaProgress.setVisibility(View.GONE);
-                //final Handler handler = new Handler(activity.getMainLooper());
-                //handler.post(() -> {
-                    dialog.listView.setVisibility(View.VISIBLE);
+                dialog.listView.setVisibility(View.VISIBLE);
 
-                    dialog.profileList.clear();
-                    dialog.profileList.addAll(_profileList);
+                dialog.profileList.clear();
+                dialog.profileList.addAll(_profileList);
 
-                    AddProfileAdapter addProfileAdapter = new AddProfileAdapter(dialog, activity, dialog.profileList);
-                    dialog.listView.setAdapter(addProfileAdapter);
-                //});
+                AddProfileAdapter addProfileAdapter = new AddProfileAdapter(dialog, activity, dialog.profileList);
+                dialog.listView.setAdapter(addProfileAdapter);
             }
         }
 

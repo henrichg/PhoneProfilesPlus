@@ -252,6 +252,8 @@ class PreferenceAllowed {
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA(PreferenceAllowed preferenceAllowed,
             String preferenceKey, Profile profile, SharedPreferences sharedPreferences, /*boolean fromUIThread,*/ Context context) {
+//        PPApplicationStatic.logE("[DUAL_SIM] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA", "*******************");
+
         Context appContext = context.getApplicationContext();
 
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
@@ -344,6 +346,10 @@ class PreferenceAllowed {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+
+//                    PPApplicationStatic.logE("[DUAL_SIM] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA", "hasSIM1="+hasSIMCardData.hasSIM1);
+//                    PPApplicationStatic.logE("[DUAL_SIM] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA", "hasSIM2="+hasSIMCardData.hasSIM2);
+
                     boolean sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
 
                     if (!sim0Exists) {
@@ -407,6 +413,10 @@ class PreferenceAllowed {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+
+//                    PPApplicationStatic.logE("[DUAL_SIM] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA", "hasSIM1="+hasSIMCardData.hasSIM1);
+//                    PPApplicationStatic.logE("[DUAL_SIM] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA", "hasSIM2="+hasSIMCardData.hasSIM2);
+
                     boolean sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
 
                     if (!sim0Exists) {
@@ -1435,10 +1445,11 @@ class PreferenceAllowed {
                         } else {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
+                            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                         }
 
                         boolean sim0Exists;
+//                        Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE", "called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                         sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
 
@@ -1487,10 +1498,11 @@ class PreferenceAllowed {
                         } else {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
+                            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                         }
 
                         boolean sim0Exists;
+//                        Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE", "called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                         sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
 
@@ -1565,7 +1577,7 @@ class PreferenceAllowed {
                             } else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
+                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                             }
                         } else
                         if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -1618,7 +1630,7 @@ class PreferenceAllowed {
                             } else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
+                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                             }
                         } else {
                             if ((profile != null) &&
@@ -2569,6 +2581,50 @@ class PreferenceAllowed {
                     preferenceAllowed.notAllowedRoot = true;
                 }
             }
+        }
+    }
+
+    static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT(
+            PreferenceAllowed preferenceAllowed,
+            String preferenceKey, Profile profile, SharedPreferences sharedPreferences/*, boolean fromUIThread, Context context*/) {
+//        PPApplicationStatic.logE("[DUAL_SIM] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT", "*******************");
+
+//        Context appContext = context.getApplicationContext();
+
+        if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+            if (ShizukuUtils.hasShizukuPermission()) {
+                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            } else if (RootUtils.isRooted(/*fromUIThread*/)) {
+                // device is rooted
+
+                boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+
+                if (profile != null) {
+                    // test if grant root is disabled
+                    if ((profile._deviceScreenTimeout != 0)) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                        }
+                    }
+                } else if (sharedPreferences != null) {
+                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                        }
+                    }
+                } else
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            } else {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                if ((profile != null) && (profile._deviceScreenTimeout != 0)) {
+                    preferenceAllowed.notAllowedShizuku = true;
+                }
+            }
+        } else {
+            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
         }
     }
 

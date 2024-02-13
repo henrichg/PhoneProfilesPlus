@@ -21,6 +21,8 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+import java.lang.ref.WeakReference;
+
 public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener,
                    AdapterView.OnItemSelectedListener
@@ -35,7 +37,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     //private CheckBox sharedProfileChBox = null;
     private Button actualVolumeBtn = null;
 
-    private MediaPlayer mediaPlayer = null;
+    private static volatile MediaPlayer mediaPlayer = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -44,57 +46,6 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         this.context = context;
         preference = (VolumeDialogPreference) getPreference();
         preference.fragment = this;
-
-        /*
-        final Context _context = context;
-        PPApplication.startHandlerThreadPlayTone();
-        final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (preference.volumeType.equalsIgnoreCase("RINGTONE")) {
-                        String ringtoneUri = Settings.System.DEFAULT_RINGTONE_URI.toString();
-                        Uri _ringtoneUri = Uri.parse(ringtoneUri);
-                        preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
-                    }
-                    else if (preference.volumeType.equalsIgnoreCase("NOTIFICATION")) {
-                        String ringtoneUri = Settings.System.DEFAULT_NOTIFICATION_URI.toString();
-                        Uri _ringtoneUri = Uri.parse(ringtoneUri);
-                        preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
-                    }
-                    else if (preference.volumeType.equalsIgnoreCase("MEDIA"))
-                        preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-                    else if (preference.volumeType.equalsIgnoreCase("ALARM")) {
-                        String ringtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI.toString();
-                        Uri _ringtoneUri = Uri.parse(ringtoneUri);
-                        preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
-                    }
-                    else if (preference.volumeType.equalsIgnoreCase("SYSTEM"))
-                        preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-                    else if (preference.volumeType.equalsIgnoreCase("VOICE"))
-                        preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-                    else if (preference.volumeType.equalsIgnoreCase("DTMF"))
-                        preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-                    else if (preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
-                        preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-                    else if (preference.volumeType.equalsIgnoreCase("BLUETOOTHSCO"))
-                        preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-                    else
-                        preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-
-                    if (preference.mediaPlayer != null) {
-                        AudioAttributes attrs = new AudioAttributes.Builder()
-                                .setUsage(AudioAttributes.USAGE_MEDIA)
-                                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                                .build();
-                        preference.mediaPlayer.setAudioAttributes(attrs);
-                        //preference.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    }
-                } catch (Exception ignored) {}
-            }
-        });
-        */
 
         LayoutInflater inflater = LayoutInflater.from(context);
         return inflater.inflate(R.layout.dialog_volume_preference, null, false);
@@ -208,24 +159,20 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         }
 
         final Context appContext = context.getApplicationContext();
-        final AudioManager audioManager = preference.audioManager;
-        //PPApplication.startHandlerThreadPlayTone();
-        //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-        //__handler.post(new StopPlayRingtoneRunnable(
-        //        context.getApplicationContext(), preference.audioManager) {
-        //__handler.post(() -> {
+        final WeakReference<VolumeDialogPreference> preferenceWeakRef = new WeakReference<>(preference);
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragment.onDialogClosed");
 
             //Context appContext = appContextWeakRef.get();
             //AudioManager audioManager = audioManagerWeakRef.get();
+            VolumeDialogPreference _preference = preferenceWeakRef.get();
 
-            //if ((appContext != null) && (audioManager != null)) {
-                if (preference.usedValueMusic != -1)
-                    ActivateProfileHelper.setMediaVolume(appContext, audioManager, preference.usedValueMusic, true, false);
-                if (preference.oldMediaMuted) {
+            if (/*(appContext != null) &&*/ (_preference != null)) {
+                if (_preference.usedValueMusic != -1)
+                    ActivateProfileHelper.setMediaVolume(appContext, _preference.audioManager, _preference.usedValueMusic, true, false);
+                if (_preference.oldMediaMuted) {
                     PPApplication.volumesInternalChange = true;
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    _preference.audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                     PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
                 }
@@ -242,8 +189,8 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                         //PPApplicationStatic.recordException(e);
                     }
                 }
-            //}
-        }; //);
+            }
+        };
         PPApplicationStatic.createPlayToneExecutor();
         PPApplication.playToneExecutor.submit(runnable);
 
@@ -324,19 +271,15 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
             ActivateProfileHelper.setMediaVolume(context, preference.audioManager, volume, true, false);
 
             final Context appContext = context.getApplicationContext();
-            //final AudioManager audioManager = preference.audioManager;
-            //PPApplication.startHandlerThreadPlayTone();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-            //__handler.post(new PlayRingtoneRunnable(
-            //        context.getApplicationContext(), preference.audioManager) {
-            //__handler.post(() -> {
+            final WeakReference<VolumeDialogPreference> preferenceWeakRef = new WeakReference<>(preference);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragment.onStopTrackingTouch");
 
                 //Context appContext = appContextWeakRef.get();
                 //AudioManager audioManager = audioManagerWeakRef.get();
 
-                //if ((appContext != null) && (audioManager != null)) {
+                VolumeDialogPreference _preference = preferenceWeakRef.get();
+                if (/*(appContext != null) &&*/ (_preference != null)) {
 
                     if (mediaPlayer != null) {
                         try {
@@ -353,43 +296,43 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                     }
 
                     try {
-                        if (preference.volumeType.equalsIgnoreCase("RINGTONE")) {
+                        if (_preference.volumeType.equalsIgnoreCase("RINGTONE")) {
                             Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
                             if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
                                 mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
                             else
                                 mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
-                        } else if (preference.volumeType.equalsIgnoreCase("NOTIFICATION")) {
+                        } else if (_preference.volumeType.equalsIgnoreCase("NOTIFICATION")) {
                             Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION);
                             if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.NOTIFICATION_TONE_URI_NONE)))
                                 mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
                             else
                                 mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
-                        } else if (preference.volumeType.equalsIgnoreCase("MEDIA")) {
+                        } else if (_preference.volumeType.equalsIgnoreCase("MEDIA")) {
                             Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
                             if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
                                 mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
                             else
                                 mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
-                        } else if (preference.volumeType.equalsIgnoreCase("ALARM")) {
+                        } else if (_preference.volumeType.equalsIgnoreCase("ALARM")) {
                             Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM);
                             if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.ALARM_TONE_URI_NONE)))
                                 mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
                             else
                                 mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
-                        } else if (preference.volumeType.equalsIgnoreCase("SYSTEM"))
+                        } else if (_preference.volumeType.equalsIgnoreCase("SYSTEM"))
                             mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
-                        else if (preference.volumeType.equalsIgnoreCase("VOICE")) {
+                        else if (_preference.volumeType.equalsIgnoreCase("VOICE")) {
                             Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
                             if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
                                 mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
                             else
                                 mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
-                        } else if (preference.volumeType.equalsIgnoreCase("DTMF"))
+                        } else if (_preference.volumeType.equalsIgnoreCase("DTMF"))
                             mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
-                        else if (preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
+                        else if (_preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
                             mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
-                        else if (preference.volumeType.equalsIgnoreCase("BLUETOOTHSCO")) {
+                        else if (_preference.volumeType.equalsIgnoreCase("BLUETOOTHSCO")) {
                             Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
                             if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
                                 mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
@@ -404,7 +347,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                                     .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                                     .build();
                             mediaPlayer.setAudioAttributes(attrs);
-                            //preference.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                            //_preference.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
                             mediaPlayer.start();
                         }
@@ -412,9 +355,9 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                         //Log.e("VolumeDialogPreferenceFragment.onStopTrackingTouch", Log.getStackTraceString(e));
                         PPApplicationStatic.recordException(e);
                     }
-                //}
-            }; //);
-        PPApplicationStatic.createPlayToneExecutor();
+                }
+            };
+            PPApplicationStatic.createPlayToneExecutor();
             PPApplication.playToneExecutor.submit(runnable);
             /*
             try {

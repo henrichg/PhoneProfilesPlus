@@ -205,7 +205,12 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
             preference.nfcTagList.clear();
         listAdapter.notifyDataSetChanged();
         final Handler handler = new Handler(prefContext.getMainLooper());
-        handler.postDelayed(() -> refreshListView(""), 200);
+        final WeakReference<NFCTagPreferenceFragment> fragmentWeakRef = new WeakReference<>(this);
+        handler.postDelayed(() -> {
+            NFCTagPreferenceFragment fragment = fragmentWeakRef.get();
+            if (fragment != null)
+                fragment.refreshListView("");
+        }, 200);
     }
 
     @Override

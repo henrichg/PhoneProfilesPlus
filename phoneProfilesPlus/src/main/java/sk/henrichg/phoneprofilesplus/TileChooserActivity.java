@@ -156,15 +156,17 @@ public class TileChooserActivity extends AppCompatActivity {
 
         if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
         {
-            ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(getApplicationContext(), PhoneProfilesService.class);
+            Context appContext = getApplicationContext();
+            ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(appContext, PhoneProfilesService.class);
             if (serviceInfo == null)
                 startPPServiceWhenNotStarted();
             else {
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPAppNotification.drawNotification");
-                ProfileListNotification.drawNotification(true, getApplicationContext());
-                DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
-                IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
-                PPAppNotification.drawNotification(true, getApplicationContext());
+                ImportantInfoNotification.showInfoNotification(appContext);
+                ProfileListNotification.drawNotification(true, appContext);
+                DrawOverAppsPermissionNotification.showNotification(appContext, true);
+                IgnoreBatteryOptimizationNotification.showNotification(appContext, true);
+                PPAppNotification.drawNotification(true, appContext);
             }
 
             //!!!! THIS IS IMPORTANT BECAUSE WITHOUT THIS IS GENERATED CRASH
@@ -204,21 +206,22 @@ public class TileChooserActivity extends AppCompatActivity {
 
     @SuppressWarnings("SameReturnValue")
     private boolean startPPServiceWhenNotStarted() {
-        if (PPApplicationStatic.getApplicationStopping(getApplicationContext())) {
+        Context appContext = getApplicationContext();
+        if (PPApplicationStatic.getApplicationStopping(appContext)) {
             String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_stopping_toast);
-            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            PPApplication.showToast(appContext, text, Toast.LENGTH_SHORT);
             return true;
         }
 
-        boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
         if (!serviceStarted) {
 
-            //AutostartPermissionNotification.showNotification(getApplicationContext(), true);
+            //AutostartPermissionNotification.showNotification(appContext, true);
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
-            PPApplicationStatic.setApplicationStarted(getApplicationContext(), true);
-            Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+            PPApplicationStatic.setApplicationStarted(appContext, true);
+            Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);

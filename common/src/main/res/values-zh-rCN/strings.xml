@@ -572,7 +572,6 @@
     <string name="nfc_tag_pref_dlg_hint">标签名称</string>
     <string name="nfc_tag_pref_dlg_help">必须将标签名称写入 NFC 标签。“写入 NFC 标签”功能可以在每一个标签名称的菜单中找到。</string>
     <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">写入 NFC 标签</string>
-    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">将您的电话连接到 NFC 标签，将开始写入。</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">必须启用 NFC。请启用后重试。</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">写入 NFC 标签</string>
     <string name="write_nfc_tag_written">标记写入</string>
@@ -1535,8 +1534,6 @@
     <string name="menu_check_releases_fdroid">在 F-Droid 中检查</string>
     <string name="check_releases_fdroid_repository_with_ppp">在 F-Droid 应用程序中配置它的仓库：</string>
     <string name="profile_preferences_volumeMediaInfo_summary">如果媒体音量变化不正常，可能是因为启用了“安全音量标志”。 如果您想要禁用此标志，授予(G1) 权限，此权限是禁用此标志所必需的。</string>
-    <string name="menu_check_releases_galaxy_store">在Galaxy商店检查</string>
-    <string name="check_releases_open_galaxy_store">打开Galaxy商店</string>
     <string name="applicationApplicationInterfaceActivationNotification">情景激活通知</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">添加\"重启事件\"到情景列表</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">蓝牙扫描时限</string>
@@ -1941,8 +1938,6 @@
     <string name="samsung_edge_panel_settings_description">三星侧边栏设置</string>
     <string name="phone_profiles_pref_applicationCompactGrid">紧凑网格</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">使用这种网格，将不显示情景名称，但更多情景可以放在一行中。</string>
-    <string name="check_releases_go_to_galaxy_store">转到Galaxy商店</string>
-    <string name="check_releases_web_galaxy_store_install_restriction">抱歉，无法从此网站安装 PhoneProfilesPlus。Galaxy Store 仅支持 Galaxy 设备。</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">切换定位 (关闭 &lt;-&gt; 高精度)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">切换定位 (省电 &lt;-&gt; 高精度)</string>
     <string name="widget_label_one_row_profile_list">单行情景列表</string>
@@ -2109,7 +2104,6 @@
     <string name="export_settings_delete_contacts_data_notification">联系人用于通知传感器</string>
     <string name="grant_draw_over_apps_dialog_info_text">您必须授予“在其他应用上显示”权限。它需要在 PhoneProfilesPlus 处于后台时激活。点击按钮授权。</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">若无法授权，请点击此链接获取您设备的解决方案：</string>
-    <string name="install_extender_install_droidify_button">安装 Droid-ify</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - 不使用</string>
     <string name="contacts_filter_dialog_filter_title">联系人筛选</string>
     <string name="contacts_filter_dialog_item_show_all">[ 全部 ]</string>
@@ -2139,4 +2133,22 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) SIM 卡 1 移动网络类型</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) SIM 卡 2 移动网络类型</string>
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) 默认 SIM 卡</string>
+    <string name="important_info_end_of_galaxy_store_support_text1">Galaxy Store 支持结束</string>
+    <string name="important_info_end_of_galaxy_store_support_text2">对不起，Galaxy Store 不能得到更多支持，因为这个商店需要目标 SDK API 33 (Android 13)，PPP 的目标 SDK 是 28 (Android 9)。</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_title">读取 NFC 标签</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_text">读取 PhonePorfilesPlus 中写入的 NFC 标签。</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut">\"读取 NFC 标签”的快捷方式</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary">单击此处，在桌面创建“读取 NFC 标签”的快捷方式。</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary_info">如果您的设备在读取 NFC 标签时显示通知，在前台没有支持读取 NFC 标签的应用程序 (例如 一些Xiaomi设备)，创建此快捷方式，并在每次您想要读取 NFC 标签以触发 PPP 中的事件时使用它。</string>
+    <string name="shortcut_to_read_nfc_tag_created_toast">创建\"读取NFC标签\"的快捷方式</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_touch">将您的设备连接到 NFC 标签。将开始读取。</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagName">标签名称：</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData">标签数据：</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_tagData_noData">无数据</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addNameButtons">添加名称到标签列表：</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_changeNameButtons">更改标签列表中的名称：</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_addReadedNameButton">使用标签数据作为名称</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton">将名称写入标签</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch1">将您的设备连接到 NFC 标签。然后点击按钮</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch2">写入即将开始。</string>
 </resources>

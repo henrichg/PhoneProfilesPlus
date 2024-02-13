@@ -432,7 +432,7 @@ class GlobalUtils {
     }
 
     static HasSIMCardData hasSIMCard(Context appContext) {
-        //PPApplicationStatic.logE("GlobalUtils.hasSIMCard", "xxxx");
+//        PPApplicationStatic.logE("[DUAL_SIM] GlobalUtils.hasSIMCard", "xxxx");
 
         HasSIMCardData hasSIMCardData = new HasSIMCardData();
         hasSIMCardData.hasSIM1 = false;
@@ -477,8 +477,9 @@ class GlobalUtils {
             }
         }
 
-//        Log.e("GlobalUtils.hasSIMCard", "hasSIM1="+hasSIMCardData.hasSIM1);
-//        Log.e("GlobalUtils.hasSIMCard", "hasSIM2="+hasSIMCardData.hasSIM2);
+//        PPApplicationStatic.logE("[DUAL_SIM] GlobalUtils.hasSIMCard", "hasSIM1=" + hasSIMCardData.hasSIM1);
+//        PPApplicationStatic.logE("[DUAL_SIM] GlobalUtils.hasSIMCard", "hasSIM2=" + hasSIMCardData.hasSIM2);
+
         return hasSIMCardData;
     }
 

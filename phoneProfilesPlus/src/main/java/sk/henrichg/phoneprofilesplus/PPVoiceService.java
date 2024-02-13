@@ -51,8 +51,7 @@ public final class PPVoiceService extends VoiceInteractionService {
     public void onShutdown() {
         try {
             unregisterReceiver(this.voiceServiceBroadcastReceiver);
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
         super.onShutdown();
     }
 }

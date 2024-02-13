@@ -21,6 +21,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
 
 //        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] NFCTagReadActivity.onCreate", "xxx");
+//        Log.e("NFCTagReadActivity.onCreate", "xxx");
 
         nfcManager = new NFCTagReadWriteManager(this);
         nfcManager.onActivityCreate();
@@ -58,6 +59,9 @@ public class NFCTagReadActivity extends AppCompatActivity {
         }
         */
         nfcManager.setOnTagReadListener(tagData -> {
+//            PPApplicationStatic.logE("[IN_LISTENER] NFCTagReadActivity.onTagRead", "xxx");
+//            Log.e("NFCTagReadActivity.OnTagRead", "xxxxx");
+
             if (EventStatic.getGlobalEventsRunning(this)) {
                 PPApplication.showToast(getApplicationContext(), "(" + getString(R.string.ppp_app_name) + ") " + getString(R.string.read_nfc_tag_read) + StringConstants.STR_COLON_WITH_SPACE + tagData, Toast.LENGTH_LONG);
 
@@ -68,10 +72,6 @@ public class NFCTagReadActivity extends AppCompatActivity {
                 final long _time = now.getTimeInMillis() + gmtOffset;
 
                 final Context appContext = getApplicationContext();
-                //PPApplication.startHandlerThread(/*"NFCTagReadActivity.OnTagReadListener.onTagRead"*/);
-                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                //__handler.post(new PPApplication.PPHandlerThreadRunnable(getApplicationContext()) {
-                //__handler.post(() -> {
                 Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
 
@@ -84,7 +84,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
                         eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_NFC_TAG});
                     //}
 
-                }; //);
+                };
                 PPApplicationStatic.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable);
 
@@ -128,22 +128,38 @@ public class NFCTagReadActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        nfcManager.onActivityResume();
-        //Log.d("NFCTagReadActivity.onResume", "xxx");
+        if (nfcManager != null)
+            nfcManager.onActivityResume();
+//        Log.e("NFCTagReadActivity.onResume", "xxx");
     }
 
     @Override
     protected void onPause() {
-        nfcManager.onActivityPause();
+        if (nfcManager != null)
+            nfcManager.onActivityPause();
         super.onPause();
-        //Log.d("NFCTagReadActivity.onPause", "xxx");
+//        Log.e("NFCTagReadActivity.onPause", "xxx");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GlobalGUIRoutines.lockScreenOrientation(this, true);
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
-        nfcManager.onActivityNewIntent(intent);
-        //Log.d("NFCTagReadActivity.onNewIntent", "xxx");
+        if (nfcManager != null)
+            nfcManager.onActivityNewIntent(intent);
+//        Log.e("NFCTagReadActivity.onNewIntent", "xxx");
     }
 
     @Override
@@ -151,6 +167,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
     {
         super.finish();
         overridePendingTransition(0, 0);
+//        Log.e("NFCTagReadActivity.finish", "xxx");
     }
 
 }

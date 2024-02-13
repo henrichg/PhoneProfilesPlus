@@ -33,10 +33,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
             return;
 
         final Context appContext = context.getApplicationContext();
-        //PPApplication.startHandlerThreadBroadcast(/*"ScreenOnOffBroadcastReceiver.onReceive"*/);
-        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-        //__handler.post(() -> {
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
 
@@ -173,25 +169,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
 
-                            /*
-                            final Handler handler1 = new Handler(appContext.getMainLooper());
-                            handler1.post(() -> {
-//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "run - from=ScreenOnOffBroadcastReceiver.onReceive - screen off - finish ock actovity - start");
-                                //if (PPApplication.lockDeviceActivity != null) {
-                                //    try {
-                                //        PPApplication.lockDeviceActivity.finish();
-                                //    } catch (Exception e) {
-                                //        PPApplicationStatic.recordException(e);
-                                //    }
-                                //}
-//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "run - from=ScreenOnOffBroadcastReceiver.onReceive - screen off - finish ock actovity - end");
-                                if (PPApplication.lockDeviceActivityDisplayed) {
-                                    Log.e("ScreenOnOffBroadcastReceiver.onReceive", "finish LockDeviceActivity");
-                                    Intent finishIntent = new Intent(PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver");
-                                    LocalBroadcastManager.getInstance(context).sendBroadcast(finishIntent);
-                                }
-                            });
-                            */
                             if (PPApplication.lockDeviceActivityDisplayed) {
 //                                PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
                                 Intent finishIntent = new Intent(LockDeviceActivity.ACTION_FINISH_LOCK_DEVICE_ACTIVITY_BROADCAST_RECEIVER);
@@ -237,12 +214,12 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
 
-        }; //);
+        };
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
     }
 
-    private void setProfileScreenTimeoutSavedWhenScreenOff(Context appContext) {
+    private void setProfileScreenTimeoutSavedWhenScreenOff(final Context appContext) {
         final int screenTimeout = ApplicationPreferences.prefActivatedProfileScreenTimeoutWhenScreenOff;
         if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
             if (PPApplication.screenTimeoutHandler != null) {
@@ -278,6 +255,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     restart = true;
                 if (restart) {
                     // for screenOn=true -> used only for Location scanner - start scan with GPS On
+//                    PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] ScreenOnOffBroadcastReceiver.onReceive", "ACTION_SCREEN_ON");
                     PPApplicationStatic.restartAllScanners(appContext, false);
                 }
 
@@ -323,6 +301,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 if (restart) {
                     // for screenOn=false -> used only for Location scanner - use last usage of GPS for scan
                     //PPApplication.setBlockProfileEventActions(true);
+//                    PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] ScreenOnOffBroadcastReceiver.onReceive", "ACTION_SCREEN_OFF");
                     PPApplicationStatic.restartAllScanners(appContext, false);
                 }
 

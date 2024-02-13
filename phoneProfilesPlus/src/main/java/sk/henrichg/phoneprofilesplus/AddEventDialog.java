@@ -17,7 +17,7 @@ import java.util.List;
 
 class AddEventDialog
 {
-    final EditorEventListFragment eventListFragment;
+    EditorEventListFragment eventListFragment;
 
     final AlertDialog mDialog;
     final Activity activity;
@@ -61,6 +61,7 @@ class AddEventDialog
                 getEventsAsyncTask.cancel(true);
             }
             getEventsAsyncTask = null;
+            this.eventListFragment = null;
         });
 
         linlaProgress = layout.findViewById(R.id.event_pref_dlg_linla_progress);
@@ -73,8 +74,13 @@ class AddEventDialog
             AddEventViewHolder viewHolder = (AddEventViewHolder) item.getTag();
             if (viewHolder != null)
                 viewHolder.radioButton.setChecked(true);
-            Handler handler = new Handler(activity.getMainLooper());
-            handler.postDelayed(() -> doOnItemSelected(position), 200);
+            final Handler handler = new Handler(activity.getMainLooper());
+            final WeakReference<AddEventDialog> dialogWeakRef = new WeakReference<>(this);
+            handler.postDelayed(() -> {
+                AddEventDialog dialog1 = dialogWeakRef.get();
+                if (dialog1 != null)
+                    dialog1.doOnItemSelected(position);
+            }, 200);
         });
 
     }

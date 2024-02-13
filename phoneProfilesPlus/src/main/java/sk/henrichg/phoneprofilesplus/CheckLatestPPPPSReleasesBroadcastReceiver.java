@@ -31,7 +31,6 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
 //        PPApplicationStatic.logE("[IN_BROADCAST_ALARM] CheckLatestPPPPSReleasesBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
-
             Context appContext = context.getApplicationContext();
 
             try {
@@ -159,8 +158,8 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
     */
 
     static void doWork(final Context appContext) {
-        int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(appContext);
-        if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)) {
+        final int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(appContext);
+        if (ppppsVersion != 0) {
             if (Build.VERSION.SDK_INT == 33) {
                 // check IzzyOnDroid repo
                 // because fo Android 13 is required to install apk from app stores
@@ -173,23 +172,38 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
                 StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,
                         izzyRepoURL,
                         response1 -> {
+                            if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST) {
+                                // latest exists in IzzyOnDroid, but is not installed
+//                                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
+                                try {
+                                    showNotification(appContext);
+                                } catch (Exception e) {
+//                                    Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+                                }
+                            }
+//                            else
 //                            Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "latest installed - xxxxxxxxxxxxxxxx");
                         },
                         error -> {
-                            if ((error.networkResponse != null) && (error.networkResponse.statusCode == 404)) {
+                            // latest not exists in IzzyOnDroid, is not possible to install it
+                            //  in this situation do, not show notification
+                            /*if ((error.networkResponse != null) && (error.networkResponse.statusCode == 404)) {
 //                                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "error.networkResponse.statusCode=" + error.networkResponse.statusCode);
 //                                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
                                 try {
                                     showNotification(appContext);
                                 } catch (Exception e) {
-//                                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+//                                    Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                                 }
-                            }
+                            }*/
                         });
                 queueIzzyRepo.add(stringRequestIzzyRepo);
 
-            } else
-                showNotification(appContext);
+            } else {
+                if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
+                    // latest is not installed
+                    showNotification(appContext);
+            }
         }
     }
 

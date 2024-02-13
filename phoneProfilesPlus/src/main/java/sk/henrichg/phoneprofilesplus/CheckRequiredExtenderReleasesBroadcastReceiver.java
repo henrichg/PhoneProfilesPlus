@@ -31,7 +31,6 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
 //        PPApplicationStatic.logE("[IN_BROADCAST_ALARM] CheckRequiredExtenderReleasesBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
-
             Context appContext = context.getApplicationContext();
 
             try {
@@ -159,8 +158,9 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
     */
 
     static void doWork(final Context appContext) {
-        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(appContext);
-        if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
+        final int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(appContext);
+//        Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", "extenderVersion="+extenderVersion);
+        if (extenderVersion != 0) {
             if (Build.VERSION.SDK_INT >= 33) {
                 // check IzzyOnDroid repo
                 // because from Android 13 is required to install apk from app stores
@@ -172,23 +172,39 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
                 StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,
                         izzyRepoURL,
                         response1 -> {
-//                            Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", "latest installed - xxxxxxxxxxxxxxxx");
-                        },
-                        error -> {
-                            if ((error.networkResponse != null) && (error.networkResponse.statusCode == 404)) {
-//                                Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", "error.networkResponse.statusCode=" + error.networkResponse.statusCode);
-//                                Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
+                            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED) {
+                                // latest exists in IzzyOnDroid, but required is not installed
+                                //  required must be <= latest
+//                                Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", "required NOT installed - xxxxxxxxxxxxxxxx");
                                 try {
                                     showNotification(appContext);
                                 } catch (Exception e) {
-//                                Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+//                                    Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                                 }
                             }
+//                            else
+//                                Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", "required installed - xxxxxxxxxxxxxxxx");
+                        },
+                        error -> {
+                            // latest not exists in IzzyOnDroid, is not possible to install it
+                            //  in this situation do not show notification
+                            /*if ((error.networkResponse != null) && (error.networkResponse.statusCode == 404)) {
+                                Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", "error.networkResponse.statusCode=" + error.networkResponse.statusCode);
+                                Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
+                                try {
+                                    showNotification(appContext);
+                                } catch (Exception e) {
+                                    Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+                                }
+                            }*/
                         });
                 queueIzzyRepo.add(stringRequestIzzyRepo);
 
-            } else
-                showNotification(appContext);
+            } else {
+                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED)
+                    // required is not installed
+                    showNotification(appContext);
+            }
         }
     }
 

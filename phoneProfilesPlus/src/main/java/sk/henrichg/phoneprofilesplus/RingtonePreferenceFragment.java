@@ -12,6 +12,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,8 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
     private ListView listView;
 
     private Context prefContext;
+
+    RingtonePreferenceRefreshListViewAsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -62,11 +65,14 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
                     hideProgress();
             //}
 
-            Handler handler = new Handler(prefContext.getMainLooper());
+            final Handler handler = new Handler(prefContext.getMainLooper());
+            final WeakReference<RingtonePreference> preferenceWeakRef = new WeakReference<>(preference);
             handler.postDelayed(() -> {
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=RingtonePreferenceFragment.onBindDialogView");
-                //preference.oldRingtoneUri = preference.ringtoneUri;
-                preference.refreshListView();
+                //_preference.oldRingtoneUri = preference.ringtoneUri;
+                RingtonePreference preference = preferenceWeakRef.get();
+                if (preference != null)
+                    preference.refreshListView();
             }, 200);
         }
 
@@ -81,9 +87,10 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
             preference.resetSummary();
         }
 
-        if ((preference.asyncTask != null) && preference.asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
-            preference.asyncTask.cancel(true);
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
+            asyncTask.cancel(true);
         }
+        asyncTask = null;
 
         preference.stopPlayRingtone();
 
@@ -120,6 +127,13 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
     int getRingtonePosition() {
         List<String> uris = new ArrayList<>(listAdapter.toneList.keySet());
         return uris.indexOf(preference.ringtoneUri);
+    }
+
+    void refreshListView() {
+        if (Permissions.checkRingtonePreference(prefContext)) {
+            asyncTask = new RingtonePreferenceRefreshListViewAsyncTask(preference, prefContext);
+            asyncTask.execute();
+        }
     }
 
 }

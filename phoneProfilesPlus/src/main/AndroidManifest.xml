@@ -139,8 +139,8 @@
         android:name="android.hardware.sensor.light"
         android:required="false"/>
 
-    <!-- ACRA fix of MailSenderConfigurationBuilder for Android 11-->
     <queries>
+        <!-- ACRA fix of MailSenderConfigurationBuilder for Android 11 -->
         <intent>
             <action android:name="android.intent.action.SEND" />
             <data android:mimeType="message/rfc822" />
@@ -148,6 +148,12 @@
         <intent>
             <action android:name="android.intent.action.SEND_MULTIPLE" />
             <data android:mimeType="message/rfc822" />
+        </intent>
+
+        <!-- NFC tag sensor -->
+        <intent>
+            <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+            <data android:mimeType="application/vnd.phoneprofilesplus.events"/>
         </intent>
     </queries>
 
@@ -373,24 +379,39 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+<!--            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"-->
         <activity
             android:name=".NFCTagReadActivity"
             android:excludeFromRecents="true"
             android:label=""
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity"
-            tools:ignore="IntentFilterExportedReceiver">
+            android:exported="true">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.nfc.action.TECH_DISCOVERED"/>-->
+<!--            </intent-filter>-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.nfc.action.TAG_DISCOVERED"/>-->
+<!--            </intent-filter>-->
             <intent-filter>
-                <!--<action android:name="android.nfc.action.TECH_DISCOVERED"/>
-                <action android:name="android.nfc.action.TAG_DISCOVERED"/>-->
-
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
                 <data android:mimeType="application/vnd.phoneprofilesplus.events"/>
+<!--                <data android:scheme="vnd.android.nfc"-->
+<!--                    android:host="ext"-->
+<!--                    android:pathPrefix="/sk.henrichg.phoneprofilesplus:pppNfcType"/>-->
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
             <!--<meta-data android:name="android.nfc.action.TECH_DISCOVERED"
                        android:resource="@xml/filter_nfc" />-->
+        </activity>
+        <activity
+            android:name=".NFCTagReadForegroundActivity"
+            android:label="@string/nfc_tag_pref_dlg_readNfcTag_title"
+            tools:ignore="IntentFilterExportedReceiver">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.nfc.action.TAG_DISCOVERED"/>-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".ActivatorTargetHelpsActivity"
