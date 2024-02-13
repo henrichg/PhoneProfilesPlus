@@ -469,7 +469,32 @@ Skus teda pouzit tiez External.
 Ako spravit Intent + ako spravit NdfeRecord:
 https://developer.android.com/develop/connectivity/nfc/nfc#ext-type
 
+-------------------------------------
 
+- Change: Do not display contact phone number for "Notification sensor"/"Contacts" parameter.
+- Change: End of Galaxy Store support.
+- Change: Added support fo non-DND Alarms only Sound profile for Xiaomi devices.
+- Change: Added custom ACRA report content for crash reports.
+- Change: Some fixes about memory leaks.
+- Change: Better search for contacts from cache.
+- Change: Set Airplane mode with new commands.
+- Change: Added test of required Extender version for profile, event parameters.
+- Change: Fixed not displayed notification about new version of Extender, PPPPS.
+- Change: Added "Shortcut to Editor" into Settings/Editor.
+- Change: Added "Read NFC tag" activity for reading tag when PPP reading activity is in foreground. Required for Xiaomi devices, to avoid notification from "NFC service".
+- Change: Better GUI in "Write to NFC tag" activity.
+- Change: Added support of Silent sound mode for Realme deices.
+- Change: Added root/Shizuku requirement in "Screen timeout" profile parameter for Realme and Oppo devices.
+- Change: Better set sound mode at profile activation.
+- Change: Fixed disabled One row widget, List widget "Preference indicator lightness" when "Use dynamic colors" is set.
+- Change: Do not change setting in system, if its value is already set.
+- Change: Fixed Donation notification.
+- Fix: Brightness for Xiaomi with Android 13.
+- Fix: Fixed not working immediate vibration notification for "Start of event", "End of event".
+- Fix: Fixed simulation of ringing.
+- Fix: Fixed leak in quick tiles.
+- Fixed bugs.
+- Updated transaltions.
 
 
 

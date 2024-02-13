@@ -7,18 +7,31 @@
 
 <h1 id="changelog">PhoneProfilesPlus Seznam změn</h1>
 
-<h2 id="version2">Verze: 6.4</h2>
+<h2 id="version2">Verze: 6.4.1</h2>
 
 <ul lang="en">
-    <li>Add: Added support for Shizuku for some profile parameters which requires ROOT.</li>
-    <li>Change: Event priority displayed in Editor as sensor, also with pass status.</li>
-    <li>Change: Added "Do Not Use" event priority. This event will be started, even when is running event with higher priority.</li>
-    <li>Change: Added filter into contacts dialog.</li>
-    <li>Change: Added special dialog for "Draw over apps" permission with link to web page with solutions, when is not possible to grant this permission.</li>
-    <li>Change: Added button about installation from GitHub in Extender installation dialog, when installation is from Galaxy Store. Because Galaxy Store requires Samsung Account.</li>
-    <li>Change: For activation of profile from Activator: direct open of profile preferences, if in it are some errors.</li>
-    <li>Change: Changes in check for latest Extender and PPPPS version and installation of dialogs.</li>
-    <li>Change: Updated Features in README.md.</li>
+    <li>Change: Do not display contact phone number for "Notification sensor"/"Contacts" parameter.</li>
+    <li>Change: End of Galaxy Store support.</li>
+    <li>Change: Added support fo non-DND Alarms only Sound profile for Xiaomi devices.</li>
+    <li>Change: Added custom ACRA report content for crash reports.</li>
+    <li>Change: Some fixes about memory leaks.</li>
+    <li>Change: Better search for contacts from cache.</li>
+    <li>Change: Set Airplane mode with new commands.</li>
+    <li>Change: Added test of required Extender version for profile, event parameters.</li>
+    <li>Change: Fixed not displayed notification about new version of Extender, PPPPS.</li>
+    <li>Change: Added "Shortcut to Editor" into Settings/Editor.</li>
+    <li>Change: Added "Read NFC tag" activity for reading tag when PPP reading activity is in foreground. Required for Xiaomi devices, to avoid notification from "NFC service".</li>
+    <li>Change: Better GUI in "Write to NFC tag" activity.</li>
+    <li>Change: Added support of Silent sound mode for Realme deices.</li>
+    <li>Change: Added root/Shizuku requirement in "Screen timeout" profile parameter for Realme and Oppo devices.</li>
+    <li>Change: Better set sound mode at profile activation.</li>
+    <li>Change: Fixed disabled One row widget, List widget "Preference indicator lightness" when "Use dynamic colors" is set.</li>
+    <li>Change: Do not change setting in system, if its value is already set.</li>
+    <li>Change: Fixed Donation notification.</li>
+    <li>Fix: Brightness for Xiaomi with Android 13.</li>
+    <li>Fix: Fixed not working immediate vibration notification for "Start of event", "End of event".</li>
+    <li>Fix: Fixed simulation of ringing.</li>
+    <li>Fix: Fixed leak in quick tiles.</li>
 </ul>
 
 <ul>
@@ -30,7 +43,7 @@
 </ul>
 
 <p>
-    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.4">Informace o vydání na GitHub.</a>
+    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.4.1">Informace o vydání na GitHub.</a>
 </p>
 
 </body>
