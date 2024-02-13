@@ -494,7 +494,7 @@ https://developer.android.com/develop/connectivity/nfc/nfc#ext-type
 - Fix: Fixed simulation of ringing.
 - Fix: Fixed leak in quick tiles.
 - Fixed bugs.
-- Updated transaltions.
+- Updated translations.
 
 
 
