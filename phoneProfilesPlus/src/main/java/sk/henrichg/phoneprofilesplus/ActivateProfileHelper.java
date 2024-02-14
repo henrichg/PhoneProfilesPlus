@@ -2130,7 +2130,8 @@ class ActivateProfileHelper {
                                 //Log.e("ActivateProfileHelper.setTones (1)", Log.getStackTraceString(e));
                                 //PPApplicationStatic.recordException(e);
                             }
-                            if (!RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE).equals(uri))
+                            Uri actualUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
+                            if ((actualUri == null) || (!actualUri.equals(uri)))
                                 RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, uri);
                         }
                     }
@@ -2146,6 +2147,7 @@ class ActivateProfileHelper {
                         PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE,
                                 null, profile._name, "");
                         noError = false;
+                        //PPApplicationStatic.recordException(e);
                         /*String[] splits = profile._soundRingtone.split(StringConstants.STR_SPLIT_REGEX);
                         if (!splits[0].isEmpty()) {
                             try {
@@ -2208,7 +2210,8 @@ class ActivateProfileHelper {
                                 //PPApplicationStatic.recordException(e);
                             }
 
-                            if (!RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION).equals(uri))
+                            Uri actualUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION);
+                            if ((actualUri == null) || (!actualUri.equals(uri)))
                                 RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, uri);
                         }
                     }
@@ -2283,7 +2286,8 @@ class ActivateProfileHelper {
                                 //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                                 //PPApplicationStatic.recordException(e);
                             }
-                            if (!RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM).equals(uri))
+                            Uri actualUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM);
+                            if ((actualUri == null) || (!actualUri.equals(uri)))
                                 RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM, uri);
                         }
                     }
@@ -2388,8 +2392,8 @@ class ActivateProfileHelper {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {
                                         }
-                                        if (!Settings.System.getString(appContext.getContentResolver(),
-                                                PREF_RINGTONE_SIM1_SAMSUNG).equals(uri.toString()))
+                                        String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_SAMSUNG);
+                                        if ((actualValue == null) || (!actualValue.equals(uri.toString())))
                                             Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_SAMSUNG, uri.toString());
                                     } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
     //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Huawei uri=" + uri.toString());
@@ -2398,8 +2402,8 @@ class ActivateProfileHelper {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {
                                         }
-                                        if (!Settings.System.getString(appContext.getContentResolver(),
-                                                PREF_RINGTONE_SIM1_HUAWEI).equals(uri.toString()))
+                                        String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_HUAWEI);
+                                        if ((actualValue == null) || (!actualValue.equals(uri.toString())))
                                             Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_HUAWEI, uri.toString());
                                     } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI) && (uri != null)) {
     //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Xiaomi uri=" + uri.toString());
@@ -2408,8 +2412,8 @@ class ActivateProfileHelper {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {
                                         }
-                                        if (!Settings.System.getString(appContext.getContentResolver(),
-                                                PREF_RINGTONE_SIM1_XIAOMI).equals(uri.toString()))
+                                        String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_XIAOMI);
+                                        if ((actualValue == null) || (!actualValue.equals(uri.toString())))
                                             Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_XIAOMI, uri.toString());
                                     } else if (PPApplication.deviceIsOnePlus && (uri != null)) {
 //                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 OnePlus uri=" + uri.toString());
@@ -2418,8 +2422,8 @@ class ActivateProfileHelper {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {
                                         }
-                                        if (!Settings.System.getString(appContext.getContentResolver(),
-                                                PREF_RINGTONE_SIM1_ONEPLUS).equals(uri.toString()))
+                                        String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_ONEPLUS);
+                                        if ((actualValue == null) || (!actualValue.equals(uri.toString())))
                                             Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_ONEPLUS, uri.toString());
                                     }
                                 }
@@ -2467,32 +2471,28 @@ class ActivateProfileHelper {
                                 if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
     //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Samsung uri=null");
 
-                                    if (Settings.System.getString(appContext.getContentResolver(),
-                                            PREF_RINGTONE_SIM1_SAMSUNG) != null)
+                                    if ((Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_SAMSUNG) != null))
                                         Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_SAMSUNG, null);
                                 }
                                 else
                                 if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
     //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Huawei uri=null");
 
-                                    if (Settings.System.getString(appContext.getContentResolver(),
-                                            PREF_RINGTONE_SIM1_HUAWEI) != null)
+                                    if ((Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_HUAWEI) != null))
                                         Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_HUAWEI, null);
                                 }
                                 else
                                 if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
     //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Xiaomi uri=null");
 
-                                    if (Settings.System.getString(appContext.getContentResolver(),
-                                            PREF_RINGTONE_SIM1_XIAOMI) != null)
+                                    if ((Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_XIAOMI) != null))
                                         Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_XIAOMI, null);
                                 }
                                 else
                                 if (PPApplication.deviceIsOnePlus) {
 //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 OnePlus uri=null");
 
-                                    if (Settings.System.getString(appContext.getContentResolver(),
-                                            PREF_RINGTONE_SIM1_ONEPLUS) != null)
+                                    if ((Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_ONEPLUS) != null))
                                         Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_ONEPLUS, null);
                                 }
                             }
@@ -2553,8 +2553,8 @@ class ActivateProfileHelper {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {
                                         }
-                                        if (!Settings.System.getString(appContext.getContentResolver(),
-                                                PREF_RINGTONE_SIM2_SAMSUNG).equals(uri.toString()))
+                                        String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_SAMSUNG);
+                                        if ((actualValue == null) || (!actualValue.equals(uri.toString())))
                                             Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_SAMSUNG, uri.toString());
                                     } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
 //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Huawei uri=" + uri.toString());
@@ -2563,8 +2563,8 @@ class ActivateProfileHelper {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {
                                         }
-                                        if (!Settings.System.getString(appContext.getContentResolver(),
-                                                PREF_RINGTONE_SIM2_HUAWEI).equals(uri.toString()))
+                                        String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_HUAWEI);
+                                        if ((actualValue == null) || (!actualValue.equals(uri.toString())))
                                             Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_HUAWEI, uri.toString());
                                     } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI) && (uri != null)) {
 //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Xiaomi uri=" + uri.toString());
@@ -2573,8 +2573,8 @@ class ActivateProfileHelper {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {
                                         }
-                                        if (!Settings.System.getString(appContext.getContentResolver(),
-                                                PREF_RINGTONE_SIM2_XIAOMI).equals(uri.toString()))
+                                        String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_XIAOMI);
+                                        if ((actualValue == null) || (!actualValue.equals(uri.toString())))
                                             Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_XIAOMI, uri.toString());
                                     } else if (PPApplication.deviceIsOnePlus && (uri != null)) {
 //                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 OnePlus uri=" + uri.toString());
@@ -2583,8 +2583,8 @@ class ActivateProfileHelper {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {
                                         }
-                                        if (!Settings.System.getString(appContext.getContentResolver(),
-                                                PREF_RINGTONE_SIM2_ONEPLUS).equals(uri.toString()))
+                                        String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS);
+                                        if ((actualValue == null) || (!actualValue.equals(uri.toString())))
                                             Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS, uri.toString());
                                     }
                                 }
@@ -2630,26 +2630,22 @@ class ActivateProfileHelper {
                                 if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Samsung uri=null");
 
-                                    if (Settings.System.getString(appContext.getContentResolver(),
-                                            PREF_RINGTONE_SIM2_SAMSUNG) != null)
+                                    if (Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_SAMSUNG) != null)
                                         Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_SAMSUNG, null);
                                 } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Huawei uri=null");
 
-                                    if (Settings.System.getString(appContext.getContentResolver(),
-                                            PREF_RINGTONE_SIM2_HUAWEI) != null)
+                                    if (Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_HUAWEI) != null)
                                         Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_HUAWEI, null);
                                 } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Xiaomi uri=null");
 
-                                    if (Settings.System.getString(appContext.getContentResolver(),
-                                            PREF_RINGTONE_SIM2_XIAOMI) != null)
+                                    if (Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_XIAOMI) != null)
                                         Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_XIAOMI, null);
                                 } else if (PPApplication.deviceIsOnePlus) {
 //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 OnePlus uri=null");
 
-                                    if (Settings.System.getString(appContext.getContentResolver(),
-                                            PREF_RINGTONE_SIM2_ONEPLUS) != null)
+                                    if (Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS) != null)
                                         Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS, null);
                                 }
                             } catch (IllegalArgumentException | IllegalStateException e) {
@@ -6729,8 +6725,8 @@ class ActivateProfileHelper {
                         String newSet;
                         newSet = GPS_ON;
                         //noinspection deprecation
-                        if (!Settings.Secure.getString(appContext.getContentResolver(),
-                                Settings.Secure.LOCATION_PROVIDERS_ALLOWED).equals(newSet))
+                        String actualValue = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+                        if ((actualValue == null) || (!actualValue.equals(newSet)))
                             //noinspection deprecation
                             Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
                     }
@@ -6789,8 +6785,8 @@ class ActivateProfileHelper {
                         String newSet;// = "";
                         newSet = GPS_OFF;
                         //noinspection deprecation
-                        if (!Settings.Secure.getString(appContext.getContentResolver(),
-                                Settings.Secure.LOCATION_PROVIDERS_ALLOWED).equals(newSet))
+                        String actualValue = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+                        if ((actualValue == null) || (!actualValue.equals(newSet)))
                             //noinspection deprecation
                             Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
                     }
