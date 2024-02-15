@@ -54,6 +54,8 @@ android {
             enableSplit = false
         }
     }
+
+    // Requested by IzzyOnDroid.
     dependenciesInfo {
         // Disables dependency metadata when building APKs.
         includeInApk = false
