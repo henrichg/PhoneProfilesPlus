@@ -83,6 +83,9 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 ### Features
 - __[Show it](docs/ppp_features.md)__
 
+##### Permissions
+- __[Show it](docs/permissions.md)__
+
 ##### Screenshots
 - [[1]](art/phoneScreenshots/01.png),
 [[2]](art/phoneScreenshots/02.png),

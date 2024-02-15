@@ -1,0 +1,47 @@
+Permissions
+===========
+
+- ACCESS_BACKGROUND_LOCATION (for location-based events (events Wi-Fi sensor, Mobile cells sensor, Locaton sensor))
+- ACCESS_COARSE_LOCATION (needed for location-based events (events Wi-Fi sensor, Mobile cells sensor, Locaton sensor))
+- ACCESS_FINE_LOCATION (needed for location-based events (events Wi-Fi sensor, Mobile cells sensor, Locaton sensor))
+- ACCESS_NETWORK_STATE
+- ACCESS_NOTIFICATION_POLICY
+- ACCESS_SUPERUSER
+- ACCESS_WIFI_STATE
+- BLUETOOTH
+- BLUETOOTH_ADMIN
+- CAMERA (needed for profile parameter Camera flash)
+- CHANGE_NETWORK_STATE
+- CHANGE_WIFI_STATE
+- DISABLE_KEYGUARD
+- FOREGROUND_SERVICE
+- INTERNET
+- MODIFY_AUDIO_SETTINGS
+- MODIFY_PHONE_STATE
+- NFC
+- POST_NOTIFICATIONS
+- READ_CALENDAR
+- READ_CONTACTS (needed to fill contact cache, required in event Call sensor, SMS sensor)
+- READ_EXTERNAL_STORAGE (needed to restore PPP Settings from backups)
+- READ_PHONE_STATE (needed to trigger profiles on call events and mobile cells)
+- READ_SYNC_SETTINGS
+- RECEIVE_BOOT_COMPLETED
+- RECORD_AUDIO (needed to set profile „Airplane mode“ via Assistant (speech-to-text; requirement by Google))
+- REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+- SET_WALLPAPER
+- SYSTEM_ALERT_WINDOW (needed to e.g. run some invisible activities (Screen brightness, Screen timeout, Keep screen on))
+- android.permission.TETHER_PRIVILEGED
+- VIBRATE
+- WAKE_LOCK
+- WRITE_EXTERNAL_STORAGE (needed to save PPP Settings to backups)
+- WRITE_SECURE_SETTINGS
+- WRITE_SETTINGS
+- WRITE_SYNC_SETTINGS
+- INSTALL_SHORTCUT
+- com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY
+- com.wireguard.android.permission.CONTROL_TUNNELS
+- moe.shizuku.manager.permission.API_V23
+- sk.henrichg.phoneprofilesplus.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+- sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION
+- sk.henrichg.pppputsettings.PPP_PUT_SETTINGS_PERMISSION
+
