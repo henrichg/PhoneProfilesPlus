@@ -4971,13 +4971,13 @@ class ActivateProfileHelper {
                 try {
                     //noinspection IfStatementWithIdenticalBranches
                     if (profile.getDeviceBrightnessAutomatic()) {
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                Settings.System.SCREEN_BRIGHTNESS_MODE, -1) !=
+                                Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC)
+                            Settings.System.putInt(appContext.getContentResolver(),
+                                    Settings.System.SCREEN_BRIGHTNESS_MODE,
+                                    Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                         if (profile.getDeviceBrightnessChangeLevel()) {
-                            if (Settings.System.getInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_BRIGHTNESS_MODE, -1) !=
-                                    Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC)
-                                Settings.System.putInt(appContext.getContentResolver(),
-                                        Settings.System.SCREEN_BRIGHTNESS_MODE,
-                                        Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                             int newBrightness = profile.getDeviceBrightnessManualValue(appContext);
                             if (Settings.System.getInt(appContext.getContentResolver(),
                                     Settings.System.SCREEN_BRIGHTNESS, -1) != newBrightness)
