@@ -496,6 +496,64 @@ https://developer.android.com/develop/connectivity/nfc/nfc#ext-type
 - Fixed bugs.
 - Updated translations.
 
+--------------------------------
+
+Prisiel disconnect:
+12:33:41.718 [IN_BROADCAST] B...ceiver.onReceive  E  [ [IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive ]: action=android.bluetooth.device.action.ACL_DISCONNECTED
+12:33:41.722 [IN_BROADCAST] B...ceiver.onReceive  E  [ [IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive ]: device=38:01:95:01:2B:2A
+12:33:41.723 [IN_BROADCAST] B...ceiver.onReceive  E  [ [IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive ]: newName=null
+12:33:41.734 [IN_BROADCAST] B...ceiver.onReceive  E  [ [IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive ]: [2] device.name=[Samsung] Soundbar J-Series
+12:33:41.734 [IN_BROADCAST] B...ceiver.onReceive  E  [ [IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive ]: [2] device.address=38:01:95:01:2B:2A
+
+Toto je events handler z ineho senzora:
+12:33:48.305 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: bluetooth is connected
+12:33:48.305 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: eventsHandler.bluetoothPassed=true
+12:33:48.332 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: bluetooth is connected
+12:33:48.333 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: eventsHandler.bluetoothPassed=true
+
+Toot je events handler z BT connection broadcastu:
+12:34:06.977 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: bluetooth is NOT connected
+12:34:06.978 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: eventsHandler.bluetoothPassed=false
+12:34:07.064 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: bluetooth is NOT connected
+12:34:07.065 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: eventsHandler.bluetoothPassed=false
+
+------
+
+Vypol som sound bar, neviem kto toto volal, hm, hm:
+12:45:02.527 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: bluetooth is connected
+12:45:02.531 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: eventsHandler.bluetoothPassed=true
+12:45:02.573 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: bluetooth is connected
+12:45:02.577 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: eventsHandler.bluetoothPassed=true
+
+Volanie remove z broadcastu:
+12:45:13.823 [IN_BROADCAST] B...eConnectedDevice  E  [ [IN_BROADCAST] BluetoothConnectionBroadcastReceiver.removeConnectedDevice ]: device=[Samsung] Soundbar J-Series
+Volanie handlera z broadcastu
+12:45:24.148 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: bluetooth is NOT connected
+12:45:24.150 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: eventsHandler.bluetoothPassed=false
+12:45:24.302 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: bluetooth is NOT connected
+12:45:24.303 EventPreferences...th.doHandleEvent  E  [ EventPreferencesBluetooth.doHandleEvent ]: eventsHandler.bluetoothPassed=false
+
+Cize to vypada, ze to funguje. Teda aspon so soundbarom.
+Takze pozi toto uzivatelovi, nech to testne s autom.
+
+-----------------------------
+
+connected:
+CC 9048 v21
+ CarBt_159676
+
+20.02.24 16:09:03:3 [ E ] [ EventPreferencesBluetooth.doHandleEvent ]: bluetooth is connected
+20.02.24 16:09:03:4 [ E ] [ EventPreferencesBluetooth.doHandleEvent ]: eventsHandler.bluetoothPassed=true
+
+disconected:
+ CarBt_159676
+CC 9048 v21
+
+20.02.24 17:25:40:0 [ E ] [ EventPreferencesBluetooth.doHandleEvent ]: bluetooth is NOT connected
+20.02.24 17:25:40:0 [ E ] [ EventPreferencesBluetooth.doHandleEvent ]: eventsHandler.bluetoothPassed=false
+
+---
+
 
 
 
