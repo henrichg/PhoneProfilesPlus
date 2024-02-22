@@ -33,6 +33,7 @@ import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SoundEffectConstants;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -418,7 +419,10 @@ public class EditorActivity extends AppCompatActivity
 
         bottomNavigationView = findViewById(R.id.editor_list_bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(
-                EditorActivity.this::selectViewItem
+                (me.ibrahimsn.lib.OnItemSelectedListener) item -> {
+                    bottomNavigationView.playSoundEffect(SoundEffectConstants.CLICK);
+                    return EditorActivity.this.selectViewItem(item);
+                }
         );
         // set size of icons of BottomNavigationView
         /*BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
