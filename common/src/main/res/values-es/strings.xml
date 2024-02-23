@@ -1683,8 +1683,8 @@
     <string name="array_pref_aendOfActivationType_duration">Duración</string>
     <string name="array_pref_aendOfActivationType_exactTime">Tiempo exacto</string>
     <string name="profile_preferences_afterDurationDo">Después de la duración hacer</string>
-    <string name="profile_preferences_afterExactTimeDo">Cuando el tiempo exacto sea</string>
-    <string name="profile_preferences_exactTime">Tiempo exacto</string>
+    <string name="profile_preferences_afterExactTimeDo">Cuando sea el momento exacto</string>
+    <string name="profile_preferences_exactTime">Momento exacto</string>
     <string name="profile_preferences_category_end_of_activation">Fin de la activación</string>
     <string name="end_of_activation_time_end_acronym">te</string>
     <string name="end_of_activation_duration_acronym">d</string>
@@ -1928,7 +1928,7 @@
     <string name="install_pppps_dialog_title">Instalar PPPPutSettings</string>
     <string name="install_pppps_text1">Instalar la última versión de PPPPutSettings haciendo clic en el botón</string>
     <string name="install_pppps_text2">Esto abre el navegador para descargar PPPPutSettings.apk en la carpeta \"Descargas\".</string>
-    <string name="install_pppps_text3">Luego instala este APK haciendo clic en la notificación sobre el APK descargado.</string>
+    <string name="install_pppps_text3">Luego, instala este APK haciendo clic en la notificación sobre el APK descargado.</string>
     <string name="install_pppps_text4">Nota: La versión Target de Android para PPPPutSettings es la 5.1. Por esta razón no es compatible con Google Play Protect. Pero PPPPutSettings es seguro, solo PhoneProfilesPlus puede usarlo.</string>
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings no está instalado!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">PPPPutSettings no instalado</string>
@@ -2015,9 +2015,9 @@
     <string name="application_is_stopping_toast">se está deteniendo…</string>
     <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Nota: Si no es posible habilitar los ajustes de accesibilidad, ejecuta, por favor, PhoneProfilesPlusExtender y habilítalo desde allí.</string>
     <string name="install_pppps_text5">Cuando aparece el cuadro de diálogo \"Aplicación no segura\" de Google Play Protect durante la instalación, haz clic en la parte inferior, en el texto \"Más detalles\" y allí, también en la parte inferior, en el texto \"Instalar de todos modos\".</string>
-    <string name="altype_profileError_wifi">profile - error on set Wi-Fi</string>
-    <string name="altype_profileError_wifiAP">profile - error on set Wi-Fi hotspot</string>
-    <string name="altype_profileError_closeAllApplications">profile - error on close all applications</string>
+    <string name="altype_profileError_wifi">perfil - error al configurar la red inalámbrica (WiFi)</string>
+    <string name="altype_profileError_wifiAP">perfil - error al configurar el punto de acceso de la red inalámbrica (WiFi)</string>
+    <string name="altype_profileError_closeAllApplications">perfil - error al cerrar todas las aplicaciones</string>
     <string name="phone_profiles_pref_createEditorShortcut">Acceso directo al editor</string>
     <string name="phone_profiles_pref_createEditorShortcut_summary">Haz clic aquí para crear un acceso directo al editor en el lanzador de inicio</string>
     <string name="editor_launcher_label">Editor</string>
@@ -2087,7 +2087,7 @@
     <string name="phone_profiles_pref_applicationMobileCellScanInterval_summary">El escaneo de células móviles no tiene intervalo de escaneo.</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval">Intervalo de escaneo de notificación</string>
     <string name="phone_profiles_pref_applicationNotificationScanInterval_summary">El escaneo de notificaciones no tiene intervalo de escaneo.</string>
-    <string name="generate_notification_after_click_dialog_title">What to do</string>
+    <string name="generate_notification_after_click_dialog_title">¿Qué hacer?</string>
     <string name="generate_notification_after_click_dialog_start_activator">Iniciar Activator</string>
     <string name="generate_notification_after_click_dialog_start_editor">Iniciar editor</string>
     <string name="generate_notification_after_click_dialog_restart_events">Reiniciar eventos</string>
