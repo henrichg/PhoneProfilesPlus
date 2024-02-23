@@ -486,7 +486,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                         BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
 
                         if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "")) {
-                            PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "bluetooth is connected  event="+_event._name);
+//                            PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "bluetooth is connected  event="+_event._name);
 
                             String[] splits = _adapterName.split(StringConstants.STR_SPLIT_REGEX);
                             boolean[] connected = new boolean[splits.length];
@@ -539,7 +539,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                                     done = true;
                             }
                         } else {
-                            PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "bluetooth is NOT connected  event="+_event._name);
+//                            PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "bluetooth is NOT connected  event="+_event._name);
                             if ((_connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
                                 (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED)) {
                                 // not use scanner data
@@ -547,7 +547,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                                 eventsHandler.bluetoothPassed = (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED);
                             }
                         }
-                        PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "eventsHandler.bluetoothPassed="+eventsHandler.bluetoothPassed);
+//                        PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "eventsHandler.bluetoothPassed="+eventsHandler.bluetoothPassed);
                     } else {
                         if ((_connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
                             (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED)) {
