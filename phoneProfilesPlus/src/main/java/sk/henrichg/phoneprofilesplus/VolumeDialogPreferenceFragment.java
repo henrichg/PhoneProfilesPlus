@@ -353,7 +353,12 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                         }
                     } catch (Exception e) {
                         //Log.e("VolumeDialogPreferenceFragment.onStopTrackingTouch", Log.getStackTraceString(e));
-                        PPApplicationStatic.recordException(e);
+
+                        // fo not recordException, because of thsi:
+                        // java.lang.SecurityException: Settings key: <ringtone2> is not readable. From S+, settings keys
+                        // annotated with @hide are restricted to system_server and system apps only, unless they are annotated
+                        // with @Readable.
+                        //PPApplicationStatic.recordException(e);
                     }
                 }
             };
