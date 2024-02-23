@@ -35,9 +35,9 @@
 // 7090 = Removed support for Galaxy Store
 
 ext.ppVersions = [
-        publishVersion    : '6.4.1',
+        publishVersion    : '6.4.1.1',
 
-        publishVersionCode: 7110,
+        publishVersionCode: 7120,
 
         minSdk            : 26,
         targetSdk         : 28,

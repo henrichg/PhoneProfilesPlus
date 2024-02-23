@@ -493,9 +493,9 @@ https://developer.android.com/develop/connectivity/nfc/nfc#ext-type
 - Fix: Fixed not working immediate vibration notification for "Start of event", "End of event".
 - Fix: Fixed simulation of ringing.
 - Fix: Fixed leak in quick tiles.
+- Fix: Fixed bad working Bluetooth sensor.
 - Fixed bugs.
-- Updated transaltions.
+- Updated translations.
 
-
-
+--------------------------------
 

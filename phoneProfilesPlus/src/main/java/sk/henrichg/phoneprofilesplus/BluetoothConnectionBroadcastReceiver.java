@@ -51,7 +51,9 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 //            Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "[2] action="+action);
 
             BluetoothDevice _device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-//            PPApplicationStatic.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "device="+device);
+//            PPApplicationStatic.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "device="+_device);
+//            if (_device != null)
+//                PPApplicationStatic.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "device="+_device.getName());
 
             //if (device == null)
             //    return;
@@ -74,10 +76,9 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 }
             }
 
-//            if (device != null) {
-////            PPApplicationStatic.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "device="+device.getName());
-//                PPApplicationStatic.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "[2] device.name=" + device.getName());
-//                PPApplicationStatic.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "[2] device.address=" + device.getAddress());
+//            if (_device != null) {
+//                PPApplicationStatic.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "[2] device.name=" + _device.getName());
+//                PPApplicationStatic.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "[2] device.address=" + _device.getAddress());
 //            }
 
             final Context appContext = context.getApplicationContext();
@@ -123,14 +124,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
                             saveConnectedDevices(appContext);
 
-                            // !! do not call this, some BT devices are not detected :-(
-//                                Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "**** START of getConnectedDevices");
-                                // is needed to call event hander
-//                                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
-
                             callEventHandler(appContext);
                         }
-                        //}
 
                     } catch (Exception e) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -146,8 +141,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 }
             };
             PPApplicationStatic.createEventsHandlerExecutor();
-            //PPApplication.eventsHandlerExecutor.submit(runnable);
-            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 15, TimeUnit.SECONDS);
+            PPApplication.eventsHandlerExecutor.submit(runnable);
         }
 
     }
@@ -292,6 +286,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             }
+//            PPApplicationStatic.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.removeConnectedDevice", "device="+device.getName());
             if (found)
                 //connectedDevices.remove(index);
                 connectedDevices.remove(deviceToRemove);
@@ -405,7 +400,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "PPApplication.bluetoothConnectionChangeStateMutex");
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             if ((deviceData == null) && sensorDeviceName.isEmpty()) {
-               // is device connected to any external bluetooth device ???
+                // is device connected to any external bluetooth device ???
 
                 return (connectedDevices != null) && (connectedDevices.size() > 0);
             }

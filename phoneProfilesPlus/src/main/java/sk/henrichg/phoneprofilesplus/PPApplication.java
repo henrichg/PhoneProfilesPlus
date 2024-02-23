@@ -273,6 +273,7 @@ public class PPApplication extends Application
                                                 //+"|[RINGING_SIMULATION]"
                                                 //+"|BluetoothConnectedDevicesDetector"
                                                 //+"|BluetoothConnectionBroadcastReceiver"
+                                                //+"|EventPreferencesBluetooth"
                                                 //+"|CheckCriticalPPPReleasesBroadcastReceiver"
                                                 ;
 
@@ -1929,7 +1930,7 @@ public class PPApplication extends Application
             PPApplicationStatic.recordException(ex);
         }
 
-        return miuiRom1 || miuiRom2 || miuiRom3;
+        return isXiaomi() && (miuiRom1 || miuiRom2 || miuiRom3);
     }
 
     /** @noinspection BlockingMethodInNonBlockingContext*/
@@ -1959,8 +1960,11 @@ public class PPApplication extends Application
     private static boolean isEMUIROM() {
         String emuiRomName = getEmuiRomName();
 
-        return (emuiRomName.length() != 0) ||
-                Build.DISPLAY.toLowerCase().contains("emui2.3");// || "EMUI 2.3".equalsIgnoreCase(emuiRomName);
+        return isHuawei() &&
+                (
+                    (emuiRomName.length() != 0) ||
+                    Build.DISPLAY.toLowerCase().contains("emui2.3")// || "EMUI 2.3".equalsIgnoreCase(emuiRomName);
+                );
     }
 
     private static boolean isSamsung() {
@@ -2003,7 +2007,7 @@ public class PPApplication extends Application
             else
                 return true; // OneUI ROM
             */
-            return true;
+            return isSamsung();
         } catch (Exception e) {
             return false;
         }

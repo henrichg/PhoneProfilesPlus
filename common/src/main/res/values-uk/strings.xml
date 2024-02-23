@@ -649,7 +649,7 @@
     <string name="editor_activity_targetHelps_restartEvents_title">Перезавантаження подій</string>
     <string name="editor_activity_targetHelps_restartEvents_description">Натисніть кнопку для перезавантаження подій. Ви мусите перезавантажити події, якщо профіль був активований вручну.</string>
     <string name="editor_activity_targetHelps_activityLog_title">Журнал дій</string>
-    <string name="editor_activity_targetHelps_activityLog_description">Натисніть тут щоб відкрити журнал дій. Занотовуються дані про старт/пауза/стоп події, активації профілів, запуску застосунків і т. п.</string>
+    <string name="editor_activity_targetHelps_activityLog_description">Натисніть тут, щоб відкрити журнал дій. Занотовуються дані про старт/пауза/стоп події, активації профілів, запуску застосунків і т. п.</string>
     <string name="editor_activity_targetHelps_newProfileButton_title">Новий профіль</string>
     <string name="editor_activity_targetHelps_newProfileButton_description">Натисніть тут, щоб додати новий профіль.</string>
     <string name="editor_activity_targetHelps_deleteAllProfilesButton_title">Вилучити усі профілі</string>
@@ -833,7 +833,7 @@
     <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Увімкнути сканування місцеположення</string>
     <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Увімкнути сканування стільникових веж</string>
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Увімкнути сканування орієнтації</string>
-    <string name="profile_preferences_headsUpNotifications">(G1)(R) Сповіщення що спливають</string>
+    <string name="profile_preferences_headsUpNotifications">(G1)(R) Сповіщення що виринають</string>
     <string name="profileicon_pref_dlg_customIconButton">Власна іконка</string>
     <string name="mobile_cells_registration_cell_name_hint">Натисніть, щоб встановити назву вежі</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">Підключення до точки доступу з інших пристроїв може не працювати.</string>
@@ -915,7 +915,7 @@
     <string name="alert_message_enable_event_check_box">Не запитувати знову</string>
     <string name="phone_profiles_pref_applicationUseAlarmClock">Використовувати будильник</string>
     <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Термін дії профілю й події, датчик часу, датчик календаря, затримка старту та закінчення події не є вірними коли екран вимкнуто. Аби все було файно треба увімкнути цей параметр. В рядку стану з\'явиться іконка будильнику.</string>
-    <string name="important_info_useAlarmClock">Термін дії профілю й події, датчик часу, датчик календаря, затримка старту та закінчення події не є вірними коли екран вимкнуто. Увімкніть в налаштуваннях додатку \"Система\"→\"Використовувати будильник\" щоб все було точним. В рядку стану з\'явиться іконка будильнику.</string>
+    <string name="important_info_useAlarmClock">Термін дії профілю й події, датчик часу, датчик календаря, затримка старту та закінчення подій не чітко працюють коли екран вимкнуто. Увімкніть в налаштуваннях застосунку \"Система\"→\"Використовувати будильник\", щоб все працювало відповідно. В рядку стану з\'явиться іконка будильнику.</string>
     <string name="nfc_tag_pref_dlg_change_tag_name">Змінити ім\'я</string>
     <string name="event_preferences_not_set_underlined_parameters">Деякі підкреслені параметри не налаштовано!</string>
     <string name="permission_group_name_draw_overlays_miui">Показувати вікно що спливає</string>
@@ -1244,7 +1244,7 @@
     <string name="preferences_durationInfo_summary">Параметри, відмічені [M] використовуються тільки тоді, коли профіль активовано вручну. Активація з події ігнорує ці параметри.</string>
     <string name="profile_event_name_ask_for_duration">запитати</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Віджет не спрацьовує при натисканні</string>
-    <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Якщо віджет PhoneProfilesPlus не працює (при натисканні), увімкніть дозвіл у налаштуваннях пристрою: Налаштування / Додатки / Керування програмами / PhoneProfilesPlus / Інші дозволи / Відображати спливаючі вікна під час роботи у фоні.</string>
+    <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Якщо віджет PhoneProfilesPlus не працює (при натисканні), увімкніть дозвіл у налаштуваннях пристрою: Налаштування / Застосунки / Керування програмами / PhoneProfilesPlus / Інші дозволи / Показувати вікна що виринають під час роботи у фоні.</string>
     <string name="array_pref_12_percent" formatted="false">13%</string>
     <string name="array_pref_37_percent" formatted="false">38%</string>
     <string name="array_pref_62_percent" formatted="false">63%</string>
@@ -1604,7 +1604,7 @@
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Примусово вбудовані (для користувацьких іконок)</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Запустити застосунки, ярлики, intents для \"MIUI\"</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">Для \"MIUI\" потрібно дати деякі дозволи. Натисніть тут, щоб побачити як.</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">У Налаштуваннях/Додатки/Керування застосунками/PhoneProfilesPlus/Інші дозволи: \"Показувати вікна що виринають під час роботи у фоні\" і \"Показати на екрані блокування\" виберіть \"Дозволити\".</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">У Налаштуваннях/Застосунки/Керування застосунками/PhoneProfilesPlus/Інші дозволи: \"Показувати вікна що виринають під час роботи у фоні\" і \"Показати на екрані блокування\" виберіть \"Дозволити\".</string>
     <string name="miui_permissions_alert_dialog_show">Показати дозволи</string>
     <string name="profile_preferences_vibrateWhenRingingOrNotifications">Вібрувати під час виклику/Вібрація під час сповіщення</string>
     <string name="profile_preferences_vibrateNotifications">Вібрація під час сповіщення</string>
@@ -2139,7 +2139,7 @@
     <string name="nfc_tag_pref_dlg_readNfcTag_text">Зчитати тег NFC записаний у PhonePorfilesPlus.</string>
     <string name="event_preferences_nfc_createReadNFCTagShortcut">Ярлик \"Зчитати NFC мітку\"</string>
     <string name="event_preferences_nfc_createReadNFCTagShortcut_summary">Натисніть тут, щоб створити ярлик для \"Зчитати NFC мітку\" в лаунчері.</string>
-    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary_info">If your device shows a notification when reading NFC tag that there is no application in the foreground to support reading NFC tags (for example, some Xiaomi devices), create this shortcut and use it every time you want to read NFC tag to trigger event in PPP.</string>
+    <string name="event_preferences_nfc_createReadNFCTagShortcut_summary_info">Якщо Ваш пристрій, під час читання мітки NFC, показує повідомлення, що немає застосунку для читання мітки NFC( наприклад, деякі пристрої Xiaomi), створить цей ярлик і використовуйте його кожен раз коли читаєте мітку NFC, щоб запустити подію в PPP.</string>
     <string name="shortcut_to_read_nfc_tag_created_toast">Ярлик \"Зчитати NFC мітку\" створено</string>
     <string name="nfc_tag_pref_dlg_readNfcTag_touch">Прикладіть ваш телефон до NFC мітки. Зчитування розпочнеться.</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_tagName">Назва мітки:</string>

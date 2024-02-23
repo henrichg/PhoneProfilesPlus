@@ -88,31 +88,32 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                                     try {
                                                         PPApplication.brightnessInternalChange = true;
                                                         if (profile.getDeviceBrightnessAutomatic()) {
-                                                            Settings.System.putInt(appContext.getContentResolver(),
-                                                                    Settings.System.SCREEN_BRIGHTNESS_MODE,
-                                                                    Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
-                                                            //if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, false, appContext).allowed
-                                                            //        == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                                                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                                                    Settings.System.SCREEN_BRIGHTNESS_MODE, -1) != Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC)
                                                                 Settings.System.putInt(appContext.getContentResolver(),
-                                                                        Settings.System.SCREEN_BRIGHTNESS,
-                                                                        profile.getDeviceBrightnessManualValue(appContext));
-//                                                                try {
-//                                                                    Settings.System.putFloat(appContext.getContentResolver(),
-//                                                                            Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ,
-//                                                                            profile.getDeviceBrightnessAdaptiveValue(appContext));
-//                                                                } catch (Exception ee) {
-//                                                                    ActivateProfileHelper.executeRootForAdaptiveBrightness(
-//                                                                            profile.getDeviceBrightnessAdaptiveValue(appContext),
-//                                                                            appContext);
-//                                                                }
-                                                            //}
+                                                                        Settings.System.SCREEN_BRIGHTNESS_MODE,
+                                                                        Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+                                                            if (profile.getDeviceBrightnessChangeLevel()) {
+                                                                int newBrightness = profile.getDeviceBrightnessManualValue(appContext);
+                                                                if (Settings.System.getInt(appContext.getContentResolver(),
+                                                                        Settings.System.SCREEN_BRIGHTNESS, -1) != newBrightness)
+                                                                    Settings.System.putInt(appContext.getContentResolver(),
+                                                                            Settings.System.SCREEN_BRIGHTNESS, newBrightness);
+                                                            }
                                                         } else {
-                                                            Settings.System.putInt(appContext.getContentResolver(),
-                                                                    Settings.System.SCREEN_BRIGHTNESS_MODE,
-                                                                    Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
-                                                            Settings.System.putInt(appContext.getContentResolver(),
-                                                                    Settings.System.SCREEN_BRIGHTNESS,
-                                                                    profile.getDeviceBrightnessManualValue(appContext));
+                                                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                                                    Settings.System.SCREEN_BRIGHTNESS_MODE, -1) !=
+                                                                    Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL)
+                                                                Settings.System.putInt(appContext.getContentResolver(),
+                                                                        Settings.System.SCREEN_BRIGHTNESS_MODE,
+                                                                        Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+                                                            if (profile.getDeviceBrightnessChangeLevel()) {
+                                                                int newBrightness = profile.getDeviceBrightnessManualValue(appContext);
+                                                                if (Settings.System.getInt(appContext.getContentResolver(),
+                                                                        Settings.System.SCREEN_BRIGHTNESS, -1) != newBrightness)
+                                                                    Settings.System.putInt(appContext.getContentResolver(),
+                                                                            Settings.System.SCREEN_BRIGHTNESS, newBrightness);
+                                                            }
                                                         }
                                                         PPExecutors.scheduleDisableBrightnessInternalChangeExecutor();
                                                     } catch (Exception ignored) {
