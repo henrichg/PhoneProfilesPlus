@@ -376,7 +376,7 @@
     <string name="permissions_for_event_big_text_notification">потребує додаткових дозволів.</string>
     <string name="permission_group_name_calendar">Календар</string>
     <string name="permission_group_name_contacts">Контакти</string>
-    <string name="permission_group_name_location">Місцезнаходження</string>
+    <string name="permission_group_name_location">Місцеперебування</string>
     <string name="permissions_for_wifi_bt_scan_dialog_text1">Сканування Wi-Fi/Bluetooth потребує додаткових дозволів.</string>
     <string name="permissions_for_wifi_bt_scan_dialog_text2">Надайте дозвіл у наступному діалоговому вікні. Після цього сканування буде виконано.</string>
     <string name="permissions_for_calendar_dialog_text1">Щоб отримати список календарів, потрібні додаткові дозволи.</string>
@@ -392,8 +392,8 @@
     <string name="event_preferences_battery_power_save_mode">Режим енергозбереження</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Налаштування режиму енергозбереження</string>
     <string name="important_info_profile_adaptiveBrightness_root">В Android 6+ неможливо змінити системний параметр \"Адаптивне регулювання\" без прав ROOT.</string>
-    <string name="important_info_profile_wifiScanning_location">В Android 6+ для Wi-Fi сканування повинен бути увімкнений режим \"По всім джерелам\" в налаштуваннях \"Місцезнаходження\".</string>
-    <string name="important_info_profile_bluetoothScanning_location">В Android 6+ для Bluetooth LE сканування повинен бути увімкнений режим \"По всім джерелам\" в налаштуваннях \"Місцезнаходження\".</string>
+    <string name="important_info_profile_wifiScanning_location">В Android 6+ для Wi-Fi сканування повинен бути увімкнений режим \"По всім джерелам\" в налаштуваннях \"Місцеперебування\".</string>
+    <string name="important_info_profile_bluetoothScanning_location">В Android 6+ для Bluetooth LE сканування повинен бути увімкнений режим \"По всім джерелам\" в налаштуваннях \"Місцеперебування\".</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) Режим енергозбереження</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Тривалість сканування Bluetooth LE (сек)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-fi сканування</string>
@@ -635,7 +635,7 @@
     <string name="event_preference_sensor_battery_summary">Цей датчик призначено для подій згідно рівня заряду акумулятора. Параметри: \"Низький рівень\", \"Високий рівень\", \"Зарядка\", \"Режим енергозбереження\".</string>
     <string name="event_preference_sensor_call_summary">Цей датчик обробляє події виклику контактів. Параметри: \"Стан і тип виклику\" (виклик, вихідний виклик і т. п.), \"Групи контактів\", \"Контакти\", \"Тип списку контактів\" (білий/чорний список).</string>
     <string name="event_preference_sensor_sms_summary">Цей датчик обробляє події прийому SMS/MMS від контактів. Параметри: \"Групи контактів\", \"Контакти\", \"Тип списку контактів\" (білий/чорний список), \"Постійний запуск\", \"Тривалість\" (події).</string>
-    <string name="event_preference_sensor_location_summary">Цей датчик запускає подію по місцезнаходженю пристрою. Параметри: \"Місцезнаходження\", \"Запускати поза цим місцезнаходженням\".</string>
+    <string name="event_preference_sensor_location_summary">Цей датчик запускає подію по місцеперебуванню пристрою. Параметри: \"Місцеперебування\", \"Запускати поза цим місцеперебуванням\".</string>
     <string name="event_preference_sensor_wifi_summary">Цей датчик запускає події по Wi-Fi SSID. Параметри: \"Тип з\'єднання\" (поруч, підключено і т. д.), \"SSID\".</string>
     <string name="event_preference_sensor_bluetooth_summary">Цей датчик обробляє події Bluetooth. Параметри: \"Тип з\'єднання\" (поруч, підключено і т.д.), \"Тип сканованих пристроїв\" (звичайні, з низькою енергоспоживаністю і т.д.), \"Ім\'я Bluetooth-пристрою\".</string>
     <string name="event_preference_sensor_mobile_cells_summary">Цей датчик запускає події якщо є підключення до мобільних веж. Параметри: \"Вежі\", \"Запускати при від\'єднанні від веж\".</string>
@@ -1117,7 +1117,7 @@
     <string name="event_preference_sensor_time_type_exact">Точний час</string>
     <string name="event_preference_sensor_time_type_sunrise_sunset">Від сходу до заходу сонця</string>
     <string name="event_preference_sensor_time_type_sunset_sunrise">Від заходу до сходу сонця</string>
-    <string name="permission_why_event_time_preferences">щоб отримати час сходу/заходу в датчику Часу використовуючи дані місцезнаходження</string>
+    <string name="permission_why_event_time_preferences">для використання даних про місцеперебування, щоб отримати час сходу/заходу в датчику Часу</string>
     <string name="event_preference_sensor_time_locationSystemSettings_summary">Увімкніть в Налаштуваннях визначення Місцеперебування. Без цього тип часу \"Від сходу до заходу сонця\" та \" Від заходу до сходу сонця\" не буде працювати.</string>
     <string name="event_preference_sensor_time_sunrise">Схід сонця</string>
     <string name="event_preference_sensor_time_sunset">Захід сонця</string>
@@ -1539,7 +1539,7 @@
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Інтервал сканування Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyFrom">Від</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyTo">До</string>
-    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiply">Інтервал сканування місцезнаходження</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiply">Інтервал сканування місцеперебування</string>
     <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiplyFrom">Від</string>
     <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiplyTo">До</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiply">Інтервал сканування мобільних веж</string>
@@ -1912,7 +1912,7 @@
     <string name="profile_context_item_copy_name">Копіювати назву</string>
     <string name="export_settings_delete_location_data_text1">Примітка: Дані про місце також будуть включені до експорту налаштувань. Якщо Ви будете ділитись резервною копією з іншими людьми, то оберіть параметри, які не слід експортувати.</string>
     <string name="export_settings_delete_location_data_text2">Що не експортувати?</string>
-    <string name="export_settings_delete_location_data_geofences">Розташування для датчика місцеположення</string>
+    <string name="export_settings_delete_location_data_geofences">Розташування для датчика місцеперебування</string>
     <string name="export_settings_delete_location_data_wifi_ssids">Wi-Fi SSID до датчика Wi-Fi</string>
     <string name="export_settings_delete_location_data_bluetooth_names">Назви Bluetooth до датчика Bluetooth</string>
     <string name="export_settings_delete_location_data_mobile_cells">Стільникові вежі до датчика стільникових веж</string>
