@@ -3998,8 +3998,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(getString(R.string.phone_profiles_pref_notificationLauncher));
         }
         if (key.equals(PREF_APPLICATION_START_CATEGORY_ROOT)) {
-            _value.append(getString(R.string.phone_profiles_pref_applicationStartOnBoot));
-            _value.append(StringConstants.STR_BULLET);
+            //_value.append(getString(R.string.phone_profiles_pref_applicationStartOnBoot));
+            //_value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationActivate));
             _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationStartEvents));

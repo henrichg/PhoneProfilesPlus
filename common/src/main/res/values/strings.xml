@@ -77,7 +77,6 @@
     <string name="array_pref_screenTimeoutArray_1minute">1 minute</string>
     <string name="array_pref_screenTimeoutArray_2minutes">2 minutes</string>
     <string name="array_pref_screenTimeoutArray_10minutes">10 minutes</string>
-    <string name="phone_profiles_pref_applicationStartOnBoot">Start on phone boot</string>
     <string name="profile_preferences_device_not_allowed">Not allowed</string>
     <string name="menu_export">Backup settings</string>
     <string name="menu_import">Restore settings</string>
