@@ -65,6 +65,10 @@ android {
 }
 
 dependencies {
+    /// WARNING:
+    // Must be used android.jar downloaded from https://github.com/Reginer/aosp-android-jar
+    // Downloaded android.jar must be copied into PC into folder \<android-sdk\>/android-XX
+
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
 
     //implementation 'androidx.multidex:multidex:2.0.1'
