@@ -31,8 +31,8 @@ __F-Droid:__
 - [Store application (download)](https://www.f-droid.org/)
 
 __APKPure:__
-- [PPP release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)
-- [Store application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)
+- [PPP release](https://apkpure.net/p/sk.henrichg.phoneprofilesplus)
+- [Store application (download)](https://apkpure.net/apkpure/com.apkpure.aegon)
 
 __Galaxy Store:__
 - Sorry, is not more supported, because this store requires target SDK API 33 (Android 13) and PPP target SDK is 28 (Android 9).
