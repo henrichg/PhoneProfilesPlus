@@ -135,7 +135,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - RecyclerView-FastScroll (as module, code modified) - https://github.com/jahirfiquitiva/RecyclerView-FastScroll (original repository: https://github.com/timusus/RecyclerView-FastScroll)
 - RelativePopupWindow (only modified class RelativePopupWindow.java) - https://github.com/kakajika/RelativePopupWindow
 - SunriseSunset (only modified class SunriseSunset.java) - https://github.com/caarmen/SunriseSunset
-- android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/Reginer/aosp-android-jar
+- android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/platforms/android-XX) - https://github.com/Reginer/aosp-android-jar
 - NoobCameraFlash (as module, code modified) - https://github.com/Abhi347/NoobCameraFlash
 - AutoStarter (only modified class AutoStartPermissionHelper.kt) - https://github.com/judemanutd/AutoStarter
 - ToastCompat (as module, code modified) - https://github.com/PureWriter/ToastCompat
