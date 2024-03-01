@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -190,7 +191,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
                         final PPPReleaseData pppReleaseData =
                                 PPApplicationStatic.getReleaseData(response, forceDoData, appContext);
-//                        Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "pppReleaseData="+pppReleaseData);
+                        Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "pppReleaseData="+pppReleaseData);
 
                         if (pppReleaseData != null) {
                             // istalled PPP version is less then version in releases.md file
