@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -60,11 +59,11 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
         long alarmTime;
 
         //TODO remove for release
-        if (DebugVersion.enabled) {
+        /*if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 
             alarmTime = alarm.getTimeInMillis();
-        } else
+        } else*/
         {
             if ((lastAlarm == 0) || (lastAlarm <= alarm.getTimeInMillis())) {
                 // saved alarm is less then actual time
@@ -191,7 +190,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
                         final PPPReleaseData pppReleaseData =
                                 PPApplicationStatic.getReleaseData(response, forceDoData, appContext);
-                        Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "pppReleaseData="+pppReleaseData);
+//                        Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "pppReleaseData="+pppReleaseData);
 
                         if (pppReleaseData != null) {
                             // istalled PPP version is less then version in releases.md file
@@ -203,12 +202,31 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                 String izzyRepoURL = PPApplication.DROIDIFY_PPP_LATEST_APK_RELEASE_URL_BEGIN;
                                 izzyRepoURL = izzyRepoURL + pppReleaseData.versionCodeInReleases + ".apk";
 //                                PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
+//                                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
                                 StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,
                                         izzyRepoURL,
                                         response1 -> {
-//                                            PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "latest installed - xxxxxxxxxxxxxxxx");
+                                            // version in releases.md file exists in IzzyOnDroid, but is not installed
+                                            // (installed PPP versionCode < pppReleaseData.versionCodeInReleases => pppReleaseData != null)
+//                                            PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "IzzyOnDroid version not installed - xxxxxxxxxxxxxxxx");
+                                            try {
+                                                boolean critical = pppReleaseData.critical;
+                                                String versionNameInReleases = pppReleaseData.versionNameInReleases;
+                                                int versionCodeInReleases = pppReleaseData.versionCodeInReleases;
+
+                                                showNotification(appContext,
+                                                        versionNameInReleases,
+                                                        versionCodeInReleases,
+                                                        critical);
+
+                                            } catch (Exception e) {
+//                                                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+                                            }
                                         },
                                         error -> {
+                                            // version in releases.md file not exists in IzzyOnDroid, is not possible to install it
+                                            //  in this situation do not show notification
+                                            /*
                                             if ((error.networkResponse != null) && (error.networkResponse.statusCode == 404)) {
 //                                                PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
                                                 try {
@@ -225,6 +243,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 //                                                    Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                                                 }
                                             }
+                                            */
                                         });
                                 queueIzzyRepo.add(stringRequestIzzyRepo);
                             } else {

@@ -2747,10 +2747,10 @@ class PPApplicationStatic {
                             }
                             pppReleaseData.versionNameInReleases = splits[0];
                             pppReleaseData.versionCodeInReleases = Integer.parseInt(splits[1]);
-                            Log.e("PPApplicationStatic.getReleaseData", "pppReleaseData.versionCode="+versionCode);
-                            Log.e("PPApplicationStatic.getReleaseData", "pppReleaseData.versionNameInReleases="+pppReleaseData.versionNameInReleases);
-                            Log.e("PPApplicationStatic.getReleaseData", "pppReleaseData.versionCodeInReleases="+pppReleaseData.versionCodeInReleases);
-                            Log.e("PPApplicationStatic.getReleaseData", "ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification="+ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification);
+//                            Log.e("PPApplicationStatic.getReleaseData", "pppReleaseData.versionCode="+versionCode);
+//                            Log.e("PPApplicationStatic.getReleaseData", "pppReleaseData.versionNameInReleases="+pppReleaseData.versionNameInReleases);
+//                            Log.e("PPApplicationStatic.getReleaseData", "pppReleaseData.versionCodeInReleases="+pppReleaseData.versionCodeInReleases);
+//                            Log.e("PPApplicationStatic.getReleaseData", "ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification="+ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification);
                             if (forceDoData)
                                 doData = true;
                             else {
@@ -2772,8 +2772,8 @@ class PPApplicationStatic {
                             //  "critical" - critical update
                             pppReleaseData.critical = splits[2].equals("critical");
                         }
-                        Log.e("PPApplicationStatic.getReleaseData", "pppReleaseData.critical="+pppReleaseData.critical);
-                        Log.e("PPApplicationStatic.getReleaseData", "doData="+doData);
+//                        Log.e("PPApplicationStatic.getReleaseData", "pppReleaseData.critical="+pppReleaseData.critical);
+//                        Log.e("PPApplicationStatic.getReleaseData", "doData="+doData);
                     }
                 }
             }
