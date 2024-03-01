@@ -59,11 +59,11 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
         long alarmTime;
 
         //TODO remove for release
-        /*if (DebugVersion.enabled) {
+        if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 
             alarmTime = alarm.getTimeInMillis();
-        } else*/
+        } else
         {
             if ((lastAlarm == 0) || (lastAlarm <= alarm.getTimeInMillis())) {
                 // saved alarm is less then actual time
@@ -193,6 +193,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 //                        Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "pppReleaseData="+pppReleaseData);
 
                         if (pppReleaseData != null) {
+                            // istalled PPP version is less then version in releases.md file
                             if (Build.VERSION.SDK_INT >= 33) {
                                 // check IzzyOnDroid repo
                                 // because from Android 13 is required to install apk from app stores
