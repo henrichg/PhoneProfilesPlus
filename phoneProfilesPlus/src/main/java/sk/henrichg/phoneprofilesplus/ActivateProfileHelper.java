@@ -3295,7 +3295,7 @@ class ActivateProfileHelper {
 
                             setSoundMode(appContext, profile, audioManager, /*systemZenMode,*/ forProfileActivation, executedProfileSharedPreferences);
 
-                            GlobalUtils.sleep(500);
+                            GlobalUtils.sleep(1000);
 
                             // get actual system zen mode (may be changed in setRingerMode())
                             int systemZenMode = getSystemZenMode(appContext/*, -1*/);
