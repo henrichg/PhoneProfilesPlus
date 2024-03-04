@@ -3852,7 +3852,10 @@ class ActivateProfileHelper {
                             }
                             /// !!! by me must be set SILENT, but nor working in in change ringing volume in motorola
                             // Test, which ringer mode will be set after profile activaiton
-                            setRingerMode(audioManager, AudioManager.RINGER_MODE_NORMAL);
+                            if (PPApplication.deviceIsMotorola)
+                                setRingerMode(audioManager, AudioManager.RINGER_MODE_NORMAL);
+                            else
+                                setRingerMode(audioManager, AudioManager.RINGER_MODE_SILENT);
                             setVibrateSettings(false, audioManager);
                             GlobalUtils.sleep(500);
                             requestInterruptionFilter(appContext, ZENMODE_PRIORITY);

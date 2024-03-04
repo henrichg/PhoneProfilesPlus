@@ -178,7 +178,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
@@ -369,6 +369,7 @@ public class PPApplication extends Application
     static final boolean deviceIsPixel = isPixel();
     static final boolean deviceIsSony = isSony();
     static final boolean deviceIsDoogee = isDoogee();
+    static final boolean deviceIsMotorola = isMotorola();
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
     static final boolean romIsGalaxy = isGalaxyROM();
@@ -1226,6 +1227,7 @@ public class PPApplication extends Application
             PPApplicationStatic.logE("##### PPApplication.onCreate", "deviceIsPixel=" + deviceIsPixel);
             PPApplicationStatic.logE("##### PPApplication.onCreate", "deviceIsSony=" + deviceIsSony);
             PPApplicationStatic.logE("##### PPApplication.onCreate", "deviceIsDoogee=" + deviceIsDoogee);
+            PPApplicationStatic.logE("##### PPApplication.onCreate", "deviceIsMotorola=" + deviceIsMotorola);
 
             PPApplicationStatic.logE("##### PPApplication.onCreate", "romIsMIUI=" + romIsMIUI);
             PPApplicationStatic.logE("##### PPApplication.onCreate", "romIsEMUI=" + romIsEMUI);
@@ -2067,6 +2069,13 @@ public class PPApplication extends Application
         return Build.BRAND.equalsIgnoreCase(DOOGEE) ||
                 Build.MANUFACTURER.equalsIgnoreCase(DOOGEE) ||
                 Build.FINGERPRINT.toLowerCase().contains(DOOGEE);
+    }
+
+    private static boolean isMotorola() {
+        final String MOTOROLA = "????";
+        return Build.BRAND.equalsIgnoreCase(MOTOROLA) ||
+                Build.MANUFACTURER.equalsIgnoreCase(MOTOROLA) ||
+                Build.FINGERPRINT.toLowerCase().contains(MOTOROLA);
     }
 
     private static String getReadableModVersion() {
