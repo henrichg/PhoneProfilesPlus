@@ -3295,7 +3295,7 @@ class ActivateProfileHelper {
 
                             setSoundMode(appContext, profile, audioManager, /*systemZenMode,*/ forProfileActivation, executedProfileSharedPreferences);
 
-                            GlobalUtils.sleep(1000);
+                            GlobalUtils.sleep(500);
 
                             // get actual system zen mode (may be changed in setRingerMode())
                             int systemZenMode = getSystemZenMode(appContext/*, -1*/);
@@ -3850,7 +3850,7 @@ class ActivateProfileHelper {
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
-                            setRingerMode(audioManager, AudioManager.RINGER_MODE_SILENT);
+                            setRingerMode(audioManager, AudioManager.RINGER_MODE_NORMAL);
                             setVibrateSettings(false, audioManager);
                             GlobalUtils.sleep(500);
                             requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
