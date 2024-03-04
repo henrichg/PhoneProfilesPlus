@@ -3850,8 +3850,7 @@ class ActivateProfileHelper {
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
-                            /// !!! by me must be set SILENT, but nor working in in change ringing volume in motorola
-                            // Test, which ringer mode will be set after profile activaiton
+                            // Not working change of ringing volume in motorola with SILENT ringer mode
                             if (PPApplication.deviceIsMotorola)
                                 setRingerMode(audioManager, AudioManager.RINGER_MODE_NORMAL);
                             else
