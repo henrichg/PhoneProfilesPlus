@@ -2072,7 +2072,7 @@ public class PPApplication extends Application
     }
 
     private static boolean isMotorola() {
-        final String MOTOROLA = "????";
+        final String MOTOROLA = "motorola";
         return Build.BRAND.equalsIgnoreCase(MOTOROLA) ||
                 Build.MANUFACTURER.equalsIgnoreCase(MOTOROLA) ||
                 Build.FINGERPRINT.toLowerCase().contains(MOTOROLA);

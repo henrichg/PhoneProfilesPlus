@@ -10,6 +10,7 @@ import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SwitchCompat;
@@ -1568,6 +1569,7 @@ class DataWrapper {
             PPApplication.updateGUI(false, false, context);
 
             if (_profile != null) {
+                Log.e("ActivateProfileHelper._activateProfile", "call of execute");
                 ActivateProfileHelper.execute(context, _profile);
             }
 
