@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+/** @noinspection ExtractMethodRecommender*/
 class ProfileStatic {
 
     static String getIconIdentifier(String icon)
@@ -1146,7 +1147,7 @@ class ProfileStatic {
     }
 
     static boolean isRedTextNotificationRequired(Profile profile, boolean againCheckAccessibilityInDelay, Context context) {
-        boolean grantedAllPermissions = Permissions.checkProfilePermissions(context, profile).size() == 0;
+        boolean grantedAllPermissions = Permissions.checkProfilePermissions(context, profile).isEmpty();
         /*if (Build.VERSION.SDK_INT >= 29) {
             if (!Settings.canDrawOverlays(context))
                 grantedAllPermissions = false;

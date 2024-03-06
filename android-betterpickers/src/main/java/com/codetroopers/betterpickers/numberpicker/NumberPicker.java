@@ -377,7 +377,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         numberString = numberString.replaceAll("\\-", "");
         String[] split = numberString.split("\\.");
         if (split.length >= 2) {
-            if (split[0].equals("")) {
+            if (split[0].isEmpty()) {
                 mEnteredNumber.setNumber("0", split[1], containsDecimal(),
                         mSign == SIGN_NEGATIVE);
             } else {
@@ -554,7 +554,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     /*
      * Returns whether the number is positive or negative
      *
-     * @return true or false whether the number is positive or negative
+     * return true or false whether the number is positive or negative
     public boolean getIsNegative() {
         return mSign == SIGN_NEGATIVE;
     }

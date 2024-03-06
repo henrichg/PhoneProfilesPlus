@@ -48,6 +48,7 @@ import java.lang.annotation.Retention;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
+/** @noinspection ExtractMethodRecommender*/
 @SuppressWarnings({"resource", "UnusedAssignment", "unused"})
 public class FastScroller {
     private static final int DEFAULT_AUTO_HIDE_DELAY = 1500;

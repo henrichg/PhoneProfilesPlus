@@ -43,7 +43,7 @@ class ContactsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Contacts
         if (contact.checked)
             return "*";
         else {
-            if (contact.name.length() == 0)
+            if (contact.name.isEmpty())
                 return "?";
             else
                 return contact.name.substring(0, 1);

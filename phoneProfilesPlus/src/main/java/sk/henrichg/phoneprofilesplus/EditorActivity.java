@@ -30,6 +30,7 @@ import android.service.notification.StatusBarNotification;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -86,6 +87,7 @@ import me.ibrahimsn.lib.SmoothBottomBar;
 import sk.henrichg.phoneprofilesplus.EditorEventListFragment.OnStartEventPreferences;
 import sk.henrichg.phoneprofilesplus.EditorProfileListFragment.OnStartProfilePreferences;
 
+/** @noinspection ExtractMethodRecommender*/
 public class EditorActivity extends AppCompatActivity
                                     implements OnStartProfilePreferences,
                                                OnStartEventPreferences,
@@ -1241,7 +1243,7 @@ public class EditorActivity extends AppCompatActivity
                 uris.add(fileUri);
             }
 
-            if (uris.size() != 0) {
+            if (!uris.isEmpty()) {
                 String emailAddress = StringConstants.AUTHOR_EMAIL;
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                         StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
@@ -1270,7 +1272,7 @@ public class EditorActivity extends AppCompatActivity
                     intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
                     intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
                 }
-                if (intents.size() > 0) {
+                if (!intents.isEmpty()) {
                     try {
                         Intent chooser = Intent.createChooser(new Intent(Intent.ACTION_CHOOSER), getString(R.string.email_chooser));
                         chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
@@ -2927,6 +2929,7 @@ public class EditorActivity extends AppCompatActivity
         startActivityForResult(intent, REQUEST_CODE_PROFILE_PREFERENCES);
     }
 
+    /** @noinspection ClassEscapesDefinedScope*/
     public void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex/*, boolean startTargetHelps*/) {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
         if (fragment instanceof EditorProfileListFragment) {
@@ -3110,6 +3113,7 @@ public class EditorActivity extends AppCompatActivity
         }
     }
 
+    /** @noinspection ClassEscapesDefinedScope*/
     public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex/*, boolean startTargetHelps*/) {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
         if (fragment instanceof EditorEventListFragment) {
@@ -4634,7 +4638,7 @@ public class EditorActivity extends AppCompatActivity
                                 ret = 0;
                         } catch (Exception e) {
                             //PPApplicationStatic.recordException(e);
-                            e.printStackTrace();
+                            Log.e("EditorActivity.doInBackground", Log.getStackTraceString(e));
                             ret = 0;
                         }
 
@@ -4753,7 +4757,7 @@ public class EditorActivity extends AppCompatActivity
                             intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));
                         }
                         //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "intents.size()="+intents.size());
-                        if (intents.size() > 0) {
+                        if (!intents.isEmpty()) {
                             try {
                                 Intent chooser = Intent.createChooser(new Intent(Intent.ACTION_CHOOSER), context.getString(R.string.email_chooser));
                                 chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));

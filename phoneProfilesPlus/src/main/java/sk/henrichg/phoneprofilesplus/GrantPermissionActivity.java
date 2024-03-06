@@ -198,7 +198,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 /*permissions = Permissions.recheckPermissions(context, Permissions.getMergedPermissions(context));
                 mergedNotification = true;*/
                 permissions = Permissions.recheckPermissions(context, permissions);
-                if (permissions.size() == 0) {
+                if (permissions.isEmpty()) {
                     PPApplication.showToast(context.getApplicationContext(),
                             context.getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
@@ -223,7 +223,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 /*permissions = Permissions.recheckPermissions(context, Permissions.getMergedPermissions(context));
                 mergedNotification = true;*/
                 permissions = Permissions.recheckPermissions(context, permissions);
-                if (permissions.size() == 0) {
+                if (permissions.isEmpty()) {
                     PPApplication.showToast(context.getApplicationContext(),
                             context.getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
@@ -1514,7 +1514,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
             }
 
-            if (permList.size() > 0) {
+            if (!permList.isEmpty()) {
                 if (!withRationale && rationaleAlreadyShown) {
                     Permissions.saveAllPermissions(getApplicationContext(), false);
                     Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
@@ -1821,7 +1821,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         if (permissionsForRecheck != null) {
             permissions = Permissions.recheckPermissions(context, permissionsForRecheck);
-            if (permissions.size() != 0) {
+            if (!permissions.isEmpty()) {
                 PPApplication.showToast(context.getApplicationContext(),
                         context.getString(R.string.toast_permissions_not_granted),
                         Toast.LENGTH_LONG);

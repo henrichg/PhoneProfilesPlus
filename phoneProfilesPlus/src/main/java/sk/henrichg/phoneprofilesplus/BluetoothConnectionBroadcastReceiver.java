@@ -402,7 +402,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             if ((deviceData == null) && sensorDeviceName.isEmpty()) {
                 // is device connected to any external bluetooth device ???
 
-                return (connectedDevices != null) && (connectedDevices.size() > 0);
+                return (connectedDevices != null) && (!connectedDevices.isEmpty());
             }
             else {
                 if (connectedDevices != null) {

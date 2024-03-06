@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+/** @noinspection ExtractMethodRecommender*/
 public class ImportantInfoHelpFragment extends Fragment {
 
     boolean firstInstallation = false;

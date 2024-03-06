@@ -38,6 +38,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 class MobileCellsListener extends PhoneStateListener {
 
     private final Context context;

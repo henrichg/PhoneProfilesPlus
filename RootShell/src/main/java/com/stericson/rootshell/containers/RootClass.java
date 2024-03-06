@@ -1,5 +1,7 @@
 package com.stericson.rootshell.containers;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -63,7 +65,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
         // Not using system.err to make it easier to capture from
         // calling library.
         System.out.println("##ERR##" + e.getMessage() + "##");
-        e.printStackTrace();
+        Log.e("RootClass.displayError", Log.getStackTraceString(e));
     }
 
     // I reckon it would be better to investigate classes using getAttribute()
@@ -235,7 +237,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                     }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e("RootClass.AnnotationsFinder.hasClassAnnotation", Log.getStackTraceString(e));
             }
             return false;
         }

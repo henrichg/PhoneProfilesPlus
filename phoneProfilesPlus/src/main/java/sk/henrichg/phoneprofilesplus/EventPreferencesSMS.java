@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 class EventPreferencesSMS extends EventPreferences {
 
     //int _smsEvent;
@@ -425,7 +426,7 @@ class EventPreferencesSMS extends EventPreferences {
                         (PPApplication.accessibilityServiceForPPPExtenderConnected == 1);
                 boolean permissionGranted = true;
                 if (enabled)
-                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_SMS).size() == 0;
+                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_SMS).isEmpty();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted), true);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));

@@ -34,6 +34,7 @@ import com.getkeepsafe.taptargetview.TapTargetSequence;
 import java.util.ArrayList;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class ActivatorActivity extends AppCompatActivity
                                 implements RefreshGUIActivatorEditorListener,
                                            ShowTargetHelpsActivatorEditorListener,

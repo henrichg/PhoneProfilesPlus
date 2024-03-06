@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/** @noinspection ExtractMethodRecommender*/
 public class FetchAddressWorkerOSM extends Worker {
 
     private final Context context;
@@ -67,7 +68,7 @@ public class FetchAddressWorkerOSM extends Worker {
             }
 
             // Handle case where no address was found.
-            if (addresses == null || addresses.size() == 0) {
+            if (addresses == null || addresses.isEmpty()) {
                 //if (errorMessage.isEmpty()) {
                 //Log.e("FetchAddressWorkerOSM.doWork", "No address found");
                 //}

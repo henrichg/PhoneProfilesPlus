@@ -11,6 +11,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver {
 
     @Override

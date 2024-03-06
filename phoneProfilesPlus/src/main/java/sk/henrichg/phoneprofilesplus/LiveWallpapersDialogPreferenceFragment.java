@@ -175,7 +175,7 @@ public class LiveWallpapersDialogPreferenceFragment extends PreferenceDialogFrag
                     }
                     //}
 
-                    if (_wallpapersList.size() > 0)
+                    if (!_wallpapersList.isEmpty())
                         _wallpapersList.sort(new SortList());
                     else
                         _wallpapersList.add(new LiveWallpapersData(prefContext.getString(R.string.profile_preferences_deviceLiveWallpaper_noneInstalled), null));
@@ -208,7 +208,7 @@ public class LiveWallpapersDialogPreferenceFragment extends PreferenceDialogFrag
                         preference.liveWallpapersList = new ArrayList<>(__wallpapersList);
                         fragment.listView.setAdapter(fragment.listAdapter);
 
-                        if (preference.liveWallpapersList.size() == 0) {
+                        if (preference.liveWallpapersList.isEmpty()) {
                             fragment.listView.setVisibility(View.GONE);
                             fragment.emptyList.setVisibility(View.VISIBLE);
                         } else {

@@ -341,7 +341,7 @@ class EventPreferencesWifi extends EventPreferences {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_WIFI_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
-                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_WIFI_SCANNER).size() == 0;
+                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_WIFI_SCANNER).isEmpty();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
@@ -622,7 +622,7 @@ class EventPreferencesWifi extends EventPreferences {
                                             }
 
                                             if (!done) {
-                                                if (scanResults.size() == 0) {
+                                                if (scanResults.isEmpty()) {
 
                                                     if (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)
                                                         eventsHandler.wifiPassed = true;

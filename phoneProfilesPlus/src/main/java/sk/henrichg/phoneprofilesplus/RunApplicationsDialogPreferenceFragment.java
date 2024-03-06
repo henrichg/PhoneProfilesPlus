@@ -127,7 +127,7 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
 
     @SuppressLint("NotifyDataSetChanged")
     void updateGUI() {
-        if (preference.applicationsList.size() == 0) {
+        if (preference.applicationsList.isEmpty()) {
             applicationsListView.setVisibility(View.GONE);
             emptyList.setVisibility(View.VISIBLE);
         } else {
@@ -213,7 +213,7 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
 
                     fragment.applicationsListView.setAdapter(fragment.listAdapter);
 
-                    if (preference.applicationsList.size() == 0) {
+                    if (preference.applicationsList.isEmpty()) {
                         fragment.applicationsListView.setVisibility(View.GONE);
                         fragment.emptyList.setVisibility(View.VISIBLE);
                     } else {

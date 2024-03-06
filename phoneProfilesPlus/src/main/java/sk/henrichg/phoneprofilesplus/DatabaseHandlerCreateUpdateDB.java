@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.TimeZone;
 
+/** @noinspection ExtractMethodRecommender*/
 class DatabaseHandlerCreateUpdateDB {
 
     static private String profileTableCreationString(String tableName) {
@@ -1030,6 +1031,7 @@ class DatabaseHandlerCreateUpdateDB {
                         }
                         values.put(DatabaseHandler.KEY_DEVICE_WALLPAPER, "-");
 
+                        //noinspection SizeReplaceableByIsEmpty
                         if (values.size() > 0) {
                             db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?", new String[]{String.valueOf(id)});
                         }

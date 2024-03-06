@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 //import me.drakeet.support.toast.ToastCompat;
 
+/** @noinspection ExtractMethodRecommender*/
 class DataWrapper {
 
     final Context context;

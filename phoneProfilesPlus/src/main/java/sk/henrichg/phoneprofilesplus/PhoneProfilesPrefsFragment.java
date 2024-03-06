@@ -48,6 +48,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         implements SharedPreferences.OnSharedPreferenceChangeListener {
 

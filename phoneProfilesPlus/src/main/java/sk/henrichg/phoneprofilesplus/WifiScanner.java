@@ -8,6 +8,7 @@ import android.os.SystemClock;
 
 import java.lang.ref.WeakReference;
 
+/** @noinspection ExtractMethodRecommender*/
 class WifiScanner {
 
     private final Context context;

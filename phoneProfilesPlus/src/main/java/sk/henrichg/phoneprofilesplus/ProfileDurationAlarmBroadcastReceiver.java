@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static final String EXTRA_FOR_RESTART_EVENTS = "for_restart_events";

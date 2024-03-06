@@ -52,12 +52,12 @@ public final class ToastCompat extends Toast {
   /*
    * Make a standard toast that just contains a text view with the text from a resource.
    *
-   * @param context The context to use.  Usually your {@link android.app.Application}
-   * or {@link android.app.Activity} object.
-   * @param resId The resource id of the string resource to use.  Can be formatted text.
-   * @param duration How long to display the message.  Either {@link #LENGTH_SHORT} or
-   * {@link #LENGTH_LONG}
-   * @throws Resources.NotFoundException if the resource can't be found.
+   * param context The context to use.  Usually your android.app.Application
+   * or android.app.Activity object.
+   * param resId The resource id of the string resource to use.  Can be formatted text.
+   * param duration How long to display the message.  Either #LENGTH_SHORT or
+   * #LENGTH_LONG
+   * throws Resources.NotFoundException if the resource can't be found.
   public static Toast makeText(Context context, @StringRes int resId, int duration)
       throws Resources.NotFoundException {
     return makeText(context, context.getResources().getText(resId), duration);

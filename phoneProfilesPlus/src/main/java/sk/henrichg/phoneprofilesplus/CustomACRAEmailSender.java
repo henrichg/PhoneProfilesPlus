@@ -112,7 +112,7 @@ public class CustomACRAEmailSender implements ReportSender {
                         intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));
                     }
 //                    Log.e("CustomACRAEmailSender.send", "intents.size()="+intents.size());
-                    if (intents.size() > 0) {
+                    if (!intents.isEmpty()) {
                         try {
 //                            for (Intent _intent : intents) {
 //                                Log.e("CustomACRAEmailSender.send", "intents.size()=" + _intent.getAction());

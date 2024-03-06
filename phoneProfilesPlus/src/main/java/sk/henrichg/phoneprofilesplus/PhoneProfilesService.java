@@ -33,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 
 import rikka.shizuku.Shizuku;
 
+/** @noinspection ExtractMethodRecommender*/
 public class PhoneProfilesService extends Service
 {
     private static volatile PhoneProfilesService instance = null;
@@ -688,10 +689,10 @@ public class PhoneProfilesService extends Service
 
                 // generate predefined profiles and events, for first PPP start (version code is not saved)
                 if (PPApplication.firstStartAfterInstallation) {
-                    if (dataWrapper.profileList.size() == 0) {
+                    if (dataWrapper.profileList.isEmpty()) {
                         dataWrapper.fillPredefinedProfileList(false, false, appContext);
                     }
-                    if (dataWrapper.eventList.size() == 0)
+                    if (dataWrapper.eventList.isEmpty())
                     {
                         dataWrapper.generatePredefinedEventList(appContext);
                     }

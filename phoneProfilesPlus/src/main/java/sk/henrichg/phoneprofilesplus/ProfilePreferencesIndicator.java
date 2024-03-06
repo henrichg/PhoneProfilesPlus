@@ -14,6 +14,7 @@ import android.telephony.TelephonyManager;
 
 import androidx.core.content.ContextCompat;
 
+/** @noinspection ExtractMethodRecommender*/
 class ProfilePreferencesIndicator {
 
     final int[] drawables = new int[60];

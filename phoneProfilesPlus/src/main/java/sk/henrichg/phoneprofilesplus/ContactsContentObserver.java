@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Handler;
+import android.util.Log;
 
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -44,7 +45,7 @@ class ContactsContentObserver extends ContentObserver {
                         break;
                     }
                 } catch (ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
+                    Log.e("ContactsContentObserver.enqueueContactsContentObserverWorker", Log.getStackTraceString(e));
                 }
 
                 OneTimeWorkRequest worker;

@@ -14,7 +14,7 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output-test url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/intermediates/javac/debugUnitTest/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/intermediates/javac/debugUnitTest/compileDebugUnitTestJavaWithJavac/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/generated/ap_generated_sources/debugUnitTest/out" />
     <content url="file://$MODULE_DIR$/../../../phoneProfilesPlus/src/test" />

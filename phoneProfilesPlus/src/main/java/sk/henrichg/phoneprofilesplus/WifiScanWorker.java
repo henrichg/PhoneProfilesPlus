@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 public class WifiScanWorker extends Worker {
 
     private final Context context;
@@ -312,7 +313,7 @@ public class WifiScanWorker extends Worker {
                                 }
                             }
                         } catch (ExecutionException | InterruptedException e) {
-                            e.printStackTrace();
+                            Log.e("WifiScanWorker.waitForFinish", Log.getStackTraceString(e));
                         }
                         if (allFinished) {
                             break;
@@ -354,7 +355,7 @@ public class WifiScanWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
+                        Log.e("WifiScanWorker.isWorkRunning", Log.getStackTraceString(e));
                         return false;
                     }
                 }
@@ -391,7 +392,7 @@ public class WifiScanWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
+                        Log.e("WifiScanWorker.isWorkScheduled", Log.getStackTraceString(e));
                         return false;
                     }
                 }

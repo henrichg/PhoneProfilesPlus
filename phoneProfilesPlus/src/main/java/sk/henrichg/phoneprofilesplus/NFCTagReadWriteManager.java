@@ -136,7 +136,6 @@ class NFCTagReadWriteManager {
 
     /*
      * To be executed on onNewIntent of activity
-     * @param intent x
      */
     void onActivityNewIntent(Intent intent) {
         if (nfcAdapter != null) {

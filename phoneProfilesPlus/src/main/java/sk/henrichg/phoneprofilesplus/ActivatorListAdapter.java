@@ -43,7 +43,7 @@ class ActivatorListAdapter extends BaseAdapter
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ActivatorListAdapter.getCount", "DataWrapper.profileList");
         synchronized (activityDataWrapper.profileList) {
             boolean someData = activityDataWrapper.profileListFilled &&
-                    (activityDataWrapper.profileList.size() > 0);
+                    (!activityDataWrapper.profileList.isEmpty());
             fragment.viewNoData.setVisibility(someData ? View.GONE : View.VISIBLE);
             /*if (fragment.gridViewDivider != null)
                 fragment.gridViewDivider.setBackgroundResource(

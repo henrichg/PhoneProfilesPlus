@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import java.lang.ref.WeakReference;
 import java.util.Comparator;
 
+/** @noinspection ExtractMethodRecommender*/
 class AskForDurationActivateProfileDialog
 {
     private final AskForDurationDialog askForDurationDialog;
@@ -155,7 +156,7 @@ class AskForDurationActivateProfileDialog
                 final Handler handler = new Handler(activity.getMainLooper());
                 handler.post(() -> {
                     dialog.listView.setVisibility(View.VISIBLE);
-                    if (dialog.dataWrapper.profileList.size() == 0) {
+                    if (dialog.dataWrapper.profileList.isEmpty()) {
                         dialog.listView.setVisibility(View.GONE);
                         dialog.emptyList.setVisibility(View.VISIBLE);
                     } else {

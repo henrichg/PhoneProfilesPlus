@@ -258,7 +258,7 @@ class TwilightScanner {
                     }
 
                     if (!(mNetworkListenerEnabled && mPassiveListenerEnabled)) {
-                        mLastUpdateInterval *= 1.5;
+                        mLastUpdateInterval = Math.round(mLastUpdateInterval * 1.5f);
                         if (mLastUpdateInterval == 0) {
                             mLastUpdateInterval = LOCATION_UPDATE_ENABLE_INTERVAL_MIN;
                         } else if (mLastUpdateInterval > LOCATION_UPDATE_ENABLE_INTERVAL_MAX) {

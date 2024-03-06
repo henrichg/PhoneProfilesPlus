@@ -15,6 +15,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 class BluetoothScanner {
 
     private final Context context;

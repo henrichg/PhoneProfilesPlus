@@ -162,7 +162,7 @@ public class ProfilePreferenceFragment extends PreferenceDialogFragmentCompat {
                 handler.post(() -> {
                     fragment.listView.setVisibility(View.VISIBLE);
 
-                    if ((preference.addNoActivateItem != 1) && (preference.dataWrapper.profileList.size() == 0)) {
+                    if ((preference.addNoActivateItem != 1) && (preference.dataWrapper.profileList.isEmpty())) {
                         fragment.listView.setVisibility(View.GONE);
                         fragment.emptyList.setVisibility(View.VISIBLE);
                     } else {

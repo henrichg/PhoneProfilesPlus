@@ -49,6 +49,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
@@ -447,7 +448,7 @@ public class EditorEventListFragment extends Fragment
             final EditorEventListFragment fragment = this.fragmentWeakRef.get();
 
             if (_generatePredefinedProfiles) {
-                if ((_dataWrapper.eventList.size() == 0)) {
+                if ((_dataWrapper.eventList.isEmpty())) {
                     // no events in DB, generate default events
                     // PPApplication.restoreFinished = Google auto-backup finished
                     if ((fragment != null) && (fragment.getActivity() != null)) {
@@ -502,7 +503,7 @@ public class EditorEventListFragment extends Fragment
 
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.LoadEventListAsyncTask", "DataWrapper.eventList");
                     synchronized (fragment.activityDataWrapper.eventList) {
-                        if (fragment.activityDataWrapper.eventList.size() == 0)
+                        if (fragment.activityDataWrapper.eventList.isEmpty())
                             fragment.viewNoData.setVisibility(VISIBLE);
                     }
                     fragment.updateBottomMenu();
@@ -2231,9 +2232,9 @@ public class EditorEventListFragment extends Fragment
             Menu menu = bottomToolbar.getMenu();
             if (menu != null) {
                 MenuItem item = menu.findItem(R.id.menu_generate_predefined_events);
-                item.setVisible(activityDataWrapper.eventList.size() == 0);
+                item.setVisible(activityDataWrapper.eventList.isEmpty());
                 item = menu.findItem(R.id.menu_delete_all_events);
-                item.setVisible(activityDataWrapper.eventList.size() != 0);
+                item.setVisible(!activityDataWrapper.eventList.isEmpty());
             }
         }
     }

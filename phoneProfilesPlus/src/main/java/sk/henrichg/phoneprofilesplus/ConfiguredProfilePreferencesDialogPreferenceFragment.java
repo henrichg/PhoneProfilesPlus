@@ -14,6 +14,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class ConfiguredProfilePreferencesDialogPreferenceFragment extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
@@ -141,7 +142,7 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragment extends Prefer
                             idDrawable += indicators.countItems[i];
                         }
                     }
-                    if (_preferencesList.size() == 0) {
+                    if (_preferencesList.isEmpty()) {
                         ConfiguredProfilePreferencesData configuredPreferences = new ConfiguredProfilePreferencesData(
                                 0,
                                 0,

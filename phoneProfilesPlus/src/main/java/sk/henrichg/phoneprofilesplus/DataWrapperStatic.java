@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 class DataWrapperStatic {
 
     static Profile getNonInitializedProfile(String name, String icon, int order)
@@ -297,7 +298,7 @@ class DataWrapperStatic {
             synchronized (dataWrapper.eventTimelines) {
                 if (dataWrapper.eventListFilled && dataWrapper.eventTimelineListFilled) {
                     List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
-                    if (eventTimelineList.size() > 0) {
+                    if (!eventTimelineList.isEmpty()) {
                         EventTimeline eventTimeLine = eventTimelineList.get(eventTimelineList.size() - 1);
                         long event_id = eventTimeLine._fkEvent;
                         Event event = dataWrapper.getEventById(event_id);
@@ -664,7 +665,7 @@ class DataWrapperStatic {
 //                    PPApplicationStatic.logE("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcuts.size()="+shortcuts.size());
 
                 shortcutManager.removeAllDynamicShortcuts();
-                if (shortcuts.size() > 0) {
+                if (!shortcuts.isEmpty()) {
                     shortcutManager.addDynamicShortcuts(shortcuts);
                     if (Build.VERSION.SDK_INT >= 30) {
                         for (ShortcutInfo shortcut : shortcuts)

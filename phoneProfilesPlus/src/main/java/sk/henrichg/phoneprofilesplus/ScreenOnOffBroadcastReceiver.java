@@ -9,6 +9,7 @@ import android.provider.Settings;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+/** @noinspection ExtractMethodRecommender*/
 public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
     @Override

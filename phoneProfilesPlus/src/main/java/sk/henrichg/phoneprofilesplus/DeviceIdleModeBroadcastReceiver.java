@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 
+/** @noinspection ExtractMethodRecommender*/
 public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
 
     @Override

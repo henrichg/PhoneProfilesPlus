@@ -1743,7 +1743,7 @@ class Permissions {
                                                   /*boolean activateProfile,*/
                                                   /*boolean fromPreferences*/) {
         ArrayList<PermissionType> permissions = checkProfilePermissions(context, profile);
-        if (permissions.size() > 0) {
+        if (!permissions.isEmpty()) {
             try {
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //if (!fromPreferences || onlyNotification)
@@ -2001,7 +2001,7 @@ class Permissions {
                                                   boolean fromPreferences*/) {
         ArrayList<PermissionType> permissions =
                 checkEventPermissions(context, event, null, EventsHandler.SENSOR_TYPE_ALL);
-        if (permissions.size() > 0) {
+        if (!permissions.isEmpty()) {
             try {
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //if (!fromPreferences || onlyNotification)

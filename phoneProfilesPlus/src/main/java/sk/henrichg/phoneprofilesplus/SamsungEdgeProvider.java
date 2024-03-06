@@ -23,6 +23,7 @@ import com.samsung.android.sdk.look.cocktailbar.SlookCocktailProvider;
 import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     //private DataWrapper dataWrapper;

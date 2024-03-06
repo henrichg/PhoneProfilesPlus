@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+/** @noinspection ExtractMethodRecommender*/
 public class PhoneProfilesPrefsActivity extends AppCompatActivity
         implements MobileCellsRegistrationCountDownListener,
                    MobileCellsRegistrationStoppedListener

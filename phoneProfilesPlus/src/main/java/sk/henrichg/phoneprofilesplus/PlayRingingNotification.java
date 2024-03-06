@@ -19,6 +19,7 @@ import android.telephony.TelephonyManager;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/** @noinspection ExtractMethodRecommender*/
 class PlayRingingNotification
 {
     static volatile boolean ringingCallIsSimulating = false;

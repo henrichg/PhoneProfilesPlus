@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
@@ -782,7 +783,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                         BluetoothScanner.setForceOneLEBluetoothScan(prefContext, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
                         BluetoothScanWorker.setScanKilled(prefContext, false);
 
-                        if (preference.bluetoothList.size() == 0) {
+                        if (preference.bluetoothList.isEmpty()) {
                             fragment.bluetoothListView.setVisibility(View.GONE);
                             fragment.emptyList.setVisibility(View.VISIBLE);
                         } else {

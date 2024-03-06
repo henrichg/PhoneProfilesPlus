@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class EditorProfileListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
@@ -437,7 +438,7 @@ public class EditorProfileListFragment extends Fragment
             EditorProfileListFragment fragment = this.fragmentWeakRef.get();
 
             if (_generatePredefinedProfiles) {
-                if (_dataWrapper.profileList.size() == 0) {
+                if (_dataWrapper.profileList.isEmpty()) {
                     // no profiles in DB, generate default profiles
                     // PPApplication.restoreFinished = Google auto-backup finished
                     if ((fragment != null) && (fragment.getActivity() != null)) {
@@ -481,7 +482,7 @@ public class EditorProfileListFragment extends Fragment
 
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorProfileListFragment.onPostExecute", "DataWrapper.profileList");
                     synchronized (fragment.activityDataWrapper.profileList) {
-                        if (fragment.activityDataWrapper.profileList.size() == 0)
+                        if (fragment.activityDataWrapper.profileList.isEmpty())
                             fragment.viewNoData.setVisibility(View.VISIBLE);
                     }
                     fragment.updateBottomMenu();
@@ -1738,9 +1739,9 @@ public class EditorProfileListFragment extends Fragment
             Menu menu = bottomToolbar.getMenu();
             if (menu != null) {
                 MenuItem item = menu.findItem(R.id.menu_generate_predefined_profiles);
-                item.setVisible(activityDataWrapper.profileList.size() == 0);
+                item.setVisible(activityDataWrapper.profileList.isEmpty());
                 item = menu.findItem(R.id.menu_delete_all_profiles);
-                item.setVisible(activityDataWrapper.profileList.size() != 0);
+                item.setVisible(!activityDataWrapper.profileList.isEmpty());
             }
         }
     }

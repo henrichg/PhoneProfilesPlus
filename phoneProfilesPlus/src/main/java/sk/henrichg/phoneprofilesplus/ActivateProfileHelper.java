@@ -75,6 +75,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 class ActivateProfileHelper {
 
     // bluetooth calls volume stream
@@ -887,7 +888,7 @@ class ActivateProfileHelper {
                 compName = (ComponentName) declaredMethod2.invoke(newInstance, new Object[]{num});
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("ActivateProfileHelper.isPPPSetAsDefaultAssistant", Log.getStackTraceString(e));
         }
         if (compName != null && compName.getPackageName().equals(context.getPackageName())) {
             assistIsSet = true;
@@ -3199,7 +3200,7 @@ class ActivateProfileHelper {
     static Uri getUriOfSavedTone(Context context, String savedTone, int toneType) {
         Uri toneUri;
         boolean uriFound = false;
-        if (savedTone.equals("")) {
+        if (savedTone.isEmpty()) {
             toneUri = null;
             uriFound = true;
         }
@@ -4161,7 +4162,7 @@ class ActivateProfileHelper {
                             if (cursor != null) cursor.close();
                         }
 
-                        if (uriList.size() > 0) {
+                        if (!uriList.isEmpty()) {
                             Uri wallpaperUri = uriList.get(new Random().nextInt(uriList.size()));
     //                        PPApplicationStatic.logE("ActivateProfileHelper.changeWallpaperFromFolder", "wallpaperUri="+wallpaperUri);
 

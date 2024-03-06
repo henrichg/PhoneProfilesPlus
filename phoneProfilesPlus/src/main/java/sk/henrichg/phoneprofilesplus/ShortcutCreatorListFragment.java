@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import java.lang.ref.WeakReference;
 import java.util.Comparator;
 
+/** @noinspection ExtractMethodRecommender*/
 public class ShortcutCreatorListFragment extends Fragment {
 
     DataWrapper activityDataWrapper;
@@ -188,7 +189,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] ShortcutCreatorListFragment.LoadProfileListAsyncTask", "DataWrapper.profileList");
                     synchronized (fragment.activityDataWrapper.profileList) {
-                        if (fragment.activityDataWrapper.profileList.size() == 0)
+                        if (fragment.activityDataWrapper.profileList.isEmpty())
                             fragment.viewNoData.setVisibility(View.VISIBLE);
                     }
 

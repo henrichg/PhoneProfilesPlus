@@ -13,6 +13,7 @@ import java.util.Calendar;
 
 //import me.drakeet.support.toast.ToastCompat;
 
+/** @noinspection ExtractMethodRecommender*/
 public class NFCTagReadForegroundActivity extends AppCompatActivity {
 
     private NFCTagReadWriteManager nfcManager;

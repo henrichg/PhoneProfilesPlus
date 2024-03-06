@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+/** @noinspection ExtractMethodRecommender*/
 public class ImportantInfoActivityForceScroll extends AppCompatActivity {
 
     static final String EXTRA_SCROLL_TO = "extra_important_info_activity_scroll_to";

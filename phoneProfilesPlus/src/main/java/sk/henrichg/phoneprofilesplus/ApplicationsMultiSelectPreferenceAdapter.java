@@ -46,7 +46,7 @@ class ApplicationsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Appl
         if (application.checked)
             return "*";
         else {
-            if (application.appLabel.length() == 0)
+            if (application.appLabel.isEmpty())
                 return "?";
             else
                 return application.appLabel.substring(0, 1);

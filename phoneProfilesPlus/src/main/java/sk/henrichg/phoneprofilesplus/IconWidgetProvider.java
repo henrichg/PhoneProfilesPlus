@@ -21,6 +21,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.lang.ref.WeakReference;
 
+/** @noinspection ExtractMethodRecommender*/
 public class IconWidgetProvider extends AppWidgetProvider {
 
     static final String ACTION_REFRESH_ICONWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ICONWIDGET";

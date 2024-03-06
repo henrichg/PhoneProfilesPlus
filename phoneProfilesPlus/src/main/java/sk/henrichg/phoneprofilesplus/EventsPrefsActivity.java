@@ -32,6 +32,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class EventsPrefsActivity extends AppCompatActivity
                                 implements RefreshGUIActivatorEditorListener
 {

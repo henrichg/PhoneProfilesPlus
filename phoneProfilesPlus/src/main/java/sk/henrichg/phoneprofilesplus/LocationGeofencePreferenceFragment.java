@@ -20,6 +20,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+/** @noinspection ExtractMethodRecommender*/
 public class LocationGeofencePreferenceFragment extends PreferenceDialogFragmentCompat {
 
     LocationGeofencePreference preference;

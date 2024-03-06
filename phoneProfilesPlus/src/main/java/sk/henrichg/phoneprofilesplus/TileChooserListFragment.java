@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import java.lang.ref.WeakReference;
 import java.util.Comparator;
 
+/** @noinspection ExtractMethodRecommender*/
 public class TileChooserListFragment extends Fragment {
 
     DataWrapper activityDataWrapper;
@@ -183,7 +184,7 @@ public class TileChooserListFragment extends Fragment {
 
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] TileChooserListFragment.LoadProfileListAsyncTask", "DataWrapper.profileList");
                     synchronized (fragment.activityDataWrapper.profileList) {
-                        if (fragment.activityDataWrapper.profileList.size() == 0)
+                        if (fragment.activityDataWrapper.profileList.isEmpty())
                             fragment.viewNoData.setVisibility(View.VISIBLE);
                     }
 

@@ -21,6 +21,8 @@
  */
 package com.stericson.rootshell.execution;
 
+import android.util.Log;
+
 import com.stericson.rootshell.RootShell;
 import com.stericson.rootshell.exceptions.RootDeniedException;
 
@@ -440,7 +442,7 @@ public class Shell {
                 process = Runtime.getRuntime().exec(internal ? "su -V" : "su -v", null);
                 process.waitFor();
             } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
+                Log.e("Shell.getSuVersion", Log.getStackTraceString(e));
                 return null;
             }
 
@@ -1008,7 +1010,7 @@ public class Shell {
 
                     if (line == null) {
                         throw new EOFException();
-                    } else if ("".equals(line)) {
+                    } else if (line.isEmpty()) {
                         continue;
                     } else if ("Started".equals(line)) {
                         this.exit = 1;
@@ -1050,7 +1052,7 @@ public class Shell {
                 shell.outputStream.write("(echo -17 > /proc/$$/oom_adj) &> /dev/null\n");
                 shell.outputStream.flush();
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("Shell.Worker.setShellOom", Log.getStackTraceString(e));
             }
         }
     }

@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
     private Application application = null;

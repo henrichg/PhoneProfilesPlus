@@ -14,6 +14,7 @@ import androidx.palette.graphics.Palette;
 
 import java.util.Calendar;
 
+/** @noinspection ExtractMethodRecommender*/
 class Profile {
 
     long _id;

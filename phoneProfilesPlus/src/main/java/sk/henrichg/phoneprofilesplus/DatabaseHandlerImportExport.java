@@ -24,6 +24,7 @@ import java.util.List;
 
 import se.simbio.encryption.Encryption;
 
+/** @noinspection ExtractMethodRecommender*/
 class DatabaseHandlerImportExport {
 
     static final String PREF_MAXIMUM_VOLUME_RING = "maximumVolume_ring";
@@ -175,6 +176,7 @@ class DatabaseHandlerImportExport {
                                 audioManager, AudioManager.STREAM_BLUETOOTH_SCO, maximumVolumeBluetoothSCO);
 
                         // updating row
+                        //noinspection SizeReplaceableByIsEmpty
                         if (values.size() > 0)
                             db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
                                     new String[]{String.valueOf(profileId)});
@@ -254,6 +256,7 @@ class DatabaseHandlerImportExport {
                                 audioManager, AudioManager.STREAM_BLUETOOTH_SCO, maximumVolumeBluetoothSCO);
 
                         // updating row
+                        //noinspection SizeReplaceableByIsEmpty
                         if (values.size() > 0)
                             db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                     new String[]{String.valueOf(eventId)});

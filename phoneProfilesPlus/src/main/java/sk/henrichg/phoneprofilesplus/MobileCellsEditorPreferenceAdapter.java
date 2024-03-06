@@ -73,7 +73,7 @@ class MobileCellsEditorPreferenceAdapter extends BaseAdapter
         holder.itemEditMenu.setFocusable(false);
         holder.itemEditMenu.setFocusableInTouchMode(false);
 
-        if (preference.filteredCellsList.size() == 0)
+        if (preference.filteredCellsList.isEmpty())
             return vi;
 
         MobileCellsData cellData = preference.filteredCellsList.get(position);

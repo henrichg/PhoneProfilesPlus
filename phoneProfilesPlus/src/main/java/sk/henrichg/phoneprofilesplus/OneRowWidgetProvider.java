@@ -24,6 +24,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.lang.ref.WeakReference;
 
+/** @noinspection ExtractMethodRecommender*/
 public class OneRowWidgetProvider extends AppWidgetProvider {
 
     static final String ACTION_REFRESH_ONEROWWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ONEROWWIDGET";

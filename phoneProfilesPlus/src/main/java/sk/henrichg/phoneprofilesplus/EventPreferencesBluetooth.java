@@ -410,7 +410,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_BLUETOOTH_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
-                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER).size() == 0;
+                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER).isEmpty();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
@@ -667,7 +667,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                                         }
 
                                         if (!done) {
-                                            if (scanResults.size() == 0) {
+                                            if (scanResults.isEmpty()) {
                                                 if (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY)
                                                     eventsHandler.bluetoothPassed = true;
                                             }

@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.SystemClock;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.ExistingWorkPolicy;
@@ -25,6 +26,7 @@ import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 public class BluetoothScanWorker extends Worker {
 
     private final Context context;
@@ -303,7 +305,7 @@ public class BluetoothScanWorker extends Worker {
                                 }
                             }
                         } catch (ExecutionException | InterruptedException e) {
-                            e.printStackTrace();
+                            Log.e("BluetoothScanWorker.waitForFinish", Log.getStackTraceString(e));
                         }
                         if (allFinished) {
                             break;
@@ -345,7 +347,7 @@ public class BluetoothScanWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
+                        Log.e("BluetoothScanWorker.isWorkRunning", Log.getStackTraceString(e));
                         return false;
                     }
                 }
@@ -382,7 +384,7 @@ public class BluetoothScanWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
+                        Log.e("BluetoothScanWorker.isWorkScheduled", Log.getStackTraceString(e));
                         return false;
                     }
                 }
@@ -731,7 +733,7 @@ public class BluetoothScanWorker extends Worker {
                 }
             }
 
-            if (scanResults.size() == 0)
+            if (scanResults.isEmpty())
                 return null;
             else
                 return scanResults;

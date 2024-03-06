@@ -19,6 +19,7 @@ import androidx.work.WorkerParameters;
 import java.util.Calendar;
 import java.util.Set;
 
+/** @noinspection ExtractMethodRecommender*/
 public class MainWorker extends Worker {
 
     static final String APPLICATION_FULLY_STARTED_WORK_TAG = "applicationFullyStartedWork";

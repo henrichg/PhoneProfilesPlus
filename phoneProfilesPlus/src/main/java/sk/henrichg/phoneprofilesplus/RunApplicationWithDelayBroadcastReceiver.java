@@ -16,6 +16,7 @@ import androidx.work.WorkManager;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver {
 
     static final String EXTRA_RUN_APPLICATION_DATA = "run_application_data";

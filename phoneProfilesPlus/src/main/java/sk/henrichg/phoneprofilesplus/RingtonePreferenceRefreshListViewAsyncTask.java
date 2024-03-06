@@ -12,6 +12,7 @@ import java.lang.ref.WeakReference;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/** @noinspection ExtractMethodRecommender*/
 class RingtonePreferenceRefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
 
     //Ringtone defaultRingtone;

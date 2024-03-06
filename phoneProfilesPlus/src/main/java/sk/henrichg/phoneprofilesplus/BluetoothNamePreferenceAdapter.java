@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.widget.TooltipCompat;
 
+/** @noinspection ExtractMethodRecommender*/
 class BluetoothNamePreferenceAdapter extends BaseAdapter
 {
     private final BluetoothNamePreference preference;

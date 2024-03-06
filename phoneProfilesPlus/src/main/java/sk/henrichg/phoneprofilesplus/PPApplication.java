@@ -51,6 +51,7 @@ import java.util.concurrent.TimeUnit;
 
 import me.drakeet.support.toast.ToastCompat;
 
+/** @noinspection ExtractMethodRecommender*/
 public class PPApplication extends Application
                                         //implements Configuration.Provider
                                         //implements Application.ActivityLifecycleCallbacks
@@ -1908,14 +1909,14 @@ public class PPApplication extends Application
             java.lang.Process p = Runtime.getRuntime().exec("getprop ro.miui.ui.version.code");
             input = new BufferedReader(new InputStreamReader(p.getInputStream()), 1024);
             line = input.readLine();
-            miuiRom1 = line.length() != 0;
+            miuiRom1 = !line.isEmpty();
             input.close();
 
             if (!miuiRom1) {
                 p = Runtime.getRuntime().exec("getprop ro.miui.ui.version.name");
                 input = new BufferedReader(new InputStreamReader(p.getInputStream()), 1024);
                 line = input.readLine();
-                miuiRom2 = line.length() != 0;
+                miuiRom2 = !line.isEmpty();
                 input.close();
             }
 
@@ -1923,7 +1924,7 @@ public class PPApplication extends Application
                 p = Runtime.getRuntime().exec("getprop ro.miui.internal.storage");
                 input = new BufferedReader(new InputStreamReader(p.getInputStream()), 1024);
                 line = input.readLine();
-                miuiRom3 = line.length() != 0;
+                miuiRom3 = !line.isEmpty();
                 input.close();
             }
 
@@ -1964,7 +1965,7 @@ public class PPApplication extends Application
 
         return isHuawei() &&
                 (
-                    (emuiRomName.length() != 0) ||
+                    (!emuiRomName.isEmpty()) ||
                     Build.DISPLAY.toLowerCase().contains("emui2.3")// || "EMUI 2.3".equalsIgnoreCase(emuiRomName);
                 );
     }
@@ -2080,7 +2081,7 @@ public class PPApplication extends Application
 
     private static String getReadableModVersion() {
         String modVer = getSystemProperty(SYS_PROP_MOD_VERSION);
-        return (modVer == null || modVer.length() == 0 ? "Unknown" : modVer);
+        return (modVer == null || modVer.isEmpty() ? "Unknown" : modVer);
     }
 
     /** @noinspection BlockingMethodInNonBlockingContext*/

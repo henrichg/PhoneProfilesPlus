@@ -16,6 +16,7 @@ import androidx.work.WorkManager;
 import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 class EventStatic {
 
     static PreferenceAllowed isEventPreferenceAllowed(String preferenceKey, Context context)
@@ -676,7 +677,7 @@ class EventStatic {
     static boolean isRedTextNotificationRequired(Event event, boolean againCheckInDelay, Context context) {
         Context appContext = context.getApplicationContext();
         boolean enabledSomeSensor = event.isEnabledSomeSensor(appContext);
-        boolean grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null, EventsHandler.SENSOR_TYPE_ALL).size() == 0;
+        boolean grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null, EventsHandler.SENSOR_TYPE_ALL).isEmpty();
         /*if (Build.VERSION.SDK_INT >= 29) {
             if (!Settings.canDrawOverlays(context))
                 grantedAllPermissions = false;

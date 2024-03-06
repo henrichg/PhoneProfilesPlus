@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 class DatabaseHandlerEvents {
 
     // Adding new event

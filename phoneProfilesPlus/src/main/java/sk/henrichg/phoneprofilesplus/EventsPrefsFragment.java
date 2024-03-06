@@ -46,6 +46,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class EventsPrefsFragment extends PreferenceFragmentCompat
                                     implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -1939,7 +1940,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             boolean showVPNSensor;
             boolean showWifiSensor;
 
-            if ((activity != null) && (!saveDisplayed) && (activity.displayedSensors.size() > 0)) {
+            if ((activity != null) && (!saveDisplayed) && (!activity.displayedSensors.isEmpty())) {
                 showAccessoriesSensor = activity.displayedSensors.contains(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED);
                 showActivatedProfileSensor= activity.displayedSensors.contains(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED);
                 showAlarmClockSensor = activity.displayedSensors.contains(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED);
@@ -2358,7 +2359,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
 
                     // not some permissions
-                    if (eventPermissions.size() == 0) {
+                    if (eventPermissions.isEmpty()) {
                         preference = prefMng.findPreference(PREF_GRANT_PERMISSIONS);
                         if (preference != null) {
                             PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);

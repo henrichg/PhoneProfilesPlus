@@ -15,6 +15,7 @@ import androidx.work.WorkManager;
 
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 class OrientationScanner implements SensorEventListener {
 
     @Override

@@ -58,8 +58,8 @@ public class TimeDurationPicker extends FrameLayout {
      * Implement this interface and set it using #setOnDurationChangeListener to get informed about input changes.
     interface OnDurationChangedListener {
          * Called whenever the input (the displayed duration string) changes.
-         * @param view the view that fired the event
-         * @param duration the new duration in milli seconds
+         * param view the view that fired the event
+         * param duration the new duration in milli seconds
         void onDurationChanged(TimeDurationPicker view, long duration);
     }
     */

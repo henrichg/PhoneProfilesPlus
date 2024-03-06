@@ -53,6 +53,7 @@ import java.util.concurrent.Executors;
 
 import dev.doubledot.doki.views.DokiContentView;
 
+/** @noinspection ExtractMethodRecommender*/
 class PPApplicationStatic {
 
     /** @noinspection BlockingMethodInNonBlockingContext*/
@@ -76,7 +77,7 @@ class PPApplicationStatic {
                     }
                 }
             } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
+                Log.e("PPApplicationStatic._cancelWork", Log.getStackTraceString(e));
             }
 
             if (name.startsWith(MainWorker.EVENT_DELAY_START_WORK_TAG))

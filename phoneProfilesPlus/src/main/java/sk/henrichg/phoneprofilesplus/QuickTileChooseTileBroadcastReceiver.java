@@ -8,6 +8,7 @@ import android.os.PowerManager;
 import android.service.quicksettings.TileService;
 import android.widget.Toast;
 
+/** @noinspection ExtractMethodRecommender*/
 public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
 
     static final String EXTRA_QUICK_TILE_ID = "quick_tile_id";
