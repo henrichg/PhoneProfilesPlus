@@ -1187,7 +1187,7 @@ class ActivateProfileHelper {
         //}
     }
 
-    private static void setVolumes(Context context, Profile profile, AudioManager audioManager, int systemZenMode,
+    private static void setVolumes(Context context, Profile profile, AudioManager audioManager, /*int systemZenMode,*/
                                    int linkUnlink, boolean forProfileActivation, boolean forRingerMode)
     {
         if (profile == null)
@@ -1196,6 +1196,10 @@ class ActivateProfileHelper {
         Context appContext = context.getApplicationContext();
 
         int ringerMode = ApplicationPreferences.prefRingerMode;
+//        Log.e("ActivateProfileHelper.setVolumes", "ringerMode="+ringerMode);
+
+        int systemZenMode = getSystemZenMode(appContext/*, -1*/);
+//        Log.e("ActivateProfileHelper.setVolumes", "systemZenMode="+systemZenMode);
 
         if (forProfileActivation) {
             if (profile._volumeMuteSound) {
@@ -1294,6 +1298,8 @@ class ActivateProfileHelper {
                 //if (isAudibleRinging(ringerMode, zenMode, true) || (ringerMode == 0)) {
                 if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/) || (ringerMode == 0)) {
                     // test only system ringer mode
+
+//                    Log.e("ActivateProfileHelper.setVolumes", "isAudibleSystemRingerMode=true");
 
                     //if (Permissions.checkAccessNotificationPolicy(context)) {
 
@@ -3299,17 +3305,17 @@ class ActivateProfileHelper {
                             GlobalUtils.sleep(500);
 
                             // get actual system zen mode (may be changed in setRingerMode())
-                            int systemZenMode = getSystemZenMode(appContext/*, -1*/);
+                            //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
-                            setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, true);
+                            setVolumes(appContext, profile, audioManager, /*systemZenMode,*/ linkUnlink, forProfileActivation, true);
                         }
                     } else {
 
                         PPApplication.ringerModeInternalChange = true;
 
-                        int systemZenMode = getSystemZenMode(appContext/*, -1*/);
+                        //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
-                        setVolumes(appContext, profile, audioManager, systemZenMode, PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
+                        setVolumes(appContext, profile, audioManager, /*systemZenMode,*/ PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
                     }
 
                     PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
