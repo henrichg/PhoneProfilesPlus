@@ -3682,9 +3682,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 summaryString = summaryString + getString(R.string.preference_profile_generate_notification_show_large_icon) + "; ";
 
             if (notificationBody.isEmpty())
-                summaryString = summaryString + notificationTitle;
+                summaryString = summaryString + StringConstants.CHAR_QUOTE_HTML + notificationTitle + StringConstants.CHAR_QUOTE_HTML;
             else
-                summaryString = summaryString + notificationTitle + ", ...";
+                summaryString = summaryString + StringConstants.CHAR_QUOTE_HTML + notificationTitle + StringConstants.CHAR_QUOTE_HTML
+                                                 + "; " + StringConstants.CHAR_QUOTE_HTML + notificationBody + StringConstants.CHAR_QUOTE_HTML;
 
             _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(summaryString, prefMng, PREF_PROFILE_OTHERS_CATTEGORY_ROOT, context))
