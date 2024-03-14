@@ -1584,7 +1584,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setSummary(summary);
         }
 
-        if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+        if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
             PPListPreference listPreference = findPreference(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT);
             if (listPreference != null) {
                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, null, preferences, true, context);

@@ -5460,7 +5460,7 @@ class ActivateProfileHelper {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 15000;
                 else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 15000";
@@ -5502,7 +5502,7 @@ class ActivateProfileHelper {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 30000;
                 else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 30000";
@@ -5545,7 +5545,7 @@ class ActivateProfileHelper {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 60000;
                 else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 60000";
@@ -5588,7 +5588,7 @@ class ActivateProfileHelper {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 120000;
                 else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 120000";
@@ -5631,7 +5631,7 @@ class ActivateProfileHelper {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 600000;
                 else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 600000";
@@ -5686,7 +5686,7 @@ class ActivateProfileHelper {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 300000;
                 else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 300000";
@@ -5737,7 +5737,7 @@ class ActivateProfileHelper {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 1800000;
                 else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 1800000";
