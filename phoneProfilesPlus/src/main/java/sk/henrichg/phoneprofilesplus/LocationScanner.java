@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 class LocationScanner
 {
     private LocationManager mLocationManager;

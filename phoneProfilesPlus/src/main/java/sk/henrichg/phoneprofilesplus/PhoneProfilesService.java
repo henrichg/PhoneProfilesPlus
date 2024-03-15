@@ -466,8 +466,9 @@ public class PhoneProfilesService extends Service
                     //https://stackoverflow.com/a/72754189/12228079
                     GlobalUtils.sleep(5000);
                 }
-
-                instance.stopSelf();
+                if (instance != null)
+                    // may be null after 5 seconds sleep
+                    instance.stopSelf();
             } catch (Exception e) {
                 //Log.e("PhoneProfilesService.stop", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
