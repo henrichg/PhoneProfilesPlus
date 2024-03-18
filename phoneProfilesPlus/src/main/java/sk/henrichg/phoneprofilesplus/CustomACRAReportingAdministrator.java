@@ -77,7 +77,7 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                     //        (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed != 0))
                     if (PPApplication.lockDeviceActivityDisplayed &&
                             (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed != 0))
-                        Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed);
+                        Settings.System.putInt(context.getApplicationContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed);
                 }
             }
         } catch (Exception ee) {

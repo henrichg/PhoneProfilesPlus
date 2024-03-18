@@ -358,7 +358,8 @@ class PlayRingingNotification
                         int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
                         PPApplication.volumesInternalChange = true;
-                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != mediaRingingVolume)
+                            audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
 //                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.startSimulatingRingingCall", "start simulating");
                         PlayRingingNotification.ringingMediaPlayer.start();
@@ -401,7 +402,8 @@ class PlayRingingNotification
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.stopSimulatingRingingCall", "stop simulating");
 
                     PPApplication.volumesInternalChange = true;
-                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, PlayRingingNotification.oldVolumeForRingingSimulation, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != PlayRingingNotification.oldVolumeForRingingSimulation)
+                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, PlayRingingNotification.oldVolumeForRingingSimulation, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     /*if (PlayRingingNotification.simulatingRingingCallRingingMuted == -1) {
                         // ringing was not mutted at start of simulation and was mutted by simuation
                         // result: must be unmutted
@@ -703,7 +705,8 @@ class PlayRingingNotification
                                 int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
                                 int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * 75.0f);
                                 PPApplication.volumesInternalChange = true;
-                                audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != mediaRingingVolume)
+                                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                             } else
                                 PlayRingingNotification.oldVolumeForPlayNotificationSound = -1;
 
@@ -733,7 +736,8 @@ class PlayRingingNotification
                                                 (!PPApplication.volumesMediaVolumeChangeed)) {
                                             try {
                                                 PPApplication.volumesInternalChange = true;
-                                                audioManager.setStreamVolume(AudioManager.STREAM_ALARM, PlayRingingNotification.oldVolumeForPlayNotificationSound, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                                if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != PlayRingingNotification.oldVolumeForRingingSimulation)
+                                                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, PlayRingingNotification.oldVolumeForPlayNotificationSound, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                             } catch (Exception e) {
                                                 //PPApplicationStatic.recordException(e);
                                             }
@@ -792,7 +796,8 @@ class PlayRingingNotification
                                 (!PPApplication.volumesMediaVolumeChangeed)) {
                             try {
                                 PPApplication.volumesInternalChange = true;
-                                audioManager.setStreamVolume(AudioManager.STREAM_ALARM, PlayRingingNotification.oldVolumeForPlayNotificationSound, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != PlayRingingNotification.oldVolumeForRingingSimulation)
+                                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, PlayRingingNotification.oldVolumeForPlayNotificationSound, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                             } catch (Exception e) {
                                 //PPApplicationStatic.recordException(e);
                             }

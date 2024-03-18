@@ -436,8 +436,6 @@ at sk.henrichg.phoneprofilesplus.ActivateProfileHelper.execute(ActivateProfileHe
                                         profile.getDeviceBrightnessManualValue(appContext));
 Tu sa nahadzuje integer takze profile.getDeviceBrightnessManualValue(appContext) nevrati null.
 
-Co je zvlastne, ze to pada vzdy pri Samsungoch, A-ckovy typ.
-
 Mozno sa to uvolnuje postupne, ako to nahadzuje do db. Tak mozno to ani nie je vec threadu, ale package.
 Proste prilis vela veci naraz menim. Sa to cachuje Ako ale toto vyriesit? Hm, hm.
 

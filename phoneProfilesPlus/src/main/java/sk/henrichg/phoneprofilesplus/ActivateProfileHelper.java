@@ -1134,6 +1134,8 @@ class ActivateProfileHelper {
 
                             //RingerModeChangeReceiver.internalChange = true;
 
+                            // !!! force change ring and notification volume, it is required !!!
+
                             int ringerMode = audioManager.getRingerMode();
                             int maximumNotificationValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
                             int oldRingVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
@@ -1284,7 +1286,8 @@ class ActivateProfileHelper {
                 if (profile.getVolumeAccessibilityChange()) {
                     try {
                         //EventPreferencesVolumes.internalChange = true;
-                        audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        if (audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY) != profile.getVolumeAccessibilityValue())
+                            audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                         //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
@@ -1315,7 +1318,8 @@ class ActivateProfileHelper {
                                 }
                                 try {
                                     //EventPreferencesVolumes.internalChange = true;
-                                    audioManager.setStreamVolume(AudioManager.STREAM_DTMF /* 8 */, profile.getVolumeDTMFValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                    if (audioManager.getStreamVolume(AudioManager.STREAM_DTMF) != profile.getVolumeDTMFValue())
+                                        audioManager.setStreamVolume(AudioManager.STREAM_DTMF /* 8 */, profile.getVolumeDTMFValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_DTMF, profile.getVolumeDTMFValue());
                                 } catch (Exception e) {
                                     PPApplicationStatic.recordException(e);
@@ -1330,7 +1334,8 @@ class ActivateProfileHelper {
                                 }
                                 try {
                                     //EventPreferencesVolumes.internalChange = true;
-                                    audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM /* 1 */, profile.getVolumeSystemValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                    if (audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM) != profile.getVolumeSystemValue())
+                                        audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM /* 1 */, profile.getVolumeSystemValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSTEM, profile.getVolumeSystemValue());
                                     //correctVolume0(audioManager);
                                 } catch (Exception e) {
@@ -1356,12 +1361,14 @@ class ActivateProfileHelper {
                                 if (volume != -999) {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
-                                        audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                        if (audioManager.getStreamVolume(AudioManager.STREAM_RING) != volume)
+                                            audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         PlayRingingNotification.simulatingRingingCallActualRingingVolume = volume;
                                         //PhoneProfilesService.notificationVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                                         //EventPreferencesVolumes.internalChange = true;
-                                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                        if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) != volume)
+                                            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                                         //correctVolume0(audioManager);
                                         if (!profile.getVolumeNotificationChange())
@@ -1378,7 +1385,8 @@ class ActivateProfileHelper {
                                 if (volume != -999) {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
-                                        audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                        if (audioManager.getStreamVolume(AudioManager.STREAM_RING) != volume)
+                                            audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         PlayRingingNotification.simulatingRingingCallActualRingingVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                                         if (!profile.getVolumeNotificationChange())
@@ -1391,7 +1399,8 @@ class ActivateProfileHelper {
                                 if (volume != -999) {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
-                                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                        if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) != volume)
+                                            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         //PhoneProfilesService.notificationVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                                     } catch (Exception e) {
@@ -1406,7 +1415,8 @@ class ActivateProfileHelper {
                                 if (volume != -999) {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
-                                        audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                        if (audioManager.getStreamVolume(AudioManager.STREAM_RING) != volume)
+                                            audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         PlayRingingNotification.simulatingRingingCallActualRingingVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
                                         //correctVolume0(audioManager);
@@ -1420,7 +1430,8 @@ class ActivateProfileHelper {
                                 if (volume != -999) {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
-                                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                        if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) != volume)
+                                            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         //PhoneProfilesService.notificationVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
                                         //correctVolume0(audioManager);
@@ -1441,7 +1452,8 @@ class ActivateProfileHelper {
                                 if (volume != -999) {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
-                                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                        if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) != volume)
+                                            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         //PhoneProfilesService.notificationVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
                                         //correctVolume0(audioManager);
@@ -1456,7 +1468,8 @@ class ActivateProfileHelper {
                             if (volume != -999) {
                                 try {
                                     //EventPreferencesVolumes.internalChange = true;
-                                    audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                    if (audioManager.getStreamVolume(AudioManager.STREAM_RING) != volume)
+                                        audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                     PlayRingingNotification.simulatingRingingCallActualRingingVolume = volume;
                                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
                                     //correctVolume0(audioManager);
@@ -1474,7 +1487,8 @@ class ActivateProfileHelper {
             if (profile.getVolumeBluetoothSCOChange()) {
                 try {
                     //EventPreferencesVolumes.internalChange = true;
-                    audioManager.setStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO, profile.getVolumeBluetoothSCOValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    if (audioManager.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO) != profile.getVolumeBluetoothSCOValue())
+                        audioManager.setStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO, profile.getVolumeBluetoothSCOValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
@@ -1483,7 +1497,8 @@ class ActivateProfileHelper {
             if (profile.getVolumeVoiceChange()) {
                 try {
                     //EventPreferencesVolumes.internalChange = true;
-                    audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL /* 0 */, profile.getVolumeVoiceValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    if (audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL) != profile.getVolumeVoiceValue())
+                        audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL /* 0 */, profile.getVolumeVoiceValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
@@ -1492,7 +1507,8 @@ class ActivateProfileHelper {
             if (profile.getVolumeAlarmChange()) {
                 try {
                     //EventPreferencesVolumes.internalChange = true;
-                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM /* 4 */, profile.getVolumeAlarmValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != profile.getVolumeAlarmValue())
+                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM /* 4 */, profile.getVolumeAlarmValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_ALARM, profile.getVolumeAlarmValue());
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
@@ -1524,6 +1540,7 @@ class ActivateProfileHelper {
             //if (PPApplication.deviceIsOnePlus)
             //    Settings.System.putInt(context.getContentResolver(), Settings.System.VOLUME_MUSIC, value);
             //else
+            if (audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) != value)
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 //            Log.e("ActivateProfileHelper.setMediaVolume", "audioManager.setStreamVolume");
 
@@ -1543,7 +1560,8 @@ class ActivateProfileHelper {
                     if (Settings.Global.getInt(appContext.getContentResolver(),
                             AUDIO_SAFE_VOLUME_STATE, -1) != 2)
                         Settings.Global.putInt(appContext.getContentResolver(), AUDIO_SAFE_VOLUME_STATE, 2);
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    if (audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) != value)
+                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     G1OK = true;
 
                     if (setMediaVolumeChanged)
@@ -1565,7 +1583,8 @@ class ActivateProfileHelper {
                             //EventPreferencesVolumes.internalChange = true;
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_MEDIA_VOLUME);
-                            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                            if (audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) != value)
+                                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                             if (setMediaVolumeChanged)
                                 PPApplication.volumesMediaVolumeChangeed = true;
@@ -2413,7 +2432,7 @@ class ActivateProfileHelper {
                                             }
                                             String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_SAMSUNG);
                                             if ((actualValue == null) || (!actualValue.equals(uri.toString())))
-                                                Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_SAMSUNG, uri.toString());
+                                                Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_SAMSUNG, uri.toString());
                                         } else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
 //                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Huawei uri=" + uri.toString());
 
@@ -2423,7 +2442,7 @@ class ActivateProfileHelper {
                                             }
                                             String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_HUAWEI);
                                             if ((actualValue == null) || (!actualValue.equals(uri.toString())))
-                                                Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_HUAWEI, uri.toString());
+                                                Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_HUAWEI, uri.toString());
                                         } else if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
 //                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Xiaomi uri=" + uri.toString());
 
@@ -2433,7 +2452,7 @@ class ActivateProfileHelper {
                                             }
                                             String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_XIAOMI);
                                             if ((actualValue == null) || (!actualValue.equals(uri.toString())))
-                                                Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_XIAOMI, uri.toString());
+                                                Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_XIAOMI, uri.toString());
                                         } else if (PPApplication.deviceIsOnePlus) {
 //                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 OnePlus uri=" + uri.toString());
 
@@ -2443,7 +2462,7 @@ class ActivateProfileHelper {
                                             }
                                             String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_ONEPLUS);
                                             if ((actualValue == null) || (!actualValue.equals(uri.toString())))
-                                                Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_ONEPLUS, uri.toString());
+                                                Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_ONEPLUS, uri.toString());
                                         }
                                     }
                                 }
@@ -2492,28 +2511,28 @@ class ActivateProfileHelper {
     //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Samsung uri=null");
 
                                     if ((Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_SAMSUNG) != null))
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_SAMSUNG, null);
+                                        Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_SAMSUNG, null);
                                 }
                                 else
                                 if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
     //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Huawei uri=null");
 
                                     if ((Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_HUAWEI) != null))
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_HUAWEI, null);
+                                        Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_HUAWEI, null);
                                 }
                                 else
                                 if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
     //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Xiaomi uri=null");
 
                                     if ((Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_XIAOMI) != null))
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_XIAOMI, null);
+                                        Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_XIAOMI, null);
                                 }
                                 else
                                 if (PPApplication.deviceIsOnePlus) {
 //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 OnePlus uri=null");
 
                                     if ((Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_ONEPLUS) != null))
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM1_ONEPLUS, null);
+                                        Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM1_ONEPLUS, null);
                                 }
                             }
                             catch (IllegalArgumentException | IllegalStateException e) {
@@ -2576,7 +2595,7 @@ class ActivateProfileHelper {
                                             }
                                             String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_SAMSUNG);
                                             if ((actualValue == null) || (!actualValue.equals(uri.toString())))
-                                                Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_SAMSUNG, uri.toString());
+                                                Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_SAMSUNG, uri.toString());
                                         } else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
 //                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Huawei uri=" + uri.toString());
 
@@ -2586,7 +2605,7 @@ class ActivateProfileHelper {
                                             }
                                             String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_HUAWEI);
                                             if ((actualValue == null) || (!actualValue.equals(uri.toString())))
-                                                Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_HUAWEI, uri.toString());
+                                                Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_HUAWEI, uri.toString());
                                         } else if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
 //                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Xiaomi uri=" + uri.toString());
 
@@ -2596,7 +2615,7 @@ class ActivateProfileHelper {
                                             }
                                             String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_XIAOMI);
                                             if ((actualValue == null) || (!actualValue.equals(uri.toString())))
-                                                Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_XIAOMI, uri.toString());
+                                                Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_XIAOMI, uri.toString());
                                         } else if (PPApplication.deviceIsOnePlus) {
 //                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 OnePlus uri=" + uri.toString());
 
@@ -2606,7 +2625,7 @@ class ActivateProfileHelper {
                                             }
                                             String actualValue = Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS);
                                             if ((actualValue == null) || (!actualValue.equals(uri.toString())))
-                                                Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS, uri.toString());
+                                                Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS, uri.toString());
                                         }
                                     }
                                 }
@@ -2653,22 +2672,22 @@ class ActivateProfileHelper {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Samsung uri=null");
 
                                     if (Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_SAMSUNG) != null)
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_SAMSUNG, null);
+                                        Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_SAMSUNG, null);
                                 } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Huawei uri=null");
 
                                     if (Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_HUAWEI) != null)
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_HUAWEI, null);
+                                        Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_HUAWEI, null);
                                 } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Xiaomi uri=null");
 
                                     if (Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_XIAOMI) != null)
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_XIAOMI, null);
+                                        Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_XIAOMI, null);
                                 } else if (PPApplication.deviceIsOnePlus) {
 //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 OnePlus uri=null");
 
                                     if (Settings.System.getString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS) != null)
-                                        Settings.System.putString(context.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS, null);
+                                        Settings.System.putString(appContext.getContentResolver(), PREF_RINGTONE_SIM2_ONEPLUS, null);
                                 }
                             } catch (IllegalArgumentException | IllegalStateException e) {
                                 // java.lang.IllegalArgumentException: Invalid column: _data
