@@ -168,6 +168,7 @@ public class PPApplication extends Application
 
     static final String GITHUB_PPPPS_RELEASES_URL = "https://github.com/henrichg/PPPPutSettings/releases";
     static final String GITHUB_PPPPS_DOWNLOAD_URL = "https://github.com/henrichg/PPPPutSettings/releases/latest/download/PPPPutSettings.apk";
+    //This file: https://github.com/henrichg/PPPPutSettings/blob/main/docs/install_apk_from_pc.md
     static final String GITHUB_PPPPS_HOW_TO_INSTALL_URL = "https://henrichg.github.io/PPPPutSettings/install_apk_from_pc.html";
     static final String GITHUB_PPPPS_HOW_TO_INSTALL_URL_DEVEL = "https://github.com/henrichg/PPPPutSettings/blob/devel/docs/install_apk_from_pc.md";
 
