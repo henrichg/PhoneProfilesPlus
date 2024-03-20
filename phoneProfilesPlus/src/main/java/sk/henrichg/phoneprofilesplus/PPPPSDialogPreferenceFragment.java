@@ -180,7 +180,11 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             });
         } else {
             dialogBuilder.setPositiveButton(activity.getString(R.string.install_pppps_alert_button_how_to_install), (dialog, which) -> {
-                String url = PPApplication.GITHUB_PPPPS_HOW_TO_INSTALL_URL;
+                String url;
+                if (DebugVersion.enabled)
+                    url = PPApplication.GITHUB_PPPPS_HOW_TO_INSTALL_URL_DEVEL;
+                else
+                    url = PPApplication.GITHUB_PPPPS_HOW_TO_INSTALL_URL;
 
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
