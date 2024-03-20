@@ -129,6 +129,12 @@ class ActivateProfileHelper {
     private static final String SETTINGS_PREF_RING_VIBRATION_INTENSITY = "ring_vibration_intensity";
     private static final String SETTINGS_PREF_VIBRATE_ON = "vibrate_on";
     private static final String SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY = "notification_vibration_intensity";
+    private static final String SETTINGS_AUDIO_SAFE_VOLUME_STATE = "audio_safe_volume_state";
+    private static final String SETTINGS_HEADSUP_NOTIFICATION_ENABLED = "heads_up_notifications_enabled";
+    private static final String SETTINGS_LOW_POWER = "low_power";
+    private static final String SETTINGS_DOZE_ALWAYS_ON = "doze_always_on";
+    private static final String SETTINGS_UI_NIGHT_MODE = "ui_night_mode";
+
 
     @SuppressLint("MissingPermission")
     private static void doExecuteForRadios(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences)
@@ -1549,8 +1555,6 @@ class ActivateProfileHelper {
         } catch (SecurityException e) {
             //PPApplicationStatic.recordException(e);
 
-            final String AUDIO_SAFE_VOLUME_STATE = "audio_safe_volume_state";
-
             boolean G1OK = false;
             Context appContext = context.getApplicationContext();
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
@@ -1558,8 +1562,8 @@ class ActivateProfileHelper {
                 try {
                     //EventPreferencesVolumes.internalChange = true;
                     if (Settings.Global.getInt(appContext.getContentResolver(),
-                            AUDIO_SAFE_VOLUME_STATE, -1) != 2)
-                        Settings.Global.putInt(appContext.getContentResolver(), AUDIO_SAFE_VOLUME_STATE, 2);
+                            SETTINGS_AUDIO_SAFE_VOLUME_STATE, -1) != 2)
+                        Settings.Global.putInt(appContext.getContentResolver(), SETTINGS_AUDIO_SAFE_VOLUME_STATE, 2);
                     if (audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) != value)
                         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     G1OK = true;
@@ -1577,7 +1581,7 @@ class ActivateProfileHelper {
                         (RootUtils.isRooted(/*false*/))) {
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setMediaVolume", "PPApplication.rootMutex");
                     synchronized (PPApplication.rootMutex) {
-                        String command1 = COMMAND_SETTINGS_PUT_GLOBAL+AUDIO_SAFE_VOLUME_STATE+" 2";
+                        String command1 = COMMAND_SETTINGS_PUT_GLOBAL+SETTINGS_AUDIO_SAFE_VOLUME_STATE+" 2";
                         Command command = new Command(0, /*false,*/ command1);
                         try {
                             //EventPreferencesVolumes.internalChange = true;
@@ -3446,12 +3450,11 @@ class ActivateProfileHelper {
                     if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         boolean G1OK = false;
-                        final String HEADSUP_NOTIFICATION_ENABLED = "heads_up_notifications_enabled";
                         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                             try {
                                 if (Settings.Global.getInt(appContext.getContentResolver(),
-                                        HEADSUP_NOTIFICATION_ENABLED, -1) != value)
-                                    Settings.Global.putInt(appContext.getContentResolver(), HEADSUP_NOTIFICATION_ENABLED, value);
+                                        SETTINGS_HEADSUP_NOTIFICATION_ENABLED, -1) != value)
+                                    Settings.Global.putInt(appContext.getContentResolver(), SETTINGS_HEADSUP_NOTIFICATION_ENABLED, value);
                                 G1OK = true;
                             } catch (Exception ee) {
                                 PPApplicationStatic.logException("ActivateProfileHelper.setHeadsUpNotifications", Log.getStackTraceString(ee));
@@ -3462,7 +3465,7 @@ class ActivateProfileHelper {
                                     (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
 //                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setHeadsUpNotifications", "PPApplication.rootMutex");
                                 synchronized (PPApplication.rootMutex) {
-                                    String command1 = COMMAND_SETTINGS_PUT_GLOBAL+ HEADSUP_NOTIFICATION_ENABLED + " " + value;
+                                    String command1 = COMMAND_SETTINGS_PUT_GLOBAL+ SETTINGS_HEADSUP_NOTIFICATION_ENABLED + " " + value;
                                     //if (PPApplication.isSELinuxEnforcing())
                                     //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                                     Command command = new Command(0, /*false,*/ command1); //, command2);
@@ -3524,15 +3527,14 @@ class ActivateProfileHelper {
                         //        G1OK = true;
                         //    }
                         //} else {
-                        final String DOZE_ALWAYS_ON = "doze_always_on";
                             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                                 try {
                                     //if (PPApplication.deviceIsOnePlus)
                                     //    Settings.Secure.putInt(appContext.getContentResolver(), "doze_enabled", value);
                                     //else
                                     if (Settings.Secure.getInt(appContext.getContentResolver(),
-                                            DOZE_ALWAYS_ON, -1) != value)
-                                        Settings.Secure.putInt(appContext.getContentResolver(), DOZE_ALWAYS_ON, value);
+                                            SETTINGS_DOZE_ALWAYS_ON, -1) != value)
+                                        Settings.Secure.putInt(appContext.getContentResolver(), SETTINGS_DOZE_ALWAYS_ON, value);
                                     G1OK = true;
                                 } catch (Exception ee) {
                                     PPApplicationStatic.logException("ActivateProfileHelper.setAlwaysOnDisplay", Log.getStackTraceString(ee));
@@ -3549,7 +3551,7 @@ class ActivateProfileHelper {
                                         //command1 = "settings put system " + "aod_mode" + " " + value;
                                     //    command1 = "settings put secure " + "doze_enabled" + " " + value;
                                     //else
-                                        command1 = COMMAND_SETTINGS_PUT_SECURE + DOZE_ALWAYS_ON + " " + value;
+                                        command1 = COMMAND_SETTINGS_PUT_SECURE + SETTINGS_DOZE_ALWAYS_ON + " " + value;
                                     //if (PPApplication.isSELinuxEnforcing())
                                     //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                                     Command command = new Command(0, /*false,*/ command1); //, command2);
@@ -6753,7 +6755,6 @@ class ActivateProfileHelper {
         if (!ok)
             return;
 
-        final String LOCATION_PROVIDERS_ALLOWED = "location_providers_allowed ";
         final String GPS_ON = "+gps";
         final String GPS_OFF = "-gps";
 
@@ -6771,13 +6772,11 @@ class ActivateProfileHelper {
                         locationManager.setProviderEnabledForUser(LocationManager.GPS_PROVIDER, true, android.os.Process.myUserHandle());
                     }
                     else*/ {
-                        String newSet;
-                        newSet = GPS_ON;
                         //noinspection deprecation
                         String actualValue = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-                        if ((actualValue == null) || (!actualValue.equals(newSet)))
+                        if ((actualValue == null) || (!actualValue.equals(GPS_ON)))
                             //noinspection deprecation
-                            Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
+                            Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, GPS_ON);
                     }
                     G1OK = true;
                 } catch (Exception ee) {
@@ -6793,7 +6792,8 @@ class ActivateProfileHelper {
 
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setGPS", "(1) PPApplication.rootMutex");
                     synchronized (PPApplication.rootMutex) {
-                        command1 = COMMAND_SETTINGS_PUT_SECURE+LOCATION_PROVIDERS_ALLOWED+GPS_ON;
+                        //noinspection deprecation
+                        command1 = COMMAND_SETTINGS_PUT_SECURE+Settings.Secure.LOCATION_PROVIDERS_ALLOWED+GPS_ON;
                         Command command = new Command(0, /*false,*/ command1);
                         try {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
@@ -6831,13 +6831,11 @@ class ActivateProfileHelper {
                         locationManager.setProviderEnabledForUser(LocationManager.GPS_PROVIDER, true, android.os.Process.myUserHandle());
                     }
                     else*/ {
-                        String newSet;// = "";
-                        newSet = GPS_OFF;
                         //noinspection deprecation
                         String actualValue = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-                        if ((actualValue == null) || (!actualValue.equals(newSet)))
+                        if ((actualValue == null) || (!actualValue.equals(GPS_OFF)))
                             //noinspection deprecation
-                            Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
+                            Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, GPS_OFF);
                     }
                     G1OK = true;
                 } catch (Exception ee) {
@@ -6853,7 +6851,8 @@ class ActivateProfileHelper {
 
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setGPS", "(2) PPApplication.rootMutex");
                     synchronized (PPApplication.rootMutex) {
-                        command1 = COMMAND_SETTINGS_PUT_SECURE+LOCATION_PROVIDERS_ALLOWED+GPS_OFF;
+                        //noinspection deprecation
+                        command1 = COMMAND_SETTINGS_PUT_SECURE+Settings.Secure.LOCATION_PROVIDERS_ALLOWED+GPS_OFF;
                         Command command = new Command(0, /*false,*/ command1);
                         try {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
@@ -6970,13 +6969,12 @@ class ActivateProfileHelper {
                                         break;
                                 }
                                 if (_setPowerSaveMode) {
-                                    final String LOW_POWER = "low_power";
                                     boolean G1OK = false;
                                     if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                                         try {
                                             if (Settings.Global.getInt(appContext.getContentResolver(),
-                                                    LOW_POWER, -1) != ((_isPowerSaveMode) ? 1 : 0))
-                                                Settings.Global.putInt(appContext.getContentResolver(), LOW_POWER, ((_isPowerSaveMode) ? 1 : 0));
+                                                    SETTINGS_LOW_POWER, -1) != ((_isPowerSaveMode) ? 1 : 0))
+                                                Settings.Global.putInt(appContext.getContentResolver(), SETTINGS_LOW_POWER, ((_isPowerSaveMode) ? 1 : 0));
                                             G1OK = true;
                                         } catch (Exception ee) {
                                             PPApplicationStatic.logException("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(ee));
@@ -6987,7 +6985,7 @@ class ActivateProfileHelper {
                                                 (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
 //                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setPowerSaveMode", "PPApplication.rootMutex");
                                             synchronized (PPApplication.rootMutex) {
-                                                String command1 = COMMAND_SETTINGS_PUT_GLOBAL+LOW_POWER + " " + ((_isPowerSaveMode) ? 1 : 0);
+                                                String command1 = COMMAND_SETTINGS_PUT_GLOBAL+SETTINGS_LOW_POWER + " " + ((_isPowerSaveMode) ? 1 : 0);
                                                 Command command = new Command(0, /*false,*/ command1);
                                                 try {
                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
@@ -7142,20 +7140,19 @@ class ActivateProfileHelper {
         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, executedProfileSharedPreferences, false, appContext).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (Build.VERSION.SDK_INT >= 29) {
-                final String UI_NIGHT_MODE = "ui_night_mode";
                 boolean G1OK = false;
                 if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                     try {
                         // Android Q (Tasker: https://www.reddit.com/r/tasker/comments/d2ngcl/trigger_android_10_dark_theme_with_brightness/)
                         if (value == 1) {
                             if (Settings.Secure.getInt(appContext.getContentResolver(),
-                                    UI_NIGHT_MODE, -1) != 2)
-                                Settings.Secure.putInt(appContext.getContentResolver(), UI_NIGHT_MODE, 2);
+                                    SETTINGS_UI_NIGHT_MODE, -1) != 2)
+                                Settings.Secure.putInt(appContext.getContentResolver(), SETTINGS_UI_NIGHT_MODE, 2);
                         }
                         else {
                             if (Settings.Secure.getInt(appContext.getContentResolver(),
-                                    UI_NIGHT_MODE, -1) != 1)
-                                Settings.Secure.putInt(appContext.getContentResolver(), UI_NIGHT_MODE, 1);
+                                    SETTINGS_UI_NIGHT_MODE, -1) != 1)
+                                Settings.Secure.putInt(appContext.getContentResolver(), SETTINGS_UI_NIGHT_MODE, 1);
                         }
                         G1OK = true;
                     }
@@ -7169,7 +7166,7 @@ class ActivateProfileHelper {
                             (RootUtils.isRooted(/*false*/))) {
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setScreenDarkMode", "PPApplication.rootMutex");
                         synchronized (PPApplication.rootMutex) {
-                            String command1 = COMMAND_SETTINGS_PUT_SECURE+UI_NIGHT_MODE;
+                            String command1 = COMMAND_SETTINGS_PUT_SECURE+SETTINGS_UI_NIGHT_MODE;
                             if (value == 1)
                                 command1 = command1 + " 2";
                             else
