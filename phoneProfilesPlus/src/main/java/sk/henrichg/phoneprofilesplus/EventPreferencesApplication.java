@@ -17,6 +17,7 @@ import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
 import java.sql.Date;
+//import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 //import android.preference.CheckBoxPreference;
@@ -451,6 +452,10 @@ class EventPreferencesApplication extends EventPreferences {
                 //intent.setClass(context, ApplicationEventEndBroadcastReceiver.class);
 
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
+
+                //SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
+                //String time = sdf.format(alarmTime);
+                //Log.e("EventPreferencesApplication.setAlarm", "alarmTime="+time);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 

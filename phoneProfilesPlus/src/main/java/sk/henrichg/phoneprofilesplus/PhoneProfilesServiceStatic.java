@@ -2181,7 +2181,7 @@ class PhoneProfilesServiceStatic
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
                 dataWrapper.fillEventList();
-                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_NFC/*, false*/);
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/);
             }
             if (allowed) {
                 if (PPApplication.applicationEventEndBroadcastReceiver == null) {
