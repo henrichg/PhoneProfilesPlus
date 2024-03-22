@@ -386,7 +386,7 @@ class Event {
 
     private void createEventPreferencesApplication()
     {
-        this._eventPreferencesApplication = new EventPreferencesApplication(this, false, "");
+        this._eventPreferencesApplication = new EventPreferencesApplication(this, false, "", 0);
     }
 
     private void createEventPreferencesLocation()

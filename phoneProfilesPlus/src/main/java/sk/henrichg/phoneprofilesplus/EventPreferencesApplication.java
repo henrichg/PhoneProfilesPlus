@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,10 +9,16 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.text.format.DateFormat;
+import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+
+import java.sql.Date;
+import java.util.Arrays;
+import java.util.Calendar;
 //import android.preference.CheckBoxPreference;
 //import android.preference.Preference;
 //import android.preference.PreferenceManager;
@@ -19,11 +27,12 @@ import androidx.preference.SwitchPreferenceCompat;
 class EventPreferencesApplication extends EventPreferences {
 
     String _applications;
-    //long _startTime;
-    //int _duration;
+    long _startTime;
+    int _duration;
 
     static final String PREF_EVENT_APPLICATION_ENABLED = "eventApplicationEnabled";
     static final String PREF_EVENT_APPLICATION_APPLICATIONS = "eventApplicationApplications";
+    static final String PREF_EVENT_APPLICATION_DURATION = "eventApplicationDuration";
     static final String PREF_EVENT_APPLICATION_EXTENDER = "eventApplicationExtender";
     //static final String PREF_EVENT_APPLICATION_INSTALL_EXTENDER = "eventApplicationInstallExtender";
     //static final String PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
@@ -33,25 +42,25 @@ class EventPreferencesApplication extends EventPreferences {
 
     EventPreferencesApplication(Event event,
                                        boolean enabled,
-                                       String applications/*,
-                                       int duration*/)
+                                       String applications,
+                                       int duration)
     {
         super(event, enabled);
 
         this._applications = applications;
-        //this._duration = duration;
+        this._duration = duration;
 
-        //this._startTime = 0;
+        this._startTime = 0;
     }
 
     void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesApplication._enabled;
         this._applications = fromEvent._eventPreferencesApplication._applications;
-        //this._duration = fromEvent._eventPreferencesNotification._duration;
+        this._duration = fromEvent._eventPreferencesApplication._duration;
         this.setSensorPassed(fromEvent._eventPreferencesApplication.getSensorPassed());
 
-        //this._startTime = 0;
+        this._startTime = 0;
     }
 
     void loadSharedPreferences(SharedPreferences preferences)
@@ -60,7 +69,7 @@ class EventPreferencesApplication extends EventPreferences {
             Editor editor = preferences.edit();
             editor.putBoolean(PREF_EVENT_APPLICATION_ENABLED, _enabled);
             editor.putString(PREF_EVENT_APPLICATION_APPLICATIONS, this._applications);
-            //editor.putString(PREF_EVENT_NOTIFICATION_DURATION, String.valueOf(this._duration));
+            editor.putInt(PREF_EVENT_APPLICATION_DURATION, this._duration);
             editor.apply();
         //}
     }
@@ -70,7 +79,7 @@ class EventPreferencesApplication extends EventPreferences {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             this._enabled = preferences.getBoolean(PREF_EVENT_APPLICATION_ENABLED, false);
             this._applications = preferences.getString(PREF_EVENT_APPLICATION_APPLICATIONS, "");
-            //this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_DURATION, "5"));
+            this._duration = preferences.getInt(PREF_EVENT_APPLICATION_DURATION, 0);
         //}
     }
 
@@ -132,7 +141,18 @@ class EventPreferencesApplication extends EventPreferences {
                 }
                 _value.append(context.getString(R.string.event_preferences_applications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
-                //descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": " +selectedApplications + "; ";
+                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_applications_duration)).append(StringConstants.STR_COLON_WITH_SPACE);
+                if (this._duration == 0)
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_applications_duration_unlimited), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                else {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.HOUR_OF_DAY, this._duration / 60);
+                    calendar.set(Calendar.MINUTE, this._duration % 60);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(
+                            DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis())),
+                                disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                }
+
                 //descr = descr + context.getString(R.string.pref_event_duration) + ": " +tmp._duration;
             }
         }
@@ -187,13 +207,18 @@ class EventPreferencesApplication extends EventPreferences {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_APPLICATION_APPLICATIONS, "").isEmpty();
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
+        preference = prefMng.findPreference(PREF_EVENT_APPLICATION_DURATION);
+        if (preference != null) {
+            boolean bold = prefMng.getSharedPreferences().getInt(PREF_EVENT_APPLICATION_DURATION, 0) != 0;
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false, false);
+        }
         int _isAccessibilityEnabled = event._eventPreferencesApplication.isAccessibilityServiceEnabled(context, false);
         boolean isAccessibilityEnabled = _isAccessibilityEnabled == 1;
 
         ExtenderDialogPreference extenderPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_EXTENDER);
         if (extenderPreference != null) {
             extenderPreference.setSummaryEDP();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true,
+            GlobalGUIRoutines.setPreferenceTitleStyleX(extenderPreference, enabled, false, false, true,
                     !(isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1)), true);
         }
         /*
@@ -235,6 +260,7 @@ class EventPreferencesApplication extends EventPreferences {
             setSummary(prefMng, key, /*value ? "true" : "false",*/ context);
         }
         if (key.equals(PREF_EVENT_APPLICATION_APPLICATIONS) ||
+            key.equals(PREF_EVENT_APPLICATION_DURATION) ||
             key.equals(PREF_EVENT_APPLICATION_EXTENDER))
             //key.equals(PREF_EVENT_APPLICATION_INSTALL_ EXTENDER))
         {
@@ -246,6 +272,7 @@ class EventPreferencesApplication extends EventPreferences {
     {
         setSummary(prefMng, PREF_EVENT_APPLICATION_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_APPLICATION_APPLICATIONS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_APPLICATION_DURATION, preferences, context);
         setSummary(prefMng, PREF_EVENT_APPLICATION_EXTENDER, preferences, context);
         //setSummary(prefMng, PREF_EVENT_APPLICATION_INSTALL_EXTENDER, preferences, context);
     }
@@ -253,7 +280,7 @@ class EventPreferencesApplication extends EventPreferences {
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            EventPreferencesApplication tmp = new EventPreferencesApplication(this._event, this._enabled, this._applications);
+            EventPreferencesApplication tmp = new EventPreferencesApplication(this._event, this._enabled, this._applications, this._duration);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -340,22 +367,138 @@ class EventPreferencesApplication extends EventPreferences {
         setCategorySummary(prefMng, preferences, context);
     }
 
-    /*
+    private long computeAlarm()
+    {
+        if (_duration > 0) {
+            Calendar calEndTime = Calendar.getInstance();
+
+            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+
+            // _duration is in minutes
+            calEndTime.setTimeInMillis((_startTime - gmtOffset) + (_duration * 60L * 1000L));
+            //calEndTime.set(Calendar.SECOND, 0);
+            //calEndTime.set(Calendar.MILLISECOND, 0);
+
+            long alarmTime;
+            alarmTime = calEndTime.getTimeInMillis();
+
+            return alarmTime;
+        } else
+            return 0;
+    }
+
     @Override
     void setSystemEventForStart(Context context)
     {
+        // set alarm for state PAUSE
+
+        // this alarm generates broadcast, that change state into RUNNING;
+        // from broadcast will by called EventsHandler
+
+        removeAlarm(context);
     }
 
     @Override
     void setSystemEventForPause(Context context)
     {
+        // set alarm for state RUNNING
+
+        // this alarm generates broadcast, that change state into PAUSE;
+        // from broadcast will by called EventsHandler
+
+        removeAlarm(context);
+
+        if (!(isRunnable(context) && _enabled))
+            return;
+
+        setAlarm(computeAlarm(), context);
     }
 
     @Override
     void removeSystemEvent(Context context)
     {
+        removeAlarm(context);
     }
-    */
+
+    void removeAlarm(Context context)
+    {
+        try {
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                //Intent intent = new Intent(context, ApplicationEventEndBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_APPLICATION_EVENT_END_BROADCAST_RECEIVER);
+                //intent.setClass(context, NFCEventEndBroadcastReceiver.class);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
+                if (pendingIntent != null) {
+                    alarmManager.cancel(pendingIntent);
+                    pendingIntent.cancel();
+                }
+            }
+        } catch (Exception e) {
+            PPApplicationStatic.recordException(e);
+        }
+    }
+
+    private void setAlarm(long alarmTime, Context context)
+    {
+        if (_duration > 0) {
+            if (_startTime > 0) {
+                //Intent intent = new Intent(context, ApplicationEventEndBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_APPLICATION_EVENT_END_BROADCAST_RECEIVER);
+                //intent.setClass(context, ApplicationEventEndBroadcastReceiver.class);
+
+                //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                if (alarmManager != null) {
+                    if (ApplicationPreferences.applicationUseAlarmClock) {
+                        Intent editorIntent = new Intent(context, EditorActivity.class);
+                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
+                        alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                    }
+                    else {
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                    }
+                }
+            }
+        }
+    }
+
+    void saveStartTime(DataWrapper dataWrapper, String _packageName, long startTime) {
+        if (this._startTime == 0) {
+            // alarm for end is not set
+
+            boolean packageNameFound = false;
+
+            String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
+            for (String split : splits) {
+                String packageName = Application.getPackageName(split);
+                if (packageName.equals(_packageName)) {
+                    packageNameFound = true;
+                    break;
+                }
+            }
+
+            if (packageNameFound)
+                this._startTime = startTime; //  + (10 * 1000);
+            else
+                this._startTime = 0;
+
+            DatabaseHandler.getInstance(dataWrapper.context).updateApplicationStartTime(_event);
+
+            if (packageNameFound) {
+                //if (_event.getStatus() == Event.ESTATUS_RUNNING)
+                setSystemEventForPause(dataWrapper.context);
+            }
+        }
+    }
 
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
@@ -373,7 +516,28 @@ class EventPreferencesApplication extends EventPreferences {
                             String packageName = Application.getPackageName(split);
 
                             if (foregroundApplication.equals(packageName)) {
-                                eventsHandler.applicationPassed = true;
+                                // TODO test _duration
+                                if (_startTime > 0) {
+                                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                                    long startTime = _startTime - gmtOffset;
+
+                                    // compute end datetime
+                                    long endAlarmTime = computeAlarm();
+
+                                    Calendar now = Calendar.getInstance();
+                                    long nowAlarmTime = now.getTimeInMillis();
+
+                                    if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_APPLICATION))
+                                        eventsHandler.applicationPassed = true;
+                                    else if (_duration != 0) {
+                                        if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_APPLICATION_EVENT_END))
+                                            eventsHandler.applicationPassed = false;
+                                        else
+                                            eventsHandler.applicationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                                    } else
+                                        eventsHandler.applicationPassed = nowAlarmTime >= startTime;
+                                } else
+                                    eventsHandler.applicationPassed = true;
                                 break;
                             }
                         }
@@ -381,6 +545,11 @@ class EventPreferencesApplication extends EventPreferences {
                         eventsHandler.notAllowedApplication = true;
                 } else
                     eventsHandler.notAllowedApplication = true;
+
+                if (!eventsHandler.applicationPassed) {
+                    _startTime = 0;
+                    DatabaseHandler.getInstance(eventsHandler.context).updateApplicationStartTime(_event);
+                }
 
                 if (!eventsHandler.notAllowedApplication) {
                     if (eventsHandler.applicationPassed)

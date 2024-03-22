@@ -4,7 +4,7 @@
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
         <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" value="8.3.0" />
-        <option name="LAST_KNOWN_AGP_VERSION" value="8.3.0" />
+        <option name="LAST_KNOWN_AGP_VERSION" value="8.3.1" />
       </configuration>
     </facet>
     <facet type="android" name="Android">

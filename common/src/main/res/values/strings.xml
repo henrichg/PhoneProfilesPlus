@@ -2171,6 +2171,9 @@
     <string name="nfc_tag_pref_dlg_writeToNfcTag_touch1">Attach your device to an NFC tag. Then click button</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_touch2">Write will be started.</string>
 
+    <string name="event_preferences_applications_duration">Applications run duration</string>
+    <string name="event_preferences_applications_duration_unlimited">Unlimited</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

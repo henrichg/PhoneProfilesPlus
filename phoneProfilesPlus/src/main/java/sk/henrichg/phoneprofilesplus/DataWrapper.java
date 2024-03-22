@@ -1570,7 +1570,6 @@ class DataWrapper {
             PPApplication.updateGUI(false, false, context);
 
             if (_profile != null) {
-                Log.e("ActivateProfileHelper._activateProfile", "call of execute");
                 ActivateProfileHelper.execute(context, _profile);
             }
 
@@ -2661,6 +2660,12 @@ class DataWrapper {
             _event._eventPreferencesCall._startTime = 0;
             DatabaseHandler.getInstance(context.getApplicationContext()).updateCallStartTime(_event);
             _event._eventPreferencesCall.removeAlarm(context);
+        }
+
+        if (force || (_event._eventPreferencesApplication._duration == 0)) {
+            _event._eventPreferencesApplication._startTime = 0;
+            DatabaseHandler.getInstance(context.getApplicationContext()).updateApplicationStartTime(_event);
+            _event._eventPreferencesApplication.removeAlarm(context);
         }
 
         if (force || _event._eventPreferencesAlarmClock._permanentRun) {

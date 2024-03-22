@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2512;
+    static final int DATABASE_VERSION = 2513;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -436,6 +436,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_VOLUMES_VOICE_TO = "volumesVoiceTo";
     static final String KEY_E_VOLUMES_BLUETOOTHSCO_TO = "volumesBluetoothSCOTo";
     static final String KEY_E_VOLUMES_ACCESSIBILITY_TO = "volumesAccessibilityTo";
+    static final String KEY_E_APPLICATION_START_TIME = "applicationStartTime";
+    static final String KEY_E_APPLICATION_DURATION = "applicationDuration";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";
@@ -1103,6 +1105,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     void getPeriodicStartTime(Event event)
     {
         DatabaseHandlerEvents.getPeriodicStartTime(this, event);
+    }
+
+    void updateApplicationStartTime(Event event)
+    {
+        DatabaseHandlerEvents.updateApplicationStartTime(this, event);
+    }
+
+    void getApplicationStartTime(Event event)
+    {
+        DatabaseHandlerEvents.getApplicationStartTime(this, event);
     }
 
     void updateEventForceRun(Event event) {

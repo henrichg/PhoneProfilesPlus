@@ -1010,6 +1010,8 @@ class DatabaseHandlerEvents {
         Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                 new String[]{DatabaseHandler.KEY_E_APPLICATION_ENABLED,
                         DatabaseHandler.KEY_E_APPLICATION_APPLICATIONS,
+                        DatabaseHandler.KEY_E_APPLICATION_DURATION,
+                        DatabaseHandler.KEY_E_APPLICATION_START_TIME,
                         DatabaseHandler.KEY_E_APPLICATION_SENSOR_PASSED
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
@@ -1024,6 +1026,8 @@ class DatabaseHandlerEvents {
 
                 eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_APPLICATION_ENABLED)) == 1);
                 eventPreferences._applications = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_APPLICATION_APPLICATIONS));
+                eventPreferences._duration = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_APPLICATION_DURATION));
+                eventPreferences._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_APPLICATION_START_TIME));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_APPLICATION_SENSOR_PASSED)));
             }
             cursor.close();
@@ -1708,8 +1712,8 @@ class DatabaseHandlerEvents {
 
         values.put(DatabaseHandler.KEY_E_APPLICATION_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(DatabaseHandler.KEY_E_APPLICATION_APPLICATIONS, eventPreferences._applications);
-        //values.put(DatabaseHandler.KEY_E_APPLICATION_START_TIME, eventPreferences._startTime);
-        //values.put(DatabaseHandler.KEY_E_APPLICATION_DURATION, eventPreferences._duration);
+        values.put(DatabaseHandler.KEY_E_APPLICATION_DURATION, eventPreferences._duration);
+        values.put(DatabaseHandler.KEY_E_APPLICATION_START_TIME, eventPreferences._startTime);
         values.put(DatabaseHandler.KEY_E_APPLICATION_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row
@@ -3581,6 +3585,80 @@ class DatabaseHandlerEvents {
                         else
                             event._eventPreferencesPeriodic._startTime = 0;
 
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    static void updateApplicationStartTime(DatabaseHandler instance, Event event)
+    {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(DatabaseHandler.KEY_E_APPLICATION_START_TIME, event._eventPreferencesApplication._startTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandlerEvents.updateNFCStartTimes", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    static void getApplicationStartTime(DatabaseHandler instance, Event event)
+    {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                        new String[]{
+                                DatabaseHandler.KEY_E_APPLICATION_START_TIME
+                        },
+                        DatabaseHandler.KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        event._eventPreferencesApplication._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_APPLICATION_START_TIME));
                     }
 
                     cursor.close();

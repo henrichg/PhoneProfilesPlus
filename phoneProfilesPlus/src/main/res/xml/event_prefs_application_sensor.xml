@@ -18,6 +18,13 @@
         app:dependency="eventApplicationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <sk.henrichg.phoneprofilesplus.TimeDialogPreference
+        app:key="eventApplicationDuration"
+        app:defaultValue="0"
+        app:title="@string/event_preferences_applications_duration"
+        app:dependency="eventApplicationEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
         app:title="@string/pppextender_pref_dialog_title"
         app:summary=""

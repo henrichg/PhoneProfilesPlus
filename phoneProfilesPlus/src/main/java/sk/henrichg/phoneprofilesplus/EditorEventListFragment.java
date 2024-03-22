@@ -2116,6 +2116,7 @@ public class EditorEventListFragment extends Fragment
                             DatabaseHandler.getInstance(dataWrapper.context).getAlarmClockStartTime(event);
                             DatabaseHandler.getInstance(dataWrapper.context).getDeviceBootStartTime(event);
                             DatabaseHandler.getInstance(dataWrapper.context).getPeriodicStartTime(event);
+                            DatabaseHandler.getInstance(dataWrapper.context).getApplicationStartTime(event);
                         }
                     }
 

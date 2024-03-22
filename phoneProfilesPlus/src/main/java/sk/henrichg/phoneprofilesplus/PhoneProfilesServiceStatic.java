@@ -2164,6 +2164,40 @@ class PhoneProfilesServiceStatic
         }
     }
 
+    static void registerReceiverForApplicationSensor(boolean register, DataWrapper dataWrapper, Context context) {
+        Context appContext = context.getApplicationContext();
+        if (!register) {
+            if (PPApplication.applicationEventEndBroadcastReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(PPApplication.applicationEventEndBroadcastReceiver);
+                    PPApplication.applicationEventEndBroadcastReceiver = null;
+                } catch (Exception e) {
+                    PPApplication.applicationEventEndBroadcastReceiver = null;
+                }
+            }
+        }
+        if (register) {
+            boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_NFC/*, false*/);
+            }
+            if (allowed) {
+                if (PPApplication.applicationEventEndBroadcastReceiver == null) {
+                    PPApplication.applicationEventEndBroadcastReceiver = new ApplicationEventEndBroadcastReceiver();
+                    IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_APPLICATION_EVENT_END_BROADCAST_RECEIVER);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.applicationEventEndBroadcastReceiver, intentFilter23, receiverFlags);
+                }
+            }
+            else
+                registerReceiverForApplicationSensor(false, dataWrapper, appContext);
+        }
+    }
+
     static void registerVPNCallback(final boolean register, final DataWrapper dataWrapper, final Context context) {
         final Context appContext = context.getApplicationContext();
 
@@ -2789,6 +2823,9 @@ class PhoneProfilesServiceStatic
         // register receiver for call event
         registerReceiverForCallSensor(true, dataWrapper, appContext);
 
+        // register receiver for application sensor
+        registerReceiverForApplicationSensor(true, dataWrapper, appContext);
+
         // register receiver for Location scanner
         registerLocationScannerReceiver(true, dataWrapper, appContext);
 
@@ -2848,6 +2885,7 @@ class PhoneProfilesServiceStatic
         registerReceiverForTimeSensor(false, null, appContext);
         registerReceiverForNFCSensor(false, null, appContext);
         registerReceiverForCallSensor(false, null, appContext);
+        registerReceiverForApplicationSensor(false, null, appContext);
         registerLocationScannerReceiver(false,  null, appContext);
         registerReceiverForNotificationSensor(false, null, appContext);
         //registerReceiverForOrientationSensor(false, null);
@@ -2910,6 +2948,7 @@ class PhoneProfilesServiceStatic
         registerReceiverForTimeSensor(true, dataWrapper, appContext);
         registerReceiverForNFCSensor(true, dataWrapper, appContext);
         registerReceiverForCallSensor(true, dataWrapper, appContext);
+        registerReceiverForApplicationSensor(true, dataWrapper, appContext);
         registerLocationScannerReceiver(true, dataWrapper, appContext);
         //registerReceiverForOrientationSensor(true, dataWrapper);
         registerReceiverForNotificationSensor(true,dataWrapper, appContext);

@@ -341,7 +341,7 @@ class EventPreferencesSMS extends EventPreferences {
         ExtenderDialogPreference extenderPreference = prefMng.findPreference(PREF_EVENT_SMS_EXTENDER);
         if (extenderPreference != null) {
             extenderPreference.setSummaryEDP();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true,
+            GlobalGUIRoutines.setPreferenceTitleStyleX(extenderPreference, enabled, false, false, true,
                     !(isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1)), true);
         }
         /*

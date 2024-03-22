@@ -40,6 +40,8 @@ class EventsHandler {
     private long eventAlarmClockDate;
     private String eventAlarmClockPackageName;
     private long eventDeviceBootDate;
+    private String eventApplicationPackageName;
+    private long eventApplicationDate;
 
     private boolean startProfileMerged;
     private boolean endProfileMerged;
@@ -150,6 +152,7 @@ class EventsHandler {
     static final int SENSOR_TYPE_SIM_STATE_CHANGED = 52;
     static final int SENSOR_TYPE_BOOT_COMPLETED = 53;
     static final int SENSOR_TYPE_BRIGHTNESS = 54;
+    static final int SENSOR_TYPE_APPLICATION_EVENT_END = 55;
     static final int SENSOR_TYPE_ALL = 999;
 
     EventsHandler(Context context) {
@@ -386,6 +389,16 @@ class EventsHandler {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
                             if (_event._eventPreferencesNFC._enabled) {
                                 _event._eventPreferencesNFC.saveStartTime(dataWrapper, eventNFCTagName, eventNFCDate);
+                            }
+                        }
+                    }
+                }
+                if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_APPLICATION)) {
+                    // search for nfc events, save start time
+                    for (Event _event : dataWrapper.eventList) {
+                        if (_event.getStatus() != Event.ESTATUS_STOP) {
+                            if (_event._eventPreferencesApplication._enabled) {
+                                _event._eventPreferencesApplication.saveStartTime(dataWrapper, eventApplicationPackageName, eventApplicationDate);
                             }
                         }
                     }
@@ -875,6 +888,7 @@ class EventsHandler {
             case SENSOR_TYPE_TIME:
                 return DatabaseHandler.ETYPE_TIME;
             case SENSOR_TYPE_APPLICATION:
+            case SENSOR_TYPE_APPLICATION_EVENT_END:
                 return DatabaseHandler.ETYPE_APPLICATION;
             case SENSOR_TYPE_NOTIFICATION:
                 return DatabaseHandler.ETYPE_NOTIFICATION;
@@ -1456,6 +1470,11 @@ class EventsHandler {
         EventPreferencesCall.setEventCallEventTime(context, eventTime);
         EventPreferencesCall.setEventCallPhoneNumber(context, phoneNumber);
         EventPreferencesCall.setEventCallFromSIMSlot(context, simSlot);
+    }
+
+    void setEventApplicationParameters(String packageName, long date) {
+        eventApplicationPackageName = packageName;
+        eventApplicationDate = date;
     }
 
     void setEventDeviceBootParameters(long date) {

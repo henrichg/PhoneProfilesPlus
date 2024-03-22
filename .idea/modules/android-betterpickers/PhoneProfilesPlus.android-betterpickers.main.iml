@@ -41,12 +41,12 @@
     <orderEntry type="module-library">
       <library name="Gradle: androidx.core:core:1.9.0@aar">
         <ANNOTATIONS>
-          <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c919e84cf21a5073ea88f45ff1a29b85/transformed/core-1.9.0/annotations.zip!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c6785632068e46fbd453bb286dec771b/transformed/core-1.9.0/annotations.zip!/" />
         </ANNOTATIONS>
         <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c919e84cf21a5073ea88f45ff1a29b85/transformed/core-1.9.0/jars/classes.jar!/" />
-          <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c919e84cf21a5073ea88f45ff1a29b85/transformed/core-1.9.0/res" />
-          <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c919e84cf21a5073ea88f45ff1a29b85/transformed/core-1.9.0/AndroidManifest.xml" />
+          <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c6785632068e46fbd453bb286dec771b/transformed/core-1.9.0/jars/classes.jar!/" />
+          <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c6785632068e46fbd453bb286dec771b/transformed/core-1.9.0/res" />
+          <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c6785632068e46fbd453bb286dec771b/transformed/core-1.9.0/AndroidManifest.xml" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
@@ -76,8 +76,8 @@
     <orderEntry type="module-library">
       <library name="Gradle: androidx.arch.core:core-runtime:2.1.0@aar">
         <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/3d121897c12f1c2e0c3ce31a7236b976/transformed/core-runtime-2.1.0/jars/classes.jar!/" />
-          <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3d121897c12f1c2e0c3ce31a7236b976/transformed/core-runtime-2.1.0/AndroidManifest.xml" />
+          <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4eaff65767bc7d69ccacc8c83ef35173/transformed/core-runtime-2.1.0/jars/classes.jar!/" />
+          <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4eaff65767bc7d69ccacc8c83ef35173/transformed/core-runtime-2.1.0/AndroidManifest.xml" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
