@@ -34,10 +34,6 @@ __APKPure:__
 - [PPP release](https://apkpure.net/p/sk.henrichg.phoneprofilesplus)
 - [Store application (download)](https://apkpure.net/apkpure/com.apkpure.aegon)
 
-__Galaxy Store:__
-- Sorry, is not more supported, because this store requires target SDK API 33 (Android 13) and PPP target SDK is 28 (Android 9).
-- [PPP release (for Samsung devices only)](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)
-
 __GitHub (better is using Droid-ify instead):__
 
 - NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Droid-ify, if in your device is not supported application store, and install PhoneProfilesPlus from it.
