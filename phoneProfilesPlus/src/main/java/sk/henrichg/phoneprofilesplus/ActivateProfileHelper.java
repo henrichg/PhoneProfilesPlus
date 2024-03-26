@@ -3879,7 +3879,8 @@ class ActivateProfileHelper {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
                             // Not working change of ringing volume in motorola with SILENT ringer mode
-                            if (PPApplication.deviceIsMotorola || PPApplication.deviceIsSony)
+                            //if (PPApplication.deviceIsMotorola || PPApplication.deviceIsSony)
+                            if (Build.VERSION.SDK_INT >= 34)
                                 setRingerMode(audioManager, AudioManager.RINGER_MODE_NORMAL);
                             else
                                 setRingerMode(audioManager, AudioManager.RINGER_MODE_SILENT);
