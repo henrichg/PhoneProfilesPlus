@@ -3878,8 +3878,7 @@ class ActivateProfileHelper {
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
-                            // Not working change of ringing volume in motorola with SILENT ringer mode
-                            //if (PPApplication.deviceIsMotorola || PPApplication.deviceIsSony)
+                            // Not working change of ringing volume with SILENT ringer mode in Android14+
                             if (Build.VERSION.SDK_INT >= 34)
                                 setRingerMode(audioManager, AudioManager.RINGER_MODE_NORMAL);
                             else
