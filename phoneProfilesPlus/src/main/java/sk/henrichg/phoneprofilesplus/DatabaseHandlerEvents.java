@@ -753,8 +753,8 @@ class DatabaseHandlerEvents {
                 eventPreferences._contactListType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTACT_LIST_TYPE));
                 eventPreferences._contactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTACT_GROUPS));
                 eventPreferences._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_START_TIME));
-                eventPreferences._duration = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_DURATION));
-                eventPreferences._permanentRun = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_PERMANENT_RUN)) == 1);
+                eventPreferences._runAfterCallEndDuration = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_DURATION));
+                eventPreferences._runAfterCallEndPermanentRun = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_PERMANENT_RUN)) == 1);
                 eventPreferences._fromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_FROM_SIM_SLOT));
                 eventPreferences._forSIMCard = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SENSOR_PASSED)));
@@ -1558,8 +1558,8 @@ class DatabaseHandlerEvents {
         values.put(DatabaseHandler.KEY_E_CALL_CONTACT_LIST_TYPE, eventPreferences._contactListType);
         values.put(DatabaseHandler.KEY_E_CALL_CONTACT_GROUPS, eventPreferences._contactGroups);
         values.put(DatabaseHandler.KEY_E_CALL_START_TIME, eventPreferences._startTime);
-        values.put(DatabaseHandler.KEY_E_CALL_DURATION, eventPreferences._duration);
-        values.put(DatabaseHandler.KEY_E_CALL_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_DURATION, eventPreferences._runAfterCallEndDuration);
+        values.put(DatabaseHandler.KEY_E_CALL_PERMANENT_RUN, (eventPreferences._runAfterCallEndPermanentRun) ? 1 : 0);
         values.put(DatabaseHandler.KEY_E_CALL_SENSOR_PASSED, eventPreferences.getSensorPassed());
         values.put(DatabaseHandler.KEY_E_CALL_FROM_SIM_SLOT, eventPreferences._fromSIMSlot);
         values.put(DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD, eventPreferences._forSIMCard);

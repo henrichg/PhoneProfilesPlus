@@ -2655,10 +2655,10 @@ class DataWrapper {
             _event._eventPreferencesNFC.removeAlarm(context);
         }
 
-        if (force || _event._eventPreferencesCall._permanentRun) {
+        if (force || _event._eventPreferencesCall._runAfterCallEndPermanentRun) {
             _event._eventPreferencesCall._startTime = 0;
             DatabaseHandler.getInstance(context.getApplicationContext()).updateCallStartTime(_event);
-            _event._eventPreferencesCall.removeAlarm(context);
+            _event._eventPreferencesCall.removeRunAfterCallEndAlarm(context);
         }
 
         if (force || (_event._eventPreferencesApplication._duration == 0)) {

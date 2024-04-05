@@ -2174,6 +2174,13 @@
     <string name="event_preferences_applications_duration">Applications run duration</string>
     <string name="event_preferences_applications_duration_unlimited">Unlimited</string>
 
+    <string name="event_preferences_call_duration_after_call">Run duration after call</string>
+    <string name="event_preferences_call_ringing_call">Ringing call</string>
+    <string name="event_preferences_call_stop_ringing">Stop ringing</string>
+    <string name="event_preferences_call_ringing_duration">Ringing duration</string>
+    <string name="event_preferences_call_send_sms">Send SMS</string>
+    <string name="event_preferences_call_sms_text">SMS text</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

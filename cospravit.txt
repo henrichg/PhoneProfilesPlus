@@ -497,59 +497,24 @@ https://developer.android.com/develop/connectivity/nfc/nfc#ext-type
 
 --------------------------------
 
-Location:
+Call sensor a nova funkcia na stop zvonenia + poslanie sms
 
-Location editor - ako inicializujem location:
+parameter _duration: pouziva sa len pre _callEvent =
+CALL_EVENT_MISSED_CALL, CALL_EVENT_INCOMING_CALL_ENDED, CALL_EVENT_OUTGOING_CALL_ENDED
+Cize len ked za zachyti missed call a skonci hovor sa nahodi alarm s _duration.
 
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+Takze sa nemoze pouzit na stop zvonenia. Cize sprav:
+- _duration, _permanentRun daj do kategorie na "Run duration after call"
+HOTOVO
+- pridaj zvlast parameter _ringingDuration, ktory sa pouzije na nahodenie alarmu pri CALL_EVENT_RINGING,
+pri zaciatku zvonenia.
 
-        // !!! ziskavam, best provider - tu bude rozdiel podla mna.
-        //  V senzore pouzivam but NETWORK alebo GPS provider.
-        //  Zisti, akeho providera tu dostanem.
-        provider = mLocationManager.getBestProvider(criteria, false);
-        if ((provider != null) && (!provider.isEmpty()))
-            locationEnabled = true;
-        else
-            provider = "";
+Cize:
+- ak ApplicationPreferences.prefEventCallEventType = PHONE_CALL_EVENT_INCOMING_CALL_RINGING nahodit
+  alarm s _ringingDuration
+- pri ostatnych PHONE_CALL_EVENT_xxx removnut tento alarm
+- stopnut zvonenie a poslat sms len ak pride broadcast na alarm s _ringingDuration
 
-        // UPDATE_INTERVAL_IN_MILLISECONDS = 500  -- kazdych 500 milisekund, hooodne, hooodne casto
-        mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener);
 
-        private final LocationListener mLocationListener = new LocationListener() {
-            public void onLocationChanged(Location location) {
-                // tu beriem lokaciu, ktoru ziskam z listenera a toto kreslim v mape ako modry kruh
-                mLastLocation = location;
-            }
+Alarm sa musi zrusit pri zdvihnuti, ukonceni, missed hovoru.
 
-Location scanner - ako inicializujem location:
-
-        String provider = PPApplication.locationScanner.startLocationUpdates();
-            // bud nastavuje NETWORK alebo GPS (to len ak to je zapnute a zrovna to aj ma na tych pas minut pouizvat)
-            // testuje sa aj toto:
-            //  mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-            //  a ak nie je povoleny (vrati false), natrvdo sa nastavi NETWORK
-            //  Ak vysledok je, ze nie je provider povoleny, nastavi best provider, ako v location editore:
-            //        Criteria criteria = new Criteria();
-            //        criteria.setAccuracy(Criteria.ACCURACY_FINE);
-            //        //criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
-            //        provider = mLocationManager.getBestProvider(criteria, false);
-            provider = getProvider(true);
-
-            // podla nastaveneho intervalu v skeneri
-            final long UPDATE_INTERVAL_IN_MILLISECONDS = (interval * 1000L) / 2;
-            // ten mDistanceM = 10 --> co to je? tym urcujem ake zmeny ma zaujimaju? Ale co to je? Metre? Pozri dokumentaciu
-            mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 10, mLocationListener, PPApplication.handlerThreadLocation.getLooper());
-
-            static void doLocationChanged(Location location, boolean callEventsHandler) {
-                /// toto mam preco? Zisti co to znamena
-                if ((!location.hasAccuracy()))
-                    return;
-
-                /// toto mam preco? Zisti co to znamena
-                if (location.getAccuracy() > 500)
-                    return;
-
-                // tu beriem lokaciu, ktoru ziskam z listenera a pouzivam v sensore
-                PPApplication.lastLocation.set(location);
-            }
