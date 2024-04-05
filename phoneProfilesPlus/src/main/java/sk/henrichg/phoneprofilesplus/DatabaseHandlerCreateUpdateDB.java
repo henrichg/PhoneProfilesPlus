@@ -243,8 +243,8 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_E_RADIO_SWITCH_AIRPLANE_MODE + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_NOTIFICATION_VIBRATE_START + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_E_CALL_DURATION + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_E_CALL_PERMANENT_RUN + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_DURATION + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_PERMANENT_RUN + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_CALL_START_TIME + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_NOTIFICATION_SOUND_REPEAT_START + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START + " " + DatabaseHandler.INTEGER_TYPE + ","
@@ -358,7 +358,11 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_TO + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_TO + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_E_APPLICATION_DURATION + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_E_APPLICATION_START_TIME + " " + DatabaseHandler.INTEGER_TYPE
+                + DatabaseHandler.KEY_E_APPLICATION_START_TIME + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_STOP_RINGING + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SEND_SMS + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SMS_TEXT + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_RINGING_DURATION + " " + DatabaseHandler.INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -766,8 +770,8 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_RADIO_SWITCH_AIRPLANE_MODE, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_NOTIFICATION_VIBRATE_START, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, DatabaseHandler.INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_DURATION, DatabaseHandler.INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_PERMANENT_RUN, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_DURATION, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_PERMANENT_RUN, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_START_TIME, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_NOTIFICATION_SOUND_REPEAT_START, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START, DatabaseHandler.INTEGER_TYPE, columns);
@@ -882,6 +886,10 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_TO, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_APPLICATION_DURATION, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_APPLICATION_START_TIME, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_STOP_RINGING, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SEND_SMS, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SMS_TEXT, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_RINGING_DURATION, DatabaseHandler.INTEGER_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_ET_EORDER, DatabaseHandler.INTEGER_TYPE, columns);
@@ -2176,8 +2184,8 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 1960)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_DURATION + "=5");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_PERMANENT_RUN + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_DURATION + "=5");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_PERMANENT_RUN + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_START_TIME + "=0");
         }
 
@@ -3490,6 +3498,14 @@ class DatabaseHandlerCreateUpdateDB {
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_APPLICATION_DURATION + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_APPLICATION_START_TIME + "=0");
+        }
+
+        if (oldVersion < 2514)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_STOP_RINGING + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SEND_SMS + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_GEOFENCES + " SET " + DatabaseHandler.KEY_E_CALL_SMS_TEXT + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_RINGING_DURATION + "=5");
         }
 
     }

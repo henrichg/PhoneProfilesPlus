@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2513;
+    static final int DATABASE_VERSION = 2514;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -322,8 +322,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_RADIO_SWITCH_AIRPLANE_MODE = "radioSwitchAirplaneMode";
     static final String KEY_E_NOTIFICATION_VIBRATE_START = "notificationVibrate";
     static final String KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION = "eventNoPauseByManualActivation";
-    static final String KEY_E_CALL_DURATION = "callDuration";
-    static final String KEY_E_CALL_PERMANENT_RUN = "callPermanentRun";
+    static final String KEY_E_CALL_RUN_AFTER_CALL_END_DURATION = "callDuration";
+    static final String KEY_E_CALL_RUN_AFTER_CALL_END_PERMANENT_RUN = "callPermanentRun";
     static final String KEY_E_CALL_START_TIME = "callStartTime";
     static final String KEY_E_NOTIFICATION_SOUND_REPEAT_START = "notificationSoundRepeat";
     static final String KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START = "notificationSoundRepeatInterval";
@@ -438,6 +438,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_VOLUMES_ACCESSIBILITY_TO = "volumesAccessibilityTo";
     static final String KEY_E_APPLICATION_START_TIME = "applicationStartTime";
     static final String KEY_E_APPLICATION_DURATION = "applicationDuration";
+    static final String KEY_E_CALL_STOP_RINGING = "callStopRinging";
+    static final String KEY_E_CALL_SEND_SMS = "callSendSMS";
+    static final String KEY_E_CALL_SMS_TEXT = "callSMSText";
+    static final String KEY_E_CALL_RINGING_DURATION = "callRingingDuration";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";
