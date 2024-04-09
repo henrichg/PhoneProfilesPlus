@@ -242,10 +242,10 @@ class EventPreferencesCall extends EventPreferences {
 
                     if (this._callEvent == CALL_EVENT_RINGING) {
                         if (this._stopRinging) {
-                            _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_call_stop_ringing), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_call_stop_ringing), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                             _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_call_ringing_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._ringingDuration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
-                            if (this._sendSMS) {
-                                _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_call_send_sms), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            if (this._sendSMS && (!this._smsText.isEmpty())) {
+                                _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_call_send_sms), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                                 _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_call_sms_text)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(this._smsText).append(StringConstants.TAG_BOLD_END_HTML);
                             }
                         }
@@ -375,6 +375,20 @@ class EventPreferencesCall extends EventPreferences {
                 delay = 5;
             }
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false, false, false);
+        }
+        if (key.equals(PREF_EVENT_CALL_SEND_SMS)) {
+            SwitchPreferenceCompat stopRingingPreference = prefMng.findPreference(key);
+            if (stopRingingPreference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyleX(stopRingingPreference, true, preferences.getBoolean(key, false), false, false, false, false);
+            }
+        }
+        if (key.equals(PREF_EVENT_CALL_SMS_TEXT))
+        {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                preference.setSummary(value);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false, false);
+            }
         }
 
         boolean hasFeature = false;

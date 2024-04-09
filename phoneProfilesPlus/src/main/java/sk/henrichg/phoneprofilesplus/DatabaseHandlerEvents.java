@@ -1573,7 +1573,7 @@ class DatabaseHandlerEvents {
         values.put(DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD, eventPreferences._forSIMCard);
         values.put(DatabaseHandler.KEY_E_CALL_STOP_RINGING, (eventPreferences._stopRinging) ? 1 : 0);
         values.put(DatabaseHandler.KEY_E_CALL_SEND_SMS, (eventPreferences._sendSMS) ? 1 : 0);
-        values.put(DatabaseHandler.KEY_E_CALL_SMS_TEXT, eventPreferences._sendSMS);
+        values.put(DatabaseHandler.KEY_E_CALL_SMS_TEXT, eventPreferences._smsText);
         values.put(DatabaseHandler.KEY_E_CALL_RINGING_DURATION, eventPreferences._ringingDuration);
 
         // updating row
