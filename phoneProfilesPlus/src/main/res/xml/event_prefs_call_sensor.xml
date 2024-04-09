@@ -67,6 +67,11 @@
         app:key="eventCallRingingCallCategory"
         app:title="@string/event_preferences_call_ringing_call"
         app:layout="@layout/mp_preference_category" >
+        <sk.henrichg.phoneprofilesplus.ExclamationPreference
+            app:key="eventCallStopRingingInfo"
+            app:title="@string/event_preferences_call_stop_ringing"
+            app:summary="@string/event_preferences_call_stop_ringing_info_summary"
+            app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="eventCallStopRinging"
             app:title="@string/event_preferences_call_stop_ringing"

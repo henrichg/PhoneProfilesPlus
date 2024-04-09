@@ -2180,6 +2180,7 @@
     <string name="event_preferences_call_ringing_duration">Ringing duration</string>
     <string name="event_preferences_call_send_sms">Send SMS</string>
     <string name="event_preferences_call_sms_text">SMS text</string>
+    <string name="event_preferences_call_stop_ringing_info_summary">WARNING: If you enable this parameter, ALL ringing calls for contacts configured in this sensor will be stopped.</string>
 
     <!-- **************************************************************************************** -->
 

@@ -51,6 +51,7 @@ class EventPreferencesCall extends EventPreferences {
     private static final String PREF_EVENT_CALL_SEND_SMS = "eventCallSendSMS";
     private static final String PREF_EVENT_CALL_SMS_TEXT = "eventCallSMSText";
     private static final String PREF_EVENT_CALL_RINGING_DURATION = "eventCallRingingDuration";
+    private static final String PREF_EVENT_CALL_STOP_RINGING_INFO = "eventCallStopRingingInfo";
 
     static final String PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM = "eventCallEnabledEnabledNoCheckSim";
 
@@ -299,11 +300,14 @@ class EventPreferencesCall extends EventPreferences {
                     preferencePermanentRun.setEnabled(isEndCall);
 
                 Preference preferenceStopRinging = prefMng.findPreference(PREF_EVENT_CALL_STOP_RINGING);
+                Preference preferenceStopRingingInfo = prefMng.findPreference(PREF_EVENT_CALL_STOP_RINGING_INFO);
                 Preference preferenceRingingDuration = prefMng.findPreference(PREF_EVENT_CALL_RINGING_DURATION);
                 Preference preferenceSendSMS = prefMng.findPreference(PREF_EVENT_CALL_SEND_SMS);
                 Preference preferenceSMSText = prefMng.findPreference(PREF_EVENT_CALL_SMS_TEXT);
                 if (preferenceStopRinging != null)
                     preferenceStopRinging.setEnabled(isRingingCall);
+                if (preferenceStopRingingInfo != null)
+                    preferenceStopRingingInfo.setEnabled(isRingingCall);
                 boolean stopRinging = preferences.getBoolean(PREF_EVENT_CALL_STOP_RINGING, false);
                 if (preferenceRingingDuration != null)
                     preferenceRingingDuration.setEnabled(isRingingCall && stopRinging);
@@ -524,7 +528,8 @@ class EventPreferencesCall extends EventPreferences {
                 //key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER) ||
                 key.equals(PREF_EVENT_CALL_FOR_SIM_CARD) ||
                 key.equals(PREF_EVENT_CALL_SMS_TEXT) ||
-                key.equals(PREF_EVENT_CALL_RINGING_DURATION)) {
+                key.equals(PREF_EVENT_CALL_RINGING_DURATION) ||
+                key.equals(PREF_EVENT_CALL_STOP_RINGING_INFO)) {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
     }
@@ -541,6 +546,7 @@ class EventPreferencesCall extends EventPreferences {
         //setSummary(prefMng, PREF_EVENT_CALL_INSTALL_EXTENDER, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_FOR_SIM_CARD, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_STOP_RINGING, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALL_STOP_RINGING_INFO, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_SEND_SMS, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_SMS_TEXT, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_RINGING_DURATION, preferences, context);
