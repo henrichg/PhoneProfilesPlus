@@ -58,8 +58,8 @@ public class PPApplication extends Application
 {
     // this version code must by <= version code in dependencies.gradle
     static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 7090;
-    static final boolean SHOW_IMPORTANT_INFO_NEWS = true;
-    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = true;
+    static final boolean SHOW_IMPORTANT_INFO_NEWS = false;
+    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = false;
 
     //// Extender versions
     // versions required for profile, event parameters
