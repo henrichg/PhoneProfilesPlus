@@ -9,7 +9,7 @@ public class StopRingingBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplicationStatic.logE("[IN_BROADCAST] StopRingingBroadcastReceiver.onReceive", "xxx");
-        PPApplicationStatic.logE("[IN_BROADCAST_ALARM] StopRingingBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST_ALARM] StopRingingBroadcastReceiver.onReceive", "xxx");
 
         String action = intent.getAction();
         if (action != null) {

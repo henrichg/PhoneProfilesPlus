@@ -1,18 +1,27 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Binder;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.IBinder;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
+import com.android.internal.telephony.ITelephony;
+
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -1125,6 +1134,7 @@ class EventPreferencesCall extends EventPreferences {
         }
     }
 
+    @SuppressLint({"MissingPermission", "PrivateApi"})
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
@@ -1134,7 +1144,8 @@ class EventPreferencesCall extends EventPreferences {
                   this is not required, is only for simulating ringing -> Permissions.checkEventPhoneBroadcast(context, event, null)*/) {
                 int callEventType = ApplicationPreferences.prefEventCallEventType;
                 String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
-                int simSlot = ApplicationPreferences.prefEventCallRunAfterCallEndFromSIMSlot;
+                int runAfterCallEndSIMSlot = ApplicationPreferences.prefEventCallRunAfterCallEndFromSIMSlot;
+                int ringingSIMSlot = ApplicationPreferences.prefEventCallRingingFromSIMSlot;
                 //Log.e("EventPreferencesCall.doHandleEvent", "callEventType="+callEventType);
                 //Log.e("EventPreferencesCall.doHandleEvent", "phoneNumber="+phoneNumber);
                 //Log.e("EventPreferencesCall.doHandleEvent", "simSlot="+simSlot);
@@ -1159,13 +1170,72 @@ class EventPreferencesCall extends EventPreferences {
                     }
 
                     if (phoneNumberFound) {
-                        _runAfterCallEndFromSIMSlot = simSlot;
+                        boolean fromSIMSlot = false;
+                        if ((_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
+                            (_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                            (_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                            _runAfterCallEndFromSIMSlot = runAfterCallEndSIMSlot;
+                            fromSIMSlot = _forSIMCard == _runAfterCallEndFromSIMSlot;
+                        }
+                        else
+                        if (_callEvent == EventPreferencesCall.CALL_EVENT_RINGING) {
+                            _ringingFromSIMSlot = ringingSIMSlot;
+                            fromSIMSlot = _forSIMCard == _ringingFromSIMSlot;
+                        }
 
-                        if ((_forSIMCard == 0) || (_forSIMCard == _runAfterCallEndFromSIMSlot)) {
+                        if ((_forSIMCard == 0) || fromSIMSlot) {
                             if (_callEvent == EventPreferencesCall.CALL_EVENT_RINGING) {
+                                if (Build.VERSION.SDK_INT >= 28) {
+                                    if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_RINGING) {
+                                        if (_stopRinging) {
+                                            if (_ringingTime > 0) {
+                                                // TODO ukonci hovor
+                                                if (Arrays.stream(eventsHandler.sensorType).anyMatch(i -> i == EventsHandler.SENSOR_TYPE_PHONE_CALL_STOP_RINGING)) {
+                                                    Log.e("EventPreferencesCall.doHandleEvent", "SENSOR_TYPE_PHONE_CALL_STOP_RINGING");
+                                                    TelephonyManager telephonyManager = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);
+                                                    try {
+                                                    /*    String serviceManagerName = "android.os.ServiceManager";
+                                                        String serviceManagerNativeName = "android.os.ServiceManagerNative";
+                                                        String telephonyName = "com.android.internal.telephony.ITelephony";
+                                                        Class<?> telephonyClass;
+                                                        Class<?> telephonyStubClass;
+                                                        Class<?> serviceManagerClass;
+                                                        Class<?> serviceManagerNativeClass;
+                                                        Method telephonyEndCall;
+                                                        Object telephonyObject;
+                                                        Object serviceManagerObject;
+                                                        telephonyClass = Class.forName(telephonyName);
+                                                        telephonyStubClass = telephonyClass.getClasses()[0];
+                                                        serviceManagerClass = Class.forName(serviceManagerName);
+                                                        serviceManagerNativeClass = Class.forName(serviceManagerNativeName);
+                                                        Method getService = // getDefaults[29];
+                                                                serviceManagerClass.getMethod("getService", String.class);
+                                                        Method tempInterfaceMethod = serviceManagerNativeClass.getMethod("asInterface", IBinder.class);
+                                                        Binder tmpBinder = new Binder();
+                                                        tmpBinder.attachInterface(null, "fake");
+                                                        serviceManagerObject = tempInterfaceMethod.invoke(null, tmpBinder);
+                                                        IBinder retbinder = (IBinder) getService.invoke(serviceManagerObject, "phone");
+                                                        Method serviceMethod = telephonyStubClass.getMethod("asInterface", IBinder.class);
+                                                        telephonyObject = serviceMethod.invoke(null, retbinder);
+                                                        telephonyEndCall = telephonyClass.getMethod("endCall");
+                                                        telephonyEndCall.invoke(telephonyObject);*/
+
+                                                        //if (Permissions.checkAnswerPhoneCalls(eventsHandler.context)) {
+                                                            //noinspection deprecation
+                                                            boolean ok = telephonyManager.endCall();
+                                                            Log.e("EventPreferencesCall.doHandleEvent", "endCall=" + ok);
+                                                        //}
+                                                    } catch (Exception e) {
+                                                        Log.e("EventPreferencesCall.doHandleEvent", Log.getStackTraceString(e));
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
                                 //noinspection StatementWithEmptyBody
-                                if ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_RINGING) ||
-                                        ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ANSWERED)))
+                                if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ANSWERED)
                                     ;//eventStart = eventStart && true;
                                 else
                                     eventsHandler.callPassed = false;
