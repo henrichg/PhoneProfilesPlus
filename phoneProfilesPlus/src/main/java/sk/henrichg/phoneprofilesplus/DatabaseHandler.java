@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2514;
+    static final int DATABASE_VERSION = 2515;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -324,7 +324,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION = "eventNoPauseByManualActivation";
     static final String KEY_E_CALL_RUN_AFTER_CALL_END_DURATION = "callDuration";
     static final String KEY_E_CALL_RUN_AFTER_CALL_END_PERMANENT_RUN = "callPermanentRun";
-    static final String KEY_E_CALL_START_TIME = "callStartTime";
+    static final String KEY_E_CALL_RUN_AFTER_CALL_END_TIME = "callStartTime";
     static final String KEY_E_NOTIFICATION_SOUND_REPEAT_START = "notificationSoundRepeat";
     static final String KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START = "notificationSoundRepeatInterval";
     static final String KEY_E_NOTIFICATION_IN_CALL = "notificationRingingCall";
@@ -379,7 +379,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_CALENDAR_DAY_CONTAINS_EVENT = "calendarDayContainsEvent";
     static final String KEY_E_CALENDAR_ALL_DAY_EVENTS = "calendarAllDayEvents";
     static final String KEY_E_ACCESSORY_TYPE = "accessoryType";
-    static final String KEY_E_CALL_FROM_SIM_SLOT = "callFromSIMSlot";
+    static final String KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT = "callFromSIMSlot";
     static final String KEY_E_CALL_FOR_SIM_CARD = "callForSIMCard";
     static final String KEY_E_SMS_FROM_SIM_SLOT = "smsFromSIMSlot";
     static final String KEY_E_SMS_FOR_SIM_CARD = "smsForSIMCard";
@@ -442,6 +442,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_CALL_SEND_SMS = "callSendSMS";
     static final String KEY_E_CALL_SMS_TEXT = "callSMSText";
     static final String KEY_E_CALL_RINGING_DURATION = "callRingingDuration";
+    static final String KEY_E_CALL_RINGING_TIME = "callRingingTime";
+    static final String KEY_E_CALL_RINGING_FROM_SIM_SLOT = "callRingingFromSIMSlot";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";
@@ -1066,14 +1068,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerEvents.getNFCStartTime(this, event);
     }
 
-    void updateCallStartTime(Event event)
+    void updateCallRunAfterCallEndTime(Event event)
     {
-        DatabaseHandlerEvents.updateCallStartTime(this, event);
+        DatabaseHandlerEvents.updateCallRunAfterCallEndTime(this, event);
     }
 
-    void getCallStartTime(Event event)
+    void getCallRunAfterCallEndTime(Event event)
     {
-        DatabaseHandlerEvents.getCallStartTime(this, event);
+        DatabaseHandlerEvents.getCallRunAfterCallEndTime(this, event);
+    }
+
+    void updateCallRingingTime(Event event)
+    {
+        DatabaseHandlerEvents.updateCallRingingTime(this, event);
+    }
+
+    void getCallRingingTime(Event event)
+    {
+        DatabaseHandlerEvents.getCallRingingTime(this, event);
     }
 
     void updateAlarmClockStartTime(Event event)

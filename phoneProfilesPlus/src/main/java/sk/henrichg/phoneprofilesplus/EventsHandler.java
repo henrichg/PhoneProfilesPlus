@@ -153,6 +153,7 @@ class EventsHandler {
     static final int SENSOR_TYPE_BOOT_COMPLETED = 53;
     static final int SENSOR_TYPE_BRIGHTNESS = 54;
     static final int SENSOR_TYPE_APPLICATION_EVENT_END = 55;
+    static final int SENSOR_TYPE_PHONE_CALL_STOP_RINGING = 56;
     static final int SENSOR_TYPE_ALL = 999;
 
     EventsHandler(Context context) {
@@ -416,11 +417,13 @@ class EventsHandler {
                         }
                         for (Event _event : dataWrapper.eventList) {
                             if (_event.getStatus() != Event.ESTATUS_STOP) {
-                                if (_event._eventPreferencesCall._enabled &&
-                                        ((_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
+                                if (_event._eventPreferencesCall._enabled) {
+                                    if ((_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
                                                 (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                                                (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED))) {
-                                    _event._eventPreferencesCall.saveStartTime(contactList, dataWrapper);
+                                                (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED))
+                                        _event._eventPreferencesCall.saveRunAfterCallEndTime(contactList, dataWrapper);
+                                    if (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_RINGING)
+                                        _event._eventPreferencesCall.saveRingingTime(contactList, dataWrapper);
                                 }
                             }
                         }
@@ -896,6 +899,7 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_NOTIFICATION;*/
             case SENSOR_TYPE_PHONE_CALL:
             case SENSOR_TYPE_PHONE_CALL_EVENT_END:
+            case SENSOR_TYPE_PHONE_CALL_STOP_RINGING:
                 return DatabaseHandler.ETYPE_CALL;
             case SENSOR_TYPE_SMS:
             case SENSOR_TYPE_SMS_EVENT_END:
@@ -980,7 +984,7 @@ class EventsHandler {
                         if (contactList != null)
                             contactList.clear();
                     }
-                    int simSlot = ApplicationPreferences.prefEventCallFromSIMSlot;
+                    int simSlot = ApplicationPreferences.prefEventCallRunAfterCallEndFromSIMSlot;
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.doEndHandler", "simulateRingingCall="+simulateRingingCall);
                     if (simulateRingingCall) {
                         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
@@ -1467,9 +1471,9 @@ class EventsHandler {
 
     void setEventCallParameters(int callEventType, String phoneNumber, long eventTime, int simSlot) {
         EventPreferencesCall.setEventCallEventType(context, callEventType);
-        EventPreferencesCall.setEventCallEventTime(context, eventTime);
+        EventPreferencesCall.setEventCallEventTime(context, eventTime, callEventType);
         EventPreferencesCall.setEventCallPhoneNumber(context, phoneNumber);
-        EventPreferencesCall.setEventCallFromSIMSlot(context, simSlot);
+        EventPreferencesCall.setEventCallFromSIMSlot(context, simSlot, callEventType);
     }
 
     void setEventApplicationParameters(String packageName, long date) {

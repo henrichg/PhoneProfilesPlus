@@ -22,9 +22,9 @@ class ApplicationPreferences {
     //static volatile boolean prefForceRunEventRunning;
     static volatile String prefApplicationInForeground;
     static volatile int prefEventCallEventType;
-    static volatile long prefEventCallEventTime;
+    static volatile long prefEventCallRunAfterCallEndTime;
     static volatile String prefEventCallPhoneNumber;
-    static volatile int prefEventCallFromSIMSlot;
+    static volatile int prefEventCallRunAfterCallEndFromSIMSlot;
     static volatile boolean prefWiredHeadsetConnected;
     static volatile boolean prefWiredHeadsetMicrophone;
     static volatile boolean prefBluetoothHeadsetConnected;
@@ -50,6 +50,8 @@ class ApplicationPreferences {
     static volatile boolean prefEventRoamingDataInSIMSlot1;
     static volatile boolean prefEventRoamingNetworkInSIMSlot2;
     static volatile boolean prefEventRoamingDataInSIMSlot2;
+    static volatile long prefEventCallRingingTime;
+    static volatile int prefEventCallRingingFromSIMSlot;
 
     static volatile boolean applicationEventNeverAskForEnableRun;
     static volatile boolean applicationNeverAskForGrantRoot;

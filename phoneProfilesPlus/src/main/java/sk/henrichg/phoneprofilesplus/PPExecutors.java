@@ -43,6 +43,7 @@ class PPExecutors {
     static final String SENSOR_NAME_SENSOR_TYPE_SMS_EVENT_END = "SENSOR_TYPE_SMS_EVENT_END";
     static final String SENSOR_NAME_SENSOR_TYPE_WIFI_SCANNER = "SENSOR_TYPE_WIFI_SCANNER";
     static final String SENSOR_NAME_SENSOR_TYPE_APPLICATION_EVENT_END = "SENSOR_TYPE_APPLICATION_EVENT_END";
+    static final String SENSOR_NAME_SENSOR_TYPE_PHONE_CALL_STOP_RINGING = "SENSOR_TYPE_PHONE_CALL_STOP_RINGING";
 
     static void scheduleDisableBlockProfileEventActionExecutor() {
 //        PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** PPExecutors.scheduleDisableBlockProfileEventActionExecutor", "schedule");

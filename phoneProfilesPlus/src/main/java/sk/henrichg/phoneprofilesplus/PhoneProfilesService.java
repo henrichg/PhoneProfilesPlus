@@ -69,6 +69,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_DASH_CLOCK_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver";
     static final String ACTION_BLUETOOTHLE_SCAN_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".BluetoothLEScanBroadcastReceiver";
     static final String ACTION_APPLICATION_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ApplicationEventEndBroadcastReceiver";
+    static final String ACTION_STOP_RINGING_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".StopRingingBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
@@ -756,9 +757,9 @@ public class PhoneProfilesService extends Service
                 PPExtenderBroadcastReceiver.setApplicationInForeground(appContext, "");
 
                 EventPreferencesCall.setEventCallEventType(appContext, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
-                EventPreferencesCall.setEventCallEventTime(appContext, 0);
+                EventPreferencesCall.setEventCallEventTime(appContext, 0, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
                 EventPreferencesCall.setEventCallPhoneNumber(appContext, "");
-                EventPreferencesCall.setEventCallFromSIMSlot(appContext, 0);
+                EventPreferencesCall.setEventCallFromSIMSlot(appContext, 0, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
 
                 EventPreferencesRoaming.setEventRoamingInSIMSlot(appContext, 0, false, false);
                 EventPreferencesRoaming.setEventRoamingInSIMSlot(appContext, 1, false, false);

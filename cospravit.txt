@@ -515,6 +515,7 @@ Cize:
 - pri ostatnych PHONE_CALL_EVENT_xxx removnut tento alarm
 - stopnut zvonenie a poslat sms len ak pride broadcast na alarm s _ringingDuration
 
-
 Alarm sa musi zrusit pri zdvihnuti, ukonceni, missed hovoru.
+
+
 

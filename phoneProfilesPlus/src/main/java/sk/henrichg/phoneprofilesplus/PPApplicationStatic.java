@@ -691,9 +691,9 @@ class PPApplicationStatic {
         EventStatic.getForceRunEventRunning(context);
         PPExtenderBroadcastReceiver.getApplicationInForeground(context);
         EventPreferencesCall.getEventCallEventType(context);
-        EventPreferencesCall.getEventCallEventTime(context);
+        EventPreferencesCall.getEventCallEventTime(context, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
         EventPreferencesCall.getEventCallPhoneNumber(context);
-        EventPreferencesCall.getEventCallSIMSlot(context);
+        EventPreferencesCall.getEventCallFromSIMSlot(context, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
         HeadsetConnectionBroadcastReceiver.getEventHeadsetParameters(context);
         WifiScanner.getForceOneWifiScan(context);
         BluetoothScanner.getForceOneBluetoothScan(context);
