@@ -779,20 +779,20 @@ class Permissions {
         }
     }
 
-    static boolean checkAnswerPhoneCalls(Context context) {
-        try {
-            return (ContextCompat.checkSelfPermission(context, permission.ANSWER_PHONE_CALLS) == PackageManager.PERMISSION_GRANTED);
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    static boolean checkCallPhone(Context context) {
-        try {
-            return (ContextCompat.checkSelfPermission(context, permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED);
-        } catch (Exception e) {
-            return false;
-        }
-    }
+//    static boolean checkAnswerPhoneCalls(Context context) {
+//        try {
+//            return (ContextCompat.checkSelfPermission(context, permission.ANSWER_PHONE_CALLS) == PackageManager.PERMISSION_GRANTED);
+//        } catch (Exception e) {
+//            return false;
+//        }
+//    }
+//    static boolean checkCallPhone(Context context) {
+//        try {
+//            return (ContextCompat.checkSelfPermission(context, permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED);
+//        } catch (Exception e) {
+//            return false;
+//        }
+//    }
 
     static boolean checkBluetoothForEMUI(Context context) {
         if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {

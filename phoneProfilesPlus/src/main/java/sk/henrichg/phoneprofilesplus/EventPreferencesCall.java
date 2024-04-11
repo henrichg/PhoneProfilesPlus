@@ -7,10 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Binder;
 import android.os.Build;
-import android.os.Bundle;
-import android.os.IBinder;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -19,9 +16,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.android.internal.telephony.ITelephony;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
