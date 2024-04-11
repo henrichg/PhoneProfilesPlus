@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     app:title="@string/event_preferences_category_eventCallParameters"
     app:key="eventCallCategory">
 
@@ -60,45 +59,6 @@
             app:dMin="5"
             app:dMax="86400"
             app:dependency="eventCallEnabled"
-            app:layout="@layout/mp_preference_material_widget" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        app:key="eventCallRingingCallCategory"
-        app:title="@string/event_preferences_call_ringing_call"
-        app:layout="@layout/mp_preference_category" >
-        <sk.henrichg.phoneprofilesplus.ExclamationPreference
-            app:key="eventCallStopRingingInfo"
-            app:title="@string/event_preferences_call_stop_ringing"
-            app:summary="@string/event_preferences_call_stop_ringing_info_summary"
-            app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
-            app:key="eventCallStopRinging"
-            app:title="@string/event_preferences_call_stop_ringing"
-            app:defaultValue="false"
-            app:dependency="eventCallEnabled"
-            app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.DurationDialogPreference
-            app:key="eventCallRingingDuration"
-            app:summary="@string/event_preferences_call_ringing_duration"
-            app:title="@string/event_preferences_call_ringing_duration"
-            app:defaultValue="5"
-            app:dMin="5"
-            app:dMax="1200"
-            app:dependency="eventCallEnabled"
-            app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
-            app:key="eventCallSendSMS"
-            app:title="@string/event_preferences_call_send_sms"
-            app:defaultValue="false"
-            app:dependency="eventCallEnabled"
-            app:layout="@layout/mp_preference_material_widget" />
-        <EditTextPreference
-            app:key="eventCallSMSText"
-            app:summary=""
-            app:title="@string/event_preferences_call_sms_text"
-            android:selectAllOnFocus="true"
-            app:defaultValue=""
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
 

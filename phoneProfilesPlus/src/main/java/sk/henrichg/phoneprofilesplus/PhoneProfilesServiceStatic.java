@@ -2139,14 +2139,6 @@ class PhoneProfilesServiceStatic
                     PPApplication.missedCallEventEndBroadcastReceiver = null;
                 }
             }
-            if (PPApplication.stopRingingBroadcastReceiver != null) {
-                try {
-                    appContext.unregisterReceiver(PPApplication.stopRingingBroadcastReceiver);
-                    PPApplication.stopRingingBroadcastReceiver = null;
-                } catch (Exception e) {
-                    PPApplication.stopRingingBroadcastReceiver = null;
-                }
-            }
         }
         if (register) {
             boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, appContext).allowed ==
@@ -2163,14 +2155,6 @@ class PhoneProfilesServiceStatic
                     if (Build.VERSION.SDK_INT >= 34)
                         receiverFlags = RECEIVER_NOT_EXPORTED;
                     appContext.registerReceiver(PPApplication.missedCallEventEndBroadcastReceiver, intentFilter23, receiverFlags);
-                }
-                if (PPApplication.stopRingingBroadcastReceiver == null) {
-                    PPApplication.stopRingingBroadcastReceiver = new StopRingingBroadcastReceiver();
-                    IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_STOP_RINGING_BROADCAST_RECEIVER);
-                    int receiverFlags = 0;
-                    if (Build.VERSION.SDK_INT >= 34)
-                        receiverFlags = RECEIVER_NOT_EXPORTED;
-                    appContext.registerReceiver(PPApplication.stopRingingBroadcastReceiver, intentFilter23, receiverFlags);
                 }
 
 //                Log.e("PhoneProfilesService.registerReceiverForCallSensor", "xxx");

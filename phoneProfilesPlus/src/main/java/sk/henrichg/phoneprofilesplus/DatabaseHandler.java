@@ -438,12 +438,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_VOLUMES_ACCESSIBILITY_TO = "volumesAccessibilityTo";
     static final String KEY_E_APPLICATION_START_TIME = "applicationStartTime";
     static final String KEY_E_APPLICATION_DURATION = "applicationDuration";
-    static final String KEY_E_CALL_STOP_RINGING = "callStopRinging";
-    static final String KEY_E_CALL_SEND_SMS = "callSendSMS";
-    static final String KEY_E_CALL_SMS_TEXT = "callSMSText";
-    static final String KEY_E_CALL_RINGING_DURATION = "callRingingDuration";
-    static final String KEY_E_CALL_RINGING_TIME = "callRingingTime";
-    static final String KEY_E_CALL_RINGING_FROM_SIM_SLOT = "callRingingFromSIMSlot";
+//    static final String KEY_E_CALL_STOP_RINGING = "callStopRinging";
+//    static final String KEY_E_CALL_SEND_SMS = "callSendSMS";
+//    static final String KEY_E_CALL_SMS_TEXT = "callSMSText";
+//    static final String KEY_E_CALL_RINGING_DURATION = "callRingingDuration";
+//    static final String KEY_E_CALL_RINGING_TIME = "callRingingTime";
+//    static final String KEY_E_CALL_RINGING_FROM_SIM_SLOT = "callRingingFromSIMSlot";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";
@@ -1076,16 +1076,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     void getCallRunAfterCallEndTime(Event event)
     {
         DatabaseHandlerEvents.getCallRunAfterCallEndTime(this, event);
-    }
-
-    void updateCallRingingTime(Event event)
-    {
-        DatabaseHandlerEvents.updateCallRingingTime(this, event);
-    }
-
-    void getCallRingingTime(Event event)
-    {
-        DatabaseHandlerEvents.getCallRingingTime(this, event);
     }
 
     void updateAlarmClockStartTime(Event event)

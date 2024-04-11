@@ -153,7 +153,6 @@ class EventsHandler {
     static final int SENSOR_TYPE_BOOT_COMPLETED = 53;
     static final int SENSOR_TYPE_BRIGHTNESS = 54;
     static final int SENSOR_TYPE_APPLICATION_EVENT_END = 55;
-    static final int SENSOR_TYPE_PHONE_CALL_STOP_RINGING = 56;
     static final int SENSOR_TYPE_ALL = 999;
 
     EventsHandler(Context context) {
@@ -422,8 +421,6 @@ class EventsHandler {
                                                 (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
                                                 (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED))
                                         _event._eventPreferencesCall.saveRunAfterCallEndTime(contactList, dataWrapper);
-                                    if (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_RINGING)
-                                        _event._eventPreferencesCall.saveRingingTime(contactList, dataWrapper);
                                 }
                             }
                         }
@@ -899,7 +896,6 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_NOTIFICATION;*/
             case SENSOR_TYPE_PHONE_CALL:
             case SENSOR_TYPE_PHONE_CALL_EVENT_END:
-            case SENSOR_TYPE_PHONE_CALL_STOP_RINGING:
                 return DatabaseHandler.ETYPE_CALL;
             case SENSOR_TYPE_SMS:
             case SENSOR_TYPE_SMS_EVENT_END:

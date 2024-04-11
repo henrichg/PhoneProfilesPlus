@@ -54,8 +54,6 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.TETHER_PRIVILEGED" tools:ignore="ProtectedPermissions" />
-<!--    <uses-permission android:name="Manifest.permission.ANSWER_PHONE_CALLS" />-->
-<!--    <uses-permission android:name="Manifest.permission.CALL_PHONE" />-->
 
 <!--    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />-->
 <!--    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />-->
