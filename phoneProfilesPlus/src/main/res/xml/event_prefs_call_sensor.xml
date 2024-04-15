@@ -40,51 +40,42 @@
         app:dependency="eventCallEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <PreferenceCategory
-        app:key="eventCallRunDurationAfterCallCategory"
-        app:title="@string/event_preferences_call_duration_after_call"
-        app:layout="@layout/mp_preference_category" >
-        <SwitchPreferenceCompat
-            app:key="eventCallPermanentRun"
-            app:title="@string/pref_event_permanentRun"
-            app:summary="@string/pref_event_permanentRun_summary"
-            app:defaultValue="true"
-            app:dependency="eventCallEnabled"
-            app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.DurationDialogPreference
-            app:key="eventCallDuration"
-            app:summary="@string/event_preferences_duration"
-            app:title="@string/event_preferences_duration"
-            app:defaultValue="5"
-            app:dMin="5"
-            app:dMax="86400"
-            app:dependency="eventCallEnabled"
-            app:layout="@layout/mp_preference_material_widget" />
-    </PreferenceCategory>
+    <SwitchPreferenceCompat
+        app:key="eventCallPermanentRun"
+        app:title="@string/pref_event_permanentRun"
+        app:summary="@string/pref_event_permanentRun_summary"
+        app:defaultValue="true"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.DurationDialogPreference
+        app:key="eventCallDuration"
+        app:summary="@string/event_preferences_duration"
+        app:title="@string/event_preferences_duration"
+        app:defaultValue="5"
+        app:dMin="5"
+        app:dMax="86400"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
 
-    <PreferenceCategory
-        app:key="eventCallOtherParametersCategory"
-        app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
-        app:layout="@layout/mp_preference_category" >
-        <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/event_preferences_call_forSimCard"
-            app:summary="@string/event_preferences_forSimCard_bothCards"
-            app:key="eventCallForSimCard"
-            app:defaultValue="0"
-            app:ppEntries="@array/eventCallForSimCardArray"
-            app:ppEntryValues="@array/eventCallForSimCardValues"
-            app:dependency="eventCallEnabled"
-            app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/event_preferences_call_forSimCard"
+        app:summary="@string/event_preferences_forSimCard_bothCards"
+        app:key="eventCallForSimCard"
+        app:defaultValue="0"
+        app:ppEntries="@array/eventCallForSimCardArray"
+        app:ppEntryValues="@array/eventCallForSimCardValues"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
 
-        <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
-            app:title="@string/pppextender_pref_dialog_title"
-            app:summary=""
-            app:installSummary="@string/event_preferences_call_PPPExtender_install_summary"
-            app:launchSummary="@string/event_preferences_call_LaunchExtender_summary"
-            app:enableExtenderSummaryDisabled="@string/event_preferences_call_AccessibilitySettingsForExtender_summary"
-            app:key="eventCallExtender"
-            app:dependency="eventCallEnabled"
-            app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
+        app:title="@string/pppextender_pref_dialog_title"
+        app:summary=""
+        app:installSummary="@string/event_preferences_call_PPPExtender_install_summary"
+        app:launchSummary="@string/event_preferences_call_LaunchExtender_summary"
+        app:enableExtenderSummaryDisabled="@string/event_preferences_call_AccessibilitySettingsForExtender_summary"
+        app:key="eventCallExtender"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
 
 <!--    <Preference-->
 <!--        app:key="eventCallInstallExtender"-->
@@ -107,7 +98,5 @@
 <!--        app:dependency="eventCallEnabled"-->
 <!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
-
-    </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>
