@@ -362,9 +362,6 @@ class DatabaseHandlerCreateUpdateDB {
 //                + DatabaseHandler.KEY_E_CALL_STOP_RINGING + " " + DatabaseHandler.INTEGER_TYPE + ","
 //                + DatabaseHandler.KEY_E_CALL_SEND_SMS + " " + DatabaseHandler.INTEGER_TYPE + ","
 //                + DatabaseHandler.KEY_E_CALL_SMS_TEXT + " " + DatabaseHandler.TEXT_TYPE + ","
-//                + DatabaseHandler.KEY_E_CALL_RINGING_DURATION + " " + DatabaseHandler.INTEGER_TYPE + ","
-//                + DatabaseHandler.KEY_E_CALL_RINGING_TIME + " " + DatabaseHandler.INTEGER_TYPE + ","
-//                + DatabaseHandler.KEY_E_CALL_RINGING_FROM_SIM_SLOT + " " + DatabaseHandler.INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -891,9 +888,6 @@ class DatabaseHandlerCreateUpdateDB {
 //                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_STOP_RINGING, DatabaseHandler.INTEGER_TYPE, columns);
 //                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SEND_SMS, DatabaseHandler.INTEGER_TYPE, columns);
 //                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SMS_TEXT, DatabaseHandler.TEXT_TYPE, columns);
-//                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_RINGING_DURATION, DatabaseHandler.INTEGER_TYPE, columns);
-//                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_RINGING_TIME, DatabaseHandler.INTEGER_TYPE, columns);
-//                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_RINGING_FROM_SIM_SLOT, DatabaseHandler.INTEGER_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_ET_EORDER, DatabaseHandler.INTEGER_TYPE, columns);
@@ -3510,12 +3504,6 @@ class DatabaseHandlerCreateUpdateDB {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_STOP_RINGING + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SEND_SMS + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SMS_TEXT + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_RINGING_DURATION + "=5");
-        }
-
-        if (oldVersion < 2515) {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_RINGING_TIME + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_RINGING_FROM_SIM_SLOT + "=0");
         }
         */
 
