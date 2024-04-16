@@ -5,26 +5,11 @@
     app:key="prf_pref_radiosCategory" >
 
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
-        app:key="prf_pref_deviceAirplaneMode_assistantSettings"
-        app:title="@string/profile_preferences_deviceAirplaneMode_assistantSettings"
-        app:summary="@string/profile_preferences_deviceAirplaneMode_assistantSettings_summary"
-        app:layout="@layout/mp_preference_material_widget"/>
-
-    <sk.henrichg.phoneprofilesplus.InfoDialogPreference
-        app:key="prf_pref_deviceAirplaneModeRadiosInfo"
-        app:title="@string/profile_preferences_deviceAirplaneModeRadiosInfo"
-        app:summary="@string/profile_preferences__deviceAirplaneModeRadiosInfo_summary"
-        app:infoText=""
-        app:layout="@layout/mp_preference_material_widget" />
-
-    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceAirplaneMode"
-        app:summary="@string/array_pref_no_change"
-        app:key="prf_pref_deviceAirplaneMode"
-        app:defaultValue="0"
-        app:ppEntries="@array/airplaneModeArray"
-        app:ppEntryValues="@array/airplaneModeValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:key="prf_pref_deviceRadiosAirplaneModeCategoryRoot"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsRadiosAirplaneMode" />
+
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceAutosync"
         app:summary="@string/array_pref_no_change"

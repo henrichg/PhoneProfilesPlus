@@ -24,6 +24,7 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,6 +108,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL_INFO = "prf_pref_applicationOrientationScanIntervalInfo";
     private static final String PREF_PROFILE_APPLICATION_NOTIFICATION_SCAN_INTERVAL_INFO = "prf_pref_applicationNotificationScanIntervalInfo";
     private static final String PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL_INFO = "prf_pref_applicationPeriodicScanningScanIntervalInfo";
+    private static final String PREF_PROFILE_DEVICE_AIRPLANE_MODE_CATEGORY_ROOT = "prf_pref_deviceRadiosAirplaneModeCategoryRoot";
 
     private static final String PREF_PROFILE_VOLUME_ZEN_MODE_INFO = "prf_pref_volumeZenModeInfo";
     private static final String PREF_PROFILE_VOLUME_SOUND_MODE_INFO = "prf_pref_volumeSoundMode_info";
@@ -4319,9 +4321,27 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_DEVICE_WALLPAPER_CATEGORY_ROOT, context))
                         .append(StringConstants.TAG_BOLD_END_HTML);
             }
+        } else {
+            cattegorySummaryData.bold = false;
+
+            int index = 0;
+            String defaultValue = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
+            Log.e("ProfilePrefsFragment.setCategorySummaryDeviceWallpaper", "defaultValue="+defaultValue);
+            String[] entryValues = getResources().getStringArray(R.array.changeWallpaperValues);
+            for (String v : entryValues) {
+                if (v.equals(defaultValue))
+                    break;
+                index++;
+            }
+            Log.e("ProfilePrefsFragment.setCategorySummaryDeviceWallpaper", "index="+index);
+            String[] entries = getResources().getStringArray(R.array.changeWallpaperArray);
+            if (index == 0) {
+                _value.append(entries[index]);
+            }
         }
 
         cattegorySummaryData.summary = _value.toString();
+        cattegorySummaryData.forceSet = true;
 
         Profile profile = new Profile();
         profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
@@ -4331,6 +4351,54 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         cattegorySummaryData.permissionGranted = permissions.isEmpty();
 
         cattegorySummaryData.forceSet = true;
+
+        return false;
+    }
+
+    private boolean setCategorySummaryAirplaneMode(Context context,
+                                                   CattegorySummaryData cattegorySummaryData) {
+
+        StringBuilder _value = new StringBuilder(cattegorySummaryData.summary);
+
+        String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, R.string.profile_preferences_deviceAirplaneMode, context);
+        if (!title.isEmpty()) {
+            cattegorySummaryData.bold = true;
+            //if (!summary.isEmpty()) summary = summary + " • ";
+
+            String value = StringFormatUtils.getListPreferenceString(
+                    preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE)),
+                    R.array.onOffSIMValues, R.array.onOffSIMArray, context);
+
+            _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                    .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context))
+                    .append(StringConstants.TAG_BOLD_END_HTML);
+        } else {
+            cattegorySummaryData.bold = false;
+
+            int index = 0;
+            String defaultValue = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
+            String[] entryValues = getResources().getStringArray(R.array.airplaneModeValues);
+            for (String v : entryValues) {
+                if (v.equals(defaultValue))
+                    break;
+                index++;
+            }
+            String[] entries = getResources().getStringArray(R.array.airplaneModeArray);
+            if (index == 0) {
+                _value.append(entries[index]);
+            }
+        }
+
+        cattegorySummaryData.summary = _value.toString();
+        cattegorySummaryData.forceSet = true;
+
+        Profile profile = new Profile();
+        profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, "0"));
+        ArrayList<PermissionType> permissions = new ArrayList<>();
+        Permissions.checkProfileRadioPreferences(context, profile, permissions);
+        //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
+        cattegorySummaryData.permissionGranted = permissions.isEmpty();
 
         return false;
     }
@@ -4444,6 +4512,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (key.equals(PREF_DEVICE_WALLPAPER_CATEGORY_ROOT)) {
             if (setCategorySummaryDeviceWallpaper(context, cattegorySummaryData))
+                return;
+        }
+
+        if (key.equals(PREF_PROFILE_DEVICE_AIRPLANE_MODE_CATEGORY_ROOT)) {
+            if (setCategorySummaryAirplaneMode(context, cattegorySummaryData))
                 return;
         }
 
@@ -6348,6 +6421,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setCategorySummary(PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
         setCategorySummary(PREF_DEVICE_WALLPAPER_CATEGORY_ROOT, context);
+        setCategorySummary(PREF_PROFILE_DEVICE_AIRPLANE_MODE_CATEGORY_ROOT, context);
 
     }
 
