@@ -3654,9 +3654,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
         }
         if (isHeld) {
+            String contactGroupsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS));
+            String contactsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS));
+
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, R.string.profile_preference_phoneCallsBlockCalls, context);
             boolean isBlockCalls = false;
-            if (!title.isEmpty()) {
+            if (!title.isEmpty() &&
+                    (((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
+                     ((contactsValue != null) && (!contactsValue.isEmpty())))
+            ) {
                 cattegorySummaryData.bold = true;
                 isBlockCalls = true;
                 _value.append(title);
@@ -3667,12 +3675,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     cattegorySummaryData.bold = true;
                     if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
-                    String value = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS));
-                    value = ContactGroupsMultiSelectDialogPreference.getSummary(value, context);
+                    contactGroupsValue = ContactGroupsMultiSelectDialogPreference.getSummary(contactGroupsValue, context);
 
                     _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
+                            .append(ProfileStatic.getColorForChangedPreferenceValue(contactGroupsValue, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
                             .append(StringConstants.TAG_BOLD_END_HTML);
 
                 }
@@ -3681,12 +3687,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     cattegorySummaryData.bold = true;
                     if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
-                    String value = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS));
-                    value = ContactsMultiSelectDialogPreference.getSummary(value, false, context);
+                    contactsValue = ContactsMultiSelectDialogPreference.getSummary(contactsValue, false, context);
 
                     _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
+                            .append(ProfileStatic.getColorForChangedPreferenceValue(contactsValue, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
                             .append(StringConstants.TAG_BOLD_END_HTML);
 
                 }

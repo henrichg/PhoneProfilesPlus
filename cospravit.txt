@@ -510,6 +510,9 @@ Ako postupovat:
 
 Treba permission na tie kontakty. Contacts.
 
+Este: v category nezobrazuj, ze je blok povoleny, ak nie su nastavene skuiny alebo kontakty
+A v servise nesmies blokovat, ak tieto dve veci nie su nastavene.
+
 -------------------------------
 
 
