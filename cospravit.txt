@@ -507,8 +507,7 @@ Ako postupovat:
 2. zobrazovat v summary stav, cize k tomu, co tma uz je dat pred to este stav.
 
 "Block phone calls" -> treba spravt indikator
-Treba dat info preference, warning ktorty zobrazi, co "Block phone calls" spravi, ze hned blokne hovor,
-nebude ani zobrazena notifikacia, ze bol bloknuty.
+
 
 
 -------------------------------

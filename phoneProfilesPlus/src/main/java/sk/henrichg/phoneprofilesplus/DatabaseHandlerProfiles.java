@@ -138,6 +138,7 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL, profile._applicationLocationScanInterval);
                 values.put(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL, profile._applicationOrientationScanInterval);
                 values.put(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, profile._applicationPeriodicScanInterval);
+                values.put(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS, (profile._phoneCallsBlockCalls) ? 1 : 0);
 
                 // Insert Row
                 if (!merged) {
@@ -286,7 +287,8 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION,
                                 DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL,
                                 DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL,
-                                DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL
+                                DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL,
+                                DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS
                         },
                         DatabaseHandler.KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -408,7 +410,8 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL))
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS)) == 1
                         );
                     }
 
@@ -550,7 +553,8 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION + "," +
                         DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL + "," +
                         DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL + "," +
-                        DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL +
+                        DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL + "," +
+                        DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS +
                 " FROM " + DatabaseHandler.TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -676,6 +680,7 @@ class DatabaseHandlerProfiles {
                         profile._applicationLocationScanInterval = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL));
                         profile._applicationOrientationScanInterval = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL));
                         profile._applicationPeriodicScanInterval = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL));
+                        profile._phoneCallsBlockCalls = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS)) == 1;
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -819,6 +824,7 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL, profile._applicationLocationScanInterval);
                 values.put(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL, profile._applicationOrientationScanInterval);
                 values.put(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, profile._applicationPeriodicScanInterval);
+                values.put(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS, (profile._phoneCallsBlockCalls) ? 1 : 0);
 
                 // updating row
                 db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
@@ -1177,7 +1183,8 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION,
                                 DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL,
                                 DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL,
-                                DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL
+                                DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL,
+                                DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS,
                         },
                         DatabaseHandler.KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -1301,7 +1308,8 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_BLUETOOTH_LE_SCAN_DURATION)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL))
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS)) == 1
                                 );
                     }
 

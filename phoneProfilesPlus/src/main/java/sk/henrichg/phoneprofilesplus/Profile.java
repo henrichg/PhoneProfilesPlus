@@ -1070,7 +1070,8 @@ class Profile {
                    int applicationBluetoothLEScanDuration,
                    int applicationLocationScanInterval,
                    int applicationOrientationScanInterval,
-                   int applicationPeriodicScanInterval
+                   int applicationPeriodicScanInterval,
+                   boolean phoneCallsBlockCalls
             )
     {
         this._id = id;
@@ -1186,6 +1187,7 @@ class Profile {
         this._applicationLocationScanInterval = applicationLocationScanInterval;
         this._applicationOrientationScanInterval = applicationOrientationScanInterval;
         this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
+        this._phoneCallsBlockCalls = phoneCallsBlockCalls;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1305,7 +1307,8 @@ class Profile {
             int applicationBluetoothLEScanDuration,
             int applicationLocationScanInterval,
             int applicationOrientationScanInterval,
-            int applicationPeriodicScanInterval
+            int applicationPeriodicScanInterval,
+            boolean phoneCallsBlockCalls
     )
     {
         this._name = name;
@@ -1420,6 +1423,7 @@ class Profile {
         this._applicationLocationScanInterval = applicationLocationScanInterval;
         this._applicationOrientationScanInterval = applicationOrientationScanInterval;
         this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
+        this._phoneCallsBlockCalls = phoneCallsBlockCalls;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1541,6 +1545,7 @@ class Profile {
         this._applicationLocationScanInterval = profile._applicationLocationScanInterval;
         this._applicationOrientationScanInterval = profile._applicationOrientationScanInterval;
         this._applicationPeriodicScanInterval = profile._applicationPeriodicScanInterval;
+        this._phoneCallsBlockCalls = profile._phoneCallsBlockCalls;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1897,6 +1902,8 @@ class Profile {
                     this._applicationOrientationScanInterval = withProfile._applicationOrientationScanInterval;
                 if (withProfile._applicationPeriodicScanInterval != 0)
                     this._applicationPeriodicScanInterval = withProfile._applicationPeriodicScanInterval;
+                if (withProfile._phoneCallsBlockCalls)
+                    this._phoneCallsBlockCalls = true;
             }
 
             // set merged profile as activated
@@ -2274,6 +2281,9 @@ class Profile {
                 return false;
             }
             if (this._volumeMediaChangeDuringPlay != withProfile._volumeMediaChangeDuringPlay) {
+                return false;
+            }
+            if (this._phoneCallsBlockCalls != withProfile._phoneCallsBlockCalls) {
                 return false;
             }
 

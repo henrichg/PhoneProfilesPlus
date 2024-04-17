@@ -3632,11 +3632,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         StringBuilder _value = new StringBuilder(cattegorySummaryData.summary);
 
         String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, R.string.profile_preference_phoneCallsBlockCalls, context);
+        Log.e("ProfilesPrefsFragment.setCategorySummaryPhoneCalls", "title="+title);
         boolean isBlockCalls = false;
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
             isBlockCalls = true;
             _value.append(title);
+        }
+        if (isBlockCalls) {
+
         }
 /*
         if (!isMuteEnabled) {
@@ -6718,7 +6722,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setCategorySummary(PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
         setCategorySummary(PREF_DEVICE_WALLPAPER_CATEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_DEVICE_AIRPLANE_MODE_CATEGORY_ROOT, context);
-
+        setCategorySummary(PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {

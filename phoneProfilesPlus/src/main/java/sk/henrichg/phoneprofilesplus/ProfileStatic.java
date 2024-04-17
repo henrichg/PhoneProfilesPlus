@@ -703,7 +703,8 @@ class ProfileStatic {
                     profile._applicationBluetoothLEScanDuration,
                     profile._applicationLocationScanInterval,
                     profile._applicationOrientationScanInterval,
-                    profile._applicationPeriodicScanInterval
+                    profile._applicationPeriodicScanInterval,
+                    profile._phoneCallsBlockCalls
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)

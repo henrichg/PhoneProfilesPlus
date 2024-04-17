@@ -462,7 +462,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._applicationBluetoothLEScanDuration,
                         origProfile._applicationLocationScanInterval,
                         origProfile._applicationOrientationScanInterval,
-                        origProfile._applicationPeriodicScanInterval
+                        origProfile._applicationPeriodicScanInterval,
+                        origProfile._phoneCallsBlockCalls
                 );
                 showSaveMenu = true;
             }
