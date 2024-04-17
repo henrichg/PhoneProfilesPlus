@@ -2171,6 +2171,12 @@
     <string name="event_preferences_applications_duration">Applications run duration</string>
     <string name="event_preferences_applications_duration_unlimited">Unlimited</string>
 
+    <string name="profile_preferences_category_phone_calls">Phone calls</string>
+    <string name="profile_preferences_phoneCalls_setCallScreeningRole">Set call screening role</string>
+    <string name="profile_preferences_phoneCalls_setCallScreeningRole_summary">Click here to set call screening role for PhoneProfilesPlus. Is required for \"Block phone calls\".</string>
+    <string name="profile_preferences_phoneCalls_setCallScreeningRole_summary_ststus_1">Call screening role for PhoneProfilesPlus is set</string>
+    <string name="profile_preferences_phoneCalls_setCallScreeningRole_summary_ststus_0">Call screening role for PhoneProfilesPlus is not set</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

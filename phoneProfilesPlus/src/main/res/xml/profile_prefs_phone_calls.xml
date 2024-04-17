@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/profile_preferences_category_phone_calls"
+    app:key="prf_pref_phoneCallsCategory" >
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="prf_pref_phoneCalls_setCallScreeningRole"
+        app:title="@string/profile_preferences_phoneCalls_setCallScreeningRole"
+        app:summary="@string/profile_preferences_phoneCalls_setCallScreeningRole_summary"
+        app:layout="@layout/mp_preference_material_widget"/>
+
+</androidx.preference.PreferenceScreen>

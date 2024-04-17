@@ -497,25 +497,17 @@ https://developer.android.com/develop/connectivity/nfc/nfc#ext-type
 
 --------------------------------
 
-Call sensor a nova funkcia na stop zvonenia + poslanie sms
+Profil a novy parameter "Block phone calls"
 
-parameter _duration: pouziva sa len pre _callEvent =
-CALL_EVENT_MISSED_CALL, CALL_EVENT_INCOMING_CALL_ENDED, CALL_EVENT_OUTGOING_CALL_ENDED
-Cize len ked za zachyti missed call a skonci hovor sa nahodi alarm s _duration.
+Aj je role nastavene, uz nefunguje jeho znovu-nastavenie, nozbrazuje sa ten bottom sheet na to.
+Ide len zrusit v Settings "Caller ID & spam app".
+Ak je nastavena ina apka ako PPP, zobrazi sa bottom sheet, takze toto je OK.
+Ako postupovat:
+1. ak je nastavene PPP, disablovat tuto volbu
+2. zobrazovat v summary stav, cize k tomu, co tma uz je dat pred to este stav.
 
-Takze sa nemoze pouzit na stop zvonenia. Cize sprav:
-- _duration, _permanentRun daj do kategorie na "Run duration after call"
-HOTOVO
-- pridaj zvlast parameter _ringingDuration, ktory sa pouzije na nahodenie alarmu pri CALL_EVENT_RINGING,
-pri zaciatku zvonenia.
 
-Cize:
-- ak ApplicationPreferences.prefEventCallEventType = PHONE_CALL_EVENT_INCOMING_CALL_RINGING nahodit
-  alarm s _ringingDuration
-- pri ostatnych PHONE_CALL_EVENT_xxx removnut tento alarm
-- stopnut zvonenie a poslat sms len ak pride broadcast na alarm s _ringingDuration
 
-Alarm sa musi zrusit pri zdvihnuti, ukonceni, missed hovoru.
-
+-------------------------------
 
 
