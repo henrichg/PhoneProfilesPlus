@@ -508,7 +508,7 @@ Ako postupovat:
 
 "Block phone calls" -> treba spravt indikator
 
-
+Treba permission na tie kontakty. Contacts.
 
 -------------------------------
 

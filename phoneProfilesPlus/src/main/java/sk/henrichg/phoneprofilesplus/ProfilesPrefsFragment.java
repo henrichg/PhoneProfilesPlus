@@ -401,6 +401,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
+        if (preference instanceof ContactGroupsMultiSelectDialogPreference) {
+            ((ContactGroupsMultiSelectDialogPreference) preference).fragment = new ContactGroupsMultiSelectDialogPreferenceFragment();
+            dialogFragment = ((ContactGroupsMultiSelectDialogPreference) preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        else
+        if (preference instanceof ContactsMultiSelectDialogPreference) {
+            ((ContactsMultiSelectDialogPreference) preference).fragment = new ContactsMultiSelectDialogPreferenceFragment();
+            dialogFragment = ((ContactsMultiSelectDialogPreference) preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
@@ -1967,6 +1983,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (requestCode == RESULT_SET_CALL_SCREENING_ROLE) {
             if (Build.VERSION.SDK_INT >= 29) {
+                disableDependedPref(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
                 setSummary(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
 
                 ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
@@ -3631,201 +3648,50 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         StringBuilder _value = new StringBuilder(cattegorySummaryData.summary);
 
-        String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, R.string.profile_preference_phoneCallsBlockCalls, context);
-        Log.e("ProfilesPrefsFragment.setCategorySummaryPhoneCalls", "title="+title);
-        boolean isBlockCalls = false;
-        if (!title.isEmpty()) {
-            cattegorySummaryData.bold = true;
-            isBlockCalls = true;
-            _value.append(title);
+        boolean isHeld = false;
+        if (Build.VERSION.SDK_INT >= 29) {
+            RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
+            isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
         }
-        if (isBlockCalls) {
-
-        }
-/*
-        if (!isMuteEnabled) {
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_RINGTONE, R.string.profile_preferences_volumeRingtone, context);
+        if (isHeld) {
+            String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, R.string.profile_preference_phoneCallsBlockCalls, context);
+            boolean isBlockCalls = false;
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
-                //if (!summary.isEmpty()) summary = summary + " • ";
-
-                if (audioManager != null) {
-                    String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_RINGTONE));
-
-                    value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-
-                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_VOLUME_CATTEGORY_ROOT, context))
-                            .append(StringConstants.TAG_BOLD_END_HTML);
-                } else
-                    _value.append(title);
+                isBlockCalls = true;
+                _value.append(title);
             }
-            String ringtoneValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
-            if ((!ActivateProfileHelper.getMergedRingNotificationVolumes() || ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) &&
-                    getEnableVolumeNotificationByRingtone(ringtoneValue)) {
-                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, R.string.profile_preferences_volumeNotification, context);
+            if (isBlockCalls) {
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, R.string.profile_preference_phoneCallsContactGroups, context);
                 if (!title.isEmpty()) {
                     cattegorySummaryData.bold = true;
                     if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
-                    if (audioManager != null) {
-                        String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION,
-                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_NOTIFICATION));
+                    String value = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS));
+                    value = ContactGroupsMultiSelectDialogPreference.getSummary(value, context);
 
-                        value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
 
-                        _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                                .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_VOLUME_CATTEGORY_ROOT, context))
-                                .append(StringConstants.TAG_BOLD_END_HTML);
-                    } else
-                        _value.append(title);
+                }
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS, R.string.profile_preference_phoneCallsContacts, context);
+                if (!title.isEmpty()) {
+                    cattegorySummaryData.bold = true;
+                    if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+
+                    String value = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS));
+                    value = ContactsMultiSelectDialogPreference.getSummary(value, false, context);
+
+                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
+
                 }
             }
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_MEDIA, R.string.profile_preferences_volumeMedia, context);
-            if (!title.isEmpty()) {
-                cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
-
-                if (audioManager != null) {
-                    String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_MEDIA,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_MEDIA));
-
-                    value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-
-                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_VOLUME_CATTEGORY_ROOT, context))
-                            .append(StringConstants.TAG_BOLD_END_HTML);
-                } else
-                    _value.append(title);
-            }
         }
-        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ALARM, R.string.profile_preferences_volumeAlarm, context);
-        if (!title.isEmpty()) {
-            cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
-
-            if (audioManager != null) {
-                String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_ALARM,
-                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_ALARM));
-
-                value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-
-                _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                        .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_VOLUME_CATTEGORY_ROOT, context))
-                        .append(StringConstants.TAG_BOLD_END_HTML);
-            }
-            else
-                _value.append(title);
-        }
-        if (!isMuteEnabled) {
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_SYSTEM, R.string.profile_preferences_volumeSystem, context);
-            if (!title.isEmpty()) {
-                cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
-
-                if (audioManager != null) {
-                    String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_SYSTEM,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_SYSTEM));
-
-                    value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
-
-                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_VOLUME_CATTEGORY_ROOT, context))
-                            .append(StringConstants.TAG_BOLD_END_HTML);
-                } else
-                    _value.append(title);
-            }
-        }
-        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_VOICE, R.string.profile_preferences_volumeVoiceCall, context);
-        if (!title.isEmpty()) {
-            cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
-
-            if (audioManager != null) {
-                String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_VOICE,
-                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_VOICE));
-
-                value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
-
-                _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                        .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_VOLUME_CATTEGORY_ROOT, context))
-                        .append(StringConstants.TAG_BOLD_END_HTML);
-            }
-            else
-                _value.append(title);
-        }
-        if (!isMuteEnabled) {
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_DTMF, R.string.profile_preferences_volumeDTMF, context);
-            if (!title.isEmpty()) {
-                cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
-
-                if (audioManager != null) {
-                    String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_DTMF,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_DTMF));
-
-                    value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
-
-                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_VOLUME_CATTEGORY_ROOT, context))
-                            .append(StringConstants.TAG_BOLD_END_HTML);
-                } else
-                    _value.append(title);
-            }
-        }
-        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, R.string.profile_preferences_volumeAccessibility, context);
-        if (!title.isEmpty()) {
-            cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
-
-            if ((audioManager != null)) {
-                String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY,
-                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY));
-
-                value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
-
-                _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                        .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_VOLUME_CATTEGORY_ROOT, context))
-                        .append(StringConstants.TAG_BOLD_END_HTML);
-            }
-            else
-                _value.append(title);
-        }
-        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, R.string.profile_preferences_volumeBluetoothSCO, context);
-        if (!title.isEmpty()) {
-            cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
-
-            if (audioManager != null) {
-                String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO,
-                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO));
-
-                value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
-
-                _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                        .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_VOLUME_CATTEGORY_ROOT, context))
-                        .append(StringConstants.TAG_BOLD_END_HTML);
-            }
-            else
-                _value.append(title);
-        }
-        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, R.string.profile_preferences_volumeSpeakerPhone, context);
-        if (!title.isEmpty()) {
-            cattegorySummaryData.bold = true;
-            if (_value.length() > 0)
-                _value.append(StringConstants.STR_BULLET);
-
-            String value = StringFormatUtils.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE)),
-                    R.array.volumeSpeakerPhoneValues, R.array.volumeSpeakerPhoneArray, context);
-
-            _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                    .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_VOLUME_CATTEGORY_ROOT, context))
-                    .append(StringConstants.TAG_BOLD_END_HTML);
-        }
- */
 
         cattegorySummaryData.summary = _value.toString();
 
@@ -5902,20 +5768,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, change, false, false, false, false);
             }
         }
-        //TODO pridaj sem aj kontakty
-        if (key.equals(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE) ||
-                key.equals(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS)) {
-            if (Build.VERSION.SDK_INT >= 29) {
-                RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
-                boolean isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
-                Preference preference = prefMng.findPreference(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
-                if (preference != null)
-                    preference.setEnabled(!isHeld);
-                preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS);
-                if (preference != null)
-                    preference.setEnabled(isHeld);
-            }
-        }
         if (key.equals(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE)) {
             if (Build.VERSION.SDK_INT >= 29) {
                 String summary = getString(R.string.profile_preferences_phoneCalls_setCallScreeningRole_summary);
@@ -6584,6 +6436,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
         disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
         disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
+        disableDependedPref(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
+        disableDependedPref(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS);
 
         //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
         //{
@@ -6704,6 +6558,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL);
         setSummary(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
         setSummary(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS);
+        setSummary(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS);
+        setSummary(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS);
 
         setCategorySummary(PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_SOUND_PROFILE_CATTEGORY_ROOT, context);
@@ -7041,6 +6897,27 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setEnabled(enabled);
             }
         */
+        //TODO pridaj sem aj kontakty
+        if (key.equals(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE) ||
+                key.equals(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS)) {
+            if (Build.VERSION.SDK_INT >= 29) {
+                RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
+                boolean isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
+                Preference preference = prefMng.findPreference(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
+                if (preference != null)
+                    preference.setEnabled(!isHeld);
+                preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS);
+                if (preference != null)
+                    preference.setEnabled(isHeld);
+                preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS);
+                if (preference != null)
+                    preference.setEnabled(isHeld);
+                preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS);
+                if (preference != null)
+                    preference.setEnabled(isHeld);
+            }
+        }
+
     }
 
     private void disableDependedPref(String key) {

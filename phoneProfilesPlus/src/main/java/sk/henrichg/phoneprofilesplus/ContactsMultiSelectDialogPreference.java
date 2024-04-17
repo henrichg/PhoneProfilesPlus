@@ -345,7 +345,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 
     static String getSummary(String value, boolean withoutNumbers, Context context) {
         String summary = context.getString(R.string.contacts_multiselect_summary_text_not_selected);
-        if (!value.isEmpty()) {
+        if ((value != null) && (!value.isEmpty())) {
             String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
             if (splits.length == 1) {
                 String[] splits2 = splits[0].split(StringConstants.STR_SPLIT_CONTACTS_REGEX);

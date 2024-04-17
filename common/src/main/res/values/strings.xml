@@ -2178,6 +2178,8 @@
     <string name="profile_preferences_phoneCalls_setCallScreeningRole_summary_ststus_0">Call screening role for PhoneProfilesPlus is not set</string>
     <string name="profile_preference_phoneCallsBlockCalls">Block phone calls</string>
     <string name="profile_preference_phoneCallsBlockCalls_summary">WARNING: This parameter allows block calls, configured in \"Contact groups\", \"Contacts\". Notfifcation about blocked calls will not be displayed.</string>
+    <string name="profile_preference_phoneCallsContactGroups">Contact groups</string>
+    <string name="profile_preference_phoneCallsContacts">Contacts</string>
 
     <!-- **************************************************************************************** -->
 

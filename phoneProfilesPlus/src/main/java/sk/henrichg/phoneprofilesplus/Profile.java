@@ -132,6 +132,8 @@ class Profile {
     int _applicationOrientationScanInterval;
     int _applicationPeriodicScanInterval;
     boolean _phoneCallsBlockCalls;
+    String _phoneCallsContacts; // contactId#phoneId|...
+    String _phoneCallsContactGroups; // groupId|...
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -261,6 +263,8 @@ class Profile {
     static final String PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL = "prf_pref_applicationOrientationScanInterval";
     static final String PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL = "prf_pref_applicationPeriodicScanningScanInterval";
     static final String PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS = "prf_pref_phoneCalls_blockCalls";
+    static final String PREF_PROFILE_PHONE_CALLS_CONTACTS = "prf_pref_phoneCalls_contacts";
+    static final String PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS = "prf_pref_phoneCalls_contactGroups";
 
     static final ArrayMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -383,6 +387,8 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, "15");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, "10");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, "15");
+        defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACTS, "");
+        defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, "");
     }
 
     static final int RINGERMODE_RING = 1;
