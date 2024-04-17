@@ -131,6 +131,7 @@ class Profile {
     int _applicationLocationScanInterval;
     int _applicationOrientationScanInterval;
     int _applicationPeriodicScanInterval;
+    boolean _phoneCallsBlockCalls;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -259,6 +260,7 @@ class Profile {
     static final String PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL = "prf_pref_applicationLocationUpdateInterval";
     static final String PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL = "prf_pref_applicationOrientationScanInterval";
     static final String PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL = "prf_pref_applicationPeriodicScanningScanInterval";
+    static final String PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS = "prf_pref_phoneCalls_blockCalls";
 
     static final ArrayMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -270,6 +272,7 @@ class Profile {
         defaultValuesBoolean.put(PREF_PROFILE_HIDE_STATUS_BAR_ICON, false);
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY, false);
+        defaultValuesBoolean.put(PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
     }
     static final ArrayMap<String, String> defaultValuesString;
     static {
@@ -3315,6 +3318,7 @@ class Profile {
         editor.putString(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, Integer.toString(this._applicationLocationScanInterval));
         editor.putString(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, Integer.toString(this._applicationOrientationScanInterval));
         editor.putString(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, Integer.toString(this._applicationPeriodicScanInterval));
+        editor.putBoolean(PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, this._phoneCallsBlockCalls);
 
         editor.apply();
     }
