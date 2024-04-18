@@ -2617,6 +2617,8 @@ class DatabaseHandlerCreateUpdateDB {
                                 15,
                                 10,
                                 15,
+                                "",
+                                "",
                                 false
                         );
 

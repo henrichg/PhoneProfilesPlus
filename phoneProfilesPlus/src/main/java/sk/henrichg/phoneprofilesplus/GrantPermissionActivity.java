@@ -818,6 +818,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_TYPE_PROFILE_RINGTONES_DUAL_SIM:
                         s = getString(R.string.permission_why_profile_ringtones_dual_sim);
                         break;
+                    case Permissions.PERMISSION_TYPE_PROFILE_PHONE_CALLS:
+                        s = getString(R.string.permission_why_profile_phone_calls);
+                        break;
                 }
             }
         }

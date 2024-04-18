@@ -499,19 +499,22 @@ https://developer.android.com/develop/connectivity/nfc/nfc#ext-type
 
 Profil a novy parameter "Block phone calls"
 
-Aj je role nastavene, uz nefunguje jeho znovu-nastavenie, nozbrazuje sa ten bottom sheet na to.
+Ak je role nastavene, uz nefunguje jeho znovu-nastavenie, nozbrazuje sa ten bottom sheet na to.
 Ide len zrusit v Settings "Caller ID & spam app".
 Ak je nastavena ina apka ako PPP, zobrazi sa bottom sheet, takze toto je OK.
 Ako postupovat:
-1. ak je nastavene PPP, disablovat tuto volbu
-2. zobrazovat v summary stav, cize k tomu, co tma uz je dat pred to este stav.
-
-"Block phone calls" -> treba spravt indikator
+1. ak je nastavene PPP, disablovat tuto volbu HOTOVO
+2. zobrazovat v summary stav, cize k tomu, co tam uz je dat pred to este stav. HOTOVO
 
 Treba permission na tie kontakty. Contacts.
+Samotny contacts a groups dialog, pyta pravo. Je volane: Permissions.grantContactsDialogPermissions(prefContext).
+Cize treba uz iba klasicky ako u inych parametroch.
 
-Este: v category nezobrazuj, ze je blok povoleny, ak nie su nastavene skuiny alebo kontakty
-A v servise nesmies blokovat, ak tieto dve veci nie su nastavene.
+A pridaj ešte contact list type, ako je v call senzore.
+
+"Block phone calls" -> treba spravit indikator
+
+V servise nesmies blokovat, ak kontakty nie su nastavene.
 
 -------------------------------
 

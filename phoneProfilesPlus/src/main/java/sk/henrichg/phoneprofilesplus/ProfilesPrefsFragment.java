@@ -3662,7 +3662,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, R.string.profile_preference_phoneCallsContactGroups, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+                //if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 contactGroupsValue = ContactGroupsMultiSelectDialogPreference.getSummary(contactGroupsValue, context);
 
@@ -3693,7 +3693,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 //isBlockCalls = true;
 
                 title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, R.string.profile_preference_phoneCallsBlockCalls, context);
-                _value.append(title);
+                _value.append(StringConstants.STR_BULLET)
+                        .append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 

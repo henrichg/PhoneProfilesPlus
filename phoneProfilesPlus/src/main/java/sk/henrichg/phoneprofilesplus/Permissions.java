@@ -77,6 +77,7 @@ class Permissions {
     static final int PERMISSION_TYPE_PROFILE_CLOSE_ALL_APPLICATIONS = 55;
     static final int PERMISSION_TYPE_PROFILE_PPP_PUT_SETTINGS = 56;
     static final int PERMISSION_TYPE_PROFILE_RINGTONES_DUAL_SIM = 57;
+    static final int PERMISSION_TYPE_PROFILE_PHONE_CALLS = 58;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -243,10 +244,10 @@ class Permissions {
         checkProfileCameraFlash(context, profile, permissions);
         //checkProfileBackgroundLocation(context, profile, permissions);
         checkProfileMicrophone(context, profile, permissions);
-
         checkProfileRunApplications(context, profile, permissions);
         checkProfileInteractivePreferences(context, profile, permissions);
         checkProfileCloseAllApplications(context, profile, permissions);
+        checkProfilePhoneCalls(context, profile, permissions);
         checkProfilePPPPutSettings(context, profile, permissions);
 
         return permissions;
@@ -1133,6 +1134,25 @@ class Permissions {
                     }
                     //return grantedDrawOverlays;
                 //} //else
+                //  return true;
+            } catch (Exception e) {
+                //return false;
+            }
+        } //else
+        //return /*true*/;
+    }
+
+    static void checkProfilePhoneCalls(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return /*true*/;
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            try {
+                if (((profile._phoneCallsContacts != null) && (!profile._phoneCallsContacts.isEmpty())) ||
+                    ((profile._phoneCallsContactGroups != null) && (!profile._phoneCallsContactGroups.isEmpty()))) {
+                    boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+                    if ((permissions != null) && (!granted))
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_PHONE_CALLS, permission.READ_CONTACTS));
+                } //else
                 //  return true;
             } catch (Exception e) {
                 //return false;

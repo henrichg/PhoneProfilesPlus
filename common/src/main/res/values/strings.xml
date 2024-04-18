@@ -2180,6 +2180,7 @@
     <string name="profile_preference_phoneCallsBlockCalls_summary">WARNING: This parameter allows block calls, configured in \"Contact groups\", \"Contacts\". Notfifcation about blocked calls will not be displayed.</string>
     <string name="profile_preference_phoneCallsContactGroups">Contact groups</string>
     <string name="profile_preference_phoneCallsContacts">Contacts</string>
+    <string name="permission_why_profile_phone_calls">for read contacts in profile parameter \"Phone calls\"</string>
 
     <!-- **************************************************************************************** -->
 
