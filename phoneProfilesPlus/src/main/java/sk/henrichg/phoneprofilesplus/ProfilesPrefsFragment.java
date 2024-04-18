@@ -3659,41 +3659,41 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String contactsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS));
 
-            String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, R.string.profile_preference_phoneCallsBlockCalls, context);
-            boolean isBlockCalls = false;
+            String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, R.string.profile_preference_phoneCallsContactGroups, context);
+            if (!title.isEmpty()) {
+                cattegorySummaryData.bold = true;
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+
+                contactGroupsValue = ContactGroupsMultiSelectDialogPreference.getSummary(contactGroupsValue, context);
+
+                _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(ProfileStatic.getColorForChangedPreferenceValue(contactGroupsValue, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
+
+            }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS, R.string.profile_preference_phoneCallsContacts, context);
+            if (!title.isEmpty()) {
+                cattegorySummaryData.bold = true;
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+
+                contactsValue = ContactsMultiSelectDialogPreference.getSummary(contactsValue, false, context);
+
+                _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(ProfileStatic.getColorForChangedPreferenceValue(contactsValue, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
+
+            }
+
+            //boolean isBlockCalls = false;
             if (!title.isEmpty() &&
                     (((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
                      ((contactsValue != null) && (!contactsValue.isEmpty())))
             ) {
                 cattegorySummaryData.bold = true;
-                isBlockCalls = true;
+                //isBlockCalls = true;
+
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, R.string.profile_preference_phoneCallsBlockCalls, context);
                 _value.append(title);
-            }
-            if (isBlockCalls) {
-                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, R.string.profile_preference_phoneCallsContactGroups, context);
-                if (!title.isEmpty()) {
-                    cattegorySummaryData.bold = true;
-                    if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
-
-                    contactGroupsValue = ContactGroupsMultiSelectDialogPreference.getSummary(contactGroupsValue, context);
-
-                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(ProfileStatic.getColorForChangedPreferenceValue(contactGroupsValue, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
-                            .append(StringConstants.TAG_BOLD_END_HTML);
-
-                }
-                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS, R.string.profile_preference_phoneCallsContacts, context);
-                if (!title.isEmpty()) {
-                    cattegorySummaryData.bold = true;
-                    if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
-
-                    contactsValue = ContactsMultiSelectDialogPreference.getSummary(contactsValue, false, context);
-
-                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(ProfileStatic.getColorForChangedPreferenceValue(contactsValue, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
-                            .append(StringConstants.TAG_BOLD_END_HTML);
-
-                }
             }
         }
 
@@ -6901,6 +6901,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setEnabled(enabled);
             }
         */
+
         //TODO pridaj sem aj kontakty
         if (key.equals(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE) ||
                 key.equals(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS)) {
@@ -6910,15 +6911,27 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 Preference preference = prefMng.findPreference(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
                 if (preference != null)
                     preference.setEnabled(!isHeld);
-                preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS);
-                if (preference != null)
-                    preference.setEnabled(isHeld);
+
+                String contactGroupsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS,
+                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS));
+                String contactsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS,
+                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS));
+
                 preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS);
                 if (preference != null)
                     preference.setEnabled(isHeld);
                 preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS);
                 if (preference != null)
                     preference.setEnabled(isHeld);
+
+                preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS);
+                if (preference != null) {
+                    if (((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
+                        ((contactsValue != null) && (!contactsValue.isEmpty())))
+                        preference.setEnabled(isHeld);
+                    else
+                        preference.setEnabled(false);
+                }
             }
         }
 

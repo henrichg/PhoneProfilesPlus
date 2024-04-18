@@ -133,6 +133,8 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_PHONE_CALLS_CONTACTS + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS + " " + DatabaseHandler.INTEGER_TYPE
                 + ")";
     }
@@ -672,6 +674,8 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PHONE_CALLS_CONTACTS, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS, DatabaseHandler.INTEGER_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENTS:
@@ -3514,6 +3518,13 @@ class DatabaseHandlerCreateUpdateDB {
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS + "=0");
+        }
+        if (oldVersion < 2517)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACTS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACTS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS + "=\"\"");
         }
 
     }

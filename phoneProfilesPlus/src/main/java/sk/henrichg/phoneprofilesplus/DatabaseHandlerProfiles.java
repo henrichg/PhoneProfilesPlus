@@ -138,6 +138,8 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL, profile._applicationLocationScanInterval);
                 values.put(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL, profile._applicationOrientationScanInterval);
                 values.put(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, profile._applicationPeriodicScanInterval);
+                values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS, profile._phoneCallsContacts);
+                values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS, profile._phoneCallsContactGroups);
                 values.put(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS, (profile._phoneCallsBlockCalls) ? 1 : 0);
 
                 // Insert Row
@@ -288,6 +290,8 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL,
                                 DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL,
                                 DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL,
+                                DatabaseHandler.KEY_PHONE_CALLS_CONTACTS,
+                                DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS,
                                 DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS
                         },
                         DatabaseHandler.KEY_ID + "=?",
@@ -411,6 +415,8 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS)) == 1
                         );
                     }
@@ -554,6 +560,8 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL + "," +
                         DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL + "," +
                         DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL + "," +
+                        DatabaseHandler.KEY_PHONE_CALLS_CONTACTS + "," +
+                        DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS + "," +
                         DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS +
                 " FROM " + DatabaseHandler.TABLE_PROFILES;
 
@@ -680,6 +688,8 @@ class DatabaseHandlerProfiles {
                         profile._applicationLocationScanInterval = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL));
                         profile._applicationOrientationScanInterval = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL));
                         profile._applicationPeriodicScanInterval = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL));
+                        profile._phoneCallsContacts = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS));
+                        profile._phoneCallsContactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS));
                         profile._phoneCallsBlockCalls = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS)) == 1;
                         // Adding profile to list
                         profileList.add(profile);
@@ -824,6 +834,8 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL, profile._applicationLocationScanInterval);
                 values.put(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL, profile._applicationOrientationScanInterval);
                 values.put(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, profile._applicationPeriodicScanInterval);
+                values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS, profile._phoneCallsContacts);
+                values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS, profile._phoneCallsContactGroups);
                 values.put(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS, (profile._phoneCallsBlockCalls) ? 1 : 0);
 
                 // updating row
@@ -1184,6 +1196,8 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL,
                                 DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL,
                                 DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL,
+                                DatabaseHandler.KEY_PHONE_CALLS_CONTACTS,
+                                DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS,
                                 DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS,
                         },
                         DatabaseHandler.KEY_CHECKED + "=?",
@@ -1309,6 +1323,8 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS)) == 1
                                 );
                     }

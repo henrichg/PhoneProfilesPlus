@@ -704,6 +704,8 @@ class ProfileStatic {
                     profile._applicationLocationScanInterval,
                     profile._applicationOrientationScanInterval,
                     profile._applicationPeriodicScanInterval,
+                    profile._phoneCallsContacts,
+                    profile._phoneCallsContactGroups,
                     profile._phoneCallsBlockCalls
             );
 

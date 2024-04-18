@@ -131,9 +131,9 @@ class Profile {
     int _applicationLocationScanInterval;
     int _applicationOrientationScanInterval;
     int _applicationPeriodicScanInterval;
-    boolean _phoneCallsBlockCalls;
     String _phoneCallsContacts; // contactId#phoneId|...
     String _phoneCallsContactGroups; // groupId|...
+    boolean _phoneCallsBlockCalls;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -1077,6 +1077,8 @@ class Profile {
                    int applicationLocationScanInterval,
                    int applicationOrientationScanInterval,
                    int applicationPeriodicScanInterval,
+                   String phoneCallsContacts,
+                   String phoneCallsContactGroups,
                    boolean phoneCallsBlockCalls
             )
     {
@@ -1193,6 +1195,8 @@ class Profile {
         this._applicationLocationScanInterval = applicationLocationScanInterval;
         this._applicationOrientationScanInterval = applicationOrientationScanInterval;
         this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
+        this._phoneCallsContacts = phoneCallsContacts;
+        this._phoneCallsContactGroups = phoneCallsContactGroups;
         this._phoneCallsBlockCalls = phoneCallsBlockCalls;
 
         this._iconBitmap = null;
@@ -1314,6 +1318,8 @@ class Profile {
             int applicationLocationScanInterval,
             int applicationOrientationScanInterval,
             int applicationPeriodicScanInterval,
+            String phoneCallsContacts,
+            String phoneCallsContactGroups,
             boolean phoneCallsBlockCalls
     )
     {
@@ -1429,6 +1435,8 @@ class Profile {
         this._applicationLocationScanInterval = applicationLocationScanInterval;
         this._applicationOrientationScanInterval = applicationOrientationScanInterval;
         this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
+        this._phoneCallsContacts = phoneCallsContacts;
+        this._phoneCallsContactGroups = phoneCallsContactGroups;
         this._phoneCallsBlockCalls = phoneCallsBlockCalls;
 
         this._iconBitmap = null;
@@ -1551,6 +1559,8 @@ class Profile {
         this._applicationLocationScanInterval = profile._applicationLocationScanInterval;
         this._applicationOrientationScanInterval = profile._applicationOrientationScanInterval;
         this._applicationPeriodicScanInterval = profile._applicationPeriodicScanInterval;
+        this._phoneCallsContacts = profile._phoneCallsContacts;
+        this._phoneCallsContactGroups = profile._phoneCallsContactGroups;
         this._phoneCallsBlockCalls = profile._phoneCallsBlockCalls;
 
         this._iconBitmap = profile._iconBitmap;
@@ -1908,6 +1918,10 @@ class Profile {
                     this._applicationOrientationScanInterval = withProfile._applicationOrientationScanInterval;
                 if (withProfile._applicationPeriodicScanInterval != 0)
                     this._applicationPeriodicScanInterval = withProfile._applicationPeriodicScanInterval;
+                if (!withProfile._phoneCallsContacts.isEmpty())
+                    this._phoneCallsContacts = withProfile._phoneCallsContacts;
+                if (!withProfile._phoneCallsContactGroups.isEmpty())
+                    this._phoneCallsContactGroups = withProfile._phoneCallsContactGroups;
                 if (withProfile._phoneCallsBlockCalls)
                     this._phoneCallsBlockCalls = true;
             }
@@ -2287,6 +2301,12 @@ class Profile {
                 return false;
             }
             if (this._volumeMediaChangeDuringPlay != withProfile._volumeMediaChangeDuringPlay) {
+                return false;
+            }
+            if (!this._phoneCallsContacts.equals(withProfile._phoneCallsContacts)) {
+                return false;
+            }
+            if (!this._phoneCallsContactGroups.equals(withProfile._phoneCallsContactGroups)) {
                 return false;
             }
             if (this._phoneCallsBlockCalls != withProfile._phoneCallsBlockCalls) {
@@ -3334,6 +3354,8 @@ class Profile {
         editor.putString(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, Integer.toString(this._applicationLocationScanInterval));
         editor.putString(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, Integer.toString(this._applicationOrientationScanInterval));
         editor.putString(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, Integer.toString(this._applicationPeriodicScanInterval));
+        editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACTS, this._phoneCallsContacts);
+        editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, this._phoneCallsContactGroups);
         editor.putBoolean(PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, this._phoneCallsBlockCalls);
 
         editor.apply();

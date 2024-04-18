@@ -463,6 +463,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._applicationLocationScanInterval,
                         origProfile._applicationOrientationScanInterval,
                         origProfile._applicationPeriodicScanInterval,
+                        origProfile._phoneCallsContacts,
+                        origProfile._phoneCallsContactGroups,
                         origProfile._phoneCallsBlockCalls
                 );
                 showSaveMenu = true;
@@ -670,6 +672,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._applicationLocationScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, ""));
             profile._applicationOrientationScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, ""));
             profile._applicationPeriodicScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, ""));
+            profile._phoneCallsContacts = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS, "");
+            profile._phoneCallsContactGroups = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, "");
             profile._phoneCallsBlockCalls = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
         }
 
