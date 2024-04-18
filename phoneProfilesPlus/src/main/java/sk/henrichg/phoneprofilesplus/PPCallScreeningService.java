@@ -62,14 +62,6 @@ public class PPCallScreeningService extends CallScreeningService {
         boolean phoneNumberFound = false;
 
         //if (this._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
-            /*ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-            if (contactsCache == null)
-                return false;
-            List<Contact> contactList;
-//            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.isPhoneNumberConfigured", "(1) PPApplication.contactsCacheMutex");
-            synchronized (PPApplication.contactsCacheMutex) {
-                contactList = contactsCache.getList(); //false
-            }*/
 
             // find phone number in groups
             String[] splits = profile._phoneCallsContactGroups.split(StringConstants.STR_SPLIT_REGEX);
@@ -123,8 +115,8 @@ public class PPCallScreeningService extends CallScreeningService {
                 }
             }
 
-            //if (this._contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
-            //    phoneNumberFound = !phoneNumberFound;
+            if (profile._phoneCallsContactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
+                phoneNumberFound = !phoneNumberFound;
         //} else
         //   phoneNumberFound = true;
 

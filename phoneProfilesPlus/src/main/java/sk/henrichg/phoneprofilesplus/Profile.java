@@ -133,6 +133,7 @@ class Profile {
     int _applicationPeriodicScanInterval;
     String _phoneCallsContacts; // contactId#phoneId|...
     String _phoneCallsContactGroups; // groupId|...
+    int _phoneCallsContactListType;
     boolean _phoneCallsBlockCalls;
 
     Bitmap _iconBitmap;
@@ -265,6 +266,7 @@ class Profile {
     static final String PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS = "prf_pref_phoneCalls_blockCalls";
     static final String PREF_PROFILE_PHONE_CALLS_CONTACTS = "prf_pref_phoneCalls_contacts";
     static final String PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS = "prf_pref_phoneCalls_contactGroups";
+    static final String PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE = "prf_pref_phoneCalls_contactListType";
 
     static final ArrayMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -389,6 +391,7 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, "15");
         defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACTS, "");
         defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, "");
+        defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, "0");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -1079,6 +1082,7 @@ class Profile {
                    int applicationPeriodicScanInterval,
                    String phoneCallsContacts,
                    String phoneCallsContactGroups,
+                   int phoneCallsContactListType,
                    boolean phoneCallsBlockCalls
             )
     {
@@ -1197,6 +1201,7 @@ class Profile {
         this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
         this._phoneCallsContacts = phoneCallsContacts;
         this._phoneCallsContactGroups = phoneCallsContactGroups;
+        this._phoneCallsContactListType = phoneCallsContactListType;
         this._phoneCallsBlockCalls = phoneCallsBlockCalls;
 
         this._iconBitmap = null;
@@ -1320,6 +1325,7 @@ class Profile {
             int applicationPeriodicScanInterval,
             String phoneCallsContacts,
             String phoneCallsContactGroups,
+            int phoneCallsContactListType,
             boolean phoneCallsBlockCalls
     )
     {
@@ -1437,6 +1443,7 @@ class Profile {
         this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
         this._phoneCallsContacts = phoneCallsContacts;
         this._phoneCallsContactGroups = phoneCallsContactGroups;
+        this._phoneCallsContactListType = phoneCallsContactListType;
         this._phoneCallsBlockCalls = phoneCallsBlockCalls;
 
         this._iconBitmap = null;
@@ -1561,6 +1568,7 @@ class Profile {
         this._applicationPeriodicScanInterval = profile._applicationPeriodicScanInterval;
         this._phoneCallsContacts = profile._phoneCallsContacts;
         this._phoneCallsContactGroups = profile._phoneCallsContactGroups;
+        this._phoneCallsContactListType = profile._phoneCallsContactListType;
         this._phoneCallsBlockCalls = profile._phoneCallsBlockCalls;
 
         this._iconBitmap = profile._iconBitmap;
@@ -1922,6 +1930,8 @@ class Profile {
                     this._phoneCallsContacts = withProfile._phoneCallsContacts;
                 if (!withProfile._phoneCallsContactGroups.isEmpty())
                     this._phoneCallsContactGroups = withProfile._phoneCallsContactGroups;
+                if (withProfile._phoneCallsContactListType != 0)
+                    this._phoneCallsContactListType = withProfile._phoneCallsContactListType;
                 if (withProfile._phoneCallsBlockCalls)
                     this._phoneCallsBlockCalls = true;
             }
@@ -2307,6 +2317,9 @@ class Profile {
                 return false;
             }
             if (!this._phoneCallsContactGroups.equals(withProfile._phoneCallsContactGroups)) {
+                return false;
+            }
+            if (this._phoneCallsContactListType != withProfile._phoneCallsContactListType) {
                 return false;
             }
             if (this._phoneCallsBlockCalls != withProfile._phoneCallsBlockCalls) {
@@ -3356,6 +3369,7 @@ class Profile {
         editor.putString(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, Integer.toString(this._applicationPeriodicScanInterval));
         editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACTS, this._phoneCallsContacts);
         editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, this._phoneCallsContactGroups);
+        editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, Integer.toString(this._phoneCallsContactListType));
         editor.putBoolean(PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, this._phoneCallsBlockCalls);
 
         editor.apply();

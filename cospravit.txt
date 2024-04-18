@@ -514,10 +514,15 @@ Treba este zistit, ci netreba dake dalise pravo.
 Ak bude treba, treba este dorobit Phone permission pre:
 <uses-permission android:name="Manifest.permission.ANSWER_PHONE_CALLS" />
 <uses-permission android:name="Manifest.permission.CALL_PHONE" />
+NETREBA, testnute.
 
 A pridaj ešte contact list type, ako je v call senzore.
 No ale tuto nie je dobra vec, davat tam EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE.
 Prilis kriticke je toto blokovanie. Ta hodnota by znamenala, ze kazdy jeden hovor by to blokovalo.
+
+Import/Export
+- kontakty treba zakriptovat, pozri to u udalosti
+- kontakty treba dat, ze ich nechcem do backupu, je na to aj dialog, ten treba tiez upravit
 
 "Block phone calls" -> treba spravit indikator
 

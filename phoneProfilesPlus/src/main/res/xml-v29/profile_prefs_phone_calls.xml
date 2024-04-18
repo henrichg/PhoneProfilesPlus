@@ -22,6 +22,15 @@
         app:layout="@layout/mp_preference_material_widget"
         app:withoutNumbers="false"/>
 
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/event_preferences_contactListType"
+        app:summary="@string/array_event_pref_contact_list_type_white_list"
+        app:key="prf_pref_phoneCalls_contactListType"
+        app:defaultValue="0"
+        app:ppEntries="@array/phoneCallsContactListTypeArray"
+        app:ppEntryValues="@array/phoneCallsContactListTypeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <SwitchPreferenceCompat
         app:key="prf_pref_phoneCalls_blockCalls"
         app:title="@string/profile_preference_phoneCallsBlockCalls"
