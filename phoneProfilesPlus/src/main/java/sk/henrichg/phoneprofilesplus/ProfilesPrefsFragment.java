@@ -3643,6 +3643,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         return false;
     }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean setCategorySummaryPhoneCalls(Context context,
                                              CattegorySummaryData cattegorySummaryData) {
 
@@ -4487,6 +4488,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         return false;
     }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean setCategorySummaryAirplaneMode(Context context,
                                                    CattegorySummaryData cattegorySummaryData) {
 

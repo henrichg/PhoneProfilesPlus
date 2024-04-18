@@ -508,13 +508,20 @@ Ako postupovat:
 
 Treba permission na tie kontakty. Contacts.
 Samotny contacts a groups dialog, pyta pravo. Je volane: Permissions.grantContactsDialogPermissions(prefContext).
-Cize treba uz iba klasicky ako u inych parametroch.
+Cize treba uz iba klasicky ako u inych parametroch. HOTOVO
+
+Treba este zistit, ci netreba dake dalise pravo.
+Ak bude treba, treba este dorobit Phone permission pre:
+<uses-permission android:name="Manifest.permission.ANSWER_PHONE_CALLS" />
+<uses-permission android:name="Manifest.permission.CALL_PHONE" />
 
 A pridaj ešte contact list type, ako je v call senzore.
+No ale tuto nie je dobra vec, davat tam EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE.
+Prilis kriticke je toto blokovanie. Ta hodnota by znamenala, ze kazdy jeden hovor by to blokovalo.
 
 "Block phone calls" -> treba spravit indikator
 
-V servise nesmies blokovat, ak kontakty nie su nastavene.
+V servise nesmies blokovat, ak kontakty nie su nastavene. HOTOVO
 
 -------------------------------
 
