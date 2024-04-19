@@ -17,13 +17,13 @@ import androidx.core.content.ContextCompat;
 /** @noinspection ExtractMethodRecommender*/
 class ProfilePreferencesIndicator {
 
-    final int[] drawables = new int[60];
-    final boolean[] disabled = new boolean[60];
-    final String[] strings = new String[60];
+    final int[] drawables = new int[70];
+    final boolean[] disabled = new boolean[70];
+    final String[] strings = new String[70];
     int countDrawables = 0;
 
-    final String[] preferences = new String[60];
-    final int[] countItems = new int[60];
+    final String[] preferences = new String[70];
+    final int[] countItems = new int[70];
     int countPreferences = 0;
 
     //static final int DISABLED_ALPHA_DYNAMIC_LIGHT = 255;
@@ -2182,37 +2182,6 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            // disable global events run
-            if (profile._applicationDisableGloabalEventsRun != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableGloabalEventsRun == 1) || (profile._applicationDisableGloabalEventsRun == 3)) {
-                        if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableGlobalEventsRun) + StringConstants.STR_COLON_WITH_SPACE +
-                                    appContext.getString(R.string.array_pref_applicationDisableGlobalEventsRun_disabled);
-                        if (fillStrings)
-                            strings[countDrawables++] = "ern:0";
-                        else {
-                            disabled[countDrawables] = true;
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_events_run_off;
-                        }
-                        if (fillPreferences)
-                            countItems[countPreferences++] = 1;
-                    }
-                    if (profile._applicationDisableGloabalEventsRun == 2) {
-                        if (fillPreferences)
-                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableGlobalEventsRun) + StringConstants.STR_COLON_WITH_SPACE +
-                                    appContext.getString(R.string.array_pref_applicationDisableGlobalEventsRun_enabled);
-                        if (fillStrings)
-                            strings[countDrawables++] = "ern:1";
-                        else {
-                            disabled[countDrawables] = false;
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_events_run_off;
-                        }
-                        if (fillPreferences)
-                            countItems[countPreferences++] = 1;
-                    }
-                }
-            }
             // enable periodic scanning
             if (profile._applicationEnablePeriodicScanning != 0) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -2238,6 +2207,54 @@ class ProfilePreferencesIndicator {
                         else {
                             disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_periodic_off;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
+                }
+            }
+            // phone calls
+            if ((((profile._phoneCallsContacts != null) && (!profile._phoneCallsContacts.isEmpty())) ||
+                 ((profile._phoneCallsContactGroups != null) && (!profile._phoneCallsContactGroups.isEmpty()))) &&
+                profile._phoneCallsBlockCalls) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_category_phone_calls);
+                    if (fillStrings)
+                        strings[countDrawables++] = "pcal";
+                    else {
+                        disabled[countDrawables] = false;
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_phonecalls;
+                    }
+                    if (fillPreferences)
+                        countItems[countPreferences++] = 1;
+                }
+            }
+            // disable global events run
+            if (profile._applicationDisableGloabalEventsRun != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableGloabalEventsRun == 1) || (profile._applicationDisableGloabalEventsRun == 3)) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableGlobalEventsRun) + StringConstants.STR_COLON_WITH_SPACE +
+                                    appContext.getString(R.string.array_pref_applicationDisableGlobalEventsRun_disabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "ern:0";
+                        else {
+                            disabled[countDrawables] = true;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_events_run_off;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
+                    if (profile._applicationDisableGloabalEventsRun == 2) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationEnableGlobalEventsRun) + StringConstants.STR_COLON_WITH_SPACE +
+                                    appContext.getString(R.string.array_pref_applicationDisableGlobalEventsRun_enabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "ern:1";
+                        else {
+                            disabled[countDrawables] = false;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_events_run_off;
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
