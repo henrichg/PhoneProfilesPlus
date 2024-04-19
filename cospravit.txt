@@ -526,7 +526,7 @@ Import/Export
 - kontakty treba dat, ze ich nechcem do backupu, je na to aj dialog, ten treba tiez upravit
 HOTOVO
 
-"Block phone calls" -> treba spravit indikator
+"Block phone calls" -> treba spravit indikator HOTOVO
 
 V servise nesmies blokovat, ak kontakty nie su nastavene. HOTOVO
 
