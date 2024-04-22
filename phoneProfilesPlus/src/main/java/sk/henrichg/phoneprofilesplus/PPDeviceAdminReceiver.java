@@ -4,7 +4,6 @@ import android.app.admin.DeviceAdminReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 public class PPDeviceAdminReceiver extends DeviceAdminReceiver {
 
@@ -18,6 +17,7 @@ public class PPDeviceAdminReceiver extends DeviceAdminReceiver {
     public CharSequence onDisableRequested(Context context, Intent intent) {
         Log.e("PPDeviceAdminReceiver.onDisableRequested", "xxxxxxx");
         //return context.getString(R.string.device_admin_receiver_status_disable_warning);
+        return "";
     }
 
     @Override
