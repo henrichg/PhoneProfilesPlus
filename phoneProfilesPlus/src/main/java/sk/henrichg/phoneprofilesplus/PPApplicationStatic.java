@@ -549,7 +549,7 @@ class PPApplicationStatic {
                 try {
                     mNotificationManager.notify(PPApplication.APP_EXCEPTION_NOTIFICATION_TAG, PPApplication.APP_EXCEPTION_NOTIFICATION_ID, notification);
                 } catch (Exception en) {
-                    Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(en));
+                    Log.e("PPApplicationStatic.logException", Log.getStackTraceString(en));
                 }
             }
         }

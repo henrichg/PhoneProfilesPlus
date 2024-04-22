@@ -39,9 +39,9 @@ ext.ppVersions = [
         // Must be used android.jar downloaded from https://github.com/Reginer/aosp-android-jar
         // Downloaded android.jar must be copied into PC into folder \<android-sdk\>/platforms/android-XX
 
-        publishVersion    : '6.4.1.2b',
+        publishVersion    : '6.5b',
 
-        publishVersionCode: 7124,
+        publishVersionCode: 7125,
 
         minSdk            : 26,
         targetSdk         : 28,

@@ -4,7 +4,6 @@ import android.os.Build;
 import android.telecom.Call;
 import android.telecom.CallScreeningService;
 import android.telephony.PhoneNumberUtils;
-import android.util.Log;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class PPCallScreeningService extends CallScreeningService {
     public void onScreenCall(Call.Details callDetails) {
         if (Build.VERSION.SDK_INT >= 29) {
             CallResponse.Builder response = new CallResponse.Builder();
-            Log.e("PPCallScreeningService.onScreenCall", "Call screening service triggered");
+            //Log.e("PPCallScreeningService.onScreenCall", "Call screening service triggered");
 
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
             Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);

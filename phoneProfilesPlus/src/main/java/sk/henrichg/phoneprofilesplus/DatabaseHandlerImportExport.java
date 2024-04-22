@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -876,7 +875,7 @@ class DatabaseHandlerImportExport {
                             } catch (Exception e) {
                                 decryptedPhoneCallsContacts = "";
                             }
-                            Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedPhoneCallsContacts="+decryptedPhoneCallsContacts);
+                            //Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedPhoneCallsContacts="+decryptedPhoneCallsContacts);
                             if (decryptedPhoneCallsContacts == null) decryptedPhoneCallsContacts = "";
 
                             ContentValues values = new ContentValues();
@@ -1900,7 +1899,7 @@ class DatabaseHandlerImportExport {
                                                     String phoneCallsContacts = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS));
 
                                                     String encryptedPhoneCallsContacts = encryption.encryptOrNull(phoneCallsContacts);
-                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedPhoneCallsContacts="+encryptedPhoneCallsContacts);
+                                                    //Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedPhoneCallsContacts="+encryptedPhoneCallsContacts);
                                                     if (encryptedPhoneCallsContacts == null) encryptedPhoneCallsContacts="";
 
                                                     ContentValues values = new ContentValues();
@@ -2086,7 +2085,7 @@ class DatabaseHandlerImportExport {
                                             exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
                                         }
                                         if (deletePhoneCalls) {
-                                            Log.e("DatabaseHandlerImportExport.exportedDB", "deletePhoneCalls");
+                                            //Log.e("DatabaseHandlerImportExport.exportedDB", "deletePhoneCalls");
                                             ContentValues _values = new ContentValues();
                                             _values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS, encriptedEmptyStr);
                                             _values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS, "");

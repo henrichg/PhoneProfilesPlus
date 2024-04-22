@@ -28,7 +28,6 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -4471,14 +4470,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             int index = 0;
             String defaultValue = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
-            Log.e("ProfilePrefsFragment.setCategorySummaryDeviceWallpaper", "defaultValue="+defaultValue);
+            //Log.e("ProfilePrefsFragment.setCategorySummaryDeviceWallpaper", "defaultValue="+defaultValue);
             String[] entryValues = getResources().getStringArray(R.array.changeWallpaperValues);
             for (String v : entryValues) {
                 if (v.equals(defaultValue))
                     break;
                 index++;
             }
-            Log.e("ProfilePrefsFragment.setCategorySummaryDeviceWallpaper", "index="+index);
+            //Log.e("ProfilePrefsFragment.setCategorySummaryDeviceWallpaper", "index="+index);
             String[] entries = getResources().getStringArray(R.array.changeWallpaperArray);
             if (index == 0) {
                 _value.append(entries[index]);
@@ -6929,7 +6928,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         */
 
-        //TODO pridaj sem aj kontakty
         if (key.equals(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE) ||
                 key.equals(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS)) {
             if (Build.VERSION.SDK_INT >= 29) {

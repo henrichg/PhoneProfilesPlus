@@ -520,7 +520,6 @@ class EventPreferencesApplication extends EventPreferences {
                             String packageName = Application.getPackageName(split);
 
                             if (foregroundApplication.equals(packageName)) {
-                                // TODO test _duration
                                 if (_startTime > 0) {
                                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                                     long startTime = _startTime - gmtOffset;
