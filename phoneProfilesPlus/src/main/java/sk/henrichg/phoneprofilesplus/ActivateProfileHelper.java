@@ -8,6 +8,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.UiModeManager;
 import android.app.WallpaperManager;
+import android.app.admin.DevicePolicyManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -577,15 +578,27 @@ class ActivateProfileHelper {
                                         (profile._deviceWiFi == 8)) {
                                         setWifiInAirplaneMode(/*appContext,*/ isWifiEnabled);
                                     } else {
+
                                         //if (Build.VERSION.SDK_INT >= 29)
                                         //    CmdWifi.setWifi(isWifiEnabled);
                                         //else
-                                        wifiManager.setWifiEnabled(isWifiEnabled);
+
+                                        /*
+                                        DevicePolicyManager devicePolicyManager = (DevicePolicyManager) appContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
+                                        ComponentName adminComponent = new ComponentName(appContext, PPDeviceAdminReceiver.class);
+                                        if (devicePolicyManager.isAdminActive(adminComponent)) {
+                                            Log.e("ActivateProfileHelper.doExecuteForRadios", "wifi on/off");
+                                            // toto zial nefunguje, furt mi dava exception:
+                                            //  java.lang.SecurityException: Calling identity is not authorized
+                                            devicePolicyManager.setGlobalSetting(adminComponent, Settings.Global.WIFI_ON, isWifiEnabled ? "1" : "0");
+                                        } else
+                                        */
+                                            wifiManager.setWifiEnabled(isWifiEnabled);
                                         //CmdWifi.setWifiEnabled(isWifiAPEnabled);
                                     }
                                 } catch (Exception e) {
                                     //WTF?: DOOGEE- X5pro - java.lang.SecurityException: Permission Denial: Enable WiFi requires com.mediatek.permission.CTA_ENABLE_WIFI
-                                    //Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
+                                    Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
                                     //PPApplicationStatic.recordException(e);;
                                     //showError(context, profile._name, Profile.PARAMETER_TYPE_WIFI);
                                     PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_WIFI,

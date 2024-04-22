@@ -2183,6 +2183,12 @@
     <string name="permission_why_profile_phone_calls">for read contacts in profile parameter \"Phone calls\"</string>
     <string name="export_settings_delete_contacts_data_phonecalls">Contacts for profile parameter \"Phone calls\"</string>
 
+<!--    <string name="device_admin">Device admin</string>-->
+<!--    <string name="device_admin_description">Device admin description.</string>-->
+<!--    <string name="device_admin_receiver_status_enabled">Device admin is enabled.</string>-->
+<!--    <string name="device_admin_receiver_status_disable_warning">WARNIG! Device admin will be disbled!</string>-->
+<!--    <string name="device_admin_receiver_status_disabled">Device admin is disbled.</string>-->
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
