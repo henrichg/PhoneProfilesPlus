@@ -532,10 +532,5 @@ V servise nesmies blokovat, ak kontakty nie su nastavene. HOTOVO
 
 -------------------------------
 
-WiFi on/off na HyperOS - potrebuje MD Xiaomi Helper. A pre Wifi je treba vraj Location permission.
-Nechapem, ze preco.
-
-MD Xiaomi Helper - aj tak to zobrazuje prompt, tentokrat pre tento helper.
-
 
 

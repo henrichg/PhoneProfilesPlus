@@ -195,7 +195,8 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
 
                             //if (Build.VERSION.SDK_INT >= 29)
                             //    CmdWifi.setWifi(true);
-                            wifi.setWifiEnabled(true);
+                            ActivateProfileHelper.setWifi(prefContext.getApplicationContext(), true);
+                            //wifi.setWifiEnabled(true);
 
                             GlobalUtils.sleep(3000);
                         } else
@@ -261,7 +262,8 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
                         if (wifi != null) {
                             //if (Build.VERSION.SDK_INT >= 29)
                             //    CmdWifi.setWifi(false);
-                            wifi.setWifiEnabled(false);
+                            ActivateProfileHelper.setWifi(prefContext.getApplicationContext(), false);
+                            //wifi.setWifiEnabled(false);
                         }
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);

@@ -42,6 +42,7 @@ final class WifiApManager {
                         if (isWifiEnabled) {
                             //if (Build.VERSION.SDK_INT >= 29)
                             //    CmdWifi.setWifi(false);
+                            ActivateProfileHelper.setWifi(context.getApplicationContext(), false);
                             mWifiManager.setWifiEnabled(false);
                         }
                     }
@@ -145,7 +146,7 @@ final class WifiApManager {
     }
 
     @SuppressWarnings("JavaReflectionMemberAccess")
-    void startTethering(boolean doNotChangeWifi) {
+    void startTethering(Context context, boolean doNotChangeWifi) {
         if (!doNotChangeWifi) {
             if (mWifiManager != null) {
                 int wifiState = mWifiManager.getWifiState();
@@ -153,7 +154,8 @@ final class WifiApManager {
                 if (isWifiEnabled) {
                     //if (Build.VERSION.SDK_INT >= 29)
                     //    CmdWifi.setWifi(false);
-                        mWifiManager.setWifiEnabled(false);
+                        ActivateProfileHelper.setWifi(context.getApplicationContext(), false);
+                        //mWifiManager.setWifiEnabled(false);
                 }
             }
         }
@@ -316,7 +318,8 @@ final class WifiApManager {
                 if (isWifiEnabled) {
                     //if (Build.VERSION.SDK_INT >= 29)
                     //    CmdWifi.setWifi(false);
-                    wifiManager.setWifiEnabled(false);
+                    ActivateProfileHelper.setWifi(context.getApplicationContext(), false);
+                    //wifiManager.setWifiEnabled(false);
                 }
             }
         }

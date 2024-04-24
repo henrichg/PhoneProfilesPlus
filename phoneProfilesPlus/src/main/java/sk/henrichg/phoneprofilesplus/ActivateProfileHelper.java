@@ -580,28 +580,7 @@ class ActivateProfileHelper {
                                         (profile._deviceWiFi == 8)) {
                                         setWifiInAirplaneMode(/*appContext,*/ isWifiEnabled);
                                     } else {
-
-                                        //if (Build.VERSION.SDK_INT >= 29)
-                                        //    CmdWifi.setWifi(isWifiEnabled);
-                                        //else
-
-                                        /*
-                                        DevicePolicyManager devicePolicyManager = (DevicePolicyManager) appContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
-                                        ComponentName adminComponent = new ComponentName(appContext, PPDeviceAdminReceiver.class);
-                                        if (devicePolicyManager.isAdminActive(adminComponent)) {
-                                            Log.e("ActivateProfileHelper.doExecuteForRadios", "wifi on/off");
-                                            // toto zial nefunguje, furt mi dava exception:
-                                            //  java.lang.SecurityException: Calling identity is not authorized
-                                            devicePolicyManager.setGlobalSetting(adminComponent, Settings.Global.WIFI_ON, isWifiEnabled ? "1" : "0");
-                                        } else
-                                        */
-
-                                        wifiManager.setWifiEnabled(isWifiEnabled);
-                                        //if (isPPPPutSettingsInstalled(appContext) > 0) {
-                                        //    putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SPECIAL, SETTINGS_SET_WIFI_ENABLED, isWifiEnabled ? "1" : "0");
-                                        //}
-
-                                        //CmdWifi.setWifiEnabled(isWifiAPEnabled);
+                                        setWifi(appContext, isWifiEnabled);
                                     }
                                 } catch (Exception e) {
                                     //WTF?: DOOGEE- X5pro - java.lang.SecurityException: Permission Denial: Enable WiFi requires com.mediatek.permission.CTA_ENABLE_WIFI
@@ -6356,6 +6335,46 @@ class ActivateProfileHelper {
         }
     }
 
+    static void setWifi(Context appContext, boolean enable) {
+        //Log.e("ActivateProfileHelper.setWifi", "xxxxxx");
+        if (ShizukuUtils.hasShizukuPermission()) {
+            //Log.e("ActivateProfileHelper.setWifi", "hasShizukuPermission");
+            setWifiInAirplaneMode(/*appContext,*/ enable);
+        }
+        else
+        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                RootUtils.isRooted(/*false*/)) {
+            //Log.e("ActivateProfileHelper.setWifi", "rooted");
+            setWifiInAirplaneMode(/*appContext,*/ enable);
+        }
+        else {
+            //if (Build.VERSION.SDK_INT >= 29)
+            //    CmdWifi.setWifi(isWifiEnabled);
+            //else
+
+            /*
+            DevicePolicyManager devicePolicyManager = (DevicePolicyManager) appContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
+            ComponentName adminComponent = new ComponentName(appContext, PPDeviceAdminReceiver.class);
+            if (devicePolicyManager.isAdminActive(adminComponent)) {
+                Log.e("ActivateProfileHelper.doExecuteForRadios", "wifi on/off");
+                // toto zial nefunguje, furt mi dava exception:
+                //  java.lang.SecurityException: Calling identity is not authorized
+                devicePolicyManager.setGlobalSetting(adminComponent, Settings.Global.WIFI_ON, isWifiEnabled ? "1" : "0");
+            } else
+            */
+
+            WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+            wifiManager.setWifiEnabled(enable);
+
+
+            //if (isPPPPutSettingsInstalled(appContext) > 0) {
+            //    putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SPECIAL, SETTINGS_SET_WIFI_ENABLED, isWifiEnabled ? "1" : "0");
+            //}
+
+            //CmdWifi.setWifiEnabled(isWifiAPEnabled);
+        }
+    }
+
     private static void setWifiInAirplaneMode(/*Context context, */boolean enable)
     {
         //Context appContext = context.getApplicationContext();
@@ -6378,7 +6397,7 @@ class ActivateProfileHelper {
                 Command command = new Command(0, /*false,*/ command1);
                 try {
                     RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_WIFI_IN_AIRPLANE_MODE);
+                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_WIFI);
                 } catch (Exception e) {
                     //Log.e("ActivateProfileHelper.setWifiInAirplaneMode", Log.getStackTraceString(e));
                 }
@@ -6611,7 +6630,7 @@ class ActivateProfileHelper {
                 Context appContext = context.getApplicationContext();
                 if (WifiApManager.canExploitWifiTethering(appContext)) {
                     if (enable)
-                        wifiApManager.startTethering(doNotChangeWifi);
+                        wifiApManager.startTethering(context, doNotChangeWifi);
                     else
                         wifiApManager.stopTethering();
                 }
@@ -6625,7 +6644,8 @@ class ActivateProfileHelper {
                                 int wifiState = wifiManager.getWifiState();
                                 boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
                                 if (isWifiEnabled) {
-                                    wifiManager.setWifiEnabled(false);
+                                    setWifi(appContext, false);
+                                    //wifiManager.setWifiEnabled(false);
                                     GlobalUtils.sleep(1000);
                                 }
                             }
@@ -6668,7 +6688,7 @@ class ActivateProfileHelper {
                 //Context appContext = context.getApplicationContext();
                 //if (WifiApManager.canExploitWifiTethering(appContext)) {
                     if (enable)
-                        wifiApManager.startTethering(doNotChangeWifi);
+                        wifiApManager.startTethering(context, doNotChangeWifi);
                     else
                         wifiApManager.stopTethering();
                 //}

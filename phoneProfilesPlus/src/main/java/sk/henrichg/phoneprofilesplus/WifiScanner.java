@@ -111,9 +111,10 @@ class WifiScanner {
                                     //if (Build.VERSION.SDK_INT >= 29)
                                     //    CmdWifi.setWifi(false);
                                     //else
-                                    if (WifiScanWorker.wifi != null) {
-                                        WifiScanWorker.wifi.setWifiEnabled(false);
-                                    }
+                                    ActivateProfileHelper.setWifi(appContext, false);
+                                    //if (WifiScanWorker.wifi != null)
+                                    //    WifiScanWorker.wifi.setWifiEnabled(false);
+
 //                                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
                                 } catch (Exception e) {
                                     PPApplicationStatic.recordException(e);
@@ -187,9 +188,9 @@ class WifiScanner {
                                 //if (Build.VERSION.SDK_INT >= 29)
                                 //    CmdWifi.setWifi(false);
                                 //else
-                                if (WifiScanWorker.wifi != null) {
-                                    WifiScanWorker.wifi.setWifiEnabled(false);
-                                }
+                                ActivateProfileHelper.setWifi(appContext, false);
+                                //if (WifiScanWorker.wifi != null)
+                                //    WifiScanWorker.wifi.setWifiEnabled(false);
                             } catch (Exception e) {
                                 PPApplicationStatic.recordException(e);
                             }
@@ -275,9 +276,9 @@ class WifiScanner {
                     //if (Build.VERSION.SDK_INT >= 29)
                     //    CmdWifi.setWifi(false);
                     //else
-                    if (WifiScanWorker.wifi != null) {
-                        WifiScanWorker.wifi.setWifiEnabled(false);
-                    }
+                    ActivateProfileHelper.setWifi(context.getApplicationContext(), false);
+                    //if (WifiScanWorker.wifi != null)
+                    //    WifiScanWorker.wifi.setWifiEnabled(false);
                 }
                 WifiScanWorker.unlock();
             }
@@ -290,9 +291,9 @@ class WifiScanner {
                 //else {
                 if (WifiScanWorker.wifi == null)
                     WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                if (WifiScanWorker.wifi != null) {
-                    WifiScanWorker.wifi.setWifiEnabled(false);
-                }
+                ActivateProfileHelper.setWifi(context.getApplicationContext(), false);
+                //if (WifiScanWorker.wifi != null)
+                //    WifiScanWorker.wifi.setWifiEnabled(false);
                 //}
             }
             WifiScanWorker.unlock();
@@ -346,7 +347,8 @@ class WifiScanner {
                                 //if (Build.VERSION.SDK_INT >= 29)
                                 //    CmdWifi.setWifi(true);
                                 //else
-                                _wifi.setWifiEnabled(true);
+                                ActivateProfileHelper.setWifi(appContext, true);
+                                //_wifi.setWifiEnabled(true);
 
                                 long start = SystemClock.uptimeMillis();
                                 do {
