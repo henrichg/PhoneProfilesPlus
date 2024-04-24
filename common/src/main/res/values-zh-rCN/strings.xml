@@ -185,7 +185,7 @@
     <string name="restart_events_alert_message">你确定吗?</string>
     <string name="event_preferences_ForceRun_summary">即使已经手动激活也启动事件</string>
     <string name="event_preferences_category_startOfEvent">事件启动时</string>
-    <string name="event_preferences_category_endOfEvent">时间结束时</string>
+    <string name="event_preferences_category_endOfEvent">事件结束时</string>
     <string name="event_preference_profile_undone">撤销</string>
     <string name="event_preferences_priority">优先级</string>
     <string name="array_event_pref_priorityVeryHigh">9 - 非常高</string>
