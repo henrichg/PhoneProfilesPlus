@@ -117,13 +117,13 @@ class ActivateProfileHelper {
     private static final String COMMAND_SETTINGS_PUT_GLOBAL = "settings put global ";
     private static final String COMMAND_SETTINGS_PUT_SYSTEM = "settings put system ";
     private static final String COMMAND_SETTINGS_PUT_SECURE = "settings put secure ";
-    private static final String PPPPS_SETTINGS_TYPE_SYSTEM = "system";
     private static final String COMMAND_AM_AIRPLANE_MODE = "am broadcast -a android.intent.action.AIRPLANE_MODE --ez state ";
     private static final String COMMAND_SERVICE_ROOT_PHONE = "phone";
     private static final String COMMAND_SERVICE_ROOT_WIFI = "wifi";
     private static final String COMMAND_SERVICE_ROOT_ISUB = "isub";
     private static final String COMMAND_AIRPLANE_MODE = "cmd connectivity airplane-mode";
 
+    private static final String PPPPS_SETTINGS_TYPE_SYSTEM = "system";
     private static final String SETTINGS_PREF_VIBRATE_IN_NORMAL = "vibrate_in_normal";
     private static final String SETTINGS_PREF_VIBRATE_IN_SILENT = "vibrate_in_silent";
     private static final String SETTINGS_PREF_RING_VIBRATION_INTENSITY = "ring_vibration_intensity";
@@ -134,6 +134,9 @@ class ActivateProfileHelper {
     private static final String SETTINGS_LOW_POWER = "low_power";
     private static final String SETTINGS_DOZE_ALWAYS_ON = "doze_always_on";
     private static final String SETTINGS_UI_NIGHT_MODE = "ui_night_mode";
+
+//    private static final String PPPPS_SETTINGS_TYPE_SPECIAL = "setting_type_special";
+//    private static final String SETTINGS_SET_WIFI_ENABLED = "setWifiEnabled";
 
 
     @SuppressLint("MissingPermission")
@@ -592,7 +595,12 @@ class ActivateProfileHelper {
                                             devicePolicyManager.setGlobalSetting(adminComponent, Settings.Global.WIFI_ON, isWifiEnabled ? "1" : "0");
                                         } else
                                         */
-                                            wifiManager.setWifiEnabled(isWifiEnabled);
+
+                                        wifiManager.setWifiEnabled(isWifiEnabled);
+                                        //if (isPPPPutSettingsInstalled(appContext) > 0) {
+                                        //    putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SPECIAL, SETTINGS_SET_WIFI_ENABLED, isWifiEnabled ? "1" : "0");
+                                        //}
+
                                         //CmdWifi.setWifiEnabled(isWifiAPEnabled);
                                     }
                                 } catch (Exception e) {
