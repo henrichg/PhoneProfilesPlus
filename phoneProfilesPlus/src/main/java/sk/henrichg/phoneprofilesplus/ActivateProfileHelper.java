@@ -729,14 +729,17 @@ class ActivateProfileHelper {
                         BluetoothScanWorker.setBluetoothEnabledForScan(appContext, false);
                     }
                     if (setBluetoothState) {
+                        // https://stackoverflow.com/questions/37259260/android-enable-disable-bluetooth-via-command-line
                         try {
                             //    CmdBluetooth.setBluetooth(isBluetoothEnabled);
                                 if (isBluetoothEnabled) {
 //                                    Log.e("ActivateProfileHelper.doExecuteForRadios", "######## enable bluetooth");
+                                    // adb shell cmd bluetooth_manager enable
                                     bluetoothAdapter.enable();
                                 }
                                 else {
 //                                    Log.e("ActivateProfileHelper.doExecuteForRadios", "######## disable bluetooth");
+                                    // adb shell cmd bluetooth_manager disable
                                     bluetoothAdapter.disable();
                                 }
                         } catch (Exception e) {
