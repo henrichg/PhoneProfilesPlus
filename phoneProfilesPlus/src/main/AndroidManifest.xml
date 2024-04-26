@@ -74,6 +74,7 @@
          possible, please review the below recommendation." -->
 <!--    <uses-permission android:name="android.permission.RECORD_AUDIO" android:maxSdkVersion="30" />-->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <uses-permission android:name="sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION"/>
     <uses-permission android:name="sk.henrichg.pppputsettings.PPP_PUT_SETTINGS_PERMISSION"/>

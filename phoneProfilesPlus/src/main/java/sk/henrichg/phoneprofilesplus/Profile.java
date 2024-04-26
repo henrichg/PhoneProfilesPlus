@@ -135,6 +135,8 @@ class Profile {
     String _phoneCallsContactGroups; // groupId|...
     int _phoneCallsContactListType;
     boolean _phoneCallsBlockCalls;
+    boolean _phoneCallsSendSMS;
+    String _phoneCallsSMSText;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -267,6 +269,8 @@ class Profile {
     static final String PREF_PROFILE_PHONE_CALLS_CONTACTS = "prf_pref_phoneCalls_contacts";
     static final String PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS = "prf_pref_phoneCalls_contactGroups";
     static final String PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE = "prf_pref_phoneCalls_contactListType";
+    static final String PREF_PROFILE_PHONE_CALLS_SEND_SMS = "prf_pref_phoneCalls_sendSMS";
+    static final String PREF_PROFILE_PHONE_CALLS_SMS_TEXT = "prf_pref_phoneCalls_SMSText";
 
     static final ArrayMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -279,6 +283,7 @@ class Profile {
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY, false);
         defaultValuesBoolean.put(PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
+        defaultValuesBoolean.put(PREF_PROFILE_PHONE_CALLS_SEND_SMS, false);
     }
     static final ArrayMap<String, String> defaultValuesString;
     static {
@@ -392,6 +397,7 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACTS, "");
         defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, "");
         defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, "0");
+        defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_SMS_TEXT, "");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -1083,7 +1089,9 @@ class Profile {
                    String phoneCallsContacts,
                    String phoneCallsContactGroups,
                    int phoneCallsContactListType,
-                   boolean phoneCallsBlockCalls
+                   boolean phoneCallsBlockCalls,
+                   boolean phoneCallsSendSMS,
+                   String phoneCallsSMSText
             )
     {
         this._id = id;
@@ -1203,6 +1211,8 @@ class Profile {
         this._phoneCallsContactGroups = phoneCallsContactGroups;
         this._phoneCallsContactListType = phoneCallsContactListType;
         this._phoneCallsBlockCalls = phoneCallsBlockCalls;
+        this._phoneCallsSendSMS = phoneCallsSendSMS;
+        this._phoneCallsSMSText = phoneCallsSMSText;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1326,7 +1336,9 @@ class Profile {
             String phoneCallsContacts,
             String phoneCallsContactGroups,
             int phoneCallsContactListType,
-            boolean phoneCallsBlockCalls
+            boolean phoneCallsBlockCalls,
+            boolean phoneCallsSendSMS,
+            String phoneCallsSMSText
     )
     {
         this._name = name;
@@ -1445,6 +1457,8 @@ class Profile {
         this._phoneCallsContactGroups = phoneCallsContactGroups;
         this._phoneCallsContactListType = phoneCallsContactListType;
         this._phoneCallsBlockCalls = phoneCallsBlockCalls;
+        this._phoneCallsSendSMS = phoneCallsSendSMS;
+        this._phoneCallsSMSText = phoneCallsSMSText;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1570,6 +1584,8 @@ class Profile {
         this._phoneCallsContactGroups = profile._phoneCallsContactGroups;
         this._phoneCallsContactListType = profile._phoneCallsContactListType;
         this._phoneCallsBlockCalls = profile._phoneCallsBlockCalls;
+        this._phoneCallsSendSMS = profile._phoneCallsSendSMS;
+        this._phoneCallsSMSText = profile._phoneCallsSMSText;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1934,6 +1950,10 @@ class Profile {
                     this._phoneCallsContactListType = withProfile._phoneCallsContactListType;
                 if (withProfile._phoneCallsBlockCalls)
                     this._phoneCallsBlockCalls = true;
+                if (withProfile._phoneCallsSendSMS)
+                    this._phoneCallsSendSMS = true;
+                if (!withProfile._phoneCallsSMSText.isEmpty())
+                    this._phoneCallsSMSText = withProfile._phoneCallsSMSText;
             }
 
             // set merged profile as activated
@@ -2323,6 +2343,12 @@ class Profile {
                 return false;
             }
             if (this._phoneCallsBlockCalls != withProfile._phoneCallsBlockCalls) {
+                return false;
+            }
+            if (this._phoneCallsSendSMS != withProfile._phoneCallsSendSMS) {
+                return false;
+            }
+            if (!this._phoneCallsSMSText.equals(withProfile._phoneCallsSMSText)) {
                 return false;
             }
 
@@ -3371,6 +3397,8 @@ class Profile {
         editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, this._phoneCallsContactGroups);
         editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, Integer.toString(this._phoneCallsContactListType));
         editor.putBoolean(PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, this._phoneCallsBlockCalls);
+        editor.putBoolean(PREF_PROFILE_PHONE_CALLS_SEND_SMS, this._phoneCallsSendSMS);
+        editor.putString(PREF_PROFILE_PHONE_CALLS_SMS_TEXT, this._phoneCallsSMSText);
 
         editor.apply();
     }

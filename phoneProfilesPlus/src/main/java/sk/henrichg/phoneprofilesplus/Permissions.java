@@ -795,6 +795,14 @@ class Permissions {
 //        }
 //    }
 
+    static boolean checkSendSMS(Context context) {
+        try {
+            return (ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     static boolean checkBluetoothForEMUI(Context context) {
         if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
             if (android.os.Build.VERSION.SDK_INT >= 28) {
@@ -1147,18 +1155,23 @@ class Permissions {
 
         if (Build.VERSION.SDK_INT >= 29) {
             try {
+                boolean grantedContacts = true;
+                boolean grantedSendSMS = true;
                 if (((profile._phoneCallsContacts != null) && (!profile._phoneCallsContacts.isEmpty())) ||
-                    ((profile._phoneCallsContactGroups != null) && (!profile._phoneCallsContactGroups.isEmpty()))) {
-                    boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
-                    if ((permissions != null) && (!granted))
+                    ((profile._phoneCallsContactGroups != null) && (!profile._phoneCallsContactGroups.isEmpty())))
+                    grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+                if (profile._phoneCallsSendSMS)
+                    grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+                if (permissions != null) {
+                    if (!grantedContacts)
                         permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_PHONE_CALLS, permission.READ_CONTACTS));
-                } //else
-                //  return true;
+                    if (!grantedSendSMS)
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_PHONE_CALLS, permission.SEND_SMS));
+                }
             } catch (Exception e) {
-                //return false;
+                //return;
             }
-        } //else
-        //return /*true*/;
+        }
     }
 
     static ArrayList<PermissionType> checkEventPermissions(Context context, Event event, SharedPreferences preferences,

@@ -142,6 +142,8 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS, profile._phoneCallsContactGroups);
                 values.put(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS, (profile._phoneCallsBlockCalls) ? 1 : 0);
                 values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE, profile._phoneCallsContactListType);
+                values.put(DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS, (profile._phoneCallsSendSMS) ? 1 : 0);
+                values.put(DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT, profile._phoneCallsSMSText);
 
                 // Insert Row
                 if (!merged) {
@@ -294,7 +296,9 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_PHONE_CALLS_CONTACTS,
                                 DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS,
                                 DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS,
-                                DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE
+                                DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE,
+                                DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS,
+                                DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT
                         },
                         DatabaseHandler.KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -420,7 +424,9 @@ class DatabaseHandlerProfiles {
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS)) == 1
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS)) == 1,
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS)) == 1,
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT))
                         );
                     }
 
@@ -566,7 +572,9 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_PHONE_CALLS_CONTACTS + "," +
                         DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS + "," +
                         DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE + "," +
-                        DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS +
+                        DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS + "," +
+                        DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS + "," +
+                        DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT +
                 " FROM " + DatabaseHandler.TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -696,6 +704,8 @@ class DatabaseHandlerProfiles {
                         profile._phoneCallsContactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS));
                         profile._phoneCallsBlockCalls = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS)) == 1;
                         profile._phoneCallsContactListType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE));
+                        profile._phoneCallsSendSMS = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS)) == 1;
+                        profile._phoneCallsSMSText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -843,6 +853,8 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS, profile._phoneCallsContactGroups);
                 values.put(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS, (profile._phoneCallsBlockCalls) ? 1 : 0);
                 values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE, profile._phoneCallsContactListType);
+                values.put(DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS, (profile._phoneCallsSendSMS) ? 1 : 0);
+                values.put(DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT, profile._phoneCallsSMSText);
 
                 // updating row
                 db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
@@ -1205,7 +1217,9 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_PHONE_CALLS_CONTACTS,
                                 DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS,
                                 DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS,
-                                DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE
+                                DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE,
+                                DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS,
+                                DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT
                         },
                         DatabaseHandler.KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -1333,7 +1347,9 @@ class DatabaseHandlerProfiles {
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS)) == 1
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS)) == 1,
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS)) == 1,
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT))
                                 );
                     }
 

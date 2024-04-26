@@ -707,7 +707,9 @@ class ProfileStatic {
                     profile._phoneCallsContacts,
                     profile._phoneCallsContactGroups,
                     profile._phoneCallsContactListType,
-                    profile._phoneCallsBlockCalls
+                    profile._phoneCallsBlockCalls,
+                    profile._phoneCallsSendSMS,
+                    profile._phoneCallsSMSText
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)

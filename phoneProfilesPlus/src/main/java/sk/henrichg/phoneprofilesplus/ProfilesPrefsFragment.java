@@ -1739,7 +1739,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON) ||
                 key.endsWith(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND) ||
                 key.endsWith(Profile.PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY) ||
-                key.endsWith(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS)) {
+                key.endsWith(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS) ||
+                key.endsWith(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS)) {
             boolean bValue = sharedPreferences.getBoolean(key, false);
             value = Boolean.toString(bValue);
         }
@@ -2085,6 +2086,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 case Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE:
                 case Profile.PREF_PROFILE_VOLUME_MUTE_SOUND:
                 case Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS:
+                case Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS:
                 //case Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR:
                     /*boolean defaultValue =
                             getResources().getBoolean(
@@ -3701,13 +3703,23 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             .append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
-                cattegorySummaryData.bold = true;
-
                 title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, R.string.profile_preference_phoneCallsBlockCalls, context);
-                _value.append(StringConstants.STR_BULLET)
-                        .append(StringConstants.TAG_BOLD_START_HTML)
-                        .append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
-                        .append(StringConstants.TAG_BOLD_END_HTML);
+                if (!title.isEmpty()) {
+                    cattegorySummaryData.bold = true;
+                    _value.append(StringConstants.STR_BULLET)
+                            .append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
+                }
+
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS, R.string.profile_preference_phoneCallsSendSMS, context);
+                if (!title.isEmpty()) {
+                    cattegorySummaryData.bold = true;
+                    _value.append(StringConstants.STR_BULLET)
+                            .append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
+                }
             }
         }
 
@@ -5815,6 +5827,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 listPreference.setSummary(summary);
             }
         }
+        if (key.equals(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String sValue = value.toString();
+                preference.setSummary(sValue);
+            }
+        }
 
     }
 
@@ -6422,7 +6441,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE) ||
             key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON) ||
             key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND) ||
-            key.equals(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS)) {
+            key.equals(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS) ||
+            key.equals(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS)) {
             boolean b = preferences.getBoolean(key, false);
             value = Boolean.toString(b);
             setSummary(key, value);
@@ -6466,7 +6486,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
         disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
         disableDependedPref(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
-        disableDependedPref(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS);
+        //disableDependedPref(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS);
+        //disableDependedPref(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS);
 
         //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
         //{
@@ -6590,6 +6611,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS);
         setSummary(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS);
         setSummary(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE);
+        setSummary(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS);
+        setSummary(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT);
 
         setCategorySummary(PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_SOUND_PROFILE_CATTEGORY_ROOT, context);
@@ -6929,7 +6952,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         */
 
         if (key.equals(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE) ||
-                key.equals(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS)) {
+                key.equals(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS) ||
+                key.equals(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS) ||
+                key.equals(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS) ||
+                key.equals(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS)) {
             if (Build.VERSION.SDK_INT >= 29) {
                 RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
                 boolean isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
@@ -6942,6 +6968,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String contactsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS));
 
+                boolean contactsConfigured =
+                        ((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
+                        ((contactsValue != null) && (!contactsValue.isEmpty()));
+
                 preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS);
                 if (preference != null)
                     preference.setEnabled(isHeld);
@@ -6952,14 +6982,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preference != null)
                     preference.setEnabled(isHeld);
 
+                boolean blockCalls = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
                 preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS);
-                if (preference != null) {
-                    if (((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
-                        ((contactsValue != null) && (!contactsValue.isEmpty())))
-                        preference.setEnabled(isHeld);
-                    else
-                        preference.setEnabled(false);
-                }
+                if (preference != null)
+                    preference.setEnabled(isHeld && contactsConfigured);
+                preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS);
+                if (preference != null)
+                    preference.setEnabled(isHeld && contactsConfigured && blockCalls);
+                preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT);
+                if (preference != null)
+                    preference.setEnabled(isHeld && contactsConfigured && blockCalls);
             }
         }
 
@@ -6970,7 +7002,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
             key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
             key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND) ||
-            key.equals(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS)) {
+            key.equals(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS) ||
+            key.equals(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS)) {
             boolean b = preferences.getBoolean(key, false);
             value = Boolean.toString(b);
         }

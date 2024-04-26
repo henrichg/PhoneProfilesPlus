@@ -2177,16 +2177,19 @@
     <string name="profile_preferences_phoneCalls_setCallScreeningRole_summary_ststus_1">Call screening role for PhoneProfilesPlus is set</string>
     <string name="profile_preferences_phoneCalls_setCallScreeningRole_summary_ststus_0">Call screening role for PhoneProfilesPlus is not set</string>
     <string name="profile_preference_phoneCallsBlockCalls">Block phone calls</string>
-    <string name="profile_preference_phoneCallsBlockCalls_summary">WARNING: This parameter allows block calls, configured in \"Contact groups\", \"Contacts\". Notfifcation about blocked calls will not be displayed.</string>
+    <string name="profile_preference_phoneCallsBlockCalls_summary">WARNING: This parameter allows block calls, configured in \"Contact groups\", \"Contacts\". Notfifcation about blocked calls will not be displayed!</string>
     <string name="profile_preference_phoneCallsContactGroups">Contact groups</string>
     <string name="profile_preference_phoneCallsContacts">Contacts</string>
     <string name="permission_why_profile_phone_calls">for read contacts in profile parameter \"Phone calls\"</string>
     <string name="export_settings_delete_contacts_data_phonecalls">Contacts for profile parameter \"Phone calls\"</string>
+    <string name="profile_preference_phoneCallsSendSMS">Send SMS</string>
+    <string name="profile_preference_phoneCallsSMSText">SMS Text</string>
+    <string name="profile_preference_phoneCalls_sendSMS_sumary">WARNING: Sending SMS can be charged or used from a prepaid SMS package!</string>
 
 <!--    <string name="device_admin">Device admin</string>-->
 <!--    <string name="device_admin_description">Device admin description.</string>-->
 <!--    <string name="device_admin_receiver_status_enabled">Device admin is enabled.</string>-->
-<!--    <string name="device_admin_receiver_status_disable_warning">WARNIG! Device admin will be disbled!</string>-->
+<!--    <string name="device_admin_receiver_status_disable_warning">WARNING! Device admin will be disbled!</string>-->
 <!--    <string name="device_admin_receiver_status_disabled">Device admin is disbled.</string>-->
 
     <!-- **************************************************************************************** -->

@@ -466,7 +466,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._phoneCallsContacts,
                         origProfile._phoneCallsContactGroups,
                         origProfile._phoneCallsContactListType,
-                        origProfile._phoneCallsBlockCalls
+                        origProfile._phoneCallsBlockCalls,
+                        origProfile._phoneCallsSendSMS,
+                        origProfile._phoneCallsSMSText
                 );
                 showSaveMenu = true;
             }
@@ -677,6 +679,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._phoneCallsContactGroups = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, "");
             profile._phoneCallsContactListType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, ""));
             profile._phoneCallsBlockCalls = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
+            profile._phoneCallsSendSMS = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS, false);
+            profile._phoneCallsSMSText = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT, "");
         }
 
         return profile;

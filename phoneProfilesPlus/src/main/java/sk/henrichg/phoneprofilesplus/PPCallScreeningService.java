@@ -44,6 +44,13 @@ public class PPCallScreeningService extends CallScreeningService {
             if (profileFound && phoneNumberFound) {
                 response.setDisallowCall(true);
                 response.setRejectCall(true);
+                // TODO sem daj vygenerovanie notifikacie, na ktoru ked kliknem posle smsku.
+                //  Cize pridaj dalsie dva parametre: checkbox "Send SMS" a EeditText "SMS text".
+                //  Vygeneruj notifikaciu len ak ma zakskrtnuty checkbox "Send SMS".
+                //  Potom mozem posat tak, ze vygenerujem Intent s parametrami, co naplni default
+                //  sms aplikaciu: poslanie sms blokovanemu tel. cislu + text a uzivatel len stlaci "Poslat"?
+                //  Uvazuj nad tym, ze by som pouzival texte wildcard na volajuce tel. cislo, nazov kontaktu
+                //  a uzivatel by ho mohol pouzit v texte.
             } else {
                 response.setDisallowCall(false);
                 response.setRejectCall(false);
