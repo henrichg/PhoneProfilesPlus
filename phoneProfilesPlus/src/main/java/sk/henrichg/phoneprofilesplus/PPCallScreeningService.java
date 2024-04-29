@@ -4,6 +4,7 @@ import android.os.Build;
 import android.telecom.Call;
 import android.telecom.CallScreeningService;
 import android.telephony.PhoneNumberUtils;
+import android.telephony.SmsManager;
 
 import java.util.List;
 
@@ -20,11 +21,13 @@ public class PPCallScreeningService extends CallScreeningService {
 
             boolean profileFound = false;
             boolean phoneNumberFound = false;
+            String calledPhoneNumber = callDetails.getHandle().getSchemeSpecificPart();
             if (
                  (((activatedProfile._phoneCallsContacts != null) && (!activatedProfile._phoneCallsContacts.isEmpty())) ||
                   ((activatedProfile._phoneCallsContactGroups != null) && (!activatedProfile._phoneCallsContactGroups.isEmpty()))) &&
                  activatedProfile._phoneCallsBlockCalls
             ) {
+
                 profileFound = true;
 
                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
@@ -34,8 +37,7 @@ public class PPCallScreeningService extends CallScreeningService {
                     synchronized (PPApplication.contactsCacheMutex) {
                         contactList = contactsCache.getList(/*false*/);
                     }
-                    phoneNumberFound = isPhoneNumberConfigured(activatedProfile, contactList,
-                            callDetails.getHandle().getSchemeSpecificPart());
+                    phoneNumberFound = isPhoneNumberConfigured(activatedProfile, contactList, calledPhoneNumber);
                     if (contactList != null)
                         contactList.clear();
                 }
@@ -44,13 +46,19 @@ public class PPCallScreeningService extends CallScreeningService {
             if (profileFound && phoneNumberFound) {
                 response.setDisallowCall(true);
                 response.setRejectCall(true);
-                // TODO sem daj vygenerovanie notifikacie, na ktoru ked kliknem posle smsku.
-                //  Cize pridaj dalsie dva parametre: checkbox "Send SMS" a EeditText "SMS text".
-                //  Vygeneruj notifikaciu len ak ma zakskrtnuty checkbox "Send SMS".
-                //  Potom mozem posat tak, ze vygenerujem Intent s parametrami, co naplni default
-                //  sms aplikaciu: poslanie sms blokovanemu tel. cislu + text a uzivatel len stlaci "Poslat"?
-                //  Uvazuj nad tym, ze by som pouzival texte wildcard na volajuce tel. cislo, nazov kontaktu
-                //  a uzivatel by ho mohol pouzit v texte.
+                if (Permissions.checkSendSMS(getApplicationContext())) {
+                    // TODO Uvazuj nad tym, ze by som pouzival texte wildcard na volajuce tel. cislo,
+                    //  nazov kontaktu a uzivatel by ho mohol pouzit v texte.
+                    if (activatedProfile._phoneCallsSendSMS &&
+                            (activatedProfile._phoneCallsSMSText != null) && (!activatedProfile._phoneCallsSMSText.isEmpty())) {
+                        try {
+                            SmsManager smsManager = SmsManager.getDefault();
+                            smsManager.sendTextMessage(calledPhoneNumber, null, activatedProfile._phoneCallsSMSText, null, null);
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                    }
+                }
             } else {
                 response.setDisallowCall(false);
                 response.setRejectCall(false);
