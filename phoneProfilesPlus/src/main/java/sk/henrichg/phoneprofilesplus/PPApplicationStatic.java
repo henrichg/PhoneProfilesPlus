@@ -1366,7 +1366,7 @@ class PPApplicationStatic {
                 channel.enableVibration(true);
                 //channel.setSound(null, null);
                 channel.setShowBadge(false);
-                channel.setBypassDnd(true);
+                channel.setBypassDnd(false);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -1542,7 +1542,7 @@ class PPApplicationStatic {
                 channel.enableVibration(true);
                 //channel.setSound(null, null);
                 channel.setShowBadge(true);
-                channel.setBypassDnd(true);
+                channel.setBypassDnd(false);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
