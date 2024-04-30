@@ -1440,7 +1440,9 @@ class PPApplicationStatic {
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_notify_event_start);
                 // The user-visible description of the channel.
-                String description = context.getString(R.string.notification_channel_notify_event_start_description);
+                String description =
+                        context.getString(R.string.notification_channel_notify_event_start_description)+" "+
+                        context.getString(R.string.notification_channel_notify_event_start_description_2);
 
                 // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
                 // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
@@ -1557,7 +1559,9 @@ class PPApplicationStatic {
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_generated_by_profile);
                 // The user-visible description of the channel.
-                String description = context.getString(R.string.notification_channel_generated_by_profile_description);
+                String description =
+                        context.getString(R.string.notification_channel_generated_by_profile_description) + " "+
+                        context.getString(R.string.notification_channel_generated_by_profile_description_2);
 
                 // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
                 // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
@@ -1618,7 +1622,9 @@ class PPApplicationStatic {
                 String name = context.getString(R.string.notification_channel_profile_list);
 
                 // The user-visible description of the channel.
-                String description = context.getString(R.string.notification_channel_profile_list_description);
+                String description =
+                        context.getString(R.string.notification_channel_profile_list_description) + " " +
+                        context.getString(R.string.notification_channel_profile_list_description_2);
 
                 // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
                 // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
