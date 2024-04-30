@@ -2186,15 +2186,15 @@
     <string name="profile_preference_phoneCallsSMSText">SMS Text</string>
     <string name="profile_preference_phoneCalls_sendSMS_sumary">WARNING: Sending SMS can be charged or used from a prepaid SMS package!</string>
 
-<!--    <string name="device_admin">Device admin</string>-->
-<!--    <string name="device_admin_description">Device admin description.</string>-->
-<!--    <string name="device_admin_receiver_status_enabled">Device admin is enabled.</string>-->
-<!--    <string name="device_admin_receiver_status_disable_warning">WARNING! Device admin will be disbled!</string>-->
-<!--    <string name="device_admin_receiver_status_disabled">Device admin is disbled.</string>-->
-
     <string name="notification_channel_notify_event_start_description_2">Is displayed, when event has enabled \"Start of event\"/\"Other parameters\"/\"Repeat notification\".</string>
     <string name="notification_channel_generated_by_profile_description_2">Is displayed, when profile has cofigured \"Others\"/\"Generate notification\".</string>
     <string name="notification_channel_profile_list_description_2">Is displayed, when is enabled \"Settings\"/\"Profile list notification\"/\"Display notification\"</string>
+
+    <!--    <string name="device_admin">Device admin</string>-->
+    <!--    <string name="device_admin_description">Device admin description.</string>-->
+    <!--    <string name="device_admin_receiver_status_enabled">Device admin is enabled.</string>-->
+    <!--    <string name="device_admin_receiver_status_disable_warning">WARNING! Device admin will be disbled!</string>-->
+    <!--    <string name="device_admin_receiver_status_disabled">Device admin is disbled.</string>-->
 
     <!-- **************************************************************************************** -->
 
