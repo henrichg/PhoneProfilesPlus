@@ -2158,6 +2158,7 @@ class PPApplicationStatic {
                 ImportantInfoNotification.removeNotification(context);
                 DrawOverAppsPermissionNotification.removeNotification(context);
                 IgnoreBatteryOptimizationNotification.removeNotification(context);
+                DNDPermissionNotification.removeNotification(context);
                 AutostartPermissionNotification.removeNotification(context);
                 Permissions.removeNotifications(context);
                 ProfileListNotification.clearNotification(context);

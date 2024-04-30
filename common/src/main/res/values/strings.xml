@@ -2190,6 +2190,9 @@
     <string name="notification_channel_generated_by_profile_description_2">Is displayed, when profile has cofigured \"Others\"/\"Generate notification\".</string>
     <string name="notification_channel_profile_list_description_2">Is displayed, when is enabled \"Settings\"/\"Profile list notification\"/\"Display notification\"</string>
 
+    <string name="do_not_disturb_access_permission_notification">Do not disturb access</string>
+    <string name="do_not_disturb_access_permission_notification_text">To displaying inportant PhoneProfilesPlus notifications, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
+
     <!--    <string name="device_admin">Device admin</string>-->
     <!--    <string name="device_admin_description">Device admin description.</string>-->
     <!--    <string name="device_admin_receiver_status_enabled">Device admin is enabled.</string>-->

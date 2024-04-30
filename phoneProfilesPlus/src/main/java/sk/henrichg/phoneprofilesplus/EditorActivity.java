@@ -2303,6 +2303,7 @@ public class EditorActivity extends AppCompatActivity
                 ProfileListNotification.drawNotification(true, appContext);
                 DrawOverAppsPermissionNotification.showNotification(appContext, true);
                 IgnoreBatteryOptimizationNotification.showNotification(appContext, true);
+                DNDPermissionNotification.showNotification(appContext, true);
                 PPAppNotification.drawNotification(true, appContext);
             }
 
@@ -4488,6 +4489,7 @@ public class EditorActivity extends AppCompatActivity
 
                     DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
                     IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
+                    DNDPermissionNotification.showNotification(_dataWrapper.context, true);
 
                     PPApplicationStatic.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, true);
                 } else {

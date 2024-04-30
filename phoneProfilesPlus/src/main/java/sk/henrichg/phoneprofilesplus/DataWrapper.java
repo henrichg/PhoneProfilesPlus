@@ -1492,6 +1492,7 @@ class DataWrapper {
             // show notification when battery optimization is not enabled
             DrawOverAppsPermissionNotification.showNotification(context, false);
             IgnoreBatteryOptimizationNotification.showNotification(context, false);
+            DNDPermissionNotification.showNotification(context, false);
 
             // remove last configured profile duration alarm
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
@@ -2125,6 +2126,7 @@ class DataWrapper {
 
         DrawOverAppsPermissionNotification.showNotification(context, false);
         IgnoreBatteryOptimizationNotification.showNotification(context, false);
+        DNDPermissionNotification.showNotification(context, false);
     }
 
     void restartEventsWithRescan(final boolean alsoRescan,
