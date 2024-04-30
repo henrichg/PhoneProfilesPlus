@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -195,12 +196,15 @@ class ActivityLogAdapter extends CursorAdapter {
 
     private void setRowData(MyRowViewHolder rowData, Cursor cursor, Context context) {
         if (cursor.getInt(KEY_AL_ID) == -1) {
+            Log.e("ActivityLogAdapter.setRowData", "KEY_AL_ID=-1");
             rowData.logTypeColor.setBackgroundResource(R.color.activityBackgroundColor);
             rowData.logTypeColor.setAlpha(0);
             rowData.logDateTime.setText("");
         }
         else {
+            Log.e("ActivityLogAdapter.setRowData", "color="+activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE)));
             rowData.logTypeColor.setBackgroundColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE)));
+            rowData.logTypeColor.setAlpha(1);
             rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
         }
 
