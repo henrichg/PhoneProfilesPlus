@@ -2193,7 +2193,7 @@
     <string name="do_not_disturb_access_permission_notification">Do not disturb access</string>
     <string name="do_not_disturb_access_permission_notification_text">To displaying inportant PhoneProfilesPlus notifications, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
 
-    <string name="no_error_dialog_message">The error has already been removed</string>
+    <string name="no_error_dialog_message">The error has already been fixed.</string>
 
     <!--    <string name="device_admin">Device admin</string>-->
     <!--    <string name="device_admin_description">Device admin description.</string>-->
