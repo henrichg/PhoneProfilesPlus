@@ -39,10 +39,10 @@ Permissions
 - WRITE_SETTINGS
 - WRITE_SYNC_SETTINGS
 - INSTALL_SHORTCUT
-- com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY
-- com.wireguard.android.permission.CONTROL_TUNNELS
-- moe.shizuku.manager.permission.API_V23
+- com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY (needed for Samsung Edge panel)
+- com.wireguard.android.permission.CONTROL_TUNNELS (needed for WireGuard, if is used in profile parameter "VPN")
+- moe.shizuku.manager.permission.API_V23 (needed for Shizuku)
 - sk.henrichg.phoneprofilesplus.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
-- sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION
-- sk.henrichg.pppputsettings.PPP_PUT_SETTINGS_PERMISSION
+- sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION (needed for send/receive broadcast to/from PhoneProfilesPlusExtender)
+- sk.henrichg.pppputsettings.PPP_PUT_SETTINGS_PERMISSION  (needed for send/receive broadcast to/from PPPPutSettings)
 
