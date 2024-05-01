@@ -28,6 +28,7 @@ Permissions
 - RECEIVE_BOOT_COMPLETED
 - RECORD_AUDIO (needed to set profile „Airplane mode“ via Assistant (speech-to-text; requirement by Google))
 - REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+- SEND_SMS (needed for sending SMS, if it is enabled in profile parameter "Phone calls")
 - SET_WALLPAPER
 - SYSTEM_ALERT_WINDOW (needed to e.g. run some invisible activities (Screen brightness, Screen timeout, Keep screen on))
 - android.permission.TETHER_PRIVILEGED
