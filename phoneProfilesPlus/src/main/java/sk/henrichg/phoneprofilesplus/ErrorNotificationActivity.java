@@ -115,10 +115,11 @@ public class ErrorNotificationActivity extends AppCompatActivity {
             dialogBuilder.setTitle(title);
             dialogBuilder.setMessage(R.string.no_error_dialog_message);
             dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> finish());
+            dialogBuilder.setOnDismissListener(dialog -> finish());
 
             mDialog = dialogBuilder.create();
-            mDialog.setCancelable(false);
-            mDialog.setCanceledOnTouchOutside(false);
+            //mDialog.setCancelable(false);
+            //mDialog.setCanceledOnTouchOutside(false);
 
             if (!isFinishing())
                 mDialog.show();
