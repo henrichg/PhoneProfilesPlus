@@ -806,11 +806,14 @@ class DataWrapperStatic {
                         context.getString(R.string.preferences_red_texts_text_2) + " " +
                         context.getString(R.string.preferences_red_texts_text_click);
 
+                /*
                 intent = new Intent(context, ProfilesPrefsActivity.class);
                 intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                 intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_EDIT);
                 intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
-
+                */
+                intent = new Intent(context, ErrorNotificationActivity.class);
+                intent.putExtra(ErrorNotificationActivity.EXTRA_ERROR_TYPE, ErrorNotificationActivity.ERROR_TYPE_PROFILE);
                 intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
             }
         }
@@ -839,12 +842,15 @@ class DataWrapperStatic {
                         context.getString(R.string.preferences_red_texts_text_2) + " " +
                         context.getString(R.string.preferences_red_texts_text_click);
 
+                /*
                 intent = new Intent(context, EventsPrefsActivity.class);
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
                 intent.putExtra(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
                 intent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, PPApplication.EDIT_MODE_EDIT);
                 intent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, 0);
-
+                */
+                intent = new Intent(context, ErrorNotificationActivity.class);
+                intent.putExtra(ErrorNotificationActivity.EXTRA_ERROR_TYPE, ErrorNotificationActivity.ERROR_TYPE_EVENT);
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
             }
         }

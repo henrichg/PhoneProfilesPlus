@@ -381,7 +381,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-<!--            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"-->
         <activity
             android:name=".NFCTagReadActivity"
             android:excludeFromRecents="true"
@@ -427,7 +426,6 @@
             android:taskAffinity="sk.henrichg.phoneprofilesplus.lockDevice"
             android:theme="@style/LockDeviceActivity">
         </activity>
-<!--        android:label="@string/ppp_app_name"-->
         <activity
             android:name=".ExitApplicationActivity"
             android:excludeFromRecents="true"
@@ -446,7 +444,6 @@
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
-<!--        android:excludeFromRecents="true"-->
         <activity
             android:name=".CheckPPPReleasesActivity"
             android:excludeFromRecents="true"
@@ -565,7 +562,6 @@
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
-<!--        android:excludeFromRecents="true"-->
         <activity
             android:name=".LaunchMobileCellsScanningActivity"
             android:exported="true"
@@ -593,6 +589,13 @@
         </activity>
         <activity
             android:name=".CheckLatestPPPPSReleasesActivity"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
+        </activity>
+        <activity
+            android:name=".ErrorNotificationActivity"
             android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
