@@ -2195,6 +2195,8 @@
 
     <string name="no_error_dialog_message">The error has already been fixed.</string>
 
+    <string name="application_editor_intent_test_activity_package_name_must_be_configured">\"Package name\" must be cponfigured for intent type \"Broadcast\."</string>
+
     <!--    <string name="device_admin">Device admin</string>-->
     <!--    <string name="device_admin_description">Device admin description.</string>-->
     <!--    <string name="device_admin_receiver_status_enabled">Device admin is enabled.</string>-->

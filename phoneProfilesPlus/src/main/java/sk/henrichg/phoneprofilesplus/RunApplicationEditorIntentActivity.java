@@ -530,57 +530,88 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                     mDialog.show();
             }
             else {
-                saveIntent();
-                Intent testIntent = createIntent(ppIntent);
-                boolean ok = false;
-                if (testIntent != null) {
-                    if (ppIntent._intentType == 0) {
-                        try {
-                            testIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(testIntent);
-                            ok = true;
-                        } catch (Exception e) {
-                            //Log.e("RunApplicationEditorIntentActivity.onCreate.testButtonClick", Log.getStackTraceString(e));
-                            //PPApplicationStatic.recordException(e);
-                        }
-                    } else {
-                        try {
-                            sendBroadcast(testIntent);
-                            ok = true;
-                        } catch (Exception e) {
-                            //Log.e("RunApplicationEditorIntentActivity.onCreate.testButtonClick", Log.getStackTraceString(e));
+                boolean customAction = saveIntent();
+                boolean okIntent = true;
+                if (ppIntent._intentType == 1) {
+                    if (customAction) {
+                        // broadcast, Package name must be set for custom action
+                        if ((ppIntent._packageName == null) || (ppIntent._packageName.isEmpty())) {
+                            okIntent = false;
+                            PPAlertDialog mDialog = new PPAlertDialog(
+                                    getString(R.string.application_editor_intent_test_title),
+                                    getString(R.string.application_editor_intent_test_activity_package_name_must_be_configured),
+                                    getString(android.R.string.ok),
+                                    null,
+                                    null, null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    true, true,
+                                    false, false,
+                                    true,
+                                    activity
+                            );
+
+                            if (!isFinishing())
+                                mDialog.show();
                         }
                     }
                 }
-                if (!ok) {
-                    CharSequence title;
-                    CharSequence message;
-                    if (ppIntent._intentType == 0) {
-                        title = activity.getString(R.string.application_editor_intent_test_title);
-                        message = activity.getString(R.string.application_editor_intent_test_activity_bad_data);
-                    } else {
-                        title = activity.getString(R.string.application_editor_intent_test_title);
-                        message = activity.getString(R.string.application_editor_intent_test_broadcast_bad_data);
+                if (okIntent) {
+                    Intent testIntent = createIntent(ppIntent);
+                    boolean ok = false;
+                    if (testIntent != null) {
+                        if (ppIntent._intentType == 0) {
+                            try {
+                                testIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(testIntent);
+                                ok = true;
+                            } catch (Exception e) {
+                                //Log.e("RunApplicationEditorIntentActivity.onCreate.testButtonClick", Log.getStackTraceString(e));
+                                //PPApplicationStatic.recordException(e);
+                            }
+                        } else {
+                            try {
+                                testIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                sendBroadcast(testIntent);
+                                ok = true;
+                            } catch (Exception e) {
+                                //Log.e("RunApplicationEditorIntentActivity.onCreate.testButtonClick", Log.getStackTraceString(e));
+                            }
+                        }
                     }
-                    PPAlertDialog mDialog = new PPAlertDialog(
-                            title,
-                            message,
-                            getString(android.R.string.ok),
-                            null,
-                            null, null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            true, true,
-                            false, false,
-                            true,
-                            activity
-                    );
+                    if (!ok) {
+                        CharSequence title;
+                        CharSequence message;
+                        if (ppIntent._intentType == 0) {
+                            title = activity.getString(R.string.application_editor_intent_test_title);
+                            message = activity.getString(R.string.application_editor_intent_test_activity_bad_data);
+                        } else {
+                            title = activity.getString(R.string.application_editor_intent_test_title);
+                            message = activity.getString(R.string.application_editor_intent_test_broadcast_bad_data);
+                        }
+                        PPAlertDialog mDialog = new PPAlertDialog(
+                                title,
+                                message,
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                activity
+                        );
 
-                    if (!isFinishing())
-                        mDialog.show();
+                        if (!isFinishing())
+                            mDialog.show();
+                    }
                 }
             }
         });
@@ -599,9 +630,12 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         savedInstanceState.putInt(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
     }
 
-    private void saveIntent() {
+    private boolean saveIntent() {
+
         if (ppIntent == null)
-            return;
+            return false;
+
+        boolean customAction = false;
 
         if (intentNameEditText.getText() != null)
             ppIntent._name = intentNameEditText.getText().toString();
@@ -632,8 +666,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
             ppIntent._action = "";
         else
         if (actionSpinnerId == 1)
-            if (intentActionEdit.getText() != null)
+            if (intentActionEdit.getText() != null) {
                 ppIntent._action = intentActionEdit.getText().toString();
+                customAction = true;
+            }
             else
                 ppIntent._action = "";
         else {
@@ -860,6 +896,8 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         else
             ppIntent._extraValue5 = "";
         ppIntent._extraType5 = intentExtraSpinner5.getSelectedItemPosition();
+
+        return customAction;
     }
 
     private void enableOKButton() {
