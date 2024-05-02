@@ -1,6 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
-import static org.acra.util.IOUtils.writeStringToFile;
+//import static org.acra.util.IOUtils.writeStringToFile;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -141,7 +141,7 @@ public class CustomACRAEmailSender implements ReportSender {
                                              String content) {
         File cache = new File(context.getCacheDir(), name);
         try {
-            writeStringToFile(cache, content);
+            org.acra.util.IOUtils.writeStringToFile(cache, content);
             return AcraContentProvider.getUriForFile(context, cache);
         } catch (IOException ignored) {}
         return null;
