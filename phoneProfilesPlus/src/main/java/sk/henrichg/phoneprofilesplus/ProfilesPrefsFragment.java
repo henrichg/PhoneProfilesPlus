@@ -3660,65 +3660,68 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS));
             String contactsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS));
+            boolean blockCalls = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
 
-            String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, R.string.profile_preference_phoneCallsContactGroups, context);
-            if (!title.isEmpty()) {
-                cattegorySummaryData.bold = true;
-                //if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+            if (blockCalls) {
+                String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, R.string.profile_preference_phoneCallsContactGroups, context);
+                if (!title.isEmpty()) {
+                    cattegorySummaryData.bold = true;
+                    //if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
-                contactGroupsValue = ContactGroupsMultiSelectDialogPreference.getSummary(contactGroupsValue, context);
+                    contactGroupsValue = ContactGroupsMultiSelectDialogPreference.getSummary(contactGroupsValue, context);
 
-                _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                        .append(ProfileStatic.getColorForChangedPreferenceValue(contactGroupsValue, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
-                        .append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(ProfileStatic.getColorForChangedPreferenceValue(contactGroupsValue, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
 
-            }
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS, R.string.profile_preference_phoneCallsContacts, context);
-            if (!title.isEmpty()) {
-                cattegorySummaryData.bold = true;
-                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
-
-                contactsValue = ContactsMultiSelectDialogPreference.getSummary(contactsValue, false, context);
-
-                _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                        .append(ProfileStatic.getColorForChangedPreferenceValue(contactsValue, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
-                        .append(StringConstants.TAG_BOLD_END_HTML);
-
-            }
-            if (((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
-                ((contactsValue != null) && (!contactsValue.isEmpty()))
-            ) {
-                title = context.getString(R.string.event_preferences_contactListType);
+                }
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS, R.string.profile_preference_phoneCallsContacts, context);
                 if (!title.isEmpty()) {
                     cattegorySummaryData.bold = true;
                     if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
-                    String value = StringFormatUtils.getListPreferenceString(
-                            preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE,
-                                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)),
-                            R.array.phoneCallsContactListTypeValues, R.array.phoneCallsContactListTypeArray, context);
+                    contactsValue = ContactsMultiSelectDialogPreference.getSummary(contactsValue, false, context);
 
                     _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
+                            .append(ProfileStatic.getColorForChangedPreferenceValue(contactsValue, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
                             .append(StringConstants.TAG_BOLD_END_HTML);
-                }
 
-                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, R.string.profile_preference_phoneCallsBlockCalls, context);
-                if (!title.isEmpty()) {
-                    cattegorySummaryData.bold = true;
-                    _value.append(StringConstants.STR_BULLET)
-                            .append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
-                            .append(StringConstants.TAG_BOLD_END_HTML);
                 }
+                if (((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
+                        ((contactsValue != null) && (!contactsValue.isEmpty()))
+                ) {
+                    title = context.getString(R.string.event_preferences_contactListType);
+                    if (!title.isEmpty()) {
+                        cattegorySummaryData.bold = true;
+                        if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
-                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS, R.string.profile_preference_phoneCallsSendSMS, context);
-                if (!title.isEmpty()) {
-                    cattegorySummaryData.bold = true;
-                    _value.append(StringConstants.STR_BULLET)
-                            .append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
-                            .append(StringConstants.TAG_BOLD_END_HTML);
+                        String value = StringFormatUtils.getListPreferenceString(
+                                preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE,
+                                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)),
+                                R.array.phoneCallsContactListTypeValues, R.array.phoneCallsContactListTypeArray, context);
+
+                        _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
+                    }
+
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, R.string.profile_preference_phoneCallsBlockCalls, context);
+                    if (!title.isEmpty()) {
+                        cattegorySummaryData.bold = true;
+                        _value.append(StringConstants.STR_BULLET)
+                                .append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
+                    }
+
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS, R.string.profile_preference_phoneCallsSendSMS, context);
+                    if (!title.isEmpty()) {
+                        cattegorySummaryData.bold = true;
+                        _value.append(StringConstants.STR_BULLET)
+                                .append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
+                    }
                 }
             }
         }
