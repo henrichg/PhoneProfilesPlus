@@ -136,6 +136,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((HighlightedSpinnerAdapter)intentIntentTypeSpinner.getAdapter()).setSelection(position);
+                enableOKButton();
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -144,6 +145,20 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
         intentPackageName = findViewById(R.id.application_editor_intent_package_name);
         intentPackageName.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentPackageName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                enableOKButton();
+            }
+        });
 
         intentClassName = findViewById(R.id.application_editor_intent_class_name);
         intentClassName.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
@@ -180,6 +195,8 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                     intentActionEdit.setText("");
                     intentActionEdit.setEnabled(false);
                 }
+
+                enableOKButton();
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -188,6 +205,20 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
         intentActionEdit = findViewById(R.id.application_editor_intent_action_edit);
         intentActionEdit.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentActionEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                enableOKButton();
+            }
+        });
 
         final Activity activity = this;
 
@@ -908,7 +939,23 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
     }
 
     private void enableOKButton() {
-        boolean enableOK = (!intentNameEditText.getText().toString().isEmpty());
+        boolean enableOK = true;
+        if (intentNameEditText.getText().toString().isEmpty())
+            enableOK = false;
+
+        int actionSpinnerId = intentActionSpinner.getSelectedItemPosition();
+        if ((actionSpinnerId == 1) &&
+                intentActionEdit.getText().toString().isEmpty())
+            enableOK = false;
+
+        int intentType = intentIntentTypeSpinner.getSelectedItemPosition();
+        if ((intentType == 1) && (actionSpinnerId == 1) &&
+                intentPackageName.getText().toString().isEmpty())
+            // intentType is Broadcast
+            // actionSpinnerId is [ Custom]
+            // intentPackageName is empty
+            enableOK = false;
+
         okButton.setEnabled(enableOK);
     }
 
