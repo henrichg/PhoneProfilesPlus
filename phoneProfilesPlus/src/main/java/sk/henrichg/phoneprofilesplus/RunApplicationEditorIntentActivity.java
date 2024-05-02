@@ -567,6 +567,29 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
             else {
                 boolean customAction = saveIntent();
                 boolean okIntent = true;
+                if (customAction && (ppIntent._action.isEmpty())) {
+                    okIntent = false;
+                    PPAlertDialog mDialog = new PPAlertDialog(
+                            getString(R.string.application_editor_intent_test_title),
+                            getString(R.string.application_editor_intent_test_activity_action_must_be_configured),
+                            getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            activity
+                    );
+
+                    if (!isFinishing())
+                        mDialog.show();
+                }
+                else
                 if (ppIntent._intentType == 1) {
                     if (customAction) {
                         // broadcast, Package name must be set for custom action
