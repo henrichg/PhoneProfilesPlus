@@ -4319,23 +4319,27 @@ class ActivateProfileHelper {
             }
         } else
         if (Application.isIntent(runApplicationData)) {
+            Log.e("ActivateProfileHelper.doExecuteForRunApplications", "Intent");
             long intentId = Application.getIntentId(runApplicationData);
-            //Log.e("ActivateProfileHelper.doExecuteForRunApplications", "intentId="+intentId);
+            Log.e("ActivateProfileHelper.doExecuteForRunApplications", "intentId="+intentId);
             if (intentId > 0) {
                 PPIntent ppIntent = DatabaseHandler.getInstance(context).getIntent(intentId);
-                //Log.e("ActivateProfileHelper.doExecuteForRunApplications", "ppIntent="+ppIntent);
+                Log.e("ActivateProfileHelper.doExecuteForRunApplications", "ppIntent="+ppIntent);
                 if (ppIntent != null) {
                     appIntent = RunApplicationEditorIntentActivity.createIntent(ppIntent);
-                    //Log.e("ActivateProfileHelper.doExecuteForRunApplications", "appIntent="+appIntent);
+                    Log.e("ActivateProfileHelper.doExecuteForRunApplications", "appIntent="+appIntent);
                     if (appIntent != null) {
-                        //Log.e("ActivateProfileHelper.doExecuteForRunApplications", "ppIntent._intentType="+ppIntent._intentType);
+                        Log.e("ActivateProfileHelper.doExecuteForRunApplications", "appIntent.packagename="+appIntent.getPackage());
+
+                        Log.e("ActivateProfileHelper.doExecuteForRunApplications", "ppIntent._intentType="+ppIntent._intentType);
                         if (ppIntent._intentType == 0) {
+                            Log.e("ActivateProfileHelper.doExecuteForRunApplications", "activity");
                             /*boolean vpnConnected = false;
                             if (ppIntent._name.equals("")) {
 
                             }
                             if (!vpnConnected) {*/
-                            try {
+                                try {
                                     appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     context.startActivity(appIntent);
                                 } catch (ActivityNotFoundException | SecurityException ee) {
@@ -4347,11 +4351,12 @@ class ActivateProfileHelper {
                             //}
                         }
                         else {
+                            Log.e("ActivateProfileHelper.doExecuteForRunApplications", "broadcast");
                             try {
                                 appIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 context.sendBroadcast(appIntent);
                             } catch (Exception e) {
-                                //PPApplicationStatic.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                         }
                     } else {

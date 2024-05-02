@@ -874,6 +874,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
             if ((ppIntent._packageName != null) && (!ppIntent._packageName.isEmpty()) &&
                     (ppIntent._className != null) && (!ppIntent._className.isEmpty()))
                 intent.setComponent(new ComponentName(ppIntent._packageName, ppIntent._className));
+            else
+            if ((ppIntent._packageName != null) && (!ppIntent._packageName.isEmpty()))
+                intent.setPackage(ppIntent._packageName);
 
             if ((ppIntent._action != null) && (!ppIntent._action.isEmpty()))
                 intent.setAction(ppIntent._action);
