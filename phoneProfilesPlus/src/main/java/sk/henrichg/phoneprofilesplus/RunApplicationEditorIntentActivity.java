@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -394,7 +395,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                 ppIntent._intentType = 0;
             intentIntentTypeSpinner.setSelection(ppIntent._intentType);
             intentPackageName.setText(ppIntent._packageName);
+            intentPackageName.setSelection(intentPackageName.getText().length());
             intentClassName.setText(ppIntent._className);
+            intentClassName.setSelection(intentClassName.getText().length());
             intentData.setText(ppIntent._data);
             intentMimeType.setText(ppIntent._mimeType);
 
@@ -412,6 +415,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                 if (custom) {
                     intentActionSpinner.setSelection(1);
                     intentActionEdit.setText(ppIntent._action);
+                    intentActionEdit.setSelection(intentActionEdit.getText().length());
                 } else {
                     int position = Arrays.asList(actionsArray).indexOf(ppIntent._action);
                     if (position == -1)
@@ -577,6 +581,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                                 testIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 sendBroadcast(testIntent);
                                 ok = true;
+                                PPApplication.showToast(getApplicationContext(),
+                                        getString(R.string.application_editor_intent_test_broadcast_working_good),
+                                        Toast.LENGTH_SHORT);
                             } catch (Exception e) {
                                 //Log.e("RunApplicationEditorIntentActivity.onCreate.testButtonClick", Log.getStackTraceString(e));
                             }
