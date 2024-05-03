@@ -364,10 +364,12 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO_TO + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY_TO + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_E_APPLICATION_DURATION + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_E_APPLICATION_START_TIME + " " + DatabaseHandler.INTEGER_TYPE //+ ","
+                + DatabaseHandler.KEY_E_APPLICATION_START_TIME + " " + DatabaseHandler.INTEGER_TYPE + ","
 //                + DatabaseHandler.KEY_E_CALL_STOP_RINGING + " " + DatabaseHandler.INTEGER_TYPE + ","
 //                + DatabaseHandler.KEY_E_CALL_SEND_SMS + " " + DatabaseHandler.INTEGER_TYPE + ","
 //                + DatabaseHandler.KEY_E_CALL_SMS_TEXT + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_MUSIC_ENABLED + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED + " " + DatabaseHandler.INTEGER_TYPE// + ","
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -523,6 +525,7 @@ class DatabaseHandlerCreateUpdateDB {
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__ROAMING_ENABLED ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_STATUS + "," + DatabaseHandler.KEY_E_ROAMING_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__VPN_ENABLED ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_STATUS + "," + DatabaseHandler.KEY_E_VPN_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__BRIGHTNESS_ENABLED ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_STATUS + "," + DatabaseHandler.KEY_E_BRIGHTNESS_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__MUSIC_ENABLED ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_STATUS + "," + DatabaseHandler.KEY_E_MUSIC_ENABLED + ")");
 
         //db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__MOBILE_CELLS_ENABLED_WHEN_OUTSIDE ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_STATUS + "," + DatabaseHandler.KEY_E_MOBILE_CELLS_ENABLED + "," + DatabaseHandler.KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + ")");
 
@@ -900,6 +903,8 @@ class DatabaseHandlerCreateUpdateDB {
 //                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_STOP_RINGING, DatabaseHandler.INTEGER_TYPE, columns);
 //                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SEND_SMS, DatabaseHandler.INTEGER_TYPE, columns);
 //                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SMS_TEXT, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_MUSIC_ENABLED, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED, DatabaseHandler.INTEGER_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_ET_EORDER, DatabaseHandler.INTEGER_TYPE, columns);
@@ -3548,6 +3553,12 @@ class DatabaseHandlerCreateUpdateDB {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT + "=\"\"");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT + "=\"\"");
+        }
+
+        if (oldVersion < 2520)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_MUSIC_ENABLED + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED + "=0");
         }
 
     }

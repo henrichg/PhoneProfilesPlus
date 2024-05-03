@@ -2867,6 +2867,9 @@ class DataWrapper {
                         case DatabaseHandler.ETYPE_VPN:
                             sensorEnabled = _event._eventPreferencesVPN._enabled;
                             break;
+                        case DatabaseHandler.ETYPE_MUSIC:
+                            sensorEnabled = _event._eventPreferencesMusic._enabled;
+                            break;
                         case DatabaseHandler.ETYPE_ALL:
                         default:
                             sensorEnabled = true;

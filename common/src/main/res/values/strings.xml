@@ -2199,6 +2199,10 @@
     <string name="application_editor_intent_test_activity_package_name_must_be_configured">\"Package name\" must be cponfigured for intent type \"Broadcast\" with custom \"Action\"."</string>
     <string name="application_editor_intent_test_broadcast_working_good">Broadcast working good</string>
 
+    <string name="event_preference_sensor_music_summary">This sensor will start an event if music is playing. Parameters: .</string>
+    <string name="event_type_music">Music</string>
+    <string name="event_preferences_category_eventMusicParameters">Music sensor</string>
+
     <!--    <string name="device_admin">Device admin</string>-->
     <!--    <string name="device_admin_description">Device admin description.</string>-->
     <!--    <string name="device_admin_receiver_status_enabled">Device admin is enabled.</string>-->

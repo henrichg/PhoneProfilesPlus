@@ -28,6 +28,7 @@ import android.telephony.PhoneStateListener;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.ExistingWorkPolicy;
@@ -2297,6 +2298,177 @@ class PhoneProfilesServiceStatic
         }
     }
 
+/*
+    static void registerReceiverForMusicSensor(boolean register, DataWrapper dataWrapper, Context context) {
+        Log.e("PhoneProfilesServiceStatic.registerReceiverForMusicSensor", "register="+register);
+        Context appContext = context.getApplicationContext();
+        if (!register) {
+            if (PPApplication.musicBroadcastReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(PPApplication.musicBroadcastReceiver);
+                    PPApplication.musicBroadcastReceiver = null;
+                } catch (Exception e) {
+                    PPApplication.musicBroadcastReceiver = null;
+                }
+            }
+//            if (PPApplication.alarmClockEventEndBroadcastReceiver != null) {
+//                try {
+//                    appContext.unregisterReceiver(PPApplication.alarmClockEventEndBroadcastReceiver);
+//                    PPApplication.alarmClockEventEndBroadcastReceiver = null;
+//                } catch (Exception e) {
+//                    PPApplication.alarmClockEventEndBroadcastReceiver = null;
+//                }
+//            }
+        }
+        if (register) {
+//            boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, appContext).allowed ==
+//                    PreferenceAllowed.PREFERENCE_ALLOWED;
+//            if (allowed) {
+//                dataWrapper.fillEventList();
+//                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_MUSIC);
+//            }
+//            if (allowed) {
+            if (true) {
+                if (PPApplication.musicBroadcastReceiver == null) {
+                    PPApplication.musicBroadcastReceiver = new MusicBroadcastReceiver();
+                    IntentFilter filter = new IntentFilter();
+                    filter.addAction("com.android.music.metachanged");
+                    filter.addAction("com.android.music.playstatechanged");
+                    filter.addAction("com.android.music.playbackcomplete");
+                    filter.addAction("com.android.music.queuechanged");
+                    //HTC Music
+                    filter.addAction("com.htc.music.playstatechanged");
+                    filter.addAction("com.htc.music.playbackcomplete");
+                    filter.addAction("com.htc.music.metachanged");
+                    //MIUI Player
+                    filter.addAction("com.miui.player.playstatechanged");
+                    filter.addAction("com.miui.player.playbackcomplete");
+                    filter.addAction("com.miui.player.metachanged");
+                    //Real
+                    filter.addAction("com.real.IMP.playstatechanged");
+                    filter.addAction("com.real.IMP.playbackcomplete");
+                    filter.addAction("com.real.IMP.metachanged");
+                    //SEMC Music Player
+                    filter.addAction("com.sonyericsson.music.playbackcontrol.ACTION_TRACK_STARTED");
+                    filter.addAction("com.sonyericsson.music.playbackcontrol.ACTION_PAUSED");
+                    filter.addAction("com.sonyericsson.music.TRACK_COMPLETED");
+                    filter.addAction("com.sonyericsson.music.metachanged");
+                    filter.addAction("com.sonyericsson.music.playbackcomplete");
+                    filter.addAction("com.sonyericsson.music.playstatechanged");
+                    //rdio
+                    filter.addAction("com.rdio.android.metachanged");
+                    filter.addAction("com.rdio.android.playstatechanged");
+                    //Samsung Music Player
+                    filter.addAction("com.samsung.sec.android.MusicPlayer.playstatechanged");
+                    filter.addAction("com.samsung.sec.android.MusicPlayer.playbackcomplete");
+                    filter.addAction("com.samsung.sec.android.MusicPlayer.metachanged");
+                    filter.addAction("com.sec.android.app.music.playstatechanged");
+                    filter.addAction("com.sec.android.app.music.playbackcomplete");
+                    filter.addAction("com.sec.android.app.music.metachanged");
+                    //Winamp
+                    filter.addAction("com.nullsoft.winamp.playstatechanged");
+                    filter.addAction("com.nullsoft.winamp.metachanged");
+                    //Amazon
+                    filter.addAction("com.amazon.mp3.playstatechanged");
+                    filter.addAction("com.amazon.mp3.metachanged");
+                    //Rhapsody
+                    filter.addAction("com.rhapsody.playstatechanged");
+                    //PowerAmp
+                    filter.addAction("com.maxmpz.audioplayer.playstatechanged");
+
+                    // Spotify
+                    // It is not possible for your app to programmatically configure Spotify to enable broadcasting.
+                    // If your app does not find any broadcast messages, consider showing the user a message asking them
+                    // to enable this feature by turning Device Broadcast Status to ON in the Spotify app’s settings.
+                    filter.addAction("com.spotify.music.playbackstatechanged");
+                    filter.addAction("com.spotify.music.metadatachanged");
+                    filter.addAction("com.spotify.music.queuechanged");
+
+                    //will be added any....
+                    //scrobblers detect for players (poweramp for example)
+                    //Last.fm
+                    filter.addAction("fm.last.android.metachanged");
+                    filter.addAction("fm.last.android.playbackpaused");
+                    filter.addAction("fm.last.android.playbackcomplete");
+                    //A simple last.fm scrobbler
+                    filter.addAction("com.adam.aslfms.notify.playstatechanged");
+                    // Others
+                    filter.addAction("net.jjc1138.android.scrobbler.action.MUSIC_STATUS");
+                    filter.addAction("com.andrew.apollo.metachanged");
+
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_EXPORTED;
+                    appContext.registerReceiver(PPApplication.musicBroadcastReceiver, filter, receiverFlags);
+                }
+//                if (PPApplication.alarmClockEventEndBroadcastReceiver == null) {
+//                    PPApplication.alarmClockEventEndBroadcastReceiver = new AlarmClockEventEndBroadcastReceiver();
+//                    IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER);
+//                    int receiverFlags = 0;
+//                    if (Build.VERSION.SDK_INT >= 34)
+//                        receiverFlags = RECEIVER_NOT_EXPORTED;
+//                    appContext.registerReceiver(PPApplication.alarmClockEventEndBroadcastReceiver, intentFilter22, receiverFlags);
+//                }
+            }
+            else
+                registerReceiverForMusicSensor(false, dataWrapper, appContext);
+        }
+    }
+*/
+    static void registerAudioPlaybackCallback(final boolean register, final DataWrapper dataWrapper, final Context context) {
+        final Context appContext = context.getApplicationContext();
+
+        // keep this: it is required to use handlerThreadBroadcast for callbacks
+        PPApplicationStatic.startHandlerThreadBroadcast();
+        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        final WeakReference<DataWrapper> dataWrapperWeakRef = new WeakReference<>(dataWrapper);
+        __handler.post(() -> {
+            if (!register) {
+                if (PPApplication.audioPlaybackCallback != null) {
+                    try {
+                        AudioManager audioManager = appContext.getSystemService(AudioManager.class);
+                        if (audioManager != null)
+                            audioManager.unregisterAudioPlaybackCallback(PPApplication.audioPlaybackCallback);
+                        PPApplication.audioPlaybackCallback = null;
+                    } catch (Exception e) {
+                        PPApplication.audioPlaybackCallback = null;
+                    }
+                }
+            }
+            if (register) {
+                Log.e("PhoneProfilesServiceStatic.registerAudioPlaybackCallback", "register");
+                DataWrapper _dataWrapper = dataWrapperWeakRef.get();
+                if (_dataWrapper != null) {
+                    boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, appContext).allowed ==
+                            PreferenceAllowed.PREFERENCE_ALLOWED;
+                    if (allowed) {
+                        _dataWrapper.fillEventList();
+                        allowed = _dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_MUSIC/*, false*/);
+                    }
+                    Log.e("PhoneProfilesServiceStatic.registerAudioPlaybackCallback", "allowed="+allowed);
+                    if (allowed) {
+                        if (PPApplication.audioPlaybackCallback == null) {
+                            Log.e("PhoneProfilesServiceStatic.registerAudioPlaybackCallback", "register (1)");
+                            try {
+                                AudioManager audioManager = appContext.getSystemService(AudioManager.class);
+                                if (audioManager != null) {
+                                    Log.e("PhoneProfilesServiceStatic.registerAudioPlaybackCallback", "register (2)");
+                                    PPApplication.audioPlaybackCallback = new PPAudioPlaybackCallback(appContext);
+                                    audioManager.registerAudioPlaybackCallback(PPApplication.audioPlaybackCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
+                                }
+                            } catch (Exception e) {
+                                Log.e("PhoneProfilesServiceStatic.registerAudioPlaybackCallback", "register (exception)");
+                                PPApplication.audioPlaybackCallback = null;
+                                //PPApplicationStatic.recordException(e);
+                            }
+                        }
+                    } else
+                        registerAudioPlaybackCallback(false, _dataWrapper, appContext);
+                }
+            }
+        });
+    }
+
     static void cancelPeriodicScanningWorker(/*boolean useHandler*/) {
         PPApplicationStatic.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false/*, useHandler*/);
         PPApplicationStatic.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false/*, useHandler*/);
@@ -2835,6 +3007,10 @@ class PhoneProfilesServiceStatic
         // required for calendar event
         registerReceiverForActivatedProfileSensor(true, dataWrapper, appContext);
 
+        // required for music sensor
+        //registerReceiverForMusicSensor(true, dataWrapper, appContext);
+        registerAudioPlaybackCallback(true, dataWrapper, appContext);
+
         WifiScanWorker.initialize(appContext, !fromCommand);
         BluetoothScanWorker.initialize(appContext, !fromCommand);
 
@@ -2897,7 +3073,10 @@ class PhoneProfilesServiceStatic
         //SMSBroadcastReceiver.unregisterMMSContentObserver(appContext);
 
         registerReceiverForActivatedProfileSensor(false, null, appContext);
+        //registerReceiverForMusicSensor(false, null, appContext);
+
         registerVPNCallback(false, null, appContext);
+        registerAudioPlaybackCallback(false, null, appContext);
 
         startLocationScanner(false, true, null, false, appContext);
         startMobileCellsScanner(false, true, null, false, false, appContext);
@@ -2953,7 +3132,9 @@ class PhoneProfilesServiceStatic
         //registerReceiverForOrientationSensor(true, dataWrapper);
         registerReceiverForNotificationSensor(true,dataWrapper, appContext);
         registerReceiverForActivatedProfileSensor(true, dataWrapper, appContext);
+        //registerReceiverForMusicSensor(true, dataWrapper, appContext);
         registerVPNCallback(true, dataWrapper, appContext);
+        registerAudioPlaybackCallback(true, dataWrapper, appContext);
 
         schedulePeriodicScanningWorker();
 //        PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] PhoneProfilesServiceStatic.reregisterEventsReceiversAndWorkers", "xxx");
