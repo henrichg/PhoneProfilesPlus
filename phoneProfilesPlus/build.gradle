@@ -55,7 +55,8 @@ android {
         }
     }
 
-    // Requested by IzzyOnDroid.
+    // Requested by IzzyOnDroid. PPP is not in Google Play. For this reason may be both false.
+    // https://developer.android.com/reference/tools/gradle-api/8.2/com/android/build/api/dsl/DependenciesInfo
     dependenciesInfo {
         // Disables dependency metadata when building APKs.
         includeInApk = false
