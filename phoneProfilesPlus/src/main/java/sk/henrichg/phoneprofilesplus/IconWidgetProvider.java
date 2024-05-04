@@ -49,6 +49,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         }
     }
 
+    /** @noinspection DataFlowIssue*/
     private static void _onUpdate(Context context, AppWidgetManager appWidgetManager,
                           /*Profile _profile, DataWrapper _dataWrapper,*/ int[] appWidgetIds) {
 

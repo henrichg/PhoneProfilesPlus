@@ -946,7 +946,7 @@ public class PPApplication extends Application
     static volatile ActivatedProfileEventBroadcastReceiver activatedProfileEventBroadcastReceiver = null;
     static volatile VPNNetworkCallback vpnConnectionCallback = null;
     static volatile ApplicationEventEndBroadcastReceiver applicationEventEndBroadcastReceiver = null;
-    static volatile MusicBroadcastReceiver musicBroadcastReceiver = null;
+    //static volatile MusicBroadcastReceiver musicBroadcastReceiver = null;
     static volatile PPAudioPlaybackCallback audioPlaybackCallback = null;
 
     static volatile SettingsContentObserver settingsContentObserver = null;
