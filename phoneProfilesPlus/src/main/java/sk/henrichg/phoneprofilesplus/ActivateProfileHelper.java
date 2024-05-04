@@ -4070,6 +4070,10 @@ class ActivateProfileHelper {
         final Context appContext = context.getApplicationContext();
         final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
+
+        // startActivity from background: Android 10 (API level 29)
+        // Exception:
+        // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
         if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
@@ -4221,6 +4225,9 @@ class ActivateProfileHelper {
     private static void executeForRunApplications(Profile _profile, Context context) {
         if (_profile._deviceRunApplicationChange == 1)
         {
+            // startActivity from background: Android 10 (API level 29)
+            // Exception:
+            // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
             if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
                 final Context appContext = context.getApplicationContext();
                 final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
@@ -4527,6 +4534,9 @@ class ActivateProfileHelper {
             executeForRunApplications(profile, appContext);
         }
 
+        // startActivity from background: Android 10 (API level 29)
+        // Exception:
+        // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
         if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
 
             setVPN(context, profile, executedProfileSharedPreferences);
@@ -5341,6 +5351,9 @@ class ActivateProfileHelper {
 
         // close all applications
 
+        // startActivity from background: Android 10 (API level 29)
+        // Exception:
+        // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
         if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
             if (profile._deviceCloseAllApplications == 1) {
                 if (!PPApplication.blockProfileEventActions) {
@@ -8272,6 +8285,9 @@ class ActivateProfileHelper {
                                      @SuppressWarnings("SameParameterValue") String settingsType,
                                      String parameterName,
                                      String parameterValue) {
+        // startActivity from background: Android 10 (API level 29)
+        // Exception:
+        // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
         if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
             try {
                 Intent intent = new Intent();

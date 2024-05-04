@@ -480,6 +480,9 @@ public class MainWorker extends Worker {
         eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED});
 
         if (startForExternalApplication) {
+            // startActivity from background: Android 10 (API level 29)
+            // Exception:
+            // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
             if ((Build.VERSION.SDK_INT < 29) || Settings.canDrawOverlays(appContext)) {
                 // Permission SYSTEM_ALERT_WINDOW is required for start activity from Worker
                 try {
