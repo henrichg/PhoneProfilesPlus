@@ -11,19 +11,26 @@ import androidx.preference.SwitchPreferenceCompat;
 
 class EventPreferencesMusic extends EventPreferences {
 
+    int _musicState;
+
     static final String PREF_EVENT_MUSIC_ENABLED = "eventMusicEnabled";
+    private static final String PREF_EVENT_MUSIC_MUSIC_STATE = "eventMusicMusicState";
 
     static final String PREF_EVENT_MUSIC_CATEGORY = "eventMusicCategoryRoot";
 
     EventPreferencesMusic(Event event,
-                          boolean enabled)
+                          boolean enabled,
+                          int musicState)
     {
         super(event, enabled);
+
+        this._musicState = musicState;
     }
 
     void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesMusic._enabled;
+        this._musicState = fromEvent._eventPreferencesMusic._musicState;
         this.setSensorPassed(fromEvent._eventPreferencesMusic.getSensorPassed());
     }
 
@@ -31,12 +38,14 @@ class EventPreferencesMusic extends EventPreferences {
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_MUSIC_ENABLED, _enabled);
+        editor.putString(PREF_EVENT_MUSIC_MUSIC_STATE, String.valueOf(this._musicState));
         editor.apply();
     }
 
     void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_MUSIC_ENABLED, false);
+        this._musicState = Integer.parseInt(preferences.getString(PREF_EVENT_MUSIC_MUSIC_STATE, "0"));
     }
 
     /** @noinspection unused*/
@@ -53,6 +62,10 @@ class EventPreferencesMusic extends EventPreferences {
                     _value.append(getPassStatusString(context.getString(R.string.event_type_music), addPassStatus, DatabaseHandler.ETYPE_MUSIC, context));
                     _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
+
+                _value.append(context.getString(R.string.event_preferences_music_state));
+                String[] musicSate = context.getResources().getStringArray(R.array.eventMusicStatesArray);
+                _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(musicSate[this._musicState], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
@@ -70,6 +83,15 @@ class EventPreferencesMusic extends EventPreferences {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
+            }
+        }
+
+        if (key.equals(PREF_EVENT_MUSIC_MUSIC_STATE)) {
+            PPListPreference listPreference = prefMng.findPreference(key);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(value);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
             }
         }
 
@@ -100,17 +122,23 @@ class EventPreferencesMusic extends EventPreferences {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
+
+        if (key.equals(PREF_EVENT_MUSIC_MUSIC_STATE)) {
+            setSummary(prefMng, key, preferences.getString(key, ""), context);
+        }
+
     }
 
     void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_MUSIC_ENABLED, preferences, context);
+        setSummary(prefMng, PREF_EVENT_MUSIC_MUSIC_STATE, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_MUSIC_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            EventPreferencesMusic tmp = new EventPreferencesMusic(this._event, this._enabled/*, this._permanentRun, this._duration, this._applications*/);
+            EventPreferencesMusic tmp = new EventPreferencesMusic(this._event, this._enabled, this._musicState);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -178,8 +206,12 @@ class EventPreferencesMusic extends EventPreferences {
             int oldSensorPassed = getSensorPassed();
             if (EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 AudioManager audioManager = (AudioManager)eventsHandler.context.getSystemService(Context.AUDIO_SERVICE);
-                if (audioManager != null)
-                    eventsHandler.musicPassed = audioManager.isMusicActive();
+                if (audioManager != null) {
+                    if (_musicState == 1)
+                        eventsHandler.musicPassed = !audioManager.isMusicActive();
+                    else
+                        eventsHandler.musicPassed = audioManager.isMusicActive();
+                }
                 else
                     eventsHandler.notAllowedMusic = true;
 

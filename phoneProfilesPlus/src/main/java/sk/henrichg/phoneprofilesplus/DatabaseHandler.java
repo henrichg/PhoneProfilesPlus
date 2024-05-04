@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2520;
+    static final int DATABASE_VERSION = 2521;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -450,6 +450,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //    static final String KEY_E_CALL_SMS_TEXT = "callSMSText";
     static final String KEY_E_MUSIC_ENABLED = "musicEnabled";
     static final String KEY_E_MUSIC_SENSOR_PASSED = "musicSensorPassed";
+    static final String KEY_E_MUSIC_MUSIC_STATE = "musicMusicState";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";
