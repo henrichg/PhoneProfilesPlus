@@ -6375,17 +6375,6 @@ class ActivateProfileHelper {
             //    CmdWifi.setWifi(isWifiEnabled);
             //else
 
-            /*
-            DevicePolicyManager devicePolicyManager = (DevicePolicyManager) appContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
-            ComponentName adminComponent = new ComponentName(appContext, PPDeviceAdminReceiver.class);
-            if (devicePolicyManager.isAdminActive(adminComponent)) {
-                Log.e("ActivateProfileHelper.doExecuteForRadios", "wifi on/off");
-                // toto zial nefunguje, furt mi dava exception:
-                //  java.lang.SecurityException: Calling identity is not authorized
-                devicePolicyManager.setGlobalSetting(adminComponent, Settings.Global.WIFI_ON, isWifiEnabled ? "1" : "0");
-            } else
-            */
-
             WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
             wifiManager.setWifiEnabled(enable);
 
