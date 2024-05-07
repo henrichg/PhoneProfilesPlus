@@ -4867,7 +4867,7 @@ class ActivateProfileHelper {
     {
         final Context appContext = context.getApplicationContext();
 
-        // Warning: do not change preference name, beaciue is used in profile parameters
+        // Warning: do not change preference name, because is used in profile parameters
         // for exmple "Phone calls" in PPCallScreeningService
         SharedPreferences executedProfileSharedPreferences = appContext.getSharedPreferences(PPApplication.TMP_SHARED_PREFS_ACTIVATE_PROFILE_HELPER_EXECUTE, Context.MODE_PRIVATE);
         profile.saveProfileToSharedPreferences(executedProfileSharedPreferences);
