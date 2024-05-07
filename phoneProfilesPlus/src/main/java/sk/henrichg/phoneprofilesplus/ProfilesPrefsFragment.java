@@ -3656,6 +3656,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
         }
         if (isHeld) {
+            int contactListType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)));
             String contactGroupsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS));
             String contactsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS,
@@ -3687,8 +3689,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             .append(StringConstants.TAG_BOLD_END_HTML);
 
                 }
-                if (((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
-                        ((contactsValue != null) && (!contactsValue.isEmpty()))
+                if (
+                    (contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
+                    ((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
+                    ((contactsValue != null) && (!contactsValue.isEmpty()))
                 ) {
                     title = context.getString(R.string.event_preferences_contactListType);
                     if (!title.isEmpty()) {
@@ -6958,6 +6962,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS) ||
                 key.equals(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS) ||
                 key.equals(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS) ||
+                key.equals(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE) ||
                 key.equals(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS)) {
             if (Build.VERSION.SDK_INT >= 29) {
                 RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
@@ -6966,12 +6971,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preference != null)
                     preference.setEnabled(!isHeld);
 
+
+                int phoneCallsContactListType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE,
+                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)));
                 String contactGroupsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS));
                 String contactsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS));
 
                 boolean contactsConfigured =
+                        (phoneCallsContactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
                         ((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
                         ((contactsValue != null) && (!contactsValue.isEmpty()));
 

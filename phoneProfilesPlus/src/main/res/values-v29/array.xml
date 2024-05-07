@@ -28,10 +28,12 @@
     <string-array name="phoneCallsContactListTypeArray">
         <item>@string/array_event_pref_contact_list_type_white_list</item>
         <item>@string/array_event_pref_contact_list_type_black_list</item>
+        <item>@string/array_event_pref_contact_list_type_not_use</item>
     </string-array>
     <string-array name="phoneCallsContactListTypeValues">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
     </string-array>
 
 </resources>

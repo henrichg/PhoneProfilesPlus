@@ -2214,8 +2214,12 @@ class ProfilePreferencesIndicator {
                 }
             }
             // phone calls
-            if ((((profile._phoneCallsContacts != null) && (!profile._phoneCallsContacts.isEmpty())) ||
-                 ((profile._phoneCallsContactGroups != null) && (!profile._phoneCallsContactGroups.isEmpty()))) &&
+            if (
+                (
+                 (profile._phoneCallsContactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
+                 ((profile._phoneCallsContacts != null) && (!profile._phoneCallsContacts.isEmpty())) ||
+                 ((profile._phoneCallsContactGroups != null) && (!profile._phoneCallsContactGroups.isEmpty()))
+                ) &&
                 profile._phoneCallsBlockCalls) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (fillPreferences)

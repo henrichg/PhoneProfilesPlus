@@ -23,8 +23,11 @@ public class PPCallScreeningService extends CallScreeningService {
             boolean phoneNumberFound = false;
             String calledPhoneNumber = callDetails.getHandle().getSchemeSpecificPart();
             if (
-                 (((activatedProfile._phoneCallsContacts != null) && (!activatedProfile._phoneCallsContacts.isEmpty())) ||
-                  ((activatedProfile._phoneCallsContactGroups != null) && (!activatedProfile._phoneCallsContactGroups.isEmpty()))) &&
+                 (
+                  (activatedProfile._phoneCallsContactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
+                  ((activatedProfile._phoneCallsContacts != null) && (!activatedProfile._phoneCallsContacts.isEmpty())) ||
+                  ((activatedProfile._phoneCallsContactGroups != null) && (!activatedProfile._phoneCallsContactGroups.isEmpty()))
+                 ) &&
                  activatedProfile._phoneCallsBlockCalls
             ) {
 
@@ -73,7 +76,7 @@ public class PPCallScreeningService extends CallScreeningService {
     private boolean isPhoneNumberConfigured(Profile profile, List<Contact> contactList, String phoneNumber) {
         boolean phoneNumberFound = false;
 
-        //if (this._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
+        if (profile._phoneCallsContactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
 
             // find phone number in groups
             String[] splits = profile._phoneCallsContactGroups.split(StringConstants.STR_SPLIT_REGEX);
@@ -129,8 +132,8 @@ public class PPCallScreeningService extends CallScreeningService {
 
             if (profile._phoneCallsContactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
                 phoneNumberFound = !phoneNumberFound;
-        //} else
-        //   phoneNumberFound = true;
+        } else
+           phoneNumberFound = true;
 
         return phoneNumberFound;
     }
