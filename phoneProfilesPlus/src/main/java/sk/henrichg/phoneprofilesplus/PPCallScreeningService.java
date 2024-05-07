@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.telecom.Call;
 import android.telecom.CallScreeningService;
@@ -16,19 +18,28 @@ public class PPCallScreeningService extends CallScreeningService {
             CallResponse.Builder response = new CallResponse.Builder();
             //Log.e("PPCallScreeningService.onScreenCall", "Call screening service triggered");
 
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
-            Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
+            //DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
+            //Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
+
+            // get profile from shared preferences, saved in Profile.execute()
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(PPApplication.TMP_SHARED_PREFS_ACTIVATE_PROFILE_HELPER_EXECUTE, Context.MODE_PRIVATE);
+
+            String contacts = sharedPreferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS, Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS));
+            String contactGroups = sharedPreferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS));
+            int contactListType = Integer.parseInt(sharedPreferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)));
+            boolean blockCalls = sharedPreferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, Boolean.TRUE.equals(Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS)));
+            boolean sendSMS = sharedPreferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS, Boolean.TRUE.equals(Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS)));
+            String smsText = sharedPreferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT, Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT));
 
             boolean profileFound = false;
             boolean phoneNumberFound = false;
             String calledPhoneNumber = callDetails.getHandle().getSchemeSpecificPart();
             if (
                  (
-                  (activatedProfile._phoneCallsContactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
-                  ((activatedProfile._phoneCallsContacts != null) && (!activatedProfile._phoneCallsContacts.isEmpty())) ||
-                  ((activatedProfile._phoneCallsContactGroups != null) && (!activatedProfile._phoneCallsContactGroups.isEmpty()))
-                 ) &&
-                 activatedProfile._phoneCallsBlockCalls
+                  (contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
+                  ((contacts != null) && (!contacts.isEmpty())) ||
+                  ((contactGroups != null) && (!contactGroups.isEmpty()))
+                 ) && blockCalls
             ) {
 
                 profileFound = true;
@@ -40,7 +51,7 @@ public class PPCallScreeningService extends CallScreeningService {
                     synchronized (PPApplication.contactsCacheMutex) {
                         contactList = contactsCache.getList(/*false*/);
                     }
-                    phoneNumberFound = isPhoneNumberConfigured(activatedProfile, contactList, calledPhoneNumber);
+                    phoneNumberFound = isPhoneNumberConfigured(contacts, contactGroups, contactListType, contactList, calledPhoneNumber);
                     if (contactList != null)
                         contactList.clear();
                 }
@@ -50,11 +61,11 @@ public class PPCallScreeningService extends CallScreeningService {
                 response.setDisallowCall(true);
                 response.setRejectCall(true);
                 if (Permissions.checkSendSMS(getApplicationContext())) {
-                    if (activatedProfile._phoneCallsSendSMS &&
-                            (activatedProfile._phoneCallsSMSText != null) && (!activatedProfile._phoneCallsSMSText.isEmpty())) {
+                    if (sendSMS &&
+                            (smsText != null) && (!smsText.isEmpty())) {
                         try {
                             SmsManager smsManager = SmsManager.getDefault();
-                            smsManager.sendTextMessage(calledPhoneNumber, null, activatedProfile._phoneCallsSMSText, null, null);
+                            smsManager.sendTextMessage(calledPhoneNumber, null, smsText, null, null);
                         } catch (Exception e) {
                             PPApplicationStatic.recordException(e);
                         }
@@ -69,17 +80,17 @@ public class PPCallScreeningService extends CallScreeningService {
             response.setSkipNotification(false);
             respondToCall(callDetails, response.build());
 
-            dataWrapper.invalidateDataWrapper();
+            //dataWrapper.invalidateDataWrapper();
         }
     }
 
-    private boolean isPhoneNumberConfigured(Profile profile, List<Contact> contactList, String phoneNumber) {
+    private boolean isPhoneNumberConfigured(String contacts, String contactGroups, int contactListType, List<Contact> contactList, String phoneNumber) {
         boolean phoneNumberFound = false;
 
-        if (profile._phoneCallsContactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
+        if (contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
 
             // find phone number in groups
-            String[] splits = profile._phoneCallsContactGroups.split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = contactGroups.split(StringConstants.STR_SPLIT_REGEX);
             for (String split : splits) {
                 if (!split.isEmpty()) {
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.isPhoneNumberConfigured", "(2) PPApplication.contactsCacheMutex");
@@ -111,7 +122,7 @@ public class PPCallScreeningService extends CallScreeningService {
             if (!phoneNumberFound) {
                 // find phone number in contacts
                 // contactId#phoneId|...
-                splits = profile._phoneCallsContacts.split(StringConstants.STR_SPLIT_REGEX);
+                splits = contacts.split(StringConstants.STR_SPLIT_REGEX);
                 for (String split : splits) {
                     String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
 
@@ -130,7 +141,7 @@ public class PPCallScreeningService extends CallScreeningService {
                 }
             }
 
-            if (profile._phoneCallsContactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
+            if (contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
                 phoneNumberFound = !phoneNumberFound;
         } else
            phoneNumberFound = true;
