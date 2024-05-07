@@ -47,8 +47,6 @@ public class PPCallScreeningService extends CallScreeningService {
                 response.setDisallowCall(true);
                 response.setRejectCall(true);
                 if (Permissions.checkSendSMS(getApplicationContext())) {
-                    // TODO Uvazuj nad tym, ze by som pouzival texte wildcard na volajuce tel. cislo,
-                    //  nazov kontaktu a uzivatel by ho mohol pouzit v texte.
                     if (activatedProfile._phoneCallsSendSMS &&
                             (activatedProfile._phoneCallsSMSText != null) && (!activatedProfile._phoneCallsSMSText.isEmpty())) {
                         try {
