@@ -28,7 +28,6 @@ import android.telephony.PhoneStateListener;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.ExistingWorkPolicy;
@@ -2436,7 +2435,7 @@ class PhoneProfilesServiceStatic
                 }
             }
             if (register) {
-                Log.e("PhoneProfilesServiceStatic.registerAudioPlaybackCallback", "register");
+                //Log.e("PhoneProfilesServiceStatic.registerAudioPlaybackCallback", "register");
                 DataWrapper _dataWrapper = dataWrapperWeakRef.get();
                 if (_dataWrapper != null) {
                     boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, appContext).allowed ==
@@ -2445,19 +2444,19 @@ class PhoneProfilesServiceStatic
                         _dataWrapper.fillEventList();
                         allowed = _dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_MUSIC/*, false*/);
                     }
-                    Log.e("PhoneProfilesServiceStatic.registerAudioPlaybackCallback", "allowed="+allowed);
+                    //Log.e("PhoneProfilesServiceStatic.registerAudioPlaybackCallback", "allowed="+allowed);
                     if (allowed) {
                         if (PPApplication.audioPlaybackCallback == null) {
-                            Log.e("PhoneProfilesServiceStatic.registerAudioPlaybackCallback", "register (1)");
+                            //Log.e("PhoneProfilesServiceStatic.registerAudioPlaybackCallback", "register (1)");
                             try {
                                 AudioManager audioManager = appContext.getSystemService(AudioManager.class);
                                 if (audioManager != null) {
-                                    Log.e("PhoneProfilesServiceStatic.registerAudioPlaybackCallback", "register (2)");
+                                    //Log.e("PhoneProfilesServiceStatic.registerAudioPlaybackCallback", "register (2)");
                                     PPApplication.audioPlaybackCallback = new PPAudioPlaybackCallback(appContext);
                                     audioManager.registerAudioPlaybackCallback(PPApplication.audioPlaybackCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
                                 }
                             } catch (Exception e) {
-                                Log.e("PhoneProfilesServiceStatic.registerAudioPlaybackCallback", "register (exception)");
+                                //Log.e("PhoneProfilesServiceStatic.registerAudioPlaybackCallback", "register (exception)");
                                 PPApplication.audioPlaybackCallback = null;
                                 //PPApplicationStatic.recordException(e);
                             }

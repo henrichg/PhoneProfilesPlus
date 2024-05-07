@@ -178,7 +178,7 @@
     <string name="event_preferences_contactListType">Contact list type</string>
     <string name="array_event_pref_contact_list_type_white_list">White list</string>
     <string name="array_event_pref_contact_list_type_black_list">Black list</string>
-    <string name="array_event_pref_contact_list_type_not_use">All phone numbers</string>
+    <string name="array_event_pref_contact_list_type_not_use">Do not use</string>
     <string name="event_type_call">Call</string>
     <string name="pref_event_call_event">Event</string>
     <string name="event_preferences_battery_level_bad_value">Bad value</string>
