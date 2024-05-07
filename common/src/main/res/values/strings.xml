@@ -2184,7 +2184,7 @@
     <string name="export_settings_delete_contacts_data_phonecalls">Contacts for profile parameter \"Phone calls\"</string>
     <string name="profile_preference_phoneCallsSendSMS">Send SMS</string>
     <string name="profile_preference_phoneCallsSMSText">SMS Text</string>
-    <string name="profile_preference_phoneCalls_sendSMS_sumary">WARNING: Sending SMS can be charged or used from a prepaid SMS package!</string>
+    <string name="profile_preference_phoneCalls_sendSMS_sumary">WARNING: Sending SMS may be charged or used from a prepaid SMS package!</string>
 
     <string name="notification_channel_notify_event_start_description_2">Is displayed, when event has enabled \"Start of event\"/\"Other parameters\"/\"Repeat notification\".</string>
     <string name="notification_channel_generated_by_profile_description_2">Is displayed, when profile has cofigured \"Others\"/\"Generate notification\".</string>
@@ -2195,11 +2195,11 @@
 
     <string name="no_error_dialog_message">The error has already been fixed.</string>
 
-    <string name="application_editor_intent_test_activity_action_must_be_configured">\"Action\" must be cponfigured."</string>
-    <string name="application_editor_intent_test_activity_package_name_must_be_configured">\"Package name\" must be cponfigured for intent type \"Broadcast\" with custom \"Action\"."</string>
+    <string name="application_editor_intent_test_activity_action_must_be_configured">\"Action\" must be cponfigured.</string>
+    <string name="application_editor_intent_test_activity_package_name_must_be_configured">\"Package name\" must be cponfigured for intent type \"Broadcast\" with custom \"Action\".</string>
     <string name="application_editor_intent_test_broadcast_working_good">Broadcast working good</string>
 
-    <string name="event_preference_sensor_music_summary">This sensor will start an event if music is playing. Parameters: .</string>
+    <string name="event_preference_sensor_music_summary">This sensor will start an event if music is playing. Parameters: Music state.</string>
     <string name="event_type_music">Music</string>
     <string name="event_preferences_category_eventMusicParameters">Music sensor</string>
     <string name="event_preferences_music_state">Music state</string>
