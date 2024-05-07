@@ -2195,8 +2195,8 @@
 
     <string name="no_error_dialog_message">The error has already been fixed.</string>
 
-    <string name="application_editor_intent_test_activity_action_must_be_configured">\"Action\" must be cponfigured.</string>
-    <string name="application_editor_intent_test_activity_package_name_must_be_configured">\"Package name\" must be cponfigured for intent type \"Broadcast\" with custom \"Action\".</string>
+    <string name="application_editor_intent_test_activity_action_must_be_configured">\"Action\" must be configured.</string>
+    <string name="application_editor_intent_test_activity_package_name_must_be_configured">\"Package name\" must be configured for intent type \"Broadcast\" with custom \"Action\".</string>
     <string name="application_editor_intent_test_broadcast_working_good">Broadcast working good</string>
 
     <string name="event_preference_sensor_music_summary">This sensor will start an event if music is playing. Parameters: Music state.</string>
