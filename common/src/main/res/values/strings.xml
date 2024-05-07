@@ -2177,7 +2177,7 @@
     <string name="profile_preferences_phoneCalls_setCallScreeningRole_summary_ststus_1">Call screening role for PhoneProfilesPlus is set</string>
     <string name="profile_preferences_phoneCalls_setCallScreeningRole_summary_ststus_0">Call screening role for PhoneProfilesPlus is not set</string>
     <string name="profile_preference_phoneCallsBlockCalls">Block phone calls</string>
-    <string name="profile_preference_phoneCallsBlockCalls_summary">WARNING: This parameter allows block calls, configured in \"Contact groups\", \"Contacts\". Notfifcation about blocked calls will not be displayed!</string>
+    <string name="profile_preference_phoneCallsBlockCalls_summary">WARNING: This parameter allows block calls, configured in \"Contact groups\", \"Contacts\". Notification about blocked calls will not be displayed!</string>
     <string name="profile_preference_phoneCallsContactGroups">Contact groups</string>
     <string name="profile_preference_phoneCallsContacts">Contacts</string>
     <string name="permission_why_profile_phone_calls">for read contacts in profile parameter \"Phone calls\"</string>
@@ -2187,7 +2187,7 @@
     <string name="profile_preference_phoneCalls_sendSMS_sumary">WARNING: Sending SMS may be charged or used from a prepaid SMS package!</string>
 
     <string name="notification_channel_notify_event_start_description_2">Is displayed, when event has enabled \"Start of event\"/\"Other parameters\"/\"Repeat notification\".</string>
-    <string name="notification_channel_generated_by_profile_description_2">Is displayed, when profile has cofigured \"Others\"/\"Generate notification\".</string>
+    <string name="notification_channel_generated_by_profile_description_2">Is displayed, when profile has configured \"Others\"/\"Generate notification\".</string>
     <string name="notification_channel_profile_list_description_2">Is displayed, when is enabled \"Settings\"/\"Profile list notification\"/\"Display notification\"</string>
 
     <string name="do_not_disturb_access_permission_notification">Do not disturb access</string>
