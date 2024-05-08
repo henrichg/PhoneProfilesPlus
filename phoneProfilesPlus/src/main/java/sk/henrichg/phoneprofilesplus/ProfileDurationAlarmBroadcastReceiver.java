@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.util.Log;
 
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -34,6 +35,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
+    /** @noinspection SameParameterValue*/
     static void setAlarm(Profile profile, boolean forRestartEvents, int startupSource, Context context)
     {
         removeAlarm(profile, context);
@@ -322,7 +324,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             PPApplication.profileActiationExecutorPool.submit(runnable);
         }
         else {
-
             _doWork(/*false,*/ appContext, profileId, forRestartEvents, startupSource);
         }
     }
@@ -330,13 +331,16 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
     private static void _doWork(/*boolean useHandler,*/ Context appContext, final long profileId, final boolean forRestartEvents, int startupSource) {
         if (profileId != 0) {
 
+            Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "xxxx");
+
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
             Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
             if (profile != null) {
-                if (DataWrapperStatic.getIsManualProfileActivation(true, appContext) ||
-                        (!EventStatic.getGlobalEventsRunning(appContext)) ||
-                        (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
+//                Allowed is duration also for events
+//                if (DataWrapperStatic.getIsManualProfileActivation(true, appContext) ||
+//                        (!EventStatic.getGlobalEventsRunning(appContext)) ||
+//                        (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
                     long _activatedProfileId = dataWrapper.getActivatedProfileId();
 
                     removeAlarm(profile, appContext);
@@ -376,39 +380,45 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     "");
                         }
                         if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_UNDO_PROFILE) {
-                            doActivateProfile = true;
+                            // TODO undo is allowed only for manual activation,
+                            //  for this is used Fifo.
+                            //  I must check, how this fifo working.
+                            if (DataWrapperStatic.getIsManualProfileActivation(true, appContext) ||
+                               (!EventStatic.getGlobalEventsRunning(appContext))) {
+                                doActivateProfile = true;
 
-                            //activateProfileId = ApplicationPreferences.prefActivatedProfileForDuration;
+                                //activateProfileId = ApplicationPreferences.prefActivatedProfileForDuration;
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] ProfileDurationAlarmBroadcastReceiver._doWork", "PPApplication.profileActivationMutex");
-                            synchronized (PPApplication.profileActivationMutex) {
-                                List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
-                                int size = activateProfilesFIFO.size();
-                                if (size > 0) {
-                                    //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
-                                    activateProfilesFIFO.remove(size - 1);
-                                    dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
-                                    size = activateProfilesFIFO.size();
+                                synchronized (PPApplication.profileActivationMutex) {
+                                    List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
+                                    int size = activateProfilesFIFO.size();
                                     if (size > 0) {
-                                        String fromFifo = activateProfilesFIFO.get(size - 1);
-                                        String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
-                                        activateProfileId = Long.parseLong(splits[0]);
+                                        //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
+                                        activateProfilesFIFO.remove(size - 1);
+                                        dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
+                                        size = activateProfilesFIFO.size();
+                                        if (size > 0) {
+                                            String fromFifo = activateProfilesFIFO.get(size - 1);
+                                            String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
+                                            activateProfileId = Long.parseLong(splits[0]);
+                                        } else
+                                            activateProfileId = 0;
                                     } else
+                                        //eventTimeline._fkProfileEndActivated = 0;
                                         activateProfileId = 0;
-                                } else
-                                    //eventTimeline._fkProfileEndActivated = 0;
-                                    activateProfileId = 0;
 
-                                if (activateProfileId == _activatedProfileId)
-                                    activateProfileId = 0;
+                                    if (activateProfileId == _activatedProfileId)
+                                        activateProfileId = 0;
+                                }
+
+                                int logType = PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE;
+                                if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
+                                    logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE;
+                                PPApplicationStatic.addActivityLog(appContext, logType,
+                                        null,
+                                        DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
+                                        "");
                             }
-
-                            int logType = PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE;
-                            if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
-                                logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE;
-                            PPApplicationStatic.addActivityLog(appContext, logType,
-                                    null,
-                                    DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
-                                    "");
                         }
                         if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE) {
                             doActivateProfile = true;
@@ -478,7 +488,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         }
 
                     }
-                }
+//                }
             }
 
             //dataWrapper.invalidateDataWrapper();

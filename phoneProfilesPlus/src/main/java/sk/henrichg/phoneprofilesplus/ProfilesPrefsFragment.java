@@ -5787,7 +5787,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             listPreference = prefMng.findPreference(Profile.PREF_PROFILE_AFTER_DURATION_DO);
             if (listPreference != null) {
-                //TODO
                 int iValue = Integer.parseInt(value.toString());
                 if (iValue == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) {
                     listPreference.setTitle(R.string.profile_preferences_afterExactTimeDo);
@@ -6885,7 +6884,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO) ||
             key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
             key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE)) {
-            //TODO
             String sEndOfActivationType = preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE));
             int endOfActivationType = Integer.parseInt(sEndOfActivationType);

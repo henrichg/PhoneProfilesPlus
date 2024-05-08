@@ -10,6 +10,7 @@ import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SwitchCompat;
@@ -1519,51 +1520,62 @@ class DataWrapper {
             DatabaseHandler.getInstance(context).activateProfile(_profile);
             setProfileActive(_profile);
 
+            Log.e("DataWrapper._activateProfile", "forRestartEvents="+forRestartEvents);
             boolean profileDuration = false;
-            if (_profile != null) {
-                if ((_profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) &&
-                        (_profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
-                        (_profile._duration > 0)) {
-                    profileDuration = true;
-                }
-                else
-                if (_profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) {
-                    Calendar now = Calendar.getInstance();
-
-                    Calendar configuredTime = Calendar.getInstance();
-                    configuredTime.set(Calendar.HOUR_OF_DAY, _profile._endOfActivationTime / 60);
-                    configuredTime.set(Calendar.MINUTE, _profile._endOfActivationTime % 60);
-                    configuredTime.set(Calendar.SECOND, 0);
-                    configuredTime.set(Calendar.MILLISECOND, 0);
-
-                    if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
-                        // configured time is not expired
+            if ((!forRestartEvents) && (_profile != null)) {
+                if (_profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) {
+                    if ((_profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) &&
+                            (_profile._duration > 0)) {
                         profileDuration = true;
+                    } else if (_profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) {
+                        Calendar now = Calendar.getInstance();
+
+                        Calendar configuredTime = Calendar.getInstance();
+                        configuredTime.set(Calendar.HOUR_OF_DAY, _profile._endOfActivationTime / 60);
+                        configuredTime.set(Calendar.MINUTE, _profile._endOfActivationTime % 60);
+                        configuredTime.set(Calendar.SECOND, 0);
+                        configuredTime.set(Calendar.MILLISECOND, 0);
+
+                        if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
+                            // configured time is not expired
+                            profileDuration = true;
+                        }
                     }
                 }
 
-                if (((startupSource != PPApplication.STARTUP_SOURCE_EVENT) &&
-                     (startupSource != PPApplication.STARTUP_SOURCE_FOR_FIRST_START) //&&
-                   //(startupSource != PPApplication.STARTUP_SOURCE_LAUNCHER_START)
-                    ) ||
-                    ((!_profile._askForDuration) &&
-                     (_profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))
-                ) {
-                    // activation with duration
+                Log.e("DataWrapper._activateProfile", "profileDuration (1)="+profileDuration);
 
+                if (startupSource == PPApplication.STARTUP_SOURCE_EVENT) {
+                    // enabled is duration also for activation from event
+                    if (!_profile._askForDuration)
+                        profileDuration = true;
+                    else
+                        profileDuration = false;
+                }
+                if (startupSource == PPApplication.STARTUP_SOURCE_FOR_FIRST_START) {
+                    // for first start do not allow undo profile or restart events
+                    if ((!_profile._askForDuration) &&
+                            ((_profile._afterDurationDo != Profile.AFTER_DURATION_DO_RESTART_EVENTS) &&
+                           /*(_profile._afterDurationDo != Profile.AFTER_DURATION_DO_UNDO_PROFILE) &&*/
+                             (_profile._afterDurationDo != Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS)))
+                        profileDuration = true;
+                    else
+                        profileDuration = false;
+                }
+
+                Log.e("DataWrapper._activateProfile", "profileDuration (2)="+profileDuration);
+
+                if (profileDuration) {
+                    // activation with duration
 
                     if (startupSource != PPApplication.STARTUP_SOURCE_EVENT_MANUAL) {
                         long profileId = _profile._id;
                         fifoAddProfile(profileId, 0);
                     }
 
-                    ProfileDurationAlarmBroadcastReceiver.setAlarm(_profile, forRestartEvents, startupSource, context);
+                    ProfileDurationAlarmBroadcastReceiver.setAlarm(_profile, false/*forRestartEvents*/, startupSource, context);
                     ///////////
-                } else {
-                    profileDuration = false;
-
                 }
-
             }
 
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] DataWrapper._activateProfile", "call of updateGUI");
