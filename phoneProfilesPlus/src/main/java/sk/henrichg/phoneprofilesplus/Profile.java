@@ -272,6 +272,36 @@ class Profile {
     static final String PREF_PROFILE_PHONE_CALLS_SEND_SMS = "prf_pref_phoneCalls_sendSMS";
     static final String PREF_PROFILE_PHONE_CALLS_SMS_TEXT = "prf_pref_phoneCalls_SMSText";
 
+    static final int RINGERMODE_RING = 1;
+    static final int RINGERMODE_RING_AND_VIBRATE = 2;
+    static final int RINGERMODE_VIBRATE = 3;
+    static final int RINGERMODE_SILENT = 4;
+    static final int RINGERMODE_ZENMODE = 5;
+
+    static final int ZENMODE_ALL = 1;
+    static final int ZENMODE_PRIORITY = 2;
+    static final int ZENMODE_NONE = 3;
+    static final int ZENMODE_ALL_AND_VIBRATE = 4;
+    static final int ZENMODE_PRIORITY_AND_VIBRATE = 5;
+    static final int ZENMODE_ALARMS = 6;
+
+    static final int AFTER_DURATION_DO_NOTHING = 0;
+    static final int AFTER_DURATION_DO_UNDO_PROFILE = 1;
+    static final int AFTER_DURATION_DO_DEFAULT_PROFILE = 2;
+    static final int AFTER_DURATION_DO_RESTART_EVENTS = 3;
+    static final int AFTER_DURATION_DO_SPECIFIC_PROFILE = 4;
+    static final int AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS = 5;
+    static final int AFTER_DURATION_DURATION_TYPE_DURATION = 0;
+    static final int AFTER_DURATION_DURATION_TYPE_EXACT_TIME = 1;
+
+    static final int BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET = -99;
+
+    static final int NO_CHANGE_VALUE = 0;
+    static final String NO_CHANGE_VALUE_STR = "0";
+
+    static final int BRIGHTNESS_VALUE_FOR_DARK_MODE = 30;
+    static final double MIN_PROFILE_ICON_LUMINANCE = 0.3d;
+
     static final ArrayMap<String, Boolean> defaultValuesBoolean;
     static {
         defaultValuesBoolean = new ArrayMap<>();
@@ -381,7 +411,7 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER_FOLDER, "-");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, "0");
-        defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TYPE, "0");
+        defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TYPE, String.valueOf(AFTER_DURATION_DURATION_TYPE_DURATION));
         defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TIME, "0");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_VPN, "0|0|||0");
@@ -399,34 +429,6 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, "0");
         defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_SMS_TEXT, "");
     }
-
-    static final int RINGERMODE_RING = 1;
-    static final int RINGERMODE_RING_AND_VIBRATE = 2;
-    static final int RINGERMODE_VIBRATE = 3;
-    static final int RINGERMODE_SILENT = 4;
-    static final int RINGERMODE_ZENMODE = 5;
-
-    static final int ZENMODE_ALL = 1;
-    static final int ZENMODE_PRIORITY = 2;
-    static final int ZENMODE_NONE = 3;
-    static final int ZENMODE_ALL_AND_VIBRATE = 4;
-    static final int ZENMODE_PRIORITY_AND_VIBRATE = 5;
-    static final int ZENMODE_ALARMS = 6;
-
-    static final int AFTER_DURATION_DO_NOTHING = 0;
-    static final int AFTER_DURATION_DO_UNDO_PROFILE = 1;
-    static final int AFTER_DURATION_DO_DEFAULT_PROFILE = 2;
-    static final int AFTER_DURATION_DO_RESTART_EVENTS = 3;
-    static final int AFTER_DURATION_DO_SPECIFIC_PROFILE = 4;
-    static final int AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS = 5;
-
-    static final int BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET = -99;
-
-    static final int NO_CHANGE_VALUE = 0;
-    static final String NO_CHANGE_VALUE_STR = "0";
-
-    static final int BRIGHTNESS_VALUE_FOR_DARK_MODE = 30;
-    static final double MIN_PROFILE_ICON_LUMINANCE = 0.3d;
 
     static final int[] profileIconId = {
             R.drawable.ic_profile_default,
@@ -1617,7 +1619,7 @@ class Profile {
                     this._duration = 0;
                     this._afterDurationDo = AFTER_DURATION_DO_RESTART_EVENTS;
                     this._afterDurationProfile = PROFILE_NO_ACTIVATE;
-                    this._endOfActivationType = 0; // default is duration
+                    this._endOfActivationType = Profile.AFTER_DURATION_DURATION_TYPE_DURATION;
                     this._endOfActivationTime = 0;
                 }
 
@@ -1981,7 +1983,7 @@ class Profile {
             }
 
             if (this._afterDurationDo == AFTER_DURATION_DO_SPECIFIC_PROFILE) {
-                if (this._endOfActivationType == 0) {
+                if (this._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) {
                     // duration
                     if (this._duration > 0) {
                         if (this._afterDurationDo != withProfile._afterDurationDo) {
@@ -1990,7 +1992,7 @@ class Profile {
                     }
                 }
                 else
-                if (this._endOfActivationType == 1) {
+                if (this._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) {
                     // exact time
                     Calendar now = Calendar.getInstance();
 
@@ -3201,7 +3203,7 @@ class Profile {
             }
         }
         else
-        if (_endOfActivationType == 0) {
+        if (_endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) {
             if ((_duration > 0) && (_afterDurationDo != AFTER_DURATION_DO_NOTHING)) {
                 if (_checked) {
                     long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
@@ -3217,7 +3219,7 @@ class Profile {
             }
         }
         else
-        if (_endOfActivationType == 1) {
+        if (_endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) {
             if (_afterDurationDo != AFTER_DURATION_DO_NOTHING) {
                 if (_checked) {
                     // saved was configured ond of activation time

@@ -5787,8 +5787,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             listPreference = prefMng.findPreference(Profile.PREF_PROFILE_AFTER_DURATION_DO);
             if (listPreference != null) {
-                sValue = value.toString();
-                if (sValue.equals("1")) {
+                //TODO
+                int iValue = Integer.parseInt(value.toString());
+                if (iValue == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) {
                     listPreference.setTitle(R.string.profile_preferences_afterExactTimeDo);
                     listPreference.setDialogTitle(R.string.profile_preferences_afterExactTimeDo);
                 }
@@ -6884,20 +6885,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO) ||
             key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
             key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE)) {
-
-            String endOfActivationType = preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE, "0");
+            //TODO
+            String sEndOfActivationType = preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE));
+            int endOfActivationType = Integer.parseInt(sEndOfActivationType);
             Preference durationPreference = prefMng.findPreference(Profile.PREF_PROFILE_DURATION);
             Preference endOfActivationTimePreference = prefMng.findPreference(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME);
             if (durationPreference != null)
-                durationPreference.setEnabled(endOfActivationType.equals("0"));
+                durationPreference.setEnabled(endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION);
             if (endOfActivationTimePreference != null)
-                endOfActivationTimePreference.setEnabled(endOfActivationType.equals("1"));
+                endOfActivationTimePreference.setEnabled(endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME);
 
             String duration = preferences.getString(Profile.PREF_PROFILE_DURATION, "0");
             boolean askForDuration = preferences.getBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, false);
 
             boolean enable;
-            if (endOfActivationType.equals("0"))
+            if (endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION)
                 enable = (!askForDuration) && (!duration.equals("0"));
             else
                 enable = true;

@@ -445,7 +445,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             else
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_no_profile_name);
                         } else {
-                            if ((profile._endOfActivationType == 0) &&
+                            if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
@@ -460,7 +460,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_width);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon);
-                            } else if ((profile._endOfActivationType == 1) &&
+                            } else if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
                                         (applicationWidgetIconFillBackgroundHeight &&
@@ -515,7 +515,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             else
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_no_profile_name);
                         } else {
-                            if ((profile._endOfActivationType == 0) &&
+                            if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
@@ -530,7 +530,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_width);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher);
-                            } else if ((profile._endOfActivationType == 1) &&
+                            } else if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
                                         (applicationWidgetIconFillBackgroundHeight &&
@@ -585,7 +585,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             else
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_no_profile_name);
                         } else {
-                            if ((profile._endOfActivationType == 0) &&
+                            if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
@@ -600,7 +600,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_width);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest);
-                            } else if ((profile._endOfActivationType == 1) &&
+                            } else if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
                                         (applicationWidgetIconFillBackgroundHeight &&
@@ -655,7 +655,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             else
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_more_compact_no_profile_name);
                         } else {
-                            if ((profile._endOfActivationType == 0) &&
+                            if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
@@ -670,7 +670,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_more_compact_fill_width);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_more_compact);
-                            } else if ((profile._endOfActivationType == 1) &&
+                            } else if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
                                         (applicationWidgetIconFillBackgroundHeight &&
@@ -728,7 +728,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             else
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_no_profile_name_dn);
                         } else {
-                            if ((profile._endOfActivationType == 0) &&
+                            if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
@@ -743,7 +743,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_width_dn);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_dn);
-                            } else if ((profile._endOfActivationType == 1) &&
+                            } else if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
                                         (applicationWidgetIconFillBackgroundHeight &&
@@ -799,7 +799,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_no_profile_name_dn);
                         } else {
 //                            Log.e("IconWidgetProvider._onUpdate", "**** _endOfActivationType="+profile._endOfActivationType);
-                            if ((profile._endOfActivationType == 0) &&
+                            if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
@@ -814,7 +814,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_width_dn);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_dn);
-                            } else if ((profile._endOfActivationType == 1) &&
+                            } else if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
                                         (applicationWidgetIconFillBackgroundHeight &&
@@ -878,7 +878,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_no_profile_name_dn);
                         } else {
                             // profile._endOfActivationType - 0 = duration, 1 = end time
-                            if ((profile._endOfActivationType == 0) &&
+                            if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
@@ -893,7 +893,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_width_dn);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_dn);
-                            } else if ((profile._endOfActivationType == 1) &&
+                            } else if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
                                         (applicationWidgetIconFillBackgroundHeight &&
@@ -949,7 +949,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_more_compact_no_profile_name_dn);
                         } else {
                             // profile._endOfActivationType - 0 = duration, 1 = end time
-                            if ((profile._endOfActivationType == 0) &&
+                            if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
@@ -964,7 +964,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_more_compact_fill_width_dn);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_more_compact_dn);
-                            } else if ((profile._endOfActivationType == 1) &&
+                            } else if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) &&
                                     (applicationWidgetIconShowProfileDuration)) {
                                 if (applicationWidgetIconFillBackground ||
                                         (applicationWidgetIconFillBackgroundHeight &&

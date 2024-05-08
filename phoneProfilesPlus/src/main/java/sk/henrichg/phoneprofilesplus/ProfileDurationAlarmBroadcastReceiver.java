@@ -41,7 +41,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         if (profile == null)
             return;
 
-        if ((profile._endOfActivationType == 0) &&
+        if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) &&
                 (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
                 (profile._duration > 0)) {
 
@@ -152,7 +152,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             }
         }
         else
-        if (profile._endOfActivationType == 1) {
+        if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) {
 
             Calendar now = Calendar.getInstance();
 
@@ -368,7 +368,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 activateProfileId = 0;
 
                             int logType = PPApplication.ALTYPE_AFTER_DURATION_DEFAULT_PROFILE;
-                            if (profile._endOfActivationType == 1)
+                            if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
                                 logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE;
                             PPApplicationStatic.addActivityLog(appContext, logType,
                                     null,
@@ -403,7 +403,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                             }
 
                             int logType = PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE;
-                            if (profile._endOfActivationType == 1)
+                            if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
                                 logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE;
                             PPApplicationStatic.addActivityLog(appContext, logType,
                                     null,
@@ -418,7 +418,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 activateProfileId = 0;
 
                             int logType = PPApplication.ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE;
-                            if (profile._endOfActivationType == 1)
+                            if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
                                 logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE;
                             PPApplicationStatic.addActivityLog(appContext, logType,
                                     null,
@@ -430,7 +430,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 doActivateProfile = false;
 
                                 int logType = PPApplication.ALTYPE_AFTER_DURATION_RESTART_EVENTS;
-                                if (profile._endOfActivationType == 1)
+                                if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
                                     logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS;
                                 PPApplicationStatic.addActivityLog(appContext, logType,
                                         null,
@@ -455,7 +455,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 activateProfileId = 0;
 
                             int logType = PPApplication.ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE;
-                            if (profile._endOfActivationType == 1)
+                            if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
                                 logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE;
                             PPApplicationStatic.addActivityLog(appContext, logType,
                                     null,
@@ -466,7 +466,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                             if (!forRestartEvents) {
                                 logType = PPApplication.ALTYPE_AFTER_DURATION_RESTART_EVENTS;
-                                if (profile._endOfActivationType == 1)
+                                if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
                                     logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS;
                                 PPApplicationStatic.addActivityLog(appContext, logType,
                                         null,

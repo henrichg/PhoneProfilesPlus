@@ -1521,13 +1521,13 @@ class DataWrapper {
 
             boolean profileDuration = false;
             if (_profile != null) {
-                if ((_profile._endOfActivationType == 0) &&
+                if ((_profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) &&
                         (_profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
                         (_profile._duration > 0)) {
                     profileDuration = true;
                 }
                 else
-                if (_profile._endOfActivationType == 1) {
+                if (_profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) {
                     Calendar now = Calendar.getInstance();
 
                     Calendar configuredTime = Calendar.getInstance();
