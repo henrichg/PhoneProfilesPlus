@@ -2203,7 +2203,7 @@
     <string name="install_pppps_text10">For Android 14+, it is not normally possible to install PPPPutSettings directly on the device.</string>
     <string name="install_pppps_text11">But exists solution. This requires InstallWithOptions and Shizuku (if device is not rooted).</string>
     <string name="install_pppps_text12">How to proceed:</string> -- odriadkovanie
-    <string name="install_pppps_text13">1. Download, install and start Shizuku (if device is not rooted). How, is in:</string>
+    <string name="install_pppps_text13">1. Install and start Shizuku (if device is not rooted). How, is in:</string>
     <string name="install_pppps_text14">2. Install InstallWithOptions, direct download:</string>
     <string name="install_pppps_text15">3. Download PPPPutSettings:</string>
     <string name="install_pppps_text16">4. In InstallWithOptions enable: \"Bypass Low Target SDK Block\", \"Replace existing\".</string>
