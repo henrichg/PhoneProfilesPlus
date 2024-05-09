@@ -197,8 +197,8 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         activity.finish();
                 }
             });
-        } else {
-            /*
+        } /*else {
+
             dialogBuilder.setPositiveButton(activity.getString(R.string.install_pppps_alert_button_how_to_install), (dialog, which) -> {
                 String url;
                 if (DebugVersion.enabled)
@@ -222,8 +222,8 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         activity.finish();
                 }
             });
-            */
-        }
+
+        }*/
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         //dialogBuilder.setCancelable(false);
         /*dialogBuilder.setOnCancelListener(dialog -> {

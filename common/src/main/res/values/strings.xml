@@ -2039,12 +2039,6 @@
     <string name="preference_profile_generate_notification_replace_with_ppp_icon">replace with PhoneProfilesPlus icon</string>
     <string name="notification_channel_donation_description">Shows notification asking for a monetary donation to the author.</string>
     <string name="shortcut_to_editor_created_toast">Shortcut to Editor created</string>
-    <string name="install_pppps_text6">For Android 14+, it is not possible to install PPPPutSettings directly on the device.</string>
-    <string name="install_pppps_text7">Click button</string>
-    <string name="install_pppps_text7a">for a website view on how to install PPPPutSettings from a computer.</string>
-    <string name="install_pppps_text8">Is better to open \"How to install\" in computer in his Internet browser. It is in PPPPutSettings GitHub README.md, marked as</string>
-    <string name="install_pppps_text9" translatable="false">\"How to install\"</string>
-    <string name="install_pppps_alert_button_how_to_install">How to install</string>
     <string name="privacy_policy_web_browser_chooser">View PhoneProfilesPlus Privacy policy using</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">More compact</string>
     <string name="altype_timezone_changed">time zone changed</string>
@@ -2215,12 +2209,6 @@
     <string name="install_pppps_text16">4. In InstallWithOptions enable: \"Bypass Low Target SDK Block\", \"Replace existing\".</string>
     <string name="install_pppps_text17">5. In InstallWithOptions use \"Choose file\" button, file: downloaded PPPPutSettings.apk.</string>
     <string name="install_pppps_text18">6. In InstallWithOptions use \"Install\" button.</string>
-
-    <!--    <string name="device_admin">Device admin</string>-->
-    <!--    <string name="device_admin_description">Device admin description.</string>-->
-    <!--    <string name="device_admin_receiver_status_enabled">Device admin is enabled.</string>-->
-    <!--    <string name="device_admin_receiver_status_disable_warning">WARNING! Device admin will be disbled!</string>-->
-    <!--    <string name="device_admin_receiver_status_disabled">Device admin is disbled.</string>-->
 
     <!-- **************************************************************************************** -->
 
