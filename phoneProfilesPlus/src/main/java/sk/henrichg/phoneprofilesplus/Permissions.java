@@ -1,10 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
 import static android.Manifest.permission;
+import static android.app.role.RoleManager.ROLE_CALL_SCREENING;
+import static android.content.Context.ROLE_SERVICE;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationManager;
+import android.app.role.RoleManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -1155,13 +1158,19 @@ class Permissions {
 
         if (Build.VERSION.SDK_INT >= 29) {
             try {
+                RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
+                boolean isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
+
                 boolean grantedContacts = true;
                 boolean grantedSendSMS = true;
-                if (((profile._phoneCallsContacts != null) && (!profile._phoneCallsContacts.isEmpty())) ||
-                    ((profile._phoneCallsContactGroups != null) && (!profile._phoneCallsContactGroups.isEmpty())))
-                    grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
-                if (profile._phoneCallsSendSMS)
-                    grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+                if (isHeld) {
+                    if (((profile._phoneCallsContacts != null) && (!profile._phoneCallsContacts.isEmpty())) ||
+                        ((profile._phoneCallsContactGroups != null) && (!profile._phoneCallsContactGroups.isEmpty()))) {
+                        grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+                        if (profile._phoneCallsBlockCalls && profile._phoneCallsSendSMS)
+                            grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+                    }
+                }
                 if (permissions != null) {
                     if (!grantedContacts)
                         permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_PHONE_CALLS, permission.READ_CONTACTS));
