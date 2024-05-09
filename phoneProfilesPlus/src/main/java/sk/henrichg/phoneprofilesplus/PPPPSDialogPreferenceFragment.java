@@ -146,17 +146,36 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             dialogText = dialogText + activity.getString(R.string.install_pppps_text2) + StringConstants.TAG_BREAK_HTML;
             dialogText = dialogText + activity.getString(R.string.install_pppps_text3) + StringConstants.TAG_DOUBLE_BREAK_HTML;
         } else {
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text6) + StringConstants.TAG_DOUBLE_BREAK_HTML;
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text7) + " \"" + activity.getString(R.string.install_pppps_alert_button_how_to_install) + "\" ";
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text7a) + StringConstants.TAG_BREAK_HTML;
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text8) + " ";
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text9) + "."+StringConstants.TAG_DOUBLE_BREAK_HTML;
+//            dialogText = dialogText + activity.getString(R.string.install_pppps_text6) + StringConstants.TAG_DOUBLE_BREAK_HTML;
+//            dialogText = dialogText + activity.getString(R.string.install_pppps_text7) + " \"" + activity.getString(R.string.install_pppps_alert_button_how_to_install) + "\" ";
+//            dialogText = dialogText + activity.getString(R.string.install_pppps_text7a) + StringConstants.TAG_BREAK_HTML;
+//            dialogText = dialogText + activity.getString(R.string.install_pppps_text8) + " ";
+//            dialogText = dialogText + activity.getString(R.string.install_pppps_text9) + "."+StringConstants.TAG_DOUBLE_BREAK_HTML;
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text10) + StringConstants.TAG_BREAK_HTML;
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text11) + StringConstants.TAG_DOUBLE_BREAK_HTML;
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text12) + StringConstants.TAG_BREAK_HTML;
+            String url = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/shizuku.md";
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text13) + " " +
+                    StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML +
+                    StringConstants.TAG_BREAK_HTML;
+            url = "https://github.com/zacharee/InstallWithOptions/releases/latest/download/InstallWithOptions_0.4.3-release.apk";
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text14) + " " +
+                    StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML +
+                    StringConstants.TAG_BREAK_HTML;
+            url = "https://github.com/henrichg/PPPPutSettings/releases/latest/download/PPPPutSettings.apk";
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text15) + " " +
+                    StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML +
+                    StringConstants.TAG_BREAK_HTML;
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text16) + StringConstants.TAG_BREAK_HTML;
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text17) + StringConstants.TAG_BREAK_HTML;
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text18) + StringConstants.TAG_DOUBLE_BREAK_HTML;
         }
         dialogText = dialogText + StringConstants.TAG_BOLD_START_HTML + activity.getString(R.string.install_pppps_text5) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
         dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
 
         dialogText = dialogText.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
         text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
+        text.setMovementMethod(LinkMovementMethod.getInstance());
 
         if (Build.VERSION.SDK_INT < 34) {
             dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
@@ -179,6 +198,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 }
             });
         } else {
+            /*
             dialogBuilder.setPositiveButton(activity.getString(R.string.install_pppps_alert_button_how_to_install), (dialog, which) -> {
                 String url;
                 if (DebugVersion.enabled)
@@ -202,6 +222,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         activity.finish();
                 }
             });
+            */
         }
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         //dialogBuilder.setCancelable(false);

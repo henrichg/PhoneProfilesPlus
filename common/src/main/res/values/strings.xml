@@ -2206,6 +2206,16 @@
     <string name="array_event_pref_music_state_playing">Music is playing</string>
     <string name="array_event_pref_music_state_not_playing">Music is not playing</string>
 
+    <string name="install_pppps_text10">For Android 14+, it is not normally possible to install PPPPutSettings directly on the device.</string>
+    <string name="install_pppps_text11">But exists solution. This requires InstallWithOptions and Shizuku (if device is not rooted).</string>
+    <string name="install_pppps_text12">How to proceed:</string> -- odriadkovanie
+    <string name="install_pppps_text13">1. Download and install Shizuku (if device is not rooted). How, is in:</string>
+    <string name="install_pppps_text14">2. Install InstallWithOptions, direct download:</string>
+    <string name="install_pppps_text15">3. Download PPPPutSettings:</string>
+    <string name="install_pppps_text16">4. In InstallWithOptions enable: \"Bypass Low Target SDK Block\", \"Replace existing\".</string>
+    <string name="install_pppps_text17">5. In InstallWithOptions use \"Choose file\" button, file: downloaded PPPPutSettings.apk.</string>
+    <string name="install_pppps_text18">6. In InstallWithOptions use \"Install\" button.</string>
+
     <!--    <string name="device_admin">Device admin</string>-->
     <!--    <string name="device_admin_description">Device admin description.</string>-->
     <!--    <string name="device_admin_receiver_status_enabled">Device admin is enabled.</string>-->

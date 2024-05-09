@@ -46,8 +46,8 @@ class StringConstants {
     static final String TAG_LIST_END_HTML = "</ul>";
     static final String TAG_LIST_START_FIRST_ITEM_HTML = "<ul><li>";
     static final String TAG_LIST_END_LAST_ITEM_HTML = "</li></ul>";
-    //static final String TAG_NUMBERED_LIST_START_HTML = "<ol>";
-    //static final String TAG_NUMBERED_LIST_END_HTML = "</ol>";
+    static final String TAG_NUMBERED_LIST_START_HTML = "<ol>";
+    static final String TAG_NUMBERED_LIST_END_HTML = "</ol>";
     static final String TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML = "<ol><li>";
     static final String TAG_NUMBERED_LIST_END_LAST_ITEM_HTML = "</li></ol>";
     static final String TAG_LIST_ITEM_START_HTML = "<li>";
