@@ -245,7 +245,7 @@
     <string name="profile_preferences_duration">Duration</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Do nothing</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Undo the profile</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Activate Default profile</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Activate Default profile</string>
     <string name="phone_profiles_pref_applicationGridLayout">Grid layout</string>
     <string name="menu_help">Help</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Screen On</string>
@@ -271,7 +271,7 @@
     <string name="preference_profile_adaptiveBrightness">Adaptive</string>
     <string name="profile_preferences_deviceKeyguard">Lock screen</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Hide profile name</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Restart events</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">Restart events</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Not connected</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Not nearby (not within scanning range)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Not connected</string>
@@ -1640,7 +1640,7 @@
     <string name="permissions_for_wallpaper_folder_text1">Selecting folder for random wallpaper requires some permissions.</string>
     <string name="permissions_for_wallpaper_folder_text2">Please grant them in the next dialog. You can then select folder for random wallpaper from the folder picker.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Folder of images</string>
-    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Activate specific profile, then restart events</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">Activate specific profile, then restart events</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Events run disabled</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Events run enabled</string>
     <string name="icon_widget_description">Displays activated profile icon.</string>
