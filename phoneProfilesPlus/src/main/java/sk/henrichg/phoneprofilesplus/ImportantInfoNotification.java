@@ -54,15 +54,14 @@ class ImportantInfoNotification {
             boolean showPPPPS = false;
             if (packageVersionCode > savedVersionCode) {
                 showInfo = canShowInfoNotification(packageVersionCode, savedVersionCode);
-
-                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
-                if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED))
-                    showExtender = true;
-
-                int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
-                if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST))
-                    showPPPPS = true;
             }
+            int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+            if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED))
+                showExtender = true;
+
+            int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
+            if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST))
+                showPPPPS = true;
 
             //Log.e("ImportantInfoNotification.showInfoNotification", "showInfo="+showInfo);
             //Log.e("ImportantInfoNotification.showInfoNotification", "showExtender="+showExtender);
