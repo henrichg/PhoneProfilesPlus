@@ -3192,10 +3192,13 @@ class Profile {
         boolean showEndTime = false;
         if (_askForDuration) {
             if (_checked) {
-                long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
-                if (endDurationTime > 0) {
-                    durationString = "(" + context.getString(R.string.duration_end_acronym) +":" + ProfileStatic.timeDateStringFromTimestamp(context, endDurationTime) + ")";
-                    showEndTime = true;
+                if (ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id) != null) {
+                    //noinspection DataFlowIssue
+                    long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id);
+                    if (endDurationTime > 0) {
+                        durationString = "(" + context.getString(R.string.duration_end_acronym) + ":" + ProfileStatic.timeDateStringFromTimestamp(context, endDurationTime) + ")";
+                        showEndTime = true;
+                    }
                 }
             }
             if (!showEndTime) {
@@ -3206,11 +3209,14 @@ class Profile {
         if (_endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) {
             if ((_duration > 0) && (_afterDurationDo != AFTER_DURATION_DO_NOTHING)) {
                 if (_checked) {
-                    long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
-                    if (endDurationTime > 0) {
-                        durationString = "(" + context.getString(R.string.duration_end_acronym) + ":" +
-                                ProfileStatic.timeDateStringFromTimestamp(context, endDurationTime) + ")";
-                        showEndTime = true;
+                    if (ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id) != null) {
+                        //noinspection DataFlowIssue
+                        long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id);
+                        if (endDurationTime > 0) {
+                            durationString = "(" + context.getString(R.string.duration_end_acronym) + ":" +
+                                    ProfileStatic.timeDateStringFromTimestamp(context, endDurationTime) + ")";
+                            showEndTime = true;
+                        }
                     }
                 }
                 if (!showEndTime) {
@@ -3224,21 +3230,24 @@ class Profile {
                 if (_checked) {
                     // saved was configured ond of activation time
                     // (look at ProfileDurationAlarmBroadcastReceiver.setAlarm())
-                    int endOfActivationTime = (int)ApplicationPreferences.prefActivatedProfileEndDurationTime;
-                    if (endOfActivationTime > 0) {
-                        Calendar now = Calendar.getInstance();
+                    if (ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id) != null) {
+                        //noinspection DataFlowIssue
+                        long endOfActivationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id);
+                        if (endOfActivationTime > 0) {
+                            Calendar now = Calendar.getInstance();
 
-                        Calendar configuredTime = Calendar.getInstance();
-                        configuredTime.set(Calendar.HOUR_OF_DAY, endOfActivationTime / 60);
-                        configuredTime.set(Calendar.MINUTE, endOfActivationTime % 60);
-                        configuredTime.set(Calendar.SECOND, 0);
-                        configuredTime.set(Calendar.MILLISECOND, 0);
+                            Calendar configuredTime = Calendar.getInstance();
+                            configuredTime.set(Calendar.HOUR_OF_DAY, (int) (endOfActivationTime / 60));
+                            configuredTime.set(Calendar.MINUTE, (int) (endOfActivationTime % 60));
+                            configuredTime.set(Calendar.SECOND, 0);
+                            configuredTime.set(Calendar.MILLISECOND, 0);
 
-                        if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
-                            // configured time is not expired
-                            durationString = "(" + context.getString(R.string.end_of_activation_time_end_acronym) + StringConstants.STR_COLON_WITH_SPACE +
-                                    StringFormatUtils.getTimeString(endOfActivationTime) + ")";
-                            showEndTime = true;
+                            if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
+                                // configured time is not expired
+                                durationString = "(" + context.getString(R.string.end_of_activation_time_end_acronym) + StringConstants.STR_COLON_WITH_SPACE +
+                                        StringFormatUtils.getTimeString((int) endOfActivationTime) + ")";
+                                showEndTime = true;
+                            }
                         }
                     }
                 }

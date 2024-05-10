@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.util.ArrayMap;
 
 import androidx.annotation.CheckResult;
 
@@ -16,7 +17,7 @@ class ApplicationPreferences {
     static volatile int prefActivatedProfileScreenTimeoutWhenScreenOff;
     static volatile boolean prefMergedRingNotificationVolumes;
     //static volatile long prefActivatedProfileForDuration;
-    static volatile long prefActivatedProfileEndDurationTime;
+    static volatile ArrayMap<Long, Long> prefActivatedProfileEndDurationTime = new ArrayMap<>();
     //static volatile boolean prefShowIgnoreBatteryOptimizationNotificationOnStart;
     //static volatile boolean prefEventsBlocked;
     //static volatile boolean prefForceRunEventRunning;
@@ -574,7 +575,7 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_PROFILE_LIST_ICON_LIGHTNESS = "notificationProfileListIconLightness";
     static final String PREF_NOTIFICATION_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS = "notificationProfileListCustomIconLightness";
     // this is time of end of profile activation duration
-    static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
+    static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIMES = "activatedProfileEndDurationTimes";
     //private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
     //private static final String PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO = "activatedProfileForEventUndo";
     static final String PREF_APPLICATION_EVENT_HIDE_NOT_USED_EVENTS = "applicationEventHideNotUsedSensors";

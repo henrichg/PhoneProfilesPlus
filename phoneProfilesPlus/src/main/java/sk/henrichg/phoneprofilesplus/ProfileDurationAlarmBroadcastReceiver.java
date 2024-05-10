@@ -56,7 +56,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             long alarmTime = now.getTimeInMillis();// + 1000 * 60 * profile._duration;
 
             // save alarm for generator of profile name with duration
-            ProfileStatic.setActivatedProfileEndDurationTime(context, alarmTime);
+            ProfileStatic.setActivatedProfileEndDurationTime(context, profile._id, alarmTime);
 
             if (!PPApplicationStatic.isIgnoreBatteryOptimizationEnabled(context)) {
 
@@ -175,7 +175,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 long alarmTime = configuredTime.getTimeInMillis();
 
                 // save configured end of activation time for generator of profile name with duration
-                ProfileStatic.setActivatedProfileEndDurationTime(context, profile._endOfActivationTime);
+                ProfileStatic.setActivatedProfileEndDurationTime(context, profile._id, profile._endOfActivationTime);
 
                 //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
                 Intent intent = new Intent();
@@ -285,8 +285,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             PPApplicationStatic._cancelWork(MainWorker.PROFILE_DURATION_WORK_TAG +"_"+(int) profile._id, false);
             // moved to cancelWork
             //PPApplication.elapsedAlarmsProfileDurationWork.remove(MainWorker.PROFILE_DURATION_WORK_TAG +"_"+(int) profile._id);
+            ProfileStatic.setActivatedProfileEndDurationTime(context, profile._id, 0);
         }
-        ProfileStatic.setActivatedProfileEndDurationTime(context, 0);
     }
 
     static void doWork(boolean useHandler, Context context, final long profileId,
