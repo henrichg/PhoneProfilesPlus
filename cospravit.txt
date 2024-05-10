@@ -532,5 +532,31 @@ V servise nesmies blokovat, ak kontakty nie su nastavene. HOTOVO
 
 -------------------------------
 
+Volane: restartEventsWithRescan()
+DataWrapper:
+- stopEventsForProfile() - false - kedy volane? - daj true, je to volane z EditorProfileListFragment.deleteProfile()
+- startEventAtFirstFtart() - false 2x - kedy volane? - nastav podla toho odkial je volane, cize pridaj parameter manualRestart
+
+EventStatic:
+- runStopEvent() - false - kedy volane? - daj true, je to volane len z GUI
+
+RestartEventsWithDealyWorker:
+- doWork() - false = kedy volane? - nastav podla dat z workera
+
+TimeChangedReceiver:
+- doWork() - false - kedy volane? - daj true, sice znova zacne duration, ale nevadi, toto je volane len na zmenu time zony
+
+---
+
+Volane: restartEventsWithDelay()
+EditorEventListAdapter:
+- clearView() - false - kedy volane? - daj true, je to volane pri manualnom presuvani itemov eventov v Editore
+
+GrantPermisionActivity:
+- finishGrant() - false - kedy volane? - daj true vo vsetkych pripadoch, je to volane ked monci grant, ktory je bud z Editora alebo z notifikacie
+
+PPExtenderBroadcastReceiver:
+- onReceive() 0 false - kedy volane? - daj true, volane len raz, ked sa nakonektuje Extender
+
 
 

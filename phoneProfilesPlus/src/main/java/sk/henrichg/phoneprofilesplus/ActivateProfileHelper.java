@@ -5461,7 +5461,8 @@ class ActivateProfileHelper {
 
         if (profile._applicationDisableGloabalEventsRun != 0) {
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0);
-            dataWrapper.globalRunStopEvents(profile._applicationDisableGloabalEventsRun == 1);
+            dataWrapper.globalRunStopEvents(profile._applicationDisableGloabalEventsRun == 1,
+                    DataWrapperStatic.getIsManualProfileActivation(false, appContext));
             dataWrapper.invalidateDataWrapper();
         }
 

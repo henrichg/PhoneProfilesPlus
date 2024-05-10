@@ -708,7 +708,7 @@ public class EditorProfileListFragment extends Fragment
         }
         else {
             //activityDataWrapper.restartEvents(false, true, true, true, true);
-            activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
+            activityDataWrapper.restartEventsWithRescan(true, false, true, true, true, false);
         }
 
         DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(activityDataWrapper.context);

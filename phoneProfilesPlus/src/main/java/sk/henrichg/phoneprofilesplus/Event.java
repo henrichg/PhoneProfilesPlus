@@ -1819,6 +1819,7 @@ class Event {
                             //boolean ignoreGlobalPref,
                             //boolean interactive,
                             boolean forRestartEvents,
+                            boolean manualRestart,
                             //boolean log,
                             Profile mergedProfile)
     {
@@ -1952,7 +1953,7 @@ class Event {
                     (!DataWrapperStatic.getIsManualProfileActivation(false, dataWrapper.context))) {
                     long activatedProfileId = dataWrapper.getActivatedProfileId();
                     if (this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId)) {
-                        dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents);
+                        dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents, manualRestart);
                     } else {
 //                        PPApplicationStatic.logE("[PPP_NOTIFICATION] Event.startEvent (1)", "call of updateGUI");
                         PPApplication.updateGUI(false, false, dataWrapper.context);
@@ -1970,7 +1971,7 @@ class Event {
 
                     if (this._manualProfileActivation) {
                         DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
-                        dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents);
+                        dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents, manualRestart);
                         mergedProfile._id = 0;
                     } else {
                         long profileId = _fkProfileStart;
@@ -1995,6 +1996,7 @@ class Event {
                                         Profile mergedProfile,
                                         boolean allowRestart,
                                         boolean forRestartEvents,
+                                        boolean manualRestart,
                                         boolean updateGUI)
     {
 
@@ -2024,7 +2026,7 @@ class Event {
                     // first activate _fkProfileEnd
                     if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE) {
                         if (_manualProfileActivationAtEnd || (_fkProfileEnd != activatedProfileId) || forRestartEvents) {
-                            dataWrapper.activateProfileFromEvent(_id, _fkProfileEnd, false, false, forRestartEvents);
+                            dataWrapper.activateProfileFromEvent(_id, _fkProfileEnd, false, false, forRestartEvents, manualRestart);
                             activatedProfileId = _fkProfileEnd;
                             profileActivated = true;
                         }
@@ -2102,7 +2104,7 @@ class Event {
                             //if (eventTimeline._fkProfileEndActivated != 0)
                             if (activateProfile != 0) {
                                 // do not save to fifo profile with event for Undo
-                                dataWrapper.activateProfileFromEvent(0, activateProfile, false, false, forRestartEvents);
+                                dataWrapper.activateProfileFromEvent(0, activateProfile, false, false, forRestartEvents, manualRestart);
                                 profileActivated = true;
                             }
                         }
@@ -2114,7 +2116,7 @@ class Event {
 
                         if (_manualProfileActivationAtEnd) {
                             DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
-                            dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents);
+                            dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents, manualRestart);
                             mergedProfile._id = 0;
                         } else {
                             long profileId = _fkProfileEnd;
@@ -2197,7 +2199,7 @@ class Event {
                             if (_manualProfileActivationAtEnd) {
                                 DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
                                 // do not save to fifo profile with event for Undo
-                                dataWrapper.activateProfileFromEvent(0, mergedProfile._id, true, true, forRestartEvents);
+                                dataWrapper.activateProfileFromEvent(0, mergedProfile._id, true, true, forRestartEvents, manualRestart);
                                 mergedProfile._id = 0;
                             }
                         }
@@ -2210,7 +2212,7 @@ class Event {
                     // Do not restart events when is event paused during restart events !!!
                     // do not reactivate profile to avoid infinite loop
 
-                    dataWrapper.restartEventsWithDelay(false, false, true, PPApplication.ALTYPE_UNDEFINED);
+                    dataWrapper.restartEventsWithDelay(false, false, true, false, PPApplication.ALTYPE_UNDEFINED);
 
                     // keep wakelock awake 5 secods
                     // this may do restart after 5 seconds also in Doze mode
@@ -2239,6 +2241,7 @@ class Event {
                             Profile mergedProfile,
                             boolean allowRestart,
                             boolean forRestartEvents,
+                            boolean manualRestart,
                             boolean updateGUI)
     {
         //_undoCalled = false;
@@ -2346,7 +2349,7 @@ class Event {
             doActivateEndProfile(dataWrapper, /*eventPosition, timeLineSize,
                     eventTimelineList, eventTimeline,*/
                     activateReturnProfile, mergedProfile, allowRestart,
-                    forRestartEvents, updateGUI);
+                    forRestartEvents, manualRestart, updateGUI);
 
         }
 
@@ -2394,7 +2397,7 @@ class Event {
         if (this._status != ESTATUS_STOP)
         {
             pauseEvent(dataWrapper, activateReturnProfile, ignoreGlobalPref, true, false,
-                    null, false/*allowRestart*/, false, updateGUI);
+                    null, false/*allowRestart*/, false, false, updateGUI);
         }
 
         setSystemEvent(dataWrapper.context, ESTATUS_STOP);

@@ -695,7 +695,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             long activatedProfileId = dataWrapper.getActivatedProfileId();
             if (activatedProfileId == profile._id) {
                 // set alarm for profile duration
-                ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, getApplicationContext());
+                ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, false, false, PPApplication.STARTUP_SOURCE_EDITOR, getApplicationContext());
                 //Profile.setActivatedProfileForDuration(getApplicationContext(), profile._id);
             }
 
@@ -717,7 +717,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 if (EventStatic.getGlobalEventsRunning(this)) {
                     if (!DataWrapperStatic.getIsManualProfileActivation(false, getApplicationContext())) {
                         //dataWrapper.restartEvents(false, true, true, true, true);
-                        dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
+                        dataWrapper.restartEventsWithRescan(true, false, true, true, true, false);
                     }
                     else {
                         if (activatedProfileId == profile._id) {

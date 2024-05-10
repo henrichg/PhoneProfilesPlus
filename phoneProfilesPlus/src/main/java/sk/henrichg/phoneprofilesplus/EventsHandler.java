@@ -505,7 +505,7 @@ class EventsHandler {
                         // pause also paused events
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
-                        doHandleEvent(_event, true, /*sensorType,*/ true, /*manualRestart,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, true, true, manualRestart, false, false, mergedProfile, dataWrapper);
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
@@ -548,7 +548,7 @@ class EventsHandler {
 
                         // start all events
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
-                        doHandleEvent(_event, false, /*sensorType,*/ true, /*manualRestart,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, false, true, manualRestart, false, false, mergedProfile, dataWrapper);
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
@@ -582,7 +582,7 @@ class EventsHandler {
                         // only pause events
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
-                        doHandleEvent(_event, true, /*sensorType,*/ false, /*false,*/ forDelayStartAlarm, forDelayEndAlarm, /*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, true, false, false, forDelayStartAlarm, forDelayEndAlarm, mergedProfile, dataWrapper);
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
@@ -617,7 +617,7 @@ class EventsHandler {
                         // only start events
 
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
-                        doHandleEvent(_event, false, /*sensorType,*/ false, /*false,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*//*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, false, false, false, forDelayStartAlarm, forDelayEndAlarm, mergedProfile, dataWrapper);
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
@@ -796,7 +796,7 @@ class EventsHandler {
                             DataWrapperStatic.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
                             mergedProfilesCount + StringConstants.CHAR_HARD_SPACE +"["+StringConstants.CHAR_HARD_SPACE + usedEventsCount + StringConstants.CHAR_HARD_SPACE + "]");
 
-                    dataWrapper.activateProfileFromEvent(0, mergedProfile._id, false, true, isRestart);
+                    dataWrapper.activateProfileFromEvent(0, mergedProfile._id, false, true, isRestart, manualRestart);
                     // wait for profile activation
                     //doSleep = true;
                 }
@@ -1037,7 +1037,7 @@ class EventsHandler {
 //--------
 
     private void doHandleEvent(Event event, boolean statePause,
-                               boolean forRestartEvents,
+                               boolean forRestartEvents, boolean manualRestart,
                                boolean forDelayStartAlarm, boolean forDelayEndAlarm,
                                Profile mergedProfile, DataWrapper dataWrapper)
     {
@@ -1382,7 +1382,7 @@ class EventsHandler {
                                 // start event
                                 long oldMergedProfile = mergedProfile._id;
                                 //Profile _oldMergedProfile = mergedProfile;
-                                event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, mergedProfile);
+                                event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, manualRestart, mergedProfile);
                                 startProfileMerged = oldMergedProfile != mergedProfile._id;
                             }
                         }
@@ -1390,7 +1390,7 @@ class EventsHandler {
                             // called for delay alarm
                             // start event
                             long oldMergedProfile = mergedProfile._id;
-                            event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, mergedProfile);
+                            event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, manualRestart, mergedProfile);
                             startProfileMerged = oldMergedProfile != mergedProfile._id;
                         }
                     }
@@ -1430,7 +1430,7 @@ class EventsHandler {
                                 // do not allow restart events in Event.doActivateEndProfile() when is already doing restart events
                                 // allowRestart parameter must be false for doing restart events (to avoid infinite loop)
                                 event.pauseEvent(dataWrapper, true, false,
-                                        false, true, mergedProfile, !forRestartEvents, forRestartEvents, true);
+                                        false, true, mergedProfile, !forRestartEvents, forRestartEvents, manualRestart, true);
 
                                 endProfileMerged = oldMergedProfile != mergedProfile._id;
                             }
@@ -1445,7 +1445,7 @@ class EventsHandler {
                             // pause event
                             long oldMergedProfile = mergedProfile._id;
                             event.pauseEvent(dataWrapper, true, false,
-                                    false, true, mergedProfile, !forRestartEvents, forRestartEvents, true);
+                                    false, true, mergedProfile, !forRestartEvents, forRestartEvents, manualRestart, true);
                             endProfileMerged = oldMergedProfile != mergedProfile._id;
                         }
                     }

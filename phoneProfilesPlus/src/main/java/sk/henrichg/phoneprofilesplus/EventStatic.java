@@ -497,7 +497,7 @@ class EventStatic {
     //                            PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(1) PPApplication.eventsHandlerMutex");
                                 synchronized (PPApplication.eventsHandlerMutex) {
                                     event.pauseEvent(dataWrapper, false, false,
-                                            false, true, null, false, false, true);
+                                            false, true, null, false, false, false, true);
                                 }
 
                             } catch (Exception e) {
@@ -576,7 +576,7 @@ class EventStatic {
 
             // restart events
             //activityDataWrapper.restartEvents(false, true, true, true, true);
-            _dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
+            _dataWrapper.restartEventsWithRescan(true, false, true, true, true, false);
 
             /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);

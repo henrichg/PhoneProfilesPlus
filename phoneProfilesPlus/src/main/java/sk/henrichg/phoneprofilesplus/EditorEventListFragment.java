@@ -898,7 +898,7 @@ public class EditorEventListFragment extends Fragment
 
         // restart events
         //activityDataWrapper.restartEvents(false, true, true, true, true);
-        activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
+        activityDataWrapper.restartEventsWithRescan(true, false, true, true, true, false);
 
         listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
         eventListAdapter.notifyDataSetChanged();

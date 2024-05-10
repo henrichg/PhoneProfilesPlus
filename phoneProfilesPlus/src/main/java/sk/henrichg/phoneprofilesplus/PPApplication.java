@@ -416,6 +416,9 @@ public class PPApplication extends Application
     //static final int STARTUP_SOURCE_ACTIVATOR_START = 9;
     //static final int STARTUP_SOURCE_LAUNCHER_START = 10;
     static final int STARTUP_SOURCE_LAUNCHER = 11;
+    // STARTUP_SOURCE_EVENT_MANUAL is for activation of profile from evet, when is set:
+    //  - "Start of event"/"Other parameters"/"[M] Manual profile activation at start"
+    //  - "End of event"/"Other parameters"/"[M] Manual profile activation at end"
     static final int STARTUP_SOURCE_EVENT_MANUAL = 12;
     static final int STARTUP_SOURCE_EXTERNAL_APP = 13;
     static final int STARTUP_SOURCE_QUICK_TILE = 14;
