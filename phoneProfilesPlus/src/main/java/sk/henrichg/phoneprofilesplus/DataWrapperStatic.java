@@ -240,9 +240,9 @@ class DataWrapperStatic {
 
         Spannable sName;
         if (addDuration) {
-            if (!addEventName || manualIndicators.equals(StringConstants.STR_MANUAL))
+            //if (!addEventName || manualIndicators.equals(StringConstants.STR_MANUAL))
                 sName = profile.getProfileNameWithDuration(eventName, indicators, multiLine, durationInNextLine, context);
-            else {
+            /*else {
                 String name = profile._name;
                 if (!eventName.isEmpty())
                     name = name + " " + eventName;
@@ -253,7 +253,7 @@ class DataWrapperStatic {
                         name = name + " " + indicators;
                 }
                 sName = new SpannableString(name);
-            }
+            }*/
         }
         else {
             String name = profile._name;
