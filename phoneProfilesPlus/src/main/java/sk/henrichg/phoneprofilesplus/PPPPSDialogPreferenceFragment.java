@@ -223,8 +223,10 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 }
             });
 
-        }*/
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+        }
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);*/
+        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+
         //dialogBuilder.setCancelable(false);
         /*dialogBuilder.setOnCancelListener(dialog -> {
             if (finishActivity)
