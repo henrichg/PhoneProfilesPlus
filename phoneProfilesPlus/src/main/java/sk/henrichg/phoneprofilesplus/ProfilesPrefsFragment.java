@@ -2246,7 +2246,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         String askForDurationTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ASK_FOR_DURATION, R.string.profile_preferences_askForDuration, context);
         if (askForDurationTitle.isEmpty()) {
             String value = preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE));
-            if (value.equals("0")) {
+            if (value.equals(String.valueOf(Profile.AFTER_DURATION_DURATION_TYPE_DURATION))) {
                 title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DURATION, R.string.profile_preferences_duration, context);
                 String afterDurationDoTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_DO, R.string.profile_preferences_afterDurationDo, context);
                 if (!title.isEmpty()) {
@@ -6901,7 +6901,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION)
                 enable = (!askForDuration) && (!duration.equals("0"));
             else
-                enable = true;
+                enable = (!askForDuration);
 
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_AFTER_DURATION_DO);
             if (preference != null)

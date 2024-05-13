@@ -1542,7 +1542,7 @@ class DataWrapper {
         if (canRestart && (_profile != null)) {
             if (_profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) {
                 if ((_profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) &&
-                        (_profile._duration > 0)) {
+                    (_profile._duration > 0)) {
                     profileDuration = true;
                 } else if (_profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) {
                     Calendar now = Calendar.getInstance();

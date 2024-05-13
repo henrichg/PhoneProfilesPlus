@@ -658,110 +658,115 @@ class EventsHandler {
 
             // activated profile may be changed, when event has enabled manual profile activation
             Profile semiOldActivatedProfile = dataWrapper.getActivatedProfileFromDB(false, false);
+            long semiOldActivatedProfileId = 0;
+            boolean semiOldHasDuration = false;
+            if (semiOldActivatedProfile != null) {
+                semiOldActivatedProfileId = semiOldActivatedProfile._id;
+                semiOldHasDuration =
+                        ((semiOldActivatedProfile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) && ((semiOldActivatedProfile._duration != 0)) ||
+                         (semiOldActivatedProfile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)) &&
+                        (!semiOldActivatedProfile._askForDuration);
+            }
+
             long defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
             boolean notifyDefaultProfile = false;
-            boolean isAnyEventEnabled =  DatabaseHandler.getInstance(context.getApplicationContext()).isAnyEventEnabled();
+            boolean isAnyEventEnabled = DatabaseHandler.getInstance(context.getApplicationContext()).isAnyEventEnabled();
 
-            if (!DataWrapperStatic.getIsManualProfileActivation(false, context)) {
-                // no manual profile activation
+            if (!semiOldHasDuration) {
 
-                if (runningEventCountE == 0) {
-                    // activate default profile
+                if (!DataWrapperStatic.getIsManualProfileActivation(false, context)) {
+                    // no manual profile activation
 
-                    // no events running
+                    if (runningEventCountE == 0) {
+                        // activate default profile
 
-                    // THIS MUST BE PURE DEFAULT PROFILE, BECAUSE IT IS TESTED
-                    defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+                        // no events running
 
-                    if ((defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && isAnyEventEnabled) {
+                        // THIS MUST BE PURE DEFAULT PROFILE, BECAUSE IT IS TESTED
+                        defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+
+                        if ((defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && isAnyEventEnabled) {
+                            defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
+
+                            // is not currently activated profile with duration
+                            // then is possible to activate default profile
+                            boolean defaultProfileActivated = false;
+                            if ((semiOldActivatedProfileId == 0) ||
+                                    isRestart ||
+                                    (semiOldActivatedProfileId != defaultProfileId)) {
+                                mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
+                                notifyDefaultProfile = true;
+
+                                defaultProfileActivated = true;
+                                mergedProfilesCount++;
+
+                                dataWrapper.fifoAddProfile(defaultProfileId, 0);
+                            }
+
+                            if (((semiOldActivatedProfileId == defaultProfileId) &&
+                                    ((mergedProfilesCount > 0) || defaultProfileActivated)) ||
+                                    (isRestart && (!manualRestart))) {
+                                // block interactive parameters when
+                                // - activated profile is default profile
+                                // - it is not manual restart of events
+                                //
+                                // this is set, because is not good to again execute interactive parameters
+                                // for already activated default profile
+                                PPApplicationStatic.setBlockProfileEventActions(true);
+                            }
+
+                        } else {
+                            if (PPApplication.prefLastActivatedProfile != 0) {
+                                dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
+                            }
+                        }
+                    }
+                } else {
+                    // manual profile activation
+
+                    boolean defaultProfileActivated = false;
+
+                    if (semiOldActivatedProfileId > 0) {
+                        // any profile activated, set back semi-old, this uses profile activated by events
+
+                        //noinspection ConstantConditions
+                        defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+                        mergedProfile.mergeProfiles(semiOldActivatedProfileId, dataWrapper/*, false*/);
+                        //mergedProfilesCount++;
+
+                        dataWrapper.fifoAddProfile(semiOldActivatedProfileId, 0);
+                    } else {
+                        // not any profile activated
 
                         defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
 
-                        long semiOldActivatedProfileId = 0;
-                        if (semiOldActivatedProfile != null)
-                            semiOldActivatedProfileId = semiOldActivatedProfile._id;
-
-                        boolean defaultProfileActivated = false;
-                        if ((semiOldActivatedProfileId == 0) ||
-                                isRestart ||
-                                (semiOldActivatedProfileId != defaultProfileId)) {
-                            mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
+                        if ((defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && isAnyEventEnabled) {
+                            // if not any profile activated, activate default profile
                             notifyDefaultProfile = true;
+                            mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
 
                             defaultProfileActivated = true;
                             mergedProfilesCount++;
 
                             dataWrapper.fifoAddProfile(defaultProfileId, 0);
+                        } else {
+                            if (PPApplication.prefLastActivatedProfile != 0) {
+                                dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
+                            }
                         }
 
-                        if (((semiOldActivatedProfileId == defaultProfileId) &&
-                                ((mergedProfilesCount > 0) || defaultProfileActivated)) ||
-                            (isRestart && (!manualRestart))) {
-                            // block interactive parameters when
-                            // - activated profile is default profile
-                            // - it is not manual restart of events
-                            //
-                            // this is set, because is not good to again execute interactive parameters
-                            // for already activated default profile
-                            PPApplicationStatic.setBlockProfileEventActions(true);
-                        }
-
-                    } else {
-                        if (PPApplication.prefLastActivatedProfile != 0) {
-                            dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
-                        }
-                    }
-                }
-            } else {
-                // manual profile activation
-
-                boolean defaultProfileActivated = false;
-
-                long semiOldActivatedProfileId = 0;
-                if (semiOldActivatedProfile != null)
-                    semiOldActivatedProfileId = semiOldActivatedProfile._id;
-
-                if (semiOldActivatedProfileId > 0) {
-                    // any profile activated, set back semi-old, this uses profile activated by events
-
-                    //noinspection ConstantConditions
-                    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
-                    mergedProfile.mergeProfiles(semiOldActivatedProfileId, dataWrapper/*, false*/);
-                    //mergedProfilesCount++;
-
-                    dataWrapper.fifoAddProfile(semiOldActivatedProfileId, 0);
-                }
-                else {
-                    // not any profile activated
-
-                    defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
-
-                    if ((defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && isAnyEventEnabled) {
-                        // if not any profile activated, activate default profile
-                        notifyDefaultProfile = true;
-                        mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
-
-                        defaultProfileActivated = true;
-                        mergedProfilesCount++;
-
-                        dataWrapper.fifoAddProfile(defaultProfileId, 0);
-                    } else {
-                        if (PPApplication.prefLastActivatedProfile != 0) {
-                            dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
-                        }
-                    }
-
-                    if (isAnyEventEnabled) {
-                        if (((semiOldActivatedProfileId == defaultProfileId) &&
-                                ((mergedProfilesCount > 0) || defaultProfileActivated)) ||
-                                (isRestart && (!manualRestart))) {
-                            // block interactive parameters when
-                            // - activated profile is default profile
-                            // - it is not manual restart of events
-                            //
-                            // this is set, because is not good to again execute interactive parameters
-                            // for already activated default profile
-                            PPApplicationStatic.setBlockProfileEventActions(true);
+                        if (isAnyEventEnabled) {
+                            if (((semiOldActivatedProfileId == defaultProfileId) &&
+                                    ((mergedProfilesCount > 0) || defaultProfileActivated)) ||
+                                    (isRestart && (!manualRestart))) {
+                                // block interactive parameters when
+                                // - activated profile is default profile
+                                // - it is not manual restart of events
+                                //
+                                // this is set, because is not good to again execute interactive parameters
+                                // for already activated default profile
+                                PPApplicationStatic.setBlockProfileEventActions(true);
+                            }
                         }
                     }
                 }
