@@ -1085,11 +1085,7 @@ class ProfileStatic {
     }
     */
 
-    // TODO 1. musim mat tie casy v shared preferences pre konkretne profily, cize musim tam zapisovat ktoremu ktory patri
-    //  v getActivatedProfileEndDurationTime() musim nasitat vsetky profily zo shared preferences
-    //  - cely prefActivatedProfileEndDurationTime mozem vraj zapisat a citat ako gson:
-    //    https://stackoverflow.com/questions/7944601/how-to-save-hashmap-to-shared-preferences
-
+    // https://stackoverflow.com/questions/7944601/how-to-save-hashmap-to-shared-preferences
     static void getActivatedProfileEndDurationTime(Context context)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileStatic.getActivatedProfileEndDurationTime", "PPApplication.profileActivationMutex");

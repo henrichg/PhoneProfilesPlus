@@ -10,7 +10,6 @@ import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SwitchCompat;
@@ -1535,9 +1534,9 @@ class DataWrapper {
             (startupSource == PPApplication.STARTUP_SOURCE_EVENT_MANUAL) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EXTERNAL_APP);
 
-        Log.e("DataWrapper._activateProfile", "startupSource="+startupSource);
-        Log.e("DataWrapper._activateProfile", "manualRestart="+manualRestart);
-        Log.e("DataWrapper._activateProfile", "canRestart="+canRestart);
+//        Log.e("DataWrapper._activateProfile", "startupSource="+startupSource);
+//        Log.e("DataWrapper._activateProfile", "manualRestart="+manualRestart);
+//        Log.e("DataWrapper._activateProfile", "canRestart="+canRestart);
         boolean profileDuration = false;
         if (canRestart && (_profile != null)) {
             if (_profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) {
@@ -1560,7 +1559,7 @@ class DataWrapper {
                 }
             }
 
-            Log.e("DataWrapper._activateProfile", "profileDuration (1)="+profileDuration);
+//            Log.e("DataWrapper._activateProfile", "profileDuration (1)="+profileDuration);
 
             if (startupSource == PPApplication.STARTUP_SOURCE_EVENT) {
                 // enabled is duration also for activation from event
@@ -1580,7 +1579,7 @@ class DataWrapper {
                     profileDuration = false;
             }
 
-            Log.e("DataWrapper._activateProfile", "profileDuration (2)="+profileDuration);
+//            Log.e("DataWrapper._activateProfile", "profileDuration (2)="+profileDuration);
 
             if (profileDuration) {
                 // activation with duration

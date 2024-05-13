@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 import android.os.SystemClock;
-import android.util.Log;
 
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -338,7 +337,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 final boolean forRestartEvents, final boolean manualRestart, int startupSource) {
         if (profileId != 0) {
 
-            Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "xxxx");
+//            Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "xxxx");
 
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
@@ -456,9 +455,9 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 (startupSource == PPApplication.STARTUP_SOURCE_EVENT_MANUAL) ||
                                 (startupSource == PPApplication.STARTUP_SOURCE_EXTERNAL_APP);
 
-                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "startupSource="+startupSource);
-                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "manualRestart="+manualRestart);
-                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "canRestart="+canRestart);
+//                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "startupSource="+startupSource);
+//                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "manualRestart="+manualRestart);
+//                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "canRestart="+canRestart);
 
                         if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_RESTART_EVENTS) {
 

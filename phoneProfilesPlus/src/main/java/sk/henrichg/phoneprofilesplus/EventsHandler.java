@@ -659,14 +659,29 @@ class EventsHandler {
             // activated profile may be changed, when event has enabled manual profile activation
             Profile semiOldActivatedProfile = dataWrapper.getActivatedProfileFromDB(false, false);
             long semiOldActivatedProfileId = 0;
+            // activate default profile only when semiOldActovatedProfile do not have set Duration or alarm ends
             boolean semiOldHasDuration = false;
             if (semiOldActivatedProfile != null) {
                 semiOldActivatedProfileId = semiOldActivatedProfile._id;
+//                Log.e("EventsHandler.handleEvents", "semiOldActivatedProfileId="+semiOldActivatedProfileId);
+//                Log.e("EventsHandler.handleEvents", "semiOldActivatedProfileId._name="+semiOldActivatedProfile._name);
+//                Log.e("EventsHandler.handleEvents", "semiOldActivatedProfileId._duration="+semiOldActivatedProfile._duration);
+//                Log.e("EventsHandler.handleEvents", "semiOldActivatedProfileId._askForDuration="+semiOldActivatedProfile._askForDuration);
+
+                boolean alarmEnds = true;
+                if (ApplicationPreferences.prefActivatedProfileEndDurationTime.get(semiOldActivatedProfileId) != null) {
+                    //noinspection DataFlowIssue
+                    long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime.get(semiOldActivatedProfileId);
+                    alarmEnds = endDurationTime == 0;
+//                    Log.e("EventsHandler.handleEvents", "alarmEnds="+alarmEnds);
+                }
                 semiOldHasDuration =
                         ((semiOldActivatedProfile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) && ((semiOldActivatedProfile._duration != 0)) ||
                          (semiOldActivatedProfile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)) &&
+                        (!alarmEnds) &&
                         (!semiOldActivatedProfile._askForDuration);
             }
+//            Log.e("EventsHandler.handleEvents", "semiOldHasDuration="+semiOldHasDuration);
 
             long defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
             boolean notifyDefaultProfile = false;
@@ -676,6 +691,9 @@ class EventsHandler {
 
                 if (!DataWrapperStatic.getIsManualProfileActivation(false, context)) {
                     // no manual profile activation
+
+//                    Log.e("EventsHandler.handleEvents", "no manual activation");
+//                    Log.e("EventsHandler.handleEvents", "runningEventCountE="+runningEventCountE);
 
                     if (runningEventCountE == 0) {
                         // activate default profile
@@ -723,6 +741,8 @@ class EventsHandler {
                     }
                 } else {
                     // manual profile activation
+
+//                    Log.e("EventsHandler.handleEvents", "manual activation=");
 
                     boolean defaultProfileActivated = false;
 
