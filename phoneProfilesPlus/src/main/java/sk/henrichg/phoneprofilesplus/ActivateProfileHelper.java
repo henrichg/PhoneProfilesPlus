@@ -4048,6 +4048,7 @@ class ActivateProfileHelper {
                     }
                     wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
 
+                    // this is required for "change random image from folder"
                     PPApplicationStatic.setWallpaperChangeTime(appContext);
                 } catch (IOException e) {
                     PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
