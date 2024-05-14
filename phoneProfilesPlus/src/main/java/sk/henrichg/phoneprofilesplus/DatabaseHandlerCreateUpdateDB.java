@@ -138,7 +138,8 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT + " " + DatabaseHandler.TEXT_TYPE
+                + DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN + " " + DatabaseHandler.TEXT_TYPE
                 + ")";
     }
 
@@ -687,6 +688,7 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN, DatabaseHandler.TEXT_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_NAME, DatabaseHandler.TEXT_TYPE, columns);
@@ -2635,7 +2637,8 @@ class DatabaseHandlerCreateUpdateDB {
                                 0,
                                 false,
                                 false,
-                                ""
+                                "",
+                                "-"
                         );
 
                         // this change old, no longer used SHARED_PROFILE_VALUE to "Not used" value
@@ -3566,6 +3569,11 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 2521)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_MUSIC_MUSIC_STATE + "=0");
+        }
+
+        if (oldVersion < 2522) {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN + "='-'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN + "='-'");
         }
 
     }

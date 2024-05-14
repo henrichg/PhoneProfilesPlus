@@ -288,7 +288,8 @@ class DatabaseHandlerImportExport {
                     DatabaseHandler.KEY_DEVICE_WALLPAPER_CHANGE + "," +
                     DatabaseHandler.KEY_DEVICE_WALLPAPER + "," +
                     DatabaseHandler.KEY_DEVICE_WALLPAPER_FOLDER + "," +
-                    DatabaseHandler.KEY_DURATION_NOTIFICATION_SOUND +
+                    DatabaseHandler.KEY_DURATION_NOTIFICATION_SOUND + "," +
+                    DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN +
                     " FROM " + DatabaseHandler.TABLE_PROFILES, null);
 
             ContentResolver contentResolver = instance.context.getContentResolver();
