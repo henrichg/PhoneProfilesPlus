@@ -107,6 +107,7 @@ class Permissions {
     static final int GRANT_TYPE_BACKGROUND_LOCATION = 23;
     static final int GRANT_TYPE_WALLPAPER_FOLDER = 24;
     static final int GRANT_TYPE_MOBILE_CELL_NAMES_SCAN_DIALOG = 25;
+    static final int GRANT_TYPE_IMAGE_WALLPAPER_LOCKSCREEN = 26;
 
     static final int REQUEST_CODE = 5000;
     //static final int REQUEST_CODE_FORCE_GRANT = 6000;
@@ -1899,7 +1900,7 @@ class Permissions {
         //return granted;
     }
 
-    static boolean grantImageWallpaperPermissions(Context context) {
+    static boolean grantImageWallpaperPermissions(Context context, boolean forLockScreen) {
         boolean granted = checkGallery(context);
         if (!granted) {
             try {
@@ -1909,11 +1910,17 @@ class Permissions {
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_IMAGE_WALLPAPER);
+                if (forLockScreen)
+                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_IMAGE_WALLPAPER_LOCKSCREEN);
+                else
+                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_IMAGE_WALLPAPER);
                 intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                 //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                 intent.putExtra(EXTRA_FORCE_GRANT, true);
-                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_IMAGE_WALLPAPER);
+                if (forLockScreen)
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_IMAGE_WALLPAPER_LOCKSCREEN);
+                else
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_IMAGE_WALLPAPER);
                 //wallpaperViewPreference = preference;
                 //context.startActivity(intent);
             } catch (Exception e) {

@@ -714,7 +714,8 @@ class ProfileStatic {
                     profile._phoneCallsContactListType,
                     profile._phoneCallsBlockCalls,
                     profile._phoneCallsSendSMS,
-                    profile._phoneCallsSMSText
+                    profile._phoneCallsSMSText,
+                    profile._deviceWallpaperLockScreen
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)

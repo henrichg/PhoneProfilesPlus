@@ -17,7 +17,15 @@
         app:defaultValue="-"
         app:key="prf_pref_deviceWallpaper"
         app:title="@string/profile_preferences_deviceImageWallpaper"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:forLockScreen="false"/>
+
+    <sk.henrichg.phoneprofilesplus.WallpaperViewPreference
+        app:defaultValue="-"
+        app:key="prf_pref_deviceWallpaperLockScreen"
+        app:title="@string/profile_preferences_deviceImageWallpaperLockscreen"
+        app:layout="@layout/mp_preference_material_widget"
+        app:forLockScreen="true" />
 
     <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="prf_pref_deviceWallpaperFolderInfo"

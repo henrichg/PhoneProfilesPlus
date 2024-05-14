@@ -25,6 +25,7 @@ public class WallpaperViewPreference extends Preference {
 
     private String imageIdentifier;
     //private Bitmap bitmap;
+    private final boolean forLockScreen;
 
     private final Context prefContext;
     private ImageView imageView;
@@ -32,6 +33,7 @@ public class WallpaperViewPreference extends Preference {
     private BindViewAsyncTask bindViewAsyncTask = null;
 
     static final int RESULT_LOAD_IMAGE = 1970;
+    static final int RESULT_LOAD_IMAGE_LOCKSCREEN = 1972;
 
     public WallpaperViewPreference(Context context, AttributeSet attrs)
     {
@@ -40,6 +42,13 @@ public class WallpaperViewPreference extends Preference {
         imageIdentifier = "-";
 
         prefContext = context;
+
+        //noinspection resource
+        TypedArray wallpaperType = context.obtainStyledAttributes(attrs,
+                R.styleable.WallpaperViewPreference, 0, 0);
+        forLockScreen = wallpaperType.getBoolean(R.styleable.WallpaperViewPreference_forLockScreen, false);
+
+        wallpaperType.recycle();
 
         setWidgetLayoutResource(R.layout.preference_widget_imageview_preference);
     }
@@ -68,7 +77,7 @@ public class WallpaperViewPreference extends Preference {
     @Override
     protected void onClick()
     {
-        if (Permissions.grantImageWallpaperPermissions(prefContext))
+        if (Permissions.grantImageWallpaperPermissions(prefContext, forLockScreen))
             startGallery();
     }
 
@@ -179,7 +188,10 @@ public class WallpaperViewPreference extends Preference {
 
             // is not possible to get activity from preference, used is static method
             //ProfilesPrefsFragment.setChangedWallpaperViewPreference(this);
-            ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
+            if (forLockScreen)
+                ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE_LOCKSCREEN);
+            else
+                ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
         }

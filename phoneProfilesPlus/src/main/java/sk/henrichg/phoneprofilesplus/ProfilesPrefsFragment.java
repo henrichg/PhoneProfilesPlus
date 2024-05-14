@@ -1783,7 +1783,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             setRedTextToPreferences();
         }*/
 
-        if ((requestCode == WallpaperViewPreference.RESULT_LOAD_IMAGE) && (resultCode == Activity.RESULT_OK) && (data != null))
+        if (((requestCode == WallpaperViewPreference.RESULT_LOAD_IMAGE) || (requestCode == WallpaperViewPreference.RESULT_LOAD_IMAGE_LOCKSCREEN)) &&
+                (resultCode == Activity.RESULT_OK) && (data != null))
         {
             //Uri selectedImage = data.getData();
             String  d = data.getDataString();
@@ -1798,7 +1799,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         Log.e("ProfilesPrefsFragment.doOnActivityResult", Log.getStackTraceString(e));
                     }
                 //}*/
-                WallpaperViewPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
+                WallpaperViewPreference preference;
+                if (requestCode == WallpaperViewPreference.RESULT_LOAD_IMAGE)
+                    preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
+                else
+                    preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN);
                 if (preference != null)
                     preference.setImageIdentifier(selectedImage.toString());
                 /*
@@ -1810,6 +1815,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 */
             }
         }
+
         if ((requestCode == WallpaperFolderPreference.RESULT_GET_FOLDER) && (resultCode == Activity.RESULT_OK) && (data != null))
         {
             //Uri selectedImage = data.getData();
@@ -1930,8 +1936,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 activity.invalidateOptionsMenu();
             }
         }
-        if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMAGE_WALLPAPER)) {
-            WallpaperViewPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
+        if ((requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMAGE_WALLPAPER)) ||
+            (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMAGE_WALLPAPER_LOCKSCREEN))) {
+            WallpaperViewPreference preference;
+            if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMAGE_WALLPAPER))
+                preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
+            else
+                preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN);
             if (preference != null)
                 preference.startGallery(); // image file
         }
@@ -6756,6 +6767,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
             if (preference != null)
                 preference.setEnabled(enabled && (sValue.equals("1") || sValue.equals("4")));
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN);
+            if (preference != null)
+                preference.setEnabled(enabled && (sValue.equals("1")));
             preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
             if (preference != null)
                 preference.setEnabled(enabled && (sValue.equals("1") || sValue.equals("3")));

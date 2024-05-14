@@ -520,6 +520,30 @@ class DatabaseHandlerImportExport {
                                     new String[]{String.valueOf(profileId)});
                         }
                     }
+                    wallpaper = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN));
+                    if (!wallpaper.isEmpty() && !wallpaper.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN))) {
+                        boolean isGranted = false;
+                        Uri uri = Uri.parse(wallpaper);
+                        if (uri != null) {
+                            try {
+                                instance.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                isGranted = true;
+                            } catch (Exception e) {
+                                //isGranted = false;
+                            }
+                        }
+                        if (!isGranted) {
+                            values.clear();
+                            String wallpaperChange = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_CHANGE));
+                            if (wallpaperChange.equals("1"))
+                                values.put(DatabaseHandler.KEY_DEVICE_WALLPAPER_CHANGE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE));
+                            values.put(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN));
+                            db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                    new String[]{String.valueOf(profileId)});
+                        }
+                    }
+
                     String wallpaperFolder = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_FOLDER));
                     if (!wallpaperFolder.isEmpty() && !wallpaperFolder.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER))) {
                         boolean isGranted = false;

@@ -137,6 +137,8 @@ class Profile {
     boolean _phoneCallsBlockCalls;
     boolean _phoneCallsSendSMS;
     String _phoneCallsSMSText;
+    String _deviceWallpaperLockScreen;
+
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -271,6 +273,7 @@ class Profile {
     static final String PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE = "prf_pref_phoneCalls_contactListType";
     static final String PREF_PROFILE_PHONE_CALLS_SEND_SMS = "prf_pref_phoneCalls_sendSMS";
     static final String PREF_PROFILE_PHONE_CALLS_SMS_TEXT = "prf_pref_phoneCalls_SMSText";
+    static final String PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN = "prf_pref_deviceWallpaperLockScreen";
 
     static final int RINGERMODE_RING = 1;
     static final int RINGERMODE_RING_AND_VIBRATE = 2;
@@ -428,6 +431,7 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, "");
         defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, "0");
         defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_SMS_TEXT, "");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN, "-");
     }
 
     static final int[] profileIconId = {
@@ -1093,7 +1097,8 @@ class Profile {
                    int phoneCallsContactListType,
                    boolean phoneCallsBlockCalls,
                    boolean phoneCallsSendSMS,
-                   String phoneCallsSMSText
+                   String phoneCallsSMSText,
+                   String deviceWallpaperLockscreen
             )
     {
         this._id = id;
@@ -1215,6 +1220,7 @@ class Profile {
         this._phoneCallsBlockCalls = phoneCallsBlockCalls;
         this._phoneCallsSendSMS = phoneCallsSendSMS;
         this._phoneCallsSMSText = phoneCallsSMSText;
+        this._deviceWallpaperLockScreen = deviceWallpaperLockscreen;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1340,7 +1346,8 @@ class Profile {
             int phoneCallsContactListType,
             boolean phoneCallsBlockCalls,
             boolean phoneCallsSendSMS,
-            String phoneCallsSMSText
+            String phoneCallsSMSText,
+            String deviceWallpaperLockscreen
     )
     {
         this._name = name;
@@ -1461,6 +1468,7 @@ class Profile {
         this._phoneCallsBlockCalls = phoneCallsBlockCalls;
         this._phoneCallsSendSMS = phoneCallsSendSMS;
         this._phoneCallsSMSText = phoneCallsSMSText;
+        this._deviceWallpaperLockScreen = deviceWallpaperLockscreen;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1588,6 +1596,7 @@ class Profile {
         this._phoneCallsBlockCalls = profile._phoneCallsBlockCalls;
         this._phoneCallsSendSMS = profile._phoneCallsSendSMS;
         this._phoneCallsSMSText = profile._phoneCallsSMSText;
+        this._deviceWallpaperLockScreen = profile._deviceWallpaperLockScreen;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1752,6 +1761,7 @@ class Profile {
                 if (withProfile._deviceWallpaperChange != 0) {
                     this._deviceWallpaperChange = withProfile._deviceWallpaperChange;
                     this._deviceWallpaper = withProfile._deviceWallpaper;
+                    this._deviceWallpaperLockScreen = withProfile._deviceWallpaperLockScreen;
                     this._deviceLiveWallpaper = withProfile._deviceLiveWallpaper;
                     this._deviceWallpaperFor = withProfile._deviceWallpaperFor;
                     this._deviceWallpaperFolder = withProfile._deviceWallpaperFolder;
@@ -2107,6 +2117,9 @@ class Profile {
             }
             if (this._deviceWallpaperChange != 0) {
                 if (!this._deviceWallpaper.equals(withProfile._deviceWallpaper)) {
+                    return false;
+                }
+                if (!this._deviceWallpaperLockScreen.equals(withProfile._deviceWallpaperLockScreen)) {
                     return false;
                 }
                 if (!this._deviceLiveWallpaper.equals(withProfile._deviceLiveWallpaper)) {
@@ -3410,6 +3423,7 @@ class Profile {
         editor.putBoolean(PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, this._phoneCallsBlockCalls);
         editor.putBoolean(PREF_PROFILE_PHONE_CALLS_SEND_SMS, this._phoneCallsSendSMS);
         editor.putString(PREF_PROFILE_PHONE_CALLS_SMS_TEXT, this._phoneCallsSMSText);
+        editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN, this._deviceWallpaperLockScreen);
 
         editor.apply();
     }

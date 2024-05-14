@@ -377,7 +377,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = context.getString(R.string.permissions_for_install_tone_text1) + "<br><br>";
             else*/ if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION)
                 _showRequestValue.append(context.getString(R.string.permissions_for_play_ringtone_notification_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
-            else if (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER)
+            else if ((grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER) || (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER_LOCKSCREEN))
                 _showRequestValue.append(context.getString(R.string.permissions_for_wallpaper_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_WALLPAPER_FOLDER)
                 _showRequestValue.append(context.getString(R.string.permissions_for_wallpaper_folder_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
@@ -554,7 +554,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_install_tone_text2);
             else*/ if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION)
                 _showRequestValue.append(context.getString(R.string.permissions_for_play_ringtone_notification_text2));
-            else if (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER)
+            else if ((grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER) || (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER_LOCKSCREEN))
                 _showRequestValue.append(context.getString(R.string.permissions_for_wallpaper_text2));
             else if (grantType == Permissions.GRANT_TYPE_WALLPAPER_FOLDER)
                 _showRequestValue.append(context.getString(R.string.permissions_for_wallpaper_folder_text2));
@@ -1624,7 +1624,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.removePlayRingtoneNotificationNotification(context);
         }
         else
-        if (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER) {
+        if ((grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER) || (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER_LOCKSCREEN)) {
             setResult(Activity.RESULT_OK);
             finish();
             /*if (Permissions.wallpaperViewPreference != null)

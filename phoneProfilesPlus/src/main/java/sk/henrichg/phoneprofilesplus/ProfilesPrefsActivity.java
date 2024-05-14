@@ -468,7 +468,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._phoneCallsContactListType,
                         origProfile._phoneCallsBlockCalls,
                         origProfile._phoneCallsSendSMS,
-                        origProfile._phoneCallsSMSText
+                        origProfile._phoneCallsSMSText,
+                        origProfile._deviceWallpaperLockScreen
                 );
                 showSaveMenu = true;
             }
@@ -562,11 +563,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, ""));
             if (profile._deviceWallpaperChange != 0) {
                 profile._deviceWallpaper = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER, "");
+                profile._deviceWallpaperLockScreen = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN, "");
                 profile._deviceLiveWallpaper = preferences.getString(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER, "");
                 profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR, ""));
                 profile._deviceWallpaperFolder = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER, "");
             } else {
                 profile._deviceWallpaper = "-";
+                profile._deviceWallpaperLockScreen = "-";
                 profile._deviceLiveWallpaper = "";
                 profile._deviceWallpaperFor = 0;
                 profile._deviceWallpaperFolder = "-";
