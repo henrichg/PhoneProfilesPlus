@@ -567,14 +567,14 @@ class Permissions {
 
         try {
             boolean externalStorageGranted = true;
-            if ((profile._deviceWallpaperChange == 1) ||
-                    (profile._deviceWallpaperChange == 4)) {
+            if ((profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_IMAGE) ||
+                    (profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_IMAGE_WITH)) {
                 externalStorageGranted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
             }
             boolean drawOverAppsGranted = true;
             if (Build.VERSION.SDK_INT >= 29) {
-                if ((profile._deviceWallpaperChange == 4) ||
-                        (profile._deviceWallpaperChange == 2)) {
+                if ((profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_IMAGE_WITH) ||
+                        (profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_LIVE)) {
                     drawOverAppsGranted = Settings.canDrawOverlays(context);
                     if (drawOverAppsGranted)
                         setShowRequestDrawOverlaysPermission(context, true);
@@ -597,7 +597,7 @@ class Permissions {
         if (profile == null) return true;
 
         try {
-            if (profile._deviceWallpaperChange == 3) {
+            if (profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_FOLDER) {
                 boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
                 if ((permissions != null) && (!granted))
                     permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_WALLPAPER_FOLDER, permission.READ_EXTERNAL_STORAGE));

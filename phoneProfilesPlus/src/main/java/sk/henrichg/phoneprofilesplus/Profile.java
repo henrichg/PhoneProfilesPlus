@@ -305,6 +305,11 @@ class Profile {
     static final int BRIGHTNESS_VALUE_FOR_DARK_MODE = 30;
     static final double MIN_PROFILE_ICON_LUMINANCE = 0.3d;
 
+    static final int CHANGE_WALLPAPER_IMAGE = 1;
+    static final int CHANGE_WALLPAPER_IMAGE_WITH = 4;
+    static final int CHANGE_WALLPAPER_LIVE = 2;
+    static final int CHANGE_WALLPAPER_FOLDER = 3;
+
     static final ArrayMap<String, Boolean> defaultValuesBoolean;
     static {
         defaultValuesBoolean = new ArrayMap<>();
