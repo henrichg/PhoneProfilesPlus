@@ -6313,7 +6313,7 @@ class ActivateProfileHelper {
 
 //        Log.e("ActivateProfileHelper.setMobileData", "called hasSIMCard");
         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-        boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
         if (simCard == 1) {
             boolean sim1Exists = hasSIMCardData.hasSIM1;
             simExists = simExists && sim1Exists;
@@ -6589,7 +6589,7 @@ class ActivateProfileHelper {
 
 //        Log.e("ActivateProfileHelper.setPreferredNetworkType", "called hasSIMCard");
         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-        boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
         if (simCard == 1) {
             boolean sim1Exists = hasSIMCardData.hasSIM1;
             simExists = simExists && sim1Exists;
@@ -7414,7 +7414,7 @@ class ActivateProfileHelper {
         if (Permissions.checkPhone(context.getApplicationContext())) {
 //            Log.e("ActivateProfileHelper.setDefaultSimCard", "called hasSIMCard");
             HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-            boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+            boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
             if (simCard == 1) {
                 boolean sim1Exists = hasSIMCardData.hasSIM1;
                 simExists = simExists && sim1Exists;
@@ -7593,7 +7593,7 @@ class ActivateProfileHelper {
 
 //        Log.e("ActivateProfileHelper.setSIMOnOff", "called hasSIMCard");
         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-        boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
         if (simCard == 1) {
             boolean sim1Exists = hasSIMCardData.hasSIM1;
             simExists = simExists && sim1Exists;

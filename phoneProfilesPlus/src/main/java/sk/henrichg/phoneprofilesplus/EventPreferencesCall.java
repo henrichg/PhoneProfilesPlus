@@ -187,15 +187,15 @@ class EventPreferencesCall extends EventPreferences {
                         if (telephonyManager != null) {
                             int phoneCount = telephonyManager.getPhoneCount();
                             if (phoneCount > 1) {
-                                boolean simExists;
 //                                Log.e("EventPreferencesCall.getPreferencesDescription", "called hasSIMCard");
                                 HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                                boolean sim1Exists = hasSIMCardData.hasSIM1;
-                                boolean sim2Exists = hasSIMCardData.hasSIM2;
+                                hasSIMCard = hasSIMCardData.simCount > 0;
+                                //boolean sim1Exists = hasSIMCardData.hasSIM1;
+                                //boolean sim2Exists = hasSIMCardData.hasSIM2;
 
-                                simExists = sim1Exists;
-                                simExists = simExists && sim2Exists;
-                                hasSIMCard = simExists;
+                                //simExists = sim1Exists;
+                                //simExists = simExists && sim2Exists;
+                                //hasSIMCard = simExists;
                             }
                         }
                         if (hasSIMCard) {
@@ -301,15 +301,16 @@ class EventPreferencesCall extends EventPreferences {
                 int phoneCount = telephonyManager.getPhoneCount();
                 if (phoneCount > 1) {
                     hasFeature = true;
-                    boolean simExists;
+                    //boolean simExists;
 //                    Log.e("EventPreferencesCall.setSummary", "called hasSIMCard");
                     HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                    boolean sim1Exists = hasSIMCardData.hasSIM1;
-                    boolean sim2Exists = hasSIMCardData.hasSIM2;
+                    hasSIMCard = hasSIMCardData.simCount > 1;
+                    //boolean sim1Exists = hasSIMCardData.hasSIM1;
+                    //boolean sim2Exists = hasSIMCardData.hasSIM2;
 
-                    simExists = sim1Exists;
-                    simExists = simExists && sim2Exists;
-                    hasSIMCard = simExists;
+                    //simExists = sim1Exists;
+                    //simExists = simExists && sim2Exists;
+                    //hasSIMCard = simExists;
                     PPListPreference listPreference = prefMng.findPreference(key);
                     if (listPreference != null) {
                         int index = listPreference.findIndexOfValue(value);

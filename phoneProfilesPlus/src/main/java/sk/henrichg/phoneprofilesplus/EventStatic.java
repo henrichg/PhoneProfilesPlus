@@ -122,7 +122,7 @@ class EventStatic {
                     if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED)) {
 //                        Log.e("EventStatic.isEventPreferenceAllowed", "("+preferenceKey+") called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -169,7 +169,7 @@ class EventStatic {
                     if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED)) {
 //                        Log.e("EventStatic.isEventPreferenceAllowed", "("+preferenceKey+") called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -204,7 +204,7 @@ class EventStatic {
                     if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED)) {
 //                        Log.e("EventStatic.isEventPreferenceAllowed", "("+preferenceKey+") called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -261,7 +261,7 @@ class EventStatic {
                     if (preferenceKey.equals(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED)) {
 //                        Log.e("EventStatic.isEventPreferenceAllowed", "("+preferenceKey+") called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -315,7 +315,7 @@ class EventStatic {
                         if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM)) {
                             simExists = hasSIMCardData.hasSIM1 && hasSIMCardData.hasSIM2;
                         } else
-                            simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                            simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
