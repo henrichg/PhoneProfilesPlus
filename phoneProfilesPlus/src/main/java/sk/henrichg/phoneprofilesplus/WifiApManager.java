@@ -138,13 +138,9 @@ final class WifiApManager {
 
     static boolean canExploitWifiAP(Context context) {
         try {
-            HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-            if (hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2) {
-                /*WifiApManager wifiApManager = */
-                new WifiApManager(context);
-                return true;
-            } else
-                return false;
+            /*WifiApManager wifiApManager = */
+            new WifiApManager(context);
+            return true;
         } catch (NoSuchMethodException e) {
             return false;
         }
@@ -261,57 +257,54 @@ final class WifiApManager {
     @SuppressWarnings("RedundantArrayCreation")
     @SuppressLint("PrivateApi")
     static boolean canExploitWifiTethering30(Context context) {
-        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-        if (hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2) {
-            try {
-                WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                wifiManager.isWifiApEnabled();
-            } catch (Throwable e) {
-                return false;
-            }
-
-            MyOnStartTetheringCallback callback = new MyOnStartTetheringCallback();
-            Object myOnStartTetheringCallbackAbstractObj;
-            Class<?> myOnStartTetheringCallbackAbstractObjCls;// = null;
-            try {
-                myOnStartTetheringCallbackAbstractObj =
-                        new WifiTetheringCallbackMaker(context, callback)
-                                .getTtetheringCallback().getDeclaredConstructor(new Class[]{Integer.TYPE}).newInstance(new Object[]{0});
-            } catch (Exception e) {
-                myOnStartTetheringCallbackAbstractObj = null;
-            }
-            if (myOnStartTetheringCallbackAbstractObj == null)
-                return false;
-
-            ConnectivityManager connectivityManager = context.getApplicationContext().getSystemService(ConnectivityManager.class);
-            try {
-                myOnStartTetheringCallbackAbstractObjCls = Class.forName("android.net.ConnectivityManager$OnStartTetheringCallback");
-            } catch (Exception e2) {
-                return false;
-            }
-
-            try {
-                Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("startTethering",
-                        new Class[]{Integer.TYPE, Boolean.TYPE, myOnStartTetheringCallbackAbstractObjCls, Handler.class});
-                //noinspection ConstantConditions
-                if (declaredMethod == null) {
-                    return false;
-                }
-            } catch (Exception e) {
-                return false;
-            }
-
-            try {
-                Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("stopTethering", new Class[]{Integer.TYPE});
-                //noinspection ConstantConditions
-                if (declaredMethod == null) {
-                    return false;
-                }
-            } catch (Exception e) {
-                return false;
-            }
-        } else
+        try {
+            WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            wifiManager.isWifiApEnabled();
+        } catch (Throwable e) {
             return false;
+        }
+
+        MyOnStartTetheringCallback callback = new MyOnStartTetheringCallback();
+        Object myOnStartTetheringCallbackAbstractObj;
+        Class<?> myOnStartTetheringCallbackAbstractObjCls;// = null;
+        try {
+            myOnStartTetheringCallbackAbstractObj =
+                    new WifiTetheringCallbackMaker(context, callback)
+                            .getTtetheringCallback().getDeclaredConstructor(new Class[]{Integer.TYPE}).newInstance(new Object[]{0});
+        } catch (Exception e) {
+            myOnStartTetheringCallbackAbstractObj = null;
+        }
+        if (myOnStartTetheringCallbackAbstractObj == null)
+            return false;
+
+        ConnectivityManager connectivityManager = context.getApplicationContext().getSystemService(ConnectivityManager.class);
+        try {
+            myOnStartTetheringCallbackAbstractObjCls = Class.forName("android.net.ConnectivityManager$OnStartTetheringCallback");
+        } catch (Exception e2) {
+            return false;
+        }
+
+        try {
+            Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("startTethering",
+                    new Class[]{Integer.TYPE, Boolean.TYPE, myOnStartTetheringCallbackAbstractObjCls, Handler.class});
+            //noinspection ConstantConditions
+            if (declaredMethod == null) {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+
+        try {
+            Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("stopTethering", new Class[]{Integer.TYPE});
+            //noinspection ConstantConditions
+            if (declaredMethod == null) {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+
         return true;
     }
 

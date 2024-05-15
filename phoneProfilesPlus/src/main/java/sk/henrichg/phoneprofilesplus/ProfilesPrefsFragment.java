@@ -991,6 +991,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     getString(R.string.profile_preferences_volumeMuteSound_summary_2));
         }
 
+        preference = findPreference(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
+        if (preference != null) {
+            PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, preferences, true, context);
+            preference.setEnabled((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                    ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
+                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
+                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
+                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
+        }
+
         preference = findPreference(PREF_NOTIFICATION_LED_INFO);
         if (preference != null) {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, preferences, true, context);
@@ -6795,15 +6806,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         //if (Build.VERSION.SDK_INT < 30) {
             if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
-                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-                if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    boolean enabled = !sValue.equals(ON);
-                    PPListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI);
-                    if (preference != null) {
-                        if (!enabled)
+                PPListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI);
+                if (preference != null) {
+                    PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                    if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        int iValue = Integer.parseInt(sValue);
+                        if (iValue > 0)
                             preference.setValue(Profile.NO_CHANGE_VALUE_STR);
-                        preference.setEnabled(enabled);
-                    }
+                        preference.setEnabled(false);
+                    } else
+                        preference.setEnabled(true);
                 }
             }
         //}

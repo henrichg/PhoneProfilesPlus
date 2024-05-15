@@ -845,6 +845,16 @@ class PreferenceAllowed {
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                             }
+
+                            boolean sim0Exists;
+                            HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                            sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+
+                            if (!sim0Exists) {
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            }
+
                         } else if (RootUtils.isRooted(/*fromUIThread*/)) {
                             // device is rooted
 
@@ -883,6 +893,16 @@ class PreferenceAllowed {
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                             }
+
+                            boolean sim0Exists;
+                            HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                            sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+
+                            if (!sim0Exists) {
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            }
+
                         } else {
                             if ((profile != null) && (profile._deviceWiFiAP != 0)) {
                                 preferenceAllowed.notAllowedShizuku = true;
@@ -903,6 +923,15 @@ class PreferenceAllowed {
                         }
                         else
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+
+                        boolean sim0Exists;
+                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                        sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+
+                        if (!sim0Exists) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        }
                     }
                     else {
                         //if ((profile != null) && (profile._deviceWiFiAP != 0)) {
@@ -913,20 +942,29 @@ class PreferenceAllowed {
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                     }
                 } else {
-                    if (WifiApManager.canExploitWifiTethering30(appContext)) {
-                        if (profile != null) {
-                            if (profile._deviceWiFiAP != 0)
-                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                        } else
-                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                    }
-                    else {
-                        //if ((profile != null) && (profile._deviceWiFiAP != 0)) {
-                        //    preferenceAllowed.notAllowedRoot = true;
-                        //}
+                    // this must be called first, because WifiApManager.canExploitWifiTethering30(appContext) requires SIM inserted
+                    boolean sim0Exists;
+                    HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                    sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+
+                    if (!sim0Exists) {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                    } else {
+                        if (WifiApManager.canExploitWifiTethering30(appContext)) {
+                            if (profile != null) {
+                                if (profile._deviceWiFiAP != 0)
+                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else {
+                            //if ((profile != null) && (profile._deviceWiFiAP != 0)) {
+                            //    preferenceAllowed.notAllowedRoot = true;
+                            //}
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                        }
                     }
                 }
             } else {
@@ -2118,6 +2156,16 @@ class PreferenceAllowed {
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                     }
+
+                    boolean sim0Exists;
+                    HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                    sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+
+                    if (!sim0Exists) {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                    }
+
                 } else
                 if (RootUtils.isRooted(/*fromUIThread*/)) {
                     // device is rooted
@@ -2161,6 +2209,16 @@ class PreferenceAllowed {
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                     }
+
+                    boolean sim0Exists;
+                    HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                    sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+
+                    if (!sim0Exists) {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                    }
+
                 } else {
                     if ((profile != null) && (!profile._deviceDefaultSIMCards.equals("0|0|0"))) {
                         preferenceAllowed.notAllowedShizuku = true;
