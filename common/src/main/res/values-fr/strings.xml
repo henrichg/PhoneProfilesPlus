@@ -239,8 +239,8 @@
     <string name="event_preferences_delayStart">Délai</string>
     <string name="profile_preferences_duration">Durée</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Rien</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Désactiver le profil</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Activer le profil par défaut</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">Désactiver le profil</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Activer le profil par défaut</string>
     <string name="phone_profiles_pref_applicationGridLayout">Présentation grille</string>
     <string name="menu_help">Aide</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Allumer l\'écran</string>
@@ -264,9 +264,9 @@
     <string name="event_name_background_profile">Profil par défaut</string>
     <string name="array_pref_zenModeArray_priority">Prioritaire</string>
     <string name="preference_profile_adaptiveBrightness">Adaptatif</string>
-    <string name="profile_preferences_deviceKeyguard">Écran de verrouillage</string>
+    <string name="profile_preferences_deviceKeyguard">Unlock device</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Cacher le nom du profil</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Redémarrer les événements</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">Redémarrer les événements</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Non connecté</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Éloigné (hors de la zone de balayage)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Non Connecté</string>
@@ -1631,7 +1631,7 @@
     <string name="permissions_for_wallpaper_folder_text1">La sélection du dossier pour un fond d\'écran aléatoire nécessite certaines autorisations.</string>
     <string name="permissions_for_wallpaper_folder_text2">S\'il vous plaît validez-les dans la boîte de dialogue suivante. Vous pouvez ensuite sélectionner un dossier pour le fond d\'écran aléatoire dans le sélecteur de dossier.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Dossier des images</string>
-    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Activer le profil spécifique, puis redémarrer les événements</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">Activer le profil spécifique, puis redémarrer les événements</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Événements en cours désactivés</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Événements en cours sactivés</string>
     <string name="icon_widget_description">Affiche l\'icône du profil activée.</string>
@@ -2026,11 +2026,6 @@
     <string name="preference_profile_generate_notification_replace_with_ppp_icon">remplacer par l\'icône PhoneProfilesPlus</string>
     <string name="notification_channel_donation_description">Affiche une notification demandant un don monétaire à l\'auteur.</string>
     <string name="shortcut_to_editor_created_toast">Raccourci vers l\'éditeur créé</string>
-    <string name="install_pppps_text6">Pour Android 14+, il n\'est pas possible d\'installer PPPPutSettings directement sur l\'appareil.</string>
-    <string name="install_pppps_text7">Cliquez sur le bouton</string>
-    <string name="install_pppps_text7a">pour afficher une page web sur comment installer PPPPutSettings à partir d\'un ordinateur.</string>
-    <string name="install_pppps_text8">Il est préférable d\'ouvrir \"Comment installer\" sur un ordinateur. Le lien se trouve dans le README.md du GitHub de PPPPutSettings, marqué comme</string>
-    <string name="install_pppps_alert_button_how_to_install">Comment installer</string>
     <string name="privacy_policy_web_browser_chooser">Voir la politique de confidentialité de PhoneProfilesPlus en utilisant</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">Plus compact</string>
     <string name="altype_timezone_changed">fuseau horaire modifié</string>
@@ -2179,4 +2174,14 @@
     <string name="event_preferences_music_state">Music state</string>
     <string name="array_event_pref_music_state_playing">Music is playing</string>
     <string name="array_event_pref_music_state_not_playing">Music is not playing</string>
+    <string name="install_pppps_text10">Pour Android 14+, il n\'est pas possible d\'installer PPPPutSettings directement sur l\'appareil.</string>
+    <string name="install_pppps_text11">Mais la solution existe. Cela nécessite InstallWithOptions et Shizuku (si l\'appareil n\'est pas rooté).</string>
+    <string name="install_pppps_text12">Comment faire :</string>
+    <string name="install_pppps_text13">1. Installez et démarrez Shizuku (si l\'appareil n\'est pas rooté). Comme ça :</string>
+    <string name="install_pppps_text14">2. Installer InstallWithOptions :</string>
+    <string name="install_pppps_text15">3. Téléchargez PPPPutSettings :</string>
+    <string name="install_pppps_text16">4. Dans InstallWithOptions activez :« Contourner le bloc SDK de cible basse », « Remplacer existant ».</string>
+    <string name="install_pppps_text17">5. Dans InstallWithoptions, utilisez le bouton « Choisir un fichier », fichier : PPPPutSettings.apk téléchargé.</string>
+    <string name="install_pppps_text18">6. Dans InstallWithoptions, utilisez le bouton « Installer ».</string>
+    <string name="profile_preferences_deviceImageWallpaperLockscreen">Image wallpaper for lock screen</string>
 </resources>

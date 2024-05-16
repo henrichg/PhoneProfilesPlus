@@ -26,22 +26,7 @@
     <orderEntry type="module" module-name="PhoneProfilesPlus.RootShell.main" scope="TEST" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.appcompat:appcompat:1.6.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.activity:activity:1.6.0@aar" level="project" />
-    <orderEntry type="module-library" scope="TEST">
-      <library name="Gradle: androidx.core:core:1.9.0@aar">
-        <ANNOTATIONS>
-          <root url="jar://$USER_HOME$/.gradle/caches/transforms-4/766f3bb77a9602d5b18720e866ffb26d/transformed/core-1.9.0/annotations.zip!/" />
-        </ANNOTATIONS>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/caches/transforms-4/766f3bb77a9602d5b18720e866ffb26d/transformed/core-1.9.0/jars/classes.jar!/" />
-          <root url="file://$USER_HOME$/.gradle/caches/transforms-4/766f3bb77a9602d5b18720e866ffb26d/transformed/core-1.9.0/res" />
-          <root url="file://$USER_HOME$/.gradle/caches/transforms-4/766f3bb77a9602d5b18720e866ffb26d/transformed/core-1.9.0/AndroidManifest.xml" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.core/core/1.9.0/a272ed8ec68c43f8c049a8e77b4f662cc4290fa2/core-1.9.0-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.core:core:1.9.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.annotation:annotation-experimental:1.3.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-runtime:2.5.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.versionedparcelable:versionedparcelable:1.1.1@aar" level="project" />
@@ -61,18 +46,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.viewpager:viewpager:1.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.loader:loader:1.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-livedata:2.0.0@aar" level="project" />
-    <orderEntry type="module-library" scope="TEST">
-      <library name="Gradle: androidx.arch.core:core-runtime:2.1.0@aar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/caches/transforms-4/294dc1bcba334c29777640fa0e567313/transformed/core-runtime-2.1.0/jars/classes.jar!/" />
-          <root url="file://$USER_HOME$/.gradle/caches/transforms-4/294dc1bcba334c29777640fa0e567313/transformed/core-runtime-2.1.0/AndroidManifest.xml" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.arch.core/core-runtime/2.1.0/f19886651c9946b39f83d8c184fd0e2ce9f43c16/core-runtime-2.1.0-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.arch.core:core-runtime:2.1.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.annotation:annotation:1.3.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.7.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.7.10" level="project" />

@@ -189,6 +189,7 @@ class DataWrapperStatic {
         );
     }
 
+    /** @noinspection SameParameterValue*/
     // returns true if:
     // 1. events are blocked = any profile is activated manually
     // 2. no any forceRun event is running

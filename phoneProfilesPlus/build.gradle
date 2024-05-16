@@ -100,7 +100,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$ppVersions.recyclerView"
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'androidx.viewpager2:viewpager2:1.1.0'
 
     /// for get dominant color from profile icons
     implementation 'androidx.palette:palette:1.0.0'

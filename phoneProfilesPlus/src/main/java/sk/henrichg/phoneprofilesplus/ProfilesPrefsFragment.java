@@ -6688,7 +6688,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         String sValue = value.toString();
 
-        final String ON = "1";
+        //final String ON = "1";
 
         boolean enabledMuteSound = preferences.getBoolean(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, false);
         if (key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND) ||

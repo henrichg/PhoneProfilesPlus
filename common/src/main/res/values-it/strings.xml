@@ -240,7 +240,7 @@
     <string name="profile_preferences_duration">Durata</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Niente</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">Annulla il profilo</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Attiva il profilo predefinito</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Attiva il profilo predefinito</string>
     <string name="phone_profiles_pref_applicationGridLayout">Layout di griglia</string>
     <string name="menu_help">Guida</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Schermo acceso</string>
@@ -264,9 +264,9 @@
     <string name="event_name_background_profile">Profilo predefinito</string>
     <string name="array_pref_zenModeArray_priority">Priorità</string>
     <string name="preference_profile_adaptiveBrightness">Adattiva</string>
-    <string name="profile_preferences_deviceKeyguard">Schermata di blocco</string>
+    <string name="profile_preferences_deviceKeyguard">Unlock device</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Nascondi il nome del profilo</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Riavvia gli eventi</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">Riavvia gli eventi</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Non collegato</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Non nelle vicinanze (non entro il raggio di scansione)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Non collegato</string>
@@ -1631,7 +1631,7 @@
     <string name="permissions_for_wallpaper_folder_text1">La selezione della cartella per uno sfondo casuale richiede alcune autorizzazioni.</string>
     <string name="permissions_for_wallpaper_folder_text2">Si prega di concederli nella finestra successiva. Potrete selezionare la cartella per lo sfondo casuale dal selettore delle cartelle.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Cartella delle immagini</string>
-    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Attiva un profilo specifico, quindi riavvia gli eventi</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">Attiva un profilo specifico, quindi riavvia gli eventi</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Eventi eseguiti disabilitati</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Eventi eseguiti abilitati</string>
     <string name="icon_widget_description">Visualizza l\'icona del profilo attivata.</string>
@@ -2026,11 +2026,6 @@
     <string name="preference_profile_generate_notification_replace_with_ppp_icon">replace with PhoneProfilesPlus icon</string>
     <string name="notification_channel_donation_description">Shows notification asking for a monetary donation to the author.</string>
     <string name="shortcut_to_editor_created_toast">Shortcut to Editor created</string>
-    <string name="install_pppps_text6">Per Android 14+, non è possibile installare PPPPutSettings direttamente sul dispositivo.</string>
-    <string name="install_pppps_text7">Clicca il pulsante</string>
-    <string name="install_pppps_text7a">for a website view on how to install PPPPutSettings from a computer.</string>
-    <string name="install_pppps_text8">È meglio aprire \"Come installare\" sul computer, sul browser di Internet. Si trova nel README.md di GitHub di PPPPutSettings, contrassegnato come</string>
-    <string name="install_pppps_alert_button_how_to_install">Come installare</string>
     <string name="privacy_policy_web_browser_chooser">Visualizza la Politica sulla Privacy di PhoneProfilesPlus utilizzando</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">Più Compatto</string>
     <string name="altype_timezone_changed">fuso orario modificato</string>
@@ -2179,4 +2174,14 @@
     <string name="event_preferences_music_state">Music state</string>
     <string name="array_event_pref_music_state_playing">Music is playing</string>
     <string name="array_event_pref_music_state_not_playing">Music is not playing</string>
+    <string name="install_pppps_text10">For Android 14+ is not normally possible to install PPPPutSettings directly on the device.</string>
+    <string name="install_pppps_text11">But exists solution. This requires InstallWithOptions and Shizuku (if device is not rooted).</string>
+    <string name="install_pppps_text12">How to proceed:</string>
+    <string name="install_pppps_text13">1. Install and start Shizuku (if device is not rooted). How, is in:</string>
+    <string name="install_pppps_text14">2. Install InstallWithOptions:</string>
+    <string name="install_pppps_text15">3. Download PPPPutSettings:</string>
+    <string name="install_pppps_text16">4. In InstallWithOptions enable: \"Bypass Low Target SDK Block\", \"Replace existing\".</string>
+    <string name="install_pppps_text17">5. In InstallWithOptions use \"Choose file\" button, file: downloaded PPPPutSettings.apk.</string>
+    <string name="install_pppps_text18">6. In InstallWithOptions use \"Install\" button.</string>
+    <string name="profile_preferences_deviceImageWallpaperLockscreen">Image wallpaper for lock screen</string>
 </resources>

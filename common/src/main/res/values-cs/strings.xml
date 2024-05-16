@@ -239,8 +239,8 @@
     <string name="event_preferences_delayStart">Pozdržení</string>
     <string name="profile_preferences_duration">Trvání</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Nic</string>
-    <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Vrať zpět profil</string>
-    <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Aktivuj předvolený profil</string>
+    <string name="array_pref_afterProfileDurationDo_undoProfile">Vrať zpět profil</string>
+    <string name="array_pref_afterProfileDurationDo_backgroundProfile">Aktivuj předvolený profil</string>
     <string name="phone_profiles_pref_applicationGridLayout">Mřížkové rozložení</string>
     <string name="menu_help">Pomoc</string>
     <string name="array_event_pref_eventScreenEventType_screenOn">Zapnutí obrazovky</string>
@@ -264,9 +264,9 @@
     <string name="event_name_background_profile">Předvolený profil</string>
     <string name="array_pref_zenModeArray_priority">Prioritní</string>
     <string name="preference_profile_adaptiveBrightness">Adaptivní</string>
-    <string name="profile_preferences_deviceKeyguard">Zámek obrazovky</string>
+    <string name="profile_preferences_deviceKeyguard">Odemknutí zařízení</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Skrýt název profilu</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Restartuj události</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">Restartuj události</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Nepřipojeno</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Není v blízkosti (není v rozsahu skenování)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Nepřipojeno</string>
@@ -1631,7 +1631,7 @@
     <string name="permissions_for_wallpaper_folder_text1">Výběr složky pro náhodnou tapetu vyžaduje určité povolení.</string>
     <string name="permissions_for_wallpaper_folder_text2">Prosím, povolte je v následujícím dialogovém okně. Pak si můžete vybrat složku pro náhodné tapety z výběru složky.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Složka s obrázky</string>
-    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Aktivuj specifický profil a potom restartuj události</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">Aktivuj specifický profil a potom restartuj události</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Běh událostí zakázán</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Běh událostí povolen</string>
     <string name="icon_widget_description">Zobrazí ikonu aktivovaného profilu.</string>
@@ -2026,11 +2026,6 @@
     <string name="preference_profile_generate_notification_replace_with_ppp_icon">nahradit PhoneProfilesPlus ikonou</string>
     <string name="notification_channel_donation_description">Zobrazuje notifikaci se žádostí o peněžní dar pro autora.</string>
     <string name="shortcut_to_editor_created_toast">Odkaz na Editor byl vytvořen</string>
-    <string name="install_pppps_text6">Pro Android 14+ nelze nainstalovat PPPPutSettings přímo v zařízení.</string>
-    <string name="install_pppps_text7">Klepněte na tlačítko</string>
-    <string name="install_pppps_text7a">pro zobrazení webové stránky o tom, jak nainstalovat PPPPutSettings z počítače.</string>
-    <string name="install_pppps_text8">Je lepší otevřít \"Jak nainstalovat\" v počítači v jeho internetovém prohlížeči. Nachází se v PPPPutSettings GitHub README.md, označený jako</string>
-    <string name="install_pppps_alert_button_how_to_install">Jak nainstalovat</string>
     <string name="privacy_policy_web_browser_chooser">Zobrazit zásady ochrany osobních údajů PhoneProfilesPlus pomocí</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">Více kompaktní</string>
     <string name="altype_timezone_changed">časové pásmo změněno</string>
@@ -2179,4 +2174,14 @@
     <string name="event_preferences_music_state">Stav hudby</string>
     <string name="array_event_pref_music_state_playing">Hudba se přehrává</string>
     <string name="array_event_pref_music_state_not_playing">Hudba se nepřehrává</string>
+    <string name="install_pppps_text10">Pro Android 14+ není normálně možné nainstalovat PPPPutSettings přímo v zařízení.</string>
+    <string name="install_pppps_text11">Ale existuje řešení. Vyžaduje to InstallWithOptions a Shizuku (pokud zařízení není rootováno).</string>
+    <string name="install_pppps_text12">Jak postupovat:</string>
+    <string name="install_pppps_text13">1. Nainstalujte a spusťte Shizuku (pokud zařízení není rootováno). Jak, je v:</string>
+    <string name="install_pppps_text14">2. Nainstalujte InstallWithOptions:</string>
+    <string name="install_pppps_text15">3. Stáhněte PPPPutSettings:</string>
+    <string name="install_pppps_text16">4. V InstallWithOptions povolte: \"Bypass Low Target SDK Block\", \"Replace existing\".</string>
+    <string name="install_pppps_text17">5. V InstallWithOptions použijte tlačítko \"Choose file\", soubor: stažený PPPPutSettings.apk.</string>
+    <string name="install_pppps_text18">6. V InstallWithOptions použijte tlačítko \"Install\".</string>
+    <string name="profile_preferences_deviceImageWallpaperLockscreen">Tapeta obrázku pro zamykací obrazovku</string>
 </resources>
