@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.util.Log;
 
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -347,16 +348,19 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 //                if (DataWrapperStatic.getIsManualProfileActivation(true, appContext) ||
 //                        (!EventStatic.getGlobalEventsRunning(appContext)) ||
 //                        (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
-                    long _activatedProfileId = dataWrapper.getActivatedProfileId();
+//                    long _activatedProfileId = dataWrapper.getActivatedProfileId();
 
                     removeAlarm(profile, appContext);
 //                    PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileDurationAlarmBroadcastReceiver._doWork", "call of updateGUI");
                     PPApplication.updateGUI(true, false, appContext);
 
+                    /* it doesn't matter what profile the alarm is for
                     if ((_activatedProfileId != -1) &&
                             (_activatedProfileId == profile._id) &&
                             (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING)) {
                         // alarm is from activated profile
+                    */
+                    if (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) {
 
                         if (!profile._durationNotificationSound.isEmpty() || profile._durationNotificationVibrate) {
                             PlayRingingNotification.playNotificationSound(
@@ -386,15 +390,13 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     "");
                         }
                         if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_UNDO_PROFILE) {
-                            // TODO undo is allowed only for manual activation,
-                            //  for this is used Fifo.
-                            //  I must check, how this fifo working.
-                            if (DataWrapperStatic.getIsManualProfileActivation(true, appContext) ||
-                               (!EventStatic.getGlobalEventsRunning(appContext))) {
-                                doActivateProfile = true;
+                            //if (DataWrapperStatic.getIsManualProfileActivation(true, appContext) ||
+                            //   (!EventStatic.getGlobalEventsRunning(appContext))) {
+                                //doActivateProfile = true;
 
                                 //activateProfileId = ApplicationPreferences.prefActivatedProfileForDuration;
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] ProfileDurationAlarmBroadcastReceiver._doWork", "PPApplication.profileActivationMutex");
+                                /*
                                 synchronized (PPApplication.profileActivationMutex) {
                                     List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                     int size = activateProfilesFIFO.size();
@@ -416,15 +418,58 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     if (activateProfileId == _activatedProfileId)
                                         activateProfileId = 0;
                                 }
+                                */
 
-                                int logType = PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE;
-                                if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
-                                    logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE;
-                                PPApplicationStatic.addActivityLog(appContext, logType,
-                                        null,
-                                        DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
-                                        "");
-                            }
+                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "UNDO start");
+                                synchronized (PPApplication.profileActivationMutex) {
+                                    List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
+                                    int size = activateProfilesFIFO.size();
+                                    Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "size (1)="+size);
+                                    for (String item : activateProfilesFIFO) {
+                                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "item="+item);
+                                    }
+                                    if (size > 0) {
+                                        // get profile which will be undoed
+                                        int index = size - 2;
+                                        if (index >= 0) {
+                                            String fromFifo = activateProfilesFIFO.get(index);
+                                            String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
+                                            activateProfileId = Long.parseLong(splits[0]);
+                                        } else
+                                            activateProfileId = 0;
+                                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "activateProfileId="+activateProfileId);
+                                    } else
+                                        activateProfileId = 0;
+                                }
+
+                                // undo only to profile which is not the same as profile for which alarm
+                                // is executed, to avoid infinite loop
+                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "profileId="+profileId);
+                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "profile="+profile._name);
+                                doActivateProfile = (profileId != activateProfileId);
+                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "doActivateProfile="+doActivateProfile);
+
+                                if (doActivateProfile) {
+                                    // remove from FIFO last activated profile
+                                    synchronized (PPApplication.profileActivationMutex) {
+                                        List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
+                                        int size = activateProfilesFIFO.size();
+                                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "size (2)="+size);
+                                        if (size > 0) {
+                                            activateProfilesFIFO.remove(size - 1);
+                                            dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
+                                        }
+                                    }
+
+                                    int logType = PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE;
+                                    if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
+                                        logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE;
+                                    PPApplicationStatic.addActivityLog(appContext, logType,
+                                            null,
+                                            DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
+                                            "");
+                                }
+                            //}
                         }
                         if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE) {
                             doActivateProfile = true;

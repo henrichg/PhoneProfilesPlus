@@ -10,6 +10,7 @@ import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SwitchCompat;
@@ -456,6 +457,7 @@ class DataWrapper {
     {
         if (event_id != 0) {
             // save before activated profile into FIFO
+            Log.e("DataWrapper.activateProfileFromEvent", "dataWrapper.fifoAddProfile()");
             long activatedProfileId = getActivatedProfileIdFromDB();
             if (activatedProfileId != -1)
                 fifoAddProfile(activatedProfileId, event_id);
@@ -1524,6 +1526,8 @@ class DataWrapper {
         boolean canRestart =
             (!forRestartEvents) ||
             manualRestart ||
+            (startupSource == PPApplication.STARTUP_SOURCE_FOR_FIRST_START) ||
+            (startupSource == PPApplication.STARTUP_SOURCE_EVENT) ||
             (startupSource == PPApplication.STARTUP_SOURCE_NOTIFICATION) ||
             (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
             (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
@@ -1559,32 +1563,31 @@ class DataWrapper {
                 }
             }
 
-//            Log.e("DataWrapper._activateProfile", "profileDuration (1)="+profileDuration);
+            Log.e("DataWrapper._activateProfile", "profileDuration (1)=" + profileDuration);
 
             if (startupSource == PPApplication.STARTUP_SOURCE_EVENT) {
-                // enabled is duration also for activation from event
-                if (!_profile._askForDuration)
-                    profileDuration = true;
-                else
+                // _askForDuration is not allowed for events
+                if (_profile._askForDuration)
                     profileDuration = false;
             }
             if (startupSource == PPApplication.STARTUP_SOURCE_FOR_FIRST_START) {
                 // for first start do not allow undo profile or restart events
                 if ((!_profile._askForDuration) &&
-                        ((_profile._afterDurationDo != Profile.AFTER_DURATION_DO_RESTART_EVENTS) &&
-                       /*(_profile._afterDurationDo != Profile.AFTER_DURATION_DO_UNDO_PROFILE) &&*/
-                         (_profile._afterDurationDo != Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS)))
+                    ((_profile._afterDurationDo != Profile.AFTER_DURATION_DO_RESTART_EVENTS) &&
+                   /*(_profile._afterDurationDo != Profile.AFTER_DURATION_DO_UNDO_PROFILE) &&*/
+                     (_profile._afterDurationDo != Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS)))
                     profileDuration = true;
                 else
                     profileDuration = false;
             }
 
-//            Log.e("DataWrapper._activateProfile", "profileDuration (2)="+profileDuration);
+            Log.e("DataWrapper._activateProfile", "profileDuration (2)=" + profileDuration);
 
             if (profileDuration) {
                 // activation with duration
 
                 if (startupSource != PPApplication.STARTUP_SOURCE_EVENT_MANUAL) {
+                    Log.e("DataWrapper._activateProfile", "dataWrapper.fifoAddProfile() (profileDuration)");
                     long profileId = _profile._id;
                     fifoAddProfile(profileId, 0);
                 }
@@ -1928,6 +1931,7 @@ class DataWrapper {
 
 //            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.activateProfile", "PPApplication.profileActivationMutex");
             synchronized (PPApplication.profileActivationMutex) {
+                Log.e("DataWrapper.activateProfile", "clear fifo");
                 List<String> activateProfilesFIFO = new ArrayList<>();
                 fifoSaveProfiles(activateProfilesFIFO);
             }
@@ -2989,9 +2993,25 @@ class DataWrapper {
                 activateProfilesFIFO.remove(0);
                 size--;
             }
-            String toFifo = profileId + "|" + eventId;
-            if ((size == 0) || (!activateProfilesFIFO.get(size - 1).equals(toFifo)))
+            if (size == 0) {
+                // empty FIFO, add profile
+                String toFifo = profileId + "|" + eventId;
                 activateProfilesFIFO.add(toFifo);
+            } else {
+                String fromFifo = activateProfilesFIFO.get(size - 1);
+                String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
+                if (splits[0].equals(String.valueOf(profileId))) {
+                    // profile is already at end of FIFO
+                    if (eventId != 0) {
+                        // replace profile, must be with eventId
+                        activateProfilesFIFO.set(size - 1, profileId + "|" + eventId);
+                    }
+                } else {
+                    // profile is not at end of FIFO, add it
+                    String toFifo = profileId + "|" + eventId;
+                    activateProfilesFIFO.add(toFifo);
+                }
+            }
             fifoSaveProfiles(activateProfilesFIFO);
         }
     }
