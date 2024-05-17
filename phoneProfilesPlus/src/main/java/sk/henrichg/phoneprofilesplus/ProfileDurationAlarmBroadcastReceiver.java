@@ -420,13 +420,13 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 }
                                 */
 
-                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "UNDO start");
+//                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "UNDO start");
                                 synchronized (PPApplication.profileActivationMutex) {
                                     List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                     int size = activateProfilesFIFO.size();
-                                    Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "size (1)="+size);
+//                                    Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "size (1)="+size);
                                     for (String item : activateProfilesFIFO) {
-                                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "item="+item);
+//                                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "item="+item);
                                     }
                                     if (size > 0) {
                                         // get profile which will be undoed
@@ -437,24 +437,24 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                             activateProfileId = Long.parseLong(splits[0]);
                                         } else
                                             activateProfileId = 0;
-                                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "activateProfileId="+activateProfileId);
+//                                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "activateProfileId="+activateProfileId);
                                     } else
                                         activateProfileId = 0;
                                 }
 
                                 // undo only to profile which is not the same as profile for which alarm
                                 // is executed, to avoid infinite loop
-                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "profileId="+profileId);
-                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "profile="+profile._name);
+//                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "profileId="+profileId);
+//                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "profile="+profile._name);
                                 doActivateProfile = (profileId != activateProfileId);
-                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "doActivateProfile="+doActivateProfile);
+//                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "doActivateProfile="+doActivateProfile);
 
                                 if (doActivateProfile) {
                                     // remove from FIFO last activated profile
                                     synchronized (PPApplication.profileActivationMutex) {
                                         List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                         int size = activateProfilesFIFO.size();
-                                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "size (2)="+size);
+//                                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "size (2)="+size);
                                         if (size > 0) {
                                             activateProfilesFIFO.remove(size - 1);
                                             dataWrapper.fifoSaveProfiles(activateProfilesFIFO);

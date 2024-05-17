@@ -457,7 +457,7 @@ class DataWrapper {
     {
         if (event_id != 0) {
             // save before activated profile into FIFO
-            Log.e("DataWrapper.activateProfileFromEvent", "dataWrapper.fifoAddProfile()");
+//            Log.e("DataWrapper.activateProfileFromEvent", "dataWrapper.fifoAddProfile()");
             long activatedProfileId = getActivatedProfileIdFromDB();
             if (activatedProfileId != -1)
                 fifoAddProfile(activatedProfileId, event_id);
@@ -1563,7 +1563,7 @@ class DataWrapper {
                 }
             }
 
-            Log.e("DataWrapper._activateProfile", "profileDuration (1)=" + profileDuration);
+//            Log.e("DataWrapper._activateProfile", "profileDuration (1)=" + profileDuration);
 
             if (startupSource == PPApplication.STARTUP_SOURCE_EVENT) {
                 // _askForDuration is not allowed for events
@@ -1581,13 +1581,13 @@ class DataWrapper {
                     profileDuration = false;
             }
 
-            Log.e("DataWrapper._activateProfile", "profileDuration (2)=" + profileDuration);
+//            Log.e("DataWrapper._activateProfile", "profileDuration (2)=" + profileDuration);
 
             if (profileDuration) {
                 // activation with duration
 
                 if (startupSource != PPApplication.STARTUP_SOURCE_EVENT_MANUAL) {
-                    Log.e("DataWrapper._activateProfile", "dataWrapper.fifoAddProfile() (profileDuration)");
+//                    Log.e("DataWrapper._activateProfile", "dataWrapper.fifoAddProfile() (profileDuration)");
                     long profileId = _profile._id;
                     fifoAddProfile(profileId, 0);
                 }
@@ -1667,7 +1667,7 @@ class DataWrapper {
                         if (granted) {
                             dataWrapper._activateProfile(profile, merged, startupSource, false, false);
                             if (interactive) {
-                                Log.e("DataWrapper.activateProfileFromMainThread", "dataWrapper.fifoAddProfile()");
+//                                Log.e("DataWrapper.activateProfileFromMainThread", "dataWrapper.fifoAddProfile()");
                                 long activatedProfileId = profile._id;
                                 if (activatedProfileId != -1)
                                     fifoAddProfile(activatedProfileId, 0);
@@ -1936,7 +1936,7 @@ class DataWrapper {
 
 //            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.activateProfile", "PPApplication.profileActivationMutex");
             synchronized (PPApplication.profileActivationMutex) {
-                Log.e("DataWrapper.activateProfile", "clear fifo");
+//                Log.e("DataWrapper.activateProfile", "clear fifo");
                 List<String> activateProfilesFIFO = new ArrayList<>();
                 fifoSaveProfiles(activateProfilesFIFO);
             }
@@ -2039,7 +2039,7 @@ class DataWrapper {
             //        startupSource, true,true, false)) {
             if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context)) {
                 synchronized (PPApplication.profileActivationMutex) {
-                    Log.e("DataWrapper.activateProfile", "clear fifo");
+//                    Log.e("DataWrapper.activateProfile", "clear fifo");
                     List<String> activateProfilesFIFO = new ArrayList<>();
                     fifoSaveProfiles(activateProfilesFIFO);
                 }

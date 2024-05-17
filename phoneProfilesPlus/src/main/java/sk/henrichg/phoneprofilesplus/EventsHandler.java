@@ -533,7 +533,7 @@ class EventsHandler {
 
 //                PPApplicationStatic.logE("[SYNCHRONIZED] EventsHandler.handleEvents", "PPApplication.profileActivationMutex");
                 synchronized (PPApplication.profileActivationMutex) {
-                    Log.e("EventsHandler.handleEvents", "clear fifo");
+//                    Log.e("EventsHandler.handleEvents", "clear fifo");
                     List<String> activateProfilesFIFO = new ArrayList<>();
                     dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
                 }
@@ -720,7 +720,7 @@ class EventsHandler {
                                 defaultProfileActivated = true;
                                 mergedProfilesCount++;
 
-                                Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (1)");
+//                                Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (1)");
                                 dataWrapper.fifoAddProfile(defaultProfileId, 0);
                             }
 
@@ -738,7 +738,7 @@ class EventsHandler {
 
                         } else {
                             if (PPApplication.prefLastActivatedProfile != 0) {
-                                Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (2)");
+//                                Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (2)");
                                 dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
                             }
                         }
@@ -758,7 +758,7 @@ class EventsHandler {
                         mergedProfile.mergeProfiles(semiOldActivatedProfileId, dataWrapper/*, false*/);
                         //mergedProfilesCount++;
 
-                        Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (3)");
+//                        Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (3)");
                         dataWrapper.fifoAddProfile(semiOldActivatedProfileId, 0);
                     } else {
                         // not any profile activated
@@ -773,11 +773,11 @@ class EventsHandler {
                             defaultProfileActivated = true;
                             mergedProfilesCount++;
 
-                            Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (4)");
+//                            Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (4)");
                             dataWrapper.fifoAddProfile(defaultProfileId, 0);
                         } else {
                             if (PPApplication.prefLastActivatedProfile != 0) {
-                                Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (5)");
+//                                Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (5)");
                                 dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
                             }
                         }

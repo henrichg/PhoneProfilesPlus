@@ -1974,7 +1974,7 @@ class Event {
                         dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents, manualRestart);
                         mergedProfile._id = 0;
                     } else {
-                        Log.e("Event.startEvent", "dataWrapper.fifoAddProfile()");
+//                        Log.e("Event.startEvent", "dataWrapper.fifoAddProfile()");
                         long profileId = _fkProfileStart;
                         dataWrapper.fifoAddProfile(profileId, _id);
                     }
@@ -2061,7 +2061,7 @@ class Event {
                         {
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] Event.doActivateEndProfile", "(1) PPApplication.profileActivationMutex");
                             synchronized (PPApplication.profileActivationMutex) {
-                                Log.e("Event.doActivateEndProfile", "dataWrapper.fifoGetActivatedProfiles() (1)");
+//                                Log.e("Event.doActivateEndProfile", "dataWrapper.fifoGetActivatedProfiles() (1)");
                                 List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();
                                 int size = activateProfilesFIFO.size();
@@ -2124,7 +2124,7 @@ class Event {
                         } else {
                             long profileId = _fkProfileEnd;
 
-                            Log.e("Event.doActivateEndProfile", "dataWrapper.fifoAddProfile()");
+//                            Log.e("Event.doActivateEndProfile", "dataWrapper.fifoAddProfile()");
                             dataWrapper.fifoAddProfile(profileId, _id);
                         }
                     }
@@ -2157,7 +2157,7 @@ class Event {
                         {
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] Event.doActivateEndProfile", "(2) PPApplication.profileActivationMutex");
                             synchronized (PPApplication.profileActivationMutex) {
-                                Log.e("Event.doActivateEndProfile", "dataWrapper.fifoGetActivatedProfiles() (2)");
+//                                Log.e("Event.doActivateEndProfile", "dataWrapper.fifoGetActivatedProfiles() (2)");
                                 List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();
                                 int size = activateProfilesFIFO.size();
