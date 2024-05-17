@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 import android.os.SystemClock;
-import android.util.Log;
 
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -425,9 +424,9 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                     int size = activateProfilesFIFO.size();
 //                                    Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "size (1)="+size);
-                                    for (String item : activateProfilesFIFO) {
+//                                    for (String item : activateProfilesFIFO) {
 //                                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "item="+item);
-                                    }
+//                                    }
                                     if (size > 0) {
                                         // get profile which will be undoed
                                         int index = size - 2;

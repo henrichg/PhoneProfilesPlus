@@ -10,7 +10,6 @@ import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SwitchCompat;
