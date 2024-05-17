@@ -828,6 +828,9 @@ class EventsHandler {
                             DataWrapperStatic.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
                             mergedProfilesCount + StringConstants.CHAR_HARD_SPACE +"["+StringConstants.CHAR_HARD_SPACE + usedEventsCount + StringConstants.CHAR_HARD_SPACE + "]");
 
+                    // do not save profile to fifo
+                    // profile is alrady added by Event.startEvent(), Event.doActivateEndProfile()
+                    // or added in this method (default profile, semi activate profile, ...)
                     dataWrapper.activateProfileFromEvent(0, mergedProfile._id, false, true, isRestart, manualRestart);
                     // wait for profile activation
                     //doSleep = true;

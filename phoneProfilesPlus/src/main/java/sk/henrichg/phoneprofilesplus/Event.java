@@ -2106,6 +2106,7 @@ class Event {
                             //if (eventTimeline._fkProfileEndActivated != 0)
                             if (activateProfile != 0) {
                                 // do not save to fifo profile with event for Undo
+                                // profile is alrady in FIFO
                                 dataWrapper.activateProfileFromEvent(0, activateProfile, false, false, forRestartEvents, manualRestart);
                                 profileActivated = true;
                             }
@@ -2203,6 +2204,7 @@ class Event {
                             if (_manualProfileActivationAtEnd) {
                                 DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
                                 // do not save to fifo profile with event for Undo
+                                // profile is alrady in FIFO
                                 dataWrapper.activateProfileFromEvent(0, mergedProfile._id, true, true, forRestartEvents, manualRestart);
                                 mergedProfile._id = 0;
                             }

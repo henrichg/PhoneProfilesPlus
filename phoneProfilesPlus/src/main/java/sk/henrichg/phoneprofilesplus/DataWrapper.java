@@ -1667,6 +1667,11 @@ class DataWrapper {
                         if (granted) {
                             dataWrapper._activateProfile(profile, merged, startupSource, false, false);
                             if (interactive) {
+                                Log.e("DataWrapper.activateProfileFromMainThread", "dataWrapper.fifoAddProfile()");
+                                long activatedProfileId = profile._id;
+                                if (activatedProfileId != -1)
+                                    fifoAddProfile(activatedProfileId, 0);
+
                                 DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(profile);
                                 DataWrapperStatic.setDynamicLauncherShortcuts(context);
                             }
@@ -2033,6 +2038,12 @@ class DataWrapper {
             //        /*false, monochrome, monochromeValue,*/
             //        startupSource, true,true, false)) {
             if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context)) {
+                synchronized (PPApplication.profileActivationMutex) {
+                    Log.e("DataWrapper.activateProfile", "clear fifo");
+                    List<String> activateProfilesFIFO = new ArrayList<>();
+                    fifoSaveProfiles(activateProfilesFIFO);
+                }
+
                 // activateProfileAfterDuration is already called from handlerThread
                 _activateProfile(profile, false, startupSource, false, false);
             }
