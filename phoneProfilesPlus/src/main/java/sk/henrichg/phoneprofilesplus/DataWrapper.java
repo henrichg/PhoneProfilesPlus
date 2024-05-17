@@ -1523,11 +1523,11 @@ class DataWrapper {
         DatabaseHandler.getInstance(context).activateProfile(_profile);
         setProfileActive(_profile);
 
+        // for STARTUP_SOURCE_EVENT, STARTUP_SOURCE_FOR_FIRST_START is mandatory
+        // forRestartEvents, manualRestart. For this reason must not be in canRestart.
         boolean canRestart =
             (!forRestartEvents) ||
             manualRestart ||
-            (startupSource == PPApplication.STARTUP_SOURCE_FOR_FIRST_START) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_EVENT) ||
             (startupSource == PPApplication.STARTUP_SOURCE_NOTIFICATION) ||
             (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
             (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
