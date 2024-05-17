@@ -2067,7 +2067,7 @@ class Event {
                                 int size = activateProfilesFIFO.size();
                                 if (size > 0) {
                                     //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
-                                    // remove profiles from this event
+                                    // remove profiles from FIFO for this event
                                     for (String fromFifo : activateProfilesFIFO) {
                                         String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
                                         if (!splits[1].equals(String.valueOf(_id))) {
