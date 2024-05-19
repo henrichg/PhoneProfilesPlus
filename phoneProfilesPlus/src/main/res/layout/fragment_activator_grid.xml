@@ -66,6 +66,7 @@
                 android:focusable="false"
                 android:singleLine="true"
                 android:importantForAutofill="no"
+                android:inputType="textNoSuggestions"
                 tools:ignore="LabelFor,TextFields" />
 
             <ImageView
