@@ -177,7 +177,7 @@ class StringFormatUtils {
         return spannableBuilder;
     }
 
-    public static SpannableStringBuilder trimTrailingWhitespace(SpannableStringBuilder source) {
+    static SpannableStringBuilder trimTrailingWhitespace(SpannableStringBuilder source) {
 
         if (source == null)
             return null;
