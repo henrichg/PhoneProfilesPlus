@@ -1172,14 +1172,14 @@ public class PPApplication extends Application
         screenTimeoutHandler = new Handler(getMainLooper());
 
         PackageManager packageManager = getPackageManager();
-        HAS_FEATURE_BLUETOOTH_LE = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_BLUETOOTH_LE);
-        HAS_FEATURE_WIFI = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_WIFI);
-        HAS_FEATURE_BLUETOOTH = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_BLUETOOTH);
-        HAS_FEATURE_TELEPHONY = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_TELEPHONY);
-        HAS_FEATURE_NFC = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_NFC);
-        HAS_FEATURE_LOCATION = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION);
-        HAS_FEATURE_LOCATION_GPS = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION_GPS);
-        HAS_FEATURE_CAMERA_FLASH = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_CAMERA_FLASH);
+        HAS_FEATURE_BLUETOOTH_LE = hasSystemFeature(packageManager, PackageManager.FEATURE_BLUETOOTH_LE);
+        HAS_FEATURE_WIFI = hasSystemFeature(packageManager, PackageManager.FEATURE_WIFI);
+        HAS_FEATURE_BLUETOOTH = hasSystemFeature(packageManager, PackageManager.FEATURE_BLUETOOTH);
+        HAS_FEATURE_TELEPHONY = hasSystemFeature(packageManager, PackageManager.FEATURE_TELEPHONY);
+        HAS_FEATURE_NFC = hasSystemFeature(packageManager, PackageManager.FEATURE_NFC);
+        HAS_FEATURE_LOCATION = hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION);
+        HAS_FEATURE_LOCATION_GPS = hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION_GPS);
+        HAS_FEATURE_CAMERA_FLASH = hasSystemFeature(packageManager, PackageManager.FEATURE_CAMERA_FLASH);
 
         PPApplicationStatic.logE("##### PPApplication.onCreate", "end of get features");
 
@@ -2131,7 +2131,7 @@ public class PPApplication extends Application
         return line;
     }
 
-    private static boolean hasSystemFeature(PackageManager packageManager, String feature) {
+    private boolean hasSystemFeature(PackageManager packageManager, String feature) {
         try {
             return packageManager.hasSystemFeature(feature);
         } catch (Exception e) {
