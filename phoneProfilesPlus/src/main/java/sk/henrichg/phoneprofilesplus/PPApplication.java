@@ -1301,6 +1301,7 @@ public class PPApplication extends Application
 
         /*
         // set up ANR-WatchDog
+        // https://github.com/SalomonBrys/ANR-WatchDog
         ANRWatchDog anrWatchDog = new ANRWatchDog();
         //anrWatchDog.setReportMainThreadOnly();
         anrWatchDog.setANRListener(new ANRWatchDog.ANRListener() {
