@@ -264,7 +264,7 @@
     <string name="event_name_background_profile">默认情景</string>
     <string name="array_pref_zenModeArray_priority">优先级</string>
     <string name="preference_profile_adaptiveBrightness">自适应</string>
-    <string name="profile_preferences_deviceKeyguard">Unlock device</string>
+    <string name="profile_preferences_deviceKeyguard">解锁设备</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">隐藏情景名称</string>
     <string name="array_pref_afterProfileDurationDo_restartEvents">重新启动事件</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">未连接</string>
@@ -2183,5 +2183,5 @@
     <string name="install_pppps_text16">启用 InstallWithOptions: \"绕过低目标SDK块”，“替换现有\"。</string>
     <string name="install_pppps_text17">5. 在 InstallWithOptions 中使用\"选择文件\"按钮，文件: 已下载的 PPPPutsettings.apk。</string>
     <string name="install_pppps_text18">6. 在 InstallWithOptions 中，使用“安装”按钮。</string>
-    <string name="profile_preferences_deviceImageWallpaperLockscreen">Image wallpaper for lock screen</string>
+    <string name="profile_preferences_deviceImageWallpaperLockscreen">锁屏图像壁纸</string>
 </resources>

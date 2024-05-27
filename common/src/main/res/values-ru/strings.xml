@@ -264,7 +264,7 @@
     <string name="event_name_background_profile">Профиль по умолчанию</string>
     <string name="array_pref_zenModeArray_priority">Важные</string>
     <string name="preference_profile_adaptiveBrightness">Адаптивная</string>
-    <string name="profile_preferences_deviceKeyguard">Unlock device</string>
+    <string name="profile_preferences_deviceKeyguard">Разблокировка устройства</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Скрыть имя профиля</string>
     <string name="array_pref_afterProfileDurationDo_restartEvents">Перезапустить события</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Не подключено</string>
@@ -2183,5 +2183,5 @@
     <string name="install_pppps_text16">4. В InstallWithOptions отметьте Bypass Low Target SDK Block и Replace existing.</string>
     <string name="install_pppps_text17">5. В InstallWithOptions нажмите кнопку Choose file и выберите загруженный PPPPutSettings.apk.</string>
     <string name="install_pppps_text18">6. В InstallWithOptions нажмите кнопку Install.</string>
-    <string name="profile_preferences_deviceImageWallpaperLockscreen">Image wallpaper for lock screen</string>
+    <string name="profile_preferences_deviceImageWallpaperLockscreen">Обои для экрана блокировки</string>
 </resources>
