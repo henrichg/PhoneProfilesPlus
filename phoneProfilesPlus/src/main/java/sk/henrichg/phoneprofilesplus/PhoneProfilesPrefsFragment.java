@@ -1619,69 +1619,91 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (PPApplication.deviceIsXiaomi || PPApplication.romIsMIUI) {
-            preference = findPreference(PREF_MIUI_WIFI_BLUETOOTH_DIALOG_INFO);
-            if (preference != null) {
-                preference.setOnPreferenceClickListener(preference118 -> {
-                    PPAlertDialog dialog = new PPAlertDialog(
-                            preference118.getTitle(),
-                            getString(R.string.phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message),
-                            getString(R.string.miui_permissions_alert_dialog_show),
-                            getString(android.R.string.cancel),
-                            null, null,
-                            (dialog1, which) -> {
-                                boolean ok = false;
-                                Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
-                                intent.setClassName("com.miui.securitycenter",
-                                        "com.miui.permcenter.permissions.PermissionsEditorActivity");
-                                intent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
-                                if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
-                                    try {
-                                        startActivity(intent);
-                                        ok = true;
-                                    } catch (Exception e) {
-                                        PPApplicationStatic.recordException(e);
+            if (Build.VERSION.SDK_INT < 34) {
+                preference = findPreference(PREF_MIUI_WIFI_BLUETOOTH_DIALOG_INFO);
+                if (preference != null) {
+                    preference.setOnPreferenceClickListener(preference118 -> {
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference118.getTitle(),
+                                getString(R.string.phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message),
+                                getString(R.string.miui_permissions_alert_dialog_show),
+                                getString(android.R.string.cancel),
+                                null, null,
+                                (dialog1, which) -> {
+                                    boolean ok = false;
+                                    Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                                    intent.setClassName("com.miui.securitycenter",
+                                            "com.miui.permcenter.permissions.PermissionsEditorActivity");
+                                    intent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
+                                    if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
+                                        try {
+                                            startActivity(intent);
+                                            ok = true;
+                                        } catch (Exception e) {
+                                            PPApplicationStatic.recordException(e);
+                                        }
                                     }
-                                }
-                                if (!ok) {
-                                    PPAlertDialog dialog2 = new PPAlertDialog(
-                                            preference118.getTitle(),
-                                            getString(R.string.setting_screen_not_found_alert),
-                                            getString(android.R.string.ok),
-                                            null,
-                                            null, null,
-                                            null,
-                                            null,
-                                            null,
-                                            null,
-                                            null,
-                                            true, true,
-                                            false, false,
-                                            true,
-                                            getActivity()
-                                    );
+                                    if (!ok) {
+                                        PPAlertDialog dialog2 = new PPAlertDialog(
+                                                preference118.getTitle(),
+                                                getString(R.string.setting_screen_not_found_alert),
+                                                getString(android.R.string.ok),
+                                                null,
+                                                null, null,
+                                                null,
+                                                null,
+                                                null,
+                                                null,
+                                                null,
+                                                true, true,
+                                                false, false,
+                                                true,
+                                                getActivity()
+                                        );
 
-                                    if (!getActivity().isFinishing())
-                                        dialog2.show();
-                                }
-                            },
-                            null,
-                            null,
-                            null,
-                            null,
-                            true, true,
-                            false, false,
-                            false,
-                            getActivity()
-                    );
+                                        if (!getActivity().isFinishing())
+                                            dialog2.show();
+                                    }
+                                },
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                false,
+                                getActivity()
+                        );
 
-                    if ((getActivity() != null) && (!getActivity().isFinishing()))
-                        dialog.show();
-                    return false;
-                });
+                        if ((getActivity() != null) && (!getActivity().isFinishing()))
+                            dialog.show();
+                        return false;
+                    });
+                }
+            } else {
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_HYPER_OS_WIFI_BLUETOOTH_DIALOGS);
+                if (preference != null) {
+                    boolean hyperOsWifiBluetoothDialogs = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_HYPER_OS_WIFI_BLUETOOTH_DIALOGS,
+                            ApplicationPreferences.PREF_APPLICATION_HYPER_OS_WIFI_BLUETOOTH_DIALOGS_DEFAULT_VALUE);
+                    SharedPreferences appSharedPreferences = ApplicationPreferences.getSharedPreferences(getActivity().getApplicationContext());
+                    if (appSharedPreferences != null) {
+                        SharedPreferences.Editor editor = appSharedPreferences.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_HYPER_OS_WIFI_BLUETOOTH_DIALOGS, hyperOsWifiBluetoothDialogs);
+                        editor.apply();
+                        ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(getActivity().getApplicationContext());
+                    }
+                    Permissions.setHyperOSWifiBluetoothDialogAppOp();
+                }
             }
         }
         else {
             preference = findPreference(PREF_MIUI_WIFI_BLUETOOTH_DIALOG_INFO);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference(PREF_PERMISSIONS_CATEGORY);
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+            preference = findPreference(ApplicationPreferences.PREF_APPLICATION_HYPER_OS_WIFI_BLUETOOTH_DIALOGS);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = findPreference(PREF_PERMISSIONS_CATEGORY);
                 if (preferenceCategory != null)

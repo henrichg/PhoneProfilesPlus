@@ -16,9 +16,14 @@ import android.os.Build;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+
+import com.stericson.rootshell.execution.Command;
+import com.stericson.rootshell.execution.Shell;
+import com.stericson.roottools.RootTools;
 
 import java.util.ArrayList;
 
@@ -3136,6 +3141,45 @@ class Permissions {
             intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 1);
             intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_shizuku_howTo_1);
             activity.startActivity(intentLaunch);
+        }
+    }
+
+    static void setHyperOSWifiBluetoothDialogAppOp() {
+        // appops value when not changed (defualt value). Yes, result is ask for it vith system dialog
+        // - adb shell appops get sk.henrichg.phoneprofilesplus 10001
+        // - MIUIOP(10001): ask
+        //
+        // How to set it (?):
+        // - Checked parameter in Settings -> mode=allow
+        // - Unchecked parameter in Settings -> mode=ask
+
+        if (ShizukuUtils.hasShizukuPermission()) {
+            synchronized (PPApplication.rootMutex) {
+                String mode = "ask";
+                if (ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs)
+                    mode = "allow";
+                String command1 = "appops set " + PPApplication.PACKAGE_NAME + " 10001 " + mode;
+                try {
+                    ShizukuUtils.executeCommand(command1);
+                } catch (Exception e) {
+                    Log.e("Permissions.setHyperOSWifiBluetoothDialogAppOp", Log.getStackTraceString(e));
+                }
+            }
+        } else
+        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
+            synchronized (PPApplication.rootMutex) {
+                String mode = "ask";
+                if (ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs)
+                    mode = "allow";
+                String command1 = "appops set " + PPApplication.PACKAGE_NAME + " 10001 " + mode;
+                Command command = new Command(0, /*false,*/ command1);
+                try {
+                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
+                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_HYPER_OS_WIFI_BLUETOOTH_DIALOGS_APPOP);
+                } catch (Exception e) {
+                    Log.e("Permissions.setHyperOSWifiBluetoothDialogAppOp", Log.getStackTraceString(e));
+                }
+            }
         }
     }
 

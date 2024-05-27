@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="categoryPermissions"
+    app:title="@string/phone_profiles_pref_category_permissions">
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="permissionsGrantRootPermission"
+        app:title="@string/phone_profiles_pref_grantRootPermission"
+        app:summary="@string/phone_profiles_pref_grantRootPermission_summary"
+        app:layout="@layout/mp_preference_material_widget"/>
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="permissionsGrantShizukuPermission"
+        app:title="@string/profile_preferences_types_shizuku_permission"
+        app:summary="@string/phone_profiles_pref_grantShizukuPermission_summary2"
+        app:layout="@layout/mp_preference_material_widget"/>
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="permissionsWriteSystemSettingsPermissions"
+        app:title="@string/phone_profiles_pref_writeSystemSettingPermissions"
+        app:summary="@string/phone_profiles_pref_writeSystemSettingPermissions_summary"
+        app:layout="@layout/mp_preference_material_widget"/>
+
+<!--    !!! Required because is not possible to use DrawOverAppsPermissionNotification.showNotification()
+        when PPP notificaitonsa are disabled (API 31 restrictions abount app notifications) -->
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="permissionsDrawOverlaysPermissions"
+        app:title="@string/phone_profiles_pref_drawOverlaysPermissions"
+        app:summary="@string/phone_profiles_pref_drawOverlaysPermissions_summary"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="permissionsGrantG1Permission"
+        app:title="@string/profile_preferences_types_G1_permission"
+        app:summary="@string/important_info_profile_grant"
+        app:layout="@layout/mp_preference_material_widget"/>
+
+    <sk.henrichg.phoneprofilesplus.ExclamationPreference
+        app:key="applicationLocationPermissionTypeInfo"
+        app:title="@string/phone_profiles_pref_applicationLoacationPermissionTypeInfo"
+        app:summary="@string/phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="permissionsApplicationPermissions"
+        app:title="@string/phone_profiles_pref_applicationPermissions"
+        app:summary="@string/phone_profiles_pref_applicationPermissions_summary"
+        app:layout="@layout/mp_preference_material_widget"/>
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="applicationWifiControlInfo"
+        app:title="@string/phone_profiles_pref_applicationWifiControlInfo"
+        app:summary="@string/phone_profiles_pref_applicationWifiControlInfo_summary"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="applicationColorOsWifiBluetoothDialogsInfo"
+        app:title="@string/phone_profiles_pref_applicationColorOsWifiBluetoothDialogs"
+        app:summary="@string/phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info"
+        app:layout="@layout/mp_preference_material_widget" />
+<!--    <sk.henrichg.phoneprofilesplus.StartActivityPreference-->
+<!--        app:key="applicationMIUIWifiBluetoothDialogsInfo"-->
+<!--        app:title="@string/phone_profiles_pref_applicationColorOsWifiBluetoothDialogs"-->
+<!--        app:summary="@string/phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
+    <SwitchPreferenceCompat
+        app:key="applicationHyperOsWifiBluetoothDialogs"
+        app:title="@string/phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs"
+        app:summary="@string/phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+
+</androidx.preference.PreferenceScreen>

@@ -280,6 +280,7 @@ class ApplicationPreferences {
     static volatile boolean notificationProfileListCustomIconLightness;
     static volatile boolean applicationEventHideNotUsedSensors;
     //static volatile boolean applicationContactsInBackupEncripted;
+    static volatile boolean applicationHyperOsWifiBluetoothDialogs;
 
     static volatile String applicationEventPeriodicScanningScanInTimeMultiply;
     static volatile int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -581,6 +582,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_HIDE_NOT_USED_EVENTS = "applicationEventHideNotUsedSensors";
     static final String PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED = "applicationContactsInBackupEncripted";
     static final String PREF_APPLICATION_LOCATIONS_IN_BACKUP_ENCRIPTED = "applicationLocationsInBackupEncripted";
+    static final String PREF_APPLICATION_HYPER_OS_WIFI_BLUETOOTH_DIALOGS = "applicationHyperOsWifiBluetoothDialogs";
 
     // scannings
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
@@ -2274,6 +2276,12 @@ class ApplicationPreferences {
         applicationContactsInBackupEncripted = getSharedPreferences(context).getBoolean(PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED, PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED_DEFAULT_VALUE);
     }
     */
+
+    static final boolean PREF_APPLICATION_HYPER_OS_WIFI_BLUETOOTH_DIALOGS_DEFAULT_VALUE = false;
+    static void applicationHyperOsWifiBluetoothDialogs(Context context) {
+        applicationHyperOsWifiBluetoothDialogs = getSharedPreferences(context).getBoolean(PREF_APPLICATION_HYPER_OS_WIFI_BLUETOOTH_DIALOGS, PREF_APPLICATION_HYPER_OS_WIFI_BLUETOOTH_DIALOGS_DEFAULT_VALUE);
+    }
+
 
     static void deleteBadPreferences(Context context) {
         SharedPreferences mySPrefs = getSharedPreferences(context);

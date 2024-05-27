@@ -948,6 +948,7 @@ class PPApplicationStatic {
             ApplicationPreferences.notificationProfileListCustomIconLightness(context);
             ApplicationPreferences.applicationEventHideNotUsedSensors(context);
             //ApplicationPreferences.applicationContactsInBackupEncripted(context);
+            ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);

@@ -166,6 +166,8 @@ public class PhoneProfilesService extends Service
             //Log.e("PhoneProfilesService.BINDER_RECEIVED_LISTENER", "service exists="+exists);
             //noinspection Convert2MethodRef
             RootUtils.getServicesList();
+            ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(getApplicationContext());
+            Permissions.setHyperOSWifiBluetoothDialogAppOp();
         }
     };
 
@@ -660,6 +662,8 @@ public class PhoneProfilesService extends Service
                 RootUtils.settingsBinaryExists(false);
                 RootUtils.serviceBinaryExists(false);
                 RootUtils.getServicesList();
+                ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(getApplicationContext());
+                Permissions.setHyperOSWifiBluetoothDialogAppOp();
 
                 //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
 

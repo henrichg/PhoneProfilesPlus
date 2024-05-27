@@ -2212,6 +2212,9 @@
 
     <string name="profile_preferences_deviceImageWallpaperLockscreen">Image wallpaper for lock screen</string>
 
+    <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs">(Z)(R) Wi-Fi and Bluetooth confirm dialogs</string>
+    <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary">For \"HyperOs\" is possible to disable these dialogs. Click this to disable them. NOTE: It requires Shizuku/root.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
