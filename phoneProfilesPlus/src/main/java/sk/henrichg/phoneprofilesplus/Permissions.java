@@ -3154,11 +3154,13 @@ class Permissions {
         // - Unchecked parameter in Settings -> mode=ask
 
         if (ShizukuUtils.hasShizukuPermission()) {
+            Log.e("Permissions.setHyperOSWifiBluetoothDialogAppOp", "Shizuku");
             synchronized (PPApplication.rootMutex) {
                 String mode = "ask";
                 if (ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs)
                     mode = "allow";
                 String command1 = "appops set " + PPApplication.PACKAGE_NAME + " 10001 " + mode;
+                Log.e("Permissions.setHyperOSWifiBluetoothDialogAppOp", "command1="+command1);
                 try {
                     ShizukuUtils.executeCommand(command1);
                 } catch (Exception e) {

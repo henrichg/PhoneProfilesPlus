@@ -25,7 +25,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
                 //noinspection Convert2MethodRef
                 RootUtils.getServicesList();
                 ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(getApplicationContext());
-                Permissions.setHyperOSWifiBluetoothDialogAppOp();
+                //Permissions.setHyperOSWifiBluetoothDialogAppOp();
             }; //);
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);

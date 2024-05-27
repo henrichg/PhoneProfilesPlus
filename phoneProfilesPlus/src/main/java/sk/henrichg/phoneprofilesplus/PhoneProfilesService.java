@@ -167,7 +167,7 @@ public class PhoneProfilesService extends Service
             //noinspection Convert2MethodRef
             RootUtils.getServicesList();
             ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(getApplicationContext());
-            Permissions.setHyperOSWifiBluetoothDialogAppOp();
+            //Permissions.setHyperOSWifiBluetoothDialogAppOp();
         }
     };
 
@@ -663,7 +663,7 @@ public class PhoneProfilesService extends Service
                 RootUtils.serviceBinaryExists(false);
                 RootUtils.getServicesList();
                 ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(getApplicationContext());
-                Permissions.setHyperOSWifiBluetoothDialogAppOp();
+                //Permissions.setHyperOSWifiBluetoothDialogAppOp();
 
                 //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
 
