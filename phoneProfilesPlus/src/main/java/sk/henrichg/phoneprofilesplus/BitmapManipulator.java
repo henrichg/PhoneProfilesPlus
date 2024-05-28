@@ -17,6 +17,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.exifinterface.media.ExifInterface;
@@ -45,6 +46,7 @@ class BitmapManipulator {
 
                 if (checkOrientation) {
                     orientation = getBitmapUriOrientation(context, uri);
+                    Log.e("BitmapManipulator.resampleBitmapUri", "orientation="+orientation);
 
                     if (orientation == 90 || orientation == 270) {
                         //noinspection SuspiciousNameCombination
@@ -56,6 +58,9 @@ class BitmapManipulator {
                     rotatedHeight = height;
                 }*/
                 }
+
+                Log.e("BitmapManipulator.resampleBitmapUri", "rotatedWidth="+rotatedWidth);
+                Log.e("BitmapManipulator.resampleBitmapUri", "rotatedHeight="+rotatedHeight);
 
                 ContentResolver contentResolver = context.getContentResolver();
 
@@ -92,6 +97,7 @@ class BitmapManipulator {
 
                 // bitmap format is supported and exists
                 final BitmapFactory.Options options = new BitmapFactory.Options();
+                // get only options of bitmap
                 options.inJustDecodeBounds = true;
                 BitmapFactory.decodeStream(inputStream, null, options);
 
@@ -111,8 +117,11 @@ class BitmapManipulator {
                 inputStream = context.getContentResolver().openInputStream(uri);
 
                 // calculate inSampleSize
+                Log.e("BitmapManipulator.resampleBitmapUri", "checkSize="+checkSize);
                 options.inSampleSize = calculateInSampleSize(options, rotatedWidth, rotatedHeight);
+                Log.e("BitmapManipulator.resampleBitmapUri", "options.inSampleSize="+options.inSampleSize);
 
+                // resample bitmap by options
                 options.inJustDecodeBounds = false;
                 decodedSampleBitmap = BitmapFactory.decodeStream(inputStream, null, options);
 
@@ -127,6 +136,9 @@ class BitmapManipulator {
                     if (checkOrientation && (orientation > 0)) {
                         Matrix matrix = new Matrix();
                         matrix.postRotate(orientation);
+
+                        Log.e("BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap.getWidth()="+decodedSampleBitmap.getWidth());
+                        Log.e("BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap.getHeight()="+decodedSampleBitmap.getHeight());
 
                         decodedSampleBitmap = Bitmap.createBitmap(decodedSampleBitmap, 0, 0, decodedSampleBitmap.getWidth(),
                                 decodedSampleBitmap.getHeight(), matrix, true);
