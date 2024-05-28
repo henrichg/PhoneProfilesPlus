@@ -4121,16 +4121,19 @@ class ActivateProfileHelper {
                         Bitmap decodedSampleBitmap = decodedSampleBitmapHome;
                         if (decodedSampleBitmapLock != null)
                             decodedSampleBitmap = decodedSampleBitmapLock;
-                        int flags = WallpaperManager.FLAG_LOCK;
-                        int left = 0;
-                        int right = decodedSampleBitmap.getWidth();
-                        if (decodedSampleBitmap.getWidth() > width) {
-                            left = (decodedSampleBitmap.getWidth() / 2) - (width / 2);
-                            right = (decodedSampleBitmap.getWidth() / 2) + (width / 2);
-                        }
-                        Rect visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
 
-                        wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
+                        if (decodedSampleBitmap != null) {
+                            int flags = WallpaperManager.FLAG_LOCK;
+                            int left = 0;
+                            int right = decodedSampleBitmap.getWidth();
+                            if (decodedSampleBitmap.getWidth() > width) {
+                                left = (decodedSampleBitmap.getWidth() / 2) - (width / 2);
+                                right = (decodedSampleBitmap.getWidth() / 2) + (width / 2);
+                            }
+                            Rect visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
+
+                            wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
+                        }
                     }
 
                     if (decodedSampleBitmapHome != null)
