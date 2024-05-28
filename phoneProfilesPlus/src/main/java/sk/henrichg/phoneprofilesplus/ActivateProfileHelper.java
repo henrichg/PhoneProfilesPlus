@@ -4048,6 +4048,7 @@ class ActivateProfileHelper {
                             visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
                         }
                         wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
+                        decodedSampleBitmap.recycle();
 
                         // this is required for "change random image from folder"
                         PPApplicationStatic.setWallpaperChangeTime(appContext);
@@ -4056,10 +4057,12 @@ class ActivateProfileHelper {
                                 null, profile._name, "");
                         //Log.e("ActivateProfileHelper._changeImageWallpaper", Log.getStackTraceString(e));
                         PPApplicationStatic.recordException(e);
+                        decodedSampleBitmap.recycle();
                     } catch (Exception e) {
                         PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
                                 null, profile._name, "");
                         //PPApplicationStatic.recordException(e);
+                        decodedSampleBitmap.recycle();
                     }
                 } else {
                     PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
@@ -4130,6 +4133,11 @@ class ActivateProfileHelper {
                         wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
                     }
 
+                    if (decodedSampleBitmapHome != null)
+                        decodedSampleBitmapHome.recycle();
+                    if (decodedSampleBitmapLock != null)
+                        decodedSampleBitmapLock.recycle();
+
                     // this is required for "change random image from folder"
                     PPApplicationStatic.setWallpaperChangeTime(appContext);
                 } catch (IOException e) {
@@ -4137,10 +4145,18 @@ class ActivateProfileHelper {
                             null, profile._name, "");
                     //Log.e("ActivateProfileHelper._changeImageWallpaper", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);
+                    if (decodedSampleBitmapHome != null)
+                        decodedSampleBitmapHome.recycle();
+                    if (decodedSampleBitmapLock != null)
+                        decodedSampleBitmapLock.recycle();
                 } catch (Exception e) {
                     PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
                             null, profile._name, "");
                     //PPApplicationStatic.recordException(e);
+                    if (decodedSampleBitmapHome != null)
+                        decodedSampleBitmapHome.recycle();
+                    if (decodedSampleBitmapLock != null)
+                        decodedSampleBitmapLock.recycle();
                 }
             }
         }

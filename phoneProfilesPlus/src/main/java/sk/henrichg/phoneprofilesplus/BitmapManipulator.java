@@ -140,11 +140,16 @@ class BitmapManipulator {
                         Log.e("BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap.getWidth()="+decodedSampleBitmap.getWidth());
                         Log.e("BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap.getHeight()="+decodedSampleBitmap.getHeight());
 
-                        decodedSampleBitmap = Bitmap.createBitmap(decodedSampleBitmap, 0, 0, decodedSampleBitmap.getWidth(),
+                        Bitmap rotatedBitmap = Bitmap.createBitmap(decodedSampleBitmap, 0, 0, decodedSampleBitmap.getWidth(),
                                 decodedSampleBitmap.getHeight(), matrix, true);
-                    }
-                }
-                return decodedSampleBitmap;
+
+                        decodedSampleBitmap.recycle();
+
+                        return rotatedBitmap;
+                    } else
+                        return decodedSampleBitmap;
+                } else
+                    return null;
             } catch (Exception ee) {
                 //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(ee));
                 PPApplicationStatic.recordException(ee);
