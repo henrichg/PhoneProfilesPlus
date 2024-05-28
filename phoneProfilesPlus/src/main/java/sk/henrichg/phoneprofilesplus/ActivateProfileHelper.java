@@ -4837,6 +4837,7 @@ class ActivateProfileHelper {
                         intent.addCategory(Intent.CATEGORY_DEFAULT);
                         intent.setDataAndType(Uri.parse(profile._deviceWallpaper), StringConstants.MIME_TYPE_IMAGE);
                         intent.putExtra(StringConstants.MIME_TYPE_EXTRA, StringConstants.MIME_TYPE_IMAGE);
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
                         PPApplicationStatic.setWallpaperChangeTime(appContext);
@@ -4850,6 +4851,7 @@ class ActivateProfileHelper {
                     if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
                         intent.setDataAndType(Uri.parse(profile._deviceWallpaper), StringConstants.MIME_TYPE_IMAGE);
                         intent.putExtra(StringConstants.MIME_TYPE_EXTRA, StringConstants.MIME_TYPE_IMAGE);
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
                         String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
