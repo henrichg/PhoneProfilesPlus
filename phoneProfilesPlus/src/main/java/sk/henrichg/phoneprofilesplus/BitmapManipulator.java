@@ -59,9 +59,6 @@ class BitmapManipulator {
                 }*/
                 }
 
-                Log.e("BitmapManipulator.resampleBitmapUri", "rotatedWidth="+rotatedWidth);
-                Log.e("BitmapManipulator.resampleBitmapUri", "rotatedHeight="+rotatedHeight);
-
                 ContentResolver contentResolver = context.getContentResolver();
 
                 //boolean ok = false;
@@ -117,9 +114,7 @@ class BitmapManipulator {
                 inputStream = context.getContentResolver().openInputStream(uri);
 
                 // calculate inSampleSize
-                Log.e("BitmapManipulator.resampleBitmapUri", "checkSize="+checkSize);
                 options.inSampleSize = calculateInSampleSize(options, rotatedWidth, rotatedHeight);
-                Log.e("BitmapManipulator.resampleBitmapUri", "options.inSampleSize="+options.inSampleSize);
 
                 // resample bitmap by options
                 options.inJustDecodeBounds = false;
@@ -136,9 +131,6 @@ class BitmapManipulator {
                     if (checkOrientation && (orientation > 0)) {
                         Matrix matrix = new Matrix();
                         matrix.postRotate(orientation);
-
-                        Log.e("BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap.getWidth()="+decodedSampleBitmap.getWidth());
-                        Log.e("BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap.getHeight()="+decodedSampleBitmap.getHeight());
 
                         Bitmap rotatedBitmap = Bitmap.createBitmap(decodedSampleBitmap, 0, 0, decodedSampleBitmap.getWidth(),
                                 decodedSampleBitmap.getHeight(), matrix, true);

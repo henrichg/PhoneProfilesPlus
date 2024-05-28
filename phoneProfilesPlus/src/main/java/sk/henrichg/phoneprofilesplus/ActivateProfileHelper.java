@@ -4071,11 +4071,8 @@ class ActivateProfileHelper {
             } else {
                 Bitmap decodedSampleBitmapHome = null;
                 Bitmap decodedSampleBitmapLock = null;
-                if ((profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 1)) {
-                    Log.e("ActivateProfileHelper._changeImageWallpapers", "**** start (1)");
+                if ((profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 1))
                     decodedSampleBitmapHome = BitmapManipulator.resampleBitmapUri(wallpaperUri, width, height, false, true, appContext);
-                    Log.e("ActivateProfileHelper._changeImageWallpapers", "**** end (1)");
-                }
                 if ((lockScreenWallpaperUri != null) && (!lockScreenWallpaperUri.isEmpty()) &&
                         (!lockScreenWallpaperUri.equals("-")) &&
                         (profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 2))
