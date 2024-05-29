@@ -131,6 +131,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_SCREEN_CATTEGORY = "prf_pref_screenCategory";
     private static final String PREF_PROFILE_VOLUME_TYPE_CATTEGORY = "prf_pref_volumeTypeCategory";
     private static final String PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE = "prf_pref_phoneCalls_setCallScreeningRole";
+    private static final String PREF_PROFILE_DEVICE_WALLPAPER_CATTEGORY = "prf_pref_deviceWallpaperCategory";
+    private static final String PREF_PROFILE_DEVICE_WALLPAPER_HUAWEI_INFO = "prf_pref_deviceWallpaperHuaweiInfo";
 
     private static final String PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT = "prf_pref_activationDurationCategoryRoot";
     private static final String PREF_PROFILE_SOUND_PROFILE_CATTEGORY_ROOT = "prf_pref_soundProfileCategoryRoot";
@@ -1652,6 +1654,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        if (!(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
+            preference = findPreference(PREF_PROFILE_DEVICE_WALLPAPER_HUAWEI_INFO);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference(PREF_PROFILE_DEVICE_WALLPAPER_CATTEGORY);
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+        }
     }
 
     @Override
