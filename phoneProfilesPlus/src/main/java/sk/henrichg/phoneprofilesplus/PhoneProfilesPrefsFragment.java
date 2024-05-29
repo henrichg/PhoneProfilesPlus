@@ -1692,7 +1692,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         editor.apply();
                         ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(getActivity().getApplicationContext());
                     }
-                    //Permissions.setHyperOSWifiBluetoothDialogAppOp();
+                    Permissions.setHyperOSWifiBluetoothDialogAppOp();
                 }
             }
         }
