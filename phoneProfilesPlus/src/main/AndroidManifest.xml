@@ -247,6 +247,7 @@
             android:label="@string/title_activity_phone_profiles"
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.activator"
+            android:launchMode="singleInstance"
             android:theme="@style/ActivatorTheme_dayNight"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
@@ -293,6 +294,7 @@
             android:icon="@drawable/ic_shortcut"
             android:label="@string/title_activity_shortcut_creator"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
+            android:launchMode="singleInstance"
             android:theme="@style/DialogTheme_dayNight"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
@@ -336,6 +338,7 @@
             android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -354,6 +357,7 @@
             android:name=".GrantPermissionActivity"
             android:excludeFromRecents="true"
             android:label=""
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -365,6 +369,7 @@
             android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -386,6 +391,7 @@
             android:excludeFromRecents="true"
             android:label=""
             android:launchMode="singleInstance"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity"
             android:exported="true">
 <!--            <intent-filter>-->
@@ -418,12 +424,15 @@
             android:name=".ActivatorTargetHelpsActivity"
             android:label=""
             android:excludeFromRecents="true"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyTargetHelpsActivity">
         </activity>
         <activity
             android:name=".LockDeviceActivity"
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.lockDevice"
+            android:launchMode="singleInstance"
             android:theme="@style/LockDeviceActivity">
         </activity>
         <activity
@@ -431,6 +440,7 @@
             android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -449,6 +459,7 @@
             android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -464,6 +475,7 @@
             android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -492,6 +504,7 @@
             android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -499,6 +512,7 @@
             android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -507,6 +521,7 @@
             android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -515,6 +530,7 @@
             android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -523,6 +539,7 @@
             android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -531,6 +548,7 @@
             android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -543,6 +561,7 @@
             android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -559,7 +578,7 @@
         <activity
             android:name=".GenerateNotificationAfterClickActivity"
             android:label=""
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -568,6 +587,7 @@
             android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -577,14 +597,18 @@
         </activity>
         <activity
             android:name=".GrantDrawOverAppsActivity"
+            android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
             android:name=".GrantShizukuPermissionActivity"
             android:excludeFromRecents="true"
             android:label=""
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -592,6 +616,7 @@
             android:excludeFromRecents="true"
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
