@@ -110,7 +110,10 @@ dependencies {
     //noinspection GradleDependency
     implementation 'androidx.preference:preference:1.1.1'
 
+    // 1.7.0 compile problem - dependencies
+    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
+    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 
     //1.11.0' is not good, not working dynamic colors
