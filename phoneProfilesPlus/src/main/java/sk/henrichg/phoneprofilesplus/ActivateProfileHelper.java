@@ -7342,13 +7342,11 @@ class ActivateProfileHelper {
                     if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_NORMAL) {
                         uiModeManager.enableCarMode(0);
                         GlobalUtils.sleep(200);
-                        //uiModeManager.disableCarMode(0);
                         // UiModeManager.DISABLE_CAR_MODE_GO_HOME is not good, this close foreground appolication
                         uiModeManager.disableCarMode(0 /*UiModeManager.DISABLE_CAR_MODE_GO_HOME*/);
                     }
                     else
                     if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_CAR) {
-                        //uiModeManager.disableCarMode(0);
                         // UiModeManager.DISABLE_CAR_MODE_GO_HOME is not good, this close foreground appolication
                         uiModeManager.disableCarMode(0 /*UiModeManager.DISABLE_CAR_MODE_GO_HOME*/);
                         GlobalUtils.sleep(200);
