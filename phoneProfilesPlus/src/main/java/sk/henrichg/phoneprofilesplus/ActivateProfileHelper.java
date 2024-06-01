@@ -7287,6 +7287,7 @@ class ActivateProfileHelper {
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
+    @SuppressLint("WrongConstant")
     private static void setScreenDarkMode(Context appContext, final int value, SharedPreferences executedProfileSharedPreferences) {
         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, executedProfileSharedPreferences, false, appContext).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -7342,12 +7343,14 @@ class ActivateProfileHelper {
                         uiModeManager.enableCarMode(0);
                         GlobalUtils.sleep(200);
                         //uiModeManager.disableCarMode(0);
-                        uiModeManager.disableCarMode(UiModeManager.DISABLE_CAR_MODE_GO_HOME);
+                        // UiModeManager.DISABLE_CAR_MODE_GO_HOME is not good, this close foreground appolication
+                        uiModeManager.disableCarMode(0 /*UiModeManager.DISABLE_CAR_MODE_GO_HOME*/);
                     }
                     else
                     if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_CAR) {
                         //uiModeManager.disableCarMode(0);
-                        uiModeManager.disableCarMode(UiModeManager.DISABLE_CAR_MODE_GO_HOME);
+                        // UiModeManager.DISABLE_CAR_MODE_GO_HOME is not good, this close foreground appolication
+                        uiModeManager.disableCarMode(0 /*UiModeManager.DISABLE_CAR_MODE_GO_HOME*/);
                         GlobalUtils.sleep(200);
                         uiModeManager.enableCarMode(0);
                     }
