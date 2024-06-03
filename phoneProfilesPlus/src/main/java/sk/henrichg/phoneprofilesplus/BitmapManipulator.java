@@ -46,7 +46,7 @@ class BitmapManipulator {
 
                 if (checkOrientation) {
                     orientation = getBitmapUriOrientation(context, uri);
-                    Log.e("BitmapManipulator.resampleBitmapUri", "orientation="+orientation);
+//                    Log.e("BitmapManipulator.resampleBitmapUri", "orientation="+orientation);
 
                     if (orientation == 90 || orientation == 270) {
                         //noinspection SuspiciousNameCombination
