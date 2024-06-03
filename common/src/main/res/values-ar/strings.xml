@@ -2184,4 +2184,7 @@
     <string name="install_pppps_text17">5. In InstallWithOptions use \"Choose file\" button, file: downloaded PPPPutSettings.apk.</string>
     <string name="install_pppps_text18">6. In InstallWithOptions use \"Install\" button.</string>
     <string name="profile_preferences_deviceImageWallpaperLockscreen">Image wallpaper for lock screen</string>
+    <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs">(Z)(R) Wi-Fi and Bluetooth confirm dialogs</string>
+    <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary">For \"HyperOs\" is possible to disable these dialogs. Click this to disable them. NOTE: It requires Shizuku/root.</string>
+    <string name="profile_preferences_deviceWallpaperHuaweiInfo">In Huawei devices is bug. And for this reason may not properly working all non-interactive types.</string>
 </resources>

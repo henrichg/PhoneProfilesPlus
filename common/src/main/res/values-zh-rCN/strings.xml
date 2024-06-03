@@ -2184,4 +2184,7 @@
     <string name="install_pppps_text17">5. 在 InstallWithOptions 中使用\"选择文件\"按钮，文件: 已下载的 PPPPutsettings.apk。</string>
     <string name="install_pppps_text18">6. 在 InstallWithOptions 中，使用“安装”按钮。</string>
     <string name="profile_preferences_deviceImageWallpaperLockscreen">锁屏图像壁纸</string>
+    <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs">(Z) (R) Wi-Fi 和蓝牙确认对话框</string>
+    <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary">\"HyperOs\"可禁用这些对话框。单击此处可禁用它们。注意：需要Shizuku/root。</string>
+    <string name="profile_preferences_deviceWallpaperHuaweiInfo">在华为设备中存在 bug。因此，所有非交互类型可能无法正常工作。</string>
 </resources>

@@ -1556,23 +1556,23 @@
     <string name="menu_check_releases_appgallery">Check in AppGallery</string>
     <string name="check_releases_open_appgallery">AppGallery öffnen</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Bluetooth scan interval</string>
-    <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Location scan interval</string>
-    <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Orientation scan interval</string>
-    <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Wi-Fi scan interval</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Häufigkeit der Standortbestimmung</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Häufigkeit der Ausrichtungsbestimmung</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Häufigkeit der WLAN-Suche</string>
     <string name="menu_activity_log_help">Hilfe</string>
-    <string name="activity_log_help_title">Help for Activity log</string>
+    <string name="activity_log_help_title">Hilfe für das Aktivitätsprotokoll</string>
     <string name="activity_log_help_message">Was in Spalten angezeigt wird</string>
     <string name="activity_log_help_message_mergedProfileActivation">X ist die Anzahl der aktivierten Profile, Y ist die Anzahl der Ereignisse, die durch Profile aktiviert wurden.</string>
     <string name="activity_log_help_message_data_for">für</string>
     <string name="activity_log_help_message_data_profileName">Name des Profils. Er kann [M] (=manuelle Aktivierung) enthalten, gefolgt vom in Klammern gesetzten Ende der Dauer.</string>
-    <string name="activity_log_help_message_data_profileNameEventName">Profile name [ event name ]. Profile name is last activated profile and event name is last started event.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Profilname [ Ereignisname ]. Profilname ist das zuletzt aktivierte Profil und Ereignisname ist das zuletzt gestartete Ereignis.</string>
     <string name="activity_log_help_message_data_displayedInGUI">Diese Informationen werden auch in allen Elementen der Benutzeroberfläche (Anwendungsbenachrichtigung, Starter, Editor, Widgets, …) angezeigt.</string>
     <string name="activity_log_help_message_data_otherProfileDataTypes">alle anderen für Profile</string>
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Name des Profils.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">alle anderen für Ereignisse</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Name des Ereignisses.</string>
     <string name="activity_log_help_close">Schließen</string>
-    <string name="event_preference_sensor_soundProfile_summary">This sensor will start an event by switching Sound modes or \"Do not disturb\" types. Parameters: Sound modes, \"Do not disturb\" types.</string>
+    <string name="event_preference_sensor_soundProfile_summary">Dieser Sensor löst ein Ereignis aus, indem er den Soundmodus oder den „Bitte nicht stören“-Typ umschaltet. Parameter: Sound-Modi, „Bitte nicht stören“-Typen.</string>
     <string name="event_type_soundProfile">Audioprofil</string>
     <string name="event_preferences_soundProfile_ringerModes">Sound-Modi</string>
     <string name="event_preferences_soundProfile_zenModes">„Bitte nicht stören”-Arten</string>
@@ -2184,4 +2184,7 @@
     <string name="install_pppps_text17">5. In InstallWithOptions use \"Choose file\" button, file: downloaded PPPPutSettings.apk.</string>
     <string name="install_pppps_text18">6. In InstallWithOptions use \"Install\" button.</string>
     <string name="profile_preferences_deviceImageWallpaperLockscreen">Bildhintergrund für Sperrbildschirm</string>
+    <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs">(Z)(R) WLAN- und Bluetooth-Bestätigungsdialoge</string>
+    <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary">Für „HyperOs“ ist es möglich, diese Dialoge zu deaktivieren. Klicken Sie darauf, um sie zu deaktivieren. HINWEIS: Es erfordert Shizuku/root.</string>
+    <string name="profile_preferences_deviceWallpaperHuaweiInfo">Bei Huawei-Geräten liegt ein Fehler vor. Aus diesem Grund funktionieren möglicherweise nicht alle nicht-interaktiven Typen ordnungsgemäß.</string>
 </resources>

@@ -2184,4 +2184,7 @@
     <string name="install_pppps_text17">5. In InstallWithOptions gebruik de \"Kies bestand\" knop, bestand: download PPPPutSettings.apk.</string>
     <string name="install_pppps_text18">6. Gebruik in InstallWithOptions de \"Install\" knop.</string>
     <string name="profile_preferences_deviceImageWallpaperLockscreen">Achtergrondafbeelding voor vergrendelingsscherm</string>
+    <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs">(Z)(R) Wi-Fi en Bluetooth bevestigingsscherm</string>
+    <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary">Voor \"HyperOs\" is het mogelijk deze dialogen uit te schakelen. Klik hier om ze uit te schakelen. Let op: Shizuku/root is vereist.</string>
+    <string name="profile_preferences_deviceWallpaperHuaweiInfo">In Huawei apparaten zit een bug. Om deze reden werken mogelijk niet alle niet-interactieve types.</string>
 </resources>

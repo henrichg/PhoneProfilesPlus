@@ -2184,4 +2184,7 @@
     <string name="install_pppps_text17">5. V InstallWithOptions použijte tlačítko \"Choose file\", soubor: stažený PPPPutSettings.apk.</string>
     <string name="install_pppps_text18">6. V InstallWithOptions použijte tlačítko \"Install\".</string>
     <string name="profile_preferences_deviceImageWallpaperLockscreen">Tapeta obrázku pro zamykací obrazovku</string>
+    <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs">(Z)(R) Wi-Fi a Bluetooth potvrzovací dialogy</string>
+    <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary">Pro \"HyperOs\" lze tyto dialogy vypnout. Klepnutím na toto je zakážete. POZNÁMKA: Vyžaduje Shizuku/root.</string>
+    <string name="profile_preferences_deviceWallpaperHuaweiInfo">V zařízeních Huawei je chyba. A z tohoto důvodu nemusí správně fungovat všechny neinteraktivní typy.</string>
 </resources>

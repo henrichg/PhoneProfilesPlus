@@ -2184,4 +2184,7 @@
     <string name="install_pppps_text17">5. В InstallWithOptions нажмите кнопку Choose file и выберите загруженный PPPPutSettings.apk.</string>
     <string name="install_pppps_text18">6. В InstallWithOptions нажмите кнопку Install.</string>
     <string name="profile_preferences_deviceImageWallpaperLockscreen">Обои для экрана блокировки</string>
+    <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs">(Z)(R) Диалоги подтверждения Wi-Fi и Bluetooth</string>
+    <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary">На HyperOs эти диалоги можно отключить. Для этого нажмите сюда. ПРИМЕЧАНИЕ: Требуется Shizuku/root.</string>
+    <string name="profile_preferences_deviceWallpaperHuaweiInfo">На устройствах Huawei существует баг, из-за которого все неинтерактивные типы могут работать неправильно.</string>
 </resources>
