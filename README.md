@@ -3,7 +3,7 @@
 
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 
-PhoneProfilesPlus (aka PPP)
+PhoneProfilesPlus (PPP)
 ===========================
 
 [![version](https://img.shields.io/badge/version-6.5-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.5)
