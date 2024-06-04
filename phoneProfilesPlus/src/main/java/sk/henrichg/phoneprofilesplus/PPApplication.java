@@ -71,12 +71,12 @@ public class PPApplication extends Application
     static final int VERSION_CODE_EXTENDER_REQUIRED = 890;
 
     // latest version in GitHub, IzzyOnDroid. will be installed
-    static final int VERSION_CODE_EXTENDER_LATEST = 890;         // must be <= as in Extender dependencies.gradle
-    static final String VERSION_NAME_EXTENDER_LATEST = "8.1.4";  // must be <= as in Extender dependencies.gradle
+    static final int VERSION_CODE_EXTENDER_LATEST = 900;         // must be <= as in Extender dependencies.gradle
+    static final String VERSION_NAME_EXTENDER_LATEST = "8.1.6";  // must be <= as in Extender dependencies.gradle
     ///////
 
-    static final int VERSION_CODE_PPPPS_LATEST = 60;             // must be <= as in PPPPS dependencies.gradle
-    static final String VERSION_NAME_PPPPS_LATEST = "1.0.7";     // must be <= as in PPPPS dependencies.gradle
+    static final int VERSION_CODE_PPPPS_LATEST = 65;             // must be <= as in PPPPS dependencies.gradle
+    static final String VERSION_NAME_PPPPS_LATEST = "1.0.8";     // must be <= as in PPPPS dependencies.gradle
 
     static final int pid = Process.myPid();
     static final int uid = Process.myUid();
