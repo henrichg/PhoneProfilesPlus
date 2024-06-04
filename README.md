@@ -6,7 +6,7 @@
 PhoneProfilesPlus (aka PPP)
 ===========================
 
-[![version](https://img.shields.io/badge/version-6.4.1.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.4.1.1)
+[![version](https://img.shields.io/badge/version-6.5-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.5)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
