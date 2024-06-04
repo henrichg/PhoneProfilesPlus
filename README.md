@@ -6,7 +6,7 @@
 PhoneProfilesPlus (aka PPP)
 ===========================
 
-[![version](https://img.shields.io/badge/version-6.4.1.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.4.1.1)
+[![version](https://img.shields.io/badge/version-6.5-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.5)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
@@ -16,10 +16,6 @@ PhoneProfilesPlus (aka PPP)
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores:
 
-__Huawei AppGallery:__
-- [PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000)
-- [Store application (download)](https://consumer.huawei.com/en/mobileservices/appgallery/)
-
 __Droid-ify (F-Droid alternative, preferred over GitHub):__
 - [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
 - [Store applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)
@@ -27,8 +23,12 @@ __Droid-ify (F-Droid alternative, preferred over GitHub):__
 
 __F-Droid:__
 - [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
-  &nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_
+&nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
 - [Store application (download)](https://www.f-droid.org/)
+
+__Huawei AppGallery:__
+- [PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000)
+- [Store application (download)](https://consumer.huawei.com/en/mobileservices/appgallery/)
 
 __APKPure:__
 - [PPP release](https://apkpure.net/p/sk.henrichg.phoneprofilesplus)
@@ -55,7 +55,7 @@ __What is PhoneProfilesPlus:__
 
 Android application - manually and by event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...  
 This application is for configuration of device for life situations (at home, at work, in car, sleep, outside, ...) using Profiles.  
-In it is also possibility to automatically activate Profiles by Events.
+In it is also possibility to automatically activate Profiles by Events.  
 
 - [Privacy Policy](https://henrichg.github.io/PhoneProfilesPlus/privacy_policy.html)
 
@@ -84,18 +84,18 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 
 ##### Screenshots
 - [[1]](art/phoneScreenshots/01.png),
-  [[2]](art/phoneScreenshots/02.png),
-  [[3]](art/phoneScreenshots/03.png),
-  [[4]](art/phoneScreenshots/04.png),
-  [[5]](art/phoneScreenshots/05.png),
-  [[6]](art/phoneScreenshots/06.png),
-  [[7]](art/phoneScreenshots/07.png),
-  [[8]](art/phoneScreenshots/08.png),
-  [[9]](art/phoneScreenshots/09.png),
-  [[10]](art/phoneScreenshots/10.png),
-  [[11]](art/phoneScreenshots/11.png),
-  [[12]](art/phoneScreenshots/12.png),
-  [[13]](art/phoneScreenshots/13.png)
+[[2]](art/phoneScreenshots/02.png),
+[[3]](art/phoneScreenshots/03.png),
+[[4]](art/phoneScreenshots/04.png),
+[[5]](art/phoneScreenshots/05.png),
+[[6]](art/phoneScreenshots/06.png),
+[[7]](art/phoneScreenshots/07.png),
+[[8]](art/phoneScreenshots/08.png),
+[[9]](art/phoneScreenshots/09.png),
+[[10]](art/phoneScreenshots/10.png),
+[[11]](art/phoneScreenshots/11.png),
+[[12]](art/phoneScreenshots/12.png),
+[[13]](art/phoneScreenshots/13.png)
 
 ##### Supported Android versions
 
@@ -131,7 +131,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - RecyclerView-FastScroll (as module, code modified) - https://github.com/jahirfiquitiva/RecyclerView-FastScroll (original repository: https://github.com/timusus/RecyclerView-FastScroll)
 - RelativePopupWindow (only modified class RelativePopupWindow.java) - https://github.com/kakajika/RelativePopupWindow
 - SunriseSunset (only modified class SunriseSunset.java) - https://github.com/caarmen/SunriseSunset
-- android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/Reginer/aosp-android-jar
+- android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/platforms/android-XX) - https://github.com/Reginer/aosp-android-jar
 - NoobCameraFlash (as module, code modified) - https://github.com/Abhi347/NoobCameraFlash
 - AutoStarter (only modified class AutoStartPermissionHelper.kt) - https://github.com/judemanutd/AutoStarter
 - ToastCompat (as module, code modified) - https://github.com/PureWriter/ToastCompat

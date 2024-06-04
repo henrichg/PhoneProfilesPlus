@@ -33,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 
 import rikka.shizuku.Shizuku;
 
+/** @noinspection ExtractMethodRecommender*/
 public class PhoneProfilesService extends Service
 {
     private static volatile PhoneProfilesService instance = null;
@@ -67,6 +68,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_REFRESH_ACTIVITIES_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver";
     static final String ACTION_DASH_CLOCK_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver";
     static final String ACTION_BLUETOOTHLE_SCAN_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".BluetoothLEScanBroadcastReceiver";
+    static final String ACTION_APPLICATION_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ApplicationEventEndBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
@@ -116,6 +118,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_ALSO_RESCAN = "also_rescan";
     static final String EXTRA_UNBLOCK_EVENTS_RUN = "unblock_events_run";
     //static final String EXTRA_REACTIVATE_PROFILE = "reactivate_profile";
+    static final String EXTRA_MANUAL_RESTART = "manual_restart";
     static final String EXTRA_LOG_TYPE = "log_type";
     //static final String EXTRA_DELAYED_WORK = "delayed_work";
     static final String EXTRA_SENSOR_TYPE = "sensor_type";
@@ -153,6 +156,8 @@ public class PhoneProfilesService extends Service
 
     private final Shizuku.OnBinderReceivedListener BINDER_RECEIVED_LISTENER = () -> {
         if (!Shizuku.isPreV11()) {
+//            Log.e("PhoneProfilesService.BINDER_RECEIVED_LISTENER", "xxx");
+
             RootUtils.initRoot();
 
             /*boolean exists = */RootUtils.settingsBinaryExists(false);
@@ -161,6 +166,8 @@ public class PhoneProfilesService extends Service
             //Log.e("PhoneProfilesService.BINDER_RECEIVED_LISTENER", "service exists="+exists);
             //noinspection Convert2MethodRef
             RootUtils.getServicesList();
+            ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(getApplicationContext());
+            Permissions.setHyperOSWifiBluetoothDialogAppOp();
         }
     };
 
@@ -465,8 +472,9 @@ public class PhoneProfilesService extends Service
                     //https://stackoverflow.com/a/72754189/12228079
                     GlobalUtils.sleep(5000);
                 }
-
-                instance.stopSelf();
+                if (instance != null)
+                    // may be null after 5 seconds sleep
+                    instance.stopSelf();
             } catch (Exception e) {
                 //Log.e("PhoneProfilesService.stop", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
@@ -654,6 +662,8 @@ public class PhoneProfilesService extends Service
                 RootUtils.settingsBinaryExists(false);
                 RootUtils.serviceBinaryExists(false);
                 RootUtils.getServicesList();
+                ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(getApplicationContext());
+                //Permissions.setHyperOSWifiBluetoothDialogAppOp();
 
                 //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
 
@@ -688,10 +698,10 @@ public class PhoneProfilesService extends Service
 
                 // generate predefined profiles and events, for first PPP start (version code is not saved)
                 if (PPApplication.firstStartAfterInstallation) {
-                    if (dataWrapper.profileList.size() == 0) {
+                    if (dataWrapper.profileList.isEmpty()) {
                         dataWrapper.fillPredefinedProfileList(false, false, appContext);
                     }
-                    if (dataWrapper.eventList.size() == 0)
+                    if (dataWrapper.eventList.isEmpty())
                     {
                         dataWrapper.generatePredefinedEventList(appContext);
                     }
@@ -753,9 +763,9 @@ public class PhoneProfilesService extends Service
                 PPExtenderBroadcastReceiver.setApplicationInForeground(appContext, "");
 
                 EventPreferencesCall.setEventCallEventType(appContext, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
-                EventPreferencesCall.setEventCallEventTime(appContext, 0);
+                EventPreferencesCall.setEventCallEventTime(appContext, 0, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
                 EventPreferencesCall.setEventCallPhoneNumber(appContext, "");
-                EventPreferencesCall.setEventCallFromSIMSlot(appContext, 0);
+                EventPreferencesCall.setEventCallFromSIMSlot(appContext, 0, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
 
                 EventPreferencesRoaming.setEventRoamingInSIMSlot(appContext, 0, false, false);
                 EventPreferencesRoaming.setEventRoamingInSIMSlot(appContext, 1, false, false);

@@ -11,6 +11,7 @@ import android.os.PowerManager;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+/** @noinspection ExtractMethodRecommender*/
 public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override

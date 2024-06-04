@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="EmptyAppCompatActivity" parent="Theme.AppCompat.Dialog">
         <item name="android:windowDisablePreview">true</item>
@@ -140,7 +140,9 @@
         <!--<item name="colorAccent">@color/accent_white</item>-->
     <!--</style>-->
 
-    <style name="Doki.Custom.Headline" parent="Doki.Headline">
+    <!-- this is for name of device at top of Doki -->
+    <style name="Doki.Custom.Headline" parent="Doki.Headline"
+        tools:ignore="UnusedResources">
         <item name="android:textSize">16sp</item>
     </style>
     <!--<style name="Doki.Custom.Header" parent="Doki.Header">-->

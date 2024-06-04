@@ -16,6 +16,7 @@ import androidx.work.WorkManager;
 import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 class EventStatic {
 
     static PreferenceAllowed isEventPreferenceAllowed(String preferenceKey, Context context)
@@ -121,7 +122,7 @@ class EventStatic {
                     if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED)) {
 //                        Log.e("EventStatic.isEventPreferenceAllowed", "("+preferenceKey+") called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -168,7 +169,7 @@ class EventStatic {
                     if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED)) {
 //                        Log.e("EventStatic.isEventPreferenceAllowed", "("+preferenceKey+") called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -203,7 +204,7 @@ class EventStatic {
                     if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED)) {
 //                        Log.e("EventStatic.isEventPreferenceAllowed", "("+preferenceKey+") called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -260,7 +261,7 @@ class EventStatic {
                     if (preferenceKey.equals(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED)) {
 //                        Log.e("EventStatic.isEventPreferenceAllowed", "("+preferenceKey+") called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -314,7 +315,7 @@ class EventStatic {
                         if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM)) {
                             simExists = hasSIMCardData.hasSIM1 && hasSIMCardData.hasSIM2;
                         } else
-                            simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                            simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -496,7 +497,7 @@ class EventStatic {
     //                            PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(1) PPApplication.eventsHandlerMutex");
                                 synchronized (PPApplication.eventsHandlerMutex) {
                                     event.pauseEvent(dataWrapper, false, false,
-                                            false, true, null, false, false, true);
+                                            false, true, null, false, false, false, true);
                                 }
 
                             } catch (Exception e) {
@@ -575,7 +576,7 @@ class EventStatic {
 
             // restart events
             //activityDataWrapper.restartEvents(false, true, true, true, true);
-            _dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
+            _dataWrapper.restartEventsWithRescan(true, false, true, true, true, false);
 
             /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -676,7 +677,7 @@ class EventStatic {
     static boolean isRedTextNotificationRequired(Event event, boolean againCheckInDelay, Context context) {
         Context appContext = context.getApplicationContext();
         boolean enabledSomeSensor = event.isEnabledSomeSensor(appContext);
-        boolean grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null, EventsHandler.SENSOR_TYPE_ALL).size() == 0;
+        boolean grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null, EventsHandler.SENSOR_TYPE_ALL).isEmpty();
         /*if (Build.VERSION.SDK_INT >= 29) {
             if (!Settings.canDrawOverlays(context))
                 grantedAllPermissions = false;

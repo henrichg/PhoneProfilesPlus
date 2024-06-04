@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.os.SystemClock;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.ExistingWorkPolicy;
@@ -218,7 +219,7 @@ public class SearchCalendarEventsWorker extends Worker {
                                 }
                             }
                         } catch (ExecutionException | InterruptedException e) {
-                            e.printStackTrace();
+                            Log.e("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e));
                         }
                         if (allFinished) {
                             break;
@@ -260,7 +261,7 @@ public class SearchCalendarEventsWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
+                        Log.e("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e));
                         return false;
                     }
                 }
@@ -297,7 +298,7 @@ public class SearchCalendarEventsWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
+                        Log.e("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e));
                         return false;
                     }
                 }

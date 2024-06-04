@@ -115,7 +115,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         synchronized (activityDataWrapper.profileList) {
             fragment.viewNoData.setVisibility(
                     ((activityDataWrapper.profileListFilled &&
-                      (activityDataWrapper.profileList.size() > 0))
+                      (!activityDataWrapper.profileList.isEmpty()))
                     ) ? View.GONE : View.VISIBLE);
 
             if (!activityDataWrapper.profileListFilled)

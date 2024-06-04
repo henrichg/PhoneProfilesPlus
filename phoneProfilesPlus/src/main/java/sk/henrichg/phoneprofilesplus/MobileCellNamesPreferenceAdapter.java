@@ -67,7 +67,7 @@ class MobileCellNamesPreferenceAdapter extends BaseAdapter
         holder.checkBox.setFocusable(false);
         holder.checkBox.setFocusableInTouchMode(false);
 
-        if (preference.cellNamesList.size() == 0)
+        if (preference.cellNamesList.isEmpty())
             return vi;
 
 

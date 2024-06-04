@@ -24,6 +24,7 @@ import java.util.List;
 
 import se.simbio.encryption.Encryption;
 
+/** @noinspection ExtractMethodRecommender*/
 class DatabaseHandlerImportExport {
 
     static final String PREF_MAXIMUM_VOLUME_RING = "maximumVolume_ring";
@@ -175,6 +176,7 @@ class DatabaseHandlerImportExport {
                                 audioManager, AudioManager.STREAM_BLUETOOTH_SCO, maximumVolumeBluetoothSCO);
 
                         // updating row
+                        //noinspection SizeReplaceableByIsEmpty
                         if (values.size() > 0)
                             db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
                                     new String[]{String.valueOf(profileId)});
@@ -254,6 +256,7 @@ class DatabaseHandlerImportExport {
                                 audioManager, AudioManager.STREAM_BLUETOOTH_SCO, maximumVolumeBluetoothSCO);
 
                         // updating row
+                        //noinspection SizeReplaceableByIsEmpty
                         if (values.size() > 0)
                             db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                     new String[]{String.valueOf(eventId)});
@@ -285,7 +288,8 @@ class DatabaseHandlerImportExport {
                     DatabaseHandler.KEY_DEVICE_WALLPAPER_CHANGE + "," +
                     DatabaseHandler.KEY_DEVICE_WALLPAPER + "," +
                     DatabaseHandler.KEY_DEVICE_WALLPAPER_FOLDER + "," +
-                    DatabaseHandler.KEY_DURATION_NOTIFICATION_SOUND +
+                    DatabaseHandler.KEY_DURATION_NOTIFICATION_SOUND + "," +
+                    DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN +
                     " FROM " + DatabaseHandler.TABLE_PROFILES, null);
 
             ContentResolver contentResolver = instance.context.getContentResolver();
@@ -517,6 +521,30 @@ class DatabaseHandlerImportExport {
                                     new String[]{String.valueOf(profileId)});
                         }
                     }
+                    wallpaper = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN));
+                    if (!wallpaper.isEmpty() && !wallpaper.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN))) {
+                        boolean isGranted = false;
+                        Uri uri = Uri.parse(wallpaper);
+                        if (uri != null) {
+                            try {
+                                instance.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                isGranted = true;
+                            } catch (Exception e) {
+                                //isGranted = false;
+                            }
+                        }
+                        if (!isGranted) {
+                            values.clear();
+                            String wallpaperChange = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_CHANGE));
+                            if (wallpaperChange.equals("1"))
+                                values.put(DatabaseHandler.KEY_DEVICE_WALLPAPER_CHANGE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE));
+                            values.put(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN));
+                            db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                    new String[]{String.valueOf(profileId)});
+                        }
+                    }
+
                     String wallpaperFolder = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_FOLDER));
                     if (!wallpaperFolder.isEmpty() && !wallpaperFolder.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER))) {
                         boolean isGranted = false;
@@ -794,9 +822,9 @@ class DatabaseHandlerImportExport {
                                     false);
 //        Log.e("DatabaseHandlerImportExport.afterImportDb", "applicationContactsInBackupEncripted="+applicationContactsInBackupEncripted);
             if (applicationContactsInBackupEncripted) {
-                try {
-                    Encryption encryption = Encryption.getDefault(BuildConfig.encrypt_contacts_key, BuildConfig.encrypt_contacts_salt, new byte[16]);
+                Encryption encryption = Encryption.getDefault(BuildConfig.encrypt_contacts_key, BuildConfig.encrypt_contacts_salt, new byte[16]);
 
+                try {
                     cursorImportDB = db.rawQuery("SELECT " +
                             DatabaseHandler.KEY_E_ID + "," +
                             DatabaseHandler.KEY_E_CALL_CONTACTS + "," +
@@ -853,6 +881,42 @@ class DatabaseHandlerImportExport {
                     if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
                         cursorImportDB.close();
                 }
+
+                try {
+                    cursorImportDB = db.rawQuery("SELECT " +
+                            DatabaseHandler.KEY_ID + "," +
+                            DatabaseHandler.KEY_PHONE_CALLS_CONTACTS +
+                            " FROM " + DatabaseHandler.TABLE_PROFILES, null);
+
+                    if (cursorImportDB.moveToFirst()) {
+                        do {
+                            long profileId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
+
+                            String phoneCallsContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS));
+
+                            String decryptedPhoneCallsContacts;
+                            try {
+                                decryptedPhoneCallsContacts = encryption.decryptOrNull(phoneCallsContacts);
+                            } catch (Exception e) {
+                                decryptedPhoneCallsContacts = "";
+                            }
+                            //Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedPhoneCallsContacts="+decryptedPhoneCallsContacts);
+                            if (decryptedPhoneCallsContacts == null) decryptedPhoneCallsContacts = "";
+
+                            ContentValues values = new ContentValues();
+                            values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS, decryptedPhoneCallsContacts);
+
+                            db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                    new String[]{String.valueOf(profileId)});
+
+                        } while (cursorImportDB.moveToNext());
+                    }
+                    cursorImportDB.close();
+                } finally {
+                    if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                        cursorImportDB.close();
+                }
+
             }
         }
     }
@@ -1088,7 +1152,7 @@ class DatabaseHandlerImportExport {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + "=0");
 
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_FROM_SIM_SLOT + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SMS_FROM_SIM_SLOT + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SMS_FOR_SIM_CARD + "=0");
@@ -1726,7 +1790,8 @@ class DatabaseHandlerImportExport {
     static int exportDB(DatabaseHandler instance,
                         boolean deleteGeofences, boolean deleteWifiSSIDs,
                         boolean deleteBluetoothNames, boolean deleteMobileCells,
-                        boolean deleteCall, boolean deleteSMS, boolean deleteNotification)
+                        boolean deleteCall, boolean deleteSMS, boolean deleteNotification,
+                        boolean deletePhoneCalls)
     {
         instance.importExportLock.lock();
         try {
@@ -1836,6 +1901,37 @@ class DatabaseHandlerImportExport {
 
                                                     exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                                                 new String[]{String.valueOf(eventId)});
+
+                                                } while (cursorExportDB.moveToNext());
+                                            }
+                                            cursorExportDB.close();
+                                        } finally {
+                                            if ((cursorExportDB != null) && (!cursorExportDB.isClosed()))
+                                                cursorExportDB.close();
+                                        }
+
+                                        cursorExportDB = null;
+                                        try {
+                                            cursorExportDB = exportedDBObj.rawQuery("SELECT " +
+                                                    DatabaseHandler.KEY_ID + "," +
+                                                    DatabaseHandler.KEY_PHONE_CALLS_CONTACTS +
+                                                    " FROM " + DatabaseHandler.TABLE_PROFILES, null);
+
+                                            if (cursorExportDB.moveToFirst()) {
+                                                do {
+                                                    long profileId = cursorExportDB.getLong(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
+
+                                                    String phoneCallsContacts = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS));
+
+                                                    String encryptedPhoneCallsContacts = encryption.encryptOrNull(phoneCallsContacts);
+                                                    //Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedPhoneCallsContacts="+encryptedPhoneCallsContacts);
+                                                    if (encryptedPhoneCallsContacts == null) encryptedPhoneCallsContacts="";
+
+                                                    ContentValues values = new ContentValues();
+                                                    values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS, encryptedPhoneCallsContacts);
+
+                                                    exportedDBObj.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                                            new String[]{String.valueOf(profileId)});
 
                                                 } while (cursorExportDB.moveToNext());
                                             }
@@ -2012,6 +2108,13 @@ class DatabaseHandlerImportExport {
                                             _values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, encriptedEmptyStr);
                                             _values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACT_GROUPS, "");
                                             exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
+                                        }
+                                        if (deletePhoneCalls) {
+                                            //Log.e("DatabaseHandlerImportExport.exportedDB", "deletePhoneCalls");
+                                            ContentValues _values = new ContentValues();
+                                            _values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS, encriptedEmptyStr);
+                                            _values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_PROFILES, _values, null, null);
                                         }
 
                                     } catch (Exception ee) {

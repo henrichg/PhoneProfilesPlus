@@ -19,6 +19,7 @@ import androidx.work.WorkerParameters;
 import java.util.Calendar;
 import java.util.Set;
 
+/** @noinspection ExtractMethodRecommender*/
 public class MainWorker extends Worker {
 
     static final String APPLICATION_FULLY_STARTED_WORK_TAG = "applicationFullyStartedWork";
@@ -226,7 +227,7 @@ public class MainWorker extends Worker {
                             PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED,
                                     null, null, "");
 
-                            dataWrapper.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
+                            dataWrapper.restartEventsWithDelay(false, true, false, false, PPApplication.ALTYPE_UNDEFINED);
                         }
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:
@@ -279,8 +280,9 @@ public class MainWorker extends Worker {
 
                             long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
                             boolean forRestartEvents = getInputData().getBoolean(ProfileDurationAlarmBroadcastReceiver.EXTRA_FOR_RESTART_EVENTS, false);
+                            boolean manualRestart = getInputData().getBoolean(PhoneProfilesService.EXTRA_MANUAL_RESTART, false);
                             int startupSource = getInputData().getInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EVENT_MANUAL);
-                            ProfileDurationAlarmBroadcastReceiver.doWork(false, appContext, profileId, forRestartEvents, startupSource);
+                            ProfileDurationAlarmBroadcastReceiver.doWork(false, appContext, profileId, forRestartEvents, manualRestart, startupSource);
                         }
                         else
                         if (tag.startsWith(RUN_APPLICATION_WITH_DELAY_WORK_TAG)) {
@@ -385,7 +387,7 @@ public class MainWorker extends Worker {
                 }
             }
 
-            dataWrapper.firstStartEvents(true, false);
+            dataWrapper.firstStartEvents(true, false, false);
 
             PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
             PhoneProfilesServiceStatic.disableNotUsedScanners(dataWrapper);
@@ -479,6 +481,9 @@ public class MainWorker extends Worker {
         eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED});
 
         if (startForExternalApplication) {
+            // startActivity from background: Android 10 (API level 29)
+            // Exception:
+            // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
             if ((Build.VERSION.SDK_INT < 29) || Settings.canDrawOverlays(appContext)) {
                 // Permission SYSTEM_ALERT_WINDOW is required for start activity from Worker
                 try {

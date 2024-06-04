@@ -8,6 +8,7 @@ import android.os.Build;
 import java.util.concurrent.TimeUnit;
 
 // Disable action button
+/** @noinspection ExtractMethodRecommender*/
 public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
 
     @Override

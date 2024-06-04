@@ -126,15 +126,16 @@ class EventPreferencesMobileCells extends EventPreferences {
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
-                        boolean simExists;
+                        //boolean simExists;
 //                        Log.e("EventPreferencesMobileCells.getPreferencesDescription", "called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean sim1Exists = hasSIMCardData.hasSIM1;
-                        boolean sim2Exists = hasSIMCardData.hasSIM2;
+                        hasSIMCard = hasSIMCardData.simCount > 0;
+                        //boolean sim1Exists = hasSIMCardData.hasSIM1;
+                        //boolean sim2Exists = hasSIMCardData.hasSIM2;
 
-                        simExists = sim1Exists;
-                        simExists = simExists && sim2Exists;
-                        hasSIMCard = simExists;
+                        //simExists = sim1Exists;
+                        //simExists = simExists && sim2Exists;
+                        //hasSIMCard = simExists;
                     }
                 }
                 if (hasSIMCard) {
@@ -256,15 +257,16 @@ class EventPreferencesMobileCells extends EventPreferences {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
                         hasFeature = true;
-                        boolean simExists;
+                        //boolean simExists;
 //                        Log.e("EventPreferencesMobileCells.setSummary", "called hasSIMCard");
                         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean sim1Exists = hasSIMCardData.hasSIM1;
-                        boolean sim2Exists = hasSIMCardData.hasSIM2;
+                        hasSIMCard = hasSIMCardData.simCount > 1;
+                        //boolean sim1Exists = hasSIMCardData.hasSIM1;
+                        //boolean sim2Exists = hasSIMCardData.hasSIM2;
 
-                        simExists = sim1Exists;
-                        simExists = simExists && sim2Exists;
-                        hasSIMCard = simExists;
+                        //simExists = sim1Exists;
+                        //simExists = simExists && sim2Exists;
+                        //hasSIMCard = simExists;
                         PPListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
                             int index = listPreference.findIndexOfValue(value);
@@ -353,7 +355,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
-                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_MOBILE_CELLS).size() == 0;
+                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_MOBILE_CELLS).isEmpty();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));

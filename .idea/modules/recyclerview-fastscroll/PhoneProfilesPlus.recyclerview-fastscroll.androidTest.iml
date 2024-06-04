@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id=":recyclerview-fastscroll:androidTest" external.linked.project.path="$MODULE_DIR$/../../../recyclerview-fastscroll" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.type="sourceSet" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
-    <facet type="android" name="Android">
+    <facet external-system-id="GRADLE" type="android" name="Android">
       <configuration>
         <option name="SELECTED_BUILD_VARIANT" value="debug" />
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
@@ -15,11 +15,12 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output-test url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/intermediates/javac/debugAndroidTest/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/intermediates/javac/debugAndroidTest/compileDebugAndroidTestJavaWithJavac/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/generated/ap_generated_sources/debugAndroidTest/out" />
-    <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/generated/res/resValues/androidTest/debug" />
-    <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/generated/source/buildConfig/androidTest/debug" />
+    <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/generated/res/resValues/androidTest/debug">
+      <sourceFolder url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/generated/res/resValues/androidTest/debug" type="java-test-resource" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/src/androidTest" />
     <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/src/androidTestDebug" />
     <orderEntry type="jdk" jdkName="Android API 34, extension level 7 Platform" jdkType="Android SDK" />

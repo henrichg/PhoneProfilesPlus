@@ -107,7 +107,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         synchronized (activityDataWrapper.eventList) {
             fragment.viewNoData.setVisibility(
                     ((activityDataWrapper.eventListFilled) &&
-                     (activityDataWrapper.eventList.size() > 0))
+                     (!activityDataWrapper.eventList.isEmpty()))
                     ? View.GONE : View.VISIBLE);
 
             if (!activityDataWrapper.eventListFilled)
@@ -364,7 +364,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     @Override
     public void clearView() {
-        activityDataWrapper.restartEventsWithDelay(true, true, false, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
+        activityDataWrapper.restartEventsWithDelay(true, true, false, true, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
     }
 
     void showTargetHelps(Activity activity, /*EditorEventListFragment fragment,*/ View listItemView) {

@@ -33,7 +33,7 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
         synchronized (activityDataWrapper.profileList) {
             fragment.viewNoData.setVisibility(
                     ((activityDataWrapper.profileListFilled &&
-                            (activityDataWrapper.profileList.size() > 0))
+                            (!activityDataWrapper.profileList.isEmpty()))
                     ) ? View.GONE : View.VISIBLE);
 
             return activityDataWrapper.profileList.size();

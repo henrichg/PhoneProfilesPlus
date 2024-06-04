@@ -18,6 +18,7 @@ import androidx.core.graphics.ColorUtils;
 import java.util.Comparator;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private DataWrapper dataWrapper;

@@ -61,7 +61,7 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
 
         if (Permissions.grantRingtonePreferenceDialogPermissions(prefContext)) {
             //if (preference != null) {
-                if (preference.toneList.size() > 0)
+                if (!preference.toneList.isEmpty())
                     hideProgress();
             //}
 

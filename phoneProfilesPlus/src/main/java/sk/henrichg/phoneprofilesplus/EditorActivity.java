@@ -30,6 +30,7 @@ import android.service.notification.StatusBarNotification;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -86,6 +87,7 @@ import me.ibrahimsn.lib.SmoothBottomBar;
 import sk.henrichg.phoneprofilesplus.EditorEventListFragment.OnStartEventPreferences;
 import sk.henrichg.phoneprofilesplus.EditorProfileListFragment.OnStartProfilePreferences;
 
+/** @noinspection ExtractMethodRecommender*/
 public class EditorActivity extends AppCompatActivity
                                     implements OnStartProfilePreferences,
                                                OnStartEventPreferences,
@@ -1241,7 +1243,7 @@ public class EditorActivity extends AppCompatActivity
                 uris.add(fileUri);
             }
 
-            if (uris.size() != 0) {
+            if (!uris.isEmpty()) {
                 String emailAddress = StringConstants.AUTHOR_EMAIL;
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                         StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
@@ -1270,7 +1272,7 @@ public class EditorActivity extends AppCompatActivity
                     intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
                     intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
                 }
-                if (intents.size() > 0) {
+                if (!intents.isEmpty()) {
                     try {
                         Intent chooser = Intent.createChooser(new Intent(Intent.ACTION_CHOOSER), getString(R.string.email_chooser));
                         chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
@@ -2301,6 +2303,7 @@ public class EditorActivity extends AppCompatActivity
                 ProfileListNotification.drawNotification(true, appContext);
                 DrawOverAppsPermissionNotification.showNotification(appContext, true);
                 IgnoreBatteryOptimizationNotification.showNotification(appContext, true);
+                DNDPermissionNotification.showNotification(appContext, true);
                 PPAppNotification.drawNotification(true, appContext);
             }
 
@@ -2848,10 +2851,12 @@ public class EditorActivity extends AppCompatActivity
                 boolean deleteSMS = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogNotification);
                 boolean deleteNotification = checkbox.isChecked();
+                checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogPhoneCalls);
+                boolean deletePhoneCalls = checkbox.isChecked();
 
                 exportAsyncTask = new ExportAsyncTask(email, toAuthor, share,
                         deleteGeofences, deleteWifiSSIDs, deleteBluetoothNames, deleteMobileCells,
-                        deleteCall, deleteSMS, deleteNotification,
+                        deleteCall, deleteSMS, deleteNotification, deletePhoneCalls,
                         activity);
                 exportAsyncTask.execute();
             });
@@ -2927,6 +2932,7 @@ public class EditorActivity extends AppCompatActivity
         startActivityForResult(intent, REQUEST_CODE_PROFILE_PREFERENCES);
     }
 
+    /** @noinspection ClassEscapesDefinedScope*/
     public void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex/*, boolean startTargetHelps*/) {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
         if (fragment instanceof EditorProfileListFragment) {
@@ -3110,6 +3116,7 @@ public class EditorActivity extends AppCompatActivity
         }
     }
 
+    /** @noinspection ClassEscapesDefinedScope*/
     public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex/*, boolean startTargetHelps*/) {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
         if (fragment instanceof EditorEventListFragment) {
@@ -4482,6 +4489,7 @@ public class EditorActivity extends AppCompatActivity
 
                     DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
                     IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
+                    DNDPermissionNotification.showNotification(_dataWrapper.context, true);
 
                     PPApplicationStatic.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, true);
                 } else {
@@ -4513,13 +4521,14 @@ public class EditorActivity extends AppCompatActivity
         final boolean deleteCall;
         final boolean deleteSMS;
         final boolean deleteNotification;
+        final boolean deletePhoneCalls;
         File zipFile = null;
 
         public ExportAsyncTask(final boolean email, final boolean toAuthor, final boolean share,
                                final boolean deleteGeofences, final boolean deleteWifiSSIDs,
                                final boolean deleteBluetoothNames, final boolean deleteMobileCells,
                                final boolean deleteCall, final boolean deleteSMS,
-                               final boolean deleteNotification,
+                               final boolean deleteNotification, final boolean deletePhoneCalls,
                                EditorActivity activity) {
             this.activityWeakRef = new WeakReference<>(activity);
             this.email = email;
@@ -4532,6 +4541,7 @@ public class EditorActivity extends AppCompatActivity
             this.deleteCall = deleteCall;
             this.deleteSMS = deleteSMS;
             this.deleteNotification = deleteNotification;
+            this.deletePhoneCalls = deletePhoneCalls;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.export_profiles_alert_title);
@@ -4588,7 +4598,8 @@ public class EditorActivity extends AppCompatActivity
                     int ret = DatabaseHandler.getInstance(this.dataWrapper.context).exportDB(
                             this.deleteGeofences, this.deleteWifiSSIDs,
                             this.deleteBluetoothNames, this.deleteMobileCells,
-                            this.deleteCall, this.deleteSMS, this.deleteNotification
+                            this.deleteCall, this.deleteSMS, this.deleteNotification,
+                            this.deletePhoneCalls
                     );
                     if (ret == 1) {
                         //File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + PPApplication.EXPORT_APP_PREF_FILENAME);
@@ -4634,7 +4645,7 @@ public class EditorActivity extends AppCompatActivity
                                 ret = 0;
                         } catch (Exception e) {
                             //PPApplicationStatic.recordException(e);
-                            e.printStackTrace();
+                            Log.e("EditorActivity.doInBackground", Log.getStackTraceString(e));
                             ret = 0;
                         }
 
@@ -4753,7 +4764,7 @@ public class EditorActivity extends AppCompatActivity
                             intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));
                         }
                         //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "intents.size()="+intents.size());
-                        if (intents.size() > 0) {
+                        if (!intents.isEmpty()) {
                             try {
                                 Intent chooser = Intent.createChooser(new Intent(Intent.ACTION_CHOOSER), context.getString(R.string.email_chooser));
                                 chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));

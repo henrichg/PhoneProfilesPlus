@@ -45,6 +45,7 @@ class BitmapManipulator {
 
                 if (checkOrientation) {
                     orientation = getBitmapUriOrientation(context, uri);
+//                    Log.e("BitmapManipulator.resampleBitmapUri", "orientation="+orientation);
 
                     if (orientation == 90 || orientation == 270) {
                         //noinspection SuspiciousNameCombination
@@ -92,6 +93,7 @@ class BitmapManipulator {
 
                 // bitmap format is supported and exists
                 final BitmapFactory.Options options = new BitmapFactory.Options();
+                // get only options of bitmap
                 options.inJustDecodeBounds = true;
                 BitmapFactory.decodeStream(inputStream, null, options);
 
@@ -113,6 +115,7 @@ class BitmapManipulator {
                 // calculate inSampleSize
                 options.inSampleSize = calculateInSampleSize(options, rotatedWidth, rotatedHeight);
 
+                // resample bitmap by options
                 options.inJustDecodeBounds = false;
                 decodedSampleBitmap = BitmapFactory.decodeStream(inputStream, null, options);
 
@@ -128,11 +131,16 @@ class BitmapManipulator {
                         Matrix matrix = new Matrix();
                         matrix.postRotate(orientation);
 
-                        decodedSampleBitmap = Bitmap.createBitmap(decodedSampleBitmap, 0, 0, decodedSampleBitmap.getWidth(),
+                        Bitmap rotatedBitmap = Bitmap.createBitmap(decodedSampleBitmap, 0, 0, decodedSampleBitmap.getWidth(),
                                 decodedSampleBitmap.getHeight(), matrix, true);
-                    }
-                }
-                return decodedSampleBitmap;
+
+                        decodedSampleBitmap.recycle();
+
+                        return rotatedBitmap;
+                    } else
+                        return decodedSampleBitmap;
+                } else
+                    return null;
             } catch (Exception ee) {
                 //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(ee));
                 PPApplicationStatic.recordException(ee);

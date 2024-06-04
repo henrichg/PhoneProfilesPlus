@@ -87,7 +87,7 @@ class BluetoothLEScanCallback extends ScanCallback {
     public void onBatchScanResults(List<ScanResult> results) {
 //        PPApplicationStatic.logE("[IN_LISTENER] BluetoothLEScanCallback.onBatchScanResults", "xxx");
 
-        if ((results == null) || (results.size() == 0))
+        if ((results == null) || (results.isEmpty()))
             return;
 
         if (!PPApplicationStatic.getApplicationStarted(true, true))

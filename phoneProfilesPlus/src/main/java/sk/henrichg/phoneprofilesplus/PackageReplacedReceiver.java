@@ -7,6 +7,7 @@ import android.os.PowerManager;
 
 // This broadcast is needed for start of PPP after package replaced
 
+/** @noinspection ExtractMethodRecommender*/
 public class PackageReplacedReceiver extends BroadcastReceiver {
 
     @Override

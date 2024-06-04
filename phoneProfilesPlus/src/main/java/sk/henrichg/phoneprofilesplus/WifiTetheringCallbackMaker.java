@@ -5,6 +5,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 
 import com.android.dx.Code;
 import com.android.dx.DexMaker;
@@ -33,7 +34,7 @@ public final class WifiTetheringCallbackMaker {
         try {
             onStartTetheringCallback = Class.forName("android.net.ConnectivityManager$OnStartTetheringCallback");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Log.e("WifiTetheringCallbackMaker.WifiTetheringCallbackMaker", Log.getStackTraceString(e));
             onStartTetheringCallback = null;
         }
         if (onStartTetheringCallback != null) {
@@ -46,7 +47,7 @@ public final class WifiTetheringCallbackMaker {
             try {
                 this.tetheringCallback = this.dexMaker.generateAndLoad(WifiTetheringCallbackMaker.class.getClassLoader(), this.context.getCodeCacheDir()).loadClass("TetheringCallback");
             } catch (IOException | ClassNotFoundException e2) {
-                e2.printStackTrace();
+                Log.e("WifiTetheringCallbackMaker.WifiTetheringCallbackMaker", Log.getStackTraceString(e2));
             }
         }
     }

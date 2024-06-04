@@ -22,6 +22,8 @@ import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener,
@@ -37,7 +39,8 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     //private CheckBox sharedProfileChBox = null;
     private Button actualVolumeBtn = null;
 
-    private static volatile MediaPlayer mediaPlayer = null;
+    private static volatile Timer playTimer = null;
+    static volatile MediaPlayer mediaPlayer = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -189,6 +192,10 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                         //PPApplicationStatic.recordException(e);
                     }
                 }
+                if (playTimer != null) {
+                    playTimer.cancel();
+                    playTimer = null;
+                }
             }
         };
         PPApplicationStatic.createPlayToneExecutor();
@@ -294,6 +301,10 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                             //PPApplicationStatic.recordException(e);
                         }
                     }
+                    if (playTimer != null) {
+                        playTimer.cancel();
+                        playTimer = null;
+                    }
 
                     try {
                         if (_preference.volumeType.equalsIgnoreCase("RINGTONE")) {
@@ -350,10 +361,39 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                             //_preference.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
                             mediaPlayer.start();
+
+                            playTimer = new Timer();
+                            playTimer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    if (mediaPlayer != null) {
+                                        try {
+                                            if (mediaPlayer.isPlaying())
+                                                mediaPlayer.stop();
+                                        } catch (Exception e) {
+                                            //PPApplicationStatic.recordException(e);
+                                        }
+                                        try {
+                                            mediaPlayer.release();
+                                        } catch (Exception e) {
+                                            //PPApplicationStatic.recordException(e);
+                                        }
+                                    }
+
+                                    mediaPlayer = null;
+                                    playTimer = null;
+                                }
+                            }, mediaPlayer.getDuration());
+
                         }
                     } catch (Exception e) {
                         //Log.e("VolumeDialogPreferenceFragment.onStopTrackingTouch", Log.getStackTraceString(e));
-                        PPApplicationStatic.recordException(e);
+
+                        // fo not recordException, because of thsi:
+                        // java.lang.SecurityException: Settings key: <ringtone2> is not readable. From S+, settings keys
+                        // annotated with @hide are restricted to system_server and system apps only, unless they are annotated
+                        // with @Readable.
+                        //PPApplicationStatic.recordException(e);
                     }
                 }
             };

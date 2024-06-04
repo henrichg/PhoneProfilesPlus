@@ -118,7 +118,7 @@ public class GenerateNotificationDialogPreference extends DialogPreference {
             if (showLargeIcon == 1)
                 prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.preference_profile_generate_notification_show_large_icon) + "; ";
 
-            prefVolumeDataSummary = prefVolumeDataSummary + notificationTitle + ", " + notificationBody;
+            prefVolumeDataSummary = prefVolumeDataSummary + "\"" + notificationTitle + "\"; \"" + notificationBody + "\"";
         }
         setSummary(prefVolumeDataSummary);
     }

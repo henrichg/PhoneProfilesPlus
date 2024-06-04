@@ -120,7 +120,7 @@ public class NumberView extends LinearLayout {
             boolean isNegative) {
         mMinusLabel.setVisibility(isNegative ? View.VISIBLE : View.GONE);
         if (mNumber != null) {
-            if (numbersDigit.equals("")) {
+            if (numbersDigit.isEmpty()) {
                 // Set to -
                 mNumber.setText("-");
                 //mNumber.setTypeface(mAndroidClockMonoThin);
@@ -145,7 +145,7 @@ public class NumberView extends LinearLayout {
         }
         if (mDecimal != null) {
             // Hide digit
-            if (decimalDigit.equals("")) {
+            if (decimalDigit.isEmpty()) {
                 mDecimal.setVisibility(View.GONE);
             } else {
                 mDecimal.setText(decimalDigit);

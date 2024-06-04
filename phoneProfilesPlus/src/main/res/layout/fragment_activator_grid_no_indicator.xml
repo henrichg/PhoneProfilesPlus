@@ -28,6 +28,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default" />
 
+<!--
         <TextView
             android:id="@+id/act_prof_activated_profile_name"
             android:layout_width="wrap_content"
@@ -41,6 +42,25 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@color/accent_color" />
+-->
+        <EditText
+            android:id="@+id/act_prof_activated_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:text="@string/profile_name_default"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/accent_color"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:singleLine="true"
+            android:importantForAutofill="no"
+            android:inputType="textNoSuggestions"
+            tools:ignore="LabelFor,TextFields" />
 
     </LinearLayout>
 

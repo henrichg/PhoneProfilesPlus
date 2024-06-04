@@ -1,10 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
 import static android.Manifest.permission;
+import static android.app.role.RoleManager.ROLE_CALL_SCREENING;
+import static android.content.Context.ROLE_SERVICE;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationManager;
+import android.app.role.RoleManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,9 +16,14 @@ import android.os.Build;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+
+import com.stericson.rootshell.execution.Command;
+import com.stericson.rootshell.execution.Shell;
+import com.stericson.roottools.RootTools;
 
 import java.util.ArrayList;
 
@@ -77,6 +85,7 @@ class Permissions {
     static final int PERMISSION_TYPE_PROFILE_CLOSE_ALL_APPLICATIONS = 55;
     static final int PERMISSION_TYPE_PROFILE_PPP_PUT_SETTINGS = 56;
     static final int PERMISSION_TYPE_PROFILE_RINGTONES_DUAL_SIM = 57;
+    static final int PERMISSION_TYPE_PROFILE_PHONE_CALLS = 58;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -103,6 +112,7 @@ class Permissions {
     static final int GRANT_TYPE_BACKGROUND_LOCATION = 23;
     static final int GRANT_TYPE_WALLPAPER_FOLDER = 24;
     static final int GRANT_TYPE_MOBILE_CELL_NAMES_SCAN_DIALOG = 25;
+    static final int GRANT_TYPE_IMAGE_WALLPAPER_LOCKSCREEN = 26;
 
     static final int REQUEST_CODE = 5000;
     //static final int REQUEST_CODE_FORCE_GRANT = 6000;
@@ -243,10 +253,10 @@ class Permissions {
         checkProfileCameraFlash(context, profile, permissions);
         //checkProfileBackgroundLocation(context, profile, permissions);
         checkProfileMicrophone(context, profile, permissions);
-
         checkProfileRunApplications(context, profile, permissions);
         checkProfileInteractivePreferences(context, profile, permissions);
         checkProfileCloseAllApplications(context, profile, permissions);
+        checkProfilePhoneCalls(context, profile, permissions);
         checkProfilePPPPutSettings(context, profile, permissions);
 
         return permissions;
@@ -562,14 +572,14 @@ class Permissions {
 
         try {
             boolean externalStorageGranted = true;
-            if ((profile._deviceWallpaperChange == 1) ||
-                    (profile._deviceWallpaperChange == 4)) {
+            if ((profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_IMAGE) ||
+                    (profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_IMAGE_WITH)) {
                 externalStorageGranted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
             }
             boolean drawOverAppsGranted = true;
             if (Build.VERSION.SDK_INT >= 29) {
-                if ((profile._deviceWallpaperChange == 4) ||
-                        (profile._deviceWallpaperChange == 2)) {
+                if ((profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_IMAGE_WITH) ||
+                        (profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_LIVE)) {
                     drawOverAppsGranted = Settings.canDrawOverlays(context);
                     if (drawOverAppsGranted)
                         setShowRequestDrawOverlaysPermission(context, true);
@@ -592,7 +602,7 @@ class Permissions {
         if (profile == null) return true;
 
         try {
-            if (profile._deviceWallpaperChange == 3) {
+            if (profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_FOLDER) {
                 boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
                 if ((permissions != null) && (!granted))
                     permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_WALLPAPER_FOLDER, permission.READ_EXTERNAL_STORAGE));
@@ -774,6 +784,29 @@ class Permissions {
     static boolean checkPhone(Context context) {
         try {
             return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+//    static boolean checkAnswerPhoneCalls(Context context) {
+//        try {
+//            return (ContextCompat.checkSelfPermission(context, permission.ANSWER_PHONE_CALLS) == PackageManager.PERMISSION_GRANTED);
+//        } catch (Exception e) {
+//            return false;
+//        }
+//    }
+//    static boolean checkCallPhone(Context context) {
+//        try {
+//            return (ContextCompat.checkSelfPermission(context, permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED);
+//        } catch (Exception e) {
+//            return false;
+//        }
+//    }
+
+    static boolean checkSendSMS(Context context) {
+        try {
+            return (ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED);
         } catch (Exception e) {
             return false;
         }
@@ -1124,6 +1157,36 @@ class Permissions {
             }
         } //else
         //return /*true*/;
+    }
+
+    static void checkProfilePhoneCalls(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return /*true*/;
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            try {
+                RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
+                boolean isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
+
+                boolean grantedContacts = true;
+                boolean grantedSendSMS = true;
+                if (isHeld) {
+                    if (((profile._phoneCallsContacts != null) && (!profile._phoneCallsContacts.isEmpty())) ||
+                        ((profile._phoneCallsContactGroups != null) && (!profile._phoneCallsContactGroups.isEmpty()))) {
+                        grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+                        if (profile._phoneCallsBlockCalls && profile._phoneCallsSendSMS)
+                            grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+                    }
+                }
+                if (permissions != null) {
+                    if (!grantedContacts)
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_PHONE_CALLS, permission.READ_CONTACTS));
+                    if (!grantedSendSMS)
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_PHONE_CALLS, permission.SEND_SMS));
+                }
+            } catch (Exception e) {
+                //return;
+            }
+        }
     }
 
     static ArrayList<PermissionType> checkEventPermissions(Context context, Event event, SharedPreferences preferences,
@@ -1743,7 +1806,7 @@ class Permissions {
                                                   /*boolean activateProfile,*/
                                                   /*boolean fromPreferences*/) {
         ArrayList<PermissionType> permissions = checkProfilePermissions(context, profile);
-        if (permissions.size() > 0) {
+        if (!permissions.isEmpty()) {
             try {
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //if (!fromPreferences || onlyNotification)
@@ -1842,7 +1905,7 @@ class Permissions {
         //return granted;
     }
 
-    static boolean grantImageWallpaperPermissions(Context context) {
+    static boolean grantImageWallpaperPermissions(Context context, boolean forLockScreen) {
         boolean granted = checkGallery(context);
         if (!granted) {
             try {
@@ -1852,11 +1915,17 @@ class Permissions {
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_IMAGE_WALLPAPER);
+                if (forLockScreen)
+                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_IMAGE_WALLPAPER_LOCKSCREEN);
+                else
+                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_IMAGE_WALLPAPER);
                 intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                 //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                 intent.putExtra(EXTRA_FORCE_GRANT, true);
-                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_IMAGE_WALLPAPER);
+                if (forLockScreen)
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_IMAGE_WALLPAPER_LOCKSCREEN);
+                else
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_IMAGE_WALLPAPER);
                 //wallpaperViewPreference = preference;
                 //context.startActivity(intent);
             } catch (Exception e) {
@@ -2001,7 +2070,7 @@ class Permissions {
                                                   boolean fromPreferences*/) {
         ArrayList<PermissionType> permissions =
                 checkEventPermissions(context, event, null, EventsHandler.SENSOR_TYPE_ALL);
-        if (permissions.size() > 0) {
+        if (!permissions.isEmpty()) {
             try {
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //if (!fromPreferences || onlyNotification)
@@ -3072,6 +3141,47 @@ class Permissions {
             intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 1);
             intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_shizuku_howTo_1);
             activity.startActivity(intentLaunch);
+        }
+    }
+
+    static void setHyperOSWifiBluetoothDialogAppOp() {
+        // appops value when not changed (defualt value). Yes, result is ask for it vith system dialog
+        // - adb shell appops get sk.henrichg.phoneprofilesplus 10001
+        // - MIUIOP(10001): ask
+        //
+        // How to set it (?):
+        // - Checked parameter in Settings -> mode=allow
+        // - Unchecked parameter in Settings -> mode=ask
+
+        if (ShizukuUtils.hasShizukuPermission()) {
+//            Log.e("Permissions.setHyperOSWifiBluetoothDialogAppOp", "Shizuku");
+            synchronized (PPApplication.rootMutex) {
+                String mode = "ask";
+                if (ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs)
+                    mode = "allow";
+                String command1 = "appops set " + PPApplication.PACKAGE_NAME + " 10001 " + mode;
+//                Log.e("Permissions.setHyperOSWifiBluetoothDialogAppOp", "command1="+command1);
+                try {
+                    ShizukuUtils.executeCommand(command1);
+                } catch (Exception e) {
+                    Log.e("Permissions.setHyperOSWifiBluetoothDialogAppOp", Log.getStackTraceString(e));
+                }
+            }
+        } else
+        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
+            synchronized (PPApplication.rootMutex) {
+                String mode = "ask";
+                if (ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs)
+                    mode = "allow";
+                String command1 = "appops set " + PPApplication.PACKAGE_NAME + " 10001 " + mode;
+                Command command = new Command(0, /*false,*/ command1);
+                try {
+                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
+                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_HYPER_OS_WIFI_BLUETOOTH_DIALOGS_APPOP);
+                } catch (Exception e) {
+                    Log.e("Permissions.setHyperOSWifiBluetoothDialogAppOp", Log.getStackTraceString(e));
+                }
+            }
         }
     }
 

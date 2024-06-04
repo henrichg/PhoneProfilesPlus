@@ -14,6 +14,7 @@ import androidx.palette.graphics.Palette;
 
 import java.util.Calendar;
 
+/** @noinspection ExtractMethodRecommender*/
 class Profile {
 
     long _id;
@@ -130,6 +131,14 @@ class Profile {
     int _applicationLocationScanInterval;
     int _applicationOrientationScanInterval;
     int _applicationPeriodicScanInterval;
+    String _phoneCallsContacts; // contactId#phoneId|...
+    String _phoneCallsContactGroups; // groupId|...
+    int _phoneCallsContactListType;
+    boolean _phoneCallsBlockCalls;
+    boolean _phoneCallsSendSMS;
+    String _phoneCallsSMSText;
+    String _deviceWallpaperLockScreen;
+
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -258,6 +267,48 @@ class Profile {
     static final String PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL = "prf_pref_applicationLocationUpdateInterval";
     static final String PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL = "prf_pref_applicationOrientationScanInterval";
     static final String PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL = "prf_pref_applicationPeriodicScanningScanInterval";
+    static final String PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS = "prf_pref_phoneCalls_blockCalls";
+    static final String PREF_PROFILE_PHONE_CALLS_CONTACTS = "prf_pref_phoneCalls_contacts";
+    static final String PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS = "prf_pref_phoneCalls_contactGroups";
+    static final String PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE = "prf_pref_phoneCalls_contactListType";
+    static final String PREF_PROFILE_PHONE_CALLS_SEND_SMS = "prf_pref_phoneCalls_sendSMS";
+    static final String PREF_PROFILE_PHONE_CALLS_SMS_TEXT = "prf_pref_phoneCalls_SMSText";
+    static final String PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN = "prf_pref_deviceWallpaperLockScreen";
+
+    static final int RINGERMODE_RING = 1;
+    static final int RINGERMODE_RING_AND_VIBRATE = 2;
+    static final int RINGERMODE_VIBRATE = 3;
+    static final int RINGERMODE_SILENT = 4;
+    static final int RINGERMODE_ZENMODE = 5;
+
+    static final int ZENMODE_ALL = 1;
+    static final int ZENMODE_PRIORITY = 2;
+    static final int ZENMODE_NONE = 3;
+    static final int ZENMODE_ALL_AND_VIBRATE = 4;
+    static final int ZENMODE_PRIORITY_AND_VIBRATE = 5;
+    static final int ZENMODE_ALARMS = 6;
+
+    static final int AFTER_DURATION_DO_NOTHING = 0;
+    static final int AFTER_DURATION_DO_UNDO_PROFILE = 1;
+    static final int AFTER_DURATION_DO_DEFAULT_PROFILE = 2;
+    static final int AFTER_DURATION_DO_RESTART_EVENTS = 3;
+    static final int AFTER_DURATION_DO_SPECIFIC_PROFILE = 4;
+    static final int AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS = 5;
+    static final int AFTER_DURATION_DURATION_TYPE_DURATION = 0;
+    static final int AFTER_DURATION_DURATION_TYPE_EXACT_TIME = 1;
+
+    static final int BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET = -99;
+
+    static final int NO_CHANGE_VALUE = 0;
+    static final String NO_CHANGE_VALUE_STR = "0";
+
+    static final int BRIGHTNESS_VALUE_FOR_DARK_MODE = 30;
+    static final double MIN_PROFILE_ICON_LUMINANCE = 0.3d;
+
+    static final int CHANGE_WALLPAPER_IMAGE = 1;
+    static final int CHANGE_WALLPAPER_IMAGE_WITH = 4;
+    static final int CHANGE_WALLPAPER_LIVE = 2;
+    static final int CHANGE_WALLPAPER_FOLDER = 3;
 
     static final ArrayMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -269,6 +320,8 @@ class Profile {
         defaultValuesBoolean.put(PREF_PROFILE_HIDE_STATUS_BAR_ICON, false);
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY, false);
+        defaultValuesBoolean.put(PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
+        defaultValuesBoolean.put(PREF_PROFILE_PHONE_CALLS_SEND_SMS, false);
     }
     static final ArrayMap<String, String> defaultValuesString;
     static {
@@ -366,7 +419,7 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER_FOLDER, "-");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, "0");
-        defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TYPE, "0");
+        defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TYPE, String.valueOf(AFTER_DURATION_DURATION_TYPE_DURATION));
         defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TIME, "0");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_ENABLE_PERIODIC_SCANNING, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_VPN, "0|0|||0");
@@ -379,35 +432,12 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, "15");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, "10");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, "15");
+        defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACTS, "");
+        defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, "");
+        defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, "0");
+        defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_SMS_TEXT, "");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN, "-");
     }
-
-    static final int RINGERMODE_RING = 1;
-    static final int RINGERMODE_RING_AND_VIBRATE = 2;
-    static final int RINGERMODE_VIBRATE = 3;
-    static final int RINGERMODE_SILENT = 4;
-    static final int RINGERMODE_ZENMODE = 5;
-
-    static final int ZENMODE_ALL = 1;
-    static final int ZENMODE_PRIORITY = 2;
-    static final int ZENMODE_NONE = 3;
-    static final int ZENMODE_ALL_AND_VIBRATE = 4;
-    static final int ZENMODE_PRIORITY_AND_VIBRATE = 5;
-    static final int ZENMODE_ALARMS = 6;
-
-    static final int AFTER_DURATION_DO_NOTHING = 0;
-    static final int AFTER_DURATION_DO_UNDO_PROFILE = 1;
-    static final int AFTER_DURATION_DO_DEFAULT_PROFILE = 2;
-    static final int AFTER_DURATION_DO_RESTART_EVENTS = 3;
-    static final int AFTER_DURATION_DO_SPECIFIC_PROFILE = 4;
-    static final int AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS = 5;
-
-    static final int BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET = -99;
-
-    static final int NO_CHANGE_VALUE = 0;
-    static final String NO_CHANGE_VALUE_STR = "0";
-
-    static final int BRIGHTNESS_VALUE_FOR_DARK_MODE = 30;
-    static final double MIN_PROFILE_ICON_LUMINANCE = 0.3d;
 
     static final int[] profileIconId = {
             R.drawable.ic_profile_default,
@@ -1066,7 +1096,14 @@ class Profile {
                    int applicationBluetoothLEScanDuration,
                    int applicationLocationScanInterval,
                    int applicationOrientationScanInterval,
-                   int applicationPeriodicScanInterval
+                   int applicationPeriodicScanInterval,
+                   String phoneCallsContacts,
+                   String phoneCallsContactGroups,
+                   int phoneCallsContactListType,
+                   boolean phoneCallsBlockCalls,
+                   boolean phoneCallsSendSMS,
+                   String phoneCallsSMSText,
+                   String deviceWallpaperLockscreen
             )
     {
         this._id = id;
@@ -1182,6 +1219,13 @@ class Profile {
         this._applicationLocationScanInterval = applicationLocationScanInterval;
         this._applicationOrientationScanInterval = applicationOrientationScanInterval;
         this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
+        this._phoneCallsContacts = phoneCallsContacts;
+        this._phoneCallsContactGroups = phoneCallsContactGroups;
+        this._phoneCallsContactListType = phoneCallsContactListType;
+        this._phoneCallsBlockCalls = phoneCallsBlockCalls;
+        this._phoneCallsSendSMS = phoneCallsSendSMS;
+        this._phoneCallsSMSText = phoneCallsSMSText;
+        this._deviceWallpaperLockScreen = deviceWallpaperLockscreen;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1301,7 +1345,14 @@ class Profile {
             int applicationBluetoothLEScanDuration,
             int applicationLocationScanInterval,
             int applicationOrientationScanInterval,
-            int applicationPeriodicScanInterval
+            int applicationPeriodicScanInterval,
+            String phoneCallsContacts,
+            String phoneCallsContactGroups,
+            int phoneCallsContactListType,
+            boolean phoneCallsBlockCalls,
+            boolean phoneCallsSendSMS,
+            String phoneCallsSMSText,
+            String deviceWallpaperLockscreen
     )
     {
         this._name = name;
@@ -1416,6 +1467,13 @@ class Profile {
         this._applicationLocationScanInterval = applicationLocationScanInterval;
         this._applicationOrientationScanInterval = applicationOrientationScanInterval;
         this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
+        this._phoneCallsContacts = phoneCallsContacts;
+        this._phoneCallsContactGroups = phoneCallsContactGroups;
+        this._phoneCallsContactListType = phoneCallsContactListType;
+        this._phoneCallsBlockCalls = phoneCallsBlockCalls;
+        this._phoneCallsSendSMS = phoneCallsSendSMS;
+        this._phoneCallsSMSText = phoneCallsSMSText;
+        this._deviceWallpaperLockScreen = deviceWallpaperLockscreen;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1537,6 +1595,13 @@ class Profile {
         this._applicationLocationScanInterval = profile._applicationLocationScanInterval;
         this._applicationOrientationScanInterval = profile._applicationOrientationScanInterval;
         this._applicationPeriodicScanInterval = profile._applicationPeriodicScanInterval;
+        this._phoneCallsContacts = profile._phoneCallsContacts;
+        this._phoneCallsContactGroups = profile._phoneCallsContactGroups;
+        this._phoneCallsContactListType = profile._phoneCallsContactListType;
+        this._phoneCallsBlockCalls = profile._phoneCallsBlockCalls;
+        this._phoneCallsSendSMS = profile._phoneCallsSendSMS;
+        this._phoneCallsSMSText = profile._phoneCallsSMSText;
+        this._deviceWallpaperLockScreen = profile._deviceWallpaperLockScreen;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1568,7 +1633,7 @@ class Profile {
                     this._duration = 0;
                     this._afterDurationDo = AFTER_DURATION_DO_RESTART_EVENTS;
                     this._afterDurationProfile = PROFILE_NO_ACTIVATE;
-                    this._endOfActivationType = 0; // default is duration
+                    this._endOfActivationType = Profile.AFTER_DURATION_DURATION_TYPE_DURATION;
                     this._endOfActivationTime = 0;
                 }
 
@@ -1701,6 +1766,7 @@ class Profile {
                 if (withProfile._deviceWallpaperChange != 0) {
                     this._deviceWallpaperChange = withProfile._deviceWallpaperChange;
                     this._deviceWallpaper = withProfile._deviceWallpaper;
+                    this._deviceWallpaperLockScreen = withProfile._deviceWallpaperLockScreen;
                     this._deviceLiveWallpaper = withProfile._deviceLiveWallpaper;
                     this._deviceWallpaperFor = withProfile._deviceWallpaperFor;
                     this._deviceWallpaperFolder = withProfile._deviceWallpaperFolder;
@@ -1893,6 +1959,18 @@ class Profile {
                     this._applicationOrientationScanInterval = withProfile._applicationOrientationScanInterval;
                 if (withProfile._applicationPeriodicScanInterval != 0)
                     this._applicationPeriodicScanInterval = withProfile._applicationPeriodicScanInterval;
+                if (!withProfile._phoneCallsContacts.isEmpty())
+                    this._phoneCallsContacts = withProfile._phoneCallsContacts;
+                if (!withProfile._phoneCallsContactGroups.isEmpty())
+                    this._phoneCallsContactGroups = withProfile._phoneCallsContactGroups;
+                if (withProfile._phoneCallsContactListType != 0)
+                    this._phoneCallsContactListType = withProfile._phoneCallsContactListType;
+                if (withProfile._phoneCallsBlockCalls)
+                    this._phoneCallsBlockCalls = true;
+                if (withProfile._phoneCallsSendSMS)
+                    this._phoneCallsSendSMS = true;
+                if (!withProfile._phoneCallsSMSText.isEmpty())
+                    this._phoneCallsSMSText = withProfile._phoneCallsSMSText;
             }
 
             // set merged profile as activated
@@ -1920,7 +1998,7 @@ class Profile {
             }
 
             if (this._afterDurationDo == AFTER_DURATION_DO_SPECIFIC_PROFILE) {
-                if (this._endOfActivationType == 0) {
+                if (this._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) {
                     // duration
                     if (this._duration > 0) {
                         if (this._afterDurationDo != withProfile._afterDurationDo) {
@@ -1929,7 +2007,7 @@ class Profile {
                     }
                 }
                 else
-                if (this._endOfActivationType == 1) {
+                if (this._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) {
                     // exact time
                     Calendar now = Calendar.getInstance();
 
@@ -2044,6 +2122,9 @@ class Profile {
             }
             if (this._deviceWallpaperChange != 0) {
                 if (!this._deviceWallpaper.equals(withProfile._deviceWallpaper)) {
+                    return false;
+                }
+                if (!this._deviceWallpaperLockScreen.equals(withProfile._deviceWallpaperLockScreen)) {
                     return false;
                 }
                 if (!this._deviceLiveWallpaper.equals(withProfile._deviceLiveWallpaper)) {
@@ -2270,6 +2351,24 @@ class Profile {
                 return false;
             }
             if (this._volumeMediaChangeDuringPlay != withProfile._volumeMediaChangeDuringPlay) {
+                return false;
+            }
+            if (!this._phoneCallsContacts.equals(withProfile._phoneCallsContacts)) {
+                return false;
+            }
+            if (!this._phoneCallsContactGroups.equals(withProfile._phoneCallsContactGroups)) {
+                return false;
+            }
+            if (this._phoneCallsContactListType != withProfile._phoneCallsContactListType) {
+                return false;
+            }
+            if (this._phoneCallsBlockCalls != withProfile._phoneCallsBlockCalls) {
+                return false;
+            }
+            if (this._phoneCallsSendSMS != withProfile._phoneCallsSendSMS) {
+                return false;
+            }
+            if (!this._phoneCallsSMSText.equals(withProfile._phoneCallsSMSText)) {
                 return false;
             }
 
@@ -3111,10 +3210,13 @@ class Profile {
         boolean showEndTime = false;
         if (_askForDuration) {
             if (_checked) {
-                long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
-                if (endDurationTime > 0) {
-                    durationString = "(" + context.getString(R.string.duration_end_acronym) +":" + ProfileStatic.timeDateStringFromTimestamp(context, endDurationTime) + ")";
-                    showEndTime = true;
+                if (ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id) != null) {
+                    //noinspection DataFlowIssue
+                    long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id);
+                    if (endDurationTime > 0) {
+                        durationString = "(" + context.getString(R.string.duration_end_acronym) + ":" + ProfileStatic.timeDateStringFromTimestamp(context, endDurationTime) + ")";
+                        showEndTime = true;
+                    }
                 }
             }
             if (!showEndTime) {
@@ -3122,14 +3224,17 @@ class Profile {
             }
         }
         else
-        if (_endOfActivationType == 0) {
+        if (_endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) {
             if ((_duration > 0) && (_afterDurationDo != AFTER_DURATION_DO_NOTHING)) {
                 if (_checked) {
-                    long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
-                    if (endDurationTime > 0) {
-                        durationString = "(" + context.getString(R.string.duration_end_acronym) + ":" +
-                                ProfileStatic.timeDateStringFromTimestamp(context, endDurationTime) + ")";
-                        showEndTime = true;
+                    if (ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id) != null) {
+                        //noinspection DataFlowIssue
+                        long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id);
+                        if (endDurationTime > 0) {
+                            durationString = "(" + context.getString(R.string.duration_end_acronym) + ":" +
+                                    ProfileStatic.timeDateStringFromTimestamp(context, endDurationTime) + ")";
+                            showEndTime = true;
+                        }
                     }
                 }
                 if (!showEndTime) {
@@ -3138,26 +3243,29 @@ class Profile {
             }
         }
         else
-        if (_endOfActivationType == 1) {
+        if (_endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) {
             if (_afterDurationDo != AFTER_DURATION_DO_NOTHING) {
                 if (_checked) {
                     // saved was configured ond of activation time
                     // (look at ProfileDurationAlarmBroadcastReceiver.setAlarm())
-                    int endOfActivationTime = (int)ApplicationPreferences.prefActivatedProfileEndDurationTime;
-                    if (endOfActivationTime > 0) {
-                        Calendar now = Calendar.getInstance();
+                    if (ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id) != null) {
+                        //noinspection DataFlowIssue
+                        long endOfActivationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id);
+                        if (endOfActivationTime > 0) {
+                            Calendar now = Calendar.getInstance();
 
-                        Calendar configuredTime = Calendar.getInstance();
-                        configuredTime.set(Calendar.HOUR_OF_DAY, endOfActivationTime / 60);
-                        configuredTime.set(Calendar.MINUTE, endOfActivationTime % 60);
-                        configuredTime.set(Calendar.SECOND, 0);
-                        configuredTime.set(Calendar.MILLISECOND, 0);
+                            Calendar configuredTime = Calendar.getInstance();
+                            configuredTime.set(Calendar.HOUR_OF_DAY, (int) (endOfActivationTime / 60));
+                            configuredTime.set(Calendar.MINUTE, (int) (endOfActivationTime % 60));
+                            configuredTime.set(Calendar.SECOND, 0);
+                            configuredTime.set(Calendar.MILLISECOND, 0);
 
-                        if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
-                            // configured time is not expired
-                            durationString = "(" + context.getString(R.string.end_of_activation_time_end_acronym) + StringConstants.STR_COLON_WITH_SPACE +
-                                    StringFormatUtils.getTimeString(endOfActivationTime) + ")";
-                            showEndTime = true;
+                            if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
+                                // configured time is not expired
+                                durationString = "(" + context.getString(R.string.end_of_activation_time_end_acronym) + StringConstants.STR_COLON_WITH_SPACE +
+                                        StringFormatUtils.getTimeString((int) endOfActivationTime) + ")";
+                                showEndTime = true;
+                            }
                         }
                     }
                 }
@@ -3314,6 +3422,13 @@ class Profile {
         editor.putString(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, Integer.toString(this._applicationLocationScanInterval));
         editor.putString(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, Integer.toString(this._applicationOrientationScanInterval));
         editor.putString(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, Integer.toString(this._applicationPeriodicScanInterval));
+        editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACTS, this._phoneCallsContacts);
+        editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, this._phoneCallsContactGroups);
+        editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, Integer.toString(this._phoneCallsContactListType));
+        editor.putBoolean(PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, this._phoneCallsBlockCalls);
+        editor.putBoolean(PREF_PROFILE_PHONE_CALLS_SEND_SMS, this._phoneCallsSendSMS);
+        editor.putString(PREF_PROFILE_PHONE_CALLS_SMS_TEXT, this._phoneCallsSMSText);
+        editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN, this._deviceWallpaperLockScreen);
 
         editor.apply();
     }

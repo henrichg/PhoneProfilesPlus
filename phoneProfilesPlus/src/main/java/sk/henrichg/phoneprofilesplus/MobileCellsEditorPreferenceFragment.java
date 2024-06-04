@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmentCompat
         implements MobileCellsEditorPreferenceFragmentRefreshListViewListener {
 
@@ -1240,7 +1241,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                 //preference.cellsList = new ArrayList<>(_cellsList);
                 preference.filteredCellsList = new ArrayList<>(_filteredCellsList);
 
-                if (preference.filteredCellsList.size() == 0) {
+                if (preference.filteredCellsList.isEmpty()) {
                     fragment.cellsListView.setVisibility(View.GONE);
                     fragment.emptyList.setVisibility(View.VISIBLE);
                 } else {

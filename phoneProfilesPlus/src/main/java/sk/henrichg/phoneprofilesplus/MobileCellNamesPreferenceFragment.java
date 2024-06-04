@@ -429,7 +429,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                     if (__cellsList != null) {
                         preference.cellNamesList = new ArrayList<>(__cellsList);
 
-                        if (preference.cellNamesList.size() == 0) {
+                        if (preference.cellNamesList.isEmpty()) {
                             fragment.cellsListView.setVisibility(View.GONE);
                             fragment.emptyList.setVisibility(View.VISIBLE);
                         } else {

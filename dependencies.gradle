@@ -35,9 +35,13 @@
 // 7090 = Removed support for Galaxy Store
 
 ext.ppVersions = [
-        publishVersion    : '6.4.1.1',
+        /// WARNING:
+        // Must be used android.jar downloaded from https://github.com/Reginer/aosp-android-jar
+        // Downloaded android.jar must be copied into PC into folder \<android-sdk\>/platforms/android-XX
 
-        publishVersionCode: 7120,
+        publishVersion    : '6.5',
+
+        publishVersionCode: 7140,
 
         minSdk            : 26,
         targetSdk         : 28,

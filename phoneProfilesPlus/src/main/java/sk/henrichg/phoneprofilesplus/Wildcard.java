@@ -16,11 +16,11 @@ class Wildcard {
     /*
      * Checks whether a string matches a given wildcard pattern.
      *
-     * @param string  input string
-     * @param pattern pattern to match
-     * @param one wildcard for one character
-     * @param more wildcard for more characters
-     * @return      <code>true</code> if string matches the pattern, otherwise <code>false</code>
+     * param string  input string
+     * param pattern pattern to match
+     * param one wildcard for one character
+     * param more wildcard for more characters
+     * return      <code>true</code> if string matches the pattern, otherwise <code>false</code>
      */
     static boolean match(String string, String pattern,
                          @SuppressWarnings("SameParameterValue") char one,

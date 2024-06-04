@@ -269,7 +269,7 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
                     } else
                         fragment.listAdapter.setCalendarList(preference.calendarList);
                     if (notForUnselect) {
-                        if (preference.calendarList.size() == 0) {
+                        if (preference.calendarList.isEmpty()) {
                             fragment.listView.setVisibility(View.GONE);
                             fragment.emptyList.setVisibility(View.VISIBLE);
                         } else {

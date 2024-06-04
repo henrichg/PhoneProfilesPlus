@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 class EventsHandler {
 
     final Context context;
@@ -39,6 +40,8 @@ class EventsHandler {
     private long eventAlarmClockDate;
     private String eventAlarmClockPackageName;
     private long eventDeviceBootDate;
+    private String eventApplicationPackageName;
+    private long eventApplicationDate;
 
     private boolean startProfileMerged;
     private boolean endProfileMerged;
@@ -68,6 +71,7 @@ class EventsHandler {
     boolean notAllowedActivatedProfile;
     boolean notAllowedRoaming;
     boolean notAllowedVPN;
+    boolean notAllowedMusic;
 
     boolean timePassed;
     boolean batteryPassed;
@@ -94,6 +98,7 @@ class EventsHandler {
     boolean activatedProfilePassed;
     boolean roamingPassed;
     boolean vpnPassed;
+    boolean musicPassed;
 
     static final int SENSOR_TYPE_RADIO_SWITCH = 1;
     static final int SENSOR_TYPE_RESTART_EVENTS = 2;
@@ -149,6 +154,8 @@ class EventsHandler {
     static final int SENSOR_TYPE_SIM_STATE_CHANGED = 52;
     static final int SENSOR_TYPE_BOOT_COMPLETED = 53;
     static final int SENSOR_TYPE_BRIGHTNESS = 54;
+    static final int SENSOR_TYPE_APPLICATION_EVENT_END = 55;
+    static final int SENSOR_TYPE_MUSIC = 56;
     static final int SENSOR_TYPE_ALL = 999;
 
     EventsHandler(Context context) {
@@ -389,6 +396,16 @@ class EventsHandler {
                         }
                     }
                 }
+                if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_APPLICATION)) {
+                    // search for nfc events, save start time
+                    for (Event _event : dataWrapper.eventList) {
+                        if (_event.getStatus() != Event.ESTATUS_STOP) {
+                            if (_event._eventPreferencesApplication._enabled) {
+                                _event._eventPreferencesApplication.saveStartTime(dataWrapper, eventApplicationPackageName, eventApplicationDate);
+                            }
+                        }
+                    }
+                }
                 if (Arrays.stream(sensorType).anyMatch(i ->
                         (i == SENSOR_TYPE_PHONE_CALL) ||
                         (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
@@ -402,11 +419,11 @@ class EventsHandler {
                         }
                         for (Event _event : dataWrapper.eventList) {
                             if (_event.getStatus() != Event.ESTATUS_STOP) {
-                                if (_event._eventPreferencesCall._enabled &&
-                                        ((_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
+                                if (_event._eventPreferencesCall._enabled) {
+                                    if ((_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
                                                 (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                                                (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED))) {
-                                    _event._eventPreferencesCall.saveStartTime(contactList, dataWrapper);
+                                                (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED))
+                                        _event._eventPreferencesCall.saveRunAfterCallEndTime(contactList, dataWrapper);
                                 }
                             }
                         }
@@ -488,7 +505,7 @@ class EventsHandler {
                         // pause also paused events
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
-                        doHandleEvent(_event, true, /*sensorType,*/ true, /*manualRestart,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, true, true, manualRestart, false, false, mergedProfile, dataWrapper);
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
@@ -515,6 +532,7 @@ class EventsHandler {
 
 //                PPApplicationStatic.logE("[SYNCHRONIZED] EventsHandler.handleEvents", "PPApplication.profileActivationMutex");
                 synchronized (PPApplication.profileActivationMutex) {
+//                    Log.e("EventsHandler.handleEvents", "clear fifo");
                     List<String> activateProfilesFIFO = new ArrayList<>();
                     dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
                 }
@@ -531,7 +549,7 @@ class EventsHandler {
 
                         // start all events
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
-                        doHandleEvent(_event, false, /*sensorType,*/ true, /*manualRestart,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, false, true, manualRestart, false, false, mergedProfile, dataWrapper);
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
@@ -565,7 +583,7 @@ class EventsHandler {
                         // only pause events
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
-                        doHandleEvent(_event, true, /*sensorType,*/ false, /*false,*/ forDelayStartAlarm, forDelayEndAlarm, /*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, true, false, false, forDelayStartAlarm, forDelayEndAlarm, mergedProfile, dataWrapper);
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
@@ -600,7 +618,7 @@ class EventsHandler {
                         // only start events
 
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
-                        doHandleEvent(_event, false, /*sensorType,*/ false, /*false,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*//*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, false, false, false, forDelayStartAlarm, forDelayEndAlarm, mergedProfile, dataWrapper);
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
@@ -641,110 +659,140 @@ class EventsHandler {
 
             // activated profile may be changed, when event has enabled manual profile activation
             Profile semiOldActivatedProfile = dataWrapper.getActivatedProfileFromDB(false, false);
+            long semiOldActivatedProfileId = 0;
+            // activate default profile only when semiOldActovatedProfile do not have set Duration or alarm ends
+            boolean semiOldHasDuration = false;
+            if (semiOldActivatedProfile != null) {
+                semiOldActivatedProfileId = semiOldActivatedProfile._id;
+//                Log.e("EventsHandler.handleEvents", "semiOldActivatedProfileId="+semiOldActivatedProfileId);
+//                Log.e("EventsHandler.handleEvents", "semiOldActivatedProfileId._name="+semiOldActivatedProfile._name);
+//                Log.e("EventsHandler.handleEvents", "semiOldActivatedProfileId._duration="+semiOldActivatedProfile._duration);
+//                Log.e("EventsHandler.handleEvents", "semiOldActivatedProfileId._askForDuration="+semiOldActivatedProfile._askForDuration);
+
+                boolean alarmEnds = true;
+                if (ApplicationPreferences.prefActivatedProfileEndDurationTime.get(semiOldActivatedProfileId) != null) {
+                    //noinspection DataFlowIssue
+                    long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime.get(semiOldActivatedProfileId);
+                    alarmEnds = endDurationTime == 0;
+//                    Log.e("EventsHandler.handleEvents", "alarmEnds="+alarmEnds);
+                }
+                semiOldHasDuration =
+                        ((semiOldActivatedProfile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) && ((semiOldActivatedProfile._duration != 0)) ||
+                         (semiOldActivatedProfile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)) &&
+                        (!alarmEnds) &&
+                        (!semiOldActivatedProfile._askForDuration);
+            }
+//            Log.e("EventsHandler.handleEvents", "semiOldHasDuration="+semiOldHasDuration);
+
             long defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
             boolean notifyDefaultProfile = false;
-            boolean isAnyEventEnabled =  DatabaseHandler.getInstance(context.getApplicationContext()).isAnyEventEnabled();
+            boolean isAnyEventEnabled = DatabaseHandler.getInstance(context.getApplicationContext()).isAnyEventEnabled();
 
-            if (!DataWrapperStatic.getIsManualProfileActivation(false, context)) {
-                // no manual profile activation
+            if (!semiOldHasDuration) {
 
-                if (runningEventCountE == 0) {
-                    // activate default profile
+                if (!DataWrapperStatic.getIsManualProfileActivation(false, context)) {
+                    // no manual profile activation
 
-                    // no events running
+//                    Log.e("EventsHandler.handleEvents", "no manual activation");
+//                    Log.e("EventsHandler.handleEvents", "runningEventCountE="+runningEventCountE);
 
-                    // THIS MUST BE PURE DEFAULT PROFILE, BECAUSE IT IS TESTED
-                    defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+                    if (runningEventCountE == 0) {
+                        // activate default profile
 
-                    if ((defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && isAnyEventEnabled) {
+                        // no events running
+
+                        // THIS MUST BE PURE DEFAULT PROFILE, BECAUSE IT IS TESTED
+                        defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+
+                        if ((defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && isAnyEventEnabled) {
+                            defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
+
+                            // is not currently activated profile with duration
+                            // then is possible to activate default profile
+                            boolean defaultProfileActivated = false;
+                            if ((semiOldActivatedProfileId == 0) ||
+                                    isRestart ||
+                                    (semiOldActivatedProfileId != defaultProfileId)) {
+                                mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
+                                notifyDefaultProfile = true;
+
+                                defaultProfileActivated = true;
+                                mergedProfilesCount++;
+
+//                                Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (1)");
+                                dataWrapper.fifoAddProfile(defaultProfileId, 0);
+                            }
+
+                            if (((semiOldActivatedProfileId == defaultProfileId) &&
+                                    ((mergedProfilesCount > 0) || defaultProfileActivated)) ||
+                                    (isRestart && (!manualRestart))) {
+                                // block interactive parameters when
+                                // - activated profile is default profile
+                                // - it is not manual restart of events
+                                //
+                                // this is set, because is not good to again execute interactive parameters
+                                // for already activated default profile
+                                PPApplicationStatic.setBlockProfileEventActions(true);
+                            }
+
+                        } else {
+                            if (PPApplication.prefLastActivatedProfile != 0) {
+//                                Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (2)");
+                                dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
+                            }
+                        }
+                    }
+                } else {
+                    // manual profile activation
+
+//                    Log.e("EventsHandler.handleEvents", "manual activation=");
+
+                    boolean defaultProfileActivated = false;
+
+                    if (semiOldActivatedProfileId > 0) {
+                        // any profile activated, set back semi-old, this uses profile activated by events
+
+                        //noinspection ConstantConditions
+                        defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+                        mergedProfile.mergeProfiles(semiOldActivatedProfileId, dataWrapper/*, false*/);
+                        //mergedProfilesCount++;
+
+//                        Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (3)");
+                        dataWrapper.fifoAddProfile(semiOldActivatedProfileId, 0);
+                    } else {
+                        // not any profile activated
 
                         defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
 
-                        long semiOldActivatedProfileId = 0;
-                        if (semiOldActivatedProfile != null)
-                            semiOldActivatedProfileId = semiOldActivatedProfile._id;
-
-                        boolean defaultProfileActivated = false;
-                        if ((semiOldActivatedProfileId == 0) ||
-                                isRestart ||
-                                (semiOldActivatedProfileId != defaultProfileId)) {
-                            mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
+                        if ((defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && isAnyEventEnabled) {
+                            // if not any profile activated, activate default profile
                             notifyDefaultProfile = true;
+                            mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
 
                             defaultProfileActivated = true;
                             mergedProfilesCount++;
 
+//                            Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (4)");
                             dataWrapper.fifoAddProfile(defaultProfileId, 0);
+                        } else {
+                            if (PPApplication.prefLastActivatedProfile != 0) {
+//                                Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (5)");
+                                dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
+                            }
                         }
 
-                        if (((semiOldActivatedProfileId == defaultProfileId) &&
-                                ((mergedProfilesCount > 0) || defaultProfileActivated)) ||
-                            (isRestart && (!manualRestart))) {
-                            // block interactive parameters when
-                            // - activated profile is default profile
-                            // - it is not manual restart of events
-                            //
-                            // this is set, because is not good to again execute interactive parameters
-                            // for already activated default profile
-                            PPApplicationStatic.setBlockProfileEventActions(true);
-                        }
-
-                    } else {
-                        if (PPApplication.prefLastActivatedProfile != 0) {
-                            dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
-                        }
-                    }
-                }
-            } else {
-                // manual profile activation
-
-                boolean defaultProfileActivated = false;
-
-                long semiOldActivatedProfileId = 0;
-                if (semiOldActivatedProfile != null)
-                    semiOldActivatedProfileId = semiOldActivatedProfile._id;
-
-                if (semiOldActivatedProfileId > 0) {
-                    // any profile activated, set back semi-old, this uses profile activated by events
-
-                    //noinspection ConstantConditions
-                    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
-                    mergedProfile.mergeProfiles(semiOldActivatedProfileId, dataWrapper/*, false*/);
-                    //mergedProfilesCount++;
-
-                    dataWrapper.fifoAddProfile(semiOldActivatedProfileId, 0);
-                }
-                else {
-                    // not any profile activated
-
-                    defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
-
-                    if ((defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && isAnyEventEnabled) {
-                        // if not any profile activated, activate default profile
-                        notifyDefaultProfile = true;
-                        mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
-
-                        defaultProfileActivated = true;
-                        mergedProfilesCount++;
-
-                        dataWrapper.fifoAddProfile(defaultProfileId, 0);
-                    } else {
-                        if (PPApplication.prefLastActivatedProfile != 0) {
-                            dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
-                        }
-                    }
-
-                    if (isAnyEventEnabled) {
-                        if (((semiOldActivatedProfileId == defaultProfileId) &&
-                                ((mergedProfilesCount > 0) || defaultProfileActivated)) ||
-                                (isRestart && (!manualRestart))) {
-                            // block interactive parameters when
-                            // - activated profile is default profile
-                            // - it is not manual restart of events
-                            //
-                            // this is set, because is not good to again execute interactive parameters
-                            // for already activated default profile
-                            PPApplicationStatic.setBlockProfileEventActions(true);
+                        if (isAnyEventEnabled) {
+                            if (((semiOldActivatedProfileId == defaultProfileId) &&
+                                    ((mergedProfilesCount > 0) || defaultProfileActivated)) ||
+                                    (isRestart && (!manualRestart))) {
+                                // block interactive parameters when
+                                // - activated profile is default profile
+                                // - it is not manual restart of events
+                                //
+                                // this is set, because is not good to again execute interactive parameters
+                                // for already activated default profile
+                                PPApplicationStatic.setBlockProfileEventActions(true);
+                            }
                         }
                     }
                 }
@@ -779,7 +827,10 @@ class EventsHandler {
                             DataWrapperStatic.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
                             mergedProfilesCount + StringConstants.CHAR_HARD_SPACE +"["+StringConstants.CHAR_HARD_SPACE + usedEventsCount + StringConstants.CHAR_HARD_SPACE + "]");
 
-                    dataWrapper.activateProfileFromEvent(0, mergedProfile._id, false, true, isRestart);
+                    // do not save profile to fifo
+                    // profile is alrady added by Event.startEvent(), Event.doActivateEndProfile()
+                    // or added in this method (default profile, semi activate profile, ...)
+                    dataWrapper.activateProfileFromEvent(0, mergedProfile._id, false, true, isRestart, manualRestart);
                     // wait for profile activation
                     //doSleep = true;
                 }
@@ -874,6 +925,7 @@ class EventsHandler {
             case SENSOR_TYPE_TIME:
                 return DatabaseHandler.ETYPE_TIME;
             case SENSOR_TYPE_APPLICATION:
+            case SENSOR_TYPE_APPLICATION_EVENT_END:
                 return DatabaseHandler.ETYPE_APPLICATION;
             case SENSOR_TYPE_NOTIFICATION:
                 return DatabaseHandler.ETYPE_NOTIFICATION;
@@ -925,6 +977,8 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_SCREEN;
             case SENSOR_TYPE_BRIGHTNESS:
                 return DatabaseHandler.ETYPE_BRIGHTNESS;
+            case SENSOR_TYPE_MUSIC:
+                return DatabaseHandler.ETYPE_MUSIC;
             default:
                 return DatabaseHandler.ETYPE_ALL;
         }
@@ -965,7 +1019,7 @@ class EventsHandler {
                         if (contactList != null)
                             contactList.clear();
                     }
-                    int simSlot = ApplicationPreferences.prefEventCallFromSIMSlot;
+                    int simSlot = ApplicationPreferences.prefEventCallRunAfterCallEndFromSIMSlot;
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.doEndHandler", "simulateRingingCall="+simulateRingingCall);
                     if (simulateRingingCall) {
                         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
@@ -1017,7 +1071,7 @@ class EventsHandler {
 //--------
 
     private void doHandleEvent(Event event, boolean statePause,
-                               boolean forRestartEvents,
+                               boolean forRestartEvents, boolean manualRestart,
                                boolean forDelayStartAlarm, boolean forDelayEndAlarm,
                                Profile mergedProfile, DataWrapper dataWrapper)
     {
@@ -1056,6 +1110,7 @@ class EventsHandler {
         notAllowedActivatedProfile = false;
         notAllowedRoaming = false;
         notAllowedVPN = false;
+        notAllowedMusic = false;
 
         timePassed = true;
         batteryPassed = true;
@@ -1082,6 +1137,7 @@ class EventsHandler {
         activatedProfilePassed = true;
         roamingPassed = true;
         vpnPassed = true;
+        musicPassed = true;
 
         event._eventPreferencesTime.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesBattery.doHandleEvent(this/*, sensorType, forRestartEvents*/);
@@ -1108,6 +1164,7 @@ class EventsHandler {
         event._eventPreferencesActivatedProfile.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesRoaming.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesVPN.doHandleEvent(this/*, forRestartEvents*/);
+        event._eventPreferencesMusic.doHandleEvent(this/*, forRestartEvents*/);
 
         boolean allPassed = true;
         boolean someNotAllowed = false;
@@ -1288,6 +1345,13 @@ class EventsHandler {
             else
                 someNotAllowed = true;
         }
+        if (event._eventPreferencesMusic._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedMusic)
+                allPassed &= musicPassed;
+            else
+                someNotAllowed = true;
+        }
 
         if (!anySensorEnabled) {
             // force set event as paused
@@ -1352,7 +1416,7 @@ class EventsHandler {
                                 // start event
                                 long oldMergedProfile = mergedProfile._id;
                                 //Profile _oldMergedProfile = mergedProfile;
-                                event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, mergedProfile);
+                                event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, manualRestart, mergedProfile);
                                 startProfileMerged = oldMergedProfile != mergedProfile._id;
                             }
                         }
@@ -1360,7 +1424,7 @@ class EventsHandler {
                             // called for delay alarm
                             // start event
                             long oldMergedProfile = mergedProfile._id;
-                            event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, mergedProfile);
+                            event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, manualRestart, mergedProfile);
                             startProfileMerged = oldMergedProfile != mergedProfile._id;
                         }
                     }
@@ -1400,7 +1464,7 @@ class EventsHandler {
                                 // do not allow restart events in Event.doActivateEndProfile() when is already doing restart events
                                 // allowRestart parameter must be false for doing restart events (to avoid infinite loop)
                                 event.pauseEvent(dataWrapper, true, false,
-                                        false, true, mergedProfile, !forRestartEvents, forRestartEvents, true);
+                                        false, true, mergedProfile, !forRestartEvents, forRestartEvents, manualRestart, true);
 
                                 endProfileMerged = oldMergedProfile != mergedProfile._id;
                             }
@@ -1415,7 +1479,7 @@ class EventsHandler {
                             // pause event
                             long oldMergedProfile = mergedProfile._id;
                             event.pauseEvent(dataWrapper, true, false,
-                                    false, true, mergedProfile, !forRestartEvents, forRestartEvents, true);
+                                    false, true, mergedProfile, !forRestartEvents, forRestartEvents, manualRestart, true);
                             endProfileMerged = oldMergedProfile != mergedProfile._id;
                         }
                     }
@@ -1452,9 +1516,14 @@ class EventsHandler {
 
     void setEventCallParameters(int callEventType, String phoneNumber, long eventTime, int simSlot) {
         EventPreferencesCall.setEventCallEventType(context, callEventType);
-        EventPreferencesCall.setEventCallEventTime(context, eventTime);
+        EventPreferencesCall.setEventCallEventTime(context, eventTime, callEventType);
         EventPreferencesCall.setEventCallPhoneNumber(context, phoneNumber);
-        EventPreferencesCall.setEventCallFromSIMSlot(context, simSlot);
+        EventPreferencesCall.setEventCallFromSIMSlot(context, simSlot, callEventType);
+    }
+
+    void setEventApplicationParameters(String packageName, long date) {
+        eventApplicationPackageName = packageName;
+        eventApplicationDate = date;
     }
 
     void setEventDeviceBootParameters(long date) {

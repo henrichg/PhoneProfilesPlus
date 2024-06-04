@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static final String EXTRA_FOR_RESTART_EVENTS = "for_restart_events";
@@ -28,19 +29,21 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         if (intent != null) {
             final long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
             final boolean forRestartEvents = intent.getBooleanExtra(EXTRA_FOR_RESTART_EVENTS, false);
+            final boolean manualRestart = intent.getBooleanExtra(PhoneProfilesService.EXTRA_MANUAL_RESTART, false);
             final int startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EVENT_MANUAL);
-            doWork(true, context, profileId, forRestartEvents, startupSource);
+            doWork(true, context, profileId, forRestartEvents, manualRestart, startupSource);
         }
     }
 
-    static void setAlarm(Profile profile, boolean forRestartEvents, int startupSource, Context context)
+    /** @noinspection SameParameterValue*/
+    static void setAlarm(Profile profile, boolean forRestartEvents, boolean manualRestart, int startupSource, Context context)
     {
         removeAlarm(profile, context);
 
         if (profile == null)
             return;
 
-        if ((profile._endOfActivationType == 0) &&
+        if ((profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_DURATION) &&
                 (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
                 (profile._duration > 0)) {
 
@@ -52,7 +55,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             long alarmTime = now.getTimeInMillis();// + 1000 * 60 * profile._duration;
 
             // save alarm for generator of profile name with duration
-            ProfileStatic.setActivatedProfileEndDurationTime(context, alarmTime);
+            ProfileStatic.setActivatedProfileEndDurationTime(context, profile._id, alarmTime);
 
             if (!PPApplicationStatic.isIgnoreBatteryOptimizationEnabled(context)) {
 
@@ -64,6 +67,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                     intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                     intent.putExtra(EXTRA_FOR_RESTART_EVENTS, forRestartEvents);
+                    intent.putExtra(PhoneProfilesService.EXTRA_MANUAL_RESTART, manualRestart);
                     intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
 
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) profile._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -80,6 +84,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     Data workData = new Data.Builder()
                             .putLong(PPApplication.EXTRA_PROFILE_ID, profile._id)
                             .putBoolean(EXTRA_FOR_RESTART_EVENTS, forRestartEvents)
+                            .putBoolean(PhoneProfilesService.EXTRA_MANUAL_RESTART, manualRestart)
                             .putInt(PPApplication.EXTRA_STARTUP_SOURCE, startupSource)
                             .build();
 
@@ -129,6 +134,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                 intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                 intent.putExtra(EXTRA_FOR_RESTART_EVENTS, forRestartEvents);
+                intent.putExtra(PhoneProfilesService.EXTRA_MANUAL_RESTART, manualRestart);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) profile._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -151,7 +157,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             }
         }
         else
-        if (profile._endOfActivationType == 1) {
+        if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME) {
 
             Calendar now = Calendar.getInstance();
 
@@ -168,7 +174,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 long alarmTime = configuredTime.getTimeInMillis();
 
                 // save configured end of activation time for generator of profile name with duration
-                ProfileStatic.setActivatedProfileEndDurationTime(context, profile._endOfActivationTime);
+                ProfileStatic.setActivatedProfileEndDurationTime(context, profile._id, profile._endOfActivationTime);
 
                 //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
                 Intent intent = new Intent();
@@ -177,6 +183,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                 intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                 intent.putExtra(EXTRA_FOR_RESTART_EVENTS, forRestartEvents);
+                intent.putExtra(PhoneProfilesService.EXTRA_MANUAL_RESTART, manualRestart);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) profile._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -277,11 +284,12 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             PPApplicationStatic._cancelWork(MainWorker.PROFILE_DURATION_WORK_TAG +"_"+(int) profile._id, false);
             // moved to cancelWork
             //PPApplication.elapsedAlarmsProfileDurationWork.remove(MainWorker.PROFILE_DURATION_WORK_TAG +"_"+(int) profile._id);
+            ProfileStatic.setActivatedProfileEndDurationTime(context, profile._id, 0);
         }
-        ProfileStatic.setActivatedProfileEndDurationTime(context, 0);
     }
 
-    static void doWork(boolean useHandler, Context context, final long profileId, final boolean forRestartEvents, final int startupSource) {
+    static void doWork(boolean useHandler, Context context, final long profileId,
+                       final boolean forRestartEvents, final boolean manualRestart, final int startupSource) {
         if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
@@ -302,7 +310,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        _doWork(/*true,*/ appContext, profileId, forRestartEvents, startupSource);
+                        _doWork(/*true,*/ appContext, profileId, forRestartEvents, manualRestart, startupSource);
 
                     } catch (Exception e) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -321,31 +329,37 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             PPApplication.profileActiationExecutorPool.submit(runnable);
         }
         else {
-
-            _doWork(/*false,*/ appContext, profileId, forRestartEvents, startupSource);
+            _doWork(/*false,*/ appContext, profileId, forRestartEvents, manualRestart, startupSource);
         }
     }
 
-    private static void _doWork(/*boolean useHandler,*/ Context appContext, final long profileId, final boolean forRestartEvents, int startupSource) {
+    private static void _doWork(Context appContext, final long profileId,
+                                final boolean forRestartEvents, final boolean manualRestart, int startupSource) {
         if (profileId != 0) {
+
+//            Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "xxxx");
 
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
             Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
             if (profile != null) {
-                if (DataWrapperStatic.getIsManualProfileActivation(true, appContext) ||
-                        (!EventStatic.getGlobalEventsRunning(appContext)) ||
-                        (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
-                    long _activatedProfileId = dataWrapper.getActivatedProfileId();
+//                Allowed is duration also for events
+//                if (DataWrapperStatic.getIsManualProfileActivation(true, appContext) ||
+//                        (!EventStatic.getGlobalEventsRunning(appContext)) ||
+//                        (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
+//                    long _activatedProfileId = dataWrapper.getActivatedProfileId();
 
                     removeAlarm(profile, appContext);
 //                    PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileDurationAlarmBroadcastReceiver._doWork", "call of updateGUI");
                     PPApplication.updateGUI(true, false, appContext);
 
+                    /* it doesn't matter what profile the alarm is for
                     if ((_activatedProfileId != -1) &&
                             (_activatedProfileId == profile._id) &&
                             (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING)) {
                         // alarm is from activated profile
+                    */
+                    if (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) {
 
                         if (!profile._durationNotificationSound.isEmpty() || profile._durationNotificationVibrate) {
                             PlayRingingNotification.playNotificationSound(
@@ -367,7 +381,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 activateProfileId = 0;
 
                             int logType = PPApplication.ALTYPE_AFTER_DURATION_DEFAULT_PROFILE;
-                            if (profile._endOfActivationType == 1)
+                            if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
                                 logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE;
                             PPApplicationStatic.addActivityLog(appContext, logType,
                                     null,
@@ -375,39 +389,86 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     "");
                         }
                         if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_UNDO_PROFILE) {
-                            doActivateProfile = true;
+                            //if (DataWrapperStatic.getIsManualProfileActivation(true, appContext) ||
+                            //   (!EventStatic.getGlobalEventsRunning(appContext))) {
+                                //doActivateProfile = true;
 
-                            //activateProfileId = ApplicationPreferences.prefActivatedProfileForDuration;
+                                //activateProfileId = ApplicationPreferences.prefActivatedProfileForDuration;
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] ProfileDurationAlarmBroadcastReceiver._doWork", "PPApplication.profileActivationMutex");
-                            synchronized (PPApplication.profileActivationMutex) {
-                                List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
-                                int size = activateProfilesFIFO.size();
-                                if (size > 0) {
-                                    //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
-                                    activateProfilesFIFO.remove(size - 1);
-                                    dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
-                                    size = activateProfilesFIFO.size();
+                                /*
+                                synchronized (PPApplication.profileActivationMutex) {
+                                    List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
+                                    int size = activateProfilesFIFO.size();
                                     if (size > 0) {
-                                        String fromFifo = activateProfilesFIFO.get(size - 1);
-                                        String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
-                                        activateProfileId = Long.parseLong(splits[0]);
+                                        //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
+                                        activateProfilesFIFO.remove(size - 1);
+                                        dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
+                                        size = activateProfilesFIFO.size();
+                                        if (size > 0) {
+                                            String fromFifo = activateProfilesFIFO.get(size - 1);
+                                            String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
+                                            activateProfileId = Long.parseLong(splits[0]);
+                                        } else
+                                            activateProfileId = 0;
+                                    } else
+                                        //eventTimeline._fkProfileEndActivated = 0;
+                                        activateProfileId = 0;
+
+                                    if (activateProfileId == _activatedProfileId)
+                                        activateProfileId = 0;
+                                }
+                                */
+
+//                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "UNDO start");
+                                synchronized (PPApplication.profileActivationMutex) {
+                                    List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
+                                    int size = activateProfilesFIFO.size();
+//                                    Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "size (1)="+size);
+//                                    for (String item : activateProfilesFIFO) {
+//                                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "item="+item);
+//                                    }
+                                    if (size > 0) {
+                                        // get profile which will be undoed
+                                        int index = size - 2;
+                                        if (index >= 0) {
+                                            String fromFifo = activateProfilesFIFO.get(index);
+                                            String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
+                                            activateProfileId = Long.parseLong(splits[0]);
+                                        } else
+                                            activateProfileId = 0;
+//                                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "activateProfileId="+activateProfileId);
                                     } else
                                         activateProfileId = 0;
-                                } else
-                                    //eventTimeline._fkProfileEndActivated = 0;
-                                    activateProfileId = 0;
+                                }
 
-                                if (activateProfileId == _activatedProfileId)
-                                    activateProfileId = 0;
-                            }
+                                // undo only to profile which is not the same as profile for which alarm
+                                // is executed, to avoid infinite loop
+//                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "profileId="+profileId);
+//                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "profile="+profile._name);
+                                doActivateProfile = (profileId != activateProfileId);
+//                                Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "doActivateProfile="+doActivateProfile);
 
-                            int logType = PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE;
-                            if (profile._endOfActivationType == 1)
-                                logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE;
-                            PPApplicationStatic.addActivityLog(appContext, logType,
-                                    null,
-                                    DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
-                                    "");
+                                if (doActivateProfile) {
+                                    // remove from FIFO last activated profile
+                                    synchronized (PPApplication.profileActivationMutex) {
+                                        List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
+                                        int size = activateProfilesFIFO.size();
+//                                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "size (2)="+size);
+                                        if (size > 0) {
+                                            activateProfilesFIFO.remove(size - 1);
+                                            dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
+                                        }
+                                    }
+
+                                    int logType = PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE;
+                                    if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
+                                        logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE;
+                                    PPApplicationStatic.addActivityLog(appContext, logType,
+                                            null,
+                                            DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
+                                            "");
+                                }
+                            //}
                         }
                         if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE) {
                             doActivateProfile = true;
@@ -417,26 +478,46 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 activateProfileId = 0;
 
                             int logType = PPApplication.ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE;
-                            if (profile._endOfActivationType == 1)
+                            if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
                                 logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE;
                             PPApplicationStatic.addActivityLog(appContext, logType,
                                     null,
                                     DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
                                     "");
                         }
+
+                        boolean canRestart =
+                                (!forRestartEvents) ||
+                                manualRestart ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_NOTIFICATION) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_EVENT_MANUAL) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_EXTERNAL_APP);
+
+//                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "startupSource="+startupSource);
+//                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "manualRestart="+manualRestart);
+//                        Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "canRestart="+canRestart);
+
                         if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_RESTART_EVENTS) {
-                            if (!forRestartEvents) {
+
+                            if (canRestart) {
                                 doActivateProfile = false;
 
                                 int logType = PPApplication.ALTYPE_AFTER_DURATION_RESTART_EVENTS;
-                                if (profile._endOfActivationType == 1)
+                                if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
                                     logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS;
                                 PPApplicationStatic.addActivityLog(appContext, logType,
                                         null,
                                         DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
                                         "");
 
-                                dataWrapper.restartEventsWithDelay(false, false, true, PPApplication.ALTYPE_UNDEFINED);
+                                // manualRestart must be false to avoid infinite loop
+                                dataWrapper.restartEventsWithDelay(false, false, true, false, PPApplication.ALTYPE_UNDEFINED);
                             } else {
                                 doActivateProfile = true;
 
@@ -454,7 +535,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 activateProfileId = 0;
 
                             int logType = PPApplication.ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE;
-                            if (profile._endOfActivationType == 1)
+                            if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
                                 logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE;
                             PPApplicationStatic.addActivityLog(appContext, logType,
                                     null,
@@ -463,21 +544,22 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                             dataWrapper.activateProfileAfterDuration(activateProfileId, startupSource);
 
-                            if (!forRestartEvents) {
+                            if (canRestart) {
                                 logType = PPApplication.ALTYPE_AFTER_DURATION_RESTART_EVENTS;
-                                if (profile._endOfActivationType == 1)
+                                if (profile._endOfActivationType == Profile.AFTER_DURATION_DURATION_TYPE_EXACT_TIME)
                                     logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS;
                                 PPApplicationStatic.addActivityLog(appContext, logType,
                                         null,
                                         DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
                                         "");
 
-                                dataWrapper.restartEventsWithDelay(false, false, true, PPApplication.ALTYPE_UNDEFINED);
+                                // manualRestart must be false to avoid infinite loop
+                                dataWrapper.restartEventsWithDelay(false, false, true, false, PPApplication.ALTYPE_UNDEFINED);
                             }
                         }
 
                     }
-                }
+//                }
             }
 
             //dataWrapper.invalidateDataWrapper();

@@ -46,6 +46,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class EventsPrefsFragment extends PreferenceFragmentCompat
                                     implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -1938,8 +1939,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             boolean showVolumesSensor;
             boolean showVPNSensor;
             boolean showWifiSensor;
+            boolean showMusicSensor;
 
-            if ((activity != null) && (!saveDisplayed) && (activity.displayedSensors.size() > 0)) {
+            if ((activity != null) && (!saveDisplayed) && (!activity.displayedSensors.isEmpty())) {
                 showAccessoriesSensor = activity.displayedSensors.contains(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED);
                 showActivatedProfileSensor= activity.displayedSensors.contains(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED);
                 showAlarmClockSensor = activity.displayedSensors.contains(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED);
@@ -1965,6 +1967,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 showVolumesSensor = activity.displayedSensors.contains(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED);
                 showVPNSensor = activity.displayedSensors.contains(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED);
                 showWifiSensor= activity.displayedSensors.contains(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED);
+                showMusicSensor = activity.displayedSensors.contains(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED);
             }
             else {
                 showAccessoriesSensor = preferences.getBoolean(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, false);
@@ -1992,6 +1995,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 showVolumesSensor = preferences.getBoolean(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, false);
                 showVPNSensor = preferences.getBoolean(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, false);
                 showWifiSensor= preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false);
+                showMusicSensor = preferences.getBoolean(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, false);
             }
 
             if (saveDisplayed && (activity != null)) {
@@ -2046,6 +2050,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     activity.displayedSensors.add(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED);
                 if (showWifiSensor)
                     activity.displayedSensors.add(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED);
+                if (showMusicSensor)
+                    activity.displayedSensors.add(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED);
             }
 
             Preference preference = prefMng.findPreference(PREF_EVENT_HIDE_NOT_USED_SENSORS);
@@ -2073,7 +2079,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     (!showTimeSensor) &&
                     (!showVolumesSensor) &&
                     (!showVPNSensor) &&
-                    (!showWifiSensor)) {
+                    (!showWifiSensor) &&
+                    (!showMusicSensor)) {
                 hideSensors = false;
                 if (preference != null)
                     preference.setEnabled(false);
@@ -2257,6 +2264,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     showSensor = showWifiSensor;
                 preference.setVisible(showSensor);
             }
+            preference = prefMng.findPreference(EventPreferencesMusic.PREF_EVENT_MUSIC_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showMusicSensor;
+                preference.setVisible(showSensor);
+            }
         }
     }
 
@@ -2358,7 +2372,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
 
                     // not some permissions
-                    if (eventPermissions.size() == 0) {
+                    if (eventPermissions.isEmpty()) {
                         preference = prefMng.findPreference(PREF_GRANT_PERMISSIONS);
                         if (preference != null) {
                             PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);

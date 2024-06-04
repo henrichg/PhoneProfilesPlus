@@ -91,6 +91,9 @@
         <attr name="requiredExtenderVersionCode" format="integer" />
         <attr name="requiredExtenderVersionName" format="string" />
     </declare-styleable>
+    <declare-styleable name="WallpaperViewPreference">
+        <attr name="forLockScreen" format="boolean" />
+    </declare-styleable>
 
     <!-- theme dependent drawables -->
     <!--    <attr name="activityBackgroundColor" format="reference" />-->

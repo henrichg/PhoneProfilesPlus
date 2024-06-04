@@ -193,6 +193,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 //                        Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "pppReleaseData="+pppReleaseData);
 
                         if (pppReleaseData != null) {
+                            // istalled PPP version is less then version in releases.md file
                             if (Build.VERSION.SDK_INT >= 33) {
                                 // check IzzyOnDroid repo
                                 // because from Android 13 is required to install apk from app stores
@@ -201,12 +202,31 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                 String izzyRepoURL = PPApplication.DROIDIFY_PPP_LATEST_APK_RELEASE_URL_BEGIN;
                                 izzyRepoURL = izzyRepoURL + pppReleaseData.versionCodeInReleases + ".apk";
 //                                PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
+//                                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
                                 StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,
                                         izzyRepoURL,
                                         response1 -> {
-//                                            PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "latest installed - xxxxxxxxxxxxxxxx");
+                                            // version in releases.md file exists in IzzyOnDroid, but is not installed
+                                            // (installed PPP versionCode < pppReleaseData.versionCodeInReleases => pppReleaseData != null)
+//                                            PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "IzzyOnDroid version not installed - xxxxxxxxxxxxxxxx");
+                                            try {
+                                                boolean critical = pppReleaseData.critical;
+                                                String versionNameInReleases = pppReleaseData.versionNameInReleases;
+                                                int versionCodeInReleases = pppReleaseData.versionCodeInReleases;
+
+                                                showNotification(appContext,
+                                                        versionNameInReleases,
+                                                        versionCodeInReleases,
+                                                        critical);
+
+                                            } catch (Exception e) {
+//                                                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+                                            }
                                         },
                                         error -> {
+                                            // version in releases.md file not exists in IzzyOnDroid, is not possible to install it
+                                            //  in this situation do not show notification
+                                            /*
                                             if ((error.networkResponse != null) && (error.networkResponse.statusCode == 404)) {
 //                                                PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
                                                 try {
@@ -223,6 +243,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 //                                                    Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                                                 }
                                             }
+                                            */
                                         });
                                 queueIzzyRepo.add(stringRequestIzzyRepo);
                             } else {

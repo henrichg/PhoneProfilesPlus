@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
     private Application application = null;
@@ -134,6 +136,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((HighlightedSpinnerAdapter)intentIntentTypeSpinner.getAdapter()).setSelection(position);
+                enableOKButton();
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -142,6 +145,20 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
         intentPackageName = findViewById(R.id.application_editor_intent_package_name);
         intentPackageName.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentPackageName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                enableOKButton();
+            }
+        });
 
         intentClassName = findViewById(R.id.application_editor_intent_class_name);
         intentClassName.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
@@ -178,6 +195,8 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                     intentActionEdit.setText("");
                     intentActionEdit.setEnabled(false);
                 }
+
+                enableOKButton();
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -186,6 +205,20 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
         intentActionEdit = findViewById(R.id.application_editor_intent_action_edit);
         intentActionEdit.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentActionEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                enableOKButton();
+            }
+        });
 
         final Activity activity = this;
 
@@ -393,7 +426,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                 ppIntent._intentType = 0;
             intentIntentTypeSpinner.setSelection(ppIntent._intentType);
             intentPackageName.setText(ppIntent._packageName);
+            intentPackageName.setSelection(intentPackageName.getText().length());
             intentClassName.setText(ppIntent._className);
+            intentClassName.setSelection(intentClassName.getText().length());
             intentData.setText(ppIntent._data);
             intentMimeType.setText(ppIntent._mimeType);
 
@@ -411,6 +446,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                 if (custom) {
                     intentActionSpinner.setSelection(1);
                     intentActionEdit.setText(ppIntent._action);
+                    intentActionEdit.setSelection(intentActionEdit.getText().length());
                 } else {
                     int position = Arrays.asList(actionsArray).indexOf(ppIntent._action);
                     if (position == -1)
@@ -529,41 +565,13 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                     mDialog.show();
             }
             else {
-                saveIntent();
-                Intent testIntent = createIntent(ppIntent);
-                boolean ok = false;
-                if (testIntent != null) {
-                    if (ppIntent._intentType == 0) {
-                        try {
-                            testIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(testIntent);
-                            ok = true;
-                        } catch (Exception e) {
-                            //Log.e("RunApplicationEditorIntentActivity.onCreate.testButtonClick", Log.getStackTraceString(e));
-                            //PPApplicationStatic.recordException(e);
-                        }
-                    } else {
-                        try {
-                            sendBroadcast(testIntent);
-                            ok = true;
-                        } catch (Exception e) {
-                            //Log.e("RunApplicationEditorIntentActivity.onCreate.testButtonClick", Log.getStackTraceString(e));
-                        }
-                    }
-                }
-                if (!ok) {
-                    CharSequence title;
-                    CharSequence message;
-                    if (ppIntent._intentType == 0) {
-                        title = activity.getString(R.string.application_editor_intent_test_title);
-                        message = activity.getString(R.string.application_editor_intent_test_activity_bad_data);
-                    } else {
-                        title = activity.getString(R.string.application_editor_intent_test_title);
-                        message = activity.getString(R.string.application_editor_intent_test_broadcast_bad_data);
-                    }
+                boolean customAction = saveIntent();
+                boolean okIntent = true;
+                if (customAction && (ppIntent._action.isEmpty())) {
+                    okIntent = false;
                     PPAlertDialog mDialog = new PPAlertDialog(
-                            title,
-                            message,
+                            getString(R.string.application_editor_intent_test_title),
+                            getString(R.string.application_editor_intent_test_activity_action_must_be_configured),
                             getString(android.R.string.ok),
                             null,
                             null, null,
@@ -580,6 +588,91 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
                     if (!isFinishing())
                         mDialog.show();
+                }
+                else
+                if (ppIntent._intentType == 1) {
+                    if (customAction) {
+                        // broadcast, Package name must be set for custom action
+                        if ((ppIntent._packageName == null) || (ppIntent._packageName.isEmpty())) {
+                            okIntent = false;
+                            PPAlertDialog mDialog = new PPAlertDialog(
+                                    getString(R.string.application_editor_intent_test_title),
+                                    getString(R.string.application_editor_intent_test_activity_package_name_must_be_configured),
+                                    getString(android.R.string.ok),
+                                    null,
+                                    null, null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    true, true,
+                                    false, false,
+                                    true,
+                                    activity
+                            );
+
+                            if (!isFinishing())
+                                mDialog.show();
+                        }
+                    }
+                }
+                if (okIntent) {
+                    Intent testIntent = createIntent(ppIntent);
+                    boolean ok = false;
+                    if (testIntent != null) {
+                        if (ppIntent._intentType == 0) {
+                            try {
+                                testIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(testIntent);
+                                ok = true;
+                            } catch (Exception e) {
+                                //Log.e("RunApplicationEditorIntentActivity.onCreate.testButtonClick", Log.getStackTraceString(e));
+                                //PPApplicationStatic.recordException(e);
+                            }
+                        } else {
+                            try {
+                                testIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                sendBroadcast(testIntent);
+                                ok = true;
+                                PPApplication.showToast(getApplicationContext(),
+                                        getString(R.string.application_editor_intent_test_broadcast_working_good),
+                                        Toast.LENGTH_SHORT);
+                            } catch (Exception e) {
+                                //Log.e("RunApplicationEditorIntentActivity.onCreate.testButtonClick", Log.getStackTraceString(e));
+                            }
+                        }
+                    }
+                    if (!ok) {
+                        CharSequence title;
+                        CharSequence message;
+                        if (ppIntent._intentType == 0) {
+                            title = activity.getString(R.string.application_editor_intent_test_title);
+                            message = activity.getString(R.string.application_editor_intent_test_activity_bad_data);
+                        } else {
+                            title = activity.getString(R.string.application_editor_intent_test_title);
+                            message = activity.getString(R.string.application_editor_intent_test_broadcast_bad_data);
+                        }
+                        PPAlertDialog mDialog = new PPAlertDialog(
+                                title,
+                                message,
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                activity
+                        );
+
+                        if (!isFinishing())
+                            mDialog.show();
+                    }
                 }
             }
         });
@@ -598,9 +691,12 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         savedInstanceState.putInt(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
     }
 
-    private void saveIntent() {
+    private boolean saveIntent() {
+
         if (ppIntent == null)
-            return;
+            return false;
+
+        boolean customAction = false;
 
         if (intentNameEditText.getText() != null)
             ppIntent._name = intentNameEditText.getText().toString();
@@ -631,8 +727,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
             ppIntent._action = "";
         else
         if (actionSpinnerId == 1)
-            if (intentActionEdit.getText() != null)
+            if (intentActionEdit.getText() != null) {
                 ppIntent._action = intentActionEdit.getText().toString();
+                customAction = true;
+            }
             else
                 ppIntent._action = "";
         else {
@@ -859,10 +957,28 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         else
             ppIntent._extraValue5 = "";
         ppIntent._extraType5 = intentExtraSpinner5.getSelectedItemPosition();
+
+        return customAction;
     }
 
     private void enableOKButton() {
-        boolean enableOK = (!intentNameEditText.getText().toString().isEmpty());
+        boolean enableOK = true;
+        if (intentNameEditText.getText().toString().isEmpty())
+            enableOK = false;
+
+        int actionSpinnerId = intentActionSpinner.getSelectedItemPosition();
+        if ((actionSpinnerId == 1) &&
+                intentActionEdit.getText().toString().isEmpty())
+            enableOK = false;
+
+        int intentType = intentIntentTypeSpinner.getSelectedItemPosition();
+        if ((intentType == 1) && (actionSpinnerId == 1) &&
+                intentPackageName.getText().toString().isEmpty())
+            // intentType is Broadcast
+            // actionSpinnerId is [ Custom]
+            // intentPackageName is empty
+            enableOK = false;
+
         okButton.setEnabled(enableOK);
     }
 
@@ -873,6 +989,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
             if ((ppIntent._packageName != null) && (!ppIntent._packageName.isEmpty()) &&
                     (ppIntent._className != null) && (!ppIntent._className.isEmpty()))
                 intent.setComponent(new ComponentName(ppIntent._packageName, ppIntent._className));
+            else
+            if ((ppIntent._packageName != null) && (!ppIntent._packageName.isEmpty()))
+                intent.setPackage(ppIntent._packageName);
 
             if ((ppIntent._action != null) && (!ppIntent._action.isEmpty()))
                 intent.setAction(ppIntent._action);

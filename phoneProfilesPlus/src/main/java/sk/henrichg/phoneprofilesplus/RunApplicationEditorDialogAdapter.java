@@ -47,7 +47,7 @@ class RunApplicationEditorDialogAdapter extends RecyclerView.Adapter<RunApplicat
         /*if (application.checked)
             return "*";
         else {*/
-            if (application.appLabel.length() == 0)
+            if (application.appLabel.isEmpty())
                 return "?";
             else
                 return application.appLabel.substring(0, 1);

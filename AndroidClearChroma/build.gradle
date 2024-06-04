@@ -34,7 +34,10 @@ android {
 dependencies {
     //implementation fileTree(include: ['*.jar'], dir: 'libs')
     api project(':common')
+    // 1.7.0 compile problem - dependencies
+    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
+    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 }
 

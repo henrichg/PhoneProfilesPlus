@@ -4,6 +4,12 @@
     app:title="@string/profile_preferences_deviceWallpaperChange"
     app:key="prf_pref_deviceWallpaperCategory" >
 
+    <sk.henrichg.phoneprofilesplus.InformationPreference
+        app:key="prf_pref_deviceWallpaperHuaweiInfo"
+        app:title="@string/profile_preferences_deviceWallpaperChange"
+        app:summary="@string/profile_preferences_deviceWallpaperHuaweiInfo"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceWallpaperChange"
         app:summary="@string/array_pref_no_change"
@@ -17,7 +23,15 @@
         app:defaultValue="-"
         app:key="prf_pref_deviceWallpaper"
         app:title="@string/profile_preferences_deviceImageWallpaper"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:forLockScreen="false"/>
+
+    <sk.henrichg.phoneprofilesplus.WallpaperViewPreference
+        app:defaultValue="-"
+        app:key="prf_pref_deviceWallpaperLockScreen"
+        app:title="@string/profile_preferences_deviceImageWallpaperLockscreen"
+        app:layout="@layout/mp_preference_material_widget"
+        app:forLockScreen="true" />
 
     <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="prf_pref_deviceWallpaperFolderInfo"

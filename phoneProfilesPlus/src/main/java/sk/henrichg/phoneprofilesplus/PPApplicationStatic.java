@@ -53,6 +53,7 @@ import java.util.concurrent.Executors;
 
 import dev.doubledot.doki.views.DokiContentView;
 
+/** @noinspection ExtractMethodRecommender*/
 class PPApplicationStatic {
 
     /** @noinspection BlockingMethodInNonBlockingContext*/
@@ -76,7 +77,7 @@ class PPApplicationStatic {
                     }
                 }
             } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
+                Log.e("PPApplicationStatic._cancelWork", Log.getStackTraceString(e));
             }
 
             if (name.startsWith(MainWorker.EVENT_DELAY_START_WORK_TAG))
@@ -548,7 +549,7 @@ class PPApplicationStatic {
                 try {
                     mNotificationManager.notify(PPApplication.APP_EXCEPTION_NOTIFICATION_TAG, PPApplication.APP_EXCEPTION_NOTIFICATION_ID, notification);
                 } catch (Exception en) {
-                    Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(en));
+                    Log.e("PPApplicationStatic.logException", Log.getStackTraceString(en));
                 }
             }
         }
@@ -690,9 +691,9 @@ class PPApplicationStatic {
         EventStatic.getForceRunEventRunning(context);
         PPExtenderBroadcastReceiver.getApplicationInForeground(context);
         EventPreferencesCall.getEventCallEventType(context);
-        EventPreferencesCall.getEventCallEventTime(context);
+        EventPreferencesCall.getEventCallEventTime(context, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
         EventPreferencesCall.getEventCallPhoneNumber(context);
-        EventPreferencesCall.getEventCallSIMSlot(context);
+        EventPreferencesCall.getEventCallFromSIMSlot(context, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
         HeadsetConnectionBroadcastReceiver.getEventHeadsetParameters(context);
         WifiScanner.getForceOneWifiScan(context);
         BluetoothScanner.getForceOneBluetoothScan(context);
@@ -947,6 +948,7 @@ class PPApplicationStatic {
             ApplicationPreferences.notificationProfileListCustomIconLightness(context);
             ApplicationPreferences.applicationEventHideNotUsedSensors(context);
             //ApplicationPreferences.applicationContactsInBackupEncripted(context);
+            ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);
@@ -1365,7 +1367,7 @@ class PPApplicationStatic {
                 channel.enableVibration(true);
                 //channel.setSound(null, null);
                 channel.setShowBadge(false);
-                channel.setBypassDnd(true);
+                channel.setBypassDnd(false);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -1439,7 +1441,9 @@ class PPApplicationStatic {
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_notify_event_start);
                 // The user-visible description of the channel.
-                String description = context.getString(R.string.notification_channel_notify_event_start_description);
+                String description =
+                        context.getString(R.string.notification_channel_notify_event_start_description)+" "+
+                        context.getString(R.string.notification_channel_notify_event_start_description_2);
 
                 // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
                 // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
@@ -1539,7 +1543,7 @@ class PPApplicationStatic {
                 channel.enableVibration(true);
                 //channel.setSound(null, null);
                 channel.setShowBadge(true);
-                channel.setBypassDnd(true);
+                channel.setBypassDnd(false);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -1556,7 +1560,9 @@ class PPApplicationStatic {
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_generated_by_profile);
                 // The user-visible description of the channel.
-                String description = context.getString(R.string.notification_channel_generated_by_profile_description);
+                String description =
+                        context.getString(R.string.notification_channel_generated_by_profile_description) + " "+
+                        context.getString(R.string.notification_channel_generated_by_profile_description_2);
 
                 // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
                 // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
@@ -1617,7 +1623,9 @@ class PPApplicationStatic {
                 String name = context.getString(R.string.notification_channel_profile_list);
 
                 // The user-visible description of the channel.
-                String description = context.getString(R.string.notification_channel_profile_list_description);
+                String description =
+                        context.getString(R.string.notification_channel_profile_list_description) + " " +
+                        context.getString(R.string.notification_channel_profile_list_description_2);
 
                 // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
                 // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
@@ -2151,6 +2159,7 @@ class PPApplicationStatic {
                 ImportantInfoNotification.removeNotification(context);
                 DrawOverAppsPermissionNotification.removeNotification(context);
                 IgnoreBatteryOptimizationNotification.removeNotification(context);
+                DNDPermissionNotification.removeNotification(context);
                 AutostartPermissionNotification.removeNotification(context);
                 Permissions.removeNotifications(context);
                 ProfileListNotification.clearNotification(context);
@@ -2747,6 +2756,7 @@ class PPApplicationStatic {
                             }
                             pppReleaseData.versionNameInReleases = splits[0];
                             pppReleaseData.versionCodeInReleases = Integer.parseInt(splits[1]);
+//                            Log.e("PPApplicationStatic.getReleaseData", "pppReleaseData.versionCode="+versionCode);
 //                            Log.e("PPApplicationStatic.getReleaseData", "pppReleaseData.versionNameInReleases="+pppReleaseData.versionNameInReleases);
 //                            Log.e("PPApplicationStatic.getReleaseData", "pppReleaseData.versionCodeInReleases="+pppReleaseData.versionCodeInReleases);
 //                            Log.e("PPApplicationStatic.getReleaseData", "ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification="+ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification);

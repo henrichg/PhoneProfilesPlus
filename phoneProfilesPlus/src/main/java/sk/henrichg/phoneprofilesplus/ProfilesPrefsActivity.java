@@ -462,7 +462,14 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._applicationBluetoothLEScanDuration,
                         origProfile._applicationLocationScanInterval,
                         origProfile._applicationOrientationScanInterval,
-                        origProfile._applicationPeriodicScanInterval
+                        origProfile._applicationPeriodicScanInterval,
+                        origProfile._phoneCallsContacts,
+                        origProfile._phoneCallsContactGroups,
+                        origProfile._phoneCallsContactListType,
+                        origProfile._phoneCallsBlockCalls,
+                        origProfile._phoneCallsSendSMS,
+                        origProfile._phoneCallsSMSText,
+                        origProfile._deviceWallpaperLockScreen
                 );
                 showSaveMenu = true;
             }
@@ -556,11 +563,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, ""));
             if (profile._deviceWallpaperChange != 0) {
                 profile._deviceWallpaper = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER, "");
+                profile._deviceWallpaperLockScreen = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN, "");
                 profile._deviceLiveWallpaper = preferences.getString(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER, "");
                 profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR, ""));
                 profile._deviceWallpaperFolder = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER, "");
             } else {
                 profile._deviceWallpaper = "-";
+                profile._deviceWallpaperLockScreen = "-";
                 profile._deviceLiveWallpaper = "";
                 profile._deviceWallpaperFor = 0;
                 profile._deviceWallpaperFolder = "-";
@@ -669,6 +678,12 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._applicationLocationScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, ""));
             profile._applicationOrientationScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, ""));
             profile._applicationPeriodicScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, ""));
+            profile._phoneCallsContacts = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS, "");
+            profile._phoneCallsContactGroups = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, "");
+            profile._phoneCallsContactListType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, ""));
+            profile._phoneCallsBlockCalls = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
+            profile._phoneCallsSendSMS = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS, false);
+            profile._phoneCallsSMSText = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT, "");
         }
 
         return profile;
@@ -683,7 +698,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             long activatedProfileId = dataWrapper.getActivatedProfileId();
             if (activatedProfileId == profile._id) {
                 // set alarm for profile duration
-                ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, getApplicationContext());
+                ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, false, false, PPApplication.STARTUP_SOURCE_EDITOR, getApplicationContext());
                 //Profile.setActivatedProfileForDuration(getApplicationContext(), profile._id);
             }
 
@@ -705,7 +720,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 if (EventStatic.getGlobalEventsRunning(this)) {
                     if (!DataWrapperStatic.getIsManualProfileActivation(false, getApplicationContext())) {
                         //dataWrapper.restartEvents(false, true, true, true, true);
-                        dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
+                        dataWrapper.restartEventsWithRescan(true, false, true, true, true, false);
                     }
                     else {
                         if (activatedProfileId == profile._id) {

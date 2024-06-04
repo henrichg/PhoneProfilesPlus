@@ -436,8 +436,6 @@ at sk.henrichg.phoneprofilesplus.ActivateProfileHelper.execute(ActivateProfileHe
                                         profile.getDeviceBrightnessManualValue(appContext));
 Tu sa nahadzuje integer takze profile.getDeviceBrightnessManualValue(appContext) nevrati null.
 
-Co je zvlastne, ze to pada vzdy pri Samsungoch, A-ckovy typ.
-
 Mozno sa to uvolnuje postupne, ako to nahadzuje do db. Tak mozno to ani nie je vec threadu, ale package.
 Proste prilis vela veci naraz menim. Sa to cachuje Ako ale toto vyriesit? Hm, hm.
 
@@ -471,31 +469,107 @@ https://developer.android.com/develop/connectivity/nfc/nfc#ext-type
 
 -------------------------------------
 
-- Change: Do not display contact phone number for "Notification sensor"/"Contacts" parameter.
-- Change: End of Galaxy Store support.
-- Change: Added support fo non-DND Alarms only Sound profile for Xiaomi devices.
-- Change: Added custom ACRA report content for crash reports.
-- Change: Some fixes about memory leaks.
-- Change: Better search for contacts from cache.
-- Change: Set Airplane mode with new commands.
-- Change: Added test of required Extender version for profile, event parameters.
-- Change: Fixed not displayed notification about new version of Extender, PPPPS.
-- Change: Added "Shortcut to Editor" into Settings/Editor.
-- Change: Added "Read NFC tag" activity for reading tag when PPP reading activity is in foreground. Required for Xiaomi devices, to avoid notification from "NFC service".
-- Change: Better GUI in "Write to NFC tag" activity.
-- Change: Added support of Silent sound mode for Realme deices.
-- Change: Added root/Shizuku requirement in "Screen timeout" profile parameter for Realme and Oppo devices.
-- Change: Better set sound mode at profile activation.
-- Change: Fixed disabled One row widget, List widget "Preference indicator lightness" when "Use dynamic colors" is set.
-- Change: Do not change setting in system, if its value is already set.
-- Change: Fixed Donation notification.
-- Fix: Brightness for Xiaomi with Android 13.
-- Fix: Fixed not working immediate vibration notification for "Start of event", "End of event".
-- Fix: Fixed simulation of ringing.
-- Fix: Fixed leak in quick tiles.
-- Fix: Fixed bad working Bluetooth sensor.
+Profil a novy parameter "Block phone calls"
+
+Ak je role nastavene, uz nefunguje jeho znovu-nastavenie, nozbrazuje sa ten bottom sheet na to.
+Ide len zrusit v Settings "Caller ID & spam app".
+Ak je nastavena ina apka ako PPP, zobrazi sa bottom sheet, takze toto je OK.
+Ako postupovat:
+1. ak je nastavene PPP, disablovat tuto volbu HOTOVO
+2. zobrazovat v summary stav, cize k tomu, co tam uz je dat pred to este stav. HOTOVO
+
+Treba permission na tie kontakty. Contacts.
+Samotny contacts a groups dialog, pyta pravo. Je volane: Permissions.grantContactsDialogPermissions(prefContext).
+Cize treba uz iba klasicky ako u inych parametroch. HOTOVO
+
+Treba este zistit, ci netreba dake dalise pravo.
+Ak bude treba, treba este dorobit Phone permission pre:
+<uses-permission android:name="Manifest.permission.ANSWER_PHONE_CALLS" />
+<uses-permission android:name="Manifest.permission.CALL_PHONE" />
+NETREBA, testnute.
+
+A pridaj ešte contact list type, ako je v call senzore.
+No ale tuto nie je dobra vec, davat tam EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE.
+Prilis kriticke je toto blokovanie. Ta hodnota by znamenala, ze kazdy jeden hovor by to blokovalo.
+HOTOVO
+
+Import/Export
+- kontakty treba zakriptovat, pozri to u udalosti
+- kontakty treba dat, ze ich nechcem do backupu, je na to aj dialog, ten treba tiez upravit
+HOTOVO
+
+"Block phone calls" -> treba spravit indikator HOTOVO
+
+V servise nesmies blokovat, ak kontakty nie su nastavene. HOTOVO
+
+-------------------------------
+
+Volane: restartEventsWithRescan()
+DataWrapper:
+- stopEventsForProfile() - false - kedy volane? - daj true, je to volane z EditorProfileListFragment.deleteProfile()
+- startEventAtFirstFtart() - false 2x - kedy volane? - nastav podla toho odkial je volane, cize pridaj parameter manualRestart
+
+EventStatic:
+- runStopEvent() - false - kedy volane? - daj true, je to volane len z GUI
+
+RestartEventsWithDealyWorker:
+- doWork() - false = kedy volane? - nastav podla dat z workera
+
+TimeChangedReceiver:
+- doWork() - false - kedy volane? - daj true, sice znova zacne duration, ale nevadi, toto je volane len na zmenu time zony
+
+---
+
+Volane: restartEventsWithDelay()
+EditorEventListAdapter:
+- clearView() - false - kedy volane? - daj true, je to volane pri manualnom presuvani itemov eventov v Editore
+
+GrantPermisionActivity:
+- finishGrant() - false - kedy volane? - daj true vo vsetkych pripadoch, je to volane ked monci grant, ktory je bud z Editora alebo z notifikacie
+
+PPExtenderBroadcastReceiver:
+- onReceive() 0 false - kedy volane? - daj true, volane len raz, ked sa nakonektuje Extender
+
+------------------
+- Add: Added "Application run duration" into "Application sensor".
+- Add: "Phone calls" parameter for block calls.
+- Add: New senzor "Music sensor" to detect music playing.
+
+- Change: Fixed not working click to notification about new PPPPS version.
+- Change: Fixed not working notification about new PPP version.
+- Change: Increased delay between set sound mode and volumes.
+- Change: Fixed not working change of volume in DND Priority in Motorola.
+- Change: Better summary for profile parameter "Generate notification".
+- Change: Removed Galaxy Store form README.md.
+- Change: Removed Important info about Galaxy Store end of support.
+- Change: Fixed not working change of ringing volume when is set Priority DND, in all devices with Android 14+.
+- Change: Airplane mode parameters as sub-screen.
+- Change: Set wifi/on using "svc wifi" command, which do not generates prompt (HyperOs).
+- Change: Better notification channels descriptions.
+- Change: Bypass DND for some notifications.
+- Change: Set "Package name" as required for custom "Action" + "Broadcast".
+- Change: Displays toast from "Test" button for test of broadcast intent in Intent editor.
+- Change: Fixed show Important info about required versions of PPPE, PPPPS at PPP start.
+- Change: Installation of PPPPutSettings with InstallWithOptions.
+- Change: Profile parameter name "Lock screen" to "Unlock device".
+- Change: Added "Image wallpaper for lock screen" into profile "Change wallpaper".
+- Change: Disable "Wifi hotspot" SIM is not inserted.
+- Change: Disable "Default SIM card" if SIM is not inserted.
+- Change: Check more than 2 SIM cards in some profile/event parameters
+- Change: Allowed activation form event for end of duration "Activate default profile".
+- Change: Allowed activation from event for end of duration "Undo the profile"
+- Change: Allowed activation from event for end of duration "Restart events"
+- Change: Save activated profile to FIFO when is activated manually.
+- Change: Added (Z) information into Important info for profiles.
+- Change: HyperOs - disable Wi-Fi, Bluetooth ON/OFF ask dialogs with appops command.
+- Change: Change wallpaper: added recycle() for bitmaps after set wallpaper.
+- Change: Change wallpaper in MIUI. Added info for not working good WallpaperManager.setBitmap().
+- Change: fixes in manifest file for activities with excludeFromRecents.
+- Change: Fixed close of foreground application when night mode is changed from profile.
+
+- Fix: Fixed not working "Screen timeout" in OnePlus. Requires root, Shizuku.
+- Fix: Color of row in Activity log.
+- Fix: Change wallpaper with "(I) Change to image with".
+
 - Fixed bugs.
 - Updated translations.
-
---------------------------------
-

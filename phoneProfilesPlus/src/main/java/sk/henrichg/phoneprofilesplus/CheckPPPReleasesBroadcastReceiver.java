@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.Calendar;
 
+/** @noinspection ExtractMethodRecommender*/
 public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
     private static final String PREF_PPP_RELEASE_ALARM = "github_release_alarm";

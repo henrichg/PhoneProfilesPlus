@@ -7,6 +7,7 @@ import android.provider.ContactsContract;
 import java.util.ArrayList;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 class ContactGroupsCache {
 
     private final ArrayList<ContactGroup> contactGroupList;

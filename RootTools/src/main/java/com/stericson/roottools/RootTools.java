@@ -809,7 +809,7 @@ public final class RootTools {
      * @noinspection ParameterCanBeLocal, unused
      */
     public static void log(String TAG, String msg, int type, Exception e) {
-        if (msg != null && !msg.equals("")) {
+        if (msg != null && !msg.isEmpty()) {
             if (debugMode) {
                 if (TAG == null) {
                     TAG = "RootTools v5.1";

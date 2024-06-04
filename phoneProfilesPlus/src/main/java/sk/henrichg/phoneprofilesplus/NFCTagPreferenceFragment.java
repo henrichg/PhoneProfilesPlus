@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
@@ -456,7 +457,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 preference.nfcTagList = new ArrayList<>(_nfcTagList);
 
-                if (preference.nfcTagList.size() == 0) {
+                if (preference.nfcTagList.isEmpty()) {
                     fragment.nfcTagListView.setVisibility(View.GONE);
                     fragment.emptyList.setVisibility(View.VISIBLE);
                 } else {

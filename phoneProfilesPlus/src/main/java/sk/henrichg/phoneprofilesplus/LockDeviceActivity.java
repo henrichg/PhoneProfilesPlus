@@ -124,7 +124,7 @@ public class LockDeviceActivity extends AppCompatActivity
                         });
                     }
                 } else*/
-                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
+                Settings.System.putInt(getApplicationContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
 
                 LockDeviceActivityFinishBroadcastReceiver.setAlarm(getApplicationContext());
             //}

@@ -27,6 +27,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     //private DataWrapper dataWrapper;

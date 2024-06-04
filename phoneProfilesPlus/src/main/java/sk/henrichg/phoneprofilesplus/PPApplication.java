@@ -51,14 +51,15 @@ import java.util.concurrent.TimeUnit;
 
 import me.drakeet.support.toast.ToastCompat;
 
+/** @noinspection ExtractMethodRecommender*/
 public class PPApplication extends Application
                                         //implements Configuration.Provider
                                         //implements Application.ActivityLifecycleCallbacks
 {
     // this version code must by <= version code in dependencies.gradle
     static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 7090;
-    static final boolean SHOW_IMPORTANT_INFO_NEWS = true;
-    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = true;
+    static final boolean SHOW_IMPORTANT_INFO_NEWS = false;
+    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = false;
 
     //// Extender versions
     // versions required for profile, event parameters
@@ -66,7 +67,7 @@ public class PPApplication extends Application
     static final String VERSION_NAME_EXTENDER_8_1_3 = "8.1.3";
 
     // for this version will be displayed upgrade notification
-    //  reruired must by <= latest
+    //  required must by <= latest
     static final int VERSION_CODE_EXTENDER_REQUIRED = 890;
 
     // latest version in GitHub, IzzyOnDroid. will be installed
@@ -123,6 +124,8 @@ public class PPApplication extends Application
     static final String GITHUB_PPPPS_URL = "https://github.com/henrichg/PPPPutSettings";
     static final String XDA_DEVELOPERS_PPP_URL = "https://forum.xda-developers.com/t/phoneprofilesplus.3799429/";
 
+    // This url is Donate button from https://www.paypal.com/buttons/, type "Donate".
+    // In it is possible to get this url with "Get link".
     static final String PAYPAL_DONATION_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U";
 
     static final String PPP_RELEASES_MD_DEBUG_URL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/releases-debug.md";
@@ -167,7 +170,9 @@ public class PPApplication extends Application
 
     static final String GITHUB_PPPPS_RELEASES_URL = "https://github.com/henrichg/PPPPutSettings/releases";
     static final String GITHUB_PPPPS_DOWNLOAD_URL = "https://github.com/henrichg/PPPPutSettings/releases/latest/download/PPPPutSettings.apk";
-    static final String GITHUB_PPPPS_HOW_TO_INSTALL_URL = "https://github.com/henrichg/PPPPutSettings/blob/devel/docs/install_apk_from_pc.md";
+    //This file: https://github.com/henrichg/PPPPutSettings/blob/main/docs/install_apk_from_pc.md
+    //static final String GITHUB_PPPPS_HOW_TO_INSTALL_URL = "https://henrichg.github.io/PPPPutSettings/install_apk_from_pc.html";
+    //static final String GITHUB_PPPPS_HOW_TO_INSTALL_URL_DEVEL = "https://github.com/henrichg/PPPPutSettings/blob/devel/docs/install_apk_from_pc.md";
 
     //static final String GALAXY_STORE_PPP_RELEASES_URL = "https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus";
     //static final String GALAXY_STORE_PACKAGE_NAME = "com.sec.android.app.samsungapps";
@@ -275,6 +280,8 @@ public class PPApplication extends Application
                                                 //+"|BluetoothConnectionBroadcastReceiver"
                                                 //+"|EventPreferencesBluetooth"
                                                 //+"|CheckCriticalPPPReleasesBroadcastReceiver"
+
+                                                //+"|[LOCATION_SCAN_TEST]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -369,6 +376,7 @@ public class PPApplication extends Application
     static final boolean deviceIsPixel = isPixel();
     static final boolean deviceIsSony = isSony();
     static final boolean deviceIsDoogee = isDoogee();
+    static final boolean deviceIsMotorola = isMotorola();
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
     static final boolean romIsGalaxy = isGalaxyROM();
@@ -410,6 +418,9 @@ public class PPApplication extends Application
     //static final int STARTUP_SOURCE_ACTIVATOR_START = 9;
     //static final int STARTUP_SOURCE_LAUNCHER_START = 10;
     static final int STARTUP_SOURCE_LAUNCHER = 11;
+    // STARTUP_SOURCE_EVENT_MANUAL is for activation of profile from evet, when is set:
+    //  - "Start of event"/"Other parameters"/"[M] Manual profile activation at start"
+    //  - "End of event"/"Other parameters"/"[M] Manual profile activation at end"
     static final int STARTUP_SOURCE_EVENT_MANUAL = 12;
     static final int STARTUP_SOURCE_EXTERNAL_APP = 13;
     static final int STARTUP_SOURCE_QUICK_TILE = 14;
@@ -496,6 +507,8 @@ public class PPApplication extends Application
     static final int LOCATION_NOT_WORKING_NOTIFICATION_ID = 151;
     static final String LOCATION_NOT_WORKING_NOTIFICATION_TAG = PACKAGE_NAME+"_LOCATION_NOT_WORKING_NOTIFICATION_NOTIFICATION";
     static final String SYTEM_CONFIGURATION_ERRORS_NOTIFICATION_GROUP = PACKAGE_NAME+"_SYTEM_CONFIGURATION_ERRORS_NOTIFICATION_GROUP";
+    static final int DO_NOT_DISTURB_ACCESS_NOTIFICATION_ID = 152;
+    static final String DO_NOT_DISTURB_ACCESS_NOTIFICATION_TAG = PACKAGE_NAME+"_DO_NOT_DISTURB_ACCESS_NOTIFICATION";
 
     static final int CHECK_GITHUB_RELEASES_NOTIFICATION_ID = 122;
     static final String CHECK_GITHUB_RELEASES_NOTIFICATION_TAG = PACKAGE_NAME+"_CHECK_GITHUB_RELEASES_NOTIFICATION_TAG";
@@ -937,6 +950,9 @@ public class PPApplication extends Application
     //static volatile RestartEventsWithDelayBroadcastReceiver restartEventsWithDelayBroadcastReceiver = null;
     static volatile ActivatedProfileEventBroadcastReceiver activatedProfileEventBroadcastReceiver = null;
     static volatile VPNNetworkCallback vpnConnectionCallback = null;
+    static volatile ApplicationEventEndBroadcastReceiver applicationEventEndBroadcastReceiver = null;
+    //static volatile MusicBroadcastReceiver musicBroadcastReceiver = null;
+    static volatile PPAudioPlaybackCallback audioPlaybackCallback = null;
 
     static volatile SettingsContentObserver settingsContentObserver = null;
 
@@ -1158,14 +1174,14 @@ public class PPApplication extends Application
         screenTimeoutHandler = new Handler(getMainLooper());
 
         PackageManager packageManager = getPackageManager();
-        HAS_FEATURE_BLUETOOTH_LE = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_BLUETOOTH_LE);
-        HAS_FEATURE_WIFI = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_WIFI);
-        HAS_FEATURE_BLUETOOTH = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_BLUETOOTH);
-        HAS_FEATURE_TELEPHONY = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_TELEPHONY);
-        HAS_FEATURE_NFC = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_NFC);
-        HAS_FEATURE_LOCATION = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION);
-        HAS_FEATURE_LOCATION_GPS = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION_GPS);
-        HAS_FEATURE_CAMERA_FLASH = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_CAMERA_FLASH);
+        HAS_FEATURE_BLUETOOTH_LE = hasSystemFeature(packageManager, PackageManager.FEATURE_BLUETOOTH_LE);
+        HAS_FEATURE_WIFI = hasSystemFeature(packageManager, PackageManager.FEATURE_WIFI);
+        HAS_FEATURE_BLUETOOTH = hasSystemFeature(packageManager, PackageManager.FEATURE_BLUETOOTH);
+        HAS_FEATURE_TELEPHONY = hasSystemFeature(packageManager, PackageManager.FEATURE_TELEPHONY);
+        HAS_FEATURE_NFC = hasSystemFeature(packageManager, PackageManager.FEATURE_NFC);
+        HAS_FEATURE_LOCATION = hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION);
+        HAS_FEATURE_LOCATION_GPS = hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION_GPS);
+        HAS_FEATURE_CAMERA_FLASH = hasSystemFeature(packageManager, PackageManager.FEATURE_CAMERA_FLASH);
 
         PPApplicationStatic.logE("##### PPApplication.onCreate", "end of get features");
 
@@ -1226,6 +1242,7 @@ public class PPApplication extends Application
             PPApplicationStatic.logE("##### PPApplication.onCreate", "deviceIsPixel=" + deviceIsPixel);
             PPApplicationStatic.logE("##### PPApplication.onCreate", "deviceIsSony=" + deviceIsSony);
             PPApplicationStatic.logE("##### PPApplication.onCreate", "deviceIsDoogee=" + deviceIsDoogee);
+            PPApplicationStatic.logE("##### PPApplication.onCreate", "deviceIsMotorola=" + deviceIsMotorola);
 
             PPApplicationStatic.logE("##### PPApplication.onCreate", "romIsMIUI=" + romIsMIUI);
             PPApplicationStatic.logE("##### PPApplication.onCreate", "romIsEMUI=" + romIsEMUI);
@@ -1286,6 +1303,7 @@ public class PPApplication extends Application
 
         /*
         // set up ANR-WatchDog
+        // https://github.com/SalomonBrys/ANR-WatchDog
         ANRWatchDog anrWatchDog = new ANRWatchDog();
         //anrWatchDog.setReportMainThreadOnly();
         anrWatchDog.setANRListener(new ANRWatchDog.ANRListener() {
@@ -1906,14 +1924,14 @@ public class PPApplication extends Application
             java.lang.Process p = Runtime.getRuntime().exec("getprop ro.miui.ui.version.code");
             input = new BufferedReader(new InputStreamReader(p.getInputStream()), 1024);
             line = input.readLine();
-            miuiRom1 = line.length() != 0;
+            miuiRom1 = !line.isEmpty();
             input.close();
 
             if (!miuiRom1) {
                 p = Runtime.getRuntime().exec("getprop ro.miui.ui.version.name");
                 input = new BufferedReader(new InputStreamReader(p.getInputStream()), 1024);
                 line = input.readLine();
-                miuiRom2 = line.length() != 0;
+                miuiRom2 = !line.isEmpty();
                 input.close();
             }
 
@@ -1921,7 +1939,7 @@ public class PPApplication extends Application
                 p = Runtime.getRuntime().exec("getprop ro.miui.internal.storage");
                 input = new BufferedReader(new InputStreamReader(p.getInputStream()), 1024);
                 line = input.readLine();
-                miuiRom3 = line.length() != 0;
+                miuiRom3 = !line.isEmpty();
                 input.close();
             }
 
@@ -1962,7 +1980,7 @@ public class PPApplication extends Application
 
         return isHuawei() &&
                 (
-                    (emuiRomName.length() != 0) ||
+                    (!emuiRomName.isEmpty()) ||
                     Build.DISPLAY.toLowerCase().contains("emui2.3")// || "EMUI 2.3".equalsIgnoreCase(emuiRomName);
                 );
     }
@@ -2069,9 +2087,16 @@ public class PPApplication extends Application
                 Build.FINGERPRINT.toLowerCase().contains(DOOGEE);
     }
 
+    private static boolean isMotorola() {
+        final String MOTOROLA = "motorola";
+        return Build.BRAND.equalsIgnoreCase(MOTOROLA) ||
+                Build.MANUFACTURER.equalsIgnoreCase(MOTOROLA) ||
+                Build.FINGERPRINT.toLowerCase().contains(MOTOROLA);
+    }
+
     private static String getReadableModVersion() {
         String modVer = getSystemProperty(SYS_PROP_MOD_VERSION);
-        return (modVer == null || modVer.length() == 0 ? "Unknown" : modVer);
+        return (modVer == null || modVer.isEmpty() ? "Unknown" : modVer);
     }
 
     /** @noinspection BlockingMethodInNonBlockingContext*/
@@ -2109,7 +2134,7 @@ public class PPApplication extends Application
         return line;
     }
 
-    private static boolean hasSystemFeature(PackageManager packageManager, String feature) {
+    private boolean hasSystemFeature(PackageManager packageManager, String feature) {
         try {
             return packageManager.hasSystemFeature(feature);
         } catch (Exception e) {

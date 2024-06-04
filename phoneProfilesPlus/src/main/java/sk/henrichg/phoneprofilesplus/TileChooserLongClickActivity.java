@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/** @noinspection ExtractMethodRecommender*/
 public class TileChooserLongClickActivity extends AppCompatActivity {
 
     private boolean activityStarted = false;

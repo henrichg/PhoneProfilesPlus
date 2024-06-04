@@ -10,7 +10,7 @@ import androidx.core.os.LocaleListCompat;
 
 import java.util.Locale;
 
-class LocaleHelper {
+public class LocaleHelper {
 
     private static final String PREF_SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
     private static final String PREF_SELECTED_COUNTRY = "Locale.Helper.Selected.Country";

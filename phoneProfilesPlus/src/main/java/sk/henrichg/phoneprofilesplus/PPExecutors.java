@@ -42,6 +42,7 @@ class PPExecutors {
     static final String SENSOR_NAME_SENSOR_TYPE_POWER_SAVE_MODE = "SENSOR_TYPE_POWER_SAVE_MODE";
     static final String SENSOR_NAME_SENSOR_TYPE_SMS_EVENT_END = "SENSOR_TYPE_SMS_EVENT_END";
     static final String SENSOR_NAME_SENSOR_TYPE_WIFI_SCANNER = "SENSOR_TYPE_WIFI_SCANNER";
+    static final String SENSOR_NAME_SENSOR_TYPE_APPLICATION_EVENT_END = "SENSOR_TYPE_APPLICATION_EVENT_END";
 
     static void scheduleDisableBlockProfileEventActionExecutor() {
 //        PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** PPExecutors.scheduleDisableBlockProfileEventActionExecutor", "schedule");

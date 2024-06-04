@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
     app:title="@string/event_preferences_category_eventCallParameters"
-    app:key="eventCallCategory" >
+    app:key="eventCallCategory">
 
     <SwitchPreferenceCompat
         app:key="eventCallEnabled"
@@ -40,6 +39,7 @@
         app:ppEntryValues="@array/eventCallContactListTypeValues"
         app:dependency="eventCallEnabled"
         app:layout="@layout/mp_preference_material_widget" />
+
     <SwitchPreferenceCompat
         app:key="eventCallPermanentRun"
         app:title="@string/pref_event_permanentRun"
@@ -98,5 +98,5 @@
 <!--        app:dependency="eventCallEnabled"-->
 <!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
-    
+
 </androidx.preference.PreferenceScreen>

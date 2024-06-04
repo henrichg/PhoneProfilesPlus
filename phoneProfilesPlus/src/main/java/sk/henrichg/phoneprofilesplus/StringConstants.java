@@ -7,6 +7,7 @@ class StringConstants {
     static final String CHAR_HARD_SPACE = "\u00A0";
     static final String CHAR_HARD_SPACE_HTML = "&nbsp;";
     static final String CHAR_SQUARE_HTML = "&#x25a0;";
+    static final String CHAR_QUOTE_HTML = "&quot;";
     static final String CHAR_ARROW = "»";
     static final String STR_DOUBLE_ARROW = "»»";
     static final String STR_ARROW_INDICATOR = "[»]";

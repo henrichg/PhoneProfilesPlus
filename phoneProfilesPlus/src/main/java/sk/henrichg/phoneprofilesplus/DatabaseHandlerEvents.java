@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 class DatabaseHandlerEvents {
 
     // Adding new event
@@ -729,12 +730,15 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_CALL_CONTACTS,
                         DatabaseHandler.KEY_E_CALL_CONTACT_LIST_TYPE,
                         DatabaseHandler.KEY_E_CALL_CONTACT_GROUPS,
-                        DatabaseHandler.KEY_E_CALL_DURATION,
-                        DatabaseHandler.KEY_E_CALL_PERMANENT_RUN,
-                        DatabaseHandler.KEY_E_CALL_START_TIME,
+                        DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_DURATION,
+                        DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_PERMANENT_RUN,
+                        DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_TIME,
                         DatabaseHandler.KEY_E_CALL_SENSOR_PASSED,
-                        DatabaseHandler.KEY_E_CALL_FROM_SIM_SLOT,
-                        DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD
+                        DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT,
+                        DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD//,
+//                        DatabaseHandler.KEY_E_CALL_STOP_RINGING,
+//                        DatabaseHandler.KEY_E_CALL_SEND_SMS,
+//                        DatabaseHandler.KEY_E_CALL_SMS_TEXT,
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -751,11 +755,14 @@ class DatabaseHandlerEvents {
                 eventPreferences._contacts = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTACTS));
                 eventPreferences._contactListType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTACT_LIST_TYPE));
                 eventPreferences._contactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTACT_GROUPS));
-                eventPreferences._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_START_TIME));
-                eventPreferences._duration = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_DURATION));
-                eventPreferences._permanentRun = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_PERMANENT_RUN)) == 1);
-                eventPreferences._fromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_FROM_SIM_SLOT));
+                eventPreferences._runAfterCallEndDuration = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_DURATION));
+                eventPreferences._runAfterCallEndPermanentRun = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_PERMANENT_RUN)) == 1);
                 eventPreferences._forSIMCard = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD));
+//                eventPreferences._stopRinging = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_STOP_RINGING)) == 1);
+//                eventPreferences._sendSMS = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SEND_SMS)) == 1);
+//                eventPreferences._smsText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SMS_TEXT));
+                eventPreferences._runAfterCallEndTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_TIME));
+                eventPreferences._runAfterCallEndFromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SENSOR_PASSED)));
             }
             cursor.close();
@@ -1009,6 +1016,8 @@ class DatabaseHandlerEvents {
         Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                 new String[]{DatabaseHandler.KEY_E_APPLICATION_ENABLED,
                         DatabaseHandler.KEY_E_APPLICATION_APPLICATIONS,
+                        DatabaseHandler.KEY_E_APPLICATION_DURATION,
+                        DatabaseHandler.KEY_E_APPLICATION_START_TIME,
                         DatabaseHandler.KEY_E_APPLICATION_SENSOR_PASSED
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
@@ -1023,6 +1032,8 @@ class DatabaseHandlerEvents {
 
                 eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_APPLICATION_ENABLED)) == 1);
                 eventPreferences._applications = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_APPLICATION_APPLICATIONS));
+                eventPreferences._duration = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_APPLICATION_DURATION));
+                eventPreferences._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_APPLICATION_START_TIME));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_APPLICATION_SENSOR_PASSED)));
             }
             cursor.close();
@@ -1467,6 +1478,30 @@ class DatabaseHandlerEvents {
         }
     }
 
+    static private void getEventPreferencesMusic(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                new String[] { DatabaseHandler.KEY_E_MUSIC_ENABLED,
+                        DatabaseHandler.KEY_E_MUSIC_MUSIC_STATE,
+                        DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED
+                },
+                DatabaseHandler.KEY_E_ID + "=?",
+                new String[] { String.valueOf(event._id) }, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesMusic eventPreferences = event._eventPreferencesMusic;
+
+                eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MUSIC_ENABLED)) == 1);
+                eventPreferences._musicState = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MUSIC_MUSIC_STATE));
+                eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED)));
+            }
+            cursor.close();
+        }
+    }
+
     // this is called only from getEvent and getAllEvents
     // for this is not needed to calling importExportLock.lock();
     static private void getEventPreferences(Event event, SQLiteDatabase db) {
@@ -1495,6 +1530,7 @@ class DatabaseHandlerEvents {
         getEventPreferencesRoaming(event, db);
         getEventPreferencesVPN(event, db);
         getEventPreferencesBrightness(event, db);
+        getEventPreferencesMusic(event, db);
     }
 
     static private void updateEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -1552,12 +1588,15 @@ class DatabaseHandlerEvents {
         values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, eventPreferences._contacts);
         values.put(DatabaseHandler.KEY_E_CALL_CONTACT_LIST_TYPE, eventPreferences._contactListType);
         values.put(DatabaseHandler.KEY_E_CALL_CONTACT_GROUPS, eventPreferences._contactGroups);
-        values.put(DatabaseHandler.KEY_E_CALL_START_TIME, eventPreferences._startTime);
-        values.put(DatabaseHandler.KEY_E_CALL_DURATION, eventPreferences._duration);
-        values.put(DatabaseHandler.KEY_E_CALL_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_DURATION, eventPreferences._runAfterCallEndDuration);
+        values.put(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_PERMANENT_RUN, (eventPreferences._runAfterCallEndPermanentRun) ? 1 : 0);
         values.put(DatabaseHandler.KEY_E_CALL_SENSOR_PASSED, eventPreferences.getSensorPassed());
-        values.put(DatabaseHandler.KEY_E_CALL_FROM_SIM_SLOT, eventPreferences._fromSIMSlot);
         values.put(DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD, eventPreferences._forSIMCard);
+//        values.put(DatabaseHandler.KEY_E_CALL_STOP_RINGING, (eventPreferences._stopRinging) ? 1 : 0);
+//        values.put(DatabaseHandler.KEY_E_CALL_SEND_SMS, (eventPreferences._sendSMS) ? 1 : 0);
+//        values.put(DatabaseHandler.KEY_E_CALL_SMS_TEXT, eventPreferences._smsText);
+        values.put(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_TIME, eventPreferences._runAfterCallEndTime);
+        values.put(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT, eventPreferences._runAfterCallEndFromSIMSlot);
 
         // updating row
         db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
@@ -1707,8 +1746,8 @@ class DatabaseHandlerEvents {
 
         values.put(DatabaseHandler.KEY_E_APPLICATION_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(DatabaseHandler.KEY_E_APPLICATION_APPLICATIONS, eventPreferences._applications);
-        //values.put(DatabaseHandler.KEY_E_APPLICATION_START_TIME, eventPreferences._startTime);
-        //values.put(DatabaseHandler.KEY_E_APPLICATION_DURATION, eventPreferences._duration);
+        values.put(DatabaseHandler.KEY_E_APPLICATION_DURATION, eventPreferences._duration);
+        values.put(DatabaseHandler.KEY_E_APPLICATION_START_TIME, eventPreferences._startTime);
         values.put(DatabaseHandler.KEY_E_APPLICATION_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row
@@ -1962,6 +2001,19 @@ class DatabaseHandlerEvents {
                 new String[] { String.valueOf(event._id) });
     }
 
+    static private void updateEventPreferencesMusic(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesMusic eventPreferences = event._eventPreferencesMusic;
+
+        values.put(DatabaseHandler.KEY_E_MUSIC_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_MUSIC_MUSIC_STATE, eventPreferences._musicState);
+        values.put(DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED, eventPreferences.getSensorPassed());
+
+        // updating row
+        db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+    }
 
     // this is called only from addEvent and updateEvent.
     // for this is not needed to calling importExportLock.lock();
@@ -1991,6 +2043,7 @@ class DatabaseHandlerEvents {
         updateEventPreferencesRoaming(event, db);
         updateEventPreferencesVPN(event, db);
         updateEventPreferencesBrightness(event, db);
+        updateEventPreferencesMusic(event, db);
     }
 
 
@@ -2316,6 +2369,9 @@ class DatabaseHandlerEvents {
                         case DatabaseHandler.ETYPE_VPN:
                             sensorPassedField = DatabaseHandler.KEY_E_VPN_SENSOR_PASSED;
                             break;
+                        case DatabaseHandler.ETYPE_MUSIC:
+                            sensorPassedField = DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED;
+                            break;
                     }
 
                     Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
@@ -2461,6 +2517,10 @@ class DatabaseHandlerEvents {
                     case DatabaseHandler.ETYPE_VPN:
                         sensorPassed = event._eventPreferencesVPN.getSensorPassed();
                         sensorPassedField = DatabaseHandler.KEY_E_VPN_SENSOR_PASSED;
+                        break;
+                    case DatabaseHandler.ETYPE_MUSIC:
+                        sensorPassed = event._eventPreferencesMusic.getSensorPassed();
+                        sensorPassedField = DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED;
                         break;
                 }
                 ContentValues values = new ContentValues();
@@ -2718,6 +2778,8 @@ class DatabaseHandlerEvents {
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_VPN_ENABLED + "=1";
                     else if (eventType == DatabaseHandler.ETYPE_BRIGHTNESS)
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_BRIGHTNESS_ENABLED + "=1";
+                    else if (eventType == DatabaseHandler.ETYPE_MUSIC)
+                        eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_MUSIC_ENABLED + "=1";
                 }
 
                 countQuery = "SELECT  count(*) FROM " + DatabaseHandler.TABLE_EVENTS +
@@ -3243,7 +3305,7 @@ class DatabaseHandlerEvents {
         }
     }
 
-    static void updateCallStartTime(DatabaseHandler instance, Event event)
+    static void updateCallRunAfterCallEndTime(DatabaseHandler instance, Event event)
     {
         instance.importExportLock.lock();
         try {
@@ -3254,8 +3316,8 @@ class DatabaseHandlerEvents {
                 SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(DatabaseHandler.KEY_E_CALL_START_TIME, event._eventPreferencesCall._startTime);
-                values.put(DatabaseHandler.KEY_E_CALL_FROM_SIM_SLOT, event._eventPreferencesCall._fromSIMSlot);
+                values.put(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_TIME, event._eventPreferencesCall._runAfterCallEndTime);
+                values.put(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT, event._eventPreferencesCall._runAfterCallEndFromSIMSlot);
 
                 db.beginTransaction();
 
@@ -3283,7 +3345,7 @@ class DatabaseHandlerEvents {
         }
     }
 
-    static void getCallStartTime(DatabaseHandler instance, Event event)
+    static void getCallRunAfterCallEndTime(DatabaseHandler instance, Event event)
     {
         instance.importExportLock.lock();
         try {
@@ -3295,8 +3357,8 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                         new String[]{
-                                DatabaseHandler.KEY_E_CALL_START_TIME,
-                                DatabaseHandler.KEY_E_CALL_FROM_SIM_SLOT
+                                DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_TIME,
+                                DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -3304,8 +3366,8 @@ class DatabaseHandlerEvents {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
-                        event._eventPreferencesCall._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_START_TIME));
-                        event._eventPreferencesCall._fromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_FROM_SIM_SLOT));
+                        event._eventPreferencesCall._runAfterCallEndTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_TIME));
+                        event._eventPreferencesCall._runAfterCallEndFromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT));
                     }
 
                     cursor.close();
@@ -3319,6 +3381,85 @@ class DatabaseHandlerEvents {
             instance.stopRunningCommand();
         }
     }
+
+    /*
+    static void updateCallRingingTime(DatabaseHandler instance, Event event)
+    {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(DatabaseHandler.KEY_E_CALL_RINGING_TIME, event._eventPreferencesCall._ringingTime);
+                values.put(DatabaseHandler.KEY_E_CALL_RINGING_FROM_SIM_SLOT, event._eventPreferencesCall._ringingFromSIMSlot);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandlerEvents.updateCallStartTimes", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    static void getCallRingingTime(DatabaseHandler instance, Event event)
+    {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                        new String[]{
+                                DatabaseHandler.KEY_E_CALL_RINGING_TIME,
+                                DatabaseHandler.KEY_E_CALL_RINGING_FROM_SIM_SLOT
+                        },
+                        DatabaseHandler.KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        event._eventPreferencesCall._ringingTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RINGING_TIME));
+                        event._eventPreferencesCall._ringingFromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RINGING_FROM_SIM_SLOT));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+    */
 
     static void updateAlarmClockStartTime(DatabaseHandler instance, Event event)
     {
@@ -3580,6 +3721,80 @@ class DatabaseHandlerEvents {
                         else
                             event._eventPreferencesPeriodic._startTime = 0;
 
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    static void updateApplicationStartTime(DatabaseHandler instance, Event event)
+    {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(DatabaseHandler.KEY_E_APPLICATION_START_TIME, event._eventPreferencesApplication._startTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandlerEvents.updateNFCStartTimes", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    static void getApplicationStartTime(DatabaseHandler instance, Event event)
+    {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                        new String[]{
+                                DatabaseHandler.KEY_E_APPLICATION_START_TIME
+                        },
+                        DatabaseHandler.KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        event._eventPreferencesApplication._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_APPLICATION_START_TIME));
                     }
 
                     cursor.close();

@@ -35,6 +35,7 @@ import java.util.List;
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
+/** @noinspection ExtractMethodRecommender*/
 class RunApplicationEditorDialog
 {
 

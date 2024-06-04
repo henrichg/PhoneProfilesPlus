@@ -52,6 +52,7 @@ import org.osmdroid.views.overlay.TilesOverlay;
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 
+/** @noinspection ExtractMethodRecommender*/
 public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                         implements LocationGeofenceEditorActivityOSMNetworkOfflineListener{
     private LocationManager mLocationManager;

@@ -42,7 +42,7 @@ public class RingtonePreference extends DialogPreference {
 
     private final Context prefContext;
 
-    private static volatile MediaPlayer mediaPlayer = null;
+    static volatile MediaPlayer mediaPlayer = null;
     private static volatile int oldMediaVolume = -1;
     private static volatile boolean oldMediaMuted = false;
     private static volatile Timer playTimer = null;

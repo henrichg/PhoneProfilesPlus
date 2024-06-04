@@ -163,7 +163,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_DEVICE_BOOT_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
-                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_DEVICE_BOOT).size() == 0;
+                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_DEVICE_BOOT).isEmpty();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));

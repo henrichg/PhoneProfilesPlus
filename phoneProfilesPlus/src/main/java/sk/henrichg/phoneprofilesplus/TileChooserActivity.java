@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/** @noinspection ExtractMethodRecommender*/
 public class TileChooserActivity extends AppCompatActivity {
 
     private boolean activityStarted = false;
@@ -166,6 +167,7 @@ public class TileChooserActivity extends AppCompatActivity {
                 ProfileListNotification.drawNotification(true, appContext);
                 DrawOverAppsPermissionNotification.showNotification(appContext, true);
                 IgnoreBatteryOptimizationNotification.showNotification(appContext, true);
+                DNDPermissionNotification.showNotification(appContext, true);
                 PPAppNotification.drawNotification(true, appContext);
             }
 

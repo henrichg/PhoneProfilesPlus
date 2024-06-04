@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+/** @noinspection ExtractMethodRecommender*/
 public class ImportantInfoHelpFragment extends Fragment {
 
     boolean firstInstallation = false;
@@ -394,6 +395,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                                                                fragment.getString(R.string.important_info_profile_install_pppps) + StringConstants.TAG_LIST_ITEM_END_HTML +
                     StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_grant) + StringConstants.TAG_LIST_ITEM_END_HTML +
                     StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_root) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.phone_profiles_pref_grantShizukuPermission_summary1) + StringConstants.TAG_LIST_ITEM_END_HTML +
                     //"<li>" + fragment.getString(R.string.important_info_profile_settings) + "</li>" +
                     StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_interactive) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML

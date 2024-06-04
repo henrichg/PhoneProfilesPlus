@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 class Event {
 
     long _id;
@@ -87,6 +88,7 @@ class Event {
     EventPreferencesActivatedProfile _eventPreferencesActivatedProfile;
     EventPreferencesRoaming _eventPreferencesRoaming;
     EventPreferencesVPN _eventPreferencesVPN;
+    EventPreferencesMusic _eventPreferencesMusic;
 
     Spanned _peferencesDecription;
 
@@ -385,7 +387,7 @@ class Event {
 
     private void createEventPreferencesApplication()
     {
-        this._eventPreferencesApplication = new EventPreferencesApplication(this, false, "");
+        this._eventPreferencesApplication = new EventPreferencesApplication(this, false, "", 0);
     }
 
     private void createEventPreferencesLocation()
@@ -468,6 +470,11 @@ class Event {
         this._eventPreferencesVPN = new EventPreferencesVPN(this, false, 0);
     }
 
+    private void createEventPreferencesMusic()
+    {
+        this._eventPreferencesMusic = new EventPreferencesMusic(this, false, 0);
+    }
+
     void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -495,6 +502,7 @@ class Event {
         createEventPreferencesActivatedProfile();
         createEventPreferencesRoaming();
         createEventPreferencesVPN();
+        createEventPreferencesMusic();
     }
 
     void copyEventPreferences(Event fromEvent)
@@ -549,6 +557,8 @@ class Event {
             createEventPreferencesRoaming();
         if (this._eventPreferencesVPN == null)
             createEventPreferencesVPN();
+        if (this._eventPreferencesMusic == null)
+            createEventPreferencesMusic();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -574,6 +584,7 @@ class Event {
         this._eventPreferencesActivatedProfile.copyPreferences(fromEvent);
         this._eventPreferencesRoaming.copyPreferences(fromEvent);
         this._eventPreferencesVPN.copyPreferences(fromEvent);
+        this._eventPreferencesMusic.copyPreferences(fromEvent);
     }
 
     boolean isEnabledSomeSensor(Context context) {
@@ -643,7 +654,9 @@ class Event {
                 (this._eventPreferencesRoaming._enabled &&
                         (EventStatic.isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesVPN._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesMusic._enabled &&
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
     }
 
     boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
@@ -705,6 +718,8 @@ class Event {
             runnable = runnable && this._eventPreferencesRoaming.isRunnable(appContext);
         if (this._eventPreferencesVPN._enabled)
             runnable = runnable && this._eventPreferencesVPN.isRunnable(appContext);
+        if (this._eventPreferencesMusic._enabled)
+            runnable = runnable && this._eventPreferencesMusic.isRunnable(appContext);
 
         return runnable;
     }
@@ -738,7 +753,8 @@ class Event {
                             this._eventPreferencesVolumes._enabled ||
                             this._eventPreferencesActivatedProfile._enabled ||
                             this._eventPreferencesRoaming._enabled ||
-                            this._eventPreferencesVPN._enabled;
+                            this._eventPreferencesVPN._enabled ||
+                            this._eventPreferencesMusic._enabled;
         }
         if (someEnabled) {
             if (this._eventPreferencesTime._enabled)
@@ -791,6 +807,8 @@ class Event {
                 accessibilityEnabled = this._eventPreferencesRoaming.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesVPN._enabled)
                 accessibilityEnabled = this._eventPreferencesVPN.isAccessibilityServiceEnabled(context, againCheckInDelay);
+            if (this._eventPreferencesMusic._enabled)
+                accessibilityEnabled = this._eventPreferencesMusic.isAccessibilityServiceEnabled(context, againCheckInDelay);
         }
 
         return accessibilityEnabled;
@@ -854,6 +872,7 @@ class Event {
         this._eventPreferencesActivatedProfile.loadSharedPreferences(preferences);
         this._eventPreferencesRoaming.loadSharedPreferences(preferences);
         this._eventPreferencesVPN.loadSharedPreferences(preferences);
+        this._eventPreferencesMusic.loadSharedPreferences(preferences);
         editor.apply();
     }
 
@@ -919,6 +938,7 @@ class Event {
         this._eventPreferencesActivatedProfile.saveSharedPreferences(preferences);
         this._eventPreferencesRoaming.saveSharedPreferences(preferences);
         this._eventPreferencesVPN.saveSharedPreferences(preferences);
+        this._eventPreferencesMusic.saveSharedPreferences(preferences);
 
         if (!this.isRunnable(context, true))
             this._status = ESTATUS_STOP;
@@ -1397,6 +1417,8 @@ class Event {
             _eventPreferencesRoaming.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesVPN.setSummary(prefMng, key, preferences, context);
             _eventPreferencesVPN.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesMusic.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesMusic.setCategorySummary(prefMng, preferences, context);
         }
     }
 
@@ -1484,6 +1506,8 @@ class Event {
         _eventPreferencesRoaming.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesVPN.setAllSummary(prefMng, preferences, context);
         _eventPreferencesVPN.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesMusic.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesMusic.setCategorySummary(prefMng, preferences, context);
     }
 
     String getPreferencesDescription(Context context, DataWrapper _dataWrapper, boolean addPassStatus)
@@ -1677,6 +1701,12 @@ class Event {
                 _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
 
+        if (_eventPreferencesMusic._enabled) {
+            String desc = _eventPreferencesMusic.getPreferencesDescription(true, addPassStatus, false, context);
+            if (desc != null)
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
+        }
+
         if (_eventPreferencesDeviceBoot._enabled) {
             String desc = _eventPreferencesDeviceBoot.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
@@ -1722,6 +1752,7 @@ class Event {
         _eventPreferencesActivatedProfile.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesRoaming.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesVPN.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesMusic.checkPreferences(prefMng, onlyCategory, context);
     }
 
     /*
@@ -1788,6 +1819,7 @@ class Event {
                             //boolean ignoreGlobalPref,
                             //boolean interactive,
                             boolean forRestartEvents,
+                            boolean manualRestart,
                             //boolean log,
                             Profile mergedProfile)
     {
@@ -1921,7 +1953,7 @@ class Event {
                     (!DataWrapperStatic.getIsManualProfileActivation(false, dataWrapper.context))) {
                     long activatedProfileId = dataWrapper.getActivatedProfileId();
                     if (this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId)) {
-                        dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents);
+                        dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents, manualRestart);
                     } else {
 //                        PPApplicationStatic.logE("[PPP_NOTIFICATION] Event.startEvent (1)", "call of updateGUI");
                         PPApplication.updateGUI(false, false, dataWrapper.context);
@@ -1939,9 +1971,10 @@ class Event {
 
                     if (this._manualProfileActivation) {
                         DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
-                        dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents);
+                        dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents, manualRestart);
                         mergedProfile._id = 0;
                     } else {
+//                        Log.e("Event.startEvent", "dataWrapper.fifoAddProfile()");
                         long profileId = _fkProfileStart;
                         dataWrapper.fifoAddProfile(profileId, _id);
                     }
@@ -1964,6 +1997,7 @@ class Event {
                                         Profile mergedProfile,
                                         boolean allowRestart,
                                         boolean forRestartEvents,
+                                        boolean manualRestart,
                                         boolean updateGUI)
     {
 
@@ -1993,7 +2027,7 @@ class Event {
                     // first activate _fkProfileEnd
                     if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE) {
                         if (_manualProfileActivationAtEnd || (_fkProfileEnd != activatedProfileId) || forRestartEvents) {
-                            dataWrapper.activateProfileFromEvent(_id, _fkProfileEnd, false, false, forRestartEvents);
+                            dataWrapper.activateProfileFromEvent(_id, _fkProfileEnd, false, false, forRestartEvents, manualRestart);
                             activatedProfileId = _fkProfileEnd;
                             profileActivated = true;
                         }
@@ -2001,38 +2035,39 @@ class Event {
                     // second activate when undone profile is set
                     if (_atEndDo == EATENDDO_UNDONE_PROFILE) {
                         long activateProfile;
-                    /*if (_atEndHowUndo == 0) {
-                        if (!(eventPosition == (timeLineSize-1))) {
-                            // when in timeline list is event, get start profile from last event in timeline list
-                            // because last event in timeline list may be changed
-                            if (eventTimelineList.size() > 0) {
-                                // get latest running event
-                                EventTimeline _eventTimeline = eventTimelineList.get(eventTimelineList.size() - 1);
-                                if (_eventTimeline != null) {
-                                    Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
-                                    if (event != null)
-                                        eventTimeline._fkProfileEndActivated = event._fkProfileStart;
+                        /*if (_atEndHowUndo == 0) {
+                            if (!(eventPosition == (timeLineSize-1))) {
+                                // when in timeline list is event, get start profile from last event in timeline list
+                                // because last event in timeline list may be changed
+                                if (eventTimelineList.size() > 0) {
+                                    // get latest running event
+                                    EventTimeline _eventTimeline = eventTimelineList.get(eventTimelineList.size() - 1);
+                                    if (_eventTimeline != null) {
+                                        Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
+                                        if (event != null)
+                                            eventTimeline._fkProfileEndActivated = event._fkProfileStart;
+                                    }
+                                } else {
+                                    long defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+                                    //if (!fullyStarted)
+                                    //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+                                    if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
+                                        eventTimeline._fkProfileEndActivated = defaultProfileId;
+                                    }
                                 }
-                            } else {
-                                long defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
-                                //if (!fullyStarted)
-                                //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
-                                if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
-                                    eventTimeline._fkProfileEndActivated = defaultProfileId;
-                                }
-                            }
-                        } else
-                            eventTimeline._fkProfileEndActivated = 0;
-                    } else*/
+                            } else
+                                eventTimeline._fkProfileEndActivated = 0;
+                        } else*/
                         {
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] Event.doActivateEndProfile", "(1) PPApplication.profileActivationMutex");
                             synchronized (PPApplication.profileActivationMutex) {
+//                                Log.e("Event.doActivateEndProfile", "dataWrapper.fifoGetActivatedProfiles() (1)");
                                 List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();
                                 int size = activateProfilesFIFO.size();
                                 if (size > 0) {
                                     //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
-                                    // remove profiles from this event
+                                    // remove profiles from FIFO for this event
                                     for (String fromFifo : activateProfilesFIFO) {
                                         String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
                                         if (!splits[1].equals(String.valueOf(_id))) {
@@ -2071,7 +2106,8 @@ class Event {
                             //if (eventTimeline._fkProfileEndActivated != 0)
                             if (activateProfile != 0) {
                                 // do not save to fifo profile with event for Undo
-                                dataWrapper.activateProfileFromEvent(0, activateProfile, false, false, forRestartEvents);
+                                // profile is alrady in FIFO
+                                dataWrapper.activateProfileFromEvent(0, activateProfile, false, false, forRestartEvents, manualRestart);
                                 profileActivated = true;
                             }
                         }
@@ -2083,43 +2119,45 @@ class Event {
 
                         if (_manualProfileActivationAtEnd) {
                             DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
-                            dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents);
+                            dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents, manualRestart);
                             mergedProfile._id = 0;
                         } else {
                             long profileId = _fkProfileEnd;
 
+//                            Log.e("Event.doActivateEndProfile", "dataWrapper.fifoAddProfile()");
                             dataWrapper.fifoAddProfile(profileId, _id);
                         }
                     }
                     // second activate when undone profile is set
                     if (_atEndDo == EATENDDO_UNDONE_PROFILE) {
                         long activateProfile;
-                    /*if (_atEndHowUndo == 0) {
-                        if (!(eventPosition == (timeLineSize-1))) {
-                            // when in timeline list is event, get start profile from last event in timeline list
-                            // because last event in timeline list may be changed
-                            if (eventTimelineList.size() > 0) {
-                                // get latest running evemt
-                                EventTimeline _eventTimeline = eventTimelineList.get(eventTimelineList.size() - 1);
-                                if (_eventTimeline != null) {
-                                    Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
-                                    if (event != null)
-                                        eventTimeline._fkProfileEndActivated = event._fkProfileStart;
+                        /*if (_atEndHowUndo == 0) {
+                            if (!(eventPosition == (timeLineSize-1))) {
+                                // when in timeline list is event, get start profile from last event in timeline list
+                                // because last event in timeline list may be changed
+                                if (eventTimelineList.size() > 0) {
+                                    // get latest running evemt
+                                    EventTimeline _eventTimeline = eventTimelineList.get(eventTimelineList.size() - 1);
+                                    if (_eventTimeline != null) {
+                                        Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
+                                        if (event != null)
+                                            eventTimeline._fkProfileEndActivated = event._fkProfileStart;
+                                    }
+                                } else {
+                                    long defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+                                    //if (!fullyStarted)
+                                    //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+                                    if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
+                                        eventTimeline._fkProfileEndActivated = defaultProfileId;
+                                    }
                                 }
-                            } else {
-                                long defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
-                                //if (!fullyStarted)
-                                //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
-                                if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
-                                    eventTimeline._fkProfileEndActivated = defaultProfileId;
-                                }
-                            }
-                        } else
-                            eventTimeline._fkProfileEndActivated = 0;
-                    } else*/
+                            } else
+                                eventTimeline._fkProfileEndActivated = 0;
+                        } else*/
                         {
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] Event.doActivateEndProfile", "(2) PPApplication.profileActivationMutex");
                             synchronized (PPApplication.profileActivationMutex) {
+//                                Log.e("Event.doActivateEndProfile", "dataWrapper.fifoGetActivatedProfiles() (2)");
                                 List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();
                                 int size = activateProfilesFIFO.size();
@@ -2166,7 +2204,8 @@ class Event {
                             if (_manualProfileActivationAtEnd) {
                                 DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
                                 // do not save to fifo profile with event for Undo
-                                dataWrapper.activateProfileFromEvent(0, mergedProfile._id, true, true, forRestartEvents);
+                                // profile is alrady in FIFO
+                                dataWrapper.activateProfileFromEvent(0, mergedProfile._id, true, true, forRestartEvents, manualRestart);
                                 mergedProfile._id = 0;
                             }
                         }
@@ -2179,7 +2218,7 @@ class Event {
                     // Do not restart events when is event paused during restart events !!!
                     // do not reactivate profile to avoid infinite loop
 
-                    dataWrapper.restartEventsWithDelay(false, false, true, PPApplication.ALTYPE_UNDEFINED);
+                    dataWrapper.restartEventsWithDelay(false, false, true, false, PPApplication.ALTYPE_UNDEFINED);
 
                     // keep wakelock awake 5 secods
                     // this may do restart after 5 seconds also in Doze mode
@@ -2208,6 +2247,7 @@ class Event {
                             Profile mergedProfile,
                             boolean allowRestart,
                             boolean forRestartEvents,
+                            boolean manualRestart,
                             boolean updateGUI)
     {
         //_undoCalled = false;
@@ -2315,7 +2355,7 @@ class Event {
             doActivateEndProfile(dataWrapper, /*eventPosition, timeLineSize,
                     eventTimelineList, eventTimeline,*/
                     activateReturnProfile, mergedProfile, allowRestart,
-                    forRestartEvents, updateGUI);
+                    forRestartEvents, manualRestart, updateGUI);
 
         }
 
@@ -2363,7 +2403,7 @@ class Event {
         if (this._status != ESTATUS_STOP)
         {
             pauseEvent(dataWrapper, activateReturnProfile, ignoreGlobalPref, true, false,
-                    null, false/*allowRestart*/, false, updateGUI);
+                    null, false/*allowRestart*/, false, false, updateGUI);
         }
 
         setSystemEvent(dataWrapper.context, ESTATUS_STOP);
@@ -2425,6 +2465,7 @@ class Event {
         _eventPreferencesActivatedProfile.setSensorPassed(_eventPreferencesActivatedProfile.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesRoaming.setSensorPassed(_eventPreferencesRoaming.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesVPN.setSensorPassed(_eventPreferencesVPN.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesMusic.setSensorPassed(_eventPreferencesMusic.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
     }
 
     private void setSystemEvent(Context context, int forStatus)
@@ -2458,6 +2499,7 @@ class Event {
             _eventPreferencesActivatedProfile.setSystemEventForStart(context);
             _eventPreferencesRoaming.setSystemEventForStart(context);
             _eventPreferencesVPN.setSystemEventForStart(context);
+            _eventPreferencesMusic.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -2489,6 +2531,7 @@ class Event {
             _eventPreferencesActivatedProfile.setSystemEventForPause(context);
             _eventPreferencesRoaming.setSystemEventForPause(context);
             _eventPreferencesVPN.setSystemEventForPause(context);
+            _eventPreferencesMusic.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -2520,6 +2563,7 @@ class Event {
             _eventPreferencesActivatedProfile.removeSystemEvent(context);
             _eventPreferencesRoaming.removeSystemEvent(context);
             _eventPreferencesVPN.removeSystemEvent(context);
+            _eventPreferencesMusic.removeSystemEvent(context);
         }
     }
 

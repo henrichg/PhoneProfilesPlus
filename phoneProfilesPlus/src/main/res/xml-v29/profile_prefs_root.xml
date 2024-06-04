@@ -113,6 +113,12 @@
             app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsApplication" />
 
         <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/profile_preferences_category_phone_calls"
+            app:key="prf_pref_phoneCallsCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsPhoneCalls" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
             app:title="@string/profile_preferences_category_others"
             app:key="prf_pref_othersCategoryRoot"
             app:layout="@layout/mp_preference_material_widget"

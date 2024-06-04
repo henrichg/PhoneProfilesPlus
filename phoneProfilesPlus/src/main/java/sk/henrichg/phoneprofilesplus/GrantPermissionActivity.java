@@ -198,7 +198,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 /*permissions = Permissions.recheckPermissions(context, Permissions.getMergedPermissions(context));
                 mergedNotification = true;*/
                 permissions = Permissions.recheckPermissions(context, permissions);
-                if (permissions.size() == 0) {
+                if (permissions.isEmpty()) {
                     PPApplication.showToast(context.getApplicationContext(),
                             context.getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
@@ -223,7 +223,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 /*permissions = Permissions.recheckPermissions(context, Permissions.getMergedPermissions(context));
                 mergedNotification = true;*/
                 permissions = Permissions.recheckPermissions(context, permissions);
-                if (permissions.size() == 0) {
+                if (permissions.isEmpty()) {
                     PPApplication.showToast(context.getApplicationContext(),
                             context.getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
@@ -377,7 +377,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = context.getString(R.string.permissions_for_install_tone_text1) + "<br><br>";
             else*/ if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION)
                 _showRequestValue.append(context.getString(R.string.permissions_for_play_ringtone_notification_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
-            else if (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER)
+            else if ((grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER) || (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER_LOCKSCREEN))
                 _showRequestValue.append(context.getString(R.string.permissions_for_wallpaper_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
             else if (grantType == Permissions.GRANT_TYPE_WALLPAPER_FOLDER)
                 _showRequestValue.append(context.getString(R.string.permissions_for_wallpaper_folder_text1)).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
@@ -554,7 +554,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_install_tone_text2);
             else*/ if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION)
                 _showRequestValue.append(context.getString(R.string.permissions_for_play_ringtone_notification_text2));
-            else if (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER)
+            else if ((grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER) || (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER_LOCKSCREEN))
                 _showRequestValue.append(context.getString(R.string.permissions_for_wallpaper_text2));
             else if (grantType == Permissions.GRANT_TYPE_WALLPAPER_FOLDER)
                 _showRequestValue.append(context.getString(R.string.permissions_for_wallpaper_folder_text2));
@@ -817,6 +817,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         break;
                     case Permissions.PERMISSION_TYPE_PROFILE_RINGTONES_DUAL_SIM:
                         s = getString(R.string.permission_why_profile_ringtones_dual_sim);
+                        break;
+                    case Permissions.PERMISSION_TYPE_PROFILE_PHONE_CALLS:
+                        s = getString(R.string.permission_why_profile_phone_calls);
                         break;
                 }
             }
@@ -1514,7 +1517,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
             }
 
-            if (permList.size() > 0) {
+            if (!permList.isEmpty()) {
                 if (!withRationale && rationaleAlreadyShown) {
                     Permissions.saveAllPermissions(getApplicationContext(), false);
                     Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
@@ -1621,7 +1624,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.removePlayRingtoneNotificationNotification(context);
         }
         else
-        if (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER) {
+        if ((grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER) || (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER_LOCKSCREEN)) {
             setResult(Activity.RESULT_OK);
             finish();
             /*if (Permissions.wallpaperViewPreference != null)
@@ -1685,7 +1688,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             PPApplicationStatic.restartBluetoothScanner(context);
 
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG) {
@@ -1694,7 +1697,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.calendarsMultiSelectDialogPreference != null)
                 Permissions.calendarsMultiSelectDialogPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CONTACT_DIALOG) {
@@ -1705,7 +1708,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.contactGroupsMultiSelectDialogPreference != null)
                 Permissions.contactGroupsMultiSelectDialogPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_EVENT) {
@@ -1727,7 +1730,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
             }
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
@@ -1739,7 +1742,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 Permissions.locationGeofenceEditorActivity.getLastLocation();*/
 
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG) {
@@ -1756,7 +1759,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.mobileCellsPreference != null)
                 Permissions.mobileCellsPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG) {
@@ -1821,7 +1824,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         if (permissionsForRecheck != null) {
             permissions = Permissions.recheckPermissions(context, permissionsForRecheck);
-            if (permissions.size() != 0) {
+            if (!permissions.isEmpty()) {
                 PPApplication.showToast(context.getApplicationContext(),
                         context.getString(R.string.toast_permissions_not_granted),
                         Toast.LENGTH_LONG);

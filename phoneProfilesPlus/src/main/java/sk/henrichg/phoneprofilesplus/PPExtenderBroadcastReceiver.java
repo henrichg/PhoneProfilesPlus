@@ -21,9 +21,11 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 
     private static final String EXTRA_PACKAGE_NAME = PPApplication.PACKAGE_NAME_EXTENDER + ".package_name";
@@ -101,7 +103,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 PPApplicationStatic.addActivityLog(dataWrapper2.context, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED,
                                         null, null, "");
 
-                                dataWrapper2.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
+                                dataWrapper2.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
                             }
 
                         } catch (Exception e) {
@@ -146,6 +148,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                         setApplicationInForeground(appContext, "");
 
                         EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.setEventApplicationParameters("", 0);
                         eventsHandler.handleEvents(new int[]{
                                 EventsHandler.SENSOR_TYPE_APPLICATION,
                                 EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION});
@@ -216,6 +219,10 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                     if (isActivity) {
                         setApplicationInForeground(appContext, packageName);
 
+                        Calendar now = Calendar.getInstance();
+                        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                        final long _time = now.getTimeInMillis() + gmtOffset;
+
                         if (EventStatic.getGlobalEventsRunning(appContext)) {
                             Runnable runnable3 = () -> {
 //                                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
@@ -232,6 +239,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                                         //Log.e("PPExtenderBroadcastReceiver.onReceive", "(2) ACTION_FOREGROUND_APPLICATION_CHANGED");
                                         EventsHandler eventsHandler = new EventsHandler(appContext);
+                                        eventsHandler.setEventApplicationParameters(packageName, _time);
                                         eventsHandler.handleEvents(new int[]{
                                                 EventsHandler.SENSOR_TYPE_APPLICATION,
                                                 EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION});

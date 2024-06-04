@@ -215,7 +215,7 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
                         fragment.listViewRoot.setVisibility(View.VISIBLE);
                     }
 
-                    if (preference.dataWrapper.profileList.size() == 0) {
+                    if (preference.dataWrapper.profileList.isEmpty()) {
                         fragment.listView.setVisibility(View.GONE);
                         fragment.emptyList.setVisibility(View.VISIBLE);
                     } else {

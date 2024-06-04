@@ -7,32 +7,46 @@
 
 <h1 id="changelog">PhoneProfilesPlus Zoznam zmien</h1>
 
-<h2 id="version2">Verzia: 6.4.1, 6.4.1.1</h2>
+<h2 id="version2">Verzia: 6.5</h2>
 
 <ul lang="en">
-    <li>Change: Do not display contact phone number for "Notification sensor"/"Contacts" parameter.</li>
-    <li>Change: End of Galaxy Store support.</li>
-    <li>Change: Added support fo non-DND Alarms only Sound profile for Xiaomi devices.</li>
-    <li>Change: Added custom ACRA report content for crash reports.</li>
-    <li>Change: Some fixes about memory leaks.</li>
-    <li>Change: Better search for contacts from cache.</li>
-    <li>Change: Set Airplane mode with new commands.</li>
-    <li>Change: Added test of required Extender version for profile, event parameters.</li>
-    <li>Change: Fixed not displayed notification about new version of Extender, PPPPS.</li>
-    <li>Change: Added "Shortcut to Editor" into Settings/Editor.</li>
-    <li>Change: Added "Read NFC tag" activity for reading tag when PPP reading activity is in foreground. Required for Xiaomi devices, to avoid notification from "NFC service".</li>
-    <li>Change: Better GUI in "Write to NFC tag" activity.</li>
-    <li>Change: Added support of Silent sound mode for Realme deices.</li>
-    <li>Change: Added root/Shizuku requirement in "Screen timeout" profile parameter for Realme and Oppo devices.</li>
-    <li>Change: Better set sound mode at profile activation.</li>
-    <li>Change: Fixed disabled One row widget, List widget "Preference indicator lightness" when "Use dynamic colors" is set.</li>
-    <li>Change: Do not change setting in system, if its value is already set.</li>
-    <li>Change: Fixed Donation notification.</li>
-    <li>Fix: Brightness for Xiaomi with Android 13.</li>
-    <li>Fix: Fixed not working immediate vibration notification for "Start of event", "End of event".</li>
-    <li>Fix: Fixed simulation of ringing.</li>
-    <li>Fix: Fixed leak in quick tiles.</li>
-    <li>Fix: Fixed bad working Bluetooth sensor.</li>
+    <li>Add: Added "Application run duration" into "Application sensor".</li>
+    <li>Add: "Phone calls" parameter for block calls.</li>
+    <li>Add: New senzor "Music sensor" to detect music playing.</li>
+    <li>Change: Fixed not working click to notification about new PPPPS version.</li>
+    <li>Change: Fixed not working notification about new PPP version.</li>
+    <li>Change: Increased delay between set sound mode and volumes.</li>
+    <li>Change: Fixed not working change of volume in DND Priority in Motorola.</li>
+    <li>Change: Better summary for profile parameter "Generate notification".</li>
+    <li>Change: Removed Galaxy Store form README.md.</li>
+    <li>Change: Removed Important info about Galaxy Store end of support.</li>
+    <li>Change: Fixed not working change of ringing volume when is set Priority DND, in all devices with Android 14+.</li>
+    <li>Change: Airplane mode parameters as sub-screen.</li>
+    <li>Change: Set wifi/on using "svc wifi" command, which do not generates prompt (HyperOs).</li>
+    <li>Change: Better notification channels descriptions.</li>
+    <li>Change: Bypass DND for some notifications.</li>
+    <li>Change: Set "Package name" as required for custom "Action" + "Broadcast".</li>
+    <li>Change: Displays toast from "Test" button for test of broadcast intent in Intent editor.</li>
+    <li>Change: Fixed show Important info about required versions of PPPE, PPPPS at PPP start.</li>
+    <li>Change: Installation of PPPPutSettings with InstallWithOptions.</li>
+    <li>Change: Profile parameter name "Lock screen" to "Unlock device".</li>
+    <li>Change: Added "Image wallpaper for lock screen" into profile "Change wallpaper".</li>
+    <li>Change: Disable "Wifi hotspot" SIM is not inserted.</li>
+    <li>Change: Disable "Default SIM card" if SIM is not inserted.</li>
+    <li>Change: Check more than 2 SIM cards in some profile/event parameters.</li>
+    <li>Change: Allowed activation form event for end of duration "Activate default profile".</li>
+    <li>Change: Allowed activation from event for end of duration "Undo the profile".</li>
+    <li>Change: Allowed activation from event for end of duration "Restart events".</li>
+    <li>Change: Save activated profile to FIFO when is activated manually.</li>
+    <li>Change: Added (Z) information into Important info for profiles.</li>
+    <li>Change: HyperOs - disable Wi-Fi, Bluetooth ON/OFF ask dialogs with appops command.</li>
+    <li>Change: Change wallpaper: added recycle() for bitmaps after set wallpaper.</li>
+    <li>Change: Change wallpaper in MIUI. Added info for not working good WallpaperManager.setBitmap().</li>
+    <li>Change: fixes in manifest file for activities with excludeFromRecents.</li>
+    <li>Change: Fixed close of foreground application when night mode is changed from profile.</li>
+    <li>Fix: Fixed not working "Screen timeout" in OnePlus. Requires root, Shizuku.</li>
+    <li>Fix: Color of row in Activity log.</li>
+    <li>Fix: Change wallpaper with "(I) Change to image with".</li>
 </ul>
 
 <ul>
@@ -44,7 +58,7 @@
 </ul>
 
 <p>
-    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.4.1.1">Informácie o vydaní na GitHub.</a>
+    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.5">Informácie o vydaní na GitHub.</a>
 </p>
 
 </body>

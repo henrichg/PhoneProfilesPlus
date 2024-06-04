@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 class DataWrapperStatic {
 
     static Profile getNonInitializedProfile(String name, String icon, int order)
@@ -144,7 +145,14 @@ class DataWrapperStatic {
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL)),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL))
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL)),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN)
                 );
     }
 
@@ -181,6 +189,7 @@ class DataWrapperStatic {
         );
     }
 
+    /** @noinspection SameParameterValue*/
     // returns true if:
     // 1. events are blocked = any profile is activated manually
     // 2. no any forceRun event is running
@@ -233,9 +242,9 @@ class DataWrapperStatic {
 
         Spannable sName;
         if (addDuration) {
-            if (!addEventName || manualIndicators.equals(StringConstants.STR_MANUAL))
+            //if (!addEventName || manualIndicators.equals(StringConstants.STR_MANUAL))
                 sName = profile.getProfileNameWithDuration(eventName, indicators, multiLine, durationInNextLine, context);
-            else {
+            /*else {
                 String name = profile._name;
                 if (!eventName.isEmpty())
                     name = name + " " + eventName;
@@ -246,7 +255,7 @@ class DataWrapperStatic {
                         name = name + " " + indicators;
                 }
                 sName = new SpannableString(name);
-            }
+            }*/
         }
         else {
             String name = profile._name;
@@ -297,7 +306,7 @@ class DataWrapperStatic {
             synchronized (dataWrapper.eventTimelines) {
                 if (dataWrapper.eventListFilled && dataWrapper.eventTimelineListFilled) {
                     List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
-                    if (eventTimelineList.size() > 0) {
+                    if (!eventTimelineList.isEmpty()) {
                         EventTimeline eventTimeLine = eventTimelineList.get(eventTimelineList.size() - 1);
                         long event_id = eventTimeLine._fkEvent;
                         Event event = dataWrapper.getEventById(event_id);
@@ -664,7 +673,7 @@ class DataWrapperStatic {
 //                    PPApplicationStatic.logE("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcuts.size()="+shortcuts.size());
 
                 shortcutManager.removeAllDynamicShortcuts();
-                if (shortcuts.size() > 0) {
+                if (!shortcuts.isEmpty()) {
                     shortcutManager.addDynamicShortcuts(shortcuts);
                     if (Build.VERSION.SDK_INT >= 30) {
                         for (ShortcutInfo shortcut : shortcuts)
@@ -799,11 +808,14 @@ class DataWrapperStatic {
                         context.getString(R.string.preferences_red_texts_text_2) + " " +
                         context.getString(R.string.preferences_red_texts_text_click);
 
+                /*
                 intent = new Intent(context, ProfilesPrefsActivity.class);
                 intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                 intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_EDIT);
                 intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
-
+                */
+                intent = new Intent(context, ErrorNotificationActivity.class);
+                intent.putExtra(ErrorNotificationActivity.EXTRA_ERROR_TYPE, ErrorNotificationActivity.ERROR_TYPE_PROFILE);
                 intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
             }
         }
@@ -832,12 +844,15 @@ class DataWrapperStatic {
                         context.getString(R.string.preferences_red_texts_text_2) + " " +
                         context.getString(R.string.preferences_red_texts_text_click);
 
+                /*
                 intent = new Intent(context, EventsPrefsActivity.class);
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
                 intent.putExtra(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
                 intent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, PPApplication.EDIT_MODE_EDIT);
                 intent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, 0);
-
+                */
+                intent = new Intent(context, ErrorNotificationActivity.class);
+                intent.putExtra(ErrorNotificationActivity.EXTRA_ERROR_TYPE, ErrorNotificationActivity.ERROR_TYPE_EVENT);
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
             }
         }

@@ -34,6 +34,7 @@ import com.getkeepsafe.taptargetview.TapTargetSequence;
 import java.util.ArrayList;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class ActivatorActivity extends AppCompatActivity
                                 implements RefreshGUIActivatorEditorListener,
                                            ShowTargetHelpsActivatorEditorListener,
@@ -274,6 +275,7 @@ public class ActivatorActivity extends AppCompatActivity
                 ProfileListNotification.drawNotification(true, appContext);
                 DrawOverAppsPermissionNotification.showNotification(appContext, true);
                 IgnoreBatteryOptimizationNotification.showNotification(appContext, true);
+                DNDPermissionNotification.showNotification(appContext, true);
                 PPAppNotification.drawNotification(true, appContext);
             }
 

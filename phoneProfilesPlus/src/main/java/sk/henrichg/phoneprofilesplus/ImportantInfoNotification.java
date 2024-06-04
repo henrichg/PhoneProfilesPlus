@@ -54,15 +54,14 @@ class ImportantInfoNotification {
             boolean showPPPPS = false;
             if (packageVersionCode > savedVersionCode) {
                 showInfo = canShowInfoNotification(packageVersionCode, savedVersionCode);
-
-                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
-                if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED))
-                    showExtender = true;
-
-                int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
-                if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST))
-                    showPPPPS = true;
             }
+            int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+            if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED))
+                showExtender = true;
+
+            int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
+            if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST))
+                showPPPPS = true;
 
             //Log.e("ImportantInfoNotification.showInfoNotification", "showInfo="+showInfo);
             //Log.e("ImportantInfoNotification.showInfoNotification", "showExtender="+showExtender);
@@ -166,9 +165,9 @@ class ImportantInfoNotification {
                                          String notificationTag) {
         PPApplicationStatic.createExclamationNotificationChannel(context.getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.information_color))
                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
-                .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
+                .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_information_notification))
                 .setContentTitle(title) // title for notification
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click

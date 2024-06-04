@@ -231,7 +231,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                         ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                         if (contactGroupsCache != null) {
                             List<ContactGroup> contactGroupList = contactGroupsCache.getList();
-                            if ((contactGroupList != null) && (contactGroupList.size() == 0)) {
+                            if ((contactGroupList != null) && (contactGroupList.isEmpty())) {
                                 fragment.listView.setVisibility(View.GONE);
                                 fragment.emptyList.setVisibility(View.VISIBLE);
                             } else {

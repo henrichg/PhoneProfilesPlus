@@ -250,7 +250,7 @@ class ContactsFilterDialog {
 
                     dialog.contactsFilterList = new ArrayList<>(_contactsFilterList);
 
-                    if (dialog.contactsFilterList.size() == 0) {
+                    if (dialog.contactsFilterList.isEmpty()) {
                         dialog.contactsFilterListView.setVisibility(View.GONE);
                         dialog.emptyList.setVisibility(View.VISIBLE);
                     } else {

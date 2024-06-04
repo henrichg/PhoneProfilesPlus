@@ -36,6 +36,7 @@ public class RestartEventsWithDelayWorker extends Worker {
             // Get the input
             boolean alsoRescan = getInputData().getBoolean(PhoneProfilesService.EXTRA_ALSO_RESCAN, false);
             boolean unblockEventsRun = getInputData().getBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, false);
+            boolean manualRestart = getInputData().getBoolean(PhoneProfilesService.EXTRA_MANUAL_RESTART, false);
             int logType = getInputData().getInt(PhoneProfilesService.EXTRA_LOG_TYPE, 0);
 
             //outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
@@ -48,7 +49,7 @@ public class RestartEventsWithDelayWorker extends Worker {
             if (logType != PPApplication.ALTYPE_UNDEFINED)
                 PPApplicationStatic.addActivityLog(context, logType, null, null, "");
             //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
-            dataWrapper.restartEventsWithRescan(alsoRescan, unblockEventsRun, false, false, true, false);
+            dataWrapper.restartEventsWithRescan(alsoRescan, unblockEventsRun, false, manualRestart, true, false);
             //dataWrapper.invalidateDataWrapper();
 
 //            long finish = System.currentTimeMillis();

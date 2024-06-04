@@ -32,6 +32,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class EventsPrefsActivity extends AppCompatActivity
                                 implements RefreshGUIActivatorEditorListener
 {
@@ -549,7 +550,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             // restart Events
             PPApplicationStatic.setBlockProfileEventActions(true);
             //dataWrapper.restartEvents(false, true, true, true, true);
-            dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
+            dataWrapper.restartEventsWithRescan(true, false, true, true, true, false);
         }
         else
         if (event_id > 0)
@@ -593,7 +594,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 
                                 // pause event - must be called, because status is ESTATUS_STOP
                                 event.pauseEvent(dataWrapper, true, false,
-                                        false, false, null, false, false, true);
+                                        false, false, null, false, false, false, true);
                                 // stop event
                                 event.stopEvent(dataWrapper, true, false,
                                         true, true, true);
@@ -602,7 +603,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                             }
                             // restart Events
                             //dataWrapper.restartEvents(false, true, true, true, false);
-                            dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
+                            dataWrapper.restartEventsWithRescan(true, false, false, true, true, false);
                         }
 
                     } catch (Exception e) {
@@ -641,7 +642,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 
                         // pause event
                         event.pauseEvent(dataWrapper, true, false,
-                                false, false, null, false, false, true);
+                                false, false, null, false, false, false, true);
                         // must be called, because status is ESTATUS_PAUSE and in pauseEvent is not called
                         // ESTATUS_PAUSE is set in Event.saveSharedPreferences()
                         event.doLogForPauseEvent(dataWrapper.context, false);
@@ -649,7 +650,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                         // restart Events
                         PPApplicationStatic.setBlockProfileEventActions(true);
                         //dataWrapper.restartEvents(false, true, true, true, false);
-                        dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
+                        dataWrapper.restartEventsWithRescan(true, false, false, true, true, false);
 
                     } catch (Exception e) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));

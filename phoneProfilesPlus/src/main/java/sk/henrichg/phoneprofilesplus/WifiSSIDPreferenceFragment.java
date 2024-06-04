@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
@@ -774,7 +775,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                             WifiScanWorker.setWaitForResults(prefContext, false);
                             WifiScanner.setForceOneWifiScan(prefContext, WifiScanner.FORCE_ONE_SCAN_DISABLED);
 
-                            if (preference.SSIDList.size() == 0) {
+                            if (preference.SSIDList.isEmpty()) {
                                 fragment.SSIDListView.setVisibility(View.GONE);
                                 fragment.emptyList.setVisibility(View.VISIBLE);
                             } else {

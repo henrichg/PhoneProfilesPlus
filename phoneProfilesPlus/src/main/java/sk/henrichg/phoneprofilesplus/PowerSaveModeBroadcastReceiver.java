@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+/** @noinspection ExtractMethodRecommender*/
 public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
 
     @Override

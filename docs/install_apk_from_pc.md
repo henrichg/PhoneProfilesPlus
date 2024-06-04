@@ -22,7 +22,7 @@ If you do not have adb installed on your PC:
 
 - for Windows:
   `adb install [path to apk in PC]\PhoneProfilesPlus.apk`
-- for Linux, OSX:
+- for Linux, OSX, macOS:
   `adb install [path to apk in PC]/PhoneProfilesPlus.apk`
 
 5. After successful execution, PhoneProfilePlus will be installed in device.

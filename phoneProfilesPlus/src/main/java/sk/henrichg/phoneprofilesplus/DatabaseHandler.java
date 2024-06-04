@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2512;
+    static final int DATABASE_VERSION = 2522;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -102,6 +102,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_ROAMING = 43;
     static final int ETYPE_VPN = 44;
     static final int ETYPE_BRIGHTNESS = 45;
+    static final int ETYPE_MUSIC = 46;
 
     // Profiles Table Columns names
     static final String KEY_ID = "id";
@@ -219,6 +220,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_APPLICATION_LOCATION_UPDATE_INTERVAL = "applicationLocationUpdateInterval";
     static final String KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL = "applicationDOrientationScanInterval";
     static final String KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL = "applicationPeriodicScanningScanInterval";
+    static final String KEY_PHONE_CALLS_CONTACTS = "phoneCallsContacts";
+    static final String KEY_PHONE_CALLS_CONTACT_GROUPS = "phoneCallsContactGroups";
+    static final String KEY_PHONE_CALLS_CONTACT_LIST_TYPE = "phoneCallsContactListType";
+    static final String KEY_PHONE_CALLS_BLOCK_CALLS = "phoneCallsBlockCalls";
+    static final String KEY_PHONE_CALLS_SEND_SMS = "phoneCallsSendSMS";
+    static final String KEY_PHONE_CALLS_SMS_TEXT = "phoneCallsSMSText";
+    static final String KEY_DEVICE_WALLPAPER_LOCKSCREEN = "deviceWallpaperLockScreen";
 
     // Events Table Columns names
     static final String KEY_E_ID = "id";
@@ -322,9 +330,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_RADIO_SWITCH_AIRPLANE_MODE = "radioSwitchAirplaneMode";
     static final String KEY_E_NOTIFICATION_VIBRATE_START = "notificationVibrate";
     static final String KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION = "eventNoPauseByManualActivation";
-    static final String KEY_E_CALL_DURATION = "callDuration";
-    static final String KEY_E_CALL_PERMANENT_RUN = "callPermanentRun";
-    static final String KEY_E_CALL_START_TIME = "callStartTime";
+    static final String KEY_E_CALL_RUN_AFTER_CALL_END_DURATION = "callDuration";
+    static final String KEY_E_CALL_RUN_AFTER_CALL_END_PERMANENT_RUN = "callPermanentRun";
+    static final String KEY_E_CALL_RUN_AFTER_CALL_END_TIME = "callStartTime";
     static final String KEY_E_NOTIFICATION_SOUND_REPEAT_START = "notificationSoundRepeat";
     static final String KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START = "notificationSoundRepeatInterval";
     static final String KEY_E_NOTIFICATION_IN_CALL = "notificationRingingCall";
@@ -379,7 +387,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_CALENDAR_DAY_CONTAINS_EVENT = "calendarDayContainsEvent";
     static final String KEY_E_CALENDAR_ALL_DAY_EVENTS = "calendarAllDayEvents";
     static final String KEY_E_ACCESSORY_TYPE = "accessoryType";
-    static final String KEY_E_CALL_FROM_SIM_SLOT = "callFromSIMSlot";
+    static final String KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT = "callFromSIMSlot";
     static final String KEY_E_CALL_FOR_SIM_CARD = "callForSIMCard";
     static final String KEY_E_SMS_FROM_SIM_SLOT = "smsFromSIMSlot";
     static final String KEY_E_SMS_FOR_SIM_CARD = "smsForSIMCard";
@@ -436,6 +444,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_VOLUMES_VOICE_TO = "volumesVoiceTo";
     static final String KEY_E_VOLUMES_BLUETOOTHSCO_TO = "volumesBluetoothSCOTo";
     static final String KEY_E_VOLUMES_ACCESSIBILITY_TO = "volumesAccessibilityTo";
+    static final String KEY_E_APPLICATION_START_TIME = "applicationStartTime";
+    static final String KEY_E_APPLICATION_DURATION = "applicationDuration";
+//    static final String KEY_E_CALL_STOP_RINGING = "callStopRinging";
+//    static final String KEY_E_CALL_SEND_SMS = "callSendSMS";
+//    static final String KEY_E_CALL_SMS_TEXT = "callSMSText";
+    static final String KEY_E_MUSIC_ENABLED = "musicEnabled";
+    static final String KEY_E_MUSIC_SENSOR_PASSED = "musicSensorPassed";
+    static final String KEY_E_MUSIC_MUSIC_STATE = "musicMusicState";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";
@@ -1060,14 +1076,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerEvents.getNFCStartTime(this, event);
     }
 
-    void updateCallStartTime(Event event)
+    void updateCallRunAfterCallEndTime(Event event)
     {
-        DatabaseHandlerEvents.updateCallStartTime(this, event);
+        DatabaseHandlerEvents.updateCallRunAfterCallEndTime(this, event);
     }
 
-    void getCallStartTime(Event event)
+    void getCallRunAfterCallEndTime(Event event)
     {
-        DatabaseHandlerEvents.getCallStartTime(this, event);
+        DatabaseHandlerEvents.getCallRunAfterCallEndTime(this, event);
     }
 
     void updateAlarmClockStartTime(Event event)
@@ -1103,6 +1119,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     void getPeriodicStartTime(Event event)
     {
         DatabaseHandlerEvents.getPeriodicStartTime(this, event);
+    }
+
+    void updateApplicationStartTime(Event event)
+    {
+        DatabaseHandlerEvents.updateApplicationStartTime(this, event);
+    }
+
+    void getApplicationStartTime(Event event)
+    {
+        DatabaseHandlerEvents.getApplicationStartTime(this, event);
     }
 
     void updateEventForceRun(Event event) {
@@ -1380,11 +1406,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     int exportDB(boolean deleteGeofences, boolean deleteWifiSSIDs,
                  boolean deleteBluetoothNames, boolean deleteMobileCells,
-                 boolean deleteCall, boolean deleteSMS, boolean deleteNotification)
+                 boolean deleteCall, boolean deleteSMS, boolean deleteNotification,
+                 boolean deletePhoneCalls)
     {
         return DatabaseHandlerImportExport.exportDB(this,
                     deleteGeofences, deleteWifiSSIDs, deleteBluetoothNames, deleteMobileCells,
-                    deleteCall, deleteSMS, deleteNotification
+                    deleteCall, deleteSMS, deleteNotification, deletePhoneCalls
                 );
     }
 

@@ -136,7 +136,6 @@ class NFCTagReadWriteManager {
 
     /*
      * To be executed on onNewIntent of activity
-     * @param intent x
      */
     void onActivityNewIntent(Intent intent) {
         if (nfcAdapter != null) {
@@ -185,9 +184,13 @@ class NFCTagReadWriteManager {
 //                Log.e("NFCTagReadWriteManager.readTagFromIntent", "tag="+tag);
                 if (tag != null) {
                     Ndef ndefTag = Ndef.get(tag);
-                    //int tagSize = ndefTag.getMaxSize();         // tag size
-                    tagIsWritable = ndefTag.isWritable();   // is tag writable?
-                    //String tagType = ndefTag.getType();            // tag type
+                    if (ndefTag != null) {
+                        //int tagSize = ndefTag.getMaxSize();         // tag size
+                        tagIsWritable = ndefTag.isWritable();   // is tag writable?
+                        //String tagType = ndefTag.getType();            // tag type
+                    } else {
+                        tagIsWritable = false;
+                    }
 
                     Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
                     if (rawMessages != null) {

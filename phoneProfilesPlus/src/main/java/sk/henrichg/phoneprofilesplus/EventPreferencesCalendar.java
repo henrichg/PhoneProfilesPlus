@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+/** @noinspection ExtractMethodRecommender*/
 class EventPreferencesCalendar extends EventPreferences {
 
     String _calendars;
@@ -473,7 +474,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_CALENDAR_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
-                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_CALENDAR).size() == 0;
+                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_CALENDAR).isEmpty();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
@@ -957,7 +958,7 @@ class EventPreferencesCalendar extends EventPreferences {
         // Submit the query
         boolean ok = true;
         try {
-            if (selectionArgs.size() == 0)
+            if (selectionArgs.isEmpty())
                 cur = cr.query(builder.build(), INSTANCE_PROJECTION, selection.toString(), null, Instances.BEGIN + " ASC");
             else {
                 String[] _selectionArgs = new String[selectionArgs.size()];

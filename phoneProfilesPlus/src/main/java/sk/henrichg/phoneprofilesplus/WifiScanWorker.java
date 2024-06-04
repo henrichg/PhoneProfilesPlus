@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 public class WifiScanWorker extends Worker {
 
     private final Context context;
@@ -312,7 +313,7 @@ public class WifiScanWorker extends Worker {
                                 }
                             }
                         } catch (ExecutionException | InterruptedException e) {
-                            e.printStackTrace();
+                            Log.e("WifiScanWorker.waitForFinish", Log.getStackTraceString(e));
                         }
                         if (allFinished) {
                             break;
@@ -354,7 +355,7 @@ public class WifiScanWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
+                        Log.e("WifiScanWorker.isWorkRunning", Log.getStackTraceString(e));
                         return false;
                     }
                 }
@@ -391,7 +392,7 @@ public class WifiScanWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
+                        Log.e("WifiScanWorker.isWorkScheduled", Log.getStackTraceString(e));
                         return false;
                     }
                 }
@@ -537,7 +538,8 @@ public class WifiScanWorker extends Worker {
     {
         unlock();
         if (getWifiEnabledForScan(context))
-            wifi.setWifiEnabled(false);
+            ActivateProfileHelper.setWifi(context.getApplicationContext(), false);
+            //wifi.setWifiEnabled(false);
         setWifiEnabledForScan(context, false);
         setScanRequest(context, false);
         setWaitForResults(context, false);
@@ -583,7 +585,8 @@ public class WifiScanWorker extends Worker {
             /*if (enableWifi) {
                 try {
                     wifiEnabled = true;
-                    wifi.setWifiEnabled(true);
+                    ActivateProfileHelper.setWifi(context.getApplicationContext(), true);
+                    //wifi.setWifiEnabled(true);
                     PPApplication.sleep(500);
                 } catch (Exception e) {
                     wifiEnabled = false;
@@ -600,7 +603,8 @@ public class WifiScanWorker extends Worker {
 
         /*if (wifiEnabled) {
             try {
-                wifi.setWifiEnabled(false);
+                ActivateProfileHelper.setWifi(context.getApplicationContext(), false);
+                //wifi.setWifiEnabled(false);
             } catch (Exception ignored) {}
         }*/
 

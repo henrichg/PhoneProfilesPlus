@@ -5,17 +5,23 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.provider.Settings;
+import android.util.ArrayMap;
 
 import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+/** @noinspection ExtractMethodRecommender*/
 class ProfileStatic {
 
     static String getIconIdentifier(String icon)
@@ -702,7 +708,14 @@ class ProfileStatic {
                     profile._applicationBluetoothLEScanDuration,
                     profile._applicationLocationScanInterval,
                     profile._applicationOrientationScanInterval,
-                    profile._applicationPeriodicScanInterval
+                    profile._applicationPeriodicScanInterval,
+                    profile._phoneCallsContacts,
+                    profile._phoneCallsContactGroups,
+                    profile._phoneCallsContactListType,
+                    profile._phoneCallsBlockCalls,
+                    profile._phoneCallsSendSMS,
+                    profile._phoneCallsSMSText,
+                    profile._deviceWallpaperLockScreen
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -1073,24 +1086,35 @@ class ProfileStatic {
     }
     */
 
+    // https://stackoverflow.com/questions/7944601/how-to-save-hashmap-to-shared-preferences
     static void getActivatedProfileEndDurationTime(Context context)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileStatic.getActivatedProfileEndDurationTime", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.prefActivatedProfileEndDurationTime = ApplicationPreferences.
-                    getSharedPreferences(context).getLong(ApplicationPreferences.PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
-            //return prefActivatedProfileEndDurationTime;
+            String mapString =
+                    ApplicationPreferences.getSharedPreferences(context).getString(ApplicationPreferences.PREF_ACTIVATED_PROFILE_END_DURATION_TIMES, "");
+            if (mapString.isEmpty())
+                ApplicationPreferences.prefActivatedProfileEndDurationTime.clear();
+            else {
+                Gson gson = new Gson();
+                Type type = new TypeToken<ArrayMap<Long, Long>>(){}.getType();
+                ApplicationPreferences.prefActivatedProfileEndDurationTime = gson.fromJson(mapString, type);
+            }
         }
     }
 
-    static void setActivatedProfileEndDurationTime(Context context, long time)
+    static void setActivatedProfileEndDurationTime(Context context, long profileId, long time)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileStatic.setActivatedProfileEndDurationTime", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
+            ApplicationPreferences.prefActivatedProfileEndDurationTime.put(profileId, time);
+
+            Gson gson = new Gson();
+            String mapString = gson.toJson(ApplicationPreferences.prefActivatedProfileEndDurationTime);
+
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putLong(ApplicationPreferences.PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
+            editor.putString(ApplicationPreferences.PREF_ACTIVATED_PROFILE_END_DURATION_TIMES, mapString);
             editor.apply();
-            ApplicationPreferences.prefActivatedProfileEndDurationTime = time;
         }
     }
 
@@ -1146,7 +1170,7 @@ class ProfileStatic {
     }
 
     static boolean isRedTextNotificationRequired(Profile profile, boolean againCheckAccessibilityInDelay, Context context) {
-        boolean grantedAllPermissions = Permissions.checkProfilePermissions(context, profile).size() == 0;
+        boolean grantedAllPermissions = Permissions.checkProfilePermissions(context, profile).isEmpty();
         /*if (Build.VERSION.SDK_INT >= 29) {
             if (!Settings.canDrawOverlays(context))
                 grantedAllPermissions = false;

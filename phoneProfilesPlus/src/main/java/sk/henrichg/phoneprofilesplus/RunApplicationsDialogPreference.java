@@ -24,6 +24,7 @@ import androidx.preference.PreferenceViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class RunApplicationsDialogPreference extends DialogPreference {
 
     RunApplicationsDialogPreferenceFragment fragment;

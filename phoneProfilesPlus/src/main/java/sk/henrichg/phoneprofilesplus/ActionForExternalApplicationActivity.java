@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 
 import java.lang.ref.WeakReference;
 
+/** @noinspection ExtractMethodRecommender*/
 public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
     private DataWrapper dataWrapper;

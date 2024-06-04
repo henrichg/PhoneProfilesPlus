@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/** @noinspection ExtractMethodRecommender*/
 class EventPreferencesOrientation extends EventPreferences {
 
     String _display;
@@ -648,7 +649,7 @@ class EventPreferencesOrientation extends EventPreferences {
                         (PPApplication.accessibilityServiceForPPPExtenderConnected == 1);
                 boolean permissionGranted = true;
                 if (enabled)
-                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION).size() == 0;
+                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION).isEmpty();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));

@@ -23,6 +23,7 @@ import java.lang.ref.WeakReference;
 import java.util.Comparator;
 import java.util.List;
 
+/** @noinspection ExtractMethodRecommender*/
 public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
     private static final int[] profileIconId = {

@@ -726,7 +726,7 @@ class GlobalGUIRoutines {
         try {
             final Intent intent = new Intent(action);
             List<ResolveInfo> activities = context.getApplicationContext().getPackageManager().queryIntentActivities(intent, 0);
-            return activities.size() > 0;
+            return !activities.isEmpty();
         } catch (Exception e) {
             return false;
         }
@@ -762,7 +762,7 @@ class GlobalGUIRoutines {
     static boolean activityIntentExists(Intent intent, Context context) {
         try {
             List<ResolveInfo> activities = context.getApplicationContext().getPackageManager().queryIntentActivities(intent, 0);
-            return activities.size() > 0;
+            return !activities.isEmpty();
         } catch (Exception e) {
             return false;
         }

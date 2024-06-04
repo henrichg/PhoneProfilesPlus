@@ -344,7 +344,7 @@ public class ActivatorListFragment extends Fragment {
 
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] ActivatorListFragment.LoadProfileListAsyncTask", "DataWrapper.profileList");
                     synchronized (fragment.activityDataWrapper.profileList) {
-                        if (fragment.activityDataWrapper.profileList.size() == 0) {
+                        if (fragment.activityDataWrapper.profileList.isEmpty()) {
                             fragment.viewNoData.setVisibility(View.VISIBLE);
 
                             // no profile in list, start Editor

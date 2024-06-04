@@ -144,7 +144,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
         PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_TIMEZONE_CHANGED,
                 null, null, "");
-        dataWrapper.restartEventsWithRescan(true, true, false, false, logRestart, false);
+        dataWrapper.restartEventsWithRescan(true, true, false, true, logRestart, false);
     }
 
 }

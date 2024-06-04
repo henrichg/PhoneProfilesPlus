@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
     static final String PREF_EVENT_ALARM_CLOCK_TIME_COUNT = "eventAlarmClockTimeCount";

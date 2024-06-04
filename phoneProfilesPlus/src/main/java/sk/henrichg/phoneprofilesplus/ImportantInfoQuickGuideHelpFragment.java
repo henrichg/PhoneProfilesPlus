@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+/** @noinspection ExtractMethodRecommender*/
 public class ImportantInfoQuickGuideHelpFragment extends Fragment {
 
     //int scrollTo = 0;

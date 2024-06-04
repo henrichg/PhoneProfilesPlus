@@ -424,7 +424,7 @@ public class RootShell {
 
             return false;
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("RootShell.isAccessGiven", Log.getStackTraceString(e));
             return false;
         }
     }
@@ -545,7 +545,7 @@ public class RootShell {
      * @param e    The exception that was thrown (Needed for errors)
      */
     public static void log(String TAG, String msg, LogLevel type, Exception e) {
-        if (msg != null && !msg.equals("")) {
+        if (msg != null && !msg.isEmpty()) {
             if (debugMode) {
                 if (TAG == null) {
                     TAG = version;
@@ -586,7 +586,7 @@ public class RootShell {
                         cmd.wait(2000);
                     }
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Log.e("RootShell.commandWait", Log.getStackTraceString(e));
                 }
             }
 
@@ -595,17 +595,17 @@ public class RootShell {
                     RootShell.log(version, "Waiting for a command to be executed in a shell that is not executing and not reading! \n\n Command: " + cmd.getCommand());
                     Exception e = new Exception();
                     e.setStackTrace(Thread.currentThread().getStackTrace());
-                    e.printStackTrace();
+                    Log.e("RootShell.commandWait", Log.getStackTraceString(e));
                 } else if (shell.isExecuting && !shell.isReading) {
                     RootShell.log(version, "Waiting for a command to be executed in a shell that is executing but not reading! \n\n Command: " + cmd.getCommand());
                     Exception e = new Exception();
                     e.setStackTrace(Thread.currentThread().getStackTrace());
-                    e.printStackTrace();
+                    Log.e("RootShell.commandWait", Log.getStackTraceString(e));
                 } else {
                     RootShell.log(version, "Waiting for a command to be executed in a shell that is not reading! \n\n Command: " + cmd.getCommand());
                     Exception e = new Exception();
                     e.setStackTrace(Thread.currentThread().getStackTrace());
-                    e.printStackTrace();
+                    Log.e("RootShell.commandWait", Log.getStackTraceString(e));
                 }
             }
 

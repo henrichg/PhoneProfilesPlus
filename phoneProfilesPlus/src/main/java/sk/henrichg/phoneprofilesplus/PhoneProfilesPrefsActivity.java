@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+/** @noinspection ExtractMethodRecommender*/
 public class PhoneProfilesPrefsActivity extends AppCompatActivity
         implements MobileCellsRegistrationCountDownListener,
                    MobileCellsRegistrationStoppedListener
@@ -407,6 +408,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
                 ProfileListNotification.drawNotification(true, appContext);
                 DrawOverAppsPermissionNotification.showNotification(appContext, true);
                 IgnoreBatteryOptimizationNotification.showNotification(appContext, true);
+                DNDPermissionNotification.showNotification(appContext, true);
                 PPAppNotification.drawNotification(true, appContext);
             }
 

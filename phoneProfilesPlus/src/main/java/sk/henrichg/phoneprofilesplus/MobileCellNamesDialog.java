@@ -213,7 +213,7 @@ class MobileCellNamesDialog {
                     if (__cellNamesList != null) {
                         dialog.cellNamesList = new ArrayList<>(__cellNamesList);
 
-                        if (dialog.cellNamesList.size() == 0) {
+                        if (dialog.cellNamesList.isEmpty()) {
                             dialog.cellNamesListView.setVisibility(View.GONE);
                             dialog.emptyList.setVisibility(View.VISIBLE);
                         } else {

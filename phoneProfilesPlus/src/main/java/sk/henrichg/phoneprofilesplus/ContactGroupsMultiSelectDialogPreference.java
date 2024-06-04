@@ -98,7 +98,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
     static String getSummary(String value, Context context) {
         String summary = context.getString(R.string.contacts_multiselect_summary_text_not_selected);
         if (Permissions.checkContacts(context)) {
-            if (!value.isEmpty()) {
+            if ((value != null) && (!value.isEmpty())) {
                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length == 1) {
                     boolean found = false;

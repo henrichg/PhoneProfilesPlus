@@ -435,6 +435,7 @@ class GlobalUtils {
 //        PPApplicationStatic.logE("[DUAL_SIM] GlobalUtils.hasSIMCard", "xxxx");
 
         HasSIMCardData hasSIMCardData = new HasSIMCardData();
+        hasSIMCardData.simCount = 0;
         hasSIMCardData.hasSIM1 = false;
         hasSIMCardData.hasSIM2 = false;
 
@@ -458,17 +459,12 @@ class GlobalUtils {
                             SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                             if (subscriptionInfo != null) {
                                 int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                if ((slotIndex + 1) == 1) {
-                                    if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
-                                        // sim card is ready
+                                if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
+                                    if (slotIndex == 0)
                                         hasSIMCardData.hasSIM1 = true;
-                                    }
-                                }
-                                if ((slotIndex + 1) == 2) {
-                                    if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
-                                        // sim card is ready
+                                    if (slotIndex == 1)
                                         hasSIMCardData.hasSIM2 = true;
-                                    }
+                                    hasSIMCardData.simCount++;
                                 }
                             }
                         }

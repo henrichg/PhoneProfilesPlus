@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.DeadSystemException;
 import android.os.DeadSystemRuntimeException;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -29,6 +30,7 @@ import java.util.concurrent.TimeoutException;
 // Custom ACRA ReportingAdministrator
 // https://github.com/ACRA/acra/wiki/Custom-Extensions
 
+/** @noinspection ExtractMethodRecommender*/
 @AutoService(ReportingAdministrator.class)
 public class CustomACRAReportingAdministrator implements ReportingAdministrator {
 
@@ -76,7 +78,7 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                     //        (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed != 0))
                     if (PPApplication.lockDeviceActivityDisplayed &&
                             (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed != 0))
-                        Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed);
+                        Settings.System.putInt(context.getApplicationContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed);
                 }
             }
         } catch (Exception ee) {
@@ -166,29 +168,47 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                     return false;
             }
 
-//            Log.e("CustomACRAReportingAdministrator.isNotRecorderException", "(4)");
-
-            if (_exception instanceof DeadSystemException) {
-//                Log.e("CustomACRAReportingAdministrator.isNotRecorderException", "DeadSystemException");
-                return false;
-            }
-
-//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(5)");
+//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(4)");
 
             if (_exception.getClass().getSimpleName().equals("CannotDeliverBroadcastException") &&
                     (_exception instanceof RemoteServiceException)) {
                 // ignore but not exist exception
                 // android.app.RemoteServiceException$CannotDeliverBroadcastException: can't deliver broadcast
                 // https://stackoverflow.com/questions/72902856/cannotdeliverbroadcastexception-only-on-pixel-devices-running-android-12
-//            Log.e("CustomACRAReportingAdministrator.isNotRecorderException", "CannotDeliverBroadcastException");
+//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "CannotDeliverBroadcastException");
                 return false;
             }
 
-//            Log.e("CustomACRAReportingAdministrator.isNotRecorderException", "(6)");
+//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(5)");
+
+            if (_exception instanceof DeadSystemException) {
+//                Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "DeadSystemException");
+                // Exit app. This restarts PPP
+                System.exit(2);
+                return false;
+            }
+
+//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(6)");
 
             if (Build.VERSION.SDK_INT >= 33) {
                 if (_exception instanceof DeadSystemRuntimeException) {
-//                Log.e("CustomACRAReportingAdministrator.isNotRecorderException", "DeadSystemException");
+//                Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "DeadSystemRuntimeException");
+                    // Exit app. This restarts PPP
+                    System.exit(2);
+                    return false;
+                }
+            }
+
+            if (_exception instanceof RuntimeException) {
+                String stackTrace = Log.getStackTraceString(_exception);
+                if (stackTrace.contains("android.os.DeadSystemException")) {
+                    // Exit app. This restarts PPP
+                    System.exit(2);
+                    return false;
+                }
+                if (stackTrace.contains("android.os.DeadSystemRuntimeException")) {
+                    // Exit app. This restarts PPP
+                    System.exit(2);
                     return false;
                 }
             }
@@ -198,18 +218,21 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
             if (_exception instanceof java.lang.RuntimeException) {
                 if (_exception.getMessage() != null) {
                     if (_exception.getMessage().equals("Test Crash")) {
-    //                    Log.e("CustomACRAReportingAdministrator.isNotRecorderException", "RuntimeException: Test Crash");
+    //                    Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "RuntimeException: Test Crash");
+                        // Exit app. This restarts PPP
+                        System.exit(2);
                         return false;
                     }
                     if (_exception.getMessage().equals("Test non-fatal exception")) {
-    //                    Log.e("CustomACRAReportingAdministrator.isNotRecorderException", "RuntimeException: Test non-fatal exception");
+    //                    Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "RuntimeException: Test non-fatal exception");
                         return false;
                     }
                 }
             }
-*/
+ */
+
         } catch (Exception ee) {
-            //Log.e("CustomACRAReportingAdministrator.isNotRecorderException", Log.getStackTraceString(ee));
+            //Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(ee));
         }
 
         return true;

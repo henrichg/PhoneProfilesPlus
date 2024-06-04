@@ -12,6 +12,7 @@ import androidx.work.WorkerParameters;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+/** @noinspection ExtractMethodRecommender*/
 public class PeriodicEventsHandlerWorker extends Worker {
 
     final Context context;

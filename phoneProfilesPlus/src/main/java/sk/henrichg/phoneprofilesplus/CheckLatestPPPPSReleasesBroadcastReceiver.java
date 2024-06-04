@@ -186,7 +186,7 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
                         },
                         error -> {
                             // latest not exists in IzzyOnDroid, is not possible to install it
-                            //  in this situation do, not show notification
+                            //  in this situation do not show notification
                             /*if ((error.networkResponse != null) && (error.networkResponse.statusCode == 404)) {
 //                                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "error.networkResponse.statusCode=" + error.networkResponse.statusCode);
 //                                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");

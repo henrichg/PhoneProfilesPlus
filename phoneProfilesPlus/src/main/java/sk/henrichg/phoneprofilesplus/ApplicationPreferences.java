@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.util.ArrayMap;
 
 import androidx.annotation.CheckResult;
 
@@ -16,15 +17,15 @@ class ApplicationPreferences {
     static volatile int prefActivatedProfileScreenTimeoutWhenScreenOff;
     static volatile boolean prefMergedRingNotificationVolumes;
     //static volatile long prefActivatedProfileForDuration;
-    static volatile long prefActivatedProfileEndDurationTime;
+    static volatile ArrayMap<Long, Long> prefActivatedProfileEndDurationTime = new ArrayMap<>();
     //static volatile boolean prefShowIgnoreBatteryOptimizationNotificationOnStart;
     //static volatile boolean prefEventsBlocked;
     //static volatile boolean prefForceRunEventRunning;
     static volatile String prefApplicationInForeground;
     static volatile int prefEventCallEventType;
-    static volatile long prefEventCallEventTime;
+    static volatile long prefEventCallRunAfterCallEndTime;
     static volatile String prefEventCallPhoneNumber;
-    static volatile int prefEventCallFromSIMSlot;
+    static volatile int prefEventCallRunAfterCallEndFromSIMSlot;
     static volatile boolean prefWiredHeadsetConnected;
     static volatile boolean prefWiredHeadsetMicrophone;
     static volatile boolean prefBluetoothHeadsetConnected;
@@ -279,6 +280,7 @@ class ApplicationPreferences {
     static volatile boolean notificationProfileListCustomIconLightness;
     static volatile boolean applicationEventHideNotUsedSensors;
     //static volatile boolean applicationContactsInBackupEncripted;
+    static volatile boolean applicationHyperOsWifiBluetoothDialogs;
 
     static volatile String applicationEventPeriodicScanningScanInTimeMultiply;
     static volatile int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -574,12 +576,13 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_PROFILE_LIST_ICON_LIGHTNESS = "notificationProfileListIconLightness";
     static final String PREF_NOTIFICATION_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS = "notificationProfileListCustomIconLightness";
     // this is time of end of profile activation duration
-    static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
+    static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIMES = "activatedProfileEndDurationTimes";
     //private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
     //private static final String PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO = "activatedProfileForEventUndo";
     static final String PREF_APPLICATION_EVENT_HIDE_NOT_USED_EVENTS = "applicationEventHideNotUsedSensors";
     static final String PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED = "applicationContactsInBackupEncripted";
     static final String PREF_APPLICATION_LOCATIONS_IN_BACKUP_ENCRIPTED = "applicationLocationsInBackupEncripted";
+    static final String PREF_APPLICATION_HYPER_OS_WIFI_BLUETOOTH_DIALOGS = "applicationHyperOsWifiBluetoothDialogs";
 
     // scannings
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
@@ -2273,6 +2276,12 @@ class ApplicationPreferences {
         applicationContactsInBackupEncripted = getSharedPreferences(context).getBoolean(PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED, PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED_DEFAULT_VALUE);
     }
     */
+
+    static final boolean PREF_APPLICATION_HYPER_OS_WIFI_BLUETOOTH_DIALOGS_DEFAULT_VALUE = false;
+    static void applicationHyperOsWifiBluetoothDialogs(Context context) {
+        applicationHyperOsWifiBluetoothDialogs = getSharedPreferences(context).getBoolean(PREF_APPLICATION_HYPER_OS_WIFI_BLUETOOTH_DIALOGS, PREF_APPLICATION_HYPER_OS_WIFI_BLUETOOTH_DIALOGS_DEFAULT_VALUE);
+    }
+
 
     static void deleteBadPreferences(Context context) {
         SharedPreferences mySPrefs = getSharedPreferences(context);

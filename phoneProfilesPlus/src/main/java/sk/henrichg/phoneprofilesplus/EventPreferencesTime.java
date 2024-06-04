@@ -19,6 +19,7 @@ import java.sql.Date;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
+/** @noinspection ExtractMethodRecommender*/
 class EventPreferencesTime extends EventPreferences {
 
     boolean _sunday;
@@ -505,7 +506,7 @@ class EventPreferencesTime extends EventPreferences {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
-                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_TIME).size() == 0;
+                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_TIME).isEmpty();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
