@@ -408,13 +408,15 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         boolean fdroidInstalled = (_intent != null);
         _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
         boolean droidifyInstalled = (_intent != null);
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+        boolean neostoreInstalled = (_intent != null);
         //_intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
         //boolean galaxyStoreInstalled = (_intent != null);
 //        Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "fdroidInstalled="+fdroidInstalled);
 //        Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "droidifyInstalled="+droidifyInstalled);
 //        Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "galaxyStoreInstalled="+galaxyStoreInstalled);
 
-        if (droidifyInstalled || fdroidInstalled /*|| galaxyStoreInstalled*/) {
+        if (droidifyInstalled || neostoreInstalled || fdroidInstalled /*|| galaxyStoreInstalled*/) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
@@ -480,6 +482,21 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                         Uri.parse("market://details?id=sk.henrichg.phoneprofilesplusextender"));
                 if (droidifyInstalled) {
                     intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+                    try {
+                        activity.startActivity(intent);
+                        if ((_preference != null) && (_preference.fragment != null))
+                            _preference.fragment.dismiss();
+                        if (finishActivity)
+                            activity.finish();
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                        if ((_preference != null) && (_preference.fragment != null))
+                            _preference.fragment.dismiss();
+                        if (finishActivity)
+                            activity.finish();
+                    }
+                } else if (neostoreInstalled) {
+                    intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
                     try {
                         activity.startActivity(intent);
                         if ((_preference != null) && (_preference.fragment != null))

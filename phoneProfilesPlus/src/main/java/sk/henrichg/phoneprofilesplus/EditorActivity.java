@@ -936,6 +936,14 @@ public class EditorActivity extends AppCompatActivity
             else
                 menuItem.setTitle(R.string.menu_check_releases_droidify);
         }
+        menuItem = menu.findItem(R.id.menu_check_in_neostore);
+        if (menuItem != null) {
+            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+            if (intent != null)
+                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_neostore));
+            else
+                menuItem.setTitle(R.string.menu_check_releases_neostore);
+        }
         menuItem = menu.findItem(R.id.menu_check_in_fdroid);
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
@@ -1347,8 +1355,7 @@ public class EditorActivity extends AppCompatActivity
         if ((itemId == R.id.menu_check_in_github) ||
                 (itemId == R.id.menu_check_in_fdroid) ||
                 (itemId == R.id.menu_check_in_droidify) ||
-//                (itemId == R.id.menu_check_in_galaxy_store) ||
-//                (itemId == R.id.menu_check_in_amazon_appstore) ||
+                (itemId == R.id.menu_check_in_neostore) ||
                 (itemId == R.id.menu_check_in_appgallery) ||
                 (itemId == R.id.menu_check_in_apkpure)) {
 

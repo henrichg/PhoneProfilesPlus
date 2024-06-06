@@ -166,7 +166,7 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
                 // but for Android 14 is required to istall with adb command
 
                 RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
-                String izzyRepoURL = PPApplication.DROIDIFY_PPPPS_LATEST_APK_RELEASE_URL_BEGIN;
+                String izzyRepoURL = PPApplication.IZZY_PPPPS_LATEST_APK_RELEASE_URL_BEGIN;
                 izzyRepoURL = izzyRepoURL + PPApplication.VERSION_CODE_PPPPS_LATEST + ".apk";
 //                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
                 StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,

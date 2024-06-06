@@ -161,12 +161,16 @@ public class PPApplication extends Application
     static final String HELP_AIRPLANE_MODE_RADIOS_CONFIG = "https://henrichg.github.io/PhoneProfilesPlus/airplane_mode_radios_config.html";
     static final String HELP_AIRPLANE_MODE_RADIOS_CONFIG_DEVEL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/airplane_mode_radios_config.md";
 
-    static final String DROIDIFY_PPP_RELEASES_URL = "https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus";
-    static final String DROIDIFY_APPLICATION_URL = "https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify";
     static final String DROIDIFY_PACKAGE_NAME = "com.looker.droidify";
-    static final String DROIDIFY_PPP_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplus_";
-    static final String DROIDIFY_PPPE_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplusextender_";
-    static final String DROIDIFY_PPPPS_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.pppputsettings_";
+    static final String DROIDIFY_APPLICATION_URL = "https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify";
+
+    static final String NEOSTORE_PACKAGE_NAME = "com.machiav3lli.fdroid";
+    static final String NEOSTORE_APPLICATION_URL = "https://apt.izzysoft.de/fdroid/index/apk/com.machiav3lli.fdroid";
+
+    static final String IZZY_PPP_RELEASES_URL = "https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus";
+    static final String IZZY_PPP_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplus_";
+    static final String IZZY_PPPE_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplusextender_";
+    static final String IZZY_PPPPS_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.pppputsettings_";
 
     static final String GITHUB_PPPPS_RELEASES_URL = "https://github.com/henrichg/PPPPutSettings/releases";
     static final String GITHUB_PPPPS_DOWNLOAD_URL = "https://github.com/henrichg/PPPPutSettings/releases/latest/download/PPPPutSettings.apk";

@@ -375,12 +375,14 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         boolean fdroidInstalled = (_intent != null);
         _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
         boolean droidifyInstalled = (_intent != null);
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+        boolean neostoreInstalled = (_intent != null);
 
         if (Build.VERSION.SDK_INT < 34) {
             // for Android 14+ is required to use adb command for PPPPutSettings installation,
             // because target sdk is 22.
 
-            if (droidifyInstalled || fdroidInstalled) {
+            if (droidifyInstalled || neostoreInstalled || fdroidInstalled) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                 dialogBuilder.setTitle(R.string.install_pppps_dialog_title);
 
@@ -447,6 +449,23 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         Intent intent = new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("market://details?id=sk.henrichg.pppputsettings"));
                         intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+                        try {
+                            activity.startActivity(intent);
+                            if ((_preference != null) && (_preference.fragment != null))
+                                _preference.fragment.dismiss();
+                            if (finishActivity)
+                                activity.finish();
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                            if ((_preference != null) && (_preference.fragment != null))
+                                _preference.fragment.dismiss();
+                            if (finishActivity)
+                                activity.finish();
+                        }
+                    } else if (neostoreInstalled) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=sk.henrichg.pppputsettings"));
+                        intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
                         try {
                             activity.startActivity(intent);
                             if ((_preference != null) && (_preference.fragment != null))

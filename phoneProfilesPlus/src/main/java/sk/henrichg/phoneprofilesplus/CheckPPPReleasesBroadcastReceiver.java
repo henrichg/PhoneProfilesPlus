@@ -163,7 +163,10 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                             intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                             boolean droidifyInstalled = (intent != null);
 
-                            getVersion = !(huaweiAppGalleryInstalled || fdroidInstalled || droidifyInstalled);
+                            intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                            boolean neostoreInstalled = (intent != null);
+
+                            getVersion = !(huaweiAppGalleryInstalled || fdroidInstalled || droidifyInstalled || neostoreInstalled);
                         }
                         if (getVersion)
                             _doWorkGitHub(appContext);
@@ -289,7 +292,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                                 // check IzzyOnDroid repo
 
                                 RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
-                                String izzyRepoURL = PPApplication.DROIDIFY_PPP_LATEST_APK_RELEASE_URL_BEGIN;
+                                String izzyRepoURL = PPApplication.IZZY_PPP_LATEST_APK_RELEASE_URL_BEGIN;
                                 izzyRepoURL = izzyRepoURL + pppReleaseData.versionCodeInReleases + ".apk";
 //                                Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", "izzyRepoURL=" + izzyRepoURL);
                                 StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,
