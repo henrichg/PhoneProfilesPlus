@@ -21,6 +21,11 @@ __Droid-ify (F-Droid alternative, preferred over GitHub):__
 - [Store applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)
   &nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
 
+__Neo Store (F-Droid alternative, preferred over GitHub):__
+- [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
+- [Store applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.machiav3lli.fdroid)
+  &nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
+
 __F-Droid:__
 - [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
 &nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
