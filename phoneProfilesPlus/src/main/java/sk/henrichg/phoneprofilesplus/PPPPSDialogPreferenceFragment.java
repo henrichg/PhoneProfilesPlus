@@ -154,15 +154,15 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             dialogText = dialogText + activity.getString(R.string.install_pppps_text10) + StringConstants.TAG_BREAK_HTML;
             dialogText = dialogText + activity.getString(R.string.install_pppps_text11) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             dialogText = dialogText + activity.getString(R.string.install_pppps_text12) + StringConstants.TAG_BREAK_HTML;
-            String url = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/shizuku.md";
+            String url = PPApplication.SHIUKU_HOW_TO_START_URL;
             dialogText = dialogText + activity.getString(R.string.install_pppps_text13) + " " +
                     StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML +
                     StringConstants.TAG_BREAK_HTML;
-            url = "https://github.com/zacharee/InstallWithOptions/releases/latest/download/InstallWithOptions_0.4.3-release.apk";
+            url = PPApplication.INSTALL_WITH_OPTIONS_DOWNLOAD_URL;
             dialogText = dialogText + activity.getString(R.string.install_pppps_text14) + " " +
                     StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML +
                     StringConstants.TAG_BREAK_HTML;
-            url = "https://github.com/henrichg/PPPPutSettings/releases/latest/download/PPPPutSettings.apk";
+            url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
             dialogText = dialogText + activity.getString(R.string.install_pppps_text15) + " " +
                     StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML +
                     StringConstants.TAG_BREAK_HTML;
