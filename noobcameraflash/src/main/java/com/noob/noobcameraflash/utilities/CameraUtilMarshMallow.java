@@ -59,6 +59,7 @@ public class CameraUtilMarshMallow extends BaseCameraUtil {
 
     @Override
     public void turnOnFlash() throws CameraAccessException {
+        boolean torchSet = false;
         String[] cameraIds = getCameraManager().getCameraIdList();
         for (String id : cameraIds) {
             // only log exception, because for all cameras must be set torch
@@ -70,16 +71,21 @@ public class CameraUtilMarshMallow extends BaseCameraUtil {
                     if ((facing != null) && (facing == CameraCharacteristics.LENS_FACING_BACK)) {
                         getCameraManager().setTorchMode(id, true);
                         //setTorchMode(TorchMode.SwitchedOn);
+                        torchSet = true;
                     }
                 }
             } catch (Exception e) {
                 Log.e("CameraUtilMarshMallow.turnOnFlash", Log.getStackTraceString(e));
             }
         }
+        if (!torchSet) {
+            throw new CameraAccessException(CameraAccessException.CAMERA_ERROR);
+        }
     }
 
     @Override
     public void turnOffFlash() throws CameraAccessException {
+        boolean torchSet = false;
         String[] cameraIds = getCameraManager().getCameraIdList();
         for (String id : cameraIds) {
             // only log exception, because for all cameras must be set torch
@@ -91,11 +97,15 @@ public class CameraUtilMarshMallow extends BaseCameraUtil {
                     if ((facing != null) && (facing == CameraCharacteristics.LENS_FACING_BACK)) {
                         getCameraManager().setTorchMode(id, false);
                         //setTorchMode(TorchMode.SwitchedOff);
+                        torchSet = true;
                     }
                 }
             } catch (Exception e) {
                 Log.e("CameraUtilMarshMallow.turnOffFlash", Log.getStackTraceString(e));
             }
+        }
+        if (!torchSet) {
+            throw new CameraAccessException(CameraAccessException.CAMERA_ERROR);
         }
     }
 
