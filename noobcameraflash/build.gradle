@@ -29,9 +29,12 @@ android {
 dependencies {
     //compile fileTree(include: ['*.jar'], dir: 'libs')
 
-    // 1.7.0 compile problem - dependencies
-    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
-    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
+
+    // appcompat 1.7.0 - dependencies problem, this fixed it
+    constraints {
+        //noinspection ForeignDelegate
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$ppVersions.kotlinStdlibJdk8")
+    }
 }

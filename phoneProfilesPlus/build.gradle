@@ -110,11 +110,14 @@ dependencies {
     //noinspection GradleDependency
     implementation 'androidx.preference:preference:1.1.1'
 
-    // 1.7.0 compile problem - dependencies
-    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
-    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
+
+    // appcompat 1.7.0 - dependencies problem, this fixed it
+    constraints {
+        //noinspection ForeignDelegate
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$ppVersions.kotlinStdlibJdk8")
+    }
 
     //1.11.0' is not good, not working dynamic colors
     //https://github.com/material-components/material-components-android/issues/3924
