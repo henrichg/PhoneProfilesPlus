@@ -405,40 +405,42 @@ class EventPreferencesWifi extends EventPreferences {
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
 
-                eventsHandler.wifiPassed = false;
+                // location must be enabled, for get proper connected SSID
+                if ((Build.VERSION.SDK_INT < 29) || GlobalUtils.isLocationEnabled(eventsHandler.context)) {
 
-                WifiManager wifiManager = (WifiManager) eventsHandler.context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                if (wifiManager == null) {
-                    eventsHandler.notAllowedWifi = true;
-                }
-                else {
+                    eventsHandler.wifiPassed = false;
 
-                    boolean isWifiEnabled = wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED;
+                    WifiManager wifiManager = (WifiManager) eventsHandler.context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                    if (wifiManager == null) {
+                        eventsHandler.notAllowedWifi = true;
+                    } else {
 
-                    List<WifiSSIDData> wifiConfigurationList = WifiScanWorker.getWifiConfigurationList(eventsHandler.context);
+                        boolean isWifiEnabled = wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED;
 
-                    boolean done = false;
+                        List<WifiSSIDData> wifiConfigurationList = WifiScanWorker.getWifiConfigurationList(eventsHandler.context);
 
-                    if (isWifiEnabled) {
-                        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                        boolean done = false;
 
-                        boolean wifiConnected = false;
+                        if (isWifiEnabled) {
+                            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 
-                        ConnectivityManager connManager = null;
-                        try {
-                            connManager = (ConnectivityManager) eventsHandler.context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                        } catch (Exception e) {
-                            // java.lang.NullPointerException: missing IConnectivityManager
-                            // Dual SIM?? Bug in Android ???
-                            PPApplicationStatic.recordException(e);
-                        }
-                        if (connManager != null) {
-                            Network[] networks = connManager.getAllNetworks();
-                            //noinspection ConstantValue,RedundantLengthCheck
-                            if ((networks != null) && (networks.length > 0)) {
-                                for (Network network : networks) {
-                                    try {
-                                        //if (Build.VERSION.SDK_INT < 28) {
+                            boolean wifiConnected = false;
+
+                            ConnectivityManager connManager = null;
+                            try {
+                                connManager = (ConnectivityManager) eventsHandler.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                            } catch (Exception e) {
+                                // java.lang.NullPointerException: missing IConnectivityManager
+                                // Dual SIM?? Bug in Android ???
+                                PPApplicationStatic.recordException(e);
+                            }
+                            if (connManager != null) {
+                                Network[] networks = connManager.getAllNetworks();
+                                //noinspection ConstantValue,RedundantLengthCheck
+                                if ((networks != null) && (networks.length > 0)) {
+                                    for (Network network : networks) {
+                                        try {
+                                            //if (Build.VERSION.SDK_INT < 28) {
                                             NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
                                             if (ntkInfo != null) {
                                                 //noinspection deprecation
@@ -459,187 +461,188 @@ class EventPreferencesWifi extends EventPreferences {
                                                 }
                                             //}
                                         }*/
-                                    } catch (Exception e) {
+                                        } catch (Exception e) {
 //                                        Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
-                                        PPApplicationStatic.recordException(e);
-                                    }
-                                }
-                            }
-                        }
-
-                        if (wifiConnected) {
-
-                            String[] splits = _SSID.split(StringConstants.STR_SPLIT_REGEX);
-                            boolean[] connected = new boolean[splits.length];
-
-                            int i = 0;
-                            for (String _ssid : splits) {
-                                connected[i] = false;
-                                switch (_ssid) {
-                                    case EventPreferencesWifi.ALL_SSIDS_VALUE:
-                                        connected[i] = true;
-                                        break;
-                                    case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
-                                        for (WifiSSIDData data : wifiConfigurationList) {
-                                            connected[i] = WifiScanWorker.compareSSID(wifiManager, wifiInfo, data.ssid.replace("\"", ""), wifiConfigurationList, eventsHandler.context);
-                                            if (connected[i])
-                                                break;
+                                            PPApplicationStatic.recordException(e);
                                         }
-                                        break;
-                                    default:
-                                        connected[i] = WifiScanWorker.compareSSID(wifiManager, wifiInfo, _ssid, wifiConfigurationList, eventsHandler.context);
-                                        break;
+                                    }
                                 }
-                                i++;
                             }
 
-                            if (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED) {
-                                eventsHandler.wifiPassed = true;
-                                for (boolean conn : connected) {
-                                    if (conn) {
-                                        eventsHandler.wifiPassed = false;
-                                        break;
+                            if (wifiConnected) {
+
+                                String[] splits = _SSID.split(StringConstants.STR_SPLIT_REGEX);
+                                boolean[] connected = new boolean[splits.length];
+
+                                int i = 0;
+                                for (String _ssid : splits) {
+                                    connected[i] = false;
+                                    switch (_ssid) {
+                                        case EventPreferencesWifi.ALL_SSIDS_VALUE:
+                                            connected[i] = true;
+                                            break;
+                                        case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
+                                            for (WifiSSIDData data : wifiConfigurationList) {
+                                                connected[i] = WifiScanWorker.compareSSID(wifiManager, wifiInfo, data.ssid.replace("\"", ""), wifiConfigurationList, eventsHandler.context);
+                                                if (connected[i])
+                                                    break;
+                                            }
+                                            break;
+                                        default:
+                                            connected[i] = WifiScanWorker.compareSSID(wifiManager, wifiInfo, _ssid, wifiConfigurationList, eventsHandler.context);
+                                            break;
                                     }
+                                    i++;
                                 }
-                                // not use scanner data
-                                done = true;
-                            } else
-                            if ((_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
-                                (_connectionType == EventPreferencesWifi.CTYPE_NEARBY)) {
-                                eventsHandler.wifiPassed = false;
-                                for (boolean conn : connected) {
-                                    if (conn) {
-                                        // when is connected to configured ssid, is also nearby
-                                        eventsHandler.wifiPassed = true;
-                                        break;
+
+                                if (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED) {
+                                    eventsHandler.wifiPassed = true;
+                                    for (boolean conn : connected) {
+                                        if (conn) {
+                                            eventsHandler.wifiPassed = false;
+                                            break;
+                                        }
                                     }
-                                }
-                                if (eventsHandler.wifiPassed)
                                     // not use scanner data
                                     done = true;
+                                } else if ((_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
+                                        (_connectionType == EventPreferencesWifi.CTYPE_NEARBY)) {
+                                    eventsHandler.wifiPassed = false;
+                                    for (boolean conn : connected) {
+                                        if (conn) {
+                                            // when is connected to configured ssid, is also nearby
+                                            eventsHandler.wifiPassed = true;
+                                            break;
+                                        }
+                                    }
+                                    if (eventsHandler.wifiPassed)
+                                        // not use scanner data
+                                        done = true;
+                                }
+                            } else {
+                                if ((_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
+                                        (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED)) {
+                                    // not use scanner data
+                                    done = true;
+                                    eventsHandler.wifiPassed = (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED);
+                                }
                             }
                         } else {
                             if ((_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
-                                (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED)) {
+                                    (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED)) {
                                 // not use scanner data
                                 done = true;
                                 eventsHandler.wifiPassed = (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED);
                             }
                         }
-                    } else {
-                        if ((_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
-                            (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED)) {
-                            // not use scanner data
-                            done = true;
-                            eventsHandler.wifiPassed = (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED);
-                        }
-                    }
 
-                    if ((_connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
-                        (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)) {
-                        if (!done) {
-                            if (!ApplicationPreferences.applicationEventWifiEnableScanning) {
-                                //if (forRestartEvents)
-                                //    wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesWifi.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
-                                //else
-                                // not allowed for disabled scanning
-                                //    notAllowedWifi = true;
-                                eventsHandler.wifiPassed = false;
-                            } else {
-                                //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                                if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn) {
-                                    if (forRestartEvents)
-                                        eventsHandler.wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
-                                    else {
-                                        // not allowed for screen Off
-                                        eventsHandler.notAllowedWifi = true;
-                                    }
-                                } else {
-
+                        if ((_connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+                                (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)) {
+                            if (!done) {
+                                if (!ApplicationPreferences.applicationEventWifiEnableScanning) {
+                                    //if (forRestartEvents)
+                                    //    wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesWifi.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
+                                    //else
+                                    // not allowed for disabled scanning
+                                    //    notAllowedWifi = true;
                                     eventsHandler.wifiPassed = false;
-
-                                    boolean scanningPaused = ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("2") &&
-                                            GlobalUtils.isNowTimeBetweenTimes(
-                                                    ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
-                                                    ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo);
-
-                                    if (!scanningPaused) {
-
-                                        List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(eventsHandler.context);
-
-                                        if (scanResults != null) {
-
-                                            for (WifiSSIDData result : scanResults) {
-                                                String[] splits = _SSID.split(StringConstants.STR_SPLIT_REGEX);
-                                                boolean[] nearby = new boolean[splits.length];
-                                                int i = 0;
-                                                for (String _ssid : splits) {
-                                                    nearby[i] = false;
-                                                    switch (_ssid) {
-                                                        case EventPreferencesWifi.ALL_SSIDS_VALUE:
-                                                            nearby[i] = true;
-                                                            break;
-                                                        case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
-                                                            for (WifiSSIDData data : wifiConfigurationList) {
-                                                                if (WifiScanWorker.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
-                                                                    nearby[i] = true;
-                                                                    break;
-                                                                }
-                                                            }
-                                                            break;
-                                                        default:
-                                                            if (WifiScanWorker.compareSSID(result, _ssid, wifiConfigurationList)) {
-                                                                nearby[i] = true;
-                                                            }
-                                                            break;
-                                                    }
-                                                    i++;
-                                                }
-
-                                                //noinspection ConstantConditions
-                                                done = false;
-                                                if (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY) {
-                                                    eventsHandler.wifiPassed = true;
-                                                    for (boolean inF : nearby) {
-                                                        if (inF) {
-                                                            done = true;
-                                                            eventsHandler.wifiPassed = false;
-                                                            break;
-                                                        }
-                                                    }
-                                                } else {
-                                                    eventsHandler.wifiPassed = false;
-                                                    for (boolean inF : nearby) {
-                                                        if (inF) {
-                                                            done = true;
-                                                            eventsHandler.wifiPassed = true;
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                                if (done)
-                                                    break;
-                                            }
-
-                                            if (!done) {
-                                                if (scanResults.isEmpty()) {
-
-                                                    if (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)
-                                                        eventsHandler.wifiPassed = true;
-
-                                                }
-                                            }
-
-                                        } else {
-                                            // not allowed, no scan results
+                                } else {
+                                    //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                                    if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn) {
+                                        if (forRestartEvents)
+                                            eventsHandler.wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
+                                        else {
+                                            // not allowed for screen Off
                                             eventsHandler.notAllowedWifi = true;
+                                        }
+                                    } else {
+
+                                        eventsHandler.wifiPassed = false;
+
+                                        boolean scanningPaused = ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("2") &&
+                                                GlobalUtils.isNowTimeBetweenTimes(
+                                                        ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
+                                                        ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo);
+
+                                        if (!scanningPaused) {
+
+                                            List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(eventsHandler.context);
+
+                                            if (scanResults != null) {
+
+                                                for (WifiSSIDData result : scanResults) {
+                                                    String[] splits = _SSID.split(StringConstants.STR_SPLIT_REGEX);
+                                                    boolean[] nearby = new boolean[splits.length];
+                                                    int i = 0;
+                                                    for (String _ssid : splits) {
+                                                        nearby[i] = false;
+                                                        switch (_ssid) {
+                                                            case EventPreferencesWifi.ALL_SSIDS_VALUE:
+                                                                nearby[i] = true;
+                                                                break;
+                                                            case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
+                                                                for (WifiSSIDData data : wifiConfigurationList) {
+                                                                    if (WifiScanWorker.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
+                                                                        nearby[i] = true;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                                break;
+                                                            default:
+                                                                if (WifiScanWorker.compareSSID(result, _ssid, wifiConfigurationList)) {
+                                                                    nearby[i] = true;
+                                                                }
+                                                                break;
+                                                        }
+                                                        i++;
+                                                    }
+
+                                                    //noinspection ConstantConditions
+                                                    done = false;
+                                                    if (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY) {
+                                                        eventsHandler.wifiPassed = true;
+                                                        for (boolean inF : nearby) {
+                                                            if (inF) {
+                                                                done = true;
+                                                                eventsHandler.wifiPassed = false;
+                                                                break;
+                                                            }
+                                                        }
+                                                    } else {
+                                                        eventsHandler.wifiPassed = false;
+                                                        for (boolean inF : nearby) {
+                                                            if (inF) {
+                                                                done = true;
+                                                                eventsHandler.wifiPassed = true;
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                    if (done)
+                                                        break;
+                                                }
+
+                                                if (!done) {
+                                                    if (scanResults.isEmpty()) {
+
+                                                        if (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)
+                                                            eventsHandler.wifiPassed = true;
+
+                                                    }
+                                                }
+
+                                            } else {
+                                                // not allowed, no scan results
+                                                eventsHandler.notAllowedWifi = true;
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                }
+                } else
+                    eventsHandler.wifiPassed = false;
 
                 if (!eventsHandler.notAllowedWifi) {
                     if (eventsHandler.wifiPassed)
