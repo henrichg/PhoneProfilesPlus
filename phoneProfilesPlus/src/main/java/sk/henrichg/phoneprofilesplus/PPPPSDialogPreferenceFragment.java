@@ -146,6 +146,13 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             dialogText = dialogText + activity.getString(R.string.install_pppps_text2) + StringConstants.TAG_BREAK_HTML;
             dialogText = dialogText + activity.getString(R.string.install_pppps_text3) + StringConstants.TAG_DOUBLE_BREAK_HTML;
         } else {
+            // TODO tu musis tie kliky na linky dat inac
+            //  text.setMovementMethod(LinkMovementMethod.getInstance()); totiz sice spusti download, ale nefunguje
+            //  furt pise len "Downloading..."
+            //  Cize musim spavit speci layout pre API 34+ nie tuto to vplat ale zvlast metodu sprav.
+            //  Kliky na linky sprav ako clickable span ako u GitHub releases v InstallExtenderFromGitHub
+
+
 //            dialogText = dialogText + activity.getString(R.string.install_pppps_text6) + StringConstants.TAG_DOUBLE_BREAK_HTML;
 //            dialogText = dialogText + activity.getString(R.string.install_pppps_text7) + " \"" + activity.getString(R.string.install_pppps_alert_button_how_to_install) + "\" ";
 //            dialogText = dialogText + activity.getString(R.string.install_pppps_text7a) + StringConstants.TAG_BREAK_HTML;
@@ -197,7 +204,9 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         activity.finish();
                 }
             });
-        } /*else {
+        } else
+            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+        /*else {
 
             dialogBuilder.setPositiveButton(activity.getString(R.string.install_pppps_alert_button_how_to_install), (dialog, which) -> {
                 String url;
@@ -225,7 +234,6 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
         }
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);*/
-        dialogBuilder.setPositiveButton(android.R.string.ok, null);
 
         //dialogBuilder.setCancelable(false);
         /*dialogBuilder.setOnCancelListener(dialog -> {
