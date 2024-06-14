@@ -1,7 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.os.Environment.DIRECTORY_DOWNLOADS;
+
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,6 +17,7 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -141,42 +145,9 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
                 " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
 
-        if (Build.VERSION.SDK_INT < 34) {
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\""+StringConstants.TAG_BREAK_HTML;
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text2) + StringConstants.TAG_BREAK_HTML;
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text3) + StringConstants.TAG_DOUBLE_BREAK_HTML;
-        } else {
-            // TODO tu musis tie kliky na linky dat inac
-            //  text.setMovementMethod(LinkMovementMethod.getInstance()); totiz sice spusti download, ale nefunguje
-            //  furt pise len "Downloading..."
-            //  Cize musim spavit speci layout pre API 34+ nie tuto to vplat ale zvlast metodu sprav.
-            //  Kliky na linky sprav ako clickable span ako u GitHub releases v InstallExtenderFromGitHub
-
-
-//            dialogText = dialogText + activity.getString(R.string.install_pppps_text6) + StringConstants.TAG_DOUBLE_BREAK_HTML;
-//            dialogText = dialogText + activity.getString(R.string.install_pppps_text7) + " \"" + activity.getString(R.string.install_pppps_alert_button_how_to_install) + "\" ";
-//            dialogText = dialogText + activity.getString(R.string.install_pppps_text7a) + StringConstants.TAG_BREAK_HTML;
-//            dialogText = dialogText + activity.getString(R.string.install_pppps_text8) + " ";
-//            dialogText = dialogText + activity.getString(R.string.install_pppps_text9) + "."+StringConstants.TAG_DOUBLE_BREAK_HTML;
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text10) + StringConstants.TAG_BREAK_HTML;
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text11) + StringConstants.TAG_DOUBLE_BREAK_HTML;
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text12) + StringConstants.TAG_BREAK_HTML;
-            String url = PPApplication.SHIUKU_HOW_TO_START_URL;
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text13) + " " +
-                    StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML +
-                    StringConstants.TAG_BREAK_HTML;
-            url = PPApplication.INSTALL_WITH_OPTIONS_DOWNLOAD_URL;
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text14) + " " +
-                    StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML +
-                    StringConstants.TAG_BREAK_HTML;
-            url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text15) + " " +
-                    StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML +
-                    StringConstants.TAG_BREAK_HTML;
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text16) + StringConstants.TAG_BREAK_HTML;
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text17) + StringConstants.TAG_BREAK_HTML;
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text18) + StringConstants.TAG_DOUBLE_BREAK_HTML;
-        }
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\""+StringConstants.TAG_BREAK_HTML;
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text2) + StringConstants.TAG_BREAK_HTML;
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text3) + StringConstants.TAG_DOUBLE_BREAK_HTML;
         dialogText = dialogText + StringConstants.TAG_BOLD_START_HTML + activity.getString(R.string.install_pppps_text5) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
         dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
 
@@ -184,57 +155,25 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
-        if (Build.VERSION.SDK_INT < 34) {
-            dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
-                String url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
+        dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
+            String url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
 
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
-                    if (finishActivity)
-                        activity.finish();
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
-                    if (finishActivity)
-                        activity.finish();
-                }
-            });
-        } else
-            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-        /*else {
-
-            dialogBuilder.setPositiveButton(activity.getString(R.string.install_pppps_alert_button_how_to_install), (dialog, which) -> {
-                String url;
-                if (DebugVersion.enabled)
-                    url = PPApplication.GITHUB_PPPPS_HOW_TO_INSTALL_URL_DEVEL;
-                else
-                    url = PPApplication.GITHUB_PPPPS_HOW_TO_INSTALL_URL;
-
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
-                    if (finishActivity)
-                        activity.finish();
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
-                    if (finishActivity)
-                        activity.finish();
-                }
-            });
-
-        }
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);*/
-
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                if ((_preference != null) && (_preference.fragment != null))
+                    _preference.fragment.dismiss();
+                if (finishActivity)
+                    activity.finish();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+                if ((_preference != null) && (_preference.fragment != null))
+                    _preference.fragment.dismiss();
+                if (finishActivity)
+                    activity.finish();
+            }
+        });
         //dialogBuilder.setCancelable(false);
         /*dialogBuilder.setOnCancelListener(dialog -> {
             if (finishActivity)
@@ -281,6 +220,215 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
+
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
+
+        if (!activity.isFinishing())
+            dialog.show();
+
+    }
+
+    private static void installPPPPutSettingsFromGitHub34(final Activity activity,
+                                                        final PPPPSDialogPreference _preference,
+                                                        boolean finishActivity) {
+        if (activity == null) {
+            return;
+        }
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        dialogBuilder.setTitle(activity.getString(R.string.install_pppps_dialog_title));
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View layout = inflater.inflate(R.layout.dialog_install_pppps, null);
+        dialogBuilder.setView(layout);
+
+        String dialogText = "";
+
+        int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(activity.getApplicationContext());
+        if (ppppsVersion != 0) {
+            String ppppsVersionName = ActivateProfileHelper.getPPPPutSettingsVersionName(activity.getApplicationContext());
+            dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + ppppsVersionName + " (" + ppppsVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
+        }
+        dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
+                " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
+
+        TextView text0 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text0);
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text10) + StringConstants.TAG_BREAK_HTML;
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text11) + StringConstants.TAG_DOUBLE_BREAK_HTML;
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text12) + StringConstants.TAG_BREAK_HTML;
+        text0.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
+
+        TextView text1 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text1);
+        String url = PPApplication.SHIUKU_HOW_TO_START_URL;
+        dialogText = activity.getString(R.string.install_pppps_text13) + " " +
+                StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML;
+        text1.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
+        text1.setMovementMethod(LinkMovementMethod.getInstance());
+
+        TextView text2 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text2);
+        url = PPApplication.INSTALL_WITH_OPTIONS_DOWNLOAD_URL;
+        CharSequence str1Text2 = activity.getString(R.string.install_pppps_text14);
+        CharSequence str2Text2 = str1Text2 + " " + url + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+        Spannable sbt = new SpannableString(str2Text2);
+        sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1Text2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ClickableSpan clickableSpanText2 = new ClickableSpan() {
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setColor(ds.linkColor);    // you can use custom color
+                ds.setUnderlineText(false);    // this remove the underline
+            }
+
+            @Override
+            public void onClick(@NonNull View textView) {
+                Log.e("PPPPSDialogPreferenceFragment.installPPPPutSettingsFromGitHub34", "CLICK text2");
+                String url = PPApplication.INSTALL_WITH_OPTIONS_DOWNLOAD_URL;
+                Uri Download_Uri = Uri.parse(url);
+                DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+
+                //Restrict the types of networks over which this download may proceed.
+                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                //Set whether this download may proceed over a roaming connection.
+                request.setAllowedOverRoaming(false);
+                //Set the title of this download, to be displayed in notifications (if enabled).
+                request.setTitle("Downloading InstallWithOptions.apk");
+                //Set a description of this download, to be displayed in notifications (if enabled)
+                request.setDescription("File will be stored into Downloads directory");
+                //Set the local destination for the downloaded file to a path within the application's external files directory
+                request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "InstallWithOptions.apk");
+
+                //request.allowScanningByMediaScanner();
+                request. setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+                //Enqueue a new download and same the referenceId
+                DownloadManager downloadManager = (DownloadManager)activity.getSystemService(Context.DOWNLOAD_SERVICE);
+                //long downloadReference =
+                downloadManager.enqueue(request);
+            }
+        };
+        sbt.setSpan(clickableSpanText2, str1Text2.length()+1, str2Text2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        text2.setText(sbt);
+        text2.setMovementMethod(LinkMovementMethod.getInstance());
+
+        TextView text3 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text3);
+        url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
+        /*dialogText = activity.getString(R.string.install_pppps_text15) + " " +
+                StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML +
+                StringConstants.TAG_BREAK_HTML;
+        text3.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));*/
+        CharSequence str1Text3 = activity.getString(R.string.install_pppps_text15);
+        CharSequence str2Text3 = str1Text3 + " " + url + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+        sbt = new SpannableString(str2Text3);
+        sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1Text3.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ClickableSpan clickableSpanText3 = new ClickableSpan() {
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setColor(ds.linkColor);    // you can use custom color
+                ds.setUnderlineText(false);    // this remove the underline
+            }
+
+            @Override
+            public void onClick(@NonNull View textView) {
+                Log.e("PPPPSDialogPreferenceFragment.installPPPPutSettingsFromGitHub34", "CLICK text3");
+                String url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
+                Uri Download_Uri = Uri.parse(url);
+                DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+
+                //Restrict the types of networks over which this download may proceed.
+                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                //Set whether this download may proceed over a roaming connection.
+                request.setAllowedOverRoaming(false);
+                //Set the title of this download, to be displayed in notifications (if enabled).
+                request.setTitle("Downloading PPPPutSettings.apk");
+                //Set a description of this download, to be displayed in notifications (if enabled)
+                request.setDescription("File will be stored into Downloads directory");
+                //Set the local destination for the downloaded file to a path within the application's external files directory
+                request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PPPPutSettings.apk");
+
+                //request.allowScanningByMediaScanner();
+                request. setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+                //Enqueue a new download and same the referenceId
+                DownloadManager downloadManager = (DownloadManager)activity.getSystemService(Context.DOWNLOAD_SERVICE);
+                /*long downloadReference = */downloadManager.enqueue(request);
+            }
+        };
+        sbt.setSpan(clickableSpanText3, str1Text3.length()+1, str2Text3.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        text3.setText(sbt);
+        text3.setMovementMethod(LinkMovementMethod.getInstance());
+
+        TextView text4 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text4);
+        dialogText = activity.getString(R.string.install_pppps_text16);
+        text4.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
+
+        TextView text5 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text5);
+        dialogText = activity.getString(R.string.install_pppps_text17);
+        text5.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
+
+        TextView text6 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text6);
+        dialogText = activity.getString(R.string.install_pppps_text18);
+        text6.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
+
+        TextView text7 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text7);
+        dialogText =  StringConstants.TAG_BREAK_HTML + StringConstants.TAG_BOLD_START_HTML + activity.getString(R.string.install_pppps_text5) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
+        dialogText = dialogText.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
+        text7.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
+
+        //dialogBuilder.setCancelable(false);
+        /*dialogBuilder.setOnCancelListener(dialog -> {
+            if (finishActivity)
+                activity.finish();
+        });*/
+
+        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+
+        final AlertDialog dialog = dialogBuilder.create();
+
+        TextView textGitHub = layout.findViewById(R.id.install_pppps_from_github_dialog_github_releases);
+        CharSequence str1GitHub = activity.getString(R.string.install_extender_github_releases);
+        CharSequence str2GitHub = str1GitHub + " " + PPApplication.GITHUB_PPPPS_RELEASES_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+        Spannable sbtGitHub = new SpannableString(str2GitHub);
+        sbtGitHub.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1GitHub.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ClickableSpan clickableSpanGitHub = new ClickableSpan() {
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setColor(ds.linkColor);    // you can use custom color
+                ds.setUnderlineText(false);    // this remove the underline
+            }
+
+            @Override
+            public void onClick(@NonNull View textView) {
+                String url = PPApplication.GITHUB_PPPPS_RELEASES_URL;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    dialog.cancel();
+                    //if (activity != null)
+                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    if ((_preference != null) && (_preference.fragment != null))
+                        _preference.fragment.dismiss();
+                    if (finishActivity)
+                        activity.finish();
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                    if ((_preference != null) && (_preference.fragment != null))
+                        _preference.fragment.dismiss();
+                    if (finishActivity)
+                        activity.finish();
+                }
+            }
+        };
+        sbtGitHub.setSpan(clickableSpanGitHub, str1GitHub.length()+1, str2GitHub.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textGitHub.setText(sbtGitHub);
+        textGitHub.setMovementMethod(LinkMovementMethod.getInstance());
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
@@ -538,7 +686,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             } else
                 installPPPPutSettingsFromGitHub(activity, _preference, finishActivity);
         } else
-            installPPPPutSettingsFromGitHub(activity, _preference, finishActivity);
+            installPPPPutSettingsFromGitHub34(activity, _preference, finishActivity);
     }
 
     private void launchPPPPutSettings() {
