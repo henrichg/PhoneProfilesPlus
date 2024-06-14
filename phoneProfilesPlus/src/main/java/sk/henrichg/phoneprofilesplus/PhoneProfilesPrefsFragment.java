@@ -3799,7 +3799,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setSummary(summary);
         }
         if (key.equals(PREF_WIFI_LOCATION_SYSTEM_SETTINGS)) {
-            String summary = getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary);
+            String summary;
+            if (Build.VERSION.SDK_INT < 29)
+                summary = context.getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary);
+            else
+                summary = context.getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary_api29);
             if (!GlobalUtils.isLocationEnabled(context)) {
                 summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                         summary;

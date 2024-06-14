@@ -112,6 +112,11 @@ class EventPreferencesWifi extends EventPreferences {
                         }
                     }
                 }
+                else if (Build.VERSION.SDK_INT >= 29) {
+                    if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
+                        _value.append("* ").append(context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary)).append("! *").append(StringConstants.TAG_BREAK_HTML);
+                    }
+                }
 
                 String[] connectionListTypes = context.getResources().getStringArray(R.array.eventWifiConnectionTypeValues);
                 int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(this._connectionType));
@@ -233,7 +238,11 @@ class EventPreferencesWifi extends EventPreferences {
         if (key.equals(PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                String summary = context.getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary);
+                String summary;
+                if (Build.VERSION.SDK_INT < 29)
+                    summary = context.getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary);
+                else
+                    summary = context.getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary_api29);
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE+
                             summary;

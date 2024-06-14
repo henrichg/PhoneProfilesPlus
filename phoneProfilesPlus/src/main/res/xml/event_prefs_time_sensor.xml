@@ -47,7 +47,7 @@
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventTimeLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
-        app:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary"
+        app:summary="@string/event_preference_sensor_time_locationSystemSettings_summary"
         app:dependency="eventTimeEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.StartActivityPreference

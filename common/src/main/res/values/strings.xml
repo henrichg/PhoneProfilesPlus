@@ -2210,6 +2210,8 @@
     <string name="install_ppp_store_neostore" translatable="false">Neo Store</string>
     <string name="check_releases_neostore_ppp_release">PhoneProfilesPlus release in Neo Store:</string>
 
+    <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary_api29">Please enable Location and \"Wi-Fi scanning\" in System Settings. Without this, sensor will not work.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
