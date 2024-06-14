@@ -17,7 +17,6 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -158,6 +157,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
             String url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
 
+            /*
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             try {
@@ -173,6 +173,28 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 if (finishActivity)
                     activity.finish();
             }
+            */
+
+            Uri Download_Uri = Uri.parse(url);
+            DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+
+            //Restrict the types of networks over which this download may proceed.
+            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+            //Set whether this download may proceed over a roaming connection.
+            request.setAllowedOverRoaming(false);
+            //Set the title of this download, to be displayed in notifications (if enabled).
+            request.setTitle(activity.getString(R.string.download_pppps_title));
+            //Set a description of this download, to be displayed in notifications (if enabled)
+            request.setDescription(activity.getString(R.string.downloading_file_description));
+            //Set the local destination for the downloaded file to a path within the application's external files directory
+            request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PPPPutSettings.apk");
+
+            //request.allowScanningByMediaScanner();
+            request. setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+            //Enqueue a new download and same the referenceId
+            DownloadManager downloadManager = (DownloadManager)activity.getSystemService(Context.DOWNLOAD_SERVICE);
+            /*long downloadReference = */downloadManager.enqueue(request);
         });
         //dialogBuilder.setCancelable(false);
         /*dialogBuilder.setOnCancelListener(dialog -> {
