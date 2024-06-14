@@ -1,7 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.os.Environment.DIRECTORY_DOWNLOADS;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -386,20 +389,44 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         if (!refreshOpenedDialog) {
             dialogBuilder.setPositiveButton(buttonText, (dialog, which) -> {
                 String url;
-                if (newVersionDataExists)
+                if (newVersionDataExists) {
                     url = PPApplication.GITHUB_PPP_DOWNLOAD_URL;
                     //url = PPApplication.GITHUB_PPP_DOWNLOAD_URL_1 + newVersionName + PPApplication.GITHUB_PPP_DOWNLOAD_URL_2;
-                else
+
+                    Uri Download_Uri = Uri.parse(url);
+                    DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+
+                    //Restrict the types of networks over which this download may proceed.
+                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                    //Set whether this download may proceed over a roaming connection.
+                    request.setAllowedOverRoaming(false);
+                    //Set the title of this download, to be displayed in notifications (if enabled).
+                    request.setTitle(activity.getString(R.string.download_PPP_title));
+                    //Set a description of this download, to be displayed in notifications (if enabled)
+                    request.setDescription(activity.getString(R.string.downloading_file_description));
+                    //Set the local destination for the downloaded file to a path within the application's external files directory
+                    request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PhoneProfilesPlus.apk");
+
+                    //request.allowScanningByMediaScanner();
+                    request. setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+                    //Enqueue a new download and same the referenceId
+                    DownloadManager downloadManager = (DownloadManager)activity.getSystemService(Context.DOWNLOAD_SERVICE);
+                    //long downloadReference =
+                    downloadManager.enqueue(request);
+                }
+                else {
                     url = PPApplication.GITHUB_PPP_RELEASES_URL;
 
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                    activity.finish();
                 }
-                activity.finish();
             });
             dialogBuilder.setNegativeButton(android.R.string.cancel, null);
             dialogBuilder.setOnCancelListener(dialog -> {

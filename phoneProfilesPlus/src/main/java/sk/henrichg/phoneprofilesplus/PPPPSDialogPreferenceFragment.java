@@ -288,7 +288,6 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
             @Override
             public void onClick(@NonNull View textView) {
-                Log.e("PPPPSDialogPreferenceFragment.installPPPPutSettingsFromGitHub34", "CLICK text2");
                 String url = PPApplication.INSTALL_WITH_OPTIONS_DOWNLOAD_URL;
                 Uri Download_Uri = Uri.parse(url);
                 DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
@@ -298,9 +297,9 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 //Set whether this download may proceed over a roaming connection.
                 request.setAllowedOverRoaming(false);
                 //Set the title of this download, to be displayed in notifications (if enabled).
-                request.setTitle("Downloading InstallWithOptions.apk");
+                request.setTitle(activity.getString(R.string.download_installWithOptions_title));
                 //Set a description of this download, to be displayed in notifications (if enabled)
-                request.setDescription("File will be stored into Downloads directory");
+                request.setDescription(activity.getString(R.string.downloading_file_description));
                 //Set the local destination for the downloaded file to a path within the application's external files directory
                 request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "InstallWithOptions.apk");
 
@@ -336,7 +335,6 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
             @Override
             public void onClick(@NonNull View textView) {
-                Log.e("PPPPSDialogPreferenceFragment.installPPPPutSettingsFromGitHub34", "CLICK text3");
                 String url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
                 Uri Download_Uri = Uri.parse(url);
                 DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
@@ -346,9 +344,9 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 //Set whether this download may proceed over a roaming connection.
                 request.setAllowedOverRoaming(false);
                 //Set the title of this download, to be displayed in notifications (if enabled).
-                request.setTitle("Downloading PPPPutSettings.apk");
+                request.setTitle(activity.getString(R.string.download_pppps_title));
                 //Set a description of this download, to be displayed in notifications (if enabled)
-                request.setDescription("File will be stored into Downloads directory");
+                request.setDescription(activity.getString(R.string.downloading_file_description));
                 //Set the local destination for the downloaded file to a path within the application's external files directory
                 request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PPPPutSettings.apk");
 
