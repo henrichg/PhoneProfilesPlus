@@ -8215,7 +8215,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 Log.e("ProfilePreferenceFragment.SetRedTextToPreferencesAsyncTask", "shizukuInstalled="+shizukuInstalled);
                                 if (shizukuInstalled != 0) {
                                     if (!ShizukuUtils.hasShizukuPermission()) {
-                                        // Shizuku is installed but not started?
+                                        // Shizuku is installed but not started
                                         String _title;
                                         _title = order + ". " + context.getString(R.string.preferences_grantShizukuPreferences_title);
                                         ++order;
