@@ -555,7 +555,8 @@ class EventPreferencesMobileCells extends EventPreferences {
                                                                     }
                                                                 }
                                                             } else {
-                                                                eventsHandler.mobileCellPassed = false;
+                                                                //eventsHandler.mobileCellPassed = false;
+                                                                eventsHandler.mobileCellPassed = _whenOutside;
                                                             }
                                                             cellIsValid = true;
                                                         }
@@ -594,7 +595,8 @@ class EventPreferencesMobileCells extends EventPreferences {
                                                                     }
                                                                 }
                                                             } else {
-                                                                eventsHandler.mobileCellPassed = false;
+                                                                //eventsHandler.mobileCellPassed = false;
+                                                                eventsHandler.mobileCellPassed = _whenOutside;
                                                             }
                                                             cellIsValid = true;
                                                         }
@@ -631,7 +633,8 @@ class EventPreferencesMobileCells extends EventPreferences {
                                                                 }
                                                             }
                                                         } else {
-                                                            eventsHandler.mobileCellPassed = false;
+                                                            //eventsHandler.mobileCellPassed = false;
+                                                            eventsHandler.mobileCellPassed = _whenOutside;
                                                         }
                                                         cellIsValid = true;
                                                     }
