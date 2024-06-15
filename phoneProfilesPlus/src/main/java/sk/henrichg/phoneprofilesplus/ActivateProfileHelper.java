@@ -8512,25 +8512,22 @@ class ActivateProfileHelper {
     }
 
     static int isPPPPutSettingsInstalled(Context context) {
-        if (Build.VERSION.SDK_INT < 34) {
-            try {
-                PackageManager packageManager = context.getPackageManager();
-                ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_PPPPS, PackageManager.MATCH_ALL);
-                boolean installed = appInfo.enabled;
-                if (installed) {
-                    PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
-                    return PPApplicationStatic.getVersionCode(pInfo);
-                } else {
-                    return 0;
-                }
-            } catch (Exception e) {
-                // extender is not installed = package not found
-                //Log.e("PPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
-                //PPApplicationStatic.recordException(e);
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_PPPPS, PackageManager.MATCH_ALL);
+            boolean installed = appInfo.enabled;
+            if (installed) {
+                PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
+                return PPApplicationStatic.getVersionCode(pInfo);
+            } else {
                 return 0;
             }
-        } else
+        } catch (Exception e) {
+            // extender is not installed = package not found
+            //Log.e("PPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
+            //PPApplicationStatic.recordException(e);
             return 0;
+        }
     }
 
     static String getPPPPutSettingsVersionName(Context context) {

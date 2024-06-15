@@ -982,14 +982,6 @@ class PreferenceAllowed {
         String preferenceKey = Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING;
 
         if ((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) || PPApplication.deviceIsOnePlus) {
-            if ((Build.VERSION.SDK_INT < 34) && (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0)) {
-                if (profile != null) {
-                    if (profile._vibrateWhenRinging != 0)
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                }
-                else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-            } else
             if (ShizukuUtils.hasShizukuPermission()) {
                 if (RootUtils.settingsBinaryExists(fromUIThread)) {
                     if (profile != null) {
@@ -1034,6 +1026,14 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
+            }
+            else if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+                if (profile != null) {
+                    if (profile._vibrateWhenRinging != 0)
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                }
+                else
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else {
                 if ((profile != null) && (profile._vibrateWhenRinging != 0)) {
                     boolean enabled = false;
@@ -1083,13 +1083,6 @@ class PreferenceAllowed {
 
                 String preferenceKey = Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS;
 
-                if (/*(Build.VERSION.SDK_INT < 34) &&*/ (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0)) {
-                    if (profile != null) {
-                        if (profile._vibrateNotifications != 0)
-                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                    } else
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
                 if (ShizukuUtils.hasShizukuPermission()) {
                     if (RootUtils.settingsBinaryExists(fromUIThread)) {
                         if (profile != null) {
@@ -1134,6 +1127,13 @@ class PreferenceAllowed {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                     }
+                } else
+                if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+                    if (profile != null) {
+                        if (profile._vibrateNotifications != 0)
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                 } else {
                     if ((profile != null) && (profile._vibrateNotifications != 0)) {
                         preferenceAllowed.notAllowedPPPPS = true;
@@ -1184,13 +1184,6 @@ class PreferenceAllowed {
         _preferenceAllowed.copyFrom(preferenceAllowed);
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            if ((Build.VERSION.SDK_INT < 34) && (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0)) {
-                if (profile != null) {
-                    if (profile.getVibrationIntensityRingingChange())
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-            } else
             if (ShizukuUtils.hasShizukuPermission()) {
                 if (RootUtils.settingsBinaryExists(fromUIThread)) {
                     if (profile != null) {
@@ -1239,6 +1232,13 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
+            } else
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+                if (profile != null) {
+                    if (profile.getVibrationIntensityRingingChange())
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else {
                 if ((profile != null) && profile.getVibrationIntensityRingingChange()) {
                     preferenceAllowed.notAllowedPPPPS = true;
@@ -1261,13 +1261,6 @@ class PreferenceAllowed {
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
 //        Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS", "_preferenceAllowed.allowed="+_preferenceAllowed.allowed);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            if ((Build.VERSION.SDK_INT < 34) && (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0)) {
-                if (profile != null) {
-                    if (profile.getVibrationIntensityNotificationsChange())
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-            } else
             if (ShizukuUtils.hasShizukuPermission()) {
                 if (RootUtils.settingsBinaryExists(fromUIThread)) {
                     if (profile != null) {
@@ -1316,6 +1309,13 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
+            } else
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+                if (profile != null) {
+                    if (profile.getVibrationIntensityNotificationsChange())
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else {
                 if ((profile != null) && profile.getVibrationIntensityNotificationsChange()) {
                     preferenceAllowed.notAllowedPPPPS = true;
@@ -1338,13 +1338,6 @@ class PreferenceAllowed {
         _preferenceAllowed.copyFrom(preferenceAllowed);
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            if ((Build.VERSION.SDK_INT < 34) && (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0)) {
-                if (profile != null) {
-                    if (profile.getVibrationIntensityTouchInteractionChange())
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-            } else
             if (ShizukuUtils.hasShizukuPermission()) {
                 if (RootUtils.settingsBinaryExists(fromUIThread)) {
                     if (profile != null) {
@@ -1393,6 +1386,13 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
+            } else
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+                if (profile != null) {
+                    if (profile.getVibrationIntensityTouchInteractionChange())
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else {
                 if ((profile != null) && profile.getVibrationIntensityTouchInteractionChange()) {
                     preferenceAllowed.notAllowedPPPPS = true;
@@ -1760,14 +1760,6 @@ class PreferenceAllowed {
 
         int value = Settings.System.getInt(appContext.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, -10);
         if (value != -10) {
-            if ((Build.VERSION.SDK_INT < 34) && (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0)) {
-//                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED", "installed");
-                if (profile != null) {
-                    if (profile._notificationLed != 0)
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-            } else
             if (ShizukuUtils.hasShizukuPermission()) {
                 if (RootUtils.settingsBinaryExists(fromUIThread)) {
                     if (profile != null) {
@@ -1812,6 +1804,14 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
+            } else
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+//                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED", "installed");
+                if (profile != null) {
+                    if (profile._notificationLed != 0)
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else {
 //                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED", "(2)");
                 if ((profile != null) && (profile._notificationLed != 0)) {
@@ -2475,28 +2475,8 @@ class PreferenceAllowed {
                         if (!rootRequired) {
                             ppppsInstalled = ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0;
                         }
-                        if ((Build.VERSION.SDK_INT < 34) && (!rootRequired) && ppppsInstalled) {
-                            if (profile != null) {
-                                if ((profile._soundNotificationChangeSIM1 != 0) ||
-                                        (profile._soundNotificationChangeSIM2 != 0))
-                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                            } else
-                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                        } else
-                        if ((!rootRequired) && ShizukuUtils.hasShizukuPermission()) {
-                            if (RootUtils.settingsBinaryExists(fromUIThread)) {
-                                if (profile != null) {
-                                    if ((profile._soundNotificationChangeSIM1 != 0) ||
-                                            (profile._soundNotificationChangeSIM2 != 0))
-                                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                                } else
-                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                            } else {
-                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-                            }
-                        } else
-                        if (rootRequired && ShizukuUtils.hasShizukuPermission()) {
+                        boolean hasShizukuPermission = ShizukuUtils.hasShizukuPermission();
+                        if (hasShizukuPermission) {
                             if (RootUtils.settingsBinaryExists(fromUIThread)) {
                                 if (profile != null) {
                                     if ((profile._soundNotificationChangeSIM1 != 0) ||
@@ -2543,6 +2523,14 @@ class PreferenceAllowed {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                             }
+                        } else
+                        if ((!rootRequired) && ppppsInstalled) {
+                            if (profile != null) {
+                                if ((profile._soundNotificationChangeSIM1 != 0) ||
+                                        (profile._soundNotificationChangeSIM2 != 0))
+                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         } else {
                             if (profile != null) {
                                 if (profile._soundNotificationChangeSIM1 != 0)
@@ -2600,13 +2588,6 @@ class PreferenceAllowed {
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
-                        if ((Build.VERSION.SDK_INT < 34) && (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0)) {
-                            if (profile != null) {
-                                if (profile._soundSameRingtoneForBothSIMCards != 0)
-                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                            } else
-                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                        } else
                         if (ShizukuUtils.hasShizukuPermission()) {
                             if (RootUtils.settingsBinaryExists(fromUIThread)) {
                                 if (profile != null) {
@@ -2651,6 +2632,13 @@ class PreferenceAllowed {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                             }
+                        } else
+                        if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+                            if (profile != null) {
+                                if (profile._soundSameRingtoneForBothSIMCards != 0)
+                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         } else {
                             if ((profile != null) && (profile._soundSameRingtoneForBothSIMCards != 0)) {
                                 preferenceAllowed.notAllowedPPPPS = true;
