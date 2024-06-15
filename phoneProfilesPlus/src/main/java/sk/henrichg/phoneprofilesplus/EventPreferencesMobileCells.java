@@ -490,7 +490,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     eventsHandler.mobileCellPassed = false;
                 } else {
 //                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesMobileCells.doHandleEvent", "******** ### *******");
-                    if (GlobalUtils.isLocationEnabled(eventsHandler.context)) {
+                    if ((Build.VERSION.SDK_INT < 28) || GlobalUtils.isLocationEnabled(eventsHandler.context)) {
 
                         //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                         if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn) {
