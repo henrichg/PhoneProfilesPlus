@@ -28,6 +28,7 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8210,21 +8211,44 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 }
                             }
                             if (preference != null) {
-                                int stringRes = R.string.preferences_not_installed_PPPPutSettings_title;
-                                String _title = order + ". " + context.getString(stringRes);
-                                ++order;
-                                Spannable title = new SpannableString(_title);
-                                title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
-                                preference.setTitle(title);
-                                _title = context.getString(R.string.event_preferences_red_install_PPPExtender);
-                                Spannable summary = new SpannableString(_title);
-                                summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
-                                preference.setSummary(summary);
+                                int shizukuInstalled = ActivateProfileHelper.isShizukuInstalled(context);
+                                Log.e("ProfilePreferenceFragment.SetRedTextToPreferencesAsyncTask", "shizukuInstalled="+shizukuInstalled);
+                                if (shizukuInstalled != 0) {
+                                    if (!ShizukuUtils.hasShizukuPermission()) {
+                                        // Shizuku is installed but not started?
+                                        String _title;
+                                        _title = order + ". " + context.getString(R.string.preferences_grantShizukuPreferences_title);
+                                        ++order;
+                                        Spannable title = new SpannableString(_title);
+                                        title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
+                                        preference.setTitle(title);
+                                        Spannable summary;
+                                        summary = new SpannableString(context.getString(R.string.preferences_grantShizukuPreferences_summary));
+                                        summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
+                                        preference.setSummary(summary);
 
-                                preference.setOnPreferenceClickListener(preference15 -> {
-                                    PPPPSDialogPreferenceFragment.installPPPPutSettings(activity, null, false);
-                                    return false;
-                                });
+                                        preference.setOnPreferenceClickListener(preference12 -> {
+                                            Permissions.grantShizukuPermission(fragment, activity);
+                                            return false;
+                                        });
+                                    }
+                                } else {
+                                    int stringRes = R.string.preferences_not_installed_PPPPutSettings_title;
+                                    String _title = order + ". " + context.getString(stringRes);
+                                    ++order;
+                                    Spannable title = new SpannableString(_title);
+                                    title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
+                                    preference.setTitle(title);
+                                    _title = context.getString(R.string.event_preferences_red_install_PPPExtender);
+                                    Spannable summary = new SpannableString(_title);
+                                    summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
+                                    preference.setSummary(summary);
+
+                                    preference.setOnPreferenceClickListener(preference15 -> {
+                                        PPPPSDialogPreferenceFragment.installPPPPutSettings(activity, null, false);
+                                        return false;
+                                    });
+                                }
                             }
                         }
                     }

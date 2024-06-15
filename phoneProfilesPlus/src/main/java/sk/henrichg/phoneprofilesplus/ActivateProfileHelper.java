@@ -8575,6 +8575,26 @@ class ActivateProfileHelper {
             GlobalUtils.sleep(500);
         }
     }
+
+    static int isShizukuInstalled(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_SHIZUKU, PackageManager.MATCH_ALL);
+            boolean installed = appInfo.enabled;
+            if (installed) {
+                PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
+                return PPApplicationStatic.getVersionCode(pInfo);
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+            // extender is not installed = package not found
+            //Log.e("PPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
+            //PPApplicationStatic.recordException(e);
+            return 0;
+        }
+    }
+
 /*
     static void showError(Context context, String profileName, int parameterType) {
         if ((context == null) || (profileName == null))
