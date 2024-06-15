@@ -1754,9 +1754,7 @@ class ActivateProfileHelper {
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_IN_NORMAL, String.valueOf(lValue));
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_IN_SILENT, String.valueOf(lValue));
-                                }
-                                else
-                                if (PPApplication.deviceIsOnePlus) {
+                                } else if (PPApplication.deviceIsOnePlus) {
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
                                     switch (lValue) {
                                         case 1:
@@ -1768,6 +1766,45 @@ class ActivateProfileHelper {
                                     }
                                 } else {
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
+                                }
+                            }
+                            else if (ShizukuUtils.hasShizukuPermission()) {
+                                synchronized (PPApplication.rootMutex) {
+                                    try {
+                                        String command1;
+                                        String command2 = "";
+                                        String command3 = "";
+                                        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                                            command1 = COMMAND_SETTINGS_PUT_SYSTEM + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                            command2 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_PREF_VIBRATE_IN_NORMAL + " " + lValue;
+                                            command3 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_PREF_VIBRATE_IN_SILENT + " " + lValue;
+                                        }
+                                        else
+                                        if (PPApplication.deviceIsOnePlus) {
+                                            command1 = COMMAND_SETTINGS_PUT_SYSTEM + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                            command2 = "";
+                                            switch (lValue) {
+                                                case 1:
+                                                    command2 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_PREF_RING_VIBRATION_INTENSITY + " " + "2";
+                                                    break;
+                                                case 0:
+                                                    command2 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_PREF_RING_VIBRATION_INTENSITY + " " + "0";
+                                                    break;
+                                            }
+                                        } else {
+                                            command1 = COMMAND_SETTINGS_PUT_SYSTEM + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                            //if (PPApplication.isSELinuxEnforcing())
+                                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                        }
+                                        //if (!command1.isEmpty())
+                                        ShizukuUtils.executeCommand(command1);
+                                        if (!command2.isEmpty())
+                                            ShizukuUtils.executeCommand(command2);
+                                        if (!command3.isEmpty())
+                                            ShizukuUtils.executeCommand(command3);
+                                    } catch (Exception e) {
+                                        //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                    }
                                 }
                             } else {
                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -1863,6 +1900,32 @@ class ActivateProfileHelper {
                     } else {
                         putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY, String.valueOf(lValue));
                     }
+                }
+                else if (ShizukuUtils.hasShizukuPermission()) {
+                    synchronized (PPApplication.rootMutex) {
+                        String command1;
+                        String command2 = "";
+                        if (PPApplication.deviceIsPixel) {
+                            if (lValue > 0) {
+                                command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_PREF_VIBRATE_ON + " 1";
+                                command2 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY + " " + lValue;
+                            } else {
+                                command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY + " " + lValue;
+                            }
+                        } else {
+                            command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY + " " + lValue;
+                            //if (PPApplication.isSELinuxEnforcing())
+                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                        }
+
+                        try {
+                            ShizukuUtils.executeCommand(command1);
+                            if (!command2.isEmpty())
+                                ShizukuUtils.executeCommand(command2);
+                        } catch (Exception e) {
+                            //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                        }
+                    }
                 } else {
                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                             (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
@@ -1918,7 +1981,16 @@ class ActivateProfileHelper {
 
                         if (isPPPPutSettingsInstalled(appContext) > 0)
                             putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
-                        else {
+                        else if (ShizukuUtils.hasShizukuPermission()) {
+                            synchronized (PPApplication.rootMutex) {
+                                String command1 = COMMAND_SETTINGS_PUT_SYSTEM + parameterName + " " + value;
+                                try {
+                                    ShizukuUtils.executeCommand(command1);
+                                } catch (Exception e) {
+                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                }
+                            }
+                        } else {
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper._setVibrationIntensity", "(1) PPApplication.rootMutex");
                             synchronized (PPApplication.rootMutex) {
                                 String command1;
@@ -1938,7 +2010,32 @@ class ActivateProfileHelper {
                     } else {
                         if (isPPPPutSettingsInstalled(appContext) > 0)
                             putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
-                        else {
+                        else if (ShizukuUtils.hasShizukuPermission()) {
+                            synchronized (PPApplication.rootMutex) {
+                                String command1;
+                                String command2 = "";
+                                if (PPApplication.deviceIsPixel) {
+                                    if (value > 0) {
+                                        command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_PREF_VIBRATE_ON + " 1";
+                                        command2 = COMMAND_SETTINGS_PUT_SYSTEM + parameterName + " " + value;
+                                    } else {
+                                        command1 = COMMAND_SETTINGS_PUT_SYSTEM + parameterName + " " + value;
+                                    }
+                                } else {
+                                    command1 = COMMAND_SETTINGS_PUT_SYSTEM + parameterName + " " + value;
+                                    //if (PPApplication.isSELinuxEnforcing())
+                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                }
+
+                                try {
+                                    ShizukuUtils.executeCommand(command1);
+                                    if (!command2.isEmpty())
+                                        ShizukuUtils.executeCommand(command2);
+                                } catch (Exception e) {
+                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                }
+                            }
+                        } else {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
 //                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper._setVibrationIntensity", "(2) PPApplication.rootMutex");
@@ -2757,6 +2854,16 @@ class ActivateProfileHelper {
 
                                             if (isPPPPutSettingsInstalled(appContext) > 0) {
                                                 putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, uri.toString());
+                                            }
+                                            else if (ShizukuUtils.hasShizukuPermission()) {
+                                                synchronized (PPApplication.rootMutex) {
+                                                    String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM1_SAMSUNG + " " + uri.toString();
+                                                    try {
+                                                        ShizukuUtils.executeCommand(command1);
+                                                    } catch (Exception e) {
+                                                        //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                                    }
+                                                }
                                             } else {
                                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                         (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
@@ -2788,6 +2895,16 @@ class ActivateProfileHelper {
 
                                             if (isPPPPutSettingsInstalled(appContext) > 0) {
                                                 putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, uri.toString());
+                                            }
+                                            else if (ShizukuUtils.hasShizukuPermission()) {
+                                                synchronized (PPApplication.rootMutex) {
+                                                    String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM1_HUAWEI + " " + uri.toString();
+                                                    try {
+                                                        ShizukuUtils.executeCommand(command1);
+                                                    } catch (Exception e) {
+                                                        //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                                    }
+                                                }
                                             } else {
                                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                         (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
@@ -2859,6 +2976,16 @@ class ActivateProfileHelper {
 
                                     if (isPPPPutSettingsInstalled(appContext) > 0) {
                                         putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, "");
+                                    }
+                                    else if (ShizukuUtils.hasShizukuPermission()) {
+                                        synchronized (PPApplication.rootMutex) {
+                                            String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM1_SAMSUNG + " \"\"";
+                                            try {
+                                                ShizukuUtils.executeCommand(command1);
+                                            } catch (Exception e) {
+                                                //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                            }
+                                        }
                                     } else {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                 (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
@@ -2888,6 +3015,16 @@ class ActivateProfileHelper {
 
                                     if (isPPPPutSettingsInstalled(appContext) > 0) {
                                         putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, "");
+                                    }
+                                    else if (ShizukuUtils.hasShizukuPermission()) {
+                                        synchronized (PPApplication.rootMutex) {
+                                            String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM1_HUAWEI + " \"\"";
+                                            try {
+                                                ShizukuUtils.executeCommand(command1);
+                                            } catch (Exception e) {
+                                                //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                            }
+                                        }
                                     } else {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                 (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
@@ -2974,6 +3111,16 @@ class ActivateProfileHelper {
 
                                             if (isPPPPutSettingsInstalled(appContext) > 0) {
                                                 putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, uri.toString());
+                                            }
+                                            else if (ShizukuUtils.hasShizukuPermission()) {
+                                                synchronized (PPApplication.rootMutex) {
+                                                    String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM2_SAMSUNG + " " + uri.toString();
+                                                    try {
+                                                        ShizukuUtils.executeCommand(command1);
+                                                    } catch (Exception e) {
+                                                        //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                                    }
+                                                }
                                             } else {
                                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                         (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
@@ -3080,8 +3227,18 @@ class ActivateProfileHelper {
 
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound_2", null);
 
-                                    if (isPPPPutSettingsInstalled(appContext) > 0)  {
+                                    if (isPPPPutSettingsInstalled(appContext) > 0) {
                                         putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, "");
+                                    }
+                                    else if (ShizukuUtils.hasShizukuPermission()) {
+                                        synchronized (PPApplication.rootMutex) {
+                                            String command1 = COMMAND_SETTINGS_PUT_SYSTEM+PREF_NOTIFICATION_SIM2_SAMSUNG + " \"\"";
+                                            try {
+                                                ShizukuUtils.executeCommand(command1);
+                                            } catch (Exception e) {
+                                                //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                            }
+                                        }
                                     } else {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                 (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
@@ -3176,9 +3333,24 @@ class ActivateProfileHelper {
                             if (isPPPPutSettingsInstalled(appContext) > 0) {
                                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_RINGTONE_FOLLOW_SIM1_XIAOMI, value);
-                                else
-                                if (PPApplication.deviceIsOnePlus)
+                                else if (PPApplication.deviceIsOnePlus)
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_RINGTONE_FOLLOW_SIM1_ONEPLUS, value);
+                            }
+                            else if (ShizukuUtils.hasShizukuPermission()) {
+                                synchronized (PPApplication.rootMutex) {
+                                    String command1 = null;
+                                    if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
+                                        command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_RINGTONE_FOLLOW_SIM1_XIAOMI + " " + value;
+                                    else if (PPApplication.deviceIsOnePlus)
+                                        command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_RINGTONE_FOLLOW_SIM1_ONEPLUS + " " + value;
+                                    if (command1 != null) {
+                                        try {
+                                            ShizukuUtils.executeCommand(command1);
+                                        } catch (Exception e) {
+                                            //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                        }
+                                    }
+                                }
                             } else {
                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                         (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
@@ -3391,7 +3563,16 @@ class ActivateProfileHelper {
                         final String NOTIFICATION_LIGHT_PULSE = "notification_light_pulse";
                         if (isPPPPutSettingsInstalled(appContext) > 0)
                             putSettingsParameter(appContext, PPPPS_SETTINGS_TYPE_SYSTEM, NOTIFICATION_LIGHT_PULSE, String.valueOf(value));
-                        else {
+                        else if (ShizukuUtils.hasShizukuPermission()) {
+                            synchronized (PPApplication.rootMutex) {
+                                String command1 = COMMAND_SETTINGS_PUT_SYSTEM + NOTIFICATION_LIGHT_PULSE/*Settings.System.NOTIFICATION_LIGHT_PULSE*/ + " " + value;
+                                try {
+                                    ShizukuUtils.executeCommand(command1);
+                                } catch (Exception e) {
+                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                }
+                            }
+                        } else {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
 //                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setNotificationLed", "PPApplication.rootMutex");
@@ -8331,24 +8512,25 @@ class ActivateProfileHelper {
     }
 
     static int isPPPPutSettingsInstalled(Context context) {
-        try {
-            PackageManager packageManager = context.getPackageManager();
-            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_PPPPS, PackageManager.MATCH_ALL);
-            boolean installed = appInfo.enabled;
-            if (installed) {
-                PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
-                return PPApplicationStatic.getVersionCode(pInfo);
-            }
-            else {
+        if (Build.VERSION.SDK_INT < 34) {
+            try {
+                PackageManager packageManager = context.getPackageManager();
+                ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_PPPPS, PackageManager.MATCH_ALL);
+                boolean installed = appInfo.enabled;
+                if (installed) {
+                    PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
+                    return PPApplicationStatic.getVersionCode(pInfo);
+                } else {
+                    return 0;
+                }
+            } catch (Exception e) {
+                // extender is not installed = package not found
+                //Log.e("PPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
+                //PPApplicationStatic.recordException(e);
                 return 0;
             }
-        }
-        catch (Exception e) {
-            // extender is not installed = package not found
-            //Log.e("PPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
-            //PPApplicationStatic.recordException(e);
+        } else
             return 0;
-        }
     }
 
     static String getPPPPutSettingsVersionName(Context context) {

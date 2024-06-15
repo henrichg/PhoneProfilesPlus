@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/profile_preferences_category_sound_profile"
+    app:key="prf_pref_soundProfileCategory" >
+
+    <sk.henrichg.phoneprofilesplus.InformationPreference
+        app:key="prf_pref_volumeIgnoreSoundModeInfo1"
+        app:title="@string/profile_preferences_volumeIgnoreSoundModeInfo_title"
+        app:summary="@string/profile_preferences_volumeIgnoreSoundModeInfo_summary"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.InformationPreference
+        app:key="prf_pref_volumeSoundModeVibrationInfo"
+        app:title="@string/profile_preferences_vvolumeSoundModeVibrationInfo_title"
+        app:summary="@string/profile_preferences_volumeSoundModeVibrationInfo_summary"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/profile_preferences_volumeSoundMode"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_volumeRingerMode"
+        app:defaultValue="0"
+        app:ppEntries="@array/soundModeArray"
+        app:ppEntryValues="@array/soundModeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+<!--    <Preference-->
+<!--        app:key="prf_pref_volumeNotificationsAccessSettings"-->
+<!--        app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"-->
+<!--        app:summary="@string/profile_preferences_volumeNotificationsAccessSettings_summary_notification_access"-->
+<!--        app:widgetLayout="@layout/widget_start_activity_preference"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
+    <sk.henrichg.phoneprofilesplus.InformationPreference
+        app:key="prf_pref_volumeZenModeInfo"
+        app:title="@string/profile_preferences_volumeZenModeM"
+        app:summary="@string/profile_preferences_volumeZenModeMInfo_summary"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/profile_preferences_volumeZenModeM"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_volumeZenMode"
+        app:defaultValue="1"
+        app:ppEntries="@array/zenModeArray"
+        app:ppEntryValues="@array/zenModeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/profile_preferences_vibrateWhenRinging"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_vibrateWhenRinging"
+        app:defaultValue="0"
+        app:ppEntries="@array/vibrateWhenRingingArray"
+        app:ppEntryValues="@array/vibrateWhenRingingValues"
+        app:layout="@layout/mp_preference_material_widget" />
+<!--    <sk.henrichg.phoneprofilesplus.PPListPreference-->
+<!--        app:title="@string/profile_preferences_vibrateNotifications"-->
+<!--        app:summary="@string/array_pref_no_change"-->
+<!--        app:key="prf_pref_vibrateNotifications"-->
+<!--        app:defaultValue="0"-->
+<!--        app:ppEntries="@array/vibrateNotificationsArray"-->
+<!--        app:ppEntryValues="@array/vibrateNotificationsValues"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
+
+<!--    <sk.henrichg.phoneprofilesplus.PPPPSDialogPreference-->
+<!--        app:title="@string/pppps_pref_dialog_title"-->
+<!--        app:summary=""-->
+<!--        app:key="prf_pref_soundProfilePPPPS"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
+
+</androidx.preference.PreferenceScreen>

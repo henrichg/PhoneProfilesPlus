@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.os.Build;
+
 class StringConstants {
     static final String PHONE_PROFILES_PLUS = "PhoneProfilesPlus";
     static final String AUTHOR_EMAIL = "henrich.gron@gmail.com";
@@ -21,7 +23,8 @@ class StringConstants {
     static final String STR_COLON_WITH_SPACE = ": ";
     //static final String STR_ROOT = "(R) ";
     //static final String STR_PPPPS = "(S) ";
-    static final String STR_PPPPS_ROOT = "(S)(R) ";
+    //static final String STR_PPPPS_ROOT = "(S)(R) ";
+    static final String STR_PPPPS_SHIZUKU_ROOT = "(S)(Z)(R) ";
     static final String STR_SHIZUKU_ROOT = "(Z)(R) ";
     //static final String STR_INTERFACE = "(I) ";
     //static final String STR_G1 = "(G1) ";
@@ -85,4 +88,10 @@ class StringConstants {
 
     static final String CONTACTS_FILTER_DATA_ALL = "[all]";
 
+    static String getPPPPSBySDK() {
+        if (Build.VERSION.SDK_INT >= 34)
+            return STR_SHIZUKU_ROOT;
+        else
+            return STR_PPPPS_SHIZUKU_ROOT;
+    }
 }
