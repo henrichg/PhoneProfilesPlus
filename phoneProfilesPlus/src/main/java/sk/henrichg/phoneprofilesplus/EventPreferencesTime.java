@@ -10,7 +10,9 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.format.DateFormat;
 import android.text.style.CharacterStyle;
+import android.text.style.ForegroundColorSpan;
 
+import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -429,18 +431,43 @@ class EventPreferencesTime extends EventPreferences {
             if (preference != null)
                 preference.setEnabled(!enable);
         }
-        if (key.equals(PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS)) {
+        if (key.equals(PREF_EVENT_TIME_ENABLED) ||
+            key.equals(PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 String summary = context.getString(R.string.event_preference_sensor_time_locationSystemSettings_summary);
+                int titleColor;
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
-                    summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE+
-                            summary;
+                    if (_timeType != TIME_TYPE_EXACT) {
+                        summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE+
+                                summary;
+                        titleColor = ContextCompat.getColor(context, R.color.error_color);
+                    } else {
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + StringConstants.STR_DOUBLE_NEWLINE+
+                                summary;
+                        titleColor = 0;
+                    }
                 }
                 else {
                     summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+
                             summary;
+                    titleColor = 0;
                 }
+                CharSequence sTitle = preference.getTitle();
+                int titleLenght = 0;
+                if (sTitle != null)
+                    titleLenght = sTitle.length();
+                Spannable sbt = new SpannableString(sTitle);
+                Object[] spansToRemove = sbt.getSpans(0, titleLenght, Object.class);
+                for(Object span: spansToRemove){
+                    if(span instanceof CharacterStyle)
+                        sbt.removeSpan(span);
+                }
+                if (preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false)) {
+                    if (titleColor != 0)
+                        sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+                preference.setTitle(sbt);
                 preference.setSummary(summary);
             }
         }
@@ -542,6 +569,23 @@ class EventPreferencesTime extends EventPreferences {
 
         return runnable;
     }
+
+    @Override
+    boolean isAllConfigured(Context context)
+    {
+        boolean allConfigured = super.isAllConfigured(context);
+
+        //allConfigured = allConfigured &&
+        //        (ApplicationPreferences.applicationEventLocationEnableScanning ||
+        //                ApplicationPreferences.applicationEventLocationDisabledScannigByProfile);
+
+        if (_timeType != TIME_TYPE_EXACT) {
+            allConfigured = allConfigured && GlobalUtils.isLocationEnabled(context.getApplicationContext());
+        }
+
+        return allConfigured;
+    }
+
 
     @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {

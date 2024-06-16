@@ -697,6 +697,18 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     @Override
+    boolean isAllConfigured(Context context)
+    {
+        boolean allConfigured = super.isAllConfigured(context);
+
+        allConfigured = allConfigured &&
+                (ApplicationPreferences.applicationEventOrientationEnableScanning ||
+                        ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile);
+
+        return allConfigured;
+    }
+
+    @Override
     int isAccessibilityServiceEnabled(Context context, boolean againCheckInDelay)
     {
         int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);

@@ -402,6 +402,12 @@ class EventPreferencesWifi extends EventPreferences {
     {
         boolean allConfigured = super.isAllConfigured(context);
 
+        if ((this._connectionType == 1) || (this._connectionType == 3)) {
+            allConfigured = allConfigured &&
+                    (ApplicationPreferences.applicationEventWifiEnableScanning ||
+                     ApplicationPreferences.applicationEventWifiDisabledScannigByProfile);
+        }
+
         if (Build.VERSION.SDK_INT >= 29)
             allConfigured = allConfigured && GlobalUtils.isLocationEnabled(context.getApplicationContext());
 

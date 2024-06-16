@@ -474,6 +474,12 @@ class EventPreferencesBluetooth extends EventPreferences {
     {
         boolean allConfigured = super.isAllConfigured(context);
 
+        if ((this._connectionType == 1) || (this._connectionType == 3)) {
+            allConfigured = allConfigured &&
+                    (ApplicationPreferences.applicationEventBluetoothEnableScanning ||
+                     ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile);
+        }
+
         if (Build.VERSION.SDK_INT >= 29) {
             if ((this._connectionType == 1) || (this._connectionType == 3))
                 allConfigured = allConfigured && GlobalUtils.isLocationEnabled(context.getApplicationContext());

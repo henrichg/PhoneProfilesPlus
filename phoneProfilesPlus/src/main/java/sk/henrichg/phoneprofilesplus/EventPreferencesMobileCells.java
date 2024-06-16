@@ -419,6 +419,10 @@ class EventPreferencesMobileCells extends EventPreferences {
     {
         boolean allConfigured = super.isAllConfigured(context);
 
+        allConfigured = allConfigured &&
+                (ApplicationPreferences.applicationEventMobileCellEnableScanning ||
+                 ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile);
+
         if (Build.VERSION.SDK_INT >= 28) {
             allConfigured = allConfigured && GlobalUtils.isLocationEnabled(context.getApplicationContext());
         }

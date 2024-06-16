@@ -200,15 +200,33 @@ class EventPreferencesLocation extends EventPreferences {
         if (key.equals(PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
+                int titleColor;
                 String summary = context.getString(R.string.phone_profiles_pref_eventLocationSystemSettings_summary);
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                             summary;
+                    titleColor = ContextCompat.getColor(context, R.color.error_color);
                 }
                 else {
                     summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+
                             summary;
+                    titleColor = 0;
                 }
+                CharSequence sTitle = preference.getTitle();
+                int titleLenght = 0;
+                if (sTitle != null)
+                    titleLenght = sTitle.length();
+                Spannable sbt = new SpannableString(sTitle);
+                Object[] spansToRemove = sbt.getSpans(0, titleLenght, Object.class);
+                for(Object span: spansToRemove){
+                    if(span instanceof CharacterStyle)
+                        sbt.removeSpan(span);
+                }
+                if (preferences.getBoolean(PREF_EVENT_LOCATION_ENABLED, false)) {
+                    if (titleColor != 0)
+                        sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+                preference.setTitle(sbt);
                 preference.setSummary(summary);
             }
         }
@@ -302,6 +320,20 @@ class EventPreferencesLocation extends EventPreferences {
         runnable = runnable && (!_geofences.isEmpty());
 
         return runnable;
+    }
+
+    @Override
+    boolean isAllConfigured(Context context)
+    {
+        boolean allConfigured = super.isAllConfigured(context);
+
+        allConfigured = allConfigured &&
+                (ApplicationPreferences.applicationEventLocationEnableScanning ||
+                        ApplicationPreferences.applicationEventLocationDisabledScannigByProfile);
+
+        allConfigured = allConfigured && GlobalUtils.isLocationEnabled(context.getApplicationContext());
+
+        return allConfigured;
     }
 
     @Override

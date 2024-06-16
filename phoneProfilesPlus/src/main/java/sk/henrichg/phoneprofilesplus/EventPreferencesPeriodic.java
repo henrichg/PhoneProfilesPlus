@@ -297,6 +297,18 @@ class EventPreferencesPeriodic extends EventPreferences {
     }
 
     @Override
+    boolean isAllConfigured(Context context)
+    {
+        boolean allConfigured = super.isAllConfigured(context);
+
+        allConfigured = allConfigured &&
+                (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning ||
+                        ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile);
+
+        return allConfigured;
+    }
+
+    @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         super.checkPreferences(prefMng, onlyCategory, context);
         SharedPreferences preferences = prefMng.getSharedPreferences();
