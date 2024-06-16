@@ -234,7 +234,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 //noinspection deprecation
-                                getActivity().startActivityForResult(intent, PhoneProfilesPrefsFragment.RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
+                                getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
                                 PPApplicationStatic.recordException(e);
