@@ -446,6 +446,7 @@ class EventPreferencesOrientation extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesOrientation.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesOrientation.isRunnable(context.getApplicationContext());
+        //boolean isAllConfigured = event._eventPreferencesOrientation.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_ORIENTATION_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISPLAY);
         if (preference != null) {
@@ -644,7 +645,7 @@ class EventPreferencesOrientation extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_CATEGORY);
             if (preference != null) {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_ORIENTATION_ENABLED, false);
-                boolean runnable = tmp.isRunnable(context) &&
+                boolean runnable = tmp.isRunnable(context) && tmp.isAllConfigured(context) &&
                         (tmp.isAccessibilityServiceEnabled(context, false) == 1) &&
                         (PPApplication.accessibilityServiceForPPPExtenderConnected == 1);
                 boolean permissionGranted = true;
@@ -703,7 +704,8 @@ class EventPreferencesOrientation extends EventPreferences {
             return -2;
         if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3)
             return -1;
-        if ((_event.getStatus() != Event.ESTATUS_STOP) && (_event.getStatus() != Event.ESTATUS_STOP) && this._enabled && isRunnable(context)) {
+        if ((_event.getStatus() != Event.ESTATUS_STOP) && (_event.getStatus() != Event.ESTATUS_STOP) && this._enabled &&
+                isRunnable(context) && isAllConfigured(context)) {
             if (PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
                         /*, "EventPreferencesOrientation.isAccessibilityServiceEnabled"*/))
                 return 1;

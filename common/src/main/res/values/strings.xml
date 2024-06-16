@@ -2219,6 +2219,8 @@
 
     <string name="downloading_file_description">File will be stored into Downloads directory</string>
 
+    <string name="event_preferences_not_all_parameters_are_configured">Some parameters are not configured!</string>
+    <string name="event_preferences_not_all_parameters_are_configured_summary">These parameters must be configured for proper event functionality.</string>
 
     <!-- **************************************************************************************** -->
 

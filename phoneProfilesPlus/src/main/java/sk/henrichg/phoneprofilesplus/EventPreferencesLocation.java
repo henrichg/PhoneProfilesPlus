@@ -223,6 +223,7 @@ class EventPreferencesLocation extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesLocation.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesLocation.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesLocation.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_LOCATION_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCES);
         if (preference != null) {
@@ -275,7 +276,7 @@ class EventPreferencesLocation extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_LOCATION_SCANNER).isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && tmp.isAllConfigured(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
                 else

@@ -375,6 +375,7 @@ class EventPreferencesNotification extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesNotification.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesNotification.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesNotification.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
         SwitchPreferenceCompat switchPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
         if (switchPreference != null) {
@@ -488,7 +489,7 @@ class EventPreferencesNotification extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_NOTIFICATION).isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && tmp.isAllConfigured(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
                 else
@@ -628,7 +629,7 @@ class EventPreferencesNotification extends EventPreferences {
 
         removeAlarm(context);
 
-        if (!(isRunnable(context) && _enabled))
+        if (!(isRunnable(context) && isAllConfigured(context) && _enabled))
             return;
 
         setAlarm(computeAlarm(context), context);

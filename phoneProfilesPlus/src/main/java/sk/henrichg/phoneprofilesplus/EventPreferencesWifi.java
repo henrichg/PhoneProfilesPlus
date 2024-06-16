@@ -13,6 +13,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
@@ -305,6 +306,7 @@ class EventPreferencesWifi extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesWifi.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesWifi.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesWifi.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_WIFI_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_SSID);
         if (preference != null) {
@@ -372,7 +374,7 @@ class EventPreferencesWifi extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_WIFI_SCANNER).isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && tmp.isAllConfigured(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
                 else
@@ -393,6 +395,17 @@ class EventPreferencesWifi extends EventPreferences {
     boolean isRunnable(Context context)
     {
         return super.isRunnable(context) && (!this._SSID.isEmpty());
+    }
+
+    @Override
+    boolean isAllConfigured(Context context)
+    {
+        boolean allConfigured = super.isAllConfigured(context);
+
+        if (Build.VERSION.SDK_INT >= 29)
+            allConfigured = allConfigured && GlobalUtils.isLocationEnabled(context.getApplicationContext());
+
+        return allConfigured;
     }
 
     @Override

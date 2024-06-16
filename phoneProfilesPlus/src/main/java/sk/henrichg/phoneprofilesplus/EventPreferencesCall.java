@@ -369,6 +369,7 @@ class EventPreferencesCall extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesCall.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesCall.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesCall.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACT_GROUPS);
         if (preference != null) {
@@ -470,7 +471,7 @@ class EventPreferencesCall extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_CALL_CATEGORY);
             if (preference != null) {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);
-                boolean runnable = tmp.isRunnable(context) &&
+                boolean runnable = tmp.isRunnable(context) && tmp.isAllConfigured(context) &&
                         (tmp.isAccessibilityServiceEnabled(context, false) == 1) &&
                         (PPApplication.accessibilityServiceForPPPExtenderConnected == 1);
                 boolean permissionGranted = true;
@@ -511,7 +512,8 @@ class EventPreferencesCall extends EventPreferences {
             return -2;
         if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3)
             return -1;
-        if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled && isRunnable(context)) {
+        if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled &&
+                isRunnable(context) && isAllConfigured(context)) {
             if (PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
                             /*, "EventPreferencesCall.isAccessibilityServiceEnabled"*/))
                 return 1;
@@ -615,7 +617,7 @@ class EventPreferencesCall extends EventPreferences {
 
         removeRunAfterCallEndAlarm(context);
 
-        if (!(isRunnable(context) && _enabled))
+        if (!(isRunnable(context) && isAllConfigured(context) && _enabled))
             return;
 
         if ((_callEvent == CALL_EVENT_MISSED_CALL) ||

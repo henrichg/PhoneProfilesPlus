@@ -662,7 +662,7 @@ class Event {
     boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
         Context appContext = context.getApplicationContext();
 
-        boolean runnable = true; //(this._fkProfileStart != 0) && (this._fkProfileEnd != 0);
+        boolean runnable = true;
         if (checkSomeSensorEnabled) {
             boolean someEnabled = isEnabledSomeSensor(appContext);
             if (!someEnabled)
@@ -722,6 +722,71 @@ class Event {
             runnable = runnable && this._eventPreferencesMusic.isRunnable(appContext);
 
         return runnable;
+    }
+
+    boolean isAllConfigured(Context context, boolean checkSomeSensorEnabled) {
+        Context appContext = context.getApplicationContext();
+
+        boolean isAllConfigured = true;
+        if (checkSomeSensorEnabled) {
+            boolean someEnabled = isEnabledSomeSensor(appContext);
+            if (!someEnabled)
+                isAllConfigured = false;
+        }
+        if (this._eventPreferencesTime._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesTime.isAllConfigured(appContext);
+        if (this._eventPreferencesBattery._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesBattery.isAllConfigured(appContext);
+        if (this._eventPreferencesCall._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesCall.isAllConfigured(appContext);
+        if (this._eventPreferencesAccessories._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesAccessories.isAllConfigured(appContext);
+        if (this._eventPreferencesCalendar._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesCalendar.isAllConfigured(appContext);
+        if (this._eventPreferencesWifi._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesWifi.isAllConfigured(appContext);
+        if (this._eventPreferencesScreen._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesScreen.isAllConfigured(appContext);
+        if (this._eventPreferencesBrightness._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesBrightness.isAllConfigured(appContext);
+        if (this._eventPreferencesBluetooth._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesBluetooth.isAllConfigured(appContext);
+        if (this._eventPreferencesSMS._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesSMS.isAllConfigured(appContext);
+        if (this._eventPreferencesNotification._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesNotification.isAllConfigured(appContext);
+        if (this._eventPreferencesApplication._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesApplication.isAllConfigured(appContext);
+        if (this._eventPreferencesLocation._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesLocation.isAllConfigured(appContext);
+        if (this._eventPreferencesOrientation._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesOrientation.isAllConfigured(appContext);
+        if (this._eventPreferencesMobileCells._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesMobileCells.isAllConfigured(appContext);
+        if (this._eventPreferencesNFC._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesNFC.isAllConfigured(appContext);
+        if (this._eventPreferencesRadioSwitch._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesRadioSwitch.isAllConfigured(appContext);
+        if (this._eventPreferencesAlarmClock._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesAlarmClock.isAllConfigured(appContext);
+        if (this._eventPreferencesDeviceBoot._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesDeviceBoot.isAllConfigured(appContext);
+        if (this._eventPreferencesSoundProfile._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesSoundProfile.isAllConfigured(appContext);
+        if (this._eventPreferencesPeriodic._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesPeriodic.isAllConfigured(appContext);
+        if (this._eventPreferencesVolumes._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesVolumes.isAllConfigured(appContext);
+        if (this._eventPreferencesActivatedProfile._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesActivatedProfile.isAllConfigured(appContext);
+        if (this._eventPreferencesRoaming._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesRoaming.isAllConfigured(appContext);
+        if (this._eventPreferencesVPN._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesVPN.isAllConfigured(appContext);
+        if (this._eventPreferencesMusic._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesMusic.isAllConfigured(appContext);
+
+        return isAllConfigured;
     }
 
     int isAccessibilityServiceEnabled(Context context, boolean checkSomeSensorEnabled, boolean againCheckInDelay) {
@@ -940,7 +1005,7 @@ class Event {
         this._eventPreferencesVPN.saveSharedPreferences(preferences);
         this._eventPreferencesMusic.saveSharedPreferences(preferences);
 
-        if (!this.isRunnable(context, true))
+        if (!(this.isRunnable(context, true) && this.isAllConfigured(context, true)))
             this._status = ESTATUS_STOP;
     }
 
@@ -1832,7 +1897,7 @@ class Event {
             // events are globally stopped
             return;
 
-        if (!this.isRunnable(dataWrapper.context, true)) {
+        if (!(this.isRunnable(dataWrapper.context, true) && this.isAllConfigured(dataWrapper.context, true))) {
             // event is not runnable, no start it
             return;
         }
@@ -2261,7 +2326,7 @@ class Event {
             // events are globally stopped
             return;
 
-        if (!this.isRunnable(dataWrapper.context, true))
+        if (!(this.isRunnable(dataWrapper.context, true) && this.isAllConfigured(dataWrapper.context, true)))
             // event is not runnable, no pause it
             return;
 
@@ -2575,7 +2640,7 @@ class Event {
             // events are globally stopped
             return;
 
-        if (!this.isRunnable(dataWrapper.context, true))
+        if (!(this.isRunnable(dataWrapper.context, true) && this.isAllConfigured(dataWrapper.context, true)))
             // event is not runnable, no pause it
             return;
 
@@ -2794,7 +2859,7 @@ class Event {
             // events are globally stopped
             return;
 
-        if (!this.isRunnable(dataWrapper.context, true))
+        if (!(this.isRunnable(dataWrapper.context, true) && this.isAllConfigured(dataWrapper.context, true)))
             // event is not runnable, no pause it
             return;
 

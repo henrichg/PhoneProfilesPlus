@@ -201,6 +201,7 @@ class EventPreferencesApplication extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesApplication.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesApplication.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesApplication.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_APPLICATION_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
         if (preference != null) {
@@ -287,7 +288,7 @@ class EventPreferencesApplication extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_CATEGORY);
             if (preference != null) {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_APPLICATION_ENABLED, false);
-                boolean runnable = tmp.isRunnable(context) &&
+                boolean runnable = tmp.isRunnable(context) && tmp.isAllConfigured(context) &&
                         (tmp.isAccessibilityServiceEnabled(context, false) == 1) &&
                         (PPApplication.accessibilityServiceForPPPExtenderConnected == 1);
                 boolean permissionGranted = true;
@@ -328,7 +329,7 @@ class EventPreferencesApplication extends EventPreferences {
             return -2;
         if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3)
             return -1;
-        if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled && isRunnable(context)) {
+        if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled && isRunnable(context) && isAllConfigured(context)) {
             if (PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
                         /*, "EventPreferencesApplication.isAccessibilityServiceEnabled"*/))
                 return 1;
@@ -408,7 +409,7 @@ class EventPreferencesApplication extends EventPreferences {
 
         removeAlarm(context);
 
-        if (!(isRunnable(context) && _enabled))
+        if (!(isRunnable(context) && isAllConfigured(context) && _enabled))
             return;
 
         setAlarm(computeAlarm(), context);

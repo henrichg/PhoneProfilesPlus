@@ -375,6 +375,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesBluetooth.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesBluetooth.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesBluetooth.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_BLUETOOTH_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
         if (preference != null) {
@@ -445,7 +446,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER).isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && tmp.isAllConfigured(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
                 else
@@ -466,6 +467,19 @@ class EventPreferencesBluetooth extends EventPreferences {
     boolean isRunnable(Context context)
     {
         return super.isRunnable(context) && (!this._adapterName.isEmpty());
+    }
+
+    @Override
+    boolean isAllConfigured(Context context)
+    {
+        boolean allConfigured = super.isAllConfigured(context);
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            if ((this._connectionType == 1) || (this._connectionType == 3))
+                allConfigured = allConfigured && GlobalUtils.isLocationEnabled(context.getApplicationContext());
+        }
+
+        return allConfigured;
     }
 
     @Override

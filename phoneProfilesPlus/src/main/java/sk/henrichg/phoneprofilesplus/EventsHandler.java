@@ -350,7 +350,8 @@ class EventsHandler {
                 // search for calendar events
                 for (Event _event : dataWrapper.eventList) {
                     if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
-                        if (_event._eventPreferencesCalendar.isRunnable(context)) {
+                        if (_event._eventPreferencesCalendar.isRunnable(context) &&
+                            _event._eventPreferencesCalendar.isAllConfigured(context)) {
                             _event._eventPreferencesCalendar.saveCalendarEventExists(dataWrapper);
                             _event._eventPreferencesCalendar.saveStartEndTime(dataWrapper);
                         }

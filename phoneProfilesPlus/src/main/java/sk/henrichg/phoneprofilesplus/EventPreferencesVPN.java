@@ -97,6 +97,7 @@ class EventPreferencesVPN extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesVPN.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesVPN.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesVPN.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_VPN_ENABLED, false);
         PPListPreference preference = prefMng.findPreference(PREF_EVENT_VPN_CONNECTION_STATUS);
         if (preference != null) {
@@ -140,7 +141,8 @@ class EventPreferencesVPN extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_VPN_CATEGORY);
             if (preference != null) {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_ROAMING_ENABLED, false);
-                boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context, false) == 1);
+                boolean runnable = tmp.isRunnable(context) && tmp.isAllConfigured(context) &&
+                        (tmp.isAccessibilityServiceEnabled(context, false) == 1);
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_VPN).isEmpty();

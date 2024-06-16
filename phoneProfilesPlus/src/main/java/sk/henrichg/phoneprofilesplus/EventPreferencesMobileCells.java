@@ -330,6 +330,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesMobileCells.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesMobileCells.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesMobileCells.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CELL_NAMES);
         if (preference != null) {
@@ -385,7 +386,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_MOBILE_CELLS).isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && tmp.isAllConfigured(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
                 else
@@ -412,6 +413,19 @@ class EventPreferencesMobileCells extends EventPreferences {
 
         return runnable;
     }
+
+    @Override
+    boolean isAllConfigured(Context context)
+    {
+        boolean allConfigured = super.isAllConfigured(context);
+
+        if (Build.VERSION.SDK_INT >= 28) {
+            allConfigured = allConfigured && GlobalUtils.isLocationEnabled(context.getApplicationContext());
+        }
+
+        return allConfigured;
+    }
+
 
     @Override
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {

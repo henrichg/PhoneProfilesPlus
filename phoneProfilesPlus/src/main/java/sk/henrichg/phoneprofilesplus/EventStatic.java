@@ -684,7 +684,8 @@ class EventStatic {
         }*/
         boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false, againCheckInDelay) == 1;
 
-        boolean eventIsRunnable = event.isRunnable(appContext, false);
+        boolean eventIsRunnable = event.isRunnable(appContext, false) &&
+                                    event.isAllConfigured(appContext, false);
 
         return ((!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable));
     }

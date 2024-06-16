@@ -449,6 +449,7 @@ class EventPreferencesTime extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesTime.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesTime.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesTime.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_TIME_DAYS);
         if (preference != null) {
@@ -507,7 +508,7 @@ class EventPreferencesTime extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_TIME).isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && tmp.isAllConfigured(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
                 else
@@ -982,7 +983,7 @@ class EventPreferencesTime extends EventPreferences {
         //removeAlarm(true, _context);
         removeAlarm(/*false, */context);
 
-        if (!(isRunnable(context) && _enabled))
+        if (!(isRunnable(context) && isAllConfigured(context) && _enabled))
             return;
 
         long alarmTime = computeAlarm(true/*, context*/);
@@ -1005,7 +1006,7 @@ class EventPreferencesTime extends EventPreferences {
         //removeAlarm(true, _context);
         removeAlarm(/*false, */context);
 
-        if (!(isRunnable(context) && _enabled))
+        if (!(isRunnable(context) && isAllConfigured(context) && _enabled))
             return;
 
         long alarmTime = computeAlarm(false/*, context*/);

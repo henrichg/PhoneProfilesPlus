@@ -65,6 +65,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
     private static final String PREF_GRANT_PERMISSIONS = "eventGrantPermissions";
     private static final String PREF_NOT_IS_RUNNABLE = "eventNotIsRunnable";
+    private static final String PREF_NOT_IS_ALL_CONFIGURED = "eventNotIsAllConfigured";
     private static final String PREF_NOT_ENABLED_SOME_SENSOR = "eventNotEnabledSomeSensors";
     private static final String PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "eventNotEnabledAccessibilityService";
     private static final String PREF_EVENT_SENSORS_INFO = "eventSensorsInfo";
@@ -2280,6 +2281,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         boolean isEnabledSomeSensor;
         ArrayList<PermissionType> eventPermissions;
         boolean eventIsRunnable;
+        boolean eventIsAllConfigured;
         int accessibilityEnabled;
 
         private final WeakReference<PreferenceManager> prefMngWeakRef;
@@ -2314,6 +2316,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     eventPermissions = Permissions.checkEventPermissions(context, event, null, EventsHandler.SENSOR_TYPE_ALL);
                     accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false, false);
                     eventIsRunnable = event.isRunnable(context, false);
+                    eventIsAllConfigured = event.isAllConfigured(context, false);
                 }
             }
 
@@ -2518,9 +2521,52 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             preference.setSummary(summary);
                         }
                     }
+
+                    // not is configures some parameter
+                    if (eventIsAllConfigured) {
+                        preference = prefMng.findPreference(PREF_NOT_IS_ALL_CONFIGURED);
+                        if (preference != null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null)
+                                preferenceCategory.removePreference(preference);
+                        }
+                    }
+                    else {
+                        preference = prefMng.findPreference(PREF_NOT_IS_ALL_CONFIGURED);
+                        if (preference == null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null) {
+                                preference = new ExclamationPreference(context);
+                                preference.setKey(PREF_NOT_IS_ALL_CONFIGURED);
+                                preference.setIconSpaceReserved(false);
+                                preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                                preference.setOrder(-100);
+                                preferenceCategory.addPreference(preference);
+                            }
+                        }
+                        if (preference != null) {
+                            String _title = order + ". " + context.getString(R.string.event_preferences_not_all_parameters_are_configured);
+                            ++order;
+                            Spannable title = new SpannableString(_title);
+                            title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
+                            preference.setTitle(title);
+                            _title = context.getString(R.string.event_preferences_not_all_parameters_are_configured_summary) + " " +
+                                    //context.getString(R.string.event_preferences_red_sensors_summary) + " " +
+                                    context.getString(R.string.event_preferences_sensor_parameters_location_summary);
+                            Spannable summary = new SpannableString(_title);
+                            summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
+                            preference.setSummary(summary);
+                        }
+                    }
                 }
                 else {
                     Preference preference = prefMng.findPreference(PREF_NOT_IS_RUNNABLE);
+                    if (preference != null) {
+                        PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                        if (preferenceCategory != null)
+                            preferenceCategory.removePreference(preference);
+                    }
+                    preference = prefMng.findPreference(PREF_NOT_IS_ALL_CONFIGURED);
                     if (preference != null) {
                         PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
                         if (preferenceCategory != null)

@@ -137,6 +137,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesActivatedProfile.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesActivatedProfile.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesActivatedProfile.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false);
         ProfilePreference preference = prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_START_PROFILE);
         if (preference != null) {
@@ -189,7 +190,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_ACTIVATED_PROFILE).isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && tmp.isAllConfigured(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
                 else

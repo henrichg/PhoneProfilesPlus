@@ -382,6 +382,7 @@ class EventPreferencesCalendar extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesCalendar.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesCalendar.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesCalendar.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_CALENDAR_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CALENDARS);
         if (preference != null) {
@@ -475,7 +476,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_CALENDAR).isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && tmp.isAllConfigured(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
                 else
@@ -563,7 +564,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
         //searchEvent(context);
 
-        if (!(isRunnable(context) && _enabled))
+        if (!(isRunnable(context) && isAllConfigured(context) && _enabled))
             return;
 
         setAlarm(/*true,*/ 0, context, true);
@@ -587,7 +588,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
         //searchEvent(context);
 
-        if (!(isRunnable(context) && _enabled))
+        if (!(isRunnable(context) && isAllConfigured(context) && _enabled))
             return;
 
         setAlarm(/*false,*/ 0, context, true);
