@@ -94,6 +94,7 @@ class EventPreferencesWifi extends EventPreferences {
                     _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
+                boolean locationErrorDisplayed = false;
                 if ((this._connectionType == 1) || (this._connectionType == 3)) {
                     if (!ApplicationPreferences.applicationEventWifiEnableScanning) {
                         if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile)
@@ -102,6 +103,7 @@ class EventPreferencesWifi extends EventPreferences {
                             _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile)).append(StringConstants.TAG_BREAK_HTML);
                     } else if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                         _value.append("* ").append(context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary)).append("! *").append(StringConstants.TAG_BREAK_HTML);
+                        locationErrorDisplayed = true;
                     } else {
                         boolean scanningPaused = ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("2") &&
                                 GlobalUtils.isNowTimeBetweenTimes(
@@ -112,8 +114,8 @@ class EventPreferencesWifi extends EventPreferences {
                         }
                     }
                 }
-                else if (Build.VERSION.SDK_INT >= 29) {
-                    if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
+                if (Build.VERSION.SDK_INT >= 29) {
+                    if ((!locationErrorDisplayed) && (!GlobalUtils.isLocationEnabled(context.getApplicationContext()))) {
                         _value.append("* ").append(context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary)).append("! *").append(StringConstants.TAG_BREAK_HTML);
                     }
                 }
@@ -235,10 +237,12 @@ class EventPreferencesWifi extends EventPreferences {
                 preference.setSummary(summary);
             }
         }
-        if (key.equals(PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS)) {
-            Preference preference = prefMng.findPreference(key);
+        if (key.equals(PREF_EVENT_WIFI_ENABLED) ||
+            key.equals(PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS)) {
+            Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS);
             if (preference != null) {
                 String summary;
+                int titleColor;
                 if (Build.VERSION.SDK_INT < 29)
                     summary = context.getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary);
                 else
@@ -246,11 +250,28 @@ class EventPreferencesWifi extends EventPreferences {
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE+
                             summary;
+                    titleColor = ContextCompat.getColor(context, R.color.error_color);
                 }
                 else {
                     summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+
                             summary;
+                    titleColor = 0;
                 }
+                CharSequence sTitle = preference.getTitle();
+                int titleLenght = 0;
+                if (sTitle != null)
+                    titleLenght = sTitle.length();
+                Spannable sbt = new SpannableString(sTitle);
+                Object[] spansToRemove = sbt.getSpans(0, titleLenght, Object.class);
+                for(Object span: spansToRemove){
+                    if(span instanceof CharacterStyle)
+                        sbt.removeSpan(span);
+                }
+                if (preferences.getBoolean(PREF_EVENT_WIFI_ENABLED, false)) {
+                    if (titleColor != 0)
+                        sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+                preference.setTitle(sbt);
                 preference.setSummary(summary);
             }
         }

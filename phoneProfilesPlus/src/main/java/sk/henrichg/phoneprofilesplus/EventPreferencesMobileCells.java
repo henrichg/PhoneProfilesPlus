@@ -94,6 +94,7 @@ class EventPreferencesMobileCells extends EventPreferences {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
             {
+                boolean locationErrorDisplayed = false;
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
 //                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesMobileCells.getPreferencesDescription", "******** ### *******");
                     if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile)
@@ -107,6 +108,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                         _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary)).append(".").append(StringConstants.TAG_BREAK_HTML);
                     else
                         _value.append("* ").append(context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary)).append("! *").append(StringConstants.TAG_BREAK_HTML);
+                    locationErrorDisplayed = true;
                 } else {
                     boolean scanningPaused = ApplicationPreferences.applicationEventMobileCellScanInTimeMultiply.equals("2") &&
                             GlobalUtils.isNowTimeBetweenTimes(
@@ -114,6 +116,11 @@ class EventPreferencesMobileCells extends EventPreferences {
                                     ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyTo);
                     if (scanningPaused) {
                         _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused)).append(StringConstants.TAG_BREAK_HTML);
+                    }
+                }
+                if (Build.VERSION.SDK_INT >= 28) {
+                    if ((!locationErrorDisplayed) && (!GlobalUtils.isLocationEnabled(context.getApplicationContext()))) {
+                        _value.append("* ").append(context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary)).append("! *").append(StringConstants.TAG_BREAK_HTML);
                     }
                 }
 
@@ -216,24 +223,46 @@ class EventPreferencesMobileCells extends EventPreferences {
                 preference.setSummary(summary);
             }
         }
-        if (key.equals(PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS)) {
-            Preference preference = prefMng.findPreference(key);
+        if (key.equals(PREF_EVENT_MOBILE_CELLS_ENABLED) ||
+            key.equals(PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS)) {
+            Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
             if (preference != null) {
                 String summary;
+                int titleColor;
                 if (Build.VERSION.SDK_INT < 28)
                     summary = context.getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary);
                 else
                     summary = context.getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary);
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
-                    if (Build.VERSION.SDK_INT < 28)
+                    if (Build.VERSION.SDK_INT < 28) {
                         summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT + summary;
-                    else
-                        summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE + summary;
+                        titleColor = 0;
+                    }
+                    else {
+                        summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *" + StringConstants.STR_DOUBLE_NEWLINE + summary;
+                        titleColor = ContextCompat.getColor(context, R.color.error_color);
+                    }
                 }
                 else {
                     summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+
                             summary;
+                    titleColor = 0;
                 }
+                CharSequence sTitle = preference.getTitle();
+                int titleLenght = 0;
+                if (sTitle != null)
+                    titleLenght = sTitle.length();
+                Spannable sbt = new SpannableString(sTitle);
+                Object[] spansToRemove = sbt.getSpans(0, titleLenght, Object.class);
+                for(Object span: spansToRemove){
+                    if(span instanceof CharacterStyle)
+                        sbt.removeSpan(span);
+                }
+                if (preferences.getBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
+                    if (titleColor != 0)
+                        sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+                preference.setTitle(sbt);
                 preference.setSummary(summary);
             }
         }

@@ -99,6 +99,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                     _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
+                boolean locationErrorDisplayed = false;
                 if ((this._connectionType == 1) || (this._connectionType == 3)) {
                     if (!ApplicationPreferences.applicationEventBluetoothEnableScanning) {
                         if (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile)
@@ -107,6 +108,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                             _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile)).append(StringConstants.TAG_BREAK_HTML);
                     } else if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                         _value.append("* ").append(context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary)).append("! *").append(StringConstants.TAG_BREAK_HTML);
+                        locationErrorDisplayed = true;
                     } else {
                         boolean scanningPaused = ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2") &&
                                 GlobalUtils.isNowTimeBetweenTimes(
@@ -114,6 +116,11 @@ class EventPreferencesBluetooth extends EventPreferences {
                                         ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo);
                         if (scanningPaused) {
                             _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused)).append(StringConstants.TAG_BREAK_HTML);
+                        }
+                    }
+                    if (Build.VERSION.SDK_INT >= 29) {
+                        if ((!locationErrorDisplayed) && (!GlobalUtils.isLocationEnabled(context.getApplicationContext()))) {
+                            _value.append("* ").append(context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary)).append("! *").append(StringConstants.TAG_BREAK_HTML);
                         }
                     }
                 }
@@ -255,22 +262,44 @@ class EventPreferencesBluetooth extends EventPreferences {
                 preference.setSummary(summary);
             }
         }
-        if (key.equals(PREF_EVENT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS)) {
-            Preference preference = prefMng.findPreference(key);
+        if (key.equals(PREF_EVENT_BLUETOOTH_ENABLED) ||
+            key.equals(PREF_EVENT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS)) {
+            Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
             if (preference != null) {
                 String summary = context.getString(R.string.phone_profiles_pref_eventBluetoothLocationSystemSettings_summary);
+                int titleColor;
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     int connectionType = Integer.parseInt(preferences.getString(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "1"));
-                    if ((connectionType == 1) || (connectionType == 3))
+                    if ((connectionType == 1) || (connectionType == 3)) {
                         summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *" + StringConstants.STR_DOUBLE_NEWLINE +
                                 summary;
-                    else
+                        titleColor = ContextCompat.getColor(context, R.color.error_color);
+                    }
+                    else {
                         summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + StringConstants.STR_DOUBLE_NEWLINE +
                                 summary;
+                        titleColor = 0;
+                    }
                 } else {
                     summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                             summary;
+                    titleColor = 0;
                 }
+                CharSequence sTitle = preference.getTitle();
+                int titleLenght = 0;
+                if (sTitle != null)
+                    titleLenght = sTitle.length();
+                Spannable sbt = new SpannableString(sTitle);
+                Object[] spansToRemove = sbt.getSpans(0, titleLenght, Object.class);
+                for(Object span: spansToRemove){
+                    if(span instanceof CharacterStyle)
+                        sbt.removeSpan(span);
+                }
+                if (preferences.getBoolean(PREF_EVENT_BLUETOOTH_ENABLED, false)) {
+                    if (titleColor != 0)
+                        sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+                preference.setTitle(sbt);
                 preference.setSummary(summary);
             }
         }
