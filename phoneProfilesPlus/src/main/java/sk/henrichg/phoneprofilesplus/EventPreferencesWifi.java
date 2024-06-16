@@ -13,7 +13,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;

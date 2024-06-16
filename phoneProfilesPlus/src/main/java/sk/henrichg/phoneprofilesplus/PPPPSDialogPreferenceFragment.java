@@ -269,7 +269,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         dialogBuilder.setTitle(activity.getString(R.string.install_pppps_dialog_title));
 
         LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_install_pppps, null);
+        View layout = inflater.inflate(R.layout.dialog_install_pppps_34, null);
         dialogBuilder.setView(layout);
 
         String dialogText = "";

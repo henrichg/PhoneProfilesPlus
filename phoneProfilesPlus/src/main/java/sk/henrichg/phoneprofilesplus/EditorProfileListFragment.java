@@ -141,6 +141,7 @@ public class EditorProfileListFragment extends Fragment
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
         //loadAsyncTask = new LoadProfileListAsyncTask(this, filterType);
 
+        //noinspection deprecation
         setHasOptionsMenu(true);
 
     }
