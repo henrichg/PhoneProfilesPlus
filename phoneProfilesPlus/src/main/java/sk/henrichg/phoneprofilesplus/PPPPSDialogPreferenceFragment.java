@@ -460,7 +460,14 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 activity.finish();
         });*/
 
-        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+        dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+            if (finishActivity)
+                activity.finish();
+        });
+        /*dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+            if (finishActivity)
+                activity.finish();
+        });*/
 
         final AlertDialog dialog = dialogBuilder.create();
 
