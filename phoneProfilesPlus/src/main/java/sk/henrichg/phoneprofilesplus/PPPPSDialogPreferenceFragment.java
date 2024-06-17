@@ -160,7 +160,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
             // DownloadManager not working in Huawei P40
             // https://stackoverflow.com/questions/44093939/how-to-use-downloadmanager-on-huawei
-            if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+            //if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -177,30 +177,41 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                     if (finishActivity)
                         activity.finish();
                 }
-            }
+            /*}
             else {
-                String textToast = activity.getString(R.string.downloading_toast_text);
-                PPApplication.showToast(activity.getApplicationContext(), textToast, Toast.LENGTH_LONG);
+                try {
+                    String textToast = activity.getString(R.string.downloading_toast_text);
+                    PPApplication.showToast(activity.getApplicationContext(), textToast, Toast.LENGTH_LONG);
 
-                Uri Download_Uri = Uri.parse(url);
-                DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+                    Uri Download_Uri = Uri.parse(url);
+                    DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
-                //Restrict the types of networks over which this download may proceed.
-                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-                //Set whether this download may proceed over a roaming connection.
-                request.setAllowedOverRoaming(false);
-                //Set the title of this download, to be displayed in notifications (if enabled).
-                request.setTitle(activity.getString(R.string.download_pppps_title));
-                //Set a description of this download, to be displayed in notifications (if enabled)
-                request.setDescription(activity.getString(R.string.downloading_file_description));
-                //Set the local destination for the downloaded file to a path within the application's external files directory
-                request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PPPPutSettings.apk");
-                //request.allowScanningByMediaScanner();
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                //Enqueue a new download and same the referenceId
-                DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
-                DownloadCompletedBroadcastReceiver.downloadReferencePPPPS = downloadManager.enqueue(request);
-            }
+                    //Restrict the types of networks over which this download may proceed.
+                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                    //Set whether this download may proceed over a roaming connection.
+                    request.setAllowedOverRoaming(false);
+                    //Set the title of this download, to be displayed in notifications (if enabled).
+                    request.setTitle(activity.getString(R.string.download_pppps_title));
+                    //Set a description of this download, to be displayed in notifications (if enabled)
+                    request.setDescription(activity.getString(R.string.downloading_file_description));
+                    //Set the local destination for the downloaded file to a path within the application's external files directory
+                    request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PPPPutSettings.apk");
+                    //request.allowScanningByMediaScanner();
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    //Enqueue a new download and same the referenceId
+                    DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
+                    DownloadCompletedBroadcastReceiver.downloadReferencePPPPS = downloadManager.enqueue(request);
+                    if ((_preference != null) && (_preference.fragment != null))
+                        _preference.fragment.dismiss();
+                    if (finishActivity)
+                        activity.finish();
+                } catch (Exception e) {
+                    if ((_preference != null) && (_preference.fragment != null))
+                        _preference.fragment.dismiss();
+                    if (finishActivity)
+                        activity.finish();
+                }
+            }*/
         });
         //dialogBuilder.setCancelable(false);
         /*dialogBuilder.setOnCancelListener(dialog -> {
@@ -316,37 +327,44 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
             @Override
             public void onClick(@NonNull View textView) {
-                if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+                    // In One UI is bug in ststem downloader. Chrome, as default browser, do not downlaod
+                    // For this reason used is DownloadManager
+                    try {
+                        String text = activity.getString(R.string.downloading_toast_text);
+                        PPApplication.showToast(activity.getApplicationContext(), text, Toast.LENGTH_LONG);
+
+                        String url = PPApplication.INSTALL_WITH_OPTIONS_DOWNLOAD_URL;
+                        Uri Download_Uri = Uri.parse(url);
+                        DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+
+                        //Restrict the types of networks over which this download may proceed.
+                        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                        //Set whether this download may proceed over a roaming connection.
+                        request.setAllowedOverRoaming(false);
+                        //Set the title of this download, to be displayed in notifications (if enabled).
+                        request.setTitle(activity.getString(R.string.download_installWithOptions_title));
+                        //Set a description of this download, to be displayed in notifications (if enabled)
+                        request.setDescription(activity.getString(R.string.downloading_file_description));
+                        //Set the local destination for the downloaded file to a path within the application's external files directory
+                        request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "InstallWithOptions.apk");
+                        //request.allowScanningByMediaScanner();
+                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                        //Enqueue a new download and same the referenceId
+                        DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
+                        DownloadCompletedBroadcastReceiver.downloadReferenceInstallWithOptions = downloadManager.enqueue(request);
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                } else {
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(PPApplication.INSTALL_WITH_OPTIONS_DOWNLOAD_URL));
+                    i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     try {
                         activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
                     }
-                } else {
-                    String text = activity.getString(R.string.downloading_toast_text);
-                    PPApplication.showToast(activity.getApplicationContext(), text, Toast.LENGTH_LONG);
-
-                    String url = PPApplication.INSTALL_WITH_OPTIONS_DOWNLOAD_URL;
-                    Uri Download_Uri = Uri.parse(url);
-                    DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
-
-                    //Restrict the types of networks over which this download may proceed.
-                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-                    //Set whether this download may proceed over a roaming connection.
-                    request.setAllowedOverRoaming(false);
-                    //Set the title of this download, to be displayed in notifications (if enabled).
-                    request.setTitle(activity.getString(R.string.download_installWithOptions_title));
-                    //Set a description of this download, to be displayed in notifications (if enabled)
-                    request.setDescription(activity.getString(R.string.downloading_file_description));
-                    //Set the local destination for the downloaded file to a path within the application's external files directory
-                    request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "InstallWithOptions.apk");
-                    //request.allowScanningByMediaScanner();
-                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                    //Enqueue a new download and same the referenceId
-                    DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
-                    DownloadCompletedBroadcastReceiver.downloadReferenceInstallWithOptions = downloadManager.enqueue(request);
                 }
             }
         };
@@ -373,37 +391,44 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
             @Override
             public void onClick(@NonNull View textView) {
-                if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+                    // In One UI is bug in ststem downloader. Chrome, as default browser, do not downlaod
+                    // For this reason used is DownloadManager
+                    try {
+                        String text = activity.getString(R.string.downloading_toast_text);
+                        PPApplication.showToast(activity.getApplicationContext(), text, Toast.LENGTH_LONG);
+
+                        String url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
+                        Uri Download_Uri = Uri.parse(url);
+                        DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+
+                        //Restrict the types of networks over which this download may proceed.
+                        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                        //Set whether this download may proceed over a roaming connection.
+                        request.setAllowedOverRoaming(false);
+                        //Set the title of this download, to be displayed in notifications (if enabled).
+                        request.setTitle(activity.getString(R.string.download_pppps_title));
+                        //Set a description of this download, to be displayed in notifications (if enabled)
+                        request.setDescription(activity.getString(R.string.downloading_file_description));
+                        //Set the local destination for the downloaded file to a path within the application's external files directory
+                        request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PPPPutSettings.apk");
+                        //request.allowScanningByMediaScanner();
+                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                        //Enqueue a new download and same the referenceId
+                        DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
+                        DownloadCompletedBroadcastReceiver.downloadReferencePPPPS = downloadManager.enqueue(request);
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                } else {
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(PPApplication.GITHUB_PPPPS_DOWNLOAD_URL));
+                    i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     try {
                         activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
                     }
-                } else {
-                    String text = activity.getString(R.string.downloading_toast_text);
-                    PPApplication.showToast(activity.getApplicationContext(), text, Toast.LENGTH_LONG);
-
-                    String url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
-                    Uri Download_Uri = Uri.parse(url);
-                    DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
-
-                    //Restrict the types of networks over which this download may proceed.
-                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-                    //Set whether this download may proceed over a roaming connection.
-                    request.setAllowedOverRoaming(false);
-                    //Set the title of this download, to be displayed in notifications (if enabled).
-                    request.setTitle(activity.getString(R.string.download_pppps_title));
-                    //Set a description of this download, to be displayed in notifications (if enabled)
-                    request.setDescription(activity.getString(R.string.downloading_file_description));
-                    //Set the local destination for the downloaded file to a path within the application's external files directory
-                    request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PPPPutSettings.apk");
-                    //request.allowScanningByMediaScanner();
-                    request. setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                    //Enqueue a new download and same the referenceId
-                    DownloadManager downloadManager = (DownloadManager)activity.getSystemService(Context.DOWNLOAD_SERVICE);
-                    DownloadCompletedBroadcastReceiver.downloadReferencePPPPS = downloadManager.enqueue(request);
                 }
             }
         };
@@ -582,8 +607,8 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         boolean neostoreInstalled = (_intent != null);
 
         if (Build.VERSION.SDK_INT < 34) {
-            // for Android 14+ is required to use adb command for PPPPutSettings installation,
-            // because target sdk is 22.
+            // for Android 14+ is required to use adb command or InstallWithOptions for
+            // PPPPutSettings installation, because target sdk is 22.
 
             if (droidifyInstalled || neostoreInstalled || fdroidInstalled) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);

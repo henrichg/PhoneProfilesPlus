@@ -299,9 +299,10 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
             // DownloadManager not working in Huawei P40
             // https://stackoverflow.com/questions/44093939/how-to-use-downloadmanager-on-huawei
-            if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+            //if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
+                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     if ((_preference != null) && (_preference.fragment != null))
@@ -311,29 +312,37 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     if ((_preference != null) && (_preference.fragment != null))
                         _preference.fragment.dismiss();
                 }
-            } else {
-                String textToast = activity.getString(R.string.downloading_toast_text);
-                PPApplication.showToast(activity.getApplicationContext(), textToast, Toast.LENGTH_LONG);
+            /*} else {
+                try {
+                    String textToast = activity.getString(R.string.downloading_toast_text);
+                    PPApplication.showToast(activity.getApplicationContext(), textToast, Toast.LENGTH_LONG);
 
-                Uri Download_Uri = Uri.parse(url);
-                DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+                    Uri Download_Uri = Uri.parse(url);
+                    DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
-                //Restrict the types of networks over which this download may proceed.
-                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-                //Set whether this download may proceed over a roaming connection.
-                request.setAllowedOverRoaming(false);
-                //Set the title of this download, to be displayed in notifications (if enabled).
-                request.setTitle(activity.getString(R.string.download_PPPE_title));
-                //Set a description of this download, to be displayed in notifications (if enabled)
-                request.setDescription(activity.getString(R.string.downloading_file_description));
-                //Set the local destination for the downloaded file to a path within the application's external files directory
-                request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PhoneProfilesPlusExtender.apk");
-                //request.allowScanningByMediaScanner();
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                //Enqueue a new download and same the referenceId
-                DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
-                DownloadCompletedBroadcastReceiver.downloadReferencePPPE = downloadManager.enqueue(request);
-            }
+                    //Restrict the types of networks over which this download may proceed.
+                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                    //Set whether this download may proceed over a roaming connection.
+                    request.setAllowedOverRoaming(false);
+                    //Set the title of this download, to be displayed in notifications (if enabled).
+                    request.setTitle(activity.getString(R.string.download_PPPE_title));
+                    //Set a description of this download, to be displayed in notifications (if enabled)
+                    request.setDescription(activity.getString(R.string.downloading_file_description));
+                    //Set the local destination for the downloaded file to a path within the application's external files directory
+                    request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PhoneProfilesPlusExtender.apk");
+                    //request.allowScanningByMediaScanner();
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    //Enqueue a new download and same the referenceId
+                    DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
+                    DownloadCompletedBroadcastReceiver.downloadReferencePPPE = downloadManager.enqueue(request);
+                    if ((_preference != null) && (_preference.fragment != null))
+                        _preference.fragment.dismiss();
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                    if ((_preference != null) && (_preference.fragment != null))
+                        _preference.fragment.dismiss();
+                }
+            }*/
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
             if (finishActivity)
