@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -393,27 +394,38 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     url = PPApplication.GITHUB_PPP_DOWNLOAD_URL;
                     //url = PPApplication.GITHUB_PPP_DOWNLOAD_URL_1 + newVersionName + PPApplication.GITHUB_PPP_DOWNLOAD_URL_2;
 
-                    Uri Download_Uri = Uri.parse(url);
-                    DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+                    if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        try {
+                            activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                        activity.finish();
+                    } else {
+                        String textToast = activity.getString(R.string.downloading_toast_text);
+                        PPApplication.showToast(activity.getApplicationContext(), textToast, Toast.LENGTH_LONG);
 
-                    //Restrict the types of networks over which this download may proceed.
-                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-                    //Set whether this download may proceed over a roaming connection.
-                    request.setAllowedOverRoaming(false);
-                    //Set the title of this download, to be displayed in notifications (if enabled).
-                    request.setTitle(activity.getString(R.string.download_PPP_title));
-                    //Set a description of this download, to be displayed in notifications (if enabled)
-                    request.setDescription(activity.getString(R.string.downloading_file_description));
-                    //Set the local destination for the downloaded file to a path within the application's external files directory
-                    request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PhoneProfilesPlus.apk");
+                        Uri Download_Uri = Uri.parse(url);
+                        DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
 
-                    //request.allowScanningByMediaScanner();
-                    request. setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-
-                    //Enqueue a new download and same the referenceId
-                    DownloadManager downloadManager = (DownloadManager)activity.getSystemService(Context.DOWNLOAD_SERVICE);
-                    //long downloadReference =
-                    downloadManager.enqueue(request);
+                        //Restrict the types of networks over which this download may proceed.
+                        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                        //Set whether this download may proceed over a roaming connection.
+                        request.setAllowedOverRoaming(false);
+                        //Set the title of this download, to be displayed in notifications (if enabled).
+                        request.setTitle(activity.getString(R.string.download_PPP_title));
+                        //Set a description of this download, to be displayed in notifications (if enabled)
+                        request.setDescription(activity.getString(R.string.downloading_file_description));
+                        //Set the local destination for the downloaded file to a path within the application's external files directory
+                        request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PhoneProfilesPlus.apk");
+                        //request.allowScanningByMediaScanner();
+                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                        //Enqueue a new download and same the referenceId
+                        DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
+                        DownloadCompletedBroadcastReceiver.downloadReferencePPP = downloadManager.enqueue(request);
+                    }
                 }
                 else {
                     url = PPApplication.GITHUB_PPP_RELEASES_URL;

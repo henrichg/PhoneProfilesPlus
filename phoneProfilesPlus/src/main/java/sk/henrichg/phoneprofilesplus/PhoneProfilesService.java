@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.DownloadManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -246,6 +247,12 @@ public class PhoneProfilesService extends Service
         Shizuku.addBinderReceivedListenerSticky(BINDER_RECEIVED_LISTENER);
         LocalBroadcastManager.getInstance(appContext).registerReceiver(commandReceiver, new IntentFilter(ACTION_COMMAND));
 
+        int downoladReceiverFlags = 0;
+        if (Build.VERSION.SDK_INT >= 34)
+            downoladReceiverFlags = RECEIVER_EXPORTED;  // !!! it must be exported for DownloadManager
+        appContext.registerReceiver(PPApplication.downloadCompletedBroadcastReceiver,
+                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), downoladReceiverFlags);
+
         if (Build.VERSION.SDK_INT < 31) {
             IntentFilter intentFilter5 = new IntentFilter();
             intentFilter5.addAction(PPAppNotification.ACTION_START_LAUNCHER_FROM_NOTIFICATION);
@@ -384,6 +391,10 @@ public class PhoneProfilesService extends Service
         PhoneProfilesServiceStatic.registerAllTheTimeCallbacks(false, appContext);
         PhoneProfilesServiceStatic.registerPPPExtenderReceiver(false, null, appContext);
         PhoneProfilesServiceStatic.unregisterEventsReceiversAndWorkers(true, appContext);
+
+        try {
+            appContext.unregisterReceiver(PPApplication.downloadCompletedBroadcastReceiver);
+        } catch (Exception ignored) {}
 
         if (Build.VERSION.SDK_INT < 31) {
             try {

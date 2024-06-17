@@ -870,6 +870,8 @@ public class PPApplication extends Application
 
     //boolean willBeDoRestartEvents = false;
 
+    static final DownloadCompletedBroadcastReceiver downloadCompletedBroadcastReceiver = new DownloadCompletedBroadcastReceiver();
+
     static final StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
     //static final UpdateGUIBroadcastReceiver updateGUIBroadcastReceiver = new UpdateGUIBroadcastReceiver();
     //static final ShowPPPAppNotificationBroadcastReceiver showPPPAppNotificationBroadcastReceiver = new ShowPPPAppNotificationBroadcastReceiver();
@@ -897,7 +899,6 @@ public class PPApplication extends Application
     static volatile TelephonyManager telephonyManagerSIM1 = null;
     static volatile TelephonyManager telephonyManagerSIM2 = null;
     static volatile TelephonyManager telephonyManagerDefault = null;
-
 
     static volatile RingerModeChangeReceiver ringerModeChangeReceiver = null;
     static volatile WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
