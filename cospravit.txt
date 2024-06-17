@@ -531,6 +531,16 @@ PPExtenderBroadcastReceiver:
 - onReceive() 0 false - kedy volane? - daj true, volane len raz, ked sa nakonektuje Extender
 
 ------------------
+
+Samsung, One UI 6. Problem je download apk cez ACTION_VIEW. Stale zobrazuje Downloading a hotovo.
+Cize tuto mam velky problem. Skus pozriet alebo pouzi DownloadManager. S21. Tych Samsungov je veľa.
+Cize to bude daky bug v Samsung One UI asi.
+Sranda, to iste robi Chrome aj ked priamo v nom otvorim InstallWithOtions releases a dam stiahnut.
+Problém je zjavne v Chrome. Keď dam default Samsung internet, žiaden problém s downloadom nie je.
+Alebo v One UI. Že je tam zlý downloader.
+
+-------------
+
 - Add: Added "Application run duration" into "Application sensor".
 - Add: "Phone calls" parameter for block calls.
 - Add: New senzor "Music sensor" to detect music playing.
@@ -573,20 +583,3 @@ PPExtenderBroadcastReceiver:
 
 - Fixed bugs.
 - Updated translations.
-
---------------
-
-Wifi sensor:
-1. Zobrazuje v description, ked nie je Location povolene, ale len pre API 29+, pre vsetky typy
-2. Zobrazuje v summary, ked nie je Location povolene, ale len pre API 29+, pre vsetky typy
-3. Testuje v doHandleEvent, ked nie je Location povolene, ale len pre API 29+, pre vsetky typy
-
-Bluetooth sensor:
-1. Zobrazuje v description, ked nie je Location povolene, ale len nearby typy
-2. Zobrazuje v summary, ked nie je Location povolene, ale len nearby typy
-3. Testuje v doHandleEvent, ked nie je Location povolene, ale len nearby typy
-
-Mobile cells sensor:
-1. Zobrazuje v description, ked nie je Location povolene, ale len pre API 28+
-2. Zobrazuje v summary, ked nie je Location povolene, ale len pre API 28+
-3. Testuje v doHandleEvent, ked nie je Location povolene, ale len pre API 28+
