@@ -2230,6 +2230,7 @@
 
     <!-- **************************************************************************************** -->
 
+    <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
     <string name="extender_title_activity_pppe" translatable="false">PPPE</string>
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Version:</string>
@@ -2288,6 +2289,7 @@
 
     <!-- **************************************************************************************** -->
 
+    <string name="pppputsettings_app_name" translatable="false">PPPPutSettings</string>
     <string name="pppputsettings_title_activity_pppps" translatable="false">PPPPS</string>
     <string name="pppputsettings_permission">PPPPutSettings application permisison</string>
     <string name="pppputsettings_application_releases">Releases:</string>
