@@ -436,7 +436,7 @@ public class PPApplication extends Application
     static final int STARTUP_SOURCE_QUICK_TILE = 14;
     static final int STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER = 15;
     static final int STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER = 16;
-    static final int STARTUP_SOURCE_EDITOR_WIDGET_HEADER = 17;
+    //static final int STARTUP_SOURCE_EDITOR_WIDGET_HEADER = 17;
 
     //static final int PREFERENCES_STARTUP_SOURCE_ACTIVITY = 1;
     //static final int PREFERENCES_STARTUP_SOURCE_FRAGMENT = 2;
@@ -872,7 +872,7 @@ public class PPApplication extends Application
 
     static final DownloadCompletedBroadcastReceiver downloadCompletedBroadcastReceiver = new DownloadCompletedBroadcastReceiver();
 
-    static final StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
+    //static final StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
     //static final UpdateGUIBroadcastReceiver updateGUIBroadcastReceiver = new UpdateGUIBroadcastReceiver();
     //static final ShowPPPAppNotificationBroadcastReceiver showPPPAppNotificationBroadcastReceiver = new ShowPPPAppNotificationBroadcastReceiver();
     static final RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();

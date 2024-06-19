@@ -253,6 +253,7 @@ public class PhoneProfilesService extends Service
         appContext.registerReceiver(PPApplication.downloadCompletedBroadcastReceiver,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), downoladReceiverFlags);
 
+        /*
         if (Build.VERSION.SDK_INT < 31) {
             IntentFilter intentFilter5 = new IntentFilter();
             intentFilter5.addAction(PPAppNotification.ACTION_START_LAUNCHER_FROM_NOTIFICATION);
@@ -261,6 +262,7 @@ public class PhoneProfilesService extends Service
             //    receiverFlags = RECEIVER_NOT_EXPORTED;
             appContext.registerReceiver(PPApplication.startLauncherFromNotificationReceiver, intentFilter5, receiverFlags);
         }
+        */
 
         //appContext.registerReceiver(PPApplication.showProfileNotificationBroadcastReceiver, new IntentFilter(PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION));
         //appContext.registerReceiver(PPApplication.updateGUIBroadcastReceiver, new IntentFilter(PPApplication.ACTION_UPDATE_GUI));
@@ -396,11 +398,13 @@ public class PhoneProfilesService extends Service
             appContext.unregisterReceiver(PPApplication.downloadCompletedBroadcastReceiver);
         } catch (Exception ignored) {}
 
+        /*
         if (Build.VERSION.SDK_INT < 31) {
             try {
                 appContext.unregisterReceiver(PPApplication.startLauncherFromNotificationReceiver);
             } catch (Exception ignored) {}
         }
+        */
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.refreshActivitiesBroadcastReceiver);
         } catch (Exception ignored) {}

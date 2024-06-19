@@ -52,15 +52,15 @@ public class PPAppNotification {
         PPApplicationStatic.createPPPAppNotificationChannel(appContext, false);
 
         Intent launcherIntent;
-        if (Build.VERSION.SDK_INT < 31) {
-            launcherIntent = new Intent(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
-        } else {
+        //if (Build.VERSION.SDK_INT < 31) {
+        //    launcherIntent = new Intent(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
+        //} else {
             launcherIntent = GlobalGUIRoutines.getIntentForStartupSource(appContext, PPApplication.STARTUP_SOURCE_NOTIFICATION);
             // clear all opened activities
             launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
             // setup startupSource
             launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
-        }
+        //}
 
         Profile profile = null;
 
@@ -483,9 +483,9 @@ public class PPAppNotification {
         }
 
         PendingIntent pIntent;
-        if (Build.VERSION.SDK_INT < 31)
-            pIntent = PendingIntent.getBroadcast(appContext, requestCode, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        else
+        //if (Build.VERSION.SDK_INT < 31)
+        //    pIntent = PendingIntent.getBroadcast(appContext, requestCode, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //else
             pIntent = PendingIntent.getActivity(appContext, requestCode, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // ----- create notificationBuilders
