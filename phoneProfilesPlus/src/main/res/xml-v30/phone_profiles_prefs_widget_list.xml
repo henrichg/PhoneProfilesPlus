@@ -9,6 +9,16 @@
         app:title="@string/phone_profiles_pref_widget_not_working_miui_info"
         app:summary="@string/phone_profiles_pref_widget_not_working_miui_info_summary"
         app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetLauncher"
+        app:summary="@string/array_pref_launcher_activator"
+        app:key="applicationWidgetListLauncher"
+        app:defaultValue="@string/activator_string"
+        app:ppEntries="@array/launcherArray"
+        app:ppEntryValues="@array/launcherValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <SwitchPreferenceCompat
         app:key="applicationWidgetListHeader"
         app:title="@string/phone_profiles_pref_applicationHeader"

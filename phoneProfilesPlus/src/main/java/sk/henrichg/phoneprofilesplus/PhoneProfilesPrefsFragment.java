@@ -134,6 +134,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT = "categoryProfileListNotificationRoot";
     static final String PREF_SHORTCUT_CATEGORY_ROOT = "categoryShortcutRoot";
     static final String PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT = "categorySamsungEdgePanelRoot";
+    static final String PREF_WIDGET_DASH_CLOCK_CATEGORY_ROOT = "categoryWidgetDashClockRoot";
 
     static final String PREF_UNLINK_RINGER_NOTIFICATION_VOLUMES_INFO = "applicationUnlinkRingerNotificationVolumesInfo";
     static final String PREF_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL_INFO = "applicationEventPeriodicScanningScanIntervalInfo";
@@ -383,6 +384,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
+        Context appContext = getActivity().getApplicationContext();
+
         PhoneProfilesPrefsActivity activity = (PhoneProfilesPrefsActivity) getActivity();
         if (!(activity.activityStarted))
             return;
@@ -497,6 +500,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preferenceCategoryScreen = findPreference(PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
             preferenceCategoryScreen = findPreference(PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT);
+            if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
+            preferenceCategoryScreen = findPreference(PREF_WIDGET_DASH_CLOCK_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
 
             preferenceCategoryScreen = findPreference(PREF_SHORTCUT_CATEGORY_ROOT);
@@ -1562,14 +1567,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 });
             }
 */
-
+/*
         preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER);
         if (preference != null) {
             preference.setTitle(getString(R.string.phone_profiles_pref_applicationWidgetLauncher) +
                                     " (" + getString(R.string.widget_label_icon) +
                                     ", " + getString(R.string.widget_label_one_row) + ")");
         }
-
+*/
         /*if (Build.VERSION.SDK_INT < 29) {
             ListPreference listPreference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
             if (listPreference != null) {
@@ -1926,7 +1931,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         preference = prefMng.findPreference(PREF_CREATE_EDITOR_SHORTCUT);
         if (preference != null) {
-            Context appContext = getActivity().getApplicationContext();
+            //Context appContext = getActivity().getApplicationContext();
             if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
 
                 List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
@@ -1944,7 +1949,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         int receiverFlags = 0;
                         if (Build.VERSION.SDK_INT >= 34)
                             receiverFlags = RECEIVER_NOT_EXPORTED;
-                        getActivity().registerReceiver(shortcutToEditorAddedReceiver, shortcutAddedFilter, receiverFlags);
+                        appContext.registerReceiver(shortcutToEditorAddedReceiver, shortcutAddedFilter, receiverFlags);
                     }
 
                     preference.setVisible(true);
@@ -2010,7 +2015,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         preference = prefMng.findPreference(PREF_CREATE_MOBILE_CELL_SCANNING_SHORTCUT);
         if (preference != null) {
-            Context appContext = getActivity().getApplicationContext();
+            //Context appContext = getActivity().getApplicationContext();
             if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
 
                 List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
@@ -2028,7 +2033,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         int receiverFlags = 0;
                         if (Build.VERSION.SDK_INT >= 34)
                             receiverFlags = RECEIVER_NOT_EXPORTED;
-                        getActivity().registerReceiver(shortcutToMobileCellScanningAddedReceiver, shortcutAddedFilter, receiverFlags);
+                        appContext.registerReceiver(shortcutToMobileCellScanningAddedReceiver, shortcutAddedFilter, receiverFlags);
                     }
 
                     preference.setVisible(true);
@@ -3159,14 +3164,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR) || keyIsWidgetListChangeColorByNightMode) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
-                if (changeWidgetListColorsByNightMode) {
+                _preference.setEnabled(preferenceIndicatorsListEnabled);
+                /*if (changeWidgetListColorsByNightMode) {
                     //if (useDynamicColorsWidgetList)
                     //    _preference.setEnabled(false);
                     //else
                         _preference.setEnabled(preferenceIndicatorsListEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsListEnabled);
-                }
+                }*/
             }
         }
         //if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS)) {
@@ -3177,14 +3183,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR) || keyIsWidgetOneRowChangeColorByNightMode) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
-                if (changeWidgetOneRowColorsByNightMode) {
+                _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
+                /*if (changeWidgetOneRowColorsByNightMode) {
                     //if (useDynamicColorsWidgetOneRow)
                     //    _preference.setEnabled(false);
                     //else
                         _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
-                }
+                }*/
             }
         }
         //if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS)) {
@@ -3286,14 +3293,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference.setEnabled(changeWidgetOneRowColorsByNightMode && (!useDynamicColorsWidgetOneRow));
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
-                if (changeWidgetOneRowColorsByNightMode) {
+                _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
+                /*if (changeWidgetOneRowColorsByNightMode) {
                     //if (useDynamicColorsWidgetOneRow)
                     //    _preference.setEnabled(false);
                     //else
                         _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
-                }
+                }*/
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON) ||
@@ -3309,14 +3317,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference.setEnabled(changeWidgetListColorsByNightMode && (!useDynamicColorsWidgetList));
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
-                if (changeWidgetListColorsByNightMode) {
+                _preference.setEnabled(preferenceIndicatorsListEnabled);
+                /*if (changeWidgetListColorsByNightMode) {
                     //if (useDynamicColorsWidgetList)
                     //    _preference.setEnabled(false);
                     //else
                         _preference.setEnabled(preferenceIndicatorsListEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsListEnabled);
-                }
+                }*/
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON) ||
@@ -4019,10 +4028,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         StringBuilder _value = new StringBuilder();
         if (key.equals(PREF_APPLICATION_INTERFACE_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationTheme));
+            //_value.append(StringConstants.STR_BULLET);
+            //_value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
+            //_value.append(StringConstants.STR_BULLET);
+            //_value.append(getString(R.string.phone_profiles_pref_notificationLauncher));
             _value.append(StringConstants.STR_BULLET);
-            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
+            _value.append(getString(R.string.phone_profiles_pref_applicationRestartEventsIconColor));
             _value.append(StringConstants.STR_BULLET);
-            _value.append(getString(R.string.phone_profiles_pref_notificationLauncher));
+            _value.append(getString(R.string.phone_profiles_pref_createEditorShortcut));
         }
         if (key.equals(PREF_APPLICATION_START_CATEGORY_ROOT)) {
             //_value.append(getString(R.string.phone_profiles_pref_applicationStartOnBoot));
@@ -4055,6 +4068,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(PREF_APP_NOTIFICATION_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_notificationSystemSettings));
+            _value.append(StringConstants.STR_BULLET);
+            _value.append(getString(R.string.phone_profiles_pref_notificationLauncher));
             _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_notificationStatusBarStyle));
             _value.append(StringConstants.STR_BULLET);
@@ -4427,6 +4442,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(getString(R.string.phone_profiles_pref_deleteOldActivityLogs));
         }
         if (key.equals(PREF_WIDGET_LIST_CATEGORY_ROOT)) {
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationPrefIndicator));
             _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationHeader));
@@ -4452,6 +4469,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if (key.equals(PREF_WIDGET_ONE_ROW_CATEGORY_ROOT)) {
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationPrefIndicator));
             _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType));
@@ -4473,6 +4492,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if (key.equals(PREF_WIDGET_ICON_CATEGORY_ROOT)) {
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconBackgroundType));
             _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconBackground));
@@ -4494,6 +4515,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColor));
             _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
+        }
+        if (key.equals(PREF_WIDGET_DASH_CLOCK_CATEGORY_ROOT)) {
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
         }
         if (key.equals(PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage));

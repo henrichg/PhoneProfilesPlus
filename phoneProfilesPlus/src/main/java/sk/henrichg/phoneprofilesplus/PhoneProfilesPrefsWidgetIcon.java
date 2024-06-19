@@ -22,6 +22,7 @@ public class PhoneProfilesPrefsWidgetIcon  extends PhoneProfilesPrefsFragment {
 
     @Override
     void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAUNCHER, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAUNCHER_DEFAULT_VALUE));
         editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT_DEFAULT_VALUE));
         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND, ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND_DEFAULT_VALUE));
         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, ApplicationPreferences.applicationWidgetIconChangeColorsByNightModeDefaultValue(getContext())));

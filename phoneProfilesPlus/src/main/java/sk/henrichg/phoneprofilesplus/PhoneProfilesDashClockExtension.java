@@ -122,7 +122,12 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         /////////////////////////////////////////////////////////////
 
                         // intent
-                        Intent intent = GlobalGUIRoutines.getIntentForStartupSource(this, PPApplication.STARTUP_SOURCE_WIDGET);
+                        //Intent intent = GlobalGUIRoutines.getIntentForStartupSource(this, PPApplication.STARTUP_SOURCE_WIDGET);
+                        Intent intent;
+                        if (ApplicationPreferences.applicationWidgetDashClockLauncher.equals(StringConstants.EXTRA_ACTIVATOR))
+                            intent = new Intent(this.getApplicationContext(), ActivatorActivity.class);
+                        else
+                            intent = new Intent(this.getApplicationContext(), EditorActivity.class);
                         // clear all opened activities
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);

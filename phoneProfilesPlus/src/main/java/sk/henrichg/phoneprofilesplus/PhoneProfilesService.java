@@ -1685,6 +1685,19 @@ public class PhoneProfilesService extends Service
                 }
                 */
 
+                if (actualVersionCode <= 7145) {
+                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+
+                    String widgetLauncher = preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER,
+                                                ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER_DEFAULT_VALUE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAUNCHER, widgetLauncher);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LAUNCHER, widgetLauncher);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LAUNCHER, widgetLauncher);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_DASH_CLOCK_LAUNCHER, widgetLauncher);
+                    editor.apply();
+                }
+
             }
 
             // Keep this !!! stop tap target for package replaced

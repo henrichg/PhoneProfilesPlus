@@ -11,6 +11,15 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetLauncher"
+        app:summary="@string/array_pref_launcher_activator"
+        app:key="applicationWidgetOneRowLauncher"
+        app:defaultValue="@string/activator_string"
+        app:ppEntries="@array/launcherArray"
+        app:ppEntryValues="@array/launcherValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLayoutHeight"
         app:summary="0"
         app:key="applicationWidgetOneRowLayoutHeight"

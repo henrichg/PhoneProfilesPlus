@@ -1013,6 +1013,7 @@ class GlobalGUIRoutines {
         }
     }
 
+    /*
     static Intent getIntentForStartupSource(Context context, int startupSource) {
         Intent intentLaunch;
 
@@ -1042,5 +1043,6 @@ class GlobalGUIRoutines {
         }
         return intentLaunch;
     }
+    */
 
 }

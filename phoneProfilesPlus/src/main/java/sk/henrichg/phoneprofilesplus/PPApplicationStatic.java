@@ -758,7 +758,13 @@ class PPApplicationStatic {
             ApplicationPreferences.notificationPrefIndicator(context);
             ApplicationPreferences.notificationPrefIndicatorLightness(context);
             //ApplicationPreferences.applicationHomeLauncher(context);
+
             ApplicationPreferences.applicationWidgetLauncher(context);
+            ApplicationPreferences.applicationIconWidgetLauncher(context);
+            ApplicationPreferences.applicationOneRowWidgetLauncher(context);
+            ApplicationPreferences.applicationListWidgetLauncher(context);
+            ApplicationPreferences.applicationDashClockWidgetLauncher(context);
+
             ApplicationPreferences.applicationNotificationLauncher(context);
             ApplicationPreferences.applicationEventWifiScanInterval(context);
             ApplicationPreferences.applicationDefaultProfile(context);

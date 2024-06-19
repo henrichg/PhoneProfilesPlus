@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="categoryWidgetDashClock"
+    app:title="@string/phone_profiles_pref_category_widget_dash_clock">
+
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetLauncher"
+        app:summary="@string/array_pref_launcher_activator"
+        app:key="applicationWidgetDashClockLauncher"
+        app:defaultValue="@string/activator_string"
+        app:ppEntries="@array/launcherArray"
+        app:ppEntryValues="@array/launcherValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+</androidx.preference.PreferenceScreen>

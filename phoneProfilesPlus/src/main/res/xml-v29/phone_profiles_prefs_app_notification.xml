@@ -16,6 +16,15 @@
         app:summary="@string/phone_profiles_pref_notificationSystemSettingsAll_summary"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/phone_profiles_pref_notificationLauncher"
+        app:summary="@string/array_pref_launcher_activator"
+        app:key="applicationNotificationLauncher"
+        app:defaultValue="@string/activator_string"
+        app:ppEntries="@array/launcherArray"
+        app:ppEntryValues="@array/launcherValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <PreferenceCategory
         app:key="notificationStatusBarCategory"
         app:title="@string/phone_profiles_pref_notificationStatusBarCategory"

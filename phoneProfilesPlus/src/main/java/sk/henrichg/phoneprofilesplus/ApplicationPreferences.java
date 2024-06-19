@@ -95,7 +95,13 @@ class ApplicationPreferences {
     static volatile boolean notificationPrefIndicator;
     static volatile String notificationPrefIndicatorLightness;
     //static volatile String applicationHomeLauncher;
+
     static volatile String applicationWidgetLauncher;
+    static volatile String applicationWidgetIconLauncher;
+    static volatile String applicationWidgetOneRowLauncher;
+    static volatile String applicationWidgetListLauncher;
+    static volatile String applicationWidgetDashClockLauncher;
+
     static volatile String applicationNotificationLauncher;
     static volatile int applicationEventWifiScanInterval;
     static volatile long applicationDefaultProfile;
@@ -396,7 +402,13 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_PREF_INDICATOR = "notificationPrefIndicator";
     static final String PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS = "notificationPrefIndicatorLightness";
     //static final String PREF_APPLICATION_HOME_LAUNCHER = "applicationHomeLauncher";
+
     static final String PREF_APPLICATION_WIDGET_LAUNCHER = "applicationWidgetLauncher";
+    static final String PREF_APPLICATION_WIDGET_ICON_LAUNCHER = "applicationWidgetIconLauncher";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_LAUNCHER = "applicationWidgetOneRowLauncher";
+    static final String PREF_APPLICATION_WIDGET_LIST_LAUNCHER = "applicationWidgetListLauncher";
+    static final String PREF_APPLICATION_WIDGET_DASH_CLOCK_LAUNCHER = "applicationWidgetDashClockLauncher";
+
     static final String PREF_APPLICATION_NOTIFICATION_LAUNCHER = "applicationNotificationLauncher";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL = "applicationEventWifiScanInterval";
     static final String PREF_APPLICATION_DEFAULT_PROFILE = "applicationBackgroundProfile";
@@ -970,6 +982,22 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_LAUNCHER_DEFAULT_VALUE = "activator";
     static void applicationWidgetLauncher(Context context) {
         applicationWidgetLauncher = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LAUNCHER, PREF_APPLICATION_WIDGET_LAUNCHER_DEFAULT_VALUE);
+    }
+    static final String PREF_APPLICATION_WIDGET_ICON_LAUNCHER_DEFAULT_VALUE = "activator";
+    static void applicationIconWidgetLauncher(Context context) {
+        applicationWidgetIconLauncher = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_LAUNCHER, PREF_APPLICATION_WIDGET_ICON_LAUNCHER_DEFAULT_VALUE);
+    }
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_LAUNCHER_DEFAULT_VALUE = "activator";
+    static void applicationOneRowWidgetLauncher(Context context) {
+        applicationWidgetOneRowLauncher = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_LAUNCHER, PREF_APPLICATION_WIDGET_ONE_ROW_LAUNCHER_DEFAULT_VALUE);
+    }
+    static final String PREF_APPLICATION_WIDGET_LIST_LAUNCHER_DEFAULT_VALUE = "activator";
+    static void applicationListWidgetLauncher(Context context) {
+        applicationWidgetListLauncher = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_LAUNCHER, PREF_APPLICATION_WIDGET_LIST_LAUNCHER_DEFAULT_VALUE);
+    }
+    static final String PREF_APPLICATION_WIDGET_DASH_CLOCK_LAUNCHER_DEFAULT_VALUE = "activator";
+    static void applicationDashClockWidgetLauncher(Context context) {
+        applicationWidgetDashClockLauncher = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_DASH_CLOCK_LAUNCHER, PREF_APPLICATION_WIDGET_DASH_CLOCK_LAUNCHER_DEFAULT_VALUE);
     }
 
     static final String PREF_APPLICATION_NOTIFICATION_LAUNCHER_DEFAULT_VALUE = "activator";

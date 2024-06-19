@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 public class PPAppNotification {
 
-    static final String ACTION_START_LAUNCHER_FROM_NOTIFICATION = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION";
+    //static final String ACTION_START_LAUNCHER_FROM_NOTIFICATION = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION";
 
     static private void _showNotification(final DataWrapper dataWrapper, boolean forFirstStart)
     {
@@ -51,19 +51,9 @@ public class PPAppNotification {
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._showNotification", "call of createPPPAppNotificationChannel()");
         PPApplicationStatic.createPPPAppNotificationChannel(appContext, false);
 
-        Intent launcherIntent;
-        //if (Build.VERSION.SDK_INT < 31) {
-        //    launcherIntent = new Intent(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
-        //} else {
-            launcherIntent = GlobalGUIRoutines.getIntentForStartupSource(appContext, PPApplication.STARTUP_SOURCE_NOTIFICATION);
-            // clear all opened activities
-            launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
-            // setup startupSource
-            launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
-        //}
-
         Profile profile = null;
 
+        String applicationNotificationLauncher;
         String notificationNotificationStyle;
         boolean notificationShowProfileIcon;
         String notificationProfileIconColor;
@@ -88,6 +78,8 @@ public class PPAppNotification {
         if (forFirstStart) {
 //            PPApplicationStatic.logE("[SYNCHRONIZED] PPAppNotification._showNotification", "(1) PPApplication.applicationPreferencesMutex");
             synchronized (PPApplication.applicationPreferencesMutex) {
+                applicationNotificationLauncher = ApplicationPreferences.applicationNotificationLauncher;
+
                 // load style directly from shared preferences
                 ApplicationPreferences.notificationNotificationStyle(appContext);
                 notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
@@ -121,6 +113,7 @@ public class PPAppNotification {
 
 //            PPApplicationStatic.logE("[SYNCHRONIZED] PPAppNotification._showNotification", "(2) PPApplication.applicationPreferencesMutex");
             synchronized (PPApplication.applicationPreferencesMutex) {
+                applicationNotificationLauncher = ApplicationPreferences.applicationNotificationLauncher;
 
                 // load style directly from shared preferences
                 ApplicationPreferences.notificationNotificationStyle(appContext);
@@ -146,6 +139,22 @@ public class PPAppNotification {
                 notificationLayoutType = ApplicationPreferences.notificationLayoutType;
             }
         }
+
+        //noinspection ExtractMethodRecommender
+        Intent launcherIntent;
+        //if (Build.VERSION.SDK_INT < 31) {
+        //    launcherIntent = new Intent(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
+        //} else {
+        //launcherIntent = GlobalGUIRoutines.getIntentForStartupSource(appContext, PPApplication.STARTUP_SOURCE_NOTIFICATION);
+        if (applicationNotificationLauncher.equals(StringConstants.EXTRA_ACTIVATOR))
+            launcherIntent = new Intent(appContext, ActivatorActivity.class);
+        else
+            launcherIntent = new Intent(appContext, EditorActivity.class);
+        // clear all opened activities
+        launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
+        // setup startupSource
+        launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
+        //}
 
         int requestCode = 0;
         if (profile != null)
