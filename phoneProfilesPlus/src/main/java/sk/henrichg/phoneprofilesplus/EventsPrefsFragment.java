@@ -25,9 +25,11 @@ import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.pm.ShortcutInfoCompat;
@@ -1244,33 +1246,56 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
                     preference.setVisible(true);
                     preference.setOnPreferenceClickListener(preference120 -> {
-                        Intent shortcutIntent = new Intent(appContext, NFCTagReadForegroundActivity.class);
-                        //shortcutIntent.setAction(Intent.ACTION_MAIN);
-                        shortcutIntent.setAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
-                        //<data android:mimeType="application/vnd.phoneprofilesplus.events"/>
-                        //shortcutIntent.setData(Uri.parse("android:mimeType=\"application/vnd.phoneprofilesplus.events\""));
-                        shortcutIntent.setType("application/vnd.phoneprofilesplus.events");
-                        shortcutIntent.addCategory(Intent.CATEGORY_DEFAULT);
-                        shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PPEditTextAlertDialog editTextDialog = new PPEditTextAlertDialog(
+                                getString(R.string.shortcut_to_read_nfc_tag_dialog_title),
+                                getString(R.string.shortcut_to_dialog_lablel),
+                                getString(R.string.nfc_tag_pref_dlg_readNfcTag_title),
+                                getString(R.string.shortcut_to_dialog_create_button),
+                                getString(android.R.string.cancel),
+                                (dialog1, which) -> {
+                                    String iconName = "";
+                                    AlertDialog dialog = (AlertDialog) dialog1;
+                                    EditText editText = dialog.findViewById(R.id.dialog_with_edittext_edit);
+                                    if (editText != null)
+                                        iconName = editText.getText().toString();
+                                    if (iconName.isEmpty())
+                                        iconName = getString(R.string.nfc_tag_pref_dlg_readNfcTag_title);
+                                    //Log.e("PhoneProfilesPrefsFragment createEditorShortcut", "iconName="+iconName);
 
-                        ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, EventPreferencesNFC.SHORTCUT_ID_READ_NFC_TAG);
-                        shortcutBuilderCompat.setIntent(shortcutIntent);
-                        shortcutBuilderCompat.setShortLabel(getString(R.string.nfc_tag_pref_dlg_readNfcTag_title));
-                        shortcutBuilderCompat.setLongLabel(getString(R.string.nfc_tag_pref_dlg_readNfcTag_text));
-                        shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_read_nfc_tag));
+                                    Intent shortcutIntent = new Intent(appContext, NFCTagReadForegroundActivity.class);
+                                    //shortcutIntent.setAction(Intent.ACTION_MAIN);
+                                    shortcutIntent.setAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
+                                    //<data android:mimeType="application/vnd.phoneprofilesplus.events"/>
+                                    //shortcutIntent.setData(Uri.parse("android:mimeType=\"application/vnd.phoneprofilesplus.events\""));
+                                    shortcutIntent.setType("application/vnd.phoneprofilesplus.events");
+                                    shortcutIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                                    shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                        try {
-                            Intent pinnedShortcutCallbackIntent = new Intent(EventPreferencesNFC.ACTION_SHORTCUT_TO_READ_NFC_TAG_ADDED);
-                            PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent,  0);
+                                    ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, EventPreferencesNFC.SHORTCUT_ID_READ_NFC_TAG);
+                                    shortcutBuilderCompat.setIntent(shortcutIntent);
+                                    shortcutBuilderCompat.setShortLabel(iconName);
+                                    shortcutBuilderCompat.setLongLabel(getString(R.string.nfc_tag_pref_dlg_readNfcTag_text));
+                                    shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_read_nfc_tag));
 
-                            ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
-                            ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
-                            //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
-                        } catch (Exception e) {
-                            // show dialog about this crash
-                            // for Microsft laucher it is:
-                            // java.lang.IllegalArgumentException ... already exists but disabled
-                        }
+                                    try {
+                                        Intent pinnedShortcutCallbackIntent = new Intent(EventPreferencesNFC.ACTION_SHORTCUT_TO_READ_NFC_TAG_ADDED);
+                                        PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent,  0);
+
+                                        ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
+                                        ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
+                                        //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
+                                    } catch (Exception e) {
+                                        // show dialog about this crash
+                                        // for Microsft laucher it is:
+                                        // java.lang.IllegalArgumentException ... already exists but disabled
+                                    }
+                                },
+                                null, null,
+                                true, true, false,
+                                activity
+                        );
+                        if (!activity.isFinishing())
+                            editTextDialog.show();
 
                         return false;
                     });

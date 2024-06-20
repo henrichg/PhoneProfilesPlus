@@ -24,9 +24,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.pm.ShortcutInfoCompat;
@@ -1956,28 +1958,51 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     preference.setVisible(true);
                     preference.setOnPreferenceClickListener(preference120 -> {
-                        Intent shortcutIntent = new Intent(appContext, EditorActivity.class);
-                        shortcutIntent.setAction(Intent.ACTION_MAIN);
-                        shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PPEditTextAlertDialog editTextDialog = new PPEditTextAlertDialog(
+                                getString(R.string.shortcut_to_editor_dialog_title),
+                                getString(R.string.shortcut_to_dialog_lablel),
+                                getString(R.string.editor_launcher_label),
+                                getString(R.string.shortcut_to_dialog_create_button),
+                                getString(android.R.string.cancel),
+                                (dialog1, which) -> {
+                                    String iconName = "";
+                                    AlertDialog dialog = (AlertDialog) dialog1;
+                                    EditText editText = dialog.findViewById(R.id.dialog_with_edittext_edit);
+                                    if (editText != null)
+                                        iconName = editText.getText().toString();
+                                    if (iconName.isEmpty())
+                                        iconName = getString(R.string.editor_launcher_label);
+                                    //Log.e("PhoneProfilesPrefsFragment createEditorShortcut", "iconName="+iconName);
 
-                        ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, SHORTCUT_ID_EDITOR);
-                        shortcutBuilderCompat.setIntent(shortcutIntent);
-                        shortcutBuilderCompat.setShortLabel(getString(R.string.editor_launcher_label));
-                        shortcutBuilderCompat.setLongLabel(getString(R.string.editor_launcher_label));
-                        shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_editor));
+                                    Intent shortcutIntent = new Intent(appContext, EditorActivity.class);
+                                    shortcutIntent.setAction(Intent.ACTION_MAIN);
+                                    shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                        try {
-                            Intent pinnedShortcutCallbackIntent = new Intent(ACTION_SHORTCUT_TO_EDITOR_ADDED);
-                            PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent,  0);
+                                    ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, SHORTCUT_ID_EDITOR);
+                                    shortcutBuilderCompat.setIntent(shortcutIntent);
+                                    shortcutBuilderCompat.setShortLabel(iconName);
+                                    shortcutBuilderCompat.setLongLabel(getString(R.string.editor_launcher_label));
+                                    shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_editor));
 
-                            ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
-                            ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
-                            //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
-                        } catch (Exception e) {
-                            // show dialog about this crash
-                            // for Microsft laucher it is:
-                            // java.lang.IllegalArgumentException ... already exists but disabled
-                        }
+                                    try {
+                                        Intent pinnedShortcutCallbackIntent = new Intent(ACTION_SHORTCUT_TO_EDITOR_ADDED);
+                                        PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent, 0);
+
+                                        ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
+                                        ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
+                                        //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
+                                    } catch (Exception e) {
+                                        // show dialog about this crash
+                                        // for Microsft laucher it is:
+                                        // java.lang.IllegalArgumentException ... already exists but disabled
+                                    }
+                                },
+                                null, null,
+                                true, true, false,
+                                activity
+                        );
+                        if (!activity.isFinishing())
+                            editTextDialog.show();
 
                         return false;
                     });
@@ -2040,28 +2065,51 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     preference.setVisible(true);
                     preference.setOnPreferenceClickListener(preference120 -> {
-                        Intent shortcutIntent = new Intent(appContext, LaunchMobileCellsScanningActivity.class);
-                        shortcutIntent.setAction(Intent.ACTION_MAIN);
-                        shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PPEditTextAlertDialog editTextDialog = new PPEditTextAlertDialog(
+                                getString(R.string.shortcut_to_mobile_cells_scanning_dialog_title),
+                                getString(R.string.shortcut_to_dialog_lablel),
+                                getString(R.string.phone_profiles_pref_category_mobile_cells_scanning),
+                                getString(R.string.shortcut_to_dialog_create_button),
+                                getString(android.R.string.cancel),
+                                (dialog1, which) -> {
+                                    String iconName = "";
+                                    AlertDialog dialog = (AlertDialog) dialog1;
+                                    EditText editText = dialog.findViewById(R.id.dialog_with_edittext_edit);
+                                    if (editText != null)
+                                        iconName = editText.getText().toString();
+                                    if (iconName.isEmpty())
+                                        iconName = getString(R.string.phone_profiles_pref_category_mobile_cells_scanning);
+                                    //Log.e("PhoneProfilesPrefsFragment createEditorShortcut", "iconName="+iconName);
 
-                        ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, SHORTCUT_ID_MOBILE_CELL_SCANNING);
-                        shortcutBuilderCompat.setIntent(shortcutIntent);
-                        shortcutBuilderCompat.setShortLabel(getString(R.string.phone_profiles_pref_category_mobile_cells_scanning));
-                        shortcutBuilderCompat.setLongLabel(getString(R.string.phone_profiles_pref_category_mobile_cells_scanning));
-                        shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_mobile_cell_scanning));
+                                    Intent shortcutIntent = new Intent(appContext, LaunchMobileCellsScanningActivity.class);
+                                    shortcutIntent.setAction(Intent.ACTION_MAIN);
+                                    shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                        try {
-                            Intent pinnedShortcutCallbackIntent = new Intent(ACTION_SHORTCUT_TO_MOBILE_CELL_SCANNING_ADDED);
-                            PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent,  0);
+                                    ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, SHORTCUT_ID_MOBILE_CELL_SCANNING);
+                                    shortcutBuilderCompat.setIntent(shortcutIntent);
+                                    shortcutBuilderCompat.setShortLabel(iconName);
+                                    shortcutBuilderCompat.setLongLabel(getString(R.string.phone_profiles_pref_category_mobile_cells_scanning));
+                                    shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_mobile_cell_scanning));
 
-                            ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
-                            ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
-                            //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
-                        } catch (Exception e) {
-                            // show dialog about this crash
-                            // for Microsft laucher it is:
-                            // java.lang.IllegalArgumentException ... already exists but disabled
-                        }
+                                    try {
+                                        Intent pinnedShortcutCallbackIntent = new Intent(ACTION_SHORTCUT_TO_MOBILE_CELL_SCANNING_ADDED);
+                                        PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent,  0);
+
+                                        ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
+                                        ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
+                                        //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
+                                    } catch (Exception e) {
+                                        // show dialog about this crash
+                                        // for Microsft laucher it is:
+                                        // java.lang.IllegalArgumentException ... already exists but disabled
+                                    }
+                                },
+                                null, null,
+                                true, true, false,
+                                activity
+                        );
+                        if (!activity.isFinishing())
+                            editTextDialog.show();
 
                         return false;
                     });
