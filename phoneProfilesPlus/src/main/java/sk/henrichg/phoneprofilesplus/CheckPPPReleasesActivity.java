@@ -1,10 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
-import static android.os.Environment.DIRECTORY_DOWNLOADS;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,7 +20,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -1379,7 +1375,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text.setMovementMethod(LinkMovementMethod.getInstance());
 
             if (Build.VERSION.SDK_INT >= 33) {
-                TextView text2 = layout.findViewById(R.id.dialog_for_droidify_apk_installation);
+                TextView text2 = layout.findViewById(R.id.dialog_for_neostore_apk_installation);
                 text2.setVisibility(View.VISIBLE);
                 String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
                         " " + activity.getString(R.string.install_ppp_store_neostore) +
@@ -1403,7 +1399,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
-                    //Log.e("CheckPPPReleasesActivity.checkInDroidify", Log.getStackTraceString(e));
+                    //Log.e("CheckPPPReleasesActivity.checkInNeoStore", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);
                 }
             }
