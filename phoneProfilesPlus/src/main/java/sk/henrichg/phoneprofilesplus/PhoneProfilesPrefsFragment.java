@@ -2068,7 +2068,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         PPEditTextAlertDialog editTextDialog = new PPEditTextAlertDialog(
                                 getString(R.string.shortcut_to_mobile_cells_scanning_dialog_title),
                                 getString(R.string.shortcut_to_dialog_lablel),
-                                getString(R.string.phone_profiles_pref_category_mobile_cells_scanning),
+                                getString(R.string.mobile_cells_scanning_short_shortcut_name),
                                 getString(R.string.shortcut_to_dialog_create_button),
                                 getString(android.R.string.cancel),
                                 (dialog1, which) -> {
@@ -2078,7 +2078,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     if (editText != null)
                                         iconName = editText.getText().toString();
                                     if (iconName.isEmpty())
-                                        iconName = getString(R.string.phone_profiles_pref_category_mobile_cells_scanning);
+                                        iconName = getString(R.string.mobile_cells_scanning_short_shortcut_name);
                                     //Log.e("PhoneProfilesPrefsFragment createEditorShortcut", "iconName="+iconName);
 
                                     Intent shortcutIntent = new Intent(appContext, LaunchMobileCellsScanningActivity.class);

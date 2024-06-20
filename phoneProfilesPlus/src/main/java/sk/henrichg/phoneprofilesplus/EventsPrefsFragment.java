@@ -1249,7 +1249,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         PPEditTextAlertDialog editTextDialog = new PPEditTextAlertDialog(
                                 getString(R.string.shortcut_to_read_nfc_tag_dialog_title),
                                 getString(R.string.shortcut_to_dialog_lablel),
-                                getString(R.string.nfc_tag_pref_dlg_readNfcTag_title),
+                                getString(R.string.read_nfc_tag_short_shortcut_name),
                                 getString(R.string.shortcut_to_dialog_create_button),
                                 getString(android.R.string.cancel),
                                 (dialog1, which) -> {
@@ -1259,7 +1259,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                     if (editText != null)
                                         iconName = editText.getText().toString();
                                     if (iconName.isEmpty())
-                                        iconName = getString(R.string.nfc_tag_pref_dlg_readNfcTag_title);
+                                        iconName = getString(R.string.read_nfc_tag_short_shortcut_name);
                                     //Log.e("PhoneProfilesPrefsFragment createEditorShortcut", "iconName="+iconName);
 
                                     Intent shortcutIntent = new Intent(appContext, NFCTagReadForegroundActivity.class);
