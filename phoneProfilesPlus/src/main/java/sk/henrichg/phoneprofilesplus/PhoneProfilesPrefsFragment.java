@@ -173,6 +173,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY = "categoryWidgetOneRowProfileList";
     static final String PREF_APPLICATION_EVENT_MOBILE_CELL_CONFIGURE_CELLS = "applicationEventMobileCellsConfigureCells";
 
+    private static final String PREF_APPLICATION_WIDGET_DASH_CLOCK_INFO = "applicationWidgetDashClockInfo";
+
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
 
     private static final String ACTION_SHORTCUT_TO_EDITOR_ADDED = PPApplication.PACKAGE_NAME + ".ACTION_SHORTCUT_TO_EDITOR_ADDED";
@@ -2068,6 +2070,33 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setVisible(false);
             } else
                 preference.setVisible(false);
+        }
+
+        InfoDialogPreference infoDialogPreference = prefMng.findPreference(PREF_APPLICATION_WIDGET_DASH_CLOCK_INFO);
+        if (infoDialogPreference != null) {
+
+            final String dashClockGitHub = "https://github.com/romannurik/dashclock";
+            final String dashClockAPKMirror = "https://www.apkmirror.com/apk/roman-nurik-and-ian-lake/dashclock-widget/";
+            infoDialogPreference.setInfoText(
+                    getString(R.string.dash_clock_widget_info_1)  + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            // <ul><li>
+                            StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+                            getString(R.string.dash_clock_widget_info_2) + StringConstants.TAG_BREAK_HTML +
+                            StringConstants.TAG_URL_LINK_START_HTML + dashClockGitHub + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                            dashClockGitHub + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+
+                            StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            //</li>
+                            StringConstants.TAG_LIST_ITEM_END_HTML +
+                            //<li>
+                            StringConstants.TAG_LIST_ITEM_START_HTML +
+                            getString(R.string.dash_clock_widget_info_3) + StringConstants.TAG_BREAK_HTML +
+                            StringConstants.TAG_URL_LINK_START_HTML + dashClockAPKMirror + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                            dashClockAPKMirror + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+
+                            StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            //</li></ul>
+                            StringConstants.TAG_LIST_END_LAST_ITEM_HTML
+            );
+            infoDialogPreference.setIsHtml(true);
         }
 
     }

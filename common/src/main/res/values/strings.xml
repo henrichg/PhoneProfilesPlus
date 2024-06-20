@@ -2224,9 +2224,14 @@
 
     <string name="downloading_toast_text">Downloading…</string>
 
-    <string name="phone_profiles_pref_category_widget_dash_clock">Widget: Dash Clock</string>
-
     <string name="title_activity_ppp" translatable="false">PPP</string>
+
+    <string name="phone_profiles_pref_category_widget_dash_clock">Widget: Dash Clock</string>
+    <string name="phone_profiles_pref_widget_dash_clock_info">Info about Dash Clock</string>
+    <string name="phone_profiles_pref_widget_dash_clock_info_summary">Click here to show information about Dash Clock Widget.</string>
+    <string name="dash_clock_widget_info_1">Dash Clock Widget is deprecated and is not in Google Play, But is possible to install latest version from APKMirror.</string>
+    <string name="dash_clock_widget_info_2">Dash Clock Widget GitHub:</string>
+    <string name="dash_clock_widget_info_3">APKMirror download:</string>
 
     <!-- **************************************************************************************** -->
 
