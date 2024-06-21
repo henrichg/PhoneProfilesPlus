@@ -19,6 +19,10 @@ import java.util.concurrent.TimeUnit;
 /** @noinspection ExtractMethodRecommender*/
 class EventStatic {
 
+    private EventStatic() {
+        // private constructor to prevent instantiation
+    }
+
     static PreferenceAllowed isEventPreferenceAllowed(String preferenceKey, Context context)
     {
         Context appContext = context.getApplicationContext();

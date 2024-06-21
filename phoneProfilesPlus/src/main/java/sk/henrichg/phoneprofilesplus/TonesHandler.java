@@ -15,6 +15,10 @@ class TonesHandler {
     static final String NOTIFICATION_TONE_URI_NONE = "content://settings/system/notification_sound";
     static final String ALARM_TONE_URI_NONE = "content://settings/system/alarm_alert";
 
+    private TonesHandler() {
+        // private constructor to prevent instantiation
+    }
+
     /*
     static String getPhoneProfilesSilentUri(Context context, int type) {
         try {

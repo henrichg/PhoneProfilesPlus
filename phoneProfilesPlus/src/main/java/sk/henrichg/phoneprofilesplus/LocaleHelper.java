@@ -23,6 +23,9 @@ public class LocaleHelper {
     private static final String LANG_LATN = "Latn";
     private static final String LANG_SR = "sr";
 
+    private LocaleHelper() {
+        // private constructor to prevent instantiation
+    }
 
     public static Context onAttach(Context context) {
         String language;

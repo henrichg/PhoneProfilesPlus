@@ -26,6 +26,10 @@ import java.util.TimeZone;
 
 class StringFormatUtils {
 
+    private StringFormatUtils() {
+        // private constructor to prevent instantiation
+    }
+
     static String formatDateTime(Context context, String timeToFormat) {
 
         String finalDateTime = "";

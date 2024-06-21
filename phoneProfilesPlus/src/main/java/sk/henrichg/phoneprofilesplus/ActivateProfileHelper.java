@@ -138,6 +138,9 @@ class ActivateProfileHelper {
 //    private static final String PPPPS_SETTINGS_TYPE_SPECIAL = "setting_type_special";
 //    private static final String SETTINGS_SET_WIFI_ENABLED = "setWifiEnabled";
 
+    private ActivateProfileHelper() {
+        // private constructor to prevent instantiation
+    }
 
     @SuppressLint("MissingPermission")
     private static void doExecuteForRadios(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences)

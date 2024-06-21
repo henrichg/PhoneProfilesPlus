@@ -19,6 +19,10 @@ import java.util.Locale;
 
 class GlobalUtils {
 
+    private GlobalUtils() {
+        // private constructor to prevent instantiation
+    }
+
     static void switchKeyguard(Context context) {
 //        PPApplicationStatic.logE("[IN_THREAD_HANDLER] GlobalUtils.switchKeyguard", "********");
 

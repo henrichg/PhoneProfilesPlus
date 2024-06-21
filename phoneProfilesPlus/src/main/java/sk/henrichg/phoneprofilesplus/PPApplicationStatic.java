@@ -56,6 +56,10 @@ import dev.doubledot.doki.views.DokiContentView;
 /** @noinspection ExtractMethodRecommender*/
 class PPApplicationStatic {
 
+    private PPApplicationStatic() {
+        // private constructor to prevent instantiation
+    }
+
     /** @noinspection BlockingMethodInNonBlockingContext*/
     static void _cancelWork(final String name, final boolean forceCancel) {
         WorkManager workManager = PPApplication.getWorkManagerInstance();

@@ -50,6 +50,10 @@ class GlobalGUIRoutines {
     static final String OPAQUENESS_LIGHTNESS_87 = "87";
     static final String OPAQUENESS_LIGHTNESS_100 = "100";
 
+    private GlobalGUIRoutines() {
+        // private constructor to prevent instantiation
+    }
+
     static void setTheme(Activity activity, boolean forPopup,
                                 boolean withToolbar,
                                 /*boolean forEditor,*/ boolean forActivator, boolean forDialog,

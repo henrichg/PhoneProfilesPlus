@@ -44,6 +44,10 @@ class PPExecutors {
     static final String SENSOR_NAME_SENSOR_TYPE_WIFI_SCANNER = "SENSOR_TYPE_WIFI_SCANNER";
     static final String SENSOR_NAME_SENSOR_TYPE_APPLICATION_EVENT_END = "SENSOR_TYPE_APPLICATION_EVENT_END";
 
+    private PPExecutors() {
+        // private constructor to prevent instantiation
+    }
+
     static void scheduleDisableBlockProfileEventActionExecutor() {
 //        PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** PPExecutors.scheduleDisableBlockProfileEventActionExecutor", "schedule");
 

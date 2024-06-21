@@ -13,6 +13,10 @@ package sk.henrichg.phoneprofilesplus;
  */
 class Wildcard {
 
+    private Wildcard() {
+        // private constructor to prevent instantiation
+    }
+
     /*
      * Checks whether a string matches a given wildcard pattern.
      *

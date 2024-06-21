@@ -22,6 +22,10 @@ import java.util.regex.Pattern;
 
 class RootUtils {
 
+    private RootUtils() {
+        // private constructor to prevent instantiation
+    }
+
     static synchronized void initRoot() {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.initRoot", "PPApplication.rootMutex");
         synchronized (PPApplication.rootMutex) {

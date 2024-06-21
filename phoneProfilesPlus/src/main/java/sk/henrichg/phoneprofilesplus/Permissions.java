@@ -176,6 +176,10 @@ class Permissions {
     private static final String PREF_WRITE_STORAGE_PERMISSION = "writeStoragePermission";
     //private static final String PREF_CALL_LOGS_PERMISSION = "callLogsPermission";
 
+    private Permissions() {
+        // private constructor to prevent instantiation
+    }
+
     static boolean hasPermission(Context context, String permission) {
         return context.checkPermission(permission, PPApplication.pid, PPApplication.uid) == PackageManager.PERMISSION_GRANTED;
     }

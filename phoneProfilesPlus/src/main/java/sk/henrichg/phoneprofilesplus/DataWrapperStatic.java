@@ -29,6 +29,10 @@ import java.util.List;
 /** @noinspection ExtractMethodRecommender*/
 class DataWrapperStatic {
 
+    private DataWrapperStatic() {
+        // private constructor to prevent instantiation
+    }
+
     static Profile getNonInitializedProfile(String name, String icon, int order)
     {
         //noinspection ConstantConditions

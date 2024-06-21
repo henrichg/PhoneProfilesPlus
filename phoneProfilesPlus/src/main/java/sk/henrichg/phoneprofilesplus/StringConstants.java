@@ -86,6 +86,10 @@ class StringConstants {
 
     static final String CONTACTS_FILTER_DATA_ALL = "[all]";
 
+    private StringConstants() {
+        // private constructor to prevent instantiation
+    }
+
     /*
     static String getPPPPSBySDK() {
         if (Build.VERSION.SDK_INT >= 34)
