@@ -2238,7 +2238,7 @@
     <string name="shortcut_to_read_nfc_tag_dialog_title">Shortcut to \"Read NFC tag\"</string>
     <string name="shortcut_to_dialog_lablel">Shortcut icon name:</string>
     <string name="shortcut_to_dialog_create_button">Create</string>
-    <string name="mobile_cells_scanning_short_shortcut_name">Cell scan</string>
+    <string name="mobile_cells_scanning_short_shortcut_name">Cells scan</string>
     <string name="read_nfc_tag_short_shortcut_name">Read tag</string>
 
     <!-- **************************************************************************************** -->
