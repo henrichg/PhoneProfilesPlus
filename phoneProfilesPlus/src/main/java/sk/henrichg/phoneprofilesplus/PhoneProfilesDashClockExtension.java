@@ -89,6 +89,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
                 if ((instance != null) && (instance.dataWrapper != null)) {
 
+                    //noinspection ExtractMethodRecommender
                     try {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesDashClockExtension.onUpdateData", "do it");
 
@@ -118,8 +119,6 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         else
                             //iconResource = getResources().getIdentifier(Profile.PROFILE_ICON_DEFAULT, "drawable", PPApplication.PACKAGE_NAME);
                             iconResource = ProfileStatic.getIconResource(StringConstants.PROFILE_ICON_DEFAULT);
-
-                        /////////////////////////////////////////////////////////////
 
                         // intent
                         //Intent intent = GlobalGUIRoutines.getIntentForStartupSource(this, PPApplication.STARTUP_SOURCE_WIDGET);

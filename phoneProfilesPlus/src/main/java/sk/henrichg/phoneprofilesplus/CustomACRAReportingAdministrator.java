@@ -92,6 +92,7 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
 
 //        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(2)");
 
+        //noinspection UnreachableCode
         try {
             if (PPApplication.crashIntoFile) {
                 final Context appContext = context.getApplicationContext();
@@ -147,7 +148,7 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                 PPApplication.basicExecutorPool.submit(runnable);
             }
         } catch (Exception ee) {
-            //Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(ee));
+            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(ee));
         }
 
 //        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(3)");

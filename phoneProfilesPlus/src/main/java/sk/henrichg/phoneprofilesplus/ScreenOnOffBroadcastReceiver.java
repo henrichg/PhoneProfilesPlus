@@ -71,6 +71,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                     if (profile != null) {
                                         if (profile.getDeviceBrightnessChange()) {
                                             if (Permissions.checkProfileScreenBrightness(appContext, profile, null)) {
+                                                //noinspection UnreachableCode
                                                 try {
 //                                                    if (PPApplicationStatic.logEnabled()) {
 //                                                        int brightnessMode = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);

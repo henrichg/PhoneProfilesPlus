@@ -352,7 +352,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                         //Enqueue a new download and same the referenceId
                         DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
-                        DownloadCompletedBroadcastReceiver.downloadReferenceInstallWithOptions = downloadManager.enqueue(request);
+                        /*DownloadCompletedBroadcastReceiver.downloadReferenceInstallWithOptions =*/ downloadManager.enqueue(request);
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
                     }
@@ -416,7 +416,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                         //Enqueue a new download and same the referenceId
                         DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
-                        DownloadCompletedBroadcastReceiver.downloadReferencePPPPS = downloadManager.enqueue(request);
+                        /*DownloadCompletedBroadcastReceiver.downloadReferencePPPPS =*/ downloadManager.enqueue(request);
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
                     }

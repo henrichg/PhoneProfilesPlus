@@ -716,7 +716,7 @@ class EventPreferencesOrientation extends EventPreferences {
             return -2;
         if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3)
             return -1;
-        if ((_event.getStatus() != Event.ESTATUS_STOP) && (_event.getStatus() != Event.ESTATUS_STOP) && this._enabled &&
+        if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled &&
                 isRunnable(context) && isAllConfigured(context)) {
             if (PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
                         /*, "EventPreferencesOrientation.isAccessibilityServiceEnabled"*/))

@@ -1051,7 +1051,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
                         if ((fragment.phoneCount > 1)) {
                             if (sim1Exists) {
-                                if (PPApplication.mobileCellsScanner != null) {
+                                //if (PPApplication.mobileCellsScanner != null) {
                                     int registeredCell = PPApplication.mobileCellsScanner.getRegisteredCell(1);
                                     long lastConnectedTime = PPApplication.mobileCellsScanner.getLastConnectedTime(1);
                                     for (MobileCellsData cell : _cellsList) {
@@ -1075,7 +1075,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                         //_cellsList.add(_registeredCellDataSIM1);
                                         //}
                                     }
-                                }
+                                //}
                             }
                             if (sim2Exists) {
                                 if (PPApplication.mobileCellsScanner != null) {

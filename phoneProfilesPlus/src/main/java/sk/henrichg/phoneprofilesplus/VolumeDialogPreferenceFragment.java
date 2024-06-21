@@ -239,7 +239,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {
             // Round the value to the closest integer value.
-            //noinspection ConstantConditions
+            //noinspection UnreachableCode, ConstantConditions
             if (preference.stepSize >= 1) {
                 preference.value = Math.round((float) progress / preference.stepSize) * preference.stepSize;
             } else {

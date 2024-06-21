@@ -376,13 +376,13 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
 
                         if ((fragment.phoneCount > 1)) {
                             if (sim1Exists) {
-                                if (PPApplication.mobileCellsScanner != null) {
+                                //if (PPApplication.mobileCellsScanner != null) {
                                     registeredCellSIM1 = PPApplication.mobileCellsScanner.getRegisteredCell(1);
                                     List<MobileCellsData> _cellsList = new ArrayList<>();
                                     db.addMobileCellsToList(_cellsList, registeredCellSIM1);
                                     if (!_cellsList.isEmpty())
                                         registeredCellNameSIM1 = _cellsList.get(0).name;
-                                }
+                                //}
                             }
                             if (sim2Exists) {
                                 if (PPApplication.mobileCellsScanner != null) {

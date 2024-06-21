@@ -14,6 +14,7 @@ class PPEditTextAlertDialog {
     final Activity activity;
     final EditText editText;
 
+    /** @noinspection SameParameterValue*/
     PPEditTextAlertDialog(CharSequence _title, CharSequence _label,
                           String _initialEditValue,
                           CharSequence _positiveText, CharSequence _negativeText,

@@ -1783,12 +1783,13 @@ class Permissions {
         }
     }
 
+    /** @noinspection SameReturnValue*/
     static boolean checkSensors(/*Context context*/) {
-        try {
+        //try {
             return true;
-        } catch (Exception e) {
-            return false;
-        }
+        //} catch (Exception e) {
+        //    return false;
+        //}
     }
 
     /*

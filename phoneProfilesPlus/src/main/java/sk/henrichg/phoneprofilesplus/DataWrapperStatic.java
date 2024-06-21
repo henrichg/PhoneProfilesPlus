@@ -639,42 +639,77 @@ class DataWrapperStatic {
             ShortcutManager shortcutManager = appContext.getSystemService(ShortcutManager.class);
 
             if (shortcutManager != null) {
-                final int limit = 4;
+                final int limit = 4; // must be 4, because higer value removes restart events
 
-                //List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(true);
-                List<Profile> countedProfiles = DatabaseHandler.getInstance(appContext).getProfilesInQuickTilesForDynamicShortcuts();
-                List<Profile> notCountedProfiles = DatabaseHandler.getInstance(appContext).getProfilesForDynamicShortcuts(/*false*/);
+                // get saved dynamic shortcuts profiles
+                List<Profile> __shortcutProfiles = DatabaseHandler.getInstance(appContext).getProfilesForDynamicShortcuts2();
+                //List<Profile> __shortcutProfiles = new ArrayList<>();
+//                for (Profile profile : __shortcutProfiles)
+//                    Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "(0) profileId="+profile._id);
+
+                Profile activatedProfile = DatabaseHandler.getInstance(appContext).getActivatedProfile();
+
+                // remove duplicates
+                //List<Profile> _shortcutProfiles = __shortcutProfiles.stream().distinct().collect(Collectors.toList());
+
+                // copy only profiles, which are not activated
+                List<Profile> _shortcutProfiles = new ArrayList<>();
+                for (int i = 0; i < __shortcutProfiles.size(); i++) {
+                    Profile profile = __shortcutProfiles.get(i);
+                    if (profile._id != activatedProfile._id)
+                        _shortcutProfiles.add(profile);
+                }
+
+                // copy first 3 profiles
+                List<Profile> shortcutProfiles;
+                int subListCount = _shortcutProfiles.size();
+                if (subListCount > 0) {
+                    if (subListCount > limit - 1)
+                        subListCount = limit - 1;
+                    shortcutProfiles = _shortcutProfiles.subList(0, subListCount);
+                } else
+                    shortcutProfiles = _shortcutProfiles;
+//                for (Profile profile : shortcutProfiles)
+//                    Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "(1) profileId="+profile._id);
+
+                // add activated profile as first
+                shortcutProfiles.add(0, activatedProfile);
+//                for (Profile profile : _shortcutProfiles)
+//                    Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "(2) profileId="+profile._id);
+
+                // save new shortcuts to shared preferences
+                int shortcutCount = shortcutProfiles.size();
+                for (int i = 0; i < shortcutCount; i++) {
+//                    Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "(3) profileId="+shortcutProfiles.get(i)._id);
+                    ApplicationPreferences.setDynamicShortcutProfileId(appContext, i, shortcutProfiles.get(i)._id);
+                }
+                // if shortcutCount < limit-1, must be saved with profoielId=0
+                for (int i = shortcutCount; i < (limit-1); i++) {
+//                    Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "(4) i="+i);
+                    ApplicationPreferences.setDynamicShortcutProfileId(appContext, i, 0);
+                }
 
                 ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
 
-                //Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
+                // add "Restart events"
                 Profile _profile = getNonInitializedProfile(appContext.getString(R.string.menu_restart_events),
                         StringConstants.PROFILE_ICON_RESTART_EVENTS+"|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
                 _profile.generateIconBitmap(appContext, false, 0, false);
                 // first profile is restart events
                 shortcuts.add(createShortcutInfo(_profile, true, appContext));
 
-                int shortcutsCount = 0;
-                for (Profile profile : countedProfiles) {
+                int shortcutsCount = 1; // restart events added
+
+//                Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcutProfiles - start");
+                for (Profile profile : shortcutProfiles) { // tu pouzi ten newShortcutProfiles, kde budu len 4 profily
+//                    Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "profile._name="+profile._name);
                     profile.generateIconBitmap(appContext, false, 0, false);
                     shortcuts.add(createShortcutInfo(profile, false, appContext));
                     ++shortcutsCount;
                     if (shortcutsCount == limit)
                         break;
                 }
-
-                //int shortcutsCount = countedProfiles.size();
-                if (shortcutsCount < limit) {
-                    for (Profile profile : notCountedProfiles) {
-                        profile.generateIconBitmap(appContext, false, 0, false);
-                        shortcuts.add(createShortcutInfo(profile, false, appContext));
-                        ++shortcutsCount;
-                        if (shortcutsCount == limit)
-                            break;
-                    }
-                }
-
-//                    PPApplicationStatic.logE("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcuts.size()="+shortcuts.size());
+//                Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcutProfiles - end");
 
                 shortcutManager.removeAllDynamicShortcuts();
                 if (!shortcuts.isEmpty()) {

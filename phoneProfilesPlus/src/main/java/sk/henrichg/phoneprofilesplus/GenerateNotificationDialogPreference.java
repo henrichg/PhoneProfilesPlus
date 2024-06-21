@@ -75,11 +75,13 @@ public class GenerateNotificationDialogPreference extends DialogPreference {
         } catch (Exception e) {
             iconType = 0;
         }
+        //noinspection UnreachableCode
         try {
             notificationTitle = splits[2];
         } catch (Exception e) {
             notificationTitle = "";
         }
+        //noinspection UnreachableCode
         try {
             notificationBody = splits[3];
         } catch (Exception e) {

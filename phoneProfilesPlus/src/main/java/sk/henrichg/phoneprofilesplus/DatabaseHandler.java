@@ -889,12 +889,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerProfiles.increaseActivationByUserCount(this, profile);
     }
 
-    List<Profile> getProfilesForDynamicShortcuts(/*boolean counted*/) {
+/*
+    List<Profile> getProfilesForDynamicShortcuts() {
         return DatabaseHandlerProfiles.getProfilesForDynamicShortcuts(this);
     }
 
     List<Profile> getProfilesInQuickTilesForDynamicShortcuts() {
         return DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts(this);
+    }
+*/
+
+    List<Profile> getProfilesForDynamicShortcuts2() {
+        return DatabaseHandlerProfiles.getProfilesForDynamicShortcuts2(this);
     }
 
     void updateProfileShowInActivator(Profile profile) {

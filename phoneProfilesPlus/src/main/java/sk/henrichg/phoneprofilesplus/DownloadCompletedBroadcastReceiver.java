@@ -8,10 +8,10 @@ import android.util.Log;
 
 public class DownloadCompletedBroadcastReceiver extends BroadcastReceiver {
 
-    static long downloadReferencePPP = 0;
-    static long downloadReferencePPPE = 0;
-    static long downloadReferencePPPPS = 0;
-    static long downloadReferenceInstallWithOptions = 0;
+    //static long downloadReferencePPP = 0;
+    //static long downloadReferencePPPE = 0;
+    //static long downloadReferencePPPPS = 0;
+    //static long downloadReferenceInstallWithOptions = 0;
 
     @Override
     public void onReceive(Context context, Intent intent) {

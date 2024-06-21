@@ -790,6 +790,7 @@ class PlayRingingNotification
             }
 
             if (setBackMediaVolume) {
+                //noinspection UnreachableCode
                 try {
                     if (PlayRingingNotification.notificationIsPlayed) {
                         if ((PlayRingingNotification.oldVolumeForPlayNotificationSound != -1) &&

@@ -4,7 +4,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <string name="menu_edit_profiles">Επεξεργασία</string>
     <string name="menu_settings">Ρυθμίσεις</string>
-    <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
     <string name="title_activity_profile_preferences">Προτιμήσεις προφίλ</string>
     <string name="title_activity_event_preferences">Προτιμήσεις Γεγονότος</string>
     <string name="menu_new_profile">Νέο προφίλ</string>
@@ -2193,8 +2192,6 @@
     <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary_api29">Please enable Location and \"Wi-Fi scanning\" in System Settings. Without this, sensor will not work.</string>
     <string name="download_installWithOptions_title">Download of InstallWithOptions.apk</string>
     <string name="download_pppps_title">Download of PPPPutSettings.apk</string>
-    <string name="download_PPPE_title">Download of PhoneProfilesPlusExtender.apk</string>
-    <string name="download_PPP_title">Download of PhoneProfilesPlus.apk</string>
     <string name="downloading_file_description">File will be stored into Downloads directory</string>
     <!-- **************************************************************************************** -->
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
