@@ -763,7 +763,7 @@ class PPApplicationStatic {
             ApplicationPreferences.notificationPrefIndicatorLightness(context);
             //ApplicationPreferences.applicationHomeLauncher(context);
 
-            ApplicationPreferences.applicationWidgetLauncher(context);
+            //ApplicationPreferences.applicationWidgetLauncher(context);
             ApplicationPreferences.applicationIconWidgetLauncher(context);
             ApplicationPreferences.applicationOneRowWidgetLauncher(context);
             ApplicationPreferences.applicationListWidgetLauncher(context);
