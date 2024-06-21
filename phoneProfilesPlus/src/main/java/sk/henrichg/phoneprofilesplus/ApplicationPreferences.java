@@ -980,7 +980,7 @@ class ApplicationPreferences {
 //        applicationHomeLauncher = getSharedPreferences(context).getString(PREF_APPLICATION_HOME_LAUNCHER, PREF_APPLICATION_HOME_LAUNCHER_DEFAULT_VALUE);
 //    }
 
-//    static final String PREF_APPLICATION_WIDGET_LAUNCHER_DEFAULT_VALUE = "activator";
+    static final String PREF_APPLICATION_WIDGET_LAUNCHER_DEFAULT_VALUE = "activator";
 //    static void applicationWidgetLauncher(Context context) {
 //        applicationWidgetLauncher = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LAUNCHER, PREF_APPLICATION_WIDGET_LAUNCHER_DEFAULT_VALUE);
 //    }
