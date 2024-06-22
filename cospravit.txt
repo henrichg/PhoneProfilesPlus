@@ -688,9 +688,10 @@ skor. Lenze aky status nastavit vtedy? NOT_ALLOWED_BY_SYSTEM? Cize testovat v is
 Hm, zaujimave.
 
 Nebeziaci Extender. Mam hned pindat, cervenou chybou senzora a notifikaciou? Asi by som mal.
+Co robim teraz?
 
-Nebeziaci prislusny scanner. Mam hned pindat, cervenou chybou senzora a notifikaciou? Asi by som mal.
-Ale bacha, scenner moze vypnut aj aktivacia profilu. Hm, tak asi nechat ako to je.
+Nebeziaci prislusny scanner. Mam hned pindat, cervenou chybou senzora a notifikaciou?
+Bacha, scenner moze vypnut aj aktivacia profilu. Hm, tak asi nechat ako to je.
 
 A co ostatne pripady? Napriklad vypnuta obrazovka, ale nie len toto. Sice je senzor ignorovany, ale mam kvoli tomu menit
 status, farbu? Nezda sa mi to rozumne. Uzvatelov to len  vyplasi.
