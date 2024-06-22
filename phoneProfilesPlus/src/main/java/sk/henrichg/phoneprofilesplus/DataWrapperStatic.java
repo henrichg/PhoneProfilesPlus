@@ -677,8 +677,10 @@ class DataWrapperStatic {
 //                for (Profile profile : shortcutProfiles)
 //                    Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "(1) profileId="+profile._id);
 
-                    // add activated profile as first
-                    shortcutProfiles.add(0, activatedProfile);
+                  // add activated profile as first
+                  if (activatedProfile != null)
+                      shortcutProfiles.add(0, activatedProfile);
+
 //                for (Profile profile : _shortcutProfiles)
 //                    Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "(2) profileId="+profile._id);
 
