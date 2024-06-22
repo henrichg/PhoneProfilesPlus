@@ -1812,7 +1812,7 @@ class DatabaseHandlerProfiles {
                         for (int i = 0; i < (limit-1); i++) {
                             long inShortcutsProfileId = ApplicationPreferences.getDynamicShortcutProfileId(instance.context, i);
                             if (inShortcutsProfileId == profile._id) {
-                                PPApplicationStatic.logE("DatabaseHandlerProfiles.getProfilesForDynamicShortcuts2", "profile._name="+profile._name);
+//                                PPApplicationStatic.logE("DatabaseHandlerProfiles.getProfilesForDynamicShortcuts2", "profile._name="+profile._name);
                                 profileList.add(profile);
                             }
                         }

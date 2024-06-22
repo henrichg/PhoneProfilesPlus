@@ -633,90 +633,96 @@ class DataWrapperStatic {
 
     static void setDynamicLauncherShortcuts(final Context appContext) {
         try {
-            //final Context appContext = context.getApplicationContext();
-            LocaleHelper.setApplicationLocale(appContext);
+            synchronized (PPApplication.dynamicShortcutsMutex) {
 
-            ShortcutManager shortcutManager = appContext.getSystemService(ShortcutManager.class);
+                //final Context appContext = context.getApplicationContext();
+                LocaleHelper.setApplicationLocale(appContext);
 
-            if (shortcutManager != null) {
-                final int limit = 4; // must be 4, because higer value removes restart events
+                ShortcutManager shortcutManager = appContext.getSystemService(ShortcutManager.class);
 
-                // get saved dynamic shortcuts profiles
-                List<Profile> __shortcutProfiles = DatabaseHandler.getInstance(appContext).getProfilesForDynamicShortcuts2();
-                //List<Profile> __shortcutProfiles = new ArrayList<>();
+                if (shortcutManager != null) {
+                    final int limit = 4; // must be 4, because higer value removes restart events
+
+                    // get saved dynamic shortcuts profiles
+                    List<Profile> __shortcutProfiles = DatabaseHandler.getInstance(appContext).getProfilesForDynamicShortcuts2();
+                    //List<Profile> __shortcutProfiles = new ArrayList<>();
 //                for (Profile profile : __shortcutProfiles)
 //                    Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "(0) profileId="+profile._id);
 
-                Profile activatedProfile = DatabaseHandler.getInstance(appContext).getActivatedProfile();
+                    Profile activatedProfile = DatabaseHandler.getInstance(appContext).getActivatedProfile();
 
-                // remove duplicates
-                //List<Profile> _shortcutProfiles = __shortcutProfiles.stream().distinct().collect(Collectors.toList());
+                    // remove duplicates
+                    //List<Profile> _shortcutProfiles = __shortcutProfiles.stream().distinct().collect(Collectors.toList());
 
-                // copy only profiles, which are not activated
-                List<Profile> _shortcutProfiles = new ArrayList<>();
-                for (int i = 0; i < __shortcutProfiles.size(); i++) {
-                    Profile profile = __shortcutProfiles.get(i);
-                    if (profile._id != activatedProfile._id)
-                        _shortcutProfiles.add(profile);
-                }
+                    // copy only profiles, which are not activated
+                    List<Profile> _shortcutProfiles = new ArrayList<>();
+                    if (activatedProfile != null) {
+                        for (int i = 0; i < __shortcutProfiles.size(); i++) {
+                            Profile profile = __shortcutProfiles.get(i);
+                            if (profile._id != activatedProfile._id)
+                                _shortcutProfiles.add(profile);
+                        }
+                    } else
+                        _shortcutProfiles.addAll(__shortcutProfiles);
 
-                // copy first 3 profiles
-                List<Profile> shortcutProfiles;
-                int subListCount = _shortcutProfiles.size();
-                if (subListCount > 0) {
-                    if (subListCount > limit - 1)
-                        subListCount = limit - 1;
-                    shortcutProfiles = _shortcutProfiles.subList(0, subListCount);
-                } else
-                    shortcutProfiles = _shortcutProfiles;
+                    // copy first 3 profiles
+                    List<Profile> shortcutProfiles;
+                    int subListCount = _shortcutProfiles.size();
+                    if (subListCount > 0) {
+                        if (subListCount > limit - 1)
+                            subListCount = limit - 1;
+                        shortcutProfiles = _shortcutProfiles.subList(0, subListCount);
+                    } else
+                        shortcutProfiles = new ArrayList<>(_shortcutProfiles);
 //                for (Profile profile : shortcutProfiles)
 //                    Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "(1) profileId="+profile._id);
 
-                // add activated profile as first
-                shortcutProfiles.add(0, activatedProfile);
+                    // add activated profile as first
+                    shortcutProfiles.add(0, activatedProfile);
 //                for (Profile profile : _shortcutProfiles)
 //                    Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "(2) profileId="+profile._id);
 
-                // save new shortcuts to shared preferences
-                int shortcutCount = shortcutProfiles.size();
-                for (int i = 0; i < shortcutCount; i++) {
+                    // save new shortcuts to shared preferences
+                    int shortcutCount = shortcutProfiles.size();
+                    for (int i = 0; i < shortcutCount; i++) {
 //                    Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "(3) profileId="+shortcutProfiles.get(i)._id);
-                    ApplicationPreferences.setDynamicShortcutProfileId(appContext, i, shortcutProfiles.get(i)._id);
-                }
-                // if shortcutCount < limit-1, must be saved with profoielId=0
-                for (int i = shortcutCount; i < (limit-1); i++) {
+                        ApplicationPreferences.setDynamicShortcutProfileId(appContext, i, shortcutProfiles.get(i)._id);
+                    }
+                    // if shortcutCount < limit-1, must be saved with profoielId=0
+                    for (int i = shortcutCount; i < (limit - 1); i++) {
 //                    Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "(4) i="+i);
-                    ApplicationPreferences.setDynamicShortcutProfileId(appContext, i, 0);
-                }
+                        ApplicationPreferences.setDynamicShortcutProfileId(appContext, i, 0);
+                    }
 
-                ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
+                    ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
 
-                // add "Restart events"
-                Profile _profile = getNonInitializedProfile(appContext.getString(R.string.menu_restart_events),
-                        StringConstants.PROFILE_ICON_RESTART_EVENTS+"|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
-                _profile.generateIconBitmap(appContext, false, 0, false);
-                // first profile is restart events
-                shortcuts.add(createShortcutInfo(_profile, true, appContext));
+                    // add "Restart events"
+                    Profile _profile = getNonInitializedProfile(appContext.getString(R.string.menu_restart_events),
+                            StringConstants.PROFILE_ICON_RESTART_EVENTS + "|1|1|" + ApplicationPreferences.applicationRestartEventsIconColor, 0);
+                    _profile.generateIconBitmap(appContext, false, 0, false);
+                    // first profile is restart events
+                    shortcuts.add(createShortcutInfo(_profile, true, appContext));
 
-                int shortcutsCount = 1; // restart events added
+                    int shortcutsCount = 1; // restart events added
 
 //                Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcutProfiles - start");
-                for (Profile profile : shortcutProfiles) { // tu pouzi ten newShortcutProfiles, kde budu len 4 profily
+                    for (Profile profile : shortcutProfiles) { // tu pouzi ten newShortcutProfiles, kde budu len 4 profily
 //                    Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "profile._name="+profile._name);
-                    profile.generateIconBitmap(appContext, false, 0, false);
-                    shortcuts.add(createShortcutInfo(profile, false, appContext));
-                    ++shortcutsCount;
-                    if (shortcutsCount == limit)
-                        break;
-                }
+                        profile.generateIconBitmap(appContext, false, 0, false);
+                        shortcuts.add(createShortcutInfo(profile, false, appContext));
+                        ++shortcutsCount;
+                        if (shortcutsCount == limit)
+                            break;
+                    }
 //                Log.e("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcutProfiles - end");
 
-                shortcutManager.removeAllDynamicShortcuts();
-                if (!shortcuts.isEmpty()) {
-                    shortcutManager.addDynamicShortcuts(shortcuts);
-                    if (Build.VERSION.SDK_INT >= 30) {
-                        for (ShortcutInfo shortcut : shortcuts)
-                            shortcutManager.pushDynamicShortcut(shortcut);
+                    shortcutManager.removeAllDynamicShortcuts();
+                    if (!shortcuts.isEmpty()) {
+                        shortcutManager.addDynamicShortcuts(shortcuts);
+                        if (Build.VERSION.SDK_INT >= 30) {
+                            for (ShortcutInfo shortcut : shortcuts)
+                                shortcutManager.pushDynamicShortcut(shortcut);
+                        }
                     }
                 }
             }

@@ -831,6 +831,7 @@ public class PPApplication extends Application
     static final ProfileListWidgetDatasetChangedMutex profileListWidgetDatasetChangedMutex = new ProfileListWidgetDatasetChangedMutex();
     static final SamsungEdgeDatasetChangedMutex samsungEdgeDatasetChangedMutex = new SamsungEdgeDatasetChangedMutex();
     static final DashClockWidgetMutex dashClockWidgetMutex = new DashClockWidgetMutex();
+    static final DynamicShortcutsMutex dynamicShortcutsMutex = new DynamicShortcutsMutex();
 
     //static PowerManager.WakeLock keepScreenOnWakeLock;
 
