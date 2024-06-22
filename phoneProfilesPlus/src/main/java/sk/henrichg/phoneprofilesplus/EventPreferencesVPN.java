@@ -205,21 +205,18 @@ class EventPreferencesVPN extends EventPreferences {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
             if (EventStatic.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (_connectionStatus == 0)
+                    eventsHandler.vpnPassed = PPApplication.vpnNetworkConnected;
+                else
+                if (_connectionStatus == 1)
+                    eventsHandler.vpnPassed = !PPApplication.vpnNetworkConnected;
+                else
+                    eventsHandler.vpnPassed = false;
 
-                if (!eventsHandler.notAllowedVPN) {
-                    if (_connectionStatus == 0)
-                        eventsHandler.vpnPassed = PPApplication.vpnNetworkConnected;
-                    else
-                    if (_connectionStatus == 1)
-                        eventsHandler.vpnPassed = !PPApplication.vpnNetworkConnected;
-                    else
-                        eventsHandler.vpnPassed = false;
-
-                    if (eventsHandler.vpnPassed)
-                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
-                    else
-                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-                }
+                if (eventsHandler.vpnPassed)
+                    setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                else
+                    setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
             }
             else
                 eventsHandler.notAllowedVPN = true;

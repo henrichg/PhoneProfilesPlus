@@ -1580,6 +1580,7 @@ class Event {
         StringBuilder _value = new StringBuilder();
 
         if (ApplicationPreferences.applicationEventUsePriority) {
+            // This is pseudo sensor [Priority], this sensor do have notAllowed status
             String passStatusString;
             if (EventStatic.getGlobalEventsRunning(context) && addPassStatus && (getStatusFromDB(context) != Event.ESTATUS_STOP)) {
                 int sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;

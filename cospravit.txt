@@ -583,3 +583,118 @@ Alebo v One UI. Že je tam zlý downloader.
 
 - Fixed bugs.
 - Updated translations.
+
+------------
+
+v doHandleEvent() nastavujem notAllowed.
+
+Pre kazdy jeden sensor to dam, ked isEventPreferenceAllowed() vrati false.
+V tomto pripade by som ale mal skor generovat chybu pre udalost aprislusny sensor, udalost, sensor,
+parameter senzora dat cervene.
+
+- EventPreferencesAccessories:
+Ak sa nespravi receivet na Intent.ACTION_DOCK_EVENT. To je sticky broadcast, z ktoreho potom citam udaje.
+
+- EventPreferencesActivatedProfile:
+Ak nema nastavene v senzore nicstart a end profile. Toto by ale nemalo nastat, to sa testuje uz
+pri samotnotm nastavovani senzora, oznacue sa creneve aj nic nie je zaskrtnute.
+Ale nechal som to tam.
+
+- EventPreferencesAlarmClock:
+Nenastavujem
+
+- EventPreferencesApplication:
+Ak nebezi Extender alebo nebola zistena foreground aplikacia z neho.
+
+- EventPreferencesBattery:
+k sa nespravi receivet na Intent.ACTION_BATTERY_CHANGED. To je sticky broadcast, z ktoreho potom citam udaje.
+
+- EventPreferencesBluetooth:
+Pre Neraby ak je vypnuta obrazovka.
+
+- EventPreferencesBrightness:
+Ak system nevrati aktualny brightness (v Settings.System je -1, ale toto by nastat nemalo),
+ ked je obrazovka vypnuta.
+
+- EventPreferencesCalendar:
+Nneastavuje sa
+
+- EventPreferencesCall:
+Ked system vrati EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED a sensor nema nastavene missed call,
+incoming, outgooing call end.
+
+- EventPreferencesDeviceBoot:
+Nenastavuje sa
+
+- EventPreferencesLocation:
+Ked nemam location data z transistion alebo nebezi location scanner.
+
+- EventPreferencesMobileCells
+Ked je obrazovka vypnuta. Ked ziskany cell nie je validny, ked nebezi mobil cells scanner.
+
+- EventPreferencesMusic:
+Ked sustem neda AudioManager
+
+- EventPreferencesNFC:
+Nenastavuje sa
+
+- EventPreferencesNotification:
+Nenastavuje sa
+
+- EventPreferencesOrientation:
+Ked bezi hovor, ked je obrazovka vynuta, ked nebezi Extender, ked nebezi Oreintation scanner,
+
+TOTO PREMYSLI, TOTO SA MI NEZDA, ZE SA MA IGNOROVAT:
+!!! ked bezi aplikacia, pre ktoru sa nema ignorovat
+
+- EventPreferencesPeriodic:
+Nenastavuje sa
+
+- EventPreferencesRadioSwitch:
+Ked bezi jeden wifi scan, ked system nda WiFiManager, ked bezi jeden bluetooth scan, ked system nevrati
+BluetoothAdapter, ked ststem nevrati LocaitonMamager.
+
+- EventPreferencesRoaming:
+Ak nema nastavene v senzore nic z toho, co sa ma checkovat. Toto by ale nemalo nastat, to sa testuje uz
+pri samotnotm nastavovani senzora, oznacue sa creneve aj nic nie je zaskrtnute.
+Ale nechal som to tam.
+
+- EventPreferencesScreen:
+Ak system nevrati KeyguargManager.
+
+- EventPreferencesSMS:
+Nenastavuje sa
+
+- EventPreferencesSoundProfile:
+Nenastavuje sa
+
+- EventPreferencesTime:
+Nenastavuje sa
+
+- EventPreferencesVolumes:
+Nenastavuje sa
+
+- EventPreferencesVPN:
+Nenastavuej sa
+
+- EventPreferencesWifi:
+Kes system nevrati WiFiManager, ked je vypnuta obrazovka, ked scanner nevrati ziadne SSID (nie prazdne, null).
+
+Cize fakt v speci pripadoch zistitelnych az pri samotnom behe senzora.
+
+---
+
+Su tam pripady, ked system nevrati prislusne managery. Tie by som este mohol testovat
+skor. Lenze aky status nastavit vtedy? NOT_ALLOWED_BY_SYSTEM? Cize testovat v isEventPreferenceAllowed()?
+Hm, zaujimave.
+
+Nebeziaci Extender. Mam hned pindat, cervenou chybou senzora a notifikaciou? Asi by som mal.
+
+Nebeziaci prislusny scanner. Mam hned pindat, cervenou chybou senzora a notifikaciou? Asi by som mal.
+Ale bacha, scenner moze vypnut aj aktivacia profilu. Hm, tak asi nechat ako to je.
+
+A co ostatne pripady? Napriklad vypnuta obrazovka, ale nie len toto. Sice je senzor ignorovany, ale mam kvoli tomu menit
+status, farbu? Nezda sa mi to rozumne. Uzvatelov to len  vyplasi.
+
+
+
