@@ -586,11 +586,10 @@ Alebo v One UI. Že je tam zlý downloader.
 
 ------------
 
-v doHandleEvent() nastavujem notAllowed.
+v doHandleEvent() nastavujem notAllowed...
 
 Pre kazdy jeden sensor to dam, ked isEventPreferenceAllowed() vrati false.
-V tomto pripade by som ale mal skor generovat chybu pre udalost aprislusny sensor, udalost, sensor,
-parameter senzora dat cervene.
+Chybu o tomto ale uz generujem, takze toto je len pre to, aby sa cerveny sensor ignoroval.
 
 - EventPreferencesAccessories:
 Ak sa nespravi receivet na Intent.ACTION_DOCK_EVENT. To je sticky broadcast, z ktoreho potom citam udaje.
