@@ -88,6 +88,10 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
                 (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
                 (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
+
+            // this must be called, because is required to be set DataWrapper.profileListFilled
+            dataWrapper.fillProfileList(false, false);
+
             if (profile_id == Profile.RESTART_EVENTS_PROFILE_ID) {
                 //if (Event.getGlobalEventsRunning()) {
                 // set theme and language for dialog alert ;-)

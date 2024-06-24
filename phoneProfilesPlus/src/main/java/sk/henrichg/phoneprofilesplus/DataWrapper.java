@@ -430,6 +430,8 @@ class DataWrapper {
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.setProfileActive", "DataWrapper.profileList");
         synchronized (profileList) {
+//            Log.e("DataWrapper.setProfileActive", "xxxx");
+
             if (!profileListFilled)
                 return;
 
@@ -439,12 +441,14 @@ class DataWrapper {
                 _profile._checked = false;
             }
 
-
             if (profile != null) {
+//                Log.e("DataWrapper.setProfileActive", "profile="+profile._name);
+
                 profile._checked = true;
                 PPApplicationStatic.setLastActivatedProfile(context, profile._id);
             }
             else {
+//                Log.e("DataWrapper.setProfileActive", "profile=0");
                 PPApplicationStatic.setLastActivatedProfile(context, 0);
             }
 
@@ -1520,6 +1524,7 @@ class DataWrapper {
         }
 
         DatabaseHandler.getInstance(context).activateProfile(_profile);
+//        Log.e("DataWrapper._activateProfile", "profile="+_profile._name);
         setProfileActive(_profile);
 
         // for STARTUP_SOURCE_EVENT, STARTUP_SOURCE_FOR_FIRST_START is mandatory
@@ -2005,6 +2010,7 @@ class DataWrapper {
         {
             if (profile != null) {
                 DatabaseHandler.getInstance(context).activateProfile(profile);
+//                Log.e("DataWrapper.activateProfile", "profile="+profile._name);
                 setProfileActive(profile);
             }
 
