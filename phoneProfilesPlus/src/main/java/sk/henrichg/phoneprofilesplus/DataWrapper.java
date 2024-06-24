@@ -432,8 +432,11 @@ class DataWrapper {
         synchronized (profileList) {
 //            Log.e("DataWrapper.setProfileActive", "xxxx");
 
-            if (!profileListFilled)
-                return;
+            if (!profileListFilled) {
+                //return;
+                // maybe is ok to fill it in this method and without icons and indicators. hm
+                fillProfileList(false, false);
+            }
 
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext();) {

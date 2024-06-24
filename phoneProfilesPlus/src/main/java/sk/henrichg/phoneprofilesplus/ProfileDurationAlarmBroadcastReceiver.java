@@ -340,6 +340,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 //            Log.e("ProfileDurationAlarmBroadcastReceiver._doWork", "xxxx");
 
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+            dataWrapper.fillProfileList(false, false);
 
             Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
             if (profile != null) {
