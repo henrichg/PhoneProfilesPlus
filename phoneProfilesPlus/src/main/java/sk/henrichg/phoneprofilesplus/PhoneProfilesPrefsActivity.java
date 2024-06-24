@@ -547,7 +547,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
             // PPApplicationStatic.recordException(e);
         //}
 
-        DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(appContext);
+        DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(appContext, false);
 
         /*
         if (PhoneProfilesService.getInstance() != null) {

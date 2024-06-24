@@ -1715,7 +1715,7 @@ public class PPApplication extends Application
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
 
         // dynamic shortcuts
-        DataWrapperStatic.setDynamicLauncherShortcuts(context);
+        DataWrapperStatic.setDynamicLauncherShortcuts(context, false);
 
         // restart tile - this invoke onStartListening()
         // require in manifest file for TileService this meta data:

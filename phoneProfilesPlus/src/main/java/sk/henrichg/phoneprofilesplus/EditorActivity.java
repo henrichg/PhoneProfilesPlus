@@ -2975,7 +2975,7 @@ public class EditorActivity extends AppCompatActivity
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorActivity.redrawProfileListFragment", "call of updateGUI");
                 PPApplication.updateGUI(true, false, fragment.activityDataWrapper.context);
 
-                DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(getApplicationContext());
+                DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(getApplicationContext(), false);
 
                 if (filterProfilesSelectedItem != 0) {
                     final Handler handler = new Handler(getMainLooper());

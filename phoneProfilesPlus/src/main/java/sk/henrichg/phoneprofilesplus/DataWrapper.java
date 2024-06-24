@@ -1672,7 +1672,8 @@ class DataWrapper {
                                     fifoAddProfile(activatedProfileId, 0);
 
                                 DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(profile);
-                                DataWrapperStatic.setDynamicLauncherShortcuts(context);
+//                                Log.e("DataWrapper.activateProfileFromMainThread", "xxxxx");
+                                DataWrapperStatic.setDynamicLauncherShortcuts(context, true);
                             }
                         }
 
@@ -1791,6 +1792,7 @@ class DataWrapper {
                                     }
                                 }
 
+//                                Log.e("DataWrapper.activateProfileWithAlert", "(1) xxxxx");
                                 _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity, false);
                             } else {
                                 Intent returnIntent = new Intent();
@@ -1839,6 +1841,7 @@ class DataWrapper {
             }
             else {
                 if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context)) {
+//                    Log.e("DataWrapper.activateProfileWithAlert", "(2) xxxxx");
                     activateProfileFromMainThread(profile, false, startupSource, true, activity, false);
                 }
                 else {
@@ -1993,8 +1996,10 @@ class DataWrapper {
                 activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_FOR_FIRST_START,
                         false, null, testGrant);
             }
-            else
+            else {
+//                Log.e("DataWrapper.activateProfile", "xxxxx");
                 activateProfileWithAlert(profile, startupSource, /*interactive,*/ activity);
+            }
         }
         else
         {

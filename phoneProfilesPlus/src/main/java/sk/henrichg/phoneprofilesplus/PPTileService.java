@@ -88,7 +88,7 @@ public class PPTileService extends TileService {
         Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPTileService.onTileRemoved");
 
-            DataWrapperStatic.setDynamicLauncherShortcuts(appContext);
+            DataWrapperStatic.setDynamicLauncherShortcuts(appContext, false);
         };
         PPApplicationStatic.createDelayedGuiExecutor();
         PPApplication.delayedGuiExecutor.submit(runnable);

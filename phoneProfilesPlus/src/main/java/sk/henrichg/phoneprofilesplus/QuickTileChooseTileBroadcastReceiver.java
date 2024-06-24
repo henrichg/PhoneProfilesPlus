@@ -85,7 +85,7 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
                     }
                     PPApplication.showToast(appContext, toast, Toast.LENGTH_LONG);
 
-                    DataWrapperStatic.setDynamicLauncherShortcuts(appContext);
+                    DataWrapperStatic.setDynamicLauncherShortcuts(appContext, false);
 
                     dataWrapper.invalidateDataWrapper();
                 } catch (Exception e) {

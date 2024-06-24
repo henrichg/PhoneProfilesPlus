@@ -739,7 +739,7 @@ public class PhoneProfilesService extends Service
                 //GlobalGUIRoutines.setLanguage(appContext);
                 GlobalGUIRoutines.switchNightMode(appContext, true);
 
-                DataWrapperStatic.setDynamicLauncherShortcuts(appContext);
+                DataWrapperStatic.setDynamicLauncherShortcuts(appContext, false);
 
                 PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart - handler", "application not started, start it");
 

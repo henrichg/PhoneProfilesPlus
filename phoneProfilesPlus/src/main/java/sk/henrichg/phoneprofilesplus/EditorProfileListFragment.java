@@ -712,7 +712,7 @@ public class EditorProfileListFragment extends Fragment
             activityDataWrapper.restartEventsWithRescan(true, false, true, true, true, false);
         }
 
-        DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(activityDataWrapper.context);
+        DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(activityDataWrapper.context, false);
 
         /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -870,7 +870,7 @@ public class EditorProfileListFragment extends Fragment
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorProfileListFragment.deleteAllProfiles", "call of updateGUI");
                         PPApplication.updateGUI(true, false, activityDataWrapper.context);
 
-                        DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(activityDataWrapper.context);
+                        DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(activityDataWrapper.context, false);
 
                         /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -987,7 +987,7 @@ public class EditorProfileListFragment extends Fragment
                     profileListAdapter.activateProfile(profile);
                 updateHeader(profile);
 
-                DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(activityDataWrapper.context);
+                DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(activityDataWrapper.context, true);
 
              }
              //if (resultCode == Activity.RESULT_CANCELED)
