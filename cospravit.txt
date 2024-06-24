@@ -696,5 +696,34 @@ Bacha, scenner moze vypnut aj aktivacia profilu. Hm, tak asi nechat ako to je.
 A co ostatne pripady? Napriklad vypnuta obrazovka, ale nie len toto. Sice je senzor ignorovany, ale mam kvoli tomu menit
 status, farbu? Nezda sa mi to rozumne. Uzvatelov to len  vyplasi.
 
+------------
+
+PhoneProfiles a executeForVolumes:
+
+Kukaj. 3x volane setRingerMode():
+
+//firstCall = true -> ak dobre pozeram, len to zapise do shared preferences, ci kam
+setRingerMode(appContext, profile, audioManager, true, forProfileActivation);
+
+// !!! DO NOT CALL setVolumes before setRingerMode(..., firsCall:false).
+//     Ringer mode must be changed before call of setVolumes() because is checked in setVolumes().
+
+setRingerMode(appContext, profile, audioManager, false, forProfileActivation);
+
+PPApplication.sleep(500);
+
+setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation);
+
+-----
+// TOTO? specialita pre Priority !!!! Ale preco, naco?
+if (getSystemZenMode(appContext/*, -1*/) == ActivateProfileHelper.ZENMODE_PRIORITY) {
+//PPApplication.sleep(500);
+setRingerMode(appContext, profile, audioManager, false, /*linkUnlink,*/ forProfileActivation);
+}
+-----
+
+
+
+
 
 

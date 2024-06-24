@@ -1371,6 +1371,7 @@ class ActivateProfileHelper {
                                 int volume = ApplicationPreferences.prefRingerVolume;
                                 if (volume != -999) {
                                     try {
+//                                        Log.e("ActivateProfileHelper.setVolumes", "(1) STREAM_RING");
                                         //EventPreferencesVolumes.internalChange = true;
                                         if (audioManager.getStreamVolume(AudioManager.STREAM_RING) != volume)
                                             audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
@@ -1378,6 +1379,7 @@ class ActivateProfileHelper {
                                         //PhoneProfilesService.notificationVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                                         //EventPreferencesVolumes.internalChange = true;
+//                                        Log.e("ActivateProfileHelper.setVolumes", "(1) STREAM_NOTIFICATION");
                                         if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) != volume)
                                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
@@ -1396,6 +1398,7 @@ class ActivateProfileHelper {
                                 if (volume != -999) {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
+//                                        Log.e("ActivateProfileHelper.setVolumes", "(2) STREAM_RING");
                                         if (audioManager.getStreamVolume(AudioManager.STREAM_RING) != volume)
                                             audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         PlayRingingNotification.simulatingRingingCallActualRingingVolume = volume;
@@ -1410,6 +1413,7 @@ class ActivateProfileHelper {
                                 if (volume != -999) {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
+//                                        Log.e("ActivateProfileHelper.setVolumes", "(2) STREAM_NOTIFICATION");
                                         if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) != volume)
                                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         //PhoneProfilesService.notificationVolume = volume;
@@ -1426,6 +1430,7 @@ class ActivateProfileHelper {
                                 if (volume != -999) {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
+//                                        Log.e("ActivateProfileHelper.setVolumes", "(3) STREAM_RING");
                                         if (audioManager.getStreamVolume(AudioManager.STREAM_RING) != volume)
                                             audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         PlayRingingNotification.simulatingRingingCallActualRingingVolume = volume;
@@ -1441,6 +1446,7 @@ class ActivateProfileHelper {
                                 if (volume != -999) {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
+//                                        Log.e("ActivateProfileHelper.setVolumes", "(3) STREAM_NOTIFICATION");
                                         if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) != volume)
                                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         //PhoneProfilesService.notificationVolume = volume;
@@ -1463,6 +1469,7 @@ class ActivateProfileHelper {
                                 if (volume != -999) {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
+//                                        Log.e("ActivateProfileHelper.setVolumes", "(4) STREAM_NOTIFICATION");
                                         if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) != volume)
                                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         //PhoneProfilesService.notificationVolume = volume;
@@ -1479,6 +1486,7 @@ class ActivateProfileHelper {
                             if (volume != -999) {
                                 try {
                                     //EventPreferencesVolumes.internalChange = true;
+//                                    Log.e("ActivateProfileHelper.setVolumes", "(4) STREAM_RING");
                                     if (audioManager.getStreamVolume(AudioManager.STREAM_RING) != volume)
                                         audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                     PlayRingingNotification.simulatingRingingCallActualRingingVolume = volume;
@@ -3500,14 +3508,22 @@ class ActivateProfileHelper {
                             changeRingerModeForVolumeEqual0(profile, audioManager, appContext);
                             changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
 
-                            setSoundMode(appContext, profile, audioManager, /*systemZenMode,*/ forProfileActivation, executedProfileSharedPreferences);
+                            if ((getSystemZenMode(appContext) == ActivateProfileHelper.ZENMODE_PRIORITY) ||
+                                    (profile._volumeZenMode == ZENMODE_PRIORITY)) {
+                                requestInterruptionFilter(appContext, ZENMODE_ALL);
+                                setVolumes(appContext, profile, audioManager, /*systemZenMode,*/ linkUnlink, forProfileActivation, true);
+                                setSoundMode(appContext, profile, audioManager, /*systemZenMode,*/ forProfileActivation, executedProfileSharedPreferences);
+                            } else {
+                                setSoundMode(appContext, profile, audioManager, /*systemZenMode,*/ forProfileActivation, executedProfileSharedPreferences);
 
-                            GlobalUtils.sleep(500);
+                                GlobalUtils.sleep(500);
 
-                            // get actual system zen mode (may be changed in setRingerMode())
-                            //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
+                                // get actual system zen mode (may be changed in setRingerMode())
+                                //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
-                            setVolumes(appContext, profile, audioManager, /*systemZenMode,*/ linkUnlink, forProfileActivation, true);
+                                setVolumes(appContext, profile, audioManager, /*systemZenMode,*/ linkUnlink, forProfileActivation, true);
+
+                            }
                         }
                     } else {
 
@@ -3515,7 +3531,12 @@ class ActivateProfileHelper {
 
                         //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
-                        setVolumes(appContext, profile, audioManager, /*systemZenMode,*/ PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
+                        if (getSystemZenMode(appContext) == ActivateProfileHelper.ZENMODE_PRIORITY) {
+                            requestInterruptionFilter(appContext, ZENMODE_ALL);
+                            setVolumes(appContext, profile, audioManager, /*systemZenMode,*/ PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
+                            requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+                        } else
+                            setVolumes(appContext, profile, audioManager, /*systemZenMode,*/ PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
                     }
 
                     PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
@@ -3947,6 +3968,160 @@ class ActivateProfileHelper {
         PPApplication.soundModeExecutorPool.submit(runnable);
     }
 
+    private static void _changeImageWallpapers(Profile profile, String wallpaperUri, String lockScreenWallpaperUri, boolean fromFolder, Context appContext) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        WindowManager wm = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
+        if (wm != null) {
+            Display display = wm.getDefaultDisplay();
+            display.getRealMetrics(displayMetrics);
+            int height = displayMetrics.heightPixels;
+            int width = displayMetrics.widthPixels;
+            if (appContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                //noinspection SuspiciousNameCombination
+                height = displayMetrics.widthPixels;
+                //noinspection SuspiciousNameCombination
+                width = displayMetrics.heightPixels;
+            }
+
+            // for lock screen no double width
+            if (profile._deviceWallpaperFor != 2)
+                width = width << 1; // best wallpaper width is twice screen width
+
+            if (fromFolder) {
+                Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(wallpaperUri, width, height, false, true, appContext);
+                if (decodedSampleBitmap != null) {
+                    // set wallpaper
+                    WallpaperManager wallpaperManager = WallpaperManager.getInstance(appContext);
+                    try {
+                        int flags = WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK;
+                        Rect visibleCropHint = null;
+                        if (profile._deviceWallpaperFor == 1)
+                            flags = WallpaperManager.FLAG_SYSTEM;
+                        if (profile._deviceWallpaperFor == 2) {
+                            flags = WallpaperManager.FLAG_LOCK;
+                            int left = 0;
+                            int right = decodedSampleBitmap.getWidth();
+                            if (decodedSampleBitmap.getWidth() > width) {
+                                left = (decodedSampleBitmap.getWidth() / 2) - (width / 2);
+                                right = (decodedSampleBitmap.getWidth() / 2) + (width / 2);
+                            }
+                            visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
+                        }
+                        wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
+                        decodedSampleBitmap.recycle();
+
+                        // this is required for "change random image from folder"
+                        PPApplicationStatic.setWallpaperChangeTime(appContext);
+                    } catch (IOException e) {
+                        PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
+                                null, profile._name, "");
+                        //Log.e("ActivateProfileHelper._changeImageWallpaper", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
+                        decodedSampleBitmap.recycle();
+                    } catch (Exception e) {
+                        PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
+                                null, profile._name, "");
+                        //PPApplicationStatic.recordException(e);
+                        decodedSampleBitmap.recycle();
+                    }
+                } else {
+                    PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
+                            null, profile._name, "");
+                }
+            } else {
+                Bitmap decodedSampleBitmapHome = null;
+                Bitmap decodedSampleBitmapLock = null;
+                if ((profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 1))
+                    decodedSampleBitmapHome = BitmapManipulator.resampleBitmapUri(wallpaperUri, width, height, false, true, appContext);
+                if ((lockScreenWallpaperUri != null) && (!lockScreenWallpaperUri.isEmpty()) &&
+                        (!lockScreenWallpaperUri.equals("-")) &&
+                        (profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 2))
+                    decodedSampleBitmapLock = BitmapManipulator.resampleBitmapUri(lockScreenWallpaperUri, width, height, false, true, appContext);
+
+                WallpaperManager wallpaperManager = WallpaperManager.getInstance(appContext);
+                try {
+                    if (profile._deviceWallpaperFor == 0) {
+                        // home+lock
+                        if ((decodedSampleBitmapHome != null)) {
+                            int flags;
+                            if (decodedSampleBitmapLock == null)
+                                flags = WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK;
+                            else
+                                flags = WallpaperManager.FLAG_SYSTEM;
+
+                            wallpaperManager.setBitmap(decodedSampleBitmapHome, null, true, flags);
+                        }
+                        if (decodedSampleBitmapLock != null) {
+                            int flags = WallpaperManager.FLAG_LOCK;
+                            int left = 0;
+                            int right = decodedSampleBitmapLock.getWidth();
+                            if (decodedSampleBitmapLock.getWidth() > width) {
+                                left = (decodedSampleBitmapLock.getWidth() / 2) - (width / 2);
+                                right = (decodedSampleBitmapLock.getWidth() / 2) + (width / 2);
+                            }
+                            Rect visibleCropHint = new Rect(left, 0, right, decodedSampleBitmapLock.getHeight());
+
+                            wallpaperManager.setBitmap(decodedSampleBitmapLock, visibleCropHint, true, flags);
+                        }
+                    }
+                    if (profile._deviceWallpaperFor == 1) {
+                        // home only
+                        if ((decodedSampleBitmapHome != null)) {
+                            int flags;
+                            flags = WallpaperManager.FLAG_SYSTEM;
+
+                            wallpaperManager.setBitmap(decodedSampleBitmapHome, null, true, flags);
+                        }
+                    }
+                    if (profile._deviceWallpaperFor == 2) {
+                        // lock only
+                        Bitmap decodedSampleBitmap = decodedSampleBitmapHome;
+                        if (decodedSampleBitmapLock != null)
+                            decodedSampleBitmap = decodedSampleBitmapLock;
+
+                        if (decodedSampleBitmap != null) {
+                            int flags = WallpaperManager.FLAG_LOCK;
+                            int left = 0;
+                            int right = decodedSampleBitmap.getWidth();
+                            if (decodedSampleBitmap.getWidth() > width) {
+                                left = (decodedSampleBitmap.getWidth() / 2) - (width / 2);
+                                right = (decodedSampleBitmap.getWidth() / 2) + (width / 2);
+                            }
+                            Rect visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
+
+                            wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
+                        }
+                    }
+
+                    if (decodedSampleBitmapHome != null)
+                        decodedSampleBitmapHome.recycle();
+                    if (decodedSampleBitmapLock != null)
+                        decodedSampleBitmapLock.recycle();
+
+                    // this is required for "change random image from folder"
+                    PPApplicationStatic.setWallpaperChangeTime(appContext);
+                } catch (IOException e) {
+                    PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
+                            null, profile._name, "");
+                    //Log.e("ActivateProfileHelper._changeImageWallpaper", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                    if (decodedSampleBitmapHome != null)
+                        decodedSampleBitmapHome.recycle();
+                    if (decodedSampleBitmapLock != null)
+                        decodedSampleBitmapLock.recycle();
+                } catch (Exception e) {
+                    PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
+                            null, profile._name, "");
+                    //PPApplicationStatic.recordException(e);
+                    if (decodedSampleBitmapHome != null)
+                        decodedSampleBitmapHome.recycle();
+                    if (decodedSampleBitmapLock != null)
+                        decodedSampleBitmapLock.recycle();
+                }
+            }
+        }
+    }
+
     private static void setSoundMode(Context context, Profile profile, AudioManager audioManager,
             /*int systemZenMode,*/ boolean forProfileActivation, SharedPreferences executedProfileSharedPreferences)
     {
@@ -4159,15 +4334,15 @@ class ActivateProfileHelper {
                                         setVibrateWhenRinging(appContext, profile, -1, executedProfileSharedPreferences);
                                         setVibrateNotification(appContext, profile, -1, executedProfileSharedPreferences);*/
                                     //}  else {
-                                        // must be set 2x to keep vibraton
-                                        setRingerMode(audioManager, AudioManager.RINGER_MODE_VIBRATE);
-                                        GlobalUtils.sleep(500);
-                                        requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+                                    // must be set 2x to keep vibraton
+                                    setRingerMode(audioManager, AudioManager.RINGER_MODE_VIBRATE);
+                                    GlobalUtils.sleep(500);
+                                    requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
 
-                                        setRingerMode(audioManager, AudioManager.RINGER_MODE_VIBRATE);
-                                        setVibrateSettings(true, audioManager);
-                                        //PPApplication.sleep(500);
-                                        requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+                                    setRingerMode(audioManager, AudioManager.RINGER_MODE_VIBRATE);
+                                    setVibrateSettings(true, audioManager);
+                                    //PPApplication.sleep(500);
+                                    requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
                                     //}
                                 }
                             }
@@ -4188,160 +4363,6 @@ class ActivateProfileHelper {
                             break;
                     }
                     break;
-            }
-        }
-    }
-
-    private static void _changeImageWallpapers(Profile profile, String wallpaperUri, String lockScreenWallpaperUri, boolean fromFolder, Context appContext) {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        WindowManager wm = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
-        if (wm != null) {
-            Display display = wm.getDefaultDisplay();
-            display.getRealMetrics(displayMetrics);
-            int height = displayMetrics.heightPixels;
-            int width = displayMetrics.widthPixels;
-            if (appContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                //noinspection SuspiciousNameCombination
-                height = displayMetrics.widthPixels;
-                //noinspection SuspiciousNameCombination
-                width = displayMetrics.heightPixels;
-            }
-
-            // for lock screen no double width
-            if (profile._deviceWallpaperFor != 2)
-                width = width << 1; // best wallpaper width is twice screen width
-
-            if (fromFolder) {
-                Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(wallpaperUri, width, height, false, true, appContext);
-                if (decodedSampleBitmap != null) {
-                    // set wallpaper
-                    WallpaperManager wallpaperManager = WallpaperManager.getInstance(appContext);
-                    try {
-                        int flags = WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK;
-                        Rect visibleCropHint = null;
-                        if (profile._deviceWallpaperFor == 1)
-                            flags = WallpaperManager.FLAG_SYSTEM;
-                        if (profile._deviceWallpaperFor == 2) {
-                            flags = WallpaperManager.FLAG_LOCK;
-                            int left = 0;
-                            int right = decodedSampleBitmap.getWidth();
-                            if (decodedSampleBitmap.getWidth() > width) {
-                                left = (decodedSampleBitmap.getWidth() / 2) - (width / 2);
-                                right = (decodedSampleBitmap.getWidth() / 2) + (width / 2);
-                            }
-                            visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
-                        }
-                        wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
-                        decodedSampleBitmap.recycle();
-
-                        // this is required for "change random image from folder"
-                        PPApplicationStatic.setWallpaperChangeTime(appContext);
-                    } catch (IOException e) {
-                        PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
-                                null, profile._name, "");
-                        //Log.e("ActivateProfileHelper._changeImageWallpaper", Log.getStackTraceString(e));
-                        PPApplicationStatic.recordException(e);
-                        decodedSampleBitmap.recycle();
-                    } catch (Exception e) {
-                        PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
-                                null, profile._name, "");
-                        //PPApplicationStatic.recordException(e);
-                        decodedSampleBitmap.recycle();
-                    }
-                } else {
-                    PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
-                            null, profile._name, "");
-                }
-            } else {
-                Bitmap decodedSampleBitmapHome = null;
-                Bitmap decodedSampleBitmapLock = null;
-                if ((profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 1))
-                    decodedSampleBitmapHome = BitmapManipulator.resampleBitmapUri(wallpaperUri, width, height, false, true, appContext);
-                if ((lockScreenWallpaperUri != null) && (!lockScreenWallpaperUri.isEmpty()) &&
-                        (!lockScreenWallpaperUri.equals("-")) &&
-                        (profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 2))
-                    decodedSampleBitmapLock = BitmapManipulator.resampleBitmapUri(lockScreenWallpaperUri, width, height, false, true, appContext);
-
-                WallpaperManager wallpaperManager = WallpaperManager.getInstance(appContext);
-                try {
-                    if (profile._deviceWallpaperFor == 0) {
-                        // home+lock
-                        if ((decodedSampleBitmapHome != null)) {
-                            int flags;
-                            if (decodedSampleBitmapLock == null)
-                                flags = WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK;
-                            else
-                                flags = WallpaperManager.FLAG_SYSTEM;
-
-                            wallpaperManager.setBitmap(decodedSampleBitmapHome, null, true, flags);
-                        }
-                        if (decodedSampleBitmapLock != null) {
-                            int flags = WallpaperManager.FLAG_LOCK;
-                            int left = 0;
-                            int right = decodedSampleBitmapLock.getWidth();
-                            if (decodedSampleBitmapLock.getWidth() > width) {
-                                left = (decodedSampleBitmapLock.getWidth() / 2) - (width / 2);
-                                right = (decodedSampleBitmapLock.getWidth() / 2) + (width / 2);
-                            }
-                            Rect visibleCropHint = new Rect(left, 0, right, decodedSampleBitmapLock.getHeight());
-
-                            wallpaperManager.setBitmap(decodedSampleBitmapLock, visibleCropHint, true, flags);
-                        }
-                    }
-                    if (profile._deviceWallpaperFor == 1) {
-                        // home only
-                        if ((decodedSampleBitmapHome != null)) {
-                            int flags;
-                            flags = WallpaperManager.FLAG_SYSTEM;
-
-                            wallpaperManager.setBitmap(decodedSampleBitmapHome, null, true, flags);
-                        }
-                    }
-                    if (profile._deviceWallpaperFor == 2) {
-                        // lock only
-                        Bitmap decodedSampleBitmap = decodedSampleBitmapHome;
-                        if (decodedSampleBitmapLock != null)
-                            decodedSampleBitmap = decodedSampleBitmapLock;
-
-                        if (decodedSampleBitmap != null) {
-                            int flags = WallpaperManager.FLAG_LOCK;
-                            int left = 0;
-                            int right = decodedSampleBitmap.getWidth();
-                            if (decodedSampleBitmap.getWidth() > width) {
-                                left = (decodedSampleBitmap.getWidth() / 2) - (width / 2);
-                                right = (decodedSampleBitmap.getWidth() / 2) + (width / 2);
-                            }
-                            Rect visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
-
-                            wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
-                        }
-                    }
-
-                    if (decodedSampleBitmapHome != null)
-                        decodedSampleBitmapHome.recycle();
-                    if (decodedSampleBitmapLock != null)
-                        decodedSampleBitmapLock.recycle();
-
-                    // this is required for "change random image from folder"
-                    PPApplicationStatic.setWallpaperChangeTime(appContext);
-                } catch (IOException e) {
-                    PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
-                            null, profile._name, "");
-                    //Log.e("ActivateProfileHelper._changeImageWallpaper", Log.getStackTraceString(e));
-                    PPApplicationStatic.recordException(e);
-                    if (decodedSampleBitmapHome != null)
-                        decodedSampleBitmapHome.recycle();
-                    if (decodedSampleBitmapLock != null)
-                        decodedSampleBitmapLock.recycle();
-                } catch (Exception e) {
-                    PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
-                            null, profile._name, "");
-                    //PPApplicationStatic.recordException(e);
-                    if (decodedSampleBitmapHome != null)
-                        decodedSampleBitmapHome.recycle();
-                    if (decodedSampleBitmapLock != null)
-                        decodedSampleBitmapLock.recycle();
-                }
             }
         }
     }
