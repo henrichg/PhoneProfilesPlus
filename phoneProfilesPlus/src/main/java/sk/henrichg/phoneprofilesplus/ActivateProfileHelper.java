@@ -1491,26 +1491,26 @@ class ActivateProfileHelper {
                     }
 //                    Log.e("ActivateProfileHelper.setVolumes", "volumesSet="+volumesSet);
                     if (!volumesSet) {
-                        int volume;
-                        if (!ringMuted) {
-                            volume = ApplicationPreferences.prefRingerVolume;
-//                            Log.e("ActivateProfileHelper.setVolumes", "ringing volume="+volume);
-                            if (volume != -999) {
-                                try {
-                                    //EventPreferencesVolumes.internalChange = true;
-//                                    Log.e("ActivateProfileHelper.setVolumes", "(4) STREAM_RING");
-                                    //if (systemRingVolume != volume)
-//                                    Log.e("ActivateProfileHelper.setVolumes", "set ringong volume");
-                                    audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                                    PlayRingingNotification.simulatingRingingCallActualRingingVolume = volume;
-                                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
-                                    //correctVolume0(audioManager);
-                                } catch (Exception e) {
-                                    PPApplicationStatic.recordException(e);
+                        if (!ActivateProfileHelper.getMergedRingNotificationVolumes()) {
+                            int volume;
+                            if (!ringMuted) {
+                                volume = ApplicationPreferences.prefRingerVolume;
+//                                Log.e("ActivateProfileHelper.setVolumes", "ringing volume="+volume);
+                                if (volume != -999) {
+                                    try {
+                                        //EventPreferencesVolumes.internalChange = true;
+//                                        Log.e("ActivateProfileHelper.setVolumes", "(4) STREAM_RING");
+                                        //if (systemRingVolume != volume)
+//                                        Log.e("ActivateProfileHelper.setVolumes", "set ringong volume");
+                                        audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                        PlayRingingNotification.simulatingRingingCallActualRingingVolume = volume;
+                                        //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
+                                        //correctVolume0(audioManager);
+                                    } catch (Exception e) {
+                                        PPApplicationStatic.recordException(e);
+                                    }
                                 }
                             }
-                        }
-                        if (!ActivateProfileHelper.getMergedRingNotificationVolumes()) {
 //                            Log.e("ActivateProfileHelper.setVolumes", "not merged volumes");
                             if (!notificationMuted) {
                                 volume = ApplicationPreferences.prefNotificationVolume;
@@ -1521,10 +1521,30 @@ class ActivateProfileHelper {
 //                                        Log.e("ActivateProfileHelper.setVolumes", "(4) STREAM_NOTIFICATION");
                                         //if (systemNotificationVolume != volume) {
 //                                            Log.e("ActivateProfileHelper.setVolumes", "set notification volume");
-                                            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         //}
                                         //PhoneProfilesService.notificationVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
+                                        //correctVolume0(audioManager);
+                                    } catch (Exception e) {
+                                        PPApplicationStatic.recordException(e);
+                                    }
+                                }
+                            }
+                        } else {
+                            int volume;
+                            if (!ringMuted) {
+                                volume = ApplicationPreferences.prefNotificationVolume;
+//                            Log.e("ActivateProfileHelper.setVolumes", "ringing volume="+volume);
+                                if (volume != -999) {
+                                    try {
+                                        //EventPreferencesVolumes.internalChange = true;
+//                                        Log.e("ActivateProfileHelper.setVolumes", "(4) STREAM_RING");
+                                        //if (systemRingVolume != volume)
+//                                        Log.e("ActivateProfileHelper.setVolumes", "set ringong volume");
+                                        audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                        PlayRingingNotification.simulatingRingingCallActualRingingVolume = volume;
+                                        //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
                                         //correctVolume0(audioManager);
                                     } catch (Exception e) {
                                         PPApplicationStatic.recordException(e);
