@@ -107,15 +107,15 @@ class PlayRingingNotification
                         break;
                 }
                 switch (ActivateProfileHelper.getSystemZenMode(context)) {
-                    case ActivateProfileHelper.ZENMODE_ALARMS:
+                    case ActivateProfileHelper.SYSTEM_ZENMODE_ALARMS:
                         newZenMode = Profile.ZENMODE_ALARMS;
 //                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newZenMode=ALARMS");
                         break;
-                    case ActivateProfileHelper.ZENMODE_NONE:
+                    case ActivateProfileHelper.SYSTEM_ZENMODE_NONE:
                         newZenMode = Profile.ZENMODE_NONE;
 //                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newZenMode=NONE");
                         break;
-                    case ActivateProfileHelper.ZENMODE_PRIORITY:
+                    case ActivateProfileHelper.SYSTEM_ZENMODE_PRIORITY:
                         newZenMode = Profile.ZENMODE_PRIORITY;
 //                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newZenMode=PRIORITY");
                         break;

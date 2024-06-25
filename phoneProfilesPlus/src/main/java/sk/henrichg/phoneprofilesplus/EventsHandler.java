@@ -209,15 +209,15 @@ class EventsHandler {
                     break;
             }
             switch (ActivateProfileHelper.getSystemZenMode(context)) {
-                case ActivateProfileHelper.ZENMODE_ALARMS:
+                case ActivateProfileHelper.SYSTEM_ZENMODE_ALARMS:
                     oldZenMode = Profile.ZENMODE_ALARMS;
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldZenMode=ALARMS");
                     break;
-                case ActivateProfileHelper.ZENMODE_NONE:
+                case ActivateProfileHelper.SYSTEM_ZENMODE_NONE:
                     oldZenMode = Profile.ZENMODE_NONE;
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldZenMode=NONE");
                     break;
-                case ActivateProfileHelper.ZENMODE_PRIORITY:
+                case ActivateProfileHelper.SYSTEM_ZENMODE_PRIORITY:
                     oldZenMode = Profile.ZENMODE_PRIORITY;
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldZenMode=PRIORITY");
                     break;
