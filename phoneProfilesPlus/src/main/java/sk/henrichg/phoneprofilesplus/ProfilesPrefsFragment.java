@@ -4969,8 +4969,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 String summary;
+
+                int forceMergeValue = ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes;
+                String[] valuesArray = getResources().getStringArray(R.array.forceSetMergeRingNotificationVolumesValues);
+                String[] labelsArray = getResources().getStringArray(R.array.forceSetMergeRingNotificationVolumesArray);
+                int setVolumeLinkIndex = 0;
+                for (String _value : valuesArray) {
+                    if (_value.equals(String.valueOf(forceMergeValue))) {
+                        break;
+                    }
+                    ++setVolumeLinkIndex;
+                }
+
                 boolean bold = false;
-                if (ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
+                if ((ApplicationPreferences.prefMergedRingNotificationVolumes || (setVolumeLinkIndex == 1)) &&
+                        ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
                     summary = getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled);
                     bold = true;
                 }
@@ -4978,17 +4991,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     summary = getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled);
 
                 summary = summary + StringConstants.CHAR_NEW_LINE + getString(R.string.phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes) + ": ";
-                int forceMergeValue = ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes;
-                String[] valuesArray = getResources().getStringArray(R.array.forceSetMergeRingNotificationVolumesValues);
-                String[] labelsArray = getResources().getStringArray(R.array.forceSetMergeRingNotificationVolumesArray);
-                int index = 0;
-                for (String _value : valuesArray) {
-                    if (_value.equals(String.valueOf(forceMergeValue))) {
-                        summary = summary + labelsArray[index];
-                        break;
-                    }
-                    ++index;
-                }
+                summary = summary + labelsArray[setVolumeLinkIndex];
 
                 if (!ApplicationPreferences.prefMergedRingNotificationVolumes)
                     // detection of volumes merge = volumes are not merged
