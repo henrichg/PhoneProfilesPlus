@@ -3508,8 +3508,9 @@ class ActivateProfileHelper {
                             changeRingerModeForVolumeEqual0(profile, audioManager, appContext);
                             changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
 
-                            if ((getSystemZenMode(appContext) == ActivateProfileHelper.ZENMODE_PRIORITY) ||
-                                    (profile._volumeZenMode == ZENMODE_PRIORITY)) {
+                            if ((Build.VERSION.SDK_INT >= 34) &&
+                                ((getSystemZenMode(appContext) == ActivateProfileHelper.ZENMODE_PRIORITY) ||
+                                 ((profile._volumeRingerMode == Profile.RINGERMODE_ZENMODE) && (profile._volumeZenMode == ZENMODE_PRIORITY)))) {
                                 requestInterruptionFilter(appContext, ZENMODE_ALL);
                                 setVolumes(appContext, profile, audioManager, /*systemZenMode,*/ linkUnlink, forProfileActivation, true);
                                 setSoundMode(appContext, profile, audioManager, /*systemZenMode,*/ forProfileActivation, executedProfileSharedPreferences);
@@ -3531,7 +3532,8 @@ class ActivateProfileHelper {
 
                         //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
-                        if (getSystemZenMode(appContext) == ActivateProfileHelper.ZENMODE_PRIORITY) {
+                        if ((Build.VERSION.SDK_INT >= 34) &&
+                            (getSystemZenMode(appContext) == ActivateProfileHelper.ZENMODE_PRIORITY)) {
                             requestInterruptionFilter(appContext, ZENMODE_ALL);
                             setVolumes(appContext, profile, audioManager, /*systemZenMode,*/ PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
                             requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
