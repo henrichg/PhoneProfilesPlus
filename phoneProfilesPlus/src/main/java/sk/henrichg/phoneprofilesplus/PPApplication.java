@@ -226,6 +226,7 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.onTaskRemoved"
                                                 +"|PhoneProfilesService.onDestroy"
                                                 //+"|PhoneProfilesService.cancelWork"
+                                                +"|PhoneProfilesService.BINDER_RECEIVED_LISTENER"
                                                 +"|DataWrapper.firstStartEvents"
                                                 //+"|DataWrapper.setProfileActive"
                                                 //+"|DataWrapper.activateProfileOnBoot"
@@ -1597,6 +1598,7 @@ public class PPApplication extends Application
                         serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                         serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false);
 //                        PPApplicationStatic.logE("[START_PP_SERVICE] PPApplication.startPPServiceWhenNotStarted", "(1)");
                         PPApplicationStatic.startPPService(appContext, serviceIntent, true);
                     }

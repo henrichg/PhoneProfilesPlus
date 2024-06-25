@@ -240,7 +240,9 @@ public class MainWorker extends Worker {
                                 getInputData().getBoolean(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APPLICATION, false),
                                 getInputData().getString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION),
                                 getInputData().getInt(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE, 0),
-                                getInputData().getString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE));
+                                getInputData().getString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE),
+                                getInputData().getBoolean(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false)
+                                );
                                 //getInputData().getBoolean(PhoneProfilesService.EXTRA_SHOW_TOAST, true));
                         break;
                     case SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG:
@@ -342,7 +344,8 @@ public class MainWorker extends Worker {
                                           boolean startForExternalApplication,
                                           String startForExternalAppAction,
                                           int startForExternalAppDataType,
-                                          String startForExternalAppDataValue) {
+                                          String startForExternalAppDataValue,
+                                          boolean startForShizukuStart) {
         PPApplicationStatic.logE("------- MainWorker.doAfterFirstStart", "START");
 
         final Context appContext = context.getApplicationContext();
@@ -397,7 +400,7 @@ public class MainWorker extends Worker {
             PhoneProfilesServiceStatic.registerPPPExtenderReceiver(true, dataWrapper, appContext);
             PhoneProfilesServiceStatic.registerEventsReceiversAndWorkers(false, appContext);
 
-            if (PPApplication.deviceBoot) {
+            if ((!startForShizukuStart) && PPApplication.deviceBoot) {
                 PPApplication.deviceBoot = false;
                 PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "device boot");
                 boolean deviceBootEvents = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_DEVICE_BOOT);

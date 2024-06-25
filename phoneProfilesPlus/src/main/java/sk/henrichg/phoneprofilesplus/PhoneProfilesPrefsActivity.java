@@ -363,6 +363,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
             serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false);
 //            PPApplicationStatic.logE("[START_PP_SERVICE] PhoneProfilesPrefsActivity.startPPServiceWhenNotStarted", "(1)");
             PPApplicationStatic.startPPService(this, serviceIntent, true);
             //return true;

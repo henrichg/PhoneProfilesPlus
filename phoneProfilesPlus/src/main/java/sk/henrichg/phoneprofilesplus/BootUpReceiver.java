@@ -86,6 +86,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, true);
                                 serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false);
 //                                PPApplicationStatic.logE("[START_PP_SERVICE] BootUpReceiver.onReceive", "xxx");
                                 PPApplicationStatic.startPPService(appContext, serviceIntent, true);
                             } else {

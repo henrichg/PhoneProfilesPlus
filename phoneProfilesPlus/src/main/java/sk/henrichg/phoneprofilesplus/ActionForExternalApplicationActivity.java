@@ -128,6 +128,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APPLICATION, true);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION, action);
                 }
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false);
 //                PPApplicationStatic.logE("[START_PP_SERVICE] ActionForExternalApplicationActivity.onStart", "xxx");
                 PPApplicationStatic.startPPService(this, serviceIntent, true);
                 finish();
