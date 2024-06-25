@@ -159,7 +159,9 @@ public class RingtonePreference extends DialogPreference {
                         mediaPlayer = null;
 
                         if (oldMediaVolume > -1)
-                            ActivateProfileHelper.setMediaVolume(appContext, audioManager, oldMediaVolume, true, false);
+                            ActivateProfileHelper.setMediaVolume(appContext, audioManager,
+                                    audioManager.getStreamVolume(AudioManager.STREAM_MUSIC),
+                                    oldMediaVolume, true, false);
                         if (oldMediaMuted) {
                             PPApplication.volumesInternalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
@@ -272,7 +274,9 @@ public class RingtonePreference extends DialogPreference {
                             PPApplication.volumesInternalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                         }
-                        ActivateProfileHelper.setMediaVolume(appContext, audioManager, mediaVolume, true, false);
+                        ActivateProfileHelper.setMediaVolume(appContext, audioManager,
+                                audioManager.getStreamVolume(AudioManager.STREAM_MUSIC),
+                                mediaVolume, true, false);
 
                         mediaPlayer.start();
                         ringtoneIsPlayed = true;
@@ -299,7 +303,9 @@ public class RingtonePreference extends DialogPreference {
                                         }
 
                                         if (oldMediaVolume > -1)
-                                            ActivateProfileHelper.setMediaVolume(appContext, audioManager, oldMediaVolume, true, false);
+                                            ActivateProfileHelper.setMediaVolume(appContext, audioManager,
+                                                    audioManager.getStreamVolume(AudioManager.STREAM_MUSIC),
+                                                    oldMediaVolume, true, false);
                                         if (oldMediaMuted) {
                                             PPApplication.volumesInternalChange = true;
                                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);

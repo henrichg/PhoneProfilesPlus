@@ -172,7 +172,10 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
 
             if (/*(appContext != null) &&*/ (_preference != null)) {
                 if (_preference.usedValueMusic != -1)
-                    ActivateProfileHelper.setMediaVolume(appContext, _preference.audioManager, _preference.usedValueMusic, true, false);
+                    if (_preference.audioManager != null)
+                        ActivateProfileHelper.setMediaVolume(appContext, _preference.audioManager,
+                                _preference.audioManager.getStreamVolume(AudioManager.STREAM_MUSIC),
+                                _preference.usedValueMusic, true, false);
                 if (_preference.oldMediaMuted) {
                     PPApplication.volumesInternalChange = true;
                     _preference.audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
@@ -275,7 +278,10 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
 
                 PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
             }
-            ActivateProfileHelper.setMediaVolume(context, preference.audioManager, volume, true, false);
+            if (preference.audioManager != null)
+                ActivateProfileHelper.setMediaVolume(context, preference.audioManager,
+                        preference.audioManager.getStreamVolume(AudioManager.STREAM_MUSIC),
+                        volume, true, false);
 
             final Context appContext = context.getApplicationContext();
             final WeakReference<VolumeDialogPreference> preferenceWeakRef = new WeakReference<>(preference);
