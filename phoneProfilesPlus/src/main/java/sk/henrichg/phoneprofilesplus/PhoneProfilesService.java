@@ -190,15 +190,16 @@ public class PhoneProfilesService extends Service
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
-                            .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
+                            .addTag(PPApplication.AFTER_SHIZUKU_START_WORK_TAG)
                             .setInputData(workData)
-                            //.setInitialDelay(5, TimeUnit.SECONDS)
+
+                            .setInitialDelay(10, TimeUnit.SECONDS)
+
                             .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                             .build();
             try {
-                if (PPApplicationStatic.getApplicationStarted(true, false)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance();
-                    if (workManager != null) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
 
 //                                        //if (PPApplicationStatic.logEnabled()) {
 //                                        ListenableFuture<List<WorkInfo>> statuses;
@@ -210,10 +211,9 @@ public class PhoneProfilesService extends Service
 //                                        //}
 
 //                      PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doFirstStart", "keepResultsForAtLeast");
-                        //workManager.enqueue(worker);
-                        // !!! MUST BE APPEND_OR_REPLACE FOR EXTRA_START_FOR_EXTERNAL_APPLICATION !!!
-                        workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                    }
+                    //workManager.enqueue(worker);
+                    // !!! MUST BE APPEND_OR_REPLACE FOR EXTRA_START_FOR_EXTERNAL_APPLICATION !!!
+                    workManager.enqueueUniqueWork(PPApplication.AFTER_SHIZUKU_START_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);

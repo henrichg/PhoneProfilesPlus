@@ -231,6 +231,7 @@ public class MainWorker extends Worker {
                         }
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:
+                    case PPApplication.AFTER_SHIZUKU_START_WORK_TAG:
                         if (!PPApplicationStatic.getApplicationStarted(true, false))
                             // application is not started
                             return Result.success();
@@ -241,7 +242,8 @@ public class MainWorker extends Worker {
                                 getInputData().getString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION),
                                 getInputData().getInt(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE, 0),
                                 getInputData().getString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE),
-                                getInputData().getBoolean(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false)
+                                getInputData().getBoolean(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START,
+                                        tag.equals(PPApplication.AFTER_SHIZUKU_START_WORK_TAG))
                                 );
                                 //getInputData().getBoolean(PhoneProfilesService.EXTRA_SHOW_TOAST, true));
                         break;

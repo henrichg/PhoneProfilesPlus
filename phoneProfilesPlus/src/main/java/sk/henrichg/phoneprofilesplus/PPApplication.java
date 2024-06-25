@@ -655,6 +655,7 @@ public class PPApplication extends Application
 
     // WorkManager tags
     static final String AFTER_FIRST_START_WORK_TAG = "afterFirstStartWork";
+    static final String AFTER_SHIZUKU_START_WORK_TAG = "afterShizukuStartWork";
     //static final String PACKAGE_REPLACED_WORK_TAG = "packageReplacedWork";
     static final String AVOID_RESCHEDULE_RECEIVER_WORK_TAG = "avoidRescheduleReceiverWorker";
 
