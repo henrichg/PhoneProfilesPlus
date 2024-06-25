@@ -720,7 +720,31 @@ if (getSystemZenMode(appContext/*, -1*/) == ActivateProfileHelper.ZENMODE_PRIORI
 //PPApplication.sleep(500);
 setRingerMode(appContext, profile, audioManager, false, /*linkUnlink,*/ forProfileActivation);
 }
------
+
+Pixely nemaju System volume.
+Stary Pixel ma spojene ringng a notifications.
+
+Xiaomi je ako stary Pixel. Ma linknute ringng a notifcations, nema System.
+Huawei tak isto ako stary Pixel.  Ma linknute ringng a notifcations, nema System.
+
+OnePlus ma oddelene zvonenia a notifikacie, nema System.
+Nie je spojeny System s notifications ani s ring. Toto je taka vynimka. OK.
+
+Samsung ma zvlast System, notifications a ringing.
+
+Ked je priority mod, nedostavam zo systemu aktualne hodnoty ringing a notificaiton. Takze ringing, notification a system, by som mal menit vzdy natvrdo, bez
+ohladu na ich aktualnu hodnotu v syrteme.
+
+Zaujimave, otocil som nahadzovanie, najprv smenim ringing a zabralo to, uz notifikacie mi meni. Hm, nechapem.
+
+Takze zatial kazdy mobil ma spriahnute ringing a system volume. Teda taky, co system nema v Settings.
+
+------
+
+To co som pre Pixely robil kvoli Priority. Nefunguje to dobre. Zostane nastaveny ringer mod na 5.
+Som to zapoznamkoval a tie upravy, co som porobil pomohli. Meni sa to uz asi dobre.
+
+----------------
 
 
 
