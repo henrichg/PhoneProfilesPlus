@@ -227,6 +227,7 @@ public class PPApplication extends Application
                                                 +"|PhoneProfilesService.onDestroy"
                                                 //+"|PhoneProfilesService.cancelWork"
                                                 +"|PhoneProfilesService.BINDER_RECEIVED_LISTENER"
+                                                +"|GrantShizukuPermissionActivity.onRequestPermissionsResult"
                                                 +"|DataWrapper.firstStartEvents"
                                                 //+"|DataWrapper.setProfileActive"
                                                 //+"|DataWrapper.activateProfileOnBoot"
