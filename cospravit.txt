@@ -632,7 +632,7 @@ Ked nemam location data z transistion alebo nebezi location scanner.
 Ked je obrazovka vypnuta. Ked ziskany cell nie je validny, ked nebezi mobil cells scanner.
 
 - EventPreferencesMusic:
-Ked sustem neda AudioManager
+Ked sustem neda AudioManager - pridane
 
 - EventPreferencesNFC:
 Nenastavuje sa
@@ -650,8 +650,8 @@ TOTO PREMYSLI, TOTO SA MI NEZDA, ZE SA MA IGNOROVAT:
 Nenastavuje sa
 
 - EventPreferencesRadioSwitch:
-Ked bezi jeden wifi scan, ked system nda WiFiManager, ked bezi jeden bluetooth scan, ked system nevrati
-BluetoothAdapter, ked ststem nevrati LocaitonMamager.
+Ked bezi jeden wifi scan, ked system neda WiFiManager, ked bezi jeden bluetooth scan, ked system nevrati
+BluetoothAdapter, ked ststem nevrati LocaitonMamager, ...
 
 - EventPreferencesRoaming:
 Ak nema nastavene v senzore nic z toho, co sa ma checkovat. Toto by ale nemalo nastat, to sa testuje uz
@@ -715,11 +715,6 @@ PPApplication.sleep(500);
 setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation);
 
 -----
-// TOTO? specialita pre Priority !!!! Ale preco, naco?
-if (getSystemZenMode(appContext/*, -1*/) == ActivateProfileHelper.ZENMODE_PRIORITY) {
-//PPApplication.sleep(500);
-setRingerMode(appContext, profile, audioManager, false, /*linkUnlink,*/ forProfileActivation);
-}
 
 Pixely nemaju System volume.
 Stary Pixel ma spojene ringng a notifications.
