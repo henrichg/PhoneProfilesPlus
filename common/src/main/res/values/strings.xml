@@ -2238,6 +2238,8 @@
     <string name="mobile_cells_scanning_short_shortcut_name">Cells scan</string>
     <string name="read_nfc_tag_short_shortcut_name">Read tag</string>
 
+    <string name="profile_preferences_volumeMergedRingSyatemVolumeInfo_summary">Most devices has merged \"Ringtone volume\" and \"System volume\". These devcies do not have option in device Settings to configure \"System volume\". For this reason, recommended is to configure \"Ringing volume\", when is configured \"System volume\" or do not configure \"System volume\".</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
