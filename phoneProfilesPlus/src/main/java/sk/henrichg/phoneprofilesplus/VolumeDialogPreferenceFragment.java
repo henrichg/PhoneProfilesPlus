@@ -178,7 +178,8 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                                 _preference.usedValueMusic, true, false);
                 if (_preference.oldMediaMuted) {
                     PPApplication.volumesInternalChange = true;
-                    _preference.audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    if (_preference.audioManager != null)
+                        _preference.audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                     PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
                 }
