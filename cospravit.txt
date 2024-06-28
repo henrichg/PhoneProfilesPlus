@@ -734,12 +734,33 @@ Zaujimave, otocil som nahadzovanie, najprv smenim ringing a zabralo to, uz notif
 
 Takze zatial kazdy mobil ma spriahnute ringing a system volume. Teda taky, co system nema v Settings.
 
-------
+------------------------
 
-To co som pre Pixely robil kvoli Priority. Nefunguje to dobre. Zostane nastaveny ringer mod na 5.
-Som to zapoznamkoval a tie upravy, co som porobil pomohli. Meni sa to uz asi dobre.
+Tieto premenne neexistuju uz v Settings.Global.
+Ale kedze PPP je taget 28, tak ich najde. Lenze uz nefunguju.
 
-----------------
+Podla issue to slo este na S10, Android 11. Od Android 12+ to nechce ist. Kua.
+Skus testnut este na mobiloch s Android 12.
+
+switch (subscriptionType) {
+    case SUBSCRIPTRION_VOICE:
+        if (simCard == -1)
+            command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " 0";
+        else
+            command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " " + subscriptionId;
+        break;
+    case SUBSCRIPTRION_SMS:
+        command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_SMS_SUBSCRIPTION + " " + subscriptionId;
+        break;
+    case SUBSCRIPTRION_DATA:
+        command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
+        break;
+}
+
+Cize co teraz? Zapoznamkovat v profiloch od Android 12+?
+
+
+
 
 
 
