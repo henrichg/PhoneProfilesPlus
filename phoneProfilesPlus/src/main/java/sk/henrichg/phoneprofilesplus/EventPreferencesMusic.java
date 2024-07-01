@@ -1,13 +1,18 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
+import android.media.session.MediaController;
+import android.media.session.MediaSessionManager;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+
+import java.util.List;
 
 class EventPreferencesMusic extends EventPreferences {
 
@@ -205,14 +210,46 @@ class EventPreferencesMusic extends EventPreferences {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
             if (EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                AudioManager audioManager = (AudioManager)eventsHandler.context.getSystemService(Context.AUDIO_SERVICE);
-                if (audioManager != null) {
-                    if (_musicState == 1)
-                        eventsHandler.musicPassed = !audioManager.isMusicActive();
-                    else
-                        eventsHandler.musicPassed = audioManager.isMusicActive();
-                }
-                else
+                boolean isNotAllowedSession = false;
+
+                // play media from PPP is ignored
+                if ((RingtonePreference.mediaPlayer == null) && (VolumeDialogPreferenceFragment.mediaPlayer == null)) {
+                    AudioManager audioManager = (AudioManager) eventsHandler.context.getSystemService(Context.AUDIO_SERVICE);
+                    if (audioManager != null) {
+                        if (PPNotificationListenerService.isNotificationListenerServiceEnabled(eventsHandler.context, true)) {
+                            // notification acces isgranted, get controloer package name
+
+                            MediaSessionManager mediaSessionManager = (MediaSessionManager) eventsHandler.context.getSystemService(Context.MEDIA_SESSION_SERVICE);
+                            if (mediaSessionManager != null) {
+                                List<MediaController> activeSessions;
+                                ComponentName notificationListenerComponent = new ComponentName(eventsHandler.context, PPNotificationListenerService.class);
+                                activeSessions = mediaSessionManager.getActiveSessions(notificationListenerComponent);
+
+                                //Log.e("EventPreferencesMusic.doHandleEvent", "activeSessions=" + activeSessions.size());
+                                for (MediaController controller : activeSessions) {
+                                    //Log.e("EventPreferencesMusic.doHandleEvent", "controller=" + controller.getPackageName());
+                                    if (controller.getPackageName().equals(PPApplication.PACKAGE_NAME)) {
+                                        isNotAllowedSession = true;
+                                        break;
+                                    }
+                                }
+                            } else
+                                eventsHandler.notAllowedMusic = true;
+                        }
+
+                        if (!isNotAllowedSession) {
+                            // allowed session for detection
+                            if (_musicState == 1)
+                                eventsHandler.musicPassed = !audioManager.isMusicActive();
+                            else
+                                eventsHandler.musicPassed = audioManager.isMusicActive();
+                            //Log.e("EventPreferencesMusic.doHandleEvent", "musicPassed=" + eventsHandler.musicPassed);
+                        } else
+                            eventsHandler.notAllowedMusic = true;
+
+                    } else
+                        eventsHandler.notAllowedMusic = true;
+                } else
                     eventsHandler.notAllowedMusic = true;
 
                 if (!eventsHandler.notAllowedMusic) {

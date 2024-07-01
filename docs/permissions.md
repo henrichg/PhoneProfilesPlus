@@ -20,7 +20,7 @@ Permissions
 - MODIFY_PHONE_STATE
 - NFC
 - POST_NOTIFICATIONS
-- READ_CALENDAR
+- READ_CALENDAR (needed to get calendar events by Calendar sensor)
 - READ_CONTACTS (needed to fill contact cache, required in event Call sensor, SMS sensor)
 - READ_EXTERNAL_STORAGE (needed to restore PPP Settings from backups)
 - READ_PHONE_STATE (needed to trigger profiles on call events and mobile cells)
@@ -31,7 +31,7 @@ Permissions
 - SEND_SMS (needed for sending SMS, if it is enabled in profile parameter "Phone calls")
 - SET_WALLPAPER
 - SYSTEM_ALERT_WINDOW (needed to e.g. run some invisible activities (Screen brightness, Screen timeout, Keep screen on))
-- android.permission.TETHER_PRIVILEGED
+- TETHER_PRIVILEGED
 - VIBRATE
 - WAKE_LOCK
 - WRITE_EXTERNAL_STORAGE (needed to save PPP Settings to backups)
@@ -39,10 +39,10 @@ Permissions
 - WRITE_SETTINGS
 - WRITE_SYNC_SETTINGS
 - INSTALL_SHORTCUT
+- DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 - com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY (needed for Samsung Edge panel)
 - com.wireguard.android.permission.CONTROL_TUNNELS (needed for WireGuard, if is used in profile parameter "VPN")
 - moe.shizuku.manager.permission.API_V23 (needed for Shizuku)
-- sk.henrichg.phoneprofilesplus.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 - sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION (needed for send/receive broadcast to/from PhoneProfilesPlusExtender)
 - sk.henrichg.pppputsettings.PPP_PUT_SETTINGS_PERMISSION  (needed for send/receive broadcast to/from PPPPutSettings)
 

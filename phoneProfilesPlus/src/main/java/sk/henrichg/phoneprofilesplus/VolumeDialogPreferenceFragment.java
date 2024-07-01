@@ -198,8 +198,10 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                 }
                 if (playTimer != null) {
                     playTimer.cancel();
-                    playTimer = null;
                 }
+
+                mediaPlayer = null;
+                playTimer = null;
             }
         };
         PPApplicationStatic.createPlayToneExecutor();
