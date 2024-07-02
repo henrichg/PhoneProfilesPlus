@@ -476,6 +476,10 @@ class RootUtils {
 //            Log.e("RootUtils.fillTransactionCodes", "PPApplication.rootMutex.transactionCode_setSubscriptionEnabled="+PPApplication.rootMutex.transactionCode_setSubscriptionEnabled);
         }
 
+        PPApplication.rootMutex.transactionCode_setSimPowerStateForSlot = -1;
+        if (PPApplication.rootMutex.serviceManagerPhone != null)
+            PPApplication.rootMutex.transactionCode_setSimPowerStateForSlot = getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerPhone), "setSimPowerStateForSlot");
+
         // used only in API < 28
         PPApplication.rootMutex.transactionCode_setWifiApEnabled = -1;
         if (PPApplication.rootMutex.serviceManagerWifi != null) {

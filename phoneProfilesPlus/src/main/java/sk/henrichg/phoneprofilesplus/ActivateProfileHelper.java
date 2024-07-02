@@ -6865,7 +6865,10 @@ class ActivateProfileHelper {
                     break;
                 case Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1:
                 case Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2:
-                    transactionCode = PPApplication.rootMutex.transactionCode_setSubscriptionEnabled;
+                    if (Build.VERSION.SDK_INT < 31)
+                        transactionCode = PPApplication.rootMutex.transactionCode_setSubscriptionEnabled;
+                    else
+                        transactionCode = PPApplication.rootMutex.transactionCode_setSimPowerStateForSlot;
                     break;
             }
 
@@ -8023,6 +8026,7 @@ class ActivateProfileHelper {
 
         Context appContext = context.getApplicationContext();
 
+        /* if SIM is disabled, then GlobalUtils.hasSIMCard(contex; do not returns it
 //        Log.e("ActivateProfileHelper.setSIMOnOff", "called hasSIMCard");
         HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
         boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
@@ -8035,106 +8039,171 @@ class ActivateProfileHelper {
             boolean sim2Exists = hasSIMCardData.hasSIM2;
             simExists = simExists && sim2Exists;
         }
+        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "simExists="+simExists);
+        */
 
-        if (simExists)
+        //noinspection ConstantValue
+        if (true /*simExists*/)
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
                 // Get the value of the "TRANSACTION_ssetSubscriptionEnabled" field.
-                int transactionCode = PPApplication.rootMutex.transactionCode_setSubscriptionEnabled;
-                    //transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setSubscriptionEnabled");
+                int transactionCode;
+                if (Build.VERSION.SDK_INT < 31) {
+                    transactionCode = PPApplication.rootMutex.transactionCode_setSubscriptionEnabled;
+//                    Log.e("ActivateProfileHelper.setSIMOnOff", "(1) transactionCode="+transactionCode);
+                }
+                else {
+                    transactionCode = PPApplication.rootMutex.transactionCode_setSimPowerStateForSlot;
+//                    Log.e("ActivateProfileHelper.setSIMOnOff", "(2) transactionCode="+transactionCode);
+                }
 
                 int state = enable ? 1 : 0;
 
                 if (transactionCode != -1) {
 //                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "transactionCode=" + transactionCode);
 
-                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                    //SubscriptionManager.from(appContext);
-                    if (mSubscriptionManager != null) {
-//                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "mSubscriptionManager != null");
-                        List<SubscriptionInfo> subscriptionList = null;
-                        try {
-                            // Loop through the subscription list i.e. SIM list.
-                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-//                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionList=" + subscriptionList);
-                        } catch (SecurityException e) {
-                            PPApplicationStatic.recordException(e);
-                        }
-                        if (subscriptionList != null) {
-//                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionList.size()=" + subscriptionList.size());
-                            int size = subscriptionList.size();
-                            for (int i = 0; i < size; i++) {
-                                // Get the active subscription ID for a given SIM card.
-                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-//                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionInfo=" + subscriptionInfo);
-                                if (subscriptionInfo != null) {
-                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                    if (simCard == (slotIndex+1)) {
-                                        int subscriptionId = subscriptionInfo.getSubscriptionId();
-//                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionId=" + subscriptionId);
+                    if (Build.VERSION.SDK_INT >= 31) {
+                        if (ShizukuUtils.hasShizukuPermission()) {
+                            synchronized (PPApplication.rootMutex) {
+//                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "***** Shizuku *******");
+                                /*try {
+                                    //requires MODIFY_PHONE_STATE but is not possible to grant it with adb pm grant
+                                    mSubscriptionManager.setSubscriptionEnabled(subscriptionId, enable);
+                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "comand executed");
+                                } catch (Exception e) {
+                                    //Log.e("ActivateProfileHelper.setSIMOnOff", Log.getStackTraceString(e));
+                                }*/
+                                String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_PHONE, transactionCode, simCard-1, state);
+//                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command1=" + command1);
+//                                Log.e("ActivateProfileHelper.setSIMOnOff", "command1=" + command1);
+                                if ((command1 != null)) {
+                                    try {
+                                        ShizukuUtils.executeCommand(command1);
+//                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "comand executed");
+                                    } catch (Exception e) {
+                                        //Log.e("ActivateProfileHelper.setSIMOnOff", Log.getStackTraceString(e));
+                                    }
+                                }
+                            }
+                        } else if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                       RootUtils.isRooted(/*false*/)) {
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setSIMOnOff", "PPApplication.rootMutex");
+                            synchronized (PPApplication.rootMutex) {
+//                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "***** root *******");
+                                String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_PHONE, transactionCode, simCard-1, state);
 
-                                        // not working root and Shizuku also in Galaxy S10 - Android 11
-                                        if (ShizukuUtils.hasShizukuPermission()) {
-                                            synchronized (PPApplication.rootMutex) {
-//                                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "***** Shizuku *******");
-                                                /*try {
-                                                    //requires MODIFY_PHONE_STATE but is not possible to grant it with adb pm grant
-                                                    mSubscriptionManager.setSubscriptionEnabled(subscriptionId, enable);
-                                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "comand executed");
-                                                } catch (Exception e) {
-                                                    //Log.e("ActivateProfileHelper.setSIMOnOff", Log.getStackTraceString(e));
-                                                }*/
-                                                String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId, state);
-//                                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command1=" + command1);
-                                                if ((command1 != null)) {
-                                                    try {
-                                                        ShizukuUtils.executeCommand(command1);
-//                                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "comand executed");
+//                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command1=" + command1);
+                                if (command1 != null) {
+                                    Command command = new Command(0, /*false,*/ command1)/* {
+                                        @Override
+                                        public void commandOutput(int id, String line) {
+                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command output -> line=" + line);
+                                            super.commandOutput(id, line);
+                                        }
+                                    }*/;
+                                    try {
+                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SIM_ON_OFF);
+//                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command executed");
+                                    } catch (Exception e) {
+                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+//                                        Log.e("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", Log.getStackTraceString(e));
+                                        //PPApplicationStatic.recordException(e);
+                                    }
+                                }
+                            }
+                        }
+
+                    } else {
+                        SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                        //SubscriptionManager.from(appContext);
+                        if (mSubscriptionManager != null) {
+//                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "mSubscriptionManager != null");
+                            List<SubscriptionInfo> subscriptionList = null;
+                            try {
+                                // Loop through the subscription list i.e. SIM list.
+                                subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+//                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionList=" + subscriptionList);
+                            } catch (SecurityException e) {
+                                PPApplicationStatic.recordException(e);
+                            }
+                            if (subscriptionList != null) {
+//                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionList.size()=" + subscriptionList.size());
+                                int size = subscriptionList.size();
+                                for (int i = 0; i < size; i++) {
+                                    // Get the active subscription ID for a given SIM card.
+                                    SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+//                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionInfo=" + subscriptionInfo);
+                                    if (subscriptionInfo != null) {
+                                        int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                        if (simCard == (slotIndex + 1)) {
+                                            int subscriptionId = subscriptionInfo.getSubscriptionId();
+//                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionId=" + subscriptionId);
+
+                                            // not working root and Shizuku also in Galaxy S10 - Android 11
+                                            if (ShizukuUtils.hasShizukuPermission()) {
+                                                synchronized (PPApplication.rootMutex) {
+//                                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "***** Shizuku *******");
+                                                    /*try {
+                                                        //requires MODIFY_PHONE_STATE but is not possible to grant it with adb pm grant
+                                                        mSubscriptionManager.setSubscriptionEnabled(subscriptionId, enable);
+                                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "comand executed");
                                                     } catch (Exception e) {
                                                         //Log.e("ActivateProfileHelper.setSIMOnOff", Log.getStackTraceString(e));
+                                                    }*/
+                                                    String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId, state);
+//                                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command1=" + command1);
+//                                                    Log.e("ActivateProfileHelper.setSIMOnOff", "command1=" + command1);
+                                                    if ((command1 != null)) {
+                                                        try {
+                                                            ShizukuUtils.executeCommand(command1);
+//                                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "comand executed");
+                                                        } catch (Exception e) {
+                                                            //Log.e("ActivateProfileHelper.setSIMOnOff", Log.getStackTraceString(e));
+                                                        }
                                                     }
                                                 }
-                                            }
-                                        } else
-                                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                RootUtils.isRooted(/*false*/)) {
-//                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setSIMOnOff", "PPApplication.rootMutex");
-                                            synchronized (PPApplication.rootMutex) {
+                                            } else if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                                    RootUtils.isRooted(/*false*/)) {
+//                                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setSIMOnOff", "PPApplication.rootMutex");
+                                                synchronized (PPApplication.rootMutex) {
 //                                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "***** root *******");
-                                                String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId, state);
-                                                //String command1 = PPApplication.getServiceCommand("phone", transactionCode, slotIndex, state);
-//                                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command1=" + command1);
-                                                if (command1 != null) {
-                                                    Command command = new Command(0, /*false,*/ command1)/* {
-                                                    @Override
-                                                    public void commandOutput(int id, String line) {
-                                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command output -> line=" + line);
-                                                        super.commandOutput(id, line);
-                                                    }
-                                                }*/;
-                                                    try {
-                                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                        RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SIM_ON_OFF);
-//                                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command executed");
-                                                    } catch (Exception e) {
-                                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-//                                                    Log.e("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", Log.getStackTraceString(e));
-                                                        //PPApplicationStatic.recordException(e);
+                                                    String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId, state);
+
+                                                    //String command1 = PPApplication.getServiceCommand("phone", transactionCode, slotIndex, state);
+//                                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command1=" + command1);
+                                                    if (command1 != null) {
+                                                        Command command = new Command(0, /*false,*/ command1)/* {
+                                                            @Override
+                                                            public void commandOutput(int id, String line) {
+                                                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command output -> line=" + line);
+                                                                super.commandOutput(id, line);
+                                                            }
+                                                        }*/;
+                                                        try {
+                                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                            RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SIM_ON_OFF);
+//                                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command executed");
+                                                        } catch (Exception e) {
+                                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+//                                                            Log.e("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", Log.getStackTraceString(e));
+                                                            //PPApplicationStatic.recordException(e);
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
                                     }
+//                                    else
+//                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionInfo == null");
                                 }
-//                                else
-//                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionInfo == null");
                             }
+//                            else
+//                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionList == null");
                         }
 //                        else
-//                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionList == null");
+//                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "mSubscriptionManager == null");
                     }
-//                    else
-//                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "mSubscriptionManager == null");
                 }
 //                else
 //                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "transactionCode == -1");

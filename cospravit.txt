@@ -834,7 +834,16 @@ Volaj setMobileData(context, true, 0)
 Airplane mod off:
 Volaj setAirplaneMode(context, false, false)
 
+---
+
+Hotove je aj zapnutie/vypnutie SIM pre API 31+. Problem tu ale je, ze to pyta pin simky, co je uplne
+ze zle toto.
+Daj tam warning, ze ak jes SIM vypnuta, jej zapnute vypyta PIN.
+
 -------------------------
+
+
+
 
 
 
