@@ -759,7 +759,82 @@ switch (subscriptionType) {
 
 Cize co teraz? Zapoznamkovat v profiloch od Android 12+?
 
+---
 
+Vid:
+https://www.reddit.com/r/tasker/comments/zdv9be/comment/iz4r1vj/?utm_medium=android_app&utm_source=share&context=3
+
+SIM1:
+
+Airplane mod on:
+Volaj setAirplaneMode(context, true, false)
+
+Vypnutie mobilnych dat:
+Volaj setMobileData(context, false, 0)
+
+Nahodenie multi_sim_data_call:
+command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
+
+Nahodenie
+command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId);
+Ale tam je daco zvlastne:
+Custom Setting [
+     Type: Global
+     Name: user_preferred_data_sub
+     Value: 1 ]
+
+Nahodenie:
+Custom Setting [
+     Type: Global
+     Name: mobile_data1
+     Value: 1 ]
+ustom Setting [
+     Type: Global
+     Name: mobile_data2
+     Value: 0 ]
+
+Zapnutie mobilnych dat:
+Volaj setMobileData(context, true, 0)
+
+Airplane mod off:
+Volaj setAirplaneMode(context, false, false)
+---
+SIM2:
+
+Airplane mod on:
+Volaj setAirplaneMode(context, true, false)
+
+Vypnutie mobilnych dat:
+Volaj setMobileData(context, false, 0)
+
+Nahodenie multi_sim_data_call:
+command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
+
+Nahodenie
+command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId);
+Ale tam je daco zvlastne:
+Custom Setting [
+     Type: Global
+     Name: user_preferred_data_sub
+     Value: 2 ]
+
+Nahodenie:
+Custom Setting [
+     Type: Global
+     Name: mobile_data1
+     Value: 0 ]
+ustom Setting [
+     Type: Global
+     Name: mobile_data2
+     Value: 1 ]
+
+Zapnutie mobilnych dat:
+Volaj setMobileData(context, true, 0)
+
+Airplane mod off:
+Volaj setAirplaneMode(context, false, false)
+
+-------------------------
 
 
 

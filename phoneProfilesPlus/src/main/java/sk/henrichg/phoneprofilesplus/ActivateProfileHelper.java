@@ -233,6 +233,7 @@ class ActivateProfileHelper {
                     String[] splits = profile._deviceDefaultSIMCards.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length == 3) {
                         try {
+                            // voice
                             String voice = splits[0];
                             if (!voice.equals("0")) {
 //                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.doExecuteForRadios", "voice value="+Integer.parseInt(voice));
@@ -242,6 +243,7 @@ class ActivateProfileHelper {
                             PPApplicationStatic.recordException(e);
                         }
                         try {
+                            // SMS
                             String sms = splits[1];
                             if (!sms.equals("0")) {
 //                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.doExecuteForRadios", "sms value="+Integer.parseInt(sms));
@@ -251,6 +253,7 @@ class ActivateProfileHelper {
                             PPApplicationStatic.recordException(e);
                         }
                         try {
+                            // data
                             String data = splits[2];
                             if (!data.equals("0")) {
 //                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.doExecuteForRadios", "data value="+Integer.parseInt(data));
@@ -2081,7 +2084,7 @@ class ActivateProfileHelper {
                     } else {
                         if (isPPPPutSettingsInstalled(appContext) > 0)
                             putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
-                        else if (ShizukuUtils.hasShizukuPermission()) {
+                        else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1;
                                 String command2 = "";
@@ -6374,7 +6377,7 @@ class ActivateProfileHelper {
         if (!useAssistant) {
             boolean isRooted = RootUtils.isRooted(/*false*/);
             boolean settingsBinaryExists = RootUtils.settingsBinaryExists(false);
-            if (ShizukuUtils.hasShizukuPermission()) {
+            if (ShizukuUtils.hasShizukuPermission() && settingsBinaryExists) {
                 synchronized (PPApplication.rootMutex) {
                     if (Build.VERSION.SDK_INT <= 27) {
                         String command1;
@@ -7667,6 +7670,8 @@ class ActivateProfileHelper {
 
     private static void setDefaultSimCard(Context context, int subscriptionType, int simCard)
     {
+//        Log.e("ActivateProfileHelper.setDefaultSimCard", "(1) simCard="+simCard);
+
 //        switch (subscriptionType) {
 //            case SUBSCRIPTRION_VOICE:
 //                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionType=VOICE");
@@ -7685,7 +7690,7 @@ class ActivateProfileHelper {
         switch (subscriptionType) {
             case SUBSCRIPTRION_VOICE:
                 switch (simCard) {
-                    case 1: // ask for SIM - currently not supported
+                    case 1: // ask for SIM - supported only for calls
                         simCard = -1;
                         break;
                     case 2: // SIM 1
@@ -7701,6 +7706,7 @@ class ActivateProfileHelper {
             case SUBSCRIPTRION_DATA:
                 break;
         }
+//        Log.e("ActivateProfileHelper.setDefaultSimCard", "(2) simCard="+simCard);
 
         if (Permissions.checkPhone(context.getApplicationContext())) {
 //            Log.e("ActivateProfileHelper.setDefaultSimCard", "called hasSIMCard");
@@ -7715,162 +7721,297 @@ class ActivateProfileHelper {
                 boolean sim2Exists = hasSIMCardData.hasSIM2;
                 simExists = simExists && sim2Exists;
             }
+//            Log.e("ActivateProfileHelper.setDefaultSimCard", "(3) simExists="+simExists);
 
             if ((simCard == -1) || simExists) {
-                int defaultSubscriptionId = -1;
-                // Get the value of the "TRANSACTION_setDefaultSimCard" field.
-                int transactionCode = -1;
-                switch (subscriptionType) {
-                    case SUBSCRIPTRION_VOICE:
-                        defaultSubscriptionId = SubscriptionManager.getDefaultVoiceSubscriptionId();
-//                        PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultVoiceSubId");
-                        transactionCode = PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId;
-                        break;
-                    case SUBSCRIPTRION_SMS:
-                        defaultSubscriptionId = SubscriptionManager.getDefaultSmsSubscriptionId();
-//                        PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultSmsSubId");
-                        transactionCode = PPApplication.rootMutex.transactionCode_setDefaultSmsSubId;
-                        break;
-                    case SUBSCRIPTRION_DATA:
-                        defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
-//                        PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultDataSubId");
-                        transactionCode = PPApplication.rootMutex.transactionCode_setDefaultDataSubId;
-                        break;
-                }
-//                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "defaultSubscriptionId=" + defaultSubscriptionId);
-//                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "transactionCode=" + transactionCode);
+                if (RootUtils.serviceBinaryExists(false) && RootUtils.settingsBinaryExists(false)) {
+                    int defaultSubscriptionId = -1;
+                    // Get the value of the "TRANSACTION_setDefaultSimCard" field.
+                    int transactionCode = -1;
+                    switch (subscriptionType) {
+                        case SUBSCRIPTRION_VOICE:
+                            defaultSubscriptionId = SubscriptionManager.getDefaultVoiceSubscriptionId();
+//                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultVoiceSubId");
+                            transactionCode = PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId;
+                            break;
+                        case SUBSCRIPTRION_SMS:
+                            defaultSubscriptionId = SubscriptionManager.getDefaultSmsSubscriptionId();
+//                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultSmsSubId");
+                            transactionCode = PPApplication.rootMutex.transactionCode_setDefaultSmsSubId;
+                            break;
+                        case SUBSCRIPTRION_DATA:
+                            defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
+//                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultDataSubId");
+                            transactionCode = PPApplication.rootMutex.transactionCode_setDefaultDataSubId;
+                            break;
+                    }
+//                    PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "defaultSubscriptionId=" + defaultSubscriptionId);
+//                    PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "transactionCode=" + transactionCode);
+//                    Log.e("ActivateProfileHelper.setDefaultSimCard", "(2) defaultSubscriptionId="+defaultSubscriptionId);
 
-                if (transactionCode != -1) {
+                    if (transactionCode != -1) {
 
-                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                    //SubscriptionManager.from(appContext);
-                    if (mSubscriptionManager != null) {
-//                        PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "mSubscriptionManager != null");
-                        List<SubscriptionInfo> subscriptionList = null;
-                        try {
-                            // Loop through the subscription list i.e. SIM list.
-                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-//                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionList=" + subscriptionList);
-                        } catch (SecurityException e) {
-                            PPApplicationStatic.recordException(e);
-                        }
-                        if (subscriptionList != null) {
-//                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionList.size()=" + subscriptionList.size());
-                            int size = subscriptionList.size();
-                            for (int i = 0; i < size; i++) {
-                                // Get the active subscription ID for a given SIM card.
-                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-//                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionInfo=" + subscriptionInfo);
-                                if (subscriptionInfo != null) {
-                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                    if ((simCard == -1) || (simCard == (slotIndex+1))) {
-                                        int subscriptionId = subscriptionInfo.getSubscriptionId();
-//                                        PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "(1) subscriptionId=" + subscriptionId);
-                                        if ((simCard == -1) || (subscriptionId != defaultSubscriptionId)) {
-                                            // do not call subscription change, when is aleredy set, this cause FC
+                        SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                        //SubscriptionManager.from(appContext);
+                        if (mSubscriptionManager != null) {
+//                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "mSubscriptionManager != null");
+                            List<SubscriptionInfo> subscriptionList = null;
+                            try {
+                                // Loop through the subscription list i.e. SIM list.
+                                subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+//                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionList=" + subscriptionList);
+                            } catch (SecurityException e) {
+                                PPApplicationStatic.recordException(e);
+                            }
+                            if (subscriptionList != null) {
+//                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionList.size()=" + subscriptionList.size());
+                                int size = subscriptionList.size();
+                                for (int i = 0; i < size; i++) {
+                                    // Get the active subscription ID for a given SIM card.
+                                    SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+//                                    PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionInfo=" + subscriptionInfo);
+                                    if (subscriptionInfo != null) {
+                                        int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                        if ((simCard == -1) || (simCard == (slotIndex + 1))) {
+                                            int subscriptionId = subscriptionInfo.getSubscriptionId();
+//                                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "(1) subscriptionId=" + subscriptionId);
+//                                            Log.e("ActivateProfileHelper.setDefaultSimCard", "(3) subscriptionId="+subscriptionId);
+                                            //if ((simCard == -1) || (subscriptionId != defaultSubscriptionId)) {
+                                                // do not call subscription change, when is aleredy set, this cause FC
 
-//                                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "(2) subscriptionId=" + subscriptionId);
+//                                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "(2) subscriptionId=" + subscriptionId);
+//                                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ShizukuUtils.shizukuAvailable()=" + ShizukuUtils.shizukuAvailable());
+//                                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ShizukuUtils.hasShizukuPermission()=" + ShizukuUtils.hasShizukuPermission());
 
-                                            // Galaxy S10 - root and Shizuku working. - Android 11
-                                            // Huawei - P40 Shizuku not working, root not tested - Android 10
-                                            // Xiaomi - Shizuku not working, roott not tested - Android 12
-//                                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ShizukuUtils.shizukuAvailable()=" + ShizukuUtils.shizukuAvailable());
-//                                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ShizukuUtils.hasShizukuPermission()=" + ShizukuUtils.hasShizukuPermission());
-                                            if (ShizukuUtils.hasShizukuPermission()) {
-                                                synchronized (PPApplication.rootMutex) {
-//                                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "****** Shizuku ******");
-                                                    String command1;
-                                                    if (simCard == -1)
-                                                        command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, 0);
-                                                    else
-                                                        command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId);
+                                                if ((Build.VERSION.SDK_INT >= 31) && //(subscriptionType == SUBSCRIPTRION_DATA) &&
+                                                        /*(simCard != -1) &&*/ RootUtils.settingsBinaryExists(false)) {
+//                                                    Log.e("ActivateProfileHelper.setDefaultSimCard", "simCard=" + simCard);
 
-                                                    String command2 = "";
-                                                    switch (subscriptionType) {
-                                                        case SUBSCRIPTRION_VOICE:
-                                                            if (simCard == -1)
-                                                                command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " 0";
-                                                            else
-                                                                command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " " + subscriptionId;
-                                                            break;
-                                                        case SUBSCRIPTRION_SMS:
-                                                            command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_SMS_SUBSCRIPTION + " " + subscriptionId;
-                                                            break;
-                                                        case SUBSCRIPTRION_DATA:
-                                                            command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
-                                                            break;
+                                                    boolean _isAirplaneMode = isAirplaneMode(appContext);
+                                                    if (!_isAirplaneMode) {
+                                                        setAirplaneMode(context, true, false);
+                                                        //GlobalUtils.sleep(100);
+                                                    }
+                                                    boolean _isMobileData = false;
+                                                    if (subscriptionType == SUBSCRIPTRION_DATA) {
+                                                        _isMobileData = isMobileData(appContext, 0);
+                                                        if (_isMobileData) {
+                                                            setMobileData(context, false, 0);
+                                                            //GlobalUtils.sleep(100);
+                                                        }
+                                                    }
+                                                    if (ShizukuUtils.hasShizukuPermission()) {
+                                                        synchronized (PPApplication.rootMutex) {
+                                                            String command1;
+                                                            /*
+                                                            //String command2;
+                                                            //String command3;
+                                                            //String command4;
+                                                            if (simCard == 1) {
+                                                                command1 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
+                                                                //command2 = COMMAND_SETTINGS_PUT_GLOBAL + "user_preferred_data_sub" + " " + subscriptionId;
+                                                                //command3 = COMMAND_SETTINGS_PUT_GLOBAL + "mobile_data1" + " 1";
+                                                                //command4 = COMMAND_SETTINGS_PUT_GLOBAL + "mobile_data2" + " 0";
+                                                            } else {
+                                                                command1 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
+                                                                //command2 = COMMAND_SETTINGS_PUT_GLOBAL + "user_preferred_data_sub" + " " + subscriptionId;
+                                                                //command3 = COMMAND_SETTINGS_PUT_GLOBAL + "mobile_data1" + " 0";
+                                                                //command4 = COMMAND_SETTINGS_PUT_GLOBAL + "mobile_data2" + " 1";
+                                                            }
+                                                            */
+//                                                            Log.e("ActivateProfileHelper.setDefaultSimCard", "subscriptionType=" + subscriptionType);
+                                                            switch (subscriptionType) {
+                                                                case SUBSCRIPTRION_VOICE:
+//                                                                    Log.e("ActivateProfileHelper.setDefaultSimCard", "SUBSCRIPTRION_VOICE");
+                                                                    if (simCard == -1)
+                                                                        command1 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " 0";
+                                                                    else
+                                                                        command1 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " " + subscriptionId;
+                                                                    break;
+                                                                case SUBSCRIPTRION_SMS:
+//                                                                    Log.e("ActivateProfileHelper.setDefaultSimCard", "SUBSCRIPTRION_SMS");
+                                                                    command1 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_SMS_SUBSCRIPTION + " " + subscriptionId;
+                                                                    break;
+                                                                case SUBSCRIPTRION_DATA:
+//                                                                    Log.e("ActivateProfileHelper.setDefaultSimCard", "SUBSCRIPTRION_DATA");
+                                                                    command1 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
+                                                                    break;
+                                                                default:
+                                                                    command1 = null;
+                                                            }
+                                                            //if ((command1 != null)/* && (!command2.isEmpty())*/) {
+                                                                try {
+                                                                    ShizukuUtils.executeCommand(command1);
+                                                                    //ShizukuUtils.executeCommand(command2);
+                                                                    //ShizukuUtils.executeCommand(command3);
+                                                                    //ShizukuUtils.executeCommand(command4);
+                                                                } catch (Exception e) {
+    //                                                                    Log.e("ActivateProfileHelper.setDefaultSimCard", Log.getStackTraceString(e));
+                                                                }
+                                                            //}
+                                                        }
+                                                    } else if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                                            RootUtils.isRooted()) {
+                                                        synchronized (PPApplication.rootMutex) {
+                                                            //String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId);
+                                                            //String command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
+                                                            String command1;
+                                                            /*
+                                                            //String command2;
+                                                            //String command3;
+                                                            //String command4;
+                                                            if (simCard == 1) {
+                                                                command1 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
+                                                                //command2 = COMMAND_SETTINGS_PUT_GLOBAL + "user_preferred_data_sub" + " " + subscriptionId;
+                                                                //command3 = COMMAND_SETTINGS_PUT_GLOBAL + "mobile_data1" + " 1";
+                                                                //command4 = COMMAND_SETTINGS_PUT_GLOBAL + "mobile_data2" + " 0";
+                                                            } else {
+                                                                command1 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
+                                                                //command2 = COMMAND_SETTINGS_PUT_GLOBAL + "user_preferred_data_sub" + " " + subscriptionId;
+                                                                //command3 = COMMAND_SETTINGS_PUT_GLOBAL + "mobile_data1" + " 0";
+                                                                //command4 = COMMAND_SETTINGS_PUT_GLOBAL + "mobile_data2" + " 1";
+                                                            }
+                                                            */
+                                                            switch (subscriptionType) {
+                                                                case SUBSCRIPTRION_VOICE:
+                                                                    if (simCard == -1)
+                                                                        command1 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " 0";
+                                                                    else
+                                                                        command1 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " " + subscriptionId;
+                                                                    break;
+                                                                case SUBSCRIPTRION_SMS:
+                                                                    command1 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_SMS_SUBSCRIPTION + " " + subscriptionId;
+                                                                    break;
+                                                                case SUBSCRIPTRION_DATA:
+                                                                    command1 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
+                                                                    break;
+                                                                default:
+                                                                    command1 = null;
+                                                            }
+
+                                                            //if ((command1 != null)/* && (!command2.isEmpty())*/) {
+                                                                Command command = new Command(0, /*false,*/ command1/*, command2, command3, command4*/);
+                                                                try {
+                                                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_DEFAULT_SIM_CARD);
+                                                                } catch (Exception e) {
+                                                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                                    //Log.e("ActivateProfileHelper.setDefaultSimCard", Log.getStackTraceString(e));
+                                                                    PPApplicationStatic.recordException(e);
+                                                                }
+                                                            //}
+                                                        }
+                                                    }
+                                                    if (_isMobileData) {
+                                                        //GlobalUtils.sleep(100);
+                                                        setMobileData(context, true, 0);
+                                                    }
+                                                    if (!_isAirplaneMode) {
+                                                        //GlobalUtils.sleep(100);
+                                                        setAirplaneMode(context, false, false);
                                                     }
 
-//                                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "command1="+command1);
-//                                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "command2="+command2);
+                                                } else {
+                                                    if ((simCard == -1) || (subscriptionId != defaultSubscriptionId)) {
+                                                        // do not call subscription change, when is aleredy set, this cause FC
 
-                                                    if ((command1 != null)/* && (!command2.isEmpty())*/) {
-                                                        try {
-                                                            ShizukuUtils.executeCommand(command2);
-                                                            ShizukuUtils.executeCommand(command1);
-                                                        } catch (Exception e) {
-//                                                        Log.e("ActivateProfileHelper.setDefaultSimCard", Log.getStackTraceString(e));
+                                                        if (ShizukuUtils.hasShizukuPermission()) {
+                                                            synchronized (PPApplication.rootMutex) {
+//                                                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "****** Shizuku ******");
+                                                                String command1;
+                                                                if (simCard == -1)
+                                                                    command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, 0);
+                                                                else
+                                                                    command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId);
+
+                                                                String command2 = "";
+                                                                switch (subscriptionType) {
+                                                                    case SUBSCRIPTRION_VOICE:
+                                                                        if (simCard == -1)
+                                                                            command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " 0";
+                                                                        else
+                                                                            command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " " + subscriptionId;
+                                                                        break;
+                                                                    case SUBSCRIPTRION_SMS:
+                                                                        command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_SMS_SUBSCRIPTION + " " + subscriptionId;
+                                                                        break;
+                                                                    case SUBSCRIPTRION_DATA:
+                                                                        command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
+                                                                        break;
+                                                                }
+
+//                                                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "command1="+command1);
+//                                                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "command2="+command2);
+
+                                                                if ((command1 != null)/* && (!command2.isEmpty())*/) {
+                                                                    try {
+                                                                        ShizukuUtils.executeCommand(command2);
+                                                                        ShizukuUtils.executeCommand(command1);
+                                                                    } catch (Exception e) {
+//                                                                        Log.e("ActivateProfileHelper.setDefaultSimCard", Log.getStackTraceString(e));
+                                                                    }
+                                                                }
+                                                            }
+                                                        } else if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                                                RootUtils.isRooted(/*false*/)) {
+//                                                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setDefaultSimCard", "PPApplication.rootMutex");
+                                                            synchronized (PPApplication.rootMutex) {
+                                                                String command1;
+                                                                if (simCard == -1)
+                                                                    command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, 0);
+                                                                else
+                                                                    command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId);
+
+                                                                String command2 = "";
+                                                                switch (subscriptionType) {
+                                                                    case SUBSCRIPTRION_VOICE:
+                                                                        if (simCard == -1)
+                                                                            command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " 0";
+                                                                        else
+                                                                            command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " " + subscriptionId;
+                                                                        break;
+                                                                    case SUBSCRIPTRION_SMS:
+                                                                        command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_SMS_SUBSCRIPTION + " " + subscriptionId;
+                                                                        break;
+                                                                    case SUBSCRIPTRION_DATA:
+                                                                        command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
+                                                                        break;
+                                                                }
+
+                                                                if ((command1 != null)/* && (!command2.isEmpty())*/) {
+                                                                    Command command = new Command(0, /*false,*/ command2, command1);
+                                                                    try {
+                                                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                                        RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_DEFAULT_SIM_CARD);
+                                                                    } catch (Exception e) {
+                                                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                                        //Log.e("ActivateProfileHelper.setDefaultSimCard", Log.getStackTraceString(e));
+                                                                        PPApplicationStatic.recordException(e);
+                                                                    }
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
-                                            } else
-                                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                    RootUtils.isRooted(/*false*/)) {
-//                                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setDefaultSimCard", "PPApplication.rootMutex");
-                                                synchronized (PPApplication.rootMutex) {
-                                                    String command1;
-                                                    if (simCard == -1)
-                                                        command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, 0);
-                                                    else
-                                                        command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId);
-
-                                                    String command2 = "";
-                                                    switch (subscriptionType) {
-                                                        case SUBSCRIPTRION_VOICE:
-                                                            if (simCard == -1)
-                                                                command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " 0";
-                                                            else
-                                                                command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION + " " + subscriptionId;
-                                                            break;
-                                                        case SUBSCRIPTRION_SMS:
-                                                            command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_SMS_SUBSCRIPTION + " " + subscriptionId;
-                                                            break;
-                                                        case SUBSCRIPTRION_DATA:
-                                                            command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
-                                                            break;
-                                                    }
-
-                                                    if ((command1 != null)/* && (!command2.isEmpty())*/) {
-                                                        Command command = new Command(0, /*false,*/ command2, command1);
-                                                        try {
-                                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                            RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_DEFAULT_SIM_CARD);
-                                                        } catch (Exception e) {
-                                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                            //Log.e("ActivateProfileHelper.setDefaultSimCard", Log.getStackTraceString(e));
-                                                            PPApplicationStatic.recordException(e);
-                                                        }
-                                                    }
-                                                }
-                                            }
+                                            //}
                                         }
                                     }
-                                }
-//                                else
-//                                    PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionInfo == null");
+//                                    else
+//                                        PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionInfo == null");
 
-                                if (simCard == -1)
-                                    break;
+                                    if (simCard == -1)
+                                        break;
+                                }
                             }
+//                            else
+//                                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionList == null");
                         }
 //                        else
-//                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionList == null");
+//                            PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "mSubscriptionManager == null");
                     }
 //                    else
-//                         PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "mSubscriptionManager == null");
+//                        PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "(transactionCode == -1) || (simCard == -1)");
                 }
-//                else
-//                    PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "(transactionCode == -1) || (simCard == -1)");
             }
         }
     }
