@@ -8063,6 +8063,8 @@ class ActivateProfileHelper {
 //                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "transactionCode=" + transactionCode);
 
                     if (Build.VERSION.SDK_INT >= 31) {
+                        //https://www.reddit.com/r/tasker/comments/wt3hdp/disable_sim2_in_tasker/
+
                         if (ShizukuUtils.hasShizukuPermission()) {
                             synchronized (PPApplication.rootMutex) {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "***** Shizuku *******");
