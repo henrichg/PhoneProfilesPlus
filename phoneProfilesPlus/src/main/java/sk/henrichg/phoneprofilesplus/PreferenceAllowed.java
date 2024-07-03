@@ -2341,6 +2341,7 @@ class PreferenceAllowed {
             if (ShizukuUtils.hasShizukuPermission()) {
                 if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1)) {
                     if (RootUtils.serviceBinaryExists(fromUIThread)) {
+                        //Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(0) PREFERENCE_ALLOWED");
                         if (profile != null) {
                             if ((profile._deviceOnOffSIM1 != 0) ||
                                     (profile._deviceOnOffSIM2 != 0))
@@ -2352,7 +2353,7 @@ class PreferenceAllowed {
                     else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
-//                        Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(1) PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND");
+                        //Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(1) PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND");
                         return;
                     }
 
@@ -2361,21 +2362,23 @@ class PreferenceAllowed {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            //Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(2) PREFERENCE_ALLOWED");
                         } else {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                            //Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(3) PREFERENCE_NOT_ALLOWED_NO_HARDWARE");
                         }
                     } else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-//                        Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(2) PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM");
+                        //Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(4) PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM");
                     }
                 } else {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                     preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-//                    Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(3) PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM");
+                    //Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(5) PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM");
                 }
             } else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -2452,7 +2455,7 @@ class PreferenceAllowed {
             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
             preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-//            Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(5) PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM");
+            //Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(6) PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM");
         }
     }
 
