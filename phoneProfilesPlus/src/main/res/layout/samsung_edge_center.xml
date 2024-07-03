@@ -13,13 +13,14 @@
         android:gravity="center_horizontal"
         android:layout_alignParentBottom="true">
 
-        <View
+        <LinearLayout
             android:id="@+id/widget_samsung_edge_buttonsDivider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
             android:layout_marginBottom="5dp"
-            android:layout_marginStart="@dimen/divider_margin"
-            android:layout_marginEnd="@dimen/divider_margin"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal"
             android:background="@color/dialog_divider" />
 
         <ImageView
