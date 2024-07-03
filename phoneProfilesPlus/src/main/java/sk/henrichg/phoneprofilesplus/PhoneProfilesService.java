@@ -746,14 +746,15 @@ public class PhoneProfilesService extends Service
                     PPApplicationStatic.logE("PhoneProflesService.doForFirstStart - handler", "__activateProfiles=" + __activateProfiles);
                 }
 
-                if (PPApplicationStatic.logEnabled()) {
+                // TODO remove for release
+                /*if (PPApplicationStatic.logEnabled()) {
                     // get list of TRANSACTIONS
                     Object serviceManager = RootUtils.getServiceManager("isub");
                     if (serviceManager != null) {
                         // only log it
                         RootUtils.getTransactionCode(String.valueOf(serviceManager), "");
                     }
-                }
+                }*/
 
                 PPApplicationStatic.setBlockProfileEventActions(true);
 
