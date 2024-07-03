@@ -840,9 +840,6 @@ Hotove je aj zapnutie/vypnutie SIM pre API 31+. Problem tu ale je, ze to pyta pi
 ze zle toto.
 Daj tam warning: Zapnutie SIM vypyta jej PIN.
 
-Android 14. Neviem preco, ale je to zakazane, vraj nepodporovane systemom. Zisti preco.
-Vypada to tak, ze akoby sa nezachytilo zapnutie Shizuku.
-
 -------------------------
 
 
