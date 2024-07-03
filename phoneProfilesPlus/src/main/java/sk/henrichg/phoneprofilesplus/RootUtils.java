@@ -488,7 +488,7 @@ class RootUtils {
         }
     }
 
-    private static Object getServiceManager(String serviceType) {
+    static Object getServiceManager(String serviceType) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.getServiceManager", "PPApplication.serviceListMutex");
         synchronized (PPApplication.serviceListMutex) {
             if (PPApplication.serviceListMutex.serviceList != null) {
@@ -503,9 +503,11 @@ class RootUtils {
         }
     }
 
-    private static int getTransactionCode(String serviceManager, String method) {
-//        PPApplicationStatic.logE("[DUAL_SIM] PPApplication.getTransactionCode", "serviceManager="+serviceManager);
-//        PPApplicationStatic.logE("[DUAL_SIM] PPApplication.getTransactionCode", "method="+method);
+    static int getTransactionCode(String serviceManager, String method) {
+        if (method.isEmpty()) {
+            PPApplicationStatic.logE("[DUAL_SIM] PPApplication.getTransactionCode", "serviceManager=" + serviceManager);
+            PPApplicationStatic.logE("[DUAL_SIM] PPApplication.getTransactionCode", "method=" + method);
+        }
         int code = -1;
         try {
             //noinspection rawtypes
@@ -518,8 +520,8 @@ class RootUtils {
                     String name = field.getName();
 //                    PPApplicationStatic.logE("[DUAL_SIM] PPApplication.getTransactionCode", "filed.name="+name);
                     if (method.isEmpty()) {
-//                        if (name.contains("TRANSACTION_"))
-//                            PPApplicationStatic.logE("[DUAL_SIM] PPApplication.getTransactionCode", "field.getName()="+name);
+                        if (name.contains("TRANSACTION_"))
+                            PPApplicationStatic.logE("[DUAL_SIM] PPApplication.getTransactionCode", "field.getName()="+name);
                         iField++;
                     }
                     else {
@@ -529,7 +531,7 @@ class RootUtils {
                             try {
                                 field.setAccessible(true);
                                 code = field.getInt(field);
-//                                PPApplicationStatic.logE("[DUAL_SIM] PPApplication.getTransactionCode", "name="+name+",  code="+code);
+                                PPApplicationStatic.logE("[DUAL_SIM] PPApplication.getTransactionCode", "name="+name+",  code="+code);
                                 break;
                             } catch (Exception e) {
                                 //Log.e("RootUtils.getTransactionCode", Log.getStackTraceString(e));
