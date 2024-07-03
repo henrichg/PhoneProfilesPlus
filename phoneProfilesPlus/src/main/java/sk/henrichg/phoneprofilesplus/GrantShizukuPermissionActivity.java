@@ -24,8 +24,8 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
     private void onRequestPermissionsResult(int requestCode, int grantResult) {
         boolean granted = grantResult == PackageManager.PERMISSION_GRANTED;
         //Log.e("GrantShizukuPermissionActivity.onRequestPermissionsResult", "granted="+granted);
-        PPApplicationStatic.logE("GrantShizukuPermissionActivity.onRequestPermissionsResult", "*** Shizuku granted ***");
         if (granted) {
+            PPApplicationStatic.logE("GrantShizukuPermissionActivity.onRequestPermissionsResult", "*** Shizuku granted ***");
             Runnable runnable = () -> {
                 RootUtils.settingsBinaryExists(false);
                 RootUtils.serviceBinaryExists(false);
