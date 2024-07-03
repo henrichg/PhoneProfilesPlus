@@ -838,7 +838,10 @@ Volaj setAirplaneMode(context, false, false)
 
 Hotove je aj zapnutie/vypnutie SIM pre API 31+. Problem tu ale je, ze to pyta pin simky, co je uplne
 ze zle toto.
-Daj tam warning, ze ak je SIM vypnuta, jej zapnute vypyta PIN.
+Daj tam warning: Zapnutie SIM vypyta jej PIN.
+
+Android 14. Neviem preco, ale je to zakazane, vraj nepodporovane systemom. Zisti preco.
+Vypada to tak, ze akoby sa nezachytilo zapnutie Shizuku.
 
 -------------------------
 

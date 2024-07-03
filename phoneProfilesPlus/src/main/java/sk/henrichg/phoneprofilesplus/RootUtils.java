@@ -505,8 +505,8 @@ class RootUtils {
 
     static int getTransactionCode(String serviceManager, String method) {
         if (method.isEmpty()) {
-            PPApplicationStatic.logE("[DUAL_SIM] PPApplication.getTransactionCode", "serviceManager=" + serviceManager);
-            PPApplicationStatic.logE("[DUAL_SIM] PPApplication.getTransactionCode", "method=" + method);
+            Log.e("RootUtils.getTransactionCode", "serviceManager=" + serviceManager);
+            Log.e("RootUtils.getTransactionCode", "method=" + method);
         }
         int code = -1;
         try {
@@ -518,10 +518,10 @@ class RootUtils {
                 while (iField < length) {
                     Field field = declaredFields2[iField];
                     String name = field.getName();
-//                    PPApplicationStatic.logE("[DUAL_SIM] PPApplication.getTransactionCode", "filed.name="+name);
+//                    Log.e("RootUtils.getTransactionCode", "filed.name="+name);
                     if (method.isEmpty()) {
                         if (name.contains("TRANSACTION_"))
-                            PPApplicationStatic.logE("[DUAL_SIM] PPApplication.getTransactionCode", "field.getName()="+name);
+                            Log.e("RootUtils.getTransactionCode", "field.getName()="+name);
                         iField++;
                     }
                     else {
@@ -531,7 +531,7 @@ class RootUtils {
                             try {
                                 field.setAccessible(true);
                                 code = field.getInt(field);
-                                PPApplicationStatic.logE("[DUAL_SIM] PPApplication.getTransactionCode", "name="+name+",  code="+code);
+//                                PPApplicationStatic.logE("[DUAL_SIM] RootUtils.getTransactionCode", "name="+name+",  code="+code);
                                 break;
                             } catch (Exception e) {
                                 //Log.e("RootUtils.getTransactionCode", Log.getStackTraceString(e));

@@ -113,6 +113,7 @@ class PreferenceAllowed {
                     if (applicationNeverAskForGrantRoot) {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                        return;
                     }
                 }
             } else
@@ -626,6 +627,7 @@ class PreferenceAllowed {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                return;
                             }
                         }
                     } else if (sharedPreferences != null) {
@@ -764,6 +766,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 }
@@ -837,11 +840,13 @@ class PreferenceAllowed {
                                 } else {
                                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                                    return;
                                 }
                             } else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                                return;
                             }
 
                             boolean sim0Exists;
@@ -861,6 +866,7 @@ class PreferenceAllowed {
                                     if (applicationNeverAskForGrantRoot) {
                                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                        return;
                                     }
                                 }
                             } else if (sharedPreferences != null) {
@@ -884,11 +890,13 @@ class PreferenceAllowed {
                                 } else {
                                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                                    return;
                                 }
                             } else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                                return;
                             }
 
                             boolean sim0Exists;
@@ -1003,6 +1011,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 } else if (sharedPreferences != null) {
@@ -1104,6 +1113,7 @@ class PreferenceAllowed {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                return;
                             }
                         }
                     } else if (sharedPreferences != null) {
@@ -1209,6 +1219,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 } else if (sharedPreferences != null) {
@@ -1286,6 +1297,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 } else if (sharedPreferences != null) {
@@ -1363,6 +1375,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 } else if (sharedPreferences != null) {
@@ -1468,6 +1481,7 @@ class PreferenceAllowed {
                     if (applicationNeverAskForGrantRoot) {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                        return;
                     }
                 }
             }
@@ -1533,11 +1547,13 @@ class PreferenceAllowed {
                             else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                                return;
                             }
                         } else {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                             preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                            return;
                         }
 
                         boolean sim0Exists;
@@ -1558,6 +1574,7 @@ class PreferenceAllowed {
                                 if (applicationNeverAskForGrantRoot) {
                                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                    return;
                                 }
                             }
                         }
@@ -1585,11 +1602,13 @@ class PreferenceAllowed {
                             else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                                return;
                             }
                         } else {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                             preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                            return;
                         }
 
                         boolean sim0Exists;
@@ -1681,6 +1700,7 @@ class PreferenceAllowed {
                                     if (applicationNeverAskForGrantRoot) {
                                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                        return;
                                     }
                                 }
                             } else if (sharedPreferences != null) {
@@ -1781,6 +1801,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 } else if (sharedPreferences != null) {
@@ -1950,6 +1971,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 }
@@ -2039,6 +2061,7 @@ class PreferenceAllowed {
                     if (profile._alwaysOnDisplay != 0) {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            return;
                         }
                     }
                 } else if (sharedPreferences != null) {
@@ -2100,6 +2123,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 }
@@ -2210,15 +2234,18 @@ class PreferenceAllowed {
                             } else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                                return;
                             }
                         } else {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                            return;
                         }
                     } else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                        return;
                     }
 
                     boolean sim0Exists;
@@ -2238,6 +2265,7 @@ class PreferenceAllowed {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                return;
                             }
                         }
                     } else if (sharedPreferences != null) {
@@ -2262,15 +2290,18 @@ class PreferenceAllowed {
                             } else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                                return;
                             }
                         } else {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                            return;
                         }
                     } else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                        return;
                     }
 
                     boolean sim0Exists;
@@ -2321,6 +2352,8 @@ class PreferenceAllowed {
                     else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+//                        Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(1) PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND");
+                        return;
                     }
 
                     final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -2336,11 +2369,13 @@ class PreferenceAllowed {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+//                        Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(2) PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM");
                     }
                 } else {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                     preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+//                    Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(3) PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM");
                 }
             } else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -2353,6 +2388,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 } else if (sharedPreferences != null) {
@@ -2379,6 +2415,7 @@ class PreferenceAllowed {
                     else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                        return;
                     }
 
                     final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -2404,6 +2441,7 @@ class PreferenceAllowed {
             } else {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+//                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(4) PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED");
                 if ((profile != null) &&
                         ((profile._deviceOnOffSIM1 != 0) ||
                          (profile._deviceOnOffSIM2 != 0))) {
@@ -2414,6 +2452,7 @@ class PreferenceAllowed {
             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
             preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+//            Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(5) PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM");
         }
     }
 
@@ -2499,6 +2538,7 @@ class PreferenceAllowed {
                                     if (applicationNeverAskForGrantRoot) {
                                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                        return;
                                     }
                                 }
                             } else if (sharedPreferences != null) {
@@ -2609,6 +2649,7 @@ class PreferenceAllowed {
                                     if (applicationNeverAskForGrantRoot) {
                                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                        return;
                                     }
                                 }
                             } else if (sharedPreferences != null) {
