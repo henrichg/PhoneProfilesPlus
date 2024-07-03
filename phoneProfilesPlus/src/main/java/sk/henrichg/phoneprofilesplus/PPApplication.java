@@ -1136,6 +1136,8 @@ public class PPApplication extends Application
             return;
         }
 
+        RootUtils.initRoot();
+
 //        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplication.onCreate", "PPApplication.applicationStartedMutex");
         synchronized (PPApplication.applicationStartedMutex) {
             PPApplication.exportIsRunning = false;
@@ -1375,8 +1377,6 @@ public class PPApplication extends Application
 
         JobManager.create(this).addJobCreator(new PPJobsCreator());
         */
-
-        RootUtils.initRoot();
 
         /*
         try {
