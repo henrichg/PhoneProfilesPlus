@@ -7788,6 +7788,9 @@ class ActivateProfileHelper {
 
                                                 if ((Build.VERSION.SDK_INT >= 31) && //(subscriptionType == SUBSCRIPTRION_DATA) &&
                                                         /*(simCard != -1) &&*/ RootUtils.settingsBinaryExists(false)) {
+
+                                                    //   https://www.reddit.com/r/tasker/comments/zdv9be/comment/iz4r1vj/?utm_medium=android_app&utm_source=share&context=3
+
 //                                                    Log.e("ActivateProfileHelper.setDefaultSimCard", "simCard=" + simCard);
 
                                                     boolean _isAirplaneMode = isAirplaneMode(appContext);
@@ -8019,8 +8022,6 @@ class ActivateProfileHelper {
         }
     }
 
-    // For API 31+:
-    //   https://www.reddit.com/r/tasker/comments/zdv9be/comment/iz4r1vj/?utm_medium=android_app&utm_source=share&context=3
     private static void setSIMOnOff(Context context, boolean enable, int simCard)
     {
 //        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "simCard="+simCard);
