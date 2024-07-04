@@ -2240,6 +2240,9 @@
 
     <string name="profile_preferences_volumeMergedRingSyatemVolumeInfo_summary">Most devices has merged \"Ringtone volume\" and \"System volume\". These devcies do not have option in device Settings to configure \"System volume\". For this reason, recommended is to configure \"Ringing volume\", when is configured \"System volume\" or do not configure \"System volume\".</string>
 
+    <string name="profile_preferences_deviceDualSIMPINCode_title">Switch SIM on/off</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_summary">WARNING: This brings the PIN code entry screen for the SIM card that is configured as \"On\".</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
