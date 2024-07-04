@@ -4936,7 +4936,7 @@ class ActivateProfileHelper {
                         if (!ok) {
                             ok = true;
                             try {
-                                intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                                intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 final ComponentName componentName = new ComponentName(StringConstants.PHONE_PACKAGE_NAME, SETTINGS_PHONE_CLASS_NAME);
                                 intent.setComponent(componentName);
@@ -4951,7 +4951,7 @@ class ActivateProfileHelper {
                         }
                         if (!ok) {
                             try {
-                                intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                                intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 appContext.startActivity(intent);
                                 //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(3)");
@@ -4973,7 +4973,7 @@ class ActivateProfileHelper {
                                 intent = null;
                         }
                         if (!ok) {
-                            intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                            intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
                             intent.setComponent(new ComponentName(StringConstants.PHONE_PACKAGE_NAME, SETTINGS_PHONE_CLASS_NAME));
                             if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
                                 ok = true;
@@ -4981,7 +4981,7 @@ class ActivateProfileHelper {
                                 intent = null;
                         }
                         if (!ok) {
-                            intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                            intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
                             if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
                                 ok = true;
                             else
@@ -5011,7 +5011,7 @@ class ActivateProfileHelper {
                             PPApplicationStatic.recordException(e);
                         }
                     } else {
-                        Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                        Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
                         String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
@@ -6574,7 +6574,7 @@ class ActivateProfileHelper {
     static boolean canSetMobileData(Context context)
     {
         Context appContext = context.getApplicationContext();
-        if (android.os.Build.VERSION.SDK_INT >= 28)
+        if (Build.VERSION.SDK_INT >= 28)
             return true;
         else
         {
@@ -7808,7 +7808,7 @@ class ActivateProfileHelper {
                                                     }
                                                     if (ShizukuUtils.hasShizukuPermission()) {
                                                         synchronized (PPApplication.rootMutex) {
-                                                            String command1;
+                                                            String command1 = null;
                                                             /*
                                                             //String command2;
                                                             //String command3;
@@ -7842,10 +7842,11 @@ class ActivateProfileHelper {
 //                                                                    Log.e("ActivateProfileHelper.setDefaultSimCard", "SUBSCRIPTRION_DATA");
                                                                     command1 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
                                                                     break;
-                                                                default:
-                                                                    command1 = null;
+                                                                //default:
+                                                                //    command1 = null;
                                                             }
-                                                            //if ((command1 != null)/* && (!command2.isEmpty())*/) {
+                                                            //noinspection ConstantValue
+                                                            if ((command1 != null)/* && (!command2.isEmpty())*/) {
                                                                 try {
                                                                     ShizukuUtils.executeCommand(command1);
                                                                     //ShizukuUtils.executeCommand(command2);
@@ -7854,14 +7855,14 @@ class ActivateProfileHelper {
                                                                 } catch (Exception e) {
     //                                                                    Log.e("ActivateProfileHelper.setDefaultSimCard", Log.getStackTraceString(e));
                                                                 }
-                                                            //}
+                                                            }
                                                         }
                                                     } else if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                             RootUtils.isRooted()) {
                                                         synchronized (PPApplication.rootMutex) {
                                                             //String command1 = RootUtils.getServiceCommand(COMMAND_SERVICE_ROOT_ISUB, transactionCode, subscriptionId);
                                                             //String command2 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
-                                                            String command1;
+                                                            String command1 = null;
                                                             /*
                                                             //String command2;
                                                             //String command3;
@@ -7891,11 +7892,12 @@ class ActivateProfileHelper {
                                                                 case SUBSCRIPTRION_DATA:
                                                                     command1 = COMMAND_SETTINGS_PUT_GLOBAL + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
                                                                     break;
-                                                                default:
-                                                                    command1 = null;
+                                                                //default:
+                                                                //    command1 = null;
                                                             }
 
-                                                            //if ((command1 != null)/* && (!command2.isEmpty())*/) {
+                                                            //noinspection ConstantValue
+                                                            if ((command1 != null)/* && (!command2.isEmpty())*/) {
                                                                 Command command = new Command(0, /*false,*/ command1/*, command2, command3, command4*/);
                                                                 try {
                                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
@@ -7905,7 +7907,7 @@ class ActivateProfileHelper {
                                                                     //Log.e("ActivateProfileHelper.setDefaultSimCard", Log.getStackTraceString(e));
                                                                     PPApplicationStatic.recordException(e);
                                                                 }
-                                                            //}
+                                                            }
                                                         }
                                                     }
                                                     if (_isMobileData) {
