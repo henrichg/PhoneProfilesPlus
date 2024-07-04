@@ -521,42 +521,42 @@ class PPApplicationStatic {
 
     @SuppressLint("MissingPermission")
     static void logException(String tag, String text) {
-        if (!logEnabled())
-            return;
+        if (logEnabled()) {
+            if (logContainsFilterTag(tag)) {
+                //if (logIntoLogCat) Log.e(tag, text);
+                if (PPApplication.logIntoLogCat)
+                    Log.e("[EXCEPTION] " + tag, "[ " + tag + " ]" + StringConstants.STR_COLON_WITH_SPACE + text);
+                logIntoFile("E", tag, text, true);
 
-        if (logContainsFilterTag(tag)) {
-            //if (logIntoLogCat) Log.e(tag, text);
-            if (PPApplication.logIntoLogCat)
-                Log.e("[EXCEPTION] " + tag, "[ " + tag + " ]" + StringConstants.STR_COLON_WITH_SPACE + text);
-            logIntoFile("E", tag, text, true);
+                if (DebugVersion.enabled && (PPApplication.getInstance() != null)) {
+                    Context appContext = PPApplication.getInstance().getApplicationContext();
+                    createExclamationNotificationChannel(appContext, false);
+                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                            .setColor(ContextCompat.getColor(appContext, R.color.error_color))
+                            .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                            .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification))
+                            .setContentTitle("App exception occured!!") // title for notification
+                            .setContentText("Read log.txt") // message for notification
+                            .setAutoCancel(true); // clear notification after click
+                    //mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
+                    mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+                    mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
-            if (DebugVersion.enabled && (PPApplication.getInstance() != null)) {
-                Context appContext = PPApplication.getInstance().getApplicationContext();
-                createExclamationNotificationChannel(appContext, false);
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(appContext, R.color.error_color))
-                        .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
-                        .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification))
-                        .setContentTitle("App exception occured!!") // title for notification
-                        .setContentText("Read log.txt") // message for notification
-                        .setAutoCancel(true); // clear notification after click
-                //mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
-                mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
-                mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+                    mBuilder.setGroup(PPApplication.APP_EXCEPTION_NOTIFICATION_GROUP);
 
-                mBuilder.setGroup(PPApplication.APP_EXCEPTION_NOTIFICATION_GROUP);
+                    Notification notification = mBuilder.build();
 
-                Notification notification = mBuilder.build();
-
-                NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
-                try {
-                    mNotificationManager.notify(PPApplication.APP_EXCEPTION_NOTIFICATION_TAG, PPApplication.APP_EXCEPTION_NOTIFICATION_ID, notification);
-                } catch (Exception en) {
-                    Log.e("PPApplicationStatic.logException", Log.getStackTraceString(en));
+                    NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+                    try {
+                        mNotificationManager.notify(PPApplication.APP_EXCEPTION_NOTIFICATION_TAG, PPApplication.APP_EXCEPTION_NOTIFICATION_ID, notification);
+                    } catch (Exception en) {
+                        Log.e("PPApplicationStatic.logException", Log.getStackTraceString(en));
+                    }
                 }
             }
-        }
+        } else
+            Log.e(tag, text);
     }
 
     /*
