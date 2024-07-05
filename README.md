@@ -19,6 +19,8 @@ __PhoneProfilesPlus in Discord__
 __PhoneProfilesPlus in XDA-develoers__
 - https://xdaforums.com/t/app-phoneprofilesplus.3799429/
 
+---
+
 ### Sources of PhoneProfilesPlus:
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores:
