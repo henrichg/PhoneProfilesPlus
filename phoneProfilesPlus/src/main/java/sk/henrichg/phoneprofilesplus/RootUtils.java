@@ -41,6 +41,22 @@ class RootUtils {
             //PPApplication.rootMutex.suVersionChecked = false;
             PPApplication.rootMutex.serviceBinaryChecked = false;
             PPApplication.rootMutex.serviceBinaryExists = false;
+
+            PPApplication.rootMutex.serviceManagerPhone = null;
+            PPApplication.rootMutex.serviceManagerWifi = null;
+            PPApplication.rootMutex.serviceManagerIsub = null;
+
+            /* this is not used, used is "svc data"
+            PPApplication.rootMutex.transactionCode_setUserDataEnabled = -1;
+            PPApplication.rootMutex.transactionCode_setDataEnabled = -1;
+            */
+            PPApplication.rootMutex.transactionCode_setPreferredNetworkType = -1;
+            PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId = -1;
+            PPApplication.rootMutex.transactionCode_setDefaultSmsSubId = -1;
+            PPApplication.rootMutex.transactionCode_setDefaultDataSubId = -1;
+            PPApplication.rootMutex.transactionCode_setSubscriptionEnabled = -1;
+            PPApplication.rootMutex.transactionCode_setSimPowerStateForSlot = -1;
+            PPApplication.rootMutex.transactionCode_setWifiApEnabled = -1;
         }
     }
 

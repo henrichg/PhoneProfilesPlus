@@ -12,6 +12,13 @@ PhoneProfilesPlus (PPP)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 
+__PhoneProfilesPlus in Discord__
+- https://discord.com/channels/1258733423426670633/1258733424504737936
+- Invitation: https://discord.gg/gbV7UCzt
+
+__PhoneProfilesPlus in XDA-develoers__
+- https://xdaforums.com/t/app-phoneprofilesplus.3799429/
+
 ### Sources of PhoneProfilesPlus:
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores:
