@@ -213,7 +213,10 @@ class EventPreferencesMusic extends EventPreferences {
                 boolean isNotAllowedSession = false;
 
                 // play media from PPP is ignored
-                if ((RingtonePreference.mediaPlayer == null) && (VolumeDialogPreferenceFragment.mediaPlayer == null)) {
+                if ((RingtonePreference.mediaPlayer == null) &&
+                        (VolumeDialogPreferenceFragment.mediaPlayer == null) /*&&
+                        not needed to test it, it uses ALARM channel
+                        (PlayRingingNotification.ringingMediaPlayer == null)*/) {
                     AudioManager audioManager = (AudioManager) eventsHandler.context.getSystemService(Context.AUDIO_SERVICE);
                     if (audioManager != null) {
                         if (PPNotificationListenerService.isNotificationListenerServiceEnabled(eventsHandler.context, true)) {

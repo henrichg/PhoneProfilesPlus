@@ -307,13 +307,17 @@ class PlayRingingNotification
             }
             // ----------
 
+            /*
             // do not simulate ringing when ring or stream is muted
+            // Wrong! Do not test actual mute state of ringing from system, tested must be _volumeMuteSound
+            // from activated profile (look at EventsHandler.doEndHandler())
             if (audioManager != null) {
                 if (audioManager.isStreamMute(AudioManager.STREAM_RING)) {
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.startSimulatingRingingCall", "stream_rin mutted");
                     return;
                 }
             }
+            */
 
 //            PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.startSimulatingRingingCall", "stream_ring NOT muted");
 

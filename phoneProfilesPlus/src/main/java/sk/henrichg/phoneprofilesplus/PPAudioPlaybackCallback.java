@@ -18,7 +18,10 @@ public class PPAudioPlaybackCallback extends  AudioManager.AudioPlaybackCallback
     @Override
     public void onPlaybackConfigChanged(List<AudioPlaybackConfiguration> configs) {
         // play media from PPP is ignored
-        if ((RingtonePreference.mediaPlayer != null) || (VolumeDialogPreferenceFragment.mediaPlayer != null))
+        if ((RingtonePreference.mediaPlayer != null) ||
+                (VolumeDialogPreferenceFragment.mediaPlayer != null)/* ||
+                not needed to test it, it uses ALARM channel
+                (PlayRingingNotification.ringingMediaPlayer != null)*/)
             return;
 
         // Iterate all playback configurations
