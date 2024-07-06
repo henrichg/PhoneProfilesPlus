@@ -618,8 +618,11 @@ Podobne sprav pre transakcne kody a sprav podobny red text, klik zavola to, co j
 Vid RootMutext.
 Nie je to dokonale, ale aspon pre viditelne veci si moze uzivatel napravit PPP.
 
-Este su speci parametre, co vyzaduju Shizuku, Napriklad Settings"/"Permissions"/"(Z)(R) Wi-Fi and Bluetooth confirm dialogs".
+Este su speci parametre, co vyzaduju Shizuku.
+Napriklad Settings"/"Permissions"/"(Z)(R) Wi-Fi and Bluetooth confirm dialogs".
+To je speci pre HyperOs, Android 14.
 Pre toto ale nerobim red text, dokonca ani red notifikaciu. Co s tym?
+Ine som nenasiel, ale ktohovie, ci nepribudne dalsie.
 
 Chyba proste ten listener.
 
