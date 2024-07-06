@@ -13,7 +13,7 @@ PhoneProfilesPlus (PPP)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 
 __PhoneProfilesPlus in Discord__
-- https://discord.com/channels/1258733423426670633/1258733424504737936
+- https://discord.com/channels/1258733423426670633/1258737577117089893
 - Invitation: https://discord.gg/gbV7UCzt
 
 __PhoneProfilesPlus in XDA-develoers__
