@@ -759,7 +759,8 @@ class MobileCellsListener extends PhoneStateListener {
                         // add action button to disable not used cells detection
                         // Android 12 - this do not starts activity - OK
                         Intent disableDetectionIntent = new Intent(MobileCellsScanner.ACTION_NEW_MOBILE_CELLS_NOTIFICATION_DISABLE);
-                        disableDetectionIntent.putExtra("notificationId", _registeredCell + PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID);
+                        //disableDetectionIntent.putExtra("notificationId", _registeredCell + PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID);
+                        disableDetectionIntent.putExtra("notificationId", Math.abs(_registeredCell) + PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID);
                         PendingIntent pDisableDetectionIntent = PendingIntent.getBroadcast(context, 0, disableDetectionIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
                                 //R.drawable.ic_action_exit_app,
