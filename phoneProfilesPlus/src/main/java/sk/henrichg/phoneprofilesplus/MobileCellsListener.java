@@ -126,7 +126,7 @@ class MobileCellsListener extends PhoneStateListener {
                         long nci = identityNr.getNci();
                         //int ci = Math.toIntExact(nci);
                         int ci = (int) nci;
-                        if (MobileCellsScanner.isValidCellId(ci)) {
+                        if (MobileCellsScanner.isValidCellIdNr(nci)) {
                             if (_cellInfo.isRegistered()) {
                                 registeredCell = ci;
                                 lastConnectedTime = Calendar.getInstance().getTimeInMillis();

@@ -258,6 +258,10 @@ class MobileCellsScanner {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.isValidCellId", "******** ### *******");
         return (cid != -1) && (cid != 0) /*&& (cid != 1)*/ && (cid != Integer.MAX_VALUE);
     }
+    static boolean isValidCellIdNr(long cid) {
+//        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.isValidCellId", "******** ### *******");
+        return (cid != -1) && (cid != 0) /*&& (cid != 1)*/ && (cid != Long.MAX_VALUE);
+    }
 
     static void startAutoRegistration(Context context, boolean forConnect) {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.startAutoRegistration", "******** ### *******");
