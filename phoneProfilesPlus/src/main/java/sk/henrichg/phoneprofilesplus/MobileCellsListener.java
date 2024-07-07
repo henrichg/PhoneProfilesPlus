@@ -720,7 +720,8 @@ class MobileCellsListener extends PhoneStateListener {
                         for (StatusBarNotification notification : notifications) {
                             String tag = notification.getTag();
                             if ((tag != null) && tag.contains(PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_TAG + "_")) {
-                                if (notification.getId() == _registeredCell + PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID) {
+                                //if (notification.getId() == _registeredCell + PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID) {
+                                if (notification.getId() == Math.abs(_registeredCell) + PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID) {
                                     isShown = true;
                                     break;
                                 }
@@ -785,9 +786,13 @@ class MobileCellsListener extends PhoneStateListener {
                         NotificationManagerCompat _mNotificationManager = NotificationManagerCompat.from(context);
                         try {
                             //_mNotificationManager.cancel(_registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID);
+                            //_mNotificationManager.notify(
+                            //        PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_TAG + "_" + _registeredCell,
+                            //        PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID + _registeredCell, mBuilder.build());
+                            int absCellId = Math.abs(_registeredCell);
                             _mNotificationManager.notify(
-                                    PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_TAG + "_" + registeredCell,
-                                    PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID + _registeredCell, mBuilder.build());
+                                    PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_TAG + "_" + absCellId,
+                                    PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID + absCellId, mBuilder.build());
                         } catch (SecurityException en) {
                             PPApplicationStatic.logException("MobileCellsListener.doAutoRegistration", Log.getStackTraceString(en));
                         } catch (Exception e) {
