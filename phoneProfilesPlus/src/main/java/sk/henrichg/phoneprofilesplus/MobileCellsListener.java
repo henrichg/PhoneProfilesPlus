@@ -124,7 +124,8 @@ class MobileCellsListener extends PhoneStateListener {
                     } else if ((Build.VERSION.SDK_INT >= 30) && (_cellInfo instanceof CellInfoNr)) {
                         CellIdentityNr identityNr = (CellIdentityNr) _cellInfo.getCellIdentity();
                         long nci = identityNr.getNci();
-                        int ci = Math.toIntExact(nci);
+                        //int ci = Math.toIntExact(nci);
+                        int ci = (int) nci;
                         if (MobileCellsScanner.isValidCellId(ci)) {
                             if (_cellInfo.isRegistered()) {
                                 registeredCell = ci;
