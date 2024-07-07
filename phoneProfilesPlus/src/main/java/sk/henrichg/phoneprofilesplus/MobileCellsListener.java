@@ -6,16 +6,19 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.PowerManager;
 import android.service.notification.StatusBarNotification;
 import android.telephony.CellIdentityCdma;
 import android.telephony.CellIdentityGsm;
 import android.telephony.CellIdentityLte;
+import android.telephony.CellIdentityNr;
 import android.telephony.CellIdentityWcdma;
 import android.telephony.CellInfo;
 import android.telephony.CellInfoCdma;
 import android.telephony.CellInfoGsm;
 import android.telephony.CellInfoLte;
+import android.telephony.CellInfoNr;
 import android.telephony.CellInfoWcdma;
 import android.telephony.CellLocation;
 import android.telephony.PhoneStateListener;
@@ -114,6 +117,15 @@ class MobileCellsListener extends PhoneStateListener {
                         if (MobileCellsScanner.isValidCellId(identityCdma.getBasestationId())) {
                             if (_cellInfo.isRegistered()) {
                                 registeredCell = identityCdma.getBasestationId();
+                                lastConnectedTime = Calendar.getInstance().getTimeInMillis();
+                                isRegistered = true;
+                            }
+                        }
+                    } else if ((Build.VERSION.SDK_INT >= 30) && (_cellInfo instanceof CellInfoNr)) {
+                        CellIdentityNr identityNr = (CellIdentityNr) _cellInfo.getCellIdentity();
+                        if (MobileCellsScanner.isValidCellId(identityNr.getNrarfcn())) {
+                            if (_cellInfo.isRegistered()) {
+                                registeredCell = identityNr.getNrarfcn();
                                 lastConnectedTime = Calendar.getInstance().getTimeInMillis();
                                 isRegistered = true;
                             }
