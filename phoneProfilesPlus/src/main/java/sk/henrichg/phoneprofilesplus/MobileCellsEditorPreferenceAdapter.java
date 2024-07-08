@@ -77,8 +77,8 @@ class MobileCellsEditorPreferenceAdapter extends BaseAdapter
             return vi;
 
         MobileCellsData cellData = preference.filteredCellsList.get(position);
-        //System.out.println(String.valueOf(position));
 
+        //noinspection ExtractMethodRecommender
         String cellName = "";
         if (!cellData.name.isEmpty())
             cellName = cellData.name + StringConstants.CHAR_NEW_LINE;
@@ -105,10 +105,11 @@ class MobileCellsEditorPreferenceAdapter extends BaseAdapter
         }
 
         holder.checkBox.setTag(position);
-        if (cellData.cellId != Integer.MAX_VALUE)
-            holder.checkBox.setChecked(preference.isCellSelected(cellData.cellId), Long.MAX_VALUE);
-        else if (cellData.cellIdLong != Long.MAX_VALUE)
-            holder.checkBox.setChecked(preference.isCellSelected(Integer.MAX_VALUE, cellData.cellIdLong));
+        //if (cellData.cellId != Integer.MAX_VALUE)
+        //    holder.checkBox.setChecked(preference.isCellSelected(cellData.cellId, Long.MAX_VALUE));
+        //else if (cellData.cellIdLong != Long.MAX_VALUE)
+        // holder.checkBox.setChecked(preference.isCellSelected(Integer.MAX_VALUE, cellData.cellIdLong));
+        holder.checkBox.setChecked(preference.isCellSelected(cellData.cellId, cellData.cellIdLong));
         holder.checkBox.setOnClickListener(v -> {
             CheckBox chb = (CheckBox) v;
 

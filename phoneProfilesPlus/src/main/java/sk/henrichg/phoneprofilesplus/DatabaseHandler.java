@@ -1287,8 +1287,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return DatabaseHandlerEvents.renameMobileCellsList(this, cellsList, cellName, _new, selectedIds);
     }
 
-    void deleteMobileCell(int mobileCell) {
-        DatabaseHandlerEvents.deleteMobileCell(this, mobileCell, false);
+    void deleteMobileCell(int mobileCell, long mobileCellLong) {
+        DatabaseHandlerEvents.deleteMobileCell(this, mobileCell, mobileCellLong, false);
     }
 
     void updateMobileCellLastConnectedTime(int mobileCell, long mobileCellLong, long lastConnectedTime) {

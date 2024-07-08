@@ -86,51 +86,80 @@ public class MobileCellsEditorPreference extends DialogPreference {
     }
     */
 
-    void addCellId(int cellId) {
+    void addCellId(int cellId, long cellIdLong) {
         String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         String sCellId = Integer.toString(cellId);
+        String sCellIdLong = Long.toString(cellIdLong);
         boolean found = false;
         for (String cell : splits) {
             if (!cell.isEmpty()) {
-                if (cell.equals(sCellId)) {
-                    found = true;
-                    break;
+                if (cellId != Integer.MAX_VALUE) {
+                    if (cell.equals(sCellId)) {
+                        found = true;
+                        break;
+                    }
+                } else if (cellIdLong != Long.MAX_VALUE) {
+                    if (cell.equals(sCellIdLong)) {
+                        found = true;
+                        break;
+                    }
                 }
             }
         }
         if (!found) {
             if (!value.isEmpty())
                 value = value + "|";
-            value = value + sCellId;
+            if (cellId != Integer.MAX_VALUE)
+                value = value + sCellId;
+            else if (cellIdLong != Long.MAX_VALUE)
+                value = value + sCellIdLong;
         }
     }
 
-    void removeCellId(int cellId) {
+    void removeCellId(int cellId, long cellIdLong) {
         String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         String sCellId = Integer.toString(cellId);
+        String sCellIdLOng = Long.toString(cellIdLong);
         value = "";
         StringBuilder _value = new StringBuilder();
         for (String cell : splits) {
             if (!cell.isEmpty()) {
-                if (!cell.equals(sCellId)) {
-                    //if (!value.isEmpty())
-                    //    value = value + "|";
-                    //value = value + cell;
-                    if (_value.length() > 0)
-                        _value.append("|");
-                    _value.append(cell);
+                if (cellId != Integer.MAX_VALUE) {
+                    if (!cell.equals(sCellId)) {
+                        //if (!value.isEmpty())
+                        //    value = value + "|";
+                        //value = value + cell;
+                        if (_value.length() > 0)
+                            _value.append("|");
+                        _value.append(cell);
+                    }
+                } else if (cellIdLong != Long.MAX_VALUE) {
+                    if (!cell.equals(sCellIdLOng)) {
+                        //if (!value.isEmpty())
+                        //    value = value + "|";
+                        //value = value + cell;
+                        if (_value.length() > 0)
+                            _value.append("|");
+                        _value.append(cell);
+                    }
                 }
             }
         }
         value = _value.toString();
     }
 
-    boolean isCellSelected(int cellId) {
+    boolean isCellSelected(int cellId, long cellIdLong) {
         String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         String sCellId = Integer.toString(cellId);
+        String sCellIdLong = Long.toString(cellIdLong);
         for (String cell : splits) {
-            if (cell.equals(sCellId))
-                return true;
+            if (cellId != Integer.MAX_VALUE) {
+                if (cell.equals(sCellId))
+                    return true;
+            } else if (cellIdLong != Long.MAX_VALUE) {
+                if (cell.equals(sCellIdLong))
+                    return true;
+            }
         }
         return false;
     }

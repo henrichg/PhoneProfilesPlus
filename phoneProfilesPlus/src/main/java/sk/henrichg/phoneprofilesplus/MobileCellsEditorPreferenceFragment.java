@@ -737,7 +737,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     boolean cellIdEquals = false;
                                     if (cellId != Integer.MAX_VALUE)
                                         cellIdEquals = cell.cellId == cellId;
-                                    else (cellIdLong != Long.MAX_VALUE)
+                                    else if (cellIdLong != Long.MAX_VALUE)
                                         cellIdEquals = cell.cellIdLong == cellIdLong;
                                     if (cellIdEquals && (cell.name != null) && (!cell.name.isEmpty())){
                                         deleteCellNamesFromEventsAsyncTask = new DeleteCellNamesFromEventsAsyncTask(cell.name, prefContext);
