@@ -573,10 +573,11 @@ class EventPreferencesMobileCells extends EventPreferences {
                                                 if ((_forSIMCard == 0) || (_forSIMCard == 1)) {
                                                     if (PPApplication.mobileCellsScanner != null) {
                                                         int registeredCell = PPApplication.mobileCellsScanner.getRegisteredCell(1);
-                                                        if (MobileCellsScanner.isValidCellId(registeredCell)) {
+                                                        long registeredCellLong = PPApplication.mobileCellsScanner.getRegisteredCellLong(1);
+                                                        if (MobileCellsScanner.isValidCellId(registeredCell, registeredCellLong)) {
                                                             //String sRegisteredCell = Integer.toString(registeredCell);
                                                             List<MobileCellsData> _cellsList = new ArrayList<>();
-                                                            db.addMobileCellsToList(_cellsList, registeredCell);
+                                                            db.addMobileCellsToList(_cellsList, registeredCell, registeredCellLong);
                                                             if (!_cellsList.isEmpty()) {
                                                                 // registered cell is configured
                                                                 String[] splits = _cellsNames.split(StringConstants.STR_SPLIT_REGEX);
@@ -614,10 +615,11 @@ class EventPreferencesMobileCells extends EventPreferences {
                                                         (_forSIMCard == 2)) {
                                                     if (PPApplication.mobileCellsScanner != null) {
                                                         int registeredCell = PPApplication.mobileCellsScanner.getRegisteredCell(2);
-                                                        if (MobileCellsScanner.isValidCellId(registeredCell)) {
+                                                        long registeredCellLong = PPApplication.mobileCellsScanner.getRegisteredCellLong(2);
+                                                        if (MobileCellsScanner.isValidCellId(registeredCell, registeredCellLong)) {
                                                             //String sRegisteredCell = Integer.toString(registeredCell);
                                                             List<MobileCellsData> _cellsList = new ArrayList<>();
-                                                            db.addMobileCellsToList(_cellsList, registeredCell);
+                                                            db.addMobileCellsToList(_cellsList, registeredCell, registeredCellLong);
                                                             if (!_cellsList.isEmpty()) {
                                                                 String[] splits = _cellsNames.split(StringConstants.STR_SPLIT_REGEX);
                                                                 if (_whenOutside) {
@@ -652,10 +654,11 @@ class EventPreferencesMobileCells extends EventPreferences {
                                             } else {
                                                 if (PPApplication.mobileCellsScanner != null) {
                                                     int registeredCell = PPApplication.mobileCellsScanner.getRegisteredCell(0);
-                                                    if (MobileCellsScanner.isValidCellId(registeredCell)) {
+                                                    long registeredCellLong = PPApplication.mobileCellsScanner.getRegisteredCellLong(0);
+                                                    if (MobileCellsScanner.isValidCellId(registeredCell, registeredCellLong)) {
                                                         //String sRegisteredCell = Integer.toString(registeredCell);
                                                         List<MobileCellsData> _cellsList = new ArrayList<>();
-                                                        db.addMobileCellsToList(_cellsList, registeredCell);
+                                                        db.addMobileCellsToList(_cellsList, registeredCell, registeredCellLong);
                                                         if (!_cellsList.isEmpty()) {
                                                             String[] splits = _cellsNames.split(StringConstants.STR_SPLIT_REGEX);
                                                             if (_whenOutside) {

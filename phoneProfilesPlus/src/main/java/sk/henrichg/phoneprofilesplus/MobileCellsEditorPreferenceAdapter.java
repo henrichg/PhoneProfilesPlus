@@ -89,7 +89,10 @@ class MobileCellsEditorPreferenceAdapter extends BaseAdapter
             cellFlags = cellFlags + "C";
         if (!cellFlags.isEmpty())
             cellName = cellName + "(" + cellFlags + ") ";
-        cellName = cellName + cellData.cellId;
+        if (cellData.cellId != Integer.MAX_VALUE)
+            cellName = cellName + cellData.cellId;
+        else
+            cellName = cellName + cellData.cellIdLong;
         holder.cellId.setText(cellName);
 
         if (cellData.lastConnectedTime != 0) {
@@ -102,18 +105,22 @@ class MobileCellsEditorPreferenceAdapter extends BaseAdapter
         }
 
         holder.checkBox.setTag(position);
-        holder.checkBox.setChecked(preference.isCellSelected(cellData.cellId));
+        if (cellData.cellId != Integer.MAX_VALUE)
+            holder.checkBox.setChecked(preference.isCellSelected(cellData.cellId), Long.MAX_VALUE);
+        else if (cellData.cellIdLong != Long.MAX_VALUE)
+            holder.checkBox.setChecked(preference.isCellSelected(Integer.MAX_VALUE, cellData.cellIdLong));
         holder.checkBox.setOnClickListener(v -> {
             CheckBox chb = (CheckBox) v;
 
             int cellPosition = (Integer)chb.getTag();
             if (cellPosition < preference.filteredCellsList.size()) {
                 int cellId = preference.filteredCellsList.get(cellPosition).cellId;
+                long cellIdLong = preference.filteredCellsList.get(cellPosition).cellIdLong;
 
                 if (chb.isChecked())
-                    preference.addCellId(cellId);
+                    preference.addCellId(cellId, cellIdLong);
                 else
-                    preference.removeCellId(cellId);
+                    preference.removeCellId(cellId, cellIdLong);
                 preference.refreshListView(false, false/*, Integer.MAX_VALUE*/);
             }
         });
@@ -133,7 +140,8 @@ class MobileCellsEditorPreferenceAdapter extends BaseAdapter
         //else
         //    holder.itemEditMenu.setVisibility(View.VISIBLE);
         TooltipCompat.setTooltipText(holder.itemEditMenu, context.getString(R.string.tooltip_options_menu));
-        holder.itemEditMenu.setTag(preference.filteredCellsList.get(position).cellId);
+        holder.itemEditMenu.setTag(MobileCellsEditorPreference.EDIT_MENU_TAG_CELL_ID, preference.filteredCellsList.get(position).cellId);
+        holder.itemEditMenu.setTag(MobileCellsEditorPreference.EDIT_MENU_TAG_CELL_ID_LONG, preference.filteredCellsList.get(position).cellIdLong);
         final ImageView itemEditMenu = holder.itemEditMenu;
         holder.itemEditMenu.setOnClickListener(v -> preference.showEditMenu(itemEditMenu));
 

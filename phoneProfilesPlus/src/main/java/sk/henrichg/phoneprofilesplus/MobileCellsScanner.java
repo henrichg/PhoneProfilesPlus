@@ -232,6 +232,16 @@ class MobileCellsScanner {
             return mobileCellsListenerSIM2.registeredCell;
         return 0;
     }
+    long getRegisteredCellLong(int forSimCard) {
+//        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.getRegisteredCellLong", "******** ### *******");
+        if ((forSimCard == 0) && (mobileCellsListenerDefault != null))
+            return mobileCellsListenerDefault.registeredCellLong;
+        if ((forSimCard == 1) && (mobileCellsListenerSIM1 != null))
+            return mobileCellsListenerSIM1.registeredCellLong;
+        if ((forSimCard == 2) && (mobileCellsListenerSIM2 != null))
+            return mobileCellsListenerSIM2.registeredCellLong;
+        return 0;
+    }
 
     long getLastConnectedTime(int forSimCard) {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.getLastConnectedTime", "******** ### *******");
@@ -254,14 +264,17 @@ class MobileCellsScanner {
             return ApplicationPreferences.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled;
     }
 
-    static boolean isValidCellId(int cid) {
+    static boolean isValidCellId(int cid, long cidl) {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.isValidCellId", "******** ### *******");
-        return (cid != -1) && (cid != 0) /*&& (cid != 1)*/ && (cid != Integer.MAX_VALUE);
+        if (cid != Integer.MAX_VALUE)
+            return (cid != -1) && (cid != 0) /*&& (cid != 1)*/ /*&& (cid != Integer.MAX_VALUE)*/;
+        else
+            return (cidl != -1) && (cidl != 0) /*&& (cidl != 1)*/ && (cidl != Long.MAX_VALUE);
     }
-    static boolean isValidCellIdNr(long cid) {
+//    static boolean isValidCellIdNr(long cid) {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.isValidCellId", "******** ### *******");
-        return (cid != -1) && (cid != 0) /*&& (cid != 1)*/ && (cid != Long.MAX_VALUE);
-    }
+//        return (cid != -1) && (cid != 0) /*&& (cid != 1)*/ && (cid != Long.MAX_VALUE);
+//    }
 
     static void startAutoRegistration(Context context, boolean forConnect) {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.startAutoRegistration", "******** ### *******");

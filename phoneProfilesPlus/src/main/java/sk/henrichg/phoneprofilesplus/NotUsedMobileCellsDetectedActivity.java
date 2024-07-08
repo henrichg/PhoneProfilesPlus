@@ -40,6 +40,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
     EditText cellName;
 
     private int mobileCellId = Integer.MAX_VALUE;
+    private long mobileCellIdLong = Long.MAX_VALUE;
     private long lastConnectedTime = 0;
     //private String lastRunningEvents = "";
     //private String lastPausedEvents = "";
@@ -49,6 +50,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
     private ShowDialogAsyncTask showDialogAsyncTask = null;
 
     static final String EXTRA_MOBILE_CELL_ID = "mobile_cell_id";
+    static final String EXTRA_MOBILE_CELL_ID_LONG = "mobile_cell_id_long";
     static final String EXTRA_MOBILE_LAST_CONNECTED_TIME = "last_connected_time";
     //static final String EXTRA_MOBILE_LAST_RUNNING_EVENTS = "last_running_events";
     //static final String EXTRA_MOBILE_LAST_PAUSED_EVENTS = "last_paused_events";
@@ -63,6 +65,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             mobileCellId = intent.getIntExtra(EXTRA_MOBILE_CELL_ID, 0);
+            mobileCellIdLong = intent.getLongExtra(EXTRA_MOBILE_CELL_ID_LONG, 0);
             lastConnectedTime = intent.getLongExtra(EXTRA_MOBILE_LAST_CONNECTED_TIME, 0);
             //lastRunningEvents = intent.getStringExtra(EXTRA_MOBILE_LAST_RUNNING_EVENTS);
             //lastPausedEvents = intent.getStringExtra(EXTRA_MOBILE_LAST_PAUSED_EVENTS);
@@ -95,6 +98,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             // 2. test existence of event in table, may be deleted
 
             final int _mobileCellId = mobileCellId;
+            final long _mobileCellIdLong = mobileCellIdLong;
             final long _lastConnectedTime = lastConnectedTime;
             //final String _lastRunningEvents = lastRunningEvents;
             //final String _lastPausedEvents = lastPausedEvents;
@@ -121,7 +125,9 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
                         // add or rename cell with _cellName
                         List<MobileCellsData> localCellsList = new ArrayList<>();
-                        localCellsList.add(new MobileCellsData(_mobileCellId, _cellName,
+                        localCellsList.add(new MobileCellsData(
+                                _mobileCellId, _mobileCellIdLong,
+                                _cellName,
                                 true, false, _lastConnectedTime/*, _lastRunningEvents, _lastPausedEvents, false*/));
                         db.saveMobileCellsList(localCellsList, true, true);
 
@@ -363,7 +369,13 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                         activity.cellName.setFocusable(true);
                         activity.cellName.requestFocus();
 
-                        activity.cellIdTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_cell_id) + " " + activity.mobileCellId);
+                        if (activity.mobileCellId != Integer.MAX_VALUE)
+                            activity.cellIdTextView.setText(
+                                    activity.getString(R.string.not_used_mobile_cells_detected_cell_id) + " " + activity.mobileCellId);
+                        else
+                            activity.cellIdTextView.setText(
+                                    activity.getString(R.string.not_used_mobile_cells_detected_cell_id) + " " + activity.mobileCellIdLong);
+
                         activity.lastConnectTimeTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_connection_time) + " " +
                                 StringFormatUtils.timeDateStringFromTimestamp(activity, activity.lastConnectedTime));
 
