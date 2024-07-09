@@ -2243,8 +2243,8 @@
     <string name="profile_preferences_deviceDualSIMPINCode_title">Switch SIM on/off</string>
     <string name="profile_preferences_deviceDualSIMPINCode_summary">WARNING: This brings the PIN code entry screen for the SIM card that is configured as \"On\".</string>
 
-    <string name="menu_xda_developers">XDA-developers</string>
-    <string name="menu_discord">Discord</string>
+    <string name="menu_xda_developers" translatable="false">XDA-developers</string>
+    <string name="menu_discord" translatable="false">Discord</string>
     <string name="menu_discord_server">PhoneProfilesPlus server</string>
     <string name="menu_discord_invitation">PhoneProfilesPlus server invitation</string>
 
