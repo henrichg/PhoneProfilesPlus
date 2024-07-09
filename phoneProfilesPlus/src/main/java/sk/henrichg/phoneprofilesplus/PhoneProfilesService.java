@@ -571,6 +571,7 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
+        PPApplicationStatic.setApplicationStopping(getApplicationContext(), false);
         //final boolean oldServiceHasFirstStart = PPApplication.serviceHasFirstStart;
         serviceHasFirstStart = true;
         PPApplicationStatic.setApplicationStarted(getApplicationContext(), true);

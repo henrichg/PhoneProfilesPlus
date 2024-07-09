@@ -588,43 +588,5 @@ Alebo v One UI. Že je tam zlý downloader.
 
 Takze zatial kazdy mobil ma spriahnute ringing a system volume. Teda taky, co system nema v Settings.
 
--------------------------
-
-PPP bezi. Shizuku nie. -> paraetre pisu, ze nie je spustene, grantnute Shizuku.
-PPP bezi. Startol som Shizuku, PPP je povolene v nom. -> binder zachytil, cize to urobilo vsetko co trebalo.
-PPP bezi, Zrusil som autorizaciu pre PPP ->
-  terminovalo sa PPP, nastartoval som, binder sa zavolal, ShizukuUtils.hasShizukuPermission() vratilo false,
-  cize sa nevykonali veci co sa mali, parametre su red.
-PPP bezi, Zapol som autorizaciu pre PPP ->
-  binder sa nezavolal, parametre hlasia, ze nie je "service" utilita, co je zle, lebo existuje,
-  lebo sa nezavolalo zistovanie, kedze sa binder nezavolal.
-  ALE: Switch SIM parameter sa tavri, ze je OK. Preco kua? Pozri to.
-       Po reboote uz to neviem nasimulovat. Nechapem.
-  No a asi sa mi stalo, ze zrazu boli parametre povolene. Cize "service" naslo? Ze by vytiahnutim
-  USB to restartlo PPP? Mal by som zalogovat. Zatial to necham tak, ci sa casom povolia parametre.
-  Potom das logovat do suboru a budes kukat v logu, co sa stane po vytiahnuti USB.
-  Tak nie. Pootm nechpem. Mozno nahodne zavolanie bindera? Len to nemam zalogovane?
-
-Takze fakt chyba daky listener, ked povolim PPP v Shizuku.
-
-Mam taketo:
-PPApplication.rootMutex.serviceBinaryChecked
-PPApplication.rootMutex.settingsBinaryChecked
-
-Tieto dve, ak su false, tak sa este necheckovalo.
-Mohol by som ich pouzit tak, ze ak su false a Shizuku je grantnute, zobrazim red text, ze nie su checknute.
-Klik na red text zavola to, co je v binderi pre Shizuku. Cize nebude treba restart PPP.
-Podobne sprav pre transakcne kody a sprav podobny red text, klik zavola to, co je v binderi pre Shizuku.
-Vid RootMutext.
-Nie je to dokonale, ale aspon pre viditelne veci si moze uzivatel napravit PPP.
-
-Este su speci parametre, co vyzaduju Shizuku.
-Napriklad Settings"/"Permissions"/"(Z)(R) Wi-Fi and Bluetooth confirm dialogs".
-To je speci pre HyperOs, Android 14.
-Pre toto ale nerobim red text, dokonca ani red notifikaciu. Co s tym?
-Ine som nenasiel, ale ktohovie, ci nepribudne dalsie.
-
-Chyba proste ten listener.
-
 -----------------
 

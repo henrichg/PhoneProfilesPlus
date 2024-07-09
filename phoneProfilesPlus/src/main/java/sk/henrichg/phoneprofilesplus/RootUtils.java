@@ -181,13 +181,13 @@ class RootUtils {
 
     static boolean settingsBinaryExists(boolean fromUIThread)
     {
+        if (PPApplication.rootMutex.settingsBinaryChecked)
+            return PPApplication.rootMutex.settingsBinaryExists;
+
+        if (fromUIThread)
+            return false;
+
         if (ShizukuUtils.hasShizukuPermission()) {
-            if (PPApplication.rootMutex.settingsBinaryChecked)
-                return PPApplication.rootMutex.settingsBinaryExists;
-
-            if (fromUIThread)
-                return false;
-
             synchronized (PPApplication.rootMutex) {
                 if (!PPApplication.rootMutex.settingsBinaryChecked) {
                     PPApplication.rootMutex.settingsBinaryExists = ShizukuUtils.hasSettingBin();
@@ -197,12 +197,6 @@ class RootUtils {
             }
         } else {
             RootShell.debugMode = PPApplication.rootToolsDebug;
-
-            if (PPApplication.rootMutex.settingsBinaryChecked)
-                return PPApplication.rootMutex.settingsBinaryExists;
-
-            if (fromUIThread)
-                return false;
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.settingsBinaryExists", "PPApplication.rootMutex");
             synchronized (PPApplication.rootMutex) {
@@ -220,13 +214,13 @@ class RootUtils {
 
     static boolean serviceBinaryExists(boolean fromUIThread)
     {
+        if (PPApplication.rootMutex.serviceBinaryChecked)
+            return PPApplication.rootMutex.serviceBinaryExists;
+
+        if (fromUIThread)
+            return false;
+
         if (ShizukuUtils.hasShizukuPermission()) {
-            if (PPApplication.rootMutex.serviceBinaryChecked)
-                return PPApplication.rootMutex.serviceBinaryExists;
-
-            if (fromUIThread)
-                return false;
-
             synchronized (PPApplication.rootMutex) {
                 if (!PPApplication.rootMutex.serviceBinaryChecked) {
                     PPApplication.rootMutex.serviceBinaryExists = ShizukuUtils.hasServiceBin();
@@ -236,12 +230,6 @@ class RootUtils {
             }
         } else {
             RootShell.debugMode = PPApplication.rootToolsDebug;
-
-            if (PPApplication.rootMutex.serviceBinaryChecked)
-                return PPApplication.rootMutex.serviceBinaryExists;
-
-            if (fromUIThread)
-                return false;
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] RootUtils.serviceBinaryExists", "PPApplication.rootMutex");
             synchronized (PPApplication.rootMutex) {
