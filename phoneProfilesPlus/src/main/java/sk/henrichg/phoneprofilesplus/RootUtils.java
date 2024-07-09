@@ -508,10 +508,10 @@ class RootUtils {
     }
 
     static int getTransactionCode(String serviceManager, String method) {
-        if (method.isEmpty()) {
+        /*if (method.isEmpty()) {
             Log.e("RootUtils.getTransactionCode", "serviceManager=" + serviceManager);
             Log.e("RootUtils.getTransactionCode", "method=" + method);
-        }
+        }*/
         int code = -1;
         try {
             //noinspection rawtypes
@@ -524,8 +524,8 @@ class RootUtils {
                     String name = field.getName();
 //                    Log.e("RootUtils.getTransactionCode", "filed.name="+name);
                     if (method.isEmpty()) {
-                        if (name.contains("TRANSACTION_"))
-                            Log.e("RootUtils.getTransactionCode", "field.getName()="+name);
+                        //if (name.contains("TRANSACTION_"))
+                        //    Log.e("RootUtils.getTransactionCode", "field.getName()="+name);
                         iField++;
                     }
                     else {
