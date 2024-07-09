@@ -4883,7 +4883,7 @@ class DatabaseHandlerEvents {
 
                 boolean whereAdded = true; // all cells from db
                 if ((onlyCellId != 0) && (onlyCellIdlong != 0)) {
-                    whereAdded = false; // only filtered cell from db
+                    whereAdded = false; // only specified cell from db
                     if (onlyCellId != Integer.MAX_VALUE) {
                         selectQuery = selectQuery +
                                 " WHERE " + DatabaseHandler.KEY_MC_CELL_ID + "=" + onlyCellId;
