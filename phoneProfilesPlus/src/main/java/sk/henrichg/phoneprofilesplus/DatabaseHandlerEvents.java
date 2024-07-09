@@ -4881,59 +4881,65 @@ class DatabaseHandlerEvents {
                         //DatabaseHandler.KEY_MC_DO_NOT_DETECT +
                         " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS;
 
-                if (onlyCellId != 0) {
-                    if (onlyCellId != Integer.MAX_VALUE)
+                boolean whereAdded = true; // all cells from db
+                if ((onlyCellId != 0) && (onlyCellIdlong != 0)) {
+                    whereAdded = false; // only filtered cell from db
+                    if (onlyCellId != Integer.MAX_VALUE) {
                         selectQuery = selectQuery +
-                            " WHERE " + DatabaseHandler.KEY_MC_CELL_ID + "=" + onlyCellId;
-                }
-                else if (onlyCellIdlong != 0) {
-                    if (onlyCellIdlong != Long.MAX_VALUE)
+                                " WHERE " + DatabaseHandler.KEY_MC_CELL_ID + "=" + onlyCellId;
+                        whereAdded = true;
+                    }
+                    else if (onlyCellIdlong != Long.MAX_VALUE) {
                         selectQuery = selectQuery +
-                            " WHERE " + DatabaseHandler.KEY_MC_CELL_ID_LONG + "=" + onlyCellIdlong;
+                                " WHERE " + DatabaseHandler.KEY_MC_CELL_ID_LONG + "=" + onlyCellIdlong;
+                        whereAdded = true;
+                    }
                 }
 
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = instance.getMyWritableDatabase();
+                if (whereAdded) {
+                    //SQLiteDatabase db = this.getReadableDatabase();
+                    SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                Cursor cursor = db.rawQuery(selectQuery, null);
+                    Cursor cursor = db.rawQuery(selectQuery, null);
 
-                // looping through all rows and adding to list
-                if (cursor.moveToFirst()) {
-                    do {
-                        int cellId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID));
-                        long cellIdLong = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID_LONG));
-                        String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
-                        boolean _new = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NEW)) == 1;
-                        long lastConnectedTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME));
-                        //String lastRunningEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS));
-                        //String lastPausedEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS));
-                        //boolean doNotDetect = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_DO_NOT_DETECT)) == 1;
-                        //Log.e("DatabaseHandlerEvents.addMobileCellsToList", "cellId="+cellId + " new="+_new);
-                        boolean found = false;
-                        for (MobileCellsData cell : cellsList) {
-                            if (cellId != Integer.MAX_VALUE) {
-                                if (cell.cellId == cellId) {
-                                    found = true;
-                                    break;
-                                }
-                            } else if (cellIdLong != Long.MAX_VALUE) {
-                                if (cell.cellIdLong == cellIdLong) {
-                                    found = true;
-                                    break;
+                    // looping through all rows and adding to list
+                    if (cursor.moveToFirst()) {
+                        do {
+                            int cellIdDB = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID));
+                            long cellIdDBLong = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID_LONG));
+                            String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
+                            boolean _new = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NEW)) == 1;
+                            long lastConnectedTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME));
+                            //String lastRunningEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS));
+                            //String lastPausedEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS));
+                            //boolean doNotDetect = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_DO_NOT_DETECT)) == 1;
+                            //Log.e("DatabaseHandlerEvents.addMobileCellsToList", "cellId="+cellId + " new="+_new);
+                            boolean found = false;
+                            for (MobileCellsData cellData : cellsList) {
+                                if (cellIdDB != Integer.MAX_VALUE) {
+                                    if (cellData.cellId == cellIdDB) {
+                                        found = true;
+                                        break;
+                                    }
+                                } else if (cellIdDBLong != Long.MAX_VALUE) {
+                                    if (cellData.cellIdLong == cellIdDBLong) {
+                                        found = true;
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                        if (!found) {
-                            MobileCellsData cell = new MobileCellsData(
-                                    cellId, cellIdLong, name, false, _new, lastConnectedTime/*,
+                            if (!found) {
+                                MobileCellsData cell = new MobileCellsData(
+                                        cellIdDB, cellIdDBLong, name, false, _new, lastConnectedTime/*,
                                     lastRunningEvents, lastPausedEvents, doNotDetect*/);
-                            cellsList.add(cell);
-                        }
-                    } while (cursor.moveToNext());
-                }
+                                cellsList.add(cell);
+                            }
+                        } while (cursor.moveToNext());
+                    }
 
-                cursor.close();
-                //db.close();
+                    cursor.close();
+                    //db.close();
+                }
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }
@@ -5215,6 +5221,7 @@ class DatabaseHandlerEvents {
                         db.delete(DatabaseHandler.TABLE_MOBILE_CELLS, DatabaseHandler.KEY_MC_CELL_ID + " = ?",
                             new String[]{String.valueOf(mobileCell)});
                     else
+                    if (mobileCellLong != Long.MAX_VALUE)
                         db.delete(DatabaseHandler.TABLE_MOBILE_CELLS, DatabaseHandler.KEY_MC_CELL_ID_LONG + " = ?",
                                 new String[]{String.valueOf(mobileCellLong)});
 
@@ -5257,6 +5264,7 @@ class DatabaseHandlerEvents {
                         db.update(DatabaseHandler.TABLE_MOBILE_CELLS, values, DatabaseHandler.KEY_MC_CELL_ID + " = ?",
                             new String[]{String.valueOf(mobileCell)});
                     else
+                    if (mobileCellLong != Long.MAX_VALUE)
                         db.update(DatabaseHandler.TABLE_MOBILE_CELLS, values, DatabaseHandler.KEY_MC_CELL_ID_LONG + " = ?",
                                 new String[]{String.valueOf(mobileCellLong)});
 
@@ -5469,25 +5477,28 @@ class DatabaseHandlerEvents {
                 instance.startRunningCommand();
 
                 // Select All Query
-                final String selectQuery;
+                String selectQuery = "";
                 if (mobileCell != Integer.MAX_VALUE)
                     selectQuery = "SELECT COUNT(*) " +
                             " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
                             " WHERE " + DatabaseHandler.KEY_MC_CELL_ID + "=" + mobileCell;
                 else
+                if (mobileCellLong != Long.MAX_VALUE)
                     selectQuery = "SELECT COUNT(*) " +
                             " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
                             " WHERE " + DatabaseHandler.KEY_MC_CELL_ID_LONG + "=" + mobileCellLong;
 
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = instance.getMyWritableDatabase();
+                if (!selectQuery.isEmpty()) {
+                    //SQLiteDatabase db = this.getReadableDatabase();
+                    SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                Cursor cursor = db.rawQuery(selectQuery, null);
+                    Cursor cursor = db.rawQuery(selectQuery, null);
 
-                if (cursor != null) {
-                    cursor.moveToFirst();
-                    r = cursor.getInt(0);
-                    cursor.close();
+                    if (cursor != null) {
+                        cursor.moveToFirst();
+                        r = cursor.getInt(0);
+                        cursor.close();
+                    }
                 }
 
                 //db.close();
@@ -5599,28 +5610,35 @@ class DatabaseHandlerEvents {
                     for (Event event : eventList) {
                         if (event._eventPreferencesMobileCells != null) {
                             if ((event._eventPreferencesMobileCells._enabled)) {
+                                boolean cellIdAllowed = false;
                                 long cellId = cell.cellId;
-                                if (cellId == Integer.MAX_VALUE)
+                                if (cellId == Integer.MAX_VALUE) {
                                     cellId = cell.cellIdLong;
-                                if (event._eventPreferencesMobileCells._cellsNames.contains("|" + cellId + "|")) {
-                                    // cell is between others
-                                    found = true;
-                                    break;
-                                }
-                                if (event._eventPreferencesMobileCells._cellsNames.startsWith(cellId + "|")) {
-                                    // cell is at start of others
-                                    found = true;
-                                    break;
-                                }
-                                if (event._eventPreferencesMobileCells._cellsNames.endsWith("|" + cellId)) {
-                                    // cell is at end of others
-                                    found = true;
-                                    break;
-                                }
-                                if (event._eventPreferencesMobileCells._cellsNames.equals(String.valueOf(cellId))) {
-                                    // only this cell is configured
-                                    found = true;
-                                    break;
+                                    if (cellId != Long.MAX_VALUE)
+                                        cellIdAllowed = true;
+                                } else
+                                    cellIdAllowed = true;
+                                if (cellIdAllowed) {
+                                    if (event._eventPreferencesMobileCells._cellsNames.contains("|" + cellId + "|")) {
+                                        // cell is between others
+                                        found = true;
+                                        break;
+                                    }
+                                    if (event._eventPreferencesMobileCells._cellsNames.startsWith(cellId + "|")) {
+                                        // cell is at start of others
+                                        found = true;
+                                        break;
+                                    }
+                                    if (event._eventPreferencesMobileCells._cellsNames.endsWith("|" + cellId)) {
+                                        // cell is at end of others
+                                        found = true;
+                                        break;
+                                    }
+                                    if (event._eventPreferencesMobileCells._cellsNames.equals(String.valueOf(cellId))) {
+                                        // only this cell is configured
+                                        found = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
