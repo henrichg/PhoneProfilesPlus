@@ -14,7 +14,7 @@ PhoneProfilesPlus (PPP)
 
 __PhoneProfilesPlus in Discord__
 - https://discord.com/channels/1258733423426670633/1258737577117089893
-- Invitation: https://discord.gg/gbV7UCzt
+- Invitation: https://discord.com/invite/gbV7UCzt
 
 __PhoneProfilesPlus in XDA-develoers__
 - https://xdaforums.com/t/app-phoneprofilesplus.3799429/

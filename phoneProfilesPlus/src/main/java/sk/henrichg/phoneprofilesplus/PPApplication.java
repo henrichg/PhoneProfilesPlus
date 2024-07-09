@@ -123,6 +123,8 @@ public class PPApplication extends Application
     static final String GITHUB_PPPE_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender";
     static final String GITHUB_PPPPS_URL = "https://github.com/henrichg/PPPPutSettings";
     static final String XDA_DEVELOPERS_PPP_URL = "https://forum.xda-developers.com/t/phoneprofilesplus.3799429/";
+    static final String DISCORD_SERVER_URL = "https://discord.com/channels/1258733423426670633/1258737577117089893";
+    static final String DISCORD_INVITATION_URL = "https://discord.com/invite/gbV7UCzt";
 
     // This url is Donate button from https://www.paypal.com/buttons/, type "Donate".
     // In it is possible to get this url with "Get link".
