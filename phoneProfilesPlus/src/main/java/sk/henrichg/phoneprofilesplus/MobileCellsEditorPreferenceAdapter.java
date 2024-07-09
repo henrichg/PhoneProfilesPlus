@@ -141,8 +141,8 @@ class MobileCellsEditorPreferenceAdapter extends BaseAdapter
         //else
         //    holder.itemEditMenu.setVisibility(View.VISIBLE);
         TooltipCompat.setTooltipText(holder.itemEditMenu, context.getString(R.string.tooltip_options_menu));
-        holder.itemEditMenu.setTag(MobileCellsEditorPreference.EDIT_MENU_TAG_CELL_ID, preference.filteredCellsList.get(position).cellId);
-        holder.itemEditMenu.setTag(MobileCellsEditorPreference.EDIT_MENU_TAG_CELL_ID_LONG, preference.filteredCellsList.get(position).cellIdLong);
+        holder.itemEditMenu.setTag(R.id.editMenuTagCell, preference.filteredCellsList.get(position).cellId);
+        holder.itemEditMenu.setTag(R.id.editMenuTagCellLong, preference.filteredCellsList.get(position).cellIdLong);
         final ImageView itemEditMenu = holder.itemEditMenu;
         holder.itemEditMenu.setOnClickListener(v -> preference.showEditMenu(itemEditMenu));
 

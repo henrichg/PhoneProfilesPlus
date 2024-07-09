@@ -714,8 +714,8 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         popup = new PopupMenu(_context, view, Gravity.END);
         new MenuInflater(_context).inflate(R.menu.mobile_cells_pref_item_edit, popup.getMenu());
 
-        final int cellId = (int)view.getTag(MobileCellsEditorPreference.EDIT_MENU_TAG_CELL_ID);
-        final long cellIdLong = (long)view.getTag(MobileCellsEditorPreference.EDIT_MENU_TAG_CELL_ID_LONG);
+        final int cellId = (int)view.getTag(R.id.editMenuTagCell);
+        final long cellIdLong = (long)view.getTag(R.id.editMenuTagCellLong);
 
         popup.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
