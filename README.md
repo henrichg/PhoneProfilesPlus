@@ -16,13 +16,8 @@ PhoneProfilesPlus (PPP)
 [![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?logo=twitter&logoColor=white)](https://x.com/henrichg)
 [![Reddit](https://img.shields.io/badge/Reddit-FF4500?logo=reddit&logoColor=white)](https://www.reddit.com/user/henrichg/)
 
-__PhoneProfilesPlus in Discord__
-- https://discord.com/channels/1258733423426670633
+__PhoneProfilesPlus Discord invitation__
 - Invitation: https://discord.com/invite/gbV7UCzt
-
-__PhoneProfilesPlus in XDA-develoers__
-- https://xdaforums.com/t/app-phoneprofilesplus.3799429/
-
 ---
 
 ### Sources of PhoneProfilesPlus:
