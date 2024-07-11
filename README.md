@@ -14,7 +14,7 @@ PhoneProfilesPlus (PPP)
 [![Discord](https://img.shields.io/badge/Discord-5865F2?logo=discord&logoColor=white)](https://discord.com/channels/1258733423426670633)
 [![XDA=developwrs](https://img.shields.io/badge/xda%20developers-2DAAE9?logo=xda-developers&logoColor=white)](https://xdaforums.com/t/app-phoneprofilesplus.3799429/)
 [![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?logo=twitter&logoColor=white)](https://x.com/henrichg)
-[![Reddit](https://img.shields.io/badge/Reddit-FF4500?style=for-the-badge&logo=reddit&logoColor=white)](https://www.reddit.com/user/henrichg/)
+[![Reddit](https://img.shields.io/badge/Reddit-FF4500?logo=reddit&logoColor=white)](https://www.reddit.com/user/henrichg/)
 
 __PhoneProfilesPlus in Discord__
 - https://discord.com/channels/1258733423426670633
