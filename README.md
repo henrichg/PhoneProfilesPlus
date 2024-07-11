@@ -12,6 +12,7 @@ PhoneProfilesPlus (PPP)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 [![Twitter/X](https://img.shields.io/badge/Twitter-1DA1F2?logo=twitter&logoColor=white)](https://x.com/henrichg)
+[![XDA=developwrs](https://img.shields.io/badge/xda%20developers-2DAAE9?style=for-the-badge&logo=xda-developers&logoColor=white)](https://xdaforums.com/t/app-phoneprofilesplus.3799429/)
 
 __PhoneProfilesPlus in Discord__
 - https://discord.com/channels/1258733423426670633
