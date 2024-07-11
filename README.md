@@ -11,14 +11,13 @@ PhoneProfilesPlus (PPP)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
+[![Discord](https://img.shields.io/badge/Discord-5865F2?logo=discord&logoColor=white)](https://discord.com/channels/1258733423426670633)
+[![XDA-developers](https://img.shields.io/badge/xda%20developers-2DAAE9?logo=xda-developers&logoColor=white)](https://xdaforums.com/t/app-phoneprofilesplus.3799429/)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?logo=twitter&logoColor=white)](https://x.com/henrichg)
+[![Reddit](https://img.shields.io/badge/Reddit-FF4500?logo=reddit&logoColor=white)](https://www.reddit.com/user/henrichg/)
 
 __PhoneProfilesPlus in Discord__
-- https://discord.com/channels/1258733423426670633
 - Invitation: https://discord.com/invite/gbV7UCzt
-
-__PhoneProfilesPlus in XDA-develoers__
-- https://xdaforums.com/t/app-phoneprofilesplus.3799429/
-
 ---
 
 ### Sources of PhoneProfilesPlus:
