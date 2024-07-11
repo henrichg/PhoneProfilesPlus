@@ -2246,6 +2246,8 @@
     <string name="menu_discord" translatable="false">Discord</string>
     <string name="menu_discord_server">PhoneProfilesPlus server</string>
     <string name="menu_discord_invitation">PhoneProfilesPlus server invitation</string>
+    <string name="menu_twitter" translatable="false">Twitter/X</string>
+    <string name="menu_reddit" translatable="false">Reddit</string>
 
     <!-- **************************************************************************************** -->
 

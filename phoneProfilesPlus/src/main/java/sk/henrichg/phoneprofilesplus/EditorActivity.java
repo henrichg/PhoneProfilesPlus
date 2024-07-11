@@ -1439,6 +1439,30 @@ public class EditorActivity extends AppCompatActivity
             return true;
         }
         else
+        if (itemId == R.id.menu_twitter) {
+            String url = PPApplication.TWITTER_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_reddit) {
+            String url = PPApplication.REDDIT_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
         if (DebugVersion.debugMenuItems(itemId, this))
             return true;
         else
@@ -1496,7 +1520,6 @@ public class EditorActivity extends AppCompatActivity
             final Handler handler = new Handler(getMainLooper());
             final WeakReference<EditorActivity> activityWeakRef = new WeakReference<>(this);
             handler.postDelayed(() -> {
-                //noinspection ConstantValue
                 EditorActivity activity = activityWeakRef.get();
                 if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                     return;
@@ -1526,7 +1549,6 @@ public class EditorActivity extends AppCompatActivity
             final Handler handler = new Handler(getMainLooper());
             final WeakReference<EditorActivity> activityWeakRef = new WeakReference<>(this);
             handler.postDelayed(() -> {
-                //noinspection ConstantValue
                 EditorActivity activity = activityWeakRef.get();
                 if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                     return;
