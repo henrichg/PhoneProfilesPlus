@@ -11,7 +11,7 @@ PhoneProfilesPlus (PPP)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
-[![Discord](https://img.shields.io/discord/1258733423426670633)]
+[![Discord](https://img.shields.io/discord/1258733423426670633)](https://img.shields.io/discord/1258733423426670633)
 
 __PhoneProfilesPlus in Discord__
 - https://discord.com/channels/1258733423426670633
