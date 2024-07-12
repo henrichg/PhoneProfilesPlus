@@ -614,10 +614,10 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
 
         if (view.findViewById(R.id.activity_info_notification_contact) != null) {
-            AboutApplicationActivity.emailMe(view.findViewById(R.id.activity_info_notification_contact),
+            GlobalUtils.emailMe(view.findViewById(R.id.activity_info_notification_contact),
                     fragment.getString(R.string.important_info_contact),
                     "", fragment.getString(R.string.about_application_support_subject),
-                    AboutApplicationActivity.getEmailBodyText(/*AboutApplicationActivity.EMAIL_BODY_SUPPORT, */activity),
+                    GlobalUtils.getEmailBodyText(/*AboutApplicationActivity.EMAIL_BODY_SUPPORT, */activity),
                     /*true,*/ activity);
         }
 

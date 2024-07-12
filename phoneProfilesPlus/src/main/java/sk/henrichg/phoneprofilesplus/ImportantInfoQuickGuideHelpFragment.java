@@ -62,10 +62,10 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
         text = text + StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML;
         textView.setText(StringFormatUtils.fromHtml(text, false,  true, 1, 17, false));
 
-        AboutApplicationActivity.emailMe(view.findViewById(R.id.activity_info_notification_contact),
+        GlobalUtils.emailMe(view.findViewById(R.id.activity_info_notification_contact),
                 getString(R.string.important_info_contact),
                 "", getString(R.string.about_application_support_subject),
-                AboutApplicationActivity.getEmailBodyText(/*AboutApplicationActivity.EMAIL_BODY_SUPPORT, */activity),
+                GlobalUtils.getEmailBodyText(/*AboutApplicationActivity.EMAIL_BODY_SUPPORT, */activity),
                 /*true,*/ activity);
 
         TextView translationTextView = view.findViewById(R.id.activity_info_translations);
