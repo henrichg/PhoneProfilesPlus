@@ -2248,6 +2248,7 @@
     <string name="menu_discord_invitation">PhoneProfilesPlus server invitation</string>
     <string name="menu_twitter" translatable="false">Twitter/X</string>
     <string name="menu_reddit" translatable="false">Reddit</string>
+    <string name="menu_bluesky" translatable="false">Bluesky</string>
 
     <!-- **************************************************************************************** -->
 

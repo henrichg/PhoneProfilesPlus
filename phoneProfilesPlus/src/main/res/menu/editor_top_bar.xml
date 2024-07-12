@@ -142,6 +142,10 @@
                 android:title="@string/menu_reddit"
                 android:orderInCategory="106"
                 app:showAsAction="never" />
+            <item android:id="@+id/menu_bluesky"
+                android:title="@string/menu_bluesky"
+                android:orderInCategory="106"
+                app:showAsAction="never" />
         </menu>
     </item>
 

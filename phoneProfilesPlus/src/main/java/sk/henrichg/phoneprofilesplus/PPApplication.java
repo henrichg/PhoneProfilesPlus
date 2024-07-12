@@ -127,6 +127,7 @@ public class PPApplication extends Application
     static final String DISCORD_INVITATION_URL = "https://discord.com/invite/gbV7UCzt";
     static final String TWITTER_URL = "https://x.com/henrichg";
     static final String REDDIT_URL = "https://www.reddit.com/user/henrichg/";
+    static final String BLUESKY_URL = "https://bsky.app/profile/henrichg.bsky.social";
 
     // This url is Donate button from https://www.paypal.com/buttons/, type "Donate".
     // In it is possible to get this url with "Get link".
