@@ -991,8 +991,6 @@
     <string name="important_info_email_body_problems">Problems:</string>
     <string name="important_info_email_body_questions">Questions:</string>
     <string name="important_info_email_body_suggestions">Suggestions:</string>
-    <string name="about_application_support">Support:</string>
-    <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
     <string name="dashclock_extension_description">Displays active profile with preferences indicator. Opens Activator on touch.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
