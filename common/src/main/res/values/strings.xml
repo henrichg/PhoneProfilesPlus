@@ -2312,6 +2312,16 @@
     <string name="extender_accessibility_service_disabled_app_info_6">Then you must uninstall it, and install it from supported store, for example Droid-ify.</string>
     <string name="extender_accessibility_service_disabled_app_info_7">Click here to open Droid-ify installation site:</string>
     <string name="extender_accessibility_service_app_info_button">App info</string>
+    <string name="extender_menu_support">Support</string>
+    <string name="extender_support_subject">support</string>
+    <string name="extender_menu_email_to_author">E-mail to author</string>
+    <string name="extender_menu_xda_developers" translatable="false">XDA-developers</string>
+    <string name="extender_menu_discord" translatable="false">Discord</string>
+    <string name="extender_menu_discord_server">PhoneProfilesPlus server</string>
+    <string name="extender_menu_discord_invitation">PhoneProfilesPlus server invitation</string>
+    <string name="extender_menu_twitter" translatable="false">Twitter/X</string>
+    <string name="extender_menu_reddit" translatable="false">Reddit</string>
+    <string name="extender_menu_bluesky" translatable="false">Bluesky</string>
 
     <!-- **************************************************************************************** -->
 
@@ -2342,6 +2352,16 @@
     <string name="pppputsettings_modify_system_settings_granted">Granted</string>
     <string name="pppputsettings_modify_system_settings_not_granted">Not granted</string>
     <string name="pppputsettings_email_chooser">Send e-mail using</string>
+    <string name="pppputsettings_menu_support">Support</string>
+    <string name="pppputsettings_support_subject">support</string>
+    <string name="pppputsettings_menu_email_to_author">E-mail to author</string>
+    <string name="pppputsettings_menu_xda_developers" translatable="false">XDA-developers</string>
+    <string name="pppputsettings_menu_discord" translatable="false">Discord</string>
+    <string name="pppputsettings_menu_discord_server">PhoneProfilesPlus server</string>
+    <string name="pppputsettings_menu_discord_invitation">PhoneProfilesPlus server invitation</string>
+    <string name="pppputsettings_menu_twitter" translatable="false">Twitter/X</string>
+    <string name="pppputsettings_menu_reddit" translatable="false">Reddit</string>
+    <string name="pppputsettings_menu_bluesky" translatable="false">Bluesky</string>
 
 </resources>
 
