@@ -15,6 +15,7 @@ PhoneProfilesPlus (PPP)
 [![XDA-developers](https://img.shields.io/badge/xda%20developers-2DAAE9?logo=xda-developers&logoColor=white)](https://xdaforums.com/t/app-phoneprofilesplus.3799429/)
 [![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?logo=twitter&logoColor=white)](https://x.com/henrichg)
 [![Reddit](https://img.shields.io/badge/Reddit-FF4500?logo=reddit&logoColor=white)](https://www.reddit.com/user/henrichg/)
+[![Bluesky](https://img.shields.io/badge/Bluesky-0285FF?logo=bluesky&logoColor=fff)](https://bsky.app/profile/henrichg.bsky.social)
 
 __PhoneProfilesPlus Discord invitation__
 - Invitation: https://discord.com/invite/gbV7UCzt
