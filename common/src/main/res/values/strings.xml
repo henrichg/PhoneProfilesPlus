@@ -2249,6 +2249,12 @@
     <string name="menu_twitter" translatable="false">Twitter/X</string>
     <string name="menu_reddit" translatable="false">Reddit</string>
     <string name="menu_bluesky" translatable="false">Bluesky</string>
+    <!--
+    <string name="menu_discord_discussion" translatable="false">- #discussion</string>
+    <string name="menu_discord_help" translatable="false">- #help</string>
+    <string name="menu_discord_bugs" translatable="false">- #bugs</string>
+    <string name="menu_discord_suggestions" translatable="false">- #suggestions</string>
+    -->
 
     <!-- **************************************************************************************** -->
 

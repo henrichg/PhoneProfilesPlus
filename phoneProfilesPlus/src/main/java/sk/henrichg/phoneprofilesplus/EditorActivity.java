@@ -1438,6 +1438,56 @@ public class EditorActivity extends AppCompatActivity
             }
             return true;
         }
+        /*
+        else
+        if (itemId == R.id.menu_discord_discussion) {
+            String url = PPApplication.DISCORD_DISCUSSIION_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_discord_help) {
+            String url = PPApplication.DISCORD_HELP_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_discord_bugs) {
+            String url = PPApplication.DISCORD_BUGS_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_discord_suggestions) {
+            String url = PPApplication.DISCORD_SUGGESTIONS_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        */
         else
         if (itemId == R.id.menu_twitter) {
             String url = PPApplication.TWITTER_URL;

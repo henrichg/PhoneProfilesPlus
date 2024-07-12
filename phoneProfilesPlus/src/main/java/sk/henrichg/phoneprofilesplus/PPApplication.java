@@ -123,11 +123,15 @@ public class PPApplication extends Application
     static final String GITHUB_PPPE_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender";
     static final String GITHUB_PPPPS_URL = "https://github.com/henrichg/PPPPutSettings";
     static final String XDA_DEVELOPERS_PPP_URL = "https://forum.xda-developers.com/t/phoneprofilesplus.3799429/";
-    static final String DISCORD_SERVER_URL = "https://discord.com/channels/1258733423426670633/1258733424504737936";
-    static final String DISCORD_INVITATION_URL = "https://discord.com/invite/gbV7UCzt";
     static final String TWITTER_URL = "https://x.com/henrichg";
     static final String REDDIT_URL = "https://www.reddit.com/user/henrichg/";
     static final String BLUESKY_URL = "https://bsky.app/profile/henrichg.bsky.social";
+    static final String DISCORD_SERVER_URL = "https://discord.com/channels/1258733423426670633/1258733424504737936";
+    static final String DISCORD_INVITATION_URL = "https://discord.com/invite/gbV7UCzt";
+    //static final String DISCORD_DISCUSSIION_URL = "https://discord.com/channels/1258733423426670633/1261142947743928410";
+    //static final String DISCORD_HELP_URL = "https://discord.com/channels/1258733423426670633/1261141698638250004";
+    //static final String DISCORD_BUGS_URL = "https://discord.com/channels/1258733423426670633/1261143124827312192";
+    //static final String DISCORD_SUGGESTIONS_URL = "https://discord.com/channels/1258733423426670633/1261143274895314976";
 
     // This url is Donate button from https://www.paypal.com/buttons/, type "Donate".
     // In it is possible to get this url with "Get link".
