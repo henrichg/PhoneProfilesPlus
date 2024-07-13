@@ -20,7 +20,7 @@ PhoneProfilesPlus (PPP)
 [![Bluesky](https://img.shields.io/badge/Bluesky-0285FF?logo=bluesky&logoColor=fff)](https://bsky.app/profile/henrichg.bsky.social)
 
 __PhoneProfilesPlus Discord invitation__
-- Invitation: https://discord.com/invite/gbV7UCzt
+- Invitation: https://discord.gg/AyRzzagp
 ---
 
 ### Sources of PhoneProfilesPlus:
