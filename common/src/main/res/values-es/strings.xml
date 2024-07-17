@@ -985,8 +985,6 @@
     <string name="important_info_email_body_problems">Problemas:</string>
     <string name="important_info_email_body_questions">Preguntas:</string>
     <string name="important_info_email_body_suggestions">Sugerencias:</string>
-    <string name="about_application_support">Soporte:</string>
-    <string name="about_application_support2">contacto:</string>
     <string name="about_application_support_subject">soporte</string>
     <string name="dashclock_extension_description">Muestra el perfil activo con el indicador de preferencias. Abre el activador al pulsar.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Usar luminosidad de iconos para iconos de perfil personalizados</string>

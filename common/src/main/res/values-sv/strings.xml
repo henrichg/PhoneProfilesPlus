@@ -985,8 +985,6 @@
     <string name="important_info_email_body_problems">Problems:</string>
     <string name="important_info_email_body_questions">Questions:</string>
     <string name="important_info_email_body_suggestions">Suggestions:</string>
-    <string name="about_application_support">Support:</string>
-    <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
     <string name="dashclock_extension_description">Visar aktiva profilen med inställningsindikator. Öppnar Väljare på beröring.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
@@ -2161,7 +2159,7 @@
     <string name="notification_channel_generated_by_profile_description_2">Is displayed, when profile has configured \"Others\"/\"Generate notification\".</string>
     <string name="notification_channel_profile_list_description_2">Is displayed, when is enabled \"Settings\"/\"Profile list notification\"/\"Display notification\"</string>
     <string name="do_not_disturb_access_permission_notification">Do not disturb access</string>
-    <string name="do_not_disturb_access_permission_notification_text">To displaying inportant PhoneProfilesPlus notifications, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
+    <string name="do_not_disturb_access_permission_notification_text">To displaying important PhoneProfilesPlus notifications, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
     <string name="no_error_dialog_message">The error has already been fixed.</string>
     <string name="application_editor_intent_test_activity_action_must_be_configured">\"Action\" must be configured.</string>
     <string name="application_editor_intent_test_activity_package_name_must_be_configured">\"Package name\" must be configured for intent type \"Broadcast\" with custom \"Action\".</string>

@@ -985,8 +985,6 @@
     <string name="important_info_email_body_problems">Problemen:</string>
     <string name="important_info_email_body_questions">Vragen:</string>
     <string name="important_info_email_body_suggestions">Suggesties:</string>
-    <string name="about_application_support">Ondersteuning:</string>
-    <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">ondersteuning</string>
     <string name="dashclock_extension_description">Actief profiel weergeven met voorkeuraanduiding. Opent de Activator bij aanraken.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Gebruik icoon helderheid voor aangepaste profiel iconen</string>
@@ -2209,8 +2207,8 @@
     <string name="mobile_cells_scanning_short_shortcut_name">Cellen scannen</string>
     <string name="read_nfc_tag_short_shortcut_name">Tag lezen</string>
     <string name="profile_preferences_volumeMergedRingSyatemVolumeInfo_summary">De meeste apparaten hebben \"ringtoonvolume\" en \"systeemvolume\" samengevoegd. Deze apparaten hebben geen optie bij de instellingen om \"systeemvolume\" te configureren. Om deze reden wordt aanbevolen het \"Volume bellen\" te configureren, wanneer het \"Systeem volume\" is geconfigureerd of het om \"Systeem volume\" niet configureren.</string>
-    <string name="profile_preferences_deviceDualSIMPINCode_title">Switch SIM on/off</string>
-    <string name="profile_preferences_deviceDualSIMPINCode_summary">WARNING: This brings the PIN code entry screen for the SIM card that is configured as \"On\".</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_title">Simkaart aan- of uitzetten</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_summary">WAARSCHUWING: Dit geeft het scherm voor de Pincode van de Simkaart die is ingesteld als \"Aan\".</string>
     <string name="menu_discord_server">PhoneProfilesPlus server</string>
-    <string name="menu_discord_invitation">PhoneProfilesPlus server invitation</string>
+    <string name="menu_discord_invitation">PhoneProfilesPlus server uitnodiging</string>
 </resources>

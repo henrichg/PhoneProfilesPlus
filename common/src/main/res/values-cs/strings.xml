@@ -985,8 +985,6 @@
     <string name="important_info_email_body_problems">Problémy:</string>
     <string name="important_info_email_body_questions">Otázky:</string>
     <string name="important_info_email_body_suggestions">Návrhy:</string>
-    <string name="about_application_support">Podpora:</string>
-    <string name="about_application_support2">kontakt:</string>
     <string name="about_application_support_subject">podpora</string>
     <string name="dashclock_extension_description">Zobrazí aktivní profil s indikátorem preferencí profilu. Na kliknutí se otevře Aktivátor.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Použít světlost ikony pro vlastní ikony</string>

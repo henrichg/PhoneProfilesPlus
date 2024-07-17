@@ -985,8 +985,6 @@
     <string name="important_info_email_body_problems">Проблемы:</string>
     <string name="important_info_email_body_questions">Вопросы:</string>
     <string name="important_info_email_body_suggestions">Предложения:</string>
-    <string name="about_application_support">Поддержка:</string>
-    <string name="about_application_support2">пишите:</string>
     <string name="about_application_support_subject">поддержка</string>
     <string name="dashclock_extension_description">Отображает активный профиль с индикатором настроек. Открывает Активатор по прикосновению.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Использовать яркость иконки для пользовательских иконок профиля</string>
@@ -2209,8 +2207,8 @@
     <string name="mobile_cells_scanning_short_shortcut_name">Сканирование вышек</string>
     <string name="read_nfc_tag_short_shortcut_name">Считать метку</string>
     <string name="profile_preferences_volumeMergedRingSyatemVolumeInfo_summary">В большинстве устройств \"Громкость звонка\" объединена с \"Громкостью системных звуков\". В системных настройках таких устройств нет возможности отдельно установить только громкость системных звуков. Из-за этого рекомендуется или вовсе не устанавливать \"Громкость системных звуков\", или установить ещё и \"Громкость звонка\".</string>
-    <string name="profile_preferences_deviceDualSIMPINCode_title">Switch SIM on/off</string>
-    <string name="profile_preferences_deviceDualSIMPINCode_summary">WARNING: This brings the PIN code entry screen for the SIM card that is configured as \"On\".</string>
-    <string name="menu_discord_server">PhoneProfilesPlus server</string>
-    <string name="menu_discord_invitation">PhoneProfilesPlus server invitation</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_title">Вкл./выкл. SIM</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_summary">ВНИМАНИЕ: Это действие вызовет экран ввода PIN-кода для включаемой SIM-карты.</string>
+    <string name="menu_discord_server">Сервер PhoneProfilesPlus</string>
+    <string name="menu_discord_invitation">Приглашение на сервер PhoneProfilesPlus</string>
 </resources>

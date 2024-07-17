@@ -985,8 +985,6 @@
     <string name="important_info_email_body_problems">Проблеми:</string>
     <string name="important_info_email_body_questions">Запитання:</string>
     <string name="important_info_email_body_suggestions">Пропозиції:</string>
-    <string name="about_application_support">Підтримка:</string>
-    <string name="about_application_support2">звʼязок:</string>
     <string name="about_application_support_subject">підтримка</string>
     <string name="dashclock_extension_description">Показує активний профіль з індикатором налаштувань. Відкриває Активатор при торканні.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Використовуйте світлість іконки для іконок профілю користувача</string>
@@ -2209,8 +2207,8 @@
     <string name="mobile_cells_scanning_short_shortcut_name">Сканування стільникових веж</string>
     <string name="read_nfc_tag_short_shortcut_name">Прочитати мітку</string>
     <string name="profile_preferences_volumeMergedRingSyatemVolumeInfo_summary">Більшість пристроїв мають об\'єднану \"Гучність дзвінка\" та \"Гучність системи\". Такі пристрої не мають опції для налаштування \"Гучності системи\". З цієї причини рекомендовано налаштувати \"Гучність дзвінка\", коли налаштовано \"Гучність системи\" або не налаштовувати \"Гучність системи\".</string>
-    <string name="profile_preferences_deviceDualSIMPINCode_title">Switch SIM on/off</string>
-    <string name="profile_preferences_deviceDualSIMPINCode_summary">WARNING: This brings the PIN code entry screen for the SIM card that is configured as \"On\".</string>
-    <string name="menu_discord_server">PhoneProfilesPlus server</string>
-    <string name="menu_discord_invitation">PhoneProfilesPlus server invitation</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_title">SIM увім/вимк</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_summary">УВАГА: Буде потрібно ввести ПІН код для SIM карти яка буде увімкнута.</string>
+    <string name="menu_discord_server">PhoneProfilesPlus сервер</string>
+    <string name="menu_discord_invitation">Запрошення до сервера PhoneProfilesPlus</string>
 </resources>

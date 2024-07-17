@@ -985,8 +985,6 @@
     <string name="important_info_email_body_problems">Problèmes:</string>
     <string name="important_info_email_body_questions">Question :</string>
     <string name="important_info_email_body_suggestions">Suggestions :</string>
-    <string name="about_application_support">Support :</string>
-    <string name="about_application_support2">contact :</string>
     <string name="about_application_support_subject">support</string>
     <string name="dashclock_extension_description">Affiche le profil actif avec indicateur de préférences. Ouvre l\’activateur sur contact. </string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Utiliser les icônes claires pour le profil personnalisé</string>
@@ -2209,8 +2207,8 @@
     <string name="mobile_cells_scanning_short_shortcut_name">Scan du réseau cellulaire</string>
     <string name="read_nfc_tag_short_shortcut_name">Lire le tag</string>
     <string name="profile_preferences_volumeMergedRingSyatemVolumeInfo_summary">La plupart des appareils ont fusionné le \"Volume de la sonnerie\" et le \"Volume du système\". Ces appareils n\'ont pas d\'option dans les paramètres de l\'appareil pour configurer le \"Volume système\". Pour cette raison, il est recommandé de configurer le \"Volume de sonnerie\" lorsque le \"Volume système\" est configuré ou de ne pas configurer le \"Volume système\".</string>
-    <string name="profile_preferences_deviceDualSIMPINCode_title">Switch SIM on/off</string>
-    <string name="profile_preferences_deviceDualSIMPINCode_summary">WARNING: This brings the PIN code entry screen for the SIM card that is configured as \"On\".</string>
-    <string name="menu_discord_server">PhoneProfilesPlus server</string>
-    <string name="menu_discord_invitation">PhoneProfilesPlus server invitation</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_title">Activer/désactiver la carte SIM</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_summary">AVERTISSEMENT : Ceci affiche l\'écran de saisie du code PIN de la carte SIM qui est configuré comme « Activé ».</string>
+    <string name="menu_discord_server">Serveur PhoneProfilesPlus</string>
+    <string name="menu_discord_invitation">Invitation du serveur PhoneProfilesPlus</string>
 </resources>
