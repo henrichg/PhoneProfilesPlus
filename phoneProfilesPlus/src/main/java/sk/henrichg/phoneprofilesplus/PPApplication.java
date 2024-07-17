@@ -127,7 +127,7 @@ public class PPApplication extends Application
     static final String REDDIT_URL = "https://www.reddit.com/user/henrichg/";
     static final String BLUESKY_URL = "https://bsky.app/profile/henrichg.bsky.social";
     static final String DISCORD_SERVER_URL = "https://discord.com/channels/1258733423426670633/1258733424504737936";
-    static final String DISCORD_INVITATION_URL = "https://discord.gg/W25kvSba";
+    static final String DISCORD_INVITATION_URL = "https://discord.gg/Yb5hgAstQ3";
     //static final String DISCORD_DISCUSSIION_URL = "https://discord.com/channels/1258733423426670633/1261142947743928410";
     //static final String DISCORD_HELP_URL = "https://discord.com/channels/1258733423426670633/1261141698638250004";
     //static final String DISCORD_BUGS_URL = "https://discord.com/channels/1258733423426670633/1261143124827312192";
