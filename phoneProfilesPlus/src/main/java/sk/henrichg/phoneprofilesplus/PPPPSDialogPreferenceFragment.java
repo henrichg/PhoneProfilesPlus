@@ -76,8 +76,8 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 String ppppsVersionName = ActivateProfileHelper.getPPPPutSettingsVersionName(prefContext);
                 prefVolumeDataSummary =  prefContext.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) +
                         " "+StringConstants.TAG_BOLD_START_HTML + ppppsVersionName + " (" + ppppsVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
-                prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
-                        " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML;
+                prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.install_extender_required_version) +
+                        " "+StringConstants.TAG_BOLD_START_HTML + preference.requiredPPPPSVersionName + " (" + preference.requiredPPPPSVersionCode + ")"+StringConstants.TAG_BOLD_END_HTML;
                 if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
                     prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary);
                 else

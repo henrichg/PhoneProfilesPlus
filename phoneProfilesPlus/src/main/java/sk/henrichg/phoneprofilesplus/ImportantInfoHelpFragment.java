@@ -119,7 +119,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText1.setVisibility(View.GONE);
         }
 
-        if ((!firstInstallation) && (ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)) {
+        if ((!firstInstallation) && (ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED)) {
             news = true;
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version);
             infoText1.setVisibility(View.VISIBLE);

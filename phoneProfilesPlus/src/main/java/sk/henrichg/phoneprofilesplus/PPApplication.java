@@ -65,16 +65,22 @@ public class PPApplication extends Application
     // versions required for profile, event parameters
     static final int VERSION_CODE_EXTENDER_8_1_3 = 880;
     static final String VERSION_NAME_EXTENDER_8_1_3 = "8.1.3";
-
     // for this version will be displayed upgrade notification
     //  required must by <= latest
     static final int VERSION_CODE_EXTENDER_REQUIRED = 890;
-
     // latest version in GitHub, IzzyOnDroid. will be installed
     static final int VERSION_CODE_EXTENDER_LATEST = 900;         // must be <= as in Extender dependencies.gradle
     static final String VERSION_NAME_EXTENDER_LATEST = "8.1.6";  // must be <= as in Extender dependencies.gradle
     ///////
 
+    //// PPPPutSettings versions
+    // versions required for profile, event parameters
+    static final int VERSION_CODE_PPPPS_1_0_8 = 65;
+    static final String VERSION_NAME_PPPPS_1_0_8 = "1.0.8";
+    // for this version will be displayed upgrade notification
+    //  required must by <= latest
+    static final int VERSION_CODE_PPPPS_REQUIRED = 65;
+    // latest version in GitHub, IzzyOnDroid. will be installed
     static final int VERSION_CODE_PPPPS_LATEST = 65;             // must be <= as in PPPPS dependencies.gradle
     static final String VERSION_NAME_PPPPS_LATEST = "1.0.8";     // must be <= as in PPPPS dependencies.gradle
 

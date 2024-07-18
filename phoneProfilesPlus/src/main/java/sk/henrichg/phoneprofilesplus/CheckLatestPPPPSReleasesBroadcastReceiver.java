@@ -172,7 +172,7 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
                 StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,
                         izzyRepoURL,
                         response1 -> {
-                            if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST) {
+                            if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                 // latest exists in IzzyOnDroid, but is not installed
 //                                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
                                 try {
@@ -200,7 +200,7 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
                 queueIzzyRepo.add(stringRequestIzzyRepo);
 
             } else {
-                if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
+                if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED)
                     // latest is not installed
                     showNotification(appContext);
             }
