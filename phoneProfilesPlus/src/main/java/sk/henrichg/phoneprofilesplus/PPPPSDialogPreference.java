@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -23,17 +22,18 @@ public class PPPPSDialogPreference extends DialogPreference {
 
         _context = context;
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs,
-                R.styleable.PPPPSDialogPreference);
+//        TypedArray typedArray = context.obtainStyledAttributes(attrs,
+//                R.styleable.PPPPSDialogPreference);
 
-        requiredPPPPSVersionCode = typedArray.getInt(
-                R.styleable.PPPPSDialogPreference_requiredPPPPSVersionCode, PPApplication.VERSION_CODE_PPPPS_1_0_8);
-        requiredPPPPSVersionName = typedArray.getString(
-                R.styleable.PPPPSDialogPreference_requiredPPPPSVersionName);
+//        requiredPPPPSVersionCode = typedArray.getInt(
+//                R.styleable.PPPPSDialogPreference_requiredPPPPSVersionCode, PPApplication.VERSION_CODE_PPPPS_1_0_8);
+//        requiredPPPPSVersionName = typedArray.getString(
+//                R.styleable.PPPPSDialogPreference_requiredPPPPSVersionName);
+        requiredPPPPSVersionCode = PPApplication.VERSION_CODE_PPPPS_1_0_8;
         if ((requiredPPPPSVersionName == null) || (requiredPPPPSVersionName.isEmpty()))
             requiredPPPPSVersionName = PPApplication.VERSION_NAME_PPPPS_1_0_8;
 
-        typedArray.recycle();
+//        typedArray.recycle();
     }
 
     @Override
