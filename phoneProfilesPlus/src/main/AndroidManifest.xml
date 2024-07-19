@@ -76,6 +76,8 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.SEND_SMS" />
 
+<!--    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" tools:ignore="ProtectedPermissions" />-->
+
     <uses-permission android:name="sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION"/>
     <uses-permission android:name="sk.henrichg.pppputsettings.PPP_PUT_SETTINGS_PERMISSION"/>
 
@@ -244,7 +246,7 @@
         <!-- !!! android:theme must be set here -->
         <activity
             android:name=".ActivatorActivity"
-            android:label="@string/title_activity_phone_profiles"
+            android:label="@string/title_activity_ppp"
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.activator"
             android:launchMode="singleInstance"
@@ -256,6 +258,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!--            android:label="@string/title_activity_phone_profiles"-->
 
         <!-- android:theme must be used, because of flickering of withe bacground in Huawei -->
         <activity

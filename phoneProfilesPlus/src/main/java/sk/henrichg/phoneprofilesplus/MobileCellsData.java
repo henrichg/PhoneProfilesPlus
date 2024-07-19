@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 class MobileCellsData {
 
     int cellId;
+    long cellIdLong;
     String name;
     boolean connected;
     boolean _new;
@@ -16,9 +17,10 @@ class MobileCellsData {
     MobileCellsData() {
     }
 
-    MobileCellsData(int cellId, String name, boolean connected, boolean _new, long lastConnectedTime/*,
+    MobileCellsData(int cellId, long celIdLong, String name, boolean connected, boolean _new, long lastConnectedTime/*,
                     String lastRunningEvents, String lastPausedEvents, boolean doNotDetect*/) {
         this.cellId = cellId;
+        this.cellIdLong = celIdLong;
         this.name = name;
         this.connected = connected;
         this._new = _new;

@@ -27,6 +27,10 @@ class BitmapManipulator {
 
     static final int ICON_BITMAP_SIZE_MULTIPLIER = 4;
 
+    private BitmapManipulator() {
+        // private constructor to prevent instantiation
+    }
+
     /** @noinspection ControlFlowStatementWithoutBraces, BlockingMethodInNonBlockingContext */
     static Bitmap resampleBitmapUri(String bitmapUri, int width, int height, boolean checkSize, boolean checkOrientation, Context context) {
         if (bitmapUri == null)

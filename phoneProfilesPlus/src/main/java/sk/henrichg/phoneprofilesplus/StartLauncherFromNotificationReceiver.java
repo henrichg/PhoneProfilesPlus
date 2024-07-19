@@ -3,9 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-
-import java.util.concurrent.TimeUnit;
 
 // Disable action button
 /** @noinspection ExtractMethodRecommender*/
@@ -13,6 +10,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+/*
 //        PPApplicationStatic.logE("[IN_BROADCAST] StartLauncherFromNotificationReceiver.onReceive", "xxx");
 
         if (intent != null) {
@@ -31,7 +29,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
 
                             Intent launcherIntent = GlobalGUIRoutines.getIntentForStartupSource(appContext, PPApplication.STARTUP_SOURCE_NOTIFICATION);
                             // clear all opened activities
-                            launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
+                            launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             // setup startupSource
                             launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
                             appContext.startActivity(launcherIntent);
@@ -58,6 +56,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                 }
             }
         }
+*/
     }
 
 }

@@ -430,8 +430,13 @@ class DataWrapper {
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.setProfileActive", "DataWrapper.profileList");
         synchronized (profileList) {
-            if (!profileListFilled)
-                return;
+//            Log.e("DataWrapper.setProfileActive", "xxxx");
+
+            if (!profileListFilled) {
+                //return;
+                // maybe is ok to fill it in this method and without icons and indicators. hm
+                fillProfileList(false, false);
+            }
 
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext();) {
@@ -439,12 +444,14 @@ class DataWrapper {
                 _profile._checked = false;
             }
 
-
             if (profile != null) {
+//                Log.e("DataWrapper.setProfileActive", "profile="+profile._name);
+
                 profile._checked = true;
                 PPApplicationStatic.setLastActivatedProfile(context, profile._id);
             }
             else {
+//                Log.e("DataWrapper.setProfileActive", "profile=0");
                 PPApplicationStatic.setLastActivatedProfile(context, 0);
             }
 
@@ -1520,6 +1527,7 @@ class DataWrapper {
         }
 
         DatabaseHandler.getInstance(context).activateProfile(_profile);
+//        Log.e("DataWrapper._activateProfile", "profile="+_profile._name);
         setProfileActive(_profile);
 
         // for STARTUP_SOURCE_EVENT, STARTUP_SOURCE_FOR_FIRST_START is mandatory
@@ -1672,7 +1680,8 @@ class DataWrapper {
                                     fifoAddProfile(activatedProfileId, 0);
 
                                 DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(profile);
-                                DataWrapperStatic.setDynamicLauncherShortcuts(context);
+//                                Log.e("DataWrapper.activateProfileFromMainThread", "xxxxx");
+                                DataWrapperStatic.setDynamicLauncherShortcuts(context, true);
                             }
                         }
 
@@ -1791,6 +1800,7 @@ class DataWrapper {
                                     }
                                 }
 
+//                                Log.e("DataWrapper.activateProfileWithAlert", "(1) xxxxx");
                                 _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity, false);
                             } else {
                                 Intent returnIntent = new Intent();
@@ -1839,6 +1849,7 @@ class DataWrapper {
             }
             else {
                 if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context)) {
+//                    Log.e("DataWrapper.activateProfileWithAlert", "(2) xxxxx");
                     activateProfileFromMainThread(profile, false, startupSource, true, activity, false);
                 }
                 else {
@@ -1993,13 +2004,16 @@ class DataWrapper {
                 activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_FOR_FIRST_START,
                         false, null, testGrant);
             }
-            else
+            else {
+//                Log.e("DataWrapper.activateProfile", "xxxxx");
                 activateProfileWithAlert(profile, startupSource, /*interactive,*/ activity);
+            }
         }
         else
         {
             if (profile != null) {
                 DatabaseHandler.getInstance(context).activateProfile(profile);
+//                Log.e("DataWrapper.activateProfile", "profile="+profile._name);
                 setProfileActive(profile);
             }
 
@@ -2305,6 +2319,7 @@ class DataWrapper {
                             serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false);
 //                    PPApplicationStatic.logE("[START_PP_SERVICE] DataWrapper.restartEventsWithAlert", "xxx");
                             PPApplicationStatic.startPPService(context, serviceIntent, true);
                         } else {

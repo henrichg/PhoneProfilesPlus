@@ -293,17 +293,52 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             //String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
             String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL;
 
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            try {
-                activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                if ((_preference != null) && (_preference.fragment != null))
-                    _preference.fragment.dismiss();
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-                if ((_preference != null) && (_preference.fragment != null))
-                    _preference.fragment.dismiss();
-            }
+            // DownloadManager not working in Huawei P40
+            // https://stackoverflow.com/questions/44093939/how-to-use-downloadmanager-on-huawei
+            //if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                try {
+                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    if ((_preference != null) && (_preference.fragment != null))
+                        _preference.fragment.dismiss();
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                    if ((_preference != null) && (_preference.fragment != null))
+                        _preference.fragment.dismiss();
+                }
+            /*} else {
+                try {
+                    String textToast = activity.getString(R.string.downloading_toast_text);
+                    PPApplication.showToast(activity.getApplicationContext(), textToast, Toast.LENGTH_LONG);
+
+                    Uri Download_Uri = Uri.parse(url);
+                    DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+
+                    //Restrict the types of networks over which this download may proceed.
+                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                    //Set whether this download may proceed over a roaming connection.
+                    request.setAllowedOverRoaming(false);
+                    //Set the title of this download, to be displayed in notifications (if enabled).
+                    request.setTitle(activity.getString(R.string.download_PPPE_title));
+                    //Set a description of this download, to be displayed in notifications (if enabled)
+                    request.setDescription(activity.getString(R.string.downloading_file_description));
+                    //Set the local destination for the downloaded file to a path within the application's external files directory
+                    request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PhoneProfilesPlusExtender.apk");
+                    //request.allowScanningByMediaScanner();
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    //Enqueue a new download and same the referenceId
+                    DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
+                    DownloadCompletedBroadcastReceiver.downloadReferencePPPE = downloadManager.enqueue(request);
+                    if ((_preference != null) && (_preference.fragment != null))
+                        _preference.fragment.dismiss();
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                    if ((_preference != null) && (_preference.fragment != null))
+                        _preference.fragment.dismiss();
+                }
+            }*/
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
             if (finishActivity)
@@ -408,13 +443,15 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         boolean fdroidInstalled = (_intent != null);
         _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
         boolean droidifyInstalled = (_intent != null);
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+        boolean neostoreInstalled = (_intent != null);
         //_intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
         //boolean galaxyStoreInstalled = (_intent != null);
 //        Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "fdroidInstalled="+fdroidInstalled);
 //        Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "droidifyInstalled="+droidifyInstalled);
 //        Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "galaxyStoreInstalled="+galaxyStoreInstalled);
 
-        if (droidifyInstalled || fdroidInstalled /*|| galaxyStoreInstalled*/) {
+        if (droidifyInstalled || neostoreInstalled || fdroidInstalled /*|| galaxyStoreInstalled*/) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
@@ -480,6 +517,21 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                         Uri.parse("market://details?id=sk.henrichg.phoneprofilesplusextender"));
                 if (droidifyInstalled) {
                     intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+                    try {
+                        activity.startActivity(intent);
+                        if ((_preference != null) && (_preference.fragment != null))
+                            _preference.fragment.dismiss();
+                        if (finishActivity)
+                            activity.finish();
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                        if ((_preference != null) && (_preference.fragment != null))
+                            _preference.fragment.dismiss();
+                        if (finishActivity)
+                            activity.finish();
+                    }
+                } else if (neostoreInstalled) {
+                    intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
                     try {
                         activity.startActivity(intent);
                         if ((_preference != null) && (_preference.fragment != null))

@@ -50,6 +50,10 @@ class GlobalGUIRoutines {
     static final String OPAQUENESS_LIGHTNESS_87 = "87";
     static final String OPAQUENESS_LIGHTNESS_100 = "100";
 
+    private GlobalGUIRoutines() {
+        // private constructor to prevent instantiation
+    }
+
     static void setTheme(Activity activity, boolean forPopup,
                                 boolean withToolbar,
                                 /*boolean forEditor,*/ boolean forActivator, boolean forDialog,
@@ -1013,6 +1017,7 @@ class GlobalGUIRoutines {
         }
     }
 
+    /*
     static Intent getIntentForStartupSource(Context context, int startupSource) {
         Intent intentLaunch;
 
@@ -1029,10 +1034,10 @@ class GlobalGUIRoutines {
                 else
                     intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
                 break;
-            case PPApplication.STARTUP_SOURCE_EDITOR_WIDGET_HEADER:
-                intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
-                //startupSource = PPApplication.STARTUP_SOURCE_WIDGET;
-                break;
+//            case PPApplication.STARTUP_SOURCE_EDITOR_WIDGET_HEADER:
+//                intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
+//                //startupSource = PPApplication.STARTUP_SOURCE_WIDGET;
+//                break;
             default:
                 //if (ApplicationPreferences.applicationHomeLauncher.equals("activator"))
                     intentLaunch = new Intent(context.getApplicationContext(), ActivatorActivity.class);
@@ -1042,5 +1047,6 @@ class GlobalGUIRoutines {
         }
         return intentLaunch;
     }
+    */
 
 }

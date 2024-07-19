@@ -149,6 +149,7 @@
                     android:text="@string/about_application_author"
                     android:textSize="15sp" />
 
+<!--
                 <TextView
                     android:id="@+id/about_application_support"
                     android:layout_width="wrap_content"
@@ -159,6 +160,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="@string/about_application_support"
                     android:textSize="15sp" />
+-->
 
                 <TextView
                     android:id="@+id/about_application_privacy_policy"
@@ -231,6 +233,7 @@
                     android:text="@string/about_application_pppps_source_code"
                     android:textSize="15sp" />
 
+                <!--
                 <TextView
                     android:id="@+id/about_application_xda_developers_community"
                     android:layout_width="wrap_content"
@@ -240,6 +243,7 @@
                     android:layout_marginEnd="10dp"
                     android:text="@string/about_application_xda_developers_community"
                     android:textSize="15sp" />
+                -->
 
                 <!--
                 <TextView

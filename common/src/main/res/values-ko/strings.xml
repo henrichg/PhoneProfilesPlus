@@ -4,7 +4,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <string name="menu_edit_profiles">편집기</string>
     <string name="menu_settings">설정</string>
-    <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
     <string name="title_activity_profile_preferences">프로필 설정</string>
     <string name="title_activity_event_preferences">이벤트 설정</string>
     <string name="menu_new_profile">새 프로필</string>
@@ -885,7 +884,6 @@
     <string name="array_pref_auto_rotate_on">Automatic rotation on</string>
     <string name="array_pref_auto_rotate_off">Automatic rotation off</string>
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">Change of adaptive level may not work on your device (example: Samsung devices).</string>
-    <string name="about_application_xda_developers_community">XDA-developers community:</string>
     <string name="mobile_cells_pref_dlg_connected_cell">Connected cell:</string>
     <string name="permissions_for_mobile_cells_registration_dialog_text1">Mobile cell registration requires some permissions.</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">New cells count:</string>
@@ -987,8 +985,6 @@
     <string name="important_info_email_body_problems">Problems:</string>
     <string name="important_info_email_body_questions">Questions:</string>
     <string name="important_info_email_body_suggestions">Suggestions:</string>
-    <string name="about_application_support">Support:</string>
-    <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
     <string name="dashclock_extension_description">활성창에서 프로필의 설정을 표시.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
@@ -1932,7 +1928,7 @@
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings is not installed!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">not installed PPPPutSettings</string>
     <string name="about_application_pppps_source_code">Source code - PPPPutSettings:</string>
-    <string name="profile_preferences_notificationLed_23">(S)(R) Notification LED</string>
+    <string name="profile_preferences_notificationLed_23">Notification LED</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Always-On display</string>
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
@@ -2163,7 +2159,7 @@
     <string name="notification_channel_generated_by_profile_description_2">Is displayed, when profile has configured \"Others\"/\"Generate notification\".</string>
     <string name="notification_channel_profile_list_description_2">Is displayed, when is enabled \"Settings\"/\"Profile list notification\"/\"Display notification\"</string>
     <string name="do_not_disturb_access_permission_notification">Do not disturb access</string>
-    <string name="do_not_disturb_access_permission_notification_text">To displaying inportant PhoneProfilesPlus notifications, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
+    <string name="do_not_disturb_access_permission_notification_text">To displaying important PhoneProfilesPlus notifications, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
     <string name="no_error_dialog_message">The error has already been fixed.</string>
     <string name="application_editor_intent_test_activity_action_must_be_configured">\"Action\" must be configured.</string>
     <string name="application_editor_intent_test_activity_package_name_must_be_configured">\"Package name\" must be configured for intent type \"Broadcast\" with custom \"Action\".</string>
@@ -2187,4 +2183,32 @@
     <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs">(Z)(R) Wi-Fi and Bluetooth confirm dialogs</string>
     <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary">For \"HyperOs\" is possible to disable these dialogs. Click this to disable them. NOTE: It requires Shizuku/root.</string>
     <string name="profile_preferences_deviceWallpaperHuaweiInfo">In Huawei devices is bug. And for this reason may not properly working all non-interactive types.</string>
+    <string name="menu_check_releases_neostore">Check in Neo Store</string>
+    <string name="check_releases_open_neostore">Open Neo Store</string>
+    <string name="check_releases_neostore_ppp_release">PhoneProfilesPlus release in Neo Store:</string>
+    <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary_api29">Please enable Location and \"Wi-Fi scanning\" in System Settings. Without this, sensor will not work.</string>
+    <string name="download_installWithOptions_title">Download of InstallWithOptions.apk</string>
+    <string name="download_pppps_title">Download of PPPPutSettings.apk</string>
+    <string name="downloading_file_description">File will be stored into Downloads directory</string>
+    <string name="event_preferences_not_all_parameters_are_configured">Some parameters are not configured!</string>
+    <string name="event_preferences_not_all_parameters_are_configured_summary">These parameters must be configured for proper event functionality.</string>
+    <string name="downloading_toast_text">Downloading…</string>
+    <string name="phone_profiles_pref_category_widget_dash_clock">Widget: Dash Clock</string>
+    <string name="phone_profiles_pref_widget_dash_clock_info">Info about Dash Clock</string>
+    <string name="phone_profiles_pref_widget_dash_clock_info_summary">Click here to show information about Dash Clock Widget.</string>
+    <string name="dash_clock_widget_info_1">Dash Clock Widget is deprecated and is not in Google Play, But is possible to install latest version from APKMirror.</string>
+    <string name="dash_clock_widget_info_2">Dash Clock Widget GitHub:</string>
+    <string name="dash_clock_widget_info_3">APKMirror download:</string>
+    <string name="shortcut_to_editor_dialog_title">Shortcut to Editor</string>
+    <string name="shortcut_to_mobile_cells_scanning_dialog_title">Shortcut to \"Mobile cells scanning\"</string>
+    <string name="shortcut_to_read_nfc_tag_dialog_title">Shortcut to \"Read NFC tag\"</string>
+    <string name="shortcut_to_dialog_lablel">Shortcut icon name:</string>
+    <string name="shortcut_to_dialog_create_button">Create</string>
+    <string name="mobile_cells_scanning_short_shortcut_name">Cells scan</string>
+    <string name="read_nfc_tag_short_shortcut_name">Read tag</string>
+    <string name="profile_preferences_volumeMergedRingSyatemVolumeInfo_summary">Most devices has merged \"Ringtone volume\" and \"System volume\". These devcies do not have option in device Settings to configure \"System volume\". For this reason, recommended is to configure \"Ringing volume\", when is configured \"System volume\" or do not configure \"System volume\".</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_title">Switch SIM on/off</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_summary">WARNING: This brings the PIN code entry screen for the SIM card that is configured as \"On\".</string>
+    <string name="menu_discord_server">PhoneProfilesPlus server</string>
+    <string name="menu_discord_invitation">PhoneProfilesPlus server invitation</string>
 </resources>

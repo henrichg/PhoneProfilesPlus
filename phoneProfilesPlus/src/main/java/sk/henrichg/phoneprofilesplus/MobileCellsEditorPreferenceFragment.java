@@ -219,13 +219,17 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
         cellsListView.setOnItemClickListener((parent, item, position, id) -> {
             int cellId = preference.filteredCellsList.get(position).cellId;
+            long cellIdLong = preference.filteredCellsList.get(position).cellIdLong;
             MobileCellsEditorViewHolder viewHolder =
                     (MobileCellsEditorViewHolder) item.getTag();
-            viewHolder.checkBox.setChecked(!preference.isCellSelected(cellId));
-            if (viewHolder.checkBox.isChecked())
-                preference.addCellId(cellId);
+            if (cellId != Integer.MAX_VALUE)
+                viewHolder.checkBox.setChecked(!preference.isCellSelected(cellId, Long.MAX_VALUE));
             else
-                preference.removeCellId(cellId);
+                viewHolder.checkBox.setChecked(!preference.isCellSelected(Integer.MAX_VALUE, cellIdLong));
+            if (viewHolder.checkBox.isChecked())
+                preference.addCellId(cellId, cellIdLong);
+            else
+                preference.removeCellId(cellId, cellIdLong);
             preference.refreshListView(false, false/*, Integer.MAX_VALUE*/);
         });
 
@@ -327,7 +331,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                                     if (cellName != null) {
                                                         for (MobileCellsData cell : preference.filteredCellsList) {
                                                             if (cell.name.equals(cellName.getText().toString()))
-                                                                preference.addCellId(cell.cellId);
+                                                                preference.addCellId(cell.cellId, cell.cellIdLong);
                                                         }
                                                         refreshListView(false, false/*, Integer.MAX_VALUE*/);
                                                     }
@@ -337,7 +341,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     case 2:
                                         preference.value = "";
                                         for (MobileCellsData cell : preference.filteredCellsList) {
-                                            preference.addCellId(cell.cellId);
+                                            preference.addCellId(cell.cellId, cell.cellIdLong);
                                         }
                                         refreshListView(false, false/*, Integer.MAX_VALUE*/);
                                         break;
@@ -442,7 +446,8 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     List<MobileCellsData> _cellsList = new ArrayList<>();
                                     _cellsList.add(preference.registeredCellDataSIM1);
                                     db.saveMobileCellsList(_cellsList, true, false);
-                                    preference.addCellId(preference.registeredCellDataSIM1.cellId);
+                                    preference.addCellId(preference.registeredCellDataSIM1.cellId,
+                                            preference.registeredCellDataSIM1.cellIdLong);
                                     refreshListView(false, false/*, preference.registeredCellDataSIM1.cellId*/);
                                 }
                             });
@@ -463,7 +468,8 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     List<MobileCellsData> _cellsList = new ArrayList<>();
                                     _cellsList.add(preference.registeredCellDataSIM2);
                                     db.saveMobileCellsList(_cellsList, true, false);
-                                    preference.addCellId(preference.registeredCellDataSIM2.cellId);
+                                    preference.addCellId(preference.registeredCellDataSIM2.cellId,
+                                            preference.registeredCellDataSIM2.cellIdLong);
                                     refreshListView(false, false/*, preference.registeredCellDataSIM2.cellId*/);
                                 }
                             });
@@ -485,7 +491,8 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     List<MobileCellsData> _cellsList = new ArrayList<>();
                                     _cellsList.add(preference.registeredCellDataDefault);
                                     db.saveMobileCellsList(_cellsList, true, false);
-                                    preference.addCellId(preference.registeredCellDataDefault.cellId);
+                                    preference.addCellId(preference.registeredCellDataDefault.cellId,
+                                            preference.registeredCellDataDefault.cellIdLong);
                                     refreshListView(false, false/*, preference.registeredCellDataDefault.cellId*/);
                                 }
                             });
@@ -640,7 +647,10 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                     _lhs = _lhs + "0002";
                 else
                     _lhs = _lhs + "0003" + lhs.name;
-                _lhs = _lhs + "-" + lhs.cellId;
+                if (lhs.cellId != Integer.MAX_VALUE)
+                    _lhs = _lhs + "-" + lhs.cellId;
+                else
+                    _lhs = _lhs + "-" + lhs.cellIdLong;
 
                 String _rhs = "";
                 if (rhs._new)
@@ -651,7 +661,10 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                     _rhs = _rhs + "0002";
                 else
                     _rhs = _rhs + "0003" + rhs.name;
-                _rhs = _rhs + "-" + rhs.cellId;
+                if (rhs.cellId != Integer.MAX_VALUE)
+                    _rhs = _rhs + "-" + rhs.cellId;
+                else
+                    _rhs = _rhs + "-" + rhs.cellIdLong;
                 return PPApplication.collator.compare(_lhs, _rhs);
             }
             else
@@ -701,7 +714,8 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         popup = new PopupMenu(_context, view, Gravity.END);
         new MenuInflater(_context).inflate(R.menu.mobile_cells_pref_item_edit, popup.getMenu());
 
-        final int cellId = (int)view.getTag();
+        final int cellId = (int)view.getTag(R.id.editMenuTagCell);
+        final long cellIdLong = (long)view.getTag(R.id.editMenuTagCellLong);
 
         popup.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
@@ -716,11 +730,16 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             null, null,
                             (dialog1, which) -> {
                                 DatabaseHandler db = DatabaseHandler.getInstance(_context);
-                                db.deleteMobileCell(cellId);
-                                preference.removeCellId(cellId);
+                                db.deleteMobileCell(cellId, cellIdLong);
+                                preference.removeCellId(cellId, cellIdLong);
                                 refreshListView(false, false/*, Integer.MAX_VALUE*/);
                                 for (MobileCellsData cell : preference.filteredCellsList) {
-                                    if ((cell.cellId == cellId) && (cell.name != null) && (!cell.name.isEmpty())){
+                                    boolean cellIdEquals = false;
+                                    if (cellId != Integer.MAX_VALUE)
+                                        cellIdEquals = cell.cellId == cellId;
+                                    else if (cellIdLong != Long.MAX_VALUE)
+                                        cellIdEquals = cell.cellIdLong == cellIdLong;
+                                    if (cellIdEquals && (cell.name != null) && (!cell.name.isEmpty())){
                                         deleteCellNamesFromEventsAsyncTask = new DeleteCellNamesFromEventsAsyncTask(cell.name, prefContext);
                                         deleteCellNamesFromEventsAsyncTask.execute();
                                         break;
@@ -759,9 +778,15 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                 DatabaseHandler db = DatabaseHandler.getInstance(_context);
                                 for (MobileCellsData cell : preference.filteredCellsList) {
                                     for (String valueCell : splits) {
-                                        if (valueCell.equals(Integer.toString(cell.cellId))) {
-                                            db.deleteMobileCell(cell.cellId);
-                                            preference.removeCellId(cell.cellId);
+                                        boolean cellIdEquals = false;
+                                        long vCellId = Long.parseLong(valueCell);
+                                        if (vCellId <= Integer.MAX_VALUE)
+                                            cellIdEquals = (vCellId != Integer.MAX_VALUE) && (vCellId == cell.cellId);
+                                        else if (vCellId != Long.MAX_VALUE)
+                                            cellIdEquals = vCellId == cell.cellIdLong;
+                                        if (cellIdEquals) {
+                                            db.deleteMobileCell(cell.cellId, cell.cellIdLong);
+                                            preference.removeCellId(cell.cellId, cell.cellIdLong);
                                             if ((cell.name != null) && (!cell.name.isEmpty())) {
                                                 if (deletedCellNames.length() > 0)
                                                     deletedCellNames.append("|");
@@ -805,14 +830,20 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                 for (MobileCellsData cell : preference.filteredCellsList) {
                                     boolean isSelected = false;
                                     for (String valueCell : splits) {
-                                        if (valueCell.equals(Integer.toString(cell.cellId))) {
+                                        boolean cellIdEquals = false;
+                                        long vCellId = Long.parseLong(valueCell);
+                                        if (vCellId <= Integer.MAX_VALUE)
+                                            cellIdEquals = (vCellId != Integer.MAX_VALUE) && (vCellId == cell.cellId);
+                                        else if (vCellId != Long.MAX_VALUE)
+                                            cellIdEquals = vCellId == cell.cellIdLong;
+                                        if (cellIdEquals) {
                                             isSelected = true;
                                             break;
                                         }
                                     }
                                     if (!isSelected) {
-                                        db.deleteMobileCell(cell.cellId);
-                                        preference.removeCellId(cell.cellId);
+                                        db.deleteMobileCell(cell.cellId, cell.cellIdLong);
+                                        preference.removeCellId(cell.cellId, cell.cellIdLong);
                                         if ((cell.name != null) && (!cell.name.isEmpty())) {
                                             if (deletedCellNames.length() > 0)
                                                 deletedCellNames.append("|");
@@ -977,7 +1008,9 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                     if ((fragment.phoneCount > 1)) {
                         if (sim1Exists) {
                             if (fragment.preference.registeredCellDataSIM1 != null) {
-                                _registeredCellDataSIM1 = new MobileCellsData(fragment.preference.registeredCellDataSIM1.cellId,
+                                _registeredCellDataSIM1 = new MobileCellsData(
+                                        fragment.preference.registeredCellDataSIM1.cellId,
+                                        fragment.preference.registeredCellDataSIM1.cellIdLong,
                                         fragment.preference.registeredCellDataSIM1.name,
                                         fragment.preference.registeredCellDataSIM1.connected,
                                         fragment.preference.registeredCellDataSIM1._new,
@@ -993,7 +1026,9 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
                         if (sim2Exists) {
                             if (fragment.preference.registeredCellDataSIM2 != null) {
-                                _registeredCellDataSIM2 = new MobileCellsData(fragment.preference.registeredCellDataSIM2.cellId,
+                                _registeredCellDataSIM2 = new MobileCellsData(
+                                        fragment.preference.registeredCellDataSIM2.cellId,
+                                        fragment.preference.registeredCellDataSIM2.cellIdLong,
                                         fragment.preference.registeredCellDataSIM2.name,
                                         fragment.preference.registeredCellDataSIM2.connected,
                                         fragment.preference.registeredCellDataSIM2._new,
@@ -1008,7 +1043,9 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                         }
                     } else {
                         if (fragment.preference.registeredCellDataDefault != null) {
-                            _registeredCellDataDefault = new MobileCellsData(fragment.preference.registeredCellDataDefault.cellId,
+                            _registeredCellDataDefault = new MobileCellsData(
+                                    fragment.preference.registeredCellDataDefault.cellId,
+                                    fragment.preference.registeredCellDataDefault.cellIdLong,
                                     fragment.preference.registeredCellDataDefault.name,
                                     fragment.preference.registeredCellDataDefault.connected,
                                     fragment.preference.registeredCellDataDefault._new,
@@ -1032,7 +1069,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
                     // add all from table
                     DatabaseHandler db = DatabaseHandler.getInstance(prefContext.getApplicationContext());
-                    db.addMobileCellsToList(_cellsList, 0);
+                    db.addMobileCellsToList(_cellsList, 0, 0);
 
                     _registeredCellDataSIM1 = null;
                     _registeredCellInTableSIM1 = false;
@@ -1051,21 +1088,34 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
                         if ((fragment.phoneCount > 1)) {
                             if (sim1Exists) {
-                                if (PPApplication.mobileCellsScanner != null) {
+                                //if (PPApplication.mobileCellsScanner != null) {
                                     int registeredCell = PPApplication.mobileCellsScanner.getRegisteredCell(1);
+                                    long registeredCellLong = PPApplication.mobileCellsScanner.getRegisteredCellLong(1);
                                     long lastConnectedTime = PPApplication.mobileCellsScanner.getLastConnectedTime(1);
                                     for (MobileCellsData cell : _cellsList) {
-                                        if (cell.cellId == registeredCell) {
-                                            cell.connected = true;
-                                            _registeredCellDataSIM1 = cell;
-                                            _registeredCellInTableSIM1 = true;
-                                            break;
+                                        if (registeredCell != Integer.MAX_VALUE) {
+                                            if (cell.cellId == registeredCell) {
+                                                cell.connected = true;
+                                                _registeredCellDataSIM1 = cell;
+                                                _registeredCellInTableSIM1 = true;
+                                                break;
+                                            }
+                                        } else if (registeredCellLong != Long.MAX_VALUE) {
+                                            if (cell.cellIdLong == registeredCellLong) {
+                                                cell.connected = true;
+                                                _registeredCellDataSIM1 = cell;
+                                                _registeredCellInTableSIM1 = true;
+                                                break;
+                                            }
                                         }
                                     }
-                                    if (!_registeredCellInTableSIM1 && MobileCellsScanner.isValidCellId(registeredCell) /*&&
+                                    if (!_registeredCellInTableSIM1 &&
+                                            MobileCellsScanner.isValidCellId(registeredCell, registeredCellLong) /*&&
                                             (!_cellName.isEmpty())*/) {
                                         //synchronized (PPApplication.mobileCellsScannerMutex) {
-                                        _registeredCellDataSIM1 = new MobileCellsData(registeredCell,
+                                        _registeredCellDataSIM1 = new MobileCellsData(
+                                                registeredCell,
+                                                registeredCellLong,
                                                 ""/*_cellName*/, true, true,
                                                 lastConnectedTime//,
                                                 //MobileCellsScanner.lastRunningEventsNotOutside,
@@ -1075,24 +1125,36 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                         //_cellsList.add(_registeredCellDataSIM1);
                                         //}
                                     }
-                                }
+                                //}
                             }
                             if (sim2Exists) {
                                 if (PPApplication.mobileCellsScanner != null) {
                                     int registeredCell = PPApplication.mobileCellsScanner.getRegisteredCell(2);
+                                    long registeredCellLong = PPApplication.mobileCellsScanner.getRegisteredCellLong(2);
                                     long lastConnectedTime = PPApplication.mobileCellsScanner.getLastConnectedTime(2);
                                     for (MobileCellsData cell : _cellsList) {
-                                        if (cell.cellId == registeredCell) {
-                                            cell.connected = true;
-                                            _registeredCellDataSIM2 = cell;
-                                            _registeredCellInTableSIM2 = true;
-                                            break;
+                                        if (registeredCell != Integer.MAX_VALUE) {
+                                            if (cell.cellId == registeredCell) {
+                                                cell.connected = true;
+                                                _registeredCellDataSIM2 = cell;
+                                                _registeredCellInTableSIM2 = true;
+                                                break;
+                                            }
+                                        } else  if (registeredCellLong != Long.MAX_VALUE) {
+                                            if (cell.cellIdLong == registeredCellLong) {
+                                                cell.connected = true;
+                                                _registeredCellDataSIM2 = cell;
+                                                _registeredCellInTableSIM2 = true;
+                                                break;
+                                            }
                                         }
                                     }
-                                    if (!_registeredCellInTableSIM2 && MobileCellsScanner.isValidCellId(registeredCell) /*&&
+                                    if (!_registeredCellInTableSIM2 && MobileCellsScanner.isValidCellId(registeredCell, registeredCellLong) /*&&
                                             (!_cellName.isEmpty())*/) {
                                         //synchronized (PPApplication.mobileCellsScannerMutex) {
-                                        _registeredCellDataSIM2 = new MobileCellsData(registeredCell,
+                                        _registeredCellDataSIM2 = new MobileCellsData(
+                                                registeredCell,
+                                                registeredCellLong,
                                                 ""/*_cellName*/, true, true,
                                                 lastConnectedTime//,
                                                 //MobileCellsScanner.lastRunningEventsNotOutside,
@@ -1107,19 +1169,31 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                         } else {
                             if (PPApplication.mobileCellsScanner != null) {
                                 int registeredCell = PPApplication.mobileCellsScanner.getRegisteredCell(0);
+                                long registeredCellLong = PPApplication.mobileCellsScanner.getRegisteredCellLong(0);
                                 long lastConnectedTime = PPApplication.mobileCellsScanner.getLastConnectedTime(0);
                                 for (MobileCellsData cell : _cellsList) {
-                                    if (cell.cellId == registeredCell) {
-                                        cell.connected = true;
-                                        _registeredCellDataDefault = cell;
-                                        _registeredCellInTableDefault = true;
-                                        break;
+                                    if (registeredCell != Integer.MAX_VALUE) {
+                                        if (cell.cellId == registeredCell) {
+                                            cell.connected = true;
+                                            _registeredCellDataDefault = cell;
+                                            _registeredCellInTableDefault = true;
+                                            break;
+                                        }
+                                    } else  if (registeredCellLong != Long.MAX_VALUE) {
+                                        if (cell.cellIdLong == registeredCellLong) {
+                                            cell.connected = true;
+                                            _registeredCellDataDefault = cell;
+                                            _registeredCellInTableDefault = true;
+                                            break;
+                                        }
                                     }
                                 }
-                                if (!_registeredCellInTableDefault && MobileCellsScanner.isValidCellId(registeredCell) /*&&
+                                if (!_registeredCellInTableDefault && MobileCellsScanner.isValidCellId(registeredCell, registeredCellLong) /*&&
                                         (!_cellName.isEmpty())*/) {
                                     //synchronized (PPApplication.mobileCellsScannerMutex) {
-                                    _registeredCellDataDefault = new MobileCellsData(registeredCell,
+                                    _registeredCellDataDefault = new MobileCellsData(
+                                            registeredCell,
+                                            registeredCellLong,
                                             ""/*_cellName*/, true, true,
                                             lastConnectedTime//,
                                             //MobileCellsScanner.lastRunningEventsNotOutside,
@@ -1202,7 +1276,14 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             // add only cell in _value = selected for edited event
                             String[] splits = _value.split(StringConstants.STR_SPLIT_REGEX);
                             for (String cell : splits) {
-                                if (cell.equals(Integer.toString(cellData.cellId))) {
+                                boolean cellIdEquals = false;
+                                long vCellId = Long.parseLong(cell);
+                                if (vCellId <= Integer.MAX_VALUE)
+                                    cellIdEquals = (vCellId != Integer.MAX_VALUE) && (vCellId == cellData.cellId);
+                                else if (vCellId != Long.MAX_VALUE)
+                                    cellIdEquals = vCellId == cellData.cellIdLong;
+
+                                if (cellIdEquals) {
                                     _filteredCellsList.add(cellData);
                                     break;
                                 }
@@ -1273,6 +1354,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                         if (_registeredCellDataSIM1 != null) {
                             preference.registeredCellDataSIM1 = new MobileCellsData(
                                     _registeredCellDataSIM1.cellId,
+                                    _registeredCellDataSIM1.cellIdLong,
                                     _registeredCellDataSIM1.name,
                                     _registeredCellDataSIM1.connected,
                                     _registeredCellDataSIM1._new,
@@ -1289,6 +1371,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                         if (_registeredCellDataSIM2 != null) {
                             preference.registeredCellDataSIM2 = new MobileCellsData(
                                     _registeredCellDataSIM2.cellId,
+                                    _registeredCellDataSIM2.cellIdLong,
                                     _registeredCellDataSIM2.name,
                                     _registeredCellDataSIM2.connected,
                                     _registeredCellDataSIM2._new,
@@ -1305,6 +1388,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                     if (_registeredCellDataDefault != null) {
                         preference.registeredCellDataDefault = new MobileCellsData(
                                 _registeredCellDataDefault.cellId,
+                                _registeredCellDataDefault.cellIdLong,
                                 _registeredCellDataDefault.name,
                                 _registeredCellDataDefault.connected,
                                 _registeredCellDataDefault._new,
@@ -1333,7 +1417,10 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             //    cellFlags = cellFlags + "C";
                             if (!cellFlags.isEmpty())
                                 connectedCellName = connectedCellName + "(" + cellFlags + ") ";
-                            connectedCellName = connectedCellName + preference.registeredCellDataSIM1.cellId;
+                            if (preference.registeredCellDataSIM1.cellId != Integer.MAX_VALUE)
+                                connectedCellName = connectedCellName + preference.registeredCellDataSIM1.cellId;
+                            else if (preference.registeredCellDataSIM1.cellIdLong != Long.MAX_VALUE)
+                                connectedCellName = connectedCellName + preference.registeredCellDataSIM1.cellIdLong;
                         }
                         fragment.connectedCellSIM1.setText(connectedCellName);
                         GlobalGUIRoutines.setImageButtonEnabled(
@@ -1358,7 +1445,10 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             //    cellFlags = cellFlags + "C";
                             if (!cellFlags.isEmpty())
                                 connectedCellName = connectedCellName + "(" + cellFlags + ") ";
-                            connectedCellName = connectedCellName + preference.registeredCellDataSIM2.cellId;
+                            if (preference.registeredCellDataSIM2.cellId != Integer.MAX_VALUE)
+                                connectedCellName = connectedCellName + preference.registeredCellDataSIM2.cellId;
+                            else if (preference.registeredCellDataSIM2.cellIdLong != Long.MAX_VALUE)
+                                connectedCellName = connectedCellName + preference.registeredCellDataSIM2.cellIdLong;
                         }
                         fragment.connectedCellSIM2.setText(connectedCellName);
                         GlobalGUIRoutines.setImageButtonEnabled(
@@ -1383,7 +1473,10 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                         //    cellFlags = cellFlags + "C";
                         if (!cellFlags.isEmpty())
                             connectedCellName = connectedCellName + "(" + cellFlags + ") ";
-                        connectedCellName = connectedCellName + preference.registeredCellDataDefault.cellId;
+                        if (preference.registeredCellDataDefault.cellId != Integer.MAX_VALUE)
+                            connectedCellName = connectedCellName + preference.registeredCellDataDefault.cellId;
+                        else if (preference.registeredCellDataDefault.cellIdLong != Long.MAX_VALUE)
+                            connectedCellName = connectedCellName + preference.registeredCellDataDefault.cellIdLong;
                     }
                     fragment.connectedCellDefault.setText(connectedCellName);
                     GlobalGUIRoutines.setImageButtonEnabled(

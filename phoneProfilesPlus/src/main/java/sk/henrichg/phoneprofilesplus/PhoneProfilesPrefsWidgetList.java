@@ -22,6 +22,7 @@ public class PhoneProfilesPrefsWidgetList  extends PhoneProfilesPrefsFragment {
 
     @Override
     void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LAUNCHER, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LAUNCHER_DEFAULT_VALUE));
         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER_DEFAULT_VALUE));
         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT_DEFAULT_VALUE));
         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_COMPACT_GRID, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_COMPACT_GRID, ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_COMPACT_GRID_DEFAULT_VALUE));

@@ -1663,8 +1663,8 @@ class DatabaseHandlerProfiles {
             increaseActivationByUserCount(instance, profile._id);
         }
     }
-
-    static List<Profile> getProfilesForDynamicShortcuts(DatabaseHandler instance/*, boolean counted*/) {
+/*
+    static List<Profile> getProfilesForDynamicShortcuts(DatabaseHandler instance) {
         instance.importExportLock.lock();
         try {
 
@@ -1680,19 +1680,11 @@ class DatabaseHandlerProfiles {
                                                 DatabaseHandler.KEY_ACTIVATION_BY_USER_COUNT +
                                     " FROM " + DatabaseHandler.TABLE_PROFILES;
 
-                /*if (counted) {
-                    selectQuery = selectQuery +
-                            " WHERE " + KEY_ACTIVATION_BY_USER_COUNT + "> 0" +
-                            " ORDER BY " + KEY_ACTIVATION_BY_USER_COUNT + " DESC " +
-                            " LIMIT " + "3"; // 3 shortcuts because first is restart events
-                }
-                else*/ {
-                    selectQuery = selectQuery +
-                            " WHERE " + DatabaseHandler.KEY_SHOW_IN_ACTIVATOR + "=1" +
-                            //" AND " + DatabaseHandler.KEY_ACTIVATION_BY_USER_COUNT + "= 0" +
-                            " ORDER BY " + DatabaseHandler.KEY_PORDER +
-                            " LIMIT " + "3"; // 3 shortcuts because first is restart events
-                }
+                selectQuery = selectQuery +
+                        " WHERE " + DatabaseHandler.KEY_SHOW_IN_ACTIVATOR + "=1" +
+                        //" AND " + DatabaseHandler.KEY_ACTIVATION_BY_USER_COUNT + "= 0" +
+                        " ORDER BY " + DatabaseHandler.KEY_PORDER +
+                        " LIMIT " + "3"; // 3 shortcuts because first is restart events
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = instance.getMyWritableDatabase();
@@ -1751,20 +1743,6 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_ACTIVATION_BY_USER_COUNT +
                         " FROM " + DatabaseHandler.TABLE_PROFILES;
 
-                /*if (counted) {
-                    selectQuery = selectQuery +
-                            //" WHERE " + DatabaseHandler.KEY_ACTIVATION_BY_USER_COUNT + "> 0" +
-                            //" ORDER BY " + DatabaseHandler.KEY_ACTIVATION_BY_USER_COUNT + " DESC " +
-                            " LIMIT " + "3"; // 3 shortcuts because first is restart events
-                }
-                else {
-                    selectQuery = selectQuery +
-                            " WHERE " + DatabaseHandler.KEY_SHOW_IN_ACTIVATOR + "=1" +
-                            " AND " + DatabaseHandler.KEY_ACTIVATION_BY_USER_COUNT + "= 0" +
-                            " ORDER BY " + DatabaseHandler.KEY_PORDER +
-                            " LIMIT " + "3"; // 3 shortcuts because first is restart events
-                }*/
-
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = instance.getMyWritableDatabase();
 
@@ -1782,6 +1760,59 @@ class DatabaseHandlerProfiles {
                             long tiledProfileId = ApplicationPreferences.getQuickTileProfileId(instance.context, i);
                             if (tiledProfileId == profile._id) {
 //                                PPApplicationStatic.logE("DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts", "profile._name="+profile._name);
+                                profileList.add(profile);
+                            }
+                        }
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+                //db.close();
+
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+
+            return profileList;
+
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+*/
+    static List<Profile> getProfilesForDynamicShortcuts2(DatabaseHandler instance) {
+        instance.importExportLock.lock();
+        try {
+
+            List<Profile> profileList = new ArrayList<>();
+
+            try {
+                instance.startRunningCommand();
+
+                // Select All Query
+                String selectQuery = "SELECT " + DatabaseHandler.KEY_ID + "," +
+                        DatabaseHandler.KEY_NAME + "," +
+                        DatabaseHandler.KEY_ICON +
+                        " FROM " + DatabaseHandler.TABLE_PROFILES;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        Profile profile = new Profile();
+                        profile._id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
+                        profile._name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_NAME));
+                        profile._icon = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ICON));
+                        // 4 is max. allowed count of dynamic shortcuts, first is "Restart events"
+                        int limit = 4;
+                        for (int i = 0; i < (limit-1); i++) {
+                            long inShortcutsProfileId = ApplicationPreferences.getDynamicShortcutProfileId(instance.context, i);
+                            if (inShortcutsProfileId == profile._id) {
+//                                PPApplicationStatic.logE("DatabaseHandlerProfiles.getProfilesForDynamicShortcuts2", "profile._name="+profile._name);
                                 profileList.add(profile);
                             }
                         }

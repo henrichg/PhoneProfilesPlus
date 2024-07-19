@@ -209,15 +209,15 @@ class EventsHandler {
                     break;
             }
             switch (ActivateProfileHelper.getSystemZenMode(context)) {
-                case ActivateProfileHelper.ZENMODE_ALARMS:
+                case ActivateProfileHelper.SYSTEM_ZENMODE_ALARMS:
                     oldZenMode = Profile.ZENMODE_ALARMS;
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldZenMode=ALARMS");
                     break;
-                case ActivateProfileHelper.ZENMODE_NONE:
+                case ActivateProfileHelper.SYSTEM_ZENMODE_NONE:
                     oldZenMode = Profile.ZENMODE_NONE;
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldZenMode=NONE");
                     break;
-                case ActivateProfileHelper.ZENMODE_PRIORITY:
+                case ActivateProfileHelper.SYSTEM_ZENMODE_PRIORITY:
                     oldZenMode = Profile.ZENMODE_PRIORITY;
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldZenMode=PRIORITY");
                     break;
@@ -350,7 +350,8 @@ class EventsHandler {
                 // search for calendar events
                 for (Event _event : dataWrapper.eventList) {
                     if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
-                        if (_event._eventPreferencesCalendar.isRunnable(context)) {
+                        if (_event._eventPreferencesCalendar.isRunnable(context) &&
+                            _event._eventPreferencesCalendar.isAllConfigured(context)) {
                             _event._eventPreferencesCalendar.saveCalendarEventExists(dataWrapper);
                             _event._eventPreferencesCalendar.saveStartEndTime(dataWrapper);
                         }
@@ -1021,7 +1022,9 @@ class EventsHandler {
                     }
                     int simSlot = ApplicationPreferences.prefEventCallRunAfterCallEndFromSIMSlot;
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.doEndHandler", "simulateRingingCall="+simulateRingingCall);
-                    if (simulateRingingCall) {
+                    if (simulateRingingCall && (!mergedProfile._volumeMuteSound)) {
+                        // in profile is not enabled mute sound, do simulation
+
                         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
                         // add saved ringer mode, zen mode, ringtone before handle events as parameters
@@ -1034,7 +1037,6 @@ class EventsHandler {
                         //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM1, oldRingtoneSIM1);
                         //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM2, oldRingtoneSIM2);
                         //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
-
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINGER_MODE, mergedProfile._volumeRingerMode);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_ZEN_MODE, mergedProfile._volumeZenMode);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINGER_VOLUME, mergedProfile._volumeRingtone);
@@ -1044,8 +1046,8 @@ class EventsHandler {
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINGTONE_SIM1, mergedProfile._soundRingtoneSIM1);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINTONE_CHANGE_SIM2, mergedProfile._soundRingtoneChangeSIM2);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINGTONE_SIM2, mergedProfile._soundRingtoneSIM2);
-
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_CALL_FROM_SIM_SLOT, simSlot);
+
                         PPApplicationStatic.runCommand(context, commandIntent);
                     }
                 } catch (Exception e) {

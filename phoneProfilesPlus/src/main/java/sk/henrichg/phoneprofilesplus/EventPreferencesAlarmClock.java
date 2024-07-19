@@ -172,6 +172,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesAlarmClock.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesAlarmClock.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesAlarmClock.isAllConfigured(context);;
         boolean enabled = preferences.getBoolean(PREF_EVENT_ALARM_CLOCK_ENABLED, false);
         Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_APPLICATIONS);
         if (applicationsPreference != null) {
@@ -244,7 +245,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_ALARM_CLOCK).isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && tmp.isAllConfigured(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
                 else
@@ -315,7 +316,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
         removeAlarm(context);
 
-        if (!(isRunnable(context) && _enabled))
+        if (!(isRunnable(context) && isAllConfigured(context) && _enabled))
             return;
 
         setAlarm(computeAlarm(), context);

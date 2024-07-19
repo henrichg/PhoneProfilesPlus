@@ -4,7 +4,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <string name="menu_edit_profiles">Редактор</string>
     <string name="menu_settings">Налаштування</string>
-    <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
     <string name="title_activity_profile_preferences">Налаштування профілю</string>
     <string name="title_activity_event_preferences">Налаштування події</string>
     <string name="menu_new_profile">Новий профіль</string>
@@ -264,7 +263,7 @@
     <string name="event_name_background_profile">Стандартно налаштований профіль</string>
     <string name="array_pref_zenModeArray_priority">Важливі</string>
     <string name="preference_profile_adaptiveBrightness">Адаптивна</string>
-    <string name="profile_preferences_deviceKeyguard">Unlock device</string>
+    <string name="profile_preferences_deviceKeyguard">Розблокувати пристрій</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Приховати назву профілю</string>
     <string name="array_pref_afterProfileDurationDo_restartEvents">Перезапустити події</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Не під’єднано</string>
@@ -885,7 +884,6 @@
     <string name="array_pref_auto_rotate_on">Автоматичне обертання увімкнуто</string>
     <string name="array_pref_auto_rotate_off">Автоматичне обертання вимкнуто</string>
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">Зміна адаптивного рівня може не працювати на Вашому пристрої (наприклад: пристрої Samsung).</string>
-    <string name="about_application_xda_developers_community">XDA-developers спільнота:</string>
     <string name="mobile_cells_pref_dlg_connected_cell">Під’єднані вежі:</string>
     <string name="permissions_for_mobile_cells_registration_dialog_text1">Реєстрація стільникових веж потребує дозволів.</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Кількість нових веж:</string>
@@ -987,8 +985,6 @@
     <string name="important_info_email_body_problems">Проблеми:</string>
     <string name="important_info_email_body_questions">Запитання:</string>
     <string name="important_info_email_body_suggestions">Пропозиції:</string>
-    <string name="about_application_support">Підтримка:</string>
-    <string name="about_application_support2">звʼязок:</string>
     <string name="about_application_support_subject">підтримка</string>
     <string name="dashclock_extension_description">Показує активний профіль з індикатором налаштувань. Відкриває Активатор при торканні.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Використовуйте світлість іконки для іконок профілю користувача</string>
@@ -1932,7 +1928,7 @@
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings не встановлено!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">не встановлено PPPPutSettings</string>
     <string name="about_application_pppps_source_code">Початковий код - PPPPutSettings:</string>
-    <string name="profile_preferences_notificationLed_23">(S)(R) LED Сповіщення</string>
+    <string name="profile_preferences_notificationLed_23">LED Сповіщення</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Завжди на екрані</string>
     <string name="samsung_edge_panel_settings_description">Налаштування панелі Samsung edge</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Компактна сітка</string>
@@ -2183,8 +2179,36 @@
     <string name="install_pppps_text16">4. В InstallWithOptions позначте: \"Bypass Low Target SDK Block\", \"Replace existing\".</string>
     <string name="install_pppps_text17">5. В InstallWithOptions натисніть \"Виберіть файл\" та оберіть завантажений PPPPutSettings.apk.</string>
     <string name="install_pppps_text18">6. В InstallWithOptions натисніть \"Встановити\".</string>
-    <string name="profile_preferences_deviceImageWallpaperLockscreen">Image wallpaper for lock screen</string>
+    <string name="profile_preferences_deviceImageWallpaperLockscreen">Шпалери екрану блокування</string>
     <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs">(Z)(R) Діалоги підтвердження Wi-Fi та Bluetooth</string>
     <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary">Для \"HyperOS\" можливо вимкнути ці діалоги. Натисніть тут, щоб вимкнути їх. ПРИМІТКА: Потрібне Shizuku/root.</string>
     <string name="profile_preferences_deviceWallpaperHuaweiInfo">Huawei пристрої мають помилку і тому можуть працювати неналежним чином всі неінтерактивні типи.</string>
+    <string name="menu_check_releases_neostore">Перевірити в Neo Store</string>
+    <string name="check_releases_open_neostore">Відкрити Neo Store</string>
+    <string name="check_releases_neostore_ppp_release">PhoneProfilesPlus в Neo Store:</string>
+    <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary_api29">Будь ласка, увімкніть Місцеперебування і сканування Wi-Fi в Налаштуваннях пристрою. Без цього датчик не працюватиме.</string>
+    <string name="download_installWithOptions_title">Завантажити InstallWithOptions.apk</string>
+    <string name="download_pppps_title">Завантаження PPPPutSettings.apk</string>
+    <string name="downloading_file_description">Файл буде збережено в теці Завантаження</string>
+    <string name="event_preferences_not_all_parameters_are_configured">Деякі параметри не налаштовано!</string>
+    <string name="event_preferences_not_all_parameters_are_configured_summary">Ці параметри мають бути налаштовані обов\'язково для належного функціонування подій.</string>
+    <string name="downloading_toast_text">Завантажується…</string>
+    <string name="phone_profiles_pref_category_widget_dash_clock">Віджет: Dash Clock</string>
+    <string name="phone_profiles_pref_widget_dash_clock_info">Інформація про Dash Clock</string>
+    <string name="phone_profiles_pref_widget_dash_clock_info_summary">Натисніть тут щоб побачити інформацію про віджет Dash Clock.</string>
+    <string name="dash_clock_widget_info_1">Віджет Dash є застарілим і його немає в Google Play, але є можливим встановлення останньої версії з APKMirror.</string>
+    <string name="dash_clock_widget_info_2">Dash Clock Widget GitHub:</string>
+    <string name="dash_clock_widget_info_3">APKMirror завантаження:</string>
+    <string name="shortcut_to_editor_dialog_title">Ярлик редактора</string>
+    <string name="shortcut_to_mobile_cells_scanning_dialog_title">Ярлик для \"Сканування мобільних веж\"</string>
+    <string name="shortcut_to_read_nfc_tag_dialog_title">Ярлик \"Зчитати NFC мітку\"</string>
+    <string name="shortcut_to_dialog_lablel">Назва іконки ярлика:</string>
+    <string name="shortcut_to_dialog_create_button">Створити</string>
+    <string name="mobile_cells_scanning_short_shortcut_name">Сканування стільникових веж</string>
+    <string name="read_nfc_tag_short_shortcut_name">Прочитати мітку</string>
+    <string name="profile_preferences_volumeMergedRingSyatemVolumeInfo_summary">Більшість пристроїв мають об\'єднану \"Гучність дзвінка\" та \"Гучність системи\". Такі пристрої не мають опції для налаштування \"Гучності системи\". З цієї причини рекомендовано налаштувати \"Гучність дзвінка\", коли налаштовано \"Гучність системи\" або не налаштовувати \"Гучність системи\".</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_title">SIM увім/вимк</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_summary">УВАГА: Буде потрібно ввести ПІН код для SIM карти яка буде увімкнута.</string>
+    <string name="menu_discord_server">PhoneProfilesPlus сервер</string>
+    <string name="menu_discord_invitation">Запрошення до сервера PhoneProfilesPlus</string>
 </resources>

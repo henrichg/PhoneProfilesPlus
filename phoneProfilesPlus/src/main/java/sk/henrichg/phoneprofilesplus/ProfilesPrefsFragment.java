@@ -630,8 +630,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             PPListPreference listPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
             if (listPreference != null)
             {
-                listPreference.setTitle(StringConstants.STR_PPPPS_ROOT+getString(R.string.profile_preferences_vibrateWhenRinging));
-                listPreference.setDialogTitle(StringConstants.STR_PPPPS_ROOT+getString(R.string.profile_preferences_vibrateWhenRinging));
+                listPreference.setTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT+getString(R.string.profile_preferences_vibrateWhenRinging));
+                listPreference.setDialogTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT+getString(R.string.profile_preferences_vibrateWhenRinging));
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, "");
                 setSummary(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, value);
             }
@@ -654,8 +654,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))) {
                 if (vibrateNotificationsPreference != null) {
-                    vibrateNotificationsPreference.setTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_vibrateNotifications));
-                    vibrateNotificationsPreference.setDialogTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_vibrateNotifications));
+                    vibrateNotificationsPreference.setTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrateNotifications));
+                    vibrateNotificationsPreference.setDialogTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrateNotifications));
                     String value = preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, "");
                     setSummary(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, value);
                 }
@@ -675,22 +675,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             VibrationIntensityPreference vibrationIntensityPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING);
             if (vibrationIntensityPreference != null) {
-                vibrationIntensityPreference.setTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_vibrationIntensityRinging));
-                vibrationIntensityPreference.setDialogTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_vibrationIntensityRinging));
+                vibrationIntensityPreference.setTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrationIntensityRinging));
+                vibrationIntensityPreference.setDialogTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrationIntensityRinging));
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, "-1|1");
                 setSummary(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, value);
             }
             vibrationIntensityPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS);
             if (vibrationIntensityPreference != null) {
-                vibrationIntensityPreference.setTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_vibrationIntensityNotificatiions));
-                vibrationIntensityPreference.setDialogTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_vibrationIntensityNotificatiions));
+                vibrationIntensityPreference.setTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrationIntensityNotificatiions));
+                vibrationIntensityPreference.setDialogTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrationIntensityNotificatiions));
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, "-1|1");
                 setSummary(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, value);
             }
             vibrationIntensityPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION);
             if (vibrationIntensityPreference != null) {
-                vibrationIntensityPreference.setTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_vibrationIntensityTouchInteraction));
-                vibrationIntensityPreference.setDialogTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_vibrationIntensityTouchInteraction));
+                vibrationIntensityPreference.setTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrationIntensityTouchInteraction));
+                vibrationIntensityPreference.setDialogTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrationIntensityTouchInteraction));
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, "-1|1");
                 setSummary(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, value);
             }
@@ -1004,8 +1004,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
         }
 
+        PPListPreference notificationLEDPreference = findPreference(Profile.PREF_PROFILE_NOTIFICATION_LED);
+        if (notificationLEDPreference != null) {
+            notificationLEDPreference.setTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_notificationLed_23));
+            notificationLEDPreference.setDialogTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_notificationLed_23));
+            String value = preferences.getString(Profile.PREF_PROFILE_NOTIFICATION_LED, "");
+            setSummary(Profile.PREF_PROFILE_NOTIFICATION_LED, value);
+        }
         preference = findPreference(PREF_NOTIFICATION_LED_INFO);
         if (preference != null) {
+            preference.setTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_notificationLed_23));
+            //preference.setDialogTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrationIntensityTouchInteraction));
+            //String value = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, "-1|1");
+            //setSummary(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, value);
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, preferences, true, context);
             preference.setEnabled((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
@@ -1178,8 +1189,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (listPreference != null) {
                             PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, preferences, true, context);
 
-                            listPreference.setTitle(StringConstants.STR_PPPPS_ROOT+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
-                            listPreference.setDialogTitle(StringConstants.STR_PPPPS_ROOT+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
+                            listPreference.setTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
+                            listPreference.setDialogTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
                             String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "");
                             setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, value);
 
@@ -1195,8 +1206,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (ringtonePreference != null) {
                             PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, null, preferences, true, context);
 
-                            ringtonePreference.setTitle(StringConstants.STR_PPPPS_ROOT+getString(R.string.profile_preferences_soundNotificationSIM1));
-                            ringtonePreference.setDialogTitle(StringConstants.STR_PPPPS_ROOT+getString(R.string.profile_preferences_soundNotificationSIM1));
+                            ringtonePreference.setTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT+getString(R.string.profile_preferences_soundNotificationSIM1));
+                            ringtonePreference.setDialogTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT+getString(R.string.profile_preferences_soundNotificationSIM1));
                             String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, "");
                             setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, value);
 
@@ -1217,8 +1228,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 listPreference.setTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
                                 listPreference.setDialogTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
                             } else {
-                                listPreference.setTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
-                                listPreference.setDialogTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+                                listPreference.setTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+                                listPreference.setDialogTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
                             }
                             String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "");
                             setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, value);
@@ -1239,8 +1250,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ringtonePreference.setTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
                                 ringtonePreference.setDialogTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
                             } else {
-                                ringtonePreference.setTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
-                                ringtonePreference.setDialogTitle(StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
+                                ringtonePreference.setTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
+                                ringtonePreference.setDialogTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_soundNotificationSIM2));
                             }
                             String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, "");
                             setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, value);
@@ -1399,8 +1410,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         else {
             PPListPreference listPreference = findPreference(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS);
             if (listPreference != null) {
-                listPreference.setTitle(StringConstants.STR_PPPPS_ROOT+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
-                listPreference.setDialogTitle(StringConstants.STR_PPPPS_ROOT+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
+                listPreference.setTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
+                listPreference.setDialogTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
                 String value = preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, "");
                 setSummary(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, value);
             }
@@ -2224,11 +2235,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     if (!((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                                             PPApplication.deviceIsOnePlus)) {
                                         if (key.equals(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING))
-                                            title = StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_vibrationIntensityRinging);
+                                            title = StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrationIntensityRinging);
                                         else if (key.equals(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS))
-                                            title = StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_vibrationIntensityNotificatiions);
+                                            title = StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrationIntensityNotificatiions);
                                         else/* if (key.equals(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION))*/
-                                            title = StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_vibrationIntensityTouchInteraction);
+                                            title = StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrationIntensityTouchInteraction);
                                     } else
                                         title = getString(preferenceTitleId);
                                 }
@@ -2238,9 +2249,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) &&
                                             ((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
                                                     PPApplication.deviceIsOnePlus))
-                                        title = StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_vibrateWhenRinging);
+                                        title = StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrateWhenRinging);
                                     else if (key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS))
-                                        title = StringConstants.STR_PPPPS_ROOT + getString(R.string.profile_preferences_vibrateNotifications);
+                                        title = StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrateNotifications);
                                     else if (key.equals(Profile.PREF_PROFILE_DURATION))
                                         title = context.getString(R.string.profile_preferences_duration);
                                     else
@@ -4958,8 +4969,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 String summary;
+
+                int forceMergeValue = ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes;
+                String[] valuesArray = getResources().getStringArray(R.array.forceSetMergeRingNotificationVolumesValues);
+                String[] labelsArray = getResources().getStringArray(R.array.forceSetMergeRingNotificationVolumesArray);
+                int setVolumeLinkIndex = 0;
+                for (String _value : valuesArray) {
+                    if (_value.equals(String.valueOf(forceMergeValue))) {
+                        break;
+                    }
+                    ++setVolumeLinkIndex;
+                }
+
                 boolean bold = false;
-                if (ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
+                if ((ApplicationPreferences.prefMergedRingNotificationVolumes || (setVolumeLinkIndex == 1)) &&
+                        ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
                     summary = getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled);
                     bold = true;
                 }
@@ -4967,17 +4991,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     summary = getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled);
 
                 summary = summary + StringConstants.CHAR_NEW_LINE + getString(R.string.phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes) + ": ";
-                int forceMergeValue = ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes;
-                String[] valuesArray = getResources().getStringArray(R.array.forceSetMergeRingNotificationVolumesValues);
-                String[] labelsArray = getResources().getStringArray(R.array.forceSetMergeRingNotificationVolumesArray);
-                int index = 0;
-                for (String _value : valuesArray) {
-                    if (_value.equals(String.valueOf(forceMergeValue))) {
-                        summary = summary + labelsArray[index];
-                        break;
-                    }
-                    ++index;
-                }
+                summary = summary + labelsArray[setVolumeLinkIndex];
 
                 if (!ApplicationPreferences.prefMergedRingNotificationVolumes)
                     // detection of volumes merge = volumes are not merged
@@ -8199,21 +8213,44 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 }
                             }
                             if (preference != null) {
-                                int stringRes = R.string.preferences_not_installed_PPPPutSettings_title;
-                                String _title = order + ". " + context.getString(stringRes);
-                                ++order;
-                                Spannable title = new SpannableString(_title);
-                                title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
-                                preference.setTitle(title);
-                                _title = context.getString(R.string.event_preferences_red_install_PPPExtender);
-                                Spannable summary = new SpannableString(_title);
-                                summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
-                                preference.setSummary(summary);
+                                /*int shizukuInstalled = ActivateProfileHelper.isShizukuInstalled(context);
+                                Log.e("ProfilePreferenceFragment.SetRedTextToPreferencesAsyncTask", "shizukuInstalled="+shizukuInstalled);
+                                if (shizukuInstalled != 0) {
+                                    if (!ShizukuUtils.hasShizukuPermission()) {
+                                        // Shizuku is installed but not started
+                                        String _title;
+                                        _title = order + ". " + context.getString(R.string.preferences_grantShizukuPreferences_title);
+                                        ++order;
+                                        Spannable title = new SpannableString(_title);
+                                        title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
+                                        preference.setTitle(title);
+                                        Spannable summary;
+                                        summary = new SpannableString(context.getString(R.string.preferences_grantShizukuPreferences_summary));
+                                        summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
+                                        preference.setSummary(summary);
 
-                                preference.setOnPreferenceClickListener(preference15 -> {
-                                    PPPPSDialogPreferenceFragment.installPPPPutSettings(activity, null, false);
-                                    return false;
-                                });
+                                        preference.setOnPreferenceClickListener(preference12 -> {
+                                            Permissions.grantShizukuPermission(fragment, activity);
+                                            return false;
+                                        });
+                                    }
+                                } else {*/
+                                    int stringRes = R.string.preferences_not_installed_PPPPutSettings_title;
+                                    String _title = order + ". " + context.getString(stringRes);
+                                    ++order;
+                                    Spannable title = new SpannableString(_title);
+                                    title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
+                                    preference.setTitle(title);
+                                    _title = context.getString(R.string.event_preferences_red_install_PPPExtender);
+                                    Spannable summary = new SpannableString(_title);
+                                    summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
+                                    preference.setSummary(summary);
+
+                                    preference.setOnPreferenceClickListener(preference15 -> {
+                                        PPPPSDialogPreferenceFragment.installPPPPutSettings(activity, null, false);
+                                        return false;
+                                    });
+                                //}
                             }
                         }
                     }

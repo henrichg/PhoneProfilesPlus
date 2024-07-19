@@ -38,6 +38,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     private static RemoteViews buildLayout(Context context, /*AppWidgetManager appWidgetManager,*/ int appWidgetId, /*boolean largeLayout,*/ DataWrapper dataWrapper)
     {
+        String applicationWidgetListLauncher;
         boolean applicationWidgetListHeader;
         boolean applicationWidgetListGridLayout;
         boolean applicationWidgetListCompactGrid;
@@ -63,6 +64,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetProvider.buildLayout", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
 
+            applicationWidgetListLauncher = ApplicationPreferences.applicationWidgetListLauncher;
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
             applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout;
             applicationWidgetListCompactGrid = ApplicationPreferences.applicationWidgetListCompactGrid;
@@ -760,10 +762,16 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             Intent intent = new Intent(context, EditorActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             */
-        Intent intent = GlobalGUIRoutines.getIntentForStartupSource(context, PPApplication.STARTUP_SOURCE_WIDGET);
+        //Intent intent = GlobalGUIRoutines.getIntentForStartupSource(context, PPApplication.STARTUP_SOURCE_WIDGET);
+        Intent intent;
+        if (applicationWidgetListLauncher.equals(StringConstants.EXTRA_ACTIVATOR))
+            intent = new Intent(context.getApplicationContext(), ActivatorActivity.class);
+        else
+            intent = new Intent(context.getApplicationContext(), EditorActivity.class);
         // clear all opened activities
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_WIDGET_HEADER);
+        //intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_WIDGET_HEADER);
+        intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         widget.setOnClickPendingIntent(R.id.widget_profile_list_header_profile_root, pendingIntent);

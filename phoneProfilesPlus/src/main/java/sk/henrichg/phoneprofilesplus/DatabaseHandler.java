@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2522;
+    static final int DATABASE_VERSION = 2523;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -488,6 +488,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Mobile cells Columns names
     static final String KEY_MC_ID = "_id";
     static final String KEY_MC_CELL_ID = "cellId";
+    static final String KEY_MC_CELL_ID_LONG = "cellIdLong";
     static final String KEY_MC_NAME = "name";
     static final String KEY_MC_NEW = "new";
     static final String KEY_MC_LAST_CONNECTED_TIME = "lastConnectedTime";
@@ -889,12 +890,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerProfiles.increaseActivationByUserCount(this, profile);
     }
 
-    List<Profile> getProfilesForDynamicShortcuts(/*boolean counted*/) {
+/*
+    List<Profile> getProfilesForDynamicShortcuts() {
         return DatabaseHandlerProfiles.getProfilesForDynamicShortcuts(this);
     }
 
     List<Profile> getProfilesInQuickTilesForDynamicShortcuts() {
         return DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts(this);
+    }
+*/
+
+    List<Profile> getProfilesForDynamicShortcuts2() {
+        return DatabaseHandlerProfiles.getProfilesForDynamicShortcuts2(this);
     }
 
     void updateProfileShowInActivator(Profile profile) {
@@ -1267,8 +1274,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 // MOBILE_CELLS ----------------------------------------------------------------------
 
     // add mobile cells to list
-    void addMobileCellsToList(List<MobileCellsData> cellsList, int onlyCellId) {
-        DatabaseHandlerEvents.addMobileCellsToList(this, cellsList, onlyCellId, false);
+    void addMobileCellsToList(List<MobileCellsData> cellsList, int onlyCellId, long onlyCellIdLong) {
+        DatabaseHandlerEvents.addMobileCellsToList(this, cellsList, onlyCellId, onlyCellIdLong, false);
     }
 
     /** @noinspection SameParameterValue*/
@@ -1280,12 +1287,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return DatabaseHandlerEvents.renameMobileCellsList(this, cellsList, cellName, _new, selectedIds);
     }
 
-    void deleteMobileCell(int mobileCell) {
-        DatabaseHandlerEvents.deleteMobileCell(this, mobileCell, false);
+    void deleteMobileCell(int mobileCell, long mobileCellLong) {
+        DatabaseHandlerEvents.deleteMobileCell(this, mobileCell, mobileCellLong, false);
     }
 
-    void updateMobileCellLastConnectedTime(int mobileCell, long lastConnectedTime) {
-        DatabaseHandlerEvents.updateMobileCellLastConnectedTime(this, mobileCell, lastConnectedTime);
+    void updateMobileCellLastConnectedTime(int mobileCell, long mobileCellLong, long lastConnectedTime) {
+        DatabaseHandlerEvents.updateMobileCellLastConnectedTime(this, mobileCell, mobileCellLong, lastConnectedTime);
     }
 
     void setAllMobileCellsAsOld() {
@@ -1310,8 +1317,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    boolean isMobileCellSaved(int mobileCell) {
-        return DatabaseHandlerEvents.isMobileCellSaved(this, mobileCell);
+    boolean isMobileCellSaved(int mobileCell, long mobileCellLong) {
+        return DatabaseHandlerEvents.isMobileCellSaved(this, mobileCell, mobileCellLong);
     }
 
     void loadMobileCellsSensorEvents(List<MobileCellsSensorEvent> eventList/*, boolean outsideParameter*/) {

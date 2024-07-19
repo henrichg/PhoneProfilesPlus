@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.DownloadManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -139,6 +140,8 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR = "unregister_receivers_for_sms_sensor";
     static final String EXTRA_DISABLE_NOT_USED_SCANNERS = "disable_not_used_scanners";
 
+    static final String EXTRA_START_FOR_SHIZUKU_START = "start_for_shizuku_start";
+
     //static final String EXTRA_SHOW_TOAST = "show_toast";
 
     static final int START_FOR_EXTERNAL_APP_PROFILE = 1;
@@ -156,7 +159,7 @@ public class PhoneProfilesService extends Service
 
     private final Shizuku.OnBinderReceivedListener BINDER_RECEIVED_LISTENER = () -> {
         if (!Shizuku.isPreV11()) {
-//            Log.e("PhoneProfilesService.BINDER_RECEIVED_LISTENER", "xxx");
+            PPApplicationStatic.logE("PhoneProfilesService.BINDER_RECEIVED_LISTENER", "*** Shizuku started ***");
 
             RootUtils.initRoot();
 
@@ -168,6 +171,54 @@ public class PhoneProfilesService extends Service
             RootUtils.getServicesList();
             ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(getApplicationContext());
             Permissions.setHyperOSWifiBluetoothDialogAppOp();
+
+            // do activate profile/restart events aso for first start
+            Data workData = new Data.Builder()
+                    .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true)
+
+                    .putBoolean(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APPLICATION, false)
+                    .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION, "")
+                    .putInt(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE, 0)
+                    .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE, "")
+
+                    .putBoolean(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, true)
+
+                    //.putBoolean(PhoneProfilesService.EXTRA_SHOW_TOAST, serviceIntent != null)
+                    .build();
+
+//            PPApplicationStatic.logE("[MAIN_WORKER_CALL] PhoneProfilesService.doForFirstStart", "xxxxxxxxxxxxxxxxxxxx");
+
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
+                            .addTag(PPApplication.AFTER_SHIZUKU_START_WORK_TAG)
+                            .setInputData(workData)
+
+                            .setInitialDelay(10, TimeUnit.SECONDS)
+
+                            .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                            .build();
+            try {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
+
+//                                        //if (PPApplicationStatic.logEnabled()) {
+//                                        ListenableFuture<List<WorkInfo>> statuses;
+//                                        statuses = workManager.getWorkInfosForUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
+//                                        try {
+//                                            List<WorkInfo> workInfoList = statuses.get();
+//                                        } catch (Exception ignored) {
+//                                        }
+//                                        //}
+
+//                      PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doFirstStart", "keepResultsForAtLeast");
+                    //workManager.enqueue(worker);
+                    // !!! MUST BE APPEND_OR_REPLACE FOR EXTRA_START_FOR_EXTERNAL_APPLICATION !!!
+                    workManager.enqueueUniqueWork(PPApplication.AFTER_SHIZUKU_START_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                }
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+
         }
     };
 
@@ -246,6 +297,13 @@ public class PhoneProfilesService extends Service
         Shizuku.addBinderReceivedListenerSticky(BINDER_RECEIVED_LISTENER);
         LocalBroadcastManager.getInstance(appContext).registerReceiver(commandReceiver, new IntentFilter(ACTION_COMMAND));
 
+        int downoladReceiverFlags = 0;
+        if (Build.VERSION.SDK_INT >= 34)
+            downoladReceiverFlags = RECEIVER_EXPORTED;  // !!! it must be exported for DownloadManager
+        appContext.registerReceiver(PPApplication.downloadCompletedBroadcastReceiver,
+                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), downoladReceiverFlags);
+
+        /*
         if (Build.VERSION.SDK_INT < 31) {
             IntentFilter intentFilter5 = new IntentFilter();
             intentFilter5.addAction(PPAppNotification.ACTION_START_LAUNCHER_FROM_NOTIFICATION);
@@ -254,6 +312,7 @@ public class PhoneProfilesService extends Service
             //    receiverFlags = RECEIVER_NOT_EXPORTED;
             appContext.registerReceiver(PPApplication.startLauncherFromNotificationReceiver, intentFilter5, receiverFlags);
         }
+        */
 
         //appContext.registerReceiver(PPApplication.showProfileNotificationBroadcastReceiver, new IntentFilter(PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION));
         //appContext.registerReceiver(PPApplication.updateGUIBroadcastReceiver, new IntentFilter(PPApplication.ACTION_UPDATE_GUI));
@@ -385,11 +444,17 @@ public class PhoneProfilesService extends Service
         PhoneProfilesServiceStatic.registerPPPExtenderReceiver(false, null, appContext);
         PhoneProfilesServiceStatic.unregisterEventsReceiversAndWorkers(true, appContext);
 
+        try {
+            appContext.unregisterReceiver(PPApplication.downloadCompletedBroadcastReceiver);
+        } catch (Exception ignored) {}
+
+        /*
         if (Build.VERSION.SDK_INT < 31) {
             try {
                 appContext.unregisterReceiver(PPApplication.startLauncherFromNotificationReceiver);
             } catch (Exception ignored) {}
         }
+        */
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.refreshActivitiesBroadcastReceiver);
         } catch (Exception ignored) {}
@@ -506,6 +571,7 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
+        PPApplicationStatic.setApplicationStopping(getApplicationContext(), false);
         //final boolean oldServiceHasFirstStart = PPApplication.serviceHasFirstStart;
         serviceHasFirstStart = true;
         PPApplicationStatic.setApplicationStarted(getApplicationContext(), true);
@@ -681,12 +747,13 @@ public class PhoneProfilesService extends Service
                     PPApplicationStatic.logE("PhoneProflesService.doForFirstStart - handler", "__activateProfiles=" + __activateProfiles);
                 }
 
+                // TODO remove for release
                 /*if (PPApplicationStatic.logEnabled()) {
-                    // get list of TRANSACTIONS for "phone"
-                    Object serviceManager = PPApplication.getServiceManager("phone");
+                    // get list of TRANSACTIONS
+                    Object serviceManager = RootUtils.getServiceManager("isub");
                     if (serviceManager != null) {
                         // only log it
-                        PPApplication.getTransactionCode(String.valueOf(serviceManager), "");
+                        RootUtils.getTransactionCode(String.valueOf(serviceManager), "");
                     }
                 }*/
 
@@ -724,7 +791,7 @@ public class PhoneProfilesService extends Service
                 //GlobalGUIRoutines.setLanguage(appContext);
                 GlobalGUIRoutines.switchNightMode(appContext, true);
 
-                DataWrapperStatic.setDynamicLauncherShortcuts(appContext);
+                DataWrapperStatic.setDynamicLauncherShortcuts(appContext, false);
 
                 PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart - handler", "application not started, start it");
 
@@ -1010,6 +1077,7 @@ public class PhoneProfilesService extends Service
                             .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION, _startForExternalAppAction)
                             .putInt(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE, _startForExternalAppDataType)
                             .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE, _startForExternalAppDataValue)
+                            .putBoolean(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false)
                             //.putBoolean(PhoneProfilesService.EXTRA_SHOW_TOAST, serviceIntent != null)
                             .build();
 
@@ -1669,6 +1737,19 @@ public class PhoneProfilesService extends Service
 
                 }
                 */
+
+                if (actualVersionCode <= 7145) {
+                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+
+                    String widgetLauncher = preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER,
+                                                ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER_DEFAULT_VALUE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LAUNCHER, widgetLauncher);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LAUNCHER, widgetLauncher);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LAUNCHER, widgetLauncher);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_DASH_CLOCK_LAUNCHER, widgetLauncher);
+                    editor.apply();
+                }
 
             }
 

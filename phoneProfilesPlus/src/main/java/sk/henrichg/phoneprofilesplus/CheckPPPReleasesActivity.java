@@ -161,6 +161,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         //boolean galaxyStoreInstalled = (intent != null);
         intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
         boolean appGalleryInstalled = (intent != null);
+        intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+        boolean neostoreInstalled = (intent != null);
 
         boolean displayed = false;
 
@@ -206,6 +208,11 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             checkInDroidIfy(activity, false);
             displayed = true;
         }
+        else
+        if (store == R.id.menu_check_in_neostore) {
+            checkInNeoStore(activity);
+            displayed = true;
+        }
 
         if (!displayed) {
             if (store == -1) {
@@ -223,6 +230,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 //                        checkInAmazonAppstore(activity);
                     else if (droidifyInstalled)
                         checkInDroidIfy(activity, false);
+                    else if (neostoreInstalled)
+                        checkInNeoStore(activity);
                     else if (fdroidInstalled)
                         checkInFDroid(activity);
                     else {
@@ -377,20 +386,61 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         if (!refreshOpenedDialog) {
             dialogBuilder.setPositiveButton(buttonText, (dialog, which) -> {
                 String url;
-                if (newVersionDataExists)
+                if (newVersionDataExists) {
                     url = PPApplication.GITHUB_PPP_DOWNLOAD_URL;
                     //url = PPApplication.GITHUB_PPP_DOWNLOAD_URL_1 + newVersionName + PPApplication.GITHUB_PPP_DOWNLOAD_URL_2;
-                else
+
+                    //if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        try {
+                            activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                        activity.finish();
+                    /*} else {
+                        try {
+                            String textToast = activity.getString(R.string.downloading_toast_text);
+                            PPApplication.showToast(activity.getApplicationContext(), textToast, Toast.LENGTH_LONG);
+
+                            Uri Download_Uri = Uri.parse(url);
+                            DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+
+                            //Restrict the types of networks over which this download may proceed.
+                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                            //Set whether this download may proceed over a roaming connection.
+                            request.setAllowedOverRoaming(false);
+                            //Set the title of this download, to be displayed in notifications (if enabled).
+                            request.setTitle(activity.getString(R.string.download_PPP_title));
+                            //Set a description of this download, to be displayed in notifications (if enabled)
+                            request.setDescription(activity.getString(R.string.downloading_file_description));
+                            //Set the local destination for the downloaded file to a path within the application's external files directory
+                            request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PhoneProfilesPlus.apk");
+                            //request.allowScanningByMediaScanner();
+                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                            //Enqueue a new download and same the referenceId
+                            DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
+                            DownloadCompletedBroadcastReceiver.downloadReferencePPP = downloadManager.enqueue(request);
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                        activity.finish();
+                    }*/
+                }
+                else {
                     url = PPApplication.GITHUB_PPP_RELEASES_URL;
 
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                    activity.finish();
                 }
-                activity.finish();
             });
             dialogBuilder.setNegativeButton(android.R.string.cancel, null);
             dialogBuilder.setOnCancelListener(dialog -> {
@@ -1166,7 +1216,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(@NonNull View textView) {
-                    String url = PPApplication.DROIDIFY_PPP_RELEASES_URL;
+                    String url = PPApplication.IZZY_PPP_RELEASES_URL;
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     try {
@@ -1212,6 +1262,149 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             }
             else {
                 String url = PPApplication.DROIDIFY_APPLICATION_URL;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                }
+            }
+            activity.finish();
+        });
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+        dialogBuilder.setOnCancelListener(dialog -> activity.finish());
+        dialogBuilder.setOnDismissListener(dialog -> activity.finish());
+        alertDialog = dialogBuilder.create();
+
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
+
+        if (!activity.isFinishing())
+            alertDialog.show();
+
+    }
+
+    @SuppressLint("InflateParams")
+    private void checkInNeoStore(final Activity activity) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        dialogBuilder.setTitle(R.string.menu_check_github_releases);
+
+        String message = StringConstants.TAG_BOLD_START_HTML + getString(R.string.ppp_app_name) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
+        try {
+            PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+            message = message + StringConstants.TAG_BREAK_HTML + activity.getString(R.string.check_github_releases_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")"+StringConstants.TAG_BOLD_END_HTML;
+        } catch (Exception e) {
+            message = StringConstants.TAG_BREAK_HTML;
+        }
+
+        View layout;
+        LayoutInflater inflater = activity.getLayoutInflater();
+
+        /*
+        boolean fdroidInstalled = false;
+        PackageManager pm = activity.getPackageManager();
+        try {
+            pm.getPackageInfo(PPApplication.FDROID_PACKAGE_NAME, PackageManager.GET_ACTIVITIES);
+            fdroidInstalled = true;
+        } catch (Exception ignored) {}
+        if (fdroidInstalled)
+            layout = inflater.inflate(R.layout.dialog_for_fdroid_app, null);
+        else
+            layout = inflater.inflate(R.layout.dialog_for_fdroid, null);
+         */
+        layout = inflater.inflate(R.layout.dialog_for_neostore, null);
+
+        dialogBuilder.setView(layout);
+
+        TextView text;
+        text = layout.findViewById(R.id.dialog_for_neostore_info_text);
+        message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
+
+        text.setText(StringFormatUtils.fromHtml(message, false,  false, 0, 0, true));
+
+        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+        dialogBuilder.setCancelable(true);
+
+        boolean neostoreInstalled = false;
+        PackageManager pm = activity.getPackageManager();
+        try {
+            pm.getPackageInfo(PPApplication.NEOSTORE_PACKAGE_NAME, PackageManager.GET_ACTIVITIES);
+            neostoreInstalled = true;
+        } catch (Exception ignored) {}
+
+        text = layout.findViewById(R.id.dialog_for_neostore_neostore_application);
+        View buttonsDivider = layout.findViewById(R.id.dialog_for_neostore_buttonsDivider);
+        if (!neostoreInstalled) {
+            text.setVisibility(View.VISIBLE);
+            buttonsDivider.setVisibility(View.VISIBLE);
+
+            CharSequence str1 = activity.getString(R.string.check_releases_neostore_ppp_release);
+            CharSequence str2 = str1 + " " + activity.getString(R.string.check_releases_ppp_release_clik_to_show) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+            Spannable sbt = new SpannableString(str2);
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = PPApplication.IZZY_PPP_RELEASES_URL;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                }
+            };
+            sbt.setSpan(clickableSpan, str1.length() + 1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            text.setText(sbt);
+            text.setMovementMethod(LinkMovementMethod.getInstance());
+
+            if (Build.VERSION.SDK_INT >= 33) {
+                TextView text2 = layout.findViewById(R.id.dialog_for_neostore_apk_installation);
+                text2.setVisibility(View.VISIBLE);
+                String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
+                        " " + activity.getString(R.string.install_ppp_store_neostore) +
+                        activity.getString(R.string.check_releases_install_from_apk_note2_ppp);
+                text2.setText(str);
+            }
+        } else {
+            text.setVisibility(View.GONE);
+            //buttonsDivider.setVisibility(View.GONE);
+        }
+
+        final boolean _neostoreInstalled = neostoreInstalled;
+        int buttonRes = R.string.alert_button_install_store;
+        if (neostoreInstalled)
+            buttonRes = R.string.check_releases_open_neostore;
+        dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
+            if (_neostoreInstalled) {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=sk.henrichg.phoneprofilesplus"));
+                intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception e) {
+                    //Log.e("CheckPPPReleasesActivity.checkInNeoStore", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                }
+            }
+            else {
+                String url = PPApplication.NEOSTORE_APPLICATION_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {

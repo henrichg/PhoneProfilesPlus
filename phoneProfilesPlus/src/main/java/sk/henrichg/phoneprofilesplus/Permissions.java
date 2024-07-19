@@ -176,6 +176,10 @@ class Permissions {
     private static final String PREF_WRITE_STORAGE_PERMISSION = "writeStoragePermission";
     //private static final String PREF_CALL_LOGS_PERMISSION = "callLogsPermission";
 
+    private Permissions() {
+        // private constructor to prevent instantiation
+    }
+
     static boolean hasPermission(Context context, String permission) {
         return context.checkPermission(permission, PPApplication.pid, PPApplication.uid) == PackageManager.PERMISSION_GRANTED;
     }
@@ -1347,13 +1351,11 @@ class Permissions {
 
     static boolean checkLocation(Context context) {
         try {
-            if (Build.VERSION.SDK_INT >= 29) {
-
+            if (Build.VERSION.SDK_INT >= 29)
                 return (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
                         (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
                         (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED)
                         ;
-            }
             else
                 return (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
                         (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
@@ -1373,6 +1375,7 @@ class Permissions {
                 //noinspection DuplicateExpressions
                 if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER) ||
+//                        (sensorType == EventsHandler.SENSOR_TYPE_WIFI_CONNECTION) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_TIME) ||
@@ -1384,9 +1387,13 @@ class Permissions {
                     if (Build.VERSION.SDK_INT >= 29)
                         grantedAccessBackgroundLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
 
-                    if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER)) {
+                    if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
+                            (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER) /*||
+                            (sensorType == EventsHandler.SENSOR_TYPE_WIFI_CONNECTION)*/) {
                         if ((event._eventPreferencesWifi._enabled &&
-                            ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+                            (/*(event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
+                             (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED) ||*/
+                             (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
                              (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)))) {
                             if (permissions != null) {
                                 if (!grantedAccessFineLocation)
@@ -1776,12 +1783,13 @@ class Permissions {
         }
     }
 
+    /** @noinspection SameReturnValue*/
     static boolean checkSensors(/*Context context*/) {
-        try {
+        //try {
             return true;
-        } catch (Exception e) {
-            return false;
-        }
+        //} catch (Exception e) {
+        //    return false;
+        //}
     }
 
     /*

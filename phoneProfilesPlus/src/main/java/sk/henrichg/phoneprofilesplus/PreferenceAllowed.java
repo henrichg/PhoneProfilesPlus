@@ -98,9 +98,6 @@ class PreferenceAllowed {
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                 } else
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-            } else {
-                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
             }
         }
         else
@@ -113,6 +110,7 @@ class PreferenceAllowed {
                     if (applicationNeverAskForGrantRoot) {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                        return;
                     }
                 }
             } else
@@ -626,6 +624,7 @@ class PreferenceAllowed {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                return;
                             }
                         }
                     } else if (sharedPreferences != null) {
@@ -764,6 +763,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 }
@@ -837,11 +837,13 @@ class PreferenceAllowed {
                                 } else {
                                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                                    return;
                                 }
                             } else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                                return;
                             }
 
                             boolean sim0Exists;
@@ -851,7 +853,6 @@ class PreferenceAllowed {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
-
                         } else if (RootUtils.isRooted(/*fromUIThread*/)) {
                             // device is rooted
 
@@ -861,6 +862,7 @@ class PreferenceAllowed {
                                     if (applicationNeverAskForGrantRoot) {
                                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                        return;
                                     }
                                 }
                             } else if (sharedPreferences != null) {
@@ -884,11 +886,13 @@ class PreferenceAllowed {
                                 } else {
                                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                                    return;
                                 }
                             } else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                                return;
                             }
 
                             boolean sim0Exists;
@@ -982,13 +986,34 @@ class PreferenceAllowed {
         String preferenceKey = Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING;
 
         if ((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) || PPApplication.deviceIsOnePlus) {
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
-                if (profile != null) {
-                    if (profile._vibrateWhenRinging != 0)
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            if (ShizukuUtils.shizukuAvailable()) {
+                if (ShizukuUtils.hasShizukuPermission()) {
+                    if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                        if (profile != null) {
+                            if (profile._vibrateWhenRinging != 0)
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                    }
+                } else {
+                    if ((profile != null) && (profile._vibrateWhenRinging != 0)) {
+                        boolean enabled = false;
+                        if ((profile._volumeRingerMode == 1) || (profile._volumeRingerMode == 4))
+                            enabled = true;
+                        if (profile._volumeRingerMode == 5) {
+                            if ((profile._volumeZenMode == 1) || (profile._volumeZenMode == 2))
+                                enabled = true;
+                        }
+                        if (enabled) {
+                            preferenceAllowed.notAllowedShizuku = true;
+                        }
+                    }
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                 }
-                else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
@@ -999,6 +1024,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 } else if (sharedPreferences != null) {
@@ -1022,6 +1048,14 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
+            }
+            else if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+                if (profile != null) {
+                    if (profile._vibrateWhenRinging != 0)
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                }
+                else
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else {
                 if ((profile != null) && (profile._vibrateWhenRinging != 0)) {
                     boolean enabled = false;
@@ -1071,12 +1105,25 @@ class PreferenceAllowed {
 
                 String preferenceKey = Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS;
 
-                if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
-                    if (profile != null) {
-                        if (profile._vibrateNotifications != 0)
-                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                    } else
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                if (ShizukuUtils.shizukuAvailable()) {
+                    if (ShizukuUtils.hasShizukuPermission()) {
+                        if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                            if (profile != null) {
+                                if (profile._vibrateWhenRinging != 0)
+                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                        }
+                    } else {
+                        if ((profile != null) && (profile._vibrateNotifications != 0)) {
+                            preferenceAllowed.notAllowedShizuku = true;
+                        }
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                    }
                 } else
                 if (RootUtils.isRooted(/*fromUIThread*/)) {
                     // device is rooted
@@ -1087,6 +1134,7 @@ class PreferenceAllowed {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                return;
                             }
                         }
                     } else if (sharedPreferences != null) {
@@ -1110,6 +1158,13 @@ class PreferenceAllowed {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                     }
+                } else
+                if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+                    if (profile != null) {
+                        if (profile._vibrateNotifications != 0)
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                 } else {
                     if ((profile != null) && (profile._vibrateNotifications != 0)) {
                         preferenceAllowed.notAllowedPPPPS = true;
@@ -1160,12 +1215,25 @@ class PreferenceAllowed {
         _preferenceAllowed.copyFrom(preferenceAllowed);
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
-                if (profile != null) {
-                    if (profile.getVibrationIntensityRingingChange())
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            if (ShizukuUtils.shizukuAvailable()) {
+                if (ShizukuUtils.hasShizukuPermission()) {
+                    if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                        if (profile != null) {
+                            if (profile.getVibrationIntensityRingingChange())
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                    }
+                } else {
+                    if ((profile != null) && profile.getVibrationIntensityRingingChange()) {
+                        preferenceAllowed.notAllowedShizuku = true;
+                    }
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                }
             } else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
@@ -1180,6 +1248,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 } else if (sharedPreferences != null) {
@@ -1203,6 +1272,13 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
+            } else
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+                if (profile != null) {
+                    if (profile.getVibrationIntensityRingingChange())
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else {
                 if ((profile != null) && profile.getVibrationIntensityRingingChange()) {
                     preferenceAllowed.notAllowedPPPPS = true;
@@ -1225,12 +1301,25 @@ class PreferenceAllowed {
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
 //        Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS", "_preferenceAllowed.allowed="+_preferenceAllowed.allowed);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
-                if (profile != null) {
-                    if (profile.getVibrationIntensityNotificationsChange())
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            if (ShizukuUtils.shizukuAvailable()) {
+                if (ShizukuUtils.hasShizukuPermission()) {
+                    if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                        if (profile != null) {
+                            if (profile.getVibrationIntensityNotificationsChange())
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                    }
+                } else {
+                    if ((profile != null) && profile.getVibrationIntensityNotificationsChange()) {
+                        preferenceAllowed.notAllowedShizuku = true;
+                    }
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                }
             } else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
@@ -1245,6 +1334,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 } else if (sharedPreferences != null) {
@@ -1268,6 +1358,13 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
+            } else
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+                if (profile != null) {
+                    if (profile.getVibrationIntensityNotificationsChange())
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else {
                 if ((profile != null) && profile.getVibrationIntensityNotificationsChange()) {
                     preferenceAllowed.notAllowedPPPPS = true;
@@ -1290,12 +1387,25 @@ class PreferenceAllowed {
         _preferenceAllowed.copyFrom(preferenceAllowed);
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
-                if (profile != null) {
-                    if (profile.getVibrationIntensityTouchInteractionChange())
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            if (ShizukuUtils.shizukuAvailable()) {
+                if (ShizukuUtils.hasShizukuPermission()) {
+                    if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                        if (profile != null) {
+                            if (profile.getVibrationIntensityTouchInteractionChange())
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                    }
+                } else {
+                    if ((profile != null) && profile.getVibrationIntensityTouchInteractionChange()) {
+                        preferenceAllowed.notAllowedShizuku = true;
+                    }
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                }
             } else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
@@ -1310,6 +1420,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 } else if (sharedPreferences != null) {
@@ -1333,6 +1444,13 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
+            } else
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+                if (profile != null) {
+                    if (profile.getVibrationIntensityTouchInteractionChange())
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else {
                 if ((profile != null) && profile.getVibrationIntensityTouchInteractionChange()) {
                     preferenceAllowed.notAllowedPPPPS = true;
@@ -1408,6 +1526,7 @@ class PreferenceAllowed {
                     if (applicationNeverAskForGrantRoot) {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                        return;
                     }
                 }
             }
@@ -1469,15 +1588,16 @@ class PreferenceAllowed {
                                     if (profile._deviceNetworkType != 0)
                                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                                 }
-                            }
-                            else {
+                            } else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                                return;
                             }
                         } else {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                             preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                            return;
                         }
 
                         boolean sim0Exists;
@@ -1498,6 +1618,7 @@ class PreferenceAllowed {
                                 if (applicationNeverAskForGrantRoot) {
                                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                    return;
                                 }
                             }
                         }
@@ -1525,11 +1646,13 @@ class PreferenceAllowed {
                             else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                                return;
                             }
                         } else {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                             preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                            return;
                         }
 
                         boolean sim0Exists;
@@ -1621,6 +1744,7 @@ class PreferenceAllowed {
                                     if (applicationNeverAskForGrantRoot) {
                                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                        return;
                                     }
                                 }
                             } else if (sharedPreferences != null) {
@@ -1700,13 +1824,25 @@ class PreferenceAllowed {
 
         int value = Settings.System.getInt(appContext.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, -10);
         if (value != -10) {
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
-//                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED", "installed");
-                if (profile != null) {
-                    if (profile._notificationLed != 0)
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            if (ShizukuUtils.shizukuAvailable()) {
+                if (ShizukuUtils.hasShizukuPermission()) {
+                    if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                        if (profile != null) {
+                            if (profile._notificationLed != 0)
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                    }
+                } else {
+                    if ((profile != null) && (profile._notificationLed != 0)) {
+                        preferenceAllowed.notAllowedShizuku = true;
+                    }
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                }
             } else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // device is rooted
@@ -1717,6 +1853,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 } else if (sharedPreferences != null) {
@@ -1740,6 +1877,14 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
+            } else
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+//                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED", "installed");
+                if (profile != null) {
+                    if (profile._notificationLed != 0)
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else {
 //                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED", "(2)");
                 if ((profile != null) && (profile._notificationLed != 0)) {
@@ -1878,6 +2023,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 }
@@ -1967,6 +2113,7 @@ class PreferenceAllowed {
                     if (profile._alwaysOnDisplay != 0) {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            return;
                         }
                     }
                 } else if (sharedPreferences != null) {
@@ -2028,6 +2175,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 }
@@ -2138,15 +2286,18 @@ class PreferenceAllowed {
                             } else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                                return;
                             }
                         } else {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                            return;
                         }
                     } else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                        return;
                     }
 
                     boolean sim0Exists;
@@ -2156,7 +2307,6 @@ class PreferenceAllowed {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS;
                     }
-
                 } else
                 if (RootUtils.isRooted(/*fromUIThread*/)) {
                     // device is rooted
@@ -2166,6 +2316,7 @@ class PreferenceAllowed {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                return;
                             }
                         }
                     } else if (sharedPreferences != null) {
@@ -2190,15 +2341,18 @@ class PreferenceAllowed {
                             } else {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                                return;
                             }
                         } else {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                            return;
                         }
                     } else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                        return;
                     }
 
                     boolean sim0Exists;
@@ -2238,17 +2392,18 @@ class PreferenceAllowed {
             if (ShizukuUtils.hasShizukuPermission()) {
                 if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1)) {
                     if (RootUtils.serviceBinaryExists(fromUIThread)) {
+                        //Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(0) PREFERENCE_ALLOWED");
                         if (profile != null) {
                             if ((profile._deviceOnOffSIM1 != 0) ||
                                     (profile._deviceOnOffSIM2 != 0))
                                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                        }
-                        else
+                        } else
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                    }
-                    else {
+                    } else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                        //Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(1) PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND");
+                        return;
                     }
 
                     final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -2256,19 +2411,23 @@ class PreferenceAllowed {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            //Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(2) PREFERENCE_ALLOWED");
                         } else {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                            //Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(3) PREFERENCE_NOT_ALLOWED_NO_HARDWARE");
                         }
                     } else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                        //Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(4) PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM");
                     }
                 } else {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                     preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                    //Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(5) PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM");
                 }
             } else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -2281,6 +2440,7 @@ class PreferenceAllowed {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
                 } else if (sharedPreferences != null) {
@@ -2307,6 +2467,7 @@ class PreferenceAllowed {
                     else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                        return;
                     }
 
                     final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -2332,6 +2493,7 @@ class PreferenceAllowed {
             } else {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+//                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(4) PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED");
                 if ((profile != null) &&
                         ((profile._deviceOnOffSIM1 != 0) ||
                          (profile._deviceOnOffSIM2 != 0))) {
@@ -2342,6 +2504,7 @@ class PreferenceAllowed {
             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
             preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+            //Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(6) PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM");
         }
     }
 
@@ -2403,25 +2566,25 @@ class PreferenceAllowed {
                         if (!rootRequired) {
                             ppppsInstalled = ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0;
                         }
-                        if (!rootRequired && ppppsInstalled) {
-                            if (profile != null) {
-                                if ((profile._soundNotificationChangeSIM1 != 0) ||
-                                        (profile._soundNotificationChangeSIM2 != 0))
-                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                            } else
-                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                        } else
-                        if (rootRequired && ShizukuUtils.hasShizukuPermission()) {
-                            if (RootUtils.settingsBinaryExists(fromUIThread)) {
-                                if (profile != null) {
-                                    if ((profile._soundNotificationChangeSIM1 != 0) ||
-                                            (profile._soundNotificationChangeSIM2 != 0))
+                        if (ShizukuUtils.shizukuAvailable()) {
+                            if (ShizukuUtils.hasShizukuPermission()) {
+                                if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                                    if (profile != null) {
+                                        if ((profile._soundNotificationChangeSIM1 != 0) ||
+                                                (profile._soundNotificationChangeSIM2 != 0))
+                                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                    } else
                                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                                } else
-                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                } else {
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                                }
                             } else {
+                                if (profile != null) {
+                                    preferenceAllowed.notAllowedShizuku = true;
+                                }
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                             }
                         } else
                         if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -2434,6 +2597,7 @@ class PreferenceAllowed {
                                     if (applicationNeverAskForGrantRoot) {
                                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                        return;
                                     }
                                 }
                             } else if (sharedPreferences != null) {
@@ -2458,23 +2622,20 @@ class PreferenceAllowed {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                             }
+                        } else
+                        if ((!rootRequired) && ppppsInstalled) {
+                            if (profile != null) {
+                                if ((profile._soundNotificationChangeSIM1 != 0) ||
+                                        (profile._soundNotificationChangeSIM2 != 0))
+                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         } else {
                             if (profile != null) {
-                                if (profile._soundNotificationChangeSIM1 != 0)
-                                    preferenceAllowed.notAllowedPPPPS = true;
-                                else
-                                if (profile._soundNotificationChangeSIM2 != 0) {
-                                    if (rootRequired && (!ShizukuUtils.hasShizukuPermission()))
-                                        preferenceAllowed.notAllowedShizuku = true;
-                                    else
-                                        preferenceAllowed.notAllowedPPPPS = true;
-                                }
+                                preferenceAllowed.notAllowedPPPPS = true;
                             }
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                            if (rootRequired && (!ShizukuUtils.hasShizukuPermission()))
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
-                            else
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS;
                         }
                     } else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -2515,12 +2676,25 @@ class PreferenceAllowed {
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
-                        if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
-                            if (profile != null) {
-                                if (profile._soundSameRingtoneForBothSIMCards != 0)
-                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                            } else
-                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        if (ShizukuUtils.shizukuAvailable()) {
+                            if (ShizukuUtils.hasShizukuPermission()) {
+                                if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                                    if (profile != null) {
+                                        if (profile._soundSameRingtoneForBothSIMCards != 0)
+                                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                    } else
+                                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                } else {
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                                }
+                            } else {
+                                if ((profile != null) && (profile._soundSameRingtoneForBothSIMCards != 0)) {
+                                    preferenceAllowed.notAllowedShizuku = true;
+                                }
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            }
                         } else
                         if (RootUtils.isRooted(/*fromUIThread*/)) {
                             // device is rooted
@@ -2531,6 +2705,7 @@ class PreferenceAllowed {
                                     if (applicationNeverAskForGrantRoot) {
                                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                        return;
                                     }
                                 }
                             } else if (sharedPreferences != null) {
@@ -2554,6 +2729,13 @@ class PreferenceAllowed {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                             }
+                        } else
+                        if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+                            if (profile != null) {
+                                if (profile._soundSameRingtoneForBothSIMCards != 0)
+                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         } else {
                             if ((profile != null) && (profile._soundSameRingtoneForBothSIMCards != 0)) {
                                 preferenceAllowed.notAllowedPPPPS = true;

@@ -2,6 +2,10 @@ package sk.henrichg.phoneprofilesplus;
 
 class BrightnessLookup {
 
+    private BrightnessLookup() {
+        // private constructor to prevent instantiation
+    }
+
 /*
     // https://stackoverflow.com/questions/73220966/how-to-get-the-brightness-percentage-in-android
 

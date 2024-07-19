@@ -55,6 +55,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
     private static void _onUpdate(Context context, AppWidgetManager appWidgetManager,
                            /*Profile _profile, DataWrapper _dataWrapper,*/ int[] appWidgetIds)
     {
+        String applicationWidgetOneRowLauncher;
         String applicationWidgetOneRowIconLightness;
         String applicationWidgetOneRowIconColor;
         boolean applicationWidgetOneRowCustomIconLightness;
@@ -80,6 +81,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] OneRowWidgetProvider._onUpdate", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
 
+            applicationWidgetOneRowLauncher = ApplicationPreferences.applicationWidgetOneRowLauncher;
             applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
             applicationWidgetOneRowIconColor = ApplicationPreferences.applicationWidgetOneRowIconColor;
             applicationWidgetOneRowCustomIconLightness = ApplicationPreferences.applicationWidgetOneRowCustomIconLightness;
@@ -773,7 +775,12 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 //} else
                 //    remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events_click, View.GONE);
 
-                Intent intent = GlobalGUIRoutines.getIntentForStartupSource(context, PPApplication.STARTUP_SOURCE_WIDGET);
+                //Intent intent = GlobalGUIRoutines.getIntentForStartupSource(context, PPApplication.STARTUP_SOURCE_WIDGET);
+                Intent intent;
+                if (applicationWidgetOneRowLauncher.equals(StringConstants.EXTRA_ACTIVATOR))
+                    intent = new Intent(context.getApplicationContext(), ActivatorActivity.class);
+                else
+                    intent = new Intent(context.getApplicationContext(), EditorActivity.class);
                 // clear all opened activities
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);

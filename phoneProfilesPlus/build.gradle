@@ -81,7 +81,7 @@ dependencies {
     implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.3'
 
     /// ACRA
-    implementation "com.google.guava:guava:33.0.0-android" //32.1.3-android"
+    implementation "com.google.guava:guava:33.2.1-android" //33.0.0-android"
     implementation "ch.acra:acra-mail:$ppVersions.acra"
     implementation "ch.acra:acra-notification:$ppVersions.acra"
     // https://github.com/ACRA/acra/tree/master/examples/acra-basic-java-example
@@ -110,11 +110,14 @@ dependencies {
     //noinspection GradleDependency
     implementation 'androidx.preference:preference:1.1.1'
 
-    // 1.7.0 compile problem - dependencies
-    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
-    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
+
+    // appcompat 1.7.0 - dependencies problem, this fixed it
+    constraints {
+        //noinspection ForeignDelegate
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$ppVersions.kotlinStdlibJdk8")
+    }
 
     //1.11.0' is not good, not working dynamic colors
     //https://github.com/material-components/material-components-android/issues/3924
@@ -128,7 +131,7 @@ dependencies {
     implementation 'org.osmdroid:osmdroid-android:6.1.18'
 
     /// for json usage in some preferenses (wifi, bluetooth connection, scanning, ...)
-    implementation 'com.google.code.gson:gson:2.10.1' //2.9.1'
+    implementation 'com.google.code.gson:gson:2.11.0' //2.10.1'
 
     /// for DashClock support
     implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'

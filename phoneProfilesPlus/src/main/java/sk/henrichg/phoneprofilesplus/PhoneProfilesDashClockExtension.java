@@ -89,6 +89,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
                 if ((instance != null) && (instance.dataWrapper != null)) {
 
+                    //noinspection ExtractMethodRecommender
                     try {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesDashClockExtension.onUpdateData", "do it");
 
@@ -119,10 +120,13 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                             //iconResource = getResources().getIdentifier(Profile.PROFILE_ICON_DEFAULT, "drawable", PPApplication.PACKAGE_NAME);
                             iconResource = ProfileStatic.getIconResource(StringConstants.PROFILE_ICON_DEFAULT);
 
-                        /////////////////////////////////////////////////////////////
-
                         // intent
-                        Intent intent = GlobalGUIRoutines.getIntentForStartupSource(this, PPApplication.STARTUP_SOURCE_WIDGET);
+                        //Intent intent = GlobalGUIRoutines.getIntentForStartupSource(this, PPApplication.STARTUP_SOURCE_WIDGET);
+                        Intent intent;
+                        if (ApplicationPreferences.applicationWidgetDashClockLauncher.equals(StringConstants.EXTRA_ACTIVATOR))
+                            intent = new Intent(this.getApplicationContext(), ActivatorActivity.class);
+                        else
+                            intent = new Intent(this.getApplicationContext(), EditorActivity.class);
                         // clear all opened activities
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);

@@ -17,7 +17,7 @@
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="applicationEventWiFiLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
-        app:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary"
+        app:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary_api29"
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.StartActivityPreference

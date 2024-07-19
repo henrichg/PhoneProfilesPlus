@@ -453,6 +453,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesRadioSwitch.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesRadioSwitch.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesRadioSwitch.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_RADIO_SWITCH_ENABLED, false);
         PPListPreference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
         if (preference != null) {
@@ -619,7 +620,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_RADIO_SWITCH).isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && tmp.isAllConfigured(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
                 else

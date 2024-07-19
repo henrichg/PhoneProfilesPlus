@@ -24,9 +24,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.pm.ShortcutInfoCompat;
@@ -134,6 +136,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT = "categoryProfileListNotificationRoot";
     static final String PREF_SHORTCUT_CATEGORY_ROOT = "categoryShortcutRoot";
     static final String PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT = "categorySamsungEdgePanelRoot";
+    static final String PREF_WIDGET_DASH_CLOCK_CATEGORY_ROOT = "categoryWidgetDashClockRoot";
 
     static final String PREF_UNLINK_RINGER_NOTIFICATION_VOLUMES_INFO = "applicationUnlinkRingerNotificationVolumesInfo";
     static final String PREF_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL_INFO = "applicationEventPeriodicScanningScanIntervalInfo";
@@ -171,6 +174,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_WIDGET_LISY_CATEGORY = "categoryWidgetList";
     static final String PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY = "categoryWidgetOneRowProfileList";
     static final String PREF_APPLICATION_EVENT_MOBILE_CELL_CONFIGURE_CELLS = "applicationEventMobileCellsConfigureCells";
+
+    private static final String PREF_APPLICATION_WIDGET_DASH_CLOCK_INFO = "applicationWidgetDashClockInfo";
 
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
 
@@ -383,6 +388,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
+        Context appContext = getActivity().getApplicationContext();
+
         PhoneProfilesPrefsActivity activity = (PhoneProfilesPrefsActivity) getActivity();
         if (!(activity.activityStarted))
             return;
@@ -497,6 +504,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preferenceCategoryScreen = findPreference(PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
             preferenceCategoryScreen = findPreference(PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT);
+            if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
+            preferenceCategoryScreen = findPreference(PREF_WIDGET_DASH_CLOCK_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
 
             preferenceCategoryScreen = findPreference(PREF_SHORTCUT_CATEGORY_ROOT);
@@ -1562,14 +1571,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 });
             }
 */
-
+/*
         preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER);
         if (preference != null) {
             preference.setTitle(getString(R.string.phone_profiles_pref_applicationWidgetLauncher) +
                                     " (" + getString(R.string.widget_label_icon) +
                                     ", " + getString(R.string.widget_label_one_row) + ")");
         }
-
+*/
         /*if (Build.VERSION.SDK_INT < 29) {
             ListPreference listPreference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
             if (listPreference != null) {
@@ -1926,7 +1935,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         preference = prefMng.findPreference(PREF_CREATE_EDITOR_SHORTCUT);
         if (preference != null) {
-            Context appContext = getActivity().getApplicationContext();
+            //Context appContext = getActivity().getApplicationContext();
             if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
 
                 List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
@@ -1944,33 +1953,56 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         int receiverFlags = 0;
                         if (Build.VERSION.SDK_INT >= 34)
                             receiverFlags = RECEIVER_NOT_EXPORTED;
-                        getActivity().registerReceiver(shortcutToEditorAddedReceiver, shortcutAddedFilter, receiverFlags);
+                        appContext.registerReceiver(shortcutToEditorAddedReceiver, shortcutAddedFilter, receiverFlags);
                     }
 
                     preference.setVisible(true);
                     preference.setOnPreferenceClickListener(preference120 -> {
-                        Intent shortcutIntent = new Intent(appContext, EditorActivity.class);
-                        shortcutIntent.setAction(Intent.ACTION_MAIN);
-                        shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PPEditTextAlertDialog editTextDialog = new PPEditTextAlertDialog(
+                                getString(R.string.shortcut_to_editor_dialog_title),
+                                getString(R.string.shortcut_to_dialog_lablel),
+                                getString(R.string.editor_launcher_label),
+                                getString(R.string.shortcut_to_dialog_create_button),
+                                getString(android.R.string.cancel),
+                                (dialog1, which) -> {
+                                    String iconName = "";
+                                    AlertDialog dialog = (AlertDialog) dialog1;
+                                    EditText editText = dialog.findViewById(R.id.dialog_with_edittext_edit);
+                                    if (editText != null)
+                                        iconName = editText.getText().toString();
+                                    if (iconName.isEmpty())
+                                        iconName = getString(R.string.editor_launcher_label);
+                                    //Log.e("PhoneProfilesPrefsFragment createEditorShortcut", "iconName="+iconName);
 
-                        ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, SHORTCUT_ID_EDITOR);
-                        shortcutBuilderCompat.setIntent(shortcutIntent);
-                        shortcutBuilderCompat.setShortLabel(getString(R.string.editor_launcher_label));
-                        shortcutBuilderCompat.setLongLabel(getString(R.string.editor_launcher_label));
-                        shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_editor));
+                                    Intent shortcutIntent = new Intent(appContext, EditorActivity.class);
+                                    shortcutIntent.setAction(Intent.ACTION_MAIN);
+                                    shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                        try {
-                            Intent pinnedShortcutCallbackIntent = new Intent(ACTION_SHORTCUT_TO_EDITOR_ADDED);
-                            PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent,  0);
+                                    ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, SHORTCUT_ID_EDITOR);
+                                    shortcutBuilderCompat.setIntent(shortcutIntent);
+                                    shortcutBuilderCompat.setShortLabel(iconName);
+                                    shortcutBuilderCompat.setLongLabel(getString(R.string.editor_launcher_label));
+                                    shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_editor));
 
-                            ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
-                            ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
-                            //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
-                        } catch (Exception e) {
-                            // show dialog about this crash
-                            // for Microsft laucher it is:
-                            // java.lang.IllegalArgumentException ... already exists but disabled
-                        }
+                                    try {
+                                        Intent pinnedShortcutCallbackIntent = new Intent(ACTION_SHORTCUT_TO_EDITOR_ADDED);
+                                        PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent, 0);
+
+                                        ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
+                                        ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
+                                        //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
+                                    } catch (Exception e) {
+                                        // show dialog about this crash
+                                        // for Microsft laucher it is:
+                                        // java.lang.IllegalArgumentException ... already exists but disabled
+                                    }
+                                },
+                                null, null,
+                                true, true, false,
+                                activity
+                        );
+                        if (!activity.isFinishing())
+                            editTextDialog.show();
 
                         return false;
                     });
@@ -2010,7 +2042,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         preference = prefMng.findPreference(PREF_CREATE_MOBILE_CELL_SCANNING_SHORTCUT);
         if (preference != null) {
-            Context appContext = getActivity().getApplicationContext();
+            //Context appContext = getActivity().getApplicationContext();
             if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
 
                 List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
@@ -2028,33 +2060,56 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         int receiverFlags = 0;
                         if (Build.VERSION.SDK_INT >= 34)
                             receiverFlags = RECEIVER_NOT_EXPORTED;
-                        getActivity().registerReceiver(shortcutToMobileCellScanningAddedReceiver, shortcutAddedFilter, receiverFlags);
+                        appContext.registerReceiver(shortcutToMobileCellScanningAddedReceiver, shortcutAddedFilter, receiverFlags);
                     }
 
                     preference.setVisible(true);
                     preference.setOnPreferenceClickListener(preference120 -> {
-                        Intent shortcutIntent = new Intent(appContext, LaunchMobileCellsScanningActivity.class);
-                        shortcutIntent.setAction(Intent.ACTION_MAIN);
-                        shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PPEditTextAlertDialog editTextDialog = new PPEditTextAlertDialog(
+                                getString(R.string.shortcut_to_mobile_cells_scanning_dialog_title),
+                                getString(R.string.shortcut_to_dialog_lablel),
+                                getString(R.string.mobile_cells_scanning_short_shortcut_name),
+                                getString(R.string.shortcut_to_dialog_create_button),
+                                getString(android.R.string.cancel),
+                                (dialog1, which) -> {
+                                    String iconName = "";
+                                    AlertDialog dialog = (AlertDialog) dialog1;
+                                    EditText editText = dialog.findViewById(R.id.dialog_with_edittext_edit);
+                                    if (editText != null)
+                                        iconName = editText.getText().toString();
+                                    if (iconName.isEmpty())
+                                        iconName = getString(R.string.mobile_cells_scanning_short_shortcut_name);
+                                    //Log.e("PhoneProfilesPrefsFragment createEditorShortcut", "iconName="+iconName);
 
-                        ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, SHORTCUT_ID_MOBILE_CELL_SCANNING);
-                        shortcutBuilderCompat.setIntent(shortcutIntent);
-                        shortcutBuilderCompat.setShortLabel(getString(R.string.phone_profiles_pref_category_mobile_cells_scanning));
-                        shortcutBuilderCompat.setLongLabel(getString(R.string.phone_profiles_pref_category_mobile_cells_scanning));
-                        shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_mobile_cell_scanning));
+                                    Intent shortcutIntent = new Intent(appContext, LaunchMobileCellsScanningActivity.class);
+                                    shortcutIntent.setAction(Intent.ACTION_MAIN);
+                                    shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                        try {
-                            Intent pinnedShortcutCallbackIntent = new Intent(ACTION_SHORTCUT_TO_MOBILE_CELL_SCANNING_ADDED);
-                            PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent,  0);
+                                    ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, SHORTCUT_ID_MOBILE_CELL_SCANNING);
+                                    shortcutBuilderCompat.setIntent(shortcutIntent);
+                                    shortcutBuilderCompat.setShortLabel(iconName);
+                                    shortcutBuilderCompat.setLongLabel(getString(R.string.phone_profiles_pref_category_mobile_cells_scanning));
+                                    shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_mobile_cell_scanning));
 
-                            ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
-                            ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
-                            //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
-                        } catch (Exception e) {
-                            // show dialog about this crash
-                            // for Microsft laucher it is:
-                            // java.lang.IllegalArgumentException ... already exists but disabled
-                        }
+                                    try {
+                                        Intent pinnedShortcutCallbackIntent = new Intent(ACTION_SHORTCUT_TO_MOBILE_CELL_SCANNING_ADDED);
+                                        PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent,  0);
+
+                                        ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
+                                        ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
+                                        //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
+                                    } catch (Exception e) {
+                                        // show dialog about this crash
+                                        // for Microsft laucher it is:
+                                        // java.lang.IllegalArgumentException ... already exists but disabled
+                                    }
+                                },
+                                null, null,
+                                true, true, false,
+                                activity
+                        );
+                        if (!activity.isFinishing())
+                            editTextDialog.show();
 
                         return false;
                     });
@@ -2063,6 +2118,33 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setVisible(false);
             } else
                 preference.setVisible(false);
+        }
+
+        InfoDialogPreference infoDialogPreference = prefMng.findPreference(PREF_APPLICATION_WIDGET_DASH_CLOCK_INFO);
+        if (infoDialogPreference != null) {
+
+            final String dashClockGitHub = "https://github.com/romannurik/dashclock";
+            final String dashClockAPKMirror = "https://www.apkmirror.com/apk/roman-nurik-and-ian-lake/dashclock-widget/";
+            infoDialogPreference.setInfoText(
+                    getString(R.string.dash_clock_widget_info_1)  + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            // <ul><li>
+                            StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+                            getString(R.string.dash_clock_widget_info_2) + StringConstants.TAG_BREAK_HTML +
+                            StringConstants.TAG_URL_LINK_START_HTML + dashClockGitHub + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                            dashClockGitHub + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+
+                            StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            //</li>
+                            StringConstants.TAG_LIST_ITEM_END_HTML +
+                            //<li>
+                            StringConstants.TAG_LIST_ITEM_START_HTML +
+                            getString(R.string.dash_clock_widget_info_3) + StringConstants.TAG_BREAK_HTML +
+                            StringConstants.TAG_URL_LINK_START_HTML + dashClockAPKMirror + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                            dashClockAPKMirror + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+
+                            StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            //</li></ul>
+                            StringConstants.TAG_LIST_END_LAST_ITEM_HTML
+            );
+            infoDialogPreference.setIsHtml(true);
         }
 
     }
@@ -3159,14 +3241,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR) || keyIsWidgetListChangeColorByNightMode) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
-                if (changeWidgetListColorsByNightMode) {
+                _preference.setEnabled(preferenceIndicatorsListEnabled);
+                /*if (changeWidgetListColorsByNightMode) {
                     //if (useDynamicColorsWidgetList)
                     //    _preference.setEnabled(false);
                     //else
                         _preference.setEnabled(preferenceIndicatorsListEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsListEnabled);
-                }
+                }*/
             }
         }
         //if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS)) {
@@ -3177,14 +3260,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR) || keyIsWidgetOneRowChangeColorByNightMode) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
-                if (changeWidgetOneRowColorsByNightMode) {
+                _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
+                /*if (changeWidgetOneRowColorsByNightMode) {
                     //if (useDynamicColorsWidgetOneRow)
                     //    _preference.setEnabled(false);
                     //else
                         _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
-                }
+                }*/
             }
         }
         //if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS)) {
@@ -3286,14 +3370,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference.setEnabled(changeWidgetOneRowColorsByNightMode && (!useDynamicColorsWidgetOneRow));
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
-                if (changeWidgetOneRowColorsByNightMode) {
+                _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
+                /*if (changeWidgetOneRowColorsByNightMode) {
                     //if (useDynamicColorsWidgetOneRow)
                     //    _preference.setEnabled(false);
                     //else
                         _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
-                }
+                }*/
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON) ||
@@ -3309,14 +3394,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference.setEnabled(changeWidgetListColorsByNightMode && (!useDynamicColorsWidgetList));
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
-                if (changeWidgetListColorsByNightMode) {
+                _preference.setEnabled(preferenceIndicatorsListEnabled);
+                /*if (changeWidgetListColorsByNightMode) {
                     //if (useDynamicColorsWidgetList)
                     //    _preference.setEnabled(false);
                     //else
                         _preference.setEnabled(preferenceIndicatorsListEnabled);
                 } else {
                     _preference.setEnabled(preferenceIndicatorsListEnabled);
-                }
+                }*/
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON) ||
@@ -3799,7 +3885,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setSummary(summary);
         }
         if (key.equals(PREF_WIFI_LOCATION_SYSTEM_SETTINGS)) {
-            String summary = getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary);
+            String summary;
+            if (Build.VERSION.SDK_INT < 29)
+                summary = context.getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary);
+            else
+                summary = context.getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary_api29);
             if (!GlobalUtils.isLocationEnabled(context)) {
                 summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                         summary;
@@ -4015,10 +4105,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         StringBuilder _value = new StringBuilder();
         if (key.equals(PREF_APPLICATION_INTERFACE_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationTheme));
+            //_value.append(StringConstants.STR_BULLET);
+            //_value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
+            //_value.append(StringConstants.STR_BULLET);
+            //_value.append(getString(R.string.phone_profiles_pref_notificationLauncher));
             _value.append(StringConstants.STR_BULLET);
-            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
+            _value.append(getString(R.string.phone_profiles_pref_applicationRestartEventsIconColor));
             _value.append(StringConstants.STR_BULLET);
-            _value.append(getString(R.string.phone_profiles_pref_notificationLauncher));
+            _value.append(getString(R.string.phone_profiles_pref_createEditorShortcut));
         }
         if (key.equals(PREF_APPLICATION_START_CATEGORY_ROOT)) {
             //_value.append(getString(R.string.phone_profiles_pref_applicationStartOnBoot));
@@ -4051,6 +4145,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(PREF_APP_NOTIFICATION_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_notificationSystemSettings));
+            _value.append(StringConstants.STR_BULLET);
+            _value.append(getString(R.string.phone_profiles_pref_notificationLauncher));
             _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_notificationStatusBarStyle));
             _value.append(StringConstants.STR_BULLET);
@@ -4423,6 +4519,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(getString(R.string.phone_profiles_pref_deleteOldActivityLogs));
         }
         if (key.equals(PREF_WIDGET_LIST_CATEGORY_ROOT)) {
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationPrefIndicator));
             _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationHeader));
@@ -4448,6 +4546,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if (key.equals(PREF_WIDGET_ONE_ROW_CATEGORY_ROOT)) {
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationPrefIndicator));
             _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType));
@@ -4469,6 +4569,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if (key.equals(PREF_WIDGET_ICON_CATEGORY_ROOT)) {
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconBackgroundType));
             _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconBackground));
@@ -4490,6 +4592,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColor));
             _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
+        }
+        if (key.equals(PREF_WIDGET_DASH_CLOCK_CATEGORY_ROOT)) {
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
         }
         if (key.equals(PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage));

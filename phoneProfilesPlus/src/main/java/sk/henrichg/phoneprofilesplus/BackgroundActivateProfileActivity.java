@@ -88,6 +88,10 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
                 (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
                 (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
+
+            // this must be called, because is required to be set DataWrapper.profileListFilled
+            dataWrapper.fillProfileList(false, false);
+
             if (profile_id == Profile.RESTART_EVENTS_PROFILE_ID) {
                 //if (Event.getGlobalEventsRunning()) {
                 // set theme and language for dialog alert ;-)
@@ -190,6 +194,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
             serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false);
 //            PPApplicationStatic.logE("[START_PP_SERVICE] ActivatorActivity.startPPServiceWhenNotStarted", "(1)");
             PPApplicationStatic.startPPService(this, serviceIntent, true);
             return true;

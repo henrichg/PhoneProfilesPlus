@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -424,7 +425,8 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_MC_DO_NOT_DETECT + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_MC_CELL_ID_T + " " + DatabaseHandler.TEXT_TYPE
+                + DatabaseHandler.KEY_MC_CELL_ID_T + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_MC_CELL_ID_LONG + " " + DatabaseHandler.INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_MOBILE_CELLS_TABLE);
 
@@ -535,6 +537,7 @@ class DatabaseHandlerCreateUpdateDB {
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + DatabaseHandler.TABLE_MOBILE_CELLS + " (" + DatabaseHandler.KEY_MC_NAME + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_CELL_ID ON " + DatabaseHandler.TABLE_MOBILE_CELLS + " (" + DatabaseHandler.KEY_MC_CELL_ID + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + DatabaseHandler.TABLE_NFC_TAGS + " (" + DatabaseHandler.KEY_NT_NAME + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_CELL_ID_LONG ON " + DatabaseHandler.TABLE_MOBILE_CELLS + " (" + DatabaseHandler.KEY_MC_CELL_ID_LONG + ")");
 
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_ACTIVATION_BY_USER_COUNT ON " + DatabaseHandler.TABLE_PROFILES + " (" + DatabaseHandler.KEY_ACTIVATION_BY_USER_COUNT + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_FK_PROFILE_START_WHEN_ACTIVATED ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + ")");
@@ -947,6 +950,7 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_MC_DO_NOT_DETECT, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_MC_CELL_ID_T, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_MC_CELL_ID_LONG, DatabaseHandler.INTEGER_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_NFC_TAGS:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_NT_NAME, DatabaseHandler.TEXT_TYPE, columns);
@@ -3574,6 +3578,11 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 2522) {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN + "='-'");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN + "='-'");
+        }
+
+        if (oldVersion < 2523) {
+            if (Build.VERSION.SDK_INT >= 29)
+                db.execSQL("UPDATE " + DatabaseHandler.TABLE_MOBILE_CELLS + " SET " + DatabaseHandler.KEY_MC_CELL_ID_LONG + "="+ Long.MAX_VALUE);
         }
 
     }

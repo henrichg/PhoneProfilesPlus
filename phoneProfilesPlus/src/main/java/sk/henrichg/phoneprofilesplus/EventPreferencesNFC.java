@@ -158,6 +158,7 @@ class EventPreferencesNFC extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesNFC.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesNFC.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesNFC.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_NFC_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
         if (preference != null) {
@@ -219,7 +220,7 @@ class EventPreferencesNFC extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_NFC_TAG).isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && tmp.isAllConfigured(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
                 else
@@ -313,7 +314,7 @@ class EventPreferencesNFC extends EventPreferences {
 
         removeAlarm(context);
 
-        if (!(isRunnable(context) && _enabled))
+        if (!(isRunnable(context) && isAllConfigured(context) && _enabled))
             return;
 
         setAlarm(computeAlarm(), context);

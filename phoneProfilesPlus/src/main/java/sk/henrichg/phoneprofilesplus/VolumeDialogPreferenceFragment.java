@@ -172,10 +172,14 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
 
             if (/*(appContext != null) &&*/ (_preference != null)) {
                 if (_preference.usedValueMusic != -1)
-                    ActivateProfileHelper.setMediaVolume(appContext, _preference.audioManager, _preference.usedValueMusic, true, false);
+                    if (_preference.audioManager != null)
+                        ActivateProfileHelper.setMediaVolume(appContext, _preference.audioManager,
+                                _preference.audioManager.getStreamVolume(AudioManager.STREAM_MUSIC),
+                                _preference.usedValueMusic, true, false);
                 if (_preference.oldMediaMuted) {
                     PPApplication.volumesInternalChange = true;
-                    _preference.audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    if (_preference.audioManager != null)
+                        _preference.audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                     PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
                 }
@@ -194,8 +198,10 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                 }
                 if (playTimer != null) {
                     playTimer.cancel();
-                    playTimer = null;
                 }
+
+                mediaPlayer = null;
+                playTimer = null;
             }
         };
         PPApplicationStatic.createPlayToneExecutor();
@@ -239,7 +245,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {
             // Round the value to the closest integer value.
-            //noinspection ConstantConditions
+            //noinspection UnreachableCode, ConstantConditions
             if (preference.stepSize >= 1) {
                 preference.value = Math.round((float) progress / preference.stepSize) * preference.stepSize;
             } else {
@@ -275,7 +281,10 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
 
                 PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
             }
-            ActivateProfileHelper.setMediaVolume(context, preference.audioManager, volume, true, false);
+            if (preference.audioManager != null)
+                ActivateProfileHelper.setMediaVolume(context, preference.audioManager,
+                        preference.audioManager.getStreamVolume(AudioManager.STREAM_MUSIC),
+                        volume, true, false);
 
             final Context appContext = context.getApplicationContext();
             final WeakReference<VolumeDialogPreference> preferenceWeakRef = new WeakReference<>(preference);

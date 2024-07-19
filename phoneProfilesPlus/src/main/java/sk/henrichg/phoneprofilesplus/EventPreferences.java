@@ -42,6 +42,11 @@ abstract class EventPreferences {
         return 1;
     }
 
+    boolean isAllConfigured(Context context)
+    {
+        return true;
+    }
+
     /*
     boolean activateReturnProfile()
     {

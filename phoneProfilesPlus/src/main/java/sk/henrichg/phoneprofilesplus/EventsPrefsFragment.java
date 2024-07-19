@@ -25,9 +25,11 @@ import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.pm.ShortcutInfoCompat;
@@ -65,6 +67,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
     private static final String PREF_GRANT_PERMISSIONS = "eventGrantPermissions";
     private static final String PREF_NOT_IS_RUNNABLE = "eventNotIsRunnable";
+    private static final String PREF_NOT_IS_ALL_CONFIGURED = "eventNotIsAllConfigured";
     private static final String PREF_NOT_ENABLED_SOME_SENSOR = "eventNotEnabledSomeSensors";
     private static final String PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "eventNotEnabledAccessibilityService";
     private static final String PREF_EVENT_SENSORS_INFO = "eventSensorsInfo";
@@ -1243,33 +1246,56 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
                     preference.setVisible(true);
                     preference.setOnPreferenceClickListener(preference120 -> {
-                        Intent shortcutIntent = new Intent(appContext, NFCTagReadForegroundActivity.class);
-                        //shortcutIntent.setAction(Intent.ACTION_MAIN);
-                        shortcutIntent.setAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
-                        //<data android:mimeType="application/vnd.phoneprofilesplus.events"/>
-                        //shortcutIntent.setData(Uri.parse("android:mimeType=\"application/vnd.phoneprofilesplus.events\""));
-                        shortcutIntent.setType("application/vnd.phoneprofilesplus.events");
-                        shortcutIntent.addCategory(Intent.CATEGORY_DEFAULT);
-                        shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PPEditTextAlertDialog editTextDialog = new PPEditTextAlertDialog(
+                                getString(R.string.shortcut_to_read_nfc_tag_dialog_title),
+                                getString(R.string.shortcut_to_dialog_lablel),
+                                getString(R.string.read_nfc_tag_short_shortcut_name),
+                                getString(R.string.shortcut_to_dialog_create_button),
+                                getString(android.R.string.cancel),
+                                (dialog1, which) -> {
+                                    String iconName = "";
+                                    AlertDialog dialog = (AlertDialog) dialog1;
+                                    EditText editText = dialog.findViewById(R.id.dialog_with_edittext_edit);
+                                    if (editText != null)
+                                        iconName = editText.getText().toString();
+                                    if (iconName.isEmpty())
+                                        iconName = getString(R.string.read_nfc_tag_short_shortcut_name);
+                                    //Log.e("PhoneProfilesPrefsFragment createEditorShortcut", "iconName="+iconName);
 
-                        ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, EventPreferencesNFC.SHORTCUT_ID_READ_NFC_TAG);
-                        shortcutBuilderCompat.setIntent(shortcutIntent);
-                        shortcutBuilderCompat.setShortLabel(getString(R.string.nfc_tag_pref_dlg_readNfcTag_title));
-                        shortcutBuilderCompat.setLongLabel(getString(R.string.nfc_tag_pref_dlg_readNfcTag_text));
-                        shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_read_nfc_tag));
+                                    Intent shortcutIntent = new Intent(appContext, NFCTagReadForegroundActivity.class);
+                                    //shortcutIntent.setAction(Intent.ACTION_MAIN);
+                                    shortcutIntent.setAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
+                                    //<data android:mimeType="application/vnd.phoneprofilesplus.events"/>
+                                    //shortcutIntent.setData(Uri.parse("android:mimeType=\"application/vnd.phoneprofilesplus.events\""));
+                                    shortcutIntent.setType("application/vnd.phoneprofilesplus.events");
+                                    shortcutIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                                    shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                        try {
-                            Intent pinnedShortcutCallbackIntent = new Intent(EventPreferencesNFC.ACTION_SHORTCUT_TO_READ_NFC_TAG_ADDED);
-                            PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent,  0);
+                                    ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, EventPreferencesNFC.SHORTCUT_ID_READ_NFC_TAG);
+                                    shortcutBuilderCompat.setIntent(shortcutIntent);
+                                    shortcutBuilderCompat.setShortLabel(iconName);
+                                    shortcutBuilderCompat.setLongLabel(getString(R.string.nfc_tag_pref_dlg_readNfcTag_text));
+                                    shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_read_nfc_tag));
 
-                            ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
-                            ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
-                            //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
-                        } catch (Exception e) {
-                            // show dialog about this crash
-                            // for Microsft laucher it is:
-                            // java.lang.IllegalArgumentException ... already exists but disabled
-                        }
+                                    try {
+                                        Intent pinnedShortcutCallbackIntent = new Intent(EventPreferencesNFC.ACTION_SHORTCUT_TO_READ_NFC_TAG_ADDED);
+                                        PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent,  0);
+
+                                        ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
+                                        ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
+                                        //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
+                                    } catch (Exception e) {
+                                        // show dialog about this crash
+                                        // for Microsft laucher it is:
+                                        // java.lang.IllegalArgumentException ... already exists but disabled
+                                    }
+                                },
+                                null, null,
+                                true, true, false,
+                                activity
+                        );
+                        if (!activity.isFinishing())
+                            editTextDialog.show();
 
                         return false;
                     });
@@ -2280,6 +2306,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         boolean isEnabledSomeSensor;
         ArrayList<PermissionType> eventPermissions;
         boolean eventIsRunnable;
+        boolean eventIsAllConfigured;
         int accessibilityEnabled;
 
         private final WeakReference<PreferenceManager> prefMngWeakRef;
@@ -2314,6 +2341,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     eventPermissions = Permissions.checkEventPermissions(context, event, null, EventsHandler.SENSOR_TYPE_ALL);
                     accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false, false);
                     eventIsRunnable = event.isRunnable(context, false);
+                    eventIsAllConfigured = event.isAllConfigured(context, false);
                 }
             }
 
@@ -2518,9 +2546,52 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             preference.setSummary(summary);
                         }
                     }
+
+                    // not is configures some parameter
+                    if (eventIsAllConfigured) {
+                        preference = prefMng.findPreference(PREF_NOT_IS_ALL_CONFIGURED);
+                        if (preference != null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null)
+                                preferenceCategory.removePreference(preference);
+                        }
+                    }
+                    else {
+                        preference = prefMng.findPreference(PREF_NOT_IS_ALL_CONFIGURED);
+                        if (preference == null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null) {
+                                preference = new ExclamationPreference(context);
+                                preference.setKey(PREF_NOT_IS_ALL_CONFIGURED);
+                                preference.setIconSpaceReserved(false);
+                                preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                                preference.setOrder(-100);
+                                preferenceCategory.addPreference(preference);
+                            }
+                        }
+                        if (preference != null) {
+                            String _title = order + ". " + context.getString(R.string.event_preferences_not_all_parameters_are_configured);
+                            ++order;
+                            Spannable title = new SpannableString(_title);
+                            title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
+                            preference.setTitle(title);
+                            _title = context.getString(R.string.event_preferences_not_all_parameters_are_configured_summary) + " " +
+                                    //context.getString(R.string.event_preferences_red_sensors_summary) + " " +
+                                    context.getString(R.string.event_preferences_sensor_parameters_location_summary);
+                            Spannable summary = new SpannableString(_title);
+                            summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
+                            preference.setSummary(summary);
+                        }
+                    }
                 }
                 else {
                     Preference preference = prefMng.findPreference(PREF_NOT_IS_RUNNABLE);
+                    if (preference != null) {
+                        PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                        if (preferenceCategory != null)
+                            preferenceCategory.removePreference(preference);
+                    }
+                    preference = prefMng.findPreference(PREF_NOT_IS_ALL_CONFIGURED);
                     if (preference != null) {
                         PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
                         if (preferenceCategory != null)

@@ -3,6 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -11,6 +13,16 @@ import android.provider.Settings;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.StyleSpan;
+import android.view.View;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import java.text.Collator;
 import java.util.Calendar;
@@ -18,6 +30,10 @@ import java.util.List;
 import java.util.Locale;
 
 class GlobalUtils {
+
+    private GlobalUtils() {
+        // private constructor to prevent instantiation
+    }
 
     static void switchKeyguard(Context context) {
 //        PPApplicationStatic.logE("[IN_THREAD_HANDLER] GlobalUtils.switchKeyguard", "********");
@@ -515,6 +531,74 @@ class GlobalUtils {
                     return -1;
         }
         return -1;
+    }
+
+    /** @noinspection SameParameterValue*/
+    static void emailMe(final TextView textView, final String text, final String linkText, final String subjectText,
+                        final String bodyText, /*final boolean boldLink,*/ final Context context) {
+        String strNoLink = text + " " + linkText;
+        String str2 = strNoLink + StringConstants.CHAR_NEW_LINE + StringConstants.AUTHOR_EMAIL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+        Spannable sbt = new SpannableString(str2);
+        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, strNoLink.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setColor(ds.linkColor);    // you can use custom color
+                ds.setUnderlineText(false);    // this remove the underline
+            }
+
+            @Override
+            public void onClick(@NonNull View textView) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse(StringConstants.INTENT_DATA_MAIL_TO_COLON)); // only email apps should handle this
+                String[] email = { StringConstants.AUTHOR_EMAIL };
+                intent.putExtra(Intent.EXTRA_EMAIL, email);
+                String packageVersion = "";
+                try {
+                    PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                    packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                }
+                if (subjectText.isEmpty())
+                    intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion);
+                else
+                    intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + subjectText);
+                if (!bodyText.isEmpty())
+                    intent.putExtra(Intent.EXTRA_TEXT, bodyText);
+                try {
+                    context.startActivity(Intent.createChooser(intent, context.getString(R.string.email_chooser)));
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                }
+            }
+        };
+        sbt.setSpan(clickableSpan, strNoLink.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //if (boldLink)
+        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), strNoLink.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //else
+        //    sbt.setSpan(new UnderlineSpan(), strNoLink.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(sbt);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    static String getEmailBodyText(/*int bodyType, */Context context) {
+        String body;
+        //switch (bodyType) {
+        //    case EMAIL_BODY_SUPPORT:
+        body = context.getString(R.string.important_info_email_body_device) + " " +
+                Settings.Global.getString(context.getContentResolver(), Settings.Global.DEVICE_NAME) +
+                " (" + Build.MODEL + ")" + StringConstants.STR_NEWLINE_WITH_SPACE;
+        body = body + context.getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
+        body = body + context.getString(R.string.important_info_email_body_problems) + StringConstants.STR_NEWLINE_WITH_SPACE;
+        body = body + context.getString(R.string.important_info_email_body_questions) + StringConstants.STR_NEWLINE_WITH_SPACE;
+        body = body + context.getString(R.string.important_info_email_body_suggestions) + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
+        /*        break;
+            case EMAIL_BODY_TRANSLATIONS:
+                body = context.getString(R.string.important_info_email_body_translation_language_to) + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
+                break;
+        }*/
+        return body;
     }
 
 }

@@ -234,7 +234,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 //noinspection deprecation
-                                getActivity().startActivityForResult(intent, PhoneProfilesPrefsFragment.RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
+                                getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
                                 PPApplicationStatic.recordException(e);
@@ -304,10 +304,13 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
         boolean sim1Exists;
         boolean sim2Exists;
         int registeredCellDefault;
+        long registeredCellLongDefault;
         String registeredCellNameDefault;
         int registeredCellSIM1;
+        long registeredCellLongSIM1;
         String registeredCellNameSIM1;
         int registeredCellSIM2;
+        long registeredCellLongSIM2;
         String registeredCellNameSIM2;
 
         public RefreshListViewAsyncTask(/*final boolean forRescan,*/
@@ -376,19 +379,21 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
 
                         if ((fragment.phoneCount > 1)) {
                             if (sim1Exists) {
-                                if (PPApplication.mobileCellsScanner != null) {
+                                //if (PPApplication.mobileCellsScanner != null) {
                                     registeredCellSIM1 = PPApplication.mobileCellsScanner.getRegisteredCell(1);
+                                    registeredCellLongSIM1 = PPApplication.mobileCellsScanner.getRegisteredCellLong(1);
                                     List<MobileCellsData> _cellsList = new ArrayList<>();
-                                    db.addMobileCellsToList(_cellsList, registeredCellSIM1);
+                                    db.addMobileCellsToList(_cellsList, registeredCellSIM1, registeredCellLongSIM1);
                                     if (!_cellsList.isEmpty())
                                         registeredCellNameSIM1 = _cellsList.get(0).name;
-                                }
+                                //}
                             }
                             if (sim2Exists) {
                                 if (PPApplication.mobileCellsScanner != null) {
                                     registeredCellSIM2 = PPApplication.mobileCellsScanner.getRegisteredCell(2);
+                                    registeredCellLongSIM2 = PPApplication.mobileCellsScanner.getRegisteredCellLong(2);
                                     List<MobileCellsData> _cellsList = new ArrayList<>();
-                                    db.addMobileCellsToList(_cellsList, registeredCellSIM2);
+                                    db.addMobileCellsToList(_cellsList, registeredCellSIM2, registeredCellLongSIM2);
                                     if (!_cellsList.isEmpty())
                                         registeredCellNameSIM2 = _cellsList.get(0).name;
                                 }
@@ -396,8 +401,9 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                         } else {
                             if (PPApplication.mobileCellsScanner != null) {
                                 registeredCellDefault = PPApplication.mobileCellsScanner.getRegisteredCell(0);
+                                registeredCellLongDefault = PPApplication.mobileCellsScanner.getRegisteredCellLong(0);
                                 List<MobileCellsData> _cellsList = new ArrayList<>();
-                                db.addMobileCellsToList(_cellsList, registeredCellDefault);
+                                db.addMobileCellsToList(_cellsList, registeredCellDefault, registeredCellLongDefault);
                                 if (!_cellsList.isEmpty())
                                     registeredCellNameDefault = _cellsList.get(0).name;
                             }
@@ -442,7 +448,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                         if ((fragment.phoneCount > 1)) {
                             if (sim1Exists) {
                                 String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim1) + " ";
-                                if (MobileCellsScanner.isValidCellId(registeredCellSIM1)) {
+                                if (MobileCellsScanner.isValidCellId(registeredCellSIM1, registeredCellLongSIM1)) {
                                     if ((registeredCellNameSIM1 != null) && (!registeredCellNameSIM1.isEmpty()))
                                         connectedCellName = connectedCellName + registeredCellNameSIM1 + ", ";
                                     connectedCellName = connectedCellName + registeredCellSIM1;
@@ -451,7 +457,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                             }
                             if (sim2Exists) {
                                 String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim2) + " ";
-                                if (MobileCellsScanner.isValidCellId(registeredCellSIM2)) {
+                                if (MobileCellsScanner.isValidCellId(registeredCellSIM2, registeredCellLongSIM2)) {
                                     if ((registeredCellNameSIM2 != null) && (!registeredCellNameSIM2.isEmpty()))
                                         connectedCellName = connectedCellName + registeredCellNameSIM2 + ", ";
                                     connectedCellName = connectedCellName + registeredCellSIM2;
@@ -460,7 +466,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                             }
                         } else {
                             String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell) + " ";
-                            if (MobileCellsScanner.isValidCellId(registeredCellDefault)) {
+                            if (MobileCellsScanner.isValidCellId(registeredCellDefault, registeredCellLongDefault)) {
                                 if ((registeredCellNameDefault != null) && (!registeredCellNameDefault.isEmpty()))
                                     connectedCellName = connectedCellName + registeredCellNameDefault + ", ";
                                 connectedCellName = connectedCellName + registeredCellDefault;

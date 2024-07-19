@@ -94,6 +94,10 @@
     <declare-styleable name="WallpaperViewPreference">
         <attr name="forLockScreen" format="boolean" />
     </declare-styleable>
+<!--    <declare-styleable name="PPPPSDialogPreference">-->
+<!--        <attr name="requiredPPPPSVersionCode" format="integer" />-->
+<!--        <attr name="requiredPPPPSVersionName" format="string" />-->
+<!--    </declare-styleable>-->
 
     <!-- theme dependent drawables -->
     <!--    <attr name="activityBackgroundColor" format="reference" />-->

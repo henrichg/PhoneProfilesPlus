@@ -166,13 +166,13 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
                 // but for Android 14 is required to istall with adb command
 
                 RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
-                String izzyRepoURL = PPApplication.DROIDIFY_PPPPS_LATEST_APK_RELEASE_URL_BEGIN;
+                String izzyRepoURL = PPApplication.IZZY_PPPPS_LATEST_APK_RELEASE_URL_BEGIN;
                 izzyRepoURL = izzyRepoURL + PPApplication.VERSION_CODE_PPPPS_LATEST + ".apk";
 //                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
                 StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,
                         izzyRepoURL,
                         response1 -> {
-                            if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST) {
+                            if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                 // latest exists in IzzyOnDroid, but is not installed
 //                                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
                                 try {
@@ -200,7 +200,7 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
                 queueIzzyRepo.add(stringRequestIzzyRepo);
 
             } else {
-                if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
+                if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED)
                     // latest is not installed
                     showNotification(appContext);
             }

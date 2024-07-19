@@ -4,7 +4,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <string name="menu_edit_profiles">编辑器</string>
     <string name="menu_settings">设置</string>
-    <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
     <string name="title_activity_profile_preferences">情景设置</string>
     <string name="title_activity_event_preferences">事件设置</string>
     <string name="menu_new_profile">新建情景</string>
@@ -885,7 +884,6 @@
     <string name="array_pref_auto_rotate_on">自动旋转开启</string>
     <string name="array_pref_auto_rotate_off">自动旋转关闭</string>
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">自适应级别的更改可能无法在您的设备上运行(例如：三星设备)。</string>
-    <string name="about_application_xda_developers_community">XDA开发者社区：</string>
     <string name="mobile_cells_pref_dlg_connected_cell">已连接基站：</string>
     <string name="permissions_for_mobile_cells_registration_dialog_text1">移动基站注册需要一些权限。</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">新基站计数：</string>
@@ -987,8 +985,6 @@
     <string name="important_info_email_body_problems">问题：</string>
     <string name="important_info_email_body_questions">问题：</string>
     <string name="important_info_email_body_suggestions">建议：</string>
-    <string name="about_application_support">支持：</string>
-    <string name="about_application_support2">联系：</string>
     <string name="about_application_support_subject">支持</string>
     <string name="dashclock_extension_description">以配置指示灯显示激活的情景。触碰时打开激活清单。</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">使用图标亮度自定义情景图标</string>
@@ -1932,7 +1928,7 @@
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings 未安装 ！</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">未安装 PPPPutSettings</string>
     <string name="about_application_pppps_source_code">源代码 - PPPPutSettings：</string>
-    <string name="profile_preferences_notificationLed_23">(S)(R) LED 通知</string>
+    <string name="profile_preferences_notificationLed_23">LED 通知</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) 始终显示</string>
     <string name="samsung_edge_panel_settings_description">三星侧边栏设置</string>
     <string name="phone_profiles_pref_applicationCompactGrid">紧凑网格</string>
@@ -2187,4 +2183,32 @@
     <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs">(Z) (R) Wi-Fi 和蓝牙确认对话框</string>
     <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary">\"HyperOs\"可禁用这些对话框。单击此处可禁用它们。注意：需要Shizuku/root。</string>
     <string name="profile_preferences_deviceWallpaperHuaweiInfo">在华为设备中存在 bug。因此，所有非交互类型可能无法正常工作。</string>
+    <string name="menu_check_releases_neostore">在 Neo Store 中检查</string>
+    <string name="check_releases_open_neostore">打开 Neo Store</string>
+    <string name="check_releases_neostore_ppp_release">Neo Store 的 PhoneProfilesPlus 版本：</string>
+    <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary_api29">请在系统设置中启用定位和“Wi-Fi扫描”。否则传感器将无法工作。</string>
+    <string name="download_installWithOptions_title">下载 Installoptions.apk</string>
+    <string name="download_pppps_title">下载 PPPPutSettings.apk</string>
+    <string name="downloading_file_description">文件将存储到下载目录</string>
+    <string name="event_preferences_not_all_parameters_are_configured">一些参数未配置！</string>
+    <string name="event_preferences_not_all_parameters_are_configured_summary">必须对这些参数进行配置，以确保事件功能正常。</string>
+    <string name="downloading_toast_text">正在下载…</string>
+    <string name="phone_profiles_pref_category_widget_dash_clock">小部件： Dash Clock</string>
+    <string name="phone_profiles_pref_widget_dash_clock_info">关于 Dash Clock 的信息</string>
+    <string name="phone_profiles_pref_widget_dash_clock_info_summary">点击这里显示 Dash Clock Widget 的信息。</string>
+    <string name="dash_clock_widget_info_1">Dash Clock Widget 已废弃，不在Google Play中，但可以从 APKMirror 安装最新版本。</string>
+    <string name="dash_clock_widget_info_2">Dash Clock Widget GitHub:</string>
+    <string name="dash_clock_widget_info_3">APKMirror 下载：</string>
+    <string name="shortcut_to_editor_dialog_title">编辑器快捷方式</string>
+    <string name="shortcut_to_mobile_cells_scanning_dialog_title">\"移动基站扫描\"的快捷方式</string>
+    <string name="shortcut_to_read_nfc_tag_dialog_title">\"读取 NFC 标签”的快捷方式</string>
+    <string name="shortcut_to_dialog_lablel">快捷方式图标名称：</string>
+    <string name="shortcut_to_dialog_create_button">创建</string>
+    <string name="mobile_cells_scanning_short_shortcut_name">基站扫描</string>
+    <string name="read_nfc_tag_short_shortcut_name">读取标签</string>
+    <string name="profile_preferences_volumeMergedRingSyatemVolumeInfo_summary">大多数设备合并了 \"铃声音量 \"和 \"系统音量\"。这些设备在设置中没有 \"系统音量 \"的选项。因此，建议在配置 \"系统音量 \"时配置 \"铃声音量\"，或者不配置 \"系统音量\"。</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_title">切换 SIM 卡 开/关</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_summary">警告：设为 \"开启 \"的 SIM 卡的解锁时将需要输入 PIN 码。</string>
+    <string name="menu_discord_server">PhoneProfilesPlus 服务器</string>
+    <string name="menu_discord_invitation">PhoneProfilesPlus 服务器邀请</string>
 </resources>

@@ -107,15 +107,15 @@ class PlayRingingNotification
                         break;
                 }
                 switch (ActivateProfileHelper.getSystemZenMode(context)) {
-                    case ActivateProfileHelper.ZENMODE_ALARMS:
+                    case ActivateProfileHelper.SYSTEM_ZENMODE_ALARMS:
                         newZenMode = Profile.ZENMODE_ALARMS;
 //                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newZenMode=ALARMS");
                         break;
-                    case ActivateProfileHelper.ZENMODE_NONE:
+                    case ActivateProfileHelper.SYSTEM_ZENMODE_NONE:
                         newZenMode = Profile.ZENMODE_NONE;
 //                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newZenMode=NONE");
                         break;
-                    case ActivateProfileHelper.ZENMODE_PRIORITY:
+                    case ActivateProfileHelper.SYSTEM_ZENMODE_PRIORITY:
                         newZenMode = Profile.ZENMODE_PRIORITY;
 //                        PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.doSimulatingRingingCall", "newZenMode=PRIORITY");
                         break;
@@ -307,13 +307,17 @@ class PlayRingingNotification
             }
             // ----------
 
+            /*
             // do not simulate ringing when ring or stream is muted
+            // Wrong! Do not test actual mute state of ringing from system, tested must be _volumeMuteSound
+            // from activated profile (look at EventsHandler.doEndHandler())
             if (audioManager != null) {
                 if (audioManager.isStreamMute(AudioManager.STREAM_RING)) {
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.startSimulatingRingingCall", "stream_rin mutted");
                     return;
                 }
             }
+            */
 
 //            PPApplicationStatic.logE("[RINGING_SIMULATION] PlayRingingNotification.startSimulatingRingingCall", "stream_ring NOT muted");
 
@@ -790,6 +794,7 @@ class PlayRingingNotification
             }
 
             if (setBackMediaVolume) {
+                //noinspection UnreachableCode
                 try {
                     if (PlayRingingNotification.notificationIsPlayed) {
                         if ((PlayRingingNotification.oldVolumeForPlayNotificationSound != -1) &&

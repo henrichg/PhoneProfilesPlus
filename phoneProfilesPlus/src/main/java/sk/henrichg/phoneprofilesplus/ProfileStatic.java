@@ -24,6 +24,10 @@ import java.util.Map;
 /** @noinspection ExtractMethodRecommender*/
 class ProfileStatic {
 
+    private ProfileStatic() {
+        // private constructor to prevent instantiation
+    }
+
     static String getIconIdentifier(String icon)
     {
         String value;

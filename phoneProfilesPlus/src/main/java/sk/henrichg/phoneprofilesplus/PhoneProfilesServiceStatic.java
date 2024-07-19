@@ -42,6 +42,10 @@ import java.util.List;
 class PhoneProfilesServiceStatic
 {
 
+    private PhoneProfilesServiceStatic() {
+        // private constructor to prevent instantiation
+    }
+
     static void registerAllTheTimeRequiredPPPBroadcastReceivers(boolean register, Context context) {
         final Context appContext = context.getApplicationContext();
         if (!register) {

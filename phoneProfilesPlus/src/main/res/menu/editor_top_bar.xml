@@ -115,6 +115,55 @@
                 android:title="@string/menu_email_debug_logs_to_author"
                 android:orderInCategory="102"
                 app:showAsAction="never" />
+            <item android:id="@+id/menu_discord"
+                android:title="@string/menu_discord"
+                android:orderInCategory="103"
+                app:showAsAction="never">
+                <menu>
+                    <item android:id="@+id/menu_discord_server"
+                        android:title="@string/menu_discord_server"
+                        android:orderInCategory="100"
+                        app:showAsAction="never" />
+                    <item android:id="@+id/menu_discord_invitation"
+                        android:title="@string/menu_discord_invitation"
+                        android:orderInCategory="101"
+                        app:showAsAction="never" />
+<!--
+                    <item android:id="@+id/menu_discord_help"
+                        android:title="@string/menu_discord_help"
+                        android:orderInCategory="102"
+                        app:showAsAction="never" />
+                    <item android:id="@+id/menu_discord_bugs"
+                        android:title="@string/menu_discord_bugs"
+                        android:orderInCategory="103"
+                        app:showAsAction="never" />
+                    <item android:id="@+id/menu_discord_suggestions"
+                        android:title="@string/menu_discord_suggestions"
+                        android:orderInCategory="104"
+                        app:showAsAction="never" />
+                    <item android:id="@+id/menu_discord_discussion"
+                        android:title="@string/menu_discord_discussion"
+                        android:orderInCategory="105"
+                        app:showAsAction="never" />
+-->
+                </menu>
+            </item>
+            <item android:id="@+id/menu_xda_developers"
+                android:title="@string/menu_xda_developers"
+                android:orderInCategory="104"
+                app:showAsAction="never" />
+            <item android:id="@+id/menu_twitter"
+                android:title="@string/menu_twitter"
+                android:orderInCategory="105"
+                app:showAsAction="never" />
+            <item android:id="@+id/menu_reddit"
+                android:title="@string/menu_reddit"
+                android:orderInCategory="106"
+                app:showAsAction="never" />
+            <item android:id="@+id/menu_bluesky"
+                android:title="@string/menu_bluesky"
+                android:orderInCategory="106"
+                app:showAsAction="never" />
         </menu>
     </item>
 
@@ -124,26 +173,22 @@
         app:showAsAction="never" >
 
         <menu>
-<!--            <item android:id="@+id/menu_check_in_galaxy_store"-->
-<!--                android:title="@string/menu_check_releases_galaxy_store"-->
-<!--                android:orderInCategory="100"-->
-<!--                app:showAsAction="never" />-->
             <item android:id="@+id/menu_check_in_appgallery"
                 android:title="@string/menu_check_releases_appgallery"
                 android:orderInCategory="101"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_droidify"
                 android:title="@string/menu_check_releases_droidify"
+                android:orderInCategory="102"
+                app:showAsAction="never" />
+            <item android:id="@+id/menu_check_in_neostore"
+                android:title="@string/menu_check_releases_neostore"
                 android:orderInCategory="103"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_fdroid"
                 android:title="@string/menu_check_releases_fdroid"
-                android:orderInCategory="103"
+                android:orderInCategory="104"
                 app:showAsAction="never" />
-<!--            <item android:id="@+id/menu_check_in_amazon_appstore"-->
-<!--                android:title="@string/menu_check_releases_amazon_appstore"-->
-<!--                android:orderInCategory="104"-->
-<!--                app:showAsAction="never" />-->
             <item android:id="@+id/menu_check_in_apkpure"
                 android:title="@string/menu_check_releases_apkpure"
                 android:orderInCategory="105"

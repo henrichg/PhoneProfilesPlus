@@ -4,7 +4,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <string name="menu_edit_profiles">Editor</string>
     <string name="menu_settings">Nastavenia</string>
-    <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
     <string name="title_activity_profile_preferences">Parametre profilu</string>
     <string name="title_activity_event_preferences">Parametre udalosti</string>
     <string name="menu_new_profile">Nový profil</string>
@@ -885,7 +884,6 @@
     <string name="array_pref_auto_rotate_on">Zapnúť automatickú orientáciu</string>
     <string name="array_pref_auto_rotate_off">Vypnúť automatickú orientáciu</string>
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">Zmena úrovne adaptívneho jasu nemusí fungovať na vašom zariadení (napríklad: zariadenia Samsung).</string>
-    <string name="about_application_xda_developers_community">Komunita XDA-developers:</string>
     <string name="mobile_cells_pref_dlg_connected_cell">Pripojená bunka:</string>
     <string name="permissions_for_mobile_cells_registration_dialog_text1">Registrácia mobilných buniek vyžaduje nejaké povolenia.</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Počet nových buniek:</string>
@@ -987,8 +985,6 @@
     <string name="important_info_email_body_problems">Problémy:</string>
     <string name="important_info_email_body_questions">Otázky:</string>
     <string name="important_info_email_body_suggestions">Návrhy:</string>
-    <string name="about_application_support">Podpora:</string>
-    <string name="about_application_support2">kontakt:</string>
     <string name="about_application_support_subject">podpora</string>
     <string name="dashclock_extension_description">Zobrazí aktívny profil s indikátorom preferencií profilu. Na kliknutie sa otvorí Aktivátor.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Použiť svetlosť ikony pre vlastné ikony</string>
@@ -1932,7 +1928,7 @@
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings nie je nainštalovaný!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">nie je nainštalované PPPPutSettings</string>
     <string name="about_application_pppps_source_code">Zdrojový kód - PPPPutSettings:</string>
-    <string name="profile_preferences_notificationLed_23">(S)(R) Notifikačná dióda</string>
+    <string name="profile_preferences_notificationLed_23">Notifikačná dióda</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Always-on displej</string>
     <string name="samsung_edge_panel_settings_description">Nastavenia pre Samsung bočný panel</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Kompaktná mriežka</string>
@@ -2187,4 +2183,32 @@
     <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs">(Z)(R) Wi-Fi a Bluetooth potvrdzovací dialóg</string>
     <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary">Pre \"HyperOs\" je možné tieto dialógy vypnúť. Kliknutím na toto ich zakážete. POZNÁMKA: Vyžaduje Shizuku/root.</string>
     <string name="profile_preferences_deviceWallpaperHuaweiInfo">V zariadeniach Huawei je chyba. A z tohto dôvodu nemusia správne fungovať všetky neinteraktívne typy.</string>
+    <string name="menu_check_releases_neostore">Skontrolovať v Neo Store</string>
+    <string name="check_releases_open_neostore">Otvoriť Neo Store</string>
+    <string name="check_releases_neostore_ppp_release">Vydanie PhoneProfilesPlus v Neo Store:</string>
+    <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary_api29">Prosím zapnite Polohu a \"Vyhľadávanie cez Wi-Fi\" v nastaveniach systému. Bez toho senzor nebude fungovať.</string>
+    <string name="download_installWithOptions_title">Sťahovanie InstallWithOptions.apk</string>
+    <string name="download_pppps_title">Sťahovanie PPPPutSettings.apk</string>
+    <string name="downloading_file_description">Súbor bude uložený do adresára Downloads</string>
+    <string name="event_preferences_not_all_parameters_are_configured">Niektoré parametre nie sú nakonfigurované!</string>
+    <string name="event_preferences_not_all_parameters_are_configured_summary">Tieto parametre musia byť nakonfigurované pre správnu funkčnosť udalosti.</string>
+    <string name="downloading_toast_text">Sťahuje sa…</string>
+    <string name="phone_profiles_pref_category_widget_dash_clock">Miniaplikácia: Dash Clock</string>
+    <string name="phone_profiles_pref_widget_dash_clock_info">Informácie o Dash Clock</string>
+    <string name="phone_profiles_pref_widget_dash_clock_info_summary">Kliknutím sem zobrazíte informácie o Dash Clock Widget.</string>
+    <string name="dash_clock_widget_info_1">Dash Clock Widget je zastaraný a nie je v Google Play, ale je možné nainštalovať najnovšiu verziu z APKMirror.</string>
+    <string name="dash_clock_widget_info_2">Dash Clock Widget GitHub:</string>
+    <string name="dash_clock_widget_info_3">Stiahnutie z APKMirror:</string>
+    <string name="shortcut_to_editor_dialog_title">Odkaz na Editor</string>
+    <string name="shortcut_to_mobile_cells_scanning_dialog_title">Odkaz na \"Skenovanie mobilných buniek\"</string>
+    <string name="shortcut_to_read_nfc_tag_dialog_title">Odkaz na \"Čítať NFC tag\"</string>
+    <string name="shortcut_to_dialog_lablel">Názov ikony odkazu:</string>
+    <string name="shortcut_to_dialog_create_button">Vytvoriť</string>
+    <string name="mobile_cells_scanning_short_shortcut_name">Sken buniek</string>
+    <string name="read_nfc_tag_short_shortcut_name">Čitať tag</string>
+    <string name="profile_preferences_volumeMergedRingSyatemVolumeInfo_summary">Väčšina zariadení má zlúčené \"Hlasitosť zvonenia\" a \"Hlasitosť systému\". Tieto zariadenia nemajú v Nastaveniach zariadenia možnosť konfigurovať \"Hlasitosť systému\". Z tohto dôvodu sa odporúča nakonfigurovať \"Hlasitosť zvonenia\", keď je nakonfigurovaná \"Hlasitosť systému\" alebo nekonfigurovať \"Hlasitosť systému\".</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_title">Zapnutie/vypnutie SIM</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_summary">UPOZORNENIE: Zobrazí sa obrazovka na zadanie kódu PIN pre kartu SIM, ktorá je nakonfigurovaná ako \"Zapnúť\".</string>
+    <string name="menu_discord_server">Server PhoneProfilesPlus</string>
+    <string name="menu_discord_invitation">Pozvánka na server PhoneProfilesPlus</string>
 </resources>

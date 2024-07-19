@@ -94,6 +94,11 @@
             app:summary="@string/volume_pref_dialog_no_change_chb"
             app:layout="@layout/mp_preference_material_widget" />
 
+        <sk.henrichg.phoneprofilesplus.InformationPreference
+            app:key="prf_pref_volumeMergedRingSyatemVolumeInfo"
+            app:title="@string/profile_preferences_volumeSystem"
+            app:summary="@string/profile_preferences_volumeMergedRingSyatemVolumeInfo_summary"
+            app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
             app:key="prf_pref_volumeSystem"
             app:forVolumesSensor="0"
@@ -102,6 +107,7 @@
             app:title="@string/profile_preferences_volumeSystem"
             app:summary="@string/volume_pref_dialog_no_change_chb"
             app:layout="@layout/mp_preference_material_widget" />
+
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
             app:key="prf_pref_volumeVoice"
             app:forVolumesSensor="0"

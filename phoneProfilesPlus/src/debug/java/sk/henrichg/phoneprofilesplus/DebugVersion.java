@@ -57,19 +57,19 @@ class DebugVersion {
 
             soundModeString = soundModeString + "\nZen mode=";
             switch (ActivateProfileHelper.getSystemZenMode(activity.getApplicationContext())) {
-                case ActivateProfileHelper.ZENMODE_ALL:
+                case ActivateProfileHelper.SYSTEM_ZENMODE_ALL:
                     soundModeString = soundModeString + "ZENMODE_ALL";
                     break;
-                case ActivateProfileHelper.ZENMODE_PRIORITY:
+                case ActivateProfileHelper.SYSTEM_ZENMODE_PRIORITY:
                     soundModeString = soundModeString + "ZENMODE_PRIORITY";
                     break;
-                case ActivateProfileHelper.ZENMODE_ALARMS:
+                case ActivateProfileHelper.SYSTEM_ZENMODE_ALARMS:
                     soundModeString = soundModeString + "ZENMODE_ALARMS";
                     break;
-                case ActivateProfileHelper.ZENMODE_NONE:
+                case ActivateProfileHelper.SYSTEM_ZENMODE_NONE:
                     soundModeString = soundModeString + "ZENMODE_NONE";
                     break;
-                case ActivateProfileHelper.ZENMODE_SILENT:
+                case ActivateProfileHelper.SYSTEM_ZENMODE_SILENT:
                     soundModeString = soundModeString + "ZENMODE_SILENT";
                     break;
             }

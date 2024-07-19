@@ -207,6 +207,7 @@ class EventPreferencesRoaming extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesRoaming.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesRoaming.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesRoaming.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_ROAMING_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_ROAMING_CHECK_NETWORK);
         if (preference != null) {
@@ -259,7 +260,8 @@ class EventPreferencesRoaming extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_ROAMING_CATEGORY);
             if (preference != null) {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_ROAMING_ENABLED, false);
-                boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context, false) == 1);
+                boolean runnable = tmp.isRunnable(context) && tmp.isAllConfigured(context) &&
+                        (tmp.isAccessibilityServiceEnabled(context, false) == 1);
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_ROAMING).isEmpty();

@@ -54,7 +54,8 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             for (Event _event : dataWrapper.eventList) {
                                 if ((_event._eventPreferencesActivatedProfile._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
-                                    if (_event._eventPreferencesActivatedProfile.isRunnable(appContext)) {
+                                    if (_event._eventPreferencesActivatedProfile.isRunnable(appContext) &&
+                                        _event._eventPreferencesActivatedProfile.isAllConfigured(appContext)) {
                                         int oldRunning = _event._eventPreferencesActivatedProfile._running;
 
                                         long startProfile = _event._eventPreferencesActivatedProfile._startProfile;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -22,7 +23,15 @@ public class CameraUtilMarshMallow extends BaseCameraUtil {
     private void openCamera() throws CameraAccessException {
         if (mCameraManager == null)
             mCameraManager = (CameraManager) getContext().getSystemService(Context.CAMERA_SERVICE);
-        if (isFlashAvailable()) {
+
+        // check for all cameras
+        boolean flashAvailable = false;
+        String[] cameraIds = mCameraManager.getCameraIdList();
+        for (String id : cameraIds) {
+            flashAvailable = isFlashAvailable(id);
+        }
+
+        if (flashAvailable /*isFlashAvailable()*/) {
             mTorchCallback = new CameraManager.TorchCallback() {
                 @Override
                 public void onTorchModeUnavailable(@NonNull String cameraId) {
@@ -43,40 +52,60 @@ public class CameraUtilMarshMallow extends BaseCameraUtil {
         }
     }
 
-    private boolean isFlashAvailable() throws CameraAccessException {
-        CameraCharacteristics cameraCharacteristics = mCameraManager.getCameraCharacteristics("0");
+    private boolean isFlashAvailable(String cameraId) throws CameraAccessException {
+        CameraCharacteristics cameraCharacteristics = mCameraManager.getCameraCharacteristics(cameraId /*"0"*/);
         return cameraCharacteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
     }
 
     @Override
     public void turnOnFlash() throws CameraAccessException {
+        boolean torchSet = false;
         String[] cameraIds = getCameraManager().getCameraIdList();
         for (String id : cameraIds) {
-            CameraCharacteristics characteristics = getCameraManager().getCameraCharacteristics(id);
-            if (characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
-                // added facing check - allowed is only back flash
-                Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
-                if ((facing != null) && (facing == CameraCharacteristics.LENS_FACING_BACK)) {
-                    getCameraManager().setTorchMode(id, true);
-                    //setTorchMode(TorchMode.SwitchedOn);
+            // only log exception, because for all cameras must be set torch
+            try {
+                CameraCharacteristics characteristics = getCameraManager().getCameraCharacteristics(id);
+                if (characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
+                    // added facing check - allowed is only back flash
+                    Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
+                    if ((facing != null) && (facing == CameraCharacteristics.LENS_FACING_BACK)) {
+                        getCameraManager().setTorchMode(id, true);
+                        //setTorchMode(TorchMode.SwitchedOn);
+                        torchSet = true;
+                    }
                 }
+            } catch (Exception e) {
+                Log.e("CameraUtilMarshMallow.turnOnFlash", Log.getStackTraceString(e));
             }
+        }
+        if (!torchSet) {
+            throw new CameraAccessException(CameraAccessException.CAMERA_ERROR);
         }
     }
 
     @Override
     public void turnOffFlash() throws CameraAccessException {
+        boolean torchSet = false;
         String[] cameraIds = getCameraManager().getCameraIdList();
         for (String id : cameraIds) {
-            CameraCharacteristics characteristics = getCameraManager().getCameraCharacteristics(id);
-            if (characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
-                // added facing check - allowed is only back flash
-                Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
-                if ((facing != null) && (facing == CameraCharacteristics.LENS_FACING_BACK)) {
-                    getCameraManager().setTorchMode(id, false);
-                    //setTorchMode(TorchMode.SwitchedOff);
+            // only log exception, because for all cameras must be set torch
+            try {
+                CameraCharacteristics characteristics = getCameraManager().getCameraCharacteristics(id);
+                if (characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
+                    // added facing check - allowed is only back flash
+                    Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
+                    if ((facing != null) && (facing == CameraCharacteristics.LENS_FACING_BACK)) {
+                        getCameraManager().setTorchMode(id, false);
+                        //setTorchMode(TorchMode.SwitchedOff);
+                        torchSet = true;
+                    }
                 }
+            } catch (Exception e) {
+                Log.e("CameraUtilMarshMallow.turnOffFlash", Log.getStackTraceString(e));
             }
+        }
+        if (!torchSet) {
+            throw new CameraAccessException(CameraAccessException.CAMERA_ERROR);
         }
     }
 

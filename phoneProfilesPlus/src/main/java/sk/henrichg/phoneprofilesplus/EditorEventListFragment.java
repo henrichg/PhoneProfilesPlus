@@ -174,6 +174,7 @@ public class EditorEventListFragment extends Fragment
 
         //getActivity().getIntent();
 
+        //noinspection deprecation
         setHasOptionsMenu(true);
 
     }

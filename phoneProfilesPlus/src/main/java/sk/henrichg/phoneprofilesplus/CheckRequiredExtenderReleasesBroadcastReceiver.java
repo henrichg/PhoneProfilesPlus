@@ -166,7 +166,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
                 // because from Android 13 is required to install apk from app stores
 
                 RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
-                String izzyRepoURL = PPApplication.DROIDIFY_PPPE_LATEST_APK_RELEASE_URL_BEGIN;
+                String izzyRepoURL = PPApplication.IZZY_PPPE_LATEST_APK_RELEASE_URL_BEGIN;
                 izzyRepoURL = izzyRepoURL + PPApplication.VERSION_CODE_EXTENDER_LATEST + ".apk";
 //                Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
                 StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,

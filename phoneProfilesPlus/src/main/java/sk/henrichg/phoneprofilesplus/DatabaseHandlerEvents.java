@@ -4781,6 +4781,7 @@ class DatabaseHandlerEvents {
 
                 ContentValues values = new ContentValues();
                 values.put(DatabaseHandler.KEY_MC_CELL_ID, mobileCell._cellId);
+                values.put(DatabaseHandler.KEY_MC_CELL_ID_LONG, mobileCell._cellIdLong);
                 values.put(DatabaseHandler.KEY_MC_NAME, mobileCell._name);
                 values.put(DatabaseHandler.KEY_MC_NEW, mobileCell._new ? 1 : 0);
                 values.put(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
@@ -4823,6 +4824,7 @@ class DatabaseHandlerEvents {
 
                 ContentValues values = new ContentValues();
                 values.put(DatabaseHandler.KEY_MC_CELL_ID, mobileCell._cellId);
+                values.put(DatabaseHandler.KEY_MC_CELL_ID_LONG, mobileCell._cellIdLong);
                 values.put(DatabaseHandler.KEY_MC_NAME, mobileCell._name);
                 values.put(DatabaseHandler.KEY_MC_NEW, mobileCell._new ? 1 : 0);
                 values.put(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
@@ -4857,7 +4859,8 @@ class DatabaseHandlerEvents {
     }
 
     // add mobile cells to list
-    static void addMobileCellsToList(DatabaseHandler instance, List<MobileCellsData> cellsList, int onlyCellId,
+    static void addMobileCellsToList(DatabaseHandler instance, List<MobileCellsData> cellsList,
+                                     int onlyCellId, long onlyCellIdlong,
                                      boolean calledFromImportDB) {
         if (!calledFromImportDB)
             instance.importExportLock.lock();
@@ -4867,7 +4870,9 @@ class DatabaseHandlerEvents {
                     instance.startRunningCommand();
 
                 // Select All Query
-                String selectQuery = "SELECT " + DatabaseHandler.KEY_MC_CELL_ID + "," +
+                String selectQuery = "SELECT " +
+                        DatabaseHandler.KEY_MC_CELL_ID + "," +
+                        DatabaseHandler.KEY_MC_CELL_ID_LONG + "," +
                         DatabaseHandler.KEY_MC_NAME + "," +
                         DatabaseHandler.KEY_MC_NEW + "," +
                         DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME + //"," +
@@ -4876,44 +4881,65 @@ class DatabaseHandlerEvents {
                         //DatabaseHandler.KEY_MC_DO_NOT_DETECT +
                         " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS;
 
-                if (onlyCellId != 0) {
-                    selectQuery = selectQuery +
-                            " WHERE " + DatabaseHandler.KEY_MC_CELL_ID + "=" + onlyCellId;
+                boolean whereAdded = true; // all cells from db
+                if ((onlyCellId != 0) && (onlyCellIdlong != 0)) {
+                    whereAdded = false; // only specified cell from db
+                    if (onlyCellId != Integer.MAX_VALUE) {
+                        selectQuery = selectQuery +
+                                " WHERE " + DatabaseHandler.KEY_MC_CELL_ID + "=" + onlyCellId;
+                        whereAdded = true;
+                    }
+                    else if (onlyCellIdlong != Long.MAX_VALUE) {
+                        selectQuery = selectQuery +
+                                " WHERE " + DatabaseHandler.KEY_MC_CELL_ID_LONG + "=" + onlyCellIdlong;
+                        whereAdded = true;
+                    }
                 }
 
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = instance.getMyWritableDatabase();
+                if (whereAdded) {
+                    //SQLiteDatabase db = this.getReadableDatabase();
+                    SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                Cursor cursor = db.rawQuery(selectQuery, null);
+                    Cursor cursor = db.rawQuery(selectQuery, null);
 
-                // looping through all rows and adding to list
-                if (cursor.moveToFirst()) {
-                    do {
-                        int cellId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID));
-                        String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
-                        boolean _new = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NEW)) == 1;
-                        long lastConnectedTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME));
-                        //String lastRunningEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS));
-                        //String lastPausedEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS));
-                        //boolean doNotDetect = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_DO_NOT_DETECT)) == 1;
-                        //Log.e("DatabaseHandlerEvents.addMobileCellsToList", "cellId="+cellId + " new="+_new);
-                        boolean found = false;
-                        for (MobileCellsData cell : cellsList) {
-                            if (cell.cellId == cellId) {
-                                found = true;
-                                break;
+                    // looping through all rows and adding to list
+                    if (cursor.moveToFirst()) {
+                        do {
+                            int cellIdDB = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID));
+                            long cellIdDBLong = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID_LONG));
+                            String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
+                            boolean _new = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NEW)) == 1;
+                            long lastConnectedTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME));
+                            //String lastRunningEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS));
+                            //String lastPausedEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS));
+                            //boolean doNotDetect = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_DO_NOT_DETECT)) == 1;
+                            //Log.e("DatabaseHandlerEvents.addMobileCellsToList", "cellId="+cellId + " new="+_new);
+                            boolean found = false;
+                            for (MobileCellsData cellData : cellsList) {
+                                if (cellIdDB != Integer.MAX_VALUE) {
+                                    if (cellData.cellId == cellIdDB) {
+                                        found = true;
+                                        break;
+                                    }
+                                } else if (cellIdDBLong != Long.MAX_VALUE) {
+                                    if (cellData.cellIdLong == cellIdDBLong) {
+                                        found = true;
+                                        break;
+                                    }
+                                }
                             }
-                        }
-                        if (!found) {
-                            MobileCellsData cell = new MobileCellsData(cellId, name, false, _new, lastConnectedTime/*,
+                            if (!found) {
+                                MobileCellsData cell = new MobileCellsData(
+                                        cellIdDB, cellIdDBLong, name, false, _new, lastConnectedTime/*,
                                     lastRunningEvents, lastPausedEvents, doNotDetect*/);
-                            cellsList.add(cell);
-                        }
-                    } while (cursor.moveToNext());
-                }
+                                cellsList.add(cell);
+                            }
+                        } while (cursor.moveToNext());
+                    }
 
-                cursor.close();
-                //db.close();
+                    cursor.close();
+                    //db.close();
+                }
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }
@@ -4932,6 +4958,7 @@ class DatabaseHandlerEvents {
                 // Select All Query
                 final String selectQuery = "SELECT " + DatabaseHandler.KEY_MC_ID + "," +
                         DatabaseHandler.KEY_MC_CELL_ID + "," +
+                        DatabaseHandler.KEY_MC_CELL_ID_LONG + "," +
                         DatabaseHandler.KEY_MC_NAME + "," +
                         DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME + //"," +
                         //DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS + "," +
@@ -4954,16 +4981,30 @@ class DatabaseHandlerEvents {
                     //boolean doNotDetect = false;
                     if (cursor.moveToFirst()) {
                         do {
-                            String dbCellId = Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID)));
-                            if (dbCellId.equals(Integer.toString(cell.cellId))) {
-                                foundedDbId = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_ID));
-                                foundedCellName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
-                                foundedLastConnectedTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME));
-                                //foundedLastRunningEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS));
-                                //foundedLastPausedEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS));
-                                //doNotDetect = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_DO_NOT_DETECT)) == 1;
-                                found = true;
-                                break;
+                            int dbCellId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID));
+                            long dbCellIdLong = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID_LONG));
+                            if (dbCellId != Integer.MAX_VALUE) {
+                                if (dbCellId == cell.cellId) {
+                                    foundedDbId = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_ID));
+                                    foundedCellName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
+                                    foundedLastConnectedTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME));
+                                    //foundedLastRunningEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS));
+                                    //foundedLastPausedEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS));
+                                    //doNotDetect = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_DO_NOT_DETECT)) == 1;
+                                    found = true;
+                                    break;
+                                }
+                            } else if (dbCellIdLong != Long.MAX_VALUE) {
+                                if (dbCellIdLong == cell.cellIdLong) {
+                                    foundedDbId = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_ID));
+                                    foundedCellName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
+                                    foundedLastConnectedTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME));
+                                    //foundedLastRunningEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS));
+                                    //foundedLastPausedEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS));
+                                    //doNotDetect = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_DO_NOT_DETECT)) == 1;
+                                    found = true;
+                                    break;
+                                }
                             }
                         } while (cursor.moveToNext());
                     }
@@ -4971,6 +5012,7 @@ class DatabaseHandlerEvents {
                     if (!found) {
                         //Log.d("DatabaseHandler.saveMobileCellsList", "!found");
                         mobileCell._cellId = cell.cellId;
+                        mobileCell._cellIdLong = cell.cellIdLong;
                         mobileCell._name = cell.name;
                         mobileCell._new = true;
                         mobileCell._lastConnectedTime = cell.lastConnectedTime;
@@ -4984,6 +5026,7 @@ class DatabaseHandlerEvents {
                         //Log.d("DatabaseHandler.saveMobileCellsList", "found="+foundedDbId+" cell.new="+cell._new+" new="+_new);
                         mobileCell._id = foundedDbId;
                         mobileCell._cellId = cell.cellId;
+                        mobileCell._cellIdLong = cell.cellIdLong;
                         mobileCell._name = cell.name;
                         if (!renameExistingCell && !foundedCellName.isEmpty())
                             mobileCell._name = foundedCellName;
@@ -5020,6 +5063,7 @@ class DatabaseHandlerEvents {
                 // Select All Query
                 final String selectQuery = "SELECT " + DatabaseHandler.KEY_MC_ID + "," +
                         DatabaseHandler.KEY_MC_CELL_ID + "," +
+                        DatabaseHandler.KEY_MC_CELL_ID_LONG + "," +
                         DatabaseHandler.KEY_MC_NAME +
                         " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS;
 
@@ -5035,11 +5079,21 @@ class DatabaseHandlerEvents {
                     long foundedDbId = 0;
                     if (cursor.moveToFirst()) {
                         do {
-                            String dbCellId = Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID)));
-                            if (dbCellId.equals(Integer.toString(cell.cellId))) {
-                                foundedDbId = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_ID));
-                                found = true;
-                                break;
+                            int dbCellId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID));
+                            long dbCellIdLong = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_CELL_ID_LONG));
+                            if ((dbCellId != Integer.MAX_VALUE) && (cell.cellId != Integer.MAX_VALUE)) {
+                                if (dbCellId == cell.cellId) {
+                                    foundedDbId = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_ID));
+                                    found = true;
+                                    break;
+                                }
+                            } else
+                            if ((dbCellIdLong != Long.MAX_VALUE) && (cell.cellIdLong != Long.MAX_VALUE)) {
+                                if (dbCellIdLong == cell.cellIdLong) {
+                                    foundedDbId = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_ID));
+                                    found = true;
+                                    break;
+                                }
                             }
                         } while (cursor.moveToNext());
                     }
@@ -5053,6 +5107,7 @@ class DatabaseHandlerEvents {
                                 MobileCell mobileCell = new MobileCell();
                                 mobileCell._id = foundedDbId;
                                 mobileCell._cellId = cell.cellId;
+                                mobileCell._cellIdLong = cell.cellIdLong;
                                 mobileCell._name = cell.name;
                                 mobileCell._new = true;
                                 mobileCell._lastConnectedTime = cell.lastConnectedTime;
@@ -5072,13 +5127,23 @@ class DatabaseHandlerEvents {
                                 // change selected
                                 String[] splits = selectedIds.split(StringConstants.STR_SPLIT_REGEX);
                                 for (String valueCell : splits) {
-                                    if (valueCell.equals(Integer.toString(cell.cellId))) {
+                                    boolean updateCell = false;
+                                    long _valueCell = Long.parseLong(valueCell);
+                                    if (cell.cellId != Integer.MAX_VALUE) {
+                                        if (_valueCell == cell.cellId)
+                                            updateCell = true;
+                                    } else if (cell.cellIdLong != Long.MAX_VALUE) {
+                                        if (_valueCell == cell.cellIdLong)
+                                            updateCell = true;
+                                    }
+                                    if (updateCell) {
                                         String oldCellName = cell.name;
 
                                         cell.name = toCellName;
                                         MobileCell mobileCell = new MobileCell();
                                         mobileCell._id = foundedDbId;
                                         mobileCell._cellId = cell.cellId;
+                                        mobileCell._cellIdLong = cell.cellIdLong;
                                         mobileCell._name = cell.name;
                                         mobileCell._new = cell._new;
                                         mobileCell._lastConnectedTime = cell.lastConnectedTime;
@@ -5104,6 +5169,7 @@ class DatabaseHandlerEvents {
                                 MobileCell mobileCell = new MobileCell();
                                 mobileCell._id = foundedDbId;
                                 mobileCell._cellId = cell.cellId;
+                                mobileCell._cellIdLong = cell.cellIdLong;
                                 mobileCell._name = cell.name;
                                 mobileCell._new = cell._new;
                                 mobileCell._lastConnectedTime = cell.lastConnectedTime;
@@ -5136,7 +5202,7 @@ class DatabaseHandlerEvents {
         return "";
     }
 
-    static void deleteMobileCell(DatabaseHandler inctance, int mobileCell, boolean calledFromImportDB) {
+    static void deleteMobileCell(DatabaseHandler inctance, int mobileCell, long mobileCellLong, boolean calledFromImportDB) {
         if (!calledFromImportDB)
             inctance.importExportLock.lock();
         try {
@@ -5150,9 +5216,14 @@ class DatabaseHandlerEvents {
                 db.beginTransaction();
 
                 try {
-                    // delete geofence
-                    db.delete(DatabaseHandler.TABLE_MOBILE_CELLS, DatabaseHandler.KEY_MC_CELL_ID + " = ?",
+                    // delete mobile cell
+                    if (mobileCell != Integer.MAX_VALUE)
+                        db.delete(DatabaseHandler.TABLE_MOBILE_CELLS, DatabaseHandler.KEY_MC_CELL_ID + " = ?",
                             new String[]{String.valueOf(mobileCell)});
+                    else
+                    if (mobileCellLong != Long.MAX_VALUE)
+                        db.delete(DatabaseHandler.TABLE_MOBILE_CELLS, DatabaseHandler.KEY_MC_CELL_ID_LONG + " = ?",
+                                new String[]{String.valueOf(mobileCellLong)});
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
@@ -5173,7 +5244,7 @@ class DatabaseHandlerEvents {
         }
     }
 
-    static void updateMobileCellLastConnectedTime(DatabaseHandler instance, int mobileCell, long lastConnectedTime) {
+    static void updateMobileCellLastConnectedTime(DatabaseHandler instance, int mobileCell, long mobileCellLong, long lastConnectedTime) {
         instance.importExportLock.lock();
         try {
             try {
@@ -5189,8 +5260,13 @@ class DatabaseHandlerEvents {
 
                 try {
                     // updating row
-                    db.update(DatabaseHandler.TABLE_MOBILE_CELLS, values, DatabaseHandler.KEY_MC_CELL_ID + " = ?",
+                    if (mobileCell != Integer.MAX_VALUE)
+                        db.update(DatabaseHandler.TABLE_MOBILE_CELLS, values, DatabaseHandler.KEY_MC_CELL_ID + " = ?",
                             new String[]{String.valueOf(mobileCell)});
+                    else
+                    if (mobileCellLong != Long.MAX_VALUE)
+                        db.update(DatabaseHandler.TABLE_MOBILE_CELLS, values, DatabaseHandler.KEY_MC_CELL_ID_LONG + " = ?",
+                                new String[]{String.valueOf(mobileCellLong)});
 
                     db.setTransactionSuccessful();
 
@@ -5393,7 +5469,7 @@ class DatabaseHandlerEvents {
         }
     }
 
-    static boolean isMobileCellSaved(DatabaseHandler instance, int mobileCell) {
+    static boolean isMobileCellSaved(DatabaseHandler instance, int mobileCell, long mobileCellLong) {
         instance.importExportLock.lock();
         try {
             int r = 0;
@@ -5401,19 +5477,28 @@ class DatabaseHandlerEvents {
                 instance.startRunningCommand();
 
                 // Select All Query
-                final String selectQuery = "SELECT COUNT(*) " +
-                        " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
-                        " WHERE " + DatabaseHandler.KEY_MC_CELL_ID + "=" + mobileCell;
+                String selectQuery = "";
+                if (mobileCell != Integer.MAX_VALUE)
+                    selectQuery = "SELECT COUNT(*) " +
+                            " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
+                            " WHERE " + DatabaseHandler.KEY_MC_CELL_ID + "=" + mobileCell;
+                else
+                if (mobileCellLong != Long.MAX_VALUE)
+                    selectQuery = "SELECT COUNT(*) " +
+                            " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
+                            " WHERE " + DatabaseHandler.KEY_MC_CELL_ID_LONG + "=" + mobileCellLong;
 
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = instance.getMyWritableDatabase();
+                if (!selectQuery.isEmpty()) {
+                    //SQLiteDatabase db = this.getReadableDatabase();
+                    SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                Cursor cursor = db.rawQuery(selectQuery, null);
+                    Cursor cursor = db.rawQuery(selectQuery, null);
 
-                if (cursor != null) {
-                    cursor.moveToFirst();
-                    r = cursor.getInt(0);
-                    cursor.close();
+                    if (cursor != null) {
+                        cursor.moveToFirst();
+                        r = cursor.getInt(0);
+                        cursor.close();
+                    }
                 }
 
                 //db.close();
@@ -5514,7 +5599,7 @@ class DatabaseHandlerEvents {
         try {
             // load cells from db
             List<MobileCellsData> cellsList = new ArrayList<>();
-            addMobileCellsToList(instance, cellsList, 0, calledFromImportDB);
+            addMobileCellsToList(instance, cellsList, 0, 0, calledFromImportDB);
             // load events from db
             List<Event> eventList;
             eventList = getAllEvents(instance, calledFromImportDB);
@@ -5525,31 +5610,41 @@ class DatabaseHandlerEvents {
                     for (Event event : eventList) {
                         if (event._eventPreferencesMobileCells != null) {
                             if ((event._eventPreferencesMobileCells._enabled)) {
-                                if (event._eventPreferencesMobileCells._cellsNames.contains("|" + cell.cellId + "|")) {
-                                    // cell is between others
-                                    found = true;
-                                    break;
-                                }
-                                if (event._eventPreferencesMobileCells._cellsNames.startsWith(cell.cellId + "|")) {
-                                    // cell is at start of others
-                                    found = true;
-                                    break;
-                                }
-                                if (event._eventPreferencesMobileCells._cellsNames.endsWith("|" + cell.cellId)) {
-                                    // cell is at end of others
-                                    found = true;
-                                    break;
-                                }
-                                if (event._eventPreferencesMobileCells._cellsNames.equals(String.valueOf(cell.cellId))) {
-                                    // only this cell is configured
-                                    found = true;
-                                    break;
+                                boolean cellIdAllowed = false;
+                                long cellId = cell.cellId;
+                                if (cellId == Integer.MAX_VALUE) {
+                                    cellId = cell.cellIdLong;
+                                    if (cellId != Long.MAX_VALUE)
+                                        cellIdAllowed = true;
+                                } else
+                                    cellIdAllowed = true;
+                                if (cellIdAllowed) {
+                                    if (event._eventPreferencesMobileCells._cellsNames.contains("|" + cellId + "|")) {
+                                        // cell is between others
+                                        found = true;
+                                        break;
+                                    }
+                                    if (event._eventPreferencesMobileCells._cellsNames.startsWith(cellId + "|")) {
+                                        // cell is at start of others
+                                        found = true;
+                                        break;
+                                    }
+                                    if (event._eventPreferencesMobileCells._cellsNames.endsWith("|" + cellId)) {
+                                        // cell is at end of others
+                                        found = true;
+                                        break;
+                                    }
+                                    if (event._eventPreferencesMobileCells._cellsNames.equals(String.valueOf(cellId))) {
+                                        // only this cell is configured
+                                        found = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
                     }
                     if (!found) {
-                        deleteMobileCell(instance, cell.cellId, calledFromImportDB);
+                        deleteMobileCell(instance, cell.cellId, cell.cellIdLong, calledFromImportDB);
                         //cellsList.remove(cell);
                         it.remove();
                     }

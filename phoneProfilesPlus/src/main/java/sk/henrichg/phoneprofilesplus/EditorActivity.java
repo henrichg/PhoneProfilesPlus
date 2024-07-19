@@ -675,6 +675,7 @@ public class EditorActivity extends AppCompatActivity
             serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false);
 //            PPApplicationStatic.logE("[START_PP_SERVICE] EditorActivity.startPPServiceWhenNotStarted", "(1)");
             PPApplicationStatic.startPPService(this, serviceIntent, true);
             //return true;
@@ -936,6 +937,14 @@ public class EditorActivity extends AppCompatActivity
             else
                 menuItem.setTitle(R.string.menu_check_releases_droidify);
         }
+        menuItem = menu.findItem(R.id.menu_check_in_neostore);
+        if (menuItem != null) {
+            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+            if (intent != null)
+                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_neostore));
+            else
+                menuItem.setTitle(R.string.menu_check_releases_neostore);
+        }
         menuItem = menu.findItem(R.id.menu_check_in_fdroid);
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
@@ -1079,6 +1088,26 @@ public class EditorActivity extends AppCompatActivity
         //if (menuItem != null) {
         //    menuItem.setVisible(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled);
         //}
+
+        menuItem = menu.findItem(R.id.menu_discord);
+        if (menuItem != null)
+        {
+            SubMenu subMenu = menuItem.getSubMenu();
+            if (subMenu != null) {
+                Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
+                if (triangle != null) {
+                    triangle.setTint(ContextCompat.getColor(this, R.color.activitySecondaryTextColor));
+                    SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
+                    triangle.setBounds(0,
+                            GlobalGUIRoutines.sip(1),
+                            GlobalGUIRoutines.sip(10.5f),
+                            GlobalGUIRoutines.sip(8.5f));
+                    headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    subMenu.setHeaderTitle(headerTitle);
+                }
+            }
+        }
 
         onNextLayout(editorToolbar, this::showTargetHelps);
 
@@ -1347,8 +1376,7 @@ public class EditorActivity extends AppCompatActivity
         if ((itemId == R.id.menu_check_in_github) ||
                 (itemId == R.id.menu_check_in_fdroid) ||
                 (itemId == R.id.menu_check_in_droidify) ||
-//                (itemId == R.id.menu_check_in_galaxy_store) ||
-//                (itemId == R.id.menu_check_in_amazon_appstore) ||
+                (itemId == R.id.menu_check_in_neostore) ||
                 (itemId == R.id.menu_check_in_appgallery) ||
                 (itemId == R.id.menu_check_in_apkpure)) {
 
@@ -1372,6 +1400,128 @@ public class EditorActivity extends AppCompatActivity
         if (itemId == R.id.menu_choose_language) {
             ChooseLanguageDialog chooseLanguageDialog = new ChooseLanguageDialog(this);
             chooseLanguageDialog.show();
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_xda_developers) {
+            String url = PPApplication.XDA_DEVELOPERS_PPP_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_discord_server) {
+            String url = PPApplication.DISCORD_SERVER_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_discord_invitation) {
+            String url = PPApplication.DISCORD_INVITATION_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        /*
+        else
+        if (itemId == R.id.menu_discord_discussion) {
+            String url = PPApplication.DISCORD_DISCUSSIION_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_discord_help) {
+            String url = PPApplication.DISCORD_HELP_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_discord_bugs) {
+            String url = PPApplication.DISCORD_BUGS_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_discord_suggestions) {
+            String url = PPApplication.DISCORD_SUGGESTIONS_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        */
+        else
+        if (itemId == R.id.menu_twitter) {
+            String url = PPApplication.TWITTER_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_reddit) {
+            String url = PPApplication.REDDIT_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_bluesky) {
+            String url = PPApplication.BLUESKY_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
             return true;
         }
         else
@@ -1432,7 +1582,6 @@ public class EditorActivity extends AppCompatActivity
             final Handler handler = new Handler(getMainLooper());
             final WeakReference<EditorActivity> activityWeakRef = new WeakReference<>(this);
             handler.postDelayed(() -> {
-                //noinspection ConstantValue
                 EditorActivity activity = activityWeakRef.get();
                 if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                     return;
@@ -1462,7 +1611,6 @@ public class EditorActivity extends AppCompatActivity
             final Handler handler = new Handler(getMainLooper());
             final WeakReference<EditorActivity> activityWeakRef = new WeakReference<>(this);
             handler.postDelayed(() -> {
-                //noinspection ConstantValue
                 EditorActivity activity = activityWeakRef.get();
                 if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
                     return;
@@ -2968,7 +3116,7 @@ public class EditorActivity extends AppCompatActivity
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorActivity.redrawProfileListFragment", "call of updateGUI");
                 PPApplication.updateGUI(true, false, fragment.activityDataWrapper.context);
 
-                DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(getApplicationContext());
+                DataWrapperStatic.setDynamicLauncherShortcutsFromMainThread(getApplicationContext(), false);
 
                 if (filterProfilesSelectedItem != 0) {
                     final Handler handler = new Handler(getMainLooper());
@@ -4465,6 +4613,7 @@ public class EditorActivity extends AppCompatActivity
                     serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                     serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false);
 //                    PPApplicationStatic.logE("[START_PP_SERVICE] EditorActivity.doImportData", "xxx");
                     PPApplicationStatic.startPPService(activity, serviceIntent, true);
                 }

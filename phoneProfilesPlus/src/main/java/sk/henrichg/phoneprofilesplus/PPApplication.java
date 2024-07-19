@@ -65,16 +65,22 @@ public class PPApplication extends Application
     // versions required for profile, event parameters
     static final int VERSION_CODE_EXTENDER_8_1_3 = 880;
     static final String VERSION_NAME_EXTENDER_8_1_3 = "8.1.3";
-
     // for this version will be displayed upgrade notification
     //  required must by <= latest
     static final int VERSION_CODE_EXTENDER_REQUIRED = 890;
-
     // latest version in GitHub, IzzyOnDroid. will be installed
     static final int VERSION_CODE_EXTENDER_LATEST = 900;         // must be <= as in Extender dependencies.gradle
     static final String VERSION_NAME_EXTENDER_LATEST = "8.1.6";  // must be <= as in Extender dependencies.gradle
     ///////
 
+    //// PPPPutSettings versions
+    // versions required for profile, event parameters
+    static final int VERSION_CODE_PPPPS_1_0_8 = 65;
+    static final String VERSION_NAME_PPPPS_1_0_8 = "1.0.8";
+    // for this version will be displayed upgrade notification
+    //  required must by <= latest
+    static final int VERSION_CODE_PPPPS_REQUIRED = 65;
+    // latest version in GitHub, IzzyOnDroid. will be installed
     static final int VERSION_CODE_PPPPS_LATEST = 65;             // must be <= as in PPPPS dependencies.gradle
     static final String VERSION_NAME_PPPPS_LATEST = "1.0.8";     // must be <= as in PPPPS dependencies.gradle
 
@@ -123,6 +129,15 @@ public class PPApplication extends Application
     static final String GITHUB_PPPE_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender";
     static final String GITHUB_PPPPS_URL = "https://github.com/henrichg/PPPPutSettings";
     static final String XDA_DEVELOPERS_PPP_URL = "https://forum.xda-developers.com/t/phoneprofilesplus.3799429/";
+    static final String TWITTER_URL = "https://x.com/henrichg";
+    static final String REDDIT_URL = "https://www.reddit.com/user/henrichg/";
+    static final String BLUESKY_URL = "https://bsky.app/profile/henrichg.bsky.social";
+    static final String DISCORD_SERVER_URL = "https://discord.com/channels/1258733423426670633/1258733424504737936";
+    static final String DISCORD_INVITATION_URL = "https://discord.gg/Yb5hgAstQ3";
+    //static final String DISCORD_DISCUSSIION_URL = "https://discord.com/channels/1258733423426670633/1261142947743928410";
+    //static final String DISCORD_HELP_URL = "https://discord.com/channels/1258733423426670633/1261141698638250004";
+    //static final String DISCORD_BUGS_URL = "https://discord.com/channels/1258733423426670633/1261143124827312192";
+    //static final String DISCORD_SUGGESTIONS_URL = "https://discord.com/channels/1258733423426670633/1261143274895314976";
 
     // This url is Donate button from https://www.paypal.com/buttons/, type "Donate".
     // In it is possible to get this url with "Get link".
@@ -133,21 +148,32 @@ public class PPApplication extends Application
     // Used is GitHub Pages, not neded to use html type, this file is directly downloaded
     static final String PPP_RELEASES_MD_URL = "https://henrichg.github.io/PhoneProfilesPlus/releases.md";
 
+    static final String FDROID_PACKAGE_NAME = "org.fdroid.fdroid";
     static final String FDROID_PPP_RELEASES_URL = "https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus";
     static final String FDROID_APPLICATION_URL = "https://www.f-droid.org/";
     static final String FDROID_REPOSITORY_URL = "https://apt.izzysoft.de/fdroid/index/info";
-    static final String FDROID_PACKAGE_NAME = "org.fdroid.fdroid";
 
     //static final String AMAZON_APPSTORE_PPP_RELEASES_URL = "https://www.amazon.com/Henrich-Gron-PhoneProfilesPlus/dp/B01N3SM44J/ref=sr_1_1?keywords=phoneprofilesplus&qid=1637084235&qsid=134-9049988-7816540&s=mobile-apps&sr=1-1&sres=B01N3SM44J%2CB078K93HFD%2CB01LXZDPDR%2CB00LBK7OSY%2CB07RX5L3CP%2CB07XM7WVS8%2CB07XWGWPH5%2CB08KXB3R7S%2CB0919N2P7J%2CB08NWD7K8H%2CB01A7MACL2%2CB07XY8YFQQ%2CB07XM8GDWC%2CB07QVYLDRL%2CB09295KQ9Q%2CB01LVZ3JBI%2CB08723759H%2CB09728VTDK%2CB08R7D4KZJ%2CB01BUIGF9K";
     //static final String AMAZON_APPSTORE_APPLICATION_URL = "https://www.amazon.com/gp/mas/get/amazonapp";
 
+    static final String APKPURE_PACKAGE_NAME = "com.apkpure.aegon";
     static final String APKPURE_PPP_RELEASES_URL = "https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus";
     static final String APKPURE_APPLICATION_URL = "https://apkpure.com/apkpure/com.apkpure.aegon";
-    static final String APKPURE_PACKAGE_NAME = "com.apkpure.aegon";
 
+    static final String HUAWEI_APPGALLERY_PACKAGE_NAME = "com.huawei.appmarket";
     static final String HUAWEI_APPGALLERY_PPP_RELEASES_URL = "https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000";
     static final String HUAWEI_APPGALLERY_APPLICATION_URL = "https://consumer.huawei.com/en/mobileservices/appgallery/";
-    static final String HUAWEI_APPGALLERY_PACKAGE_NAME = "com.huawei.appmarket";
+
+    static final String DROIDIFY_PACKAGE_NAME = "com.looker.droidify";
+    static final String DROIDIFY_APPLICATION_URL = "https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify";
+
+    static final String NEOSTORE_PACKAGE_NAME = "com.machiav3lli.fdroid";
+    static final String NEOSTORE_APPLICATION_URL = "https://apt.izzysoft.de/fdroid/index/apk/com.machiav3lli.fdroid";
+
+    static final String IZZY_PPP_RELEASES_URL = "https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus";
+    static final String IZZY_PPP_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplus_";
+    static final String IZZY_PPPE_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplusextender_";
+    static final String IZZY_PPPPS_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.pppputsettings_";
 
     //This file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/grant_g1_permission.md
     static final String HELP_HOW_TO_GRANT_G1_URL = "https://henrichg.github.io/PhoneProfilesPlus/grant_g1_permission.html";
@@ -161,21 +187,19 @@ public class PPApplication extends Application
     static final String HELP_AIRPLANE_MODE_RADIOS_CONFIG = "https://henrichg.github.io/PhoneProfilesPlus/airplane_mode_radios_config.html";
     static final String HELP_AIRPLANE_MODE_RADIOS_CONFIG_DEVEL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/airplane_mode_radios_config.md";
 
-    static final String DROIDIFY_PPP_RELEASES_URL = "https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus";
-    static final String DROIDIFY_APPLICATION_URL = "https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify";
-    static final String DROIDIFY_PACKAGE_NAME = "com.looker.droidify";
-    static final String DROIDIFY_PPP_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplus_";
-    static final String DROIDIFY_PPPE_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplusextender_";
-    static final String DROIDIFY_PPPPS_LATEST_APK_RELEASE_URL_BEGIN = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.pppputsettings_";
-
     static final String GITHUB_PPPPS_RELEASES_URL = "https://github.com/henrichg/PPPPutSettings/releases";
     static final String GITHUB_PPPPS_DOWNLOAD_URL = "https://github.com/henrichg/PPPPutSettings/releases/latest/download/PPPPutSettings.apk";
     //This file: https://github.com/henrichg/PPPPutSettings/blob/main/docs/install_apk_from_pc.md
     //static final String GITHUB_PPPPS_HOW_TO_INSTALL_URL = "https://henrichg.github.io/PPPPutSettings/install_apk_from_pc.html";
     //static final String GITHUB_PPPPS_HOW_TO_INSTALL_URL_DEVEL = "https://github.com/henrichg/PPPPutSettings/blob/devel/docs/install_apk_from_pc.md";
 
-    //static final String GALAXY_STORE_PPP_RELEASES_URL = "https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus";
+    static final String SHIUKU_HOW_TO_START_URL = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/shizuku.md";
+
+    // TODO change to latest version
+    static final String INSTALL_WITH_OPTIONS_DOWNLOAD_URL = "https://github.com/zacharee/InstallWithOptions/releases/download/0.6.1/InstallWithOptions_0.6.1-release.apk";
+
     //static final String GALAXY_STORE_PACKAGE_NAME = "com.sec.android.app.samsungapps";
+    //static final String GALAXY_STORE_PPP_RELEASES_URL = "https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus";
 
     //static final boolean gitHubRelease = true;
     //static boolean googlePlayInstaller = false;
@@ -217,6 +241,8 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.onTaskRemoved"
                                                 +"|PhoneProfilesService.onDestroy"
                                                 //+"|PhoneProfilesService.cancelWork"
+                                                +"|PhoneProfilesService.BINDER_RECEIVED_LISTENER"
+                                                +"|GrantShizukuPermissionActivity.onRequestPermissionsResult"
                                                 +"|DataWrapper.firstStartEvents"
                                                 //+"|DataWrapper.setProfileActive"
                                                 //+"|DataWrapper.activateProfileOnBoot"
@@ -394,6 +420,7 @@ public class PPApplication extends Application
     static final String PACKAGE_NAME_EXTENDER = "sk.henrichg.phoneprofilesplusextender";
     static final String PACKAGE_NAME_PP = "sk.henrichg.phoneprofiles";
     static final String PACKAGE_NAME_PPPPS = "sk.henrichg.pppputsettings";
+    //static final String PACKAGE_NAME_SHIZUKU = "moe.shizuku.privileged.api";
 
     static final String EXPORT_PATH = "/PhoneProfilesPlus";
     static final String LOG_FILENAME = "log.txt";
@@ -426,7 +453,7 @@ public class PPApplication extends Application
     static final int STARTUP_SOURCE_QUICK_TILE = 14;
     static final int STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER = 15;
     static final int STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER = 16;
-    static final int STARTUP_SOURCE_EDITOR_WIDGET_HEADER = 17;
+    //static final int STARTUP_SOURCE_EDITOR_WIDGET_HEADER = 17;
 
     //static final int PREFERENCES_STARTUP_SOURCE_ACTIVITY = 1;
     //static final int PREFERENCES_STARTUP_SOURCE_FRAGMENT = 2;
@@ -644,6 +671,7 @@ public class PPApplication extends Application
 
     // WorkManager tags
     static final String AFTER_FIRST_START_WORK_TAG = "afterFirstStartWork";
+    static final String AFTER_SHIZUKU_START_WORK_TAG = "afterShizukuStartWork";
     //static final String PACKAGE_REPLACED_WORK_TAG = "packageReplacedWork";
     static final String AVOID_RESCHEDULE_RECEIVER_WORK_TAG = "avoidRescheduleReceiverWorker";
 
@@ -821,6 +849,7 @@ public class PPApplication extends Application
     static final ProfileListWidgetDatasetChangedMutex profileListWidgetDatasetChangedMutex = new ProfileListWidgetDatasetChangedMutex();
     static final SamsungEdgeDatasetChangedMutex samsungEdgeDatasetChangedMutex = new SamsungEdgeDatasetChangedMutex();
     static final DashClockWidgetMutex dashClockWidgetMutex = new DashClockWidgetMutex();
+    static final DynamicShortcutsMutex dynamicShortcutsMutex = new DynamicShortcutsMutex();
 
     //static PowerManager.WakeLock keepScreenOnWakeLock;
 
@@ -860,7 +889,9 @@ public class PPApplication extends Application
 
     //boolean willBeDoRestartEvents = false;
 
-    static final StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
+    static final DownloadCompletedBroadcastReceiver downloadCompletedBroadcastReceiver = new DownloadCompletedBroadcastReceiver();
+
+    //static final StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
     //static final UpdateGUIBroadcastReceiver updateGUIBroadcastReceiver = new UpdateGUIBroadcastReceiver();
     //static final ShowPPPAppNotificationBroadcastReceiver showPPPAppNotificationBroadcastReceiver = new ShowPPPAppNotificationBroadcastReceiver();
     static final RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();
@@ -887,7 +918,6 @@ public class PPApplication extends Application
     static volatile TelephonyManager telephonyManagerSIM1 = null;
     static volatile TelephonyManager telephonyManagerSIM2 = null;
     static volatile TelephonyManager telephonyManagerDefault = null;
-
 
     static volatile RingerModeChangeReceiver ringerModeChangeReceiver = null;
     static volatile WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
@@ -1120,6 +1150,8 @@ public class PPApplication extends Application
             Log.e("################# PPApplication.onCreate", "ACRA.isACRASenderServiceProcess()");
             return;
         }
+
+        RootUtils.initRoot();
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplication.onCreate", "PPApplication.applicationStartedMutex");
         synchronized (PPApplication.applicationStartedMutex) {
@@ -1361,8 +1393,6 @@ public class PPApplication extends Application
         JobManager.create(this).addJobCreator(new PPJobsCreator());
         */
 
-        RootUtils.initRoot();
-
         /*
         try {
             ViewConfiguration config = ViewConfiguration.get(this);
@@ -1585,6 +1615,7 @@ public class PPApplication extends Application
                         serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                         serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false);
 //                        PPApplicationStatic.logE("[START_PP_SERVICE] PPApplication.startPPServiceWhenNotStarted", "(1)");
                         PPApplicationStatic.startPPService(appContext, serviceIntent, true);
                     }
@@ -1703,7 +1734,7 @@ public class PPApplication extends Application
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
 
         // dynamic shortcuts
-        DataWrapperStatic.setDynamicLauncherShortcuts(context);
+        DataWrapperStatic.setDynamicLauncherShortcuts(context, false);
 
         // restart tile - this invoke onStartListening()
         // require in manifest file for TileService this meta data:

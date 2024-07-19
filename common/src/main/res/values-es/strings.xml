@@ -4,7 +4,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <string name="menu_edit_profiles">Editor</string>
     <string name="menu_settings">Ajustes</string>
-    <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
     <string name="title_activity_profile_preferences">Preferencias de perfil</string>
     <string name="title_activity_event_preferences">Preferencias de evento</string>
     <string name="menu_new_profile">Nuevo perfil</string>
@@ -885,7 +884,6 @@
     <string name="array_pref_auto_rotate_on">Rotación automática activada</string>
     <string name="array_pref_auto_rotate_off">Rotación automática desactivada</string>
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">El cambio de nivel de adaptación puede no funcionar en tu dispositivo (por ejemplo: dispositivos Samsung).</string>
-    <string name="about_application_xda_developers_community">Comunidad de desarrolladores XDA-developers:</string>
     <string name="mobile_cells_pref_dlg_connected_cell">Celda conectada:</string>
     <string name="permissions_for_mobile_cells_registration_dialog_text1">El escaneo de celdas móviles requiere algunos permisos.</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Número de celdas nuevas:</string>
@@ -987,8 +985,6 @@
     <string name="important_info_email_body_problems">Problemas:</string>
     <string name="important_info_email_body_questions">Preguntas:</string>
     <string name="important_info_email_body_suggestions">Sugerencias:</string>
-    <string name="about_application_support">Soporte:</string>
-    <string name="about_application_support2">contacto:</string>
     <string name="about_application_support_subject">soporte</string>
     <string name="dashclock_extension_description">Muestra el perfil activo con el indicador de preferencias. Abre el activador al pulsar.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Usar luminosidad de iconos para iconos de perfil personalizados</string>
@@ -1932,7 +1928,7 @@
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings no está instalado!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">PPPPutSettings no instalado</string>
     <string name="about_application_pppps_source_code">Código fuente - PPPPutSettings:</string>
-    <string name="profile_preferences_notificationLed_23">(S)(R) LED de Notificación</string>
+    <string name="profile_preferences_notificationLed_23">LED de Notificación</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) pantalla siempre encendida</string>
     <string name="samsung_edge_panel_settings_description">Ajustes del panel de Samsung edge</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Cuadrícula Compacta</string>
@@ -2187,4 +2183,32 @@
     <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs">(Z)(R) diálogos de confirmación de Wi-Fi y Bluetooth</string>
     <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary">Es posible desactivar estos diálogos para \"HyperOs\". Haz clic en esto para desactivarlos. NOTA: Requiere Shizuku/root.</string>
     <string name="profile_preferences_deviceWallpaperHuaweiInfo">En los dispositivos Huawei hay un bug y por esta razón puede que no funcionen correctamente todos los tipos no interactivos.</string>
+    <string name="menu_check_releases_neostore">Comprobar en la Neo Store</string>
+    <string name="check_releases_open_neostore">Abrir Neo Store</string>
+    <string name="check_releases_neostore_ppp_release">Versión de PhoneProfilesPlus en Neo Store:</string>
+    <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary_api29">Por favor, activa la localización y el escaneo Wi-Fi en los ajustes de sistema. Sin esto, el sensor no funcionará.</string>
+    <string name="download_installWithOptions_title">Descarga de InstallWithOptions.apk</string>
+    <string name="download_pppps_title">Descarga de PPPPutSettings.apk</string>
+    <string name="downloading_file_description">El archivo se almacenará en el directorio de descargas</string>
+    <string name="event_preferences_not_all_parameters_are_configured">¡Algunos parámetros no están configurados!</string>
+    <string name="event_preferences_not_all_parameters_are_configured_summary">Estos parámetros deben estar configurados para que los eventos funcionen correctamente.</string>
+    <string name="downloading_toast_text">Descargando…</string>
+    <string name="phone_profiles_pref_category_widget_dash_clock">Widget: Reloj Dash</string>
+    <string name="phone_profiles_pref_widget_dash_clock_info">Información sobre el Reloj Dash</string>
+    <string name="phone_profiles_pref_widget_dash_clock_info_summary">Haz clic aquí para mostrar información sobre Dash Clock Widget.</string>
+    <string name="dash_clock_widget_info_1">Dash Clock Widget está obsoleto y no está en Google Play, pero es posible instalar la última versión desde APKMirror.</string>
+    <string name="dash_clock_widget_info_2">Dash Clock Widget GitHub:</string>
+    <string name="dash_clock_widget_info_3">Descarga de APKMirror:</string>
+    <string name="shortcut_to_editor_dialog_title">Acceso directo al editor</string>
+    <string name="shortcut_to_mobile_cells_scanning_dialog_title">Acceso directo a \"Escaneo móvil de celdas\"</string>
+    <string name="shortcut_to_read_nfc_tag_dialog_title">Acceso directo a \"Leer etiqueta NFC\"</string>
+    <string name="shortcut_to_dialog_lablel">Nombre del icono de acceso directo:</string>
+    <string name="shortcut_to_dialog_create_button">Crear</string>
+    <string name="mobile_cells_scanning_short_shortcut_name">Escanear celdas</string>
+    <string name="read_nfc_tag_short_shortcut_name">Leer etiqueta</string>
+    <string name="profile_preferences_volumeMergedRingSyatemVolumeInfo_summary">La mayoría de los dispositivos han combinado \"Volumen de tono\" y \"Volumen del Sistema\". Estos dispositivos no tienen opción en la configuración del dispositivo para configurar \"Volumen del Sistema\". Por esta razón, se recomienda configurar \"Volumen de tono\", cuando está configurado \"Volumen del sistema\" o no configurar \"Volumen del sistema\".</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_title">Activar/desactivar SIM</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_summary">ADVERTENCIA: Esto activa la pantalla de entrada de código PIN para la tarjeta SIM que está configurada como «On».</string>
+    <string name="menu_discord_server">Servidor PhoneProfilesPlus</string>
+    <string name="menu_discord_invitation">Invitación al servidor PhoneProfilesPlus</string>
 </resources>

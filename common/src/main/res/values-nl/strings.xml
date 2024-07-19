@@ -4,7 +4,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <string name="menu_edit_profiles">Bewerker</string>
     <string name="menu_settings">Opties</string>
-    <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
     <string name="title_activity_profile_preferences">Profiel voorkeuren</string>
     <string name="title_activity_event_preferences">Eventvoorkeuren</string>
     <string name="menu_new_profile">Nieuw profiel</string>
@@ -885,7 +884,6 @@
     <string name="array_pref_auto_rotate_on">Automatische rotatie aan</string>
     <string name="array_pref_auto_rotate_off">Automatische rotatie uit</string>
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">Verandering van adaptieve niveau werkt mogelijk niet op uw apparaat (voorbeeld: Samsung apparaten).</string>
-    <string name="about_application_xda_developers_community">XDA-developers community:</string>
     <string name="mobile_cells_pref_dlg_connected_cell">Gekoppelde cel:</string>
     <string name="permissions_for_mobile_cells_registration_dialog_text1">Zendmast cel registratie vereist een aantal machtigingen.</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Aantal nieuwe zendmast cellen:</string>
@@ -987,8 +985,6 @@
     <string name="important_info_email_body_problems">Problemen:</string>
     <string name="important_info_email_body_questions">Vragen:</string>
     <string name="important_info_email_body_suggestions">Suggesties:</string>
-    <string name="about_application_support">Ondersteuning:</string>
-    <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">ondersteuning</string>
     <string name="dashclock_extension_description">Actief profiel weergeven met voorkeuraanduiding. Opent de Activator bij aanraken.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Gebruik icoon helderheid voor aangepaste profiel iconen</string>
@@ -1932,7 +1928,7 @@
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings is niet geïnstalleerd!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">PPPPutSettings niet geinstalleerd</string>
     <string name="about_application_pppps_source_code">Broncode - PPPPutSettings:</string>
-    <string name="profile_preferences_notificationLed_23">(S)(R) Meldingen LED</string>
+    <string name="profile_preferences_notificationLed_23">Meldingen LED</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Altijd aan schermweergave</string>
     <string name="samsung_edge_panel_settings_description">Instellingen Samsung Edge-vensters</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compacte raster</string>
@@ -2187,4 +2183,32 @@
     <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs">(Z)(R) Wi-Fi en Bluetooth bevestigingsscherm</string>
     <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary">Voor \"HyperOs\" is het mogelijk deze dialogen uit te schakelen. Klik hier om ze uit te schakelen. Let op: Shizuku/root is vereist.</string>
     <string name="profile_preferences_deviceWallpaperHuaweiInfo">In Huawei apparaten zit een bug. Om deze reden werken mogelijk niet alle niet-interactieve types.</string>
+    <string name="menu_check_releases_neostore">Controleren in Neo Store</string>
+    <string name="check_releases_open_neostore">Open Neo Store</string>
+    <string name="check_releases_neostore_ppp_release">PhoneProfilesPlus versie in Neo Store:</string>
+    <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary_api29">Zet Locatie en \"Wi-Fi scannen\" aan bij Systeeminstellingen. Zonder dit werkt de sensor niet.</string>
+    <string name="download_installWithOptions_title">Downloaden van InstallWithOptions.apk</string>
+    <string name="download_pppps_title">Downloaden van PPPPutSettings.apk</string>
+    <string name="downloading_file_description">Bestand wordt opgeslagen in map Downloads</string>
+    <string name="event_preferences_not_all_parameters_are_configured">Sommige parameters zijn niet geconfigureerd!</string>
+    <string name="event_preferences_not_all_parameters_are_configured_summary">Deze parameters moet je configureren om de event functionaliteit goed te laten werken.</string>
+    <string name="downloading_toast_text">Downloading…</string>
+    <string name="phone_profiles_pref_category_widget_dash_clock">Widget: Dash Klok</string>
+    <string name="phone_profiles_pref_widget_dash_clock_info">Informatie over Dash Klok</string>
+    <string name="phone_profiles_pref_widget_dash_clock_info_summary">Klik hier om informatie te tonen over Dash Clock Widget.</string>
+    <string name="dash_clock_widget_info_1">Dash Clock Widget is verouderd en staat niet in de Google Play store. Maar het is wel mogelijk om de laatste versie van APKMirror te installeren.</string>
+    <string name="dash_clock_widget_info_2">Dash Clock Widget GitHub:</string>
+    <string name="dash_clock_widget_info_3">APKMirror download:</string>
+    <string name="shortcut_to_editor_dialog_title">Snelkoppeling naar Editor</string>
+    <string name="shortcut_to_mobile_cells_scanning_dialog_title">Snelkoppeling naar \"Zendmast cellen scannen\"</string>
+    <string name="shortcut_to_read_nfc_tag_dialog_title">Snelkoppeling naar \"NFC-tag lezen\"</string>
+    <string name="shortcut_to_dialog_lablel">Sneltoets pictogramnaam:</string>
+    <string name="shortcut_to_dialog_create_button">Maak</string>
+    <string name="mobile_cells_scanning_short_shortcut_name">Cellen scannen</string>
+    <string name="read_nfc_tag_short_shortcut_name">Tag lezen</string>
+    <string name="profile_preferences_volumeMergedRingSyatemVolumeInfo_summary">De meeste apparaten hebben \"ringtoonvolume\" en \"systeemvolume\" samengevoegd. Deze apparaten hebben geen optie bij de instellingen om \"systeemvolume\" te configureren. Om deze reden wordt aanbevolen het \"Volume bellen\" te configureren, wanneer het \"Systeem volume\" is geconfigureerd of het om \"Systeem volume\" niet configureren.</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_title">Simkaart aan- of uitzetten</string>
+    <string name="profile_preferences_deviceDualSIMPINCode_summary">WAARSCHUWING: Dit geeft het scherm voor de Pincode van de Simkaart die is ingesteld als \"Aan\".</string>
+    <string name="menu_discord_server">PhoneProfilesPlus server</string>
+    <string name="menu_discord_invitation">PhoneProfilesPlus server uitnodiging</string>
 </resources>

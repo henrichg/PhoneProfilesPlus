@@ -24,6 +24,7 @@ class RootMutex {
     int transactionCode_setDefaultSmsSubId;
     int transactionCode_setDefaultDataSubId;
     int transactionCode_setSubscriptionEnabled;
+    int transactionCode_setSimPowerStateForSlot;
     int transactionCode_setWifiApEnabled;
 
     static final String SERVICE_PHONE = "phone";

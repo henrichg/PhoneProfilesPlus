@@ -53,6 +53,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
     private static void _onUpdate(Context context, AppWidgetManager appWidgetManager,
                           /*Profile _profile, DataWrapper _dataWrapper,*/ int[] appWidgetIds) {
 
+        String applicationWidgetIconLauncher;
         String applicationWidgetIconLightness;
         String applicationWidgetIconColor;
         boolean applicationWidgetIconCustomIconLightness;
@@ -79,6 +80,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] IconWidgetProvider._onUpdate", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
 
+            applicationWidgetIconLauncher = ApplicationPreferences.applicationWidgetIconLauncher;
             applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
             applicationWidgetIconColor = ApplicationPreferences.applicationWidgetIconColor;
             applicationWidgetIconCustomIconLightness = ApplicationPreferences.applicationWidgetIconCustomIconLightness;
@@ -1160,7 +1162,12 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 if (!applicationWidgetIconHideProfileName)
                     remoteViews.setTextViewText(R.id.icon_widget_name, profileName);
 
-                Intent intent = GlobalGUIRoutines.getIntentForStartupSource(context, PPApplication.STARTUP_SOURCE_WIDGET);
+                //Intent intent = GlobalGUIRoutines.getIntentForStartupSource(context, PPApplication.STARTUP_SOURCE_WIDGET);
+                Intent intent;
+                if (applicationWidgetIconLauncher.equals(StringConstants.EXTRA_ACTIVATOR))
+                    intent = new Intent(context.getApplicationContext(), ActivatorActivity.class);
+                else
+                    intent = new Intent(context.getApplicationContext(), EditorActivity.class);
                 // clear all opened activities
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
