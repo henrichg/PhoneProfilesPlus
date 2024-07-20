@@ -2632,7 +2632,10 @@ class PreferenceAllowed {
                                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         } else {
                             if (profile != null) {
-                                preferenceAllowed.notAllowedPPPPS = true;
+                                if ((profile._soundNotificationChangeSIM1 != 0) ||
+                                        (profile._soundNotificationChangeSIM2 != 0)) {
+                                    preferenceAllowed.notAllowedPPPPS = true;
+                                }
                             }
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS;
