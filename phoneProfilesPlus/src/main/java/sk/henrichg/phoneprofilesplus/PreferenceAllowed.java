@@ -2622,20 +2622,30 @@ class PreferenceAllowed {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                             }
-                        } else
-                        if ((!rootRequired) && ppppsInstalled) {
-                            if (profile != null) {
-                                if ((profile._soundNotificationChangeSIM1 != 0) ||
-                                        (profile._soundNotificationChangeSIM2 != 0))
-                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                            } else
-                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         } else {
-                            if (profile != null) {
-                                preferenceAllowed.notAllowedPPPPS = true;
+                            if (rootRequired) {
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                            } else {
+                                if (ppppsInstalled) {
+                                    if (profile != null) {
+                                        if ((profile._soundNotificationChangeSIM1 != 0) ||
+                                                (profile._soundNotificationChangeSIM2 != 0))
+                                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                    } else
+                                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                }
+                                else {
+                                    if (profile != null) {
+                                        if ((profile._soundNotificationChangeSIM1 != 0) ||
+                                                (profile._soundNotificationChangeSIM2 != 0)) {
+                                            preferenceAllowed.notAllowedPPPPS = true;
+                                        }
+                                    }
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS;
+                                }
                             }
-                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS;
                         }
                     } else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
