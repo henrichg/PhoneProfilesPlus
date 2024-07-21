@@ -2625,7 +2625,7 @@ class PreferenceAllowed {
                         } else {
                             if (rootRequired) {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                             } else {
                                 if (ppppsInstalled) {
                                     if (profile != null) {
