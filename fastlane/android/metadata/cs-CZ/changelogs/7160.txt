@@ -1,0 +1,9 @@
+6.5.1
+Seznam změn:
+- Novinky v GUI a procesech na pozadí.
+- Změny v GUI a procesech na pozadí.
+- Opravy v GUI a procesů na pozadí.
+- Opravy pádů aplikace.
+- Aktualizované překlady.
+
+Úplný seznam změn je v GitHub vydáních. (https://henrichg.github.io/PhoneProfilesPlus/FDroid_ChangeLog_CS)
