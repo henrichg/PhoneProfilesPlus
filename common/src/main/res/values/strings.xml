@@ -2200,33 +2200,24 @@
     <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs">(Z)(R) Wi-Fi and Bluetooth confirm dialogs</string>
     <string name="phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary">For \"HyperOs\" is possible to disable these dialogs. Click this to disable them. NOTE: It requires Shizuku/root.</string>
     <string name="profile_preferences_deviceWallpaperHuaweiInfo">In Huawei devices is bug. And for this reason may not properly working all non-interactive types.</string>
-
     <string name="menu_check_releases_neostore">Check in Neo Store</string>
     <string name="check_releases_open_neostore">Open Neo Store</string>
     <string name="install_ppp_store_neostore" translatable="false">Neo Store</string>
     <string name="check_releases_neostore_ppp_release">PhoneProfilesPlus release in Neo Store:</string>
-
     <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary_api29">Please enable Location and \"Wi-Fi scanning\" in System Settings. Without this, sensor will not work.</string>
-
     <string name="download_installWithOptions_title">Download of InstallWithOptions.apk</string>
     <string name="download_pppps_title">Download of PPPPutSettings.apk</string>
-
     <string name="downloading_file_description">File will be stored into Downloads directory</string>
-
     <string name="event_preferences_not_all_parameters_are_configured">Some parameters are not configured!</string>
     <string name="event_preferences_not_all_parameters_are_configured_summary">These parameters must be configured for proper event functionality.</string>
-
     <string name="downloading_toast_text">Downloading…</string>
-
     <string name="title_activity_ppp" translatable="false">PPP</string>
-
     <string name="phone_profiles_pref_category_widget_dash_clock">Widget: Dash Clock</string>
     <string name="phone_profiles_pref_widget_dash_clock_info">Info about Dash Clock</string>
     <string name="phone_profiles_pref_widget_dash_clock_info_summary">Click here to show information about Dash Clock Widget.</string>
     <string name="dash_clock_widget_info_1">Dash Clock Widget is deprecated and is not in Google Play, But is possible to install latest version from APKMirror.</string>
     <string name="dash_clock_widget_info_2">Dash Clock Widget GitHub:</string>
     <string name="dash_clock_widget_info_3">APKMirror download:</string>
-
     <string name="shortcut_to_editor_dialog_title">Shortcut to Editor</string>
     <string name="shortcut_to_mobile_cells_scanning_dialog_title">Shortcut to \"Mobile cells scanning\"</string>
     <string name="shortcut_to_read_nfc_tag_dialog_title">Shortcut to \"Read NFC tag\"</string>
@@ -2234,12 +2225,9 @@
     <string name="shortcut_to_dialog_create_button">Create</string>
     <string name="mobile_cells_scanning_short_shortcut_name">Cells scan</string>
     <string name="read_nfc_tag_short_shortcut_name">Read tag</string>
-
     <string name="profile_preferences_volumeMergedRingSyatemVolumeInfo_summary">Most devices has merged \"Ringtone volume\" and \"System volume\". These devcies do not have option in device Settings to configure \"System volume\". For this reason, recommended is to configure \"Ringing volume\", when is configured \"System volume\" or do not configure \"System volume\".</string>
-
     <string name="profile_preferences_deviceDualSIMPINCode_title">Switch SIM on/off</string>
     <string name="profile_preferences_deviceDualSIMPINCode_summary">WARNING: This brings the PIN code entry screen for the SIM card that is configured as \"On\".</string>
-
     <string name="menu_xda_developers" translatable="false">XDA-developers</string>
     <string name="menu_discord" translatable="false">Discord</string>
     <string name="menu_discord_server">PhoneProfilesPlus server</string>
@@ -2247,6 +2235,8 @@
     <string name="menu_twitter" translatable="false">Twitter/X</string>
     <string name="menu_reddit" translatable="false">Reddit</string>
     <string name="menu_bluesky" translatable="false">Bluesky</string>
+
+    <string name="check_releases_apkpure_ppp_release">PhoneProfilesPlus release in APKPure:</string>
 
     <!-- **************************************************************************************** -->
 

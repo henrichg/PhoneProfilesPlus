@@ -1056,7 +1056,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text.setVisibility(View.VISIBLE);
             buttonsDivider.setVisibility(View.VISIBLE);
 
-            CharSequence str1 = activity.getString(R.string.check_releases_appgallery_ppp_release);
+            CharSequence str1 = activity.getString(R.string.check_releases_apkpure_ppp_release);
             CharSequence str2 = str1 + " " + activity.getString(R.string.check_releases_ppp_release_clik_to_show) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
             Spannable sbt = new SpannableString(str2);
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
