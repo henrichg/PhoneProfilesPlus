@@ -1379,6 +1379,7 @@ class ActivateProfileHelper {
 //                    Log.e("ActivateProfileHelper.setVolumes", "merge="+ActivateProfileHelper.getMergedRingNotificationVolumes());
 //                    Log.e("ActivateProfileHelper.setVolumes", "unlink="+ApplicationPreferences.applicationUnlinkRingerNotificationVolumes);
                     if (/*(telephony != null) &&*/ ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
+//                        Log.e("ActivateProfileHelper.setVolumes", "volumes merged and unlink enabled");
 
                         if ((!ringMuted) && (!notificationMuted)) {
                             //int callState = telephony.getCallState();
@@ -1495,6 +1496,7 @@ class ActivateProfileHelper {
 //                    Log.e("ActivateProfileHelper.setVolumes", "volumesSet="+volumesSet);
                     if (!volumesSet) {
                         if (!ActivateProfileHelper.getMergedRingNotificationVolumes()) {
+//                            Log.e("ActivateProfileHelper.setVolumes", "volumes NOT merged");
                             int volume;
                             if (!ringMuted) {
                                 volume = ApplicationPreferences.prefRingerVolume;
@@ -1535,9 +1537,10 @@ class ActivateProfileHelper {
                                 }
                             }
                         } else {
+//                            Log.e("ActivateProfileHelper.setVolumes", "volumes merged");
                             int volume;
                             if (!ringMuted) {
-                                volume = ApplicationPreferences.prefNotificationVolume;
+                                volume = ApplicationPreferences.prefRingerVolume;
 //                            Log.e("ActivateProfileHelper.setVolumes", "ringing volume="+volume);
                                 if (volume != -999) {
                                     try {
