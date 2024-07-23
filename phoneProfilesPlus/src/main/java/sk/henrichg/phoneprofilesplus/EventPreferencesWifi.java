@@ -95,7 +95,8 @@ class EventPreferencesWifi extends EventPreferences {
                 }
 
                 boolean locationErrorDisplayed = false;
-                if ((this._connectionType == 1) || (this._connectionType == 3)) {
+                if ((_connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+                        (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)) {
                     if (!ApplicationPreferences.applicationEventWifiEnableScanning) {
                         if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile)
                             _value.append("* ").append(context.getString(R.string.array_pref_applicationDisableScanning_disabled)).append("! *").append(StringConstants.TAG_BREAK_HTML);
@@ -401,14 +402,19 @@ class EventPreferencesWifi extends EventPreferences {
     {
         boolean allConfigured = super.isAllConfigured(context);
 
-        if ((this._connectionType == 1) || (this._connectionType == 3)) {
+        if ((_connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+                (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)) {
             allConfigured = allConfigured &&
                     (ApplicationPreferences.applicationEventWifiEnableScanning ||
                      ApplicationPreferences.applicationEventWifiDisabledScannigByProfile);
         }
 
-        if (Build.VERSION.SDK_INT >= 29)
-            allConfigured = allConfigured && GlobalUtils.isLocationEnabled(context.getApplicationContext());
+        // locaiton is required also for connected/not connected
+        //if ((_connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+        //        (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)) {
+            if (Build.VERSION.SDK_INT >= 29)
+                allConfigured = allConfigured && GlobalUtils.isLocationEnabled(context.getApplicationContext());
+        //}
 
         return allConfigured;
     }
@@ -454,7 +460,10 @@ class EventPreferencesWifi extends EventPreferences {
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
 
                 // location must be enabled, for get proper connected SSID
-                if ((Build.VERSION.SDK_INT < 29) || GlobalUtils.isLocationEnabled(eventsHandler.context)) {
+                // locaiton is required also for connected/not connected
+                //boolean locationNeeded = (_connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+                //                        (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY);
+                if ((Build.VERSION.SDK_INT < 29) || /*(!locationNeeded) ||*/ GlobalUtils.isLocationEnabled(eventsHandler.context)) {
 
                     eventsHandler.wifiPassed = false;
 
@@ -518,6 +527,7 @@ class EventPreferencesWifi extends EventPreferences {
                             }
 
                             if (wifiConnected) {
+                                //Log.e("EventPreferencesWifi.doHandleEvent", "wifiConnected");
 
                                 String[] splits = _SSID.split(StringConstants.STR_SPLIT_REGEX);
                                 boolean[] connected = new boolean[splits.length];
@@ -538,6 +548,7 @@ class EventPreferencesWifi extends EventPreferences {
                                             break;
                                         default:
                                             connected[i] = WifiScanWorker.compareSSID(wifiManager, wifiInfo, _ssid, wifiConfigurationList, eventsHandler.context);
+                                            //Log.e("EventPreferencesWifi.doHandleEvent", "wifiInfo="+wifiInfo.getSSID());
                                             break;
                                     }
                                     i++;
