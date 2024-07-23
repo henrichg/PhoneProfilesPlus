@@ -1077,14 +1077,14 @@ class EventsHandler {
                                boolean forDelayStartAlarm, boolean forDelayEndAlarm,
                                Profile mergedProfile, DataWrapper dataWrapper)
     {
-        /* Do not stop event. For example user in profile disable Location, but event
-           with WiFi sensor must stayed running.
-
         if (DataWrapperStatic.displayPreferencesErrorNotification(null, event, true, context)) {
-            event.setStatus(Event.ESTATUS_STOP);
+            /* Do not stop event. For example user in profile disable Location, but event
+               with WiFi sensor must stayed running.
+
+                event.setStatus(Event.ESTATUS_STOP);
+            */
             return;
         }
-        */
 
         startProfileMerged = false;
         endProfileMerged = false;
