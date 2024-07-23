@@ -159,8 +159,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         boolean droidifyInstalled = (intent != null);
         //intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
         //boolean galaxyStoreInstalled = (intent != null);
-        intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
-        boolean appGalleryInstalled = (intent != null);
+        //intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
+        //boolean appGalleryInstalled = (intent != null);
         intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
         boolean neostoreInstalled = (intent != null);
 
@@ -182,13 +182,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 //            checkInAmazonAppstore(activity);
 //            displayed = true;
 //        }
-        else
-        if (store == R.id.menu_check_in_appgallery) {
-            //if (appGalleryInstalled) {
-                checkInHuaweiAppGallery(activity);
-                displayed = true;
-            //}
-        }
+//        else
+//        if (store == R.id.menu_check_in_appgallery) {
+//            //if (appGalleryInstalled) {
+//                checkInHuaweiAppGallery(activity);
+//                displayed = true;
+//            //}
+//        }
         else
         if (store == R.id.menu_check_in_github) {
             if (Build.VERSION.SDK_INT < 33)
@@ -224,11 +224,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 //else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled)
                 //    checkInHuaweiAppGallery(activity);
                 //else {
-                    if (appGalleryInstalled)
-                        checkInHuaweiAppGallery(activity);
+//                    if (appGalleryInstalled)
+//                        checkInHuaweiAppGallery(activity);
 //                    else if (amazonAppStoreInstalled)
 //                        checkInAmazonAppstore(activity);
-                    else if (droidifyInstalled)
+//                    else
+                    if (droidifyInstalled)
                         checkInDroidIfy(activity, false);
                     else if (neostoreInstalled)
                         checkInNeoStore(activity);
@@ -867,7 +868,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
     }
 */
-
+/*
     @SuppressLint("InflateParams")
     private void checkInHuaweiAppGallery(final Activity activity) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -1001,7 +1002,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             alertDialog.show();
 
     }
-
+*/
     @SuppressLint("InflateParams")
     private void checkInAPKPure(final Activity activity) {
         // https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus

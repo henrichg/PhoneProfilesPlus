@@ -921,14 +921,14 @@ public class EditorActivity extends AppCompatActivity
 //            else
 //                menuItem.setTitle(R.string.menu_check_releases_galaxy_store);
 //        }
-        menuItem = menu.findItem(R.id.menu_check_in_appgallery);
-        if (menuItem != null) {
-            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
-            if (intent != null)
-                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_appgallery));
-            else
-                menuItem.setTitle(R.string.menu_check_releases_appgallery);
-        }
+//        menuItem = menu.findItem(R.id.menu_check_in_appgallery);
+//        if (menuItem != null) {
+//            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
+//            if (intent != null)
+//                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_appgallery));
+//            else
+//                menuItem.setTitle(R.string.menu_check_releases_appgallery);
+//        }
         menuItem = menu.findItem(R.id.menu_check_in_droidify);
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
@@ -1377,7 +1377,7 @@ public class EditorActivity extends AppCompatActivity
                 (itemId == R.id.menu_check_in_fdroid) ||
                 (itemId == R.id.menu_check_in_droidify) ||
                 (itemId == R.id.menu_check_in_neostore) ||
-                (itemId == R.id.menu_check_in_appgallery) ||
+                //(itemId == R.id.menu_check_in_appgallery) ||
                 (itemId == R.id.menu_check_in_apkpure)) {
 
             Intent _intent;

@@ -173,10 +173,12 @@
         app:showAsAction="never" >
 
         <menu>
-            <item android:id="@+id/menu_check_in_appgallery"
+<!--
+        <item android:id="@+id/menu_check_in_appgallery"
                 android:title="@string/menu_check_releases_appgallery"
                 android:orderInCategory="101"
                 app:showAsAction="never" />
+-->
             <item android:id="@+id/menu_check_in_droidify"
                 android:title="@string/menu_check_releases_droidify"
                 android:orderInCategory="102"
