@@ -1967,7 +1967,6 @@
     <string name="pppps_pref_dialog_PPPPutSettings_upgrade_summary">Click here for install/upgrade, launch of PPPPutSettings.</string>
     <string name="pppps_pref_dialog_PPPPutSettings_modify_system_settings">Please grant permission \"Modify system settings\" in PPPPutSettings. Is required for properly working PPPPutSettings.</string>
     <string name="pppps_pref_dialog_install_pppps_installed_version">Installed version:</string>
-    <string name="pppps_pref_dialog_install_pppps_latest_version">Latest version:</string>
     <string name="important_info_pppps_new_version_notification">Please install the new version of PPPPutSettings. More information about installation is in \"Important information\", section \"News\". Click here, to show it.</string>
     <string name="important_info_pppps_new_version">Please install the new version of PPPPutSettings. More information about installation is in parameters for which is PPPPutSettings required.</string>
     <string name="important_info_pppps_new_version_2">Click here to install latest version of PPPPutSettings.</string>

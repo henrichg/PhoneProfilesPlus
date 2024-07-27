@@ -66,9 +66,9 @@ public class PPApplication extends Application
     //  required must by <= latest
     static final int VERSION_CODE_EXTENDER_REQUIRED = 890;
     static final String VERSION_NAME_EXTENDER_REQUIRED = "8.1.4";
-    // latest version in GitHub, IzzyOnDroid. Will be installed
-    static final int VERSION_CODE_EXTENDER_LATEST = 900;         // must be <= as in Extender dependencies.gradle
-    static final String VERSION_NAME_EXTENDER_LATEST = "8.1.6";  // must be <= as in Extender dependencies.gradle
+    // Used for check required version. This version must be in IzzyOnDroid
+    static final int VERSION_CODE_EXTENDER_LATEST = 900;
+    //static final String VERSION_NAME_EXTENDER_LATEST = "8.1.6";
     ///////
 
     //// PPPPutSettings versions
@@ -76,9 +76,9 @@ public class PPApplication extends Application
     //  required must by <= latest
     static final int VERSION_CODE_PPPPS_REQUIRED = 65;
     static final String VERSION_NAME_PPPPS_REQUIRED = "1.0.8";
-    // latest version in GitHub, IzzyOnDroid. Will be installed
-    static final int VERSION_CODE_PPPPS_LATEST = 65;             // must be <= as in PPPPS dependencies.gradle
-    static final String VERSION_NAME_PPPPS_LATEST = "1.0.8";     // must be <= as in PPPPS dependencies.gradle
+    // Used for check required version. This version must be in IzzyOnDroid
+    static final int VERSION_CODE_PPPPS_LATEST = 65;
+    //static final String VERSION_NAME_PPPPS_LATEST = "1.0.8";
     ///////
 
     static final int pid = Process.myPid();

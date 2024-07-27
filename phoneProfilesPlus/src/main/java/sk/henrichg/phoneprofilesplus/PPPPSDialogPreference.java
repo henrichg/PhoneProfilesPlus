@@ -14,8 +14,8 @@ public class PPPPSDialogPreference extends DialogPreference {
     final Context _context;
 
     // Custom xml attributes.
-    final int requiredPPPPSVersionCode;
-    String requiredPPPPSVersionName;
+    //final int requiredPPPPSVersionCode;
+    //String requiredPPPPSVersionName;
 
     public PPPPSDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -29,9 +29,9 @@ public class PPPPSDialogPreference extends DialogPreference {
 //                R.styleable.PPPPSDialogPreference_requiredPPPPSVersionCode, PPApplication.VERSION_CODE_PPPPS_1_0_8);
 //        requiredPPPPSVersionName = typedArray.getString(
 //                R.styleable.PPPPSDialogPreference_requiredPPPPSVersionName);
-        requiredPPPPSVersionCode = PPApplication.VERSION_CODE_PPPPS_REQUIRED;
-        if ((requiredPPPPSVersionName == null) || (requiredPPPPSVersionName.isEmpty()))
-            requiredPPPPSVersionName = PPApplication.VERSION_NAME_PPPPS_REQUIRED;
+        //requiredPPPPSVersionCode = PPApplication.VERSION_CODE_PPPPS_REQUIRED;
+        //if ((requiredPPPPSVersionName == null) || (requiredPPPPSVersionName.isEmpty()))
+        //    requiredPPPPSVersionName = PPApplication.VERSION_NAME_PPPPS_REQUIRED;
 
 //        typedArray.recycle();
     }
@@ -62,8 +62,8 @@ public class PPPPSDialogPreference extends DialogPreference {
             prefVolumeDataSummary =  _context.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) +
                     " "+StringConstants.TAG_BOLD_START_HTML + ppppsVersionName + " (" + ppppsVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
             prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.install_extender_required_version) +
-                    " "+StringConstants.TAG_BOLD_START_HTML + requiredPPPPSVersionName + " (" + requiredPPPPSVersionCode + ")"+StringConstants.TAG_BOLD_END_HTML;
-            if (ppppsVersion < requiredPPPPSVersionCode)
+                    " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_PPPPS_REQUIRED + " (" + PPApplication.VERSION_CODE_PPPPS_REQUIRED + ")"+StringConstants.TAG_BOLD_END_HTML;
+            if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED)
                 prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary) + StringConstants.TAG_BOLD_END_HTML;
             else
                 prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);

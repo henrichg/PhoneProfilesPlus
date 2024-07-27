@@ -88,8 +88,8 @@
         <attr name="enableExtenderSummaryDisabled" format="string" />
         <attr name="enbaleExtenderPreferenceNameToTest" format="string" />
         <attr name="enbaleExtenderPreferenceValueToTest" format="string" />
-        <attr name="requiredExtenderVersionCode" format="integer" />
-        <attr name="requiredExtenderVersionName" format="string" />
+<!--        <attr name="requiredExtenderVersionCode" format="integer" />-->
+<!--        <attr name="requiredExtenderVersionName" format="string" />-->
     </declare-styleable>
     <declare-styleable name="WallpaperViewPreference">
         <attr name="forLockScreen" format="boolean" />
