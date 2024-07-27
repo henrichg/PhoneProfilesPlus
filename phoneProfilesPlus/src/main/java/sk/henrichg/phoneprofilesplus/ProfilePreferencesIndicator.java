@@ -1715,7 +1715,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (profile._lockDevice == 3) {
                         boolean enabled;
-                        enabled = PPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_8_1_3, false, false
+                        enabled = PPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_REQUIRED, false, false
                                 /*, "ProfilePreferencesIndicator.fillArrays (profile._lockDevice)"*/);
                         if (enabled) {
                             if (fillPreferences)
@@ -1933,7 +1933,7 @@ class ProfilePreferencesIndicator {
             if (profile._deviceForceStopApplicationChange == 1) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean enabled;
-                    enabled = PPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_8_1_3, false, false
+                    enabled = PPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_REQUIRED, false, false
                             /*, "ProfilePreferencesIndicator.fillArrays (profile._deviceForceStopApplicationChange)"*/);
                     if (enabled) {
                         if (fillPreferences)

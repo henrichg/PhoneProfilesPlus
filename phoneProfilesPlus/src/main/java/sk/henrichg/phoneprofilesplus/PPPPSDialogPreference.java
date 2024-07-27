@@ -29,9 +29,9 @@ public class PPPPSDialogPreference extends DialogPreference {
 //                R.styleable.PPPPSDialogPreference_requiredPPPPSVersionCode, PPApplication.VERSION_CODE_PPPPS_1_0_8);
 //        requiredPPPPSVersionName = typedArray.getString(
 //                R.styleable.PPPPSDialogPreference_requiredPPPPSVersionName);
-        requiredPPPPSVersionCode = PPApplication.VERSION_CODE_PPPPS_1_0_8;
+        requiredPPPPSVersionCode = PPApplication.VERSION_CODE_PPPPS_REQUIRED;
         if ((requiredPPPPSVersionName == null) || (requiredPPPPSVersionName.isEmpty()))
-            requiredPPPPSVersionName = PPApplication.VERSION_NAME_PPPPS_1_0_8;
+            requiredPPPPSVersionName = PPApplication.VERSION_NAME_PPPPS_REQUIRED;
 
 //        typedArray.recycle();
     }

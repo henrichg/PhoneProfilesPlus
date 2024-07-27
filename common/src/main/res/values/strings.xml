@@ -2233,6 +2233,7 @@
     <string name="menu_bluesky" translatable="false">Bluesky</string>
 
     <string name="check_releases_apkpure_ppp_release">PhoneProfilesPlus release in APKPure:</string>
+    <string name="install_pppps_install_droidify_text">Please install Droid-ify. Is required for installation of PPPPutSettings. After that, do again installation of PPPPutSettings.</string>
 
     <!-- **************************************************************************************** -->
 

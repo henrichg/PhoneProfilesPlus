@@ -240,7 +240,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (extenderVersion == 0) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
                             StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
+                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
                             StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
@@ -714,7 +714,7 @@ class EventPreferencesOrientation extends EventPreferences {
         int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
             return -2;
-        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3)
+        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED)
             return -1;
         if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled &&
                 isRunnable(context) && isAllConfigured(context)) {
@@ -997,7 +997,7 @@ class EventPreferencesOrientation extends EventPreferences {
                                 PPApplicationStatic.startHandlerThreadOrientationScanner();
                                 boolean lApplicationPassed = false;
                                 if (!_ignoredApplications.isEmpty()) {
-                                    if (PPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, true
+                                    if (PPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_REQUIRED, true, true
                                             /*, "EventPreferencesOrientation.doHandleEvent"*/)) {
                                         String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
 //                                    PPApplicationStatic.logE("EventPreferencesOrientation.doHandleEvent", "foregroundApplication="+foregroundApplication);

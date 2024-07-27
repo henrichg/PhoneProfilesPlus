@@ -43,11 +43,11 @@ public class ExtenderDialogPreference extends DialogPreference {
         enbaleExtenderPreferenceValueToTest = typedArray.getString(
                 R.styleable.PPExtenderDialogPreference_enbaleExtenderPreferenceValueToTest);
         requiredExtenderVersionCode = typedArray.getInt(
-                R.styleable.PPExtenderDialogPreference_requiredExtenderVersionCode, PPApplication.VERSION_CODE_EXTENDER_8_1_3);
+                R.styleable.PPExtenderDialogPreference_requiredExtenderVersionCode, PPApplication.VERSION_CODE_EXTENDER_REQUIRED);
         requiredExtenderVersionName = typedArray.getString(
                 R.styleable.PPExtenderDialogPreference_requiredExtenderVersionName);
         if ((requiredExtenderVersionName == null) || (requiredExtenderVersionName.isEmpty()))
-            requiredExtenderVersionName = PPApplication.VERSION_NAME_EXTENDER_8_1_3;
+            requiredExtenderVersionName = PPApplication.VERSION_NAME_EXTENDER_REQUIRED;
 
         typedArray.recycle();
     }
