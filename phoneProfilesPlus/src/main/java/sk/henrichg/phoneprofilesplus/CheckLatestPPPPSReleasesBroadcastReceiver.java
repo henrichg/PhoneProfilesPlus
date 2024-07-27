@@ -161,47 +161,33 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
         final int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(appContext);
         if (ppppsVersion != 0) {
             if (Build.VERSION.SDK_INT == 33) {
-                // check IzzyOnDroid repo
-                // because fo Android 13 is required to install apk from app stores
-                // but for Android 14 is required to istall with adb command
-
-                RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
-                String izzyRepoURL = PPApplication.IZZY_PPPPS_LATEST_APK_RELEASE_URL_BEGIN;
-                izzyRepoURL = izzyRepoURL + PPApplication.VERSION_CODE_PPPPS_LATEST + ".apk";
-//                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
-                StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,
-                        izzyRepoURL,
-                        response1 -> {
-                            if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                // For Android 14+ is required to install with InstallWithOptions,
+                // for this reason is not needed to check IzzyOnDroid repo
+                if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                    // check IzzyOnDroid repo
+                    // because for Android 13 is required to install apk from app stores
+                    RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
+                    StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,
+                            PPApplication.IZZY_PPPPS_LATEST_APK_RELEASE_URL_BEGIN
+                                    + PPApplication.VERSION_CODE_PPPPS_LATEST + ".apk",
+                            response1 -> {
                                 // latest exists in IzzyOnDroid, but is not installed
-//                                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
+//                                 Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
                                 try {
                                     showNotification(appContext);
                                 } catch (Exception e) {
 //                                    Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                                 }
-                            }
-//                            else
-//                            Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "latest installed - xxxxxxxxxxxxxxxx");
-                        },
-                        error -> {
-                            // latest not exists in IzzyOnDroid, is not possible to install it
-                            //  in this situation do not show notification
-                            /*if ((error.networkResponse != null) && (error.networkResponse.statusCode == 404)) {
-//                                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "error.networkResponse.statusCode=" + error.networkResponse.statusCode);
-//                                Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
-                                try {
-                                    showNotification(appContext);
-                                } catch (Exception e) {
-//                                    Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
-                                }
-                            }*/
-                        });
-                queueIzzyRepo.add(stringRequestIzzyRepo);
-
+                            },
+                            error -> {
+                                // latest not exists in IzzyOnDroid, is not possible to install it
+                                //  in this situation do not show notification
+                            });
+                    queueIzzyRepo.add(stringRequestIzzyRepo);
+                }
             } else {
                 if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED)
-                    // latest is not installed
+                    // required is not installed
                     showNotification(appContext);
             }
         }
