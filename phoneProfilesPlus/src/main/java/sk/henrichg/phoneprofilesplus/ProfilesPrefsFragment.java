@@ -418,6 +418,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
+        if ((Build.VERSION.SDK_INT >= 29) && (preference instanceof PhoneCallSendSMSDialogPreference))
+        {
+            ((PhoneCallSendSMSDialogPreference) preference).fragment = new PhoneCallSendSMSDialogPreferenceFragment();
+            dialogFragment = ((PhoneCallSendSMSDialogPreference) preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
@@ -3706,6 +3715,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String contactsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS));
             boolean blockCalls = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
+            boolean sendSMS = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS, false);
 
             if (blockCalls) {
                 String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, R.string.profile_preference_phoneCallsContactGroups, context);
@@ -3769,7 +3779,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 .append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
                     }
-                }
+
+               }
             }
         }
 

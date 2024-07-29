@@ -2234,6 +2234,9 @@
     <string name="check_releases_apkpure_ppp_release">PhoneProfilesPlus release in APKPure:</string>
     <string name="install_pppps_install_droidify_text">Please install Droid-ify. Is required for installation of PPPPutSettings. After that, do again installation of PPPPutSettings.</string>
 
+    <string name="profile_preference_phoneCallsSendSMS_summary_send">Send SMS</string>
+    <string name="profile_preference_phoneCallsSendSMS_summary_notSend">Do not send SMS</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

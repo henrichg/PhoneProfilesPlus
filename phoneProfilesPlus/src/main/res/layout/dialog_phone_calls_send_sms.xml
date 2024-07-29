@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/phone_calls_send_sms_dialog_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,15 +16,24 @@
         android:layout_marginEnd="10dp"
         android:background="@color/dialog_divider" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/phone_calls_send_sms_checkBox"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:checked="false"
-        android:focusable="false"
-        android:text="@string/profile_preference_phoneCallsSendSMS"
-        android:textSize="@dimen/gui_info_popup_text_size" />
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/phone_calls_send_sms_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:focusable="false"
+            android:text="@string/profile_preference_phoneCallsSendSMS"
+            android:textSize="@dimen/gui_info_popup_text_size"
+            app:switchPadding="10dp"/>
 
 <!--    <CheckBox-->
 <!--        android:id="@+id/phone_calls_send_sms_checkBox"-->
@@ -33,14 +43,16 @@
 <!--        android:textSize="16sp"-->
 <!--        android:text="@string/profile_preference_phoneCallsSendSMS" />-->
 
-    <TextView
-        android:id="@+id/phone_calls_send_sms_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:text="@string/profile_preference_phoneCalls_sendSMS_sumary"/>
+        <TextView
+            android:id="@+id/phone_calls_send_sms_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="@string/profile_preference_phoneCalls_sendSMS_sumary"/>
+
+    </LinearLayout>
 
 </LinearLayout>
