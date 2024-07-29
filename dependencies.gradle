@@ -39,8 +39,9 @@ ext.ppVersions = [
         // Must be used android.jar downloaded from https://github.com/Reginer/aosp-android-jar
         // Downloaded android.jar must be copied into PC into folder \<android-sdk\>/platforms/android-XX
 
-        publishVersion    : '6.5.1.2b',
+        // Add new version, published in GitHub Relases, also into Discord PPP server
 
+        publishVersion    : '6.5.1.2b',
         publishVersionCode: 7169,
 
         minSdk            : 26,
