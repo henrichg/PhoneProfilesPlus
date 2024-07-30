@@ -33,15 +33,7 @@
             android:focusable="false"
             android:text="@string/profile_preference_phoneCallsSendSMS"
             android:textSize="@dimen/gui_info_popup_text_size"
-            app:switchPadding="10dp"/>
-
-<!--    <CheckBox-->
-<!--        android:id="@+id/phone_calls_send_sms_checkBox"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:buttonTint="@color/checkbox_radiobutton_color"-->
-<!--        android:textSize="16sp"-->
-<!--        android:text="@string/profile_preference_phoneCallsSendSMS" />-->
+            app:switchPadding="@dimen/switch_padding"/>
 
         <TextView
             android:id="@+id/phone_calls_send_sms_text"

@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
@@ -59,7 +60,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
-        CheckBox noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
+        SwitchCompat noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
         operatorSpinner = view.findViewById(R.id.volumePrefDialogVolumesSensorOperator);
 
         if (preference.forVolumesSensor == 1) {

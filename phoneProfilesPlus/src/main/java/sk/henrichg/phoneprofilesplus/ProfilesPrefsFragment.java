@@ -3715,7 +3715,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String contactsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS));
             boolean blockCalls = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
-            boolean sendSMS = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS, false);
+            //boolean sendSMS = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS, false);
 
             if (blockCalls) {
                 String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, R.string.profile_preference_phoneCallsContactGroups, context);
