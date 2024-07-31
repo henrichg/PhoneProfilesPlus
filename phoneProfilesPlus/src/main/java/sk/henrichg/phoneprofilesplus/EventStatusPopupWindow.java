@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 
 import android.annotation.SuppressLint;
-import android.content.ContentCaptureOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
