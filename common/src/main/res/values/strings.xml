@@ -2237,6 +2237,13 @@
     <string name="profile_preference_phoneCallsSendSMS_summary_send">Send SMS</string>
     <string name="profile_preference_phoneCallsSendSMS_summary_notSend">Do not send SMS</string>
 
+    <string name="popup_event_states_state">State:</string>
+    <string name="popup_event_states_paused">Paused</string>
+    <string name="popup_event_states_running">Running</string>
+    <string name="popup_event_states_stopped">Stopped</string>
+    <string name="popup_event_states_paused_delay">Paused with delay</string>
+    <string name="popup_event_states_running_delay">Running with delay</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
