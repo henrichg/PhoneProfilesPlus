@@ -78,6 +78,18 @@
                         android:id="@+id/event_status_popup_window_textStateDescription"/>
                 </LinearLayout>
 
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/event_status_popup_window_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:checked="false"
+                    android:focusable="false"
+                    app:switchPadding="@dimen/switch_padding"
+                    android:text="@string/event_list_item_menu_run"
+                    android:textSize="@dimen/gui_info_popup_text_size" />
+                <!--                android:layout_marginBottom="15dp"-->
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -85,6 +97,7 @@
                     android:text="@string/info_notification_event_states"
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text1" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -154,18 +167,6 @@
                     android:id="@+id/event_status_popup_window_text7"
                     android:textColor="@color/accent_color"
                     android:background="?attr/selectableItemBackground"/>
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/event_status_popup_window_checkbox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:checked="false"
-                    android:focusable="false"
-                    app:switchPadding="@dimen/switch_padding"
-                    android:text="@string/event_list_item_menu_run"
-                    android:textSize="@dimen/gui_info_popup_text_size" />
-<!--                android:layout_marginBottom="15dp"-->
 
             </LinearLayout>
 

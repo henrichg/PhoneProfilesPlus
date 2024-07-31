@@ -46,6 +46,18 @@
                     android:id="@+id/run_stop_indicator_popup_window_text1"
                     android:drawablePadding="6dp" />
                 -->
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/run_stop_indicator_popup_window_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:checked="false"
+                    android:focusable="false"
+                    app:switchPadding="@dimen/switch_padding"
+                    android:text="@string/menu_run_events"
+                    android:textSize="@dimen/gui_info_popup_text_size" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -74,17 +86,6 @@
                     android:id="@+id/run_stop_indicator_popup_window_important_info"
                     android:textColor="@color/accent_color"
                     android:background="?attr/selectableItemBackground" />
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/run_stop_indicator_popup_window_checkbox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:checked="false"
-                    android:focusable="false"
-                    app:switchPadding="@dimen/switch_padding"
-                    android:text="@string/menu_run_events"
-                    android:textSize="@dimen/gui_info_popup_text_size" />
 
             </LinearLayout>
 
