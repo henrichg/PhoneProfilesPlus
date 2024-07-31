@@ -111,15 +111,16 @@
                 android:inputType="textNoSuggestions"
                 android:importantForAutofill="no" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <CheckBox
                 android:id="@+id/vpnPrefDialogNotSetWhenIsInState"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:layout_marginStart="-5dp"
                 android:checked="false"
                 android:focusable="false"
+                android:buttonTint="@color/checkbox_radiobutton_color"
                 android:text="@string/vpn_not_set_when_is_in_state_pref_dlg"
-                app:switchPadding="@dimen/switch_padding"
                 android:textSize="16sp" />
 
         </LinearLayout>

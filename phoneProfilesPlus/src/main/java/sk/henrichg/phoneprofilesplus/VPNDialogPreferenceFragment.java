@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -19,7 +20,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.pm.PackageInfoCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -37,7 +37,7 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
     private TextView tunnelNameLabel = null;
     private RadioButton enableVPNRBtn = null;
     private RadioButton disableVPNRBtn = null;
-    private SwitchCompat doNotSwith = null;
+    private CheckBox doNotSwith = null;
 
     @NonNull
     @Override
