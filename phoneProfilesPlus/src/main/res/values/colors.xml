@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <color name="launcher_background_color">#7cc4d9</color>-->
-
+<!--    <color name="launcher_background_color">#484848</color>-->
 
     <color name="notificationDarkBackgroundColor">#1B1B1B</color>
     <color name="notificationBlackBackgroundColor">#000000</color>

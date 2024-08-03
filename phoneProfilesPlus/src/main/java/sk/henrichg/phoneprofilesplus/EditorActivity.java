@@ -1240,7 +1240,7 @@ public class EditorActivity extends AppCompatActivity
                 PPApplicationStatic.recordException(e);
             }
             intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.about_application_support_subject));
-            intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
+            intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(this));
             try {
                 startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
             } catch (Exception e) {
@@ -1285,7 +1285,7 @@ public class EditorActivity extends AppCompatActivity
                     PPApplicationStatic.recordException(e);
                 }
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
-                emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
+                emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(this));
                 emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                 List<ResolveInfo> resolveInfo = getPackageManager().queryIntentActivities(emailIntent, 0);
@@ -1295,7 +1295,7 @@ public class EditorActivity extends AppCompatActivity
                     intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
                     intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
                     intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
-                    intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
+                    intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(this));
                     intent.setType(StringConstants.MINE_TYPE_ALL); // gmail will only match with type set
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
@@ -1438,56 +1438,6 @@ public class EditorActivity extends AppCompatActivity
             }
             return true;
         }
-        /*
-        else
-        if (itemId == R.id.menu_discord_discussion) {
-            String url = PPApplication.DISCORD_DISCUSSIION_URL;
-            intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-            return true;
-        }
-        else
-        if (itemId == R.id.menu_discord_help) {
-            String url = PPApplication.DISCORD_HELP_URL;
-            intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-            return true;
-        }
-        else
-        if (itemId == R.id.menu_discord_bugs) {
-            String url = PPApplication.DISCORD_BUGS_URL;
-            intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-            return true;
-        }
-        else
-        if (itemId == R.id.menu_discord_suggestions) {
-            String url = PPApplication.DISCORD_SUGGESTIONS_URL;
-            intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-            return true;
-        }
-        */
         else
         if (itemId == R.id.menu_twitter) {
             String url = PPApplication.TWITTER_URL;
@@ -3978,12 +3928,12 @@ public class EditorActivity extends AppCompatActivity
         }
     }
 
-    String getEmailBodyText() {
+    static String getEmailBodyText(Context context) {
         String body;
-        body = getString(R.string.important_info_email_body_device) + " " +
-                Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
+        body = context.getString(R.string.important_info_email_body_device) + " " +
+                Settings.Global.getString(context.getContentResolver(), Settings.Global.DEVICE_NAME) +
                 " (" + Build.MODEL + ")" + StringConstants.STR_NEWLINE_WITH_SPACE;
-        body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
+        body = body + context.getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
         return body;
     }
 
@@ -4893,7 +4843,7 @@ public class EditorActivity extends AppCompatActivity
                             PPApplicationStatic.recordException(e);
                         }
                         emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
-                        emailIntent.putExtra(Intent.EXTRA_TEXT, activity.getEmailBodyText());
+                        emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(activity));
                         emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                         List<ResolveInfo> resolveInfo = context.getPackageManager().queryIntentActivities(emailIntent, 0);
@@ -4906,7 +4856,7 @@ public class EditorActivity extends AppCompatActivity
                             if (!emailAddress.isEmpty())
                                 intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
                             intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
-                            intent.putExtra(Intent.EXTRA_TEXT, activity.getEmailBodyText());
+                            intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(activity));
                             intent.setType(StringConstants.MINE_TYPE_ALL); // gmail will only match with type set
                             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                             intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's

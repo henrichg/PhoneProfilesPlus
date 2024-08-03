@@ -128,24 +128,6 @@
                         android:title="@string/menu_discord_invitation"
                         android:orderInCategory="101"
                         app:showAsAction="never" />
-<!--
-                    <item android:id="@+id/menu_discord_help"
-                        android:title="@string/menu_discord_help"
-                        android:orderInCategory="102"
-                        app:showAsAction="never" />
-                    <item android:id="@+id/menu_discord_bugs"
-                        android:title="@string/menu_discord_bugs"
-                        android:orderInCategory="103"
-                        app:showAsAction="never" />
-                    <item android:id="@+id/menu_discord_suggestions"
-                        android:title="@string/menu_discord_suggestions"
-                        android:orderInCategory="104"
-                        app:showAsAction="never" />
-                    <item android:id="@+id/menu_discord_discussion"
-                        android:title="@string/menu_discord_discussion"
-                        android:orderInCategory="105"
-                        app:showAsAction="never" />
--->
                 </menu>
             </item>
             <item android:id="@+id/menu_xda_developers"

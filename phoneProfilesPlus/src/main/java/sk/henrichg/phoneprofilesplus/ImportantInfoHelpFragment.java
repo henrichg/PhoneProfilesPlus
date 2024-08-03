@@ -1,10 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,9 +15,16 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ClickableSpan;
+import android.text.style.ImageSpan;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -149,7 +156,7 @@ public class ImportantInfoHelpFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     static void doOnViewCreated(@NonNull View view, Fragment fragment) {
 
-        final Activity activity = fragment.getActivity();
+        final ImportantInfoActivity activity = (ImportantInfoActivity) fragment.getActivity();
         if (activity == null)
             return;
 
@@ -614,11 +621,46 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
 
         if (view.findViewById(R.id.activity_info_notification_contact) != null) {
-            GlobalUtils.emailMe(view.findViewById(R.id.activity_info_notification_contact),
+            /*GlobalUtils.emailMe(view.findViewById(R.id.activity_info_notification_contact),
                     fragment.getString(R.string.important_info_contact),
                     "", fragment.getString(R.string.about_application_support_subject),
-                    GlobalUtils.getEmailBodyText(/*AboutApplicationActivity.EMAIL_BODY_SUPPORT, */activity),
-                    /*true,*/ activity);
+                    GlobalUtils.getEmailBodyTextactivity),
+                    activity);*/
+            final TextView supportText = view.findViewById(R.id.activity_info_notification_contact);
+            if (supportText != null) {
+                supportText.setText(context.getString(R.string.important_info_support) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
+                supportText.setOnClickListener(v -> {
+                    PopupMenu popup;
+                    popup = new PopupMenu(activity, supportText, Gravity.START | Gravity.BOTTOM);
+                    new MenuInflater(activity).inflate(R.menu.menu_support, popup.getMenu());
+
+                    Menu menu = popup.getMenu();
+                    MenuItem menuItem = menu.findItem(R.id.menu_discord);
+                    if (menuItem != null) {
+                        SubMenu subMenu = menuItem.getSubMenu();
+                        if (subMenu != null) {
+                            Drawable triangle = ContextCompat.getDrawable(activity, R.drawable.ic_submenu_triangle);
+                            if (triangle != null) {
+                                triangle.setTint(ContextCompat.getColor(activity, R.color.activitySecondaryTextColor));
+                                SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
+                                triangle.setBounds(0,
+                                        GlobalGUIRoutines.sip(1),
+                                        GlobalGUIRoutines.sip(10.5f),
+                                        GlobalGUIRoutines.sip(8.5f));
+                                headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                subMenu.setHeaderTitle(headerTitle);
+                            }
+                        }
+                    }
+
+                    popup.setOnMenuItemClickListener(activity::supportMenu);
+
+                    if (!activity.isFinishing())
+                        popup.show();
+                });
+            }
+
         }
 
         TextView translationTextView = view.findViewById(R.id.activity_info_translations);
@@ -745,7 +787,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 */
         TextView helpForPPPPSTextView = view.findViewById(R.id.activity_info_notification_profile_pppps_howTo_2);
         if (helpForPPPPSTextView != null) {
-            String str1 = fragment.getString(R.string.important_info_profile_pppps_howTo_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+            String str1 = fragment.getString(R.string.important_info_profile_pppps_howTo_3) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
             Spannable spannable = new SpannableString(str1);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
