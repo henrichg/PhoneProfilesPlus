@@ -77,9 +77,8 @@ public class PPApplication extends Application
     static final int VERSION_CODE_PPPPS_REQUIRED = 65;
     static final String VERSION_NAME_PPPPS_REQUIRED = "1.0.8";
     // Used for check required version. This version must be in IzzyOnDroid
-    //TODO will be soon release 1.0.9
-    static final int VERSION_CODE_PPPPS_LATEST = 65;
-    //static final String VERSION_NAME_PPPPS_LATEST = "1.0.8";
+    static final int VERSION_CODE_PPPPS_LATEST = 70;
+    //static final String VERSION_NAME_PPPPS_LATEST = "1.0.9";
     ///////
 
     static final int pid = Process.myPid();
