@@ -1826,7 +1826,7 @@ class ActivateProfileHelper {
                             //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
                             //PPApplicationStatic.recordException(ee);
 
-                            if (isPPPPutSettingsInstalled(appContext) > 0) {
+                            if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_IN_NORMAL, String.valueOf(lValue));
@@ -1966,7 +1966,7 @@ class ActivateProfileHelper {
             Context appContext = context.getApplicationContext();
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                if (isPPPPutSettingsInstalled(appContext) > 0) {
+                if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                     if (PPApplication.deviceIsPixel) {
                         if (lValue > 0) {
                             putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_ON, "1");
@@ -2056,7 +2056,7 @@ class ActivateProfileHelper {
                     if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             PPApplication.deviceIsOnePlus) {
 
-                        if (isPPPPutSettingsInstalled(appContext) > 0)
+                        if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
                             putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
                         else if (ShizukuUtils.hasShizukuPermission()) {
                             synchronized (PPApplication.rootMutex) {
@@ -2085,7 +2085,7 @@ class ActivateProfileHelper {
                             }
                         }
                     } else {
-                        if (isPPPPutSettingsInstalled(appContext) > 0)
+                        if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
                             putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
                         else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                             synchronized (PPApplication.rootMutex) {
@@ -2929,7 +2929,7 @@ class ActivateProfileHelper {
 
                                             //Settings.System.putString(context.getContentResolver(), "notification_sound", uri.toString());
 
-                                            if (isPPPPutSettingsInstalled(appContext) > 0) {
+                                            if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                                 putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, uri.toString());
                                             }
                                             else if (ShizukuUtils.hasShizukuPermission()) {
@@ -2970,7 +2970,7 @@ class ActivateProfileHelper {
                                             } catch (Exception ignored) {
                                             }
 
-                                            if (isPPPPutSettingsInstalled(appContext) > 0) {
+                                            if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                                 putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, uri.toString());
                                             }
                                             else if (ShizukuUtils.hasShizukuPermission()) {
@@ -3051,7 +3051,7 @@ class ActivateProfileHelper {
 
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
 
-                                    if (isPPPPutSettingsInstalled(appContext) > 0) {
+                                    if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                         putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, "");
                                     }
                                     else if (ShizukuUtils.hasShizukuPermission()) {
@@ -3090,7 +3090,7 @@ class ActivateProfileHelper {
                                     // notifikacie ine ako sms - zvlastna katergoria v Huawei
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
 
-                                    if (isPPPPutSettingsInstalled(appContext) > 0) {
+                                    if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                         putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, "");
                                     }
                                     else if (ShizukuUtils.hasShizukuPermission()) {
@@ -3186,7 +3186,7 @@ class ActivateProfileHelper {
 
                                             //Settings.System.putString(context.getContentResolver(), "notification_sound_2", uri.toString());
 
-                                            if (isPPPPutSettingsInstalled(appContext) > 0) {
+                                            if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                                 putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, uri.toString());
                                             }
                                             else if (ShizukuUtils.hasShizukuPermission()) {
@@ -3304,7 +3304,7 @@ class ActivateProfileHelper {
 
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound_2", null);
 
-                                    if (isPPPPutSettingsInstalled(appContext) > 0) {
+                                    if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                         putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, "");
                                     }
                                     else if (ShizukuUtils.hasShizukuPermission()) {
@@ -3407,7 +3407,7 @@ class ActivateProfileHelper {
                             if (profile._soundSameRingtoneForBothSIMCards == 2)
                                 value = "0";
 
-                            if (isPPPPutSettingsInstalled(appContext) > 0) {
+                            if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_RINGTONE_FOLLOW_SIM1_XIAOMI, value);
                                 else if (PPApplication.deviceIsOnePlus)
@@ -3654,7 +3654,7 @@ class ActivateProfileHelper {
                     if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, executedProfileSharedPreferences, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         final String NOTIFICATION_LIGHT_PULSE = "notification_light_pulse";
-                        if (isPPPPutSettingsInstalled(appContext) > 0)
+                        if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
                             putSettingsParameter(appContext, PPPPS_SETTINGS_TYPE_SYSTEM, NOTIFICATION_LIGHT_PULSE, String.valueOf(value));
                         else if (ShizukuUtils.hasShizukuPermission()) {
                             synchronized (PPApplication.rootMutex) {
